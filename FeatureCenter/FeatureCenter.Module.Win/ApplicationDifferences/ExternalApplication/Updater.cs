@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -14,7 +15,7 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
             base.UpdateDatabaseAfterUpdateSchema();
 
             var uniqueName = new ExternalApplicationModelStore().Name;
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(uniqueName, "ExternalApplication") == null) {
                 var modelDifferenceObject = new ModelDifferenceObject(session).InitializeMembers("ExternalApplication", "ExternalApplication.Win", uniqueName);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";

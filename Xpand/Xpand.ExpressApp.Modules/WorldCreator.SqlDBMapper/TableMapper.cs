@@ -1,5 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Microsoft.SqlServer.Management.Smo;
@@ -10,12 +11,12 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class TableMapper {
         public const string KeyStruct = "KeyStruct";
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
         readonly Database _database;
         readonly AttributeMapper _attributeMapper;
         readonly ExtraInfoBuilder _extraInfoBuilder;
 
-        public TableMapper(ObjectSpace objectSpace, Database database, AttributeMapper attributeMapper) {
+        public TableMapper(XPObjectSpace objectSpace, Database database, AttributeMapper attributeMapper) {
             _objectSpace = objectSpace;
             _database = database;
             _attributeMapper = attributeMapper;

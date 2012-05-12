@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -43,7 +44,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var persistentAssemblyInfo = (IPersistentAssemblyInfo)View.CurrentObject;
             ObjectSpace.CommitChanges();
-            var objectSpace = new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer));
+            var objectSpace = new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.DataLayer));
             CreateMappedAssemblyInfo(objectSpace, persistentAssemblyInfo, (ISqlMapperInfo)simpleActionExecuteEventArgs.CurrentObject);
             ObjectSpace.Refresh();
             ObjectSpace.SetModified(View.CurrentObject);
@@ -51,7 +52,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
 
 
 
-        void CreateMappedAssemblyInfo(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, ISqlMapperInfo sqlMapperInfo) {
+        void CreateMappedAssemblyInfo(XPObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, ISqlMapperInfo sqlMapperInfo) {
             string connectionString = sqlMapperInfo.GetConnectionString();
             var sqlConnection = (SqlConnection)new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None)).Connection;
             var server = new Server(new ServerConnection(sqlConnection));

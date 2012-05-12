@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -21,7 +21,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
                 IPersistentAssemblyInfo persistentAssemblyInfo = new DynamicAssemblyBuilder(Session).Build(DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer, DMDOrder,
                         DMDOrderLine, DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly);
                 IPersistentClassInfo persistentClassInfo =
-                    persistentAssemblyInfo.PersistentClassInfos.Single(info => info.Name == DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer);
+                    persistentAssemblyInfo.PersistentClassInfos.Single(info => info.Name == Module.WorldCreator.DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer);
                 var persistentCoreTypeMemberInfo = new PersistentCoreTypeMemberInfo(persistentClassInfo.Session);
                 persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInDetailViewAttribute(persistentCoreTypeMemberInfo.Session));
                 persistentCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInListViewAttribute(persistentCoreTypeMemberInfo.Session));
@@ -37,7 +37,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
 
                 persistentCoreTypeMemberInfo.CodeTemplateInfo = codeTemplateInfo;
                 persistentClassInfo.OwnMembers.Add(persistentCoreTypeMemberInfo);
-                ObjectSpace.FindObjectSpaceByObject(persistentClassInfo).CommitChanges();
+                XPObjectSpace.FindObjectSpaceByObject(persistentClassInfo).CommitChanges();
             }
         }
 

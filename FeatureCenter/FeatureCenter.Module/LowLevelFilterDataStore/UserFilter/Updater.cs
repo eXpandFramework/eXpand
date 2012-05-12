@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.Xpo;
 
@@ -17,7 +18,7 @@ namespace FeatureCenter.Module.LowLevelFilterDataStore.UserFilter {
 
         public void UpdateDatabaseAfterUpdateSchema(Xpand.Persistent.BaseImpl.Updater updater) {
 
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             var findObject = session.FindObject<Role>(role => role.Name == SecurityStrategy.AdministratorRoleName);
             if (findObject == null) throw new NotImplementedException();
             updater.EnsureUserExists("filterbyuser", "filterbyuser", findObject);

@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -64,7 +65,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
                 foreach (var assembly1 in assemblies) {
-                    moduleManager.AddModule(assembly1.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single());
+                    moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
 
@@ -80,7 +81,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var session = (((ObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false))).Session;
+            var session = (((XPObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false))).Session;
             mergeTypes(new UnitOfWork(session.DataLayer));
 
         }
@@ -102,7 +103,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         ReflectionDictionary GetReflectionDictionary() {
             var externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
-            Type persistentAssemblyInfoType = externalModelBusinessClassesList.Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            Type persistentAssemblyInfoType = externalModelBusinessClassesList.FirstOrDefault(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1));
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
@@ -137,7 +138,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
-            return info => !info.DoNotCompile && moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null;
+            return info => !info.DoNotCompile && moduleManager.Modules.FirstOrDefault(@base => @base.Name == "Dynamic" + info.Name + "Module") == null;
         }
 
         public abstract string GetPath();

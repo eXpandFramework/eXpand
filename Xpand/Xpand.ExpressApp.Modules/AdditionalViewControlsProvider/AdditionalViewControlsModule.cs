@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
             foreach (var typeInfo in typeInfos) {
                 var memberInfo = typeInfo.FindMember("LockedUserMessage");
                 if (memberInfo == null) {
-                    var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type);
+                    var xpClassInfo = Dictiorary.GetClassInfo(typeInfo.Type);
                     var lockedUserMessageXpMemberInfo = new LockedUserMessageXpMemberInfo(xpClassInfo);
                     lockedUserMessageXpMemberInfo.AddAttribute(new BrowsableAttribute(false));
                     XafTypesInfo.Instance.RefreshInfo(typeInfo);

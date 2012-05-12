@@ -1,4 +1,5 @@
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ImportWizard.Controllers;
 using Xpand.ExpressApp.ImportWizard.Win.Wizard;
 
@@ -15,7 +16,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Controllers {
 
         public override void ShowWizard(IObjectSpace objectSpace) {
             var wiz = new ExcelImportWizard(
-                            (ObjectSpace)objectSpace,
+                            (XPObjectSpace)objectSpace,
                             View.ObjectTypeInfo,
                             this.GetCurrentCollectionSource());
 

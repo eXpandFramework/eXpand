@@ -5,6 +5,8 @@ using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.TreeListEditors.Win;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;
@@ -36,8 +38,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args) {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
             UpdateActionState(filterControlListViewController.XpandFilterControl);
-            if (((XpandListView)View).Editor is DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)
-                filterControlListViewController.XpandFilterControl.SourceControl = ((DevExpress.ExpressApp.TreeListEditors.Win.CategorizedListEditor)((XpandListView)View).Editor).Grid;
+            var categorizedListEditor = ((XpandListView)View).Editor as CategorizedListEditor;
+            if (categorizedListEditor != null) filterControlListViewController.XpandFilterControl.SourceControl = (categorizedListEditor).Grid;
             filterControlListViewController.XpandFilterControl.FilterChanged += FilterOnFilterChanged;
 
         }
@@ -55,7 +57,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             string keyName = XafTypesInfo.Instance.FindTypeInfo(memberType).KeyMember.Name;
             InOperator clone = inOperator.Clone();
             ((OperandProperty)clone.LeftOperand).PropertyName = keyName;
-            return new XPCollection(((ObjectSpace)ObjectSpace).Session, memberType, clone);
+            return new XPCollection(((XPObjectSpace)ObjectSpace).Session, memberType, clone);
         }
 
         private void FilterOnFilterChanged(object sender, FilterChangedEventArgs args) {
@@ -74,8 +76,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         private void UpdateActionState(ExpressApp.Win.Editors.XpandFilterControl xpandFilter) {
             xpandFilter.EditorActivated +=
                 edit => {
-                    if (edit is LookupEdit)
-                        ((LookupEdit)edit).QueryPopUp +=
+                    var lookupEdit = edit as LookupEdit;
+                    if (lookupEdit != null)
+                        (lookupEdit).QueryPopUp +=
                             (o, args) => {
                                 RecursiveFilterPopLookUpTreeSelectionSimpleAction.Active["Default"] =
                                     true;

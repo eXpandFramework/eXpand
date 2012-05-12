@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.XtraEditors;
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
     public partial class ExcelImportWizard : XtraForm {
         #region Initialization
 
-        public ExcelImportWizard(ObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase) {
+        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase) {
             //set local variable values
             if (objectSpace == null)
                 throw new ArgumentNullException("objectSpace", Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
@@ -114,7 +115,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         #endregion
 
         private MyUserSettings _Mus;
-        public ObjectSpace ObjectSpace { get; private set; }
+        public XPObjectSpace ObjectSpace { get; private set; }
         public CollectionSourceBase CurrentCollectionSource { get; private set; }
 
         private SpreadsheetDocument ExcelDocument { get; set; }
@@ -685,7 +686,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         }
 
 
-        private static void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, ObjectSpace objectSpace) {
+        private static void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
             var newObjectTypeInfo = XafTypesInfo.Instance.FindTypeInfo(newObject.GetType());
             if ((currentCollectionSource != null) && currentCollectionSource.ObjectTypeInfo.IsAssignableFrom(newObjectTypeInfo)) {
                 if (objectSpace == currentCollectionSource.ObjectSpace) {
@@ -715,7 +716,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             }
         }
 
-        public void ProccesExcellRows(IEnumerable records, ObjectSpace objectSpace, DoWorkEventArgs e) {
+        public void ProccesExcellRows(IEnumerable records, XPObjectSpace objectSpace, DoWorkEventArgs e) {
 
             var i = 0;
 

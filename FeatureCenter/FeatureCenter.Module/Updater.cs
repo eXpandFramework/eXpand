@@ -2,6 +2,7 @@ using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
@@ -39,7 +40,7 @@ namespace FeatureCenter.Module {
 
 
             InitializeSecurity();
-            new DummyDataBuilder((ObjectSpace)ObjectSpace).CreateObjects();
+            new DummyDataBuilder((XPObjectSpace)ObjectSpace).CreateObjects();
             var workflowServiceUser = ObjectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", "WorkflowService"));
             if (workflowServiceUser == null) {
                 CriteriaOperator criteriaOperator = CriteriaOperator.Parse("Name=?", SecurityStrategy.AdministratorRoleName);

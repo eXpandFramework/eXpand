@@ -1,5 +1,5 @@
 ﻿using System;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -13,12 +13,12 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 if (classInfo != null)
                     persistentClassInfo = classInfo;
                 else
-                    type = ReflectionHelper.GetType(typeFullName.Substring(typeFullName.LastIndexOf(".") + 1));
+                    type = ReflectionHelper.GetType(typeFullName.Substring(typeFullName.LastIndexOf(".", StringComparison.Ordinal) + 1));
             }
         }
 
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
-            persistentTemplatedTypeInfo.CodeTemplateInfo = ObjectSpace.FindObjectSpaceByObject(persistentTemplatedTypeInfo).CreateWCObject<ICodeTemplateInfo>();
+            persistentTemplatedTypeInfo.CodeTemplateInfo = XPObjectSpace.FindObjectSpaceByObject(persistentTemplatedTypeInfo).CreateWCObject<ICodeTemplateInfo>();
             if (persistentTemplatedTypeInfo is IPersistentMemberInfo) {
                 var persistentMemberInfo = ((IPersistentMemberInfo)persistentTemplatedTypeInfo);
                 persistentMemberInfo.Init(codeTemplateType, persistentMemberInfo.Owner.PersistentAssemblyInfo.CodeDomProvider);

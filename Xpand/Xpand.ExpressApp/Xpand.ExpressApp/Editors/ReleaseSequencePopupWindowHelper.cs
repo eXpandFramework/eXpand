@@ -4,13 +4,14 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Editors {
 
     public abstract class ReleaseSequencePopupWindowHelper {
         XafApplication _application;
-        ObjectSpace _objectSpace;
+        XPObjectSpace _objectSpace;
         readonly PopupWindowShowAction showObjectAction = new PopupWindowShowAction(null, "ShowReleasedSequences", "");
         private ListView _listView;
         object _sequenceReleasedObjectKey;
@@ -66,7 +67,7 @@ namespace Xpand.ExpressApp.Editors {
             Capture(_objectSpace);
         }
 
-        public void Capture(ObjectSpace objectSpace) {
+        public void Capture(XPObjectSpace objectSpace) {
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<ISequenceReleasedObject>();
             var objectByKey = objectSpace.GetObjectByKey(objectType, _sequenceReleasedObjectKey);
             if (objectByKey != null)
@@ -89,7 +90,7 @@ namespace Xpand.ExpressApp.Editors {
         protected abstract void ShowObjectCore();
 
         public void Init(IObjectSpace objectSpace, ISupportSequenceObject editingObject, XafApplication application) {
-            _objectSpace = (ObjectSpace)objectSpace;
+            _objectSpace = (XPObjectSpace)objectSpace;
             _supportSequenceObject = editingObject;
             _application = application;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -9,11 +10,11 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class DbMapper {
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         IDataStoreLogonObject _dataStoreLogonObject;
 
-        public DbMapper(ObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
+        public DbMapper(XPObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
             _objectSpace = objectSpace;
             _persistentAssemblyInfo = persistentAssemblyInfo;
             _dataStoreLogonObject = dataStoreLogonObject;

@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.Data.Filtering.Helpers;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
+using DevExpress.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public class ConditionalLogicRuleManager<TConditionalLogicRule> : LogicRuleManager<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule {
@@ -19,9 +19,9 @@ namespace Xpand.ExpressApp.Logic.Conditional.Logic {
             Type objectType = targetObject.GetType();
             var wrapper = new LocalizedCriteriaWrapper(objectType, criteria);
             wrapper.UpdateParametersValues(targetObject);
-            var objectSpace = ObjectSpace.FindObjectSpaceByObject(targetObject);
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(targetObject);
             EvaluatorContextDescriptor descriptor = objectSpace != null ? objectSpace.GetEvaluatorContextDescriptor(objectType) : new EvaluatorContextDescriptorDefault(objectType);
-            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator, XafTypesInfo.XpoTypeInfoSource.XPDictionary.CustomFunctionOperators);
+            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator, XpandModuleBase.Dictiorary.CustomFunctionOperators);
             return evaluator.Fit(targetObject);
         }
 

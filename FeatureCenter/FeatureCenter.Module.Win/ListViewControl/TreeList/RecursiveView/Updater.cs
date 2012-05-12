@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
@@ -18,7 +18,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
             ObjectSpace.CommitChanges();
         }
         private RVCategory CreateCategory(string name, HCategory parent) {
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             var category = session.FindObject<RVCategory>(new BinaryOperator("Name", name));
             if (category == null) {
                 category = new RVCategory(session) { Name = name, Parent = parent };
@@ -29,7 +29,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
         }
         private void CreateCategorizedItem(string name, RVCategory category) {
             string realName = name + " - " + category.Name;
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             var item = session.FindObject<RVItem>(new BinaryOperator("Name", realName));
             if (item == null) {
                 new RVItem(session) { Name = realName, Category = category };

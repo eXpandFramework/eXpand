@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
@@ -19,13 +20,12 @@ namespace Xpand.ExpressApp.WorldCreator.Observers {
         }
 
         void createTheManyPart(IPersistentReferenceMemberInfo persistentReferenceMemberInfo) {
-            IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(((ObjectSpace)ObjectSpace).Session, persistentReferenceMemberInfo.ReferenceTypeFullName);
+            IPersistentClassInfo classInfo = PersistentClassInfoQuery.Find(((XPObjectSpace)ObjectSpace).Session, persistentReferenceMemberInfo.ReferenceTypeFullName);
             string collectionPropertyName = persistentReferenceMemberInfo.Name + "s";
-            if (classInfo != null && classInfo.OwnMembers.Where(info => info.Name == collectionPropertyName).FirstOrDefault() == null) {
+            if (classInfo != null && classInfo.OwnMembers.FirstOrDefault(info => info.Name == collectionPropertyName) == null) {
                 var associationAttribute = PersistentAttributeInfoQuery.Find<AssociationAttribute>(persistentReferenceMemberInfo);
                 classInfo.CreateCollection(persistentReferenceMemberInfo.Owner.PersistentAssemblyInfo.Name,
-                                           persistentReferenceMemberInfo.Owner.Name).CreateAssociation(
-                    associationAttribute.Name);
+                                           persistentReferenceMemberInfo.Owner.Name).CreateAssociation(associationAttribute.Name);
             }
         }
     }

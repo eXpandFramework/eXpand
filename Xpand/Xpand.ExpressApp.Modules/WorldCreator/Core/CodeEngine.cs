@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -99,10 +100,10 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo) {
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return GetCorePropertyTypeCode(persistentMemberInfo);
-            if (persistentMemberInfo is IPersistentReferenceMemberInfo)
-                return CleanFullName(((IPersistentReferenceMemberInfo)persistentMemberInfo).ReferenceTypeFullName);
-            if (persistentMemberInfo is IPersistentCollectionMemberInfo)
-                return CleanFullName(((IPersistentCollectionMemberInfo)persistentMemberInfo).CollectionTypeFullName);
+            var persistentReferenceMemberInfo = persistentMemberInfo as IPersistentReferenceMemberInfo;
+            if (persistentReferenceMemberInfo != null) return CleanFullName((persistentReferenceMemberInfo).ReferenceTypeFullName);
+            var persistentCollectionMemberInfo = persistentMemberInfo as IPersistentCollectionMemberInfo;
+            if (persistentCollectionMemberInfo != null) return CleanFullName((persistentCollectionMemberInfo).CollectionTypeFullName);
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
         }
 
@@ -256,7 +257,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             string ret = null;
             foreach (var referenceMemberInfo in referenceMemberInfos) {
                 string refPropertyName = CleanName(key.Name) + "." + CleanName(referenceMemberInfo.Name);
-                var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.Where(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Count() > 0).SingleOrDefault();
+                var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.SingleOrDefault(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Count() > 0);
                 if (persistentMemberInfo != null) {
                     var refKeyName = CleanName(persistentMemberInfo.Name);
                     ret += @"if(" + refPropertyName + ".Session != Session){" +
@@ -283,7 +284,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         public static void SupportCompositeKeyPersistentObjects(IPersistentAssemblyInfo persistentAssemblyInfo) {
             var keys = persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers).OfType<IPersistentReferenceMemberInfo>().Where(memberInfo => memberInfo.ReferenceClassInfo.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.Struct);
             var dictionary = new Dictionary<IPersistentClassInfo, ITemplateInfo>();
-            var objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
             foreach (var key in keys) {
                 if (!dictionary.ContainsKey(key.Owner)) {
                     var info = objectSpace.CreateObjectFromInterface<ITemplateInfo>();

@@ -5,6 +5,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Core;
@@ -77,7 +78,7 @@ namespace Xpand.Persistent.BaseImpl {
         private object EnsureUserExists(string userName, object role, Type userType) {
             var user =
                 (IUserWithRoles)
-                ((ObjectSpace)ObjectSpace).Session.FindObject(userType, new BinaryOperator("UserName", userName));
+                ((XPObjectSpace)ObjectSpace).Session.FindObject(userType, new BinaryOperator("UserName", userName));
             if (user == null) {
                 user = (IUserWithRoles)ObjectSpace.CreateObject(userType);
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(userType);
@@ -138,7 +139,7 @@ namespace Xpand.Persistent.BaseImpl {
                 var securityRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", SecurityStrategy.AdministratorRoleName));
                 return EnsureRoleExists(roleName, permissionAddFunc, securityRole);
             }
-            var role = (ICustomizableRole)((ObjectSpace)ObjectSpace).Session.FindObject(RoleType, new BinaryOperator("Name", roleName));
+            var role = (ICustomizableRole)((XPObjectSpace)ObjectSpace).Session.FindObject(RoleType, new BinaryOperator("Name", roleName));
             return EnsureRoleExists(roleName, permissionAddFunc, role);
         }
 

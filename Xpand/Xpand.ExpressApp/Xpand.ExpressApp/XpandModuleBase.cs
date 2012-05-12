@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
@@ -25,12 +25,6 @@ namespace Xpand.ExpressApp {
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
-        private readonly Boolean isModuleBase;
-
-        public XpandModuleBase() {
-            isModuleBase = (GetType() == typeof(ModuleBase));
-            if (isModuleBase) return;
-        }
 
         static XpandModuleBase() {
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
@@ -87,26 +81,13 @@ namespace Xpand.ExpressApp {
         public Assembly BaseImplAssembly {
             get { return _baseImplAssembly; }
         }
-//        private List<Type> declaredBusinessClasses;
-//        [Obsolete("Use the \'GetDeclaredExportedTypes()\' method instead.")]
-//        protected override List<Type> DeclaredBusinessClasses {
-//            get {
-//                if (declaredBusinessClasses == null) {
-//                    declaredBusinessClasses = new List<Type>();
-//                    if (!isModuleBase && AutomaticCollectDomainComponents) {
-//                        declaredBusinessClasses.AddRange(CollectExportedTypesFromAssembly(GetType().Assembly));
-//                    }
-//                }
-//                return declaredBusinessClasses;
-//            }
-//        }
 
         public static IEnumerable<Type> CollectExportedTypesFromAssembly(Assembly assembly) {
             var typesList = new ExportedTypeCollection();
             try {
                 TypesInfo.LoadTypes(assembly);
                 if (assembly == typeof(XPObject).Assembly) {
-                    typesList.AddRange(DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource.XpoBaseClasses);
+                    typesList.AddRange(XpoTypeInfoSource.XpoBaseClasses);
                 } else {
                     typesList.AddRange(assembly.GetTypes());
                 }
@@ -135,6 +116,10 @@ namespace Xpand.ExpressApp {
             }
         }
 
+        public static XpoTypeInfoSource XpoTypeInfoSource {
+            get { return XpoTypesInfoHelper.GetXpoTypeInfoSource(); }
+        }
+
         protected void AddToAdditionalExportedTypes(string[] types) {
             if (RuntimeMode) {
                 var types1 = BaseImplAssembly.GetTypes().Where(type1 =>types.Contains(type1.FullName));
@@ -151,7 +136,7 @@ namespace Xpand.ExpressApp {
         }
 
         protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
-            XPClassInfo info = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(classType);
+            XPClassInfo info = Dictiorary.GetClassInfo(classType);
             if (info.FindMember(propertyName) == null) {
                 info.CreateMember(propertyName, typeof(XPCollection), true);
                 typesInfo.RefreshInfo(classType);

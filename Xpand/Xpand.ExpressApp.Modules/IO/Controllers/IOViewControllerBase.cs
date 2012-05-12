@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
         void ShowSerializationView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var groupObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>();
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
-            var objectSpace = Application.CreateObjectSpace() as ObjectSpace;
+            var objectSpace = Application.CreateObjectSpace() as XPObjectSpace;
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             showViewParameters.Context = TemplateContext.View;
             showViewParameters.CreateAllControllers = true;
@@ -72,7 +73,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var objectSpace = ((ObjectSpace)Application.CreateObjectSpace());
+            var objectSpace = ((XPObjectSpace)Application.CreateObjectSpace());
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
             var dialogController = new DialogController { SaveOnAccept = false };
@@ -80,7 +81,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 var memoryStream = new MemoryStream();
                 var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
                 xmlFileChooser.FileData.SaveToStream(memoryStream);
-                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(objectSpace.Session.DataLayer)));
+                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(objectSpace.Session.DataLayer)));
             };
             ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView.Closed += (sender, eventArgs) => ((ISupportConfirmationRequired)Application).ConfirmationRequired -= OnConfirmationRequired;

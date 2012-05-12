@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Filtering;
@@ -89,7 +90,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public bool HasFilters {
             get {
-                return FiltersByPropertyPathWrappers.Count() > 0;
+                return FiltersByPropertyPathWrappers.Any();
             }
         }
 
@@ -122,7 +123,7 @@ namespace Xpand.ExpressApp.SystemModule {
             _filtersByPropertyPathWrappers = new Dictionary<string, FiltersByCollectionWrapper>();
             foreach (IModelPropertyPathFilter childNode in ((IModelListViewPropertyPathFilters)View.Model).PropertyPathFilters)
                 _filtersByPropertyPathWrappers.Add(childNode.Id, new FiltersByCollectionWrapper(View.ObjectTypeInfo, childNode,
-                        ((ObjectSpace)ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)));
+                        ((XPObjectSpace)ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)));
         }
 
 
@@ -166,7 +167,7 @@ namespace Xpand.ExpressApp.SystemModule {
             CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
             if (!(ReferenceEquals(criteriaOperator, null))) {
                 new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-                var criterion = new PropertyPathParser(((ObjectSpace)View.ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
+                var criterion = new PropertyPathParser(((XPObjectSpace)View.ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
@@ -195,8 +196,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected abstract void SetActiveFilter(IModelListView modelListView, string filter);
 
         private IModelListView GetNodeMemberSearchWrapper(FiltersByCollectionWrapper filtersByCollectionWrapper) {
-            var nodeWrapper = Application.Model.Views.OfType<IModelListView>().Where(
-                wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId).FirstOrDefault();
+            var nodeWrapper = Application.Model.Views.OfType<IModelListView>().FirstOrDefault(wrapper => wrapper.Id == filtersByCollectionWrapper.CriteriaPathListViewId);
             if (nodeWrapper == null)
                 throw new ArgumentNullException(filtersByCollectionWrapper.CriteriaPathListViewId + " not found");
             return nodeWrapper;
@@ -270,8 +270,8 @@ namespace Xpand.ExpressApp.SystemModule {
         public string ContainsOperatorXpMemberInfoName {
             get {
                 if (containsOperatorXpMemberInfoName == null && BinaryOperatorLastMemberClassType != null) {
-                    containsOperatorXpMemberInfoName = PropertyPath.IndexOf(".") > -1
-                                                           ? objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf("."))).Name
+                    containsOperatorXpMemberInfoName = PropertyPath.IndexOf(".", StringComparison.Ordinal) > -1
+                                                           ? objectTypeInfo.FindMember(PropertyPath.Substring(0, PropertyPath.IndexOf(".", StringComparison.Ordinal))).Name
                                                            : PropertyPath;
                 }
 

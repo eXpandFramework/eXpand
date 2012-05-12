@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -38,7 +39,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             GroupOperator groupOperator = GetCriteria();
-            var count = (int)((ObjectSpace)View.ObjectSpace).Session.Evaluate(View.ObjectTypeInfo.Type, CriteriaOperator.Parse("Count()"), groupOperator);
+            var count = (int)((XPObjectSpace)View.ObjectSpace).Session.Evaluate(View.ObjectTypeInfo.Type, CriteriaOperator.Parse("Count()"), groupOperator);
             var objects = ObjectSpace.GetObjects(View.ObjectTypeInfo.Type, groupOperator);
             CreateOrderProviderSource(objects);
             if (count > 0) {

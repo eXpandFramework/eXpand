@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
@@ -17,7 +18,6 @@ using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCo
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
-
         public XpoUserModelDictionaryDifferenceStore(XafApplication application)
             : base(application) {
         }
@@ -38,22 +38,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>();
         }
 
-        public override void Load(ModelApplicationBase model) {
-            base.Load(model);
-
-            foreach (var roleModel in GetActiveRoleDifferenceObjects())
-                roleModel.GetModel(Application.Model as ModelApplicationBase);
-
-            var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
-            if (modelDifferenceObjects.Count() == 0) {
-                SaveDifference(model);
-                return;
-            }
-
-            CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
-
-            RuntimeMemberBuilder.AddFields(Application.Model, XpandModuleBase.Dictiorary);
-        }
 
         void CombineWithActiveDifferenceObjects(ModelApplicationBase model, IEnumerable<ModelDifferenceObject> modelDifferenceObjects) {
             var reader = new ModelXmlReader();
@@ -89,7 +73,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         void CombineModelFromPermission(ModelApplicationBase model) {
             if (SecuritySystem.Instance is ISecurityComplex && IsGranted()) {
                 var space = Application.CreateObjectSpace();
-                ModelDifferenceObject difference = GetDifferenceFromPermission((ObjectSpace)space);
+                ModelDifferenceObject difference = GetDifferenceFromPermission((XPObjectSpace)space);
                 var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
                 var diffsModel = difference.GetModel(master);
                 new ModelXmlReader().ReadFromModel(diffsModel, model);
@@ -99,13 +83,13 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
         }
 
-        static bool IsGranted() {
+        bool IsGranted() {
             if (((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
                 return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
             return SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false);
         }
 
-        private ModelDifferenceObject GetDifferenceFromPermission(ObjectSpace space) {
+        private ModelDifferenceObject GetDifferenceFromPermission(XPObjectSpace space) {
             return new QueryModelDifferenceObject(space.Session).GetModelDifferences(GetNames()).SingleOrDefault();
         }
 
@@ -115,5 +99,20 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                        : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
         }
 
+        public override void Load(ModelApplicationBase model) {
+            foreach (var roleModel in GetActiveRoleDifferenceObjects())
+                roleModel.GetModel(Application.Model as ModelApplicationBase);
+
+            var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
+            if (!modelDifferenceObjects.Any()) {
+                SaveDifference(model);
+                return;
+            }
+
+            CombineWithActiveDifferenceObjects(model, modelDifferenceObjects);
+            RuntimeMemberBuilder.AddFields(Application.Model, XpandModuleBase.Dictiorary);
+        }
+
     }
+
 }

@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ColumnMapper {
         readonly DataTypeMapper _dataTypeMapper;
         readonly AttributeMapper _attributeMapper;
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
         readonly ForeignKeyCalculator _foreignKeyCalculator = new ForeignKeyCalculator();
         readonly ExtraInfoBuilder _extraInfoBuilder;
         public ColumnMapper(DataTypeMapper dataTypeMapper, AttributeMapper attributeMapper) {

@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.Xpo.DB;
@@ -25,10 +26,12 @@ namespace Xpand.ExpressApp.MiddleTier {
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
         }
+        public event EventHandler UserDifferencesLoaded;
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);
         }
+
     }
 }

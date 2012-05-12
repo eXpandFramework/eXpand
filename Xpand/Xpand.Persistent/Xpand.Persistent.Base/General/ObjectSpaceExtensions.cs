@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
@@ -31,11 +32,11 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IList<ClassType> GetObjects<ClassType>(this IObjectSpace objectSpace, Expression<Func<ClassType, bool>> expression) {
-            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((ObjectSpace)objectSpace).Session).TransformExpression(expression);
+            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((XPObjectSpace)objectSpace).Session).TransformExpression(expression);
             return objectSpace.GetObjects<ClassType>(criteriaOperator);
         }
 
-        public static bool NeedReload(this ObjectSpace objectSpace, object currentObject) {
+        public static bool NeedReload(this XPObjectSpace objectSpace, object currentObject) {
             XPMemberInfo optimisticLockFieldInfo;
             XPClassInfo classInfo = GetClassInfo(objectSpace, currentObject, out optimisticLockFieldInfo);
             Boolean isObjectChangedByAnotherUser = false;
@@ -63,27 +64,27 @@ namespace Xpand.Persistent.Base.General {
             return session.Dictionary.QueryClassInfo(obj);
         }
 
-        static XPClassInfo GetClassInfo(this ObjectSpace objectSpace, object currentObject, out XPMemberInfo optimisticLockFieldInfo) {
+        static XPClassInfo GetClassInfo(this XPObjectSpace objectSpace, object currentObject, out XPMemberInfo optimisticLockFieldInfo) {
             XPClassInfo classInfo = FindObjectXPClassInfo(currentObject, objectSpace.Session);
             optimisticLockFieldInfo = classInfo.OptimisticLockFieldInDataLayer;
             return classInfo;
         }
 
-        public static T FindObject<T>(this ObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior) {
+        public static T FindObject<T>(this XPObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior) {
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
             CriteriaOperator criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
             bool inTransaction = persistentCriteriaEvaluationBehavior == PersistentCriteriaEvaluationBehavior.InTransaction;
             return (T)objectSpace.FindObject(objectType, criteriaOperator, inTransaction);
         }
 
-        static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, ObjectSpace objectSpace) {
+        static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, XPObjectSpace objectSpace) {
             Expression transform = new ExpressionConverter().Convert(objectType, expression);
             var genericType = typeof(XPQuery<>).MakeGenericType(new[] { objectType });
-            var xpquery = Activator.CreateInstance(genericType, new[] { objectSpace.Session });
+            var xpquery = Activator.CreateInstance(genericType, new object[] { objectSpace.Session });
             var innderType = typeof(Func<,>).MakeGenericType(new[] { objectType, typeof(bool) });
             var type = typeof(Expression<>).MakeGenericType(new[] { innderType });
             var methodInfo = genericType.GetMethod("TransformExpression", new[] { type });
-            return (CriteriaOperator)methodInfo.Invoke(xpquery, new[] { transform });
+            return (CriteriaOperator)methodInfo.Invoke(xpquery, new object [] { transform });
         }
 
         public static T CreateObjectFromInterface<T>(this IObjectSpace objectSpace) {

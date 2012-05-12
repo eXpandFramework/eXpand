@@ -1,11 +1,11 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class IPersistentTemplatedTypeInfoExtensions {
         public static void SetDefaultTemplate(this IPersistentTemplatedTypeInfo persistentMemberInfo, TemplateType templateType) {
-            var objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentMemberInfo);
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(persistentMemberInfo);
             persistentMemberInfo.CodeTemplateInfo = objectSpace.CreateWCObject<ICodeTemplateInfo>();
 
             ICodeTemplate defaultTemplate = CodeTemplateBuilder.CreateDefaultTemplate(templateType, persistentMemberInfo.Session,

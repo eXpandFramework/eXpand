@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 
@@ -34,7 +35,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void OnCurrentObjectChanged(object sender, EventArgs eventArgs) {
-            IObjectSpace objectSpace = ObjectSpace.FindObjectSpaceByObject(_propertyEditor.CurrentObject);
+            IObjectSpace objectSpace = XPObjectSpace.FindObjectSpaceByObject(_propertyEditor.CurrentObject);
             objectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
             UpdateEditor(((ISupportEditControl)_propertyEditor).GetControl());
         }

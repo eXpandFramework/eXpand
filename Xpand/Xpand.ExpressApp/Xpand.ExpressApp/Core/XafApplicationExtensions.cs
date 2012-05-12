@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Core {
         public static SimpleDataLayer CreateCachedDataLayer(this XafApplication xafApplication, IDataStore argsDataStore) {
             var cacheRoot = new DataCacheRoot(argsDataStore);
             var cacheNode = new DataCacheNode(cacheRoot);
-            return new SimpleDataLayer(XafTypesInfo.XpoTypeInfoSource.XPDictionary, cacheNode);
+            return new SimpleDataLayer(XpandModuleBase.Dictiorary, cacheNode);
         }
 
         public static string GetConnectionString(this XafApplication xafApplication) {

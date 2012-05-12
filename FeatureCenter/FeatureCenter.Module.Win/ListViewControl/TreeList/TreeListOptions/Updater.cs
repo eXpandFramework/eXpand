@@ -1,6 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Xpo;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions {
     public class Updater : FCUpdater {
@@ -10,7 +10,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (session.FindObject<OCategory>(null) == null) {
                 var category = new OCategory(session) { Name = "1", FullName = "Group 1" };
                 new OCategory(session) { Name = "1.1", Parent = category, FullName = "Text 1.1", MoreInfo = "moreinfo 1.1", MoreInfo2 = "moreinfo2 1.1" };

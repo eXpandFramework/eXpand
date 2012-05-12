@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -37,7 +38,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         public ClassGenerator(IPersistentAssemblyInfo persistentAssemblyInfo, DBTable[] dbTables) {
             _persistentAssemblyInfo = persistentAssemblyInfo;
             _dbTables = dbTables;
-            _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+            _objectSpace = XPObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
         public IEnumerable<ClassGeneratorInfo> CreateAll() {
@@ -49,7 +50,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         public static string GetTableName(string name) {
-            var indexOf = name.IndexOf(".");
+            var indexOf = name.IndexOf(".", System.StringComparison.Ordinal);
             if (indexOf > -1)
                 name = name.Substring(indexOf + 1);
             return CodeEngine.CleanName(name);

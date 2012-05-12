@@ -2,6 +2,7 @@
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.Win.Core {
     public static class ListViewExtensions {
@@ -9,7 +10,7 @@ namespace Xpand.ExpressApp.Win.Core {
             xpandListView.SaveModel();
             List<CriteriaOperator> operators = xpandListView.CollectionSource.Criteria.GetValues();
             operators.Add(CriteriaOperator.Parse(((IModelListViewWin)xpandListView.Model).ActiveFilterString));
-            return ObjectSpace.CombineCriteria(operators.ToArray());
+            return XPObjectSpace.CombineCriteria(operators.ToArray());
         }
 
         public static bool IsNested(this XpandListView xpandListView, Frame frame) {

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 
@@ -30,7 +31,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void GroupBuild(Action<IEnumerable<string>, bool> itemsCalculated) {
-            var xpView = new XPView(((ObjectSpace)_propertyEditor.View.ObjectSpace).Session, _propertyEditor.MemberInfo.GetOwnerInstance(_propertyEditor.CurrentObject).GetType());
+            var xpView = new XPView(((XPObjectSpace)_propertyEditor.View.ObjectSpace).Session, _propertyEditor.MemberInfo.GetOwnerInstance(_propertyEditor.CurrentObject).GetType());
             xpView.AddProperty(_propertyEditor.PropertyName, _propertyEditor.PropertyName, true);
             itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(), false);
         }

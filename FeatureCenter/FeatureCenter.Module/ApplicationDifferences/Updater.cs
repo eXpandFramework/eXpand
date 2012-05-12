@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -22,7 +23,7 @@ namespace FeatureCenter.Module.ApplicationDifferences {
 
 
         public override void UpdateDatabaseAfterUpdateSchema() {
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
                 var role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));

@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base;
 
@@ -7,11 +8,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public abstract class XpoDictionaryDifferenceStore : ModelDifferenceStore {
 
         private readonly XafApplication _application;
-        private ObjectSpace _objectSpace;
+        private XPObjectSpace _objectSpace;
 
         protected XpoDictionaryDifferenceStore(XafApplication application) {
             _application = application;
-            _objectSpace = (ObjectSpace)application.CreateObjectSpace();
+            _objectSpace = (XpandObjectSpace)application.CreateObjectSpace();
         }
 
 
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             get { return _application; }
         }
 
-        public ObjectSpace ObjectSpace {
+        public XPObjectSpace ObjectSpace {
             get { return _objectSpace; }
         }
 
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override void SaveDifference(ModelApplicationBase model) {
             if (model != null) {
-                _objectSpace = _application.CreateObjectSpace() as ObjectSpace;
+                _objectSpace = _application.CreateObjectSpace() as XPObjectSpace;
                 ModelDifferenceObject modelDifferenceObject =
                     GetActiveDifferenceObject(model.Id) ??
                     GetNewDifferenceObject(_objectSpace)

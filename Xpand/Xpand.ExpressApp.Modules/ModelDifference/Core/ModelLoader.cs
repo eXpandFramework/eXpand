@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 
@@ -104,7 +105,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public class TypesInfo : DevExpress.ExpressApp.DC.TypesInfo {
-            public DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource Source { get; set; }
+            public XpoTypeInfoSource Source { get; set; }
         }
 
     }
@@ -169,7 +170,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         ApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
             if (!string.IsNullOrEmpty(configFileName)) {
-                bool isWebApplicationModel = string.Compare(Path.GetFileNameWithoutExtension(configFileName), "web", true) == 0;
+                bool isWebApplicationModel = String.Compare(Path.GetFileNameWithoutExtension(configFileName), "web", StringComparison.OrdinalIgnoreCase) == 0;
                 if (string.IsNullOrEmpty(assembliesPath)) {
                     assembliesPath = Path.GetDirectoryName(configFileName);
                     if (isWebApplicationModel) {
@@ -189,13 +190,13 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 if (!string.IsNullOrEmpty(configFileName)) {
                     result.AddModuleFromAssemblies(GetModulesFromConfig(application));
                 }
-                if (typesInfo is TypesInfoBuilder.TypesInfo)
-                    XpandModuleBase.Dictiorary = ((TypesInfoBuilder.TypesInfo)typesInfo).Source.XPDictionary;
+                var info = typesInfo as TypesInfoBuilder.TypesInfo;
+                if (info != null) XpandModuleBase.Dictiorary = (info).Source.XPDictionary;
                 XpandModuleBase.TypesInfo = typesInfo;
                 result.Load(typesInfo, typesInfo != XafTypesInfo.Instance);
                 return result;
             } finally {
-                XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+                XpandModuleBase.Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
                 XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
                 ReflectionHelper.RemoveResolvePath(assembliesPath);
             }

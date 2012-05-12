@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
@@ -11,7 +12,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
 
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (session.FindObject<RFCategory>(null) == null) {
                 var goodCategory = new RFCategory(session) { Name = "Good" };
                 var veryGoodCategory = new RFCategory(session) { Name = "Very Good", Parent = goodCategory };
@@ -23,7 +24,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {
         }
 
         void AssignCategory(RFCategory goodRfCategory, RFCategory veryGoodRfCategory, RFCategory bestRfCategory, RFCategory badRfCategory) {
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             var customers = new XPCollection<RFCustomer>(session);
             for (int i = 0; i < customers.Count; i++) {
                 switch (i) {

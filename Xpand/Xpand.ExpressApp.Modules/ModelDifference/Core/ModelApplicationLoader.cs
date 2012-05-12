@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Xpo;
 
@@ -18,7 +19,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> expression, IEnumerable<string> modelsToUnload) {
             var winApplication = _application;
-            using (var objectSpace = (ObjectSpace) winApplication.CreateObjectSpace()) {
+            using (var objectSpace = (XPObjectSpace)winApplication.CreateObjectSpace()) {
                 var modelDifferenceObject = objectSpace.Session.FindObject(expression);
                 var modelApplicationBase = (ModelApplicationBase)winApplication.Model;
                 var modelApplicationBases = RemoveLayers(modelApplicationBase, modelsToUnload).Reverse().ToList();

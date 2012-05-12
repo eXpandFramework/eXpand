@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
             base.UpdateDatabaseAfterUpdateSchema();
 
             string name = typeof(WC3LevelMasterDetailModelStore).Name;
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
                 ModelDifferenceObject modelDifferenceObject =
                     new ModelDifferenceObject(session).InitializeMembers(name, FeatureCenterModule.Application);

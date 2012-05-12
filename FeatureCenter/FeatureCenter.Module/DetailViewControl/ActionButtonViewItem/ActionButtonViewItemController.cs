@@ -3,6 +3,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using FeatureCenter.Module.Miscellaneous.MultipleDataStore;
@@ -29,7 +30,7 @@ namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem {
 
 
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            DateTime dateTime = new XPQuery<MDSOrderLine>(((ObjectSpace)ObjectSpace).Session).Max(line => line.OrderLineDate);
+            DateTime dateTime = new XPQuery<MDSOrderLine>(((XPObjectSpace)ObjectSpace).Session).Max(line => line.OrderLineDate);
             ((Customer) View.CurrentObject).BirthDate=dateTime;
         }
     }

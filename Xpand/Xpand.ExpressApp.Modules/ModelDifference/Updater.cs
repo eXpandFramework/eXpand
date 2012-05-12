@@ -7,6 +7,7 @@ using System.Xml;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Utils.GeneralDataStructures;
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp.ModelDifference {
                     }
                 }
 
-                using (var uow = new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer)) {
+                using (var uow = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.DataLayer)) {
                     foreach (var differenceObject in differenceObjects) {
                         var modelDifferenceObject = uow.GetObjectByKey<ModelDifferenceObject>(differenceObject.Key);
                         var serializableDictionary = new SerializableDictionary<string, string>();

@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Core {
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.Core {
 
         }
         protected override object CreateCollection() {
-            ((XPQueryBase)Query).Session = ((ObjectSpace)ObjectSpace).Session;
+            ((XPQueryBase)Query).Session = ((XPObjectSpace)ObjectSpace).Session;
             return ConvertQueryToCollection(Query);
         }
         public LinqCollectionSource(IObjectSpace objectSpace, Type objectType) : base(objectSpace, objectType) { }

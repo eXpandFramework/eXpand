@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
 
         public PersistentAssemblyBuilder(IPersistentAssemblyInfo persistentAssemblyInfo) {
             _persistentAssemblyInfo = persistentAssemblyInfo;
-            _objectSpace = DevExpress.ExpressApp.ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+            _objectSpace = XPObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
         public IPersistentAssemblyInfo PersistentAssemblyInfo {
@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
             return "a" + Guid.NewGuid().ToString().Replace("-", "");
         }
 
-        internal static PersistentAssemblyBuilder BuildAssembly(ObjectSpace objectSpace) {
+        internal static PersistentAssemblyBuilder BuildAssembly(XPObjectSpace objectSpace) {
             return BuildAssembly(objectSpace, GetUniqueAssemblyName());
         }
         public IObjectSpace ObjectSpace {
@@ -88,7 +88,7 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
 
         public IClassInfoHandler CreateClasses(IEnumerable<string> classNames) {
             _persistentClassInfos = classNames.Select(s => {
-                var persistentClassInfo = (IPersistentClassInfo)(((ObjectSpace)_objectSpace).Session.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>());
+                var persistentClassInfo = (IPersistentClassInfo)((XPObjectSpace)_objectSpace).Session.FindObject(WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), CriteriaOperator.Parse("Name=?", s)) ?? _objectSpace.CreateWCObject<IPersistentClassInfo>();
                 persistentClassInfo.Name = s;
                 persistentClassInfo.PersistentAssemblyInfo = _persistentAssemblyInfo;
                 _persistentAssemblyInfo.PersistentClassInfos.Add(persistentClassInfo);

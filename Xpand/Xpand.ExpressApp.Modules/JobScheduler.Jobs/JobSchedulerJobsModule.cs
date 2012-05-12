@@ -12,20 +12,21 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             RequiredModuleTypes.Add(typeof(JobSchedulerModule));
         }
         private static ITypeInfo GetRoleTypeInfo(ISecurityComplex security) {
-            return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type == security.RoleType).Single();
+            return XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == security.RoleType);
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (Application != null && Application.Security != null) {
-                if (Application.Security is ISecurityComplex) {
+                var securityComplex = Application.Security as ISecurityComplex;
+                if (securityComplex != null) {
                     XafTypesInfo.Instance.CreateBothPartMembers(
-                        GetRoleTypeInfo((ISecurityComplex)Application.Security).Type, typeof(SendEmailJobDetailDataMap),
-                        XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+                        GetRoleTypeInfo(securityComplex).Type, typeof(SendEmailJobDetailDataMap),
+                        Dictiorary, true, "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
                 }
                 if (Application.Security.UserType != null) {
                     XafTypesInfo.Instance.CreateBothPartMembers(Application.Security.UserType, typeof(SendEmailJobDetailDataMap),
-                                                                XafTypesInfo.XpoTypeInfoSource.XPDictionary, true,
+                                                                Dictiorary, true,
                                                                 "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
                 }
             } else {

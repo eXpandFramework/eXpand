@@ -5,6 +5,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -48,7 +49,7 @@ namespace Xpand.ExpressApp.ImportWizard
 
 
         [Localizable(false)]
-        public static XPBaseObject GetXpObjectByKeyValue(ObjectSpace oSpace, string value, Type type)
+        public static XPBaseObject GetXpObjectByKeyValue(XPObjectSpace oSpace, string value, Type type)
         {
             if (string.IsNullOrEmpty(value))
                 return null;

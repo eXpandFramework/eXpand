@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             _persistentClassInfo = classGeneratorInfo.PersistentClassInfo;
             _dbTable = classGeneratorInfo.DbTable;
             _navigationPath = navigationPath;
-            _objectSpace = ObjectSpace.FindObjectSpaceByObject(_persistentClassInfo);
+            _objectSpace = XPObjectSpace.FindObjectSpaceByObject(_persistentClassInfo);
         }
 
         public IEnumerable<IPersistentAttributeInfo> Create() {

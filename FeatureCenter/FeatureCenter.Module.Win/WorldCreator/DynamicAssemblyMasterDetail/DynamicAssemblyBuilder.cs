@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using FeatureCenter.Base;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
@@ -49,10 +51,10 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
 
         IEnumerable<IPersistentClassInfo> GetReferenceMembers(IPersistentClassInfo classInfo, string customer, string order, string orderLine) {
             if (classInfo.Name == order) {
-                return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Where(info => info.Name == customer).Single() };
+                return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Single(info => info.Name == customer) };
             }
             if (classInfo.Name == orderLine) {
-                return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Where(info => info.Name == order).Single() };
+                return new List<IPersistentClassInfo> { classInfo.PersistentAssemblyInfo.PersistentClassInfos.Single(info => info.Name == order) };
             }
             return new List<IPersistentClassInfo>();
         }
@@ -63,7 +65,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
         }
 
         Type GetInheritance(IPersistentClassInfo info) {
-            if (info.Name.ToLower().IndexOf("customer") > -1)
+            if (info.Name.ToLower().IndexOf("customer", StringComparison.Ordinal) > -1)
                 return typeof(CustomerBase);
             if (info.Name.ToLower().EndsWith("order"))
                 return typeof(OrderBase);
@@ -71,7 +73,7 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
         }
 
         public IPersistentAssemblyInfo Build(string customer, string order, string orderLine, string masterDetailDynamicAssembly) {
-            var objectSpace = new ObjectSpace(XafTypesInfo.Instance, XafTypesInfo.XpoTypeInfoSource, () => new UnitOfWork(_session.DataLayer));
+            var objectSpace = new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(_session.DataLayer));
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(objectSpace, masterDetailDynamicAssembly);
             IClassInfoHandler classInfoHandler = persistentAssemblyBuilder.CreateClasses(GetClassNames(customer, order, orderLine));
             classInfoHandler.CreateTemplateInfos(persistentClassInfo => GetTemplateInfos(persistentClassInfo, customer, order));

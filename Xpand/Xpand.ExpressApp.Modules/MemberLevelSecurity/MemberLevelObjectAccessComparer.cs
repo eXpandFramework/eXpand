@@ -4,6 +4,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
@@ -27,8 +28,8 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
 
         public override bool IsMemberModificationDenied(object targetObject, IMemberInfo memberInfo) {
             var objectType = targetObject == null ? memberInfo.Owner.Type : targetObject.GetType();
-            IMemberInfo firstOrDefault = memberInfo.GetPath().Where(info => !SecuritySystemExtensions.IsGranted(
-                    new MemberAccessPermission(objectType, info.Name, MemberOperation.Write), true)).FirstOrDefault();
+            IMemberInfo firstOrDefault = memberInfo.GetPath().FirstOrDefault(info => !SecuritySystemExtensions.IsGranted(
+                new MemberAccessPermission(objectType, info.Name, MemberOperation.Write), true));
 
             if (firstOrDefault != null) {
                 return Fit(targetObject, memberInfo, MemberOperation.Write);
@@ -44,10 +45,10 @@ namespace Xpand.ExpressApp.MemberLevelSecurity {
         public bool Fit(object currentObject, IMemberInfo memberInfo, MemberOperation memberOperation) {
             var memberAccessPermission = ((SecurityBase)SecuritySystem.Instance).PermissionSet.GetPermission(typeof(MemberAccessPermission)) as MemberAccessPermission;
             if (memberAccessPermission != null && memberAccessPermission.IsSubsetOf(memberAccessPermission)) {
-                var objectSpace = ObjectSpace.FindObjectSpaceByObject(currentObject);
+                var objectSpace = XPObjectSpace.FindObjectSpaceByObject(currentObject);
                 if (objectSpace != null) {
                     var type = currentObject.GetType();
-                    var memberAccessPermissionItem = memberAccessPermission.items.Where(item => item.Operation == memberOperation && item.ObjectType == type && item.MemberName == memberInfo.Name).SingleOrDefault();
+                    var memberAccessPermissionItem = memberAccessPermission.items.SingleOrDefault(item => item.Operation == memberOperation && item.ObjectType == type && item.MemberName == memberInfo.Name);
                     if (memberAccessPermissionItem != null) {
                         var criteriaOperator = CriteriaOperator.Parse(memberAccessPermissionItem.Criteria);
                         var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(currentObject, criteriaOperator);

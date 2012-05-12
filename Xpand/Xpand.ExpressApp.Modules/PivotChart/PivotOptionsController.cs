@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.PivotChart.Core;
@@ -41,7 +42,7 @@ namespace Xpand.ExpressApp.PivotChart {
             var type = (Type)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data;
             var persistentType = GetPersistentType(type);
             var pivotOption = objectSpace.CreateObject(persistentType);
-            XPClassInfo classInfo = ((ObjectSpace)ObjectSpace).Session.GetClassInfo(persistentType);
+            XPClassInfo classInfo = ((XPObjectSpace)ObjectSpace).Session.GetClassInfo(persistentType);
 
             Synchonize(pivotOption, type, classInfo);
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;

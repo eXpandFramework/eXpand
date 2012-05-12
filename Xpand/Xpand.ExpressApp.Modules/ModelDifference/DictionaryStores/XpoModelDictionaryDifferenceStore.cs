@@ -75,12 +75,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
             Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
 
-            if (loadedModelDifferenceObjectInfos.Count() == 0) {
+            if (!loadedModelDifferenceObjectInfos.Any()) {
                 var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
                 var application = model.CreatorInstance.CreateModelApplication();
                 application.Id = Application.Title;
                 model.AddLayerBeforeLast(application);
-                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id,Application);
+                var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
                 modelDifferenceObjectInfos.Add(application.Id, new ModelDifferenceObjectInfo(modelDifferenceObject, application));
                 loadedModelDifferenceObjectInfos = modelDifferenceObjectInfos;
             }
@@ -100,11 +100,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             model.AddLayerBeforeLast(roleMarker);
             resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, loadedModelDifferenceObjectInfos, model);
             var lastLayer = model.LastLayer;
-            while (model.LastLayer.Id!="RoleMarker") {
-                model.RemoveLayer(model.LastLayer);
+            while (model.LastLayer.Id != "RoleMarker") {
+                ModelApplicationHelper.RemoveLayer(model);
             }
-            model.RemoveLayer(roleMarker);
-            model.AddLayer(lastLayer);
+            ModelApplicationHelper.RemoveLayer(model);
+            ModelApplicationHelper.AddLayer(model, lastLayer);
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model) {
@@ -123,11 +123,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var reader = new ModelXmlReader();
             var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
 
-            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s)+"").ToLower().StartsWith("model") && s.IndexOf(".User") == -1)) {
+            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s) + "").ToLower().StartsWith("model") && s.IndexOf(".User", System.StringComparison.Ordinal) == -1)) {
                 string replace = s.Replace(".xafml", "");
                 string aspect = string.Empty;
-                if (replace.IndexOf("_") > -1)
-                    aspect = replace.Substring(replace.IndexOf("_") + 1);
+                if (replace.IndexOf("_", System.StringComparison.Ordinal) > -1)
+                    aspect = replace.Substring(replace.IndexOf("_", System.StringComparison.Ordinal) + 1);
                 reader.ReadFromFile(model, aspect, s);
             }
 

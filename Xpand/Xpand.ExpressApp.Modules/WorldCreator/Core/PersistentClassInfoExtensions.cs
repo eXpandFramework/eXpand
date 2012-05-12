@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class PersistentClassInfoExtensions {
 
         public static IPersistentMemberInfo CreateCollection(this IPersistentClassInfo classInfo, string assemblyName, string classInfoName) {
-            var collectionMemberInfo = ObjectSpace.FindObjectSpaceByObject(classInfo).CreateWCObject<IPersistentCollectionMemberInfo>();
+            var collectionMemberInfo = XPObjectSpace.FindObjectSpaceByObject(classInfo).CreateWCObject<IPersistentCollectionMemberInfo>();
             collectionMemberInfo.Owner = classInfo;
             collectionMemberInfo.Name = classInfoName + "s";
             collectionMemberInfo.SetCollectionTypeFullName(assemblyName + "." + classInfoName);
@@ -25,8 +25,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             foreach (IInterfaceInfo interfaceInfo in classInfo.Interfaces) {
                 foreach (PropertyInfo propertyInfo in interfaceInfo.Type.GetProperties()) {
                     PropertyInfo info1 = propertyInfo;
-                    bool propertyNotExists =
-                        classInfo.OwnMembers.Where(info => info.Name == info1.Name).FirstOrDefault() == null;
+                    bool propertyNotExists =classInfo.OwnMembers.FirstOrDefault(info => info.Name == info1.Name) == null;
                     if (propertyNotExists) {
                         AddPersistentMemberInfo(classInfo, propertyInfo, interfaceInfo);
                     }

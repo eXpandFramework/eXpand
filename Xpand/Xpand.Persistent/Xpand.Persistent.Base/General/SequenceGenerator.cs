@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
@@ -74,7 +75,7 @@ namespace Xpand.Persistent.Base.General {
         public long GetNextSequence(ITypeInfo typeInfo, string prefix) {
             if (typeInfo == null)
                 throw new ArgumentNullException("typeInfo");
-            return GetNextSequence(XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeInfo.Type), prefix);
+            return GetNextSequence(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(typeInfo.Type), prefix);
         }
 
         public long GetNextSequence(ITypeInfo typeInfo) {
@@ -200,7 +201,7 @@ namespace Xpand.Persistent.Base.General {
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
             if (_defaultDataLayer == null)
                 return;
-            var objectSpace = (ObjectSpace)ObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
+            var objectSpace = (XPObjectSpace)XPObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
             var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName) as ISequenceObject;
             if (sequenceObject != null) {
                 var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleasedObject>();

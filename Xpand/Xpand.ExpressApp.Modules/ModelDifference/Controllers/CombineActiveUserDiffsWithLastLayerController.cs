@@ -2,6 +2,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -53,7 +54,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             }
         }
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
-            return new QueryUserModelDifferenceObject(((ObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
+            return new QueryUserModelDifferenceObject(((XPObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
 
         }
 

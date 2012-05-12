@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
 using Microsoft.SqlServer.Management.Smo;
@@ -12,10 +13,10 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class AttributeMapper {
         readonly ForeignKeyCalculator _foreignKeyCalculator = new ForeignKeyCalculator();
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
 
 
-        public AttributeMapper(ObjectSpace objectSpace) {
+        public AttributeMapper(XPObjectSpace objectSpace) {
             _objectSpace = objectSpace;
         }
 
@@ -88,7 +89,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
 
-        public ObjectSpace ObjectSpace {
+        public XPObjectSpace ObjectSpace {
             get { return _objectSpace; }
         }
 

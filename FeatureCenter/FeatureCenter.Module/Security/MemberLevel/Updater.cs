@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.Xpo;
@@ -16,7 +17,7 @@ namespace FeatureCenter.Module.Security.MemberLevel {
 
 
         public override void UpdateDatabaseAfterUpdateSchema() {
-            var session = ((ObjectSpace)ObjectSpace).Session;
+            var session = ((XPObjectSpace)ObjectSpace).Session;
             if (!Updater.IsNewSecuritySystem) {
                 var role = session.FindObject<Role>(o => o.Name == SecurityStrategy.AdministratorRoleName);
                 MemberAccessPermission memberAccessPermission = role.Permissions.OfType<MemberAccessPermission>().FirstOrDefault();

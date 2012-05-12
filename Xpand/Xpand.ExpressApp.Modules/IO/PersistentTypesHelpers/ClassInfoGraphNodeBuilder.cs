@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.ImportExport;
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         public void Generate(ISerializationConfiguration serializationConfiguration) {
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
             var castTypeToTypeInfo = XafTypesInfo.CastTypeToTypeInfo(typeToSerialize);
-            var objectSpace = ObjectSpace.FindObjectSpaceByObject(serializationConfiguration);
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(serializationConfiguration);
             _serializationConfigurationGroup = serializationConfiguration.SerializationConfigurationGroup;
             if (_serializationConfigurationGroup == null)
                 throw new NullReferenceException("_serializationConfigurationGroup");
@@ -41,9 +42,9 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void ResetDefaultKeyWhenMultiple(IEnumerable<IClassInfoGraphNode> classInfoGraphNodes) {
-            var nonDefaultKey = classInfoGraphNodes.Skip(1).Where(node => node.Key).FirstOrDefault();
+            var nonDefaultKey = classInfoGraphNodes.Skip(1).FirstOrDefault(node => node.Key);
             if (nonDefaultKey != null) {
-                classInfoGraphNodes.Where(graphNode => graphNode.Key).First().Key= false;
+                classInfoGraphNodes.First(graphNode => graphNode.Key).Key= false;
             }
         }
 
@@ -68,7 +69,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void Generate(IObjectSpace objectSpace, Type typeToSerialize) {
-            if (!SerializationConfigurationQuery.ConfigurationExists(((ObjectSpace)objectSpace).Session, typeToSerialize, _serializationConfigurationGroup)) {
+            if (!SerializationConfigurationQuery.ConfigurationExists(((XPObjectSpace)objectSpace).Session, typeToSerialize, _serializationConfigurationGroup)) {
                 var serializationConfiguration =
                     (ISerializationConfiguration)
                     objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);

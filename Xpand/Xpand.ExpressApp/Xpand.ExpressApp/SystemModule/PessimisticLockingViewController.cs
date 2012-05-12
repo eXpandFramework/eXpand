@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -34,7 +35,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             if (View.ObjectTypeInfo.FindAttribute<PessimisticLockingAttribute>() != null) {
-                _pessimisticLocker = new PessimisticLocker(((ObjectSpace)ObjectSpace).Session.DataLayer, View.CurrentObject);
+                _pessimisticLocker = new PessimisticLocker(((XPObjectSpace)ObjectSpace).Session.DataLayer, View.CurrentObject);
                 UpdateViewAllowEditState();   
                 SubscribeToEvents();
             }
@@ -98,7 +99,7 @@ namespace Xpand.ExpressApp.SystemModule {
                     if (_currentObject != null) {
                         var keyValue = _session.GetKeyValue(_currentObject);
                         var objectByKey = _session.GetObjectByKey(_currentObject.GetType(), keyValue, true);
-                        _isLocked = new bool?(LockingMemberInfo.GetValue(objectByKey) != null);
+                        _isLocked = LockingMemberInfo.GetValue(objectByKey) != null;
                     }
                     else {
                         _isLocked = false;

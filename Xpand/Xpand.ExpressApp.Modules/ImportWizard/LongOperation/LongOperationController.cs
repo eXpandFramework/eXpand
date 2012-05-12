@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Demos;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.ImportWizard.LongOperation {
@@ -72,7 +73,7 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
         #region Session struff
 
         public UnitOfWork CreateUpdatingSession() {
-            var session = new UnitOfWork(((ObjectSpace)ObjectSpace).Session.DataLayer);
+            var session = new UnitOfWork(((XPObjectSpace)ObjectSpace).Session.DataLayer);
             OnUpdatingSessionCreated(session);
             return session;
         }

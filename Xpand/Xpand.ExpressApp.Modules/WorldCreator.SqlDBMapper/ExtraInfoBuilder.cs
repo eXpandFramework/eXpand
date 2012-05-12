@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using DevExpress.ExpressApp;
+﻿using System.Linq;
+using DevExpress.ExpressApp.Xpo;
 using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -9,10 +8,10 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class ExtraInfoBuilder {
         public const string SupportPersistentObjectsAsAPartOfACompositeKey = "Support Persistent objects as a part of a composite key";
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
         readonly AttributeMapper _attributeMapper;
 
-        public ExtraInfoBuilder(ObjectSpace objectSpace, AttributeMapper attributeMapper) {
+        public ExtraInfoBuilder(XPObjectSpace objectSpace, AttributeMapper attributeMapper) {
             _attributeMapper = attributeMapper;
             _objectSpace = objectSpace;
         }
@@ -34,7 +33,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             foreach (var persistentAttributeInfo in persistentAttributeInfos) {
                 persistentClassInfo.TypeAttributes.Add(persistentAttributeInfo);
             }
-            var count = table.Columns.OfType<Column>().Where(column => column.InPrimaryKey).Count();
+            var count = table.Columns.OfType<Column>().Count(column => column.InPrimaryKey);
             if (count > 0) {
                 if (persistentClassInfo.TemplateInfos.FirstOrDefault(info => info.Name==SupportPersistentObjectsAsAPartOfACompositeKey)==null) {
                     var templateInfo = (ITemplateInfo)_objectSpace.CreateObject(WCTypesInfo.Instance.FindBussinessObjectType(typeof(ITemplateInfo)));
@@ -59,8 +58,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
             var templateInfo = _objectSpace.CreateWCObject<ITemplateInfo>();
             templateInfo.Name = persistentReferenceMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType.ToString();
             templateInfo.TemplateCode =
-                _foreignKeyCalculator.GetRefTableForeignKey(foreignKey, column.Name).Columns.OfType<ForeignKeyColumn>().
-                    Where(keyColumn => keyColumn.ReferencedColumn == column.Name).Single().Name;
+                _foreignKeyCalculator.GetRefTableForeignKey(foreignKey, column.Name).Columns.OfType<ForeignKeyColumn>().Single(keyColumn => keyColumn.ReferencedColumn == column.Name).Name;
             persistentReferenceMemberInfo.TemplateInfos.Add(templateInfo);
         }
 

@@ -1,6 +1,7 @@
 using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using FeatureCenter.Base;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
@@ -13,7 +14,7 @@ namespace ExternalApplication.Module.Win {
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             InitializeSecurity();
-            var space = (ObjectSpace)ObjectSpace;
+            var space = (XPObjectSpace)ObjectSpace;
             new DummyDataBuilder(space).CreateObjects();
             if (space.Session.FindObject<PersistentAssemblyInfo>(CriteriaOperator.Parse("Name=?", "TestAssembly")) == null) {
                 new PersistentAssemblyInfo(space.Session) { Name = "TestAssembly" };

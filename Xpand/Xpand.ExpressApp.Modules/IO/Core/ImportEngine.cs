@@ -11,6 +11,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -64,7 +65,7 @@ namespace Xpand.ExpressApp.IO.Core {
         static IEnumerable<XElement> GetKeys(XElement element) {
             IEnumerable<XElement> elements = element.Descendants("Property");
             var xElements =
-                elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString());
+                elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString(CultureInfo.InvariantCulture));
             return xElements;
         }
 
@@ -209,7 +210,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         XPBaseObject GetObject(ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
             if (!ReferenceEquals(criteriaOperator, null)) {
-                var unitOfWork = ((UnitOfWork)((ObjectSpace)_objectSpace).Session);
+                var unitOfWork = ((UnitOfWork)((XPObjectSpace)_objectSpace).Session);
                 var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
                                                          criteriaOperator, true) as XPBaseObject ??
                                    unitOfWork.FindObject(unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;

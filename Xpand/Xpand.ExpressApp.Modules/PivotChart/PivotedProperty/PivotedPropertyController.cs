@@ -6,6 +6,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Editors;
 using Xpand.Utils.Helpers;
@@ -64,7 +65,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
             if (string.IsNullOrEmpty(pivotedPropertyAttribute.AnalysisCriteria)) {
                 analysisInfo = (IAnalysisInfo)ObjectSpace.CreateObject(memberInfo.MemberType);
                 var pivotedType = View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName).ListElementType;
-                ((ObjectSpace)ObjectSpace).Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x => x.DataType)).SetValue(analysisInfo, pivotedType);
+                ((XPObjectSpace)ObjectSpace).Session.GetClassInfo(analysisInfo).GetMember(analysisInfo.GetPropertyName(x => x.DataType)).SetValue(analysisInfo, pivotedType);
             } else {
                 analysisInfo = ObjectSpace.FindObject(memberInfo.MemberType, CriteriaOperator.Parse(pivotedPropertyAttribute.AnalysisCriteria)) as IAnalysisInfo;
                 if (analysisInfo == null)

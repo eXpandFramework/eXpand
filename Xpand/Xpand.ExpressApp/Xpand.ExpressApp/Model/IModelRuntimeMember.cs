@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Model {
     public interface IModelRuntimeNonPersistentMember : IModelRuntimeMember {
     }
 
-    public interface IModelRuntimeOrphanedColection : IModelRuntimeNonPersistentMember, IModelMemberEx {
+    public interface IModelRuntimeOrphanedColection : IModelRuntimeNonPersistentMember {
         [Category("eXpand")]
         [CriteriaOptionsAttribute("ModelClass.TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.Model {
             IMemberInfo info = modelRuntimeOrphanedColection.ModelClass.TypeInfo.FindMember(modelRuntimeOrphanedColection.Name);
             if (info == null) {
                 if (!string.IsNullOrEmpty(modelRuntimeOrphanedColection.Name) && modelRuntimeOrphanedColection.Type != null) {
-                    var xpClassInfo = XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(modelRuntimeOrphanedColection.ModelClass.TypeInfo.Type);
+                    var xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(modelRuntimeOrphanedColection.ModelClass.TypeInfo.Type);
                     if (xpClassInfo.FindMember(modelRuntimeOrphanedColection.Name) == null) {
                         xpClassInfo.CreateCollection(modelRuntimeOrphanedColection.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type, modelRuntimeOrphanedColection.Criteria);
                         ((BaseInfo)modelRuntimeOrphanedColection.ModelClass.TypeInfo).Store.RefreshInfo(modelRuntimeOrphanedColection.ModelClass.TypeInfo.Type);

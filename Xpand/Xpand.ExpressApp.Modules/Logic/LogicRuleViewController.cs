@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -8,6 +9,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
@@ -85,8 +87,8 @@ namespace Xpand.ExpressApp.Logic {
 
         bool TemplateContextGroupIsValid(LogicRuleInfo<TModelLogicRule> info) {
             var frameTemplateContextsGroup = GetModelLogic().FrameTemplateContextsGroup;
-            var modelFrameTemplateContextsGroup = frameTemplateContextsGroup.Where(templateContexts => templateContexts.Id == info.Rule.FrameTemplateContextGroup).FirstOrDefault();
-            return modelFrameTemplateContextsGroup == null || modelFrameTemplateContextsGroup.Where(context => context.Name + "Context" == Frame.Context).FirstOrDefault() != null;
+            var modelFrameTemplateContextsGroup = frameTemplateContextsGroup.FirstOrDefault(templateContexts => templateContexts.Id == info.Rule.FrameTemplateContextGroup);
+            return modelFrameTemplateContextsGroup == null || modelFrameTemplateContextsGroup.FirstOrDefault(context => context.Name + "Context" == Frame.Context) != null;
         }
 
 
@@ -365,7 +367,7 @@ namespace Xpand.ExpressApp.Logic {
 
         bool IsValidDCTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {
             if (viewInfo.ObjectTypeInfo.IsDomainComponent) {
-                var entityType = XafTypesInfo.XpoTypeInfoSource.GetGeneratedEntityType(viewInfo.ObjectTypeInfo.Type);
+                var entityType = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(viewInfo.ObjectTypeInfo.Type);
                 var types = new List<Type> { entityType };
                 while (entityType != null && entityType != typeof(object)) {
                     entityType = entityType.BaseType;
@@ -399,9 +401,9 @@ namespace Xpand.ExpressApp.Logic {
 
         ExecutionContext CalculateCurrentExecutionContext(string executionContextGroup) {
             IModelLogic modelLogic = GetModelLogic();
-            var modelExecutionContexts = modelLogic.ExecutionContextsGroup.Where(context => context.Id == executionContextGroup).Single();
+            var modelExecutionContexts = modelLogic.ExecutionContextsGroup.Single(context => context.Id == executionContextGroup);
             return modelExecutionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>
-                                                current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString()));
+                                                current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString(CultureInfo.InvariantCulture)));
         }
 
         protected abstract IModelLogic GetModelLogic();

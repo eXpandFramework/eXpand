@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Logic {
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.Logic {
                 lock (rules) {
                     var type = typeInfo.Type;
                     if (typeInfo.IsDomainComponent && typeInfo.IsInterface) {
-                        type = XafTypesInfo.XpoTypeInfoSource.GetGeneratedEntityType(type);
+                        type = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(type);
                     }
                     return GetLogicRules(type);
                 }

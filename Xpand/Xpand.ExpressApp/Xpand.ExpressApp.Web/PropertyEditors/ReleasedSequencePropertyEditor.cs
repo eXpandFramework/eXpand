@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors;
 using Xpand.Persistent.Base.General;
@@ -42,7 +43,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs e) {
-            _popupWindowHelper.Capture((ObjectSpace)sender);
+            _popupWindowHelper.Capture((XPObjectSpace)sender);
         }
 
         private void objectWindowAction_OnCustomizePopupWindowParams(Object sender, CustomizePopupWindowParamsEventArgs args) {
@@ -59,7 +60,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (buttonEditTextEnabled != value) {
                 buttonEditTextEnabled = value;
                 if (value) {
-                    control.CssClass.Replace(" dxDisabled", "");
+                    control.CssClass=control.CssClass.Replace(" dxDisabled", "");
                 } else {
                     control.CssClass += " dxDisabled";
                 }

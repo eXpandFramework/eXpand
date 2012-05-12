@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
@@ -20,7 +19,7 @@ namespace Xpand.ExpressApp {
         }
 
         public MultiDataStoreProxy(string connectionString)
-            : this(connectionString, XafTypesInfo.XpoTypeInfoSource.XPDictionary) {
+            : this(connectionString, XpandModuleBase.Dictiorary) {
 
         }
 
@@ -46,7 +45,7 @@ namespace Xpand.ExpressApp {
             var dataStoreModifyDataEventArgs = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
             var name = typeof(XPObjectType).Name;
-            var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().Where(statement => statement.TableName == name).FirstOrDefault();
+            var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().FirstOrDefault(statement => statement.TableName == name);
             var modificationResult = new ModificationResult();
             if (insertStatement != null) {
                 modificationResult = ModifyXPObjectTable(dmlStatements, insertStatement, modificationResult);
@@ -67,7 +66,7 @@ namespace Xpand.ExpressApp {
                             _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
                         }
                         var modifyData = dataLayer.ModifyData(dmlStatements);
-                        if (modifyData.Identities.Count() > 0)
+                        if (modifyData.Identities.Any())
                             modificationResult = modifyData;
                     }
                 }

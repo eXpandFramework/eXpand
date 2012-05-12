@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.Utils;
 
 namespace FeatureCenter.Base {
     public class DummyDataBuilder {
-        readonly ObjectSpace _objectSpace;
-        public DummyDataBuilder(ObjectSpace objectSpace) {
+        readonly XPObjectSpace _objectSpace;
+        public DummyDataBuilder(XPObjectSpace objectSpace) {
             _objectSpace = objectSpace;
         }
 
@@ -94,7 +95,7 @@ namespace FeatureCenter.Base {
         }
 
         ITypeInfo GetTypeInfo(ITypeInfo typeInfo, Type type) {
-            IMemberInfo firstOrDefault = typeInfo.OwnMembers.Where(info => info.IsList && type.IsAssignableFrom(info.ListElementType)).FirstOrDefault();
+            IMemberInfo firstOrDefault = typeInfo.OwnMembers.FirstOrDefault(info => info.IsList && type.IsAssignableFrom(info.ListElementType));
             return firstOrDefault != null ? firstOrDefault.ListElementTypeInfo : null;
         }
 

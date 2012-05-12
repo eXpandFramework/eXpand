@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         public MemberGenerator(DBTable dbTable, Dictionary<string, ClassGeneratorInfo> classInfos) {
             _dbTable = dbTable;
             _classInfos = classInfos;
-            _objectSpace = ObjectSpace.FindObjectSpaceByObject(classInfos[classInfos.Keys.First()].PersistentClassInfo);
+            _objectSpace = XPObjectSpace.FindObjectSpaceByObject(classInfos[classInfos.Keys.First()].PersistentClassInfo);
         }
 
         public IEnumerable<MemberGeneratorInfo> Create() {
@@ -50,7 +51,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 var persistentReferenceMemberInfo = CreatePersistentReferenceMemberInfo(persistentClassInfo.Name, _classInfos[tableName].PersistentClassInfo, persistentClassInfo, TemplateType.FieldMember);
                 membersCore.Add(new MemberGeneratorInfo(persistentReferenceMemberInfo, _dbTable.GetColumn(coumboundPkColumn.Columns[0])));
                 if (pkDbColumns.Where(IsOneToOneOnTheKey).Count() == pkDbColumns.Count()) {
-                    string refTableName = ClassGenerator.GetTableName(_dbTable.ForeignKeys.Where(key => key.Columns.Contains(pkDbColumns.ToList()[0].Name)).First().PrimaryKeyTable);
+                    string refTableName = ClassGenerator.GetTableName(_dbTable.ForeignKeys.First(key => key.Columns.Contains(pkDbColumns.ToList()[0].Name)).PrimaryKeyTable);
                     ClassGeneratorInfo classGeneratorInfo = _classInfos[refTableName];
                     membersCore.Add(new MemberGeneratorInfo(CreatePersistentReferenceMemberInfo(classGeneratorInfo.PersistentClassInfo.Name, _classInfos[tableName].PersistentClassInfo, classGeneratorInfo.PersistentClassInfo, TemplateType.XPOneToOneReadOnlyPropertyMember), null));
                 }
@@ -79,7 +80,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         bool IsOneToOneOnTheKey(DBColumn dbColumn) {
             IEnumerable<DBForeignKey> foreignPKeys = _dbTable.ForeignKeys.Where(key => _dbTable.PrimaryKey.Columns.Contains(dbColumn.Name) && key.PrimaryKeyTable != _dbTable.Name && key.Columns.Contains(dbColumn.Name));
             var keies = foreignPKeys.Select(key => new { FK = key, PrimaryTable = _classInfos[ClassGenerator.GetTableName(key.PrimaryKeyTable)].DbTable });
-            return keies.Where(arg => arg.PrimaryTable.PrimaryKey.Columns.OfType<string>().All(s => arg.FK.PrimaryKeyTableKeyColumns.OfType<string>().Contains(s))).Any();
+            return keies.Any(arg => arg.PrimaryTable.PrimaryKey.Columns.OfType<string>().All(s => arg.FK.PrimaryKeyTableKeyColumns.OfType<string>().Contains(s)));
         }
 
         MemberGeneratorInfo CreateMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo = null, TemplateType coreTemplateType = TemplateType.XPReadWritePropertyMember, TemplateType refTemplateType = TemplateType.XPReadWritePropertyMember) {
@@ -118,7 +119,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         TemplateType GetTemplateType(TemplateType refTemplateType, ClassGeneratorInfo classGeneratorInfo) {
             bool selfReference = classGeneratorInfo.DbTable.Name == _dbTable.Name;
             if (!selfReference) {
-                DBForeignKey oneToOne = classGeneratorInfo.DbTable.ForeignKeys.Where(key => key.PrimaryKeyTable == _dbTable.Name).FirstOrDefault();
+                DBForeignKey oneToOne = classGeneratorInfo.DbTable.ForeignKeys.FirstOrDefault(key => key.PrimaryKeyTable == _dbTable.Name);
                 if (oneToOne != null)
                     return TemplateType.XPOneToOnePropertyMember;
             }
@@ -130,7 +131,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         }
 
         bool IsFKey(DBColumn dbColumn) {
-            return _dbTable.ForeignKeys.Where(key => key.Columns.Contains(dbColumn.Name)).FirstOrDefault() != null;
+            return _dbTable.ForeignKeys.FirstOrDefault(key => key.Columns.Contains(dbColumn.Name)) != null;
         }
 
         static bool IsCoreColumn(DBColumn dbColumn) {

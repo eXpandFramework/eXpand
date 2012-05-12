@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -14,11 +15,11 @@ using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     internal class ResourcesLayerBuilder {
-        readonly ObjectSpace _objectSpace;
+        readonly XPObjectSpace _objectSpace;
         readonly XafApplication _xafApplication;
         readonly XpoModelDictionaryDifferenceStore _xpoModelDictionaryDifferenceStore;
 
-        public ResourcesLayerBuilder(ObjectSpace objectSpace, XafApplication xafApplication, XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore) {
+        public ResourcesLayerBuilder(XPObjectSpace objectSpace, XafApplication xafApplication, XpoModelDictionaryDifferenceStore xpoModelDictionaryDifferenceStore) {
             _objectSpace = objectSpace;
             _xafApplication = xafApplication;
             _xpoModelDictionaryDifferenceStore = xpoModelDictionaryDifferenceStore;
@@ -45,7 +46,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             else {
                 modelDifferenceObject = new RoleModelDifferenceObject(_objectSpace.Session);
                 Type roleType = ((ISecurityComplex)SecuritySystem.Instance).RoleType;
-                var criteriaParametersList = resourceName.Substring(0, resourceName.IndexOf("_"));
+                var criteriaParametersList = resourceName.Substring(0, resourceName.IndexOf("_", StringComparison.Ordinal));
                 object findObject = _objectSpace.FindObject(roleType, CriteriaOperator.Parse("Name=?", criteriaParametersList));
                 Guard.ArgumentNotNull(findObject, criteriaParametersList);
                 var xpBaseCollection = ((XPBaseCollection)modelDifferenceObject.GetMemberValue("Roles"));

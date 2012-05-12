@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         private void ObjectSpace_OnObjectDeleting(object sender, ObjectsManipulatingEventArgs e) {
             foreach (var o in e.Objects) {
-                var count = ((ObjectSpace)ObjectSpace).Session.CollectReferencingObjects(o).Count;
+                var count = ((XPObjectSpace)ObjectSpace).Session.CollectReferencingObjects(o).Count;
                 if (count > 0) {
                     var result = new RuleSetValidationResult();
                     var messageTemplate = "Cannot be deleted " + count + " references found";

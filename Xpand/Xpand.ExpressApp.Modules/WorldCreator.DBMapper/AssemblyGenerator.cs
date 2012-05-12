@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -22,7 +23,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(dataStoreSchemaExplorer);
             _storageTables = dataStoreSchemaExplorer.GetStorageTables(tables).Where(table => table.PrimaryKey != null).ToArray();
             _logonObject = logonObject;
-            _objectSpace = ObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
+            _objectSpace = XPObjectSpace.FindObjectSpaceByObject(persistentAssemblyInfo);
         }
 
         static public IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
@@ -50,7 +51,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             var oneToOneMemberInfos = _persistentAssemblyInfo.PersistentClassInfos.SelectMany(info => info.OwnMembers.OfType<IPersistentReferenceMemberInfo>()).Where(info => info.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember);
             foreach (var oneToOneMemberInfo in oneToOneMemberInfos) {
                 var codeTemplate = _objectSpace.CreateWCObject<ICodeTemplate>();
-                codeTemplate.TemplateCode = oneToOneMemberInfo.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>().Where(info => info.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember).Single().Name;
+                codeTemplate.TemplateCode = oneToOneMemberInfo.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>().Single(info => info.CodeTemplateInfo.CodeTemplate.TemplateType == TemplateType.XPOneToOnePropertyMember).Name;
                 oneToOneMemberInfo.TemplateInfos.Add(codeTemplate);
             }
             CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo);
@@ -59,7 +60,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
 
         void CreateAssemblyAttributes() {
-            if (_persistentAssemblyInfo.PersistentClassInfos.Count() > 0) {
+            if (_persistentAssemblyInfo.PersistentClassInfos.Any()) {
                 var persistentAssemblyDataStoreAttributeInfo =
                     _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttribute>();
                 persistentAssemblyDataStoreAttributeInfo.ConnectionString = _logonObject.ConnectionString;
