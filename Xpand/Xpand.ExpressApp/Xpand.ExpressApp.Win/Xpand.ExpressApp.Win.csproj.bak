@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.ExpressApp.Win</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.Win</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>http://localhost/Xpand.ExpressApp.Win/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v11.2.Reporting.Extensions, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Design" />
+    <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Utils, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Xpand.Xpo, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
+    <Compile Include="Core\ListViewExtensions.cs" />
+    <Compile Include="Editors\XpandFilterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\XpandXafGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\XpandXafGridColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModelEditorViewController.cs" />
+    <Compile Include="Model\ModelExtensions.cs" />
+    <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
+    <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\BooleanHAlignFarPropertyEditor.cs" />
+    <Compile Include="ListEditors\XpandGridListEditor.cs">
+    </Compile>
+    <Compile Include="ListEditors\IPopupMenuHider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyEditors\NullAble\BooleanPropertyEditor\XpandBooleanPropertyEditor.cs" />
+    <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="PropertyEditors\NullAble\DatePropertyEditor\XpandDatePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\TimeSpan.cs" />
+    <Compile Include="PropertyEditors\TimeZonePropertyEditor.cs" />
+    <Compile Include="SystemModule\ApplicationMultiInstancesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\AutoCommitListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\AutoExpandNewRowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\LayoutViewColumnChooserController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\EMailHighlightingController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\EMailHighlightingController.Designer.cs">
+      <DependentUpon>EMailHighlightingController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemModule\UnboundColumnController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\CursorPositionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
+    <Compile Include="SystemModule\FilterControlController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NewObjectCollectCreatableItemTypesDataSource.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\PromtOnExitController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ViewEditModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WinToolTipsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FilterControlListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\FocusControlByShortcutController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GridColumnOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GridViewOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HideToolBarController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\LoadWithWindowsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MinimizeOnCloseController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\NotifyIconController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ReadOnlyTabStopController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\RemoveNavigationItemsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\XpandWinDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SupressConfirmationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ViewEditValueChangedFiringModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WindowHintController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ViewStrategies\XpandShowInSingleWindowStrategy.cs" />
+    <Compile Include="XpandWinApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XpandWinWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\EMailHighlightingController.resx">
+      <DependentUpon>EMailHighlightingController.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+      if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+      if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

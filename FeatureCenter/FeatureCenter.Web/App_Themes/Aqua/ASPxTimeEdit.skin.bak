@@ -1,0 +1,12 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxe:ASPxTimeEdit runat="server" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" CssPostfix="Aqua">
+    <SpinButtons>
+        <IncrementImage>
+			<SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditIncrementImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditIncrementImagePressed_Aqua" />
+        </IncrementImage>        
+        <DecrementImage>
+			<SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditDecrementImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditDecrementImagePressed_Aqua" />
+        </DecrementImage>    
+    </SpinButtons>
+</dxe:ASPxTimeEdit>

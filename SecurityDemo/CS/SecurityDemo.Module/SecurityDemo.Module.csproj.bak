@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ABDFB762-3B14-4B19-82EC-F5BDDB7C42A9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SecurityDemo.Module</RootNamespace>
+    <AssemblyName>SecurityDemo.Module</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Validation.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v11.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Demos.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Design">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ConditionalActionState, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ConditionalActionState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.StateMachine, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=11.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=11.2.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Xpo, Version=11.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationServerStarterBase.cs" />
+    <Compile Include="ClassLevelObjects.cs" />
+    <Compile Include="HintAttribute.cs" />
+    <Compile Include="Hints.cs" />
+    <Compile Include="HintsRepository.cs" />
+    <Compile Include="MemberLevelObjects.cs" />
+    <Compile Include="ObjectLevelObjects.cs" />
+    <Compile Include="SecurityDemoBaseObjects.cs" />
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecurityDemoLogonParameters.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SecurityDemoUser.cs" />
+    <Compile Include="ShowHintController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Demo_Security_FullAccess.png" />
+    <EmbeddedResource Include="Images\Demo_Security_FullAccess_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_Irremovable.png" />
+    <EmbeddedResource Include="Images\Demo_Security_Irremovable_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_MemberLevel.png" />
+    <EmbeddedResource Include="Images\Demo_Security_MemberLevel_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ObjectLevel.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ObjectLevel_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ProtectedContent.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ProtectedContent_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ReadOnly.png" />
+    <EmbeddedResource Include="Images\Demo_Security_ReadOnly_32x32.png" />
+    <EmbeddedResource Include="Images\Demo_Security_Uncreatable.png" />
+    <EmbeddedResource Include="Images\Demo_Security_Uncreatable_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

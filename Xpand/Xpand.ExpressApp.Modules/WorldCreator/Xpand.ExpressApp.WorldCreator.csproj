@@ -55,31 +55,34 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v11.2.Core">
+    <Reference Include="DevExpress.Printing.v12.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v11.2">
+    <Reference Include="DevExpress.Data.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v11.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v11.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalEditorState.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v11.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v11.2">
+    <Reference Include="DevExpress.ExpressApp.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v11.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v11.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v11.2">
+    <Reference Include="DevExpress.Persistent.Base.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v12.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">

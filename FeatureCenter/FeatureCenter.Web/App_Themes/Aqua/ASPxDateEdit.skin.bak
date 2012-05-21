@@ -1,0 +1,19 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxe:ASPxDateEdit runat="server" SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" 
+    CssPostfix="Aqua" ShowShadow="False">
+    <CalendarProperties>
+        <FooterStyle Spacing="17px"></FooterStyle>
+        <HeaderStyle Spacing="1px"></HeaderStyle>
+    </CalendarProperties>
+    <DropDownButton>
+		<Image>
+			<SpriteProperties HottrackedCssClass="dxEditors_edtDropDownHover_Aqua" PressedCssClass="dxEditors_edtDropDownPressed_Aqua" />
+		</Image>
+	</DropDownButton>
+    <ValidationSettings>
+        <ErrorFrameStyle ImageSpacing="4px">
+            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+        </ErrorFrameStyle>
+    </ValidationSettings>
+</dxe:ASPxDateEdit>

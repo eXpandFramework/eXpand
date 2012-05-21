@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{15446E40-D78C-483A-934E-DF350FBC0AF1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.Tests</RootNamespace>
+    <AssemblyName>Xpand.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>169</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxGridView.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Machine.Specifications, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Machine.Specifications.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.0.10531.7, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Quartz, Version=2.0.0.6802, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Quartz.dll</HintPath>
+    </Reference>
+    <Reference Include="TypeMock, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
+    </Reference>
+    <Reference Include="Typemock.ArrangeActAssert, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.EmailTemplateEngine, Version=10.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.EmailTemplateEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=10.1.5.176, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO.Win, Version=0.0.9314.8, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs, Version=10.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic, Version=10.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.5.176, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=11.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.SqlDBMapper, Version=10.1.5.176, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=10.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Quartz.Server, Version=10.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <ExecutableExtension>.exe</ExecutableExtension>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Quartz.Server.exe</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Gallio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\MbUnit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contact.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ControllerFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CleanupAfterEveryContextInAssembly.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="With_Application.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailSenderSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailSubSystemSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\EmailTemplateEngineSpecs.cs" />
+    <Compile Include="Xpand.EmailTemplateEngine\MailTemplates.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MailTemplates.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
+    <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
+    <Compile Include="Xpand.ExpressApp\Contexts.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
+    <Compile Include="Xpand.IO\ClassInfoGraphNodeSpecs.cs" />
+    <Compile Include="Xpand.IO\Contexts.cs" />
+    <Compile Include="Xpand.IO\ExportingEngineSpecs.cs" />
+    <Compile Include="Xpand.IO\ExportingSpecs_of_DerivedObjects.cs" />
+    <Compile Include="Xpand.IO\ExceptionHandlingSpecs.cs" />
+    <Compile Include="Xpand.IO\ImportEngineSpecs.cs" />
+    <Compile Include="Xpand.IO\ModelBuilder.cs" />
+    <Compile Include="Xpand.JobScheduler\Contexts.cs" />
+    <Compile Include="Xpand.JobScheduler\JobDetailSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\JobListenerTriggerSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\JobTriggerSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\SchedulerResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchedulerResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Xpand.JobScheduler\SchedulerSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\SendThresholdCalculationEmailJobSpecs.cs" />
+    <Compile Include="Xpand.JobScheduler\TriggerListenerSpecs.cs" />
+    <Compile Include="Xpand.Utils\Contexts.cs" />
+    <Compile Include="Xpand.Utils\ExpressionTransformerSpecs.cs" />
+    <Compile Include="Xpand.Utils\NotificationExtensionsFixture.cs" />
+    <Compile Include="Xpand.Utils\PropertyHelperFixture.cs" />
+    <Compile Include="Xpand.Utils\ReflectionExtensionsFixture.cs" />
+    <Compile Include="Xpand.WorldCreator\CodeEngineSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\CompileEngineSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Contexts.cs" />
+    <Compile Include="Xpand.WorldCreator\DbMapper\AttributeMapperSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\DbMapper\ColumnMapperSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\DbMapper\DbMapperSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\DbMapper\MapperContexts.cs" />
+    <Compile Include="Xpand.WorldCreator\DbMapper\TableMapperSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\ExistentTypeSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\InterfaceInfoSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Interfaces.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\AssemblyGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\ClassAttributeGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MemberAttributeGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\ClassGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MapperContexts.cs" />
+    <Compile Include="Xpand.WorldCreator\Mapper\MemberGeneratorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\ScriptValidatorSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\TypesInfoSpecs.cs" />
+    <Compile Include="Xpand.WorldCreator\XpoObjectMergerSpecs.cs" />
+    <Compile Include="Xpand.Xpo\ChangeTypeSpecs.cs" />
+    <Compile Include="Xpand.Xpo\CriteriaOperatorExtractorFixture.cs" />
+    <Compile Include="Xpand.Xpo\DynamicCalcPropertySpecs.cs" />
+    <Compile Include="Xpand.Xpo\PersistentMetaDataFixture.cs" />
+    <Compile Include="Xpand.Xpo\PropertyPathParserFixture.cs" />
+    <Compile Include="Xpand.Xpo\ValueConvertersSpecs.cs" />
+    <Compile Include="Xpand\Contexts.cs" />
+    <Compile Include="Xpand\ObjectSpaceExtensionSpecs.cs" />
+    <Compile Include="MockExtensions.cs" />
+    <Compile Include="HandleInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.EmailTemplateEngine\MailTemplates.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailTemplates.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Xpand.IO\Resources\1toMany.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\Analysis.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ExistentKeyObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ExistentNaturalKeyObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ManyToMany.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ModelDifferenceObject.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\NullRefProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\ObjectWithImageProperty.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\PersistentAssmeblyInfo.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\PivotContent.xml" />
+    <EmbeddedResource Include="Xpand.IO\Resources\WithValueConverter.xml" />
+    <EmbeddedResource Include="Xpand.JobScheduler\SchedulerResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SchedulerResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Xpand.ModelDifference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObject.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectProperty.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentSimpleProperty.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectsProperty.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentObjectCollectionProperty.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NonExistentAllTypesOfProperties.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NullAbleEnum.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NullValuesImport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NotNullRefValuesImport.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Xpand.IO\Resources\NullValuesImportAsObject.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
