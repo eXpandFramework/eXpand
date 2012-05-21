@@ -4,13 +4,13 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Property>
+    <Property type="simple" name="Oid" isKey="true">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Property>
     <Property type="collection" name="SerializationConfigurations" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -19,45 +19,45 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">8946dce5-dcb0-48af-9518-187ac1e097c8</Property>
+    <Property type="simple" name="Oid" isKey="true">8946dce5-dcb0-48af-9518-187ac1e097c8</Property>
     <Property type="object" name="SerializationConfigurationGroup" isKey="false">
       <SerializedObjectRef type="SerializationConfigurationGroup" strategy="SerializeAsObject">
-        <Key name="oid">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Key>
+        <Key name="Oid">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Key>
       </SerializedObjectRef>
     </Property>
     <Property type="collection" name="SerializationGraph" isKey="false">
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">1d02dca5-da0d-4894-a2ca-083cf4a6fe6b</Key>
+        <Key name="Oid">1d02dca5-da0d-4894-a2ca-083cf4a6fe6b</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">9c11e4e1-7be7-44f7-a281-324d2515868d</Key>
+        <Key name="Oid">9c11e4e1-7be7-44f7-a281-324d2515868d</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">711ce9e3-ea02-49e6-bf53-3deafca168bf</Key>
+        <Key name="Oid">711ce9e3-ea02-49e6-bf53-3deafca168bf</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">6e891f6c-8192-47f1-992b-5ae7edd56306</Key>
+        <Key name="Oid">6e891f6c-8192-47f1-992b-5ae7edd56306</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">fc5da1e7-ef45-4da8-b1ca-788eab73e484</Key>
+        <Key name="Oid">fc5da1e7-ef45-4da8-b1ca-788eab73e484</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">8e11b836-5d12-41ff-95a6-9dfda2a3605e</Key>
+        <Key name="Oid">8e11b836-5d12-41ff-95a6-9dfda2a3605e</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">9462b28c-6519-42b7-915b-aebd820be5a3</Key>
+        <Key name="Oid">9462b28c-6519-42b7-915b-aebd820be5a3</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">44a08fdf-406e-46fa-a852-b1795f43a10f</Key>
+        <Key name="Oid">44a08fdf-406e-46fa-a852-b1795f43a10f</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">336c4105-338f-4260-b647-e5f6ef661da3</Key>
+        <Key name="Oid">336c4105-338f-4260-b647-e5f6ef661da3</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">74de1596-67ff-43ce-a539-e9d285c8ceb3</Key>
+        <Key name="Oid">74de1596-67ff-43ce-a539-e9d285c8ceb3</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">607228e1-2db7-4def-8f74-eecafa52ba48</Key>
+        <Key name="Oid">607228e1-2db7-4def-8f74-eecafa52ba48</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -70,10 +70,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">1d02dca5-da0d-4894-a2ca-083cf4a6fe6b</Property>
+    <Property type="simple" name="Oid" isKey="true">1d02dca5-da0d-4894-a2ca-083cf4a6fe6b</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -86,10 +86,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">9c11e4e1-7be7-44f7-a281-324d2515868d</Property>
+    <Property type="simple" name="Oid" isKey="true">9c11e4e1-7be7-44f7-a281-324d2515868d</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -102,10 +102,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">711ce9e3-ea02-49e6-bf53-3deafca168bf</Property>
+    <Property type="simple" name="Oid" isKey="true">711ce9e3-ea02-49e6-bf53-3deafca168bf</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -118,10 +118,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">6e891f6c-8192-47f1-992b-5ae7edd56306</Property>
+    <Property type="simple" name="Oid" isKey="true">6e891f6c-8192-47f1-992b-5ae7edd56306</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -134,10 +134,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">fc5da1e7-ef45-4da8-b1ca-788eab73e484</Property>
+    <Property type="simple" name="Oid" isKey="true">fc5da1e7-ef45-4da8-b1ca-788eab73e484</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -150,10 +150,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">8e11b836-5d12-41ff-95a6-9dfda2a3605e</Property>
+    <Property type="simple" name="Oid" isKey="true">8e11b836-5d12-41ff-95a6-9dfda2a3605e</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -166,10 +166,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">9462b28c-6519-42b7-915b-aebd820be5a3</Property>
+    <Property type="simple" name="Oid" isKey="true">9462b28c-6519-42b7-915b-aebd820be5a3</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -182,10 +182,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">44a08fdf-406e-46fa-a852-b1795f43a10f</Property>
+    <Property type="simple" name="Oid" isKey="true">44a08fdf-406e-46fa-a852-b1795f43a10f</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -198,10 +198,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">336c4105-338f-4260-b647-e5f6ef661da3</Property>
+    <Property type="simple" name="Oid" isKey="true">336c4105-338f-4260-b647-e5f6ef661da3</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -214,10 +214,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">74de1596-67ff-43ce-a539-e9d285c8ceb3</Property>
+    <Property type="simple" name="Oid" isKey="true">74de1596-67ff-43ce-a539-e9d285c8ceb3</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -230,10 +230,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">607228e1-2db7-4def-8f74-eecafa52ba48</Property>
+    <Property type="simple" name="Oid" isKey="true">607228e1-2db7-4def-8f74-eecafa52ba48</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
+        <Key name="Oid">8946dce5-dcb0-48af-9518-187ac1e097c8</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -242,36 +242,36 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Property>
+    <Property type="simple" name="Oid" isKey="true">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Property>
     <Property type="object" name="SerializationConfigurationGroup" isKey="false">
       <SerializedObjectRef type="SerializationConfigurationGroup" strategy="SerializeAsObject">
-        <Key name="oid">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Key>
+        <Key name="Oid">134c01ff-1554-4ca3-a39c-03e7b3d865b1</Key>
       </SerializedObjectRef>
     </Property>
     <Property type="collection" name="SerializationGraph" isKey="false">
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">84c6a7e2-d4e1-4daf-9256-173c67d3f670</Key>
+        <Key name="Oid">84c6a7e2-d4e1-4daf-9256-173c67d3f670</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">bfc0bee1-a2d1-452f-9ad8-27d767f3ee84</Key>
+        <Key name="Oid">bfc0bee1-a2d1-452f-9ad8-27d767f3ee84</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">f29f07ce-4124-468e-9825-350bf20def45</Key>
+        <Key name="Oid">f29f07ce-4124-468e-9825-350bf20def45</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">13c33a22-de25-4fe3-bf59-42726991dac9</Key>
+        <Key name="Oid">13c33a22-de25-4fe3-bf59-42726991dac9</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">af0d35a1-8475-48a1-b607-54ab4e4545e8</Key>
+        <Key name="Oid">af0d35a1-8475-48a1-b607-54ab4e4545e8</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">4e70528d-1918-4f2e-8388-7610263ef69b</Key>
+        <Key name="Oid">4e70528d-1918-4f2e-8388-7610263ef69b</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">40cad4d6-0689-40b8-bee2-d608ec4c9ed3</Key>
+        <Key name="Oid">40cad4d6-0689-40b8-bee2-d608ec4c9ed3</Key>
       </SerializedObjectRef>
       <SerializedObjectRef type="ClassInfoGraphNode" strategy="SerializeAsObject">
-        <Key name="oid">00576a5a-835b-4d31-9b2c-daf55120f4ca</Key>
+        <Key name="Oid">00576a5a-835b-4d31-9b2c-daf55120f4ca</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -284,10 +284,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">84c6a7e2-d4e1-4daf-9256-173c67d3f670</Property>
+    <Property type="simple" name="Oid" isKey="true">84c6a7e2-d4e1-4daf-9256-173c67d3f670</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -300,10 +300,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">bfc0bee1-a2d1-452f-9ad8-27d767f3ee84</Property>
+    <Property type="simple" name="Oid" isKey="true">bfc0bee1-a2d1-452f-9ad8-27d767f3ee84</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -316,10 +316,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">f29f07ce-4124-468e-9825-350bf20def45</Property>
+    <Property type="simple" name="Oid" isKey="true">f29f07ce-4124-468e-9825-350bf20def45</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -332,10 +332,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">13c33a22-de25-4fe3-bf59-42726991dac9</Property>
+    <Property type="simple" name="Oid" isKey="true">13c33a22-de25-4fe3-bf59-42726991dac9</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -348,10 +348,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">af0d35a1-8475-48a1-b607-54ab4e4545e8</Property>
+    <Property type="simple" name="Oid" isKey="true">af0d35a1-8475-48a1-b607-54ab4e4545e8</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -364,10 +364,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">4e70528d-1918-4f2e-8388-7610263ef69b</Property>
+    <Property type="simple" name="Oid" isKey="true">4e70528d-1918-4f2e-8388-7610263ef69b</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -380,10 +380,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">40cad4d6-0689-40b8-bee2-d608ec4c9ed3</Property>
+    <Property type="simple" name="Oid" isKey="true">40cad4d6-0689-40b8-bee2-d608ec4c9ed3</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>
@@ -396,10 +396,10 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">00576a5a-835b-4d31-9b2c-daf55120f4ca</Property>
+    <Property type="simple" name="Oid" isKey="true">00576a5a-835b-4d31-9b2c-daf55120f4ca</Property>
     <Property type="object" name="SerializationConfiguration" isKey="false">
       <SerializedObjectRef type="SerializationConfiguration" strategy="SerializeAsObject">
-        <Key name="oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
+        <Key name="Oid">ced4efe1-e7af-4139-be4a-8589e9ed04ba</Key>
       </SerializedObjectRef>
     </Property>
   </SerializedObject>

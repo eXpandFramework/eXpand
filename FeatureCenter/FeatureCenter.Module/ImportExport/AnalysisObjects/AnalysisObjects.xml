@@ -10,7 +10,7 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">460c1eb3-9b7a-4a02-b886-4e29a7dab23a</Property>
+    <Property type="simple" name="Oid" isKey="true">460c1eb3-9b7a-4a02-b886-4e29a7dab23a</Property>
   </SerializedObject>
   <SerializedObject type="Analysis">
     <Property type="simple" name="Name" isKey="false"><![CDATA[Custom Sort]]></Property>
@@ -22,7 +22,7 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">10109bc9-71da-4aa9-beed-919aff2eca20</Property>
+    <Property type="simple" name="Oid" isKey="true">10109bc9-71da-4aa9-beed-919aff2eca20</Property>
   </SerializedObject>
   <SerializedObject type="Analysis">
     <Property type="simple" name="Name" isKey="false"><![CDATA[HideChart]]></Property>
@@ -34,7 +34,7 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">3b14359f-f7cb-46fc-9e0b-ff01c08f3b59</Property>
+    <Property type="simple" name="Oid" isKey="true">3b14359f-f7cb-46fc-9e0b-ff01c08f3b59</Property>
   </SerializedObject>
   <SerializedObject type="Analysis">
     <Property type="simple" name="Name" isKey="false"><![CDATA[HidePivot]]></Property>
@@ -46,7 +46,7 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">2dda8b96-bd64-4546-9b5a-f39cb8722969</Property>
+    <Property type="simple" name="Oid" isKey="true">2dda8b96-bd64-4546-9b5a-f39cb8722969</Property>
   </SerializedObject>
   <SerializedObject type="Analysis">
     <Property type="simple" name="Name" isKey="false"><![CDATA[InPlaceEdit]]></Property>
@@ -58,7 +58,7 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">cee2e15b-eaa3-4c94-bedc-bdbc7535ceb5</Property>
+    <Property type="simple" name="Oid" isKey="true">cee2e15b-eaa3-4c94-bedc-bdbc7535ceb5</Property>
   </SerializedObject>
   <SerializedObject type="Analysis">
     <Property type="simple" name="Name" isKey="false"><![CDATA[PivotGroupInterval]]></Property>
@@ -70,6 +70,6 @@
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false">00000000-0000-0000-0000-000000000000</Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="oid" isKey="true">6e24f70b-b0cb-4ebc-8ef0-bf54a96f47a5</Property>
+    <Property type="simple" name="Oid" isKey="true">6e24f70b-b0cb-4ebc-8ef0-bf54a96f47a5</Property>
   </SerializedObject>
 </SerializedObjects>

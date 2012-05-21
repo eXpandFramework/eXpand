@@ -641,7 +641,9 @@
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModel.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml" />
+    <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
