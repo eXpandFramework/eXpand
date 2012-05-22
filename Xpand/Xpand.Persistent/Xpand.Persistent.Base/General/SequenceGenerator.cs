@@ -120,27 +120,37 @@ namespace Xpand.Persistent.Base.General {
         public static void RegisterSequences(IEnumerable<ITypeInfo> persistentTypes) {
             if (persistentTypes != null)
                 using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
-                    var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
+                    Dictionary<string, bool> typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (ITypeInfo typeInfo in persistentTypes) {
-                        if (typeToExistsMap.ContainsKey(typeInfo.FullName)) continue;
-                        CreateSequenceObject(typeInfo.FullName, unitOfWork);
+                        using (var uow = new UnitOfWork(DefaultDataLayer)) {
+                            if (typeToExistsMap.ContainsKey(typeInfo.FullName)) continue;
+                            CreateSequenceObject(typeInfo.FullName, unitOfWork);
+                            try {
+                                uow.CommitChanges();
+                            } catch (ConstraintViolationException) {
+                            }
+                        }
                     }
-                    unitOfWork.CommitChanges();
                 }
         }
 
         public static void RegisterSequences(IEnumerable<XPClassInfo> persistentClasses) {
             if (persistentClasses != null)
                 using (var unitOfWork = new UnitOfWork(DefaultDataLayer)) {
-                    var typeToExistsMap = GetTypeToExistsMap(unitOfWork);
+                    Dictionary<string, bool> typeToExistsMap = GetTypeToExistsMap(unitOfWork);
                     foreach (XPClassInfo classInfo in persistentClasses) {
-                        if (typeToExistsMap.ContainsKey(classInfo.FullName)) continue;
-                        CreateSequenceObject(classInfo.FullName, unitOfWork);
+                        using (var uow = new UnitOfWork(DefaultDataLayer)) {
+                            if (typeToExistsMap.ContainsKey(classInfo.FullName)) continue;
+                            CreateSequenceObject(classInfo.FullName, unitOfWork);
+                            try {
+                                uow.CommitChanges();
+                            } catch (ConstraintViolationException) {
+                            }
+                        }
                     }
-                    unitOfWork.CommitChanges();
                 }
-        }
 
+        }
         static Dictionary<string, bool> GetTypeToExistsMap(UnitOfWork unitOfWork) {
             var sequenceList = new XPCollection(unitOfWork, _sequenceObjectType);
             var typeToExistsMap = new Dictionary<string, bool>();
