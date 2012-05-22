@@ -132,6 +132,7 @@
     </Compile>
     <Compile Include="IXPSimpleObjectExtensions.cs" />
     <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
+    <Compile Include="MetaData\XpandCodeMemberInfo.cs" />
     <Compile Include="MetaData\XpandCustomMemberInfo.cs" />
     <Compile Include="XpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
