@@ -85,8 +85,8 @@ namespace Xpand.Persistent.BaseImpl {
                 typeInfo.FindMember("UserName").SetValue(user, userName);
                 var memberInfo = typeInfo.FindMember("FirstName");
                 if (memberInfo != null) memberInfo.SetValue(user, userName);
-                ((XPBaseCollection) typeInfo.FindMember("Roles").GetValue(user)).BaseAdd(role);
-//                user.Roles.Add((IRole)role);
+                ((XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user)).BaseAdd(role);
+                //                user.Roles.Add((IRole)role);
             }
             return user;
         }
@@ -98,7 +98,7 @@ namespace Xpand.Persistent.BaseImpl {
                 securityUser = (ISecurityUser)ObjectSpace.CreateObject(UserType);
                 var baseObject = ((XPBaseObject)securityUser);
                 baseObject.SetMemberValue("UserName", userName);
-                securityUser.IsActive = true;
+                baseObject.SetMemberValue("IsActive", true);
                 ((IAuthenticationStandardUser)securityUser).SetPassword("");
                 ((XPBaseCollection)baseObject.GetMemberValue("Roles")).BaseAdd(strategyRole);
             }
