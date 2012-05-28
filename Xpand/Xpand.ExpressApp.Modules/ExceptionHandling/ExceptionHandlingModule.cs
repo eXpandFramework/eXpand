@@ -17,8 +17,8 @@ namespace Xpand.ExpressApp.ExceptionHandling {
             InitializeComponent();
         }
 
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
             if (RuntimeMode)
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ExceptionHandling");
         }
@@ -29,9 +29,9 @@ namespace Xpand.ExpressApp.ExceptionHandling {
                     Logger.Write(asString);
                 }
                 var connectionStringSettingsCollection = ConfigurationManager.ConnectionStrings;
-                var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().Where(settings => settings.Name == "ExceptionHandlingConnectionString").FirstOrDefault();
+                var connectionStringSettings = connectionStringSettingsCollection.OfType<ConnectionStringSettings>().FirstOrDefault(settings => settings.Name == "ExceptionHandlingConnectionString");
                 if (connectionStringSettings != null) {
-                    if (XafTypesInfo.Instance.FindTypeInfo(typeof(IExceptionObject)).Implementors.Count() == 0) return;
+                    if (!XafTypesInfo.Instance.FindTypeInfo(typeof(IExceptionObject)).Implementors.Any()) return;
                     var session = new Session(
                         new SimpleDataLayer(XpoDefault.GetConnectionProvider(connectionStringSettings.ConnectionString, AutoCreateOption.DatabaseAndSchema)));
                     var exceptionObject = ExceptionObjectBuilder.Create(session, exception, Application);
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
 
         bool EmailTraceListenersAreValid() {
             var loggingSettings = (LoggingSettings)ConfigurationManager.GetSection("loggingConfiguration");
-            return loggingSettings.TraceListeners.OfType<EmailTraceListenerData>().Where(data => data.FromAddress == "user@domain.com" || data.SmtpServer == "mail.mail.com").FirstOrDefault() == null;
+            return loggingSettings.TraceListeners.OfType<EmailTraceListenerData>().FirstOrDefault(data => data.FromAddress == "user@domain.com" || data.SmtpServer == "mail.mail.com") == null;
         }
 
 

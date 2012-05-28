@@ -267,7 +267,9 @@
     <Compile Include="ImageEditors\PictureObject.cs" />
     <Compile Include="ImageEditors\PictureMasterObject.cs" />
     <Compile Include="ImageEditors\Updater.cs" />
-    <Compile Include="WebModule.cs" />
+    <Compile Include="WebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WebModule.Designer.cs">

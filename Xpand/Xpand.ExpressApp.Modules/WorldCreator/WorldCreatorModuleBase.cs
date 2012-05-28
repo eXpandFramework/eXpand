@@ -40,7 +40,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         protected override void OnApplicationInitialized(XafApplication xafApplication) {
             if (xafApplication == null)
                 return;
-            _connectionString = xafApplication.GetConnectionString();
+            if (RuntimeMode)
+                _connectionString = xafApplication.GetConnectionString();
             base.OnApplicationInitialized(xafApplication);
         }
 

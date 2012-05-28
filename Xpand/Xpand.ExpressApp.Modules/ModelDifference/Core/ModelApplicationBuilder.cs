@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public ApplicationModulesManager CreateApplicationModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
             if (!string.IsNullOrEmpty(configFileName)) {
                 bool isWebApplicationModel =
-                    string.Compare(Path.GetFileNameWithoutExtension(configFileName), "web", true) == 0;
+                    String.Compare(Path.GetFileNameWithoutExtension(configFileName), "web", StringComparison.OrdinalIgnoreCase) == 0;
                 if (string.IsNullOrEmpty(assembliesPath)) {
                     assembliesPath = Path.GetDirectoryName(configFileName);
                     if (isWebApplicationModel) {

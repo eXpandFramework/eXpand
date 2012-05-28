@@ -29,7 +29,6 @@ namespace Xpand.ExpressApp {
         static XpandModuleBase() {
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             TypesInfo = XafTypesInfo.Instance;
-            LoadBaseImplAssembly();
         }
 
         static void LoadBaseImplAssembly() {
@@ -57,7 +56,7 @@ namespace Xpand.ExpressApp {
                     var typeInfo = TypesInfo.FindTypeInfo(type);
                     declaredExportedTypes.Add(type);
                     foreach (Type type1 in CollectRequiredTypes(typeInfo)) {
-                        if (!declaredExportedTypes.Contains(type1)) 
+                        if (!declaredExportedTypes.Contains(type1))
                             declaredExportedTypes.Add(type1);
                     }
                 }
@@ -75,7 +74,11 @@ namespace Xpand.ExpressApp {
         }
 
         public Assembly BaseImplAssembly {
-            get { return _baseImplAssembly; }
+            get {
+                if (_baseImplAssembly == null)
+                    LoadBaseImplAssembly();
+                return _baseImplAssembly;
+            }
         }
 
         public static IEnumerable<Type> CollectExportedTypesFromAssembly(Assembly assembly) {
@@ -118,7 +121,7 @@ namespace Xpand.ExpressApp {
 
         protected void AddToAdditionalExportedTypes(string[] types) {
             if (RuntimeMode) {
-                var types1 = BaseImplAssembly.GetTypes().Where(type1 =>types.Contains(type1.FullName));
+                var types1 = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
                 AdditionalExportedTypes.AddRange(types1);
             }
 

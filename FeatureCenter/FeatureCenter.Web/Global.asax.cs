@@ -1,21 +1,26 @@
 using System;
 using System.Configuration;
+using System.Web.Configuration;
 using System.Web;
-using DevExpress.ExpressApp.Web;
-using FeatureCenter.Web.ApplicationCode;
-using Xpand.ExpressApp;
 
-namespace FeatureCenter.Web {
+using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Web;
+using DevExpress.Web.ASPxClasses;
+using FeatureCenter.Web.ApplicationCode;
+
+namespace Solution8.Web {
     public class Global : System.Web.HttpApplication {
         public Global() {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
-            WebApplication.OldStyleLayout = false;
+            ASPxWebControl.CallbackError += new EventHandler(Application_Error);
 
 #if EASYTEST
 			DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
-			ConfirmationsHelper.IsConfirmationsEnabled = false;
 #endif
 
         }
@@ -27,7 +32,7 @@ namespace FeatureCenter.Web {
 			}
 #endif
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                ( WebApplication.Instance).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();

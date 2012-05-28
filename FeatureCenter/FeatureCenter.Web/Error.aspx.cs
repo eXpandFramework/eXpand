@@ -19,10 +19,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.SystemModule;
 
 public partial class ErrorPage : System.Web.UI.Page {
-    private string GetApplicationInfoString() {
-        AboutInfo aboutInfo = new AboutInfo(WebApplication.Instance);
-        return aboutInfo.GetAboutInfoString();
-    }
     protected override void InitializeCulture() {
         if (WebApplication.Instance != null)
             WebApplication.Instance.InitializeCulture();

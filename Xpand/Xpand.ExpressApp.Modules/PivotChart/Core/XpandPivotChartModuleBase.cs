@@ -21,7 +21,8 @@ namespace Xpand.ExpressApp.PivotChart.Core {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            TypesInfo.AddTypes(GetAdditionalClasses(moduleManager));
+            if (RuntimeMode)
+                TypesInfo.AddTypes(GetAdditionalClasses(moduleManager));
         }
         public new abstract TypesInfo TypesInfo { get; }
 
@@ -45,9 +46,11 @@ namespace Xpand.ExpressApp.PivotChart.Core {
             base.CustomizeTypesInfo(typesInfo);
             if (Application == null)
                 return;
-            typesInfo.FindTypeInfo(TypesInfo.AnalysisType).AddAttribute(new DefaultPropertyAttribute("Name"));
-            foreach (var keyValuePair in GetOptionsMapperDictionary()) {
-                CreateMembers(typesInfo, keyValuePair.Key, keyValuePair.Value);
+            if (RuntimeMode) {
+                typesInfo.FindTypeInfo(TypesInfo.AnalysisType).AddAttribute(new DefaultPropertyAttribute("Name"));
+                foreach (var keyValuePair in GetOptionsMapperDictionary()) {
+                    CreateMembers(typesInfo, keyValuePair.Key, keyValuePair.Value);
+                }
             }
         }
 

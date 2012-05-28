@@ -43,7 +43,10 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            throw new NotImplementedException(Application.Title);
             if (RuntimeMode) {
+                AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
+                SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
                 InitializeSequenceGenerator();
             }
         }
@@ -105,23 +108,6 @@ namespace Xpand.ExpressApp.SystemModule {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
 
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            try {
-                AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
-                SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
-            } catch (Exception e) {
-                Tracing.Tracer.LogError(e);
-            }
-
-            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-            application.SetupComplete +=
-                (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
-            application.LoggedOn +=
-                (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
-        }
 
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
