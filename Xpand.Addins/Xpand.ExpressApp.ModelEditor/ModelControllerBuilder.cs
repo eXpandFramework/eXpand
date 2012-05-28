@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
@@ -20,14 +20,15 @@ namespace Xpand.ExpressApp.ModelEditor {
             return GetController(fileModelStore, modelApplication);
         }
         ModelEditorViewController GetController(FileModelStore fileModelStore, ModelApplicationBase modelApplication) {
-            fileModelStore.Load(modelApplication.LastLayer);
             return new ModelEditorViewController((IModelApplication)modelApplication, fileModelStore);
         }
 
         ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo, FileModelStore fileModelStore) {
-            var modelsManager = new ApplicationModelsManager(applicationModulesManager.Modules, applicationModulesManager.ControllersManager, applicationModulesManager.DomainComponents, null, fileModelStore.GetAspects());
-            var modelApplication = (ModelApplicationBase)modelsManager.CreateModel(modelsManager.CreateApplicationCreator(), null, false);
+            var modelApplication = ModelApplicationHelper.CreateModel(XafTypesInfo.Instance, applicationModulesManager.DomainComponents, applicationModulesManager.Modules, applicationModulesManager.ControllersManager, Type.EmptyTypes, fileModelStore.GetAspects(), null, null);
             AddLayers(modelApplication, applicationModulesManager, pathInfo);
+            ModelApplicationBase lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
+            fileModelStore.Load(lastLayer);
+            ModelApplicationHelper.AddLayer(modelApplication, lastLayer);
             return modelApplication;
         }
 
@@ -44,11 +45,11 @@ namespace Xpand.ExpressApp.ModelEditor {
             var dictionary = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null);
             AddLayersCore(dictionary.Where(pair => !PredicateLastLayer(pair, pathInfo)), modelApplication);
             ModelApplicationBase lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
-            modelApplication.AddLayer(lastLayer);
+            ModelApplicationHelper.AddLayer(modelApplication, lastLayer);
         }
 
         bool PredicateLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
-            var name = pair.Key.EndsWith(ModelStoreBase.ModelDiffDefaultName) ? ModelStoreBase.ModelDiffDefaultName : pair.Key.Substring(pair.Key.LastIndexOf(".") + 1);
+            var name = pair.Key.EndsWith(ModelStoreBase.ModelDiffDefaultName) ? ModelStoreBase.ModelDiffDefaultName : pair.Key.Substring(pair.Key.LastIndexOf(".", StringComparison.Ordinal) + 1);
             bool nameMatch = (name.EndsWith(Path.GetFileNameWithoutExtension(pathInfo.LocalPath) + ""));
             bool assemblyMatch = Path.GetFileNameWithoutExtension(pathInfo.AssemblyPath) == pair.Value.AssemblyName;
             return nameMatch && assemblyMatch;
@@ -59,7 +60,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             foreach (var pair in keyValuePairs) {
                 ModelApplicationBase layer = modelApplication.CreatorInstance.CreateModelApplication();
                 layer.Id = pair.Key;
-                modelApplication.AddLayer(layer);
+                ModelApplicationHelper.AddLayer(modelApplication, layer);
                 var modelXmlReader = new ModelXmlReader();
                 foreach (var aspectInfo in pair.Value.AspectInfos) {
                     modelXmlReader.ReadFromString(layer, aspectInfo.AspectName, aspectInfo.Xml);
