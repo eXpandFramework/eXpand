@@ -9,15 +9,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using System.Linq;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ConditionalControllerState.Logic;
+
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
-    public class StartWorkFlowController : ViewController<ObjectView> {
-        public StartWorkFlowController() {
-            Active[ControllerStateRuleController.ActiveObjectTypeHasRules] = false;
-        }
-        
-    }
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
         void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
             var request = ObjectSpace.CreateObject<ObjectChangedXpoStartWorkflowRequest>();
@@ -53,7 +47,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             }
         }
 
- 
+
 
 
         void StartWorkFlows(object sender, CancelEventArgs cancelEventArgs) {
@@ -78,8 +72,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         bool TypeHasWorkflows() {
             try {
                 return ObjectSpace.GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Tracing.Tracer.LogError(e);
                 return false;
             }

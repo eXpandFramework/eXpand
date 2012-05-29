@@ -49,8 +49,13 @@ namespace Xpand.ExpressApp.Validation {
                 var context = actionBaseEventArgs.Action.Id;
                 var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(contextValidatingEventArgs);
-                Validator.RuleSet.ValidateAll(contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                if (CanAccessDeletedObjects(context))
+                    Validator.RuleSet.ValidateAll(contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
+        }
+
+        bool CanAccessDeletedObjects(string context) {
+            return !(!ObjectSpace.IsDeletionDefferedType(View.ObjectTypeInfo.Type) && context == "Delete");
         }
 
         private void OnSelectorCustomGetAggregatedObjectsToValidate(object sender, CustomGetAggregatedObjectsToValidateEventArgs args) {
