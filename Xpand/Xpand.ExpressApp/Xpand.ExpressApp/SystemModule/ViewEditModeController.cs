@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var viewEditMode = ((IModelViewEditMode)View.Model).ViewEditMode;
-            if (viewEditMode.HasValue && !(ObjectSpace.IsNewObject(View.CurrentObject))) {
+            if (viewEditMode.HasValue && !(ObjectSpace.IsNewObject(View.CurrentObject)) && View.ViewEditMode != viewEditMode.Value) {
                 UpdateViewEditModeState(viewEditMode.Value);
                 UpdateViewAllowEditState();
             }

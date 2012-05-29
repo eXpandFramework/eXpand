@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
@@ -65,7 +66,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
                 foreach (var assembly1 in assemblies) {
-                    moduleManager.AddModule(assembly1.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single());
+                    moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
 
@@ -107,7 +108,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         ReflectionDictionary GetReflectionDictionary() {
             BusinessClassesList externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
-            Type persistentAssemblyInfoType = externalModelBusinessClassesList.Where(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1)).FirstOrDefault();
+            Type persistentAssemblyInfoType = externalModelBusinessClassesList.FirstOrDefault(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1));
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
@@ -142,7 +143,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
-            return info => !info.DoNotCompile && moduleManager.Modules.Where(@base => @base.Name == "Dynamic" + info.Name + "Module").FirstOrDefault() == null;
+            return info => !info.DoNotCompile && moduleManager.Modules.FirstOrDefault(@base => @base.Name == "Dynamic" + info.Name + "Module") == null;
         }
 
         public abstract string GetPath();
@@ -153,7 +154,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
             var sqlDataStore = XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema) as ISqlDataStore;
             if (sqlDataStore != null) {
-                IDbCommand dbCommand =sqlDataStore.CreateCommand();
+                IDbCommand dbCommand = sqlDataStore.CreateCommand();
                 new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
             }
         }
