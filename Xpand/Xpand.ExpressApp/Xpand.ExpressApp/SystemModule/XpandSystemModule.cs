@@ -43,7 +43,6 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            throw new NotImplementedException(Application.Title);
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
                 SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
