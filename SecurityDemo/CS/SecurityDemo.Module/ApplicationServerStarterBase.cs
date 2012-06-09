@@ -23,13 +23,13 @@ namespace SecurityDemo.Module {
             return modules;
         }
         private void StartServer() {
-            ServerApplication serverApplication = new XpandServerApplication();
+            XpandServerApplication serverApplication = new XpandServerApplication();
             serverApplication.ApplicationName = "SecurityDemo";
             serverApplication.DatabaseVersionMismatch += new EventHandler<DatabaseVersionMismatchEventArgs>(serverApplication_DatabaseVersionMismatch);
-            serverApplication.SetupComplete+=ServerApplicationOnSetupComplete;
+            serverApplication.SetupComplete += ServerApplicationOnSetupComplete;
 
-            foreach(ModuleBase module in GetModules()) {
-                if(!serverApplication.Modules.Contains(module)) {
+            foreach (ModuleBase module in GetModules()) {
+                if (!serverApplication.Modules.Contains(module)) {
                     serverApplication.Modules.Add(module);
                 }
             }
@@ -43,9 +43,9 @@ namespace SecurityDemo.Module {
             //#endregion
 
             serverApplication.Security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(SecurityRole), authentication);
-            ( serverApplication).ConnectionString = serverConnectionString;
+            (serverApplication).ConnectionString = serverConnectionString;
             serverApplication.Setup();
-            serverApplication.DatabaseUpdateMode=DatabaseUpdateMode.UpdateDatabaseAlways;
+            serverApplication.DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
             serverApplication.CheckCompatibility();
 
             ApplicationServer applicationServer = new ApplicationServer(connectionString, "SecurityDemoApplicationServer", serverConnectionString);
@@ -56,15 +56,14 @@ namespace SecurityDemo.Module {
             try {
                 applicationServer.Start();
                 SecurityModule.StrictSecurityStrategyBehavior = false;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Console.WriteLine(e);
             }
 
         }
 
         void ServerApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            
+
         }
 
 
@@ -72,9 +71,8 @@ namespace SecurityDemo.Module {
             try {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-            catch(CompatibilityException exception) {
-                if(exception.Error is CompatibilityUnableToOpenDatabaseError) {
+            } catch (CompatibilityException exception) {
+                if (exception.Error is CompatibilityUnableToOpenDatabaseError) {
                     throw new UserFriendlyException(
                     "The connection to the database failed. This demo requires the local instance of Microsoft SQL Server Express. To use another database server,\r\nopen the demo solution in Visual Studio and modify connection string in the \"app.config\" file.");
                 }
@@ -93,7 +91,7 @@ namespace SecurityDemo.Module {
         }
 
         public void Stop() {
-            if(domain != null) {
+            if (domain != null) {
                 AppDomain.Unload(domain);
             }
         }

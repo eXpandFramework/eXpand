@@ -34,6 +34,14 @@ namespace Xpand.ExpressApp.Web {
                 this.CreateCustomObjectSpaceprovider(args);
         }
 
+        public new string ConnectionString {
+            get { return base.ConnectionString; }
+            set {
+                base.ConnectionString = value;
+                ((ISupportFullConnectionString)this).ConnectionString = value;
+            }
+        }
+
         string ISupportFullConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 

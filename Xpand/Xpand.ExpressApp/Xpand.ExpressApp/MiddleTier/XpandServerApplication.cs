@@ -11,6 +11,15 @@ namespace Xpand.ExpressApp.MiddleTier {
             return null;
         }
 
+
+        public new string ConnectionString {
+            get { return base.ConnectionString; }
+            set {
+                base.ConnectionString = value;
+                ((ISupportFullConnectionString)this).ConnectionString = value;
+            }
+        }
+
         string IXafApplication.RaiseEstablishingConnection() {
             return this.GetConnectionString();
         }

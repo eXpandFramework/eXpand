@@ -44,16 +44,23 @@ namespace Xpand.ExpressApp.Win {
             var controller = new ModelEditorViewController(Model, CreateUserModelDifferenceStore());
             ModelDifferenceStore modelDifferencesStore = CreateModelDifferenceStore();
             if (modelDifferencesStore != null) {
-                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo>
-                                           {new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model")};
+                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo> { new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model") };
                 controller.SetModuleDiffStore(modulesDiffStoreInfo);
             }
-            return new ModelEditorForm(controller,new SettingsStorageOnModel(((IModelApplicationModelEditor) Model).ModelEditorSettings));
+            return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
         }
 
         protected override ModuleTypeList GetDefaultModuleTypes() {
             var result = new List<Type>(base.GetDefaultModuleTypes()) { typeof(XpandSystemModule), typeof(XpandSystemWindowsFormsModule) };
             return new ModuleTypeList(result.ToArray());
+        }
+
+        public new string ConnectionString {
+            get { return base.ConnectionString; }
+            set {
+                base.ConnectionString = value;
+                ((ISupportFullConnectionString)this).ConnectionString = value;
+            }
         }
 
         string ISupportFullConnectionString.ConnectionString { get; set; }
