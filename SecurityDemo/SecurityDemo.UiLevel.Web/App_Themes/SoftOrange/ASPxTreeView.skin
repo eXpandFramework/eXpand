@@ -1,0 +1,12 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxTreeView" Assembly="DevExpress.Web.v12.1" %>
+<dx:ASPxTreeView runat="server">
+     <Styles CssPostfix="SoftOrange" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" >
+     </Styles>
+     <Images SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css">
+        <LoadingPanel Url="~/App_Themes/SoftOrange/Web/Loading.gif">
+        </LoadingPanel>
+        <NodeLoadingPanel Url="~/App_Themes/SoftOrange/Web/tvNodeLoading.gif">
+        </NodeLoadingPanel>
+     </Images>
+</dx:ASPxTreeView>

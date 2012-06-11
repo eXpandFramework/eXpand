@@ -1,0 +1,27 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnc" Namespace="DevExpress.Web.ASPxNewsControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxnc:ASPxNewsControl runat="server" SpriteCssFilePath="~/App_Themes/DevEx/{0}/sprite.css" PagerAlign="Justify"
+    CssFilePath="~/App_Themes/DevEx/{0}/styles.css" CssPostfix="DevEx" PagerPanelSpacing="1">
+    <ItemDateStyle Spacing="0" />
+    <ItemContentStyle LineHeight="14" />
+    <ItemLeftPanelStyle Spacing="37">
+        <Paddings PaddingTop="3" />
+    </ItemLeftPanelStyle>
+    <ItemSettings DateVerticalPosition="Top" TailPosition="KeepWithLastWord" />
+    
+    <BackToTopImage>
+		<SpriteProperties CssClass="dxWeb_ncBackToTop_DevEx" />
+	</BackToTopImage>
+	<BackToTopStyle ImageSpacing="3" HorizontalAlign="Right" />
+	<LoadingPanelImage Url="~/App_Themes/DevEx/Web/Loading.gif" />
+	<LoadingPanelStyle ImageSpacing="5" />
+    <PagerSettings CurrentPageNumberFormat="{0}" ShowDefaultImages="True" Position="Top">
+        <Summary Visible="false" Position="Inside" />
+        <AllButton Visible="true" Text="" />
+        <NextPageButton Visible="true" Text="" />
+        <PrevPageButton Visible="true" Text="" />
+        <FirstPageButton Visible="true" Text="" />
+        <LastPageButton Visible="true" Text="" />
+    </PagerSettings>
+    <DisabledStyle ForeColor="#b1b1b8" />
+</dxnc:ASPxNewsControl>

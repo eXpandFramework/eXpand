@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+<dxrp:ASPxRoundPanel runat="server" EnableDefaultAppearance="False" 
+    CssFilePath="~/App_Themes/DevEx/{0}/styles.css" CssPostfix="DevEx"
+    SpriteCssFilePath="~/App_Themes/DevEx/{0}/sprite.css" GroupBoxCaptionOffsetY="-19" GroupBoxCaptionOffsetX="6">
+    <ContentPaddings PaddingLeft="7" PaddingRight="11" PaddingTop="10" PaddingBottom="10" />
+    <HeaderStyle>
+        <Paddings PaddingTop="1" PaddingBottom="6" PaddingLeft="7" PaddingRight="11" />
+    </HeaderStyle>
+</dxrp:ASPxRoundPanel>

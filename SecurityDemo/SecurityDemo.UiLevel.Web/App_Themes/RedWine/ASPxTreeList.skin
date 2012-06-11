@@ -1,0 +1,18 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxwtl" Namespace="DevExpress.Web.ASPxTreeList" Assembly="DevExpress.Web.ASPxTreeList.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxwtl:ASPxTreeList runat="server">
+    <Styles CssFilePath="~/App_Themes/RedWine/{0}/styles.css" CssPostfix="RedWine">
+		<CustomizationWindowContent VerticalAlign="Top" />
+    </Styles>
+    <Images SpriteCssFilePath="~/App_Themes/RedWine/{0}/sprite.css">
+        <LoadingPanel Url="~/App_Themes/RedWine/TreeList/Loading.gif"></LoadingPanel>
+    </Images>    
+    <ImagesEditors>
+		<DropDownEditDropDown>
+			<SpriteProperties HottrackedCssClass="dxEditors_edtDropDownHover_RedWine" />
+		</DropDownEditDropDown>
+    </ImagesEditors>  
+    <SettingsLoadingPanel ImagePosition="Top" />
+	<SettingsPager CurrentPageNumberFormat="{0}">
+	</SettingsPager>        
+</dxwtl:ASPxTreeList>

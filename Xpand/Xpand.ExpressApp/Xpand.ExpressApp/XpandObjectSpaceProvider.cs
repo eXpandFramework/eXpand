@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -8,22 +10,36 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
     public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider {
+        readonly ISelectDataSecurityProvider _selectDataSecurityProvider;
         IDataLayer _dataLayer;
-
+        bool _allowICommandChannelDoWithSecurityContext;
 
 
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider)
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISelectDataSecurityProvider selectDataSecurityProvider)
             : base(provider) {
+            _selectDataSecurityProvider = selectDataSecurityProvider;
             DataStoreProvider = provider;
         }
 
+        public ISelectDataSecurityProvider SelectDataSecurityProvider {
+            get { return _selectDataSecurityProvider; }
+        }
 
         public new IDataLayer WorkingDataLayer {
             get { return _dataLayer; }
         }
 
+        public bool AllowICommandChannelDoWithSecurityContext {
+            get { return _allowICommandChannelDoWithSecurityContext; }
+            set { _allowICommandChannelDoWithSecurityContext = value; }
+        }
+
+        public IDataLayer DataLayer {
+            get { return _dataLayer; }
+            set { _dataLayer = value; }
+        }
 
         protected override IObjectSpace CreateObjectSpaceCore() {
             IDisposable[] disposableObjects;
@@ -56,7 +72,9 @@ namespace Xpand.ExpressApp {
 
             var dataLayer = new SimpleDataLayer(XPDictionary, dataStore);
             disposableObjectsList.Add(dataLayer);
-            return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
+            var xpandUnitOfWork = new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
+            SessionObjectLayer currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, xpandUnitOfWork, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
+            return new XpandUnitOfWork(currentObjectLayer, xpandUnitOfWork);
         }
     }
 

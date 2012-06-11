@@ -1,0 +1,30 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxm:ASPxMenu runat="server"
+    SpriteCssFilePath="~/App_Themes/BlackGlass/{0}/sprite.css" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css" CssPostfix="BlackGlass"
+    AutoSeparators="RootOnly" ShowPopOutImages="True">
+    <ItemStyle DropDownButtonSpacing="11px" ToolbarPopOutImageSpacing="8px" ToolbarDropDownButtonSpacing="8px"></ItemStyle>
+    <SubMenuStyle GutterWidth="0px"></SubMenuStyle>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <LoadingPanelImage Url="~/App_Themes/BlackGlass/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuToolBar" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css"  ShowPopOutImages="True"
+    CssPostfix="BlackGlass" SpriteCssFilePath="~/App_Themes/BlackGlass/{0}/sprite.css" SeparatorHeight="100%"
+    AutoSeparators="None" Width="100%" ItemAutoWidth="False">
+    <SubMenuStyle GutterWidth="0px"  ></SubMenuStyle>
+    <RootItemSubMenuOffset FirstItemX="-1" X="-1" FirstItemY="-1" Y="-1"/>
+    <ItemStyle DropDownButtonSpacing="11px"></ItemStyle>
+    <LoadingPanelImage Url="~/App_Themes/BlackGlass/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuButtons" SpriteCssFilePath="~/App_Themes/BlackGlass/{0}/sprite.css" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css" SeparatorColor="Transparent"
+    AutoSeparators="RootOnly" ItemSpacing="0px" ShowPopOutImages="True" CssPostfix="BlackGlass" CssClass="menuButtons_BlackGlass">
+    <Border BorderWidth="0px"/>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <SubMenuItemStyle Wrap="False"></SubMenuItemStyle>
+    <LoadingPanelImage Url="~/App_Themes/BlackGlass/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuLinks" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css" ShowPopOutImages="True" 
+    CssPostfix="BlackGlass" SpriteCssFilePath="~/App_Themes/BlackGlass/{0}/sprite.css" SeparatorWidth="1px"  
+    EnableDefaultAppearance="False" CssClass="menuLinks_BlackGlass">
+    <LoadingPanelImage Url="~/App_Themes/BlackGlass/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>

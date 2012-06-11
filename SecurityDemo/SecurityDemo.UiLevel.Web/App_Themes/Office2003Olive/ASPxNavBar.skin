@@ -1,0 +1,7 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxnb:ASPxNavBar runat="server" CssPostfix="Office2003Olive" CssFilePath="~/App_Themes/Office2003Olive/{0}/styles.css" 
+    SpriteCssFilePath="~/App_Themes/Office2003Olive/{0}/sprite.css">
+	<LoadingPanelStyle ImageSpacing="6px" />
+	<LoadingPanelImage Url="~/App_Themes/Office2003Olive/Web/Loading.gif"></LoadingPanelImage>
+</dxnb:ASPxNavBar>

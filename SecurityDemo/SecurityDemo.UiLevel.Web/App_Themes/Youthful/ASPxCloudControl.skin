@@ -1,0 +1,15 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/Youthful/{0}/styles.css" CssPostfix="Youthful" 
+    ItemBeginText="{" ItemEndText="}" MaxColor="#7A9F0E" MinColor="#7A9F0E" ValueColor="#F4921B" ItemBeginEndTextColor="#F4921B">
+    <RankProperties>
+        <dxcc:RankProperties ForeColor="#7A9F0E" Font-Size="10px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7B9C08" Font-Size="11px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7B9C08" Font-Size="13px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7A9F0E" Font-Size="16px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7B9C08" Font-Size="22px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7B9C08" Font-Size="24px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+        <dxcc:RankProperties ForeColor="#7B9B08" Font-Size="29px" ItemBeginEndTextColor="#F4921B" ValueColor="#F4921B" />
+    </RankProperties>
+    <DisabledStyle ForeColor="#CBDCA2"></DisabledStyle>
+</dxcc:ASPxCloudControl>

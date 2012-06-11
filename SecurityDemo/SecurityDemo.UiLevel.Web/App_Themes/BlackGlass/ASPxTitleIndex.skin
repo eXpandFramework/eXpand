@@ -1,0 +1,16 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxti:ASPxTitleIndex runat="server" GroupSpacing="70px" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css"
+    FilterBoxSpacing="19px" IndexPanelSpacing="4px" CssPostfix="BlackGlass">
+    <LoadingPanelImage Url="~/App_Themes/BlackGlass/Web/Loading.gif"></LoadingPanelImage>
+    <ColumnStyle>
+        <Paddings PaddingLeft="0px"></Paddings>
+    </ColumnStyle>
+    <FilterBox Caption="Filter:&amp;nbsp;&amp;nbsp;" HorizontalPosition="Left"></FilterBox>
+    <IndexPanelStyle HorizontalAlign="Left"></IndexPanelStyle>
+    <BackToTopStyle HorizontalAlign="Left"></BackToTopStyle>
+    <GroupContentStyle ItemSpacing="1px"></GroupContentStyle>
+    <IndexPanelSeparatorStyle Height="0px"></IndexPanelSeparatorStyle>
+    <IndexPanel Separator=""></IndexPanel>
+    <DisabledStyle ForeColor="#9f9f9f"></DisabledStyle>
+</dxti:ASPxTitleIndex>

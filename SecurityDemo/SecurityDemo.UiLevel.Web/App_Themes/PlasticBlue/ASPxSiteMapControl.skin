@@ -1,0 +1,33 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxsm" Namespace="DevExpress.Web.ASPxSiteMapControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxsm:ASPxSiteMapControl runat="server" CssFilePath="~/App_Themes/PlasticBlue/{0}/styles.css" CssPostfix="PlasticBlue" SpriteCssFilePath="~/App_Themes/PlasticBlue/{0}/sprite.css">
+    <LevelProperties>
+        <dxsm:LevelProperties>
+            <ChildNodesPaddings PaddingTop="10px" PaddingRight="8px" PaddingBottom="8px" PaddingLeft="8px"></ChildNodesPaddings>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smSecondLevelBullet_PlasticBlue"></SpriteProperties>
+			</Image>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_PlasticBlue"></SpriteProperties>
+			</Image>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_PlasticBlue"></SpriteProperties>
+			</Image>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_PlasticBlue"></SpriteProperties>
+			</Image>
+        </dxsm:LevelProperties>
+    </LevelProperties>
+    <DefaultLevelProperties NodeSpacing="6px" ImageSpacing="7px">
+        <ChildNodesPaddings PaddingTop="6px" PaddingRight="12px" PaddingBottom="0px" PaddingLeft="12px"></ChildNodesPaddings>
+        <CurrentNodeStyle Font-Underline="False" Font-Bold="True"></CurrentNodeStyle>
+    </DefaultLevelProperties>
+</dxsm:ASPxSiteMapControl>

@@ -155,6 +155,8 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            if (!(application is IXafApplication))
+                throw new TypeInitializationException(application.GetType().FullName, new Exception("Please derive your " + application.GetType().FullName + " from either XpandWinApplication or XpandWebApplication"));
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);

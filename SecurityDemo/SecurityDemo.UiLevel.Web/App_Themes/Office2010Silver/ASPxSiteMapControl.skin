@@ -1,0 +1,31 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxsm" Namespace="DevExpress.Web.ASPxSiteMapControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxsm:ASPxSiteMapControl runat="server"	CssFilePath="~/App_Themes/Office2010Silver/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Office2010Silver/{0}/sprite.css" CssPostfix="Office2010Silver">
+	<LevelProperties>
+        <dxsm:LevelProperties>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties ImageSpacing="11">
+            <Image SpriteProperties-CssClass="dxWeb_smBullet_Office2010Silver" />
+            <ChildNodesPaddings PaddingLeft="17" PaddingTop="1" PaddingBottom="0" />
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties ImageSpacing="11">
+            <Image SpriteProperties-CssClass="dxWeb_smBullet_Office2010Silver" />
+            <ChildNodesPaddings PaddingLeft="17" PaddingTop="1" PaddingBottom="0" />
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties ImageSpacing="11">
+            <Image SpriteProperties-CssClass="dxWeb_smBullet_Office2010Silver" />
+            <ChildNodesPaddings PaddingLeft="17" PaddingTop="1" PaddingBottom="0" />
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties ImageSpacing="11">
+            <Image SpriteProperties-CssClass="dxWeb_smBullet_Office2010Silver" />
+            <ChildNodesPaddings PaddingLeft="17" PaddingTop="1" PaddingBottom="0" />
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties ImageSpacing="11">
+            <Image SpriteProperties-CssClass="dxWeb_smBullet_Office2010Silver" />
+            <ChildNodesPaddings PaddingLeft="17" PaddingTop="1" PaddingBottom="0" />
+        </dxsm:LevelProperties>
+    </LevelProperties>
+	<ColumnSeparatorStyle>
+		<Paddings PaddingRight="1px" PaddingLeft="0px" />
+	</ColumnSeparatorStyle>
+</dxsm:ASPxSiteMapControl>

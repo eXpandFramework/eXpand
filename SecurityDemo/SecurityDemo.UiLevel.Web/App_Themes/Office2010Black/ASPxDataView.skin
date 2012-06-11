@@ -1,0 +1,14 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxdv" Namespace="DevExpress.Web.ASPxDataView" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxdv:ASPxDataView runat="server" SpriteCssFilePath="~/App_Themes/Office2010Black/{0}/sprite.css" ItemSpacing="21"
+    CssFilePath="~/App_Themes/Office2010Black/{0}/styles.css" CssPostfix="Office2010Black" PagerPanelSpacing="0">
+    <PagerSettings ShowNumericButtons="true" CurrentPageNumberFormat="{0}">
+        <Summary Visible="false" />
+        <AllButton Visible="true" />
+    </PagerSettings>
+    <LoadingPanelImage Url="~/App_Themes/Office2010Black/Web/Loading.gif" />
+    <LoadingPanelStyle ImageSpacing="5" />
+    <PagerStyle ForeColor="White" />
+    <PagerCurrentPageNumberStyle ForeColor="Black" />
+    <DisabledStyle ForeColor="#c7cacf" />
+</dxdv:ASPxDataView>

@@ -1,0 +1,25 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxwgv" Namespace="DevExpress.Web.ASPxGridView" Assembly="DevExpress.Web.ASPxGridView.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxwgv:ASPxGridView runat="server" CssFilePath="~/App_Themes/PlasticBlue/{0}/styles.css" CssPostfix="PlasticBlue" >
+    <Images SpriteCssFilePath="~/App_Themes/PlasticBlue/{0}/sprite.css">
+        <LoadingPanel Url="~/App_Themes/PlasticBlue/GridView/Loading.gif"></LoadingPanel>
+        <LoadingPanelOnStatusBar Url="~/App_Themes/PlasticBlue/GridView/gvLoadingOnStatusBar.gif"></LoadingPanelOnStatusBar>
+    </Images>
+    <ImagesFilterControl>
+        <LoadingPanel Url="~/App_Themes/PlasticBlue/Editors/Loading.gif"></LoadingPanel>
+    </ImagesFilterControl>
+    <Styles CssPostfix="PlasticBlue" CssFilePath="~/App_Themes/PlasticBlue/{0}/styles.css">
+        <Header SortingImageSpacing="10px" ImageSpacing="10px"></Header>
+    </Styles>
+    <SettingsPager ShowDefaultImages="False" CurrentPageNumberFormat="{0}">
+        <AllButton Text="All"></AllButton>
+        <NextPageButton Text="Next &gt;"></NextPageButton>
+        <PrevPageButton Text="&lt; Prev"></PrevPageButton>
+    </SettingsPager>
+    <StylesEditors>
+        <ProgressBar Height="25px">
+        </ProgressBar>
+        <CalendarHeader Spacing="11px">
+        </CalendarHeader>
+    </StylesEditors>
+</dxwgv:ASPxGridView>

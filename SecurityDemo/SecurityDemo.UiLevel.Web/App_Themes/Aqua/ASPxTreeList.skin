@@ -1,0 +1,29 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxwtl" Namespace="DevExpress.Web.ASPxTreeList" Assembly="DevExpress.Web.ASPxTreeList.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxwtl:ASPxTreeList runat="server">
+    <Styles CssFilePath="~/App_Themes/Aqua/{0}/styles.css" CssPostfix="Aqua">
+		<CustomizationWindowContent VerticalAlign="Top" />
+    </Styles>
+    <Images SpriteCssFilePath="~/App_Themes/Aqua/{0}/sprite.css">
+        <LoadingPanel Url="~/App_Themes/Aqua/TreeList/Loading.gif"></LoadingPanel>
+    </Images>    
+    <ImagesEditors>
+        <DropDownEditDropDown>
+            <SpriteProperties HottrackedCssClass="dxEditors_edtDropDownHover_Aqua" PressedCssClass="dxEditors_edtDropDownPressed_Aqua" />
+        </DropDownEditDropDown>
+        <SpinEditIncrement>
+            <SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditIncrementImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditIncrementImagePressed_Aqua" />
+        </SpinEditIncrement>        
+        <SpinEditDecrement>
+            <SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditDecrementImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditDecrementImagePressed_Aqua" />
+        </SpinEditDecrement>
+        <SpinEditLargeIncrement>
+            <SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditLargeIncImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditLargeIncImagePressed_Aqua" />
+        </SpinEditLargeIncrement>        
+        <SpinEditLargeDecrement>
+            <SpriteProperties HottrackedCssClass="dxEditors_edtSpinEditLargeDecImageHover_Aqua" PressedCssClass="dxEditors_edtSpinEditLargeDecImagePressed_Aqua" />
+        </SpinEditLargeDecrement>
+    </ImagesEditors>
+    <SettingsLoadingPanel ImagePosition="Top" />
+	<SettingsPager CurrentPageNumberFormat="{0}"></SettingsPager>        
+</dxwtl:ASPxTreeList>

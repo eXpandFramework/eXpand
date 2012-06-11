@@ -1,0 +1,34 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxti:ASPxTitleIndex runat="server" CssFilePath="~/App_Themes/RedWine/{0}/styles.css" SpriteCssFilePath="~/App_Themes/RedWine/{0}/sprite.css"
+	FilterBoxSpacing="30px" CssPostfix="RedWine" 
+    GroupSpacing="50px" IndexPanelSpacing="0px" LoadingPanelImagePosition="Top" BackToTopSpacing="3px">
+	<BackToTopImage>
+		<SpriteProperties CssClass="dxWeb_tiBackToTop_RedWine"></SpriteProperties>
+	</BackToTopImage>
+    <LoadingPanelImage Url="~/App_Themes/RedWine/Web/Loading.gif"></LoadingPanelImage>
+    
+    <FilterBox InfoText="" HorizontalPosition="Center" />
+    <ColumnStyle>
+        <Paddings PaddingLeft="0px" />
+    </ColumnStyle>
+    <IndexPanelSeparatorStyle Height="0px" />
+    <IndexPanelStyle LineSpacing="22px" Font-Size="10.5pt">
+        <Paddings PaddingBottom="8px" PaddingLeft="60px" PaddingRight="60px" PaddingTop="0px" />
+    </IndexPanelStyle>
+    <ItemStyle>
+        <Paddings PaddingBottom="7px" />
+        <CurrentItemStyle Font-Bold="False" Font-Underline="False" />
+    </ItemStyle>
+    <ColumnSeparatorStyle Width="15px">
+        <Paddings Padding="9px" />
+    </ColumnSeparatorStyle>
+    <GroupContentStyle ItemSpacing="0px">
+        <Paddings PaddingBottom="7px" PaddingLeft="0px" PaddingTop="9px" />
+        <BorderBottom BorderColor="#C3C3C3" BorderStyle="Solid" BorderWidth="2px" />
+    </GroupContentStyle>
+    <BackToTopStyle>
+        <Paddings Padding="2px" />
+    </BackToTopStyle>
+    <DisabledStyle ForeColor="#BCAAB0"></DisabledStyle>
+</dxti:ASPxTitleIndex>

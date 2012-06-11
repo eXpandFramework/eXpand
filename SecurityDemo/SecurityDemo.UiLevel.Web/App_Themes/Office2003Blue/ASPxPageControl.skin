@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxtc" Namespace="DevExpress.Web.ASPxTabControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxtc:ASPxPageControl runat="server" CssPostfix="Office2003Blue" CssFilePath="~/App_Themes/Office2003Blue/{0}/styles.css"
+    SpriteCssFilePath="~/App_Themes/Office2003Blue/{0}/sprite.css">
+	<ContentStyle>
+		<Border BorderColor="#002D96" BorderStyle="Solid" BorderWidth="1px" />
+	</ContentStyle>
+	
+	<LoadingPanelStyle ImageSpacing="6px" />
+	<LoadingPanelImage Url="~/App_Themes/Office2003Blue/Web/Loading.gif"></LoadingPanelImage>    	
+</dxtc:ASPxPageControl>

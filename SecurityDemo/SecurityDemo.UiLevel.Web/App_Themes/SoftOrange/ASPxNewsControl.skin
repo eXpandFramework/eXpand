@@ -1,0 +1,11 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnc" Namespace="DevExpress.Web.ASPxNewsControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxnc:ASPxNewsControl runat="server" LoadingPanelImagePosition="Top" SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" CssPostfix="SoftOrange" >
+	<BackToTopImage>
+		<SpriteProperties CssClass="dxWeb_BackToTop_SoftOrange"></SpriteProperties>
+	</BackToTopImage>
+    <LoadingPanelImage Url="~/App_Themes/SoftOrange/Web/Loading.gif"></LoadingPanelImage>
+        
+    <PagerSettings CurrentPageNumberFormat="{0}">
+    </PagerSettings>
+</dxnc:ASPxNewsControl>

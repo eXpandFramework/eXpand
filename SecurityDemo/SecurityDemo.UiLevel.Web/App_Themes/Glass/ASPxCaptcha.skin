@@ -1,0 +1,8 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dx:ASPxCaptcha runat="server" SpriteCssFilePath="~/App_Themes/Glass/{0}/sprite.css" CssPostfix="Glass" CssFilePath="~/App_Themes/Glass/{0}/styles.css">
+    <ChallengeImage BorderWidth="1" ForegroundColor="#87B8C7" BackgroundColor="Transparent" BorderColor="#87B8C7">
+        <BackgroundImage ImageUrl="~/App_Themes/Glass/Editors/caChallengeImageBack.png"></BackgroundImage>
+    </ChallengeImage>
+    <LoadingPanelImage Url="~/App_Themes/Glass/Editors/Loading.gif"></LoadingPanelImage>
+</dx:ASPxCaptcha>

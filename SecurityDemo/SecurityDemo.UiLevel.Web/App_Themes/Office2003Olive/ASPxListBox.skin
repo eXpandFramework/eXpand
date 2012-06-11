@@ -1,0 +1,5 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxe:ASPxListBox runat="server" SpriteCssFilePath="~/App_Themes/Office2003Olive/{0}/sprite.css" CssFilePath="~/App_Themes/Office2003Olive/{0}/styles.css" CssPostfix="Office2003Olive">
+    <LoadingPanelImage Url="~/App_Themes/Office2003Olive/Web/Loading.gif"></LoadingPanelImage>    
+</dxe:ASPxListBox>

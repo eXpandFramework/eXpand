@@ -1,0 +1,22 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxnb:ASPxNavBar runat="server" CssPostfix="Youthful" CssFilePath="~/App_Themes/Youthful/{0}/styles.css" 
+    SpriteCssFilePath="~/App_Themes/Youthful/{0}/sprite.css" LoadingPanelImagePosition="Bottom">  
+    <GroupHeaderStyleCollapsed>
+        <BackgroundImage ImageUrl="~/App_Themes/Youthful/Web/nbGroupHeaderCBack.gif" Repeat="RepeatY" />
+    </GroupHeaderStyleCollapsed>
+    <LoadingPanelImage Url="~/App_Themes/Youthful/Web/nbLoading.gif" />
+    <ItemImage>
+		<SpriteProperties CssClass="dxWeb_nbItemBullet_Youthful" />
+	</ItemImage>
+    <GroupHeaderStyle>
+        <HoverStyle>
+            <BackgroundImage ImageUrl="~/App_Themes/Youthful/Web/nbGroupHeaderHBack.gif" Repeat="RepeatY" />
+        </HoverStyle>
+        <BackgroundImage ImageUrl="~/App_Themes/Youthful/Web/nbGroupHeaderBack.gif" Repeat="RepeatY" />
+    </GroupHeaderStyle>
+    <LoadingPanelStyle ImageSpacing="3px" />
+    <GroupContentStyle>
+        <BackgroundImage ImageUrl="~/App_Themes/Youthful/Web/nbGroupBack.gif" Repeat="RepeatY" />
+    </GroupContentStyle>
+</dxnb:ASPxNavBar>

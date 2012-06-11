@@ -1,0 +1,6 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/RedWine/{0}/styles.css" CssPostfix="RedWine" 
+    MaxColor="#8A0A37" MinColor="#E18297" ValueColor="#E18297" ItemBeginEndTextColor="#8A0A37">
+    <DisabledStyle ForeColor="#bcaab0"></DisabledStyle>
+</dxcc:ASPxCloudControl>

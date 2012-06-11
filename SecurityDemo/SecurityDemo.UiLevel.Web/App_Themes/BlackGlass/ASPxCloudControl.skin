@@ -1,0 +1,15 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxCloudControl" TagPrefix="dxcc" %>
+<dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/BlackGlass/{0}/styles.css" CssPostfix="BlackGlass"
+    MinColor="#B5D5EF" MaxColor="#325678" HorizontalAlign="Justify">
+    <RankProperties>
+        <dxcc:RankProperties ForeColor="#AACFEC" Font-Size="10px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#86B4D8" Font-Size="13px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#4E8CBC" Font-Size="16px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#3E6B96" Font-Size="21px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#325678" Font-Size="25px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#325678" Font-Size="27px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#325678" Font-Size="28px"></dxcc:RankProperties>
+    </RankProperties>
+    <DisabledStyle ForeColor="#bebebe"></DisabledStyle>
+</dxcc:ASPxCloudControl>

@@ -1,0 +1,8 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxhl" Namespace="DevExpress.Web.ASPxHeadline" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxhl:ASPxHeadline runat="server" MaxLength="300" CssFilePath="~/App_Themes/Aqua/{0}/styles.css" CssPostfix="Aqua" TailPosition="KeepWithLastWord" DateVerticalPosition="Header">
+    <DateStyle Spacing="5px" />
+    <LeftPanelStyle Spacing="25px" />
+    <RightPanelStyle Spacing="25px" />
+    <HeaderStyle Spacing="7px" />
+</dxhl:ASPxHeadline>

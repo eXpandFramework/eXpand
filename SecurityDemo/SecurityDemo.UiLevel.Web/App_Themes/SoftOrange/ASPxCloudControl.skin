@@ -1,0 +1,13 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" MaxColor="#92110E" CssPostfix="SoftOrange" 
+    SpacerFontSize="20px" MinColor="#E5B5AB">
+    <RankProperties>
+        <dxcc:RankProperties ForeColor="#E5B5AB" Font-Size="12px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#D48373" Font-Size="16px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#BC3F26" Font-Size="20px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#A62E17" Font-Size="26px"></dxcc:RankProperties>
+        <dxcc:RankProperties ForeColor="#92110E" Font-Size="36px"></dxcc:RankProperties>
+    </RankProperties>
+    <DisabledStyle ForeColor="#ababab"></DisabledStyle>
+</dxcc:ASPxCloudControl>

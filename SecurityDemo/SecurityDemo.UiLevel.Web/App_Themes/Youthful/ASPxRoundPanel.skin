@@ -1,0 +1,10 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+<dxrp:ASPxRoundPanel runat="server" CssPostfix="Youthful" CssFilePath="~/App_Themes/Youthful/{0}/styles.css" 
+    SpriteCssFilePath="~/App_Themes/Youthful/{0}/sprite.css">
+    <ContentPaddings Padding="6px" PaddingBottom="6px" PaddingTop="4px" />
+    <HeaderStyle>
+        <Paddings PaddingBottom="13px" PaddingTop="0" />
+    </HeaderStyle>
+</dxrp:ASPxRoundPanel>

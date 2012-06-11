@@ -1,0 +1,29 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxm:ASPxMenu runat="server"
+    SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" CssPostfix="SoftOrange"
+    BorderBetweenItemAndSubMenu="HideRootOnly"  AutoSeparators="RootOnly" GutterWidth="0px" ShowPopOutImages="True">
+    <ItemStyle PopOutImageSpacing="10px" DropDownButtonSpacing="8px" ToolbarPopOutImageSpacing="5px" ToolbarDropDownButtonSpacing="5px"></ItemStyle>
+    <SubMenuStyle GutterWidth="0px"></SubMenuStyle>
+    <LoadingPanelImage Url="~/App_Themes/SoftOrange/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuToolBar" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css"  ShowPopOutImages="True"
+    CssPostfix="SoftOrange" SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" SeparatorHeight="100%"
+    AutoSeparators="None" Width="100%" ItemAutoWidth="False">
+    <SubMenuStyle GutterWidth="0px"  ></SubMenuStyle>
+    <RootItemSubMenuOffset FirstItemX="-1" X="-1" FirstItemY="-1" Y="-1"/>
+    <ItemStyle DropDownButtonSpacing="8px"></ItemStyle>
+    <LoadingPanelImage Url="~/App_Themes/SoftOrange/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuButtons" SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" SeparatorColor="Transparent"
+    AutoSeparators="RootOnly" ItemSpacing="0px" ShowPopOutImages="True" CssPostfix="SoftOrange" CssClass="menuButtons_SoftOrange" SeparatorHeight="100%">
+    <Border BorderWidth="0px"/>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <SubMenuItemStyle Wrap="False"></SubMenuItemStyle>
+    <LoadingPanelImage Url="~/App_Themes/SoftOrange/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuLinks" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css" ShowPopOutImages="True" 
+    CssPostfix="SoftOrange" SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" SeparatorWidth="1px"  
+    EnableDefaultAppearance="False" CssClass="menuLinks_SoftOrange">
+    <LoadingPanelImage Url="~/App_Themes/SoftOrange/Web/Loading.gif"></LoadingPanelImage>
+</dxm:ASPxMenu>

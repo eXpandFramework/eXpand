@@ -1,0 +1,32 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxm:ASPxMenu runat="server" CssFilePath="~/App_Themes/Office2010Silver/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Office2010Silver/{0}/sprite.css" CssPostfix="Office2010Silver"
+	ShowPopOutImages="True" AutoSeparators="RootOnly">
+	<ItemStyle PopOutImageSpacing="10" DropDownButtonSpacing="10" />
+	<SubMenuStyle GutterWidth="13" GutterImageSpacing="9" />
+	<ItemSubMenuOffset FirstItemX="2" LastItemX="2" X="2" />
+	<LoadingPanelStyle ImageSpacing="5" />
+    <LoadingPanelImage Url="~/App_Themes/Office2010Silver/Web/Loading.gif" />
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuToolBar" CssFilePath="~/App_Themes/Office2010Silver/{0}/styles.css"  ShowPopOutImages="True"
+    CssPostfix="Office2010Silver" SpriteCssFilePath="~/App_Themes/Office2010Silver/{0}/sprite.css" SeparatorHeight="100%"
+    AutoSeparators="None" Width="100%" ItemAutoWidth="False">
+    <SubMenuStyle GutterWidth="0px" />
+    <RootItemSubMenuOffset FirstItemX="-1" X="-1" FirstItemY="-1" Y="-1"/>
+    <LoadingPanelStyle ImageSpacing="5" />
+    <LoadingPanelImage Url="~/App_Themes/Office2010Silver/Web/Loading.gif" />
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuButtons" SpriteCssFilePath="~/App_Themes/Office2010Silver/{0}/sprite.css" CssFilePath="~/App_Themes/Office2010Silver/{0}/styles.css" SeparatorColor="Transparent"
+    AutoSeparators="RootOnly" ItemSpacing="0px" ShowPopOutImages="True" CssPostfix="Office2010Silver" CssClass="menuButtons_Office2010Silver">
+    <Border BorderWidth="0px"/>
+    <RootItemSubMenuOffset X="-1" LastItemX="-1" FirstItemX="-1"></RootItemSubMenuOffset>
+    <SubMenuItemStyle Wrap="False" />
+    <LoadingPanelStyle ImageSpacing="5" />
+    <LoadingPanelImage Url="~/App_Themes/Office2010Silver/Web/Loading.gif" />
+</dxm:ASPxMenu>
+<dxm:ASPxMenu runat="server" SkinID="MenuLinks" CssFilePath="~/App_Themes/Office2010Silver/{0}/styles.css" ShowPopOutImages="True" 
+    CssPostfix="Office2010Silver" SpriteCssFilePath="~/App_Themes/Office2010Silver/{0}/sprite.css" SeparatorWidth="1px"  
+    EnableDefaultAppearance="False" CssClass="menuLinks_Office2010Silver">
+    <LoadingPanelStyle ImageSpacing="5" />
+    <LoadingPanelImage Url="~/App_Themes/Office2010Silver/Web/Loading.gif" />
+</dxm:ASPxMenu>

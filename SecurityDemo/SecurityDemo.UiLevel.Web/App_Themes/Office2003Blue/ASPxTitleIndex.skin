@@ -1,0 +1,28 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxti" Namespace="DevExpress.Web.ASPxTitleIndex" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxti:ASPxTitleIndex runat="server" ImageFolder="~/App_Themes/Office2003Blue/{0}/"
+    SpriteCssFilePath="~/App_Themes/Office2003Blue/{0}/sprite.css"
+    CssFilePath="~/App_Themes/Office2003Blue/{0}/styles.css" CssPostfix="Office2003Blue" FilterBoxSpacing="34px" GroupSpacing="35px">
+    <filterbox caption="Filter:&amp;nbsp;&amp;nbsp;" horizontalposition="Left"></filterbox>
+    <IndexPanelItemStyle Font-Names="Tahoma" Font-Size="11pt"></IndexPanelItemStyle>
+    <IndexPanelSeparatorStyle Height="1px" BackColor="#4F93E3"></IndexPanelSeparatorStyle>
+	<BackToTopImage>
+		<SpriteProperties CssClass="dxWeb_tiBackToTop_Office2003Blue" />
+	</BackToTopImage>    
+    <LoadingPanelImage Url="~/App_Themes/Office2003Blue/Web/Loading.gif"></LoadingPanelImage>
+    <backtotopstyle imagespacing="5px" />
+    <ColumnStyle>
+        <Paddings PaddingLeft="0px"></Paddings>
+    </ColumnStyle>
+    <itemstyle>
+        <Paddings PaddingLeft="8px"></Paddings>
+    </itemstyle>
+    <groupcontentstyle itemspacing="8px">
+        <Paddings PaddingTop="8px" PaddingBottom="12px"></Paddings>
+    </groupcontentstyle>
+    <Columns>
+		<dxti:TitleIndexColumn />    
+		<dxti:TitleIndexColumn />
+    </Columns>
+    <DisabledStyle ForeColor="#aaaaaa"></DisabledStyle>
+</dxti:ASPxTitleIndex>

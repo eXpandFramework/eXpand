@@ -1,0 +1,37 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxsm" Namespace="DevExpress.Web.ASPxSiteMapControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxsm:ASPxSiteMapControl runat="server" CssFilePath="~/App_Themes/Youthful/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Youthful/{0}/sprite.css" CssPostfix="Youthful">
+    <DefaultLevelProperties ImageSpacing="7px" NodeSpacing="8px">
+        <ChildNodesPaddings PaddingBottom="8px" PaddingLeft="22px" PaddingTop="8px" />
+        <CurrentNodeStyle Font-Underline="False" Font-Bold="True" ForeColor="#000000" />
+    </DefaultLevelProperties>
+    <LevelProperties>
+        <dxsm:LevelProperties NodeSpacing="0px">
+            <ChildNodesPaddings PaddingBottom="20px" PaddingLeft="0px" PaddingTop="10px" />
+            <CurrentNodeStyle ForeColor="#F4921B">
+                <BorderBottom BorderColor="#F4921B" />
+            </CurrentNodeStyle>
+        </dxsm:LevelProperties>        
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smSecondLevelBullet_Youthful" />
+			</Image>		
+            <ChildNodesPaddings PaddingBottom="0px" PaddingTop="5px" />
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_Youthful" />
+			</Image>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_Youthful" />
+			</Image>
+        </dxsm:LevelProperties>
+        <dxsm:LevelProperties>
+			<Image>
+				<SpriteProperties CssClass="dxWeb_smThirdLevelBullet_Youthful" />
+			</Image>
+        </dxsm:LevelProperties>
+    </LevelProperties>
+</dxsm:ASPxSiteMapControl>

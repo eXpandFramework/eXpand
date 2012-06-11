@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
+using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.MiddleTier;
@@ -20,9 +21,9 @@ namespace Xpand.ExpressApp.Core {
         public static string GetConnectionString(this XafApplication xafApplication) {
 
             if (xafApplication is ServerApplication && !(xafApplication is ISupportFullConnectionString))
-                throw new NotImplementedException("Use " + typeof (XpandServerApplication) + " insted of " +
+                throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " +
                                                   xafApplication.GetType());
-            var connectionString = ((ISupportFullConnectionString) xafApplication).ConnectionString;
+            var connectionString = ((ISupportFullConnectionString)xafApplication).ConnectionString;
             return connectionString;
 
         }
@@ -31,7 +32,8 @@ namespace Xpand.ExpressApp.Core {
             ((ISupportFullConnectionString)xafApplication).ConnectionString = connectionString;
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             IDataStore dataStore = ((IXafApplication)xafApplication).GetDataStore(connectionProvider);
-            args.ObjectSpaceProvider = dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore)) : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString));
+            var selectDataSecurityProvider = (ISelectDataSecurityProvider)xafApplication.Security;
+            args.ObjectSpaceProvider = dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), selectDataSecurityProvider) : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
         }
 
         static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
