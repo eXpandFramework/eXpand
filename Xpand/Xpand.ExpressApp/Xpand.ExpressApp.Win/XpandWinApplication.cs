@@ -73,6 +73,14 @@ namespace Xpand.ExpressApp.Win {
             return new ModuleTypeList(result.ToArray());
         }
 
+        public new string ConnectionString {
+            get { return base.ConnectionString; }
+            set {
+                base.ConnectionString = value;
+                ((ISupportFullConnectionString)this).ConnectionString = value;
+            }
+        }
+
         string ISupportFullConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
