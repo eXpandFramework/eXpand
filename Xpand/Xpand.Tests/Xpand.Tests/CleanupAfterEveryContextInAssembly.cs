@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
@@ -10,7 +11,7 @@ namespace Xpand.Tests {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
-            XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
+            XpoTypesInfoHelper.GetXpoTypeInfoSource().ResetDictionary();
         }
     }
 

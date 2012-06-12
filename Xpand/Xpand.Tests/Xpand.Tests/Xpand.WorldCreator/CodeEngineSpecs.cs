@@ -23,7 +23,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            _persistentMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
 
             _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
             var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
@@ -44,7 +44,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
 
         Establish context = () => {
-            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            _persistentMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
 
             _persistentMemberInfo = new PersistentCoreTypeMemberInfo(UnitOfWork) { CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) };
             var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.XPReadWritePropertyMember };
@@ -89,8 +89,8 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static IPersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
-            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            _persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var codeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
             codeTemplate.SetDefaults();
             _persistentClassInfo.CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork);
@@ -113,7 +113,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            var codeTemplate = ObjectSpace.CreateObject<CodeTemplate>();
+            var codeTemplate = XPObjectSpace.CreateObject<CodeTemplate>();
             codeTemplate.TemplateType = TemplateType.Class;
             codeTemplate.SetDefaults();
             _persistentClassInfo = new PersistentClassInfo(UnitOfWork) {
@@ -133,7 +133,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static string _generateCode;
 
         Establish context = () => {
-            IClassInfoHandler classInfoHandler = PersistentAssemblyBuilder.BuildAssembly(ObjectSpace, "TestAssembly").CreateClasses(new[] { "ParentClass", "ChildClass" });
+            IClassInfoHandler classInfoHandler = PersistentAssemblyBuilder.BuildAssembly(XPObjectSpace, "TestAssembly").CreateClasses(new[] { "ParentClass", "ChildClass" });
             classInfoHandler.SetInheritance(info => {
                 if (info.Name == "ChildClass") {
                     _childPersistentClassInfo = (PersistentClassInfo)info;
@@ -157,7 +157,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             var classCodeTemplate = new CodeTemplate(UnitOfWork) { TemplateType = TemplateType.Class };
             classCodeTemplate.SetDefaults();
             _persistentClassInfo = new PersistentClassInfo(UnitOfWork) { Name = "TestClass", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(UnitOfWork) { TemplateInfo = classCodeTemplate }, PersistentAssemblyInfo = new PersistentAssemblyInfo(UnitOfWork) };
@@ -214,7 +214,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             createClass();
             createClass();
         };
@@ -241,7 +241,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.CodeDomProvider = CodeDomProvider.VB;
             createClass();
             createClass();

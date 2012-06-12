@@ -21,7 +21,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static IPersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "a0";
             Isolate.WhenCalled(() => CodeEngine.GenerateCode(_persistentAssemblyInfo)).WillReturn("1111");
         };
@@ -66,7 +66,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static Type _compileModule;
 
         Establish context = () => {
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var persistentAssociationAttribute = _persistentAssemblyInfo.Session;
             var classCodeTemplate = new CodeTemplate(persistentAssociationAttribute) { TemplateType = TemplateType.Class };
             classCodeTemplate.SetDefaults();
@@ -88,7 +88,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         It should_have_those_members_as_proeprties =
             () => {
                 PropertyInfo[] propertyInfos =
-                    _compileModule.Assembly.GetTypes().Where(type => (type.FullName+"").IndexOf("ClassWithMembers") > -1).Single().
+                    _compileModule.Assembly.GetTypes().Where(type => (type.FullName + "").IndexOf("ClassWithMembers") > -1).Single().
                         GetProperties();
                 propertyInfos.Where(info => info.Name == "Property").FirstOrDefault().ShouldNotBeNull();
                 propertyInfos.Where(info => info.Name == "RefProperty").FirstOrDefault().ShouldNotBeNull();
@@ -103,7 +103,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static Type _compileModule;
 
         Establish context = () => {
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "a3";
             var unitOfWork = _persistentAssemblyInfo.Session;
             var persistentClassInfo = new PersistentClassInfo(unitOfWork) { Name = "ClassWithBaseType", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(unitOfWork) };
@@ -135,7 +135,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         static Type _compileModule;
         Establish context = () => {
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var unitOfWork = _persistentAssemblyInfo.Session;
             _persistentAssemblyInfo = new PersistentAssemblyInfo(unitOfWork) { Name = "a4" };
             var persistentClassInfo = new PersistentClassInfo(unitOfWork) { Name = "TestClass", BaseType = typeof(User), CodeTemplateInfo = new CodeTemplateInfo(unitOfWork) };
@@ -167,7 +167,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static PersistentAssemblyInfo _info;
 
         Establish context = () => {
-            _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _info = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             var strongKeyFile = new StrongKeyFile(UnitOfWork);
             strongKeyFile.LoadFromStream("test", new FileStream(@"../Xpand.Key/Xpand.snk", FileMode.Open));
             _info.StrongKeyFile = strongKeyFile;
@@ -191,7 +191,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static PersistentAssemblyInfo _info;
 
         Establish context = () => {
-            _info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _info = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _info.Name = "a6";
 
         };
@@ -215,7 +215,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static IPersistentAssemblyInfo _persistnetAssembly;
 
         Establish context = () => {
-            var info = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            var info = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             info.Name = "SecondAssembly";
             info.CompileOrder = 1;
             var persistentAssemblyInfo = new PersistentAssemblyInfo(info.Session) { Name = "FirstAssembly" };
@@ -243,7 +243,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         Establish context = () => {
 
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "TestAssembly.Win";
         };
 
@@ -262,10 +262,10 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "T";
             _type = new CompileEngine().CompileModule(_persistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "T";
         };
 

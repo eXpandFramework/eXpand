@@ -127,6 +127,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Office.v12.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v12.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

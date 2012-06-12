@@ -9,7 +9,7 @@ using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_new_Job_detail_saved : With_Job_Scheduler_XpandJobDetail_Application<When_new_Job_detail_saved> {
         static IJobDetail _jobDetail;
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_add_a_new_job_detail_to_the_scheduler =
             () => {
@@ -24,20 +24,20 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     }
     public class When_new_Job_detail_with_group_assigned_saved : With_Job_Scheduler_XpandJobDetail_Application<When_new_Job_detail_with_group_assigned_saved> {
         Establish context = () => {
-            var jobSchedulerGroup = ObjectSpace.FindObject<JobSchedulerGroup>(null);
+            var jobSchedulerGroup = XPObjectSpace.FindObject<JobSchedulerGroup>(null);
             Object.Group = jobSchedulerGroup;
         };
 
         protected override void ViewCreated(DetailView detailView) {
             base.ViewCreated(detailView);
-            var objectSpace = Application.CreateObjectSpace();
-            var jobSchedulerGroup = objectSpace.CreateObject<JobSchedulerGroup>();
+            var XPObjectSpace = Application.CreateObjectSpace();
+            var jobSchedulerGroup = XPObjectSpace.CreateObject<JobSchedulerGroup>();
             jobSchedulerGroup.Name = "gr";
-            var xpandSimpleTrigger = objectSpace.CreateObject<XpandSimpleTrigger>();
+            var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.JobSchedulerGroups.Add(jobSchedulerGroup);
-            objectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
         }
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_create_triggers_for_that_group = () => Scheduler.GetTriggersOfJob(Object).Count().ShouldEqual(1);
 
@@ -47,13 +47,13 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_Job_detail_Deleted : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_Deleted> {
 
         Establish context = () => {
-            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.JobDetails.Add(Object);
-            ObjectSpace.CommitChanges();
-            ObjectSpace.Delete(Object);
+            XPObjectSpace.CommitChanges();
+            XPObjectSpace.Delete(Object);
         };
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_remove_it_from_the_scheduler =
             () => Scheduler.GetJobDetail(Object).ShouldBeNull();
@@ -65,14 +65,14 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_Job_detail_updated : With_Job_Scheduler_XpandJobDetail_Application<When_Job_detail_updated> {
 
         Establish context = () => {
-            ObjectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
             Object.Description = "new_description";
         };
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
         protected override void ViewCreated(DetailView detailView) {
             base.ViewCreated(detailView);
-            var xpandJobTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            var xpandJobTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandJobTrigger.Name = "trigger";
             Object.JobTriggers.Add(xpandJobTrigger);
         }
@@ -87,13 +87,13 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
     public class When_Job_Detail_is_linked_with_triggers : With_Job_Scheduler_XpandJobDetail_Application<When_Job_Detail_is_linked_with_triggers> {
         Establish context = () => {
-            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "trigger";
             Object.JobTriggers.Add(xpandSimpleTrigger);
         };
 
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_add_one_trigger_to_the_Schedule_job = () => Scheduler.GetTriggersOfJob(Object).Count.ShouldEqual(1);
 
@@ -102,15 +102,15 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_Job_Detail_is_unlinked_with_triggers : With_Job_Scheduler_XpandJobDetail_Application<When_Job_Detail_is_unlinked_with_triggers> {
 
         Establish context = () => {
-            var xpandSimpleTrigger = ObjectSpace.CreateObject<XpandSimpleTrigger>();
+            var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
             xpandSimpleTrigger.Name = "trigger";
             Object.JobTriggers.Add(xpandSimpleTrigger);
-            ObjectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
             xpandSimpleTrigger.Delete();
         };
 
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_remove_the_trigger_from_the_schedule_job = () => Scheduler.GetTriggersOfJob(Object).Count.ShouldEqual(0);
 

@@ -1445,7 +1445,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             return (object[])selectedObjects.ToArray(typeof(object));
         }
         protected override bool HasProtectedContent(string propertyName) {
-            return !(ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(ObjectType, propertyName, null, collectionSource,collectionSource.ObjectSpace));
+            return !(ObjectTypeInfo.FindMember(propertyName) == null || DataManipulationRight.CanRead(ObjectType, propertyName, null, collectionSource, collectionSource.ObjectSpace));
         }
         public IPrintable GetPrintable() {
             return grid;
@@ -1685,6 +1685,12 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             remove { lookupEditHide -= value; }
         }
         #endregion
+    }
+
+    [Browsable(false)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class CustomCreateFilterColumnCollectionEventArgs : EventArgs {
+        public FilterColumnCollection FilterColumnCollection { get; set; }
     }
 
 }

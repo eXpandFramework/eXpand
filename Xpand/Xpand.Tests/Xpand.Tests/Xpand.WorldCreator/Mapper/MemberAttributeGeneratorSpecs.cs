@@ -26,7 +26,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             };
 
             Because of = () => {
-                //                _persistentAttributeInfos = new AttributeGenerator(ObjectSpace).Create();
+                //                _persistentAttributeInfos = new AttributeGenerator(XPObjectSpace).Create();
             };
 
             //            It should_create_a_rule_required_attribute =
@@ -41,9 +41,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
             Establish context = () => {
                 _column = new DBColumn("col", false, "text", 100, DBColumnType.String);
-                _persistentMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
-                var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-                persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+                _persistentMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+                var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+                persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
                 persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
                 _persistentMemberInfo.Owner = persistentClassInfo;
                 _persistentMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
@@ -64,9 +64,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
             Establish context = () => {
                 _column = new DBColumn("col", false, "text", 100, DBColumnType.String);
-                _persistentCoreTypeMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
-                var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-                persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+                _persistentCoreTypeMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+                var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+                persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
                 persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
                 _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
                 _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
@@ -90,9 +90,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
         Establish context = () => {
             _column = new DBColumn("col", false, "text", 100, DBColumnType.String) { IsIdentity = true };
-            _persistentCoreTypeMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentCoreTypeMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
             _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
@@ -114,16 +114,16 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
         Establish context = () => {
             _column = new DBColumn("col", true, "int", 0, DBColumnType.Int32);
-            var persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            var persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentAssemblyInfo.Name = "persistentAssemblyInfo";
-            _persistentReferenceMemberInfo = ObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
+            _persistentReferenceMemberInfo = XPObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
             _persistentReferenceMemberInfo.Name = "ReferenceMemberInfo";
-            var referenceClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var referenceClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             referenceClassInfo.Name = "referenceClassInfo";
             referenceClassInfo.PersistentAssemblyInfo = persistentAssemblyInfo;
             referenceClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.ReferenceClassInfo = referenceClassInfo;
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             persistentClassInfo.PersistentAssemblyInfo = persistentAssemblyInfo;
             persistentClassInfo.Name = "persistentClassInfo";
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
@@ -152,12 +152,12 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static PersistentReferenceMemberInfo _persistentReferenceMemberInfo;
 
         Establish context = () => {
-            _persistentReferenceMemberInfo = ObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentReferenceMemberInfo = XPObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.Owner = persistentClassInfo;
-            var referenceClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var referenceClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             referenceClassInfo.PersistentAssemblyInfo = persistentClassInfo.PersistentAssemblyInfo;
             referenceClassInfo.SetDefaultTemplate(TemplateType.Struct);
             _persistentReferenceMemberInfo.ReferenceClassInfo = referenceClassInfo;
@@ -197,14 +197,14 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             _dbTable.ForeignKeys.Add(new DBForeignKey(new[] { _column, dbColumn }, "", new StringCollection()));
 
 
-            _persistentReferenceMemberInfo = ObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentReferenceMemberInfo = XPObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.Owner = persistentClassInfo;
             _persistentReferenceMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType = TemplateType.Struct;
             _persistentReferenceMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
-            var referenceClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var referenceClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             referenceClassInfo.PersistentAssemblyInfo = persistentClassInfo.PersistentAssemblyInfo;
             referenceClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentReferenceMemberInfo.ReferenceClassInfo = referenceClassInfo;
@@ -226,9 +226,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static PersistentReferenceMemberInfo _persistentMemberInfo;
 
         Establish context = () => {
-            _persistentMemberInfo = ObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentMemberInfo = XPObjectSpace.CreateObject<PersistentReferenceMemberInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentMemberInfo.Owner = persistentClassInfo;
             _persistentMemberInfo.ReferenceClassInfo = persistentClassInfo;
@@ -252,9 +252,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static PersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
 
         Establish context = () => {
-            _persistentCoreTypeMemberInfo = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
-            persistentClassInfo.PersistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentCoreTypeMemberInfo = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            persistentClassInfo.PersistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             _persistentCoreTypeMemberInfo.Owner = persistentClassInfo;
             _persistentCoreTypeMemberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);

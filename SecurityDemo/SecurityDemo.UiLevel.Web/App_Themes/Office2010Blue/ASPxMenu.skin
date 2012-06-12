@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxm:ASPxMenu runat="server" CssFilePath="~/App_Themes/Office2010Blue/{0}/styles.css" SpriteCssFilePath="~/App_Themes/Office2010Blue/{0}/sprite.css" CssPostfix="Office2010Blue"
 	ShowPopOutImages="True" AutoSeparators="RootOnly">
 	<ItemStyle PopOutImageSpacing="10" DropDownButtonSpacing="10" />

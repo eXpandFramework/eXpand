@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -42,7 +43,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         protected static PersistentClassInfo _persistentClassInfo;
 
         Establish context = () => {
-            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _persistentClassInfo.PersistentAssemblyInfo = new PersistentAssemblyInfo(_persistentClassInfo.Session);
             _persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
             var interfaceInfos = _persistentClassInfo.Interfaces;
@@ -101,11 +102,11 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     }
 
     public abstract class With_In_Memory_DataStore : With_WC_types {
-        protected static ObjectSpace ObjectSpace;
+        protected static XPObjectSpace XPObjectSpace;
         protected static UnitOfWork UnitOfWork;
         Establish context = () => {
-            ObjectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
-            UnitOfWork = (UnitOfWork)ObjectSpace.Session;
+            XPObjectSpace = (XPObjectSpace)ObjectSpaceInMemory.CreateNew();
+            UnitOfWork = (UnitOfWork)XPObjectSpace.Session;
         };
 
     }
@@ -115,8 +116,9 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
-            XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
-            XpandModuleBase.Dictiorary=XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+            var xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
+            xpoTypeInfoSource.Reset();
+            XpandModuleBase.Dictiorary = xpoTypeInfoSource.XPDictionary;
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }
@@ -130,6 +132,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             var types = type1.Assembly.GetTypes().Where(type => type.Namespace.StartsWith(type1.Namespace));
             foreach (var type in types) {
                 WCTypesInfo.Instance.Register(type);
+                XafTypesInfo.Instance.RegisterEntity(type);
             }
         };
     }
@@ -153,7 +156,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
     //    public class IsolationFactory<TObject> : IXafTypesInfo, IIsolationView, IIsolationAppNodeWrapper, IIsolationControllers where TObject : class
     //    {
-    //        ObjectSpace _objectSpace;
+    //        XPObjectSpace _XPObjectSpace;
     //        TObject _currentObject;
     //        XafApplication _xafApplication;
     //        Frame _frame;
@@ -161,15 +164,15 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //        View _view;
     //
     //
-    //        public IXafTypesInfo InitDataStore(Func<ObjectSpaceProvider> func)
+    //        public IXafTypesInfo InitDataStore(Func<XPObjectSpaceProvider> func)
     //        {
     //            Isolate.CleanUp();
     //
     //            ReflectionHelper.Reset();
     //            XafTypesInfo.Reset(true);
     //
-    //            var objectSpaceProvider = func.Invoke()?? new ObjectSpaceProvider(new MemoryDataStoreProvider());
-    //            _objectSpace =objectSpaceProvider.CreateObjectSpace();
+    //            var XPObjectSpaceProvider = func.Invoke()?? new XPObjectSpaceProvider(new MemoryDataStoreProvider());
+    //            _XPObjectSpace =XPObjectSpaceProvider.CreateObjectSpace();
     //            return this;
     //        }
     //
@@ -190,8 +193,8 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //
     //        IIsolationControllers IIsolationView.CreateDetailView()
     //        {
-    //            _currentObject = (TObject)_objectSpace.CreateObject(typeof(TObject));
-    //            var detailView = new DetailView(_objectSpace, CurrentObject, _xafApplication, true);
+    //            _currentObject = (TObject)_XPObjectSpace.CreateObject(typeof(TObject));
+    //            var detailView = new DetailView(_XPObjectSpace, CurrentObject, _xafApplication, true);
     //            Isolate.WhenCalled(detailView.SynchronizeWithInfo).IgnoreCall();
     //            detailView.SetInfo(_applicationNodeWrapper.Views.GetDetailViews(typeof(TObject))[0].Node);
     //
@@ -212,7 +215,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //            var listEditor = Isolate.Fake.Instance<ListEditor>();
     //            Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
     //            Isolate.WhenCalled(() => listEditor.Model).WillReturn(listViewInfoNodeWrapper);
-    //            _view = new ListView(new CollectionSource(_objectSpace, typeof(TObject)), listEditor, true, _xafApplication);
+    //            _view = new ListView(new CollectionSource(_XPObjectSpace, typeof(TObject)), listEditor, true, _xafApplication);
     //            Isolate.WhenCalled(() => _view.SynchronizeWithInfo()).IgnoreCall();
     //            _view.SetInfo(listViewInfoNodeWrapper.Node);
     //            viewCreated.Invoke((ListView) _view);
@@ -256,10 +259,10 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //        Establish context = () => {
     //            
     //            var isolationFactory = new IsolationFactory<InterfaceInfo>();
-    //            RunControllers.ForListView(Nesting.Nested).WithArtifacts().WithObjectSpaceProvider()
-    //            RunControllers.ForListView(Nesting.Nested).WithObjectSpaceProvider()
-    //            RunControllers.ForListView(Nesting.Nested).WithArtifacts().WithObjectSpaceProvider()
-    //            RunControllers.ForListView(Nesting.Nested).WithObjectSpaceProvider()
+    //            RunControllers.ForListView(Nesting.Nested).WithArtifacts().WithXPObjectSpaceProvider()
+    //            RunControllers.ForListView(Nesting.Nested).WithXPObjectSpaceProvider()
+    //            RunControllers.ForListView(Nesting.Nested).WithArtifacts().WithXPObjectSpaceProvider()
+    //            RunControllers.ForListView(Nesting.Nested).WithXPObjectSpaceProvider()
     //            isolationFactory.CreateListView(Nesting.Any, null);
     //            isolationFactory.InitControllers(null);            
     //            isolationFactory.InitDataStore(null).InitXafTypesInfo(null).WithApplicationNodeWrapper(null).CreateListView(Nesting.Any,
@@ -292,8 +295,8 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //
     //            View view;
     //            if (typeof(TView) == typeof(DetailView)) {
-    //                CurrentObject = (TObject) ObjectSpace.CreateObject(objectType);
-    //                view = new DetailView(ObjectSpace, CurrentObject, xafApplication, true);
+    //                CurrentObject = (TObject) XPObjectSpace.CreateObject(objectType);
+    //                view = new DetailView(XPObjectSpace, CurrentObject, xafApplication, true);
     //                Isolate.WhenCalled(() => view.SynchronizeWithInfo()).IgnoreCall();
     //                view.SetInfo(applicationNodeWrapper.Views.GetDetailViews(objectType)[0].Node);
     //            }
@@ -302,7 +305,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //                var listEditor = Isolate.Fake.Instance<ListEditor>();
     //                Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
     //                Isolate.WhenCalled(() => listEditor.Model).WillReturn(listViewInfoNodeWrapper);
-    //                view = new ListView(new CollectionSource(ObjectSpace, objectType),listEditor,  true,xafApplication);
+    //                view = new ListView(new CollectionSource(XPObjectSpace, objectType),listEditor,  true,xafApplication);
     //                Isolate.WhenCalled(() => view.SynchronizeWithInfo()).IgnoreCall();
     //                view.SetInfo(listViewInfoNodeWrapper.Node);
     //            }
@@ -328,9 +331,9 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //            XafTypesInfo.Reset(true);
     //            var dataStore = new InMemoryDataStore( AutoCreateOption.DatabaseAndSchema);
     //
-    //            XpoDefault.DataLayer = new SimpleDataLayer(XafTypesInfo.XpoTypeInfoSource.XPDictionary, dataStore);
+    //            XpoDefault.DataLayer = new SimpleDataLayer(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, dataStore);
     //            UnitOfWork = new UnitOfWork(Session.DefaultSession.DataLayer);
-    //            ObjectSpace = new ObjectSpace(UnitOfWork, XafTypesInfo.Instance);
+    //            XPObjectSpace = new XPObjectSpace(UnitOfWork, XafTypesInfo.Instance);
     //        };
     //    }
     public abstract class With_DynamicReference_Property {

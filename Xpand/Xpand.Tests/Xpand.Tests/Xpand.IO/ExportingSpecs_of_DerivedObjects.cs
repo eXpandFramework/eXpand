@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Machine.Specifications;
 using Xpand.ExpressApp.IO.Core;
@@ -20,26 +21,26 @@ namespace Xpand.Tests.Xpand.IO {
         static XElement _root;
         static SerializationConfiguration _serializationConfiguration;
         static object _derivedCustomer;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
-            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            _XPObjectSpace = (XPObjectSpace)new XPObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "DerivedCustomer" });
             classHandler.CreateSimpleMembers<string>(classInfo => classInfo.Name == "DerivedCustomer" ? new[] { "DerivedName" } : null);
             classHandler.SetInheritance(info => info.Name == "DerivedCustomer" ? persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0] : null);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
 
             Type _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
             Type customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = customerType,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _derivedCustomer = _objectSpace.CreateObject(_derivedCustomerType);
+            _derivedCustomer = _XPObjectSpace.CreateObject(_derivedCustomerType);
         };
 
 
@@ -60,37 +61,37 @@ namespace Xpand.Tests.Xpand.IO {
         static XElement _root;
         static XPBaseObject _order;
         static Type _derivedCustomerType;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
+            _XPObjectSpace = oneToMany.XPObjectSpace;
             var existentConfiguration =
-                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+                (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
 
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedCustomer" });
             classHandler.SetInheritance(info => oneToMany.T1Type);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
-            _order = (XPBaseObject)_objectSpace.CreateObject(oneToMany.T2Type);
-            _order.SetMemberValue("Customer", _objectSpace.CreateObject(_derivedCustomerType));
+            _order = (XPBaseObject)_XPObjectSpace.CreateObject(oneToMany.T2Type);
+            _order.SetMemberValue("Customer", _XPObjectSpace.CreateObject(_derivedCustomerType));
 
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T1Type,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
 
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
         };
 
@@ -107,33 +108,33 @@ namespace Xpand.Tests.Xpand.IO {
         static Type _derivedOrderType;
         static XPBaseObject _derivedOrder;
         static SerializationConfiguration _serializationConfiguration;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
-            var existentConfiguration = (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+            _XPObjectSpace = oneToMany.XPObjectSpace;
+            var existentConfiguration = (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T1Type;
 
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
             classHandler.SetInheritance(info => oneToMany.T2Type);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _derivedOrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedOrder").Single();
-            _derivedOrder = (XPBaseObject)_objectSpace.CreateObject(_derivedOrderType);
-            _customer = (XPBaseObject)_objectSpace.CreateObject(oneToMany.T1Type);
+            _derivedOrder = (XPBaseObject)_XPObjectSpace.CreateObject(_derivedOrderType);
+            _customer = (XPBaseObject)_XPObjectSpace.CreateObject(oneToMany.T1Type);
             _derivedOrder.SetMemberValue("Customer", _customer);
 
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T1Type,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
         };
 

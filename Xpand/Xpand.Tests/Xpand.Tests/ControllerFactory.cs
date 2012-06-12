@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using TypeMock;
 using TypeMock.ArrangeActAssert;
@@ -18,14 +19,14 @@ namespace Xpand.Tests {
             _controller.Active[STR_ControllerFactory] = false;
 
             var unitOfWork = new UnitOfWork(Session.DefaultSession.DataLayer);
-            var objectSpace = new ObjectSpace(unitOfWork, XafTypesInfo.Instance);
+            var XPObjectSpace = new XPObjectSpace(unitOfWork, XafTypesInfo.Instance);
 
             var xafApplication = Isolate.Fake.Instance<XafApplication>();
             Isolate.WhenCalled(() => _controller.Application).WillReturn(xafApplication);
-            Isolate.WhenCalled(() => xafApplication.CreateObjectSpace()).WillReturn(objectSpace);
+            Isolate.WhenCalled(() => xafApplication.CreateObjectSpace()).WillReturn(XPObjectSpace);
 
-            var currentObject = (TObject)objectSpace.CreateObject(typeof(TObject));
-            View view = viewType == ViewType.DetailView ? (View)createDetailView(objectSpace, currentObject) : createListView(objectSpace);
+            var currentObject = (TObject)XPObjectSpace.CreateObject(typeof(TObject));
+            View view = viewType == ViewType.DetailView ? (View)createDetailView(XPObjectSpace, currentObject) : createListView(XPObjectSpace);
             view.CurrentObject = currentObject;
             _controller.SetView(view);
 
@@ -38,16 +39,16 @@ namespace Xpand.Tests {
         public void Activate() {
             _controller.Active[STR_ControllerFactory] = true;
         }
-        ListView createListView(ObjectSpace objectSpace) {
-            var source = new CollectionSource(objectSpace, typeof(TObject));
+        ListView createListView(XPObjectSpace XPObjectSpace) {
+            var source = new CollectionSource(XPObjectSpace, typeof(TObject));
             var listEditor = Isolate.Fake.Instance<ListEditor>();
             Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
             return new ListView(source, listEditor);
         }
 
-        DetailView createDetailView(ObjectSpace objectSpace, object currentObject) {
+        DetailView createDetailView(XPObjectSpace XPObjectSpace, object currentObject) {
 
-            return new DetailView(objectSpace, currentObject, _controller.Application, true);
+            return new DetailView(XPObjectSpace, currentObject, _controller.Application, true);
         }
 
         public TController CreateAndActivate() {
@@ -65,13 +66,13 @@ namespace Xpand.Tests {
         public TObject CurrentObject {
             get { return (TObject)_controller.View.CurrentObject; }
         }
-        public ObjectSpace ObjectSpace {
-            get { return (ObjectSpace)_controller.View.ObjectSpace; }
+        public XPObjectSpace XPObjectSpace {
+            get { return (XPObjectSpace)_controller.View.ObjectSpace; }
         }
 
 
         public UnitOfWork UnitOfWork {
-            get { return (UnitOfWork)ObjectSpace.Session; }
+            get { return (UnitOfWork)XPObjectSpace.Session; }
         }
 
     }
@@ -122,11 +123,11 @@ namespace Xpand.Tests {
         private T createController<T>(ViewType viewType, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new() {
             if (currentObject.Session.IsNewObject(currentObject))
                 currentObject.Session.Save(currentObject);
-            var objectSpace = new ObjectSpace(new UnitOfWork(currentObject.Session.DataLayer), XafTypesInfo.Instance);
-            var persistentBase = objectSpace.GetObject(currentObject);
+            var XPObjectSpace = new XPObjectSpace(new UnitOfWork(currentObject.Session.DataLayer), XafTypesInfo.Instance);
+            var persistentBase = XPObjectSpace.GetObject(currentObject);
             T controller = viewType == ViewType.ListView
-                               ? createListViewController<T>(persistentBase, activate, objectSpace, handleInfo)
-                               : createDetailViewController<T>(objectSpace, persistentBase, activate, handleInfo);
+                               ? createListViewController<T>(persistentBase, activate, XPObjectSpace, handleInfo)
+                               : createDetailViewController<T>(XPObjectSpace, persistentBase, activate, handleInfo);
             var frame = new Frame(controller.Application, TemplateContext.View);
             frame.SetView(controller.View);
             Isolate.WhenCalled(() => controller.Frame).WillReturn(frame);
@@ -144,17 +145,17 @@ namespace Xpand.Tests {
             return createController<T>(viewType, currentObject, true, null);
         }
 
-        private T createDetailViewController<T>(ObjectSpace objectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new() {
+        private T createDetailViewController<T>(XPObjectSpace XPObjectSpace, PersistentBase currentObject, bool activate, HandleInfo handleInfo) where T : ViewController, new() {
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType().BaseType);
             XafTypesInfo.Instance.RegisterEntity(currentObject.GetType());
-            objectSpace.Session.UpdateSchema(currentObject.GetType().BaseType);
-            objectSpace.Session.UpdateSchema(currentObject.GetType());
-            objectSpace.Session.DataLayer.UpdateSchema(true,
-                                                       objectSpace.Session.GetClassInfo(currentObject.GetType().BaseType));
-            objectSpace.Session.DataLayer.UpdateSchema(true, objectSpace.Session.GetClassInfo(currentObject.GetType()));
+            XPObjectSpace.Session.UpdateSchema(currentObject.GetType().BaseType);
+            XPObjectSpace.Session.UpdateSchema(currentObject.GetType());
+            XPObjectSpace.Session.DataLayer.UpdateSchema(true,
+                                                       XPObjectSpace.Session.GetClassInfo(currentObject.GetType().BaseType));
+            XPObjectSpace.Session.DataLayer.UpdateSchema(true, XPObjectSpace.Session.GetClassInfo(currentObject.GetType()));
             var application = Isolate.Fake.Instance<XafApplication>();
-            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
-            var detailView = new DetailView(objectSpace, currentObject, application, true);
+            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(XPObjectSpace);
+            var detailView = new DetailView(XPObjectSpace, currentObject, application, true);
             var conntroller = new T();
             Isolate.WhenCalled(() => conntroller.Application).WillReturn(application);
             conntroller.Active[""] = false;
@@ -165,28 +166,28 @@ namespace Xpand.Tests {
         }
 
 
-        private T createListViewController<T>(PersistentBase currentObject, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController, new() {
-            var controller = createController<T>(currentObject.GetType(), activate, objectSpace, handleInfo);
+        private T createListViewController<T>(PersistentBase currentObject, bool activate, XPObjectSpace XPObjectSpace, HandleInfo handleInfo) where T : ViewController, new() {
+            var controller = createController<T>(currentObject.GetType(), activate, XPObjectSpace, handleInfo);
             XafApplication application = controller.Application;
-            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(objectSpace);
+            Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(XPObjectSpace);
             return controller;
         }
 
-        private T createController<T>(Type objectType, bool activate, ObjectSpace objectSpace, HandleInfo handleInfo) where T : ViewController {
+        private T createController<T>(Type objectType, bool activate, XPObjectSpace XPObjectSpace, HandleInfo handleInfo) where T : ViewController {
             XafTypesInfo.Instance.RegisterEntity(objectType);
-            var source = new CollectionSource(objectSpace, objectType);
+            var source = new CollectionSource(XPObjectSpace, objectType);
             var listEditor = Isolate.Fake.Instance<ListEditor>();
             Isolate.WhenCalled(() => listEditor.RequiredProperties).WillReturn(new string[0]);
             var listView = new ListView(source, listEditor);
             Isolate.WhenCalled(() => listView.ObjectTypeInfo).WillReturn(XafTypesInfo.CastTypeToTypeInfo(objectType));
-            Isolate.WhenCalled(() => listView.ObjectSpace).WillReturn(objectSpace);
+            Isolate.WhenCalled(() => listView.ObjectSpace).WillReturn(XPObjectSpace);
             var controller = Isolate.Fake.Instance<T>(Members.CallOriginal, ConstructorWillBe.Called);
             Isolate.WhenCalled(() => controller.Application).WillReturn(Isolate.Fake.Instance<XafApplication>());
 
             controller.Active[""] = false;
             controller.SetView(listView);
             View view = controller.View;
-            Isolate.WhenCalled(() => view.ObjectSpace).WillReturn(objectSpace);
+            Isolate.WhenCalled(() => view.ObjectSpace).WillReturn(XPObjectSpace);
             if (activate)
                 Activate(controller, handleInfo);
 
@@ -194,7 +195,7 @@ namespace Xpand.Tests {
         }
 
         public T CreateController<T>(Type objectType) where T : ViewController {
-            return createController<T>(objectType, false, new ObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance), null);
+            return createController<T>(objectType, false, new XPObjectSpace(new UnitOfWork(XpoDefault.DataLayer), XafTypesInfo.Instance), null);
         }
 
         public T CreateAndActivateController<T>(Type objectType) where T : ViewController, new() {

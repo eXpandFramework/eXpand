@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -16,7 +17,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     [Isolated]
     public class When_Creating_ExistentTypes_CoreMembers_that_exist_already : With_In_Memory_DataStore {
         Establish context = () => {
-            var memberInfo = ObjectSpace.CreateObject<ExtendedCoreTypeMemberInfo>();
+            var memberInfo = XPObjectSpace.CreateObject<ExtendedCoreTypeMemberInfo>();
             memberInfo.DataType = DBColumnType.String;
             memberInfo.Name = "UserName";
             memberInfo.Owner = typeof(User);
@@ -27,7 +28,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork);
 
 
-        It should_not_throw_any_exceptions = () => XafTypesInfo.XpoTypeInfoSource.XPDictionary.GetClassInfo(typeof(User)).FindMember("UserName");
+        It should_not_throw_any_exceptions = () => XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(typeof(User)).FindMember("UserName");
     }
 
     [Subject(typeof(ExistentTypesMemberCreator))]
@@ -38,7 +39,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
 
         Establish context = () => {
-            var typeMemberInfo = ObjectSpace.CreateObject<ExtendedCoreTypeMemberInfo>();
+            var typeMemberInfo = XPObjectSpace.CreateObject<ExtendedCoreTypeMemberInfo>();
             typeMemberInfo.DataType = DBColumnType.Boolean;
             typeMemberInfo.Name = "Test";
             typeMemberInfo.Owner = typeof(User);
@@ -64,7 +65,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static XPMemberInfo memberInfo;
 
         Establish context = () => {
-            var referenceMemberInfo = ObjectSpace.CreateObject<ExtendedReferenceMemberInfo>();
+            var referenceMemberInfo = XPObjectSpace.CreateObject<ExtendedReferenceMemberInfo>();
             referenceMemberInfo.Name = "Test";
             referenceMemberInfo.Owner = typeof(User);
             referenceMemberInfo.ReferenceType = typeof(Role);
@@ -91,7 +92,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
         static XPMemberInfo memberInfo;
 
         Establish context = () => {
-            var collectionMemberInfo = ObjectSpace.CreateObject<ExtendedCollectionMemberInfo>();
+            var collectionMemberInfo = XPObjectSpace.CreateObject<ExtendedCollectionMemberInfo>();
             collectionMemberInfo.Name = "Test";
             collectionMemberInfo.Owner = typeof(User);
             collectionMemberInfo.TypeAttributes.Add(new PersistentSizeAttribute(collectionMemberInfo.Session));

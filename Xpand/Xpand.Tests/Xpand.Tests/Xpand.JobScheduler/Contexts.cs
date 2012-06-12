@@ -77,10 +77,10 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public abstract class With_Job_Scheduler_XpandJobDetail_Application<T> : With_Job_Scheduler_Application<T, XpandJobDetail> where T : With_Job_Scheduler_XpandJobDetail_Application<T> {
         protected override void ViewCreated(DetailView detailView) {
             base.ViewCreated(detailView);
-            ObjectSpace = detailView.ObjectSpace;
-            Object.Job = ObjectSpace.CreateObject<XpandJob>();
+            XPObjectSpace = detailView.ObjectSpace;
+            Object.Job = XPObjectSpace.CreateObject<XpandJob>();
             Object.Job.JobType = typeof(DummyJob);
-            Object.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
+            Object.JobDetailDataMap = XPObjectSpace.CreateObject<DummyDetailDataMap>();
             Object.Name = "name";
         }
 

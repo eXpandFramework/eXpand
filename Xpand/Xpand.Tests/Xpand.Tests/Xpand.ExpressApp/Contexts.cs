@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -28,7 +29,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     }
 
     public class TestApplication : XpandWinApplication {
-        readonly ObjectSpaceProvider _objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider(DataSet));
+        readonly XPObjectSpaceProvider _XPObjectSpaceProvider = new XPObjectSpaceProvider(new MemoryDataStoreProvider(DataSet));
         static DataSet _dataSet;
 
         static DataSet DataSet {
@@ -43,7 +44,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         }
 
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = _objectSpaceProvider;
+            args.ObjectSpaceProvider = _XPObjectSpaceProvider;
         }
 
         public TestPessimisticLockingInfo TestSetup(PessimisticLockObject pessimisticLockObject) {
@@ -52,26 +53,26 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         }
 
         private static PessimisticLockObject GetPessimisticLockObject(TestPessimisticLockingInfo info) {
-            return info.PessimisticLockObject == null ? info.ObjectSpace.CreateObject<PessimisticLockObject>() : info.ObjectSpace.GetObjectByKey<PessimisticLockObject>(info.PessimisticLockObject.Oid);
+            return info.PessimisticLockObject == null ? info.XPObjectSpace.CreateObject<PessimisticLockObject>() : info.XPObjectSpace.GetObjectByKey<PessimisticLockObject>(info.PessimisticLockObject.Oid);
         }
         private TestPessimisticLockingInfo TestSetupCore(TestPessimisticLockingInfo info) {
             var systemModule = new XpandSystemModule();
-// ReSharper disable ConvertClosureToMethodGroup
+            // ReSharper disable ConvertClosureToMethodGroup
             Isolate.WhenCalled(() => systemModule.InitializeSequenceGenerator()).IgnoreCall();
-// ReSharper restore ConvertClosureToMethodGroup
+            // ReSharper restore ConvertClosureToMethodGroup
             Modules.Add(systemModule);
-            Setup("TestApplication", _objectSpaceProvider);
-            info.ObjectSpace = CreateObjectSpace();
+            Setup("TestApplication", _XPObjectSpaceProvider);
+            info.XPObjectSpace = CreateObjectSpace();
             var pessimisticViewController = new PessimisticLockingViewController();
             info.ViewEditModeController = new ViewEditModeController();
             info.PessimisticLockObject = GetPessimisticLockObject(info);
-            info.SecondObjectSpace = CreateObjectSpace();
-            var user = info.SecondObjectSpace.CreateObject<User>();
-            info.SecondObjectSpace.CommitChanges();
+            info.SecondXPObjectSpace = CreateObjectSpace();
+            var user = info.SecondXPObjectSpace.CreateObject<User>();
+            info.SecondXPObjectSpace.CommitChanges();
             Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(user);
             Isolate.WhenCalled(() => SecuritySystem.UserType).WillReturn(typeof(User));
-            info.ObjectSpace.CommitChanges();
-            info.DetailView = CreateDetailView(info.ObjectSpace, info.PessimisticLockObject);
+            info.XPObjectSpace.CommitChanges();
+            info.DetailView = CreateDetailView(info.XPObjectSpace, info.PessimisticLockObject);
             info.Window = CreateWindow(TemplateContext.View, new List<Controller> { pessimisticViewController, info.ViewEditModeController }, true);
             info.Window.SetView(info.DetailView);
             return info;
@@ -98,9 +99,9 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
         public DetailView DetailView { get; set; }
 
-        public IObjectSpace ObjectSpace { get; set; }
+        public IObjectSpace XPObjectSpace { get; set; }
 
-        public IObjectSpace SecondObjectSpace { get; set; }
+        public IObjectSpace SecondXPObjectSpace { get; set; }
 
         public PessimisticLockObject PessimisticLockObject { get; set; }
     }
@@ -112,7 +113,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
-            XafTypesInfo.XpoTypeInfoSource.ResetDictionary();
+            XpoTypesInfoHelper.GetXpoTypeInfoSource().ResetDictionary();
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }
@@ -122,7 +123,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
     //    public abstract class With_Application : With_Types_info {
     //        //        protected static DataSet DataSet;
-    //        protected static IObjectSpace ObjectSpace;
+    //        protected static IObjectSpace XPObjectSpace;
     //        protected static Window Window;
     //        protected static ViewEditModeController ViewEditModeController;
     //        public static XafApplication Application;
@@ -130,13 +131,13 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     //        protected static PessimisticLockObject PessimisticLockObject;
     //
     //        Establish context = () => {
-    //            var objectSpaceProvider = new ObjectSpaceProvider(new MemoryDataStoreProvider());
+    //            var XPObjectSpaceProvider = new XPObjectSpaceProvider(new MemoryDataStoreProvider());
     //            Application = new TestApplication();
     //            var testModule = new XpandSystemModule();
     //            Application.Modules.Add(testModule);
     //
-    //            Application.Setup("TestApplication", objectSpaceProvider);
-    //            //            objectSpace = objectSpaceProvider.CreateObjectSpace();
+    //            Application.Setup("TestApplication", XPObjectSpaceProvider);
+    //            //            XPObjectSpace = XPObjectSpaceProvider.CreateObjectSpace();
     //            //            controller = new PostponeController();
     //
     //            //            DataSet = new DataSet();
@@ -146,15 +147,15 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     //            //            // ReSharper restore ConvertClosureToMethodGroup
     //            ViewEditModeController = new ViewEditModeController();
     //            //            Application = Isolate.Fake.XafApplicationInstance(() => new List<Type> { typeof(PessimisticLockObject) }, DataSet, new Controller[] { pessimisticViewController, ViewEditModeController });
-    //            ObjectSpace = Application.CreateObjectSpace();
-    //            PessimisticLockObject = ObjectSpace.CreateObject<PessimisticLockObject>();
-    //            var secondObjectSpace = Application.CreateObjectSpace();
-    //            var user = secondObjectSpace.CreateObject<User>();
-    //            secondObjectSpace.CommitChanges();
+    //            XPObjectSpace = Application.CreateObjectSpace();
+    //            PessimisticLockObject = XPObjectSpace.CreateObject<PessimisticLockObject>();
+    //            var secondXPObjectSpace = Application.CreateObjectSpace();
+    //            var user = secondXPObjectSpace.CreateObject<User>();
+    //            secondXPObjectSpace.CommitChanges();
     //            Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(user);
     //            Isolate.WhenCalled(() => SecuritySystem.UserType).WillReturn(typeof(User));
-    //            ObjectSpace.CommitChanges();
-    //            DetailView = Application.CreateDetailView(ObjectSpace, PessimisticLockObject);
+    //            XPObjectSpace.CommitChanges();
+    //            DetailView = Application.CreateDetailView(XPObjectSpace, PessimisticLockObject);
     //            //
     //            Window = Application.CreateWindow(TemplateContext.View, new List<Controller> { pessimisticViewController, ViewEditModeController }, true);
     //            Window.SetView(DetailView);

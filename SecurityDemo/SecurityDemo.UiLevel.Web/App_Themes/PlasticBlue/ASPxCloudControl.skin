@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxcc" Namespace="DevExpress.Web.ASPxCloudControl" Assembly="DevExpress.Web.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxcc:ASPxCloudControl runat="server" CssFilePath="~/App_Themes/PlasticBlue/{0}/styles.css" HorizontalAlign="Left" MaxColor="#5A83D0" 
     ValueColor="#A0A0A0" ItemBeginEndTextColor="#A0A0A0" CssPostfix="PlasticBlue" MinColor="#91ACE0">
     <RankProperties>

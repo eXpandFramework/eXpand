@@ -17,7 +17,10 @@
       <section name="themes" type="DevExpress.Web.ASPxClasses.ThemesConfigurationSection, DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/>
     </sectionGroup>
   </configSections>
-  
+    <devExpress>
+    <compression enableHtmlCompression="true" enableCallbackCompression="true" enableResourceCompression="true" enableResourceMerging="true" />
+    <themes enableThemesAssembly="true" theme="Office2010Blue"/>
+  </devExpress>
   <enterpriseLibrary.ConfigurationSource selectedSource="System Configuration Source">
     <sources>
       <add name="System Configuration Source" type="Microsoft.Practices.EnterpriseLibrary.Common.Configuration.SystemConfigurationSource, Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=*" />
@@ -138,7 +141,7 @@ Extended Properties: {dictionary({key} - {value}{newline})}" name="Text Formatte
     </handlers>
   </system.webServer>
   <system.web>
-    <pages theme="Aqua" controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID" />
+    
     <httpHandlers>
       <add verb="*" path="TestControls.axd" type="DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager, DevExpress.ExpressApp.Web.v12.1, Version=12.1.2.0, culture=neutral, PublicKeyToken=b88d1754d700e49a" />
       <add verb="*" path="ImageResource.axd" type="DevExpress.ExpressApp.Web.ImageResourceHttpHandler, DevExpress.ExpressApp.Web.v12.1, Version=12.1.2.0, culture=neutral, PublicKeyToken=b88d1754d700e49a" />

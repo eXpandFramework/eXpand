@@ -16,10 +16,10 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         readonly PersistentClassInfo _persistentClassInfo;
         readonly Dictionary<string, ClassGeneratorInfo> _classGeneratorInfos;
 
-        public ClassGeneratorHelper(IObjectSpace objectSpace) {
-            _persistentAssemblyInfo = objectSpace.CreateObject<PersistentAssemblyInfo>();
+        public ClassGeneratorHelper(IObjectSpace XPObjectSpace) {
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _persistentAssemblyInfo.Name = "PersistentAssemblyInfo";
-            _persistentClassInfo = objectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _persistentClassInfo.Name = "MainTable";
             _persistentAssemblyInfo.PersistentClassInfos.Add(_persistentClassInfo);
             _persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
@@ -49,14 +49,14 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         readonly DBColumn _dbColumn1;
         readonly PersistentClassInfo _structPersistentClassInfo;
 
-        public CompoundPKMemberGeneratorHelper(IObjectSpace objectSpace)
-            : base(objectSpace) {
+        public CompoundPKMemberGeneratorHelper(IObjectSpace XPObjectSpace)
+            : base(XPObjectSpace) {
             _dbColumn1 = new DBColumn { Name = "DBColumn1", ColumnType = DBColumnType.Int32 };
             _dbColumn2 = new DBColumn { Name = "DBColumn2", ColumnType = DBColumnType.Int32 };
             var dbColumns = new[] { _dbColumn1, _dbColumn2 };
             DbTable.Columns.AddRange(dbColumns);
             DbTable.PrimaryKey = new DBPrimaryKey(dbColumns);
-            _structPersistentClassInfo = objectSpace.CreateObject<PersistentClassInfo>();
+            _structPersistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _structPersistentClassInfo.Name = "MainTable" + TableMapper.KeyStruct;
             _structPersistentClassInfo.PersistentAssemblyInfo = (PersistentAssemblyInfo)PersistentAssemblyInfo;
             _structPersistentClassInfo.SetDefaultTemplate(TemplateType.Struct);
@@ -80,8 +80,8 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         readonly PersistentClassInfo _refPersistentClassInfo;
 
 
-        public RefMemberGeneratorHelper(IObjectSpace objectSpace)
-            : base(objectSpace) {
+        public RefMemberGeneratorHelper(IObjectSpace XPObjectSpace)
+            : base(XPObjectSpace) {
             var column = new DBColumn("Oid", false, "int", 0, DBColumnType.Int32);
             DbTable.PrimaryKey = new DBPrimaryKey(new[] { column });
             var dbColumn = new DBColumn { Name = "DBColumn", ColumnType = DBColumnType.Int32 };
@@ -95,7 +95,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             var item = new DBColumn("Oid", true, "int", 0, DBColumnType.Int32);
             _refDbTable.Columns.Add(item);
             _refDbTable.PrimaryKey = new DBPrimaryKey(new[] { item });
-            _refPersistentClassInfo = objectSpace.CreateObject<PersistentClassInfo>();
+            _refPersistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _refPersistentClassInfo.Name = RefDbTable.Name;
             PersistentAssemblyInfo.PersistentClassInfos.Add(_refPersistentClassInfo);
             _refPersistentClassInfo.SetDefaultTemplate(TemplateType.Class);

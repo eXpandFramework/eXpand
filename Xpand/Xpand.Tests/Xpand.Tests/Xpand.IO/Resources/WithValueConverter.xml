@@ -1185,7 +1185,7 @@
 						&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 						&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 					&lt;/Element&gt;
-					&lt;Element Name=":ObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
+					&lt;Element Name=":XPObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
 						&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 						&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 					&lt;/Element&gt;
@@ -1243,7 +1243,7 @@
 						&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 						&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 					&lt;/Element&gt;
-					&lt;Element Name=":ObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
+					&lt;Element Name=":XPObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
 						&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 						&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 					&lt;/Element&gt;
@@ -1312,7 +1312,7 @@
 					&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 					&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 				&lt;/Element&gt;
-				&lt;Element Name=":ObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
+				&lt;Element Name=":XPObjectSpaceReloaded" KeyAttribute=":ID" Multiple=":False"&gt;
 					&lt;Attribute Name=":ID" Required=":True" IsReadOnly=":True"/&gt;
 					&lt;Attribute Name=":Description" IsLocalized=":True"/&gt;
 				&lt;/Element&gt;

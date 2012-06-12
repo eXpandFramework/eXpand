@@ -1,5 +1,5 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxhl" Namespace="DevExpress.Web.ASPxHeadline" Assembly="DevExpress.Web.v12.1, Version=12.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxhl" Namespace="DevExpress.Web.ASPxHeadline" Assembly="DevExpress.Web.v12.1, Version=12.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
 <dxhl:ASPxHeadline runat="server" CssFilePath="~/App_Themes/Youthful/{0}/styles.css" CssPostfix="Youthful" DateHorizontalPosition="OutsideLeft" 
     TailPosition="KeepWithLastWord" SpriteCssFilePath="~/App_Themes/Youthful/{0}/sprite.css">
     <DateStyle Spacing="10px" />

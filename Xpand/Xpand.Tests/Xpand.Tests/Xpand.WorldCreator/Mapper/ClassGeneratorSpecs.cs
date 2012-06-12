@@ -15,7 +15,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static ClassGeneratorHelper _generatorHelper;
 
         Establish context = () => {
-            _generatorHelper = new ClassGeneratorHelper(ObjectSpace);
+            _generatorHelper = new ClassGeneratorHelper(XPObjectSpace);
             _dbTables = new[] { _generatorHelper.DbTable };
         };
 
@@ -44,7 +44,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             var dbColumns = new[] { new DBColumn("col1", false, "int", 0, DBColumnType.Int32) { IsIdentity = true }, new DBColumn("col2", false, "int", 0, DBColumnType.Int32) { IsIdentity = true } };
             dbTable.Columns.AddRange(dbColumns);
             dbTable.PrimaryKey = new DBPrimaryKey(dbColumns);
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
             _dbTables = new[] { dbTable };
         };
 

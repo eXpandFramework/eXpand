@@ -36,11 +36,6 @@ namespace Xpand.ExpressApp {
             set { _allowICommandChannelDoWithSecurityContext = value; }
         }
 
-        public IDataLayer DataLayer {
-            get { return _dataLayer; }
-            set { _dataLayer = value; }
-        }
-
         protected override IObjectSpace CreateObjectSpaceCore() {
             IDisposable[] disposableObjects;
             IDataStore dataStore = DataStoreProvider.CreateWorkingStore(out disposableObjects);

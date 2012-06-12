@@ -17,7 +17,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static RefMemberGeneratorHelper _generatorHelper;
 
         Establish context = () => {
-            _generatorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            _generatorHelper = new RefMemberGeneratorHelper(XPObjectSpace);
         };
 
         Because of = () => {
@@ -44,7 +44,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static RefMemberGeneratorHelper _generatorHelper;
 
         Establish context = () => {
-            _generatorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            _generatorHelper = new RefMemberGeneratorHelper(XPObjectSpace);
 
         };
 
@@ -87,7 +87,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static CompoundPKMemberGeneratorHelper _generatorHelper;
 
         Establish context = () => {
-            _generatorHelper = new CompoundPKMemberGeneratorHelper(ObjectSpace);
+            _generatorHelper = new CompoundPKMemberGeneratorHelper(XPObjectSpace);
         };
 
         Because of = () => {
@@ -124,8 +124,8 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static CompoundPKMemberGeneratorHelper _generatorHelper;
 
         Establish context = () => {
-            _generatorHelper = new CompoundPKMemberGeneratorHelper(ObjectSpace);
-            _refPersistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _generatorHelper = new CompoundPKMemberGeneratorHelper(XPObjectSpace);
+            _refPersistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _refPersistentClassInfo.Name = "RefTable";
             _refPersistentClassInfo.PersistentAssemblyInfo = (PersistentAssemblyInfo)_generatorHelper.PersistentAssemblyInfo;
             _refPersistentClassInfo.SetDefaultTemplate(TemplateType.Class);
@@ -155,7 +155,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static IPersistentCoreTypeMemberInfo _persistentCoreTypeMemberInfo;
 
         Establish context = () => {
-            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(XPObjectSpace);
             DBTable refDbTable = _refMemberGeneratorHelper.RefDbTable;
             refDbTable.ForeignKeys.Add(new DBForeignKey(refDbTable.PrimaryKey.Columns, "Oid2", new StringCollection { "Oid2" }));
             _refMemberGeneratorHelper.DbTable.ForeignKeys.Add(new DBForeignKey(_refMemberGeneratorHelper.DbTable.PrimaryKey.Columns, refDbTable.Name, new StringCollection { "Oid" }));
@@ -179,10 +179,10 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
         Establish context = () => {
 
-            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(XPObjectSpace);
             Setup(_refMemberGeneratorHelper.DbTable, _refMemberGeneratorHelper.RefDbTable);
             Setup(_refMemberGeneratorHelper.RefDbTable, _refMemberGeneratorHelper.DbTable);
-            var persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            var persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             persistentClassInfo.Name = _refMemberGeneratorHelper.DbTable.Name + ClassGenerator.KeyStruct;
             persistentClassInfo.PersistentAssemblyInfo = (PersistentAssemblyInfo)_refMemberGeneratorHelper.PersistentAssemblyInfo;
             persistentClassInfo.SetDefaultTemplate(TemplateType.Class);
@@ -215,7 +215,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static IPersistentReferenceMemberInfo _persistentReferenceMemberInfo;
 
         Establish context = () => {
-            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(ObjectSpace);
+            _refMemberGeneratorHelper = new RefMemberGeneratorHelper(XPObjectSpace);
             var dbColumn = new DBColumn("ref2", true, "int", 0, DBColumnType.Int32);
             _refMemberGeneratorHelper.RefDbTable.Columns.Add(dbColumn);
             _refMemberGeneratorHelper.RefDbTable.AddForeignKey(new DBForeignKey(new[] { dbColumn }, _refMemberGeneratorHelper.DbTable.Name, new StringCollection { "Oid" }));

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -24,122 +25,122 @@ namespace Xpand.Tests.Xpand.IO {
     public class When_creating_a_graph_for_type_with_associated_collection_and_associated_type_derived_types_exist_in_the_domain : With_Isolations {
         static Type _derivedOrderType;
         static SerializationConfiguration _serializationConfiguration;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
 
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
+            _XPObjectSpace = oneToMany.XPObjectSpace;
 
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T1Type,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedOrder" });
             classHandler.SetInheritance(info => oneToMany.T2Type);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _derivedOrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedOrder").Single();
             var existentConfiguration =
-                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+                (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = _derivedOrderType;
             existentConfiguration.SerializationConfigurationGroup = _serializationConfiguration.SerializationConfigurationGroup;
         };
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
         };
 
         It should_create_graph_for_derived_types =
             () =>
-            new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(
+            new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(
                 configuration => configuration.TypeToSerialize == _derivedOrderType).Count().ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_type_with_associated_object_and_associated_type_derived_types_exist_in_the_domain : With_Isolations {
         static Type _derivedCustomerType;
         static SerializationConfiguration _serializationConfiguration;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
 
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
+            _XPObjectSpace = oneToMany.XPObjectSpace;
             var existentConfiguration =
-                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
+                (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T2Type,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
 
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "DerivedCustomer" });
             classHandler.SetInheritance(info => oneToMany.T1Type);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
         };
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
         };
 
-        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(configuration => configuration.TypeToSerialize == _derivedCustomerType).Count().ShouldEqual(1);
+        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(configuration => configuration.TypeToSerialize == _derivedCustomerType).Count().ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_type_and_type_derived_types_exist_in_the_domain : With_Isolations {
         static SerializationConfiguration _serializationConfiguration;
         static Type _t1Type;
         static Type _t2Type;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
-            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            _XPObjectSpace = (XPObjectSpace)new XPObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "DerivedCustomer" });
             classHandler.SetInheritance(info => info.Name == "DerivedCustomer" ? persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0] : null);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
             _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = _t1Type,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
         };
 
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
         };
-        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_objectSpace.Session).Where(
+        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(
                                                            configuration => configuration.TypeToSerialize == _t2Type).Count().ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph__for_type_with_associated_collection_and_associated_type_graph_exists : With_Isolations {
         static SerializationConfiguration _serializationConfiguration;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
 
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
+            _XPObjectSpace = oneToMany.XPObjectSpace;
             var existentConfiguration =
-                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
-            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+                (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
+            var serializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             existentConfiguration.TypeToSerialize = oneToMany.T2Type;
             existentConfiguration.SerializationConfigurationGroup = serializationConfigurationGroup;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T1Type,
                 SerializationConfigurationGroup = serializationConfigurationGroup
             };
@@ -147,28 +148,28 @@ namespace Xpand.Tests.Xpand.IO {
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
         };
 
         It should_not_create_any_more_graphs_for_associated_type = () => {
             const int customer_order = 2;
-            _objectSpace.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(customer_order);
+            _XPObjectSpace.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(customer_order);
         };
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph__for_type_with_associated_object_and_associated_type_graph_exists : With_Isolations {
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
+            _XPObjectSpace = oneToMany.XPObjectSpace;
             var existentConfiguration =
-                (SerializationConfiguration)_objectSpace.CreateObject(typeof(SerializationConfiguration));
-            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+                (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
+            var serializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             existentConfiguration.TypeToSerialize = oneToMany.T1Type;
             existentConfiguration.SerializationConfigurationGroup = serializationConfigurationGroup;
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = oneToMany.T2Type,
                 SerializationConfigurationGroup = serializationConfigurationGroup
             };
@@ -176,28 +177,28 @@ namespace Xpand.Tests.Xpand.IO {
 
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
         };
 
         It should_not_create_any_more_graphs_for_associated_type = () => {
             const int customer_order = 2;
-            _objectSpace.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(customer_order);
+            _XPObjectSpace.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(customer_order);
         };
     }
 
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_type_with_associated_collection : With_Isolations {
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
         static SerializationConfiguration _serializationConfiguration2;
         static Type _t2Type;
         static ISerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
             ITypeHandler<ICustomer, IOrder> oneToMany = ModelBuilder<ICustomer, IOrder>.Build().OneToMany();
-            _objectSpace = oneToMany.ObjectSpace;
-            var serializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _XPObjectSpace = oneToMany.XPObjectSpace;
+            var serializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             serializationConfigurationGroup.Name = "dummy";
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) { TypeToSerialize = oneToMany.T1Type, SerializationConfigurationGroup = serializationConfigurationGroup };
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) { TypeToSerialize = oneToMany.T1Type, SerializationConfigurationGroup = serializationConfigurationGroup };
             _t2Type = oneToMany.T2Type;
         };
 
@@ -229,23 +230,23 @@ namespace Xpand.Tests.Xpand.IO {
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_generating_graph_for_self_reference_object : With_Isolations {
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
 
-            _objectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
-            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_objectSpace, GetUniqueAssemblyName());
+            _XPObjectSpace = (XPObjectSpace)ObjectSpaceInMemory.CreateNew();
+            var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(_XPObjectSpace, GetUniqueAssemblyName());
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "CustomerSelfRef" });
             var persistentClassInfo = persistentAssemblyBuilder.PersistentAssemblyInfo.PersistentClassInfos[0];
             classHandler.CreateRefenenceMember(persistentClassInfo, "Parent1", persistentClassInfo, false);
 
-            _objectSpace.CommitChanges();
+            _XPObjectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
             var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = customerType,
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
         };
 
@@ -254,23 +255,23 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_not_create_graph_for_property_of_the_same_type =
             () => {
-                _objectSpace.CommitChanges();
+                _XPObjectSpace.CommitChanges();
                 _serializationConfiguration.Session.GetCount(typeof(SerializationConfiguration)).ShouldEqual(1);
             };
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_a_persistent_assembly : With_Isolations {
         private const int GcRecord = 1;
-        static ObjectSpace _objectSpace;
+        static XPObjectSpace _XPObjectSpace;
         static SerializationConfiguration _serializationConfiguration;
         static PersistentAssemblyInfo _persistentAssemblyInfo;
 
         Establish context = () => {
-            _objectSpace = (ObjectSpace)new ObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
-            _persistentAssemblyInfo = (PersistentAssemblyInfo)_objectSpace.CreateObject(typeof(PersistentAssemblyInfo));
-            _serializationConfiguration = new SerializationConfiguration(_objectSpace.Session) {
+            _XPObjectSpace = (XPObjectSpace)new XPObjectSpaceProvider(new MemoryDataStoreProvider()).CreateObjectSpace();
+            _persistentAssemblyInfo = (PersistentAssemblyInfo)_XPObjectSpace.CreateObject(typeof(PersistentAssemblyInfo));
+            _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = _persistentAssemblyInfo.GetType(),
-                SerializationConfigurationGroup = _objectSpace.CreateObject<SerializationConfigurationGroup>()
+                SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
 
         };
@@ -286,10 +287,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
         };
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
@@ -303,10 +304,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
         };
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
@@ -322,10 +323,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).FindMember("Name").AddAttribute(new SerializationStrategyAttribute(SerializationStrategy.SerializeAsObject));
         };
 
@@ -341,10 +342,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             XafTypesInfo.Instance.RegisterEntity(typeof(User));
             XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).CreateMember("User", typeof(User));
             XafTypesInfo.Instance.FindTypeInfo(typeof(User)).AddAttribute(new SerializationStrategyAttribute(SerializationStrategy.DoNotSerialize));
@@ -362,10 +363,10 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             XafTypesInfo.Instance.FindTypeInfo(typeof(Analysis)).FindMember("Name").AddAttribute(new SerializationKeyAttribute());
         };
 
@@ -382,13 +383,13 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
             XafTypesInfo.Instance.RegisterEntity(typeof(User));
             XafTypesInfo.Instance.RegisterEntity(typeof(Analysis));
-            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(Analysis);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
@@ -402,13 +403,13 @@ namespace Xpand.Tests.Xpand.IO {
         static SerializationConfiguration _serializationConfiguration;
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
             XafTypesInfo.Instance.RegisterEntity(typeof(User));
             XafTypesInfo.Instance.RegisterEntity(typeof(Analysis));
-            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XafTypesInfo.XpoTypeInfoSource.XPDictionary);
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            XafTypesInfo.Instance.CreateBothPartMembers(typeof(Analysis), typeof(User), XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(User);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
@@ -435,10 +436,10 @@ namespace Xpand.Tests.Xpand.IO {
         }
 
         Establish context = () => {
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            _serializationConfiguration = objectSpace.CreateObject<SerializationConfiguration>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _serializationConfiguration = XPObjectSpace.CreateObject<SerializationConfiguration>();
             _serializationConfiguration.TypeToSerialize = typeof(ObjectWithIBindingListCollection);
-            _serializationConfiguration.SerializationConfigurationGroup = objectSpace.CreateObject<SerializationConfigurationGroup>();
+            _serializationConfiguration.SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
         };
 
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
