@@ -413,62 +413,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Aqua\Xaf\background.jpg" />
-    <Content Include="App_Themes\Aqua\Xaf\BackgroundRepeat.gif" />
-    <Content Include="App_Themes\Aqua\Xaf\DialogBackImage.jpg" />
-    <Content Include="App_Themes\Aqua\Xaf\DialogBackRepeat.gif" />
-    <Content Include="App_Themes\Aqua\Xaf\Logo.gif" />
-    <Content Include="App_Themes\Aqua\Xaf\Logo.png" />
-    <Content Include="App_Themes\Aqua\Xaf\LogoSmall.png" />
-    <Content Include="App_Themes\Aqua\Xaf\styles_xaf.css" />
-    <Content Include="App_Themes\Aqua\Xaf\template.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Themes\Aqua\ASPxButton.skin" />
-    <Content Include="App_Themes\Aqua\ASPxButtonEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxCalendar.skin" />
-    <Content Include="App_Themes\Aqua\ASPxCallbackPanel.skin" />
-    <Content Include="App_Themes\Aqua\ASPxCaptcha.skin" />
-    <Content Include="App_Themes\Aqua\ASPxCheckBox.skin" />
-    <Content Include="App_Themes\Aqua\ASPxCloudControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxColorEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxComboBox.skin" />
-    <Content Include="App_Themes\Aqua\ASPxDataView.skin" />
-    <Content Include="App_Themes\Aqua\ASPxDateEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxDropDownEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxFilterControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxGridView.skin" />
-    <Content Include="App_Themes\Aqua\ASPxHeadline.skin" />
-    <Content Include="App_Themes\Aqua\ASPxHyperLink.skin" />
-    <Content Include="App_Themes\Aqua\ASPxLabel.skin" />
-    <Content Include="App_Themes\Aqua\ASPxListBox.skin" />
-    <Content Include="App_Themes\Aqua\ASPxLoadingPanel.skin" />
-    <Content Include="App_Themes\Aqua\ASPxMemo.skin" />
-    <Content Include="App_Themes\Aqua\ASPxMenu.skin" />
-    <Content Include="App_Themes\Aqua\ASPxNavBar.skin" />
-    <Content Include="App_Themes\Aqua\ASPxNewsControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxPageControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxPager.skin" />
-    <Content Include="App_Themes\Aqua\ASPxPopupControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxPopupMenu.skin" />
-    <Content Include="App_Themes\Aqua\ASPxProgressBar.skin" />
-    <Content Include="App_Themes\Aqua\ASPxRadioButton.skin" />
-    <Content Include="App_Themes\Aqua\ASPxRadioButtonList.skin" />
-    <Content Include="App_Themes\Aqua\ASPxRatingControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxRoundPanel.skin" />
-    <Content Include="App_Themes\Aqua\ASPxSiteMapControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxSpinEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxSplitter.skin" />
-    <Content Include="App_Themes\Aqua\ASPxTabControl.skin" />
-    <Content Include="App_Themes\Aqua\ASPxTextBox.skin" />
-    <Content Include="App_Themes\Aqua\ASPxTimeEdit.skin" />
-    <Content Include="App_Themes\Aqua\ASPxTitleIndex.skin" />
-    <Content Include="App_Themes\Aqua\ASPxTreeList.skin" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Themes\Aqua\ASPxPivotGrid.skin" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="skin.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
