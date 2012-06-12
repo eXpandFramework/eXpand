@@ -26,10 +26,10 @@ namespace Xpand.Tests.Xpand.Xpo {
         static DynamicCalcPropertyObject _dynamicCalcPropertyObject;
 
         Establish context = () => {
-            _dynamicCalcPropertyObject = ObjectSpace.CreateObject<DynamicCalcPropertyObject>();
+            _dynamicCalcPropertyObject = XPObjectSpace.CreateObject<DynamicCalcPropertyObject>();
             _dynamicCalcPropertyObject.ClassInfo.CreateCalculabeMember("StringAge", typeof(string), new Attribute[] { new PersistentAliasAttribute("Concat(Age,'0')") });
             _dynamicCalcPropertyObject.Age = 2;
-            ObjectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
         };
 
         Because of = () => {

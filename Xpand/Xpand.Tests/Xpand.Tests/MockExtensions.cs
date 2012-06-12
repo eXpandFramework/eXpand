@@ -55,11 +55,11 @@ namespace Xpand.Tests {
 
         public static void XafApplicationInstance(this IFaker faker, Action<XafApplication> action, Func<IList<Type>> func, Action<DetailView> viewAction, Action<Window> windowAction, params Controller[] controllers) {
             var dataSet = new DataSet();
-            IObjectSpace objectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
+            IObjectSpace XPObjectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
             XafApplication application = Isolate.Fake.XafApplicationInstance(func, dataSet, controllers);
             action.Invoke(application);
-            object o = objectSpace.CreateObject(func.Invoke().ToList().First());
-            var detailView = application.CreateDetailView(objectSpace, o);
+            object o = XPObjectSpace.CreateObject(func.Invoke().ToList().First());
+            var detailView = application.CreateDetailView(XPObjectSpace, o);
             viewAction.Invoke(detailView);
             var window = application.CreateWindow(TemplateContext.View, controllers, true);
             windowAction.Invoke(window);
@@ -78,11 +78,11 @@ namespace Xpand.Tests {
             Isolate.Swap.NextInstance<DefaultSkinListGenerator>().With(defaultSkinListGenerator);
             var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal, ConstructorWillBe.Called);
             RegisterControllers(application, controllers);
-            var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
-            xpandModuleBase.Setup(application);
-            var objectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
-            Isolate.WhenCalled(() => objectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
-            application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = objectSpaceProvider;
+//            var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
+//            xpandModuleBase.Setup(application);
+            var XPObjectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
+            Isolate.WhenCalled(() => XPObjectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
+            application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = XPObjectSpaceProvider;
             RegisterDomainComponents(application, func);
             application.Setup();
             Isolate.WhenCalled(() => application.CreateObjectSpace()).WillReturn(ObjectSpaceInMemory.CreateNew(dataSet));
@@ -90,7 +90,7 @@ namespace Xpand.Tests {
             return application;
         }
 
-        static void RegisterDomainComponents(XafApplication application, Func<IList<Type>>func) {
+        static void RegisterDomainComponents(XafApplication application, Func<IList<Type>> func) {
             func.Invoke().ToList().ForEach(type => XafTypesInfo.Instance.RegisterEntity(type));
             application.SettingUp +=
                 (o, eventArgs) => func.Invoke().ToList().ForEach(type => ((ExportedTypeCollection)eventArgs.SetupParameters.DomainComponents).Add(type));

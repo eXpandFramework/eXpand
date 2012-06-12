@@ -15,22 +15,22 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         Establish context = () => {
             _sendThresholdCalculationEmailJob = new SendThresholdCalculationEmailJob();
-            var objectSpace = ObjectSpaceInMemory.CreateNew();
-            var xpandJobDetail = objectSpace.CreateObject<XpandJobDetail>();
+            var XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            var xpandJobDetail = XPObjectSpace.CreateObject<XpandJobDetail>();
             xpandJobDetail.Name = "s";
-            var xpandJobDetailDataMap = objectSpace.CreateObject<SendEmailJobDetailDataMap>();
+            var xpandJobDetailDataMap = XPObjectSpace.CreateObject<SendEmailJobDetailDataMap>();
             xpandJobDetailDataMap.Emails = "apostolis.bekiaris@gmail.com";
             xpandJobDetail.JobDetailDataMap = xpandJobDetailDataMap;
-            xpandJobDetail.Job = objectSpace.CreateObject<XpandJob>();
-            xpandJobDetail.Job.JobType = typeof (SendThresholdCalculationEmailJob);
-            var xpandJobDataMap = objectSpace.CreateObject<SendEmailJobDataMap>();
+            xpandJobDetail.Job = XPObjectSpace.CreateObject<XpandJob>();
+            xpandJobDetail.Job.JobType = typeof(SendThresholdCalculationEmailJob);
+            var xpandJobDataMap = XPObjectSpace.CreateObject<SendEmailJobDataMap>();
             xpandJobDetail.Job.JobDataMap = xpandJobDataMap;
             xpandJobDataMap.EmailTemplate = SchedulerResource.EmailTemplate;
 
-            
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties(),Isolate.Fake.Instance<XafApplication>());
+
+            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(SchedulerConfig.GetProperties(), Isolate.Fake.Instance<XafApplication>());
             var scheduler = stdSchedulerFactory.GetScheduler();
-            var storeJob = scheduler.StoreJob(xpandJobDetail,XafTypesInfo.Instance);
+            var storeJob = scheduler.StoreJob(xpandJobDetail, XafTypesInfo.Instance);
             storeJob.JobDataMap.Add(ThresholdCalculationJob.ThresholdCalcCount, 2);
 
             _jobExecutionContext = new JobExecutionContextImpl(null, new TriggerFiredBundle(storeJob, Isolate.Fake.Instance<IOperableTrigger>(), null, false, null, null, null, null),

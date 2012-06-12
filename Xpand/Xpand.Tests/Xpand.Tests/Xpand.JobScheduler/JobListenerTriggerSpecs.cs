@@ -14,20 +14,20 @@ namespace Xpand.Tests.Xpand.JobScheduler {
         static string _listenerName;
 
         Establish context = () => {
-            ObjectSpace.CommitChanges();
-            var xpandJobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
-            xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
+            XPObjectSpace.CommitChanges();
+            var xpandJobDetail = XPObjectSpace.CreateObject<XpandJobDetail>();
+            xpandJobDetail.Job = XPObjectSpace.CreateObject<XpandJob>();
             xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
-            xpandJobDetail.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
-            var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
+            xpandJobDetail.JobDetailDataMap = XPObjectSpace.CreateObject<DummyDetailDataMap>();
+            var jobListenerTrigger = XPObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);
             xpandJobDetail.JobListenerTriggers.Add(jobListenerTrigger);
             DetailView.CurrentObject = xpandJobDetail;
         };
 
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_set_the_datamap_joblisteners_key_value = () => {
             var jobDetail = Scheduler.GetJobDetail("name2", typeof(DummyJob2));
@@ -39,21 +39,21 @@ namespace Xpand.Tests.Xpand.JobScheduler {
     public class When_JobListenerTrigger_is_unlinked_with_jobdetail : With_Job_Scheduler_XpandJobDetail_Application<When_JobListenerTrigger_is_linked_with_jobdetail> {
 
         Establish context = () => {
-            ObjectSpace.CommitChanges();
-            var xpandJobDetail = ObjectSpace.CreateObject<XpandJobDetail>();
-            xpandJobDetail.Job = ObjectSpace.CreateObject<XpandJob>();
+            XPObjectSpace.CommitChanges();
+            var xpandJobDetail = XPObjectSpace.CreateObject<XpandJobDetail>();
+            xpandJobDetail.Job = XPObjectSpace.CreateObject<XpandJob>();
             xpandJobDetail.Job.JobType = typeof(DummyJob2);
             xpandJobDetail.Name = "name2";
-            xpandJobDetail.JobDetailDataMap = ObjectSpace.CreateObject<DummyDetailDataMap>();
-            var jobListenerTrigger = ObjectSpace.CreateObject<JobListenerTrigger>();
+            xpandJobDetail.JobDetailDataMap = XPObjectSpace.CreateObject<DummyDetailDataMap>();
+            var jobListenerTrigger = XPObjectSpace.CreateObject<JobListenerTrigger>();
             jobListenerTrigger.JobType = typeof(DummyJob);
             xpandJobDetail.JobListenerTriggers.Add(jobListenerTrigger);
             DetailView.CurrentObject = xpandJobDetail;
-            ObjectSpace.CommitChanges();
-            ObjectSpace.Delete(jobListenerTrigger);
+            XPObjectSpace.CommitChanges();
+            XPObjectSpace.Delete(jobListenerTrigger);
         };
 
-        Because of = () => ObjectSpace.CommitChanges();
+        Because of = () => XPObjectSpace.CommitChanges();
 
         It should_remove_the_datamap_joblisteners_key_value =
             () => Scheduler.GetJobDetail(Object).JobDataMap[SchedulerExtensions.TriggerJobListenersOn + JobListenerEvent.Executing].ShouldEqual("");

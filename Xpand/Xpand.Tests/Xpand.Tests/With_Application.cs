@@ -8,7 +8,7 @@ namespace Xpand.Tests {
     public abstract class With_Application<T, TObject> where T : With_Application<T, TObject> {
         protected static DetailView DetailView;
         protected static Window Window;
-        protected static IObjectSpace ObjectSpace;
+        protected static IObjectSpace XPObjectSpace;
         protected static TObject Object;
 
         protected static XafApplication Application;
@@ -23,7 +23,7 @@ namespace Xpand.Tests {
         };
 
         protected virtual IList<Type> GetDomaincomponentTypes() {
-            return new List<Type> { typeof(TObject)}; 
+            return new List<Type> { typeof(TObject) };
         }
 
         protected virtual void ApplicationCreated(XafApplication application) {
@@ -37,7 +37,7 @@ namespace Xpand.Tests {
         }
 
         protected virtual void ViewCreated(DetailView detailView) {
-            ObjectSpace=detailView.ObjectSpace;
+            XPObjectSpace = detailView.ObjectSpace;
             Object = (TObject)detailView.CurrentObject;
             DetailView = detailView;
         }

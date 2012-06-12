@@ -22,9 +22,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
             Table table1 = GetTable("table1", "column1");
             Table table2 = GetTable("table2", "column2");
             Isolate.WhenCalled(() => _database.Tables).WillReturnCollectionValuesOf(new List<Table> { table1, table2 });
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
-            _dataStoreLogonObject = ObjectSpace.CreateObject<DataStoreLogonObject>();
-            _dataStoreLogonObject.DataBase = ObjectSpace.CreateObject<DataBase>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _dataStoreLogonObject = XPObjectSpace.CreateObject<DataStoreLogonObject>();
+            _dataStoreLogonObject.DataBase = XPObjectSpace.CreateObject<DataBase>();
         };
 
         static Table GetTable(string name, string columnName) {
@@ -39,7 +39,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
             return table1;
         }
 
-        Because of = () => new global::Xpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper(ObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database, Isolate.Fake.Instance<IMapperInfo>());
+        Because of = () => new global::Xpand.ExpressApp.WorldCreator.SqlDBMapper.DbMapper(XPObjectSpace, _persistentAssemblyInfo, _dataStoreLogonObject).Map(_database, Isolate.Fake.Instance<IMapperInfo>());
 
         It should_create_classinfos_for_all_tables_in_the_assembly =
             () => {

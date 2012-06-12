@@ -36,12 +36,12 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
             var dbColumn2 = new DBColumn { Name = "col2" };
             dbTable2.Columns.Add(dbColumn2);
             dbTable2.PrimaryKey = new DBPrimaryKey();
-            Isolate.WhenCalled(() => _dataStoreSchemaExplorer.GetStorageTablesList()).WillReturn(new[] { "tbl1", "tbl2" });
+            Isolate.WhenCalled(() => _dataStoreSchemaExplorer.GetStorageTablesList(true)).WillReturn(new[] { "tbl1", "tbl2" });
             Isolate.WhenCalled(() => _dataStoreSchemaExplorer.GetStorageTables()).WillReturn(new[] { dbTable1, dbTable2 });
-            _persistentClassInfo1 = ObjectSpace.CreateObject<PersistentClassInfo>();
-            _persistentClassInfo2 = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo1 = XPObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo2 = XPObjectSpace.CreateObject<PersistentClassInfo>();
             Isolate.WhenCalled(() => classGenerator.CreateAll()).WillReturn(new List<ClassGeneratorInfo> { new ClassGeneratorInfo(_persistentClassInfo1, dbTable1), new ClassGeneratorInfo(_persistentClassInfo2, dbTable2) });
-            _persistentAssemblyInfo = ObjectSpace.CreateObject<PersistentAssemblyInfo>();
+            _persistentAssemblyInfo = XPObjectSpace.CreateObject<PersistentAssemblyInfo>();
 
             var classAtrributeGenerator = Isolate.Fake.Instance<ClassAtrributeGenerator>();
             Isolate.Swap.AllInstances<ClassAtrributeGenerator>().With(classAtrributeGenerator);
@@ -50,18 +50,18 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
             var memberGenerator = Isolate.Fake.Instance<MemberGenerator>();
             Isolate.Swap.AllInstances<MemberGenerator>().With(memberGenerator);
-            _persistentMemberInfo1 = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
-            _persistentMemberInfo2 = ObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            _persistentMemberInfo1 = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
+            _persistentMemberInfo2 = XPObjectSpace.CreateObject<PersistentCoreTypeMemberInfo>();
             Isolate.WhenCalled(() => memberGenerator.Create()).WillReturn(new List<MemberGeneratorInfo> { new MemberGeneratorInfo(_persistentMemberInfo1, dbColumn1), new MemberGeneratorInfo(_persistentMemberInfo2, dbColumn2) });
 
             var memberAttributeGenerator = Isolate.Fake.Instance<MemberAttributeGenerator>();
             Isolate.Swap.AllInstances<MemberAttributeGenerator>().With(memberAttributeGenerator);
-            _memberPersistentAttributeInfos = new List<IPersistentAttributeInfo> { ObjectSpace.CreateObject<PersistentAggregatedAttribute>() };
+            _memberPersistentAttributeInfos = new List<IPersistentAttributeInfo> { XPObjectSpace.CreateObject<PersistentAggregatedAttribute>() };
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo1.OwnMembers[0]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo1.OwnMembers[1]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo2.OwnMembers[0]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
             Isolate.WhenCalled(() => ((IPersistentMemberInfo)_persistentClassInfo2.OwnMembers[1]).TypeAttributes).WillReturn(_memberPersistentAttributeInfos);
-            _logonObject = ObjectSpace.CreateObject<LogonObject>();
+            _logonObject = XPObjectSpace.CreateObject<LogonObject>();
             Isolate.WhenCalled(() => AssemblyGenerator.GetDataStoreSchemaExplorer(null)).WillReturn(_dataStoreSchemaExplorer);
             _assemblyGenerator = new AssemblyGenerator(_logonObject, _persistentAssemblyInfo, new[] { "" });
         };

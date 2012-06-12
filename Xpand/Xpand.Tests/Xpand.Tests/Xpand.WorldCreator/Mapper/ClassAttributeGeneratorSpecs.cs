@@ -15,7 +15,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static List<IPersistentAttributeInfo> _persistentAttributeInfos;
 
         Establish context = () => {
-            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _dbTable = new DBTable("test");
             Isolate.WhenCalled(() => _persistentClassInfo.TypeAttributes).WillReturn(new List<IPersistentAttributeInfo> { Isolate.Fake.Instance<IPersistentPersistentAttribute>() });
         };
@@ -35,7 +35,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         static DBTable _dbTable;
 
         Establish context = () => {
-            _persistentClassInfo = ObjectSpace.CreateObject<PersistentClassInfo>();
+            _persistentClassInfo = XPObjectSpace.CreateObject<PersistentClassInfo>();
             _dbTable = new DBTable("test");
         };
 

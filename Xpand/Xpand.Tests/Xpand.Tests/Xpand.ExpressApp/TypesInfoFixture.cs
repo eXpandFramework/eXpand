@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -30,7 +31,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             Type typeOfCollection = typeof(Analysis);
 
             XPCustomMemberInfo collection = info.CreateCollection(typeToCreateOn, typeOfCollection, "association",
-                                                                  XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+                                                                  XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
             AssociationAttribute attribute = assertMemberCreation(collection, typeOfCollection.Name + "s", typeToCreateOn);
             Assert.AreEqual(typeOfCollection.FullName, attribute.ElementTypeName);
@@ -56,7 +57,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             info.RegisterEntity(typeToCreateOn);
             Type typeOfMember = typeof(Analysis);
 
-            XPCustomMemberInfo member = info.CreateMember(typeToCreateOn, typeOfMember, "association", XafTypesInfo.XpoTypeInfoSource.XPDictionary);
+            XPCustomMemberInfo member = info.CreateMember(typeToCreateOn, typeOfMember, "association", XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
             assertMemberCreation(member, typeOfMember.Name, typeToCreateOn);
         }
@@ -71,7 +72,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             info.RegisterEntity(typeOfMember);
 
             List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember,
-                                                                          XafTypesInfo.XpoTypeInfoSource.XPDictionary, false, "association");
+                                                                          XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, false, "association");
 
             assertMemberCreation(members, typeOfMember.Name, typeToCreateOn);
             assertMemberCreation(members, typeToCreateOn.Name + "s", typeOfMember);
@@ -86,7 +87,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             Type typeOfMember = typeof(Analysis);
             info.RegisterEntity(typeOfMember);
 
-            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XafTypesInfo.XpoTypeInfoSource.XPDictionary, true, "association");
+            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, true, "association");
 
             assertMemberCreation(members, typeToCreateOn.Name + "s", typeOfMember);
             assertMemberCreation(members, typeOfMember.Name + "s", typeToCreateOn);

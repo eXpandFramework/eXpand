@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
@@ -15,17 +16,17 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
         Because of = () => {
             Info.PessimisticLockObject.PropertyName = "dfgfd";
-            Info.ObjectSpace.ReloadObject(Info.PessimisticLockObject);
+            Info.XPObjectSpace.ReloadObject(Info.PessimisticLockObject);
         };
 
         It should_lock_the_object = () => Info.PessimisticLockObject.LockedUser.ShouldNotBeNull();
     }
     [Subject(typeof(PessimisticLockingViewController))]
-    public class When_objectspace_rollback : With_Application {
+    public class When_XPObjectSpace_rollback : With_Application {
         Establish context = () => { Info.PessimisticLockObject.PropertyName = "sdfdf"; };
         Because of = () => {
-            Info.ObjectSpace.RollBackSilent();
-            Info.ObjectSpace.ReloadObject(Info.PessimisticLockObject);
+            Info.XPObjectSpace.RollBackSilent();
+            Info.XPObjectSpace.ReloadObject(Info.PessimisticLockObject);
         };
         It should_unlock_object = () => Info.PessimisticLockObject.LockedUser.ShouldBeNull();
     }
@@ -34,15 +35,15 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     public class When_ospace_commited : With_Application {
         Establish context = () => { Info.PessimisticLockObject.PropertyName = "dffdf"; };
         Because of = () => {
-            Info.ObjectSpace.CommitChanges();
-            Info.ObjectSpace.ReloadObject(Info.PessimisticLockObject);
+            Info.XPObjectSpace.CommitChanges();
+            Info.XPObjectSpace.ReloadObject(Info.PessimisticLockObject);
         };
         It should_unlock_object = () => Info.PessimisticLockObject.LockedUser.ShouldBeNull();
     }
     [Subject(typeof(PessimisticLockingViewController))]
     public class When_View_CurrentObject_Changing : With_Application {
         Establish context = () => { Info.PessimisticLockObject.PropertyName = "dffdf"; };
-        Because of = () => { Info.DetailView.CurrentObject = Info.ObjectSpace.CreateObject<PessimisticLockObject>(); };
+        Because of = () => { Info.DetailView.CurrentObject = Info.XPObjectSpace.CreateObject<PessimisticLockObject>(); };
         It should_unlock_object = () => Info.PessimisticLockObject.LockedUser.ShouldBeNull();
     }
     [Subject(typeof(PessimisticLockingViewController))]
@@ -53,23 +54,23 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     }
     [Subject(typeof(PessimisticLocker))]
     public class When_object_is_about_to_be_unlocked {
-        static IObjectSpace _objectSpace;
+        static IObjectSpace _XPObjectSpace;
         static PessimisticLockObject _pessimisticLockObject;
         static PessimisticLocker _pessimisticLocker;
 
         Establish context = () => {
-            _objectSpace = ObjectSpaceInMemory.CreateNew();
-            _pessimisticLockObject = _objectSpace.CreateObject<PessimisticLockObject>();
-            Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(_objectSpace.CreateObject<User>());
+            _XPObjectSpace = ObjectSpaceInMemory.CreateNew();
+            _pessimisticLockObject = _XPObjectSpace.CreateObject<PessimisticLockObject>();
+            Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(_XPObjectSpace.CreateObject<User>());
             Isolate.WhenCalled(() => SecuritySystem.UserType).WillReturn(typeof(User));
-            _objectSpace.CommitChanges();
-            _pessimisticLocker = new PessimisticLocker(((ObjectSpace)_objectSpace).Session.DataLayer, _pessimisticLockObject);
+            _XPObjectSpace.CommitChanges();
+            _pessimisticLocker = new PessimisticLocker(((XPObjectSpace)_XPObjectSpace).Session.DataLayer, _pessimisticLockObject);
             _pessimisticLocker.Lock();
 
-            var user = _objectSpace.CreateObject<User>();
-            _objectSpace.CommitChanges();
+            var user = _XPObjectSpace.CreateObject<User>();
+            _XPObjectSpace.CommitChanges();
             Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(user);
-            _objectSpace.ReloadObject(_pessimisticLockObject);
+            _XPObjectSpace.ReloadObject(_pessimisticLockObject);
         };
 
         Because of = () => _pessimisticLocker.UnLock();
@@ -84,14 +85,14 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
         Establish context = () => {
             Info.PessimisticLockObject.PropertyName = "fdgfdg";
-            var objectSpace = Application.CreateObjectSpace();
-            _user = objectSpace.CreateObject<User>();
+            var XPObjectSpace = Application.CreateObjectSpace();
+            _user = XPObjectSpace.CreateObject<User>();
             _user.UserName = "2";
-            objectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
             Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(_user);
             _user = (User)SecuritySystem.CurrentUser;
-            var pessimisticLockObject = objectSpace.GetObjectByKey<PessimisticLockObject>(Info.PessimisticLockObject.Oid);
-            _detailView = Application.CreateDetailView(objectSpace, pessimisticLockObject);
+            var pessimisticLockObject = XPObjectSpace.GetObjectByKey<PessimisticLockObject>(Info.PessimisticLockObject.Oid);
+            _detailView = Application.CreateDetailView(XPObjectSpace, pessimisticLockObject);
             _window = Application.CreateWindow(TemplateContext.View, new List<Controller> { new PessimisticLockingViewController(), new ViewEditModeController() }, true);
         };
 
@@ -107,12 +108,12 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
         Establish context = () => {
             Info.PessimisticLockObject.PropertyName = "fdgfdg";
-            var objectSpace = Application.CreateObjectSpace();
-            _user = objectSpace.CreateObject<User>();
+            var XPObjectSpace = Application.CreateObjectSpace();
+            _user = XPObjectSpace.CreateObject<User>();
             _user.UserName = "2";
-            objectSpace.CommitChanges();
+            XPObjectSpace.CommitChanges();
             Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(_user);
-            _pessimisticLockObject = objectSpace.GetObjectByKey<PessimisticLockObject>(Info.PessimisticLockObject.Oid);
+            _pessimisticLockObject = XPObjectSpace.GetObjectByKey<PessimisticLockObject>(Info.PessimisticLockObject.Oid);
             var testApplication = new TestApplication();
             var info = testApplication.TestSetup(_pessimisticLockObject);
             _detailView = info.DetailView;
@@ -140,20 +141,20 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     }
 
     public abstract class With_new_object {
-        protected static ObjectSpace ObjectSpace;
+        protected static XPObjectSpace XPObjectSpace;
         protected static PessimisticLockObject PessimisticLockObject;
         protected static PessimisticLocker PessimisticLocker;
 
         Establish context = () => {
-            ObjectSpace = (ObjectSpace)ObjectSpaceInMemory.CreateNew();
-            PessimisticLockObject = ObjectSpace.CreateObject<PessimisticLockObject>();
-            PessimisticLocker = new PessimisticLocker(ObjectSpace.Session.DataLayer, PessimisticLockObject);
+            XPObjectSpace = (XPObjectSpace)ObjectSpaceInMemory.CreateNew();
+            PessimisticLockObject = XPObjectSpace.CreateObject<PessimisticLockObject>();
+            PessimisticLocker = new PessimisticLocker(XPObjectSpace.Session.DataLayer, PessimisticLockObject);
         };
     }
     [Subject(typeof(PessimisticLocker))]
     public class When_unlocking_new_object : With_new_object {
         Establish context = () => {
-            PessimisticLockObject.LockedUser = ObjectSpace.CreateObject<User>();
+            PessimisticLockObject.LockedUser = XPObjectSpace.CreateObject<User>();
         };
         Because of = () => PessimisticLocker.UnLock();
 
