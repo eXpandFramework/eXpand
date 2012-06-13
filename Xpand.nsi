@@ -285,7 +285,7 @@ Function InstallProjectTemplatesFiles
     Exch
     Pop $R0
     File "/oname=$R0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\cs\XpandFullSolutionCS.${DevExVersion}.zip"
-    File "/oname=$R0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandWinSoultionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandWinSoultionVB.${DevExVersion}.zip"
+    File "/oname=$R0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandFullSolutionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandFullSolutionVB.${DevExVersion}.zip"
     Pop $R0
 FunctionEnd
 
@@ -294,7 +294,7 @@ Function un.InstallProjectTemplatesFiles
     Exch
     Pop $R0
     Delete "$0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip"
-    Delete "$0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandWinSoultionVB.${DevExVersion}.zip"
+    Delete "$0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandFullSolutionVB.${DevExVersion}.zip"
     Pop $R0
 FunctionEnd
 
