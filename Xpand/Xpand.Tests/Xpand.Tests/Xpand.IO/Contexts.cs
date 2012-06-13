@@ -33,14 +33,18 @@ namespace Xpand.Tests.Xpand.IO {
             Session = XPObjectSpace.Session;
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(XPObjectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
-            classHandler.CreateReferenceMembers(info => info.Name == "Customer" ? new[] { typeof(User) } : null, true);
+            classHandler.CreateReferenceMembers(info => info.Name == "Customer" ? new[] { typeof(User) } : null, false);
             classHandler.CreateReferenceMembers(info => info.Name == "Order" ? info.PersistentAssemblyInfo.PersistentClassInfos.Where(classInfo => classInfo.Name == "Customer") : null, true);
             classHandler.CreateSimpleMembers<string>(persistentClassInfo => persistentClassInfo.Name == "Customer" ? new[] { "Name" } : null);
             XPObjectSpace.CommitChanges();
             CompileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder.PersistentAssemblyInfo, Path.GetDirectoryName(Application.ExecutablePath));
             CustomerType = CompileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
             OrderType = CompileModule.Assembly.GetTypes().Single(type => type.Name == "Order");
-            XafTypesInfo.Instance.CreateCollection(typeof(User), CustomerType, "User", XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
+            XafTypesInfo.Instance.RegisterEntity(typeof(User));
+            XafTypesInfo.Instance.RegisterEntity(CustomerType);
+            XafTypesInfo.Instance.RegisterEntity(OrderType);
+            var findMember = XafTypesInfo.Instance.FindTypeInfo(CustomerType).FindMember("User");
+            //            XafTypesInfo.Instance.CreateBothPartMembers(CustomerType, typeof(User), XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
 
         };

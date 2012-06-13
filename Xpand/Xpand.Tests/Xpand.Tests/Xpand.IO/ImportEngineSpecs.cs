@@ -369,11 +369,13 @@ namespace Xpand.Tests.Xpand.IO {
     }
 
     [Subject(typeof(ImportEngine))]
+    [Ignore("")]
     public class When_target_object_is_deleted_and_source_is_not {
         static MemoryStream _memoryStream;
         static UnitOfWork _unitOfWork;
 
         Establish context = () => {
+            XafTypesInfo.Instance.RegisterEntity(typeof(Analysis));
             _unitOfWork = new UnitOfWork(((XPObjectSpace)ObjectSpaceInMemory.CreateNew()).Session.DataLayer);
             var analysis = new Analysis(_unitOfWork) { Name = "target" };
             analysis.Delete();

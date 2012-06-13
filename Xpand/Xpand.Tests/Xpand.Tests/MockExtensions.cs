@@ -5,7 +5,9 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.BaseImpl;
@@ -13,6 +15,7 @@ using DevExpress.Xpo;
 using TypeMock.ArrangeActAssert;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.ExpressApp.Win;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using System.Linq;
 
@@ -58,6 +61,7 @@ namespace Xpand.Tests {
             IObjectSpace XPObjectSpace = ObjectSpaceInMemory.CreateNew(dataSet);
             XafApplication application = Isolate.Fake.XafApplicationInstance(func, dataSet, controllers);
             action.Invoke(application);
+            application.ShowViewStrategy = new MdiShowViewStrategy(application);
             object o = XPObjectSpace.CreateObject(func.Invoke().ToList().First());
             var detailView = application.CreateDetailView(XPObjectSpace, o);
             viewAction.Invoke(detailView);
@@ -67,6 +71,12 @@ namespace Xpand.Tests {
 
         }
 
+        public class WXafApplication : XpandWinApplication {
+            public WXafApplication() {
+                Security = new SecurityComplex();
+                ShowViewStrategy = new MdiShowViewStrategy(this);
+            }
+        }
         public static XafApplication XafApplicationInstance(this IFaker faker, Func<IList<Type>> func, DataSet dataSet, params Controller[] controllers) {
             var defaultSkinListGenerator = Isolate.Fake.Instance<DefaultSkinListGenerator>();
             var editorsFactory = new EditorsFactory();
@@ -76,10 +86,10 @@ namespace Xpand.Tests {
             Isolate.Swap.AllInstances<EditorsFactory>().With(editorsFactory);
 
             Isolate.Swap.NextInstance<DefaultSkinListGenerator>().With(defaultSkinListGenerator);
-            var application = Isolate.Fake.Instance<XafApplication>(Members.CallOriginal, ConstructorWillBe.Called);
+            var application = Isolate.Fake.Instance<XpandWinApplication>();
             RegisterControllers(application, controllers);
-//            var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
-//            xpandModuleBase.Setup(application);
+            //            var xpandModuleBase = Isolate.Fake.Instance<XpandModuleBase>(Members.CallOriginal, ConstructorWillBe.Called);
+            //            xpandModuleBase.Setup(application);
             var XPObjectSpaceProvider = Isolate.Fake.Instance<IObjectSpaceProvider>();
             Isolate.WhenCalled(() => XPObjectSpaceProvider.TypesInfo).WillReturn(XafTypesInfo.Instance);
             application.CreateCustomObjectSpaceProvider += (sender, args) => args.ObjectSpaceProvider = XPObjectSpaceProvider;

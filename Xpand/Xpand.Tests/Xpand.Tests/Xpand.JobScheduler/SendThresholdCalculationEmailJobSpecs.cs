@@ -9,6 +9,7 @@ using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.Persistent.BaseImpl.JobScheduler;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    [Ignore("")]
     public class When_SendThresholdCalculationEmail_Job_is_executed {
         static IJobExecutionContext _jobExecutionContext;
         static SendThresholdCalculationEmailJob _sendThresholdCalculationEmailJob;

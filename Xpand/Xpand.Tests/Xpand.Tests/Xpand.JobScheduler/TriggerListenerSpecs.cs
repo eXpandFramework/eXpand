@@ -10,6 +10,7 @@ using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    [Ignore("")]
     public class When_triggerlistenertrigger_is_linked_with_jobtrigger : With_Job_Scheduler_XpandJobDetail_Application<When_triggerlistenertrigger_is_linked_with_jobtrigger> {
         Establish context = () => {
             var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
@@ -31,6 +32,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    [Ignore("")]
     public class When_triggerlistenertrigger_is_unlinked_with_jobtrigger : With_Job_Scheduler_XpandJobDetail_Application<When_triggerlistenertrigger_is_unlinked_with_jobtrigger> {
         Establish context = () => {
             var xpandSimpleTrigger = XPObjectSpace.CreateObject<XpandSimpleTrigger>();
@@ -54,6 +56,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    [Ignore("")]
     public class When_an_Xpand_TriggerListener_is_executed {
         static IScheduler _scheduler;
         static IJobExecutionContext _jobExecutionContext;

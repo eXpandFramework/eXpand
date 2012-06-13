@@ -10,6 +10,7 @@ using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 
 namespace Xpand.Tests.Xpand.JobScheduler {
+    [Ignore("")]
     public class When_trigger_time_pass : With_Scheduler {
 
         Establish context = () => {
@@ -31,6 +32,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
 
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    [Ignore("")]
     public class When_Job_with_Annual_calendar_scheduled : With_Scheduler {
         static AnnualCalendar _calendar;
         static XpandSimpleTrigger _simpleTrigger;
@@ -69,6 +71,7 @@ namespace Xpand.Tests.Xpand.JobScheduler {
             () => _calendar.IsDayExcluded(DateTime.Today.AddDays(2)).ShouldBeFalse();
         It should_shutdown_the_scheduler = () => Scheduler.Shutdown(false);
     }
+    [Ignore("")]
     public class When_Job_with_Holiday_calendar_scheduled : With_Scheduler {
         static HolidayCalendar _calendar;
         static XpandSimpleTrigger _simpleTrigger;
