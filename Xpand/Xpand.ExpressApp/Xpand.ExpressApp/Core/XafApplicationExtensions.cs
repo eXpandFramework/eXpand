@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Core {
             ((ISupportFullConnectionString)xafApplication).ConnectionString = connectionString;
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             IDataStore dataStore = ((IXafApplication)xafApplication).GetDataStore(connectionProvider);
-            var selectDataSecurityProvider = (ISelectDataSecurityProvider)xafApplication.Security;
+            var selectDataSecurityProvider = xafApplication.Security as ISelectDataSecurityProvider;
             args.ObjectSpaceProvider = dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), selectDataSecurityProvider) : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
         }
 

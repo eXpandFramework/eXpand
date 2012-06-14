@@ -67,6 +67,8 @@ namespace Xpand.ExpressApp {
 
             var dataLayer = new SimpleDataLayer(XPDictionary, dataStore);
             disposableObjectsList.Add(dataLayer);
+            if (SelectDataSecurityProvider==null )
+                return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
             var xpandUnitOfWork = new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
             SessionObjectLayer currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, xpandUnitOfWork, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
             return new XpandUnitOfWork(currentObjectLayer, xpandUnitOfWork);
