@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         protected XpoDictionaryDifferenceStore(XafApplication application) {
             _application = application;
-            _objectSpace = (XpandObjectSpace)application.CreateObjectSpace();
+            _objectSpace = (XPObjectSpace)application.CreateObjectSpace();
         }
 
 
