@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
@@ -28,7 +29,7 @@ namespace FeatureCenter.Module.ApplicationDifferences {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
                 var role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));
                 var user = Updater.EnsureUserExists(ModelCombine, ModelCombine, role);
-                var collection = ((XPBaseCollection)XafTypesInfo.Instance.FindTypeInfo(role.GetType()).FindMember("Users"));
+                var collection = (XPBaseCollection)((XafMemberInfo)XafTypesInfo.Instance.FindTypeInfo(role.GetType()).FindMember("Users")).GetValue(role);
                 collection.BaseAdd(user);
                 ObjectSpace.CommitChanges();
             }
