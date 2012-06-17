@@ -74,12 +74,14 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             if (SecuritySystem.Instance is ISecurityComplex && IsGranted()) {
                 var space = Application.CreateObjectSpace();
                 ModelDifferenceObject difference = GetDifferenceFromPermission((XPObjectSpace)space);
-                var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
-                var diffsModel = difference.GetModel(master);
-                new ModelXmlReader().ReadFromModel(diffsModel, model);
-                difference.CreateAspectsCore(diffsModel);
-                space.SetModified(difference);
-                space.CommitChanges();
+                if (difference != null) {
+                    var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
+                    var diffsModel = difference.GetModel(master);
+                    new ModelXmlReader().ReadFromModel(diffsModel, model);
+                    difference.CreateAspectsCore(diffsModel);
+                    space.SetModified(difference);
+                    space.CommitChanges();
+                }
             }
         }
 
@@ -117,7 +119,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             RuntimeMemberBuilder.AddFields((IModelApplication)model, XpandModuleBase.Dictiorary);
         }
         public override void Load(ModelApplicationBase model) {
-            
+
         }
 
     }
