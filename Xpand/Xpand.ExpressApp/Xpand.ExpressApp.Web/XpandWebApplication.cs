@@ -15,7 +15,7 @@ using Xpand.ExpressApp.Web.SystemModule;
 
 
 namespace Xpand.ExpressApp.Web {
-    public class XpandWebApplication : WebApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString, IXafApplication {
+    public class XpandWebApplication : WebApplication, IXafApplication {
         ApplicationModulesManager _applicationModulesManager;
 
         protected XpandWebApplication() {
@@ -62,11 +62,11 @@ namespace Xpand.ExpressApp.Web {
             get { return base.ConnectionString; }
             set {
                 base.ConnectionString = value;
-                ((ISupportFullConnectionString)this).ConnectionString = value;
+                ((IXafApplication)this).ConnectionString = value;
             }
         }
 
-        string ISupportFullConnectionString.ConnectionString { get; set; }
+        string IXafApplication.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
@@ -108,7 +108,7 @@ namespace Xpand.ExpressApp.Web {
 
         protected XpandWebApplication(IContainer container) {
             container.Add(this);
-            
+
         }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {

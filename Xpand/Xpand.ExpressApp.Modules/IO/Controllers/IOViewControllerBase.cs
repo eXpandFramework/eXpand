@@ -83,8 +83,8 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 xmlFileChooser.FileData.SaveToStream(memoryStream);
                 new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(objectSpace.Session.DataLayer)));
             };
-            ((ISupportConfirmationRequired)Application).ConfirmationRequired += OnConfirmationRequired;
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView.Closed += (sender, eventArgs) => ((ISupportConfirmationRequired)Application).ConfirmationRequired -= OnConfirmationRequired;
+            ((IXafApplication)Application).ConfirmationRequired += OnConfirmationRequired;
+            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView.Closed += (sender, eventArgs) => ((IXafApplication)Application).ConfirmationRequired -= OnConfirmationRequired;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }

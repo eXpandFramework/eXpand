@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp.Security.Controllers {
     public class RememberMeController : WindowController {
-        
+
 
         public RememberMeController() {
             TargetWindowType = WindowType.Main;
@@ -14,8 +14,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
             base.OnActivated();
             Application.LoggingOff += ApplicationOnLoggingOff;
         }
-        protected override void OnDeactivated()
-        {
+        protected override void OnDeactivated() {
             base.OnDeactivated();
             Application.LoggingOff -= ApplicationOnLoggingOff;
         }
@@ -30,7 +29,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.LogonParameters.GetType());
                 var memberInfo = typeInfo.FindMember("RememberMe");
                 if (memberInfo != null) memberInfo.SetValue(SecuritySystem.LogonParameters, false);
-                var logonParameterStoreCore = ((ISupportLogonParameterStore) sender).CreateLogonParameterStoreCore();
+                var logonParameterStoreCore = ((IXafApplication)sender).CreateLogonParameterStoreCore();
                 ObjectSerializer.WriteObjectPropertyValues(null, logonParameterStoreCore, SecuritySystem.LogonParameters);
             }
 

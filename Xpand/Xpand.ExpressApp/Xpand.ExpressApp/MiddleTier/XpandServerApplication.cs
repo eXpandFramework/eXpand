@@ -1,14 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.MiddleTier {
-    public class XpandServerApplication : ServerApplication, ISupportFullConnectionString, IXafApplication {
+    public class XpandServerApplication : ServerApplication, IXafApplication {
         ApplicationModulesManager _applicationModulesManager;
-        string ISupportFullConnectionString.ConnectionString { get; set; }
+        string IXafApplication.ConnectionString { get; set; }
 
         IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
             return null;
@@ -19,7 +21,7 @@ namespace Xpand.ExpressApp.MiddleTier {
             get { return base.ConnectionString; }
             set {
                 base.ConnectionString = value;
-                ((ISupportFullConnectionString)this).ConnectionString = value;
+                ((IXafApplication)this).ConnectionString = value;
             }
         }
 
@@ -36,6 +38,20 @@ namespace Xpand.ExpressApp.MiddleTier {
             get { return _applicationModulesManager; }
         }
         public event EventHandler UserDifferencesLoaded;
+
+        SettingsStorage IXafApplication.CreateLogonParameterStoreCore() {
+            throw new NotImplementedException();
+        }
+
+        void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {
+            throw new NotImplementedException();
+        }
+
+        public event CancelEventHandler ConfirmationRequired;
+        public event EventHandler<ViewShownEventArgs> AfterViewShown;
+        public void OnAfterViewShown(Frame frame, Frame sourceFrame) {
+            throw new NotImplementedException();
+        }
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;

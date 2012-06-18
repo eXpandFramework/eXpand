@@ -20,16 +20,16 @@ namespace Xpand.ExpressApp.Core {
 
         public static string GetConnectionString(this XafApplication xafApplication) {
 
-            if (xafApplication is ServerApplication && !(xafApplication is ISupportFullConnectionString))
+            if (xafApplication is ServerApplication && !(xafApplication is IXafApplication))
                 throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " +
                                                   xafApplication.GetType());
-            var connectionString = ((ISupportFullConnectionString)xafApplication).ConnectionString;
+            var connectionString = ((IXafApplication)xafApplication).ConnectionString;
             return connectionString;
 
         }
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            ((ISupportFullConnectionString)xafApplication).ConnectionString = connectionString;
+            ((IXafApplication)xafApplication).ConnectionString = connectionString;
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
             IDataStore dataStore = ((IXafApplication)xafApplication).GetDataStore(connectionProvider);
             var selectDataSecurityProvider = xafApplication.Security as ISelectDataSecurityProvider;

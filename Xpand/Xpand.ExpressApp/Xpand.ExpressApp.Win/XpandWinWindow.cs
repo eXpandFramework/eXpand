@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Win {
         protected override void OnViewChanged(Frame sourceFrame) {
             base.OnViewChanged(sourceFrame);
             if ((Application != null) && (View != null)) {
-                ((ISupportAfterViewShown) Application).OnAfterViewShown(this, sourceFrame);
+                ((IXafApplication)Application).OnAfterViewShown(this, sourceFrame);
             }
         }
     }

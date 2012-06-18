@@ -23,7 +23,7 @@ using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, ISupportCustomListEditorCreation, IWinApplication, ISupportConfirmationRequired, ISupportAfterViewShown, ISupportLogonParameterStore, ISupportFullConnectionString {
+    public class XpandWinApplication : WinApplication, IWinApplication {
         static XpandWinApplication _application;
         DataCacheNode _cacheNode;
         ApplicationModulesManager _applicationModulesManager;
@@ -45,8 +45,8 @@ namespace Xpand.ExpressApp.Win {
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
         }
-        
-        public event EventHandler  UserDifferencesLoaded;
+
+        public event EventHandler UserDifferencesLoaded;
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;
@@ -77,11 +77,11 @@ namespace Xpand.ExpressApp.Win {
             get { return base.ConnectionString; }
             set {
                 base.ConnectionString = value;
-                ((ISupportFullConnectionString)this).ConnectionString = value;
+                ((IXafApplication)this).ConnectionString = value;
             }
         }
 
-        string ISupportFullConnectionString.ConnectionString { get; set; }
+        string IXafApplication.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
@@ -169,7 +169,7 @@ namespace Xpand.ExpressApp.Win {
 
 
         public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
-            var applicationBase = ((ModelApplicationBase) Model);
+            var applicationBase = ((ModelApplicationBase)Model);
             if (applicationBase.Id == "Application") {
                 var list = new List<ModelApplicationBase>();
                 while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId) {

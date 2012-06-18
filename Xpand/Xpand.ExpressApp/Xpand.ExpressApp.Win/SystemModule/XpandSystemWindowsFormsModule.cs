@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     if (logonParameters != null && logonParameters.RememberMe) {
                         eventArgs.Handled = true;
                         logonParameters.RememberMe = false;
-                        ((ISupportLogonParameterStore)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
+                        ((IXafApplication)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
                     }
 
                 };

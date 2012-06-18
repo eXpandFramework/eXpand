@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp {
         object GetObjectKey(IObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
             object objectKey = null;
             if (string.IsNullOrEmpty(shortcut.ObjectKey))
-                return objectKey;
+                return null;
 
             try {
                 objectKey = objectSpace.GetObjectKey(type, shortcut.ObjectKey);
@@ -83,10 +83,10 @@ namespace Xpand.ExpressApp {
                 else {
                     obj = objectSpace.FindObject(type, (CriteriaOperator)objectKey) ?? objectSpace.CreateObject(type);
                     if (!(objectSpace.IsNewObject(obj)))
-                        ((ISupportAfterViewShown)_application).AfterViewShown += OnAfterViewShown;
+                        ((IXafApplication)_application).AfterViewShown += OnAfterViewShown;
                 }
             } else {
-                obj = (type.GetConstructor(new[] { typeof(Session) })!=null)  ? objectSpace.CreateObject(type) : Activator.CreateInstance(type);
+                obj = (type.GetConstructor(new[] { typeof(Session) }) != null) ? objectSpace.CreateObject(type) : Activator.CreateInstance(type);
             }
             return obj;
         }
@@ -98,12 +98,12 @@ namespace Xpand.ExpressApp {
             var standaloneOrderProvider = new StandaloneOrderProvider(objectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };
             e.TargetFrame.GetController<RecordsNavigationController>().OrderProviderSource = orderProviderSource;
-            ((ISupportAfterViewShown) _application).AfterViewShown-=OnAfterViewShown;
+            ((IXafApplication)_application).AfterViewShown -= OnAfterViewShown;
             _detailView = null;
         }
 
         IModelDetailView GetModelDetailView(ViewShortcut shortcut) {
-            return _application.Model.Views.OfType<IModelDetailView>().Where(v => v.Id == shortcut.ViewId).FirstOrDefault();
+            return _application.Model.Views.OfType<IModelDetailView>().FirstOrDefault(v => v.Id == shortcut.ViewId);
         }
 
 
