@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
                 SecuritySystem.SetInstance(instance);
                 if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                    ((ISupportFullConnectionString)xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    ((IXafApplication)xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
                 return xafApplication;
             } finally {
@@ -95,7 +95,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var typesInfo = new TypesInfo();
             typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
             var xpoSource = new XpoTypeInfoSource(typesInfo);
-            typesInfo.Source=xpoSource;
+            typesInfo.Source = xpoSource;
             typesInfo.AddEntityStore(xpoSource);
             XpandModuleBase.Dictiorary = xpoSource.XPDictionary;
             return typesInfo;
@@ -208,7 +208,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return this;
         }
 
-        
+
         public ModelApplicationBase Build(bool rebuild) {
             string config = GetConfigPath();
             if (!rebuild)
@@ -254,14 +254,13 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             XpandModuleBase.DisposeManagers();
             ModelApplicationBase modelApplicationBase;
             try {
-                _modelBuilder =!rebuild? ModelBuilder.Create():_modelBuilder;
+                _modelBuilder = !rebuild ? ModelBuilder.Create() : _modelBuilder;
                 modelApplicationBase = _modelBuilder
                     .UsingTypesInfo(_typesInfo)
                     .FromModule(_moduleName)
                     .WithApplication(_xafApplication)
                     .Build(rebuild);
-            }
-            catch (CompilerErrorException e) {
+            } catch (CompilerErrorException e) {
                 Tracing.Tracer.LogSeparator("CompilerErrorException");
                 Tracing.Tracer.LogError(e);
                 Tracing.Tracer.LogValue("Source Code", e.SourceCode);

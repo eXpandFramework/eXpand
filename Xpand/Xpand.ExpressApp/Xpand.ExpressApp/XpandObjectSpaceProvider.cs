@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -37,9 +36,7 @@ namespace Xpand.ExpressApp {
         }
 
         protected override IObjectSpace CreateObjectSpaceCore() {
-            IDisposable[] disposableObjects;
-            IDataStore dataStore = DataStoreProvider.CreateWorkingStore(out disposableObjects);
-            return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => CreateUnitOfWork(dataStore, disposableObjects));
+            return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, CreateUnitOfWork);
         }
 
         IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(Boolean allowUpdateSchema) {
@@ -59,19 +56,14 @@ namespace Xpand.ExpressApp {
             return _dataLayer;
         }
 
-        private XpandUnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects) {
-            var disposableObjectsList = new List<IDisposable>();
-            if (disposableObjects != null) {
-                disposableObjectsList.AddRange(disposableObjects);
-            }
+        private XpandUnitOfWork CreateUnitOfWork() {
+            var uow = new XpandUnitOfWork(DataLayer);
 
-            var dataLayer = new SimpleDataLayer(XPDictionary, dataStore);
-            disposableObjectsList.Add(dataLayer);
-            if (SelectDataSecurityProvider==null )
-                return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
-            var xpandUnitOfWork = new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
-            SessionObjectLayer currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, xpandUnitOfWork, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
-            return new XpandUnitOfWork(currentObjectLayer, xpandUnitOfWork);
+            if (SelectDataSecurityProvider == null)
+                return uow;
+
+            var currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, uow, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
+            return new XpandUnitOfWork(currentObjectLayer, uow);
         }
     }
 
