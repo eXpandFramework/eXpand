@@ -97,8 +97,6 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
 
         void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e) {
-            if (View.Id != "MasterDetailAtAnyLevelCustomer_ListView" && View.Id != "MasterDetailAtAnyLevelOrder_ListView")
-                Debug.Print("");
             e.RelationCount = MasterDetailRules.Count;
         }
 
@@ -111,8 +109,6 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs e) {
-            if (View.Id != "MasterDetailAtAnyLevelCustomer_ListView")
-                Debug.Print("");
             if (e.RelationIndex > -1) {
                 var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XpandXafGridView)sender, MasterDetailRules);
                 e.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(e.RowHandle, e.RelationIndex);
