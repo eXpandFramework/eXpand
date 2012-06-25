@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
@@ -35,7 +38,8 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             CreateMappedAssemblyInfo(objectSpace, _assemblyInfo, (LogonObject)View.CurrentObject, selectedTables);
         }
         void CreateMappedAssemblyInfo(XPObjectSpace objectSpace, IPersistentAssemblyInfo persistentAssemblyInfo, LogonObject logonObject, string[] selectedTables) {
-            new AssemblyGenerator(logonObject, objectSpace.GetObject(persistentAssemblyInfo), selectedTables).Create();
+            var assemblyInfo = objectSpace.GetObject(persistentAssemblyInfo);
+            new AssemblyGenerator(logonObject, assemblyInfo, selectedTables).Create();
             objectSpace.CommitChanges();
         }
 

@@ -71,8 +71,9 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 var memberGeneratorInfos = new List<MemberGeneratorInfo>();
                 if (IsOneToOneOnTheKey(dbColumn) && coreTemplateType != TemplateType.ReadWriteMember) {
                     memberGeneratorInfos.Add(CreateFkMember(dbColumn, persistentClassInfo, coreTemplateType, TemplateType.XPOneToOneReadOnlyPropertyMember));
+                } else {
+                    memberGeneratorInfos.Add(CreateMember(dbColumn, persistentClassInfo, coreTemplateType, refTemplateType));
                 }
-                memberGeneratorInfos.Add(CreateMember(dbColumn, persistentClassInfo, coreTemplateType, refTemplateType));
                 return memberGeneratorInfos;
             }).Where(info => info.PersistentMemberInfo != null);
         }
@@ -93,13 +94,21 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             bool isPrimaryKey = IsPrimaryKey(dbColumn);
             bool isFkColumn = IsFKey(dbColumn);
             var isOneToOneOnTheKey = IsOneToOneOnTheKey(dbColumn);
-            if (((!isFkColumn) && (IsCoreColumn(dbColumn) || isPrimaryKey)) || (isOneToOneOnTheKey)) {
+            var b = ((!isFkColumn) && (IsCoreColumn(dbColumn) || isPrimaryKey)) || (isOneToOneOnTheKey);
+            if (b || IsSelfRefOnTheKey(dbColumn, isPrimaryKey)) {
                 return new MemberGeneratorInfo(CreatePersistentCoreTypeMemberInfo(dbColumn, persistentClassInfo, coreTemplateType), dbColumn);
             }
             if (isFkColumn) {
                 return CreateFkMember(dbColumn, persistentClassInfo, coreTemplateType, refTemplateType);
             }
             throw new NotImplementedException(dbColumn.Name);
+        }
+
+        bool IsSelfRefOnTheKey(DBColumn dbColumn, bool isPrimaryKey) {
+            if (!isPrimaryKey)
+                return false;
+            return _dbTable.ForeignKeys.FirstOrDefault(
+                key => key.PrimaryKeyTable == _dbTable.Name && key.Columns.Contains(dbColumn.Name)) != null;
         }
 
         MemberGeneratorInfo CreateFkMember(DBColumn dbColumn, IPersistentClassInfo persistentClassInfo,

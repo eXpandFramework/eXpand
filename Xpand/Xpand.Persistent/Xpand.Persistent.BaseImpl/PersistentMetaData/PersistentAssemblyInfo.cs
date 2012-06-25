@@ -39,6 +39,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public override void AfterConstruction() {
             base.AfterConstruction();
             Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session));
+            _validateModelOnCompile = true;
         }
 
         [Index(4)]
@@ -80,6 +81,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             }
             set {
                 SetPropertyValue("IsLegacy", ref _isLegacy, value);
+            }
+        }
+        private bool _validateModelOnCompile;
+        public bool ValidateModelOnCompile {
+            get {
+                return _validateModelOnCompile;
+            }
+            set {
+                SetPropertyValue("ValidateModelOnCompile", ref _validateModelOnCompile, value);
             }
         }
         [Index(1)]

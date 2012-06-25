@@ -6,6 +6,8 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.Persistent.Base;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
@@ -19,14 +21,10 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         public const string XpandExtension = ".Xpand";
         readonly List<Assembly> CompiledAssemblies = new List<Assembly>();
 
-
-
-
-
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, Action<CompilerParameters> action, string path) {
-            Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new AssemblyName(assembly.FullName + "").Name == persistentAssemblyInfo.Name).FirstOrDefault();
+            Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => new AssemblyName(assembly.FullName + "").Name == persistentAssemblyInfo.Name);
             if (loadedAssembly != null)
-                return loadedAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                return loadedAssembly.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type));
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
             var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters {
@@ -86,24 +84,28 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         Type CompileCore(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
             CompilerResults compileAssemblyFromSource = null;
+            Type compileCore = null;
             try {
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
                 if (compilerParams.GenerateInMemory) {
                     Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
                     CompiledAssemblies.Add(compiledAssembly);
-                    return compiledAssembly.GetTypes().Where(type => typeof(ModuleBase).IsAssignableFrom(type)).Single();
+                    compileCore = compiledAssembly.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type));
                 }
-                return null;
             } catch (Exception e) {
                 Tracing.Tracer.LogError(e);
             } finally {
                 if (compileAssemblyFromSource != null) {
                     SetErrors(compileAssemblyFromSource, persistentAssemblyInfo, compilerParams);
                 }
+                if (string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors)) {
+                    if (!ValidateBOModel(persistentAssemblyInfo, compileCore))
+                        compileCore = null;
+                }
                 if (Directory.Exists(STR_StrongKeys))
                     Directory.Delete(STR_StrongKeys, true);
             }
-            return null;
+            return compileCore;
         }
 
         static void SetErrors(CompilerResults compileAssemblyFromSource, IPersistentAssemblyInfo persistentAssemblyInfo, CompilerParameters compilerParams) {
@@ -121,9 +123,27 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             }
         }
 
+        bool ValidateBOModel(IPersistentAssemblyInfo persistentAssemblyInfo, Type compileCore) {
+            if (persistentAssemblyInfo.ValidateModelOnCompile) {
+                try {
+                    var typesInfo = new TypesInfo();
+                    typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
+                    typesInfo.AddEntityStore(new XpoTypeInfoSource(typesInfo));
+                    typesInfo.LoadTypes(compileCore.Assembly);
+                    var applicationModulesManager = new ApplicationModulesManager();
+                    applicationModulesManager.AddModule(compileCore);
+                    applicationModulesManager.Load(typesInfo, true);
+                } catch (Exception exception) {
+                    persistentAssemblyInfo.CompileErrors = exception.ToString();
+                    return false;
+                }
+            }
+            return true;
+        }
+
         void AddReferences(CompilerParameters compilerParams, string path) {
             Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
-                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources") == -1 && !string.IsNullOrEmpty(GetAssemblyLocation(assembly1));
+                assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources", StringComparison.Ordinal) == -1 && !string.IsNullOrEmpty(GetAssemblyLocation(assembly1));
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
                 AppDomain.CurrentDomain.GetAssemblies().Where(isNotDynamic).Select(assemblyNameSelector).ToArray());
@@ -172,7 +192,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                     var fileInfo = new FileInfo(fileName);
                     fileInfo.CopyTo(fileName + XpandExtension);
                     Assembly assembly = Assembly.LoadFile(fileName + XpandExtension);
-                    Type single = assembly.GetTypes().Where(type => typeof(XpandModuleBase).IsAssignableFrom(type)).Single();
+                    Type single = assembly.GetTypes().Single(type => typeof(XpandModuleBase).IsAssignableFrom(type));
                     definedModules.Add(single);
                 }
             }

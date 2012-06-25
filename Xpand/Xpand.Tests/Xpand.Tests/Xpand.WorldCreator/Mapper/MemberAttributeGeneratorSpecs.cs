@@ -274,4 +274,18 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
         It should_map_it_to_column_name = () => _persistentPersistentAttribute.MapTo.ShouldEqual(_column.Name);
     }
 
+    public class When__column_is_key_and_self_ref : With_Self_Ref_on_the_key {
+        static MemberGeneratorInfo _memberGeneratorInfo;
+
+        Establish context = () => {
+            _memberGeneratorInfo = new MemberGenerator(ClassGeneratorHelper.DbTable, ClassGeneratorHelper.ClassGeneratorInfos).Create().FirstOrDefault();
+        };
+
+        Because of = () => new MemberAttributeGenerator(_memberGeneratorInfo, new ClassGeneratorInfo(_memberGeneratorInfo.PersistentMemberInfo.Owner, ClassGeneratorHelper.DbTable)).Create();
+
+        It should_not_create_an_association_attribute =
+            () =>
+            _memberGeneratorInfo.PersistentMemberInfo.TypeAttributes.OfType<IPersistentAssociationAttribute>().
+                FirstOrDefault().ShouldBeNull();
+    }
 }

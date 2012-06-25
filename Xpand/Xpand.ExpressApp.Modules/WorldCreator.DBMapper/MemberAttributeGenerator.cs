@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 if (_isPrimaryKey) {
                     persistentAttributeInfos.Add(GetPersistentKeyAttribute());
                 }
-                if ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey())))
+                if ((!IsSelfRefOnTheKey(_column, _isPrimaryKey)) && ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey()))))
                     persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
             }
             var persistentPersistentAttribute = GetPersistentPersistentAttribute();
@@ -55,6 +55,13 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         bool IsOneToOne() {
             TemplateType templateType = _persistentMemberInfo.CodeTemplateInfo.CodeTemplate.TemplateType;
             return templateType == TemplateType.XPOneToOnePropertyMember || templateType == TemplateType.XPOneToOneReadOnlyPropertyMember;
+        }
+
+        bool IsSelfRefOnTheKey(DBColumn dbColumn, bool isPrimaryKey) {
+            if (!isPrimaryKey)
+                return false;
+            return _dbTable.ForeignKeys.FirstOrDefault(
+                key => key.PrimaryKeyTable == _dbTable.Name && key.Columns.Contains(dbColumn.Name)) != null;
         }
 
         bool IsForeignKey() {

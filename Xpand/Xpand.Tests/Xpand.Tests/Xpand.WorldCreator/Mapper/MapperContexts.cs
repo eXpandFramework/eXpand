@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo.DB;
+using Machine.Specifications;
 using Xpand.ExpressApp.WorldCreator.DBMapper;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -10,6 +11,19 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.ExpressApp.WorldCreator.Core;
 
 namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
+    public abstract class With_Self_Ref_on_the_key : With_In_Memory_DataStore {
+        protected static ClassGeneratorHelper ClassGeneratorHelper;
+
+        Establish context = () => {
+            ClassGeneratorHelper = new ClassGeneratorHelper(XPObjectSpace);
+            var dbTable = ClassGeneratorHelper.DbTable;
+            var column = new DBColumn("KeySelf", true, "int", 0, DBColumnType.Int32);
+            dbTable.Columns.Add(column);
+            dbTable.PrimaryKey = new DBPrimaryKey(new[] { column });
+            dbTable.ForeignKeys.Add(new DBForeignKey(new[] { column }, dbTable.Name, new StringCollection { "Oid" }));
+        };
+    }
+
     public class ClassGeneratorHelper {
         readonly IPersistentAssemblyInfo _persistentAssemblyInfo;
         readonly DBTable _dbTable = new DBTable { Name = "MainTable" };

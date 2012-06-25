@@ -36,7 +36,22 @@ namespace Xpand.Tests.Xpand.WorldCreator.Mapper {
 
     }
 
+    [Subject(typeof(MemberGenerator), "Create CoreMemberInfo")]
+    public class When_column_is_key_and_self_ref : With_Self_Ref_on_the_key {
+        static IEnumerable<MemberGeneratorInfo> _memberGeneratorInfos;
 
+        Because of = () => {
+            _memberGeneratorInfos = new MemberGenerator(ClassGeneratorHelper.DbTable, ClassGeneratorHelper.ClassGeneratorInfos).Create().ToList();
+        };
+
+        It should_create_a_core_type_memberinfo =
+            () => {
+                var memberGeneratorInfo =
+                    _memberGeneratorInfos.FirstOrDefault(info => info.PersistentMemberInfo.Name == "KeySelf");
+                memberGeneratorInfo.ShouldNotBeNull();
+                memberGeneratorInfo.PersistentMemberInfo.ShouldBeOfType<IPersistentCoreTypeMemberInfo>();
+            };
+    }
     [Subject(typeof(MemberGenerator), "Create ReferenceMemberInfo")]
     public class When_column_is_a_foreign_key_column : With_In_Memory_DataStore {
         static PersistentCollectionMemberInfo _persistentCollectionMemberInfo;
