@@ -98,7 +98,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 if (compileAssemblyFromSource != null) {
                     SetErrors(compileAssemblyFromSource, persistentAssemblyInfo, compilerParams);
                 }
-                if (string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors)) {
+                if (string.IsNullOrEmpty(persistentAssemblyInfo.CompileErrors) && compileCore != null) {
                     if (!ValidateBOModel(persistentAssemblyInfo, compileCore))
                         compileCore = null;
                 }

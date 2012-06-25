@@ -20,8 +20,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
         It should_not_generate_assembly_in_memory =
             () =>
-            AppDomain.CurrentDomain.GetAssemblies().Where(
-                assembly => (assembly.FullName + "").StartsWith("TestAssemlby")).FirstOrDefault().ShouldBeNull();
+            AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => (assembly.FullName + "").StartsWith("TestAssemlby")).ShouldBeNull();
 
         It should_save_errors_at_persistentAssemblyInfo_compile_errors = () => _info.CompileErrors.ShouldBeNull();
 
