@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -108,6 +109,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
     }
 
     internal class ModelBuilder {
+
         readonly string _assembliesPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         XafApplication _application;
         ITypesInfo _typesInfo;
@@ -127,7 +129,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                     return languages.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
                 }
             }
-            return null;
+            return Enumerable.Empty<string>();
         }
 
         public static ModelBuilder Create() {
@@ -161,11 +163,17 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
-                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), null, null);
+                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), GetModelAssemblyFile(), null);
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
             return modelApplication;
+        }
+
+        string GetModelAssemblyFile() {
+            if (!ModelLoader.IsDebug)
+                return null;
+            return Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location) + "", "ModelAssembly.dll");
         }
 
         ApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
@@ -227,6 +235,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
     }
     public class ModelLoader {
+        public static bool IsDebug { get; set; }
+
         readonly string _moduleName;
         ITypesInfo _typesInfo;
         XafApplication _xafApplication;
