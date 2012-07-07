@@ -61,9 +61,9 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
-                    var xpClassInfo = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetEntityClassInfo(persistentType.Type);
+                    var xpClassInfo = XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
                     if (xpClassInfo.TableName != null && xpClassInfo.ClassType != null) {
-                        if (!IsMappedToParent(xpClassInfo))
+                        if (!IsMappedToParent(xpClassInfo) && !_tablesDictionary.ContainsKey(xpClassInfo.TableName))
                             _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
                     }
                 }
@@ -203,7 +203,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
             if (!_tablesDictionary.ContainsKey(statement.TableName)) {
                 var classInfo = Application.Model.BOModel.Select(mclass => Dictiorary.QueryClassInfo(mclass.TypeInfo.Type)).FirstOrDefault(info => info != null && info.TableName == statement.TableName);
-                if (classInfo != null)
+                if (classInfo != null && !_tablesDictionary.ContainsKey(classInfo.TableName))
                     _tablesDictionary.Add(classInfo.TableName, classInfo.ClassType);
                 else
                     throw new ArgumentException(statement.TableName);
