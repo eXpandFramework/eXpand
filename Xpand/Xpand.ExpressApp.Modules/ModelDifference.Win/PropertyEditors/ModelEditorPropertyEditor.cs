@@ -148,13 +148,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         private void CreateModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
-            _masterModel=_modelLoader.ReCreate();
-//            foreach (var layer in allLayers)
-//                ModelApplicationHelper.RemoveLayer(layer);
+            _masterModel = _modelLoader.ReCreate();
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
             }
-            
+
             RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
 
             DisposeController();
