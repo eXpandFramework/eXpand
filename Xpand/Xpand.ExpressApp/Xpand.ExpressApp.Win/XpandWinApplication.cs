@@ -49,6 +49,8 @@ namespace Xpand.ExpressApp.Win {
         public event EventHandler UserDifferencesLoaded;
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
+
+
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);
         }

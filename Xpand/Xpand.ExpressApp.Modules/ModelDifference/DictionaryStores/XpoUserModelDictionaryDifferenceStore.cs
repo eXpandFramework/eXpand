@@ -111,7 +111,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
             if (!modelDifferenceObjects.Any()) {
-                SaveDifference(model);
+                SaveDifference(userDiff);
                 return;
             }
 
