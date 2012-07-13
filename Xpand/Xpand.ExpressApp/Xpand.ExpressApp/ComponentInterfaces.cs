@@ -42,6 +42,7 @@ namespace Xpand.ExpressApp {
         event CancelEventHandler ConfirmationRequired;
         event EventHandler<ViewShownEventArgs> AfterViewShown;
         void OnAfterViewShown(Frame frame, Frame sourceFrame);
+        string GetModelAssemblyFilePath();
     }
 
 

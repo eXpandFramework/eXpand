@@ -53,6 +53,10 @@ namespace Xpand.ExpressApp.MiddleTier {
             throw new NotImplementedException();
         }
 
+        public string GetModelAssemblyFilePath() {
+            return null;
+        }
+
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);

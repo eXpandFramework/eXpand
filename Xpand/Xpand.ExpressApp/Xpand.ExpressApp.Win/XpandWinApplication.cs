@@ -128,6 +128,10 @@ namespace Xpand.ExpressApp.Win {
             }
         }
 
+        string IXafApplication.GetModelAssemblyFilePath() {
+            return GetModelAssemblyFilePath();
+        }
+
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
             if (handler != null) handler(this, e);

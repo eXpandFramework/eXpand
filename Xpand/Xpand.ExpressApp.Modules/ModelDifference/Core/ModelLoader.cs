@@ -165,8 +165,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
+            var modelAssemblyFile = ((IXafApplication)application).GetModelAssemblyFilePath();
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
-                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), GetModelAssemblyFile(), null);
+                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
@@ -194,12 +195,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 }
             }
             return keyValuePairs;
-        }
-
-        string GetModelAssemblyFile() {
-            if (!ModelLoader.IsDebug)
-                return null;
-            return Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location) + "", "ModelAssembly.dll");
         }
 
         ApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
