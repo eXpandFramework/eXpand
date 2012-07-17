@@ -45,7 +45,9 @@ namespace Xpand.ExpressApp {
 
         protected bool RuntimeMode {
             get {
-                return Application != null && Application.Title != "devenv";
+                var processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+                return processName == "Xpand.ExpressApp.ModelEditor" ||
+                       LicenseManager.UsageMode != LicenseUsageMode.Designtime;
             }
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
