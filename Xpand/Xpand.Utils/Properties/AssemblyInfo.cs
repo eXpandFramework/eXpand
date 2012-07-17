@@ -39,6 +39,6 @@ using Xpand;
 [assembly: AllowPartiallyTrustedCallers]
 namespace Xpand {
     public class AssemblyInfo {
-        public const string Version = "12.1.4.0";
+        public const string Version = "12.1.5.0";
     }
 }
