@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -171,6 +174,7 @@
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
+    <Compile Include="ModuleUpdaterHelper.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
