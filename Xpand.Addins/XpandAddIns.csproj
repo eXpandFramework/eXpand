@@ -136,16 +136,12 @@
     <Compile Include="FormatOnSave\DocumentLanguages.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
-    <Compile Include="Options.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Options.cs" />
     <Compile Include="Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="OptionsStorageExtensions.cs" />
-    <Compile Include="PlugIn1.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PlugIn1.cs" />
     <Compile Include="PlugIn1.Designer.cs">
       <DependentUpon>PlugIn1.cs</DependentUpon>
     </Compile>
@@ -163,9 +159,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ReverseLineReader.cs" />
-    <Compile Include="ModelEditor\METoolWindow.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ModelEditor\METoolWindow.cs" />
     <Compile Include="ModelEditor\METoolWindow.Designer.cs">
       <DependentUpon>METoolWindow.cs</DependentUpon>
     </Compile>

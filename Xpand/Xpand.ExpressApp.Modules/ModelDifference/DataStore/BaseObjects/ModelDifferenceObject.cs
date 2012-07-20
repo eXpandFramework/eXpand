@@ -20,7 +20,7 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
-    [Custom("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
+    [ModelDefault("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
@@ -127,7 +127,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         #region IXpoModelDifference Members
 
-        [Custom("GroupIndex", "0"), NonCloneable, VisibleInDetailView(false)]
+        [ModelDefault("GroupIndex", "0"), NonCloneable, VisibleInDetailView(false)]
         public DifferenceType DifferenceType {
             get { return _differenceType; }
             set { SetPropertyValue("DifferenceType", ref _differenceType, value); }
@@ -147,7 +147,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _disabled, value); }
         }
 
-        [Custom("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
+        [ModelDefault("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
         public DateTime DateCreated {
             get { return dateCreated; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref dateCreated, value); }

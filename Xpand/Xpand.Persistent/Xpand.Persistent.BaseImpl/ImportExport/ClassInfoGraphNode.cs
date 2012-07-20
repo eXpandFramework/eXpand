@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -10,7 +11,7 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
-    [Custom("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
+    [ModelDefault("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
     [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), "1=1", "1=1", ControllerState.Disabled)]
     [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController), "1=1", "1=1", ControllerState.Disabled)]
     [DefaultProperty("Name")]
@@ -23,18 +24,18 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
 
         [Appearance("RuleObjectCanNotBeKey", AppearanceItemType.ViewItem, null, Enabled = false, TargetItems = "Key")]
         public bool RuleObjectCanNotBeKey() {
-            return XafTypesInfo.Instance.PersistentTypes.Where(info => info.Name == TypeName).Count() > 0;
+            return XafTypesInfo.Instance.PersistentTypes.Any(info => info.Name == TypeName);
         }
 
         private NodeType _nodeType;
         [VisibleInListView(false)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         public NodeType NodeType {
             get { return _nodeType; }
             set { SetPropertyValue("NodeType", ref _nodeType, value); }
         }
         [VisibleInDetailView(false)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         public string Name {
             get { return name; }
             set { SetPropertyValue("Name", ref name, value); }
@@ -73,5 +74,6 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             set { SetPropertyValue("TypeName", ref _typeName, value); }
         }
         #endregion
+        
     }
 }

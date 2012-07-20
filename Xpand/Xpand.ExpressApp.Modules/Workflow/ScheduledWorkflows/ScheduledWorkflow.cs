@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Workflow.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Xpo;
+using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public enum StartMode {
@@ -133,7 +134,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         }
 
         [Size(SizeAttribute.Unlimited)]
-        [Custom("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
+        [ModelDefault("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
         public string Xaml {
             get { return GetPropertyValue<string>("Xaml"); }
             set { SetPropertyValue("Xaml", value); }

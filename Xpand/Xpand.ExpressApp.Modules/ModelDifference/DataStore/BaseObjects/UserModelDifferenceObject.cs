@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -12,7 +13,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    [HideFromNewMenu, Custom("Caption", "User Difference"), VisibleInReports(false)]
+    [HideFromNewMenu, ModelDefault("Caption", "User Difference"), VisibleInReports(false)]
     public class UserModelDifferenceObject : ModelDifferenceObject {
         private bool nonPersistent;
 

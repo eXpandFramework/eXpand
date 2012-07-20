@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Workflow;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
@@ -131,7 +133,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
 
         [Size(SizeAttribute.Unlimited)]
-        [Custom("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
+        [ModelDefault("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
         public string Xaml {
             get { return GetPropertyValue<string>("Xaml"); }
             set { SetPropertyValue("Xaml", value); }

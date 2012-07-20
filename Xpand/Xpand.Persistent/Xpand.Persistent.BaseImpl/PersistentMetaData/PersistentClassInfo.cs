@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -95,7 +96,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Index(4)]
         [VisibleInListView(false)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
@@ -159,7 +160,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
                                            this.GetPropertyInfo(x => x.BaseClassInfo).Name + " should not be null";
                     return false;
                 }
-                if (TypeAttributes.Where(info => info is PersistentMapInheritanceAttribute).FirstOrDefault() == null) {
+                if (TypeAttributes.FirstOrDefault(info => info is PersistentMapInheritanceAttribute) == null) {
                     errorMessageTemplate = typeof(PersistentMapInheritanceAttribute).Name + " is required";
                     return false;
                 }
@@ -167,6 +168,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             return true;
         }
         #endregion
+        
+
     }
 
 }

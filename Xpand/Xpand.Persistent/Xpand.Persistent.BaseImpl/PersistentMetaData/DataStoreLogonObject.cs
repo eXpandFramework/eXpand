@@ -6,6 +6,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
+using DevExpress.ExpressApp.Model;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IDataStoreLogonObject))]
@@ -63,7 +64,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         private string _passWord;
         [Index(3)]
-        [Custom("IsPassword", "True")]
+        [ModelDefault("IsPassword", "True")]
         public string PassWord {
             get { return _passWord; }
             set { SetPropertyValue("PassWord", ref _passWord, value); }

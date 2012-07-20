@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,12 +16,12 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
         [VisibleInDetailView(false)]
         [VisibleInListView(true)]
-        [Custom("GroupIndex", "0")]
+        [ModelDefault("GroupIndex", "0")]
         public string TypeInfoName {
             get { return GetType().Name.Replace("Persistent", ""); }
         }
         [VisibleInListView(false)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }

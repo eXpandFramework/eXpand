@@ -13,6 +13,7 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo.DB;
+using DevExpress.ExpressApp.Model;
 
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
@@ -51,7 +52,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(6)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string GeneratedCode {
             get {
@@ -126,7 +127,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [Index(7)]
-        [Custom("AllowEdit", "false")]
+        [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         public string CompileErrors {
             get { return _compileErrors; }
