@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Registrator;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
-using MS.Internal.Xml.XPath;
 using Xpand.ExpressApp.MasterDetail.Logic;
-using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class MasterDetailViewController : MasterDetailViewControllerBase {

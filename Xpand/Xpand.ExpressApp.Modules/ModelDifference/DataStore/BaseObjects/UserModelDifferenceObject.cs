@@ -48,5 +48,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             differenceObjects = differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
             return GetAllLayers(differenceObjects, master);
         }
+        
     }
 }

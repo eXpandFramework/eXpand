@@ -168,8 +168,5 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             return true;
         }
         #endregion
-        
-
-    }
-
+   }
 }

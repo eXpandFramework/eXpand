@@ -11,6 +11,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, VisibleInReports(false), ModelDefault("Caption", "Role Difference")]
     public class RoleModelDifferenceObject : ModelDifferenceObject {
 
+    
         public RoleModelDifferenceObject(Session session) : base(session) {
         }
 

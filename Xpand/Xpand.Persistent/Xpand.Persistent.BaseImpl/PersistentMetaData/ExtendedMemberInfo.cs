@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -39,29 +38,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public Type Owner {
             get { return _owner; }
             set { SetPropertyValue("Owner", ref _owner, value); }
-        }
-        #endregion
-        //Created by EasyFields
-        #region Nested type: FieldsClass
-        public new class FieldsClass : PersistentBase.FieldsClass {
-            public FieldsClass() {
-            }
-
-            public FieldsClass(string propertyName)
-                : base(propertyName) {
-            }
-
-            public OperandProperty TypeInfoName {
-                get { return new OperandProperty(GetNestedName("TypeInfoName")); }
-            }
-
-            public PersistentClassInfo.FieldsClass OwnerClassInfo {
-                get { return new PersistentClassInfo.FieldsClass(GetNestedName("OwnerClassInfo")); }
-            }
-
-            public OperandProperty Owner {
-                get { return new OperandProperty(GetNestedName("Owner")); }
-            }
         }
         #endregion
     }

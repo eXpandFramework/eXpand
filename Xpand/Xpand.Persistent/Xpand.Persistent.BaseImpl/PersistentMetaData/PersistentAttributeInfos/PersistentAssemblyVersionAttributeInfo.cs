@@ -38,5 +38,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             ConstructorInfo constructorInfo =
                 typeof (AssemblyVersionAttribute).GetConstructor(new[]{typeof (string)});
             return new AttributeInfoAttribute(constructorInfo, new object[]{Version});
-        }                                                  }
+        }
+    }
 }
