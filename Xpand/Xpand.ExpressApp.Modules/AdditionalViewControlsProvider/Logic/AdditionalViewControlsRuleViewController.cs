@@ -51,8 +51,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                         control.Rule = info.Rule;
                         ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, (object)control, info.Rule });
                         if (additionalViewControl == null) {
-                            AddControl(control, controls, info);
                             InitializeControl(control, info, calculator, executionContext);
+                            AddControl(control, controls, info);
                         }
                     } else if (additionalViewControl != null) {
                         controls.GetType().GetMethod("Remove").Invoke(controls, new[] { additionalViewControl });
