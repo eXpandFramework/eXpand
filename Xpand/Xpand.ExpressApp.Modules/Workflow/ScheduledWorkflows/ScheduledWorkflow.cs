@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
