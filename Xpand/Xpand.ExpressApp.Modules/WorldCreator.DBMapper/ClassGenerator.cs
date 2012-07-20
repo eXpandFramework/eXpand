@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
@@ -63,7 +62,6 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             persistentClassInfo.Name = GetTableName(name);
             persistentClassInfo.PersistentAssemblyInfo = _persistentAssemblyInfo;
             persistentClassInfo.BaseType = typeof(XPLiteObject);
-            Debug.Print("CreateClassInfo " + name);
             return persistentClassInfo;
         }
     }

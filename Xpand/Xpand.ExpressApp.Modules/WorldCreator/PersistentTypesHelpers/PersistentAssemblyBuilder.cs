@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -188,12 +187,8 @@ namespace Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers {
         }
 
         void IClassInfoHandler.CreateTemplateInfos(Func<IPersistentClassInfo, List<ITemplateInfo>> func) {
-            foreach (var persistentClassInfo in _persistentClassInfos) {
-                List<ITemplateInfo> templateInfos = func.Invoke(persistentClassInfo);
-                if (templateInfos.Count > 1)
-                    Debug.Print("");
-
-                foreach (var templateInfo in templateInfos) {
+            foreach (IPersistentClassInfo persistentClassInfo in _persistentClassInfos) {
+                foreach (ITemplateInfo templateInfo in func.Invoke(persistentClassInfo)) {
                     persistentClassInfo.TemplateInfos.Add(templateInfo);
                 }
             }
