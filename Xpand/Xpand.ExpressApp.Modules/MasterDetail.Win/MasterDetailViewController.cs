@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,16 +11,16 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Registrator;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using MS.Internal.Xml.XPath;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors;
 
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
-    public class MasterDetailViewController : ListViewController<XpandGridListEditor> {
-        private List<IMasterDetailRule> MasterDetailRules {
-            get { return Frame.GetController<MasterDetailRuleController>().MasterDetailRules; }
-        }
+    public class MasterDetailViewController : MasterDetailViewControllerBase {
+        List<IMasterDetailRule> _masterDetailRuleInfos;
+
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
@@ -54,17 +55,23 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing += ShowNavigationItemActionOnExecuting;
-            XpandXafGridView view = ((XpandGridListEditor)View.Editor).GridView;
-            var grid = ((XpandGridListEditor)View.Editor).Grid;
-            grid.ViewRegistered += Grid_ViewRegistered;
-            grid.ViewRemoved += Grid_ViewRemoved;
-            view.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
-            view.MasterRowGetRelationName += ViewOnMasterRowGetRelationName;
-            view.MasterRowGetRelationDisplayCaption += MasterRowGetRelationDisplayCaption;
-            view.MasterRowGetChildList += ViewOnMasterRowGetChildList;
-            view.MasterRowEmpty += ViewOnMasterRowEmpty;
-            view.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+            var needsRuleArgs = new NeedsRuleArgs();
+            OnNeedsRule(needsRuleArgs);
+            _masterDetailRuleInfos = needsRuleArgs.Rules;
+            if (_masterDetailRuleInfos != null) {
+                Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=
+                    ShowNavigationItemActionOnExecuting;
+                XpandXafGridView view = ((XpandGridListEditor)View.Editor).GridView;
+                var grid = ((XpandGridListEditor)View.Editor).Grid;
+                grid.ViewRegistered += Grid_ViewRegistered;
+                grid.ViewRemoved += Grid_ViewRemoved;
+                view.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
+                view.MasterRowGetRelationName += ViewOnMasterRowGetRelationName;
+                view.MasterRowGetRelationDisplayCaption += MasterRowGetRelationDisplayCaption;
+                view.MasterRowGetChildList += ViewOnMasterRowGetChildList;
+                view.MasterRowEmpty += ViewOnMasterRowEmpty;
+                view.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+            }
         }
 
         void ShowNavigationItemActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
@@ -77,7 +84,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         void ViewOnMasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e) {
             object row = ((XpandXafGridView)sender).GetRow(e.RowHandle);
             if (e.RelationIndex > -1)
-                e.ChildList = (IList)MasterDetailRules[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
+                e.ChildList = (IList)_masterDetailRuleInfos[e.RelationIndex].CollectionMember.MemberInfo.GetValue(row);
         }
 
         void ViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e) {
@@ -85,32 +92,32 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
                 Debug.Print("");
 
             if (e.RelationIndex > -1)
-                e.RelationName = MasterDetailRules[e.RelationIndex].CollectionMember.Name;
+                e.RelationName = _masterDetailRuleInfos[e.RelationIndex].CollectionMember.Name;
         }
 
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e) {
             if (e.RelationIndex > -1) {
-                var masterDetailRule = MasterDetailRules[e.RelationIndex];
+                var masterDetailRule = _masterDetailRuleInfos[e.RelationIndex];
                 e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
             }
         }
 
 
         void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e) {
-            e.RelationCount = MasterDetailRules.Count;
+            e.RelationCount = _masterDetailRuleInfos.Count;
         }
 
         void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e) {
             if (e.RelationIndex > -1) {
                 var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
-                var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XpandXafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, MasterDetailRules);
+                var levelDefaultView = gridViewBuilder.GetLevelDefaultView((XpandXafGridView)sender, e.RowHandle, e.RelationIndex, View.Model, _masterDetailRuleInfos);
                 e.DefaultView = levelDefaultView;
             }
         }
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs e) {
             if (e.RelationIndex > -1) {
-                var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XpandXafGridView)sender, MasterDetailRules);
+                var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (XpandXafGridView)sender, _masterDetailRuleInfos);
                 e.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(e.RowHandle, e.RelationIndex);
             }
         }
@@ -133,4 +140,5 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
                 window.Form.Close();
         }
     }
+
 }

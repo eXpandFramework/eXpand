@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
         IMasterDetailRule GetMasterDetailRule(string rName) {
-            return _masterDetailRules.Where(rule => rule.CollectionMember.Name == rName).LastOrDefault();
+            return _masterDetailRules.LastOrDefault(rule => rule.CollectionMember.Name == rName);
         }
 
         public IModelListView GetChildModelListView(int rowHandle, int relationIndex) {
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         public string GetOwnerPropertyName(IModelListView childModelListView, int rowHandle, int relationIndex) {
             var rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
-            IMemberInfo associatedMemberInfo = _modelListView.ModelClass.AllMembers.Where(member => member.MemberInfo.Name == rName).Single().MemberInfo.AssociatedMemberInfo;
+            IMemberInfo associatedMemberInfo = _modelListView.ModelClass.AllMembers.Single(member => member.MemberInfo.Name == rName).MemberInfo.AssociatedMemberInfo;
             return associatedMemberInfo.Name;
 
         }
@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         public IModelMember GetRelationModelMember(int rowHandle, int relationIndex) {
 
             var relationName = _xafGridView.GetRelationName(rowHandle, relationIndex);
-            return _modelListView.ModelClass.AllMembers.Where(member => member.Name == relationName).Single();
+            return _modelListView.ModelClass.AllMembers.Single(member => member.Name == relationName);
         }
 
     }

@@ -127,6 +127,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\MasterDetailViewControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MasterDetailModule.cs">
       <SubType>Component</SubType>
     </Compile>
