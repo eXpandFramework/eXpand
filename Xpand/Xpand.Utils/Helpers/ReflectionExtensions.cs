@@ -129,10 +129,15 @@ namespace Xpand.Utils.Helpers {
             source.SetProperty(propExpr, ref propertyValueHolder, value, () => { });
         }
 
+        public static object CreateGeneric(this Type generic, Type innerType, params object[] args) {
+            Type specificType = generic.MakeGenericType(new[] { innerType });
+            return Activator.CreateInstance(specificType, args);
+        }
+
         public static bool IsNullableType(this Type theType) {
             if (theType.IsGenericType) {
                 var genericTypeDefinition = theType.GetGenericTypeDefinition();
-                if (genericTypeDefinition != null) return (genericTypeDefinition.Equals(typeof(Nullable<>)));
+                if (genericTypeDefinition != null) return (genericTypeDefinition == typeof(Nullable<>));
             }
             return false;
         }
