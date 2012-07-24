@@ -9,22 +9,20 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
     public class ModelDetailRelationCalculator {
         readonly IModelListView _modelListView;
         readonly XafGridView _xafGridView;
-        readonly List<IMasterDetailRule> _masterDetailRules;
+        readonly List<MasterDetailRuleInfo> _masterDetailRules;
 
-        public ModelDetailRelationCalculator(IModelListView modelListView, XafGridView xafGridView, List<IMasterDetailRule> masterDetailRules) {
+        public ModelDetailRelationCalculator(IModelListView modelListView, XafGridView xafGridView, List<MasterDetailRuleInfo> masterDetailRules) {
             _modelListView = modelListView;
             _xafGridView = xafGridView;
             _masterDetailRules = masterDetailRules;
         }
-
-
 
         public bool IsRelationSet(int rowHandle, int relationIndex) {
             string rName = _xafGridView.GetRelationName(rowHandle, relationIndex);
             return GetMasterDetailRule(rName) != null;
         }
 
-        IMasterDetailRule GetMasterDetailRule(string rName) {
+        MasterDetailRuleInfo GetMasterDetailRule(string rName) {
             return _masterDetailRules.LastOrDefault(rule => rule.CollectionMember.Name == rName);
         }
 

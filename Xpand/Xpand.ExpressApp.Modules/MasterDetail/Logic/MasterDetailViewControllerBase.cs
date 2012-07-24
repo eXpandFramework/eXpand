@@ -19,10 +19,18 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
     }
 
     public class NeedsRuleArgs : EventArgs {
-        readonly List<IMasterDetailRule> _rules = new List<IMasterDetailRule>();
+        readonly Frame _frame;
+        readonly List<MasterDetailRuleInfo> _rules = new List<MasterDetailRuleInfo>();
 
+        public NeedsRuleArgs(Frame frame) {
+            _frame = frame;
+        }
 
-        public List<IMasterDetailRule> Rules {
+        public Frame Frame {
+            get { return _frame; }
+        }
+
+        public List<MasterDetailRuleInfo> Rules {
             get {
                 return _rules;
             }

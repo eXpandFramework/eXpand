@@ -19,7 +19,7 @@ using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class MasterDetailViewController : MasterDetailViewControllerBase {
-        List<IMasterDetailRule> _masterDetailRuleInfos;
+        List<MasterDetailRuleInfo> _masterDetailRuleInfos;
 
 
         protected override void OnDeactivated() {
@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var needsRuleArgs = new NeedsRuleArgs();
+            var needsRuleArgs = new NeedsRuleArgs(Frame);
             OnNeedsRule(needsRuleArgs);
             _masterDetailRuleInfos = needsRuleArgs.Rules;
             if (_masterDetailRuleInfos != null) {
@@ -126,8 +126,9 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
             var parentGridView = (XpandXafGridView)e.View.ParentView;
             var frame = parentGridView.Window ?? Frame;
-            List<IMasterDetailRule> masterDetailRules = frame.GetController<MasterDetailRuleController>().MasterDetailRules;
-            gridViewBuilder.ModifyInstanceGridView(parentGridView, e.View.SourceRowHandle, parentGridView.GetRelationIndex(e.View.SourceRowHandle, e.View.LevelName), ((XpandListView)frame.View).Model, masterDetailRules);
+            var needsRuleArgs = new NeedsRuleArgs(frame);
+            OnNeedsRule(needsRuleArgs);
+            gridViewBuilder.ModifyInstanceGridView(parentGridView, e.View.SourceRowHandle, parentGridView.GetRelationIndex(e.View.SourceRowHandle, e.View.LevelName), ((XpandListView)frame.View).Model, needsRuleArgs.Rules);
         }
 
         void Grid_ViewRemoved(object sender, ViewOperationEventArgs e) {

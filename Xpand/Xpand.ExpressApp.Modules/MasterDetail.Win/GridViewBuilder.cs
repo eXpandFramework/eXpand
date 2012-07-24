@@ -18,11 +18,11 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             _masterFrame = masterFrame;
         }
 
-        public XpandXafGridView GetLevelDefaultView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules) {
+        public XpandXafGridView GetLevelDefaultView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<MasterDetailRuleInfo> masterDetailRules) {
             return GetLevelDefaultViewCore(masterModelListView, masterGridView, rowHandle, relationIndex, masterDetailRules);
         }
 
-        XpandXafGridView GetLevelDefaultViewCore(IModelListView masterModelListView, XpandXafGridView masterGridView, int rowHandle, int relationIndex, List<IMasterDetailRule> masterDetailRules) {
+        XpandXafGridView GetLevelDefaultViewCore(IModelListView masterModelListView, XpandXafGridView masterGridView, int rowHandle, int relationIndex, List<MasterDetailRuleInfo> masterDetailRules) {
             var modelDetailRelationCalculator = new ModelDetailRelationCalculator(masterModelListView, masterGridView, masterDetailRules);
             bool isRelationSet = modelDetailRelationCalculator.IsRelationSet(rowHandle, relationIndex);
             if (isRelationSet) {
@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         }
 
 
-        public void ModifyInstanceGridView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<IMasterDetailRule> masterDetailRules) {
+        public void ModifyInstanceGridView(XpandXafGridView masterGridView, int rowHandle, int relationIndex, IModelListView masterModelListView, List<MasterDetailRuleInfo> masterDetailRules) {
             var modelDetailRelationCalculator = new ModelDetailRelationCalculator(masterModelListView, masterGridView, masterDetailRules);
             bool isRelationSet = modelDetailRelationCalculator.IsRelationSet(rowHandle, relationIndex);
             if (isRelationSet) {
