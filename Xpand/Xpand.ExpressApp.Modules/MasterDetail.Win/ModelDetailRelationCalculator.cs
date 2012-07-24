@@ -4,14 +4,15 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class ModelDetailRelationCalculator {
         readonly IModelListView _modelListView;
-        readonly XafGridView _xafGridView;
+        readonly IMasterDetailXafGridView _xafGridView;
         readonly List<MasterDetailRuleInfo> _masterDetailRules;
 
-        public ModelDetailRelationCalculator(IModelListView modelListView, XafGridView xafGridView, List<MasterDetailRuleInfo> masterDetailRules) {
+        public ModelDetailRelationCalculator(IModelListView modelListView, IMasterDetailXafGridView xafGridView, List<MasterDetailRuleInfo> masterDetailRules) {
             _modelListView = modelListView;
             _xafGridView = xafGridView;
             _masterDetailRules = masterDetailRules;

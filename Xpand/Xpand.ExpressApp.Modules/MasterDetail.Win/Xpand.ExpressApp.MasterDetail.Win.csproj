@@ -162,6 +162,9 @@
     <Compile Include="LevelDefaultViewInfoCreation.cs" />
     <Compile Include="ListView.cs" />
     <Compile Include="ListViewBuilder.cs" />
+    <Compile Include="MasterDetailGridListEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>

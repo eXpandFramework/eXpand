@@ -32,11 +32,12 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (IsMasterDetail) {
-                if (GridListEditor.GridView.MasterFrame == null) {
+                IMasterDetailXafGridView gridView = GridListEditor.GridView;
+                if (gridView.MasterFrame == null) {
                     StoreStates();
                     GridListEditor.Grid.FocusedViewChanged += MasterGridOnFocusedViewChanged;
                 } else {
-                    GridListEditor.GridView.GridControl.FocusedViewChanged += ChildGridControlOnFocusedViewChanged;
+                    gridView.GridControl.FocusedViewChanged += ChildGridControlOnFocusedViewChanged;
 
                 }
             }
@@ -56,7 +57,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             if (Frame != null) {
                 foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                     foreach (var action in controller.Actions) {
-                        if (viewFocusEventArgs.View != GridListEditor.GridView.GridControl.MainView && _activeChildBoolLists.Count() > 0) {
+                        if (viewFocusEventArgs.View != GridListEditor.GridView.GridControl.MainView && _activeChildBoolLists.Any()) {
                             var gridView = (GridView)viewFocusEventArgs.View;
                             RestoreStates(action, action.Active, GetChildBoolList(_activeChildBoolLists, gridView));
                             RestoreStates(action, action.Enabled, GetChildBoolList(_enableChildBoolLists, gridView));
@@ -112,12 +113,12 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             }
         }
 
-        XpandGridListEditor GridListEditor {
-            get { return View != null ? (View).Editor as XpandGridListEditor : null; }
+        MasterDetailGridListEditor GridListEditor {
+            get { return View != null ? (View).Editor as MasterDetailGridListEditor : null; }
         }
 
         void PushExecutionToNestedFrame(Controller sender, ActionBase actionBase, Action cancelAction) {
-            var xpandXafGridView = GridListEditor != null ? (XpandXafGridView)GridListEditor.Grid.FocusedView : null;
+            var xpandXafGridView = GridListEditor != null ? (IMasterDetailXafGridView)GridListEditor.Grid.FocusedView : null;
             if (xpandXafGridView != null && xpandXafGridView.MasterFrame != null) {
                 Controller controller = xpandXafGridView.Window.GetController(sender.GetType());
                 if (controller != sender) {
@@ -162,7 +163,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
             var gridControl = (View.Editor.Control as GridControl);
             if (gridControl == null)
                 return;
-            var xpandXafGridView = gridControl.MainView as XpandXafGridView;
+            var xpandXafGridView = gridControl.MainView as IMasterDetailXafGridView;
             if (xpandXafGridView == null)
                 return;
 

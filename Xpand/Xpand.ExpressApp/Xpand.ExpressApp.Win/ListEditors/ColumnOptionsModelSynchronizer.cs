@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             : base(control, model) {
         }
         protected override object GetControl() {
-            return ((XpandXafGridView)Control).Columns.OfType<XafGridColumn>().Where(column => column.Model.Id == Model.Id).Single();
+            return ((XafGridView)Control).Columns.OfType<XafGridColumn>().Single(column => column.Model.Id == Model.Id);
         }
     }
 }
