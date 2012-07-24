@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             var modelListViewGridViewOptions = ((IModelListViewGuessAutoFilterRowValuesFromFilter)View.Model);
             if (modelListViewGridViewOptions.GuessAutoFilterRowValuesFromFilter) {
-                XpandXafGridView mainView = ((XpandGridListEditor)View.Editor).GridView;
+                XafGridView mainView = ((GridListEditor)View.Editor).GridView;
                 mainView.GuessAutoFilterRowValuesFromFilter();
             }
         }

@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Validation.Win {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (ListEditor != null) {
-                ListEditor.GridView.QueryErrorType += GridViewOnQueryErrorType;
+                ((IQueryErrorType)ListEditor.GridView).QueryErrorType += GridViewOnQueryErrorType;
             }
         }
 
@@ -51,19 +51,19 @@ namespace Xpand.ExpressApp.Validation.Win {
                     var resultItem = (DisplayableValidationResultItem)((XafGridView)sender).GetRow(errorTypeEventArgs.RowHandle);
                     if (resultItem.Rule != null) {
                         var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
-                    if (warning != null)
-                        errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
+                        if (warning != null)
+                            errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(warning.RuleType.ToString());
                     }
                 }
             }
         }
 
         RuleType GetRuleType(string propertyName) {
-            return (from pair in Dictionary let ruleSetValidationResultItem = pair.Value.Where(item => item.Rule.UsedProperties.Contains(propertyName)).FirstOrDefault() where ruleSetValidationResultItem != null select pair.Key).FirstOrDefault();
+            return (from pair in Dictionary let ruleSetValidationResultItem = pair.Value.FirstOrDefault(item => item.Rule.UsedProperties.Contains(propertyName)) where ruleSetValidationResultItem != null select pair.Key).FirstOrDefault();
         }
 
-        public XpandGridListEditor ListEditor {
-            get { return View is ListView ? ((ListView)View).Editor as XpandGridListEditor : null; }
+        public GridListEditor ListEditor {
+            get { return View is ListView ? ((ListView)View).Editor as GridListEditor : null; }
         }
     }
 }

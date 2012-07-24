@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
@@ -17,8 +18,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [ModelInterfaceImplementor(typeof(IModelClassAutoExpandNewRow), "ModelClass")]
     public interface IModelListViewAutoExpandNewRow : IModelClassAutoExpandNewRow {
     }
-    public class AutoExpandNewRowController : ListViewController<XpandGridListEditor>, IModelExtender {
-        XpandXafGridView _xpandXafGridView;
+    public class AutoExpandNewRowController : ListViewController<GridListEditor>, IModelExtender {
+        XafGridView _xafGridView;
         bool _newRowAdded;
 
         protected override void OnViewControlsCreated() {
@@ -26,9 +27,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (((IModelListViewAutoExpandNewRow)View.Model).AutoExpandNewRow) {
                 var gridControl = (GridControl)View.Editor.Control;
                 gridControl.ProcessGridKey += GridControlOnProcessGridKey;
-                _xpandXafGridView = ((XpandGridListEditor)View.Editor).GridView;
-                _xpandXafGridView.FocusedRowChanged += GridView_OnFocusedRowChanged;
-                _xpandXafGridView.InitNewRow += GridView_OnInitNewRow;
+                _xafGridView = ((GridListEditor)View.Editor).GridView;
+                _xafGridView.FocusedRowChanged += GridView_OnFocusedRowChanged;
+                _xafGridView.InitNewRow += GridView_OnInitNewRow;
             }
         }
 
@@ -47,15 +48,15 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridView_OnFocusedRowChanged(object sender, FocusedRowChangedEventArgs e) {
-            if (_newRowAdded && _xpandXafGridView.IsValidRowHandle(e.FocusedRowHandle)) {
+            if (_newRowAdded && _xafGridView.IsValidRowHandle(e.FocusedRowHandle)) {
                 _newRowAdded = false;
-                int visibleDetailRelationIndex = _xpandXafGridView.GetVisibleDetailRelationIndex(e.FocusedRowHandle);
-                var gridView = ((GridView)_xpandXafGridView.GridControl.FocusedView);
+                int visibleDetailRelationIndex = _xafGridView.GetVisibleDetailRelationIndex(e.FocusedRowHandle);
+                var gridView = ((GridView)_xafGridView.GridControl.FocusedView);
                 gridView.ExpandMasterRow(e.FocusedRowHandle, visibleDetailRelationIndex);
                 visibleDetailRelationIndex = gridView.GetVisibleDetailRelationIndex(e.FocusedRowHandle);
                 var detailView = ((GridView)gridView.GetDetailView(e.FocusedRowHandle, visibleDetailRelationIndex));
                 if (detailView != null) {
-                    _xpandXafGridView.GridControl.FocusedView = detailView;
+                    _xafGridView.GridControl.FocusedView = detailView;
                     detailView.FocusedRowHandle = GridControl.NewItemRowHandle;
                 }
             }
