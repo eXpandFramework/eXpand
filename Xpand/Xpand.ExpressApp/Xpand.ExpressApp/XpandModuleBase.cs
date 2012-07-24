@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -45,9 +46,7 @@ namespace Xpand.ExpressApp {
 
         protected bool RuntimeMode {
             get {
-                var processName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-                return processName == "Xpand.ExpressApp.ModelEditor" ||
-                       LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                return Process.GetCurrentProcess().ProcessName != "Xpand.ExpressApp.ModelEditor" && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
             }
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
