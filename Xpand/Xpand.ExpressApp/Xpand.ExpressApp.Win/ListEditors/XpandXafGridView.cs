@@ -1,15 +1,23 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
-    public class XpandXafGridView : XafGridView {
+    public interface IQueryErrorType {
+        event EventHandler<ErrorTypeEventArgs> QueryErrorType;
+    }
+
+    public class XpandXafGridView : XafGridView, IQueryErrorType {
         public event EventHandler<ErrorTypeEventArgs> QueryErrorType;
 
         protected void OnQueryErrorType(ErrorTypeEventArgs e) {
@@ -18,18 +26,12 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
 
         readonly GridListEditor _gridListEditor;
-        private static readonly object instanceCreated = new object();
 
 
         public XpandXafGridView() {
         }
         public XpandXafGridView(GridListEditor gridListEditor) {
             _gridListEditor = gridListEditor;
-        }
-
-        protected virtual void OnInstanceCreated(GridViewInstanceCreatedArgs e) {
-            var handler = (EventHandler<GridViewInstanceCreatedArgs>)Events[instanceCreated];
-            if (handler != null) handler(this, e);
         }
 
         protected override ErrorType GetColumnErrorType(int rowHandle, GridColumn column) {
@@ -39,34 +41,12 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             return errorTypeEventArgs.ErrorType;
         }
 
-        [Description("Provides the ability to customize cell merging behavior."), Category("Merge")]
-        public event EventHandler<GridViewInstanceCreatedArgs> GridViewInstanceCreated {
-            add { Events.AddHandler(instanceCreated, value); }
-            remove { Events.RemoveHandler(instanceCreated, value); }
-        }
-
-
-        public Window Window { get; set; }
-
-        public Frame MasterFrame { get; set; }
-        public IModelListView ListView { get; set; }
-
-
-
-
         protected override BaseView CreateInstance() {
             var view = new XpandXafGridView(_gridListEditor);
             view.SetGridControl(GridControl);
-            OnInstanceCreated(new GridViewInstanceCreatedArgs(view));
             return view;
         }
-        public override void Assign(BaseView v, bool copyEvents) {
-            var xafGridView = ((XpandXafGridView)v);
-            Window = xafGridView.Window;
-            MasterFrame = xafGridView.MasterFrame;
-            Events.AddHandler(instanceCreated, xafGridView.Events[instanceCreated]);
-            base.Assign(v, copyEvents);
-        }
+
         protected override void AssignColumns(ColumnView cv, bool synchronize) {
             if (_gridListEditor == null) {
                 base.AssignColumns(cv, synchronize);
