@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Web.Templates;
 public partial class DialogPage : BaseXafPage, ILookupPopupFrameTemplate {
     private void window_PagePreRender(object sender, EventArgs e) {
         ((WebWindow)sender).PagePreRender -= new EventHandler(window_PagePreRender);
-        if(SearchActionContainer.HasActiveActions() && IsSearchEnabled) {
+        if (SearchActionContainer.HasActiveActions() && IsSearchEnabled) {
             TableCell1.Style["padding-bottom"] = "30px";
         }
     }
@@ -14,7 +14,7 @@ public partial class DialogPage : BaseXafPage, ILookupPopupFrameTemplate {
         ViewSiteControl = viewSiteControl;
         WebApplication.Instance.CreateControls(this);
         WebWindow window = WebWindow.CurrentRequestWindow;
-        if(window != null) {
+        if (window != null) {
             string clientScript = string.Format(@" 
             var activePopupControl = GetActivePopupControl(window.parent);
             if (activePopupControl != null){{
@@ -32,14 +32,17 @@ public partial class DialogPage : BaseXafPage, ILookupPopupFrameTemplate {
         }
     }
     public DialogPage() { }
-	#region ILookupPopupFrameTemplate Members
+    #region ILookupPopupFrameTemplate Members
+    public void FocusFindEditor() {
 
-	public bool IsSearchEnabled {
-		get { return SearchActionContainer.Visible; }
-		set { SearchActionContainer.Visible = value; }
-	}
+    }
 
-	public void SetStartSearchString(string searchString) { }
+    public bool IsSearchEnabled {
+        get { return SearchActionContainer.Visible; }
+        set { SearchActionContainer.Visible = value; }
+    }
 
-	#endregion
+    public void SetStartSearchString(string searchString) { }
+
+    #endregion
 }

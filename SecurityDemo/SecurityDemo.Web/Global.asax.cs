@@ -41,6 +41,10 @@ namespace SecurityDemo.Web {
                 e2.Updater.Update();
                 e2.Handled = true;
             };
+
+            //You do not need this call with Xpand the functionality is build in
+
+
             //            WebApplication.Instance.CreateCustomObjectSpaceProvider += delegate(object sender3, CreateCustomObjectSpaceProviderEventArgs e3) {
             //                e3.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e3.ConnectionString, e3.Connection);
             //            };

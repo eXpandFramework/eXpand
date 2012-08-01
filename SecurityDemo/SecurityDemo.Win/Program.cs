@@ -43,6 +43,10 @@ namespace SecurityDemo.Win {
 
                 SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
                 application.Security = security;
+                
+                //You do not need this call with Xpand the functionality is build in
+
+
                 //                application.CreateCustomObjectSpaceProvider += delegate(object sender, CreateCustomObjectSpaceProviderEventArgs e) {
                 //                    e.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e.ConnectionString, e.Connection);
                 //                };
