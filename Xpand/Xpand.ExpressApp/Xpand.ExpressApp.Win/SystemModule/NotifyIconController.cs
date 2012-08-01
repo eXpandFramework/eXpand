@@ -30,23 +30,26 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
-            if (Frame.Context == TemplateContext.ApplicationWindow && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon) {
+            if (NotifyEnabled() && Frame.Context == TemplateContext.ApplicationWindow) {
                 var form = Frame.Template as XtraForm;
                 if (form != null) {
                     IContainer container = new Container();
-
                     var strip = new ContextMenuStrip(container);
-                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Maximize"), (o, eventArgs) => changeFormVisibility(form)));
-                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Minimize"), (o, eventArgs) => changeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Maximize"), (o, eventArgs) => ChangeFormVisibility(form)));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Minimize"), (o, eventArgs) => ChangeFormVisibility(form)));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => ((IWinApplication)Application).LogOff()));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => Application.Exit()));
 
                     var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
-                    setIcon(notifyIcon1);
-                    notifyIcon1.DoubleClick += (o, eventArgs) => changeFormVisibility(form);
+                    SetIcon(notifyIcon1);
+                    notifyIcon1.DoubleClick += (o, eventArgs) => ChangeFormVisibility(form);
                     iconVisible = true;
                 }
             }
+        }
+
+        bool NotifyEnabled() {
+            return Application != null && Application.Model != null && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon;
         }
 
         private ToolStripMenuItem GetMenuItem(string text, EventHandler clickHandler) {
@@ -56,14 +59,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
 
-        private void changeFormVisibility(XtraForm form) {
+        private void ChangeFormVisibility(XtraForm form) {
             if (form.Visible)
                 form.Hide();
             else
                 form.Show();
         }
 
-        private void setIcon(NotifyIcon notifyIcon1) {
+        private void SetIcon(NotifyIcon notifyIcon1) {
             string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "", "ExpressApp.ico");
             if (File.Exists(path))
                 notifyIcon1.Icon = new Icon(path);

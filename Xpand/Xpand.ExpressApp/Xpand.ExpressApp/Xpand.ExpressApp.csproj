@@ -358,7 +358,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Images\XpandProgress.gif" />
   </ItemGroup>
