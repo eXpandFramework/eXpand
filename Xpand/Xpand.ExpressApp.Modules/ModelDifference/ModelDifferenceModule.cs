@@ -15,7 +15,7 @@ using Xpand.ExpressApp.SystemModule;
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(false)]
     public sealed class ModelDifferenceModule : XpandModuleBase {
-        
+
 
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelDifference {
                 var securityComplex = Application.Security as ISecurityComplex;
                 if (securityComplex != null) RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
 
-                UserDifferenceObjectBuilder.CreateDynamicUserMember(Application.Security.UserType);
+                UserDifferenceObjectBuilder.CreateDynamicUserMember(SecuritySystem.UserType);
             } else {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
