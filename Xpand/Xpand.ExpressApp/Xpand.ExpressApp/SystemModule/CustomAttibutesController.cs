@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
@@ -25,13 +26,12 @@ namespace Xpand.ExpressApp.SystemModule {
                     if (customAttribute is PropertyEditorAttribute && typeInfo.IsInterface) {
                         try {
                             theValue = typeInfo.Implementors.Single().FullName;
-                        }
-                        catch (InvalidOperationException) {
-                            if (Application!=null)
-                                throw new InvalidOperationException(typeInfo.FullName +" has no implementors");
+                        } catch (InvalidOperationException) {
+                            if (Application != null)
+                                throw new InvalidOperationException(typeInfo.FullName + " has no implementors");
                         }
                     }
-                    memberInfo.AddAttribute(new CustomAttribute(s, theValue));
+                    memberInfo.AddAttribute(new ModelDefaultAttribute(s, theValue));
                 }
             }
         }

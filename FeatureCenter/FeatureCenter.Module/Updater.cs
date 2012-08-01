@@ -6,10 +6,29 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.FilterDataStore.Providers;
+using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace FeatureCenter.Module {
+    [DefaultClassOptions]
+    public class CLASSNAME : BaseObject {
+        public CLASSNAME(Session session)
+            : base(session) {
+        }
+        private string _propertyName;
+        [PropertyEditor(typeof(IStringLookupPropertyEditor))]
+        public string PropertyName {
+            get { return _propertyName; }
+            set {
+                _propertyName = value;
+            }
+        }
+        
+    }
+
     public class Updater : Xpand.Persistent.BaseImpl.Updater {
         protected bool initializeSecurity;
 
@@ -39,7 +58,7 @@ namespace FeatureCenter.Module {
             base.UpdateDatabaseAfterUpdateSchema();
 
             InitializeSecurity();
-            
+
             new DummyDataBuilder((XPObjectSpace)ObjectSpace).CreateObjects();
             var workflowServiceUser = ObjectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", "WorkflowService"));
             if (workflowServiceUser == null) {

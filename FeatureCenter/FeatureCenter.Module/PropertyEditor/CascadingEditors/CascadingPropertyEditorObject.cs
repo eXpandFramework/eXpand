@@ -70,9 +70,11 @@ namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {
         [Browsable(false)]
         public Type ValueEditorType {
             get {
-                return PropertyName != null && ObjectType != null
-                           ? XafTypesInfo.Instance.FindTypeInfo(ObjectType).FindMember(PropertyName).MemberType
-                           : null;
+                if (PropertyName != null && ObjectType != null) {
+                    var member = XafTypesInfo.Instance.FindTypeInfo(ObjectType).FindMember(PropertyName);
+                    if (member != null) return member.MemberType;
+                }
+                return null;
             }
         }
     }
