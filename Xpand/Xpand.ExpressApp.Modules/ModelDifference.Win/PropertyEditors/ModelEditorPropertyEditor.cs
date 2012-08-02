@@ -101,7 +101,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         private void DisposeController() {
             if (_modelEditorViewController != null) {
                 _modelEditorViewController.CurrentAspectChanged -= ModelEditorViewControllerOnCurrentAspectChanged;
-                _modelEditorViewController.SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
                 _modelEditorViewController.Modifying -= Model_Modifying;
                 _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
                 _modelEditorViewController.SaveSettings();
@@ -165,13 +164,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
 
             _modelEditorViewController.CurrentAspectChanged += ModelEditorViewControllerOnCurrentAspectChanged;
-            _modelEditorViewController.SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
             _modelEditorViewController.Modifying += Model_Modifying;
             _modelEditorViewController.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
-        }
-
-        void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            _objectSpace.CommitChanges();
         }
 
         void ModelEditorViewControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
