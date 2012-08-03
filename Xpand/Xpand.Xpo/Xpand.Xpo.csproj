@@ -101,6 +101,7 @@
     <Compile Include="Collections\XPCollectionExtensions.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
+    <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />

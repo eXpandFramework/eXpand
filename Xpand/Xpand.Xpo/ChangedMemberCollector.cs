@@ -8,51 +8,43 @@ using DevExpress.Xpo.Metadata.Helpers;
 
 namespace Xpand.Xpo {
     public class ChangedMemberCollector {
-        readonly XPBaseObject _xpBaseObject;
-        readonly MemberInfoCollection _memberInfoCollection;
-
-        public ChangedMemberCollector(XPBaseObject xpBaseObject) {
-            _memberInfoCollection = new MemberInfoCollection(xpBaseObject.ClassInfo);
-            _xpBaseObject = xpBaseObject;
-        }
-
-        public void Collect() {
-            if (_xpBaseObject.Session is NestedUnitOfWork) {
-                var parentitem = (ISupportChangedMembers)((NestedUnitOfWork)_xpBaseObject.Session).GetParentObject(_xpBaseObject);
-                IEnumerable<XPMemberInfo> memberInfos = _memberInfoCollection.Where(changedProperty =>
-                                                                                   !parentitem.ChangedMemberCollector.MemberInfoCollection.Contains(changedProperty));
-                foreach (XPMemberInfo changedProperty in memberInfos) {
-                    parentitem.ChangedMemberCollector.MemberInfoCollection.Add(changedProperty);
+        public static void CollectOnSave(ISupportChangedMembers supportChangedMembers) {
+            var nestedUnitOfWork = supportChangedMembers.Session as NestedUnitOfWork;
+            if (nestedUnitOfWork != null) {
+                var parentitem = (nestedUnitOfWork).GetParentObject(supportChangedMembers);
+                IEnumerable<string> memberInfos = supportChangedMembers.ChangedProperties.Where(changedProperty => !parentitem.ChangedProperties.Contains(changedProperty));
+                foreach (var changedProperty in memberInfos) {
+                    parentitem.ChangedProperties.Add(changedProperty);
                 }
             }
-            _memberInfoCollection.Clear();
+            supportChangedMembers.ChangedProperties = null;
         }
 
-        public void Collect(string changedPropertyName) {
-            XPMemberInfo member = GetPersistentMember(changedPropertyName);
-            if (member != null && !_memberInfoCollection.Contains(member)) {
-                _memberInfoCollection.Add(_xpBaseObject.ClassInfo.GetMember(member.Name));
+        public static void Collect(ISupportChangedMembers supportChangedMembers, string changedPropertyName) {
+            if (supportChangedMembers.ChangedProperties == null)
+                supportChangedMembers.ChangedProperties = new HashSet<string>();
+            string memberName = GetPersistentName(supportChangedMembers, changedPropertyName);
+            if (memberName != null && !supportChangedMembers.ChangedProperties.Contains(memberName)) {
+                supportChangedMembers.ChangedProperties.Add(memberName);
             }
         }
-        private XPMemberInfo GetPersistentMember(string propertyName) {
-            XPMemberInfo persistentMember = _xpBaseObject.ClassInfo.GetPersistentMember(propertyName);
+        private static string GetPersistentName(ISupportChangedMembers supportChangedMembers, string propertyName) {
+            var classInfo = supportChangedMembers.Session.GetClassInfo(supportChangedMembers);
+            var persistentMember = classInfo.GetPersistentMember(propertyName);
             if (persistentMember == null) {
-                var memberInfo = _xpBaseObject.ClassInfo.FindMember(propertyName);
+                var memberInfo = classInfo.FindMember(propertyName);
                 if (memberInfo != null && memberInfo.IsAliased) {
                     var pa = (PersistentAliasAttribute)memberInfo.GetAttributeInfo(typeof(PersistentAliasAttribute));
                     CriteriaOperator criteria = CriteriaOperator.Parse(pa.AliasExpression);
-                    if (criteria is OperandProperty) {
-                        string[] path = ((OperandProperty)criteria).PropertyName.Split('.');
-                        return path.Aggregate<string, XPMemberInfo>(null, (current, pn) => current == null ? _xpBaseObject.ClassInfo.GetMember(pn) : current.ReferenceType.GetMember(pn));
+                    var operandProperty = criteria as OperandProperty;
+                    if (operandProperty != null) {
+                        string[] path = (operandProperty).PropertyName.Split('.');
+                        XPMemberInfo xpMemberInfo = path.Aggregate<string, XPMemberInfo>(null, (current, pn) => current == null ? classInfo.GetMember(pn) : current.ReferenceType.GetMember(pn));
+                        return xpMemberInfo != null ? xpMemberInfo.Name : null;
                     }
                 }
             }
-
-            return persistentMember;
-        }
-
-        public MemberInfoCollection MemberInfoCollection {
-            get { return _memberInfoCollection; }
+            return persistentMember != null ? persistentMember.Name : null;
         }
     }
 }

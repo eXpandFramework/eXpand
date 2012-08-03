@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -22,16 +23,21 @@ namespace Xpand.Xpo {
         }
 
         protected override MemberInfoCollection GetPropertiesListForUpdateInsert(object theObject, bool isUpdate) {
-            if (theObject is ISupportChangedMembers && !IsNewObject(theObject)) {
-                XPClassInfo ci = GetClassInfo(theObject);
+            var supportChangedMembers = theObject as ISupportChangedMembers;
+            if (supportChangedMembers != null && !IsNewObject(supportChangedMembers)) {
+                XPClassInfo ci = GetClassInfo(supportChangedMembers);
                 var changedMembers = new MemberInfoCollection(ci);
-                changedMembers.AddRange(base.GetPropertiesListForUpdateInsert(theObject, isUpdate).Where(m =>
-                        m.HasAttribute(typeof(PersistentAttribute)) || m.IsKey || m is ServiceField ||
-                        ((ISupportChangedMembers)theObject).ChangedMemberCollector.MemberInfoCollection.Contains(m)));
+                var memberInfos = base.GetPropertiesListForUpdateInsert(supportChangedMembers, isUpdate).Where(m => MemberHasChanged(supportChangedMembers, m));
+                changedMembers.AddRange(memberInfos);
                 return changedMembers;
             }
 
             return base.GetPropertiesListForUpdateInsert(theObject, isUpdate);
+        }
+
+        bool MemberHasChanged(ISupportChangedMembers supportChangedMembers, XPMemberInfo m) {
+            return m.HasAttribute(typeof(PersistentAttribute)) || m.IsKey || m is ServiceField ||
+                   supportChangedMembers.ChangedProperties.Contains(m.Name);
         }
     }
 }
