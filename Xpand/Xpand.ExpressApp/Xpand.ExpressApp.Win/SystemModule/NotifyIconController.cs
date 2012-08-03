@@ -70,7 +70,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "", "ExpressApp.ico");
             if (File.Exists(path))
                 notifyIcon1.Icon = new Icon(path);
-            else {
+            ImageInfo imageInfo = ImageLoader.Instance.GetImageInfo(Application.Model.Logo);
+            Image image = imageInfo.Image;
+            if (image != null) {
+                var bitmap = new Bitmap(image);
+                bitmap.SetResolution(16, 16);
+                notifyIcon1.Icon = Icon.FromHandle(bitmap.GetHicon());
+            } else {
                 Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("Xpand.ExpressApp.Resources.ExpressApp.ico");
                 if (resourceStream != null) notifyIcon1.Icon = new Icon(resourceStream);
             }
