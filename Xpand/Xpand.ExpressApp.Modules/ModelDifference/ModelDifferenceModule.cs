@@ -28,9 +28,11 @@ namespace Xpand.ExpressApp.ModelDifference {
 
             if (RuntimeMode) {
                 var securityComplex = Application.Security as ISecurityComplex;
-                if (securityComplex != null) RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
-
-                UserDifferenceObjectBuilder.CreateDynamicUserMember(SecuritySystem.UserType);
+                if (securityComplex != null) {
+                    RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
+                }
+                if (Application.Security != null)
+                    UserDifferenceObjectBuilder.CreateDynamicUserMember(Application.Security.UserType);
             } else {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
