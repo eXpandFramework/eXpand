@@ -60,7 +60,7 @@ namespace Xpand.Tests.Xpand.IO {
                 SerializationConfigurationGroup = new SerializationConfigurationGroup(Session)
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "User").SerializationStrategy = SerializationStrategy.DoNotSerialize;
             XPObjectSpace.CommitChanges();
         };
 
@@ -108,7 +108,7 @@ namespace Xpand.Tests.Xpand.IO {
             var objectRefs = serializedObjectRefs.SerializedObjectRefs(SerializationStrategy.SerializeAsObject).ToList();
             var count = objectRefs.Count();
             count.ShouldEqual(2);
-            objectRefs.Where(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).FirstOrDefault().ShouldNotBeNull();
+            objectRefs.FirstOrDefault(xElement => xElement.Value == _order1.GetMemberValue("Oid").ToString()).ShouldNotBeNull();
         };
     }
 
@@ -167,7 +167,7 @@ namespace Xpand.Tests.Xpand.IO {
             classInfoHandler.CreateReferenceMembers(info => new[] { typeof(User) });
             XPObjectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            var customerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
             _customer = (XPBaseObject)XPObjectSpace.CreateObject(customerType);
             XPObjectSpace.CommitChanges();
             _serializationConfiguration = new SerializationConfiguration(XPObjectSpace.Session) {
@@ -208,7 +208,7 @@ namespace Xpand.Tests.Xpand.IO {
             _serializationConfiguration.SerializationConfigurationGroup = _serializationConfigurationGroup;
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
-            var classInfoGraphNode = _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Orders").Single();
+            var classInfoGraphNode = _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Orders");
             classInfoGraphNode.SerializationStrategy = SerializationStrategy.DoNotSerialize;
             _XPObjectSpace.CommitChanges();
 
@@ -279,7 +279,7 @@ namespace Xpand.Tests.Xpand.IO {
         };
     }
     [Subject(typeof(ExportEngine))]
-    [Ignore]
+    [Ignore("Not implemented")]
     public class When_exporting_an_object_with_value_converter : With_Isolations {
         static ModelDifferenceObject _differenceObject;
         static XElement _root;
@@ -319,7 +319,7 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace = (XPObjectSpace)persistentAssemblyBuilder.ObjectSpace;
             _XPObjectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            var customerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
             _customer = (XPBaseObject)_XPObjectSpace.CreateObject(customerType);
             _serializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>();
         };
@@ -347,14 +347,14 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace = (XPObjectSpace)persistentAssemblyBuilder.ObjectSpace;
             _XPObjectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            var customerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
             _customer = (XPBaseObject)_XPObjectSpace.CreateObject(customerType);
             _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = customerType,
                 SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Oid").Single().SerializationStrategy = SerializationStrategy.DoNotSerialize;
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Oid").SerializationStrategy = SerializationStrategy.DoNotSerialize;
         };
 
         Because of = () => {
@@ -497,7 +497,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_export_the_full_date_time = () => {
             var serializedObject = _root.SerializedObjects(typeof(DateTimePropertyObject)).ToList()[0];
-            _dateTime.Ticks.ToString().ShouldEqual(serializedObject.Property("Date").Value);
+            _dateTime.Ticks.ToString(CultureInfo.InvariantCulture).ShouldEqual(serializedObject.Property("Date").Value);
         };
     }
     [Subject(typeof(ExportEngine))]
@@ -569,7 +569,7 @@ namespace Xpand.Tests.Xpand.IO {
             classInfoHandler.CreateSimpleMembers(DBColumnType.Double, info => new[] { "Cost" });
             XPObjectSpace.CommitChanges();
             Type compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
+            var customerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
             _serializationConfiguration = new SerializationConfiguration(XPObjectSpace.Session) {
                 TypeToSerialize = customerType,
                 SerializationConfigurationGroup = XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
