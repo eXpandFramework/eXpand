@@ -44,7 +44,7 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            _derivedOrderType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedOrder").Single();
+            _derivedOrderType = compileModule.Assembly.GetTypes().Single(type => type.Name == "DerivedOrder");
             var existentConfiguration =
                 (SerializationConfiguration)_XPObjectSpace.CreateObject(typeof(SerializationConfiguration));
             existentConfiguration.TypeToSerialize = _derivedOrderType;
@@ -58,8 +58,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_graph_for_derived_types =
             () =>
-            new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(
-                configuration => configuration.TypeToSerialize == _derivedOrderType).Count().ShouldEqual(1);
+            new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Count(configuration => configuration.TypeToSerialize == _derivedOrderType).ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_type_with_associated_object_and_associated_type_derived_types_exist_in_the_domain : With_Isolations {
@@ -86,14 +85,14 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            _derivedCustomerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
+            _derivedCustomerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "DerivedCustomer");
         };
         Because of = () => {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _XPObjectSpace.CommitChanges();
         };
 
-        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(configuration => configuration.TypeToSerialize == _derivedCustomerType).Count().ShouldEqual(1);
+        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Count(configuration => configuration.TypeToSerialize == _derivedCustomerType).ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_type_and_type_derived_types_exist_in_the_domain : With_Isolations {
@@ -111,8 +110,8 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace.CommitChanges();
 
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            _t1Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "Customer").Single();
-            _t2Type = compileModule.Assembly.GetTypes().Where(type => type.Name == "DerivedCustomer").Single();
+            _t1Type = compileModule.Assembly.GetTypes().Single(type => type.Name == "Customer");
+            _t2Type = compileModule.Assembly.GetTypes().Single(type => type.Name == "DerivedCustomer");
             _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = _t1Type,
                 SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
@@ -124,8 +123,7 @@ namespace Xpand.Tests.Xpand.IO {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _XPObjectSpace.CommitChanges();
         };
-        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Where(
-                                                           configuration => configuration.TypeToSerialize == _t2Type).Count().ShouldEqual(1);
+        It should_create_graph_for_derived_types = () => new XPQuery<SerializationConfiguration>(_XPObjectSpace.Session).Count(configuration => configuration.TypeToSerialize == _t2Type).ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph__for_type_with_associated_collection_and_associated_type_graph_exists : With_Isolations {
@@ -243,7 +241,7 @@ namespace Xpand.Tests.Xpand.IO {
 
             _XPObjectSpace.CommitChanges();
             var compileModule = new CompileEngine().CompileModule(persistentAssemblyBuilder, Path.GetDirectoryName(Application.ExecutablePath));
-            var customerType = compileModule.Assembly.GetTypes().Where(type => type.Name == "CustomerSelfRef").Single();
+            var customerType = compileModule.Assembly.GetTypes().Single(type => type.Name == "CustomerSelfRef");
             _serializationConfiguration = new SerializationConfiguration(_XPObjectSpace.Session) {
                 TypeToSerialize = customerType,
                 SerializationConfigurationGroup = _XPObjectSpace.CreateObject<SerializationConfigurationGroup>()
@@ -262,6 +260,7 @@ namespace Xpand.Tests.Xpand.IO {
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_for_a_persistent_assembly : With_Isolations {
         private const int GcRecord = 1;
+        private const int ChangedProperties = 1;
         static XPObjectSpace _XPObjectSpace;
         static SerializationConfiguration _serializationConfiguration;
         static PersistentAssemblyInfo _persistentAssemblyInfo;
@@ -280,7 +279,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_generate_it =
             () => _serializationConfiguration.SerializationGraph.Count().ShouldEqual(
-                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count() + GcRecord);
+                _persistentAssemblyInfo.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().Count() + GcRecord - ChangedProperties);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder))]
     public class When_creating_a_graph_with_a_byte_array_property : With_Isolations {
@@ -296,8 +295,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_mark_that_property_as_simple =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "PivotGridSettingsContent").Single
-                ().NodeType.ShouldEqual(NodeType.Simple);
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "PivotGridSettingsContent").NodeType.ShouldEqual(NodeType.Simple);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
     public class When_object_has_deferred_Deletion : With_Isolations {
@@ -314,8 +312,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_a_gcrecord_node =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == GCRecordField.StaticName).
-                FirstOrDefault().ShouldNotBeNull();
+            _serializationConfiguration.SerializationGraph.FirstOrDefault(node => node.Name == GCRecordField.StaticName).ShouldNotBeNull();
     }
 
     [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
@@ -334,7 +331,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_a_node_with_serialize_strategy_the_same_as_the_attribute_strategy =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Name").Single().
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Name").
                 SerializationStrategy.ShouldEqual(SerializationStrategy.SerializeAsObject);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
@@ -355,7 +352,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_create_a_node_with_serialize_strategy_the_same_as_the_type_attribute_strategy =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "User").Single().
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "User").
                 SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "creating graphs")]
@@ -373,10 +370,10 @@ namespace Xpand.Tests.Xpand.IO {
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         It should_create_a_node_marked_as_key =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Name").Single().Key.ShouldEqual(true);
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Name").Key.ShouldEqual(true);
 
         It should_not_have_any_other_key_nodes =
-            () => _serializationConfiguration.SerializationGraph.Where(node => node.Key).Count().ShouldEqual(1);
+            () => _serializationConfiguration.SerializationGraph.Count(node => node.Key).ShouldEqual(1);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
     public class When_applying_a_serialization_strategy_to_a_reference_property : With_Isolations {
@@ -393,10 +390,10 @@ namespace Xpand.Tests.Xpand.IO {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
-        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize == typeof(User)).Single());
+        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Single(configuration => configuration.TypeToSerialize == typeof(User)));
         It should_apply_the_strategy_to_all_reference_properties =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Users").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Users").SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
     }
     [Subject(typeof(ClassInfoGraphNodeBuilder), "applying strategy")]
     public class When_applying_a_serialization_and_reference_exists : With_Isolations {
@@ -413,10 +410,10 @@ namespace Xpand.Tests.Xpand.IO {
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
         };
 
-        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Where(configuration => configuration.TypeToSerialize == typeof(Analysis)).Single());
+        Because of = () => new ClassInfoGraphNodeBuilder().ApplyStrategy(SerializationStrategy.DoNotSerialize, _serializationConfiguration.SerializationConfigurationGroup.SerializationConfigurations.Single(configuration => configuration.TypeToSerialize == typeof(Analysis)));
         It should_apply_the_strategy_to_all_reference_properties =
             () =>
-            _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Analysis").Single().SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
+            _serializationConfiguration.SerializationGraph.Single(node => node.Name == "Analysis").SerializationStrategy.ShouldEqual(SerializationStrategy.DoNotSerialize);
 
 
     }
@@ -445,6 +442,6 @@ namespace Xpand.Tests.Xpand.IO {
         Because of = () => new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
 
         It should_not_create_node_for_that_property =
-            () => _serializationConfiguration.SerializationGraph.Where(node => node.Name == "Collection").FirstOrDefault().ShouldBeNull();
+            () => _serializationConfiguration.SerializationGraph.FirstOrDefault(node => node.Name == "Collection").ShouldBeNull();
     }
 }

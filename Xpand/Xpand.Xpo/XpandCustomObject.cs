@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Xpo.Converters.ValueConverters;
@@ -10,6 +9,7 @@ namespace Xpand.Xpo {
     [Serializable]
     [NonPersistent]
     public abstract class XpandCustomObject : XPCustomObject, ISupportChangedMembers {
+        public const string ChangedPropertiesName = "ChangedProperties";
 #if MediumTrust
 		private Guid oid = Guid.Empty;
 		[Browsable(false), Key(true), NonCloneable]
@@ -28,7 +28,6 @@ namespace Xpand.Xpo {
 #endif
         private bool isDefaultPropertyAttributeInit;
         private XPMemberInfo defaultPropertyMemberInfo;
-        //        ChangedMemberCollector _changedMemberCollector;
 
         protected override void OnSaving() {
             base.OnSaving();
