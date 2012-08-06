@@ -151,6 +151,9 @@
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
     <Compile Include="Security\Extensions.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
+    <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ReloadObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
