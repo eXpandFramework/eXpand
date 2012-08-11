@@ -10,8 +10,8 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.ListEditors {
     public abstract class OptionsModelSynchronizer<T, V, TModelOptionsType> : ModelSynchronizer<T, V> where V : IModelNode {
-        protected OptionsModelSynchronizer(T control, V model)
-            : base(control, model) {
+        protected OptionsModelSynchronizer(T control, V modelNode)
+            : base(control, modelNode) {
         }
 
         IModelNode GetOptionNode(IModelNode modelListViewMainViewOptionsInterfaceType) {
