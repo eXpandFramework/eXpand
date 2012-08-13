@@ -5,22 +5,18 @@ using System.Linq;
 
 namespace Xpand.Utils.Linq {
     public static class RecursiveLinq {
-        private delegate Func<A, R> Recursive<A, R>(Recursive<A, R> r);
-        public static Func<A, R> Y<A, R>(Func<Func<A, R>, Func<A, R>> f) {
-            Recursive<A, R> rec = r => a => f(r(r))(a);
-            return rec(rec);
-        }
+        public static IEnumerable<T> GetItems<T>(this IEnumerable collection,
+                Func<T, IEnumerable> selector) {
+            var stack = new Stack<IEnumerable<T>>();
+            stack.Push(collection.OfType<T>());
 
-        public static IEnumerable<T> GetRecursively<T>(this IEnumerable collection, Func<T, IEnumerable> selector,
-                                                       Func<T, bool> predicate) {
-            foreach (T item in collection.OfType<T>()) {
-                if (!predicate(item)) continue;
+            while (stack.Count > 0) {
+                IEnumerable<T> items = stack.Pop();
+                foreach (var item in items) {
+                    yield return item;
 
-                yield return item;
-
-                IEnumerable<T> children = selector(item).GetRecursively(selector, predicate);
-                foreach (T child in children) {
-                    yield return child;
+                    IEnumerable<T> children = selector(item).OfType<T>();
+                    stack.Push(children);
                 }
             }
         }

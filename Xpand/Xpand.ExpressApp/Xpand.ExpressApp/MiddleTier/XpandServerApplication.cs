@@ -47,15 +47,24 @@ namespace Xpand.ExpressApp.MiddleTier {
             throw new NotImplementedException();
         }
 
-        public event CancelEventHandler ConfirmationRequired;
-        public event EventHandler<ViewShownEventArgs> AfterViewShown;
+        event CancelEventHandler IXafApplication.ConfirmationRequired {
+            add { throw new NotImplementedException(); }
+            remove { throw new NotImplementedException(); }
+        }
+
+        event EventHandler<ViewShownEventArgs> IXafApplication.AfterViewShown {
+            add { throw new NotImplementedException(); }
+            remove { throw new NotImplementedException(); }
+        }
+
         public void OnAfterViewShown(Frame frame, Frame sourceFrame) {
             throw new NotImplementedException();
         }
 
-        public string GetModelAssemblyFilePath() {
-            return null;
+        string IXafApplication.GetModelAssemblyFilePath() {
+            return GetModelAssemblyFilePath();
         }
+
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;

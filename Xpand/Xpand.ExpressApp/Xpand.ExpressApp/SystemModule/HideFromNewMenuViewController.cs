@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.SystemModule {
                     var controller = Frame.GetController<NewObjectViewController>();
                     Type typeInfo = type.Type;
                     ChoiceActionItem choiceActionItem =
-                        controller.NewObjectAction.Items.Where(item => item.Data == typeInfo).FirstOrDefault();
+                        controller.NewObjectAction.Items.FirstOrDefault(item => ReferenceEquals(item.Data, typeInfo));
                     controller.NewObjectAction.Items.Remove(choiceActionItem);
                 }
             }
