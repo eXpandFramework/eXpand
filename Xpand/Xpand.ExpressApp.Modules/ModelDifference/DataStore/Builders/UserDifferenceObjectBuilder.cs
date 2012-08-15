@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
@@ -17,6 +16,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
             if (userType != null) {
                 var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject), XpandModuleBase.Dictiorary, true, "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
                 xpCustomMemberInfos.First(info => info.Name == "UserModelDifferenceObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
+                XafTypesInfo.Instance.RefreshInfo(userType);
             }
         }
     }

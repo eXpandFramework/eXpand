@@ -14,8 +14,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
         }
 
         public static void CreateDynamicRoleMember(ISecurityComplex security) {
-            var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(GetRoleTypeInfo(security).Type, typeof(RoleModelDifferenceObject), XpandModuleBase.Dictiorary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            var typeToCreateOn = GetRoleTypeInfo(security).Type;
+            var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, typeof(RoleModelDifferenceObject), XpandModuleBase.Dictiorary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
             xpCustomMemberInfos.First(info => info.Name == "RoleModelDifferenceObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
+            XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
         }
     }
 }

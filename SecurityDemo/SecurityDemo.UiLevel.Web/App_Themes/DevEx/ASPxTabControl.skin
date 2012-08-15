@@ -1,8 +1,0 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxtc" Namespace="DevExpress.Web.ASPxTabControl" Assembly="DevExpress.Web.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<dxtc:ASPxTabControl runat="server" CssFilePath="~/App_Themes/DevEx/{0}/styles.css" SpriteCssFilePath="~/App_Themes/DevEx/{0}/sprite.css" CssPostfix="DevEx">
-    <Paddings Padding="2" PaddingLeft="5" PaddingRight="5" />
-    <ContentStyle>
-		<Border BorderColor="#9da0aa" BorderStyle="Solid" BorderWidth="1" />
-	</ContentStyle>
-</dxtc:ASPxTabControl>

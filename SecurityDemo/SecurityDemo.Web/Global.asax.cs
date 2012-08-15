@@ -42,7 +42,7 @@ namespace SecurityDemo.Web {
                 e2.Handled = true;
             };
 
-            //You do not need this call with Xpand the functionality is build in
+            //You do not need this call, the functionality is build in the XpandObjectSpaceProvider. To enable or disable use Model/Options/ClientSideSecurity
 
 
             //            WebApplication.Instance.CreateCustomObjectSpaceProvider += delegate(object sender3, CreateCustomObjectSpaceProviderEventArgs e3) {

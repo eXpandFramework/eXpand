@@ -1,6 +1,0 @@
-<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<%@ Register TagPrefix="dxtc" Namespace="DevExpress.Web.ASPxTabControl" Assembly="DevExpress.Web.v12.1, Version=12.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
-<dxtc:ASPxTabControl runat="server" CssPostfix="SoftOrange" CssFilePath="~/App_Themes/SoftOrange/{0}/styles.css"
-    SpriteCssFilePath="~/App_Themes/SoftOrange/{0}/sprite.css" TabSpacing="2px" >
-    <Paddings Padding="4px"></Paddings>
-</dxtc:ASPxTabControl>
