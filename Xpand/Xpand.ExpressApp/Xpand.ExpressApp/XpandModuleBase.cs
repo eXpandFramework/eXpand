@@ -139,6 +139,7 @@ namespace Xpand.ExpressApp {
             XPClassInfo info = Dictiorary.GetClassInfo(classType);
             if (info.FindMember(propertyName) == null) {
                 info.CreateMember(propertyName, typeof(XPCollection), true);
+                info.AddAttribute(new VisibleInDetailViewAttribute(false));
                 typesInfo.RefreshInfo(classType);
             }
         }
