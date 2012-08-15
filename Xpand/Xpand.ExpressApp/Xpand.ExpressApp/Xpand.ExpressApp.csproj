@@ -140,6 +140,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelMemberEx.cs" />
+    <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />

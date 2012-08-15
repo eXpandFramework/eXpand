@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
+using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule;
@@ -41,6 +42,12 @@ namespace Xpand.ExpressApp.Win {
                 _application = this;
         }
 
+        protected override void OnSetupComplete() {
+            base.OnSetupComplete();
+            var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
+            if (xpandObjectSpaceProvider != null)
+                xpandObjectSpaceProvider.SetClientSideSecurity(((IModelOptionsClientSideSecurity)Model.Options).ClientSideSecurity);
+        }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }

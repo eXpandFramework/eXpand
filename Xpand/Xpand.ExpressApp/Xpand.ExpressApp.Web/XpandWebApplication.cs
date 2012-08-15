@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
+using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.SystemModule;
 
@@ -35,6 +36,13 @@ namespace Xpand.ExpressApp.Web {
         protected override void LoadUserDifferences() {
             base.LoadUserDifferences();
             OnUserDifferencesLoaded(EventArgs.Empty);
+        }
+
+        protected override void OnSetupComplete() {
+            base.OnSetupComplete();
+            var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
+            if (xpandObjectSpaceProvider != null)
+                xpandObjectSpaceProvider.SetClientSideSecurity(((IModelOptionsClientSideSecurity)Model.Options).ClientSideSecurity);
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {

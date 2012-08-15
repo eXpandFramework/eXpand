@@ -127,6 +127,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelMember, IModelMemberEx>();
+            extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {

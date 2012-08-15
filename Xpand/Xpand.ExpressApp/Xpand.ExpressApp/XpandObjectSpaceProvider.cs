@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.ExpressApp.Model;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp {
@@ -12,6 +13,7 @@ namespace Xpand.ExpressApp {
         readonly ISelectDataSecurityProvider _selectDataSecurityProvider;
         IDataLayer _dataLayer;
         bool _allowICommandChannelDoWithSecurityContext;
+        ClientSideSecurity? _clientSideSecurity;
 
 
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
@@ -43,6 +45,9 @@ namespace Xpand.ExpressApp {
             return CreateObjectSpace();
         }
 
+        public void SetClientSideSecurity(ClientSideSecurity? clientSideSecurity) {
+            _clientSideSecurity = clientSideSecurity;
+        }
         public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
 
         protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
@@ -61,7 +66,8 @@ namespace Xpand.ExpressApp {
 
             if (SelectDataSecurityProvider == null)
                 return uow;
-
+            if (!_clientSideSecurity.HasValue || _clientSideSecurity.Value == ClientSideSecurity.UIlevel)
+                return uow;
             var currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, uow, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
             return new XpandUnitOfWork(currentObjectLayer, uow);
         }
