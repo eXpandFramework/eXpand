@@ -41,11 +41,12 @@ namespace SecurityDemo.Win {
             try {
                 application.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-                SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
-                application.Security = security;
-                
-                //You do not need this call with Xpand the functionality is build in
+                //The functionality is build in the XpandObjectSpaceProvider. To enable or disable use Model/Options/ClientSideSecurity. You can continue using the designer if you want.
 
+
+
+                //                SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
+                //                application.Security = security;
 
                 //                application.CreateCustomObjectSpaceProvider += delegate(object sender, CreateCustomObjectSpaceProviderEventArgs e) {
                 //                    e.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e.ConnectionString, e.Connection);
