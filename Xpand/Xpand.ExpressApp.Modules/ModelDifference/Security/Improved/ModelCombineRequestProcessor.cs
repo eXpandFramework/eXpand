@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
 
         public override bool IsGranted(ModelCombinePermissionRequest permissionRequest) {
             var modelCombinePermission = _permissions.FindFirst<ModelCombOperationinePermission>();
-            return permissionRequest.Modifier == modelCombinePermission.Modifier;
+            return modelCombinePermission != null && permissionRequest.Modifier == modelCombinePermission.Modifier;
         }
 
     }

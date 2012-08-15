@@ -55,7 +55,9 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombineRequestProcessor), new ModelCombineRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
+            var modelCombineRequestProcessor = new ModelCombineRequestProcessor(customizeRequestProcessorsEventArgs.Permissions);
+            var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombinePermissionRequest), modelCombineRequestProcessor);
+            customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
         }
 
 
