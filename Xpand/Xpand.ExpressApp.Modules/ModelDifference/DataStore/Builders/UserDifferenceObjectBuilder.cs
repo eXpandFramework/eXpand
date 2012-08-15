@@ -1,8 +1,11 @@
 using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
+using System.Linq;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
     public class UserDifferenceObjectBuilder {
@@ -12,9 +15,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
 
         public static void CreateDynamicUserMember(Type userType) {
             if (userType != null) {
-                XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject),
-                                                            XpandModuleBase.Dictiorary, true,
-                                                            "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
+                var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(userType, typeof(UserModelDifferenceObject), XpandModuleBase.Dictiorary, true, "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
+                xpCustomMemberInfos.First(info => info.Name == "UserModelDifferenceObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
             }
         }
     }

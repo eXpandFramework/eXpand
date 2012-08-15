@@ -2,6 +2,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
 
@@ -13,9 +14,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
         }
 
         public static void CreateDynamicRoleMember(ISecurityComplex security) {
-            XafTypesInfo.Instance.CreateBothPartMembers(
-                GetRoleTypeInfo(security).Type, typeof(RoleModelDifferenceObject),
-                XpandModuleBase.Dictiorary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(GetRoleTypeInfo(security).Type, typeof(RoleModelDifferenceObject), XpandModuleBase.Dictiorary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            xpCustomMemberInfos.First(info => info.Name == "RoleModelDifferenceObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
         }
     }
 }

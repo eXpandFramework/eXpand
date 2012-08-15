@@ -2,11 +2,12 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.JobScheduler.Jobs.SendEmail;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs {
-    public class JobSchedulerJobsModule:XpandModuleBase {
+    public class JobSchedulerJobsModule : XpandModuleBase {
         public JobSchedulerJobsModule() {
             RequiredModuleTypes.Add(typeof(SystemModule.XpandSystemModule));
             RequiredModuleTypes.Add(typeof(JobSchedulerModule));
@@ -20,14 +21,12 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             if (Application != null && Application.Security != null) {
                 var securityComplex = Application.Security as ISecurityComplex;
                 if (securityComplex != null) {
-                    XafTypesInfo.Instance.CreateBothPartMembers(
-                        GetRoleTypeInfo(securityComplex).Type, typeof(SendEmailJobDetailDataMap),
-                        Dictiorary, true, "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+                    var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(GetRoleTypeInfo(securityComplex).Type, typeof(SendEmailJobDetailDataMap), Dictiorary, true, "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+                    xpCustomMemberInfos.First(info => info.Name == "RoleSendEmailDataMapObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
                 }
                 if (Application.Security.UserType != null) {
-                    XafTypesInfo.Instance.CreateBothPartMembers(Application.Security.UserType, typeof(SendEmailJobDetailDataMap),
-                                                                Dictiorary, true,
-                                                                "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
+                    var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(Application.Security.UserType, typeof(SendEmailJobDetailDataMap), Dictiorary, true, "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
+                    xpCustomMemberInfos.First(info => info.Name == "UserSendEmailDataMapObjects").AddAttribute(new VisibleInDetailViewAttribute(false));
                 }
             } else {
                 CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Users");
