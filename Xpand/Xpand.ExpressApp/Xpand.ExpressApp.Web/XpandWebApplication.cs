@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
@@ -12,6 +13,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.SystemModule;
 
 
@@ -31,6 +33,14 @@ namespace Xpand.ExpressApp.Web {
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);
+        }
+
+        protected override LayoutManager CreateLayoutManagerCore(bool simple) {
+            return new XpandLayoutManager();
+        }
+
+        protected override bool SupportMasterDetailMode {
+            get { return true; }
         }
 
         protected override void LoadUserDifferences() {

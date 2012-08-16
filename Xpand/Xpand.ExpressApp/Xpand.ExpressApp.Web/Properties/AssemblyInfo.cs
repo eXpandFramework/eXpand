@@ -1,7 +1,7 @@
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Web.UI;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -36,3 +36,4 @@ using System.Security;
 [assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AllowPartiallyTrustedCallers]
+[assembly: WebResource("Xpand.ExpressApp.Web.Layout.Splitter.js", "text/javascript")]

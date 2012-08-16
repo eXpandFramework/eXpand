@@ -126,6 +126,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\EnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\HyperLinkPropertyEditor.cs" />
@@ -227,6 +228,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Layout\Splitter.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
