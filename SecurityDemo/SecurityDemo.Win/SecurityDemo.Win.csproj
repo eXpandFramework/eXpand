@@ -274,6 +274,10 @@
     <Reference Include="Xpand.ExpressApp.MasterDetail, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.MasterDetail.Win, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
@@ -346,10 +350,6 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xpand\Xpand.ExpressApp.Modules\ModelDifference\Xpand.ExpressApp.ModelDifference.csproj">
-      <Project>{8D97AC44-202D-4659-8CB0-6D8DCC796156}</Project>
-      <Name>Xpand.ExpressApp.ModelDifference</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>
       <Name>SecurityDemo.Module.Win</Name>
