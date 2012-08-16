@@ -46,7 +46,8 @@ namespace Xpand.ExpressApp {
 
         protected bool RuntimeMode {
             get {
-                return Process.GetCurrentProcess().ProcessName != "Xpand.ExpressApp.ModelEditor" && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
+                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
             }
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
