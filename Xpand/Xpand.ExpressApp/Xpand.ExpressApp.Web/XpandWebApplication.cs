@@ -13,6 +13,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.SystemModule;
 
@@ -41,6 +42,10 @@ namespace Xpand.ExpressApp.Web {
 
         protected override bool SupportMasterDetailMode {
             get { return true; }
+        }
+
+        protected override IHttpRequestManager CreateHttpRequestManager() {
+            return ((IModelOptionsFriendlyUrl)Model.Options).EnableFriendlyUrl ? new XpandHttpRequestManager() : base.CreateHttpRequestManager();
         }
 
         protected override void LoadUserDifferences() {
