@@ -173,14 +173,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail, Version=10.1.5.178, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.MemberLevelSecurity, Version=10.1.5.178, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=10.1.5.178, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
@@ -387,8 +379,6 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
-    <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
     </Compile>
     <Compile Include="DisplayUpdateStatementController.cs">

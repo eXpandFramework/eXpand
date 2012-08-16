@@ -35,7 +35,7 @@ namespace FeatureCenter.Web.ApplicationCode {
 
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
-        private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
+
         private Module.Web.FeatureCenterAspNetModule featureCenterAspNetModule1;
 
         private Xpand.ExpressApp.ExceptionHandling.Web.ExceptionHandlingWebModule exceptionHandlingWebModule1;
@@ -109,7 +109,7 @@ namespace FeatureCenter.Web.ApplicationCode {
 
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
             this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
-            this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
+
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
 
             this.exceptionHandlingWebModule1 = new Xpand.ExpressApp.ExceptionHandling.Web.ExceptionHandlingWebModule();
@@ -184,7 +184,7 @@ namespace FeatureCenter.Web.ApplicationCode {
 
             this.Modules.Add(this.scriptRecorderModuleBase1);
             this.Modules.Add(this.conditionalDetailViewModule1);
-            this.Modules.Add(this.memberLevelSecurityModule1);
+
             this.Modules.Add(this.featureCenterModule1);
 
             this.Modules.Add(this.exceptionHandlingWebModule1);

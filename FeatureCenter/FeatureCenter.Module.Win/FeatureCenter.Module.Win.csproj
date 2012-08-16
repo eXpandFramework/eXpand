@@ -457,6 +457,8 @@
     <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\SPECustomer.cs" />
+    <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
+    <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="WinCustomer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>

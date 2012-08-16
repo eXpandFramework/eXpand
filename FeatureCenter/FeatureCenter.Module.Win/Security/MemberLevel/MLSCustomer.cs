@@ -5,20 +5,21 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 
-namespace FeatureCenter.Module.Security.MemberLevel {
-    [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
-        Captions.ViewMessageMemberLevelSecurity, Position.Bottom, ViewType = ViewType.ListView,
+namespace FeatureCenter.Module.Win.Security.MemberLevel {
+    [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Module.Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
+        Module.Captions.ViewMessageMemberLevelSecurity, Position.Bottom, ViewType = ViewType.ListView,
         View = "MLSCustomer_ListView")]
-    [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
-        Captions.HeaderMemberLevelSecurity, Position.Top, ViewType = ViewType.ListView, View = "MLSCustomer_ListView")]
-    [XpandNavigationItem(Captions.Security + Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
-//    [DisplayFeatureModel("MLSCustomer_ListView", "MemberLevel")]
+    [AdditionalViewControlsRule(Module.Captions.Header + " " + Module.Captions.HeaderMemberLevelSecurity, "1=1", "1=1",
+        Module.Captions.HeaderMemberLevelSecurity, Position.Top, ViewType = ViewType.ListView, View = "MLSCustomer_ListView")]
+    [XpandNavigationItem(Module.Captions.Security + Module.Captions.MemberLevelSecurity, "MLSCustomer_ListView")]
+    //    [DisplayFeatureModel("MLSCustomer_ListView", "MemberLevel")]
     public class MLSCustomer : BaseObject, ICustomer {
         string _city;
         string _description;
         string _name;
 
-        public MLSCustomer(Session session) : base(session) {
+        public MLSCustomer(Session session)
+            : base(session) {
         }
         #region ICustomer Members
         public string Name {

@@ -199,10 +199,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MemberLevelSecurity, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MemberLevelSecurity.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelDifference, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
@@ -267,6 +263,7 @@
     <Compile Include="ImageEditors\PictureObject.cs" />
     <Compile Include="ImageEditors\PictureMasterObject.cs" />
     <Compile Include="ImageEditors\Updater.cs" />
+    <Compile Include="MasterDetail.Web\AttributeRegistrator.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -324,6 +321,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageEditors\MDO_Thumbnail.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MasterDetail.Web\MDO_MasterDetail.Web.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

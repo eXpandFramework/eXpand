@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.ConditionalDetailViews;
 using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
-using Xpand.ExpressApp.MemberLevelSecurity;
+
 using Xpand.ExpressApp.Workflow;
 using Xpand.ExpressApp.WorldCreator.DBMapper;
 using Xpand.ExpressApp.WorldCreator.SqlDBMapper;
@@ -49,14 +49,14 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.WorldCreatorModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.IO.IOModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.MasterDetailModule));
+
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.XpandPivotChartModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewModule));
-            this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
+
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));

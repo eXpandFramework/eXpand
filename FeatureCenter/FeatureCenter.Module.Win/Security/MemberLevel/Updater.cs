@@ -7,7 +7,7 @@ using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.MemberLevelSecurity;
 using Xpand.Xpo;
 
-namespace FeatureCenter.Module.Security.MemberLevel {
+namespace FeatureCenter.Module.Win.Security.MemberLevel {
     public class Updater : FCUpdater {
 
         public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
