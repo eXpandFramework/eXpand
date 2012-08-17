@@ -3,7 +3,6 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using DevExpress.Xpo.Metadata.Helpers;
 
 
 namespace Xpand.Xpo {
@@ -37,7 +36,7 @@ namespace Xpand.Xpo {
                     var pa = (PersistentAliasAttribute)memberInfo.GetAttributeInfo(typeof(PersistentAliasAttribute));
                     CriteriaOperator criteria = CriteriaOperator.Parse(pa.AliasExpression);
                     var operandProperty = criteria as OperandProperty;
-                    if (operandProperty != null) {
+                    if (!(ReferenceEquals(operandProperty, null))) {
                         string[] path = (operandProperty).PropertyName.Split('.');
                         XPMemberInfo xpMemberInfo = path.Aggregate<string, XPMemberInfo>(null, (current, pn) => current == null ? classInfo.GetMember(pn) : current.ReferenceType.GetMember(pn));
                         return xpMemberInfo != null ? xpMemberInfo.Name : null;
