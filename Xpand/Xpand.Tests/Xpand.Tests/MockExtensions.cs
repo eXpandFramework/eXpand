@@ -5,7 +5,6 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Editors;
@@ -13,7 +12,6 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Win;
 using Xpand.Persistent.BaseImpl.ImportExport;
@@ -118,7 +116,7 @@ namespace Xpand.Tests {
         public static ISecurityComplex ISecurityComplex(this IFaker faker) {
             var securityComplex = Isolate.Fake.Instance<ISecurityComplex>();
             Isolate.WhenCalled(() => SecuritySystem.Instance).WillReturn(securityComplex);
-            Isolate.WhenCalled(() => securityComplex.RoleType).WillReturn(typeof(Role));
+            Isolate.WhenCalled(() => ((IRoleTypeProvider)securityComplex).RoleType).WillReturn(typeof(Role));
             Isolate.WhenCalled(() => securityComplex.UserType).WillReturn(typeof(User));
 
             Isolate.Fake.StaticMethods(typeof(SecuritySystem));
@@ -128,7 +126,7 @@ namespace Xpand.Tests {
             user.Save();
             Isolate.WhenCalled(() => SecuritySystem.CurrentUser).WillReturn(user);
 
-            XafTypesInfo.Instance.RegisterEntity(securityComplex.RoleType);
+            XafTypesInfo.Instance.RegisterEntity(((IRoleTypeProvider)securityComplex).RoleType);
             XafTypesInfo.Instance.RegisterEntity(securityComplex.UserType);
             return securityComplex;
         }
