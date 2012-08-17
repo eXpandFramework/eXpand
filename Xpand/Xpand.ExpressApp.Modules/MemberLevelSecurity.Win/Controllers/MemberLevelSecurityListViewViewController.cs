@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()) {
                 gridControl = (View.Control) as GridControl;
                 var gridListEditor = View.Editor as GridListEditor;
                 if (gridControl != null && gridListEditor != null) {

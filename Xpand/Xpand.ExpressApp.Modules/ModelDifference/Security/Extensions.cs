@@ -40,8 +40,5 @@ namespace Xpand.ExpressApp.ModelDifference.Security {
             return modelRole;
         }
 
-        public static void GrantPermissionsForModelDifferenceObjects(this ISecurityRole securityRole) {
-            securityRole.GrantPermissionsObjects(Types);
-        }
     }
 }

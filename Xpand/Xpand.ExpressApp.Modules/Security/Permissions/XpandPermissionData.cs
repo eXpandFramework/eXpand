@@ -5,11 +5,12 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Security.Permissions {
-    public abstract class XpandPermissionData:PermissionData {
+    public abstract class XpandPermissionData : PermissionData {
         IEnumerable<PropertyInfo> _propertyInfos;
 
 
-        protected XpandPermissionData(Session session) : base(session) {
+        protected XpandPermissionData(Session session)
+            : base(session) {
             EnumerateProperties();
         }
         protected override string GetPermissionInfoCaption() {

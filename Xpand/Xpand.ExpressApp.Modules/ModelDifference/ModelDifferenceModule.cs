@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.CustomizeTypesInfo(typesInfo);
 
             if (RuntimeMode) {
-                var securityComplex = Application.Security as ISecurityComplex;
+                var securityComplex = Application.Security as IRoleTypeProvider;
                 if (securityComplex != null) {
                     RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
                 }

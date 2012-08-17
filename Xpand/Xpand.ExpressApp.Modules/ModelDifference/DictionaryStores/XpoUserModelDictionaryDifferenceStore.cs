@@ -86,7 +86,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         bool IsGranted() {
-            if (((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+            if (((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
             return SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false);
         }
@@ -96,7 +96,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         private IEnumerable<string> GetNames() {
-            return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()
+            return ((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()
                        ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombOperationinePermission>().Select(permission => permission.Difference)
                        : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
         }

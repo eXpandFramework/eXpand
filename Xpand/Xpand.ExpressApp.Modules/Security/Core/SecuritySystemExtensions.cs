@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.Security.Core {
                     o.Members = "ChangePasswordOnFirstLogon; StoredPassword";
                 }, false);
 
-                var roleTypePermissions = defaultRole.CreateTypePermission(((ISecurityComplex)SecuritySystem.Instance).RoleType);
+                var roleTypePermissions = defaultRole.CreateTypePermission(((IRoleTypeProvider)SecuritySystem.Instance).RoleType);
 
                 roleTypePermissions.CreateObjectPermission(o => {
                     o.Criteria = string.Format("[Name] = '{0}'", roleName);
@@ -209,11 +209,11 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static List<IOperationPermission> GetPermissions(this ISecurityUserWithRoles securityUserWithRoles) {
-            var securityComplex = ((ISecurityComplex)SecuritySystem.Instance);
+            var securityComplex = ((IRoleTypeProvider)SecuritySystem.Instance);
             var permissions = new List<IOperationPermission>();
             foreach (ISecurityRole securityRole in securityUserWithRoles.Roles) {
                 if (securityComplex.IsNewSecuritySystem()) {
-                    IList<IOperationPermission> operationPermissions = ((SecuritySystemTypePermissionsObjectOwner)securityRole).GetPermissions();
+                    var operationPermissions = ((IOperationPermissionProvider)securityRole).GetPermissions();
                     permissions.AddRange(operationPermissions);
                 } else {
                     var operationPermissions = ((IOperationPermissionsProvider)securityRole).GetPermissions();
@@ -223,7 +223,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return permissions;
         }
 
-        public static bool IsNewSecuritySystem(this ISecurityComplex security) {
+        public static bool IsNewSecuritySystem(this IRoleTypeProvider security) {
             return typeof(IPermissionMatrixTypePermissionsOwner).IsAssignableFrom(security.RoleType);
         }
 

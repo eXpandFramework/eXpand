@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         bool IsNotGranted(XpoState state) {
-            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return IsNotGranted(new StateMachineTransitionPermission(StateMachineTransitionModifier.Deny, state.Caption, state.StateMachine.Name));
             var stateMachineTransitionPermission = new Improved.StateMachineTransitionPermission {
                 Modifier = StateMachineTransitionModifier.Deny,

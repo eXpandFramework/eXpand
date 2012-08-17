@@ -8,9 +8,8 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Security.Core;
 using System.Linq;
-using Xpand.ExpressApp.ModelDifference.Security;
+using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.Persistent.BaseImpl {
     public abstract class Updater : ModuleUpdater {
@@ -36,7 +35,7 @@ namespace Xpand.Persistent.BaseImpl {
         }
 
         public virtual Type RoleType {
-            get { return ((ISecurityComplex)SecuritySystem.Instance).RoleType; }
+            get { return ((IRoleTypeProvider)SecuritySystem.Instance).RoleType; }
         }
 
 
@@ -44,7 +43,7 @@ namespace Xpand.Persistent.BaseImpl {
             if (IsNewSecuritySystem) {
                 throw new NotImplementedException();
                 //                var anonymousRole = (ISecurityRole)EnsureRoleExists(SecurityStrategy.AnonymousUserName, GetPermissions);
-                EnsureAnonymousUser(null);
+                //                EnsureAnonymousUser(null);
             }
             var admins = EnsureRoleExists(SecurityStrategy.AdministratorRoleName, GetPermissions);
             EnsureUserExists(Admin, "Administrator", admins);
@@ -115,29 +114,30 @@ namespace Xpand.Persistent.BaseImpl {
 
         private List<object> GetPermissions(ISecurityRole securityRole, List<object> permissions) {
             if (securityRole.Name == SecurityStrategy.AdministratorRoleName) {
-                var modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
-                modelPermission.Save();
-                ((ISupportUpdate)securityRole).BeginUpdate();
-                ((XPBaseObject)securityRole).GetMemberValue("Permissions");
-                var descriptorsList = (TypePermissionDescriptorsList)((XPBaseObject)securityRole).GetMemberValue("Permissions");
-                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Read);
-                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Write);
-                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Create);
-                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Delete);
-                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Navigate);
-                ((ISupportUpdate)securityRole).EndUpdate();
-                permissions.Add(modelPermission);
+                //                var modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
+                //                modelPermission.Save();
+                //                ((ISupportUpdate)securityRole).BeginUpdate();
+                //                ((XPBaseObject)securityRole).GetMemberValue("Permissions");
+                //                var descriptorsList = (TypePermissionDescriptorsList)((XPBaseObject)securityRole).GetMemberValue("Permissions");
+                //                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Read);
+                //                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Write);
+                //                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Create);
+                //                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Delete);
+                //                descriptorsList.GrantRecursive(typeof(object), SecurityOperations.Navigate);
+                //                ((ISupportUpdate)securityRole).EndUpdate();
+                //                permissions.Add(modelPermission);
             } else if (securityRole.Name == "Anonymous") {
                 throw new NotImplementedException();
-                securityRole.GrantPermissionsForModelDifferenceObjects();
+                //                securityRole.GrantPermissionsForModelDifferenceObjects();
             }
             return permissions;
         }
 
         public virtual object EnsureRoleExists(string roleName, Func<object, List<object>> permissionAddFunc) {
             if (IsNewSecuritySystem) {
-                var securityRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", SecurityStrategy.AdministratorRoleName));
-                return EnsureRoleExists(roleName, permissionAddFunc, securityRole);
+                throw new NotImplementedException();
+                //                var securityRole = ObjectSpace.FindObject<SecurityRole>(new BinaryOperator("Name", SecurityStrategy.AdministratorRoleName));
+                //                return EnsureRoleExists(roleName, permissionAddFunc, securityRole);
             }
             var role = (ICustomizableRole)((XPObjectSpace)ObjectSpace).Session.FindObject(RoleType, new BinaryOperator("Name", roleName));
             return EnsureRoleExists(roleName, permissionAddFunc, role);
@@ -155,21 +155,26 @@ namespace Xpand.Persistent.BaseImpl {
             return role;
         }
 
-        private object EnsureRoleExists(string roleName, Func<object, List<object>> permissionAddFunc, SecurityRole securityRole) {
-            if (securityRole == null) {
-                securityRole = ObjectSpace.CreateObject<SecurityRole>();
-                securityRole.Name = roleName;
-                if (permissionAddFunc != null)
-                    foreach (var permission in permissionAddFunc.Invoke(securityRole).OfType<PermissionData>()) {
-                        securityRole.PersistentPermissions.Add(permission);
-                    }
-                securityRole.Save();
-            }
-            return securityRole;
-        }
+        //        private object EnsureRoleExists(string roleName, Func<object, List<object>> permissionAddFunc, SecurityRole securityRole) {
+        //            if (securityRole == null) {
+        //                securityRole = ObjectSpace.CreateObject<SecurityRole>();
+        //                securityRole.Name = roleName;
+        //                if (permissionAddFunc != null)
+        //                    foreach (var permission in permissionAddFunc.Invoke(securityRole).OfType<PermissionData>()) {
+        //                        securityRole.PersistentPermissions.Add(permission);
+        //                    }
+        //                securityRole.Save();
+        //            }
+        //            return securityRole;
+        //        }
 
         public virtual bool IsNewSecuritySystem {
-            get { return ((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem(); }
+            get {
+                var isNewSecuritySystem = ((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem();
+                if (isNewSecuritySystem)
+                    throw new NotImplementedException();
+                return false;
+            }
         }
     }
 }

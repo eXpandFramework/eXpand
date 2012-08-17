@@ -9,11 +9,11 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Builders {
     public class RoleDifferenceObjectBuilder {
 
-        private static ITypeInfo GetRoleTypeInfo(ISecurityComplex security) {
+        private static ITypeInfo GetRoleTypeInfo(IRoleTypeProvider security) {
             return XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == security.RoleType);
         }
 
-        public static void CreateDynamicRoleMember(ISecurityComplex security) {
+        public static void CreateDynamicRoleMember(IRoleTypeProvider security) {
             var typeToCreateOn = GetRoleTypeInfo(security).Type;
             var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, typeof(RoleModelDifferenceObject), XpandModuleBase.Dictiorary, true, "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
             xpCustomMemberInfos.First(info => info.Name == "RoleModelDifferenceObjects").AddAttribute(new VisibleInDetailViewAttribute(false));

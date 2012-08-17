@@ -19,12 +19,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             if (userWithRoles != null) {
                 IEnumerable<object> collection =
                     userWithRoles.Roles.Cast<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
-                Type roleType = ((ISecurityComplex)SecuritySystem.Instance).RoleType;
-                ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Where(info => info.Type == roleType).Single();
+                Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
+                ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleType);
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
 
                 var roleAspectObjects = base.GetActiveModelDifferences(applicationName, name).ToList();
-                return roleAspectObjects.OfType<RoleModelDifferenceObject>().Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
+                return roleAspectObjects.Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
             }
 
             return base.GetActiveModelDifferences(applicationName, name).OfType<RoleModelDifferenceObject>().AsQueryable();

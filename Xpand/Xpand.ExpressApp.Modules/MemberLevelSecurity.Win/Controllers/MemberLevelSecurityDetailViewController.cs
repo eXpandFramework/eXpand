@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()) {
                 View.ControlsCreated += View_OnControlsCreated;
                 View.CurrentObjectChanged += View_CurrentObjectChanged;
             }
@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem()) {
+            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()) {
                 View.ControlsCreated -= View_OnControlsCreated;
                 View.CurrentObjectChanged -= View_CurrentObjectChanged;
             }

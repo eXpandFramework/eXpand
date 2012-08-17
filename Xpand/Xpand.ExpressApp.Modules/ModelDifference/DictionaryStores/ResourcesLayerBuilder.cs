@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 modelDifferenceObject = new ModelDifferenceObject(_objectSpace.Session);
             else {
                 modelDifferenceObject = new RoleModelDifferenceObject(_objectSpace.Session);
-                Type roleType = ((ISecurityComplex)SecuritySystem.Instance).RoleType;
+                Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
                 var criteriaParametersList = resourceName.Substring(0, resourceName.IndexOf("_", StringComparison.Ordinal));
                 object findObject = _objectSpace.FindObject(roleType, CriteriaOperator.Parse("Name=?", criteriaParametersList));
                 Guard.ArgumentNotNull(findObject, criteriaParametersList);
@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix) {
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
                 return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName);
-            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName,_xafApplication);
+            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName, _xafApplication);
         }
 
         ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model) {

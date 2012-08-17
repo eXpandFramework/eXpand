@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         static IEnumerable GetPermissions() {
-            if (!((ISecurityComplex)SecuritySystem.Instance).IsNewSecuritySystem())
+            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return ((IUser)SecuritySystem.CurrentUser).Permissions.ToList();
             return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions();
         }
