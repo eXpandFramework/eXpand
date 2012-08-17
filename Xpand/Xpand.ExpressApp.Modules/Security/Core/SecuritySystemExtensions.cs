@@ -36,32 +36,16 @@ namespace Xpand.ExpressApp.Security.Core {
         }
     }
     public static class SecuritySystemExtensions {
+        
         public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
-                var userTypePermissions = defaultRole.CreateTypePermission(SecuritySystem.UserType);
-
-                userTypePermissions.CreateObjectPermission(o => {
-                    o.AllowNavigate = true;
-                    o.AllowRead = true;
-                    o.Criteria = "[Oid] = CurrentUserId()";
-                }, false);
-
-                userTypePermissions.CreateMemberPermission(o => {
-                    o.AllowWrite = true;
-                    o.Members = "ChangePasswordOnFirstLogon; StoredPassword";
-                }, false);
-
-                var roleTypePermissions = defaultRole.CreateTypePermission(((IRoleTypeProvider)SecuritySystem.Instance).RoleType);
-
-                roleTypePermissions.CreateObjectPermission(o => {
-                    o.Criteria = string.Format("[Name] = '{0}'", roleName);
-                    o.AllowNavigate = true;
-                    o.AllowRead = true;
-                }, false);
+                defaultRole.AddObjectAccessPermission(SecuritySystem.UserType,"[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
+                defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
+                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType,SecurityOperations.Read, false, true);
+                objectSpace.CommitChanges();
             }
             return defaultRole;
-
         }
 
         public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace) {
