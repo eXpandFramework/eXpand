@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             RequiredModuleTypes.Add(typeof(SystemModule.XpandSystemModule));
             RequiredModuleTypes.Add(typeof(JobSchedulerModule));
         }
-        private static ITypeInfo GetRoleTypeInfo(ISecurityComplex security) {
+        private static ITypeInfo GetRoleTypeInfo(IRoleTypeProvider security) {
             return XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == security.RoleType);
         }
 
@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             base.CustomizeTypesInfo(typesInfo);
             if (RuntimeMode) {
                 if (Application != null && Application.Security != null) {
-                    var securityComplex = Application.Security as ISecurityComplex;
+                    var securityComplex = Application.Security as IRoleTypeProvider;
                     if (securityComplex != null) {
                         var typeToCreateOn = GetRoleTypeInfo(securityComplex).Type;
                         var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, typeof(SendEmailJobDetailDataMap), Dictiorary, true, "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
