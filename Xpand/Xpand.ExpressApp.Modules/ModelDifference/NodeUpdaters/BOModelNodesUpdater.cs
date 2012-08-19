@@ -68,8 +68,8 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
             }
             const BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance;
             var methodInfo = typeof(ModelNode).GetMethod("SetSerializedValue", bindingFlags);
-            foreach (CustomAttribute attribute in memberInfo.FindAttributes<CustomAttribute>()) {
-                methodInfo.Invoke(propertyNode, new object[] { attribute.Name, attribute.Value });
+            foreach (ModelDefaultAttribute attribute in memberInfo.FindAttributes<ModelDefaultAttribute>()) {
+                methodInfo.Invoke(propertyNode, new object[] { attribute.PropertyName, attribute.PropertyValue });
             }
             var exportedAttributeValues = new Dictionary<string, object>();
             foreach (ModelExportedValuesAttribute attribute in memberInfo.FindAttributes<ModelExportedValuesAttribute>()) {

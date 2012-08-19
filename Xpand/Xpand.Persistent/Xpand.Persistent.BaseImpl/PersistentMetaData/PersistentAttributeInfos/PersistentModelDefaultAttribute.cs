@@ -1,14 +1,15 @@
 using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PropertyName")]
-    public class PersistentCustomAttribute : PersistentAttributeInfo {
+    public class PersistentModelDefaultAttribute : PersistentAttributeInfo {
         string _propertyName;
         string _value;
 
-        public PersistentCustomAttribute(Session session) : base(session) {
+        public PersistentModelDefaultAttribute(Session session) : base(session) {
         }
 
         public string PropertyName {
@@ -22,7 +23,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
         public override AttributeInfoAttribute Create() {
-            return new AttributeInfoAttribute(typeof (CustomAttribute).GetConstructor(new[] {typeof (string), typeof (string)}),
+            return new AttributeInfoAttribute(typeof(ModelDefaultAttribute).GetConstructor(new[] { typeof(string), typeof(string) }),
                                      PropertyName, Value);
         }
     }

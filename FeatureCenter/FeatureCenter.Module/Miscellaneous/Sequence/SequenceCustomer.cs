@@ -1,4 +1,5 @@
-﻿using DevExpress.Xpo;
+﻿using DevExpress.ExpressApp.Model;
+using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
@@ -81,7 +82,7 @@ namespace FeatureCenter.Module.Miscellaneous.Sequence {
     }
 
 
-    [Custom("ViewEditMode", "View")]
+    [ModelDefault("ViewEditMode", "View")]
     public class SequenceCustomer : CustomerBase, ISupportSequenceObject {
 
         public SequenceCustomer(Session session)

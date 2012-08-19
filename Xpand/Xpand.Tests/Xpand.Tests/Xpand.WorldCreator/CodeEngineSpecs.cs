@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -280,20 +281,20 @@ namespace Xpand.Tests.Xpand.WorldCreator {
 
     [Subject(typeof(CodeEngine))]
     public class When_generating_code_from_Persistent_attribute_with_string_parameter : With_In_Memory_DataStore {
-        static PersistentCustomAttribute _persistentCustomAttribute;
+        static PersistentModelDefaultAttribute _persistentModelDefaultAttribute;
 
         Establish context = () => {
 
-            _persistentCustomAttribute = new PersistentCustomAttribute(UnitOfWork) { PropertyName = "PropertyName", Value = "Value" };
+            _persistentModelDefaultAttribute = new PersistentModelDefaultAttribute(UnitOfWork) { PropertyName = "PropertyName", Value = "Value" };
         };
 
         static string _generateCode;
 
         Because of = () => {
-            _generateCode = CodeEngine.GenerateCode(_persistentCustomAttribute);
+            _generateCode = CodeEngine.GenerateCode(_persistentModelDefaultAttribute);
         };
 
-        It should_create_arg_enclosed_with_quotes = () => _generateCode.ShouldStartWith("[" + typeof(CustomAttribute).FullName + @"(@""PropertyName"",@""Value"")" + "]");
+        It should_create_arg_enclosed_with_quotes = () => _generateCode.ShouldStartWith("[" + typeof(ModelDefaultAttribute).FullName + @"(@""PropertyName"",@""Value"")" + "]");
     }
 
     [Subject(typeof(CodeEngine))]

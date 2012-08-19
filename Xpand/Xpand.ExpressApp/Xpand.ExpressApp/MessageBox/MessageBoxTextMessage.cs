@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.MessageBox {
@@ -6,7 +7,7 @@ namespace Xpand.ExpressApp.MessageBox {
 
         private readonly string _Message;
 
-        [Custom("Caption", " ")]
+        [ModelDefault("Caption", " ")]
         [Size(SizeAttribute.Unlimited)]
         public string Message {
             get { return _Message; }

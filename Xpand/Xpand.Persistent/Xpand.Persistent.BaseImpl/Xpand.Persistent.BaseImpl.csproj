@@ -212,7 +212,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAggregatedAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentCustomAttribute.cs">
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentModelDefaultAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentDefaultClassOptionsAttribute.cs">

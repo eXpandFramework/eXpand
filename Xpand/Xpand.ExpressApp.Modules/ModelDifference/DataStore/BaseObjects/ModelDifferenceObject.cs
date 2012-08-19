@@ -20,7 +20,7 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
-    [ModelDefault("Caption", Caption), Custom("IsClonable", "True"), VisibleInReports(false)]
+    [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
