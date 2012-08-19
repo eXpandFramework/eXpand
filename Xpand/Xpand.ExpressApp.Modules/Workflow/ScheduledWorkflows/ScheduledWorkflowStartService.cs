@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public class ScheduledWorkflowStartService : WorkflowStartService<ScheduledWorkflow> {
@@ -11,7 +10,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
                     return true;
                 }
             } else if (workflow.StartMode == StartMode.Daily) {
-                var historyItem = objectSpace.FindObject<ScheduledWorkflowLaunchHistory>(CriteriaOperator.Parse("GetDate(LaunchedOn) = ?", DateTime.Today));
+                var historyItem = workflow.LaunchHistoryItems.FirstOrDefault(l => l.LaunchedOn.Date == DateTime.Today);
                 if (historyItem == null && DateTime.Now.TimeOfDay >= workflow.StartTime) {
                     var lastStartedWorkflow = workflow.LaunchHistoryItems.OrderByDescending(l => l.LaunchedOn).FirstOrDefault();
                     if (workflow.RecurEveryDays <= 1 || lastStartedWorkflow == null || DateTime.Now >= lastStartedWorkflow.LaunchedOn.Date.AddDays(workflow.RecurEveryDays).Add(workflow.StartTime))
@@ -25,7 +24,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
                     (workflow.Friday && DateTime.Now.DayOfWeek == DayOfWeek.Friday) ||
                     (workflow.Saturday && DateTime.Now.DayOfWeek == DayOfWeek.Saturday) ||
                     (workflow.Sunday && DateTime.Now.DayOfWeek == DayOfWeek.Sunday)) {
-                    var historyItem = objectSpace.FindObject<ScheduledWorkflowLaunchHistory>(CriteriaOperator.Parse("GetDate(LaunchedOn) = ?", DateTime.Today));
+                    var historyItem = workflow.LaunchHistoryItems.FirstOrDefault(l => l.LaunchedOn.Date == DateTime.Today);
                     if (historyItem == null && DateTime.Now.TimeOfDay >= workflow.StartTime) {
                         var lastStartedWorkflow = workflow.LaunchHistoryItems.OrderByDescending(l => l.LaunchedOn).FirstOrDefault();
                         var ci = CultureInfo.CurrentCulture;

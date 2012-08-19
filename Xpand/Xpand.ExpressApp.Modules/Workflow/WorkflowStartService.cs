@@ -27,8 +27,11 @@ namespace Xpand.ExpressApp.Workflow {
                     WorkflowHost host;
                     if (HostManager.Hosts.TryGetValue(workflow.GetUniqueId(), out host)) {
                         if (NeedToStartWorkflow(objectSpace, workflow)) {
-                            Guid startWorkflow = host.StartWorkflow(new Dictionary<string, object>());
-                            AfterWorkFlowStarted(objectSpace, workflow, startWorkflow);
+                            Guid instanceHandle = host.StartWorkflowSuspended(new Dictionary<string, object>());
+                            GetService<IRunningWorkflowInstanceInfoService>().CreateRunningWorkflowInstanceInfo(workflow.Name, host.ActivityUnigueId, null, instanceHandle);
+                            host.Unsuspend(instanceHandle);
+
+                            AfterWorkFlowStarted(objectSpace, workflow, instanceHandle);
                             objectSpace.CommitChanges();
                         }
                     }
