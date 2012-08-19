@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.CommonServices;
 using System.Linq;
 

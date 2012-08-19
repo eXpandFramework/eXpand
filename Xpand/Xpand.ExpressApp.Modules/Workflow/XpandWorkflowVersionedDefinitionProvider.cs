@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Versioning;
 
