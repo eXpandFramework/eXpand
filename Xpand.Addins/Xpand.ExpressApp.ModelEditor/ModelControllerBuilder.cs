@@ -8,6 +8,8 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using Xpand.Persistent.Base.ModelDifference;
+using DevExpress.Persistent.Base;
+using DevExpress.ExpressApp.Xpo;
 
 
 namespace Xpand.ExpressApp.ModelEditor {
@@ -36,6 +38,9 @@ namespace Xpand.ExpressApp.ModelEditor {
             string assemblyPath = Path.GetDirectoryName(pathInfo.AssemblyPath);
             var designerModelFactory = new DesignerModelFactory();
             var moduleFromFile = designerModelFactory.CreateModuleFromFile(pathInfo.AssemblyPath, assemblyPath);
+            ReflectionHelper.Reset();
+            XafTypesInfo.HardReset();
+            XpoTypesInfoHelper.ForceInitialize();
             return designerModelFactory.CreateModulesManager(moduleFromFile, pathInfo.AssemblyPath);
         }
 
