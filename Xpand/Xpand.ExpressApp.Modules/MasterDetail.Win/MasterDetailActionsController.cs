@@ -8,7 +8,6 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.MasterDetail.Logic;
-using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.MasterDetail.Win {
     public class MasterDetailActionsController : ViewController<ListView> {
