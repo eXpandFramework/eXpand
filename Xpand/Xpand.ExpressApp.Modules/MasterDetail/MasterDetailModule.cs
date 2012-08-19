@@ -6,14 +6,12 @@ using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.ExpressApp.MasterDetail.NodeUpdaters;
-using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.MasterDetail {
-    
+
     [ToolboxItem(false)]
     public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule> {
         public MasterDetailModule() {
-            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members
