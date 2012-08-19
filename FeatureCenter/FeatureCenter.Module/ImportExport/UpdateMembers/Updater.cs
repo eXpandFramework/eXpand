@@ -3,7 +3,6 @@ using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.ImportExport;
 
@@ -23,7 +22,7 @@ namespace FeatureCenter.Module.ImportExport.UpdateMembers {
             if (session.FindObject<SerializationConfigurationGroup>(configuration => configuration.Name == "Update Members") == null) {
                 Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "UpdateMembersGroup.xml");
 
-                new ImportEngine().ImportObjects(stream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
+                new ImportEngine().ImportObjects(stream, new UnitOfWork(session.DataLayer));
 
             }
         }

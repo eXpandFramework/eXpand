@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ArtifactState.Model;
@@ -17,6 +18,5 @@ namespace Xpand.ExpressApp.ModelArtifactState {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication, IModelApplicationModelArtifactState>();
         }
-
     }
 }

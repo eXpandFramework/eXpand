@@ -3,17 +3,24 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.PivotChart.Win;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Win.Options;
 using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Win.Core.AnalysisPropertyEditorNodeUpdater;
-using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.PivotChart.Win {
     [ToolboxBitmap(typeof(XpandPivotChartWinModule))]
     [ToolboxItem(true)]
-    public sealed partial class XpandPivotChartWinModule : XpandPivotChartModuleBase {
+    public sealed class XpandPivotChartWinModule : XpandPivotChartModuleBase {
         public XpandPivotChartWinModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(XpandPivotChartModule));
+            RequiredModuleTypes.Add(typeof(PivotChartModuleBase));
+            RequiredModuleTypes.Add(typeof(PivotChartWindowsFormsModule));
+        }
+
+        public override TypesInfo TypesInfo {
+            get { return Core.TypesInfo.Instance; }
         }
 
 
@@ -23,12 +30,7 @@ namespace Xpand.ExpressApp.PivotChart.Win {
 
 
         protected override IModelNodesGeneratorUpdater GetAnalysisPropertyEditorNodeUpdater() {
-            return new AnalysisPropertyEditorNodeUpdater(); 
+            return new AnalysisPropertyEditorNodeUpdater();
         }
-
-        public override TypesInfo TypesInfo {
-            get { return Core.TypesInfo.Instance; }
-        }
-
     }
 }

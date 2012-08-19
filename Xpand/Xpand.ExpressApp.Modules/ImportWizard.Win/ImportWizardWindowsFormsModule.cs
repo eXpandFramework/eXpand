@@ -1,6 +1,7 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
-using Xpand.ExpressApp.Win.SystemModule;
+using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.ImportWizard.Win {
     [ToolboxBitmap(typeof(ImportWizardWindowsFormsModule))]
@@ -13,9 +14,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win {
             ResourcesExportedToModel.Add(typeof(ImportWizFrameTemplateLocalizer));
         }
 
-        protected override DevExpress.ExpressApp.ModuleTypeList GetRequiredModuleTypesCore() {
+        protected override ModuleTypeList GetRequiredModuleTypesCore() {
             var requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
-            requiredModuleTypesCore.AddRange(new[] { typeof(XpandSystemWindowsFormsModule) });
             requiredModuleTypesCore.AddRange(new[] { typeof(ImportWizardModule) });
             return requiredModuleTypesCore;
         }

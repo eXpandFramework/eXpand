@@ -157,16 +157,10 @@
     <Compile Include="MemberLevelSecurityModuleWin.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MemberLevelSecurityModuleWin.Designer.cs">
-      <DependentUpon>MemberLevelSecurityModuleWin.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MemberLevelSecurityModuleWin.resx">
-      <DependentUpon>MemberLevelSecurityModuleWin.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>

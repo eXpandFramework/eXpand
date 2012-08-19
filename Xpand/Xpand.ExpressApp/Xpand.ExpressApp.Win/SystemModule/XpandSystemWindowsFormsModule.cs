@@ -40,6 +40,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
                 };
         }
+
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
         }

@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -9,11 +10,11 @@ using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.ConditionalControllerState {
-    
+
     [ToolboxItem(false)]
-    public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule>{
+    public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule> {
         public ConditionalControllerStateModule() {
-            RequiredModuleTypes.Add(typeof (XpandValidationModule));
+            RequiredModuleTypes.Add(typeof(XpandValidationModule));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
@@ -26,7 +27,5 @@ namespace Xpand.ExpressApp.ConditionalControllerState {
         protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
             return ((IModelApplicationModelArtifactState)applicationModel).ModelArtifactState.ConditionalControllerState;
         }
-
-        
     }
 }

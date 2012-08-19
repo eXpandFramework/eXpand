@@ -1,5 +1,7 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using EditorBrowsableState = System.ComponentModel.EditorBrowsableState;
 
@@ -9,11 +11,10 @@ namespace Xpand.ExpressApp.ViewVariants {
      ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XpandViewVariantsModule))]
     [ToolboxItem(true)]
-    public sealed partial class XpandViewVariantsModule : XpandModuleBase {
+    public sealed class XpandViewVariantsModule : XpandModuleBase {
         public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(ViewVariantsModule));
         }
-
     }
 }

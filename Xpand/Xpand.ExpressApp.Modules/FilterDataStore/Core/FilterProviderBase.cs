@@ -14,20 +14,18 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
         public virtual StatementContext StatementContext { get; set; }
 
 
-        public override void Initialize(string name, NameValueCollection config)
-        {
+        public override void Initialize(string name, NameValueCollection config) {
             base.Initialize(name, config);
             foreach (var propertyInfo in GetType().GetProperties()) {
-                SetPropertyValue(config, propertyInfo);    
+                SetPropertyValue(config, propertyInfo);
             }
         }
 
         void SetPropertyValue(NameValueCollection config, PropertyInfo propertyInfo) {
-            if (!(string.IsNullOrEmpty(config[propertyInfo.Name.MakeFirstCharLower()]))){
-                propertyInfo.SetValue(this,XpandReflectionHelper.ChangeType(config[propertyInfo.Name.MakeFirstCharLower()],propertyInfo.PropertyType), null);
-            }
-            else {
-                var defaultValueAttribute = propertyInfo.GetCustomAttributes(typeof(DefaultValueAttribute),true).OfType<DefaultValueAttribute>().FirstOrDefault();
+            if (!(string.IsNullOrEmpty(config[propertyInfo.Name.MakeFirstCharLower()]))) {
+                propertyInfo.SetValue(this, XpandReflectionHelper.ChangeType(config[propertyInfo.Name.MakeFirstCharLower()], propertyInfo.PropertyType), null);
+            } else {
+                var defaultValueAttribute = propertyInfo.GetCustomAttributes(typeof(DefaultValueAttribute), true).OfType<DefaultValueAttribute>().FirstOrDefault();
                 if (defaultValueAttribute != null)
                     propertyInfo.SetValue(this, defaultValueAttribute.Value, null);
             }

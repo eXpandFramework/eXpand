@@ -1,6 +1,6 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Alignment = Xpand.NCarousel.Alignment;
 
@@ -23,11 +23,8 @@ namespace Xpand.ExpressApp.NCarousel.Web {
     }
     [ToolboxBitmap(typeof(NCarouselWebModule))]
     [ToolboxItem(true)]
-    public sealed partial class NCarouselWebModule : ModuleBase {
+    public sealed class NCarouselWebModule : XpandModuleBase {
 
-        public NCarouselWebModule() {
-            InitializeComponent();
-        }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

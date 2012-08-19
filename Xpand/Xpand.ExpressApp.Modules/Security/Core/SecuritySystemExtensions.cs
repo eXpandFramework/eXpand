@@ -36,13 +36,13 @@ namespace Xpand.ExpressApp.Security.Core {
         }
     }
     public static class SecuritySystemExtensions {
-        
+
         public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
-                defaultRole.AddObjectAccessPermission(SecuritySystem.UserType,"[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
+                defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
                 defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
-                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType,SecurityOperations.Read, false, true);
+                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType, SecurityOperations.Read, false, true);
                 objectSpace.CommitChanges();
             }
             return defaultRole;
@@ -178,7 +178,6 @@ namespace Xpand.ExpressApp.Security.Core {
             foreach (var typeInfo in persistentTypes) {
                 systemRole.CreateTypePermission(typeInfo.Type, action, defaultAllowValues);
             }
-
         }
         public static bool IsGranted(IPermission permission, bool isGrantedForNonExistent) {
             var securityComplex = (SecuritySystem.Instance as SecurityBase);

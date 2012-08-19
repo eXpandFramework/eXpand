@@ -97,7 +97,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             Application.Model.Views[viewId].Remove();
             var changeVariantAction = Frame.GetController<ChangeVariantController>().ChangeVariantAction;
             changeVariantAction.Items.Remove(changeVariantAction.SelectedItem);
-            changeVariantAction.SelectedItem = changeVariantAction.Items.Where(item => item.Caption == modelView.Id).SingleOrDefault();
+            changeVariantAction.SelectedItem = changeVariantAction.Items.SingleOrDefault(item => item.Caption == modelView.Id);
             View.SetModel(modelView);
         }
 
@@ -106,7 +106,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             ViewShortcut viewShortcut = View.CreateShortcut();
             IModelView modelView = Application.Model.Views[viewShortcut.ViewId];
             IModelVariants modelVariants = ((IModelViewVariants)modelView).Variants;
-            IModelVariant modelVariant = modelVariants.Where(variant => variant.View.Id == viewId).Single();
+            IModelVariant modelVariant = modelVariants.Single(variant => variant.View.Id == viewId);
             modelVariant.Remove();
             if (modelVariants.Count > 0) {
                 modelVariants.Current = modelVariants[0];

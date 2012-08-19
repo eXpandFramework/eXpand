@@ -5,6 +5,7 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -12,7 +13,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
 
@@ -73,10 +73,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
-    public sealed class WizardUIWindowsFormsModule : ModuleBase {
-        public WizardUIWindowsFormsModule() {
-            RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
-        }
+    public sealed class WizardUIWindowsFormsModule : XpandModuleBase {
         #region Methods
         /// <summary>
         /// Initializes the Module
@@ -87,6 +84,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             application.CreateCustomTemplate += Application_CreateCustomTemplate;
         }
+
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

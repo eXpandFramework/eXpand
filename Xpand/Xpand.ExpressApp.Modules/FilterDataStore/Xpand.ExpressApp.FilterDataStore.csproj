@@ -87,9 +87,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=12.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,6 +116,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Xpand.Utils\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Core\FilterProviderCollection.cs" />
     <Compile Include="Core\FilterProviderManager.cs" />
     <Compile Include="Core\FilterProviderBase.cs" />
@@ -137,17 +140,8 @@
     <Compile Include="FilterDataStoreModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FilterDataStoreModule.Designer.cs">
-      <DependentUpon>FilterDataStoreModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="FilterDataStoreModule.resx">
-      <DependentUpon>FilterDataStoreModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

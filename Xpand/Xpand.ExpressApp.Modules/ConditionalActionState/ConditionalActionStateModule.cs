@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -8,7 +9,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalActionState {
-    
+
     [ToolboxItem(false)]
     public sealed class ConditionalActionStateModule : LogicModuleBase<IActionStateRule, ActionStateRule> {
 

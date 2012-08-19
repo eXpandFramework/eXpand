@@ -11,12 +11,12 @@ using Xpand.ExpressApp.FilterDataStore.Win.Providers;
 namespace Xpand.ExpressApp.FilterDataStore.Win {
     [ToolboxBitmap(typeof(FilterDataStoreWindowsFormsModule))]
     [ToolboxItem(true)]
-    public sealed partial class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
+    public sealed class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
         public FilterDataStoreWindowsFormsModule() {
-            InitializeComponent();
             _tablesDictionary = new Dictionary<string, Type>();
+            RequiredModuleTypes.Add(typeof(FilterDataStoreModule));
         }
-        
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (FilterProviderManager.IsRegistered)

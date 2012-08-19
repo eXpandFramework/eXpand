@@ -27,8 +27,8 @@ namespace Xpand.ExpressApp.Web {
             ListViewCreating += OnListViewCreating;
         }
 
-        string IXafApplication.GetModelAssemblyFilePath() {
-            return GetModelAssemblyFilePath();
+        string IXafApplication.ModelAssemblyFilePath {
+            get { return GetModelAssemblyFilePath(); }
         }
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {

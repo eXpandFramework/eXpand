@@ -8,13 +8,13 @@ using System.Web;
 namespace Xpand.ExpressApp.FilterDataStore.Web {
     [ToolboxBitmap(typeof(FilterDataStoreAspNetModule))]
     [ToolboxItem(true)]
-    public sealed partial class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
+    public sealed class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
         bool _proxyEventsSubscribed;
         static FilterDataStoreAspNetModule() {
-            _tablesDictionary=new Dictionary<string, Type>();
+            _tablesDictionary = new Dictionary<string, Type>();
         }
         public FilterDataStoreAspNetModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(FilterDataStoreModule));
         }
         protected override bool? ProxyEventsSubscribed {
             get {
@@ -26,6 +26,5 @@ namespace Xpand.ExpressApp.FilterDataStore.Web {
             }
             set { HttpContext.Current.Application["ProxyEventsSubscribed"] = value; }
         }
-
     }
 }

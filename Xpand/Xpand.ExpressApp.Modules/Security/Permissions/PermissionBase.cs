@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Security.Permissions {
         }
 
         void EnumerateProperties() {
-            _propertyInfos = GetType().GetProperties().Where(info => info.GetSetMethod() != null && info.GetCustomAttributes(typeof(NonPersistentAttribute), true).Count() == 0);
+            _propertyInfos = GetType().GetProperties().Where(info => info.GetSetMethod() != null && !info.GetCustomAttributes(typeof(NonPersistentAttribute), true).Any());
         }
 
 

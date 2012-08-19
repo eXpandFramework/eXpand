@@ -10,12 +10,9 @@ using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
 using Xpand.Persistent.Base.ExceptionHandling;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
-    public abstract partial class ExceptionHandlingModule : XpandModuleBase {
+    public abstract class ExceptionHandlingModule : XpandModuleBase {
         public const string ExceptionHandling = "ExceptionHandling";
 
-        protected ExceptionHandlingModule() {
-            InitializeComponent();
-        }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);

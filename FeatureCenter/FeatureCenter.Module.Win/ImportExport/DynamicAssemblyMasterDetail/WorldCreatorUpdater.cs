@@ -1,7 +1,4 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Xpo;
-using Xpand.ExpressApp;
+﻿using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Xpo;
@@ -23,7 +20,7 @@ namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
         public override void Update() {
             if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == MasterDetailDynamicAssembly) == null) {
                 var importEngine = new ImportEngine();
-                importEngine.ImportObjects(new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(Session.DataLayer)), GetType(), "DynamicAssemblyMasterDetail.xml");
+                importEngine.ImportObjects(new UnitOfWork(Session.DataLayer), GetType(), "DynamicAssemblyMasterDetail.xml");
             }
         }
 

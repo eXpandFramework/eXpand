@@ -132,9 +132,6 @@
     <Compile Include="LogicWindowsModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicWindowsModule.Designer.cs">
-      <DependentUpon>LogicWindowsModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TrackObjectChangesViewController.cs">
       <SubType>Component</SubType>
@@ -172,12 +169,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="LogicWindowsModule.resx">
-      <DependentUpon>LogicWindowsModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

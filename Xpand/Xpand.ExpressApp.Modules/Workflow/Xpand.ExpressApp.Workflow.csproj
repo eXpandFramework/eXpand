@@ -184,21 +184,12 @@
     <Compile Include="XpandWorkFlowModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandWorkFlowModule.Designer.cs">
-      <DependentUpon>XpandWorkFlowModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="ObjectChangedWorkflows\ObjectChangedXpoStartWorkflowRequest.cs" />
     <Compile Include="XpandWorkflowServer.cs" />
     <Compile Include="ObjectChangedWorkflows\ObjectChangedStartWorkflowService.cs" />
     <Compile Include="XpandWorkflowVersionedDefinitionProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="XpandWorkFlowModule.resx">
-      <DependentUpon>XpandWorkFlowModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

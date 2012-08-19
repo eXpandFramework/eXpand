@@ -188,9 +188,6 @@
     <Compile Include="XpandPivotChartModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandPivotChartModule.Designer.cs">
-      <DependentUpon>XpandPivotChartModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\XpandPivotChartModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -231,12 +228,6 @@
     </Compile>
     <Compile Include="Updater.cs">
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="XpandPivotChartModule.resx">
-      <DependentUpon>XpandPivotChartModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

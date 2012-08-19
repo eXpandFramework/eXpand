@@ -121,16 +121,7 @@
     <Compile Include="WorldCreatorWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WorldCreatorWebModule.Designer.cs">
-      <DependentUpon>WorldCreatorWebModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="WorldCreatorWebModule.resx">
-      <DependentUpon>WorldCreatorWebModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

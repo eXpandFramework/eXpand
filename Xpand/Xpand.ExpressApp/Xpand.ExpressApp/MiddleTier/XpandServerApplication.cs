@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.MiddleTier {
         }
         public event EventHandler UserDifferencesLoaded;
 
-        SettingsStorage IXafApplication.CreateLogonParameterStoreCore() {
+        SettingsStorage ISettingsStorage.CreateLogonParameterStoreCore() {
             throw new NotImplementedException();
         }
 
@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.MiddleTier {
             throw new NotImplementedException();
         }
 
-        event CancelEventHandler IXafApplication.ConfirmationRequired {
+        event CancelEventHandler IConfirmationRequired.ConfirmationRequired {
             add { throw new NotImplementedException(); }
             remove { throw new NotImplementedException(); }
         }
@@ -61,8 +61,8 @@ namespace Xpand.ExpressApp.MiddleTier {
             throw new NotImplementedException();
         }
 
-        string IXafApplication.GetModelAssemblyFilePath() {
-            return GetModelAssemblyFilePath();
+        string IXafApplication.ModelAssemblyFilePath {
+            get { return GetModelAssemblyFilePath(); }
         }
 
 

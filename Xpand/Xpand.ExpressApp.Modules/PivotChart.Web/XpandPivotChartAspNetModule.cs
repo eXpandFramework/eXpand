@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.PivotChart.Web;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Web.Options;
@@ -15,13 +17,19 @@ using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 namespace Xpand.ExpressApp.PivotChart.Web {
     [ToolboxBitmap(typeof(XpandPivotChartAspNetModule))]
     [ToolboxItem(true)]
-    public sealed partial class XpandPivotChartAspNetModule : XpandPivotChartModuleBase {
+    public sealed class XpandPivotChartAspNetModule : XpandPivotChartModuleBase {
         public XpandPivotChartAspNetModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(XpandPivotChartModule));
+            RequiredModuleTypes.Add(typeof(PivotChartModuleBase));
+            RequiredModuleTypes.Add(typeof(PivotChartAspNetModule));
         }
-        protected override IMemberInfo OnCreateMember(ITypeInfo typeInfo, string name, Type propertyType)
-        {
-            var memberInfo = base.OnCreateMember(typeInfo, name, propertyType);
+
+        public override TypesInfo TypesInfo {
+            get { return Core.TypesInfo.Instance; }
+        }
+
+        protected override IMemberInfo OnCreateMember(ITypeInfo typeInfo, string name, Type propertyType) {
+            IMemberInfo memberInfo = base.OnCreateMember(typeInfo, name, propertyType);
             if (propertyType == typeof(Unit))
                 memberInfo.AddAttribute(new ValueConverterAttribute(typeof(UnitValueConverter)));
             return memberInfo;
@@ -31,14 +39,9 @@ namespace Xpand.ExpressApp.PivotChart.Web {
             return new AnalysisPropertyEditorNodeUpdater();
         }
 
-        public override TypesInfo TypesInfo {
-            get { return Core.TypesInfo.Instance; }
-        }
-
 
         protected override Dictionary<Type, Type> GetOptionsMapperDictionary() {
             return PivotGridOptionMapper.Instance.Dictionary;
         }
     }
-
 }

@@ -1,24 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp;
 using System.Linq;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Workflow;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
 namespace Xpand.ExpressApp.Workflow {
     [ToolboxItem(true)]
-    public sealed partial class XpandWorkFlowModule : XpandModuleBase {
-
-
+    public sealed class XpandWorkFlowModule : XpandModuleBase {
         public XpandWorkFlowModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(WorkflowModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly, IsExportedType));
         }
+
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            var declaredExportedTypes = base.GetDeclaredExportedTypes().ToList();
+            List<Type> declaredExportedTypes = base.GetDeclaredExportedTypes().ToList();
             declaredExportedTypes.Add(typeof(ObjectChangedWorkflow));
-            declaredExportedTypes.Add(typeof(ScheduledWorkflows.ScheduledWorkflow));
+            declaredExportedTypes.Add(typeof(ScheduledWorkflow));
             return declaredExportedTypes;
         }
+
     }
 }

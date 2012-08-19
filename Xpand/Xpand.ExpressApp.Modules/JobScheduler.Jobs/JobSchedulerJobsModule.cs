@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
@@ -9,7 +10,6 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.JobScheduler.Jobs {
     public class JobSchedulerJobsModule : XpandModuleBase {
         public JobSchedulerJobsModule() {
-            RequiredModuleTypes.Add(typeof(SystemModule.XpandSystemModule));
             RequiredModuleTypes.Add(typeof(JobSchedulerModule));
         }
         private static ITypeInfo GetRoleTypeInfo(IRoleTypeProvider security) {

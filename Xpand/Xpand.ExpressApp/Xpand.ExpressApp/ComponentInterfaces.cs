@@ -31,18 +31,27 @@ namespace Xpand.ExpressApp {
         void LogOff();
     }
 
-    internal interface IXafApplication {
+    public interface ISettingsStorage {
+        SettingsStorage CreateLogonParameterStoreCore();
+    }
+
+    public interface IConfirmationRequired {
+        event CancelEventHandler ConfirmationRequired;
+    }
+
+
+
+    internal interface IXafApplication : ISettingsStorage, IConfirmationRequired {
         string ConnectionString { get; set; }
+        string ModelAssemblyFilePath { get; }
+        event EventHandler UserDifferencesLoaded;
         IDataStore GetDataStore(IDataStore dataStore);
         string RaiseEstablishingConnection();
         ApplicationModulesManager ApplicationModulesManager { get; }
-        event EventHandler UserDifferencesLoaded;
-        SettingsStorage CreateLogonParameterStoreCore();
+
         void WriteLastLogonParameters(DetailView view, object logonObject);
-        event CancelEventHandler ConfirmationRequired;
         event EventHandler<ViewShownEventArgs> AfterViewShown;
         void OnAfterViewShown(Frame frame, Frame sourceFrame);
-        string GetModelAssemblyFilePath();
     }
 
 

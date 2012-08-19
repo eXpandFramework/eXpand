@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Xpand.Utils\Properties\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Alignment.cs" />
     <Compile Include="NCarousel.cs" />
     <Compile Include="NCarouselCss.cs" />

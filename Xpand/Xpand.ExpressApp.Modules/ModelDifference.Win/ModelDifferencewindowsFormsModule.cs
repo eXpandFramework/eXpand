@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
-using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.Win;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
     [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
@@ -12,7 +12,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
     public sealed class ModelDifferenceWindowsFormsModule : ModelDifferenceBaseModule {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
-            RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
         }
         public static ModelApplicationCreator ApplicationCreator { get; set; }
         private bool? _modelsLoaded = false;
@@ -23,6 +22,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
                 Application.Disposed += Application_Disposed;
             }
         }
+
+        protected override Type ApplicationType() {
+            return typeof(XpandWinApplication);
+        }
+
         void Application_Disposed(object sender, EventArgs e) {
             ((XafApplication)sender).Disposed -= Application_Disposed;
             ((XafApplication)sender).LoggedOff -= Application_LoggedOff;

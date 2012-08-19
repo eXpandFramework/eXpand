@@ -9,17 +9,13 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
-using Xpand.ExpressApp.SystemModule;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(false)]
     public sealed class ModelDifferenceModule : XpandModuleBase {
-
-
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
-            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
         }
 

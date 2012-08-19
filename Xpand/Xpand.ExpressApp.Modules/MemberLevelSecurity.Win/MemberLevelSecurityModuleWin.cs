@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.Utils;
@@ -7,11 +8,9 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win {
      EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(MemberLevelSecurityModuleWin))]
     [ToolboxItem(true)]
-    public sealed partial class MemberLevelSecurityModuleWin : MemberLevelSecurityModuleBase {
+    public sealed class MemberLevelSecurityModuleWin : MemberLevelSecurityModuleBase {
         public MemberLevelSecurityModuleWin() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
         }
-
-
     }
 }

@@ -176,9 +176,6 @@
     <Compile Include="XpandPivotChartAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandPivotChartAspNetModule.Designer.cs">
-      <DependentUpon>XpandPivotChartAspNetModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="PivotedProperty\PivotedPropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -195,12 +192,6 @@
     </Compile>
     <Compile Include="Updater.cs">
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="XpandPivotChartAspNetModule.resx">
-      <DependentUpon>XpandPivotChartAspNetModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

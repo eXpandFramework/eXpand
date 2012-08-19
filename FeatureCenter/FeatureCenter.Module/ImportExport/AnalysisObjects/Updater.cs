@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Xpo;
 
@@ -25,9 +24,9 @@ namespace FeatureCenter.Module.ImportExport.AnalysisObjects {
             if (session.FindObject<Analysis>(analysis => analysis.Name == "Controlling Grid Settings") == null) {
                 var importEngine = new ImportEngine();
                 Stream stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjects.xml");
-                importEngine.ImportObjects(stream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
+                importEngine.ImportObjects(stream, new UnitOfWork(session.DataLayer));
                 stream = GetType().Assembly.GetManifestResourceStream(GetType(), "AnalysisObjectsConfiguration.xml");
-                importEngine.ImportObjects(stream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(session.DataLayer)));
+                importEngine.ImportObjects(stream, new UnitOfWork(session.DataLayer));
             }
         }
     }

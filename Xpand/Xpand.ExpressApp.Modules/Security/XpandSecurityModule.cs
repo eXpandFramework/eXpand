@@ -1,12 +1,19 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(XpandSecurityModule))]
     [ToolboxItem(true)]
-    public sealed partial class XpandSecurityModule : XpandModuleBase {
+    public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(SecurityModule));
         }
+        #region Overrides of XpandModuleBase
+        protected override Type ApplicationType() {
+            return typeof(ISettingsStorage);
+        }
+        #endregion
     }
 }

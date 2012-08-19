@@ -150,18 +150,9 @@
     <Compile Include="IOWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="IOWinModule.Designer.cs">
-      <DependentUpon>IOWinModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs">
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="IOWinModule.resx">
-      <DependentUpon>IOWinModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

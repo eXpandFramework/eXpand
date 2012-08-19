@@ -1,9 +1,6 @@
 ﻿using System.Configuration;
 using System.IO;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
@@ -22,7 +19,7 @@ namespace FeatureCenter.Module.WorldCreator.NorthWind {
             if (manifestResourceStream != null) {
                 string connectionString = ConfigurationManager.ConnectionStrings["NorthWind"].ConnectionString;
                 var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=.\SQLEXPRESS;integrated security=SSPI;initial catalog=Northwind", connectionString);
-                new ImportEngine().ImportObjects(readToEnd, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(Session.DataLayer)));
+                new ImportEngine().ImportObjects(readToEnd, new UnitOfWork(Session.DataLayer));
             }
 
         }

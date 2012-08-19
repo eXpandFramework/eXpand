@@ -17,7 +17,7 @@ using DevExpress.Xpo.Metadata;
 
 namespace Xpand.ExpressApp {
     [ToolboxItem(false)]
-    public class XpandModuleBase : ModuleBase {
+    public abstract class XpandModuleBase : ModuleBase {
         static List<object> _storeManagers;
         public static XPDictionary Dictiorary { get; set; }
         public static ITypesInfo TypesInfo { get; set; }
@@ -158,13 +158,19 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (!(application is IXafApplication))
+            if (!ApplicationType().IsInstanceOfType(application))
                 throw new TypeInitializationException(application.GetType().FullName, new Exception("Please derive your " + application.GetType().FullName + " from either XpandWinApplication or XpandWebApplication"));
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
         }
+
+        protected Type DefaultXafAppType = typeof(XafApplication);
+        protected virtual Type ApplicationType() {
+            return DefaultXafAppType;
+        }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             OnApplicationInitialized(Application);

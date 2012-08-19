@@ -172,17 +172,8 @@
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandTreeListEditorsWinModule.Designer.cs">
-      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="XpandTreeListEditorsWinModule.resx">
-      <DependentUpon>XpandTreeListEditorsWinModule.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\ResursiveFilteringViewController.resx">

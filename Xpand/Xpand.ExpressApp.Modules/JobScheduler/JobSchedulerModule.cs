@@ -9,7 +9,6 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
-using Xpand.ExpressApp.SystemModule;
 using System.Linq;
 using Xpand.ExpressApp.Validation;
 
@@ -19,7 +18,6 @@ namespace Xpand.ExpressApp.JobScheduler {
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {
-            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsProvider.AdditionalViewControlsModule));
@@ -35,6 +33,7 @@ namespace Xpand.ExpressApp.JobScheduler {
             }
 
         }
+
 
         void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);

@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing;
-using Xpand.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win {
     [ToolboxBitmap(typeof(AdditionalViewControlsProviderWindowsFormsModule))]
@@ -8,7 +8,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win {
     public class AdditionalViewControlsProviderWindowsFormsModule : XpandModuleBase {
         public AdditionalViewControlsProviderWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsModule));
-            RequiredModuleTypes.Add(typeof(XpandSystemWindowsFormsModule));
         }
     }
 }

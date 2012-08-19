@@ -55,7 +55,6 @@ namespace Xpand.ExpressApp.SystemModule {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType { get; set; }
 
-
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {

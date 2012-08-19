@@ -132,9 +132,6 @@
     <Compile Include="MemberLevelSecurityModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MemberLevelSecurityModule.Designer.cs">
-      <DependentUpon>MemberLevelSecurityModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="MemberLevelSecurityModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -143,9 +140,6 @@
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MemberLevelSecurityModule.resx">
-      <DependentUpon>MemberLevelSecurityModule.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>

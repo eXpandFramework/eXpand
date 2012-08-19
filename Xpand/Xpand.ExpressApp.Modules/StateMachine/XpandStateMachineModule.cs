@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.StateMachine;
+using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
 
 namespace Xpand.ExpressApp.StateMachine {
 
     [ToolboxBitmap(typeof(XpandStateMachineModule))]
     [ToolboxItem(true)]
-    public sealed partial class XpandStateMachineModule : XpandModuleBase {
+    public sealed class XpandStateMachineModule : XpandModuleBase {
         public XpandStateMachineModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(StateMachineModule));
+            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -22,8 +24,8 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            if (SecuritySystem.Instance is SecurityStrategy)
-                ((SecurityStrategy)SecuritySystem.Instance).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
+            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {

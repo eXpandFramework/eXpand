@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
@@ -19,6 +20,16 @@ namespace Xpand.ExpressApp.IO.Win.Controllers {
             };
             var dialogResult = openFileDialog.ShowDialog();
             return dialogResult == DialogResult.OK ? openFileDialog.FileName : null;
+        }
+
+        protected override void Import(DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+            base.Import(singleChoiceActionExecuteEventArgs);
+            var confirmationRequired = ((IConfirmationRequired)Application);
+            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView.Closed += (sender, eventArgs) => confirmationRequired.ConfirmationRequired -= OnConfirmationRequired;
+            confirmationRequired.ConfirmationRequired += OnConfirmationRequired;
+        }
+        void OnConfirmationRequired(object sender, CancelEventArgs cancelEventArgs) {
+            cancelEventArgs.Cancel = true;
         }
 
         protected override void Save(XDocument document) {

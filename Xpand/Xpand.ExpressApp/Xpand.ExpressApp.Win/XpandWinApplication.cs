@@ -56,8 +56,6 @@ namespace Xpand.ExpressApp.Win {
         public event EventHandler UserDifferencesLoaded;
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
-
-
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);
         }
@@ -135,8 +133,8 @@ namespace Xpand.ExpressApp.Win {
             }
         }
 
-        string IXafApplication.GetModelAssemblyFilePath() {
-            return GetModelAssemblyFilePath();
+        string IXafApplication.ModelAssemblyFilePath {
+            get { return GetModelAssemblyFilePath(); }
         }
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
