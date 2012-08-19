@@ -57,7 +57,7 @@ namespace Xpand.Tests.Xpand.IO {
             _order2.SetMemberValue("Customer", _customer);
             _serializationConfiguration = new SerializationConfiguration(XPObjectSpace.Session) {
                 TypeToSerialize = CustomerType,
-                SerializationConfigurationGroup = new SerializationConfigurationGroup(Session)
+                SerializationConfigurationGroup = new SerializationConfigurationGroup(UnitOfWork)
             };
             new ClassInfoGraphNodeBuilder().Generate(_serializationConfiguration);
             _serializationConfiguration.SerializationGraph.Single(node => node.Name == "User").SerializationStrategy = SerializationStrategy.DoNotSerialize;
@@ -600,14 +600,14 @@ namespace Xpand.Tests.Xpand.IO {
             _XPObjectSpace = CreateRecords();
             _exportRecords = ExportRecords(_XPObjectSpace);
             _XPObjectSpace = (XPObjectSpace)ObjectSpaceInMemory.CreateNew();
-            new ImportEngine().ImportObjects(_exportRecords.ToString(), _XPObjectSpace);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_XPObjectSpace.Session);
             var pEnumClass = _XPObjectSpace.FindObject<PEnumClass>(null);
             pEnumClass.MyEnum = null;
             _XPObjectSpace.CommitChanges();
         };
 
         Because of = () => {
-            new ImportEngine().ImportObjects(_exportRecords.ToString(), _XPObjectSpace);
+            new ImportEngine().ImportObjects(_exportRecords.ToString(), (UnitOfWork)_XPObjectSpace.Session);
             ((UnitOfWork)_XPObjectSpace.Session).CommitChanges();
             _XPObjectSpace.CommitChanges();
         };
@@ -660,7 +660,7 @@ namespace Xpand.Tests.Xpand.IO {
             _pEnumClass.Delete();
             XPObjectSpace.CommitChanges();
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(xDocument.ToString()));
-            new ImportEngine(ErrorHandling.ThrowException).ImportObjects(memoryStream, XPObjectSpace);
+            new ImportEngine(ErrorHandling.ThrowException).ImportObjects(memoryStream, (UnitOfWork)XPObjectSpace.Session);
 
             _pEnumClass.Reload();
             Debug.Print("");

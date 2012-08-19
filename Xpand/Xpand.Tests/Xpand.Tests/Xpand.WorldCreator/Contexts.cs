@@ -326,13 +326,13 @@ namespace Xpand.Tests.Xpand.WorldCreator {
     //
     //        Establish context = () => {
     //            Isolate.CleanUp();
-    //            Session.DefaultSession.Disconnect();
+    //            UnitOfWork.DefaultSession.Disconnect();
     //            ReflectionHelper.Reset();
     //            XafTypesInfo.Reset(true);
     //            var dataStore = new InMemoryDataStore( AutoCreateOption.DatabaseAndSchema);
     //
     //            XpoDefault.DataLayer = new SimpleDataLayer(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, dataStore);
-    //            UnitOfWork = new UnitOfWork(Session.DefaultSession.DataLayer);
+    //            UnitOfWork = new UnitOfWork(UnitOfWork.DefaultSession.DataLayer);
     //            XPObjectSpace = new XPObjectSpace(UnitOfWork, XafTypesInfo.Instance);
     //        };
     //    }

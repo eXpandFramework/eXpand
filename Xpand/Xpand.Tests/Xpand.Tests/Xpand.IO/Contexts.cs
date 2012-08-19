@@ -16,12 +16,11 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Tests.Xpand.WorldCreator;
-using Xpand.Persistent.Base.General;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Tests.Xpand.IO {
     public abstract class With_Customer_Orders : With_Isolations {
-        protected static Session Session;
+        protected static UnitOfWork UnitOfWork;
         protected static Type CompileModule;
         protected static Type OrderType;
         protected static XPObjectSpace XPObjectSpace;
@@ -30,7 +29,7 @@ namespace Xpand.Tests.Xpand.IO {
         Establish context = () => {
             //            var artifactHandler = new TestAppLication<ClassInfoGraphNode>().Setup();
             XPObjectSpace = (XPObjectSpace)ObjectSpaceInMemory.CreateNew();
-            Session = XPObjectSpace.Session;
+            UnitOfWork = (UnitOfWork)XPObjectSpace.Session;
             var persistentAssemblyBuilder = PersistentAssemblyBuilder.BuildAssembly(XPObjectSpace, "a" + Guid.NewGuid().ToString().Replace("-", ""));
             var classHandler = persistentAssemblyBuilder.CreateClasses(new[] { "Customer", "Order" });
             classHandler.CreateReferenceMembers(info => info.Name == "Customer" ? new[] { typeof(User) } : null, false);
@@ -43,7 +42,7 @@ namespace Xpand.Tests.Xpand.IO {
             XafTypesInfo.Instance.RegisterEntity(typeof(User));
             XafTypesInfo.Instance.RegisterEntity(CustomerType);
             XafTypesInfo.Instance.RegisterEntity(OrderType);
-            var findMember = XafTypesInfo.Instance.FindTypeInfo(CustomerType).FindMember("User");
+            //            var findMember = XafTypesInfo.Instance.FindTypeInfo(CustomerType).FindMember("User");
             //            XafTypesInfo.Instance.CreateBothPartMembers(CustomerType, typeof(User), XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
 

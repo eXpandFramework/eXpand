@@ -11,7 +11,6 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -25,7 +24,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
     public class ImportEngine {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
-        IObjectSpace _objectSpace;
+        UnitOfWork _unitOfWork;
         readonly ErrorHandling _errorHandling;
 
         public ImportEngine(ErrorHandling errorHandling) {
@@ -35,29 +34,29 @@ namespace Xpand.ExpressApp.IO.Core {
         public ImportEngine() {
         }
 
-        public int ImportObjects(string xml, IObjectSpace objectSpace) {
+        public int ImportObjects(string xml, UnitOfWork unitOfWork) {
             var xmlTextReader = new XmlTextReader(new MemoryStream(Encoding.UTF8.GetBytes(xml))) { WhitespaceHandling = WhitespaceHandling.Significant };
             var document = XDocument.Load(xmlTextReader, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
-            return ImportObjects(document, objectSpace);
+            return ImportObjects(document, unitOfWork);
         }
 
-        int ImportObjects(XDocument document, IObjectSpace objectSpace) {
-            _objectSpace = objectSpace;
+        int ImportObjects(XDocument document, UnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
             if (document.Root != null) {
                 foreach (XElement element in document.Root.Nodes().OfType<XElement>()) {
-                    using (IObjectSpace nestedObjectSpace = objectSpace.CreateNestedObjectSpace()) {
+                    using (NestedUnitOfWork nestedUnitOfWork = unitOfWork.BeginNestedUnitOfWork()) {
                         ITypeInfo typeInfo = GetTypeInfo(element);
                         if (typeInfo != null) {
                             var keys = GetKeys(element);
                             CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys);
                             if (!ReferenceEquals(objectKeyCriteria, null)) {
-                                CreateObject(element, nestedObjectSpace, typeInfo, objectKeyCriteria);
-                                nestedObjectSpace.CommitChanges();
+                                CreateObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
+                                nestedUnitOfWork.CommitChanges();
                             }
                         }
                     }
                 }
-                objectSpace.CommitChanges();
+                unitOfWork.CommitChanges();
             }
             return 0;
         }
@@ -69,33 +68,33 @@ namespace Xpand.ExpressApp.IO.Core {
             return xElements;
         }
 
-        public void ImportObjects(Stream stream, IObjectSpace objectSpace) {
+        public void ImportObjects(Stream stream, UnitOfWork unitOfWork) {
             Guard.ArgumentNotNull(stream, "Stream");
             stream.Position = 0;
             using (var streamReader = new XmlTextReader(stream) { WhitespaceHandling = WhitespaceHandling.Significant }) {
                 var xDocument = XDocument.Load(streamReader, LoadOptions.SetLineInfo | LoadOptions.PreserveWhitespace);
-                ImportObjects(xDocument, objectSpace);
+                ImportObjects(xDocument, unitOfWork);
             }
 
         }
 
-        XPBaseObject CreateObject(XElement element, IObjectSpace nestedObjectSpace, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
+        XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
             XPBaseObject xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
                 importedObjecs.Add(keyValuePair, null);
-                ImportProperties(nestedObjectSpace, xpBaseObject, element);
+                ImportProperties(unitOfWork, xpBaseObject, element);
             }
             return xpBaseObject;
         }
 
-        void ImportProperties(IObjectSpace nestedObjectSpace, XPBaseObject xpBaseObject, XElement element) {
+        void ImportProperties(UnitOfWork unitOfWork, XPBaseObject xpBaseObject, XElement element) {
             ImportSimpleProperties(element, xpBaseObject);
-            ImportComplexProperties(element, nestedObjectSpace,
+            ImportComplexProperties(element, unitOfWork,
                                     (o, xElement) =>
                                     xpBaseObject.SetMemberValue(xElement.Parent.GetAttributeValue("name"), o),
                                     NodeType.Object);
-            ImportComplexProperties(element, nestedObjectSpace,
+            ImportComplexProperties(element, unitOfWork,
                                     (baseObject, element1) =>
                                     ((IList)xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"))).Add(
                                         baseObject), NodeType.Collection);
@@ -109,7 +108,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 HandleError(objectElement, FailReason.PropertyNotFound);
             }
         }
-        void ImportComplexProperties(XElement element, IObjectSpace nestedObjectSpace, Action<XPBaseObject, XElement> instance, NodeType nodeType) {
+        void ImportComplexProperties(XElement element, UnitOfWork unitOfWork, Action<XPBaseObject, XElement> instance, NodeType nodeType) {
             IEnumerable<XElement> objectElements = GetObjectRefElements(element, nodeType);
             ITypeInfo typeInfo = GetTypeInfo(element);
             foreach (XElement objectElement in objectElements) {
@@ -123,7 +122,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
                         HandleErrorComplex(objectElement, typeInfo, () => {
                             if (findObjectFromRefenceElement != null)
-                                xpBaseObject = CreateObject(findObjectFromRefenceElement, nestedObjectSpace, memberTypeInfo, refObjectKeyCriteria);
+                                xpBaseObject = CreateObject(findObjectFromRefenceElement, unitOfWork, memberTypeInfo, refObjectKeyCriteria);
                             instance.Invoke(xpBaseObject, element1);
                         });
 
@@ -151,7 +150,7 @@ namespace Xpand.ExpressApp.IO.Core {
             }
             if (_errorHandling == ErrorHandling.CreateErrorObjects) {
                 var errorInfoObject =
-                    (IIOError)_objectSpace.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>());
+                    (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), new object[] { _unitOfWork });
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;
@@ -210,11 +209,10 @@ namespace Xpand.ExpressApp.IO.Core {
 
         XPBaseObject GetObject(ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
             if (!ReferenceEquals(criteriaOperator, null)) {
-                var unitOfWork = ((UnitOfWork)((XPObjectSpace)_objectSpace).Session);
-                var xpBaseObject = unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, unitOfWork.GetClassInfo(typeInfo.Type),
+                var xpBaseObject = _unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, _unitOfWork.GetClassInfo(typeInfo.Type),
                                                          criteriaOperator, true) as XPBaseObject ??
-                                   unitOfWork.FindObject(unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
-                return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, unitOfWork);
+                                   _unitOfWork.FindObject(_unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
+                return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, _unitOfWork);
             }
             return null;
         }
@@ -230,15 +228,15 @@ namespace Xpand.ExpressApp.IO.Core {
             return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()), parameters.ToArray());
         }
 
-        public void ImportObjects(IObjectSpace objectSpace, string fileName) {
+        public void ImportObjects(UnitOfWork unitOfWork, string fileName) {
             using (var fileStream = new FileStream(fileName, FileMode.Open)) {
-                ImportObjects(fileStream, objectSpace);
+                ImportObjects(fileStream, unitOfWork);
             }
         }
 
-        public void ImportObjects(IObjectSpace objectSpace, Type nameSpaceType, string resourceName) {
+        public void ImportObjects(UnitOfWork unitOfWork, Type nameSpaceType, string resourceName) {
             Stream manifestResourceStream = nameSpaceType.Assembly.GetManifestResourceStream(nameSpaceType, resourceName);
-            ImportObjects(manifestResourceStream, objectSpace);
+            ImportObjects(manifestResourceStream, unitOfWork);
         }
     }
 }

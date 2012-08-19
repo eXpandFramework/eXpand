@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 var memoryStream = new MemoryStream();
                 var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
                 xmlFileChooser.FileData.SaveToStream(memoryStream);
-                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new XPObjectSpace(XafTypesInfo.Instance, XpandModuleBase.XpoTypeInfoSource, () => new UnitOfWork(objectSpace.Session.DataLayer)));
+                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new UnitOfWork(objectSpace.Session.DataLayer));
             };
             ((IXafApplication)Application).ConfirmationRequired += OnConfirmationRequired;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView.Closed += (sender, eventArgs) => ((IXafApplication)Application).ConfirmationRequired -= OnConfirmationRequired;
