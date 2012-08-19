@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo;
-using System.Linq;
 
 namespace Xpand.ExpressApp.Security.Permissions {
     public abstract class PermissionBase : DevExpress.ExpressApp.Security.PermissionBase {
@@ -38,10 +38,15 @@ namespace Xpand.ExpressApp.Security.Permissions {
         }
 
         private object ChangeType(PropertyInfo propertyInfo, SecurityElement e) {
+            var attribute = e.Attributes[propertyInfo.Name];
+            if (attribute == null)
+                return null;
+
             var typePropertyEditorIsUsed = propertyInfo.PropertyType == typeof(Type);
             if (!typePropertyEditorIsUsed)
-                return XpandReflectionHelper.ChangeType(e.Attributes[propertyInfo.Name].ToString().XMLDecode(), propertyInfo.PropertyType);
-            return string.IsNullOrEmpty((e.Attributes[propertyInfo.Name] + "")) ? null : XafTypesInfo.Instance.FindTypeInfo(e.Attributes[propertyInfo.Name].ToString()).Type;
+                return XpandReflectionHelper.ChangeType(attribute.ToString().XMLDecode(), propertyInfo.PropertyType);
+
+            return string.IsNullOrEmpty((attribute + "")) ? null : XafTypesInfo.Instance.FindTypeInfo(attribute.ToString()).Type;
         }
 
 
