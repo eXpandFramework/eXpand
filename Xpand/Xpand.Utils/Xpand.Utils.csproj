@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Automation\FileAutomation.cs" />
     <Compile Include="Automation\HelperAutomation.cs" />
     <Compile Include="Automation\InteractivityAutomation.cs" />
