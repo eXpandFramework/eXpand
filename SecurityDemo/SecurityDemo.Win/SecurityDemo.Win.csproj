@@ -388,7 +388,6 @@
   <ItemGroup>
     <Compile Include="Properties\DemoApplicationVersionInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ApplicationServerStarter.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

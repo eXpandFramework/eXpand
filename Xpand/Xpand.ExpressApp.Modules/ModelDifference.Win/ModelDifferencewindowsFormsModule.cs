@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.ExpressApp.MiddleTier;
 using Xpand.ExpressApp.Win;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
@@ -24,7 +26,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
         }
 
         protected override Type ApplicationType() {
-            return typeof(XpandWinApplication);
+            return RuntimeMode && Application is ServerApplication
+                       ? typeof(XpandServerApplication)
+                       : typeof(XpandWinApplication);
         }
 
         void Application_Disposed(object sender, EventArgs e) {
