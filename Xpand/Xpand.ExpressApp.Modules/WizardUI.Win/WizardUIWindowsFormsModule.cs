@@ -5,13 +5,13 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
@@ -74,6 +74,9 @@ namespace Xpand.ExpressApp.WizardUI.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
     public sealed class WizardUIWindowsFormsModule : XpandModuleBase {
+        public WizardUIWindowsFormsModule() {
+            RequiredModuleTypes.Add(typeof(ValidationModule));
+        }
         #region Methods
         /// <summary>
         /// Initializes the Module
