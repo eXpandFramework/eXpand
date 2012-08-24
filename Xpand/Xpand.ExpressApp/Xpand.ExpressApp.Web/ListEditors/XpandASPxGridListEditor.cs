@@ -1,13 +1,58 @@
 ﻿using System;
 using System.Collections;
-using System.Globalization;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web.ASPxGridView;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
+    class MasterDetailProvider {
+        ASPxGridView _gridView;
+        bool _inGetFocusedObject;
+
+        public SelectionType SelectionType {
+            get { return SelectionType.FocusedObject | SelectionType.MultipleSelection; }
+        }
+
+        public object GetFocusedObject(CollectionSourceBase collectionSource) {
+            if (_inGetFocusedObject || _gridView == null)
+                return null;
+            try {
+                _inGetFocusedObject = true;
+                if (_gridView.FocusedRowIndex == -1)
+                    return null;
+                return collectionSource.List[_gridView.FocusedRowIndex];
+            } finally {
+                _inGetFocusedObject = false;
+            }
+
+        }
+
+        public void SetupGridView(ASPxGridView gridView, Action OnFocusedObjectChanged) {
+            _gridView = gridView;
+            gridView.SettingsBehavior.AllowFocusedRow = true;
+            gridView.Load += (s, e) => OnFocusedObjectChanged();
+
+            gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
+            gridView.ClientSideEvents.FocusedRowChanged =
+                @"function(s,e) { 
+                    var up = document.getElementById('DetailUpdatePanel');
+                    if (s.firstRowChangedAfterInit!==true && up && up.ClientControl) { 
+                        up.ClientControl.PerformCallback(s.GetFocusedRowIndex());} 
+                    s.firstRowChangedAfterInit = false; }";
+
+            gridView.Settings.ShowVerticalScrollBar = true;
+        }
+
+        public IList GetSelectedObjects(object focusedObject) {
+            return focusedObject != null ? new[] { focusedObject } : new object[0];
+        }
+    }
     [ListEditor(typeof(object))]
     public class XpandASPxGridListEditor : ASPxGridListEditor {
+        object _lastFiredFocusedObject;
+        readonly MasterDetailProvider _masterDetailProvider = new MasterDetailProvider();
         public event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
 
         protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
@@ -19,77 +64,49 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             : base(info) {
         }
 
-        private static void SetFirstRowChangeAfterInit(DevExpress.Web.ASPxGridView.ASPxGridView grid, bool value) {
-            grid.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
-                "function (s,e) {{ s.firstRowChangedAfterInit = {0};}}", value ? "true" : "false");
-        }
-
-        void grid_FocusedRowChanged(object sender, EventArgs e) {
-            OnFocusedObjectChanged();
-        }
-
-        public override void Setup(DevExpress.ExpressApp.CollectionSourceBase collectionSource, DevExpress.ExpressApp.XafApplication application) {
-            base.Setup(collectionSource, application);
-            CollectionSource.CriteriaApplied += CollectionSource_CriteriaApplied;
-        }
-
-        void CollectionSource_CriteriaApplied(object sender, EventArgs e) {
-            if (Grid != null) SetFirstRowChangeAfterInit(Grid, false);
-            if (Grid != null) Grid.FocusedRowIndex = -1;
-            OnFocusedObjectChanged();
-        }
-
-        private bool inGetFocusedObject;
 
         public override object FocusedObject {
             get {
-                if (inGetFocusedObject || Grid == null || Grid.FocusedRowIndex < 0 || Grid.FocusedRowIndex >= CollectionSource.List.Count) return null;
-                try {
-                    inGetFocusedObject = true;
-                    return Grid.GetRow(Grid.FocusedRowIndex);
-                } finally {
-                    inGetFocusedObject = false;
-                }
+                if (MasterDetail)
+                    return _masterDetailProvider.GetFocusedObject(CollectionSource);
+                return base.FocusedObject;
             }
             set {
-                if (value != null)
-                    Grid.FocusedRowIndex = Grid.FindVisibleIndexByKeyValue(ObjectSpace.GetKeyValue(value));
+                if (MasterDetail)
+                    throw new NotSupportedException();
+                base.FocusedObject = value;
             }
         }
 
-        private object lastFiredFocusedObject;
-
-
         protected override void OnFocusedObjectChanged() {
-            if (lastFiredFocusedObject != FocusedObject) {
+            if (MasterDetail) {
+                if (_lastFiredFocusedObject != FocusedObject) {
+                    base.OnFocusedObjectChanged();
+                    _lastFiredFocusedObject = FocusedObject;
+                }
+            } else {
                 base.OnFocusedObjectChanged();
-                lastFiredFocusedObject = FocusedObject;
             }
         }
 
         public override IList GetSelectedObjects() {
-            return FocusedObject != null ? new[] { FocusedObject } : new object[0];
+            return MasterDetail ? _masterDetailProvider.GetSelectedObjects(FocusedObject) : base.GetSelectedObjects();
         }
 
-
-        public override DevExpress.ExpressApp.SelectionType SelectionType {
-            get { return DevExpress.ExpressApp.SelectionType.FocusedObject | DevExpress.ExpressApp.SelectionType.MultipleSelection; }
+        public bool MasterDetail {
+            get { return Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
         }
-        protected override DevExpress.Web.ASPxGridView.ASPxGridView CreateGridControl() {
-            var grid = base.CreateGridControl();
-            grid.SettingsBehavior.AllowFocusedRow = true;
-            grid.Load += (s, e) => OnFocusedObjectChanged();
-            grid.FocusedRowChanged += new EventHandler(grid_FocusedRowChanged);
-            SetFirstRowChangeAfterInit(grid, true);
-            grid.ClientSideEvents.FocusedRowChanged =
-                @"function(s,e) { 
-                    var up = document.getElementById('DetailUpdatePanel');
-                    if (s.firstRowChangedAfterInit!==true && up && up.ClientControl) { 
-                        up.ClientControl.PerformCallback(s.GetFocusedRowIndex());} 
-                    s.firstRowChangedAfterInit = false; }";
 
-            grid.Settings.ShowVerticalScrollBar = true;
-            return grid;
+        public override SelectionType SelectionType {
+            get {
+                return MasterDetail ? _masterDetailProvider.SelectionType : base.SelectionType;
+            }
+        }
+        protected override ASPxGridView CreateGridControl() {
+            ASPxGridView gridView = base.CreateGridControl();
+            if (MasterDetail)
+                _masterDetailProvider.SetupGridView(gridView, OnFocusedObjectChanged);
+            return gridView;
         }
 
         protected override GridViewDataColumnWithInfo CreateColumn(IModelColumn columnInfo) {
@@ -101,6 +118,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         protected override IModelSynchronizable CreateModelSynchronizer() {
             return new XpandASPxGridListEditorSynchronizer(this, Model);
         }
+
     }
 
     public class ColumnCreatedEventArgs : EventArgs {

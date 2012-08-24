@@ -287,6 +287,10 @@
       <Project>{782230D9-DFA4-4D7A-89A9-660A361B5A8A}</Project>
       <Name>FeatureCenter.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj">
+      <Project>{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}</Project>
+      <Name>FeatureCenter.Module.Win</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module\FeatureCenter.Module.csproj">
       <Project>{3BAE5F2C-B03E-4EE6-ABFE-DF4CD04DEBA5}</Project>
       <Name>FeatureCenter.Module</Name>
