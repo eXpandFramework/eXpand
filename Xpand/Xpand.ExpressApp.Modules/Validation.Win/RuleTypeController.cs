@@ -18,8 +18,8 @@ namespace Xpand.ExpressApp.Validation.Win {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (ListEditor != null) {
-                ((IQueryErrorType)ListEditor.GridView).QueryErrorType += GridViewOnQueryErrorType;
+            if (ListEditor != null && ListEditor.GridView is IQueryErrorType) {
+                ((IQueryErrorType)((ListEditor).GridView)).QueryErrorType += GridViewOnQueryErrorType;
             }
         }
 
