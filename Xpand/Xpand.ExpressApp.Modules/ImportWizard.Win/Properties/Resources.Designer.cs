@@ -125,7 +125,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import excell rows progress....
+        ///   Looks up a localized string similar to Import Excel rows progress....
         /// </summary>
         internal static string ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___ {
             get {
@@ -134,7 +134,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duplicate column names found, please fix excel column names.
+        ///   Looks up a localized string similar to Duplicate column names found, please fix Excel column names.
         /// </summary>
         internal static string ExcelImportWizard_InitWizPage1_Duplicate_column_names_found__please_fix_excel_column_names {
             get {
@@ -153,7 +153,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importing record {0} succesfull..
+        ///   Looks up a localized string similar to Importing record {0} successful..
         /// </summary>
         internal static string ExcelImportWizard_ProccesExcellRows_Importing_record__0__succesfull_ {
             get {

@@ -235,13 +235,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             ImportMapLookUp.Properties.DataSource = ImportMapsCollection.ToList();
             ImportMapLookUp.EditValue = null;
 
-            //check for duplicate columns and throw error if foudn
+            //check for duplicate columns and throw error if found
             if (Sheet.Columns()
                 .GroupBy(d => d.Name)
                 .Select(g => new { g.Key, count = g.Count() }).Any(g => g.count > 1))
                 throw new InvalidDataException(Resources.ExcelImportWizard_InitWizPage1_Duplicate_column_names_found__please_fix_excel_column_names);
 
-            //Assing data for Mapping Grid
+            //Assign data for Mapping Grid
             var dt = _Sheet.DataPreviewTable().Transpose();
 
             dt.RowChanged -= dt_RowChanged;
@@ -276,7 +276,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             var allowNext = false;
             var table = ((DataTable)sender);
 
-            //Enalbes next button if at leat one column is mapped
+            //Enables next button if at least one column is mapped
             if (table.Rows.OfType<DataRow>()
                 .Where(p => {
                     var lastOrDefault = p.ItemArray.LastOrDefault();
@@ -293,7 +293,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                     return orDefault != null && !string.IsNullOrEmpty(orDefault.ToString());
                 });
 
-            //synchronize clolumns mappings with Importmap object
+            //synchronize columns mappings with Importmap object
             foreach (var gridMapping in gridMappings) {
                 var mapping = gridMapping;
                 var firstOrDefault = mapping.ItemArray.FirstOrDefault();
@@ -334,7 +334,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             foreach (BandedGridColumn col in cols) {
                 if (col.AbsoluteIndex != 0 && col.AbsoluteIndex != cols.Count - 1) {
-                    //move value colums to Values band
+                    //move value columns to Values band
                     col.OwnerBand = bands["Values"];
                 }
                 if (col.AbsoluteIndex == cols.Count - 1) {
@@ -400,7 +400,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         }
 
         /// <summary>
-        /// header row CheckEdit, enables aditional options for selecting a header row in excel file
+        /// header row CheckEdit, enables additional options for selecting a header row in excel file
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -720,7 +720,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             var i = 0;
 
-            //for every row in excell sheet
+            //for every row in excel sheet
             foreach (Row record in records) {
                 ++i;
                 if (i == 1) continue;
@@ -729,7 +729,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 //var os = new ObjectSpace(objectSpace, XafTypesInfo.Instance);
                 object newObj = null;
 
-                //chech if row contains Oid
+                //check if row contains Oid
 
                 //get key property name of the object type being imported
                 var kp = objectSpace.GetKeyPropertyName(Type);
