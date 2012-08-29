@@ -62,7 +62,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-    
+
     public class HyperLinkGridListViewController : ViewController {
         GridListEditor gridListEditor;
 
@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         protected override void OnDeactivated() {
-            if (gridListEditor != null)
+            if (gridListEditor != null && gridListEditor.GridView != null)
                 gridListEditor.GridView.MouseDown -= GridView_MouseDown;
             base.OnDeactivated();
         }
