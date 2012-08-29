@@ -1,4 +1,5 @@
-﻿function AdjustSplitterSize(middleRowHeight) {
+﻿function AdjustSplitterSize(middleRowContent, newHeight) {
+    var middleRowHeight = middleRowContent.offsetHeight + newHeight;
     var elementToResize = document.getElementById("MasterDetailSplitter");
 
     if (elementToResize) {
