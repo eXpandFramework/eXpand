@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Validation;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -15,6 +16,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {

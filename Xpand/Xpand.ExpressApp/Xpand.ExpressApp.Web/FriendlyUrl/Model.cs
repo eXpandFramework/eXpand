@@ -12,6 +12,8 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
     public interface IFriendlyUrl {
         [Category("eXpand.FriendlyUrl")]
         [ModelValueCalculator("Id")]
+        [Required]
+        [Description("The same url for listview/detailview is permitted. However there will be conflicts if a 2nd listview with the same url exists")]
         string FriendlyUrl { get; set; }
     }
 

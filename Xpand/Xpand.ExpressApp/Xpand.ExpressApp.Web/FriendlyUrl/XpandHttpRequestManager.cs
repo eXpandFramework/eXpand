@@ -47,7 +47,13 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
         string GetViewId(string[] strings) {
             var viewId = strings[0];
             var split = viewId.Split('-');
-            return split.Length > 1 ? split[1] : viewId;
+            var id = split.Length > 1 ? split[1] : viewId;
+            return GetViewIdFromFrindlyUrl(strings, id);
+        }
+
+        string GetViewIdFromFrindlyUrl(string[] strings, string id) {
+            var modelViewFriendlyUrls = WebApplication.Instance.Model.Views.OfType<IModelViewFriendlyUrl>().Where(url => url.FriendlyUrl == id);
+            return strings.Length == 2 ? modelViewFriendlyUrls.OfType<IModelDetailView>().Single().Id : id;
         }
         #endregion
 
