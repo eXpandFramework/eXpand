@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -6,9 +7,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 
@@ -32,7 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
             ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            UserDifferenceObjectBuilder.SetUp(this);
+            modelDifferenceObject.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
             return modelDifferenceObject;
         }
 
@@ -48,6 +49,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             differenceObjects = differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
             return GetAllLayers(differenceObjects, master);
         }
-        
+
     }
 }

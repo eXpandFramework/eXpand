@@ -86,8 +86,10 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public void InitializeSequenceGenerator() {
+            if (SequenceObjectType == null)
+                return;
             try {
-                if (SequenceObjectType == null)
+                if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
                     var connectionString = ((IXafApplication)Application).RaiseEstablishingConnection();

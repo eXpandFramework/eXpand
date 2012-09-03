@@ -75,10 +75,7 @@ namespace Xpand.ExpressApp.Web {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
         }
-        protected override ModuleTypeList GetDefaultModuleTypes() {
-            var result = new List<Type>(base.GetDefaultModuleTypes()) { typeof(XpandSystemModule), typeof(XpandSystemAspNetModule) };
-            return new ModuleTypeList(result.ToArray());
-        }
+
         protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             base.OnCreateCustomObjectSpaceProvider(args);
             if (args.ObjectSpaceProvider == null)

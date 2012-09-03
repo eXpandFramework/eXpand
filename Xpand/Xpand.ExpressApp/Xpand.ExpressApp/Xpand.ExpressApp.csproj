@@ -133,6 +133,7 @@
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
     <Compile Include="Core\TypeValueConverter.cs" />
     <Compile Include="DataStoreProvider.cs" />
+    <Compile Include="DynamicSecuritySystemObjects.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />

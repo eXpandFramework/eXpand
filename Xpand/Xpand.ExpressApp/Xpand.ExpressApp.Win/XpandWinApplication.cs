@@ -17,8 +17,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Security;
-using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.ExpressApp.Core;
 
@@ -73,11 +71,6 @@ namespace Xpand.ExpressApp.Win {
                 controller.SetModuleDiffStore(modulesDiffStoreInfo);
             }
             return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
-        }
-
-        protected override ModuleTypeList GetDefaultModuleTypes() {
-            var result = new List<Type>(base.GetDefaultModuleTypes()) { typeof(XpandSystemModule), typeof(XpandSystemWindowsFormsModule) };
-            return new ModuleTypeList(result.ToArray());
         }
 
         public new string ConnectionString {

@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.ModelDifference.DataStore.Builders;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 
@@ -21,15 +20,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-
-            if (RuntimeMode) {
-                var securityComplex = Application.Security as IRoleTypeProvider;
-                if (securityComplex != null) {
-                    RoleDifferenceObjectBuilder.CreateDynamicRoleMember(securityComplex);
-                }
-                if (Application.Security != null)
-                    UserDifferenceObjectBuilder.CreateDynamicUserMember(Application.Security.UserType);
-            } else {
+            if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             }
@@ -44,6 +35,9 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
+            dynamicSecuritySystemObjects.BuildUser(typeof(UserModelDifferenceObject), "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
+            dynamicSecuritySystemObjects.BuildRole(typeof(RoleModelDifferenceObject), "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
             var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
             if (securityStrategy != null) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
@@ -62,6 +56,5 @@ namespace Xpand.ExpressApp.ModelDifference {
             updaters.Add(new BOModelNodesUpdater());
             updaters.Add(new BOModelMemberNodesUpdater());
         }
-
     }
 }

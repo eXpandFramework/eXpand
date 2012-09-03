@@ -8,19 +8,19 @@ namespace Xpand.ExpressApp {
     public class XpoObjectHacker {
 
         public void EnsureIsNotIdentity(IEnumerable<DBTable> tables) {
-            var firstOrDefault = tables.Where(table => table.Name == typeof(XPObjectType).Name).FirstOrDefault();
+            var firstOrDefault = tables.FirstOrDefault(table => table.Name == typeof(XPObjectType).Name);
             if (firstOrDefault != null) {
                 var dbColumn = firstOrDefault.Columns[0];
                 dbColumn.IsIdentity = false;
             }
         }
 
-        public ParameterValue CreateObjectTypeIndetifier(InsertStatement insertStatement, SimpleDataLayer simpleDataLayer,int value) {
+        public ParameterValue CreateObjectTypeIndetifier(InsertStatement insertStatement, SimpleDataLayer simpleDataLayer, int value) {
             var identityParameter = insertStatement.IdentityParameter;
             insertStatement.IdentityParameter = null;
             insertStatement.Parameters.Add(new ParameterValue(3) { Value = value });
-            var oidQueryOperand = insertStatement.Operands.OfType<QueryOperand>().Where(operand => operand.ColumnName == "Oid").FirstOrDefault();
-            if (ReferenceEquals(oidQueryOperand,null))
+            var oidQueryOperand = insertStatement.Operands.OfType<QueryOperand>().FirstOrDefault(operand => operand.ColumnName == "Oid");
+            if (ReferenceEquals(oidQueryOperand, null))
                 insertStatement.Operands.Add(new QueryOperand { ColumnName = "Oid", ColumnType = DBColumnType.Int32 });
             return identityParameter;
         }

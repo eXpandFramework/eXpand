@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -44,6 +45,10 @@ namespace Xpand.ExpressApp {
                     "BaseImpl not found please reference it in your front end project and set its Copy Local=true");
         }
 
+        public static Type UserType { get; set; }
+
+        public static Type RoleType { get; set; }
+
         protected bool RuntimeMode {
             get {
                 var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
@@ -65,6 +70,20 @@ namespace Xpand.ExpressApp {
                 return declaredExportedTypes;
             }
             return base.GetDeclaredExportedTypes();
+        }
+
+        void AssignSecurityEntities() {
+            var roleTypeProvider = Application.Security as IRoleTypeProvider;
+            if (roleTypeProvider != null) {
+                RoleType = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleTypeProvider.RoleType).Type;
+                if (RoleType.IsInterface)
+                    RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
+            }
+            if (Application.Security != null) {
+                UserType = Application.Security.UserType;
+                if (UserType.IsInterface)
+                    UserType = XpoTypeInfoSource.GetGeneratedEntityType(UserType);
+            }
         }
 
         IEnumerable<Type> CollectRequiredTypes(ITypeInfo typeInfo) {
@@ -206,6 +225,7 @@ namespace Xpand.ExpressApp {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            AssignSecurityEntities();
             lock (_lockObject) {
                 if (_instanceModelApplicationCreatorManager == null)
                     _instanceModelApplicationCreatorManager = ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");

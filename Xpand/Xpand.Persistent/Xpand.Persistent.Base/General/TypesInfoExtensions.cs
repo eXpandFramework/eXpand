@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -173,7 +174,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static bool typeIsRegister(ITypesInfo typeInfo, Type typeToCreateOn) {
-            return typeInfo.PersistentTypes.Where(info => info.Type == typeToCreateOn).FirstOrDefault() != null;
+            return XafTypesInfo.Instance.FindTypeInfo(typeToCreateOn).IsDomainComponent ||
+                   typeInfo.PersistentTypes.FirstOrDefault(info => info.Type == typeToCreateOn) != null;
         }
     }
 }
