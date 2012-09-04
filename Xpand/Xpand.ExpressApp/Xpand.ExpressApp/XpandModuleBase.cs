@@ -73,16 +73,18 @@ namespace Xpand.ExpressApp {
         }
 
         void AssignSecurityEntities() {
-            var roleTypeProvider = Application.Security as IRoleTypeProvider;
-            if (roleTypeProvider != null) {
-                RoleType = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleTypeProvider.RoleType).Type;
-                if (RoleType.IsInterface)
-                    RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
-            }
-            if (Application.Security != null) {
-                UserType = Application.Security.UserType;
-                if (UserType.IsInterface)
-                    UserType = XpoTypeInfoSource.GetGeneratedEntityType(UserType);
+            if (Application != null) {
+                var roleTypeProvider = Application.Security as IRoleTypeProvider;
+                if (roleTypeProvider != null) {
+                    RoleType = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleTypeProvider.RoleType).Type;
+                    if (RoleType.IsInterface)
+                        RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
+                }
+                if (Application.Security != null) {
+                    UserType = Application.Security.UserType;
+                    if (UserType != null && UserType.IsInterface)
+                        UserType = XpoTypeInfoSource.GetGeneratedEntityType(UserType);
+                }
             }
         }
 
