@@ -1,10 +1,10 @@
-using System.Linq;
+using System;
 using System.Security;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
 
@@ -20,18 +20,30 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         protected override void OnActivated() {
             base.OnActivated();
             var stateMachineController = Frame.GetController<StateMachineController>();
+            if (((IModelOptionsStateMachine)Application.Model.Options).PermissionsForActionState)
+                ((SingleChoiceAction)stateMachineController.Actions["ChangeStateAction"]).ItemsChanged += OnItemsChanged;
             stateMachineController.TransitionExecuting += OnTransitionExecuting;
         }
 
-        void OnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            var states = executeTransitionEventArgs.Transition.TargetState.StateMachine.States.OfType<XpoState>();
-            foreach (var state in states) {
-                if (IsNotGranted(state))
-                    throw new UserFriendlyException("Permissions are not granted for transitioning to the " + state.Caption);
+        void OnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
+            var changedItemsInfo = itemsChangedEventArgs.ChangedItemsInfo;
+            foreach (var actionItemChangesType in changedItemsInfo) {
+                if (actionItemChangesType.Key is ChoiceActionItem && actionItemChangesType.Value == ChoiceActionItemChangesType.Add) {
+                    var choiceActionItem = ((ChoiceActionItem)actionItemChangesType.Key);
+                    var transition = choiceActionItem.Data as ITransition;
+                    if (transition != null)
+                        choiceActionItem.Active["Permission"] = !IsNotGranted(transition.TargetState);
+                }
             }
         }
 
-        bool IsNotGranted(XpoState state) {
+        void OnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
+            var targetState = executeTransitionEventArgs.Transition.TargetState;
+            if (IsNotGranted(targetState))
+                throw new UserFriendlyException("Permissions are not granted for transitioning to the " + targetState.Caption);
+        }
+
+        bool IsNotGranted(IState state) {
             if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return IsNotGranted(new StateMachineTransitionPermission(StateMachineTransitionModifier.Deny, state.Caption, state.StateMachine.Name));
             var stateMachineTransitionPermission = new Improved.StateMachineTransitionPermission {
@@ -42,7 +54,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             return !SecuritySystem.IsGranted(new StateMachineTransitionOperationRequest(stateMachineTransitionPermission));
         }
 
-        static bool IsNotGranted(IPermission permission) {
+        bool IsNotGranted(IPermission permission) {
             var securityComplex = ((SecurityBase)SecuritySystem.Instance);
             bool isGrantedForNonExistentPermission = securityComplex.IsGrantedForNonExistentPermission;
             securityComplex.IsGrantedForNonExistentPermission = true;
