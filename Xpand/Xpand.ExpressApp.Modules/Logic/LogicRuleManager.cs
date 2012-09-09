@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Logic {
@@ -12,10 +12,6 @@ namespace Xpand.ExpressApp.Logic {
         public const BindingFlags MethodRuleBindingFlags =
             BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public |
             BindingFlags.NonPublic;
-
-
-
-
 
         static IValueManager<LogicRuleManager<TLogicRule>>
             instanceManager;
@@ -38,11 +34,7 @@ namespace Xpand.ExpressApp.Logic {
         public List<TLogicRule> this[ITypeInfo typeInfo] {
             get {
                 lock (rules) {
-                    var type = typeInfo.Type;
-                    if (typeInfo.IsDomainComponent && typeInfo.IsInterface) {
-                        type = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(type);
-                    }
-                    return GetLogicRules(type);
+                    return GetLogicRules(typeInfo.Type);
                 }
             }
             set {
@@ -58,7 +50,6 @@ namespace Xpand.ExpressApp.Logic {
                 result.AddRange(GetTypeRules(type));
                 type = type.BaseType;
             }
-
             return result;
         }
         #endregion
@@ -76,6 +67,11 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public static bool HasRules(ITypeInfo typeInfo) {
+            foreach (var rule in Instance.rules) {
+                if (rule.Key.Name == "IOrder") {
+                    Debug.Print("");
+                }
+            }
             return Instance[typeInfo].Count > 0;
         }
 

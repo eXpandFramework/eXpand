@@ -35,13 +35,16 @@ namespace Xpand.ExpressApp.Logic {
         public virtual void CollectRules(XafApplication xafApplication) {
             lock (LogicRuleManager<TLogicRule>.Instance) {
                 bool reloadPermissions = ReloadPermissions();
-                IModelLogic modelLogic = GetModelLogic(xafApplication.Model);
+                var modelLogic = GetModelLogic(xafApplication.Model);
                 foreach (ITypeInfo typeInfo in XafTypesInfo.Instance.PersistentTypes) {
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = null;
-                    List<TLogicRule> modelLogicRules = CollectRulesFromModel(modelLogic, typeInfo).ToList();
-                    List<TLogicRule> permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo, reloadPermissions).ToList();
+                    var modelLogicRules = CollectRulesFromModel(modelLogic, typeInfo).ToList();
+                    var permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo, reloadPermissions).ToList();
                     modelLogicRules.AddRange(permissionsLogicRules);
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
+                    if (typeInfo.Name == "IOrder" && this.GetType().Name.StartsWith("MasterDet")) {
+                        var logicRules = LogicRuleManager<TLogicRule>.Instance[typeInfo];
+                    }
                 }
             }
             OnRulesCollected(EventArgs.Empty);
@@ -57,24 +60,20 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual IEnumerable<TLogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo, bool reloadPermissions) {
-            if (reloadPermissions) {
-                var permissions = GetPermissions();
-                return permissions.OfType<TLogicRule>().Where(permission => permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OrderBy(rule => rule.Index);
-            }
-            return new List<TLogicRule>();
+            return reloadPermissions ? (IEnumerable<TLogicRule>)GetPermissions().OfType<TLogicRule>().Where(permission =>
+                           permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type).OrderBy(rule => rule.Index)
+                       : new List<TLogicRule>();
         }
 
-        static IEnumerable GetPermissions() {
-            if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
-                return ((IUser)SecuritySystem.CurrentUser).Permissions.ToList();
-            return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions();
+        IEnumerable GetPermissions() {
+            return !((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()
+                       ? (IEnumerable)((IUser)SecuritySystem.CurrentUser).Permissions.ToList()
+                       : ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions();
         }
 
         IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {
-            return (modelLogic.Rules.Where(
-                ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
+            return (modelLogic.Rules.Where(ruleDefinition => info == ruleDefinition.ModelClass.TypeInfo).Select(GetRuleObject)).OfType<TLogicRule>();
         }
-
 
         protected virtual TLogicRule2 GetRuleObject(IModelLogicRule modelLogicRule) {
             var logicRule2 = ((TLogicRule2)ReflectionHelper.CreateObject(typeof(TLogicRule2), (TLogicRule)modelLogicRule));
