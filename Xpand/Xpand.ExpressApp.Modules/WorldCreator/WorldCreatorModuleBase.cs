@@ -134,6 +134,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
             foreach (var definedModule in _dynamicModuleTypes) {
                 moduleManager.AddModule(definedModule);
+                var module = moduleManager.Modules.FindModule(definedModule);
+                moduleManager.ControllersManager.RegisterControllerTypes(module.GetControllerTypes().ToArray());
             }
             unitOfWork.CommitChanges();
         }
