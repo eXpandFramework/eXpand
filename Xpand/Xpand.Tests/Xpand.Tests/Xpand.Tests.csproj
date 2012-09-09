@@ -330,8 +330,10 @@
     <Compile Include="Xpand.Xpo\ChangeTypeSpecs.cs" />
     <Compile Include="Xpand.Xpo\CriteriaOperatorExtractorFixture.cs" />
     <Compile Include="Xpand.Xpo\DynamicCalcPropertySpecs.cs" />
+    <Compile Include="Xpand.Xpo\ObjectToViewMapper.cs" />
     <Compile Include="Xpand.Xpo\PersistentMetaDataFixture.cs" />
     <Compile Include="Xpand.Xpo\PropertyPathParserFixture.cs" />
+    <Compile Include="Xpand.Xpo\QueryConverterSpecs.cs" />
     <Compile Include="Xpand.Xpo\ValueConvertersSpecs.cs" />
     <Compile Include="Xpand\Contexts.cs" />
     <Compile Include="Xpand\ObjectSpaceExtensionSpecs.cs" />
