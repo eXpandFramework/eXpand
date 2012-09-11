@@ -14,8 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDemo.UiLevel.Win", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityDemo.UiLevel.Web", "SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj", "{AA5DA6E6-61B1-4A3C-8F3B-75B536765CC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.StateMachine", "..\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj", "{5F9E1E64-7384-475E-99A6-50407FAF329A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,10 +48,6 @@ Global
 		{AA5DA6E6-61B1-4A3C-8F3B-75B536765CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5DA6E6-61B1-4A3C-8F3B-75B536765CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA5DA6E6-61B1-4A3C-8F3B-75B536765CC5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

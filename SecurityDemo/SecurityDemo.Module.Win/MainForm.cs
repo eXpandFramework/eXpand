@@ -16,6 +16,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Win.Templates;
+using System.IO;
+using System.Text;
 
 namespace FeatureCenter.Module.Win {
     public partial class MainForm : MainFormTemplateBase, IDockManagerHolder, ISupportClassicToRibbonTransform, DevExpress.ExpressApp.Demos.IHintTemplate, IInfoPanelTemplate, ICaptionPanelHolder {
@@ -23,7 +25,6 @@ namespace FeatureCenter.Module.Win {
             base.SetSettings(modelTemplate);
             navigation.Model = TemplatesHelper.GetNavBarCustomizationNode();
             formStateModelSynchronizerComponent.Model = GetFormStateNode();
-            modelSynchronizationManager.ModelSynchronizableComponents.Add(new NavigationModelSynchronizer(dockPanelNavigation, (IModelTemplateWin)modelTemplate));
         }
         protected virtual void InitializeImages() {
             barMdiChildrenListItem.Glyph = ImageLoader.Instance.GetImageInfo("Action_WindowList").Image;
@@ -50,6 +51,21 @@ namespace FeatureCenter.Module.Win {
         }
         public DockManager DockManager {
             get { return mainDockManager; }
+        }
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+            if(ModelTemplate != null && !string.IsNullOrEmpty(ModelTemplate.DockManagerSettings)) {
+                MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(ModelTemplate.DockManagerSettings));
+                DockManager.RestoreLayoutFromStream(stream);
+            }
+        }
+        protected override void OnClosing(CancelEventArgs e) {
+            if(ModelTemplate != null) {
+                MemoryStream stream = new MemoryStream();
+                DockManager.SaveLayoutToStream(stream);
+                ModelTemplate.DockManagerSettings = Encoding.UTF8.GetString(stream.ToArray());
+            }
+            base.OnClosing(e);
         }
         protected override void UpdateMdiModeDependentProperties() {
             base.UpdateMdiModeDependentProperties();

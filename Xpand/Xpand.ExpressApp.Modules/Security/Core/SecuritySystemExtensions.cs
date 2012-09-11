@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Security.Core {
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
                 defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
-                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType, SecurityOperations.Read, false, true);
+                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType, SecurityOperations.Read, SecuritySystemModifier.Allow);
                 objectSpace.CommitChanges();
             }
             return defaultRole;
