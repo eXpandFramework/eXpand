@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
@@ -120,7 +121,7 @@ namespace Xpand.Persistent.Base.General {
                 string classDeclaration = CreateClassDeclaration();
                 var classConstructor = CreateClassConstructor();
                 string properties = CreateProperties();
-                var source = string.Join(Environment.NewLine, classDeclaration, classConstructor, properties, "}");
+                var source = string.Join(Environment.NewLine, new[] { classDeclaration, classConstructor, properties, "}" });
                 _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
                 return new CodeInfo(typeInfo, source, _referencesCollector.references, _viewName);
             }
@@ -133,7 +134,7 @@ namespace Xpand.Persistent.Base.General {
 
         string CreateProperties() {
             var memberInfos = PersistentNonSystemMemberInfos();
-            return string.Join(Environment.NewLine, memberInfos.Select(CreateProperty));
+            return string.Join(Environment.NewLine, memberInfos.Select(CreateProperty).ToArray());
         }
 
         string CreateProperty(IMemberInfo info) {
@@ -239,7 +240,7 @@ namespace Xpand.Persistent.Base.General {
             return defaultMember != null ? defaultMember.Name + alias : _typeHelper.GetColumnNameCore(info);
         }
 
-        QueryOperand CreateOperand(IMemberInfo memberInfo, SelectStatement selectStatement) {
+        CriteriaOperator CreateOperand(IMemberInfo memberInfo, SelectStatement selectStatement) {
             var referenceInfoAttribute = memberInfo.FindAttribute<ReferenceInfoAttribute>();
             return new QueryOperand(GetColumnName(memberInfo, referenceInfoAttribute), GetAlias(referenceInfoAttribute, selectStatement));
         }
