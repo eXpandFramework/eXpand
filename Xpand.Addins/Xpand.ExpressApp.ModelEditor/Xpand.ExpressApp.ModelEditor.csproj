@@ -29,7 +29,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\Xpand.DLL\PlugIns\</OutputPath>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>http://localhost/DevExpress.ExpressApp.ModelEditor.v9.1/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
