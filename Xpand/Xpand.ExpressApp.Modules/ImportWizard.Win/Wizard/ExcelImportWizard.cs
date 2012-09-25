@@ -30,9 +30,11 @@ using Xpand.ExpressApp.ImportWizard.Win.Properties;
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
     public partial class ExcelImportWizard : XtraForm {
+        readonly XafApplication _application;
         #region Initialization
 
-        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase) {
+        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase, XafApplication application) {
+            _application = application;
             //set local variable values
             if (objectSpace == null)
                 throw new ArgumentNullException("objectSpace", Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
@@ -686,7 +688,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         }
 
 
-        private static void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
+        private void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
             var newObjectTypeInfo = XafTypesInfo.Instance.FindTypeInfo(newObject.GetType());
             if ((currentCollectionSource != null) && currentCollectionSource.ObjectTypeInfo.IsAssignableFrom(newObjectTypeInfo)) {
                 if (objectSpace == currentCollectionSource.ObjectSpace) {
@@ -695,21 +697,19 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                     var propertyCollectionSource = (currentCollectionSource as PropertyCollectionSource);
                     if ((propertyCollectionSource != null) && (propertyCollectionSource.MasterObject != null)) {
                         Object collectionOwner;
+                        IMemberInfo memberInfo = null;
                         if (propertyCollectionSource.MemberInfo.GetPath().Count > 1) {
                             collectionOwner = GetCollectionOwner(propertyCollectionSource.MasterObject, propertyCollectionSource.MemberInfo);
                             if (collectionOwner != null) {
-                                XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).FindMember(propertyCollectionSource.MemberInfo.LastMember.Name);
+                                memberInfo = XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).FindMember(propertyCollectionSource.MemberInfo.LastMember.Name);
                             }
                         } else {
                             collectionOwner = propertyCollectionSource.MasterObject;
+                            memberInfo = propertyCollectionSource.MemberInfo;
                         }
-                        if ((collectionOwner != null)
-                                && XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).IsPersistent) {
-                            //TODO: Fix this
-                            throw new NotImplementedException("Feature not completely implemented. Import win Create Collection Source");
-                            //var collectionSource = Application.CreatePropertyCollectionSource(
-                            //    objectSpace, null, objectSpace.GetObject(collectionOwner), memberInfo, "", CollectionSourceMode.Normal);
-                            //collectionSource.Add(newObject);
+                        if ((collectionOwner != null) && XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).IsPersistent) {
+                            var collectionSource = _application.CreatePropertyCollectionSource(objectSpace, null, objectSpace.GetObject(collectionOwner), memberInfo, "", CollectionSourceMode.Normal);
+                            collectionSource.Add(newObject);
                         }
                     }
                 }
