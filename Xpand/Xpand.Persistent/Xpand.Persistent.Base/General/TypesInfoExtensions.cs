@@ -30,23 +30,24 @@ namespace Xpand.Persistent.Base.General {
             return objectType.Type;
         }
 
-        public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary) {
+        public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary) {
             return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary, true);
         }
 
-        public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
+        public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
             return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary, typeOfMember.Name, refreshTypesInfo);
         }
 
-        public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, string propertyName) {
+        public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, string propertyName) {
             return CreateMember(typesInfo, typeToCreateOn, typeOfMember, associationName, dictionary, propertyName, true);
         }
 
-        public static XPCustomMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, string propertyName, bool refreshTypesInfo) {
-            XPCustomMemberInfo member = null;
+        public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, string propertyName, bool refreshTypesInfo) {
+            XPMemberInfo member = null;
             if (typeIsRegister(typesInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                if (xpClassInfo.FindMember(propertyName) == null) {
+                member = xpClassInfo.FindMember(propertyName);
+                if (member == null) {
                     member = xpClassInfo.CreateMember(propertyName, typeOfMember);
                     member.AddAttribute(new AssociationAttribute(associationName));
 
@@ -57,35 +58,36 @@ namespace Xpand.Persistent.Base.General {
             return member;
         }
 
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary) {
+        public static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, true);
         }
 
-        static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
+        static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
                                                           string propertyName, bool isManyToMany) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary,
                                     propertyName, refreshTypesInfo, isManyToMany);
         }
 
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
+        public static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo,
                                                           string propertyName) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, propertyName, refreshTypesInfo, false);
         }
 
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
+        public static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, bool refreshTypesInfo) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, refreshTypesInfo, typeOfCollection.Name + "s");
         }
 
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName) {
+        public static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, collectionName, true);
         }
 
-        static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo,
+        static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo,
                                                           bool isManyToMany) {
-            XPCustomMemberInfo member = null;
+            XPMemberInfo member = null;
             if (typeIsRegister(typeInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                if (xpClassInfo.FindMember(collectionName) == null) {
+                member = xpClassInfo.FindMember(collectionName);
+                if (member == null) {
                     member = xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
                     member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection) { UseAssociationNameAsIntermediateTableName = isManyToMany });
 
@@ -96,22 +98,22 @@ namespace Xpand.Persistent.Base.General {
             return member;
 
         }
-        public static XPCustomMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo) {
+        public static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo) {
             return CreateCollection(typeInfo, typeToCreateOn, typeOfCollection, associationName, dictionary, collectionName, refreshTypesInfo, false);
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesInfo, Type typeToCreateOn, Type otherPartType, XPDictionary dictionary) {
+        public static List<XPMemberInfo> CreateBothPartMembers(this ITypesInfo typesInfo, Type typeToCreateOn, Type otherPartType, XPDictionary dictionary) {
             return CreateBothPartMembers(typesInfo, typeToCreateOn, otherPartType, dictionary, false);
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany) {
+        public static List<XPMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany) {
             return CreateBothPartMembers(typesinfo, typeToCreateOn, otherPartMember, xpDictionary, isManyToMany, Guid.NewGuid().ToString());
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association,
+        public static List<XPMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association,
                                                                      string createOnPropertyName, string otherPartPropertyName) {
-            var infos = new List<XPCustomMemberInfo>();
-            XPCustomMemberInfo member = isManyToMany
+            var infos = new List<XPMemberInfo>();
+            XPMemberInfo member = isManyToMany
                                             ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association,
                                                                xpDictionary, false, createOnPropertyName, true)
                                             : CreateMember(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, createOnPropertyName, false);
@@ -134,10 +136,10 @@ namespace Xpand.Persistent.Base.General {
 
         }
 
-        public static List<XPCustomMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association) {
+        public static List<XPMemberInfo> CreateBothPartMembers(this ITypesInfo typesinfo, Type typeToCreateOn, Type otherPartMember, XPDictionary xpDictionary, bool isManyToMany, string association) {
 
-            var infos = new List<XPCustomMemberInfo>();
-            XPCustomMemberInfo member = isManyToMany
+            var infos = new List<XPMemberInfo>();
+            XPMemberInfo member = isManyToMany
                                             ? CreateCollection(typesinfo, typeToCreateOn, otherPartMember, association, xpDictionary, false)
                                             : CreateMember(typesinfo, otherPartMember, typeToCreateOn, association, xpDictionary, false);
 
