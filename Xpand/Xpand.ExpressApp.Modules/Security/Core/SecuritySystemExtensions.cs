@@ -37,8 +37,8 @@ namespace Xpand.ExpressApp.Security.Core {
     }
     public static class SecuritySystemExtensions {
 
-        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
-            var defaultRole = objectSpace.GetRole(roleName);
+        public static T GetDefaultRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
+            var defaultRole = objectSpace.GetRole<T>(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
                 defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
@@ -48,8 +48,16 @@ namespace Xpand.ExpressApp.Security.Core {
             return defaultRole;
         }
 
+        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
+            return GetDefaultRole<SecuritySystemRole>(objectSpace, roleName);
+        }
+
+        public static T GetDefaultRole<T>(this IObjectSpace objectSpace) where T : SecuritySystemRole {
+            return objectSpace.GetDefaultRole<T>("Default");
+        }
+
         public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace) {
-            return objectSpace.GetDefaultRole("Default");
+            return GetDefaultRole<SecuritySystemRole>(objectSpace);
         }
 
         public static SecuritySystemUser GetUser(this SecuritySystemRole systemRole, string userName, string passWord = "") {
