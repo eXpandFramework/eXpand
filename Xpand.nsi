@@ -284,8 +284,8 @@ Function InstallProjectTemplatesFiles
     Push $R0
     Exch
     Pop $R0
-    File "/oname=$R0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\cs\XpandFullSolutionCS.${DevExVersion}.zip"
-    File "/oname=$R0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandFullSolutionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandFullSolutionVB.${DevExVersion}.zip"
+    File "/oname=$R0ProjectTemplates\CSharp\DevExpress XAF\XpandFullSolutionCS.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\cs\XpandFullSolutionCS.${DevExVersion}.zip"
+    File "/oname=$R0ProjectTemplates\VisualBasic\DevExpress XAF\XpandFullSolutionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandFullSolutionVB.${DevExVersion}.zip"
     Pop $R0
 FunctionEnd
 
@@ -293,8 +293,8 @@ Function un.InstallProjectTemplatesFiles
     Push $R0
     Exch
     Pop $R0
-    Delete "$0ProjectTemplates\CSharp\eXpressApp Framework\XpandFullSolutionCS.${DevExVersion}.zip"
-    Delete "$0ProjectTemplates\VisualBasic\eXpressApp Framework\XpandFullSolutionVB.${DevExVersion}.zip"
+    Delete "$0ProjectTemplates\CSharp\DevExpress XAF\XpandFullSolutionCS.${DevExVersion}.zip"
+    Delete "$0ProjectTemplates\VisualBasic\DevExpress XAF\XpandFullSolutionVB.${DevExVersion}.zip"
     Pop $R0
 FunctionEnd
 
