@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         [Association("ModelDifferenceObject-AspectObjects")]
         [Aggregated]
+        [VisibleInDetailView(false)]
         public XPCollection<AspectObject> AspectObjects {
             get { return GetCollection<AspectObject>("AspectObjects"); }
         }
@@ -220,7 +221,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 var lastLayer = master.LastLayer;
                 ModelApplicationHelper.RemoveLayer(master);
                 ModelApplicationHelper.RemoveLayer(master);
-                ModelApplicationHelper.AddLayer(master,lastLayer);
+                ModelApplicationHelper.AddLayer(master, lastLayer);
             }
         }
 

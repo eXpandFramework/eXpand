@@ -3,10 +3,10 @@ using DevExpress.ExpressApp.MiddleTier.Remoting;
 using System.Runtime.Remoting.Channels.Tcp;
 using System;
 using System.Configuration;
-namespace SecurityDemo.Win
-{
-	partial class SecurityDemoWindowsFormsApplication
-    {
+using Xpand.ExpressApp.Security.Core;
+
+namespace SecurityDemo.Win {
+    partial class SecurityDemoWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -16,10 +16,8 @@ namespace SecurityDemo.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -31,8 +29,7 @@ namespace SecurityDemo.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
             this.module3 = new SecurityDemo.Module.SecurityDemoModule();
@@ -128,7 +125,7 @@ namespace SecurityDemo.Win
             // securityStrategyComplex1
             // 
             this.securityStrategyComplex1.Authentication = this.securityDemoAuthentication1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
             this.securityStrategyComplex1.UserType = typeof(SecurityDemo.Module.SecurityDemoUser);
             // 
             // SecurityDemoWindowsFormsApplication
@@ -198,8 +195,8 @@ namespace SecurityDemo.Win
 
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule module2;
-		private SecurityDemo.Module.SecurityDemoModule module3;
-		private SecurityDemo.Module.Win.SecurityDemoWindowsFormsModule module4;
+        private SecurityDemo.Module.SecurityDemoModule module3;
+        private SecurityDemo.Module.Win.SecurityDemoWindowsFormsModule module4;
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase module7;
         private DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule module8;

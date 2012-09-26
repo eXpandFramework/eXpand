@@ -7,8 +7,10 @@ using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
 using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
+    [System.ComponentModel.DisplayName("MasterDetail")]
     public class MasterDetailOperationPermissionData : ConditionalLogicOperationPermissionData, IMasterDetailRule {
-        public MasterDetailOperationPermissionData(Session session) : base(session) {
+        public MasterDetailOperationPermissionData(Session session)
+            : base(session) {
         }
         public string ChildListView { get; set; }
 

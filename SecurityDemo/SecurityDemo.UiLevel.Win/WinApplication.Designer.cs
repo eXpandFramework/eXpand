@@ -1,7 +1,7 @@
-namespace SecurityDemo.UiLevel.Win
-{
-	partial class SecurityDemoWindowsFormsApplication
-    {
+using Xpand.ExpressApp.Security.Core;
+
+namespace SecurityDemo.UiLevel.Win {
+    partial class SecurityDemoWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -11,10 +11,8 @@ namespace SecurityDemo.UiLevel.Win
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,8 +24,7 @@ namespace SecurityDemo.UiLevel.Win
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
             this.module3 = new SecurityDemo.Module.SecurityDemoModule();
@@ -90,7 +87,7 @@ namespace SecurityDemo.UiLevel.Win
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authentication1;
-            this.securityComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityComplex1.RoleType = typeof(XpandRole);
             this.securityComplex1.UserType = typeof(SecurityDemo.Module.SecurityDemoUser);
             // 
             // sqlConnection1
@@ -199,15 +196,15 @@ namespace SecurityDemo.UiLevel.Win
 
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule module2;
-		private SecurityDemo.Module.SecurityDemoModule module3;
-		private SecurityDemo.Module.Win.SecurityDemoWindowsFormsModule module4;
+        private SecurityDemo.Module.SecurityDemoModule module3;
+        private SecurityDemo.Module.Win.SecurityDemoWindowsFormsModule module4;
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase module7;
         private DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule module8;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
         private SecurityDemo.Module.SecurityDemoAuthentication authentication1;
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
-		private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private System.Data.SqlClient.SqlConnection sqlConnection1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;

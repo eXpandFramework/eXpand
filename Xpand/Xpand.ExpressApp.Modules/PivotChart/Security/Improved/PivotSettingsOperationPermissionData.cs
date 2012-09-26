@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ConditionalControllerState.Security.Improved;
 
 namespace Xpand.ExpressApp.PivotChart.Security.Improved {
+    [System.ComponentModel.DisplayName("PivotSettings")]
     public class PivotSettingsOperationPermissionData : ControllerStateOperationPermissionData {
         public PivotSettingsOperationPermissionData(Session session)
             : base(session) {
@@ -14,8 +15,5 @@ namespace Xpand.ExpressApp.PivotChart.Security.Improved {
             return new IOperationPermission[] { new PivotSettingsPermission(this) };
         }
 
-        protected override string GetPermissionInfoCaption() {
-            return string.Format("{1}: {0}", ID, GetType().Name);
-        }
     }
 }

@@ -5,6 +5,7 @@ using Xpand.ExpressApp.ConditionalControllerState.Security.Improved;
 using Xpand.ExpressApp.PivotChart.ShowInAnalysis;
 
 namespace Xpand.ExpressApp.PivotChart.Security.Improved {
+    [System.ComponentModel.DisplayName("ShowInAnalysis")]
     public class ShowInAnalysisOperationPermissionData : ControllerStateOperationPermissionData {
         public ShowInAnalysisOperationPermissionData(Session session)
             : base(session) {
@@ -15,8 +16,5 @@ namespace Xpand.ExpressApp.PivotChart.Security.Improved {
             return new IOperationPermission[] { new ShowInAnalysisPermission(this) };
         }
 
-        protected override string GetPermissionInfoCaption() {
-            return string.Format("{1}: {0}", ID, GetType().Name);
-        }
     }
 }

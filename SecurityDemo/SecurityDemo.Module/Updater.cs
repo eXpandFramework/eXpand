@@ -1,7 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.ModelDifference.Security;
@@ -27,7 +26,7 @@ namespace SecurityDemo.Module {
             ObjectSpace.CommitChanges();
         }
 
-        SecuritySystemRole CreateSecurityDemoRole() {
+        XpandRole CreateSecurityDemoRole() {
             var securityDemoRole = ObjectSpace.GetRole("Demo");
             if (ObjectSpace.IsNewObject(securityDemoRole)) {
                 securityDemoRole.CreateTypePermission<FullAccessObject>();
@@ -70,7 +69,7 @@ namespace SecurityDemo.Module {
             return securityDemoRole;
         }
 
-        void CreateMemberLevelSecurityObjectPermissions(SecuritySystemRole securityDemoRole) {
+        void CreateMemberLevelSecurityObjectPermissions(XpandRole securityDemoRole) {
             //We want to selectively assign Read/Write permission to members of MemberLevelSecurityObject class, so first we create a type permission that allows everything except Read/Write
             var memberLevelTypePermission = securityDemoRole.CreateTypePermission<MemberLevelSecurityObject>(o => {
                 o.AllowCreate = true;
@@ -95,7 +94,7 @@ namespace SecurityDemo.Module {
             }, false);
         }
 
-        void CreateNavigateObjectLevelSecurityObjectPermissions(SecuritySystemRole securityDemoRole) {
+        void CreateNavigateObjectLevelSecurityObjectPermissions(XpandRole securityDemoRole) {
             //We want to allow operations for objects that fit in a criterion, so first we create a TypePermission that allows no operation except Navigate
             var navigateObjectLevelSecurityObjectTypePermission = securityDemoRole.CreateTypePermission<ObjectLevelSecurityObject>(o => {
                 o.AllowNavigate = true;
