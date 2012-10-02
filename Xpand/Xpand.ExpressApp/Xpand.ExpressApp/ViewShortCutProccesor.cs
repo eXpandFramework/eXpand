@@ -44,7 +44,8 @@ namespace Xpand.ExpressApp {
         }
 
         bool IsEnable(IModelDetailView modelDetailView) {
-            return ((IModelDetailViewProccessViewShortcuts)modelDetailView).ViewShortcutProccesor;
+            var modelDetailViewProccessViewShortcuts = modelDetailView as IModelDetailViewProccessViewShortcuts;
+            return modelDetailViewProccessViewShortcuts != null && (modelDetailViewProccessViewShortcuts).ViewShortcutProccesor;
         }
 
         object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, IObjectSpace objectSpace) {

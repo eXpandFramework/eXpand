@@ -44,7 +44,12 @@ namespace Xpand.ExpressApp.Win {
             base.OnSetupComplete();
             var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
             if (xpandObjectSpaceProvider != null)
-                xpandObjectSpaceProvider.SetClientSideSecurity(((IModelOptionsClientSideSecurity)Model.Options).ClientSideSecurity);
+                xpandObjectSpaceProvider.SetClientSideSecurity(ClientSideSecurity());
+        }
+
+        ClientSideSecurity? ClientSideSecurity() {
+            var modelOptionsClientSideSecurity = Model.Options as IModelOptionsClientSideSecurity;
+            return modelOptionsClientSideSecurity != null ? (modelOptionsClientSideSecurity).ClientSideSecurity : null;
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {

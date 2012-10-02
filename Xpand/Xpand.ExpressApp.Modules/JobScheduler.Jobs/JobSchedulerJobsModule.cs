@@ -17,9 +17,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
-            dynamicSecuritySystemObjects.BuildUser(typeof(SendEmailJobDetailDataMap), "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
-            dynamicSecuritySystemObjects.BuildRole(typeof(SendEmailJobDetailDataMap), "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+            BuildSecuritySystemObjects();
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -27,8 +25,15 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Roles");
+            } else if ((Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+                BuildSecuritySystemObjects();
             }
         }
 
+        void BuildSecuritySystemObjects() {
+            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
+            dynamicSecuritySystemObjects.BuildUser(typeof(SendEmailJobDetailDataMap), "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
+            dynamicSecuritySystemObjects.BuildRole(typeof(SendEmailJobDetailDataMap), "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+        }
     }
 }
