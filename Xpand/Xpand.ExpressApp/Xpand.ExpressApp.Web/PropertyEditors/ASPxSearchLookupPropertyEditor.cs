@@ -33,6 +33,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         NewObjectViewController newObjectViewController;
         PopupWindowShowAction newObjectWindowAction;
         ASPxSearchDropDownEdit searchDropDownEdit;
+        WebApplication _application;
+        IObjectSpace _objectSpace;
 
         public ASPxSearchLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -382,9 +384,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        public override void Setup(IObjectSpace objectSpace, XafApplication application) {
-            base.Setup(objectSpace, application);
-            helper = new WebLookupEditorHelper(application, objectSpace, MemberInfo.MemberTypeInfo, Model);
+        public override void Setup(IObjectSpace space, XafApplication xafApplication) {
+            base.Setup(space, xafApplication);
+            _application = application;
+            _objectSpace = objectSpace;
+            helper = new WebLookupEditorHelper(xafApplication, space, MemberInfo.MemberTypeInfo, Model);
         }
 
         event EventHandler<EventArgs> viewShowingNotification;

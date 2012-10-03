@@ -120,9 +120,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Xpand.Utils\Properties\AssemblyVersion.cs">
-      <Link>Properties\AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>

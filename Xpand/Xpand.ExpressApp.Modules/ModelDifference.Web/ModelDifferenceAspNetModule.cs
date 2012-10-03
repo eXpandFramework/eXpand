@@ -13,7 +13,6 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
         public ModelDifferenceAspNetModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
-            RequiredModuleTypes.Add(typeof(ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
         }
 
         protected override bool? ModelsLoaded {

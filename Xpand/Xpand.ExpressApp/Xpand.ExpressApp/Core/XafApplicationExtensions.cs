@@ -5,11 +5,17 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.MiddleTier;
+using Xpand.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Core {
     public static class XafApplicationExtensions {
         public static T FindModule<T>(this XafApplication xafApplication) where T : ModuleBase {
             return (T)xafApplication.Modules.FindModule(typeof(T));
+        }
+
+        public static ClientSideSecurity? ClientSideSecurity(this XafApplication xafApplication) {
+            var modelOptionsClientSideSecurity = xafApplication.Model.Options as IModelOptionsClientSideSecurity;
+            return modelOptionsClientSideSecurity != null ? (modelOptionsClientSideSecurity).ClientSideSecurity : null;
         }
 
         public static SimpleDataLayer CreateCachedDataLayer(this XafApplication xafApplication, IDataStore argsDataStore) {
@@ -19,14 +25,11 @@ namespace Xpand.ExpressApp.Core {
         }
 
         public static string GetConnectionString(this XafApplication xafApplication) {
-
             if (xafApplication is ServerApplication && !(xafApplication is IXafApplication))
-                throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " +
-                                                  xafApplication.GetType());
-            var connectionString = ((IXafApplication)xafApplication).ConnectionString;
-            return connectionString;
-
+                throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " + xafApplication.GetType());
+            return ((IXafApplication)xafApplication).ConnectionString;
         }
+
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
             ((IXafApplication)xafApplication).ConnectionString = connectionString;
