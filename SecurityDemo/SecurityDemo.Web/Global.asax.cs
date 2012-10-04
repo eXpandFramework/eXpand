@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Web.Demos;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security.ClientServer;
+using Xpand.ExpressApp.Security.Core;
 
 namespace SecurityDemo.Web {
     public class Global : System.Web.HttpApplication {
@@ -35,7 +36,7 @@ namespace SecurityDemo.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 
-            SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
+            SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(XpandRole), new SecurityDemoAuthentication());
             WebApplication.Instance.Security = security;
             WebApplication.Instance.DatabaseVersionMismatch += delegate(object sender2, DatabaseVersionMismatchEventArgs e2) {
                 e2.Updater.Update();

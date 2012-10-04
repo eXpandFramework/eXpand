@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.DB.Exceptions;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
@@ -39,7 +41,10 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         protected override void OnChanged(string propertyName, object oldValue, object newValue) {
             base.OnChanged(propertyName, oldValue, newValue);
             if (propertyName == "ConnectionString") {
-                _dataTables = new XPCollection<DataTable>(Session, GetStorageTables());
+                try {
+                    _dataTables = new XPCollection<DataTable>(Session, GetStorageTables());
+                } catch (UnableToOpenDatabaseException) {
+                }
                 OnChanged("DataTables");
             }
         }

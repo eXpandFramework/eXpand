@@ -37,8 +37,8 @@ namespace Xpand.ExpressApp.Security.Core {
     }
     public static class SecuritySystemExtensions {
 
-        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
-            var defaultRole = objectSpace.GetRole(roleName);
+        public static T GetDefaultRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
+            var defaultRole = objectSpace.GetRole<T>(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
                 defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
@@ -48,8 +48,16 @@ namespace Xpand.ExpressApp.Security.Core {
             return defaultRole;
         }
 
+        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
+            return GetDefaultRole<SecuritySystemRole>(objectSpace, roleName);
+        }
+
+        public static T GetDefaultRole<T>(this IObjectSpace objectSpace) where T : SecuritySystemRole {
+            return objectSpace.GetDefaultRole<T>("Default");
+        }
+
         public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace) {
-            return objectSpace.GetDefaultRole("Default");
+            return GetDefaultRole<SecuritySystemRole>(objectSpace);
         }
 
         public static SecuritySystemUser GetUser(this SecuritySystemRole systemRole, string userName, string passWord = "") {
@@ -71,23 +79,31 @@ namespace Xpand.ExpressApp.Security.Core {
             return user2;
         }
 
-        public static SecuritySystemRole GetAdminRole(this IObjectSpace objectSpace, string roleName) {
-            var administratorRole = objectSpace.FindObject<SecuritySystemRole>(new BinaryOperator("Name", roleName));
+        public static T GetAdminRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
+            var administratorRole = objectSpace.FindObject<T>(new BinaryOperator("Name", roleName));
             if (administratorRole == null) {
-                administratorRole = objectSpace.CreateObject<SecuritySystemRole>();
+                administratorRole = objectSpace.CreateObject<T>();
                 administratorRole.Name = roleName;
                 administratorRole.IsAdministrative = true;
             }
             return administratorRole;
         }
 
-        public static SecuritySystemRole GetRole(this IObjectSpace objectSpace, string roleName) {
-            var securityDemoRole = objectSpace.FindObject<SecuritySystemRole>(new BinaryOperator("Name", roleName));
+        public static SecuritySystemRole GetAdminRole(this IObjectSpace objectSpace, string roleName) {
+            return GetAdminRole<XpandRole>(objectSpace, roleName);
+        }
+
+        public static T GetRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
+            var securityDemoRole = objectSpace.FindObject<T>(new BinaryOperator("Name", roleName));
             if (securityDemoRole == null) {
-                securityDemoRole = objectSpace.CreateObject<SecuritySystemRole>();
+                securityDemoRole = objectSpace.CreateObject<T>();
                 securityDemoRole.Name = roleName;
             }
             return securityDemoRole;
+        }
+
+        public static XpandRole GetRole(this IObjectSpace objectSpace, string roleName) {
+            return GetRole<XpandRole>(objectSpace, roleName);
         }
 
         public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRole systemRole, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true) {
@@ -199,7 +215,7 @@ namespace Xpand.ExpressApp.Security.Core {
                     var operationPermissions = ((IOperationPermissionProvider)securityRole).GetPermissions();
                     permissions.AddRange(operationPermissions);
                 } else {
-                    var operationPermissions = ((IOperationPermissionsProvider)securityRole).GetPermissions();
+                    var operationPermissions = ((IOperationPermissionProvider)securityRole).GetPermissions();
                     permissions.AddRange(operationPermissions);
                 }
             }

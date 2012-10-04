@@ -23,6 +23,8 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
+            } else if ((Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+                BuildSecuritySystemObjects();
             }
         }
 
@@ -30,18 +32,22 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
-                application.SetupComplete += ApplicationOnSetupComplete;
+                application.SettingUp += ApplicationOnSetupComplete;
             }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
-            dynamicSecuritySystemObjects.BuildUser(typeof(UserModelDifferenceObject), "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
-            dynamicSecuritySystemObjects.BuildRole(typeof(RoleModelDifferenceObject), "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            BuildSecuritySystemObjects();
             var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
             if (securityStrategy != null) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
+        }
+
+        void BuildSecuritySystemObjects() {
+            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
+            dynamicSecuritySystemObjects.BuildUser(typeof(UserModelDifferenceObject), "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
+            dynamicSecuritySystemObjects.BuildRole(typeof(RoleModelDifferenceObject), "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {

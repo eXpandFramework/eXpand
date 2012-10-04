@@ -9,6 +9,7 @@ using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Security.Improved {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "Module,ControllerType")]
+    [System.ComponentModel.DisplayName("ControllerState")]
     public class ControllerStateOperationPermissionData : ArtifactStateOperationPermissionData, IControllerStateRule {
         public ControllerStateOperationPermissionData(Session session)
             : base(session) {

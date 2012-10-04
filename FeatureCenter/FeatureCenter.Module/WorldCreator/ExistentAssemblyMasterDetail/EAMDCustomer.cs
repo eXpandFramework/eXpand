@@ -12,24 +12,28 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
     [XpandNavigationItem("WorldCreator/Existent Assembly/Master Detail", "EAMDCustomer_ListView")]
     [DisplayFeatureModel("EAMDCustomer_ListView", "ExistentAssemblyMasterDetailModelStore")]
     public class EAMDCustomer : BaseObject, ICustomer {
+        string _city;
+        string _description;
+        string _name;
+
         public EAMDCustomer(Session session)
             : base(session) {
         }
-
-
-        string ICustomer.Name {
-            get { return GetMemberValue("Name") as string; }
-            set { SetMemberValue("Name", value); }
+        #region ICustomer Members
+        public string Name {
+            get { return _name; }
+            set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        string ICustomer.City {
-            get { return GetMemberValue("City") as string; }
-            set { SetMemberValue("City", value); }
+        public string City {
+            get { return _city; }
+            set { SetPropertyValue("City", ref _city, value); }
         }
 
-        string ICustomer.Description {
-            get { return GetMemberValue("Description") as string; }
-            set { SetMemberValue("Description", value); }
+        public string Description {
+            get { return _description; }
+            set { SetPropertyValue("Description", ref _description, value); }
         }
+        #endregion
     }
 }

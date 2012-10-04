@@ -47,16 +47,18 @@ namespace Xpand.ExpressApp.Web.Layout {
         }
 
         void SetupViewItems(Control detailControl, ASPxGridView gridView) {
-            gridView.ClientIDMode = ClientIDMode.Predictable;
+            //            gridView.ClientIDMode = ClientIDMode.Predictable;
             if (string.IsNullOrEmpty(gridView.ClientInstanceName))
                 gridView.ClientInstanceName = "gridViewInSplitter";
-            detailControl.ClientIDMode = ClientIDMode.Predictable;
+            //            detailControl.ClientIDMode = ClientIDMode.Predictable;
+            //            detailControl.ClientIDMode = ClientIDMode.Predictable;
         }
 
         ASPxCallbackPanel CreateSplitterDetailPane(ASPxSplitter splitter) {
             SplitterPane detailPane = splitter.Panes.Add();
             detailPane.ScrollBars = ScrollBars.Auto;
-            var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientIDMode = ClientIDMode.Static };
+            //            var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientIDMode = ClientIDMode.Static };
+            var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientInstanceName = "DetailUpdatePanel" };
             updatePanel.ClientSideEvents.Init = "function (s,e) {s.GetMainElement().ClientControl = s;}";
             detailPane.Controls.Add(updatePanel);
             return updatePanel;
@@ -77,10 +79,11 @@ namespace Xpand.ExpressApp.Web.Layout {
         ASPxSplitter CreateAsPxSplitter(IModelSplitLayout splitLayout, string paneResize) {
             var splitter = new ASPxSplitter {
                 ID = "MasterDetailSplitter",
-                ClientIDMode = ClientIDMode.Static,
+                //                ClientIDMode = ClientIDMode.Static,
                 Orientation = (splitLayout.Direction == FlowDirection.Horizontal) ? Orientation.Horizontal : Orientation.Vertical,
                 ShowCollapseBackwardButton = true,
-                ShowCollapseForwardButton = true
+                ShowCollapseForwardButton = true,
+                ClientInstanceName = "MasterDetailSplitter"
             };
             splitter.ClientSideEvents.Init = "function (s,e) {s.AdjustControl(); s.GetMainElement().ClientControl = s;}";
             splitter.ClientSideEvents.PaneResized = paneResize;

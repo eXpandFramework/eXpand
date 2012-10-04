@@ -11,11 +11,8 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
-using Xpand.ExpressApp.Web.SystemModule;
 
 
 namespace Xpand.ExpressApp.Web {
@@ -57,7 +54,7 @@ namespace Xpand.ExpressApp.Web {
             base.OnSetupComplete();
             var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
             if (xpandObjectSpaceProvider != null)
-                xpandObjectSpaceProvider.SetClientSideSecurity(((IModelOptionsClientSideSecurity)Model.Options).ClientSideSecurity);
+                xpandObjectSpaceProvider.SetClientSideSecurity(this.ClientSideSecurity());
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {

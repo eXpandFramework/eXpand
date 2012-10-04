@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
 
 namespace SecurityDemo.Web {
@@ -149,7 +150,7 @@ namespace SecurityDemo.Web {
             // securityStrategyComplex1
             // 
             this.securityStrategyComplex1.Authentication = this.securityDemoAuthentication1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
             this.securityStrategyComplex1.UserType = typeof(SecurityDemo.Module.SecurityDemoUser);
             // 
             // SecurityDemoAspNetApplication

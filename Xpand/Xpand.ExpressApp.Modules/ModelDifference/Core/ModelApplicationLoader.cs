@@ -26,14 +26,13 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 GetModelUnSafe(modelApplicationBase, modelDifferenceObject);
                 AddLayers(modelApplicationBases);
             }
-
         }
 
         void GetModelUnSafe(ModelApplicationBase modelApplicationBase, ModelDifferenceObject modelDifferenceObject) {
             var afterSetupLayer = GetAfterSetupLayer(modelApplicationBase);
             ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetupLayer);
             modelDifferenceObject.GetModel(modelApplicationBase);
-            ModelApplicationHelper.RemoveLayer(afterSetupLayer);
+            ModelApplicationHelper.RemoveLayer(modelApplicationBase);
         }
 
         ModelApplicationBase GetAfterSetupLayer(ModelApplicationBase modelApplicationBase) {
@@ -41,7 +40,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             afterSetupLayer.Id = "After Setup";
             return afterSetupLayer;
         }
-
 
         void AddLayers(IEnumerable<ModelApplicationBase> modelApplicationBases) {
             var applicationBase = ((ModelApplicationBase)_application.Model);
@@ -55,7 +53,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             while (modelApplicationBase.LastLayer.Id != "Unchanged Master Part") {
                 if (!(strings.Contains(modelApplicationBase.LastLayer.Id)))
                     modelApplicationBases.Add(modelApplicationBase.LastLayer);
-                ModelApplicationHelper.RemoveLayer(modelApplicationBase.LastLayer);
+                ModelApplicationHelper.RemoveLayer(modelApplicationBase);
             }
             return modelApplicationBases;
         }

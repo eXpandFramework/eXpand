@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Security {
     public static class Extensions {
-        static readonly List<Type> Types = new List<Type> {
+        public static readonly List<Type> Types = new List<Type> {
                                         typeof (ModelDifferenceObject), typeof (UserModelDifferenceObject),
                                           typeof (RoleModelDifferenceObject), typeof (IntermediateObject), typeof (AspectObject),
                                           typeof (PersistentApplication)

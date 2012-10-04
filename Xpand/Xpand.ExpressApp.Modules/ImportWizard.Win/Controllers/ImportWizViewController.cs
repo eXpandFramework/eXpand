@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Controllers {
             var wiz = new ExcelImportWizard(
                             (XPObjectSpace)objectSpace,
                             View.ObjectTypeInfo,
-                            this.GetCurrentCollectionSource());
+                            this.GetCurrentCollectionSource(), Application);
 
             wiz.ShowDialog();
         }

@@ -8,6 +8,7 @@ using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
+    [System.ComponentModel.DisplayName("StateMachineTransition")]
     public class StateMachineTransitionOperationPermissionData : XpandPermissionData, IStateMachineTransitionPermission {
         public StateMachineTransitionOperationPermissionData(Session session)
             : base(session) {

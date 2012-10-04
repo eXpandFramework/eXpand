@@ -158,10 +158,9 @@ namespace Xpand.ExpressApp {
         }
 
         protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
-            XPClassInfo info = Dictiorary.GetClassInfo(classType);
+            XPClassInfo info = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(classType);
             if (info.FindMember(propertyName) == null) {
                 info.CreateMember(propertyName, typeof(XPCollection), true);
-                info.AddAttribute(new VisibleInDetailViewAttribute(false));
                 typesInfo.RefreshInfo(classType);
             }
         }
@@ -185,6 +184,11 @@ namespace Xpand.ExpressApp {
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
+            application.SettingUp += ApplicationOnSettingUp;
+        }
+
+        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
+            AssignSecurityEntities();
         }
 
         protected Type DefaultXafAppType = typeof(XafApplication);
@@ -194,8 +198,11 @@ namespace Xpand.ExpressApp {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            AssignSecurityEntities();
             OnApplicationInitialized(Application);
-            var type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelMember)).FindMember("Type");
+            var findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
+            var type = (BaseInfo)findTypeInfo.FindMember("Type");
+
             var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
@@ -227,7 +234,6 @@ namespace Xpand.ExpressApp {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            AssignSecurityEntities();
             lock (_lockObject) {
                 if (_instanceModelApplicationCreatorManager == null)
                     _instanceModelApplicationCreatorManager = ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");

@@ -16,13 +16,13 @@ namespace Xpand.ExpressApp.SystemModule {
             base.CustomizeTypesInfo(typesInfo);
             foreach (var memberInfo in GetDecoratedMembers(typesInfo)) {
                 var providedAssociationAttribute = (ProvidedAssociationAttribute)memberInfo.FindAttributeInfo(typeof(ProvidedAssociationAttribute));
-                AssociationAttribute associationAttribute = GetAssociationAttribute(memberInfo, providedAssociationAttribute);
-                XPCustomMemberInfo customMemberInfo = CreateMemberInfo(typesInfo, memberInfo, providedAssociationAttribute, associationAttribute);
+                var associationAttribute = GetAssociationAttribute(memberInfo, providedAssociationAttribute);
+                var customMemberInfo = CreateMemberInfo(typesInfo, memberInfo, providedAssociationAttribute, associationAttribute);
                 AddExtraAttributes(memberInfo, providedAssociationAttribute, customMemberInfo);
             }
         }
 
-        void AddExtraAttributes(XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, XPCustomMemberInfo customMemberInfo) {
+        void AddExtraAttributes(XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, XPMemberInfo customMemberInfo) {
             if (!(string.IsNullOrEmpty(providedAssociationAttribute.AttributesFactoryProperty)))
                 foreach (var attribute in GetAttributes(providedAssociationAttribute.AttributesFactoryProperty, memberInfo.Owner)) {
                     customMemberInfo.AddAttribute(attribute);
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         IEnumerable<XPMemberInfo> GetDecoratedMembers(ITypesInfo typesInfo) {
-            IEnumerable<XPMemberInfo> memberInfos =
+            var memberInfos =
                 typesInfo.PersistentTypes.Where(info => (info.IsInterface && !info.IsDomainComponent) || !info.IsInterface).SelectMany(typeInfo => {
                     XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(typeInfo.Type);
                     return xpClassInfo != null ? xpClassInfo.OwnMembers : new List<XPMemberInfo>();
@@ -52,11 +52,11 @@ namespace Xpand.ExpressApp.SystemModule {
             return memberInfo != null ? (IEnumerable<Attribute>)memberInfo.GetValue(null, null) : new List<Attribute>();
         }
 
-        private XPCustomMemberInfo CreateMemberInfo(ITypesInfo typesInfo, XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute) {
+        private XPMemberInfo CreateMemberInfo(ITypesInfo typesInfo, XPMemberInfo memberInfo, ProvidedAssociationAttribute providedAssociationAttribute, AssociationAttribute associationAttribute) {
             var typeToCreateOn = GetTypeToCreateOn(memberInfo, associationAttribute);
             if (typeToCreateOn == null)
                 throw new NotImplementedException();
-            XPCustomMemberInfo xpCustomMemberInfo;
+            XPMemberInfo xpCustomMemberInfo;
             if (!(memberInfo.IsCollection) || (memberInfo.IsCollection && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
                 xpCustomMemberInfo = typesInfo.CreateCollection(
                     typeToCreateOn,

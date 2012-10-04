@@ -9,6 +9,7 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
+    [System.ComponentModel.DisplayName("AdditionalViewControls")]
     public class AdditionalViewControlsOperationPermissionData : ConditionalLogicOperationPermissionData, IAdditionalViewControlsRule {
 
         public AdditionalViewControlsOperationPermissionData(Session session)

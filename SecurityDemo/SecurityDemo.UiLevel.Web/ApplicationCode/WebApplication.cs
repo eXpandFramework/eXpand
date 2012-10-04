@@ -2,12 +2,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
 
-namespace SecurityDemo.Web
-{
-    public partial class SecurityDemoAspNetApplication : XpandWebApplication
-    {
+namespace SecurityDemo.Web {
+    public partial class SecurityDemoAspNetApplication : XpandWebApplication {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private SecurityDemo.Module.SecurityDemoModule module3;
@@ -16,7 +15,7 @@ namespace SecurityDemo.Web
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule module8;
         private SecurityDemo.Module.SecurityDemoAuthentication authentication1;
-		private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
@@ -59,15 +58,13 @@ namespace SecurityDemo.Web
         private Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule worldCreatorWebModule1;
         private Xpand.ExpressApp.IO.IOModule ioModule1;
         private Xpand.ExpressApp.IO.Web.IOAspNetModule ioAspNetModule1;
-		private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private System.Data.SqlClient.SqlConnection sqlConnection1;
 
-        public SecurityDemoAspNetApplication()
-        {
+        public SecurityDemoAspNetApplication() {
             InitializeComponent();
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
-        {
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
         }
 
@@ -75,17 +72,15 @@ namespace SecurityDemo.Web
             try {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-            catch(CompatibilityException exception) {
-                if(exception.Error is CompatibilityUnableToOpenDatabaseError) {
+            } catch (CompatibilityException exception) {
+                if (exception.Error is CompatibilityUnableToOpenDatabaseError) {
                     throw new UserFriendlyException(
                     "The connection to the database failed. This demo requires the local instance of Microsoft SQL Server Express. To use another database server,\r\nopen the demo solution in Visual Studio and modify connection string in the \"app.config\" file.");
                 }
             }
         }
 
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new SecurityDemo.Module.SecurityDemoModule();
@@ -143,7 +138,7 @@ namespace SecurityDemo.Web
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authentication1;
-            this.securityComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityComplex1.RoleType = typeof(XpandRole);
             this.securityComplex1.UserType = typeof(SecurityDemo.Module.SecurityDemoUser);
             // 
             // sqlConnection1

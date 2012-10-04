@@ -30,7 +30,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             info.RegisterEntity(typeToCreateOn);
             Type typeOfCollection = typeof(Analysis);
 
-            XPCustomMemberInfo collection = info.CreateCollection(typeToCreateOn, typeOfCollection, "association",
+            XPMemberInfo collection = info.CreateCollection(typeToCreateOn, typeOfCollection, "association",
                                                                   XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
             AssociationAttribute attribute = assertMemberCreation(collection, typeOfCollection.Name + "s", typeToCreateOn);
@@ -57,7 +57,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             info.RegisterEntity(typeToCreateOn);
             Type typeOfMember = typeof(Analysis);
 
-            XPCustomMemberInfo member = info.CreateMember(typeToCreateOn, typeOfMember, "association", XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
+            XPMemberInfo member = info.CreateMember(typeToCreateOn, typeOfMember, "association", XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
 
             assertMemberCreation(member, typeOfMember.Name, typeToCreateOn);
         }
@@ -71,7 +71,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             Type typeOfMember = typeof(Analysis);
             info.RegisterEntity(typeOfMember);
 
-            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember,
+            List<XPMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember,
                                                                           XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, false, "association");
 
             assertMemberCreation(members, typeOfMember.Name, typeToCreateOn);
@@ -87,7 +87,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             Type typeOfMember = typeof(Analysis);
             info.RegisterEntity(typeOfMember);
 
-            List<XPCustomMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, true, "association");
+            List<XPMemberInfo> members = info.CreateBothPartMembers(typeToCreateOn, typeOfMember, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, true, "association");
 
             assertMemberCreation(members, typeToCreateOn.Name + "s", typeOfMember);
             assertMemberCreation(members, typeOfMember.Name + "s", typeToCreateOn);

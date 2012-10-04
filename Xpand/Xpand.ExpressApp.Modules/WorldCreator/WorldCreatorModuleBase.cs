@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         private static string _connectionString;
         List<Type> _dynamicModuleTypes = new List<Type>();
+        static ExistentTypesMemberCreator _existentTypesMemberCreator;
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
@@ -83,17 +84,17 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var session = (((XPObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false))).Session;
-            mergeTypes(new UnitOfWork(session.DataLayer));
+            MergeTypes(new UnitOfWork(session.DataLayer));
 
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            var existentTypesMemberCreator = new ExistentTypesMemberCreator();
-            if (FullConnectionString != null) {
+            if (FullConnectionString != null && _existentTypesMemberCreator != null) {
+                _existentTypesMemberCreator = new ExistentTypesMemberCreator();
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
-                existentTypesMemberCreator.CreateMembers(session);
+                _existentTypesMemberCreator.CreateMembers(session);
             }
             return base.GetDeclaredExportedTypes();
         }
@@ -146,8 +147,8 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public abstract string GetPath();
 
-        void mergeTypes(UnitOfWork unitOfWork) {
-            IEnumerable<Type> persistentTypes =
+        void MergeTypes(UnitOfWork unitOfWork) {
+            var persistentTypes =
                 _dynamicModuleTypes.Select(type => type.Assembly).SelectMany(
                     assembly => assembly.GetTypes().Where(type => typeof(IXPSimpleObject).IsAssignableFrom(type)));
             var sqlDataStore = XpoDefault.GetConnectionProvider(FullConnectionString, AutoCreateOption.DatabaseAndSchema) as ISqlDataStore;
