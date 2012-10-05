@@ -29,7 +29,7 @@ using System.Security;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: System.Web.UI.WebResource("Xpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg", "image/jpg")]
 [assembly: AllowPartiallyTrustedCallers]
