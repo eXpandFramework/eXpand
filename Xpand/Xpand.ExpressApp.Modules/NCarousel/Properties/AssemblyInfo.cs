@@ -33,8 +33,8 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(Xpand.AssemblyVersion.Version)]
-[assembly: AssemblyFileVersion(Xpand.AssemblyVersion.Version)]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.jquery-1.4.2.min.js", "text/javascript")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.jquery.jcarousel.min.js", "text/javascript")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.NCarousel.js", "text/javascript")]
