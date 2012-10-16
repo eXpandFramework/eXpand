@@ -11,7 +11,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.ExpressApp.SystemModule.Search {
     public class SearchFromDetailViewController : SearchFromViewController {
         IEnumerable<IMemberInfo> _searchAbleMemberInfos;
         readonly SimpleAction _searchAction;
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.SystemModule {
             var detailView = ((DetailView)View);
             _searchAbleMemberInfos = detailView.Model.Items.OfType<IModelPropertyEditorSearchMode>().Where(
                 mode => mode.SearchMemberMode == SearchMemberMode.Include).Select(searchMode => View.ObjectTypeInfo.FindMember(((IModelPropertyEditor)searchMode).ModelMember.Name));
-            _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Count() > 0;
+            _searchAction.Active["HasSearchAbleMembers"] = _searchAbleMemberInfos.Any();
         }
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             GroupOperator groupOperator = GetCriteria();
