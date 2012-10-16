@@ -224,6 +224,7 @@
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\Dashboard\DashboardReportViewItem.cs" />
     <Compile Include="SystemModule\LayoutViewColumnChooserController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -153,6 +153,16 @@
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
+    <Compile Include="SystemModule\Actions\ActionDefaultValueController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Dashboard\DashboardInteraction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Dashboard\Model.cs" />
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -233,7 +243,7 @@
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DisableActionsLinqListViewController.cs">
+    <Compile Include="SystemModule\Actions\DisableActionsLinqListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ColumnOptionsController.cs">
@@ -289,13 +299,13 @@
     <Compile Include="SystemModule\ProvidedAssociationsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromListViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\XpandPropertyInfo.cs" />
