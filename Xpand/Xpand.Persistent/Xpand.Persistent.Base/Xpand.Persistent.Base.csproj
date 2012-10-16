@@ -75,6 +75,7 @@
     <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -172,6 +173,13 @@
     <Compile Include="JobScheduler\Triggers\IXpandJobTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\ITriggerListenerTrigger.cs" />
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
+    <Compile Include="ModelAdapter\FastModelEditorHelper.cs" />
+    <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
+    <Compile Include="ModelAdapter\Interfaces.cs" />
+    <Compile Include="ModelAdapter\ModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
@@ -281,7 +289,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
