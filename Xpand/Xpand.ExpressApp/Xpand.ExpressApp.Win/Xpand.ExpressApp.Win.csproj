@@ -158,6 +158,24 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewPropertyEditor.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Interfaces.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Synchronizers.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RememberGridSelectionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs" />
     <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
       <SubType>Component</SubType>
     </Compile>
