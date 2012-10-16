@@ -140,6 +140,7 @@
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\BaseDomainLogic.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />

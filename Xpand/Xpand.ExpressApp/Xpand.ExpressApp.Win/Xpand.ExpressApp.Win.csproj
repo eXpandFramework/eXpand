@@ -158,6 +158,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\ColumnOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
       <SubType>Form</SubType>
@@ -176,6 +177,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs" />
+    <Compile Include="ListEditors\GridListEditors\Synchronizers.cs" />
     <Compile Include="ListEditors\LayoutViewGridListEditor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -231,6 +233,10 @@
     <Compile Include="SystemModule\EMailHighlightingController.Designer.cs">
       <DependentUpon>EMailHighlightingController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ToolTip\GridViewImageTextToolTipController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ToolTip\ObjectToolTipViewController.cs" />
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -259,7 +265,7 @@
     <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\WinToolTipsController.cs">
+    <Compile Include="SystemModule\ToolTip\WinToolTipsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">

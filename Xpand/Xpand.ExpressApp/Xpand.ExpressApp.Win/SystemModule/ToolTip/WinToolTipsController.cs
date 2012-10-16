@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 
-namespace Xpand.ExpressApp.Win.SystemModule {
+namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     public class WinToolTipsController : ToolTipsController {
         protected override void SetListViewToolTips() {
             var editor = ((ListView)View).Editor as GridListEditor;
@@ -17,8 +17,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 }
             }
         }
-
-
 
         protected override void SetDetailViewToolTips() {
             foreach (PropertyEditor editor in ((DetailView)View).GetItems<PropertyEditor>()) {

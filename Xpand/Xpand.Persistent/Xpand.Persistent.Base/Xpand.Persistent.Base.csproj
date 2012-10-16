@@ -113,6 +113,7 @@
     <Compile Include="General\CustomAttributes\DisplayDateAndTime.cs" />
     <Compile Include="General\CustomAttributes\DisplayFormatAttribute.cs" />
     <Compile Include="General\CustomAttributes\ICustomAttribute.cs" />
+    <Compile Include="General\IDataSourceSelectionChanged.cs" />
     <Compile Include="General\IDateRange.cs" />
     <Compile Include="General\IFastManyToMany .cs" />
     <Compile Include="General\ISupportViewId.cs" />
