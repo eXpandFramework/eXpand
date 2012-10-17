@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using ListView = DevExpress.ExpressApp.ListView;
 using Xpand.Utils.Helpers;
 

@@ -117,6 +117,7 @@
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
+    <Compile Include="Core\CriteriaOperatorExtensions.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\RuntimeMemberBuilder.cs">
       <SubType>Code</SubType>
@@ -167,9 +168,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ReloadObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
