@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Text;
-using DevExpress.Data;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -14,11 +13,10 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
-using DevExpress.XtraEditors.Repository;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
@@ -231,36 +229,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             var advBandedGridColumn = gridColumn as IXafGridColumn;
             return advBandedGridColumn != null ? (IModelColumnOptionsColumnView)advBandedGridColumn.Model : null;
         }
-    }
-    public interface IXafGridColumn {
-        bool AllowSummaryChange { get; set; }
-        ColumnsListEditor Editor { get; }
-        ITypeInfo TypeInfo { get; }
-        IModelColumn Model { get; }
-        string PropertyName { get; }
-        int SortIndex { get; set; }
-        ColumnSortOrder SortOrder { get; set; }
-        GridColumnSummaryItemCollection Summary { get; }
-        GridSummaryItem SummaryItem { get; }
-        int GroupIndex { get; set; }
-        ColumnGroupInterval GroupInterval { get; set; }
-        OptionsColumn OptionsColumn { get; }
-        int VisibleIndex { get; set; }
-        string Caption { get; set; }
-        string FieldName { get; set; }
-        FormatInfo DisplayFormat { get; }
-        FormatInfo GroupFormat { get; }
-        int Width { get; set; }
-        OptionsColumnFilter OptionsFilter { get; }
-        ColumnSortMode SortMode { get; set; }
-        ColumnFilterMode FilterMode { get; set; }
-        RepositoryItem ColumnEdit { get; set; }
-        AppearanceObjectEx AppearanceCell { get; }
-        string FieldNameSortGroup { get; set; }
-        void Assign(GridColumn gridColumn);
-        IXafGridColumn CreateNew(ITypeInfo typeInfo, ColumnsListEditor editor);
-        void ApplyModel(IModelColumn columnInfo);
-        void SynchronizeModel();
     }
 
 }
