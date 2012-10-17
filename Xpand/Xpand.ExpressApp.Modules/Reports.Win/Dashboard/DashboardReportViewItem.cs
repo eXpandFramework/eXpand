@@ -9,8 +9,9 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
+using Xpand.ExpressApp.SystemModule.Dashboard;
 
-namespace Common.Win.General.DashBoard {
+namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     [ViewItem(typeof(IModelDashboardReportViewItem))]
     public abstract class DashboardReportViewItem : DashboardViewItem, IComplexPropertyEditor {
         readonly IModelDashboardReportViewItem _model;
