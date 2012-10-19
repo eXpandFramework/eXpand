@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
+    <Compile Include="General\MasterDetailRuleInfo.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
     <Compile Include="General\CustomAttributes\DisplayDateAndTime.cs" />
     <Compile Include="General\CustomAttributes\DisplayFormatAttribute.cs" />

@@ -1,30 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
-    public class MasterDetailRuleInfo {
-        readonly CriteriaOperator _criteria;
-
-        public MasterDetailRuleInfo(IModelListView childListView, IModelMember collectionMember, ITypeInfo typeInfo, CriteriaOperator criteria) {
-            ChildListView = childListView;
-            CollectionMember = collectionMember;
-            TypeInfo = typeInfo;
-            _criteria = criteria;
-        }
-
-        public IModelListView ChildListView { get; set; }
-        public IModelMember CollectionMember { get; set; }
-        public ITypeInfo TypeInfo { get; set; }
-
-        public CriteriaOperator Criteria {
-            get {
-                return _criteria;
-            }
-        }
-    }
 
     public class ModelDetailRelationCalculator {
         readonly IModelListView _modelListView;

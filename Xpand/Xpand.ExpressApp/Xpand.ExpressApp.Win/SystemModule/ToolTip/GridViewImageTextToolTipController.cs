@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
     }
 
-    public abstract class GridViewImageTextToolTipController : ViewController<ListView>, IModelExtender {
+    public class GridViewImageTextToolTipController : ViewController<ListView>, IModelExtender {
         ToolTipController _toolTipController;
         GridHitInfo _hotTrackInfo;
 

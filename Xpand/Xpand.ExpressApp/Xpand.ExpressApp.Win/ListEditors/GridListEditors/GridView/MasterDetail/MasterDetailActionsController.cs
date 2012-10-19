@@ -8,7 +8,7 @@ using DevExpress.XtraGrid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
-    public class MasterDetailActionsController : ViewController<ListView> {
+    public abstract class MasterDetailActionsController : ViewController<ListView> {
         readonly Dictionary<string, BoolList> _enabledBoolLists = new Dictionary<string, BoolList>();
         readonly Dictionary<string, BoolList> _activeBoolLists = new Dictionary<string, BoolList>();
         readonly Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> _activeChildBoolLists
@@ -40,22 +40,24 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             base.OnViewControlsCreated();
             if (GridListEditor != null && GridListEditor.GridView is IMasterDetailColumnView) {
                 var gridView = ((IMasterDetailColumnView)GridListEditor.GridView);
+                var synchronizeActions = SynchronizeActions();
                 if (gridView.MasterFrame == null && HasRules) {
-                    if (((IModelListViewMasterDetail)View.Model).MasterDetails.SynchronizeActions) {
+                    if (synchronizeActions) {
                         SynchronizesActionStates();
                         PushExecutionToNestedFrame();
-                        if (HasRules) {
-                            if (gridView.MasterFrame == null) {
-                                StoreStates();
-                                GridListEditor.Grid.FocusedViewChanged += MasterGridOnFocusedViewChanged;
-                            }
+                        if (HasRules && gridView.MasterFrame == null) {
+                            StoreStates();
+                            GridListEditor.Grid.FocusedViewChanged += MasterGridOnFocusedViewChanged;
                         }
                     }
-                } else if (gridView.MasterFrame != null &&
-                           ((IModelListViewMasterDetail)gridView.MasterFrame.View.Model).MasterDetails.SynchronizeActions)
+                } else if (gridView.MasterFrame != null && synchronizeActions)
                     gridView.GridControl.FocusedViewChanged += ChildGridControlOnFocusedViewChanged;
             }
 
+        }
+
+        protected virtual bool SynchronizeActions() {
+            return Frame.GetController<MasterDetailViewController>().SynchronizeActions();
         }
 
         void PushExecutionToNestedFrame() {
@@ -134,8 +136,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         public virtual bool HasRules {
             get {
-                return GridListEditor != null &&
-                       Frame.GetController<MasterDetailViewController>().IsMasterDetail();
+                if (GridListEditor == null)
+                    return false;
+                var masterDetailViewController = Frame.GetController<MasterDetailViewController>();
+                return masterDetailViewController != null && masterDetailViewController.IsMasterDetail();
             }
         }
 

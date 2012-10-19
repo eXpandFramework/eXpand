@@ -13,7 +13,7 @@ using Xpand.ExpressApp.SystemModule.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     [ViewItem(typeof(IModelDashboardReportViewItem))]
-    public abstract class DashboardReportViewItem : DashboardViewItem, IComplexPropertyEditor {
+    public class DashboardReportViewItem : DashboardViewItem, IComplexPropertyEditor {
         readonly IModelDashboardReportViewItem _model;
         XafReport _report;
         PrintControl PrintControl;

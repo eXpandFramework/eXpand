@@ -24,6 +24,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
     public interface IModelRepositoryItemButtonEdit : IModelRepositoryItem {
     }
 
+    [ModelDisplayName("FileDataEdit")]
+    public interface IModelRepositoryItemFileDataEdit : IModelRepositoryItem {
+
+    }
     [ModelDisplayName("PopupBase")]
     public interface IModelRepositoryItemPopupBase : IModelRepositoryItem {
     }

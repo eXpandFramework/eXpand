@@ -5,6 +5,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
+    [ModelPersistentName("GridViewOptions")]
     public interface IModelOptionsGridView : IModelOptionsColumnView {
     }
     public interface IModelOptionsColumnGridView : IModelColumnViewColumnOptions {
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
     [ModelAbstractClass]
     public interface IModelListViewOptionsGridView : IModelListViewOptionsColumnView {
         [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
-        IModelOptionsGridView OptionsGridView { get; }
+        IModelOptionsGridView GridViewOptions { get; }
 
     }
     public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {

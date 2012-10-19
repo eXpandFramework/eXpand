@@ -158,17 +158,9 @@
     <Compile Include="MasterDetailActionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GridViewBuilder.cs" />
-    <Compile Include="LevelDefaultViewInfoCreation.cs" />
-    <Compile Include="ListView.cs" />
-    <Compile Include="ListViewBuilder.cs" />
-    <Compile Include="MasterDetailGridListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDetailRelationCalculator.cs" />
     <Compile Include="MasterDetailWindowsModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -205,6 +197,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

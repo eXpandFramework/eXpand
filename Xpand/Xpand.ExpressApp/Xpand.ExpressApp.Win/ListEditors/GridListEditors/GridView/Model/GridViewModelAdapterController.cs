@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
-    public abstract class GridViewModelAdapterController : GridViewModelAdapterControllerBase {
+    public class GridViewModelAdapterController : GridViewModelAdapterControllerBase {
         GridListEditor _gridListEditor;
 
         protected override void OnDeactivated() {

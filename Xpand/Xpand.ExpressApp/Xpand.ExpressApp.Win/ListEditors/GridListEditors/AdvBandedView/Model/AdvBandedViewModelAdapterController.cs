@@ -7,8 +7,8 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
-    public abstract class AdvBandedViewModelAdapterController : GridViewModelAdapterControllerBase {
-        protected AdvBandedViewModelAdapterController() {
+    public class AdvBandedViewModelAdapterController : GridViewModelAdapterControllerBase {
+        public AdvBandedViewModelAdapterController() {
             _defaultValues.Add("AutoFillDown", true);
             _defaultValues.Add("ColVIndex", 0);
             _defaultValues.Add("RowIndex", 0);

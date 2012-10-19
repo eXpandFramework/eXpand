@@ -18,5 +18,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
         [DataSourceProperty("CollectionMembers")]
         [RefreshProperties(RefreshProperties.All)]
         IModelMember CollectionMember { get; set; }
+        [DefaultValue(true)]
+        bool SynchronizeActions { get; set; }
     }
 }

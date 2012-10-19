@@ -15,6 +15,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
+    [ListEditor(typeof(object), true)]
     public class XpandGridListEditor : GridListEditorBase, IColumnViewEditor {
         public XpandGridListEditor(IModelListView model)
             : base(model) {
@@ -43,15 +44,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             return dynamicModelSynchronizer;
         }
 
-        //        protected override string GetPropertyName(GridColumn gridColumn) {
-        //            return gridColumn is IXafGridColumn ? ((IXafGridColumn)gridColumn).PropertyName : gridColumn.FieldName;
-        //        }
-
-        //        protected override IModelColumn GetModel(GridColumn gridColumn) {
-        //            return ((IXafGridColumn)gridColumn).Model;
-        //        }
-
-
         protected override ColumnWrapper CreateGridColumnWrapper(IXafGridColumn column) {
             return new XpandGridColumnWrapper(column);
         }
@@ -65,9 +57,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             return new XpandXafGridColumn(ObjectTypeInfo, this);
         }
 
-        //        protected override GridColumn GetGridColumn(ColumnWrapper columnWrapper) {
-        //            return ((GridColumnColumnWrapper)columnWrapper).Column;
-        //        }
         #region modelDetailViews
         private void OnCustomGetSelectedObjects(MasterDetail.CustomGetSelectedObjectsArgs e) {
             EventHandler<MasterDetail.CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;
@@ -110,7 +99,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
                 return XtraGridUtils.GetFocusedRowObject(CollectionSource, (DevExpress.XtraGrid.Views.Base.ColumnView)view);
             int rowHandle = view.FocusedRowHandle;
             if (!((!view.IsDataRow(rowHandle) && !view.IsNewItemRow(rowHandle))))
-                return XtraGridUtils.GetFocusedRowObject((CollectionSourceBase)view.DataSource, (DevExpress.XtraGrid.Views.Base.ColumnView)view);
+                return XtraGridUtils.GetFocusedRowObject((DevExpress.XtraGrid.Views.Base.ColumnView)view);
             return XtraGridUtils.GetFocusedRowObject(CollectionSource, (DevExpress.XtraGrid.Views.Base.ColumnView)view);
         }
 

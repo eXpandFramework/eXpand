@@ -15,6 +15,7 @@ using DevExpress.XtraLayout;
 using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class LayoutViewColumnChooserController : ColumnChooserControllerBase {
         private LayoutViewField selectedColumn;
         private LayoutView layoutView;
@@ -70,7 +71,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             get {
                 return customizationFormCore ??
                        (customizationFormCore =
-                        typeof (LayoutView).GetProperty("CustomizationForm",
+                        typeof(LayoutView).GetProperty("CustomizationForm",
                                                         System.Reflection.BindingFlags.Instance |
                                                         System.Reflection.BindingFlags.NonPublic).GetValue(layoutView,
                                                                                                            null) as
@@ -83,13 +84,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
         private static IEnumerable<T> FindNestedControls<T>(Control container) where T : Control {
-//            if (container.Controls != null)
-                foreach (Control item in container.Controls) {
-                    if (item is T)
-                        yield return (T)item;
-                    foreach (T child in FindNestedControls<T>(item))
-                        yield return child;
-                }
+            //            if (container.Controls != null)
+            foreach (Control item in container.Controls) {
+                if (item is T)
+                    yield return (T)item;
+                foreach (T child in FindNestedControls<T>(item))
+                    yield return child;
+            }
         }
         protected override List<string> GetUsedProperties() {
             return ListEditor.Model.Columns.Select(columnInfoNodeWrapper => columnInfoNodeWrapper.PropertyName).ToList();
@@ -117,7 +118,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void RemoveSelectedColumn() {
             var field = ((ListBoxControl)ActiveListBox).SelectedItem as LayoutViewField;
             if (field != null) {
-                LayoutViewColumnWrapper columnInfo = (from LayoutViewColumn item in layoutView.Columns where item.FieldName == field.FieldName select ListEditor.FindColumn(((XafLayoutViewColumn) item).PropertyName) as LayoutViewColumnWrapper).FirstOrDefault();
+                LayoutViewColumnWrapper columnInfo = (from LayoutViewColumn item in layoutView.Columns where item.FieldName == field.FieldName select ListEditor.FindColumn(((XafLayoutViewColumn)item).PropertyName) as LayoutViewColumnWrapper).FirstOrDefault();
                 if (columnInfo != null)
                     ListEditor.RemoveColumn(columnInfo);
                 ((ListBoxControl)ActiveListBox).Items.Remove(field);

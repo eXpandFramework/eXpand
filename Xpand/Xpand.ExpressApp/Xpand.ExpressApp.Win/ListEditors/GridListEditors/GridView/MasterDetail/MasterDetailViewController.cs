@@ -3,30 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Registrator;
 using DevExpress.XtraGrid.Views.Grid;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
-    public abstract class MasterDetailViewController : ViewController<ListView>, IModelExtender {
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelListView, IModelListViewMasterDetail>();
-        }
+    public abstract class MasterDetailViewController : ViewController<ListView> {
 
-        public List<MasterDetailRuleInfo> FilterRules(object currentObject) {
-            return CreateRules().Where(info => info.Criteria.Fit(currentObject)).ToList();
+        public List<MasterDetailRuleInfo> FilterRules(object currentObject, Frame frame) {
+            return CreateRules(frame).Where(info => info.Criteria.Fit(currentObject)).ToList();
         }
 
         protected override void OnDeactivated() {
@@ -79,59 +69,29 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
-        public bool IsMasterDetail() {
-            var optionsColumnView = ModelOptionsColumnView();
-            if (optionsColumnView == null) return false;
-            var masterDetail = optionsColumnView.GetNode("OptionsDetail").GetValue<bool?>("EnableMasterViewMode");
-            return masterDetail.HasValue && masterDetail.Value && ((IModelListViewMasterDetail)View.Model).MasterDetails.Any();
-        }
-
-        IModelOptionsColumnView ModelOptionsColumnView() {
-            var advBandedListEditor = View.Editor as AdvBandedListEditor;
-            if (advBandedListEditor != null) {
-                return ((IModelListViewOptionsAdvBandedView)View.Model).OptionsAdvBandedView;
-            }
-            var isGridListEditor = View.Editor is XpandGridListEditor || View.Editor is GridListEditor;
-            return isGridListEditor ? ((IModelListViewOptionsGridView)View.Model).OptionsGridView : null;
-        }
+        public abstract bool IsMasterDetail();
 
         void ShowNavigationItemActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-            InfoCollection availableViews = ((IColumnViewEditor)View.Editor).Grid.AvailableViews;
+            var availableViews = ((IColumnViewEditor)View.Editor).Grid.AvailableViews;
             foreach (var availableView in availableViews.OfType<IMasterDetailColumnView>()) {
                 CloseNestedWindow(availableView);
             }
         }
 
-        IEnumerable<MasterDetailRuleInfo> MasterDetailRuleInfos(IModelListViewMasterDetail modelListView) {
-            return modelListView != null ? MasterDetailRuleInfosCore(modelListView.MasterDetails) : Enumerable.Empty<MasterDetailRuleInfo>();
-        }
-
-        IEnumerable<MasterDetailRuleInfo> MasterDetailRuleInfosCore(IEnumerable<IModelMasterDetail> masterMasterDetailListViews) {
-            return from masterDetailListView in masterMasterDetailListViews let collectionMember = masterDetailListView.CollectionMember select MasterDetailRuleInfo(collectionMember, masterDetailListView);
-        }
-
-        MasterDetailRuleInfo MasterDetailRuleInfo(IModelMember collectionMember, IModelMasterDetail masterDetail) {
-            var criteriaWithReadOnlyParameters = CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(masterDetail.Criteria, View.ObjectTypeInfo.Type);
-            var listElementTypeInfo = collectionMember.MemberInfo.ListElementTypeInfo;
-            return new MasterDetailRuleInfo(masterDetail.ListView, collectionMember, listElementTypeInfo, criteriaWithReadOnlyParameters);
-        }
-
-        protected virtual List<MasterDetailRuleInfo> CreateRules() {
-            return new List<MasterDetailRuleInfo>(MasterDetailRuleInfos(Frame.View.Model as IModelListViewMasterDetail));
-        }
+        protected abstract List<MasterDetailRuleInfo> CreateRules(Frame frame1);
 
         void ViewOnMasterRowGetChildList(object sender, MasterRowGetChildListEventArgs e) {
             if (e.RelationIndex > -1) {
                 var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
-                var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject);
+                var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject, GetFrame(sender as IMasterDetailColumnView));
                 if (masterDetailRuleInfo != null)
                     e.ChildList = (IList)masterDetailRuleInfo.CollectionMember.MemberInfo.GetValue(currentObject);
             }
         }
 
-        MasterDetailRuleInfo GetRule(int index, object currentObject) {
+        MasterDetailRuleInfo GetRule(int index, object currentObject, Frame frame) {
             if (currentObject != null) {
-                var masterDetailRuleInfos = FilterRules(currentObject);
+                var masterDetailRuleInfos = FilterRules(currentObject, frame);
                 return masterDetailRuleInfos.Count >= index + 1 ? masterDetailRuleInfos[index] : null;
             }
             return null;
@@ -140,7 +100,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         void ViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e) {
             if (e.RelationIndex > -1) {
                 var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
-                var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject);
+                var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject, GetFrame(sender as IMasterDetailColumnView));
                 if (masterDetailRuleInfo != null) e.RelationName = masterDetailRuleInfo.CollectionMember.Name;
             }
         }
@@ -148,7 +108,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e) {
             if (e.RelationIndex > -1) {
                 var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
-                var masterDetailRule = FilterRules(currentObject)[e.RelationIndex];
+                var masterDetailRule = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView))[e.RelationIndex];
                 e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
             }
         }
@@ -156,22 +116,29 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e) {
             var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
             if (currentObject != null)
-                e.RelationCount = FilterRules(currentObject).Count;
+                e.RelationCount = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView)).Count;
         }
 
         void ViewOnMasterRowGetLevelDefaultView(object sender, MasterRowGetLevelDefaultViewEventArgs e) {
             if (e.RelationIndex > -1) {
                 var gridViewBuilder = new GridViewBuilder(Application, ObjectSpace, Frame);
                 var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
-                var levelDefaultView = gridViewBuilder.GetLevelDefaultView((IMasterDetailColumnView)sender, e.RowHandle, e.RelationIndex, View.Model, FilterRules(currentObject));
+                var masterDetailRuleInfos = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView));
+                var levelDefaultView = gridViewBuilder.GetLevelDefaultView((IMasterDetailColumnView)sender, e.RowHandle, e.RelationIndex, View.Model, masterDetailRuleInfos);
                 e.DefaultView = levelDefaultView;
             }
+        }
+
+        Frame GetFrame(IMasterDetailColumnView columnView) {
+            return columnView != null && columnView.Window != null
+                       ? columnView.Window
+                       : Frame;
         }
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs e) {
             if (e.RelationIndex > -1) {
                 var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
-                var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (IMasterDetailColumnView)sender, FilterRules(currentObject));
+                var modelDetailRelationCalculator = new ModelDetailRelationCalculator(View.Model, (IMasterDetailColumnView)sender, FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView)));
                 e.IsEmpty = !modelDetailRelationCalculator.IsRelationSet(e.RowHandle, e.RelationIndex);
             }
         }
@@ -182,7 +149,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             var detailXafGridView = parentGridView;
             var frame = detailXafGridView.Window ?? Frame;
 
-            var masterDetailRuleInfos = FilterRules(e.View.SourceRow);
+            var masterDetailRuleInfos = FilterRules(e.View.SourceRow, frame);
 
             var sourceRowHandle = e.View.SourceRowHandle;
             var relationIndex = parentGridView.GetRelationIndex(sourceRowHandle, e.View.LevelName);
@@ -198,6 +165,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             var window = baseView.Window as WinWindow;
             if (window != null && window.Form != null)
                 window.Form.Close();
+        }
+
+        public bool SynchronizeActions() {
+            return FilterRules(View.CurrentObject, Frame).Any(info => info.SynchronizeActions);
         }
     }
 

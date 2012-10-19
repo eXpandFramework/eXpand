@@ -8,7 +8,7 @@ using System.Linq;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
-    public abstract class RepositoryItemModelAdapterController : ModelAdapterController, IModelExtender {
+    public class RepositoryItemModelAdapterController : ModelAdapterController, IModelExtender {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var detailView = View as DetailView;

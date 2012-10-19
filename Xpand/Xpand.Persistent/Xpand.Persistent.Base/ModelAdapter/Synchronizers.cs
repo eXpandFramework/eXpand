@@ -41,8 +41,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         protected void ApplyModel(IModelNode node, object component, Action<ModelNode, object, PropertyDescriptorCollection> action) {
-            if (component is IModelNode)
-                throw new ArgumentOutOfRangeException("component");
+            CheckComponentType(component);
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(component);
             var mNode = (ModelNode)node;
             action.Invoke(mNode, component, properties);
@@ -53,6 +52,11 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     ApplyModel(modelNode, propertyDescriptor.GetValue(component), action);
                 }
             }
+        }
+
+        protected virtual void CheckComponentType(object component) {
+            if (component is IModelNode)
+                throw new ArgumentOutOfRangeException("component");
         }
 
         protected void ApplyValues(ModelNode node, object component, PropertyDescriptorCollection properties) {

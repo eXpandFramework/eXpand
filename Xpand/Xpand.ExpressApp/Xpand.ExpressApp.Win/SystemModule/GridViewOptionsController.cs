@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Core.DynamicModel;
@@ -6,34 +7,37 @@ using Xpand.ExpressApp.SystemModule;
 using DynamicDouplicateTypesMapper = Xpand.ExpressApp.Win.Core.DynamicDouplicateTypesMapper;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsPrint : IModelNode {
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsMenu : IModelNode {
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsView : IModelNode {
     }
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsBehaviour : IModelNode {
 
     }
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsSelection : IModelNode {
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsNavigation : IModelNode {
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsCustomization : IModelNode {
     }
 
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsDetail : IModelNode {
     }
+    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelListViewMainViewOptions : IModelListViewMainViewOptionsBase {
         IModelGridViewOptions GridViewOptions { get; }
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptions : IModelNode {
         IModelGridViewOptionsBehaviour OptionsBehavior { get; }
         IModelGridViewOptionsDetail OptionsDetail { get; }
@@ -45,10 +49,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         IModelGridViewOptionsPrint OptionsPrint { get; }
         IModelGridViewOptionsHint OptionsHint { set; }
     }
-
+    //    [Obsolete("Use IModelOptionsGridView", true)]
     public interface IModelGridViewOptionsHint : IModelNode {
     }
-
+    [Obsolete("", true)]
     public class GridViewOptionsController : GridOptionsController {
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelGridViewOptionsBehaviour), typeof(GridOptionsBehavior));

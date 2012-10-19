@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
     public class ListViewBuilder {
@@ -46,16 +47,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             if (isRelationSet) {
                 IModelListView childModelListView = modelDetailRelationCalculator.GetChildModelListView(rowHandle, relationIndex);
                 ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
-                DevExpress.XtraGrid.Views.Base.ColumnView defaultXpandXafGridView = null;
-                EventHandler[] listViewOnControlsCreated = { null };
-                ListView view = listView;
-                listViewOnControlsCreated[0] = (sender, args) => {
-                    defaultXpandXafGridView = ((IColumnViewEditor)((ListView)sender).Editor).GridView;
-                    view.ControlsCreated -= listViewOnControlsCreated[0];
-                };
-                listView.ControlsCreated += listViewOnControlsCreated[0];
+                //                DevExpress.XtraGrid.Views.Base.ColumnView defaultXpandXafGridView = null;
+                //                EventHandler[] listViewOnControlsCreated = { null };
+                //                ListView view = listView;
+                //                listViewOnControlsCreated[0] = (sender, args) => {
+                //                    defaultXpandXafGridView = ((IColumnViewEditor)((ListView)sender).Editor).GridView;
+                //                    view.ControlsCreated -= listViewOnControlsCreated[0];
+                //                };
+                //                listView.ControlsCreated += listViewOnControlsCreated[0];
                 listView.CreateControls();
-                return defaultXpandXafGridView;
+                return ((IColumnViewEditor)listView.Editor).GridView;
             }
             return null;
         }

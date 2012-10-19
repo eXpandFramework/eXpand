@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 
     public class GridViewViewOptionsSynchronizer : ComponentSynchronizer<DevExpress.XtraGrid.Views.Grid.GridView, IModelOptionsGridView> {
         public GridViewViewOptionsSynchronizer(XpandGridListEditor control)
-            : base((DevExpress.XtraGrid.Views.Grid.GridView)control.GridView, control.Model.OptionsGridView, ((IColumnViewEditor)control).OverrideViewDesignMode) {
+            : base((DevExpress.XtraGrid.Views.Grid.GridView)control.GridView, control.Model.GridViewOptions, ((IColumnViewEditor)control).OverrideViewDesignMode) {
         }
     }
 
@@ -90,7 +90,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
     public class GridListEditorViewOptionsSynchronizer :
         ComponentSynchronizer<XafGridView, IModelOptionsGridView> {
         public GridListEditorViewOptionsSynchronizer(GridListEditor control, bool overrideViewDesignMode)
-            : base(control.GridView, ((IModelListViewOptionsGridView)control.Model).OptionsGridView, overrideViewDesignMode) {
+            : base(control.GridView, ((IModelListViewOptionsGridView)control.Model).GridViewOptions, overrideViewDesignMode) {
         }
     }
     public class GridListEditorColumnOptionsSynchroniser : ColumnViewEditorColumnOptionsSynchronizer<GridListEditor, IModelListViewOptionsGridView, IModelColumnOptionsGridView> {

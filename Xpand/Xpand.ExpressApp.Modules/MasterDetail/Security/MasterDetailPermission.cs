@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.MasterDetail.Security {
         public string ChildListView { get; set; }
 
         public string CollectionMember { get; set; }
+        public bool SynchronizeActions { get; set; }
 
         IModelListView IMasterDetailRule.ChildListView {
             get { throw new NotImplementedException(); }

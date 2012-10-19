@@ -1,25 +1,14 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Controls;
-using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.Utils;
-using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.ListEditors;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
-    [ListEditor(typeof(object))]
+    [Obsolete("Use Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor", true)]
     public class XpandGridListEditor : GridListEditor, IDXPopupMenuHolder, IPopupMenuHider {
         private bool _hidePopupMenu;
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Common.Win.General.Security;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.Base;
@@ -8,6 +7,7 @@ using Xpand.ExpressApp.Security.Permissions;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Security.Core {
+
     [ImageName("BO_Role"), System.ComponentModel.DisplayName("Role")]
     [MapInheritance(MapInheritanceType.ParentTable)]
     public class XpandRole : SecuritySystemRole {
@@ -17,17 +17,7 @@ namespace Xpand.ExpressApp.Security.Core {
 
         protected override IEnumerable<IOperationPermission> GetPermissionsCore() {
             var operationPermissions = base.GetPermissionsCore().Union(Permissions.SelectMany(data => data.GetPermissions()));
-            var overallCustomizationAllowedPermissions = new OverallCustomizationAllowedPermission[0];
-            if (ModifyLayout) {
-                overallCustomizationAllowedPermissions = new[] { new OverallCustomizationAllowedPermission() };
-            }
-            return operationPermissions.Union(overallCustomizationAllowedPermissions);
-        }
-        private bool _modifyLayout;
-
-        public bool ModifyLayout {
-            get { return _modifyLayout; }
-            set { SetPropertyValue("ModifyLayout", ref _modifyLayout, value); }
+            return operationPermissions.Union(PermissionProviderStorage.Instance.SelectMany(info => info.GetPermissions(this)));
         }
 
         public override string ToString() {

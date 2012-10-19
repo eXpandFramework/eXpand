@@ -8,15 +8,14 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
-using Xpand.Xpo.Filtering;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Security.Controllers {
-    public class FilterCustomPermissionsController:ViewController<ListView> {
+    public class FilterCustomPermissionsController : ViewController<ListView> {
         public FilterCustomPermissionsController() {
-            TargetObjectType = typeof (PermissionData);
-            TargetViewNesting=Nesting.Nested;
-            TargetViewType=ViewType.ListView;
+            TargetObjectType = typeof(XpandPermissionData);
+            TargetViewNesting = Nesting.Nested;
+            TargetViewType = ViewType.ListView;
         }
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -26,14 +25,14 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
 
         void OnCollectDescendantPermissionTypes(object sender, CollectTypesEventArgs e) {
-            
+
         }
 
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs e) {
-            var objectTypeInfo = ((ViewController) sender).View.ObjectTypeInfo.Type;
-            if (objectTypeInfo==typeof(PermissionData)) {
+            var objectTypeInfo = ((ViewController)sender).View.ObjectTypeInfo.Type;
+            if (objectTypeInfo == typeof(XpandPermissionData)) {
                 var collection = e.Types.ToList();
-                for (int i = collection.Count-1; i >-1; i--) {
+                for (int i = collection.Count - 1; i > -1; i--) {
                     var type = collection[i];
                     if (!typeof(XpandPermissionData).IsAssignableFrom(type))
                         e.Types.Remove(type);

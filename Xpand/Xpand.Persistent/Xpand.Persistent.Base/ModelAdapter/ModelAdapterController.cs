@@ -6,6 +6,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
@@ -93,6 +94,22 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     break;
             }
             return parent != null ? (TNode)parent : default(TNode);
+        }
+
+        public static ModelNode GetNodeByPath(this IModelNode node, string path) {
+            const string PathSeparator = "/";
+            const string RootNodeName = "Application";
+            Guard.ArgumentNotNull(node, "node");
+            Guard.ArgumentNotNullOrEmpty(path, "path");
+            string[] items = path.Split(new[] { PathSeparator }, StringSplitOptions.RemoveEmptyEntries);
+            IModelNode sourceNode = items[0] == RootNodeName ? node.Root : node.GetNode(items[0]);
+            for (int i = 1; i < items.Length; ++i) {
+                if (sourceNode == null) {
+                    return null;
+                }
+                sourceNode = sourceNode.GetNode(items[i]);
+            }
+            return (ModelNode)sourceNode;
         }
     }
 }

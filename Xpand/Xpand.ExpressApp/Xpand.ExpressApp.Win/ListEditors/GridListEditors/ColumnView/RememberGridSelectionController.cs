@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         [Browsable(false)]
         string SelectedRows { get; set; }
     }
-    public abstract class RememberGridSelectionController : ViewController<ListView>, IModelExtender {
+    public class RememberGridSelectionController : ViewController<ListView>, IModelExtender {
         bool _handleCreated;
 
         protected override void OnActivated() {

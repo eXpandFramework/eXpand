@@ -72,6 +72,7 @@ using DevExpress.XtraPrinting;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class XafLayoutView : LayoutView {
         private ErrorMessages errorMessages;
         private BaseGridController gridController;
@@ -253,6 +254,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         public event EventHandler FilterEditorClosed;
         public event EventHandler<CustomCreateFilterColumnCollectionEventArgs> CustomCreateFilterColumnCollection;
     }
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class XafLayoutViewColumn : LayoutViewColumn {
         private ITypeInfo typeInfo;
         private IModelColumn model;
@@ -292,7 +294,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         public IModelColumn Model { get { return model; } }
     }
-
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class LayoutViewColumnWrapper : ColumnWrapper {
         private const int defaultColumnWidth = 75;
         static DefaultBoolean Convert(bool val) {
@@ -387,6 +389,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             column.SynchronizeModel();
         }
     }
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class LayoutViewModelSynchronizer : ModelSynchronizer<LayoutView, IModelListView> {
         private LayoutViewListEditor listEditor;
         public LayoutViewModelSynchronizer(LayoutViewListEditor listEditor, IModelListView model)
@@ -451,6 +454,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             }
         }
     }
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class LayoutViewListEditorSynchronizer : ModelSynchronizer {
         private ModelSynchronizerList modelSynchronizerList;
         public LayoutViewListEditorSynchronizer(LayoutViewListEditor gridListEditor, IModelListView model)
@@ -689,7 +693,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         [Editor(typeof(MultilineStringEditor), typeof(System.Drawing.Design.UITypeEditor))]
         new string Settings { get; set; }
     }
-    [ListEditor(typeof(object), false)]
+    [Obsolete("use Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor", true)]
     public class LayoutViewListEditor : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IExportable, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, ISupportAppearanceCustomization {
         private RepositoryEditorsFactory repositoryFactory;
         private bool readOnlyEditors;
