@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<MetricsData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LastLoadedTestDate>0001-01-01T00:00:00</LastLoadedTestDate>
-  <Data>
-    <DataPerDate Date="2012-06-12T00:00:00+03:00" ProductionMinutes="2.0246166666666667" ManualTestingMinutes="0" CreatingUnitTestsMinutes="0" RunningUnitTestsMinutes="0" FailedTestsCount="0" />
-  </Data>
-  <Solution>C:\eXpandFrameWork\beta\eXpand\FeatureCenter\FeatureCenterVS2010.sln</Solution>
-  <UnsolvedTests />
-</MetricsData>
