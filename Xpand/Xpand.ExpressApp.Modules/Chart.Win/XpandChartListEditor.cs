@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Chart.Win;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Chart.Win.Model;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Chart.Win {
     public class XpandChartListEditor : ChartListEditor, ISelectionCriteria {
         readonly List<object> _selectedObjects = new List<object>();
 
-        protected XpandChartListEditor(IModelListView model)
+        public XpandChartListEditor(IModelListView model)
             : base(model) {
 
         }

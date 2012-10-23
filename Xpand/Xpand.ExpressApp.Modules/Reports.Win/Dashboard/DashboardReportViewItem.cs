@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
         PrintControl PrintControl;
         XafApplication _application;
 
-        protected DashboardReportViewItem(IModelDashboardReportViewItem model, Type objectType)
+        public DashboardReportViewItem(IModelDashboardReportViewItem model, Type objectType)
             : base(model, objectType) {
             _model = model;
         }

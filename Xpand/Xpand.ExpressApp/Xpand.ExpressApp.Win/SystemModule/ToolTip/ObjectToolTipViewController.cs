@@ -50,9 +50,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             _toolTipController.AutoPopDelay = 10000;
             parent.MouseDown += delegate { HideHint(false); };
             parent.MouseLeave += delegate { HideHint(true); };
-            throw new NotImplementedException();
-            //            var pivotGridControl = parent as DevExpress.XtraPivotGrid.PivotGridControl;
-            //            if (pivotGridControl != null) (pivotGridControl).LeftTopCellChanged += delegate { HideHint(true); };
+
         }
 
         public IObjectSpace ObjectSpace {

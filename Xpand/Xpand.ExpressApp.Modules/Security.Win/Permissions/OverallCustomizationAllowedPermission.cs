@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
         #region Implementation of IPermissionInfo
         public IEnumerable<IOperationPermission> GetPermissions(XpandRole xpandRole) {
-            return xpandRole.GetMemberValue("ModifyLayout").Equals(true)
+            return true.Equals(xpandRole.GetMemberValue("ModifyLayout"))
                        ? new[] { new OverallCustomizationAllowedPermission() }
                        : Enumerable.Empty<IOperationPermission>();
         }
@@ -41,14 +41,16 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
 
         public static void Register(XafApplication application) {
             if (application != null) {
-                application.LoggedOn += ApplicationOnLoggedOn;
                 application.SetupComplete += ApplicationOnSetupComplete;
             }
         }
 
         static void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
-            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            if (securityStrategy != null) {
+                ((XafApplication)sender).LoggedOn += ApplicationOnLoggedOn;
+                (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            }
         }
 
         static void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {

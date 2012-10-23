@@ -1,10 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using DevExpress.ExpressApp.Model.Core;
 using System.Linq;
+using System.Reflection;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Core {
+    public static class CreateCustomModelSynchronizerHelper {
+        public static void Assign(CreateCustomModelSynchronizerEventArgs e, IModelSynchronizable modelSynchronizer) {
+            var modelSynchronizerList = e.ModelSynchronizer as ModelSynchronizerList;
+            if (modelSynchronizerList == null) {
+                e.ModelSynchronizer = new ModelSynchronizerList();
+            }
+            var synchronizerList = ((ModelSynchronizerList)e.ModelSynchronizer);
+            synchronizerList.Add(modelSynchronizer);
+        }
+    }
+    public static class ModelNodeExtensions {
+        static readonly MethodInfo _methodInfo;
+
+        static ModelNodeExtensions() {
+            _methodInfo = typeof(ModelNode).GetMethod("AddNode", new[] { typeof(string) });
+        }
+
+        public static IModelNode AddNode(this IModelNode modelNode, Type type, string id) {
+            return (IModelNode)_methodInfo.MakeGenericMethod(new[] { type }).Invoke(modelNode, new object[] { id });
+        }
+
+    }
     public class ModelNodeWrapper {
         readonly ModelNode _modelNode;
 
@@ -60,12 +84,12 @@ namespace Xpand.ExpressApp.Core {
         }
 
         public static List<ModelNodeWrapper> GetLayers(this ModelApplicationBase modelApplicationBase) {
-            var propertyInfo = typeof(ModelNode).GetProperty("Layers",BindingFlags.Instance|BindingFlags.NonPublic);
+            var propertyInfo = typeof(ModelNode).GetProperty("Layers", BindingFlags.Instance | BindingFlags.NonPublic);
             return ((List<ModelNode>)propertyInfo.GetValue(modelApplicationBase, null)).Select(node => new ModelNodeWrapper(node)).ToList();
         }
 
         public static void ReInitLayers(this ModelApplicationBase modelApplicationBase) {
-            if (modelApplicationBase.Id=="Application") {
+            if (modelApplicationBase.Id == "Application") {
                 var lastLayer = modelApplicationBase.LastLayer;
                 while (lastLayer.Id != "Unchanged Master Part") {
                     ModelApplicationHelper.RemoveLayer(lastLayer);

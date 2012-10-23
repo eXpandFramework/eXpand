@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using System.Linq;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {
     public class ChartControlController : ViewController<ListView> {

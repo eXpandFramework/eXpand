@@ -2,10 +2,10 @@
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 using Xpand.Utils.Helpers;
 
@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            createCustomModelSynchronizerEventArgs.ModelSynchronizer = new UnboundColumnSynchronizer(GridListEditor, View.Model);
+            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer(GridListEditor, View.Model));
         }
 
         public ASPxGridListEditor GridListEditor {

@@ -97,7 +97,6 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
         bool Enabled { get; set; }
         [DefaultValue(PivotSummaryType.Sum)]
         PivotSummaryType SummaryType { get; set; }
-        [ModelValueCalculator(typeof(PivotDataFieldRuleViewVariantValueCalculator))]
         [DataSourceProperty("ViewVariants")]
         IModelVariant ViewVariant { get; set; }
         [DefaultValue("${1:F2}")]
@@ -112,13 +111,6 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
         public static IModelList<IModelVariant> Get_ViewVariants(IModelPivotDataFieldRule modelPivotDataFieldRule) {
             return ((IModelViewVariants)modelPivotDataFieldRule.Parent.Parent.Parent.Parent).Variants;
         }
-    }
-    public class PivotDataFieldRuleViewVariantValueCalculator : IModelValueCalculator {
-        #region Implementation of IModelValueCalculator
-        public object Calculate(ModelNode node, string propertyName) {
-            return ((IModelViewVariants)node.Parent.Parent.Parent.Parent).Variants.Current;
-        }
-        #endregion
     }
 
     public class NetIncomeController : PivotGridControllerBase, IModelExtender, IPivotGroupIntervalEvent {

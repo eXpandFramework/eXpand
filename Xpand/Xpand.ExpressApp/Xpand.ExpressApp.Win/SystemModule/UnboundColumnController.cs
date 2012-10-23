@@ -1,14 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class UnboundColumnController : ViewController<ListView> {
@@ -20,7 +18,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            createCustomModelSynchronizerEventArgs.ModelSynchronizer = new UnboundColumnSynchronizer((GridListEditor)sender, View.Model);
+            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((GridListEditor)sender, View.Model));
         }
     }
 

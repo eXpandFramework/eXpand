@@ -21,6 +21,8 @@ using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {
+
+
     public interface IModelOptionsColumnPivotGridField : IModelColumnViewColumnOptions {
 
     }

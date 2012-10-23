@@ -628,7 +628,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             }
         }
     }
-    [ListEditor(typeof(object), false)]
+
     public abstract class LayoutViewListEditorBase : ColumnsListEditor, /*Removed: ISupportNewItemRowPosition, IGridListEditorTestable, ISupportFooter, ISupportConditionalFormatting,*/IControlOrderProvider, IDXPopupMenuHolder, IComplexListEditor, IExportable, ILookupListEditor, IHtmlFormattingSupport, IFocusedElementCaptionProvider, ILookupEditProvider, ISupportAppearanceCustomization {
         private RepositoryEditorsFactory repositoryFactory;
         private bool readOnlyEditors;

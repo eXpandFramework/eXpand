@@ -66,6 +66,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DXperience 12.1\Bin\Framework\DevExpress.ExpressApp.PivotGrid.v12.1.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DXperience 12.1\Bin\Framework\DevExpress.ExpressApp.ViewVariantsModule.v12.1.dll</HintPath>
@@ -112,6 +115,9 @@
     <Reference Include="DevExpress.XtraGauges.v12.1.Win, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DXperience 12.1\Bin\Framework\DevExpress.XtraGauges.v12.1.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -164,6 +170,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DashboardInteractionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\PivotGridModelAdapterController.cs">
       <SubType>Component</SubType>
@@ -228,12 +237,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\DXperience 12.1\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.PivotGrid.Win\DevExpress.ExpressApp.PivotGrid.Win.csproj">
-      <Project>{957CB7FE-C6FD-48D4-85BD-7C35EEC28B3A}</Project>
-      <Name>DevExpress.ExpressApp.PivotGrid.Win</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

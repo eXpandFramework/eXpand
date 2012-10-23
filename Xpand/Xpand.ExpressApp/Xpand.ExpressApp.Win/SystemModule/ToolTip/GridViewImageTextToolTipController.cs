@@ -141,10 +141,8 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         }
 
         ObjectToolTipController ObjectToolTipController(IModelColumnTooltipData modelColumnTooltipData) {
-            var controller =
-                (ObjectToolTipController)
-                Activator.CreateInstance(modelColumnTooltipData.TooltipData.ToolTipController, new[] { View.Editor.Control });
-            return controller;
+            var objects = new[] { View.Editor.Control };
+            return (ObjectToolTipController)Activator.CreateInstance(modelColumnTooltipData.TooltipData.ToolTipController, objects);
         }
 
         void GridControl_MouseMove(object sender, MouseEventArgs e) {

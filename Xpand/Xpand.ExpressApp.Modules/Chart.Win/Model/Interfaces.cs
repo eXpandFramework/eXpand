@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Chart.Win;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -15,10 +13,6 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {
-    public interface ISelectionCriteria {
-        void AddSelectedObjects(IEnumerable<object> objects);
-        CriteriaOperator SelectionCriteria { get; set; }
-    }
 
     public interface IModelOptionsChart : IModelOptionsColumnView {
         IModelSeriesCollection Series { get; }

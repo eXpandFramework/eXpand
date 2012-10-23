@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -14,19 +13,13 @@ namespace Xpand.ExpressApp.SystemModule.Dashboard {
         [DataSourceProperty("FilteredColumns")]
         [ModelBrowsable(typeof(DashboardViewFilterVisibilityCalculator))]
         IModelColumn FilteredColumn { get; set; }
-        string ReportDataTypeMember { get; set; }
+
         [Browsable(false)]
         IModelList<IModelColumn> FilteredColumns { get; }
         [DataSourceProperty("DataSourceViews")]
         IModelListView DataSourceView { get; set; }
         [Browsable(false)]
         IModelList<IModelListView> DataSourceViews { get; }
-
-        [DataSourceProperty("SummaryDataSourceViews")]
-        [ModelBrowsable(typeof(DashboardViewFilterVisibilityCalculator))]
-        IModelListView SummaryDataSourceView { get; set; }
-        [Browsable(false)]
-        IModelList<IModelListView> SummaryDataSourceViews { get; }
     }
     public class DashboardViewFilterVisibilityCalculator : IModelIsVisible {
         #region Implementation of IModelIsVisible
@@ -38,15 +31,6 @@ namespace Xpand.ExpressApp.SystemModule.Dashboard {
 
     [DomainLogic(typeof(IModelDashboardViewFilter))]
     public static class DashboardViewFilteredDomainLogic {
-        public static IModelList<IModelListView> Get_SummaryDataSourceViews(IModelDashboardViewFilter modelDashboardViewFilter) {
-            var calculatedModelNodeList = new CalculatedModelNodeList<IModelListView>();
-            var modelView = ((IModelDashboardViewItemEx)modelDashboardViewFilter.Parent).View;
-            var dashboardViewItemFiltereds = modelDashboardViewFilter.AllDashBoardViewItems().Where(filtered => filtered.View is IModelListView && modelView != filtered.View);
-            throw new NotImplementedException();
-            //            var modelListViews = dashboardViewItemFiltereds.Select(filtered => filtered.View).OfType<IModelListView>().Where(view => typeof(PivotGridListEditorBase).IsAssignableFrom(view.EditorType));
-            //            calculatedModelNodeList.AddRange(modelListViews);
-            //            return calculatedModelNodeList;
-        }
 
         public static IModelList<IModelListView> Get_DataSourceViews(IModelDashboardViewFilter modelDashboardViewFilter) {
             if (modelDashboardViewFilter.FilteredColumn != null) {

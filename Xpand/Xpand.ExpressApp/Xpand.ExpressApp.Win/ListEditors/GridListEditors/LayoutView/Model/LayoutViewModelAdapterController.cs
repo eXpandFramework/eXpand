@@ -3,7 +3,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
-    public abstract class LayoutViewModelAdapterController : ColumnViewModelAdapterController {
+    public class LayoutViewModelAdapterController : ColumnViewModelAdapterController {
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {
 

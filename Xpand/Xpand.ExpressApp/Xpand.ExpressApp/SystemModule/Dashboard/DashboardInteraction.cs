@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule.Dashboard;
 using Xpand.Persistent.Base.General;
@@ -13,6 +13,19 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.SystemModule.DashBoard {
 
     public class DashboardInteractionController : ViewController<DashboardView>, IModelExtender {
+        public event EventHandler<ListViewFilteringArgs> ListViewFiltering;
+        public event EventHandler<ListViewFilteredArgs> ListViewFiltered;
+
+        void OnListViewFiltered(ListViewFilteredArgs e) {
+            EventHandler<ListViewFilteredArgs> handler = ListViewFiltered;
+            if (handler != null) handler(this, e);
+        }
+
+        void OnListViewFiltering(ListViewFilteringArgs e) {
+            EventHandler<ListViewFilteringArgs> handler = ListViewFiltering;
+            if (handler != null) handler(this, e);
+        }
+
         readonly Dictionary<IModelListView, MasterDetailMode> _masterDetailModes = new Dictionary<IModelListView, MasterDetailMode>();
 
         protected override void OnActivated() {
@@ -62,28 +75,17 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
                 foreach (var dashboardViewItem in dashboardViewItems) {
                     var modelDashboardViewItemEx = (IModelDashboardViewItemEx)dashboardViewItem.GetModel(View);
                     if (modelDashboardViewItemEx.Filter.DataSourceView == dataSourceListView.Model) {
-                        throw new NotImplementedException();
-                        //                        if (dashboardViewItem is DashboardReportViewItem) {
-                        //                            var report = ((DashboardReportViewItem)dashboardViewItem).Report;
-                        //                            //                            var propertyName = PropertyName(report, modelDashboardViewItemEx.Filter.ReportDataTypeMember);
-                        //                            //                            var criteria = new InOperator(propertyName, Getkeys(dataSourceListView));
-                        //                            throw new NotImplementedException();
-                        //                            //                            report.SetFilteringObject(new LocalizedCriteriaWrapper(report.DataType, criteria));
-                        //                            //                            report.CreateDocument(true);
-                        //                        } else {
-                        //                            var filterListView = FilteredListView(dataSourceListView, dashboardViewItem, modelDashboardViewItemEx);
-                        //                            CreateSummaryDataSource(filterListView);
-                        //                        }
+                        var listViewFiltering = new ListViewFilteringArgs(dashboardViewItem, modelDashboardViewItemEx, dataSourceListView);
+                        OnListViewFiltering(listViewFiltering);
+                        if (!listViewFiltering.Handled) {
+                            var filterListView = FilteredListView(dataSourceListView, dashboardViewItem, modelDashboardViewItemEx);
+                            OnListViewFiltered(new ListViewFilteredArgs(filterListView));
+                        }
                     }
                 }
             }
             NotifyControllers(selectionChangedArgs.ListView);
         }
-
-        //        string PropertyName(XafReport report, string reportDataTypeMember) {
-        //            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(report.DataType);
-        //            return string.IsNullOrEmpty(reportDataTypeMember) ? typeInfo.KeyMember.Name : typeInfo.FindMember(reportDataTypeMember).Name;
-        //        }
 
         void NotifyControllers(ListView listView) {
             if (View != null) {
@@ -115,26 +117,6 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
                 ((IAppearanceVisibility)customizeAppearanceEventArgs.Item).Visibility = modelDashboardViewItem.Visibility;
         }
 
-        void CreateSummaryDataSource(ListView filterListView) {
-            throw new NotImplementedException();
-            //            var pivotGridListEditor = filterListView.Editor as PivotGridListEditor;
-            //            if (pivotGridListEditor != null) {
-            //                if (!filterListView.IsControlCreated) {
-            //                    filterListView.CreateControls();
-            //                }
-            //                var pivotSummaryDataSource = pivotGridListEditor.PivotGridControl.CreateSummaryDataSource();
-            //                foreach (ListView summaryDataSourceView in GetSummaryDataSourceViews(filterListView)) {
-            //                    ((GridControl)summaryDataSourceView.Control).DataSource = pivotSummaryDataSource;
-            //                }
-            //            }
-        }
-
-        IEnumerable<ListView> GetSummaryDataSourceViews(ListView filterListView) {
-            var dashboardViewItems = View.Items.OfType<DashboardViewItem>();
-            var viewItems = dashboardViewItems.Where(item => ((IModelDashboardViewItemEx)item.GetModel(View)).Filter.SummaryDataSourceView == filterListView.Model);
-            return viewItems.Select(item => item.Frame.View).OfType<ListView>();
-        }
-
         ListView FilteredListView(ListView listView, DashboardViewItem dashboardViewItem, IModelDashboardViewItemEx modelDashboardViewItemFiltered) {
             var filteredColumn = modelDashboardViewItemFiltered.Filter.FilteredColumn;
             var filteredListView = ((ListView)dashboardViewItem.Frame.View);
@@ -142,6 +124,7 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
             collectionSourceBase.Criteria[modelDashboardViewItemFiltered.Filter.DataSourceView.Id] = CriteriaSelectionOperator(listView, filteredColumn);
             return filteredListView;
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             View.LayoutManager.CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
@@ -149,13 +132,12 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
 
         CriteriaOperator CriteriaSelectionOperator(ListView listView, IModelColumn filteredColumn) {
             var keyName = filteredColumn.ModelMember.MemberInfo.MemberTypeInfo.KeyMember.Name;
-            throw new NotImplementedException();
-            //            var selectionCriteria = listView.Editor as ISelectionCriteria;
-            //            return selectionCriteria != null ? CriteriaOperator.Parse(filteredColumn.PropertyName + "." + (selectionCriteria).SelectionCriteria.ToString())
-            //                       : new InOperator(filteredColumn.PropertyName + "." + keyName, Getkeys(listView));
+            var selectionCriteria = listView.Editor as ISelectionCriteria;
+            return selectionCriteria != null ? CriteriaOperator.Parse(filteredColumn.PropertyName + "." + (selectionCriteria).SelectionCriteria.ToString())
+                       : new InOperator(filteredColumn.PropertyName + "." + keyName, Getkeys(listView));
         }
 
-        IEnumerable Getkeys(ListView listView) {
+        public IEnumerable Getkeys(ListView listView) {
             return listView.SelectedObjects.OfType<object>().Select(o => ObjectSpace.GetKeyValue(o));
         }
         #region Implementation of IModelExtender
@@ -163,6 +145,42 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
             extenders.Add<IModelDashboardViewItem, IModelDashboardViewItemEx>();
         }
         #endregion
+    }
+
+    public class ListViewFilteredArgs : EventArgs {
+        readonly ListView _filterListView;
+
+        public ListViewFilteredArgs(ListView filterListView) {
+            _filterListView = filterListView;
+        }
+
+        public ListView FilterListView {
+            get { return _filterListView; }
+        }
+    }
+
+    public class ListViewFilteringArgs : HandledEventArgs {
+        readonly DashboardViewItem _dashboardViewItem;
+        readonly IModelDashboardViewItemEx _model;
+        readonly ListView _dataSourceListView;
+
+        public ListViewFilteringArgs(DashboardViewItem dashboardViewItem, IModelDashboardViewItemEx model, ListView dataSourceListView) {
+            _dashboardViewItem = dashboardViewItem;
+            _model = model;
+            _dataSourceListView = dataSourceListView;
+        }
+
+        public DashboardViewItem DashboardViewItem {
+            get { return _dashboardViewItem; }
+        }
+
+        public ListView DataSourceListView {
+            get { return _dataSourceListView; }
+        }
+
+        public IModelDashboardViewItemEx Model {
+            get { return _model; }
+        }
     }
 
     public class SelectionChangedArgs : EventArgs {
