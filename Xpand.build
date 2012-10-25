@@ -47,6 +47,7 @@
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj;
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj;
@@ -89,6 +90,10 @@
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\PivotGrid.Win\Xpand.ExpressApp.PivotGrid.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Chart.Win\Xpand.ExpressApp.Chart.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Reports.Win\Xpand.ExpressApp.Reports.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj;

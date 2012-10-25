@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -18,6 +17,8 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         public ComboBoxItemsBuilder WithPropertyEditor(PropertyEditor propertyEditor) {
+            if (!(propertyEditor is IObjectSpaceHolder))
+                throw new NotImplementedException(propertyEditor.GetType() + " must implement " + typeof(IObjectSpaceHolder));
             _propertyEditor = propertyEditor;
             return this;
         }
@@ -39,18 +40,15 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
-            CompositeView compositeView = _propertyEditor.View;
-            if (compositeView != null) {
-                if (_propertyEditor.ObjectTypeInfo.IsPersistent) {
-                    compositeView.ObjectSpace.ObjectChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
-                } else {
-                    ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
-                }
-                var b = itemsCalculating.Invoke();
-                if (!b) {
-                    var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
-                    itemsCalculated.Invoke(boxItems, false);
-                }
+            if (_propertyEditor.ObjectTypeInfo.IsPersistent) {
+                ((IObjectSpaceHolder)_propertyEditor).ObjectSpace.ObjectChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+            } else {
+                ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+            }
+            var b = itemsCalculating.Invoke();
+            if (!b) {
+                var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
+                itemsCalculated.Invoke(boxItems, false);
             }
         }
 
@@ -66,7 +64,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
 
 
         IEnumerable<string> GetComboBoxItemsCore(DataSourcePropertyAttribute dataSourcePropertyAttribute) {
-            return ((IEnumerable<string>)_propertyEditor.View.ObjectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));
+            return ((IEnumerable<string>)_propertyEditor.ObjectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));
         }
 
     }

@@ -6,7 +6,7 @@ call buildproject.cmd Xpand.ExpressApp ".\Xpand\Xpand.ExpressApp\Xpand.ExpressAp
 call buildproject.cmd Xpand.ExpressApp.Win ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Web ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Security ".\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj"
-call buildproject.cmd Xpand.ExpressApp.Security.Win ".\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Security.Win ".\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation ".\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation.Win ".\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation.Web ".\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj"
@@ -49,6 +49,10 @@ call buildproject.cmd Xpand.ExpressApp.IO.Web ".\Xpand\Xpand.ExpressApp.Modules\
 call buildproject.cmd Xpand.ExpressApp.PivotChart ".\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Web ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj"
+call buildproject.cmd Xpand.ExpressApp.PivotGrid.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotGrid.Win\Xpand.ExpressApp.PivotGrid.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Chart.Win ".\Xpand\Xpand.ExpressApp.Modules\Chart.Win\Xpand.ExpressApp.Chart.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Scheduler.Win ".\Xpand\Xpand.ExpressApp.Modules\Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Reports.Win ".\Xpand\Xpand.ExpressApp.Modules\Reports.Win\Xpand.ExpressApp.Reports.Win.csproj"
 call buildproject.cmd Xpand.NCarousel ".\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj"
 call buildproject.cmd Xpand.ExpressApp.NCarousel.Web ".\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Thumbnail.Web ".\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj"
@@ -65,44 +69,44 @@ echo Building Xpand.Quartz.Server...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"
 echo Done Building Xpand.Quartz.Server
 echo Building FeatureCenter.Base...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj"
 echo Done Building FeatureCenter.Base
 echo Building FeatureCenter.Module...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj"
 echo Done Building FeatureCenter.Module
 echo Building FeatureCenter.Module.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj"
 echo Done Building FeatureCenter.Module.Win
 echo Building FeatureCenter.Module.Web...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj"
 echo Done Building FeatureCenter.Module.Web
 echo Building FeatureCenter.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj"
 echo Done Building FeatureCenter.Win
 echo Building FeatureCenter.Web...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj"
 echo Done Building FeatureCenter.Web
 echo Building ExternalApplication.Module.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj"
 echo Done Building ExternalApplication.Module.Win
 echo Building ExternalApplication.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj"
 echo Done Building ExternalApplication.Win
 
 echo Building SecurityDemo.Module...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.Module\SecurityDemo.Module.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Module\SecurityDemo.Module.csproj"
 echo Building SecurityDemo.Module.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj"
 echo Building SecurityDemo.UiLevel.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.UiLevel.Win\SecurityDemo.UiLevel.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.UiLevel.Win\SecurityDemo.UiLevel.Win.csproj"
 echo Building SecurityDemo.Win...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj"
 echo Building SecurityDemo.Module.Web...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj"
 echo Building SecurityDemo.UiLevel.Web...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj"
 echo Building SecurityDemo.Web...
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj"
 
 
 echo Building Xpand.ExpressApp.ModelEditor...

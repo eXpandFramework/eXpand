@@ -3,12 +3,56 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors.Repository;
 using System.Linq;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
     public class RepositoryItemModelAdapterController : ModelAdapterController, IModelExtender {
+        public static readonly HashSet<Type> ModelInterfaceTypes = new HashSet<Type>{
+            typeof (IModelRepositoryItemTextEdit),
+            typeof (IModelRepositoryItemButtonEdit),
+            typeof (IModelRepositoryItemPopupBase),
+            typeof (IModelRepositoryItemPopupBaseAutoSearchEdit),
+            typeof (IModelRepositoryItemComboBox),
+            typeof (IModelRepositoryItemPopupContainerEdit),
+            typeof (IModelRepositoryFieldPicker),
+            typeof (IModelRepositoryItemPopupExpressionEdit),
+            typeof (IModelRepositoryItemPopupCriteriaEdit),
+            typeof (IModelRepositoryItemImageComboBox),
+            typeof (IModelRepositoryItemCheckEdit),
+            typeof (IModelRepositoryItemDateEdit),
+            typeof (IModelRepositoryItemBaseSpinEdit),
+            typeof (IModelRepositoryItemSpinEdit),
+            typeof (IModelRepositoryItemObjectEdit),
+            typeof (IModelRepositoryItemMemoEdit),
+            typeof (IModelRepositoryItemLookupEdit),
+            typeof (IModelRepositoryItemProtectedContentTextEdit),
+            typeof (IModelRepositoryItemBlobBaseEdit),
+            typeof (IModelRepositoryItemRtfEditEx),
+            typeof (IModelRepositoryItemHyperLinkEdit),
+            typeof (IModelRepositoryItemPictureEdit),
+            typeof (IModelRepositoryItemCalcEdit),
+            typeof (IModelRepositoryItemCheckedComboBoxEdit),
+            typeof (IModelRepositoryItemColorEdit),
+            typeof (IModelRepositoryItemColorPickEdit),
+            typeof (IModelRepositoryItemFontEdit),
+            typeof (IModelRepositoryItemImageEdit),
+            typeof (IModelRepositoryItemLookUpEditBase),
+            typeof (IModelRepositoryItemLookUpEdit),
+            typeof (IModelRepositoryItemMemoExEdit),
+            typeof (IModelRepositoryItemMRUEdit),
+            typeof (IModelRepositoryItemBaseProgressBar),
+            typeof (IModelRepositoryItemMarqueeProgressBar),
+            typeof (IModelRepositoryItemProgressBar),
+            typeof (IModelRepositoryItemRadioGroup),
+            typeof (IModelRepositoryItemTrackBar),
+            typeof (IModelRepositoryItemRangeTrackBar),
+            typeof (IModelRepositoryItemTimeEdit),
+            typeof (IModelRepositoryItemZoomTrackBar),
+        };
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var detailView = View as DetailView;
@@ -44,8 +88,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
         }
 
         IEnumerable<ITypeInfo> RepositoryItemDescendants() {
-            var repositoryItemDescendants = XafTypesInfo.Instance.FindTypeInfo(typeof(RepositoryItem)).Descendants;
-            return repositoryItemDescendants.Where(info => info.OwnMembers.Any(memberInfo => memberInfo.IsPublic));
+            var repositoryItemDescendants = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(RepositoryItem)), false);
+            var names = ModelInterfaceTypes.Select(type => type.Name.Substring(6)).ToList();
+            return repositoryItemDescendants.Where(info => info.OwnMembers.Any(memberInfo => memberInfo.IsPublic) && names.Contains(info.Type.Name)).ToList();
         }
 
         InterfaceBuilderData CreateInterfaceBuilderData(ITypeInfo typeInfo) {

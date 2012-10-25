@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
@@ -55,6 +56,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             boxItems.Clear();
             boxItems.AddRange(enumerable1.Select(s => new ComboBoxItem(s)).ToList());
         }
-
+        #region Implementation of IObjectSpaceHolder
+        public IObjectSpace ObjectSpace {
+            get { return helper.ObjectSpace; }
+        }
+        #endregion
     }
 }

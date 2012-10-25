@@ -20,6 +20,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (handler != null) handler(this, e);
         }
 
+        public IObjectSpace ObjectSpace {
+            get { return helper.ObjectSpace; }
+        }
+        
         protected LookupEditorHelper helper;
         Label _viewModeLabelControl;
 
@@ -72,4 +76,5 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             helper.SetObjectSpace(objectSpace);
         }
     }
+
 }
