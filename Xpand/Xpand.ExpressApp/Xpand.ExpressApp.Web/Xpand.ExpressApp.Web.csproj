@@ -159,6 +159,9 @@
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
+    <Compile Include="SystemModule\NullTextController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
