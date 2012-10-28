@@ -175,6 +175,9 @@
     </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorColumnChooserController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">

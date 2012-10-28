@@ -1570,13 +1570,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         public event EventHandler<PrintableChangedEventArgs> PrintableChanged;
         public event EventHandler<CreateCustomRepositoryItemEventArgs> CreateCustomFilterEditorRepositoryItem;
-        //        protected abstract string GetPropertyName(GridColumn gridColumn);
-        //        protected abstract IModelColumn GetModel(GridColumn gridColumn);
 
         protected abstract ColumnWrapper CreateGridColumnWrapper(IXafGridColumn column);
         protected abstract void ApplyModel(IXafGridColumn column, IModelColumn columnInfo);
         protected abstract IXafGridColumn CreateGridColumn();
-        //        protected abstract GridColumn GetGridColumn(ColumnWrapper columnWrapper);
     }
 
     public interface IXafGridColumn {
@@ -1604,6 +1601,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         RepositoryItem ColumnEdit { get; set; }
         AppearanceObjectEx AppearanceCell { get; }
         string FieldNameSortGroup { get; set; }
+        int ImageIndex { get; set; }
         void Assign(GridColumn gridColumn);
         IXafGridColumn CreateNew(ITypeInfo typeInfo, ColumnsListEditor editor);
         void ApplyModel(IModelColumn columnInfo);

@@ -28,6 +28,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
         event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         object CreateControls();
         bool IsAsyncServerMode();
+        ColumnWrapper AddColumn(IModelColumn columnInfo);
+        void RemoveColumn(ColumnWrapper xafGridColumnWrapper);
     }
     public class CustomGridViewCreateEventArgs : HandledEventArgs {
         public CustomGridViewCreateEventArgs(GridControl gridControl) {
