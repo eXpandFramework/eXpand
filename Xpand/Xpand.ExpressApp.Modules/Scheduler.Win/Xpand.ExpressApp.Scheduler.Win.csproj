@@ -148,7 +148,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="SchedulerWindowsFormsModule.cs">
+    <Compile Include="XpandSchedulerWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

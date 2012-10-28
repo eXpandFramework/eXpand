@@ -175,15 +175,15 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return modelApplication;
         }
 
-        static void AddRuntimeTypesToIModelRuleBaseDescenants(List<KeyValuePair<TypeInfo, TypeInfo>> ruleBaseDescantans) {
+        void AddRuntimeTypesToIModelRuleBaseDescenants(List<KeyValuePair<TypeInfo, TypeInfo>> ruleBaseDescantans) {
             ModifyIModelRuleBaseDescantans((infos, pair) => infos.Add(pair.Key, pair.Value), ruleBaseDescantans);
         }
 
-        static List<KeyValuePair<TypeInfo, TypeInfo>> RemoveRuntimeTypeFromIModelRuleBaseDescantans() {
+        List<KeyValuePair<TypeInfo, TypeInfo>> RemoveRuntimeTypeFromIModelRuleBaseDescantans() {
             return ModifyIModelRuleBaseDescantans((infos, pair) => infos.Remove(pair.Key));
         }
 
-        static List<KeyValuePair<TypeInfo, TypeInfo>> ModifyIModelRuleBaseDescantans(Action<Dictionary<TypeInfo, TypeInfo>, KeyValuePair<TypeInfo, TypeInfo>> action, List<KeyValuePair<TypeInfo, TypeInfo>> keyValuePairs = null) {
+        List<KeyValuePair<TypeInfo, TypeInfo>> ModifyIModelRuleBaseDescantans(Action<Dictionary<TypeInfo, TypeInfo>, KeyValuePair<TypeInfo, TypeInfo>> action, List<KeyValuePair<TypeInfo, TypeInfo>> keyValuePairs = null) {
             var typeInfo = (TypeInfo)XafTypesInfo.Instance.FindTypeInfo(typeof(IModelRuleBase));
             FieldInfo fieldInfo = typeInfo.GetType().GetField("descendants", BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo != null) {

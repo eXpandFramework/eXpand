@@ -52,7 +52,7 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule));
+            //            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
@@ -61,10 +61,10 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.Win.XpandSecurityWinModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Chart.Win.XpandChartWinModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
+            //            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Chart.Win.XpandChartWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.Win.ReportsWindowsFormsModule));
         }
 
