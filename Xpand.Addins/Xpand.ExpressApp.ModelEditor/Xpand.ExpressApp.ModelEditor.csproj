@@ -97,34 +97,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="DevExpress.Printing.v12.1.Core" />
+    <Reference Include="DevExpress.Data.v12.1" />
+    <Reference Include="DevExpress.Utils.v12.1" />
+    <Reference Include="DevExpress.Xpo.v12.1" />
+    <Reference Include="DevExpress.XtraBars.v12.1" />
+    <Reference Include="DevExpress.XtraEditors.v12.1" />
+    <Reference Include="DevExpress.XtraTreeList.v12.1" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -145,10 +124,7 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=10.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
-    </Reference>
+    <Reference Include="Xpand.Utils" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelDifference\AspectInfo.cs" />
@@ -166,19 +142,10 @@
     <Compile Include="PathInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Win.v12.1">
-      <Name>DevExpress.ExpressApp.Win.v12.1</Name>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
-      <Name>DevExpress.ExpressApp.Xpo.v12.1</Name>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1">
-      <Name>DevExpress.ExpressApp.v12.1</Name>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1">
-      <Name>DevExpress.Persistent.Base.v12.1</Name>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.v12.1" />
+    <Reference Include="DevExpress.Persistent.Base.v12.1" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>

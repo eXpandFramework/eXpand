@@ -141,19 +141,11 @@
 
 	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />	
 	<UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
+	<UsingTask TaskName="Xpand.MSBuild.Tasks.ConvertToSimpleNames" AssemblyFile="Xpand.MSBuild.Tasks\bin\Debug\Xpand.MSBuild.Tasks.dll"/>
 	
-	<Target Name="ReplaceKey">
-		<CreateItem Include="**\*.csproj;**\*.config;**\*.skin" Exclude=".git;Build;">
-			<Output ItemName="_filesToChange" TaskParameter="Include"/>
-		</CreateItem>    
-		<MSBuild.ExtensionPack.FileSystem.File TaskAction="FilterByContent" RegexPattern="c52ffed5d5ff0958" Files="@(_filesToChange)">
-            <Output TaskParameter="IncludedFiles" ItemName="FilesToParse"/>
-			<Output TaskParameter="IncludedFileCount" PropertyName="FilesToParseCount"/>
-        </MSBuild.ExtensionPack.FileSystem.File>
-
-		<MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" 
-			Condition="$(FilesToParseCount) > 0"
-			RegexPattern="c52ffed5d5ff0958" Replacement="b88d1754d700e49a" Files="@(FilesToParse)"/>
+	
+	<Target Name="ReplaceKey">	
+		<ConvertToSimpleNames Projects="@(ProjectFiles)"/>
 	</Target>
 	
 	<!-- 

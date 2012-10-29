@@ -61,81 +61,31 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxEditors.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxGridView.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <Reference Include="DevExpress.Printing.v12.1.Core" />
+    <Reference Include="DevExpress.Data.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Chart.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Images.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Objects.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Security.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Web.v12.1" />
+    <Reference Include="DevExpress.Persistent.Base.v12.1" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v12.1" />
+    <Reference Include="DevExpress.Web.ASPxEditors.v12.1" />
+    <Reference Include="DevExpress.Web.ASPxGridView.v12.1" />
+    <Reference Include="DevExpress.Web.v12.1" />
+    <Reference Include="DevExpress.Xpo.v12.1" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -147,114 +97,33 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalActionState, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalActionState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Web, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.NCarousel.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.NCarousel.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Thumbnail.Web, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Thumbnail.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web, Version=10.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Web, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.NCarousel, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.NCarousel.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Xpo, Version=10.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
-    </Reference>
+    <Reference Include="Xpand.ExpressApp" />
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider" />
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web" />
+    <Reference Include="Xpand.ExpressApp.ArtifactState" />
+    <Reference Include="Xpand.ExpressApp.ConditionalActionState" />
+    <Reference Include="Xpand.ExpressApp.ConditionalControllerState" />
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling" />
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Web" />
+    <Reference Include="Xpand.ExpressApp.FilterDataStore" />
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web" />
+    <Reference Include="Xpand.ExpressApp.IO.Web" />
+    <Reference Include="Xpand.ExpressApp.Logic" />
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional" />
+    <Reference Include="Xpand.ExpressApp.ModelDifference" />
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web" />
+    <Reference Include="Xpand.ExpressApp.NCarousel.Web" />
+    <Reference Include="Xpand.ExpressApp.PivotChart" />
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web" />
+    <Reference Include="Xpand.ExpressApp.Thumbnail.Web" />
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web" />
+    <Reference Include="Xpand.ExpressApp.Web" />
+    <Reference Include="Xpand.ExpressApp.WorldCreator" />
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Web" />
+    <Reference Include="Xpand.NCarousel" />
+    <Reference Include="Xpand.Persistent.Base" />
+    <Reference Include="Xpand.Utils" />
+    <Reference Include="Xpand.Xpo" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Captions.cs" />

@@ -36,110 +36,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v12.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v12.1.UI">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Office.v12.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v12.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v12.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1" />
+    <Reference Include="DevExpress.Printing.v12.1.Core" />
+    <Reference Include="DevExpress.Data.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Objects.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Security.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.v12.1" />
+    <Reference Include="DevExpress.ExpressApp.Win.v12.1" />
+    <Reference Include="DevExpress.Persistent.Base.v12.1" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v12.1" />
+    <Reference Include="DevExpress.Utils.v12.1" />
+    <Reference Include="DevExpress.Xpo.v12.1" />
+    <Reference Include="DevExpress.XtraBars.v12.1" />
+    <Reference Include="DevExpress.XtraCharts.v12.1.UI" />
+    <Reference Include="DevExpress.XtraEditors.v12.1" />
+    <Reference Include="DevExpress.XtraGrid.v12.1" />
+    <Reference Include="DevExpress.XtraLayout.v12.1" />
+    <Reference Include="DevExpress.XtraNavBar.v12.1" />
+    <Reference Include="DevExpress.XtraPrinting.v12.1" />
+    <Reference Include="DevExpress.Office.v12.1.Core" />
+    <Reference Include="DevExpress.RichEdit.v12.1.Core" />
+    <Reference Include="DevExpress.XtraRichEdit.v12.1" />
+    <Reference Include="DevExpress.XtraTreeList.v12.1" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -167,80 +89,26 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WizardUI.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WizardUI.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
-    </Reference>
+    <Reference Include="Xpand.ExpressApp" />
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win" />
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling" />
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win" />
+    <Reference Include="Xpand.ExpressApp.FilterDataStore" />
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win" />
+    <Reference Include="Xpand.ExpressApp.ImportWizard.Win" />
+    <Reference Include="Xpand.ExpressApp.IO.Win" />
+    <Reference Include="Xpand.ExpressApp.Logic.Win" />
+    <Reference Include="Xpand.ExpressApp.MasterDetail.Win" />
+    <Reference Include="Xpand.ExpressApp.ModelDifference" />
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win" />
+    <Reference Include="Xpand.ExpressApp.PivotChart" />
+    <Reference Include="Xpand.ExpressApp.PivotChart.Win" />
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win" />
+    <Reference Include="Xpand.ExpressApp.Validation.Win" />
+    <Reference Include="Xpand.ExpressApp.Win" />
+    <Reference Include="Xpand.ExpressApp.WizardUI.Win" />
+    <Reference Include="Xpand.ExpressApp.WorldCreator" />
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Win" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DemoAboutInfoController.cs">
