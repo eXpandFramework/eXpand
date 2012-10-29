@@ -19,8 +19,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
         GridControl Grid { get; }
         object DataSource { get; set; }
         IModelListView Model { get; }
-        DevExpress.XtraGrid.Views.Base.ColumnView GridView { get; }
+        DevExpress.XtraGrid.Views.Base.ColumnView ColumnView { get; }
         CollectionSourceBase CollectionSource { get; }
+        RepositoryEditorsFactory RepositoryFactory { get; set; }
         void SaveModel();
         void Setup(CollectionSourceBase collectionSource, XafApplication xafApplication);
         event EventHandler<CreateCustomModelSynchronizerEventArgs> CreateCustomModelSynchronizer;
@@ -30,6 +31,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
         bool IsAsyncServerMode();
         ColumnWrapper AddColumn(IModelColumn columnInfo);
         void RemoveColumn(ColumnWrapper xafGridColumnWrapper);
+        event EventHandler GridDataSourceChanging;
     }
     public class CustomGridViewCreateEventArgs : HandledEventArgs {
         public CustomGridViewCreateEventArgs(GridControl gridControl) {

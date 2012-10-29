@@ -15,7 +15,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
-    [ListEditor(typeof(object), true)]
+    [ListEditor(typeof(object), false)]
     public class XpandGridListEditor : GridListEditorBase, IColumnViewEditor {
         public XpandGridListEditor(IModelListView model)
             : base(model) {
@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         bool IColumnViewEditor.OverrideViewDesignMode { get; set; }
 
-        DevExpress.XtraGrid.Views.Base.ColumnView IColumnViewEditor.GridView {
+        DevExpress.XtraGrid.Views.Base.ColumnView IColumnViewEditor.ColumnView {
             get { return (DevExpress.XtraGrid.Views.Base.ColumnView)GridView; }
         }
 

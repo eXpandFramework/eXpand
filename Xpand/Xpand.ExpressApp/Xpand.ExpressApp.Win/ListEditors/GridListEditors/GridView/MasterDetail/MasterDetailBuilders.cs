@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 //                };
                 //                listView.ControlsCreated += listViewOnControlsCreated[0];
                 listView.CreateControls();
-                return ((IColumnViewEditor)listView.Editor).GridView;
+                return ((IColumnViewEditor)listView.Editor).ColumnView;
             }
             return null;
         }

@@ -59,12 +59,13 @@ using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
 
     public class HyperLinkGridListViewController : ViewController {
-        GridListEditor gridListEditor;
+        ColumnsListEditor gridListEditor;
 
         public HyperLinkGridListViewController() {
             TargetViewType = ViewType.ListView;
@@ -72,14 +73,16 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            gridListEditor = ((ListView)View).Editor as GridListEditor;
-            if (gridListEditor != null)
-                gridListEditor.GridView.MouseDown += GridView_MouseDown;
+            gridListEditor = ((ListView)View).Editor as ColumnsListEditor;
+            if (gridListEditor != null) {
+                GridView gridView = gridListEditor.GridView();
+                if (gridView != null) gridView.MouseDown += GridView_MouseDown;
+            }
         }
 
         protected override void OnDeactivated() {
-            if (gridListEditor != null && gridListEditor.GridView != null)
-                gridListEditor.GridView.MouseDown -= GridView_MouseDown;
+            if (gridListEditor != null && gridListEditor.GridView() != null)
+                gridListEditor.GridView().MouseDown -= GridView_MouseDown;
             base.OnDeactivated();
         }
 

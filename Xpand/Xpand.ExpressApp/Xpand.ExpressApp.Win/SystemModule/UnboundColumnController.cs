@@ -4,33 +4,34 @@ using DevExpress.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.XtraGrid.Columns;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class UnboundColumnController : ViewController<ListView> {
         protected override void OnActivated() {
             base.OnActivated();
-            var gridListEditor = View.Editor as GridListEditor;
+            var gridListEditor = View.Editor as ColumnsListEditor;
             if (gridListEditor != null)
                 gridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((GridListEditor)sender, View.Model));
+            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((ColumnsListEditor)sender, View.Model));
         }
     }
 
-    public class UnboundColumnSynchronizer : ModelSynchronizer<GridListEditor, IModelListView> {
-        public UnboundColumnSynchronizer(GridListEditor control, IModelListView model)
+    public class UnboundColumnSynchronizer : ModelSynchronizer<ColumnsListEditor, IModelListView> {
+        public UnboundColumnSynchronizer(ColumnsListEditor control, IModelListView model)
             : base(control, model) {
         }
 
         protected override void ApplyModelCore() {
             var xafGridColumns = GetXafGridColumns();
             foreach (var column in xafGridColumns) {
-                var modelColumnUnbound = (IModelColumnUnbound)column.Model;
+                var modelColumnUnbound = (IModelColumnUnbound)column.Model();
                 column.FieldName = modelColumnUnbound.Id;
                 column.UnboundType = UnboundColumnType.Object;
                 column.OptionsColumn.AllowEdit = false;
@@ -39,17 +40,17 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
 
-        IEnumerable<XafGridColumn> GetXafGridColumns() {
-            IEnumerable<XafGridColumn> xafGridColumns =
+        IEnumerable<GridColumn> GetXafGridColumns() {
+            IEnumerable<GridColumn> xafGridColumns =
                 Model.Columns.OfType<IModelColumnUnbound>().Select(
-                    unbound => Control.GridView.Columns[unbound.PropertyName] as XafGridColumn).Where(column => column != null);
+                    unbound => Control.GridView().Columns[unbound.PropertyName]).Where(column => column != null);
             return xafGridColumns;
         }
 
         public override void SynchronizeModel() {
             var xafGridColumns = GetXafGridColumns();
             foreach (var xafGridColumn in xafGridColumns) {
-                ((IModelColumnUnbound)xafGridColumn.Model).UnboundExpression = xafGridColumn.UnboundExpression;
+                ((IModelColumnUnbound)xafGridColumn.Model()).UnboundExpression = xafGridColumn.UnboundExpression;
             }
         }
     }

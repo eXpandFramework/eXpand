@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             get { return (IModelListViewOptionsLayoutView)base.Model; }
         }
 
-        DevExpress.XtraGrid.Views.Base.ColumnView IColumnViewEditor.GridView {
+        DevExpress.XtraGrid.Views.Base.ColumnView IColumnViewEditor.ColumnView {
             get { return GridView; }
         }
         public new XpandXafLayoutView GridView {

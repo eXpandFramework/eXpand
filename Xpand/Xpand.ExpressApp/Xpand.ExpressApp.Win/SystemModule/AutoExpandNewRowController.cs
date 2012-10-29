@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassAutoExpandNewRow : IModelNode {
@@ -18,8 +18,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [ModelInterfaceImplementor(typeof(IModelClassAutoExpandNewRow), "ModelClass")]
     public interface IModelListViewAutoExpandNewRow : IModelClassAutoExpandNewRow {
     }
-    public class AutoExpandNewRowController : ListViewController<GridListEditor>, IModelExtender {
-        XafGridView _xafGridView;
+    public class AutoExpandNewRowController : ListViewController<ColumnsListEditor>, IModelExtender {
+        GridView _xafGridView;
         bool _newRowAdded;
 
         protected override void OnViewControlsCreated() {
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (((IModelListViewAutoExpandNewRow)View.Model).AutoExpandNewRow) {
                 var gridControl = (GridControl)View.Editor.Control;
                 gridControl.ProcessGridKey += GridControlOnProcessGridKey;
-                _xafGridView = ((GridListEditor)View.Editor).GridView;
+                _xafGridView = ((ColumnsListEditor)View.Editor).GridView();
                 _xafGridView.FocusedRowChanged += GridView_OnFocusedRowChanged;
                 _xafGridView.InitNewRow += GridView_OnInitNewRow;
             }

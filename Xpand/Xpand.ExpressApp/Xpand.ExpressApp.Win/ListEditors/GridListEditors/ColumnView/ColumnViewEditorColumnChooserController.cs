@@ -2,32 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Localization;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid.Views.Grid.Drawing;
 using DevExpress.XtraGrid.Views.Base;
-using DevExpress.ExpressApp.Localization;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using DevExpress.XtraGrid.Views.Grid.Drawing;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
     public class ColumnViewEditorColumnChooserController : ColumnChooserControllerBase {
-        private IXafGridColumn selectedColumn;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView;
-        private IColumnViewEditor GridEditor {
-            get { return ((ListView)View).Editor as IColumnViewEditor; }
+        DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        IXafGridColumn selectedColumn;
+
+        public ColumnViewEditorColumnChooserController() {
+            TypeOfView = typeof(ListView);
         }
-        private void CustomizationForm_FormClosing(object sender, FormClosingEventArgs e) {
+
+        GridListEditorBase GridEditor {
+            get { return ((ListView)View).Editor as GridListEditorBase; }
+        }
+
+        protected override ITypeInfo DisplayedTypeInfo {
+            get { return View.ObjectTypeInfo; }
+        }
+
+        protected override Control ActiveListBox {
+            get { return gridView.CustomizationForm.ActiveListBox; }
+        }
+
+        void CustomizationForm_FormClosing(object sender, FormClosingEventArgs e) {
             var form = sender as Form;
             if (form != null) {
                 (form).Owner = null;
             }
         }
 
-        private void columnChooser_SelectedColumnChanged(object sender, EventArgs e) {
+        void columnChooser_SelectedColumnChanged(object sender, EventArgs e) {
             if (selectedColumn != null) {
                 selectedColumn.ImageIndex = -1;
             }
@@ -38,7 +51,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             RemoveButton.Enabled = selectedColumn != null;
             gridView.CustomizationForm.Refresh();
         }
-        private void gridView_ShowCustomizationForm(object sender, EventArgs e) {
+
+        void gridView_ShowCustomizationForm(object sender, EventArgs e) {
             InsertButtons();
             selectedColumn = null;
             gridView.CustomizationForm.FormClosing += CustomizationForm_FormClosing;
@@ -47,19 +61,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             gridView.CustomizationForm.ActiveListBox.SelectedValueChanged += columnChooser_SelectedColumnChanged;
             //gridView.Images = GridPainter.Indicator;
         }
-        private void ActiveListBox_KeyDown(object sender, KeyEventArgs e) {
+
+        void ActiveListBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Delete) {
                 RemoveSelectedColumn();
             }
         }
-        private void gridView_HideCustomizationForm(object sender, EventArgs e) {
+
+        void gridView_HideCustomizationForm(object sender, EventArgs e) {
             DeleteButtons();
             if (selectedColumn != null) {
                 selectedColumn.ImageIndex = -1;
             }
             gridView.Images = null;
         }
-        private void gridView_DragObjectDrop(object sender, DragObjectDropEventArgs e) {
+
+        void gridView_DragObjectDrop(object sender, DragObjectDropEventArgs e) {
             if ((gridView.CustomizationForm != null) && (selectedColumn != null)) {
                 if (e.DragObject is GridColumn) {
                     selectedColumn.ImageIndex = -1;
@@ -75,10 +92,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 }
             }
         }
-        private void GridEditorController_ViewControlsCreated(object sender, EventArgs e) {
+
+        void GridEditorController_ViewControlsCreated(object sender, EventArgs e) {
             SubscribeToGridEditorEvents();
         }
-        private void SubscribeToGridEditorEvents() {
+
+        void SubscribeToGridEditorEvents() {
             if (GridEditor != null) {
                 gridView = (DevExpress.XtraGrid.Views.Grid.GridView)GridEditor.GridView;
                 gridView.ShowCustomizationForm += gridView_ShowCustomizationForm;
@@ -86,16 +105,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 gridView.DragObjectDrop += gridView_DragObjectDrop;
             }
         }
+
         protected override List<string> GetUsedProperties() {
             return GridEditor.Model.Columns.Select(columnInfoNodeWrapper => columnInfoNodeWrapper.PropertyName).ToList();
         }
 
-        protected override ITypeInfo DisplayedTypeInfo {
-            get { return View.ObjectTypeInfo; }
-        }
-        protected override Control ActiveListBox {
-            get { return gridView.CustomizationForm.ActiveListBox; }
-        }
         protected override void AddColumn(string propertyName) {
             IModelColumn columnInfo = FindColumnModelByPropertyName(propertyName);
             if (columnInfo == null) {
@@ -105,10 +119,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 columnInfo.Index = -1;
                 GridEditor.AddColumn(columnInfo);
             } else {
-                throw new Exception(SystemExceptionLocalizer.GetExceptionMessage(ExceptionId.CannotAddDuplicateProperty, propertyName));
+                throw new Exception(SystemExceptionLocalizer.GetExceptionMessage(
+                    ExceptionId.CannotAddDuplicateProperty, propertyName));
             }
             gridView.CustomizationForm.CheckAndUpdate();
         }
+
         protected override void RemoveSelectedColumn() {
             var xafGridColumn = gridView.CustomizationForm.ActiveListBox.SelectedItem as IXafGridColumn;
             if (xafGridColumn != null) {
@@ -124,6 +140,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 SubscribeToGridEditorEvents();
             }
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             View.ControlsCreated -= GridEditorController_ViewControlsCreated;
@@ -134,9 +151,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 gridView = null;
             }
             selectedColumn = null;
-        }
-        public ColumnViewEditorColumnChooserController() {
-            TypeOfView = typeof(ListView);
         }
     }
 }

@@ -1,13 +1,12 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 
 namespace Xpand.ExpressApp.Validation.Win {
     public class CustomizeErrorMessageColumnController : DevExpress.ExpressApp.Validation.Win.CustomizeErrorMessageColumnController {
 
-        void SetupGridView(IColumnViewEditor columnViewEditor) {
+        void SetupGridView(GridListEditorBase columnViewEditor) {
             var gridView = columnViewEditor.GridView as XpandGridView;
             if ((gridView != null) && (columnViewEditor.DataSource != null)) {
                 gridView.OptionsView.ShowIndicator = false;
@@ -20,16 +19,16 @@ namespace Xpand.ExpressApp.Validation.Win {
         }
 
         void Editor_ControlsCreated(object sender, EventArgs e) {
-            SetupGridView((IColumnViewEditor)sender);
+            SetupGridView((GridListEditorBase)sender);
         }
 
         void Editor_DataSourceChanged(object sender, EventArgs e) {
-            SetupGridView((IColumnViewEditor)sender);
+            SetupGridView((GridListEditorBase)sender);
         }
 
         protected override void OnActivated() {
             var listEditor = ((ListView)View).Editor;
-            if (!(listEditor is IColumnViewEditor)) {
+            if (!(listEditor is GridListEditorBase)) {
                 base.OnActivated();
                 return;
             }

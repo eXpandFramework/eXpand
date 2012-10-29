@@ -178,6 +178,19 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorColumnChooserController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorPreviewRowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\EditorExtensions.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\GridViewKeyboardController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\NewItemRowDataSourcePropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
