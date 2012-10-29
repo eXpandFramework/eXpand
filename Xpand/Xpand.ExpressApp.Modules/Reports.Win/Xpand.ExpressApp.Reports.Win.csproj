@@ -147,7 +147,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dashboard\DashboardReportViewItem.cs" />
-    <Compile Include="ReportsWindowsFormsModule.cs">
+    <Compile Include="XpandReportsWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
