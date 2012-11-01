@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -25,13 +26,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         public static GridColumn Column(this ColumnWrapper columnWrapper) {
-            var gridColumnWrapper = columnWrapper as XafGridColumnWrapper;
-            if (gridColumnWrapper != null) return (gridColumnWrapper).Column;
-            var xpandGridColumnWrapper = columnWrapper as XpandGridColumnWrapper;
-            if (xpandGridColumnWrapper != null) return (GridColumn)xpandGridColumnWrapper.Column;
-            var layoutViewColumnWrapper = columnWrapper as LayoutView.LayoutViewColumnWrapper;
-            if (layoutViewColumnWrapper != null) return layoutViewColumnWrapper.Column;
-            throw new NotImplementedException(columnWrapper.GetType().ToString());
+            PropertyInfo propertyInfo = columnWrapper.GetType().GetProperty("Column");
+            return propertyInfo.GetValue(columnWrapper, null) as GridColumn;
         }
 
         public static RepositoryEditorsFactory RepositoryFactory(this ColumnsListEditor columnsListEditor) {
@@ -47,7 +43,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             if (gridListEditor != null) return (gridListEditor).GridView;
             var columnViewEditor = columnsListEditor as IColumnViewEditor;
             if (columnViewEditor != null) return columnViewEditor.ColumnView as DevExpress.XtraGrid.Views.Grid.GridView;
-            throw new NotImplementedException(columnsListEditor.GetType().ToString());
+            return null;
         }
     }
 }

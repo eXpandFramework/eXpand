@@ -150,7 +150,9 @@
     <Compile Include="Controllers\MemberLevelSecurityDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\MemberLevelSecurityListViewViewController.cs" />
+    <Compile Include="Controllers\MemberLevelSecurityListViewViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\MemberProtectedInfo.cs" />
     <Compile Include="MemberLevelSecurityModuleWin.cs">
       <SubType>Component</SubType>
