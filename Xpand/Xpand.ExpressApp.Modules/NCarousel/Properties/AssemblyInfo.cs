@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Web.Configuration;
 
 
 // General Information about an assembly is controlled through the following 
@@ -33,8 +34,8 @@ using System.Security;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion(AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.jquery-1.4.2.min.js", "text/javascript")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.jquery.jcarousel.min.js", "text/javascript")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.NCarousel.js", "text/javascript")]

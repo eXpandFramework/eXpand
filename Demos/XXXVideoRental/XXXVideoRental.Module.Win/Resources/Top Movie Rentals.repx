@@ -1,0 +1,596 @@
+/// <XRTypeInfo>
+///   <AssemblyFullName>DevExpress.ExpressApp.Reports.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958</AssemblyFullName>
+///   <AssemblyLocation>C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Reports.v12.1.dll</AssemblyLocation>
+///   <TypeName>DevExpress.ExpressApp.Reports.XafReport</TypeName>
+///   <Localization>en-US</Localization>
+///   <References>
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Reports.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Reports.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.Xpo.v12.1.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\WindowsBase\v4.0_4.0.0.0__31bf3856ad364e35\WindowsBase.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.SqlXml\v4.0_4.0.0.0__b77a5c561934e089\System.Data.SqlXml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Security\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Security.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.Linq.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Numerics\v4.0_4.0.0.0__b77a5c561934e089\System.Numerics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.DurableInstancing\v4.0_4.0.0.0__31bf3856ad364e35\System.Runtime.DurableInstancing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Transactions\v4.0_4.0.0.0__b77a5c561934e089\System.Transactions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Remoting\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Remoting.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Framework\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Framework.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualC\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualC.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Services\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization.Formatters.Soap\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Serialization.Formatters.Soap.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Deployment\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Deployment.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data.OracleClient\v4.0_4.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices.Protocols\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.Protocols.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Tasks.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Tasks.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceProcess\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.ServiceProcess.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration.Install\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.Install.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel\v4.0_4.0.0.0__b77a5c561934e089\System.ServiceModel.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.IdentityModel\v4.0_4.0.0.0__b77a5c561934e089\System.IdentityModel.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Messaging\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Messaging.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.IdentityModel.Selectors\v4.0_4.0.0.0__b77a5c561934e089\System.IdentityModel.Selectors.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Transactions.Bridge\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Transactions.Bridge.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activation\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activation.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Activities.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Activities\v4.0_4.0.0.0__31bf3856ad364e35\System.Activities.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.VisualBasic.Activities.Compiler\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.Activities.Compiler.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualBasic\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualBasic.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Management\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Management.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.JScript\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Activities.DurableInstancing\v4.0_4.0.0.0__31bf3856ad364e35\System.Activities.DurableInstancing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml.Hosting\v4.0_4.0.0.0__31bf3856ad364e35\System.Xaml.Hosting.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v12.1.Extensions\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraReports.v12.1.Extensions.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.1.UI\12.1.7.0__c52ffed5d5ff0958\DevExpress.Utils.v12.1.UI.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraBars.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraBars.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraTreeList.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraTreeList.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichEdit.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraRichEdit.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.RichEdit.v12.1.Core\12.1.7.0__c52ffed5d5ff0958\DevExpress.RichEdit.v12.1.Core.dll" />
+///     <Reference Path="C:\eXpandFrameWork\VideoRental\XVideoRental\XVideoRental.Win\bin\Debug\DevExpress.Office.v12.1.Core.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraPrinting.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraPrinting.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.Reports.v12.1.Designer\12.1.7.0__c52ffed5d5ff0958\DevExpress.Reports.v12.1.Designer.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraCharts.v12.1.Extensions\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraCharts.v12.1.Extensions.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraNavBar.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraNavBar.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraVerticalGrid.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.XtraVerticalGrid.v12.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.CodeParser.v12.1\12.1.7.0__c52ffed5d5ff0958\DevExpress.CodeParser.v12.1.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceModel.Web\v4.0_4.0.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Extensions\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.Extensions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Data.Linq.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.Services.Client\v4.0_4.0.0.0__b77a5c561934e089\System.Data.Services.Client.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.Services.Design\v4.0_4.0.0.0__b77a5c561934e089\System.Data.Services.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.Entity\v4.0_4.0.0.0__b77a5c561934e089\System.Data.Entity.dll" />
+///   </References>
+/// </XRTypeInfo>
+namespace XtraReportSerialization {
+    
+    public class TopMovieRentalsReport : DevExpress.XtraReports.UI.XtraReport {
+        private DevExpress.XtraReports.UI.DetailBand detailBand1;
+        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBoxCover;
+        private DevExpress.XtraReports.UI.XRTable xrTableRentsCount;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowRentsCountLabel;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellRentsCountLabel;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowRentsCount;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellRentsCount;
+        private DevExpress.XtraReports.UI.XRTable xrTableTopFilmInfo;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowMovieTitle;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellMovieTitle;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowFilmInfo;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellFilmInfo;
+        private DevExpress.XtraReports.UI.XRTable xrTableFilmInfo;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowReleaseDate;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellReleaseDateLabel;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellReleaseDate;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRowPlot;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellPlotLabel;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCellPlot;
+        private DevExpress.XtraReports.UI.PageFooterBand pageFooterBand1;
+        private DevExpress.XtraReports.UI.XRPageInfo pageInfo1;
+        private DevExpress.XtraReports.UI.XRPageInfo pageInfo2;
+        private DevExpress.XtraReports.UI.ReportHeaderBand reportHeaderBand1;
+        private DevExpress.XtraReports.UI.XRLabel xrHeader;
+        private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
+        private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
+        private DevExpress.XtraReports.UI.XRControlStyle Title;
+        private DevExpress.XtraReports.UI.XRControlStyle FieldCaption;
+        private DevExpress.XtraReports.UI.XRControlStyle PageInfo;
+        private DevExpress.XtraReports.UI.XRControlStyle DataField;
+        private DevExpress.XtraReports.UI.CalculatedField calculatedFieldRentsCount;
+        private DevExpress.XtraReports.Parameters.Parameter paramStartDate;
+        private DevExpress.XtraReports.Parameters.Parameter paramEndDate;
+        private DevExpress.XtraReports.Parameters.Parameter paramPeriod;
+        private System.Resources.ResourceManager _resources;
+        public TopMovieRentalsReport() {
+            this.InitializeComponent();
+        }
+        private System.Resources.ResourceManager resources {
+            get {
+                if (_resources == null) {
+                    string resourceString = "zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJza" +
+                        "W9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4O" +
+                        "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAHAAAAAAAAAFBBRFBBRFAFQIOWS" +
+                        "F5ywcZ0uN7j8d/grBNR4gGHaUXVHBt5VgAAAAAAAACOAAAAZwAAAPQAAAArAAAAvwAAAPkBAAAmJAB0A" +
+                        "GgAaQBzAC4AUwBjAHIAaQBwAHQAcwBTAG8AdQByAGMAZQAAAAAAJkQAYQB0AGEAUwBvAHUAcgBjAGUAQ" +
+                        "wBsAGEAcwBzAE4AYQBtAGUARQQAAAxGAGkAbAB0AGUAcgB6BAAAIkYAaQBsAHQAZQByAEQAZQBzAGMAc" +
+                        "gBpAHAAdABpAG8AbgB8BAAALEYAaQBsAHQAZQByAEYAbwByAEQAZQBzAGkAZwBuAFAAcgBlAHYAaQBlA" +
+                        "HcAfgQAADBQAGEAcgBhAG0AZQB0AGUAcgBzAE8AYgBqAGUAYwB0AFQAeQBwAGUATgBhAG0AZQCABAAAF" +
+                        "FIAZQBwAG8AcgB0AE4AYQBtAGUAgQQAAAHCCHVzaW5nIFhWaWRlb1JlbnRhbC5Nb2R1bGUuV2luLkJ1c" +
+                        "2luZXNzT2JqZWN0czsNCnVzaW5nIERldkV4cHJlc3MuRGF0YS5GaWx0ZXJpbmc7DQp1c2luZyBYVmlkZ" +
+                        "W9SZW50YWwuTW9kdWxlLldpbi5CdXNpbmVzc09iamVjdHMuUmVudDsNCnVzaW5nIFhWaWRlb1JlbnRhb" +
+                        "C5Nb2R1bGUuV2luLkJ1c2luZXNzT2JqZWN0cy5Nb3ZpZTsNCg0KDQpwcml2YXRlIHZvaWQgVG9wTW92a" +
+                        "WVSZW50YWxzUmVwb3J0X0JlZm9yZVByaW50KG9iamVjdCBzZW5kZXIsIFN5c3RlbS5EcmF3aW5nLlBya" +
+                        "W50aW5nLlByaW50RXZlbnRBcmdzIGUpIHsNCglGaWx0ZXJTdHJpbmcgPSAiW2NhbGN1bGF0ZWRGaWVsZ" +
+                        "FJlbnRzQ291bnRdIDw+ICcwJyI7DQp9DQoNCg0KcHJpdmF0ZSB2b2lkIGNhbGN1bGF0ZWRGaWVsZFJlb" +
+                        "nRzQ291bnRfR2V0VmFsdWUob2JqZWN0IHNlbmRlciwgRGV2RXhwcmVzcy5YdHJhUmVwb3J0cy5VSS5HZ" +
+                        "XRWYWx1ZUV2ZW50QXJncyBlKSB7DQoJTW92aWUgbW92aWUgPSBlLlJvdyBhcyBNb3ZpZTsNCgl2YXIgc" +
+                        "2Vzc2lvbj1tb3ZpZS5TZXNzaW9uOw0KCXZhciBzdGFydERhdGU9KERhdGVUaW1lKVBhcmFtZXRlcnNbI" +
+                        "nBhcmFtU3RhcnREYXRlIl0uVmFsdWU7DQoJdmFyIGVuZERhdGU9KERhdGVUaW1lKVBhcmFtZXRlcnNbI" +
+                        "nBhcmFtRW5kRGF0ZSJdLlZhbHVlOw0KICAgICAgQ3JpdGVyaWFPcGVyYXRvciBmaWx0ZXIgPSBuZXcgR" +
+                        "3JvdXBPcGVyYXRvcihHcm91cE9wZXJhdG9yVHlwZS5BbmQsDQogICAgICAgICAgICAgICAgbmV3IEJpb" +
+                        "mFyeU9wZXJhdG9yKCJSZW50ZWRPbiIsIHN0YXJ0RGF0ZSwgQmluYXJ5T3BlcmF0b3JUeXBlLkdyZWF0Z" +
+                        "XJPckVxdWFsKSwNCiAgICAgICAgICAgICAgICBuZXcgQmluYXJ5T3BlcmF0b3IoIlJlbnRlZE9uIiwgZ" +
+                        "W5kRGF0ZSwgQmluYXJ5T3BlcmF0b3JUeXBlLkxlc3NPckVxdWFsKSk7DQogICAgICBlLlZhbHVlID0gK" +
+                        "GludClzZXNzaW9uLkV2YWx1YXRlKHNlc3Npb24uR2V0Q2xhc3NJbmZvPFJlbnQ+KCksIENyaXRlcmlhT" +
+                        "3BlcmF0b3IuUGFyc2UoImNvdW50KCkiKSwgQ3JpdGVyaWFPcGVyYXRvci5QYXJzZSgiSXRlbS5Nb3ZpZ" +
+                        "S5PaWQgPSA/IiwgbW92aWUuT2lkKSAmIGZpbHRlcik7DQp9DQoBM1hWaWRlb1JlbnRhbC5Nb2R1bGUuV" +
+                        "2luLkJ1c2luZXNzT2JqZWN0cy5Nb3ZpZS5Nb3ZpZQEAAQABAAABEVRvcCBNb3ZpZSBSZW50YWxz";
+                    this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
+                }
+                return this._resources;
+            }
+        }
+        private void InitializeComponent() {
+            DevExpress.XtraReports.Parameters.StaticListLookUpSettings staticListLookUpSettings1 = new DevExpress.XtraReports.Parameters.StaticListLookUpSettings();
+            this.detailBand1 = new DevExpress.XtraReports.UI.DetailBand();
+            this.pageFooterBand1 = new DevExpress.XtraReports.UI.PageFooterBand();
+            this.reportHeaderBand1 = new DevExpress.XtraReports.UI.ReportHeaderBand();
+            this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
+            this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.xrPictureBoxCover = new DevExpress.XtraReports.UI.XRPictureBox();
+            this.xrTableRentsCount = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableTopFilmInfo = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRowRentsCountLabel = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableRowRentsCount = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCellRentsCountLabel = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCellRentsCount = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableRowMovieTitle = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableRowFilmInfo = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCellMovieTitle = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCellFilmInfo = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableFilmInfo = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableRowReleaseDate = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableRowPlot = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCellReleaseDateLabel = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCellReleaseDate = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCellPlotLabel = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCellPlot = new DevExpress.XtraReports.UI.XRTableCell();
+            this.pageInfo1 = new DevExpress.XtraReports.UI.XRPageInfo();
+            this.pageInfo2 = new DevExpress.XtraReports.UI.XRPageInfo();
+            this.xrHeader = new DevExpress.XtraReports.UI.XRLabel();
+            this.Title = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.FieldCaption = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.PageInfo = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.DataField = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.calculatedFieldRentsCount = new DevExpress.XtraReports.UI.CalculatedField();
+            this.paramStartDate = new DevExpress.XtraReports.Parameters.Parameter();
+            this.paramEndDate = new DevExpress.XtraReports.Parameters.Parameter();
+            this.paramPeriod = new DevExpress.XtraReports.Parameters.Parameter();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableRentsCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableTopFilmInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableFilmInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // detailBand1
+            // 
+            this.detailBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.xrPictureBoxCover,
+                        this.xrTableRentsCount,
+                        this.xrTableTopFilmInfo});
+            this.detailBand1.HeightF = 166.25F;
+            this.detailBand1.Name = "detailBand1";
+            // 
+            // pageFooterBand1
+            // 
+            this.pageFooterBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.pageInfo1,
+                        this.pageInfo2});
+            this.pageFooterBand1.HeightF = 29F;
+            this.pageFooterBand1.Name = "pageFooterBand1";
+            // 
+            // reportHeaderBand1
+            // 
+            this.reportHeaderBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.xrHeader});
+            this.reportHeaderBand1.HeightF = 35F;
+            this.reportHeaderBand1.Name = "reportHeaderBand1";
+            // 
+            // topMarginBand1
+            // 
+            this.topMarginBand1.Name = "topMarginBand1";
+            // 
+            // bottomMarginBand1
+            // 
+            this.bottomMarginBand1.Name = "bottomMarginBand1";
+            // 
+            // xrPictureBoxCover
+            // 
+            this.xrPictureBoxCover.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Image", null, "Photo")});
+            this.xrPictureBoxCover.LocationFloat = new DevExpress.Utils.PointFloat(15F, 15F);
+            this.xrPictureBoxCover.Name = "xrPictureBoxCover";
+            this.xrPictureBoxCover.SizeF = new System.Drawing.SizeF(105F, 130F);
+            this.xrPictureBoxCover.Sizing = DevExpress.XtraPrinting.ImageSizeMode.Squeeze;
+            // 
+            // xrTableRentsCount
+            // 
+            this.xrTableRentsCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(240)))), ((int)(((byte)(226)))));
+            this.xrTableRentsCount.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(159)))), ((int)(((byte)(139)))));
+            this.xrTableRentsCount.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+                        | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableRentsCount.LocationFloat = new DevExpress.Utils.PointFloat(530F, 15.00001F);
+            this.xrTableRentsCount.Name = "xrTableRentsCount";
+            this.xrTableRentsCount.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRowRentsCountLabel,
+                        this.xrTableRowRentsCount});
+            this.xrTableRentsCount.SizeF = new System.Drawing.SizeF(105F, 130F);
+            this.xrTableRentsCount.StylePriority.UseBackColor = false;
+            this.xrTableRentsCount.StylePriority.UseBorderColor = false;
+            this.xrTableRentsCount.StylePriority.UseBorders = false;
+            // 
+            // xrTableTopFilmInfo
+            // 
+            this.xrTableTopFilmInfo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(159)))), ((int)(((byte)(139)))));
+            this.xrTableTopFilmInfo.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+                        | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableTopFilmInfo.BorderWidth = 1;
+            this.xrTableTopFilmInfo.Font = new System.Drawing.Font("Verdana", 8.25F);
+            this.xrTableTopFilmInfo.KeepTogether = true;
+            this.xrTableTopFilmInfo.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.xrTableTopFilmInfo.Name = "xrTableTopFilmInfo";
+            this.xrTableTopFilmInfo.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRowMovieTitle,
+                        this.xrTableRowFilmInfo});
+            this.xrTableTopFilmInfo.SizeF = new System.Drawing.SizeF(650F, 160F);
+            this.xrTableTopFilmInfo.StylePriority.UseBorderColor = false;
+            this.xrTableTopFilmInfo.StylePriority.UseBorders = false;
+            this.xrTableTopFilmInfo.StylePriority.UseBorderWidth = false;
+            this.xrTableTopFilmInfo.StylePriority.UseFont = false;
+            this.xrTableTopFilmInfo.StylePriority.UseTextAlignment = false;
+            this.xrTableTopFilmInfo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrTableRowRentsCountLabel
+            // 
+            this.xrTableRowRentsCountLabel.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellRentsCountLabel});
+            this.xrTableRowRentsCountLabel.Name = "xrTableRowRentsCountLabel";
+            this.xrTableRowRentsCountLabel.Weight = 0.38461538461538469D;
+            // 
+            // xrTableRowRentsCount
+            // 
+            this.xrTableRowRentsCount.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellRentsCount});
+            this.xrTableRowRentsCount.Name = "xrTableRowRentsCount";
+            this.xrTableRowRentsCount.Weight = 1.6153846153846154D;
+            // 
+            // xrTableCellRentsCountLabel
+            // 
+            this.xrTableCellRentsCountLabel.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+                        | DevExpress.XtraPrinting.BorderSide.Right)));
+            this.xrTableCellRentsCountLabel.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.xrTableCellRentsCountLabel.Name = "xrTableCellRentsCountLabel";
+            this.xrTableCellRentsCountLabel.StylePriority.UseBorders = false;
+            this.xrTableCellRentsCountLabel.StylePriority.UseFont = false;
+            this.xrTableCellRentsCountLabel.StylePriority.UseTextAlignment = false;
+            this.xrTableCellRentsCountLabel.Text = "Rental Count";
+            this.xrTableCellRentsCountLabel.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            this.xrTableCellRentsCountLabel.Weight = 2.0208334350585937D;
+            // 
+            // xrTableCellRentsCount
+            // 
+            this.xrTableCellRentsCount.Borders = ((DevExpress.XtraPrinting.BorderSide)(((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableCellRentsCount.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "calculatedFieldRentsCount")});
+            this.xrTableCellRentsCount.Font = new System.Drawing.Font("Segoe UI", 27.75F);
+            this.xrTableCellRentsCount.Name = "xrTableCellRentsCount";
+            this.xrTableCellRentsCount.StylePriority.UseBorders = false;
+            this.xrTableCellRentsCount.StylePriority.UseFont = false;
+            this.xrTableCellRentsCount.StylePriority.UseTextAlignment = false;
+            this.xrTableCellRentsCount.Text = "xrTableCellRentsCount";
+            this.xrTableCellRentsCount.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            this.xrTableCellRentsCount.Weight = 2.0208334350585937D;
+            // 
+            // xrTableRowMovieTitle
+            // 
+            this.xrTableRowMovieTitle.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellMovieTitle});
+            this.xrTableRowMovieTitle.Name = "xrTableRowMovieTitle";
+            this.xrTableRowMovieTitle.Weight = 0.43749999904632575D;
+            // 
+            // xrTableRowFilmInfo
+            // 
+            this.xrTableRowFilmInfo.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellFilmInfo});
+            this.xrTableRowFilmInfo.Name = "xrTableRowFilmInfo";
+            this.xrTableRowFilmInfo.Weight = 1.5625000009536745D;
+            // 
+            // xrTableCellMovieTitle
+            // 
+            this.xrTableCellMovieTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(195)))), ((int)(((byte)(197)))), ((int)(((byte)(114)))));
+            this.xrTableCellMovieTitle.Borders = ((DevExpress.XtraPrinting.BorderSide)((((DevExpress.XtraPrinting.BorderSide.Left | DevExpress.XtraPrinting.BorderSide.Top) 
+                        | DevExpress.XtraPrinting.BorderSide.Right) 
+                        | DevExpress.XtraPrinting.BorderSide.Bottom)));
+            this.xrTableCellMovieTitle.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Title")});
+            this.xrTableCellMovieTitle.Font = new System.Drawing.Font("Segoe UI", 11.25F);
+            this.xrTableCellMovieTitle.Multiline = true;
+            this.xrTableCellMovieTitle.Name = "xrTableCellMovieTitle";
+            this.xrTableCellMovieTitle.Padding = new DevExpress.XtraPrinting.PaddingInfo(136, 0, 0, 0, 100F);
+            this.xrTableCellMovieTitle.StylePriority.UseBackColor = false;
+            this.xrTableCellMovieTitle.StylePriority.UseBorders = false;
+            this.xrTableCellMovieTitle.StylePriority.UseFont = false;
+            this.xrTableCellMovieTitle.StylePriority.UsePadding = false;
+            this.xrTableCellMovieTitle.StylePriority.UseTextAlignment = false;
+            this.xrTableCellMovieTitle.Text = "[Title]";
+            this.xrTableCellMovieTitle.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrTableCellMovieTitle.Weight = 4.2162157014543444D;
+            // 
+            // xrTableCellFilmInfo
+            // 
+            this.xrTableCellFilmInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(230)))), ((int)(((byte)(206)))));
+            this.xrTableCellFilmInfo.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.xrTableFilmInfo});
+            this.xrTableCellFilmInfo.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.xrTableCellFilmInfo.Name = "xrTableCellFilmInfo";
+            this.xrTableCellFilmInfo.StylePriority.UseBackColor = false;
+            this.xrTableCellFilmInfo.StylePriority.UseFont = false;
+            this.xrTableCellFilmInfo.Text = "xrTableCellFilmInfo";
+            this.xrTableCellFilmInfo.Weight = 4.2162157014543444D;
+            // 
+            // xrTableFilmInfo
+            // 
+            this.xrTableFilmInfo.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.xrTableFilmInfo.LocationFloat = new DevExpress.Utils.PointFloat(135F, 14.99999F);
+            this.xrTableFilmInfo.Name = "xrTableFilmInfo";
+            this.xrTableFilmInfo.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRowReleaseDate,
+                        this.xrTableRowPlot});
+            this.xrTableFilmInfo.SizeF = new System.Drawing.SizeF(380F, 95F);
+            this.xrTableFilmInfo.StylePriority.UseBorders = false;
+            // 
+            // xrTableRowReleaseDate
+            // 
+            this.xrTableRowReleaseDate.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellReleaseDateLabel,
+                        this.xrTableCellReleaseDate});
+            this.xrTableRowReleaseDate.Name = "xrTableRowReleaseDate";
+            this.xrTableRowReleaseDate.Weight = 1D;
+            // 
+            // xrTableRowPlot
+            // 
+            this.xrTableRowPlot.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCellPlotLabel,
+                        this.xrTableCellPlot});
+            this.xrTableRowPlot.Name = "xrTableRowPlot";
+            this.xrTableRowPlot.Weight = 2.4000006713868212D;
+            // 
+            // xrTableCellReleaseDateLabel
+            // 
+            this.xrTableCellReleaseDateLabel.CanGrow = false;
+            this.xrTableCellReleaseDateLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.xrTableCellReleaseDateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(110)))), ((int)(((byte)(99)))));
+            this.xrTableCellReleaseDateLabel.Name = "xrTableCellReleaseDateLabel";
+            this.xrTableCellReleaseDateLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(1, 0, 0, 0, 100F);
+            this.xrTableCellReleaseDateLabel.StylePriority.UseFont = false;
+            this.xrTableCellReleaseDateLabel.StylePriority.UseForeColor = false;
+            this.xrTableCellReleaseDateLabel.StylePriority.UsePadding = false;
+            this.xrTableCellReleaseDateLabel.StylePriority.UseTextAlignment = false;
+            this.xrTableCellReleaseDateLabel.Text = "Date:";
+            this.xrTableCellReleaseDateLabel.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrTableCellReleaseDateLabel.Weight = 0.58768033539163955D;
+            // 
+            // xrTableCellReleaseDate
+            // 
+            this.xrTableCellReleaseDate.CanGrow = false;
+            this.xrTableCellReleaseDate.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "ReleaseDate", "{0:d}")});
+            this.xrTableCellReleaseDate.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.xrTableCellReleaseDate.Name = "xrTableCellReleaseDate";
+            this.xrTableCellReleaseDate.Padding = new DevExpress.XtraPrinting.PaddingInfo(1, 1, 0, 1, 100F);
+            this.xrTableCellReleaseDate.StylePriority.UseFont = false;
+            this.xrTableCellReleaseDate.StylePriority.UsePadding = false;
+            this.xrTableCellReleaseDate.StylePriority.UseTextAlignment = false;
+            this.xrTableCellReleaseDate.Text = "xrTableCellReleaseDate";
+            this.xrTableCellReleaseDate.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrTableCellReleaseDate.Weight = 2.4123196646083604D;
+            // 
+            // xrTableCellPlotLabel
+            // 
+            this.xrTableCellPlotLabel.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.xrTableCellPlotLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(110)))), ((int)(((byte)(99)))));
+            this.xrTableCellPlotLabel.Name = "xrTableCellPlotLabel";
+            this.xrTableCellPlotLabel.Padding = new DevExpress.XtraPrinting.PaddingInfo(1, 0, 0, 0, 100F);
+            this.xrTableCellPlotLabel.StylePriority.UseFont = false;
+            this.xrTableCellPlotLabel.StylePriority.UseForeColor = false;
+            this.xrTableCellPlotLabel.StylePriority.UsePadding = false;
+            this.xrTableCellPlotLabel.StylePriority.UseTextAlignment = false;
+            this.xrTableCellPlotLabel.Text = "Synopsis:";
+            this.xrTableCellPlotLabel.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            this.xrTableCellPlotLabel.Weight = 0.58768033539163955D;
+            // 
+            // xrTableCellPlot
+            // 
+            this.xrTableCellPlot.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Plot")});
+            this.xrTableCellPlot.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.xrTableCellPlot.Name = "xrTableCellPlot";
+            this.xrTableCellPlot.Padding = new DevExpress.XtraPrinting.PaddingInfo(1, 1, 0, 1, 100F);
+            this.xrTableCellPlot.StylePriority.UseFont = false;
+            this.xrTableCellPlot.StylePriority.UsePadding = false;
+            this.xrTableCellPlot.StylePriority.UseTextAlignment = false;
+            this.xrTableCellPlot.Text = "xrTableCellPlot";
+            this.xrTableCellPlot.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            this.xrTableCellPlot.Weight = 2.4123196646083604D;
+            // 
+            // pageInfo1
+            // 
+            this.pageInfo1.LocationFloat = new DevExpress.Utils.PointFloat(6F, 6F);
+            this.pageInfo1.Name = "pageInfo1";
+            this.pageInfo1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.pageInfo1.PageInfo = DevExpress.XtraPrinting.PageInfo.DateTime;
+            this.pageInfo1.SizeF = new System.Drawing.SizeF(313F, 23F);
+            this.pageInfo1.StyleName = "PageInfo";
+            // 
+            // pageInfo2
+            // 
+            this.pageInfo2.Format = "Page {0} of {1}";
+            this.pageInfo2.LocationFloat = new DevExpress.Utils.PointFloat(331F, 6F);
+            this.pageInfo2.Name = "pageInfo2";
+            this.pageInfo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.pageInfo2.SizeF = new System.Drawing.SizeF(313F, 23F);
+            this.pageInfo2.StyleName = "PageInfo";
+            this.pageInfo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            // 
+            // xrHeader
+            // 
+            this.xrHeader.Font = new System.Drawing.Font("Segoe UI", 16F);
+            this.xrHeader.LocationFloat = new DevExpress.Utils.PointFloat(102.0833F, 0F);
+            this.xrHeader.Name = "xrHeader";
+            this.xrHeader.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrHeader.SizeF = new System.Drawing.SizeF(452.0832F, 35F);
+            this.xrHeader.StylePriority.UseFont = false;
+            this.xrHeader.StylePriority.UseTextAlignment = false;
+            this.xrHeader.Text = "Top Movie Rentals";
+            this.xrHeader.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // Title
+            // 
+            this.Title.BackColor = System.Drawing.Color.Transparent;
+            this.Title.BorderColor = System.Drawing.Color.Black;
+            this.Title.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.Title.BorderWidth = 1;
+            this.Title.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold);
+            this.Title.ForeColor = System.Drawing.Color.Maroon;
+            this.Title.Name = "Title";
+            // 
+            // FieldCaption
+            // 
+            this.FieldCaption.BackColor = System.Drawing.Color.Transparent;
+            this.FieldCaption.BorderColor = System.Drawing.Color.Black;
+            this.FieldCaption.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.FieldCaption.BorderWidth = 1;
+            this.FieldCaption.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold);
+            this.FieldCaption.ForeColor = System.Drawing.Color.Maroon;
+            this.FieldCaption.Name = "FieldCaption";
+            // 
+            // PageInfo
+            // 
+            this.PageInfo.BackColor = System.Drawing.Color.Transparent;
+            this.PageInfo.BorderColor = System.Drawing.Color.Black;
+            this.PageInfo.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.PageInfo.BorderWidth = 1;
+            this.PageInfo.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold);
+            this.PageInfo.ForeColor = System.Drawing.Color.Black;
+            this.PageInfo.Name = "PageInfo";
+            // 
+            // DataField
+            // 
+            this.DataField.BackColor = System.Drawing.Color.Transparent;
+            this.DataField.BorderColor = System.Drawing.Color.Black;
+            this.DataField.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.DataField.BorderWidth = 1;
+            this.DataField.Font = new System.Drawing.Font("Times New Roman", 10F);
+            this.DataField.ForeColor = System.Drawing.Color.Black;
+            this.DataField.Name = "DataField";
+            this.DataField.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            // 
+            // calculatedFieldRentsCount
+            // 
+            this.calculatedFieldRentsCount.Name = "calculatedFieldRentsCount";
+            this.calculatedFieldRentsCount.Scripts.OnGetValue = "calculatedFieldRentsCount_GetValue";
+            // 
+            // paramStartDate
+            // 
+            this.paramStartDate.Description = "Start Date:";
+            this.paramStartDate.Name = "paramStartDate";
+            this.paramStartDate.Type = typeof(System.DateTime);
+            this.paramStartDate.Value = new System.DateTime(2012, 10, 9, 14, 57, 36, 102);
+            // 
+            // paramEndDate
+            // 
+            this.paramEndDate.Description = "End Date:";
+            this.paramEndDate.Name = "paramEndDate";
+            this.paramEndDate.Type = typeof(System.DateTime);
+            this.paramEndDate.Value = new System.DateTime(2012, 10, 9, 14, 58, 18, 888);
+            // 
+            // paramPeriod
+            // 
+            this.paramPeriod.Description = "Last Time Span:";
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("0", "Custom"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("1", "Month"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("2", "ThreeMonths"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("3", "SixMonths"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("4", "Year"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("5", "TwoYears"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("6", "FiveYears"));
+            staticListLookUpSettings1.LookUpValues.Add(new DevExpress.XtraReports.Parameters.LookUpValue("7", "TenYears"));
+            this.paramPeriod.LookUpSettings = staticListLookUpSettings1;
+            this.paramPeriod.Name = "paramPeriod";
+            this.paramPeriod.Value = "2";
+            // 
+            // TopMovieRentalsReport
+            // 
+            this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
+                        this.detailBand1,
+                        this.pageFooterBand1,
+                        this.reportHeaderBand1,
+                        this.topMarginBand1,
+                        this.bottomMarginBand1});
+            this.CalculatedFields.AddRange(new DevExpress.XtraReports.UI.CalculatedField[] {
+                        this.calculatedFieldRentsCount});
+            this.DisplayName = "Top Movie Rentals";
+            this.Extensions.Add("DataSerializationExtension", "XafReport");
+            this.Extensions.Add("DataEditorExtension", "XafReport");
+            this.Extensions.Add("ParameterEditorExtension", "XafReport");
+            this.Name = "TopMovieRentalsReport";
+            this.PageHeight = 1100;
+            this.PageWidth = 850;
+            this.Parameters.AddRange(new DevExpress.XtraReports.Parameters.Parameter[] {
+                        this.paramStartDate,
+                        this.paramEndDate,
+                        this.paramPeriod});
+            this.Scripts.OnBeforePrint = "TopMovieRentalsReport_BeforePrint";
+            this.ScriptsSource = resources.GetString("$this.ScriptsSource");
+            this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
+                        this.Title,
+                        this.FieldCaption,
+                        this.PageInfo,
+                        this.DataField});
+            this.Version = "12.1";
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableRentsCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableTopFilmInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableFilmInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+        }
+    }
+}

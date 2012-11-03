@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp</RootNamespace>
     <AssemblyName>Xpand.ExpressApp</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -57,28 +57,29 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1, Version=12.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Design" />
     <Reference Include="Xpand.Persistent.Base, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
@@ -117,17 +118,15 @@
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
+    <Compile Include="Core\CriteriaOperatorExtensions.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
+    <Compile Include="Core\ModelExtensions.cs" />
     <Compile Include="Core\RuntimeMemberBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />
-    <Compile Include="Core\ModelApplicationBaseExtensions.cs" />
     <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
-    <Compile Include="Core\ModelNodeExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Core\ModelXmlReaderExtensions.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
@@ -140,6 +139,7 @@
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\BaseDomainLogic.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />
@@ -152,13 +152,20 @@
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
     <Compile Include="Security\IXpandLogonParameters.cs" />
+    <Compile Include="SystemModule\Actions\ActionDefaultValueController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Dashboard\DashboardInteraction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Dashboard\Model.cs" />
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ReloadObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
@@ -232,7 +239,7 @@
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DisableActionsLinqListViewController.cs">
+    <Compile Include="SystemModule\Actions\DisableActionsLinqListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ColumnOptionsController.cs">
@@ -288,13 +295,13 @@
     <Compile Include="SystemModule\ProvidedAssociationsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromListViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromViewController.cs">
+    <Compile Include="SystemModule\Search\SearchFromViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\DynamicModel\XpandPropertyInfo.cs" />

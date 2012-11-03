@@ -72,19 +72,17 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
-            if (!NeedsGeneration(assemblyFilePath))
-                return Assembly.LoadFile(assemblyFilePath);
+
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath);
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
             string[] references = _referencesCollector.references.ToArray();
-            CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            return Assembly.LoadFile(assemblyFilePath);
+            return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
         }
 
-        private static void CompileAssemblyFromSource(String source, String[] references, Boolean isDebug, String assemblyFile) {
+        private static Assembly CompileAssemblyFromSource(String source, String[] references, Boolean isDebug, String assemblyFile) {
             if (!String.IsNullOrEmpty(assemblyFile)) {
                 var directoryName = Path.GetDirectoryName(assemblyFile) + "";
                 if (!Directory.Exists(directoryName)) {
@@ -97,6 +95,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (compilerResults.Errors.Count > 0) {
                 RaiseCompilerException(source, compilerResults);
             }
+            return compilerResults.CompiledAssembly;
         }
         private static void RaiseCompilerException(String source, CompilerResults compilerResults) {
             var errors = compilerResults.Errors.Cast<CompilerError>().Aggregate(String.Empty, (current, compilerError) => current + String.Format("({0},{1}): {2}\r\n", compilerError.Line, compilerError.Column, compilerError.ErrorText));
@@ -116,15 +115,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 compilerParameters.IncludeDebugInformation = true;
             }
             return compilerParameters;
-        }
-
-        bool NeedsGeneration(string assemblyFilePath) {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            if (!File.Exists(assemblyFilePath))
-                return true;
-            if (entryAssembly == null)
-                return (AssemblyName.GetAssemblyName(assemblyFilePath).Version != new Version(0, 0, 0, 0));
-            return AssemblyName.GetAssemblyName(assemblyFilePath).Version != ReflectionHelper.GetAssemblyVersion(entryAssembly);
         }
 
         string GetAssemblyVersionCode() {
