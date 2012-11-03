@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using DevExpress.CodeRush.Common;
+using Xpand;
 
 [assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "eXpandAddIns", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)]
 
@@ -32,5 +33,6 @@ using DevExpress.CodeRush.Common;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
+[assembly: AssemblyVersion(DevExpress.DXCore.LicenseUtils.AssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(DevExpress.DXCore.LicenseUtils.AssemblyInfo.FileVersion)]
+
