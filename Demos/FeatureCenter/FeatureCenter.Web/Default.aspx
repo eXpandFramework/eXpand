@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" Inherits="DefaultVertical" EnableViewState="false"
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="Default" EnableViewState="false"
     ValidateRequest="false" CodeBehind="Default.aspx.cs" %>
 <%@ Register Assembly="DevExpress.Web.v12.1" Namespace="DevExpress.Web.ASPxRoundPanel"
     TagPrefix="dxrp" %>
@@ -31,10 +31,13 @@
     <dxge:ASPxGlobalEvents ID="GE" ClientSideEvents-EndCallback="AdjustSize" runat="server" />
     <cc4:ASPxProgressControl ID="ProgressControl" runat="server" />
     <div runat="server">
-        <table id="MT" border="0" width="100%" cellpadding="0" cellspacing="0" class="dxsplControl_<%= Theme %>">
+        <cc3:XafUpdatePanel ID="UPPopupWindowControl" runat="server">
+            <cc4:XafPopupWindowControl runat="server" ID="PopupWindowControl" />
+        </cc3:XafUpdatePanel>
+        <table id="MT" border="0" width="100%" cellpadding="0" cellspacing="0" class="dxsplControl_<%= CurrentTheme %>">
             <tbody>
                 <tr>
-                    <td style="vertical-align: top; height: 10px;" class="dxsplPane_<%= Theme %>">
+                    <td style="vertical-align: top; height: 10px;" class="dxsplPane_<%= CurrentTheme %>">
                         <div id="VerticalTemplateHeader" class="VerticalTemplateHeader">
                             <table cellpadding="0" cellspacing="0" border="0" class="Top" width="100%">
                                 <tr>
@@ -93,10 +96,10 @@
                                     </div>
                                 </td>
                                 <td id="separatorCell" style="width: 6px; border-bottom-style: none; border-top-style: none"
-                                    class="dxsplVSeparator_<%= Theme %> dxsplPane_<%= Theme %>">
-                                    <div id="separatorButton" class="dxsplVSeparatorButton_<%= Theme %>" onmouseenter="OnMouseEnter('separatorButton')"
+                                    class="dxsplVSeparator_<%= CurrentTheme %> dxsplPane_<%= CurrentTheme %>">
+                                    <div id="separatorButton" class="dxsplVSeparatorButton_<%= CurrentTheme %>" onmouseenter="OnMouseEnter('separatorButton')"
                                         onmouseleave="OnMouseLeave('separatorButton')" onclick="OnClick('LPcell','separatorImage',true)">
-                                        <div id="separatorImage" style="width: 6px;" class="dxWeb_splVCollapseBackwardButton_<%= Theme %>">
+                                        <div id="separatorImage" style="width: 6px;" class="dxWeb_splVCollapseBackwardButton_<%= CurrentTheme %>">
                                         </div>
                                     </div>
                                 </td>
@@ -220,7 +223,7 @@
      <!--
      
               function OnLoad() {
-                Init("<%= Theme %>", "VerticalCS");
+                  Init("<%= CurrentTheme %>", "VerticalCS");
                 OnLoadCore("LPcell", "separatorCell", "separatorImage",true, true);
             }
          // -->

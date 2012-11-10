@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="MasterDetailMode_ListView" MasterDetailMode="ListViewOnly" />
+    <ListView Id="MasterDetailMode_ListView" MasterDetailMode="ListViewAndDetailView" />
   </Views>
 </Application>

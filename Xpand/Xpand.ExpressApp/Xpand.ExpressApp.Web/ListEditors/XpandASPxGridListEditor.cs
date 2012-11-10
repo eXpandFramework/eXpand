@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
+using System.Globalization;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
     class MasterDetailProvider {
@@ -23,7 +24,8 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 if (_gridView.FocusedRowIndex == -1)
                     return null;
                 return collectionSource.List[_gridView.FocusedRowIndex];
-            } finally {
+            }
+            finally {
                 _inGetFocusedObject = false;
             }
 
@@ -37,9 +39,9 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
             gridView.ClientSideEvents.FocusedRowChanged =
                 @"function(s,e) { 
-                    var up = document.getElementById('DetailUpdatePanel');
-                    if (s.firstRowChangedAfterInit!==true && up && up.ClientControl) { 
-                        up.ClientControl.PerformCallback(s.GetFocusedRowIndex());} 
+                    var up = window.DetailUpdatePanelControl;
+                    if (s.firstRowChangedAfterInit!==true && up && up.GetMainElement()) { 
+                        up.PerformCallback(s.GetFocusedRowIndex());} 
                     s.firstRowChangedAfterInit = false; }";
 
             gridView.Settings.ShowVerticalScrollBar = true;
@@ -65,6 +67,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
 
 
+        
         public override object FocusedObject {
             get {
                 if (MasterDetail)
@@ -72,9 +75,12 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 return base.FocusedObject;
             }
             set {
-                if (MasterDetail)
-                    throw new NotSupportedException();
-                base.FocusedObject = value;
+                if (MasterDetail) {
+                    if (value != null)
+                        Grid.FocusedRowIndex = Grid.FindVisibleIndexByKeyValue(ObjectSpace.GetKeyValue(value));
+                }
+                else
+                    base.FocusedObject = value;
             }
         }
 
@@ -84,7 +90,8 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                     base.OnFocusedObjectChanged();
                     _lastFiredFocusedObject = FocusedObject;
                 }
-            } else {
+            }
+            else {
                 base.OnFocusedObjectChanged();
             }
         }
@@ -101,6 +108,22 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             get {
                 return MasterDetail ? _masterDetailProvider.SelectionType : base.SelectionType;
             }
+        }
+
+        public override void Setup(DevExpress.ExpressApp.CollectionSourceBase collectionSource, DevExpress.ExpressApp.XafApplication application) {
+            base.Setup(collectionSource, application);
+            CollectionSource.CriteriaApplied += CollectionSource_CriteriaApplied;
+        }
+
+        void CollectionSource_CriteriaApplied(object sender, EventArgs e) {
+            if (Grid != null) SetFirstRowChangeAfterInit(Grid, false);
+            if (Grid != null) Grid.FocusedRowIndex = -1;
+            OnFocusedObjectChanged();
+        }
+            
+        private static void SetFirstRowChangeAfterInit(DevExpress.Web.ASPxGridView.ASPxGridView grid, bool value) {
+            grid.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
+                "function (s,e) {{ s.firstRowChangedAfterInit = {0};}}", value ? "true" : "false");
         }
         protected override ASPxGridView CreateGridControl() {
             ASPxGridView gridView = base.CreateGridControl();

@@ -410,6 +410,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="skin.css" />
+    <Content Include="TemplateScripts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
