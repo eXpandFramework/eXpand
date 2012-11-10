@@ -116,10 +116,6 @@ namespace Xpand.ExpressApp.Web {
         void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
             args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
         }
-        protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
-            Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
-            return new XpandWebWindow(this, context, controllers, isMain, activateControllersImmediatelly);
-        }
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
             return new XpandPopupWindow(this, context, controllers);
         }
