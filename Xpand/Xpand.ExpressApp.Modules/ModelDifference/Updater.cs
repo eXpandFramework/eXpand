@@ -22,9 +22,14 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.UpdateDatabaseBeforeUpdateSchema();
             if (CurrentDBVersion > new Version(0, 0, 0, 0) && CurrentDBVersion <= new Version(10, 1, 6)) {
                 var differenceObjects = new Dictionary<object, string>();
-                using (var reader = ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false)) {
-                    while (reader.Read()) {
-                        differenceObjects.Add(reader[0], reader[1] as string);
+
+                if (ExecuteScalarCommand("Select COLUMNPROPERTY(OBJECT_ID('ModelDifferenceObject'), 'Model','ColumnId')", false) is int) {
+                    using (var reader = ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false))
+                    {
+                        while (reader.Read())
+                        {
+                            differenceObjects.Add(reader[0], reader[1] as string);
+                        }
                     }
                 }
 

@@ -90,6 +90,9 @@
     <Reference Include="Xpand.Xpo" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DisableProcessCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\DynamicDouplicateTypesMapper.cs">
       <SubType>Code</SubType>
     </Compile>

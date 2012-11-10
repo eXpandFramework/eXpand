@@ -6,16 +6,22 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 
-public partial class DefaultVertical : BaseXafPage {
-    private void CallbackManager_PreRender(object sender, EventArgs e) {
-        ((XafCallbackManager)sender).PreRender -= new EventHandler<EventArgs>(CallbackManager_PreRender);
+public partial class Default : BaseXafPage
+{
+    private void CurrentRequestWindow_PagePreRender(object sender, EventArgs e)
+    {
+        ((WebWindow)sender).PagePreRender -= new EventHandler(CurrentRequestWindow_PagePreRender);
         UpdateTRPVisibility();
     }
-    private void UpdateTRPVisibility() {
+    private void UpdateTRPVisibility()
+    {
         bool isVisible = false;
-        foreach (Control control in TRP.Controls) {
-            if (control is ActionContainerHolder) {
-                if (((ActionContainerHolder)control).HasActiveActions()) {
+        foreach (Control control in TRP.Controls)
+        {
+            if (control is ActionContainerHolder)
+            {
+                if (((ActionContainerHolder)control).HasActiveActions())
+                {
                     isVisible = true;
                     break;
                 }
@@ -23,28 +29,25 @@ public partial class DefaultVertical : BaseXafPage {
         }
         TRP.Visible = isVisible;
     }
-    protected void Page_PreRender(object sender, EventArgs e) {
-        UpdateTRPVisibility();
-    }
-    protected void Page_Load(object sender, EventArgs e) {
-        CallbackManager.PreRender += new EventHandler<EventArgs>(CallbackManager_PreRender);
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        ViewSiteControl = VSC;
+        if (WebWindow.CurrentRequestWindow != null)
+        {
+            WebWindow.CurrentRequestWindow.PagePreRender += new EventHandler(CurrentRequestWindow_PagePreRender);
+        }
         WebApplication.Instance.CreateControls(this);
     }
-    protected override ContextActionsMenu CreateContextActionsMenu() {
+    protected override ContextActionsMenu CreateContextActionsMenu()
+    {
         return new ContextActionsMenu(this, "Edit", "RecordEdit", "ObjectsCreation", "ListView", "Reports");
     }
-    protected override IActionContainer GetDefaultContainer() {
+    protected override IActionContainer GetDefaultContainer()
+    {
         return TB.FindActionContainerById("View");
     }
-    public override void SetStatus(System.Collections.Generic.ICollection<string> statusMessages) {
+    public override void SetStatus(System.Collections.Generic.ICollection<string> statusMessages)
+    {
         InfoMessagesPanel.Text = string.Join("<br>", new List<string>(statusMessages).ToArray());
-    }
-    protected override void OnInit(EventArgs e) {
-        base.OnInit(e);
-        ViewSiteControl = VSC;
-    }
-    protected override void OnViewChanged(DevExpress.ExpressApp.View view) {
-        ViewSiteControl = VSC;
-        base.OnViewChanged(view);
     }
 }
