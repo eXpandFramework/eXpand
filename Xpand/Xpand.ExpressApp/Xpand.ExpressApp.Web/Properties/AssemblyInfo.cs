@@ -36,4 +36,3 @@ using System.Web.UI;
 [assembly: AssemblyVersion(AssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
 [assembly: AllowPartiallyTrustedCallers]
-[assembly: WebResource("Xpand.ExpressApp.Web.Layout.Splitter.js", "text/javascript")]

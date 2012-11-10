@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxSplitter;
+using System.IO;
 
 
 
@@ -51,11 +52,20 @@ namespace Xpand.ExpressApp.Web.Layout {
                 gridView.ClientInstanceName = "gridViewInSplitter";
         }
 
+        private string GetAdjustSizeScript() {
+            Type t = typeof(XpandLayoutManager);
+            using (StreamReader reader = new StreamReader(t.Assembly.GetManifestResourceStream(
+                string.Format(CultureInfo.InvariantCulture, "{0}.AdjustSize.js", t.Namespace)
+                ))) {
+                    return reader.ReadToEnd();
+
+            }
+        }
         ASPxCallbackPanel CreateSplitterDetailPane(ASPxSplitter splitter) {
             SplitterPane detailPane = splitter.Panes.Add();
             detailPane.ScrollBars = ScrollBars.Auto;
             var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientInstanceName = "DetailUpdatePanel" };
-            updatePanel.ClientSideEvents.Init = "function (s,e) {window.DetailUpdatePanelControl = s; s.GetMainElement().ClientControl = s;}";
+            updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
             detailPane.Controls.Add(updatePanel);
             return updatePanel;
         }
