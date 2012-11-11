@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
 
 
         public override object GetHashObject() {
-            return typeof(ModelCombinePermissionRequest).GetHashCode();
+            return "ModelCombinePermissionRequest";
         }
     }
 }
