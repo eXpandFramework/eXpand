@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {
@@ -164,6 +165,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
+            InterfaceBuilder.SkipAssemblyGeneration = true;
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
@@ -172,6 +174,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
             AddRuntimeTypesToIModelRuleBaseDescenants(ruleBaseDescantans);
+            InterfaceBuilder.SkipAssemblyGeneration = false;
             return modelApplication;
         }
 

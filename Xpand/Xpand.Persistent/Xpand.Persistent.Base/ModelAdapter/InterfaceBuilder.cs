@@ -18,6 +18,7 @@ using DevExpress.Utils;
 using DevExpress.Utils.Controls;
 using DevExpress.Utils.Serializing;
 using DevExpress.Xpo;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public class InterfaceBuilderData {
@@ -69,6 +70,15 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _referencesCollector = new ReferencesCollector();
         }
 
+        public static bool RuntimeMode {
+            get {
+                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
+                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+            }
+        }
+
+        public static bool SkipAssemblyGeneration { get; set; }
+
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
@@ -79,7 +89,20 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
             string[] references = _referencesCollector.references.ToArray();
-            return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
+            if (!SkipAssemblyGeneration)
+                return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
+            return LoadFromCurrentDomain(assemblyFilePath);
+        }
+
+        Assembly LoadFromCurrentDomain(string assemblyFilePath) {
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            string fileName = Path.GetFileName(assemblyFilePath);
+            foreach (var assembly in assemblies) {
+                if (!(assembly.IsDynamic()) && Path.GetFileName(assembly.Location) == fileName) {
+                    return assembly;
+                }
+            }
+            throw new NotImplementedException(assemblyFilePath);
         }
 
         private static Assembly CompileAssemblyFromSource(String source, String[] references, Boolean isDebug, String assemblyFile) {
@@ -108,7 +131,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (String.IsNullOrEmpty(assemblyFile)) {
                 compilerParameters.GenerateInMemory = !isDebug;
             } else {
-                compilerParameters.OutputAssembly = assemblyFile;
+                compilerParameters.OutputAssembly = RuntimeMode ? assemblyFile : null;
             }
             if (isDebug) {
                 compilerParameters.TempFiles = new TempFileCollection(Environment.GetEnvironmentVariable("TEMP"), true);

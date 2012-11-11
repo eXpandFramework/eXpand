@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp {
     [ToolboxItem(false)]
@@ -51,8 +52,7 @@ namespace Xpand.ExpressApp {
 
         protected bool RuntimeMode {
             get {
-                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
-                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                return InterfaceBuilder.RuntimeMode;
             }
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {

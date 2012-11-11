@@ -7,6 +7,11 @@ using System.Reflection;
 
 namespace Xpand.Utils.Helpers {
     public static class ReflectionExtensions {
+
+        public static bool IsDynamic(this Assembly assembly) {
+            return assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit";
+        }
+
         public static IEnumerable<Type> GetTypes(this AppDomain appdomain, string typeToFind) {
             var types = new List<Type>();
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {

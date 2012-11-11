@@ -78,7 +78,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public string GetPath(string name) {
-            var applicationFolder = PathHelper.GetApplicationFolder();
+            var applicationFolder = Path.Combine(PathHelper.GetApplicationFolder(), "ModelAdaptor/" + AssemblyInfo.FileVersion);
             var path2 = "ModelAdaptor" + name + ".dll";
             return Path.Combine(applicationFolder + "", path2);
         }
