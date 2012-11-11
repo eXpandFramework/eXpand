@@ -145,7 +145,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
             var doubles = GetValues(PivotGridListEditor.ChartControl.Series[0]);
             var pivotGrid = PivotGridListEditor.PivotGridControl;
             var value = Convert.ToDouble(pivotGrid.GetCellValue(pivotGrid.Cells.FocusedCell.X, pivotGrid.Cells.FocusedCell.Y));
-            _pivotGaugeTemplate.UpdateGauge(value, GetGaugeTextFromPivot(), doubles, PivotDataFieldRule.OverHead, PivotDataFieldRule.GaugeTextFormat);
+            if (_pivotGaugeTemplate != null)
+                _pivotGaugeTemplate.UpdateGauge(value, GetGaugeTextFromPivot(), doubles, PivotDataFieldRule.OverHead, PivotDataFieldRule.GaugeTextFormat);
         }
 
         IModelPivotDataFieldRule PivotDataFieldRule {
