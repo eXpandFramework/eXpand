@@ -53,9 +53,9 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
 
         It should_create_memberinfos_for_each_classinfo = () => {
             _persistentClassInfo2.OwnMembers.Count.ShouldEqual(1);
-            _persistentClassInfo2.OwnMembers.Where(info => info.Name == "column2").FirstOrDefault().ShouldNotBeNull();
+            _persistentClassInfo2.OwnMembers.FirstOrDefault(info => info.Name == "column2").ShouldNotBeNull();
             _persistentClassInfo1.OwnMembers.Count.ShouldEqual(1);
-            _persistentClassInfo1.OwnMembers.Where(info => info.Name == "column1").FirstOrDefault().ShouldNotBeNull();
+            _persistentClassInfo1.OwnMembers.FirstOrDefault(info => info.Name == "column1").ShouldNotBeNull();
         };
 
         It should_have_a_persistent_datastore_attribute = () => {
@@ -64,7 +64,7 @@ namespace Xpand.Tests.Xpand.WorldCreator.DbMapper {
         };
 
         It should_have_as_datastorelogon_object_the_one_that_points_to_the_mapped_database =
-            () => _persistentAssemblyDataStoreAttributeInfo.DataStoreLogon.ShouldEqual(_dataStoreLogonObject);
+            () => _persistentAssemblyDataStoreAttributeInfo.DataStoreLogon.ToString().ShouldEqual(_dataStoreLogonObject.ToString());
     }
 
 }
