@@ -77,19 +77,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         protected override void ApplyModelCore() {
             var gridColumnCollection = GetColumnView().Columns;
             foreach (var modelColumn in Model.Columns.OfType<TModelColumn>()) {
-                var layoutViewColumn = gridColumnCollection[GetPropertyName(modelColumn)];
+                var layoutViewColumn = gridColumnCollection[modelColumn.PropertyName];
                 var columnOptions = GetColumnOptions(modelColumn);
                 if (columnOptions.NodeEnabled)
                     ApplyModel(columnOptions, layoutViewColumn, ApplyValues);
             }
         }
-
-        string GetPropertyName(TModelColumn modelColumn) {
-            return modelColumn.ModelMember.MemberInfo.LastMember.MemberTypeInfo.IsDomainComponent
-                       ? modelColumn.PropertyName + "!"
-                       : modelColumn.PropertyName;
-        }
-
 
         protected abstract DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView();
 
