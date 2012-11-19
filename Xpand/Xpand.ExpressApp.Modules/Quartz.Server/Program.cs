@@ -2,8 +2,6 @@
 using System.Configuration;
 using DevExpress.ExpressApp;
 using Topshelf;
-using Topshelf.Configuration;
-using Topshelf.Configuration.Dsl;
 
 namespace Xpand.Quartz.Server {
     /// <summary>
@@ -15,28 +13,35 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args) {
-            RunConfiguration cfg = RunnerConfigurator.New(x => {
-                x.ConfigureService<QuartzServer>(s => {
-                    s.Named(Configuration.ServiceName);
-                    s.HowToBuildService(builder => new QuartzServer());
-                    s.WhenStarted(server => {
+            var cfg = HostFactory.New(x =>
+            {
+                x.Service<QuartzServer>(configurator =>
+                {
+                    configurator.ConstructUsing(builder => new QuartzServer());
+                    configurator.WhenStarted(server =>
+                    {
                         XafApplication xafApplication = XafApplicationFactory.GetApplication(ConfigurationManager.AppSettings["xafApplicationPath"]);
                         server.Initialize(xafApplication);
                         server.Start();
                     });
-                    s.WhenPaused(server => server.Pause());
-                    s.WhenContinued(server => server.Resume());
-                    s.WhenStopped(server => server.Stop());
+                    configurator.WhenPaused(server => server.Pause());
+                    configurator.WhenContinued(server => server.Resume());
+                    configurator.WhenStopped(server => server.Stop());
+
                 });
-                x.SetEventTimeout(TimeSpan.FromMinutes(2));
                 x.RunAsLocalSystem();
 
                 x.SetDescription(Configuration.ServiceDescription);
                 x.SetDisplayName(Configuration.ServiceDisplayName);
                 x.SetServiceName(Configuration.ServiceName);
+
+                x.RunAsLocalService();
+                x.StartAutomaticallyDelayed();
             });
 
-            Runner.Host(cfg, args);
+
+            cfg.Run();
+
         }
 
     }
