@@ -79,6 +79,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         void FillEditor(ASPxComboBox editor) {
+            if (editor == null) return;
             editor.Items.Clear();
             editor.ValueType = GetComboBoxValueType();
 
