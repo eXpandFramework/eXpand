@@ -201,6 +201,9 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\NewItemRowDataSourcePropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\OpenObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
