@@ -57,68 +57,67 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DXperience 12.1\Bin\Framework\DevExpress.ExpressApp.FileAttachment.Win.v12.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v12.1.Core, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Office.v12.1.Core, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.RichEdit.v12.1.Core, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraGrid.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraLayout.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraNavBar.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v12.1, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraRichEdit.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v12.1.Core, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v12.1.Reporting.Extensions, Version=12.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v12.1.Core, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v12.1.Reporting.Extensions, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.configuration" />
@@ -158,6 +157,9 @@
   <ItemGroup>
     <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
+    <Compile Include="Editors\EnumEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Editors\XpandFilterControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,16 +167,24 @@
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\AdvBandedListEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesigner.cs" />
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesigner.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs" />
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs" />
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs" />
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorColumnChooserController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -189,6 +199,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\NewItemRowDataSourcePropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\OpenObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs" />
@@ -210,11 +223,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs" />
-    <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewDesigner.cs" />
+    <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewDesigner.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewPropertyEditor.cs" />
+    <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewPropertyEditor.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\GridListEditorBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -236,8 +253,12 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\Model\Interfaces.cs" />
-    <Compile Include="ListEditors\GridListEditors\GridView\Model\Synchronizers.cs" />
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\Synchronizers.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs">
       <SubType>Component</SubType>
     </Compile>

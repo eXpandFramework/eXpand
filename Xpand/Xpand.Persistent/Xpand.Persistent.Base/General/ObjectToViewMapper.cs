@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -109,7 +109,7 @@ namespace Xpand.Persistent.Base.General {
     class CodeGenerator {
         readonly TypeHelper _typeHelper = new TypeHelper();
         readonly ReferencesCollector _referencesCollector = new ReferencesCollector();
-        List<Type> _usingTypes = new List<Type>();
+        readonly List<Type> _usingTypes = new List<Type>();
         string _viewName;
         ITypeInfo _typeInfo;
 
@@ -122,8 +122,9 @@ namespace Xpand.Persistent.Base.General {
                 var classConstructor = CreateClassConstructor();
                 string properties = CreateProperties();
                 var source = string.Join(Environment.NewLine, new[] { classDeclaration, classConstructor, properties, "}" });
-                _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
-                return new CodeInfo(typeInfo, source, _referencesCollector.references, _viewName);
+                _referencesCollector.Add(_usingTypes);
+                string[] references = _referencesCollector.References.ToArray();
+                return new CodeInfo(typeInfo, source, references.ToList(), _viewName);
             }
             return null;
         }
@@ -167,7 +168,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected string TypeToString(Type type) {
-            return HelperTypeGenerator.TypeToString(type, ref _usingTypes, true);
+            return HelperTypeGenerator.TypeToString(type, _usingTypes, true);
         }
 
         protected virtual string CreateClassDeclaration() {

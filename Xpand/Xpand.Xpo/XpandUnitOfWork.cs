@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -22,17 +21,17 @@ namespace Xpand.Xpo {
             : base(layer, disposeOnDisconnect) {
         }
 
-        protected override MemberInfoCollection GetPropertiesListForUpdateInsert(object theObject, bool isUpdate) {
+        protected override MemberInfoCollection GetPropertiesListForUpdateInsert(object theObject, bool isUpdate, bool addDelayedReference) {
             var supportChangedMembers = theObject as ISupportChangedMembers;
             if (supportChangedMembers != null && !IsNewObject(supportChangedMembers)) {
                 XPClassInfo ci = GetClassInfo(supportChangedMembers);
                 var changedMembers = new MemberInfoCollection(ci);
-                var memberInfos = base.GetPropertiesListForUpdateInsert(supportChangedMembers, isUpdate).Where(m => MemberHasChanged(supportChangedMembers, m));
+                var memberInfos = base.GetPropertiesListForUpdateInsert(supportChangedMembers, isUpdate, addDelayedReference).Where(m => MemberHasChanged(supportChangedMembers, m));
                 changedMembers.AddRange(memberInfos);
                 return changedMembers;
             }
 
-            return base.GetPropertiesListForUpdateInsert(theObject, isUpdate);
+            return base.GetPropertiesListForUpdateInsert(theObject, isUpdate, addDelayedReference);
         }
 
         bool MemberHasChanged(ISupportChangedMembers supportChangedMembers, XPMemberInfo m) {

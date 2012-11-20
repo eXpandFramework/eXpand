@@ -1,10 +1,10 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false" Inherits="NestedFrameControl"
     CodeBehind="NestedFrameControl.ascx.cs" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Templates.ActionContainers"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Templates.ActionContainers"
     TagPrefix="cc2" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Controls"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Controls"
     TagPrefix="cc4" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Templates"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Templates"
     TagPrefix="cc3" %>
 <div class="NestedFrame">
     <cc3:XafUpdatePanel ID="UPToolBar" CssClass="ToolBarUpdatePanel" runat="server">

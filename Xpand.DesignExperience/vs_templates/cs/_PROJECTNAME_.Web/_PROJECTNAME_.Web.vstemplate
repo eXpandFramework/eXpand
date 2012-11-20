@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VSTemplate Version="2.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Standard Plug-in</Name>
+    <Description>
+    </Description>
+    <Icon>AppSolution.ico</Icon>
+    <ProjectType>Web</ProjectType>
+    <ProjectSubType>CSharp</ProjectSubType>
+    <CreateNewFolder>true</CreateNewFolder>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="_PROJECTNAME_.Web.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true">Default.asp</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Default.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Default.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Default.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">DefaultVertical.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">DefaultVertical.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">DefaultVertical.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Dialog.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Dialog.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Dialog.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Error.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Error.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Error.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Global.asax</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Global.asax.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Login.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Login.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Login.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Model.xafml</ProjectItem>
+      <ProjectItem ReplaceParameters="true">MoveFooter.js</ProjectItem>
+      <ProjectItem ReplaceParameters="true">TemplateScripts.js</ProjectItem>
+      <ProjectItem ReplaceParameters="true">NestedFrameControl.ascx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">NestedFrameControl.ascx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">NestedFrameControl.ascx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">SessionKeepAliveReconnect.aspx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">SessionKeepAliveReconnect.aspx.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">SessionKeepAliveReconnect.aspx.designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Web.config</ProjectItem>
+      
+      <ProjectItem ReplaceParameters="true">ApplicationCode\WebApplication.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">ApplicationCode\WebApplication.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\ButtonBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\ExpressAppLogo.png</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\FooterBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\GridHeaderBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\HeaderBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\LayoutHeaderBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\Progress.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedCenter.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedCenterWhite.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedLeft.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedLeftWhite.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedRight.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SelectedRightWhite.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SideBarRDCorner.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\SideBarRUCorner.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\TabContentBkg.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\UnSelectedCenter.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\UnSelectedLeft.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="false">Images\UnSelectedRight.gif</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Properties\AssemblyInfo.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>DevExpress.ExpressApp.TemplateWizard.v12.1, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
+    <FullClassName>DevExpress.ExpressApp.TemplateWizard.SolutionProjectWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>
