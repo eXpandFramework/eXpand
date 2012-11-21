@@ -165,7 +165,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
-            InterfaceBuilder.SkipAssemblyGeneration = true;
+            InterfaceBuilder.LoadFromCurrentDomain = true;
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
@@ -174,7 +174,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
             AddRuntimeTypesToIModelRuleBaseDescenants(ruleBaseDescantans);
-            InterfaceBuilder.SkipAssemblyGeneration = false;
+            InterfaceBuilder.LoadFromCurrentDomain = false;
             return modelApplication;
         }
 

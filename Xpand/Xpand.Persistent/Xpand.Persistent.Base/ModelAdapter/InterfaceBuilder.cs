@@ -77,7 +77,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
         }
 
-        public static bool SkipAssemblyGeneration { get; set; }
+        public static bool LoadFromCurrentDomain { get; set; }
+        public static bool LoadFromPath { get; set; }
 
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
@@ -89,12 +90,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
             string[] references = _referencesCollector.references.ToArray();
-            if (!SkipAssemblyGeneration)
-                return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            return LoadFromCurrentDomain(assemblyFilePath);
+            if (LoadFromCurrentDomain)
+                return LoadFromDomain(assemblyFilePath);
+            if (LoadFromPath && File.Exists(assemblyFilePath))
+                return Assembly.LoadFile(assemblyFilePath);
+            return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
         }
 
-        Assembly LoadFromCurrentDomain(string assemblyFilePath) {
+        Assembly LoadFromDomain(string assemblyFilePath) {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             string fileName = Path.GetFileName(assemblyFilePath);
             foreach (var assembly in assemblies) {
