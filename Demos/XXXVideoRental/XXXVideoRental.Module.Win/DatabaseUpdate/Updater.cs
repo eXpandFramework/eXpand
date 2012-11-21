@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Reports;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
@@ -59,7 +60,7 @@ namespace XXXVideoRental.Module.Win.DatabaseUpdate {
                 rep.LoadLayout(GetReportStream(reportName));
                 rep.DataType = type;
                 rep.ReportName = reportName;
-                reportdata.SaveXtraReport(rep);
+                reportdata.SaveReport(rep);
             }
         }
 

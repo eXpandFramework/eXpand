@@ -141,12 +141,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\TreeListColumnOptionsController.cs" />
+    <Compile Include="Controllers\TreeListOptionsController.cs" />
     <Compile Include="Controllers\HideICategorizedItemController.cs">
       <SubType>Component</SubType>
     </Compile>

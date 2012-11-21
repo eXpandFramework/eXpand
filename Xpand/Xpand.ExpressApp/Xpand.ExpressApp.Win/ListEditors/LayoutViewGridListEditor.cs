@@ -549,6 +549,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             return GetRow(collectionSource, view, view.FocusedRowHandle);
         }
     }
+    [Obsolete("", true)]
     internal class CancelEventArgsAppearanceAdapter : IAppearanceEnabled, IAppearanceItem {
         private CancelEventArgs cancelEdit;
         public CancelEventArgsAppearanceAdapter(CancelEventArgs cancelEdit) {
@@ -570,10 +571,11 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         #endregion
     }
+    [Obsolete("", true)]
     internal class AppearanceObjectAdapterWithReset : AppearanceObjectAdapter {
         private AppearanceObject appearanceObject;
-        public AppearanceObjectAdapterWithReset(AppearanceObject appearanceObject, object data)
-            : base(appearanceObject, data) {
+        public AppearanceObjectAdapterWithReset(AppearanceObject appearanceObject)
+            : base(appearanceObject) {
             this.appearanceObject = appearanceObject;
         }
         public void ResetAppearance() {
@@ -857,7 +859,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
         }
         private void layoutView_CustomFieldValueStyle(object sender, DevExpress.XtraGrid.Views.Layout.Events.LayoutViewFieldValueStyleEventArgs e) {
             string propertyName = e.Column is XafLayoutViewColumn ? ((XafLayoutViewColumn)e.Column).PropertyName : e.Column.FieldName;
-            OnCustomizeAppearance(new CustomizeAppearanceEventArgs(propertyName, new AppearanceObjectAdapter(e.Appearance, e), e.RowHandle));
+            OnCustomizeAppearance(new CustomizeAppearanceEventArgs(propertyName, new AppearanceObjectAdapter(e.Appearance), e.RowHandle));
         }
         private void layoutView_HideCustomization(object sender, EventArgs e) {
             OnEndCustomization();
@@ -938,7 +940,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
             OnCustomizeAppearance(new CustomizeAppearanceEventArgs(propertyName, new CancelEventArgsAppearanceAdapter(e), layoutView.FocusedRowHandle));
             if (!e.Cancel) {
                 if (edit != null) {
-                    OnCustomizeAppearance(new CustomizeAppearanceEventArgs(propertyName, new AppearanceObjectAdapterWithReset(edit.Appearance, edit), layoutView.FocusedRowHandle));
+                    OnCustomizeAppearance(new CustomizeAppearanceEventArgs(propertyName, new AppearanceObjectAdapterWithReset(edit.Appearance), layoutView.FocusedRowHandle));
                     edit.MouseDown += new MouseEventHandler(Editor_MouseDown);
                     edit.MouseUp += new MouseEventHandler(Editor_MouseUp);
                     RepositoryItemButtonEdit buttonEdit = edit as RepositoryItemButtonEdit;

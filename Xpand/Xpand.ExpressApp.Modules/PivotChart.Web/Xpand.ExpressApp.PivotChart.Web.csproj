@@ -92,7 +92,6 @@
     <Reference Include="DevExpress.Utils.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
     <Reference Include="DevExpress.Web.ASPxPivotGrid.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -100,9 +99,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.Wizard.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
@@ -161,32 +157,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalysisControlVisibilityController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="AnalysisControlVisibilityController.cs" />
     <Compile Include="Core\AnalysisPropertyEditorNodeUpdater.cs" />
     <Compile Include="Editors\AnalysisControlWeb.cs">
     </Compile>
     <Compile Include="InPlaceEdit\CellTemplate.cs" />
-    <Compile Include="PivotedProperty\PivotCustomSortController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PivotedProperty\PivotCustomSortController.cs" />
     <Compile Include="PropertyEditors\AnalysisEditorWeb.cs">
     </Compile>
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="XpandPivotChartAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PivotedProperty\PivotedPropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="InPlaceEdit\PivotGridInplaceEditorsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandPivotChartAspNetModule.cs" />
+    <Compile Include="PivotedProperty\PivotedPropertyController.cs" />
+    <Compile Include="InPlaceEdit\PivotGridInplaceEditorsController.cs" />
     <Compile Include="Options\PivotGridOptionMapper.cs" />
-    <Compile Include="Options\PivotOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Options\PivotOptionsController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoadingPanelController.cs">
       <SubType>Component</SubType>

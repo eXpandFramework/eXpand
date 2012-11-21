@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Core.DynamicModel {
+
     public sealed class DynamicModelType : Type {
         readonly List<Attribute> attributesCore = new List<Attribute>();
         readonly Type baseTypeCore;
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         public override PropertyInfo[] GetProperties(BindingFlags bindingAttr) {
             if ((bindingAttr & BindingFlags.Public) != BindingFlags.Public) return new PropertyInfo[0];
             var propertyInfos = _filterPredicate != null ? propertiesCore.Where(_filterPredicate) : propertiesCore;
-            var simplePropertyInfos = propertyInfos.Select(info => {
+            return propertyInfos.Select(info => {
                 Type propertyType = GetPropertyType(info);
                 if (propertyType.IsValueType) {
                     propertyType = typeof(Nullable<>).MakeGenericType(new[] { propertyType });
@@ -113,8 +113,8 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
                 var simplePropertyInfo = new XpandPropertyInfo(info.Name, propertyType, GetType(), info.CanRead, info.CanWrite);
                 if (_category != null) simplePropertyInfo.AddAttribute(new CategoryAttribute(_category));
                 return simplePropertyInfo;
-            });
-            return simplePropertyInfos.ToArray();
+            }).OfType<PropertyInfo>().ToArray();
+
         }
 
         Type GetPropertyType(PropertyInfo info) {
@@ -237,11 +237,11 @@ namespace Xpand.ExpressApp.Core.DynamicModel {
         }
 
         public override object[] GetCustomAttributes(Type attributeType, bool inherit) {
-            return attributesCore.Cast<object>().Where(attr => attributeType.IsAssignableFrom(attr.GetType())).ToArray();
+            return attributesCore.Cast<object>().Where(attributeType.IsInstanceOfType).ToArray();
         }
 
         public override object[] GetCustomAttributes(bool inherit) {
-            return attributesCore.ToArray();
+            return attributesCore.OfType<object>().ToArray();
         }
 
         public override bool IsDefined(Type attributeType, bool inherit) {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Globalization;
-using DevExpress.XtraScheduler.Native;
 using Quartz;
 using Quartz.Impl.Triggers;
 using Quartz.Spi;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
+using RegistryTimeZoneProvider = Xpand.Persistent.Base.General.RegistryTimeZoneProvider;
 
 namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
     public static class TriggerExtensions {
@@ -57,12 +57,19 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             jobTrigger.Description = trigger.Description;
             jobTrigger.JobKey = new JobKey(jobName, type.FullName);
             jobTrigger.Key = new TriggerKey(jobTrigger.Key.Name, GetGroup(jobName, type, jobGroup));
-            if (jobTrigger is SimpleTriggerImpl)
-                ((SimpleTriggerImpl)jobTrigger).AssignQuartzTrigger((IXpandSimpleTrigger)trigger);
-            else if (jobTrigger is CronTriggerImpl)
-                ((CronTriggerImpl)jobTrigger).AssignQuartzTrigger((IXpandCronTrigger)trigger);
-            else if (jobTrigger is NthIncludedDayTrigger)
-                ((NthIncludedDayTrigger)jobTrigger).AssignQuartzTrigger((INthIncludedDayTrigger)trigger);
+            var impl = jobTrigger as SimpleTriggerImpl;
+            if (impl != null)
+                impl.AssignQuartzTrigger((IXpandSimpleTrigger)trigger);
+            else {
+                var triggerImpl = jobTrigger as CronTriggerImpl;
+                if (triggerImpl != null)
+                    triggerImpl.AssignQuartzTrigger((IXpandCronTrigger)trigger);
+                else {
+                    var dayTrigger = jobTrigger as NthIncludedDayTrigger;
+                    if (dayTrigger != null)
+                        dayTrigger.AssignQuartzTrigger((INthIncludedDayTrigger)trigger);
+                }
+            }
         }
 
         public static void AssignQuartzTrigger(this NthIncludedDayTrigger nthIncludedDayTrigger, INthIncludedDayTrigger trigger) {

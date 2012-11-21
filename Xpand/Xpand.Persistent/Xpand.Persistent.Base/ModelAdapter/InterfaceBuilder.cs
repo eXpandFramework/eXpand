@@ -309,14 +309,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return null;
             }
             Type attributeType = attribute.GetType();
-            if (attributeType == typeof(DXDescriptionAttribute)) {
-                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
-            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
-                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
+            //            if (attributeType == typeof(DXDescriptionAttribute)) {
+            //                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
+            //            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
+            //                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
             if (attributeType == typeof(DefaultValueAttribute)) {
                 string value = GetStringValue(((DefaultValueAttribute)attribute).Value);
                 return string.Format(@"System.ComponentModel.DefaultValue({0})", value);
@@ -450,7 +450,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             : this(calculatorType) {
             _linkValue = modelValueCalculatorAttribute.LinkValue;
             _nodeName = modelValueCalculatorAttribute.NodeName;
-            _nodeTypeName = modelValueCalculatorAttribute.NodeType.Name;
+            if (modelValueCalculatorAttribute.NodeType != null)
+                _nodeTypeName = modelValueCalculatorAttribute.NodeType.Name;
             _propertyName = modelValueCalculatorAttribute.PropertyName;
         }
 

@@ -10,12 +10,13 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         [Index(2)]
         public bool RememberMe { get; set; }
 
-        public void ReadPropertyValues(SettingsStorage storage) {
+        void ICustomObjectSerialize.ReadPropertyValues(SettingsStorage storage) {
             UserName = storage.LoadOption("", "UserName");
             Password = storage.LoadOption("", "Password");
             RememberMe = storage.LoadBoolOption("", "RememberMe", false);
         }
-        public void WritePropertyValues(SettingsStorage storage) {
+
+        void ICustomObjectSerialize.WritePropertyValues(SettingsStorage storage) {
             storage.SaveOption("", "UserName", UserName);
             storage.SaveOption("", "Password", RememberMe ? Password : "");
             storage.SaveOption("", "RememberMe", RememberMe.ToString(CultureInfo.InvariantCulture));

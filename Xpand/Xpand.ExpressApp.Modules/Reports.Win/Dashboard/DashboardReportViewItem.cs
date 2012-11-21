@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Reports;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
+using DevExpress.Persistent.Base.General;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
             _model = model;
         }
 
-        public IModelDashboardReportViewItem Model {
+        public new IModelDashboardReportViewItem Model {
             get { return _model; }
         }
 
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
             var reportData = (IReportData)View.ObjectSpace.FindObject(reportDataType, CriteriaOperator.Parse("ReportName=?", Model.ReportName));
             if (reportData == null)
                 throw new NullReferenceException(string.Format("Report {0} not found", Model.ReportName));
-            _report = reportData.LoadXtraReport(View.ObjectSpace);
+            _report = (XafReport)reportData.LoadReport(View.ObjectSpace);
             View.ControlsCreated += ViewOnControlsCreated;
             PrintControl.PrintingSystem = Report.PrintingSystem;
             return PrintControl;

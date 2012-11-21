@@ -192,7 +192,7 @@ namespace Xpand.ExpressApp.Win.Editors {
             if (Properties == null) return null;
             IList propertyDataSource =
                 (Properties.DataSourceMemberInfo != null) &&
-                (Properties.DataSourceMemberInfo.IsStatic || GridEditingObject != null)
+                (GridEditingObject != null)
                     ? Properties.DataSourceMemberInfo.GetValue(forObject) as IList
                     : null;
             IList dataSource = new List<ImageComboBoxItem>();

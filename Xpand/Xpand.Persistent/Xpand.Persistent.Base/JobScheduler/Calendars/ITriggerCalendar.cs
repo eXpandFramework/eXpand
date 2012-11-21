@@ -1,6 +1,5 @@
-using System;
 using DevExpress.Xpo;
-using DevExpress.XtraScheduler;
+using TimeZoneId = Xpand.Persistent.Base.JobScheduler.Triggers.TimeZoneId;
 
 namespace Xpand.Persistent.Base.JobScheduler.Calendars {
     public interface ITriggerCalendar {

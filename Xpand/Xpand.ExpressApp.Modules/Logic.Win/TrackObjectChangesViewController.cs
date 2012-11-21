@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 
 namespace Xpand.ExpressApp.Logic.Win {
     /// <summary>
@@ -15,7 +16,7 @@ namespace Xpand.ExpressApp.Logic.Win {
         protected override void OnViewChanging(View view) {
             base.OnViewChanging(view);
             Active[ActiveKeyAllowTrackObjectChanges] = AllowTrackObjectChanges;
-            Active[ActiveKeyIsRootObjectSpace] = !(view.ObjectSpace is NestedObjectSpace);
+            Active[ActiveKeyIsRootObjectSpace] = !(view.ObjectSpace is XPNestedObjectSpace);
         }
 
         protected override void OnActivated() {
@@ -25,7 +26,7 @@ namespace Xpand.ExpressApp.Logic.Win {
 
         private void Application_ViewShown(object sender, ViewShownEventArgs e) {
             if (e.TargetFrame != null && e.TargetFrame.View != null) {
-                if (!(e.TargetFrame.View.ObjectSpace is NestedObjectSpace)) {
+                if (!(e.TargetFrame.View.ObjectSpace is XPNestedObjectSpace)) {
                     e.TargetFrame.View.ObjectSpace.Committed += ObjectSpace_Committed;
                 }
             }

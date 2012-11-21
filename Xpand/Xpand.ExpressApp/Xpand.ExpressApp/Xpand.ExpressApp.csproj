@@ -134,6 +134,7 @@
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="DynamicSecuritySystemObjects.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
+    <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">
@@ -159,10 +160,19 @@
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ColumnOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\Dashboard\DashboardInteraction.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\Dashboard\Model.cs" />
+    <Compile Include="SystemModule\GridOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\OptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -211,7 +221,6 @@
     <Compile Include="ComponentInterfaces.cs" />
     <Compile Include="IXpandObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
-    <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
     <Compile Include="Attributes\CloneViewAttribute.cs" />
     <Compile Include="XpandListView.cs" />
@@ -243,9 +252,6 @@
     <Compile Include="SystemModule\Actions\DisableActionsLinqListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\ConnectionInfoStatusMessageController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -264,12 +270,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FKViolationViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\GridOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\OptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideFromNewMenuViewController.cs">

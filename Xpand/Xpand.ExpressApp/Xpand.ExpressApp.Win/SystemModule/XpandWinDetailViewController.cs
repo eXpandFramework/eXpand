@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassRollBackObjectChangesOnCurrentObjectChange : IModelNode {
@@ -24,7 +23,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassRollBackObjectChangesOnCurrentObjectChange>();
             extenders.Add<IModelObjectView, IModelViewRollBackChangesBeforeViewChanges>();
-            extenders.Add<IModelListView, IModelLayoutViewListView>();
+            
         }
     }
 }

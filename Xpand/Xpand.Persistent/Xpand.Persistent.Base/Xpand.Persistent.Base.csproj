@@ -129,6 +129,7 @@
     <Compile Include="General\PictureItemEventArgs.cs" />
     <Compile Include="General\CustomAttributes\PropertyEditorAttribute.cs" />
     <Compile Include="General\PropertyEditorProperty.cs" />
+    <Compile Include="General\RegistryTimeZoneProvider.cs" />
     <Compile Include="General\RelationType.cs" />
     <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
     <Compile Include="General\ReservedMember.cs" />

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Workflow;
+using DevExpress.ExpressApp.Xpo.Updating;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.Workflow {
                 }
                 foreach (object objectToUpdate in ObjectSpace.GetObjects(objectsTypeInfo.Type)) {
                     var currentXaml = xamlMemberInfo.GetValue(objectToUpdate) as string;
-                    string updatedXaml = WorkflowDefinitionsUpdater.UpdateDxAssembliesVersions(currentXaml, oldVersion,newVersion);
+                    string updatedXaml = WorkflowDefinitionsUpdater.UpdateDxAssembliesVersions(currentXaml, oldVersion, newVersion);
                     xamlMemberInfo.SetValue(objectToUpdate, updatedXaml);
                     ObjectSpace.SetModified(objectToUpdate);
                 }
@@ -36,16 +37,16 @@ namespace Xpand.ExpressApp.Workflow {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            Version currentModuleVersion = typeof (WorkflowModule).Assembly.GetName().Version;
+            Version currentModuleVersion = typeof(WorkflowModule).Assembly.GetName().Version;
             var workflowModuleInfo = ObjectSpace.FindObject<ModuleInfo>(new BinaryOperator("Name", "WorkflowModule"));
             if (workflowModuleInfo != null) {
                 var dbModuleVersion = new Version(workflowModuleInfo.Version);
                 if (dbModuleVersion < currentModuleVersion) {
                     if (dbModuleVersion.Major != currentModuleVersion.Major ||
                         dbModuleVersion.Minor != currentModuleVersion.Minor) {
-                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof (ScheduledWorkflow)),
+                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ScheduledWorkflow)),
                                             dbModuleVersion, currentModuleVersion);
-                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof (ObjectChangedWorkflow)),
+                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ObjectChangedWorkflow)),
                                             dbModuleVersion, currentModuleVersion);
                     }
                 }

@@ -139,9 +139,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\IOViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\IOViewController.cs" />
     <Compile Include="IOAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
