@@ -136,6 +136,7 @@
     <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
     <Compile Include="MetaData\XpandCodeMemberInfo.cs" />
     <Compile Include="MetaData\XpandCustomMemberInfo.cs" />
+    <Compile Include="ExpressionVisitor.cs" />
     <Compile Include="XpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />
     <Compile Include="ISupportChangedMembers.cs" />
