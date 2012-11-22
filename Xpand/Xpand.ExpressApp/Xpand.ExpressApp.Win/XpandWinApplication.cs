@@ -176,9 +176,8 @@ namespace Xpand.ExpressApp.Win {
             if (applicationBase.Id == "Application") {
                 var list = new List<ModelApplicationBase>();
                 while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId) {
-                    var modelApplicationBase = applicationBase.LastLayer;
-                    list.Add(modelApplicationBase);
-                    ModelApplicationHelper.RemoveLayer(modelApplicationBase);
+                    list.Add(applicationBase.LastLayer);
+                    ModelApplicationHelper.RemoveLayer(applicationBase);
                 }
                 var modelTemplate = base.GetTemplateCustomizationModel(template);
                 foreach (var modelApplicationBase in list) {
