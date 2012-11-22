@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Core;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
@@ -17,6 +18,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
@@ -73,7 +75,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         ColumnsListEditor GridListEditor {
-            get { return listView.Editor as ColumnsListEditor; }
+            get {
+                var columnsListEditor = listView.Editor as ColumnsListEditor;
+                return !(columnsListEditor is GridListEditor) && !(columnsListEditor is IColumnViewEditor)
+                           ? null
+                           : columnsListEditor;
+            }
         }
 
         void listView_ControlsCreated(object sender, EventArgs e) {
