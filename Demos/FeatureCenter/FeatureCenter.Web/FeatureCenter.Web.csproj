@@ -357,9 +357,7 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ApplicationCode\WebApplication.cs" />
     <Compile Include="Dialog.aspx.cs">
       <DependentUpon>Dialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

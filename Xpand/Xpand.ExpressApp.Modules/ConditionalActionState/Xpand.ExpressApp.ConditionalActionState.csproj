@@ -140,16 +140,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConditionalActionStateModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ConditionalActionStateModule.cs" />
     <Compile Include="DomainLogic\ActionStateRuleDomainLogic.cs" />
     <Compile Include="Logic\ActionState.cs" />
     <Compile Include="Logic\ActionStateRule.cs" />
     <Compile Include="Logic\ActionStateRuleAttribute.cs" />
-    <Compile Include="Logic\ActionStateRuleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Logic\ActionStateRuleController.cs" />
     <Compile Include="Logic\IActionStateRule.cs" />
     <Compile Include="Model\IModelControllerStateRule.cs" />
     <Compile Include="NodeUpdaters\ActionStateDefaultContextNodeUpdater.cs" />
@@ -160,12 +156,8 @@
     </Compile>
     <Compile Include="Security\Improved\ActionStateOperationPermissionData.cs" />
     <Compile Include="Security\Improved\ActionStateRulePermission.cs" />
-    <Compile Include="Security\Improved\PopulateActionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\PopulateActionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\Improved\PopulateActionsController.cs" />
+    <Compile Include="Security\PopulateActionsController.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

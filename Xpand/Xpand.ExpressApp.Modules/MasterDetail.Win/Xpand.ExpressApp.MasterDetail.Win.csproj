@@ -155,15 +155,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MasterDetailActionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MasterDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MasterDetailWindowsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MasterDetailActionsController.cs" />
+    <Compile Include="MasterDetailViewController.cs" />
+    <Compile Include="MasterDetailWindowsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
