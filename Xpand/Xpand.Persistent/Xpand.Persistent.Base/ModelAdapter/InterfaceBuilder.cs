@@ -58,6 +58,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         readonly List<StringBuilder> _builders;
         Dictionary<Type, string> _createdInterfaces;
         string _assemblyName;
+        static bool _loadFromPath;
+        static bool _fileExistInPath;
 
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this() {
@@ -78,7 +80,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static bool LoadFromCurrentDomain { get; set; }
-        public static bool LoadFromPath { get; set; }
+        public static bool LoadFromPath {
+            get { return !Debugger.IsAttached && RuntimeMode && _fileExistInPath || _loadFromPath; }
+            set { _loadFromPath = value; }
+        }
 
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
@@ -92,7 +97,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string[] references = _referencesCollector.references.ToArray();
             if (LoadFromCurrentDomain)
                 return LoadFromDomain(assemblyFilePath);
-            if (LoadFromPath && File.Exists(assemblyFilePath))
+            _fileExistInPath = File.Exists(assemblyFilePath);
+            if (LoadFromPath && _fileExistInPath)
                 return Assembly.LoadFile(assemblyFilePath);
             return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
         }
