@@ -124,7 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Permissions\OverallCustomizationAllowedPermission.cs" />
-    <Compile Include="XpandSecurityModule.cs" />
+    <Compile Include="XpandSecurityModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

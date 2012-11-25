@@ -143,7 +143,9 @@
     <Compile Include="Observers\SerializationConfigurationObserver.cs" />
     <Compile Include="Core\ExportEngine.cs" />
     <Compile Include="Core\TypesInfo.cs" />
-    <Compile Include="IOModule.cs" />
+    <Compile Include="IOModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PersistentTypesHelpers\SerializationConfigurationQuery.cs" />
     <Compile Include="PersistentTypesHelpers\ClassInfoGraphNodeBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -124,14 +124,18 @@
     <Compile Include="Logic\ConditionalDetailViewRule.cs" />
     <Compile Include="Logic\ConditionalDetailViewRuleAttribute.cs" />
     <Compile Include="Logic\IConditionalDetailViewRule.cs" />
-    <Compile Include="Logic\ConditionalDetailViewRuleController.cs" />
+    <Compile Include="Logic\ConditionalDetailViewRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\IModelApplicationConditionalDetailView.cs" />
     <Compile Include="Model\IModelConditionalDetailViewRule.cs" />
     <Compile Include="Model\IModelLogicConditionalDetailView.cs" />
     <Compile Include="NodeUpdaters\ConditionalDetailViewDefaultContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ConditionalDetailViewDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ConditionalDetailViewRulesNodeUpdater.cs" />
-    <Compile Include="ConditionalDetailViewModule.cs" />
+    <Compile Include="ConditionalDetailViewModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

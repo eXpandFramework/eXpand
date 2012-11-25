@@ -139,12 +139,16 @@
     <Compile Include="Security\IStateMachineTransitionPermission.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationPermissionData.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionPermission.cs" />
-    <Compile Include="Security\StateMachinePopulateController.cs" />
+    <Compile Include="Security\StateMachinePopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\StateMachineTransitionPermission.cs" />
     <Compile Include="Security\StatePermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandStateMachineModule.cs" />
+    <Compile Include="XpandStateMachineModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
