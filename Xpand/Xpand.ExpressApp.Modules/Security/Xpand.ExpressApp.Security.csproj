@@ -143,9 +143,7 @@
     <Compile Include="Core\SecuritySystemExtensions.cs" />
     <Compile Include="Core\XpandRole.cs" />
     <Compile Include="Permissions\XpandPermissionData.cs" />
-    <Compile Include="XpandSecurityModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSecurityModule.cs" />
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />

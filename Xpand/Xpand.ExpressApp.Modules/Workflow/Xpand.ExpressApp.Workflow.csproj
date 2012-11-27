@@ -181,9 +181,7 @@
     <Compile Include="XpandWorkflowDefinitionsUpdater.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="XpandWorkFlowModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandWorkFlowModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="ObjectChangedWorkflows\ObjectChangedXpoStartWorkflowRequest.cs" />

@@ -138,18 +138,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\TreeListOptionsController.cs" />
     <Compile Include="Controllers\TreeNavigationOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
     <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="ListEditors\XpandASPxTreeListEditor.cs" />
-    <Compile Include="XpandTreeListEditorsAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandTreeListEditorsAspNetModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

@@ -166,9 +166,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\PivotGridModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\PivotGridModelAdapterController.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="NetIncome\NetIncomeController.cs">
       <SubType>Component</SubType>
@@ -185,9 +183,7 @@
     <Compile Include="TopObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandPivotGridWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandPivotGridWinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
