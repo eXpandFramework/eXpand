@@ -1,5 +1,4 @@
 @echo off
-set dxver=v11.2
 set configuration=Debug
 set vsver=vs2010
 rem uncomment the line bellow if you not use vs2010
@@ -43,4 +42,4 @@ set vbtemplates="%ProgramFiles%\Microsoft Visual Studio 10.0\Common7\IDE\Project
 set devenv="%ProgramFiles%\Microsoft Visual Studio 10.0\Common7\IDE\"
 goto end
 
-:endz
+:end
