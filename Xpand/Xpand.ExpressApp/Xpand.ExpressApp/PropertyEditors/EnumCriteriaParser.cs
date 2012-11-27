@@ -106,7 +106,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
             if ((ReferenceEquals(operandProperty, null)) ||
                 (!operandProperty.PropertyName.Equals(PropertyName)))
                 UnsupportedCriteria();
-            if (operandProperty != null) operandProperty.PropertyName = "Value";
+            if (!ReferenceEquals(operandProperty, null)) operandProperty.PropertyName = "Value";
         }
 
         void ToValue(IList<CriteriaOperator> operands) {
@@ -121,8 +121,9 @@ namespace Xpand.ExpressApp.PropertyEditors {
 
             string valueName;
 
-            if (operand is OperandProperty)
-                valueName = ((OperandProperty)operand).PropertyName;
+            var property = operand as OperandProperty;
+            if (property != null)
+                valueName = property.PropertyName;
             else if (operand is OperandValue && ((OperandValue)operand).Value is string)
                 valueName = (string)((OperandValue)operand).Value;
             else
