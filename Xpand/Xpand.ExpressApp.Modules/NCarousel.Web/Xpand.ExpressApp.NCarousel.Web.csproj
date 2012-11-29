@@ -124,7 +124,9 @@
   <ItemGroup>
     <Compile Include="NCarousel.cs" />
     <Compile Include="NCarouselListEditor.cs" />
-    <Compile Include="NCarouselWebModule.cs" />
+    <Compile Include="NCarouselWebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
