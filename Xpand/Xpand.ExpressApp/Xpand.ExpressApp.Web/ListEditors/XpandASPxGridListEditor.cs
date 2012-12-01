@@ -23,9 +23,8 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 _inGetFocusedObject = true;
                 if (_gridView.FocusedRowIndex == -1)
                     return null;
-                return collectionSource.List[_gridView.FocusedRowIndex];
-            }
-            finally {
+                return _gridView.GetRow(_gridView.FocusedRowIndex);
+            } finally {
                 _inGetFocusedObject = false;
             }
 
@@ -67,7 +66,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
 
 
-        
+
         public override object FocusedObject {
             get {
                 if (MasterDetail)
@@ -78,8 +77,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 if (MasterDetail) {
                     if (value != null)
                         Grid.FocusedRowIndex = Grid.FindVisibleIndexByKeyValue(ObjectSpace.GetKeyValue(value));
-                }
-                else
+                } else
                     base.FocusedObject = value;
             }
         }
@@ -90,8 +88,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                     base.OnFocusedObjectChanged();
                     _lastFiredFocusedObject = FocusedObject;
                 }
-            }
-            else {
+            } else {
                 base.OnFocusedObjectChanged();
             }
         }
@@ -110,7 +107,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             }
         }
 
-        public override void Setup(DevExpress.ExpressApp.CollectionSourceBase collectionSource, DevExpress.ExpressApp.XafApplication application) {
+        public override void Setup(CollectionSourceBase collectionSource, XafApplication application) {
             base.Setup(collectionSource, application);
             CollectionSource.CriteriaApplied += CollectionSource_CriteriaApplied;
         }
@@ -120,8 +117,8 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             if (Grid != null) Grid.FocusedRowIndex = -1;
             OnFocusedObjectChanged();
         }
-            
-        private static void SetFirstRowChangeAfterInit(DevExpress.Web.ASPxGridView.ASPxGridView grid, bool value) {
+
+        private static void SetFirstRowChangeAfterInit(ASPxGridView grid, bool value) {
             grid.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
                 "function (s,e) {{ s.firstRowChangedAfterInit = {0};}}", value ? "true" : "false");
         }

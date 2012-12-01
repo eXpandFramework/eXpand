@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Xpo;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator;
@@ -13,7 +12,6 @@ using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
 using Xpand.ExpressApp.ModelDifference;
-using Xpand.Persistent.BaseImpl;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 
@@ -36,9 +34,13 @@ namespace FeatureCenter.Module {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
 
-            var memberInfo = (XafMemberInfo)typesInfo.FindTypeInfo(typeof(SequenceObject)).KeyMember;
-            memberInfo.RemoveAttributes<SizeAttribute>();
-            memberInfo.AddAttribute(new SizeAttribute(NewSize));
+            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WhatsNewAttribute>() != null).OrderBy(typeInfo => typeInfo.FindAttribute<WhatsNewAttribute>().Date);
+            foreach (var typeInfo in typeInfos) {
+                var whatsNewAttribute = typeInfo.FindAttribute<WhatsNewAttribute>();
+                var xpandNavigationItemAttribute = whatsNewAttribute.XpandNavigationItemAttribute;
+                typeInfo.AddAttribute(new XpandNavigationItemAttribute("Whats New/" + xpandNavigationItemAttribute.Path, xpandNavigationItemAttribute.ViewId, xpandNavigationItemAttribute.ObjectKey));
+            }
+
         }
 
         public new static XafApplication Application {
@@ -51,8 +53,7 @@ namespace FeatureCenter.Module {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
 
-            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.Where(
-                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).SingleOrDefault();
+            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.SingleOrDefault(mbase => mbase is ModelDifferenceBaseModule);
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
         }
