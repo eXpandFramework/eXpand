@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -40,7 +41,10 @@ namespace Xpand.ExpressApp {
             if (!String.IsNullOrEmpty(baseImplName)) {
                 assemblyString = baseImplName;
             }
-            _baseImplAssembly = Assembly.Load(assemblyString);
+            try {
+                _baseImplAssembly = Assembly.Load(assemblyString);
+            } catch (FileNotFoundException) {
+            }
             if (_baseImplAssembly == null)
                 throw new NullReferenceException(
                     "BaseImpl not found please reference it in your front end project and set its Copy Local=true");
@@ -108,7 +112,7 @@ namespace Xpand.ExpressApp {
             var typesList = new ExportedTypeCollection();
             try {
                 TypesInfo.LoadTypes(assembly);
-                if (assembly == typeof(XPObject).Assembly) {
+                if (Equals(assembly, typeof(XPObject).Assembly)) {
                     typesList.AddRange(XpoTypeInfoSource.XpoBaseClasses);
                 } else {
                     typesList.AddRange(assembly.GetTypes());
@@ -178,8 +182,9 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (!ApplicationType().IsInstanceOfType(application))
-                throw new TypeInitializationException(application.GetType().FullName, new Exception("Please derive your " + application.GetType().FullName + " from either XpandWinApplication or XpandWebApplication"));
+            Type applicationType = ApplicationType();
+            if (!applicationType.IsInstanceOfType(application))
+                throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " + applicationType.FullName);
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);

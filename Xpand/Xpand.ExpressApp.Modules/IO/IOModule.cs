@@ -1,18 +1,13 @@
-using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.TreeListEditors;
 using Xpand.ExpressApp.IO.NodeUpdaters;
 using Xpand.ExpressApp.ModelArtifactState;
-using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.IO {
     [ToolboxItem(false)]
     public sealed class IOModule : XpandModuleBase {
-        public IOModule() {
-            RequiredModuleTypes.Add(typeof(XpandSystemModule));
-        }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);

@@ -122,7 +122,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
             string valueName;
 
             var property = operand as OperandProperty;
-            if (property != null)
+            if (!ReferenceEquals(property, null))
                 valueName = property.PropertyName;
             else if (operand is OperandValue && ((OperandValue)operand).Value is string)
                 valueName = (string)((OperandValue)operand).Value;

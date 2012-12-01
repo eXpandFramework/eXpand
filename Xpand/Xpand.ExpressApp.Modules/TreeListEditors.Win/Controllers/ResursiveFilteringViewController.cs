@@ -32,7 +32,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             lookUpQueryPopUp = false;
 
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            filterControlListViewController.CustomAssignFilterControlSourceControl += CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl;
+            if (filterControlListViewController != null)
+                filterControlListViewController.CustomAssignFilterControlSourceControl += CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl;
         }
 
         private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args) {
