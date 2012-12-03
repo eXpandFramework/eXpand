@@ -1,9 +1,10 @@
 @echo off
-set dxver=v11.2
 set configuration=Debug
 set vsver=vs2010
 rem uncomment the line bellow if you not use vs2010
 rem set vsver=vs2008
+rem uncomment the line bellow if you not use vs2012
+rem set vsver=vs2012
 
 set msbuild="%WinDir%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
 
@@ -12,6 +13,17 @@ set Gac4path="%WinDir%\Microsoft.NET\assembly\GAC_MSIL\"
 
 if '%vsver%'=='vs2008' goto vs2008
 if '%vsver%'=='vs2010' goto vs2010
+if '%vsver%'=='vs2012' goto vs2012
+
+:vs2012
+set sn="%ProgramFiles%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\sn.exe"
+set gacutil="%ProgramFiles%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\gacutil.exe"
+set csharptemplates="%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\IDE\ProjectTemplates\CSharp\DevExpress XAF\"
+set vbtemplates="%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\IDE\ProjectTemplates\VisualBasic\DevExpress XAF\"
+set devenv="%ProgramFiles%\Microsoft Visual Studio 11.0\Common7\IDE\"
+goto end
+
+goto end
 
 :vs2008
 set sn="%ProgramFiles%\Microsoft SDKs\Windows\v6.0A\Bin\sn.exe"

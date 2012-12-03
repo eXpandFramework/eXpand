@@ -77,19 +77,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         protected override void ApplyModelCore() {
             var gridColumnCollection = GetColumnView().Columns;
             foreach (var modelColumn in Model.Columns.OfType<TModelColumn>()) {
-                var layoutViewColumn = gridColumnCollection[GetPropertyName(modelColumn)];
+                var layoutViewColumn = gridColumnCollection[modelColumn.PropertyName];
                 var columnOptions = GetColumnOptions(modelColumn);
                 if (columnOptions.NodeEnabled)
                     ApplyModel(columnOptions, layoutViewColumn, ApplyValues);
             }
         }
-
-        string GetPropertyName(TModelColumn modelColumn) {
-            return modelColumn.ModelMember.MemberInfo.LastMember.MemberTypeInfo.IsDomainComponent
-                       ? modelColumn.PropertyName + "!"
-                       : modelColumn.PropertyName;
-        }
-
 
         protected abstract DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView();
 
@@ -115,7 +108,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         readonly IColumnViewEditor _columnViewEditor;
 
         protected GridViewModelSynchronizer(IColumnViewEditor columnViewEditor)
-            : base((DevExpress.XtraGrid.Views.Grid.GridView)columnViewEditor.GridView, columnViewEditor.Model) {
+            : base((DevExpress.XtraGrid.Views.Grid.GridView)columnViewEditor.ColumnView, columnViewEditor.Model) {
             _columnsListEditor = (ColumnsListEditor)columnViewEditor;
             _columnsListEditor.ControlsCreated += ColumnsListEditorControlsCreated;
             _columnViewEditor = columnViewEditor;
@@ -204,13 +197,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             var modelListView = (IModelListView)Model;
             ModelSynchronizerList.Add(new FooterVisibleModelSynchronizer(columnViewEditor, modelListView));
             ModelSynchronizerList.Add(new ColumnsListEditorModelSynchronizer((ColumnsListEditor)columnViewEditor, modelListView));
-            ((IColumnViewEditor)Control).GridView.ColumnPositionChanged += Control_Changed;
+            ((IColumnViewEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
         }
         public override void Dispose() {
             base.Dispose();
             var gridListEditor = Control as IColumnViewEditor;
-            if (gridListEditor != null && gridListEditor.GridView != null) {
-                gridListEditor.GridView.ColumnPositionChanged -= Control_Changed;
+            if (gridListEditor != null && gridListEditor.ColumnView != null) {
+                gridListEditor.ColumnView.ColumnPositionChanged -= Control_Changed;
             }
         }
     }

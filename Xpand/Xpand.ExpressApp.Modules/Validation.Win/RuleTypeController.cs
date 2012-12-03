@@ -6,11 +6,12 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Validation.Win {
 
@@ -18,8 +19,8 @@ namespace Xpand.ExpressApp.Validation.Win {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (ListEditor != null && ListEditor.GridView is IQueryErrorType) {
-                ((IQueryErrorType)((ListEditor).GridView)).QueryErrorType += GridViewOnQueryErrorType;
+            if (ListEditor != null && ListEditor.GridView() is IQueryErrorType) {
+                ((IQueryErrorType)((ListEditor).GridView())).QueryErrorType += GridViewOnQueryErrorType;
             }
         }
 
@@ -44,11 +45,11 @@ namespace Xpand.ExpressApp.Validation.Win {
             var critical = (ErrorType)enumDescriptor.ParseCaption(RuleType.Critical.ToString());
             if (errorTypeEventArgs.Column != null && errorTypeEventArgs.ErrorType == critical) {
                 if (View.ObjectTypeInfo.Type != typeof(DisplayableValidationResultItem)) {
-                    var xafGridColumn = ((XafGridColumn)errorTypeEventArgs.Column);
-                    var caption = GetRuleType(xafGridColumn.PropertyName).ToString();
+                    var xafGridColumn = errorTypeEventArgs.Column;
+                    var caption = GetRuleType(xafGridColumn.PropertyName()).ToString();
                     errorTypeEventArgs.ErrorType = (ErrorType)enumDescriptor.ParseCaption(caption);
                 } else {
-                    var resultItem = (DisplayableValidationResultItem)((XafGridView)sender).GetRow(errorTypeEventArgs.RowHandle);
+                    var resultItem = (DisplayableValidationResultItem)((GridView)sender).GetRow(errorTypeEventArgs.RowHandle);
                     if (resultItem.Rule != null) {
                         var warning = ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[resultItem.Rule.Id]);
                         if (warning != null)
@@ -62,8 +63,8 @@ namespace Xpand.ExpressApp.Validation.Win {
             return (from pair in Dictionary let ruleSetValidationResultItem = pair.Value.FirstOrDefault(item => item.Rule.UsedProperties.Contains(propertyName)) where ruleSetValidationResultItem != null select pair.Key).FirstOrDefault();
         }
 
-        public GridListEditor ListEditor {
-            get { return View is ListView ? ((ListView)View).Editor as GridListEditor : null; }
+        public ColumnsListEditor ListEditor {
+            get { return View is ListView ? ((ListView)View).Editor as ColumnsListEditor : null; }
         }
     }
 }

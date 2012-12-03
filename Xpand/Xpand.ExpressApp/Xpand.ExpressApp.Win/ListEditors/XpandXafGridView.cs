@@ -1,22 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.DXErrorProvider;
-using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 
 namespace Xpand.ExpressApp.Win.ListEditors {
     public interface IQueryErrorType {
         event EventHandler<ErrorTypeEventArgs> QueryErrorType;
     }
-
+    [Obsolete("", true)]
     public class XpandXafGridView : XafGridView, IQueryErrorType {
         public event EventHandler<ErrorTypeEventArgs> QueryErrorType;
 

@@ -61,11 +61,11 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.Win.XpandSecurityWinModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Chart.Win.XpandChartWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.Win.ReportsWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule));
         }
 
         #endregion

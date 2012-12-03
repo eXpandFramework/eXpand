@@ -38,8 +38,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (GridListEditor != null && GridListEditor.GridView is IMasterDetailColumnView) {
-                var gridView = ((IMasterDetailColumnView)GridListEditor.GridView);
+            if (GridListEditor != null && GridListEditor.ColumnView is IMasterDetailColumnView) {
+                var gridView = ((IMasterDetailColumnView)GridListEditor.ColumnView);
                 var synchronizeActions = SynchronizeActions();
                 if (gridView.MasterFrame == null && HasRules) {
                     if (synchronizeActions) {
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             if (Frame != null) {
                 foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
                     foreach (var action in controller.Actions) {
-                        if (viewFocusEventArgs.View != GridListEditor.GridView.GridControl.MainView && _activeChildBoolLists.Any()) {
+                        if (viewFocusEventArgs.View != GridListEditor.ColumnView.GridControl.MainView && _activeChildBoolLists.Any()) {
                             var gridView = (DevExpress.XtraGrid.Views.Base.ColumnView)viewFocusEventArgs.View;
                             RestoreStates(action, action.Active, GetChildBoolList(_activeChildBoolLists, gridView));
                             RestoreStates(action, action.Enabled, GetChildBoolList(_enableChildBoolLists, gridView));

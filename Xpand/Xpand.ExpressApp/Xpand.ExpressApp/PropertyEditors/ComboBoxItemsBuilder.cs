@@ -40,16 +40,41 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
+            PropertyChangedEventHandler propertyChangedEventHandler = (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+
             if (_propertyEditor.ObjectTypeInfo.IsPersistent) {
                 ((IObjectSpaceHolder)_propertyEditor).ObjectSpace.ObjectChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
             } else {
-                ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
+                if (currentObject != null)
+                    ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += propertyChangedEventHandler;
             }
+
+            BuildFromDataSourceWhenCurrentObjectChanges(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, propertyChangedEventHandler);
+
             var b = itemsCalculating.Invoke();
             if (!b) {
                 var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
                 itemsCalculated.Invoke(boxItems, false);
             }
+        }
+
+
+        void BuildFromDataSourceWhenCurrentObjectChanges(DataSourcePropertyAttribute dataSourcePropertyAttribute,
+                                                         Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating,
+                                                         PropertyChangedEventHandler propertyChangedEventHandler) {
+            _propertyEditor.CurrentObjectChanged += (sender, args) => {
+                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
+                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && currentObject != null)
+                    currentObject.PropertyChanged += propertyChangedEventHandler;
+                BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, null);
+            };
+
+            _propertyEditor.CurrentObjectChanging += (sender, args) => {
+                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
+                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && currentObject != null)
+                    currentObject.PropertyChanged -= propertyChangedEventHandler;
+            };
         }
 
         void BuildFromDatasourceCore(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating, string propertyName) {

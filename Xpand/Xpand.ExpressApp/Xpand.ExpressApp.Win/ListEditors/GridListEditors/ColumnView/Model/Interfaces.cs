@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     public interface IModelOptionsColumnView : IModelNodeEnabled {
 
     }
-
+    [ModelAbstractClass]
     public interface IModelColumnOptionsColumnView : IModelColumn {
 
     }

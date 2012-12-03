@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             if (editor == null)
                 return;
 
-            var columnView = editor.GridView as IMasterDetailColumnView;
+            var columnView = editor.ColumnView as IMasterDetailColumnView;
             if (editor.Grid != null) {
                 editor.Grid.ViewRegistered -= Grid_ViewRegistered;
                 editor.Grid.ViewRemoved -= Grid_ViewRemoved;
@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             if (columnViewEditor != null && IsMasterDetail()) {
                 Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=
                     ShowNavigationItemActionOnExecuting;
-                var view = (IMasterDetailColumnView)(columnViewEditor).GridView;
+                var view = (IMasterDetailColumnView)(columnViewEditor).ColumnView;
                 var grid = (columnViewEditor).Grid;
                 grid.ViewRegistered += Grid_ViewRegistered;
                 grid.ViewRemoved += Grid_ViewRemoved;

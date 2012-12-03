@@ -10,23 +10,22 @@ using Xpand.ExpressApp.PivotChart.Core;
 
 namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
     public class ShowInAnalysisViewController : ViewController<ObjectView> {
-        readonly SingleChoiceAction showInAnalysisActionCore;
+        readonly SingleChoiceAction _showInAnalysisActionCore;
 
         public ShowInAnalysisViewController() {
-            showInAnalysisActionCore = new SingleChoiceAction(this, "ShowInAnalysis", PredefinedCategory.RecordEdit) 
-                                       {
-                                           Caption = "Show in Analysis",
-                                           ToolTip = "Show selected records in a analysis",
-                                           ImageName = "BO_Analysis"
-                                       };
-            showInAnalysisActionCore.Execute += showInReportAction_Execute;
-            showInAnalysisActionCore.ItemType = SingleChoiceActionItemType.ItemIsOperation;
-            showInAnalysisActionCore.SelectionDependencyType = SelectionDependencyType.RequireMultipleObjects;
+            _showInAnalysisActionCore = new SingleChoiceAction(this, "ShowInAnalysis", PredefinedCategory.RecordEdit) {
+                Caption = "Show in Analysis",
+                ToolTip = "Show selected records in a analysis",
+                ImageName = "BO_Analysis"
+            };
+            _showInAnalysisActionCore.Execute += showInReportAction_Execute;
+            _showInAnalysisActionCore.ItemType = SingleChoiceActionItemType.ItemIsOperation;
+            _showInAnalysisActionCore.SelectionDependencyType = SelectionDependencyType.RequireMultipleObjects;
 
         }
 
         public SingleChoiceAction ShowInAnalysisAction {
-            get { return showInAnalysisActionCore; }
+            get { return _showInAnalysisActionCore; }
         }
 
         void showInReportAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
@@ -38,7 +37,7 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         protected void ShowInAnalysis(SingleChoiceActionExecuteEventArgs e) {
             var os = Application.CreateObjectSpace();
-            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
+            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
             var report =
                 os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, e.SelectedChoiceActionItem.Data) as IAnalysisInfo;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, report);
@@ -61,28 +60,28 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         protected override void OnActivated() {
             var os = Application.CreateObjectSpace();
-            List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application,View.ObjectTypeInfo.Type);
-            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
+            List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application, View.ObjectTypeInfo.Type);
+            var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
             List<ChoiceActionItem> items = (from id in reportList
                                             let report =
                                                 os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, id) as IAnalysisInfo
                                             where report != null
                                             select new ChoiceActionItem(report.ToString(), id)).ToList();
             items.Sort(SortByCaption);
-            showInAnalysisActionCore.Items.Clear();
-            showInAnalysisActionCore.Items.AddRange(items);
-            UpdateActionActivity(showInAnalysisActionCore);
+            _showInAnalysisActionCore.Items.Clear();
+            _showInAnalysisActionCore.Items.AddRange(items);
+            UpdateActionActivity(_showInAnalysisActionCore);
             base.OnActivated();
         }
 
         protected override void UpdateActionActivity(ActionBase action) {
             base.UpdateActionActivity(action);
-            action.Active["VisibleInReports"] =((IModelClassReportsVisibility) View.Model.ModelClass).IsVisibleInReports;
+            action.Active["VisibleInReports"] = ((IModelClassReportsVisibility)View.Model.ModelClass).IsVisibleInReports;
         }
 
         protected override void Dispose(bool disposing) {
             if (disposing) {
-                showInAnalysisActionCore.Execute -= showInReportAction_Execute;
+                _showInAnalysisActionCore.Execute -= showInReportAction_Execute;
             }
             base.Dispose(disposing);
         }

@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
@@ -66,10 +67,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
             return false;
         }
-
-
     }
-
 
     public abstract class ModelAdapterController : ViewController {
         protected IEnumerable<string> GetProperties(ModelInterfaceExtenders extenders, Type targetInterface) {
@@ -80,8 +78,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public string GetPath(string name) {
-            var directoryName = Path.GetDirectoryName(GetType().Assembly.Location);
-            return Path.Combine(directoryName + "", "ModelAdaptor" + name + ".dll");
+            var applicationFolder = Path.Combine(PathHelper.GetApplicationFolder(), "ModelAdaptor/" + AssemblyInfo.FileVersion);
+            var path2 = "ModelAdaptor" + name + ".dll";
+            return Path.Combine(applicationFolder + "", path2);
         }
     }
 

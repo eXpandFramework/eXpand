@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
         public string StateMachineName { get; set; }
         public string StateCaption { get; set; }
         public override object GetHashObject() {
-            return typeof(StateMachineTransitionOperationRequest).GetHashCode();
+            return "StateMachineTransitionOperationRequest";
         }
 
         void IStateMachineTransitionPermission.SyncStateCaptions(IList<string> stateCaptions, string machineName) {

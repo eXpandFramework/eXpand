@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 
@@ -8,6 +7,7 @@ namespace Xpand.ExpressApp.Validation.Win {
     public sealed class XpandValidationWinModule : XpandModuleBase {
         public XpandValidationWinModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
         }
     }
 }

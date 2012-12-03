@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.Editors;
@@ -9,6 +10,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using System.Linq;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
     public class MemberLevelSecurityListViewViewController : ViewController<XpandListView> {
@@ -19,9 +21,9 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             base.OnViewControlsCreated();
             if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()) {
                 gridControl = (View.Control) as GridControl;
-                var gridListEditor = View.Editor as GridListEditor;
+                var gridListEditor = View.Editor as ColumnsListEditor;
                 if (gridControl != null && gridListEditor != null) {
-                    XafGridView xafGridView = gridListEditor.GridView;
+                    GridView xafGridView = gridListEditor.GridView();
                     xafGridView.CustomRowCellEdit += CustomRowCellEdit;
                     xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
                 }
@@ -51,11 +53,11 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             IMemberInfo memberInfo = View.ObjectTypeInfo.FindMember(e.Column.FieldName);
             IModelColumn modelColumn = GetModelColumn(memberInfo);
             if (modelColumn != null)
-                e.RepositoryItem = ((GridListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead, modelColumn, View.ObjectTypeInfo.Type);
+                e.RepositoryItem = ((ColumnsListEditor)View.Editor).RepositoryFactory().CreateRepositoryItem(canNotRead, modelColumn, View.ObjectTypeInfo.Type);
         }
 
         IModelColumn GetModelColumn(IMemberInfo memberInfo) {
-            return View.Model.Columns.Where(column => column.ModelMember != null && column.ModelMember.MemberInfo == memberInfo).SingleOrDefault();
+            return View.Model.Columns.SingleOrDefault(column => column.ModelMember != null && column.ModelMember.MemberInfo == memberInfo);
         }
 
         bool CanNotWrite(string fieldName, object baseObject) {

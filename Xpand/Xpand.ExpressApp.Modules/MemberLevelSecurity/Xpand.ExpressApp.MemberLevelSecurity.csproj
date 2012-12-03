@@ -57,20 +57,52 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.1.Core" />
-    <Reference Include="DevExpress.Data.v12.1" />
-    <Reference Include="DevExpress.ExpressApp.Security.v12.1" />
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1" />
-    <Reference Include="DevExpress.ExpressApp.v12.1" />
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.1" />
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.1" />
-    <Reference Include="DevExpress.Persistent.Base.v12.1" />
-    <Reference Include="DevExpress.Xpo.v12.1" />
-    <Reference Include="Xpand.ExpressApp" />
-    <Reference Include="Xpand.ExpressApp.Security" />
-    <Reference Include="Xpand.Persistent.Base" />
-    <Reference Include="Xpand.Utils" />
-    <Reference Include="Xpand.Xpo" />
+    <Reference Include="DevExpress.Printing.v12.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v12.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=10.1.5.179, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=0.0.9314.14, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.Xpo, Version=0.0.0.11, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -97,12 +129,8 @@
     </Compile>
     <Compile Include="MemberLevelObjectAccessComparer.cs">
     </Compile>
-    <Compile Include="MemberLevelSecurityModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MemberLevelSecurityModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MemberLevelSecurityModule.cs" />
+    <Compile Include="MemberLevelSecurityModuleBase.cs" />
     <Compile Include="MemberOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />

@@ -15,7 +15,6 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     public interface IModelToolTipController : IModelNode {
         [DataSourceProperty("ToolTipControllers")]
         [TypeConverter(typeof(StringToTypeConverterBase))]
-        [Required]
         Type ToolTipController { get; set; }
 
         [Browsable(false)]

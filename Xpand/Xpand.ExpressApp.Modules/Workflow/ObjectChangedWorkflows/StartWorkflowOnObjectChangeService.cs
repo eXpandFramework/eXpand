@@ -17,10 +17,10 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             ProcessRequestsToStartWorkflows();
         }
         protected virtual void OnRequestProcessed(IObjectSpace objectSpace, ObjectChangedXpoStartWorkflowRequest request) {
-            objectSpace.Delete(request);
-            objectSpace.CommitChanges();
+
         }
         public virtual void ProcessRequestsToStartWorkflows() {
+            var objectChangedXpoStartWorkflowRequests = new List<ObjectChangedXpoStartWorkflowRequest>();
             using (IObjectSpace objectSpace = ObjectSpaceProvider.CreateObjectSpace()) {
                 foreach (var request in objectSpace.GetObjects<ObjectChangedXpoStartWorkflowRequest>()) {
                     try {
@@ -28,6 +28,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
                         if (definition != null && definition.CanOpenHost) {
                             if (GetService<ObjectChangedStartWorkflowService>().StartWorkflow(definition.Name, request.TargetWorkflowUniqueId, request.TargetObjectKey, request.PropertyName, request.OldValue)) {
                                 OnRequestProcessed(objectSpace, request);
+                                objectChangedXpoStartWorkflowRequests.Add(request);
                             }
                         }
                     } catch (Exception e) {
@@ -36,6 +37,8 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
                         throw;
                     }
                 }
+                objectSpace.Delete(objectChangedXpoStartWorkflowRequests);
+                objectSpace.CommitChanges();
             }
         }
     }

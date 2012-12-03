@@ -1,14 +1,70 @@
 ﻿using System;
 using System.Windows.Forms;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using Xpand.ExpressApp.Win.Editors;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
+    [PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, false)]
+    public class FilterableEnumPropertyEditor : DXPropertyEditor, IComplexPropertyEditor {
+        private void UpdateControlWithCurrentObject() {
+            var control = Control as IGridInplaceEdit;
+            if (control != null)
+                control.GridEditingObject = CurrentObject;
+        }
+
+        protected override object CreateControlCore() {
+            return new XafEnumEdit();
+        }
+        protected override RepositoryItem CreateRepositoryItem() {
+            return new RepositoryItemXafEnumEdit();
+        }
+
+        protected override void SetupRepositoryItem(RepositoryItem item) {
+            base.SetupRepositoryItem(item);
+
+            var enumEditRepositoryItem = item as RepositoryItemXafEnumEdit;
+
+            if (enumEditRepositoryItem != null) enumEditRepositoryItem.Setup(Application, ObjectSpace, Model);
+
+            UpdateControlWithCurrentObject();
+        }
+        protected override void OnCurrentObjectChanged() {
+            base.OnCurrentObjectChanged();
+            UpdateControlWithCurrentObject();
+        }
+
+        public FilterableEnumPropertyEditor(Type objectType, IModelMemberViewItem model)
+            : base(objectType, model) {
+            ImmediatePostData = model.ImmediatePostData;
+        }
+
+        public new ComboBoxEdit Control {
+            get { return (ComboBoxEdit)base.Control; }
+        }
+
+        public void Setup(IObjectSpace objectSpace, XafApplication application) {
+            Application = application;
+            ObjectSpace = objectSpace;
+        }
+
+        public XafApplication Application {
+            get;
+            private set;
+        }
+        public IObjectSpace ObjectSpace {
+            get;
+            private set;
+        }
+    }
+
     [PropertyEditor(typeof(Enum), true)]
     public class EnumPropertyEditor : DXPropertyEditor {
         EnumDescriptor enumDescriptor;

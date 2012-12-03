@@ -56,15 +56,15 @@ namespace Xpand.ExpressApp.Core {
         static void RefreshLayers(ModelApplicationBase application, Func<ModelApplicationBase, ModelApplicationBase> func) {
             var modelApplicationBases = new List<ModelApplicationBase>();
             var lastLayer = application.LastLayer;
-            ModelApplicationHelper.RemoveLayer(lastLayer);
+            ModelApplicationHelper.RemoveLayer(application);
             var afterSetup = application.LastLayer;
-            ModelApplicationHelper.RemoveLayer(afterSetup);
+            ModelApplicationHelper.RemoveLayer(application);
             while (application.LastLayer.Id != "Unchanged Master Part") {
                 ModelApplicationBase modelApplicationBase = application.LastLayer;
                 modelApplicationBase = func.Invoke(modelApplicationBase);
                 if (modelApplicationBase != null)
                     modelApplicationBases.Add(modelApplicationBase);
-                ModelApplicationHelper.RemoveLayer(application.LastLayer);
+                ModelApplicationHelper.RemoveLayer(application);
             }
             modelApplicationBases.Reverse();
             foreach (var modelApplicationBase in modelApplicationBases) {

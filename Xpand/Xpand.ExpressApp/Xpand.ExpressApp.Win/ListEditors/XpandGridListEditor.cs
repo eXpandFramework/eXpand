@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.Win.ListEditors {
 
     }
 
-
+    [Obsolete("", true)]
     public class GridListEditorSynchronizer : DevExpress.ExpressApp.Win.Editors.GridListEditorSynchronizer {
         private readonly ModelSynchronizerList modelSynchronizerList;
         public GridListEditorSynchronizer(GridListEditor gridListEditor, IModelListView model)

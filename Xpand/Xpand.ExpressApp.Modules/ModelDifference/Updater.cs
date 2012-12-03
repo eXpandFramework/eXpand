@@ -24,10 +24,8 @@ namespace Xpand.ExpressApp.ModelDifference {
                 var differenceObjects = new Dictionary<object, string>();
 
                 if (ExecuteScalarCommand("Select COLUMNPROPERTY(OBJECT_ID('ModelDifferenceObject'), 'Model','ColumnId')", false) is int) {
-                    using (var reader = ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false))
-                    {
-                        while (reader.Read())
-                        {
+                    using (var reader = ExecuteReader("select [Oid], [Model] from [ModelDifferenceObject] where [Model] is not null", false)) {
+                        while (reader.Read()) {
                             differenceObjects.Add(reader[0], reader[1] as string);
                         }
                     }

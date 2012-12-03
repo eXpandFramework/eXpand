@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassGuessAutoFilterRowValuesFromFilter : IModelNode {
@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelListViewGuessAutoFilterRowValuesFromFilter : IModelClassGuessAutoFilterRowValuesFromFilter {
     }
 
-    public class GuessAutoFilterRowValuesFromFilterController : ListViewController<GridListEditor>, IModelExtender {
+    public class GuessAutoFilterRowValuesFromFilterController : ListViewController<ColumnsListEditor>, IModelExtender {
 
 
         #region IModelExtender Members
@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             var modelListViewGridViewOptions = ((IModelListViewGuessAutoFilterRowValuesFromFilter)View.Model);
             if (modelListViewGridViewOptions.GuessAutoFilterRowValuesFromFilter) {
-                XafGridView mainView = ((GridListEditor)View.Editor).GridView;
+                var mainView = ((ColumnsListEditor)View.Editor).GridView();
                 mainView.GuessAutoFilterRowValuesFromFilter();
             }
         }
