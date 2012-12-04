@@ -10,8 +10,8 @@ using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid.Views.Grid;
-using Xpand.ExpressApp.Win.ListEditors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 
 namespace Xpand.ExpressApp.Validation.Win {
 

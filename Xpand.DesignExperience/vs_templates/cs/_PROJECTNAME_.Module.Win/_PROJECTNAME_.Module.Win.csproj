@@ -153,6 +153,9 @@
     <Reference Include="DevExpress.XtraCharts.Wizard.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.2.Wizard">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraCharts.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
