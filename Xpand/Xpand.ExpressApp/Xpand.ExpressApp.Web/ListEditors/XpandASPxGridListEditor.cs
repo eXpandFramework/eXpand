@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
 using System.Globalization;
 
@@ -43,7 +44,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                         up.PerformCallback(s.GetFocusedRowIndex());} 
                     s.firstRowChangedAfterInit = false; }";
 
-            gridView.Settings.ShowVerticalScrollBar = true;
+            gridView.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
         }
 
         public IList GetSelectedObjects(object focusedObject) {

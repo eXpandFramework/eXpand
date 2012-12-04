@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.Logic {
             if (memberInfo.Owner.KeyMember == memberInfo) {
                 return true;
             }
-            return memberInfo.IsPublic && memberInfo.IsVisible && !memberInfo.IsStatic &&
+            return memberInfo.IsPublic && memberInfo.IsVisible &&
                    (memberInfo.MemberTypeInfo.IsDomainComponent || memberInfo.Owner.IsDomainComponent);
         }
 

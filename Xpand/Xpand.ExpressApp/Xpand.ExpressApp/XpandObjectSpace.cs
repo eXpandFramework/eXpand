@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp {
         }
     }
 
-    public class NestedXpandObjectSpace : NestedObjectSpace {
+    public class NestedXpandObjectSpace : XPNestedObjectSpace {
         public NestedXpandObjectSpace(IObjectSpace parentObjectSpace)
             : base(parentObjectSpace) {
         }

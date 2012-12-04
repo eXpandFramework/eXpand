@@ -25,10 +25,10 @@ namespace Xpand.ExpressApp.Editors {
 
 
         void ShowObjectActionOnExecute(object sender, PopupWindowShowActionExecuteEventArgs popupWindowShowActionExecuteEventArgs) {
-            Assign(popupWindowShowActionExecuteEventArgs,_supportSequenceObject);
+            Assign(popupWindowShowActionExecuteEventArgs, _supportSequenceObject);
         }
 
-        public void Assign(PopupWindowShowActionExecuteEventArgs popupWindowShowActionExecuteEventArgs,ISupportSequenceObject sequenceObject) {
+        public void Assign(PopupWindowShowActionExecuteEventArgs popupWindowShowActionExecuteEventArgs, ISupportSequenceObject sequenceObject) {
             var sequenceReleasedObject = ((ISequenceReleasedObject)popupWindowShowActionExecuteEventArgs.PopupWindow.View.CurrentObject);
             _sequenceReleasedObjectKey = popupWindowShowActionExecuteEventArgs.PopupWindow.View.ObjectSpace.GetKeyValue(popupWindowShowActionExecuteEventArgs.PopupWindow.View.CurrentObject);
             var sequence = sequenceReleasedObject.Sequence;
@@ -51,8 +51,8 @@ namespace Xpand.ExpressApp.Editors {
             args.View = _listView;
         }
 
-        public ListView CreateListView(XafApplication application, IObjectSpace objectSpace,ISupportSequenceObject supportSequenceObject) {
-            var nestedObjectSpace = (NestedObjectSpace)objectSpace.CreateNestedObjectSpace();
+        public ListView CreateListView(XafApplication application, IObjectSpace objectSpace, ISupportSequenceObject supportSequenceObject) {
+            var nestedObjectSpace = (XPNestedObjectSpace)objectSpace.CreateNestedObjectSpace();
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<ISequenceReleasedObject>();
             var collectionSource = application.CreateCollectionSource(nestedObjectSpace, objectType, application.FindListViewId(objectType));
             collectionSource.Criteria["ShowReleasedSequences"] = CriteriaOperator.Parse("TypeName=?", supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName);
@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.Editors {
         }
 
         ListView CreateListView(XafApplication application, IObjectSpace objectSpace) {
-            return CreateListView(application, objectSpace,_supportSequenceObject);
+            return CreateListView(application, objectSpace, _supportSequenceObject);
         }
 
         void ObjectSpaceOnCommitting(object sender, CancelEventArgs e) {

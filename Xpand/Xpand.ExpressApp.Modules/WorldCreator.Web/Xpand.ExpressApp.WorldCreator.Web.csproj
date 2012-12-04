@@ -57,34 +57,34 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.1.Core">
+    <Reference Include="DevExpress.Printing.v12.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.1">
+    <Reference Include="DevExpress.Data.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v12.1, Version=12.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.1">
+    <Reference Include="DevExpress.ExpressApp.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.1">
+    <Reference Include="DevExpress.Persistent.Base.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.1">
+    <Reference Include="DevExpress.Xpo.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -118,9 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorldCreatorWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WorldCreatorWebModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

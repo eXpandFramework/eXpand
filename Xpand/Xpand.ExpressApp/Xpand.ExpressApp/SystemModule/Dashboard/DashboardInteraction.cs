@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
 
         protected override void OnActivated() {
             base.OnActivated();
-            View.LayoutManager.CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
+            ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
             foreach (var item in View.GetItems<DashboardViewItem>()) {
                 var modelDashboardViewItem = (item.GetModel(View));
                 if (!(modelDashboardViewItem is IModelDashboardReportViewItem))
@@ -127,7 +127,7 @@ namespace Xpand.ExpressApp.SystemModule.DashBoard {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            View.LayoutManager.CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
+            ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
         }
 
         CriteriaOperator CriteriaSelectionOperator(ListView listView, IModelColumn filteredColumn) {

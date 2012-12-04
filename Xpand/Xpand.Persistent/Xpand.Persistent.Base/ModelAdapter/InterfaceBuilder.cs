@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
@@ -53,7 +52,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public class InterfaceBuilder {
         readonly ModelInterfaceExtenders _extenders;
         private const string NamePrefix = "IModel";
-        List<Type> _usingTypes;
+        readonly List<Type> _usingTypes;
         readonly ReferencesCollector _referencesCollector;
         readonly List<StringBuilder> _builders;
         Dictionary<Type, string> _createdInterfaces;
@@ -93,8 +92,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
-            _referencesCollector.GenUsingAndReference(_usingTypes.ToArray());
-            string[] references = _referencesCollector.references.ToArray();
+            _referencesCollector.Add(_usingTypes);
+            string[] references = _referencesCollector.References.ToArray();
             if (LoadFromCurrentDomain)
                 return LoadFromDomain(assemblyFilePath);
             _fileExistInPath = File.Exists(assemblyFilePath);
@@ -164,7 +163,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 _usingTypes.AddRange(data.ReferenceTypes);
                 CreateInterface(data.ComponentType, data.Act, data.BaseInterface, data.IsAbstract, data.RootBaseInterface);
             }
-            string usings = _referencesCollector.usings.Aggregate<string, string>(null, (current, @using) => current + ("using " + @using + ";" + Environment.NewLine));
+            string usings = _referencesCollector.Usings.Aggregate<string, string>(null, (current, @using) => current + ("using " + @using + ";" + Environment.NewLine));
             return usings + Environment.NewLine + string.Join(Environment.NewLine, _builders.Select(builder => builder.ToString()).ToArray());
         }
 
@@ -319,14 +318,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return null;
             }
             Type attributeType = attribute.GetType();
-            if (attributeType == typeof(DXDescriptionAttribute)) {
-                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
-            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
-                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
+            //            if (attributeType == typeof(DXDescriptionAttribute)) {
+            //                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
+            //            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
+            //                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
             if (attributeType == typeof(DefaultValueAttribute)) {
                 string value = GetStringValue(((DefaultValueAttribute)attribute).Value);
                 return string.Format(@"System.ComponentModel.DefaultValue({0})", value);
@@ -384,7 +383,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return string.Format(CultureInfo.InvariantCulture.NumberFormat, "({0})({1})", TypeToString(type), value);
         }
         string TypeToString(Type type) {
-            return HelperTypeGenerator.TypeToString(type, ref _usingTypes, true);
+            return HelperTypeGenerator.TypeToString(type, _usingTypes, true);
         }
 
         public void ExtendInteface(Type targetType, Type extenderType, Assembly assembly) {
@@ -460,7 +459,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             : this(calculatorType) {
             _linkValue = modelValueCalculatorAttribute.LinkValue;
             _nodeName = modelValueCalculatorAttribute.NodeName;
-            _nodeTypeName = modelValueCalculatorAttribute.NodeTypeName;
+            if (modelValueCalculatorAttribute.NodeType != null)
+                _nodeTypeName = modelValueCalculatorAttribute.NodeType.Name;
             _propertyName = modelValueCalculatorAttribute.PropertyName;
         }
 

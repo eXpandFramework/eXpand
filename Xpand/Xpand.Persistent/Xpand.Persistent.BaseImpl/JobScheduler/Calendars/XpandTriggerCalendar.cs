@@ -1,10 +1,10 @@
 ﻿using System;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.XtraScheduler;
-using DevExpress.XtraScheduler.Native;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Xpo;
+using RegistryTimeZoneProvider = Xpand.Persistent.Base.General.RegistryTimeZoneProvider;
+using TimeZoneId = Xpand.Persistent.Base.JobScheduler.Triggers.TimeZoneId;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
     public abstract class XpandTriggerCalendar : XpandCustomObject, ITriggerCalendar {

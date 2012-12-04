@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VSTemplate Version="2.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Standard Plug-in</Name>
+    <Description>
+    </Description>
+    <Icon>
+    </Icon>
+    <ProjectType>CSharp</ProjectType>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="_PROJECTNAME_.Module.Win.csproj" TargetFileName="$projectname$.Module_.Win.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true">Model.DesignedDiffs.xafml</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Updater.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">WinModule.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">WinModule.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true">WinModule.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true">Properties\AssemblyInfo.cs</ProjectItem>
+    </Project>
+    <References>
+      <Reference>
+        <Assembly>System.Drawing</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>System.Windows.Forms</Assembly>
+      </Reference>
+    </References>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>DevExpress.ExpressApp.TemplateWizard.v12.1, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
+    <FullClassName>DevExpress.ExpressApp.TemplateWizard.SolutionProjectWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

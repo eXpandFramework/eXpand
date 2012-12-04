@@ -69,10 +69,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         string GetNullText(IModelViewLayoutElement modelViewLayoutElement) {
             string nullText = null;
-            if (modelViewLayoutElement is IModelLayoutItem &&
-                (modelViewLayoutElement as IModelLayoutItem).ViewItem is IModelPropertyEditor) {
-                IModelMember modelMember =
-                    ((IModelPropertyEditor)(modelViewLayoutElement as IModelLayoutItem).ViewItem).ModelMember;
+            var modelLayoutViewItem = ((modelViewLayoutElement)) as IModelLayoutViewItem;
+            if (modelLayoutViewItem != null && modelLayoutViewItem.ViewItem is IModelPropertyEditor) {
+                var modelMember = ((IModelPropertyEditor)modelLayoutViewItem.ViewItem).ModelMember;
                 var modelMemberNullText = modelMember as IModelMemberNullText;
                 if (modelMemberNullText != null) {
                     nullText = (modelMemberNullText).NullText;

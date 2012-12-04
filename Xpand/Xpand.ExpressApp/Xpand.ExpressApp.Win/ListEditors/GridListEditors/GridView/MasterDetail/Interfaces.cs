@@ -127,6 +127,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         bool PostEditor();
         GridColumn GetVisibleColumn(int i);
         void StartIncrementalSearch(string searchString);
+        int GetVisibleIndex(int focusedRowHandle);
+        int GetVisibleRowHandle(int i);
     }
     public class CustomGetSelectedObjectsArgs : HandledEventArgs {
         public CustomGetSelectedObjectsArgs(IList list) {

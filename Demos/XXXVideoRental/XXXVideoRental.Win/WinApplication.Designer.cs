@@ -1,5 +1,6 @@
 
 
+using DevExpress.Persistent.BaseImpl;
 using XXXVideoRental.Module.Win;
 using Xpand.ExpressApp.Security.Core;
 
@@ -96,7 +97,7 @@ namespace XXXVideoRental.Win {
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
-            this.reportsModule1.ReportDataType = typeof(DevExpress.ExpressApp.Reports.ReportData);
+            this.reportsModule1.ReportDataType = typeof(ReportData);
             // 
             // validationModule1
             // 

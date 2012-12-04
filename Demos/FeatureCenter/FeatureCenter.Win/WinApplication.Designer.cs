@@ -1,5 +1,6 @@
 
 
+using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
@@ -121,7 +122,7 @@ namespace FeatureCenter.Win {
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
-            this.reportsModule1.ReportDataType = typeof(DevExpress.ExpressApp.Reports.ReportData);
+            this.reportsModule1.ReportDataType = typeof(ReportData);
             // 
             // stateMachineModule1
             // 

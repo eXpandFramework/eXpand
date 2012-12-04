@@ -2,9 +2,9 @@
 using System.Globalization;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.XtraScheduler;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
+using TimeZoneId = Xpand.Persistent.Base.JobScheduler.Triggers.TimeZoneId;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
     [NavigationItem("JobScheduler")]

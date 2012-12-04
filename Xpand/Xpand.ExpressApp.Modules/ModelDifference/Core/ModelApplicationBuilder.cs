@@ -6,7 +6,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -53,7 +52,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             TypesInfo typesInfo = GetTypesInfo();
             using (var application = GetApplication(_executableName, typesInfo)) {
                 ApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
-                var masterModel = (ModelApplicationBase)GetModelApplication(application, modulesManager);
+                var masterModel = GetModelApplication(application, modulesManager);
                 return masterModel;
             }
         }
@@ -67,13 +66,16 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return typesInfo;
         }
 
-        IModelApplication GetModelApplication(XafApplication application, ApplicationModulesManager modulesManager) {
+        ModelApplicationBase GetModelApplication(XafApplication application, ApplicationModulesManager modulesManager) {
             var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
             XpandModuleBase.ModelApplicationCreator = null;
             var modelApplication = new DesignerModelFactory().CreateApplicationModel(application, modulesManager, null, null);
-            AddAfterSetupLayer(modelApplication);
+            // ReSharper disable SuspiciousTypeConversion.Global
+            var modelApplicationBase = (ModelApplicationBase)modelApplication;
+            // ReSharper restore SuspiciousTypeConversion.Global
+            AddAfterSetupLayer(modelApplicationBase);
             XpandModuleBase.ModelApplicationCreator = modelApplicationCreator;
-            return modelApplication;
+            return modelApplicationBase;
         }
         public class TypesInfo : DevExpress.ExpressApp.DC.TypesInfo {
 
@@ -90,14 +92,14 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 XpandModuleBase.TypesInfo = typesInfo;
                 modulesManager.Load(typesInfo);
             } finally {
-                XpandModuleBase.Dictiorary = XafTypesInfo.XpoTypeInfoSource.XPDictionary;
+                XpandModuleBase.Dictiorary = ((XpoTypeInfoSource)XafTypesInfo.XpoTypeInfoSource).XPDictionary;
                 XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
             }
             return modulesManager;
         }
 
-        void AddAfterSetupLayer(IModelApplication modelApplication) {
-            var modelApplicationBase = ((ModelApplicationBase)modelApplication);
+        void AddAfterSetupLayer(ModelApplicationBase modelApplication) {
+            var modelApplicationBase = modelApplication;
             ModelApplicationBase afterSetup = modelApplicationBase.CreatorInstance.CreateModelApplication();
             afterSetup.Id = "After Setup";
             modelApplicationBase.AddLayer(afterSetup);

@@ -1,10 +1,10 @@
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Templates.ActionContainers"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Templates.ActionContainers"
     TagPrefix="cc2" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Templates.Controls"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Templates.Controls"
     TagPrefix="tc" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Controls"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Controls"
     TagPrefix="cc4" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.1" Namespace="DevExpress.ExpressApp.Web.Templates"
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v12.2" Namespace="DevExpress.ExpressApp.Web.Templates"
     TagPrefix="cc3" %>
 <%@ Page Language="C#" AutoEventWireup="true" Inherits="DialogPage" EnableViewState="false"
     ValidateRequest="false" CodeBehind="Dialog.aspx.cs" %>

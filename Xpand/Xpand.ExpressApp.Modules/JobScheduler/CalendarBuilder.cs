@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.XtraScheduler.Native;
 using Quartz;
 using Quartz.Impl.Calendar;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -34,34 +33,34 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         static void InitializeCron(CronCalendar cronCalendar, ICronCalendar calendar) {
-            cronCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            cronCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             cronCalendar.CronExpression = new CronExpression(calendar.CronExpression);
         }
 
         static void InitializeDaily(DailyCalendar dailyCalendar, IDailyCalendar calendar) {
-            dailyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            dailyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             calendar.DateRanges.ToList().ForEach(range => dailyCalendar.SetTimeRange(range.StartPoint, range.EndPoint));
         }
 
         static void InitializeMonthly(MonthlyCalendar monthlyCalendar, IMonthlyCalendar calendar) {
-            monthlyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            monthlyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             calendar.DaysExcluded.ForEach(i => monthlyCalendar.SetDayExcluded(i, true));
             calendar.DaysIncluded.ForEach(i => monthlyCalendar.SetDayExcluded(i, false));
         }
 
         static void InitializeWeekly(WeeklyCalendar weeklyCalendar, IWeeklyCalendar calendar) {
-            weeklyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            weeklyCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             calendar.DaysOfWeekExcluded.ForEach(week => weeklyCalendar.SetDayExcluded(week, true));
             calendar.DaysOfWeekIncluded.ForEach(week => weeklyCalendar.SetDayExcluded(week, false));
         }
 
         static void InitializeHoliday(HolidayCalendar holidayCalendar, IHolidayCalendar calendar) {
-            holidayCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            holidayCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             calendar.DatesExcluded.ForEach(holidayCalendar.AddExcludedDate);
         }
 
         static void InitializeAnnual(AnnualCalendar annualCalendar, IAnnualCalendar calendar) {
-            annualCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
+            annualCalendar.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(Persistent.Base.General.RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(calendar.TimeZone));
             calendar.DatesExcluded.ForEach(time => annualCalendar.SetDayExcluded(time, true));
             calendar.DatesIncluded.ForEach(time => annualCalendar.SetDayExcluded(time, false));
         }
