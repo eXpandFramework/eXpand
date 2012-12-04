@@ -145,7 +145,8 @@
 	
 	
 	<Target Name="ReplaceKey">	
-		<ConvertToSimpleNames Projects="@(ProjectFiles)"/>
+		<!--Temporary disabled
+		<ConvertToSimpleNames Projects="@(ProjectFiles)"/>-->
 	</Target>
 	
 	<!-- 
@@ -343,7 +344,7 @@
 		</Time>
 	</Target>
 	
-	<Target Name="NuGetPackage">
+	<Target Name="NuGetPackage" DependsOnTargets="Copy">
 		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
