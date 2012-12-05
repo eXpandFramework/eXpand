@@ -135,7 +135,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListOptionsController.cs" />
+    <Compile Include="Controllers\TreeListOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\TreeNavigationOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>

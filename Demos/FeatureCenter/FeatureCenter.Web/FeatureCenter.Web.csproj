@@ -305,9 +305,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.asp" />
     <Content Include="Default.aspx" />
-    <Content Include="Dialog.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\ButtonBkg.gif" />
@@ -329,12 +327,11 @@
     <Content Include="Images\UnSelectedCenter.gif" />
     <Content Include="Images\UnSelectedLeft.gif" />
     <Content Include="Images\UnSelectedRight.gif" />
-    <Content Include="Login.aspx" />
-    <Content Include="MoveFooter.js" />
-    <Content Include="NestedFrameControl.ascx" />
-    <Content Include="SessionKeepAliveReconnect.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationCode\WebApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -342,8 +339,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Dialog.aspx.designer.cs">
-      <DependentUpon>Dialog.aspx</DependentUpon>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Error.aspx.designer.cs">
       <DependentUpon>Error.aspx</DependentUpon>
@@ -351,39 +349,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Dialog.aspx.cs">
-      <DependentUpon>Dialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Error.aspx.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="NestedFrameControl.ascx.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NestedFrameControl.ascx.designer.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionKeepAliveReconnect.aspx.cs">
-      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SessionKeepAliveReconnect.aspx.designer.cs">
-      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ApplicationCode\WebApplication.resx">
@@ -392,6 +365,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Login.aspx" />
     <Content Include="Model.xafml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -408,8 +382,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="skin.css" />
-    <Content Include="TemplateScripts.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

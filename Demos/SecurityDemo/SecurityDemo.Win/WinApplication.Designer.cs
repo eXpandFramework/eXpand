@@ -73,7 +73,7 @@ namespace SecurityDemo.Win {
             this.xpandTreeListEditorsWinModule1 = new Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule();
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
             this.ioWinModule1 = new Xpand.ExpressApp.IO.Win.IOWinModule();
-            this.logicWindowsModule1 = new Xpand.ExpressApp.Logic.Win.LogicWindowsModule();
+            
             this.masterDetailModule1 = new Xpand.ExpressApp.MasterDetail.MasterDetailModule();
             this.masterDetailWindowsModule1 = new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
@@ -173,7 +173,7 @@ namespace SecurityDemo.Win {
             this.Modules.Add(this.xpandTreeListEditorsWinModule1);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.ioWinModule1);
-            this.Modules.Add(this.logicWindowsModule1);
+            
             this.Modules.Add(this.masterDetailModule1);
             this.Modules.Add(this.masterDetailWindowsModule1);
             this.Modules.Add(this.pivotChartModuleBase1);
@@ -236,7 +236,6 @@ namespace SecurityDemo.Win {
         private Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule xpandTreeListEditorsWinModule1;
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
         private Xpand.ExpressApp.IO.Win.IOWinModule ioWinModule1;
-        private Xpand.ExpressApp.Logic.Win.LogicWindowsModule logicWindowsModule1;
         private Xpand.ExpressApp.MasterDetail.MasterDetailModule masterDetailModule1;
         private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;

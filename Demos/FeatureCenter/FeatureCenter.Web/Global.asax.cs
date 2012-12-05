@@ -11,7 +11,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
 using FeatureCenter.Web.ApplicationCode;
 
-namespace Solution8.Web {
+namespace Solution59.Web {
     public class Global : System.Web.HttpApplication {
         public Global() {
             InitializeComponent();

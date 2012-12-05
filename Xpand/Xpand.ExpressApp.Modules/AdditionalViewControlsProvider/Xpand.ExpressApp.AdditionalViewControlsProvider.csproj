@@ -126,7 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdditionalViewControl.cs" />
-    <Compile Include="AdditionalViewControlsModule.cs" />
+    <Compile Include="AdditionalViewControlsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
     <Compile Include="DomainLogic\AdditionalViewControlsRuleDomainLogic.cs" />
@@ -134,7 +136,9 @@
     <Compile Include="Editors\AdditionalViewControlsItem.cs" />
     <Compile Include="Logic\AdditionalViewControlsRule.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleAttribute.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Logic\IAdditionalViewControlsRule.cs" />
     <Compile Include="Logic\PessimisticLockingMessageAttribute.cs" />
     <Compile Include="Logic\Position.cs" />
