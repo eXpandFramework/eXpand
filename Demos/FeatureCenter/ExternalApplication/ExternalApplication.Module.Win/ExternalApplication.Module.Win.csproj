@@ -211,9 +211,7 @@
   <ItemGroup>
     <Compile Include="ExternalOrder.cs" />
     <Compile Include="ExternalCustomer.cs" />
-    <Compile Include="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WinModule.Designer.cs">

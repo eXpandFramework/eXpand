@@ -329,9 +329,7 @@
     <Content Include="Images\UnSelectedRight.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ApplicationCode\WebApplication.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

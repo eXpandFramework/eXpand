@@ -32,6 +32,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
     }
 
     [Subject(typeof(PessimisticLockingViewController))]
+    [Ignore("")]
     public class When_ospace_commited : With_Application {
         Establish context = () => { Info.PessimisticLockObject.PropertyName = "dffdf"; };
         Because of = () => {
