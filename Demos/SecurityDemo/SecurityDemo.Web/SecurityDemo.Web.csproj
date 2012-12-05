@@ -131,22 +131,9 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxEditors.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxGridView.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Web.ASPxGridView.v12.2.Export">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DevExpress.Web.ASPxPivotGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
     <Reference Include="DevExpress.Web.ASPxThemes.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -350,9 +337,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Default.asp" />
+    <Compile Include="ApplicationCode\ApplicationServerStarter.cs" />
+    <Compile Include="ApplicationCode\WebApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ApplicationCode\WebApplication.resx">
+      <DependentUpon>WebApplication.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="Dialog.aspx" />
     <Content Include="Error.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Images\ButtonBkg.gif" />
@@ -362,6 +383,7 @@
     <Content Include="Images\HeaderBkg.gif" />
     <Content Include="Images\LayoutHeaderBkg.gif" />
     <Content Include="Images\Progress.gif" />
+    <Content Include="Images\ReadMe.txt" />
     <Content Include="Images\SelectedCenter.gif" />
     <Content Include="Images\SelectedCenterWhite.gif" />
     <Content Include="Images\SelectedLeft.gif" />
@@ -375,84 +397,7 @@
     <Content Include="Images\UnSelectedLeft.gif" />
     <Content Include="Images\UnSelectedRight.gif" />
     <Content Include="Login.aspx" />
-    <Content Include="MoveFooter.js" />
-    <Content Include="NestedFrameControl.ascx" />
-    <Content Include="SessionKeepAliveReconnect.aspx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ApplicationCode\ApplicationServerStarter.cs" />
-    <Compile Include="DefaultVertical.aspx.cs">
-      <DependentUpon>DefaultVertical.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DefaultVertical.aspx.designer.cs">
-      <DependentUpon>DefaultVertical.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialog.aspx.designer.cs">
-      <DependentUpon>Dialog.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Error.aspx.designer.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="NestedFrameControl.ascx.designer.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialog.aspx.cs">
-      <DependentUpon>Dialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Error.aspx.cs">
-      <DependentUpon>Error.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="NestedFrameControl.ascx.cs">
-      <DependentUpon>NestedFrameControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SessionKeepAliveReconnect.aspx.cs">
-      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SessionKeepAliveReconnect.aspx.designer.cs">
-      <DependentUpon>SessionKeepAliveReconnect.aspx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ApplicationCode\WebApplication.resx">
-      <DependentUpon>WebApplication.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Model.xafml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj">
@@ -467,12 +412,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HttpHandlers.Web.Config" />
-    <Content Include="HttpModules.Web.Config" />
-    <Content Include="TemplateScripts.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DefaultVertical.aspx" />
+    <None Include="Images\Thumbs.db" />
+    <None Include="Model.xafml" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <PropertyGroup>
   </PropertyGroup>

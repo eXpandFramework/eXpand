@@ -358,6 +358,7 @@
     <Content Include="Images\HeaderBkg.gif" />
     <Content Include="Images\LayoutHeaderBkg.gif" />
     <Content Include="Images\Progress.gif" />
+    <Content Include="Images\ReadMe.txt" />
     <Content Include="Images\SelectedCenter.gif" />
     <Content Include="Images\SelectedCenterWhite.gif" />
     <Content Include="Images\SelectedLeft.gif" />
@@ -416,6 +417,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Images\Thumbs.db" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj">
