@@ -121,7 +121,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WarningGeneratorUpdater.cs" />
-    <Compile Include="XpandValidationModule.cs" />
+    <Compile Include="XpandValidationModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

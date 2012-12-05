@@ -140,7 +140,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHandlingModule.cs" />
+    <Compile Include="ExceptionHandlingModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ExceptionObjectBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />

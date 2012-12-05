@@ -162,11 +162,15 @@
     <Compile Include="Model\ChartControlController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\ChartModelAdapterController.cs" />
+    <Compile Include="Model\ChartModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="XpandChartListEditor.cs" />
-    <Compile Include="XpandChartWinModule.cs" />
+    <Compile Include="XpandChartWinModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

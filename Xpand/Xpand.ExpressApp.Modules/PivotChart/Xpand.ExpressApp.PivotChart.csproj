@@ -185,8 +185,12 @@
     <Compile Include="Security\Improved\PivotSettingsPermission.cs" />
     <Compile Include="Security\Improved\ShowInAnalysisOperationPermissionData.cs" />
     <Compile Include="Security\Improved\ShowInAnalysisPermission.cs" />
-    <Compile Include="XpandPivotChartModule.cs" />
-    <Compile Include="Core\XpandPivotChartModuleBase.cs" />
+    <Compile Include="XpandPivotChartModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Core\XpandPivotChartModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\PivotGridFieldBuilder.cs" />
     <Compile Include="PivotedProperty\PivotCustomSortController.cs">
       <SubType>Component</SubType>

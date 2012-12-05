@@ -122,7 +122,9 @@
     <Compile Include="IModelTreeViewOptionsBase.cs" />
     <Compile Include="ITreeListEditor.cs" />
     <Compile Include="XpandTreeListEditorServerModeUpdater.cs" />
-    <Compile Include="XpandTreeListEditorsModule.cs" />
+    <Compile Include="XpandTreeListEditorsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
