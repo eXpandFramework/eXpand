@@ -164,9 +164,7 @@
     <Compile Include="JobTriggerLinkController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="JobSchedulerModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="JobSchedulerModule.cs" />
     <Compile Include="JobTriggerController.cs">
       <SubType>Component</SubType>
     </Compile>

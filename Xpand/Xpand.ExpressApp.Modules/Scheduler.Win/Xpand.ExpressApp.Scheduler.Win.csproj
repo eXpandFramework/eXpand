@@ -147,13 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\SchedulerModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\SchedulerModelAdapterController.cs" />
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="XpandSchedulerWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSchedulerWindowsFormsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

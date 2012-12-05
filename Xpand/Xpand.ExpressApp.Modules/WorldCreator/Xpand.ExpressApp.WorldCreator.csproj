@@ -148,9 +148,7 @@
     <Compile Include="Controllers\CodeTemplateObserverController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CreateMembersFromInterfacesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\CreateMembersFromInterfacesController.cs" />
     <Compile Include="Controllers\InitializeTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -171,15 +169,11 @@
     <Compile Include="NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
     <Compile Include="Core\WCTypesInfo.cs" />
     <Compile Include="TypeSynchronizer.cs" />
-    <Compile Include="WorldCreatorModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WorldCreatorModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Core\XpoObjectMerger.cs" />
-    <Compile Include="WorldCreatorModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WorldCreatorModuleBase.cs" />
     <Compile Include="WorldCreatorUpdater.cs" />
   </ItemGroup>
   <ItemGroup>

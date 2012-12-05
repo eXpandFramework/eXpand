@@ -112,9 +112,7 @@
     <Compile Include="Core\OpenXMLExtentions.cs" />
     <Compile Include="Core\TransposeEnumerableExtension.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="ImportWizardModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ImportWizardModule.cs" />
     <Compile Include="LongOperation\LongOperationController.cs">
       <SubType>Component</SubType>
     </Compile>

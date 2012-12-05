@@ -79,7 +79,7 @@ namespace Xpand.Tests {
             var defaultSkinListGenerator = Isolate.Fake.Instance<DefaultSkinListGenerator>();
             var editorsFactory = new EditorsFactory();
 #pragma warning disable 612,618
-            Isolate.WhenCalled(() => editorsFactory.CreateListEditor(null, null, null)).WillReturn(new GridListEditor());
+            Isolate.WhenCalled(() => editorsFactory.CreateListEditor(null, null, null)).WillReturn(new GridListEditor(null));
 #pragma warning restore 612,618
             Isolate.Swap.AllInstances<EditorsFactory>().With(editorsFactory);
 

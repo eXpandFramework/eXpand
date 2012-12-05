@@ -151,12 +151,8 @@
     <Compile Include="IRuleHolder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LogicModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LogicModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="LogicModule.cs" />
+    <Compile Include="LogicModuleBase.cs" />
     <Compile Include="LogicRule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -222,9 +218,7 @@
     <Compile Include="Security\LogicRulePermission.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Security\PopulateViewsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\PopulateViewsController.cs" />
     <Compile Include="FrameTemplateContext.cs" />
     <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
       <SubType>Code</SubType>
