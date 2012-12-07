@@ -175,6 +175,7 @@
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -205,6 +206,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\GridViewKeyboardController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -223,6 +225,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -256,6 +259,7 @@
     <Compile Include="ListEditors\GridListEditors\GridView\MasterDetail\ModelDetailRelationCalculator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -283,6 +287,7 @@
     <Compile Include="ListEditors\GridListEditors\LayoutView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -154,7 +154,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\MemberProtectedInfo.cs" />
-    <Compile Include="MemberLevelSecurityModuleWin.cs" />
+    <Compile Include="MemberLevelSecurityModuleWin.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
