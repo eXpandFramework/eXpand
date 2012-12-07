@@ -38,61 +38,80 @@ namespace Xpand.ExpressApp.IO.Core {
 
     public static class InitDataExtensions {
         class InitDataImpl {
-            readonly Dictionary<KeyValuePair<Type, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<Type, CriteriaOperator>, object>();
+            readonly Dictionary<KeyValuePair<Type, object>, object> _importedObjecs = new Dictionary<KeyValuePair<Type, object>, object>();
+            readonly HashSet<XPClassInfo> _importedClassInfos = new HashSet<XPClassInfo>();
+            string _lastStatusMessageTable;
 
-            public void ImportCore(IObjectSpace objectSpace, UnitOfWork unitOfWork) {
-                var builder = new InitDataDictionaryBuilder(objectSpace);
+
+            public void ImportCore(UnitOfWork uow, UnitOfWork unitOfWork) {
+                var builder = new InitDataDictionaryBuilder(uow);
                 var dataStoreSchemaExplorer = ((IDataStoreSchemaExplorer)((BaseDataLayer)unitOfWork.DataLayer).ConnectionProvider);
+                ApplicationStatusUpdater.Notify("Import", "Creating dynamic dictionary...");
                 builder.InitDictionary(unitOfWork.Dictionary, dataStoreSchemaExplorer);
                 foreach (var persistentTypeInfo in builder.GetPersistentTypes()) {
-                    Import(objectSpace, builder, unitOfWork, persistentTypeInfo);
+                    Import(uow, builder, unitOfWork, persistentTypeInfo);
                 }
-                importedObjecs.Clear();
-                unitOfWork.CommitChanges();
+                _importedObjecs.Clear();
+                _importedClassInfos.Clear();
+                ApplicationStatusUpdater.Notify("Import", "Commiting...pleasing wait");
+                uow.CommitChanges();
             }
 
-            public void ImportCore(IObjectSpace objectSpace, string connectionString) {
+            public void ImportCore(UnitOfWork uow, string connectionString) {
                 using (var unitOfWork = new UnitOfWork { ConnectionString = connectionString }) {
-                    ImportCore(objectSpace, unitOfWork);
+                    ImportCore(uow, unitOfWork);
                 }
             }
 
-            void Import(IObjectSpace objectSpace, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork, ITypeInfo persistentTypeInfo) {
+            void Import(UnitOfWork uow, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork, ITypeInfo persistentTypeInfo) {
                 var classInfo = builder.FindClassInfo(unitOfWork, persistentTypeInfo);
-                var objectsToImport = new XPCollection(unitOfWork, classInfo);
-                var memberInfos = MemberInfos(builder, persistentTypeInfo);
-                foreach (var objectToImport in objectsToImport) {
-                    var xafObject = CreateObject(objectSpace, persistentTypeInfo);
-                    foreach (var memberInfo in memberInfos) {
-                        var importedMemberInfo = new ImportedMemberInfo(persistentTypeInfo, memberInfo);
-                        if (importedMemberInfo.MemberInfo.IsList) {
-                            ImportManyToManyCollection(objectSpace, builder, unitOfWork, xafObject, importedMemberInfo, objectToImport, memberInfo);
-                        } else {
-                            ImportSimpleProperty(objectSpace, builder, unitOfWork, memberInfo, importedMemberInfo, objectToImport, xafObject);
+                if (!_importedClassInfos.Contains(classInfo)) {
+                    _importedClassInfos.Add(classInfo);
+
+                    using (var objectsToImport = new XPCollection(unitOfWork, classInfo)) {
+                        var memberInfos = MemberInfos(builder, persistentTypeInfo);
+                        foreach (var objectToImport in objectsToImport) {
+                            var xafObject = CreateObject(uow, persistentTypeInfo);
+                            var keyValuePair = KeyValuePair(unitOfWork.GetKeyValue(objectToImport), persistentTypeInfo.Type);
+                            _importedObjecs.Add(keyValuePair, xafObject);
+                            foreach (var memberInfo in memberInfos) {
+                                var importedMemberInfo = new ImportedMemberInfo(persistentTypeInfo, memberInfo);
+                                if (importedMemberInfo.MemberInfo.IsList) {
+                                    ImportManyToManyCollection(uow, builder, unitOfWork, xafObject, importedMemberInfo, objectToImport, memberInfo);
+                                } else {
+                                    ImportSimpleProperty(uow, builder, unitOfWork, memberInfo, importedMemberInfo, objectToImport, xafObject);
+                                }
+
+
+                                if (_lastStatusMessageTable != classInfo.TableName) {
+                                    _lastStatusMessageTable = classInfo.TableName;
+                                    var statusMessage = string.Format("Importing {2} objects from {0} into {1}", classInfo.TableName, persistentTypeInfo.Name, objectsToImport.Count);
+                                    ApplicationStatusUpdater.Notify("Import", statusMessage);
+                                }
+                            }
                         }
                     }
                 }
             }
 
-            object CreateObject(IObjectSpace objectSpace, ITypeInfo persistentTypeInfo) {
-                return objectSpace.CreateObject(persistentTypeInfo.Type);
+            object CreateObject(UnitOfWork unitOfWork, ITypeInfo persistentTypeInfo) {
+                return Activator.CreateInstance(persistentTypeInfo.Type, unitOfWork);
             }
 
-            void ImportSimpleProperty(IObjectSpace objectSpace, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork,
+            void ImportSimpleProperty(UnitOfWork uow, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork,
                                              IMemberInfo memberInfo, ImportedMemberInfo importedMemberInfo, object objectToImport, object xafObject) {
                 XPMemberInfo xpMemberInfo = builder.GetXpMemberInfo(unitOfWork.GetClassInfo(objectToImport), importedMemberInfo);
                 if (xpMemberInfo != null) {
                     var value = xpMemberInfo.GetValue(objectToImport);
                     if (memberInfo.MemberTypeInfo.IsPersistent) {
-                        var operandProperty = memberInfo.Owner.KeyMember.Name;
                         var memberType = memberInfo.MemberType;
-                        value = GetReferenceMemberValue(objectSpace, builder, unitOfWork, value, operandProperty, memberType);
+                        value = GetReferenceMemberValue(uow, builder, unitOfWork, value, memberType);
                     }
                     memberInfo.SetValue(xafObject, value);
                 }
             }
 
-            void ImportManyToManyCollection(IObjectSpace objectSpace, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork,
+            void ImportManyToManyCollection(UnitOfWork objectSpace, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork,
                                          object xafObject, ImportedMemberInfo importedMemberInfo, object objectToImport,
                                          IMemberInfo memberInfo) {
                 if (!importedMemberInfo.InitialData.DataProvider)
@@ -100,73 +119,59 @@ namespace Xpand.ExpressApp.IO.Core {
                 var xpClassInfo = unitOfWork.Dictionary.GetClassInfo(null, importedMemberInfo.InitialData.DataProviderTableName);
                 var keyValue = unitOfWork.GetKeyValue(objectToImport);
                 var criteriaOperator = CriteriaOperator.Parse(importedMemberInfo.InitialData.DataProviderQueryColumnName + "=?", keyValue);
-                var xpCollection = new XPCollection(unitOfWork, xpClassInfo, criteriaOperator);
-                var collection = (XPBaseCollection)memberInfo.GetValue(xafObject);
-                var dataProviderResultInfo = xpClassInfo.GetMember(importedMemberInfo.InitialData.DataProviderResultColumnName);
-                foreach (var o in xpCollection) {
-                    var listElementTypeInfo = memberInfo.ListElementTypeInfo;
-                    var memberValue = dataProviderResultInfo.GetValue(o);
-                    var referenceMemberValue = GetReferenceMemberValue(objectSpace, builder, unitOfWork, memberValue, listElementTypeInfo.KeyMember.Name, listElementTypeInfo.Type);
-                    collection.BaseAdd(referenceMemberValue);
+                using (var xpCollection = new XPCollection(unitOfWork, xpClassInfo, criteriaOperator)) {
+                    var collection = (XPBaseCollection)memberInfo.GetValue(xafObject);
+                    var dataProviderResultInfo = xpClassInfo.GetMember(importedMemberInfo.InitialData.DataProviderResultColumnName);
+                    foreach (var o in xpCollection) {
+                        var listElementTypeInfo = memberInfo.ListElementTypeInfo;
+                        var memberValue = dataProviderResultInfo.GetValue(o);
+                        var referenceMemberValue = GetReferenceMemberValue(objectSpace, builder, unitOfWork, memberValue, listElementTypeInfo.Type);
+                        collection.BaseAdd(referenceMemberValue);
+                    }
                 }
             }
 
-            object GetReferenceMemberValue(IObjectSpace objectSpace, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork, object memberValue, string operandProperty, Type memberType) {
+            object GetReferenceMemberValue(UnitOfWork uow, InitDataDictionaryBuilder builder, UnitOfWork unitOfWork, object memberValue, Type memberType) {
                 if (memberValue != null) {
-                    object value = FindObject(objectSpace, memberValue, operandProperty, memberType);
-                    if (value == null) {
-                        Import(objectSpace, builder, unitOfWork, XafTypesInfo.CastTypeToTypeInfo(memberType));
-                        value = FindObject(objectSpace, memberValue, operandProperty, memberType);
-                        Guard.ArgumentNotNull(value, "value");
+                    var keyValuePair = KeyValuePair(memberValue, memberType);
+                    if (!_importedObjecs.ContainsKey(keyValuePair)) {
+                        Import(uow, builder, unitOfWork, XafTypesInfo.CastTypeToTypeInfo(memberType));
                     }
+                    object value = _importedObjecs[keyValuePair];
+                    Guard.ArgumentNotNull(value, "value");
                     return value;
                 }
                 return null;
             }
 
-            object FindObject(IObjectSpace objectSpace, object memberValue, string operandProperty, Type objectType) {
-                var criteriaOperator = CriteriaOperator.Parse(operandProperty + "=?", memberValue);
-                var keyValuePair = new KeyValuePair<Type, CriteriaOperator>(objectType, criteriaOperator);
-                if (!importedObjecs.ContainsKey(keyValuePair)) {
-                    var findObject = objectSpace.FindObject(objectType, criteriaOperator, true);
-                    importedObjecs.Add(keyValuePair, findObject);
-                } else if (importedObjecs[keyValuePair] == null)
-                    importedObjecs[keyValuePair] = objectSpace.FindObject(objectType, criteriaOperator, true);
-                return importedObjecs[keyValuePair];
+            KeyValuePair<Type, object> KeyValuePair(object keyValue, Type objectType) {
+                return new KeyValuePair<Type, object>(objectType, keyValue);
             }
 
-
-            IEnumerable<IMemberInfo> MemberInfos(InitDataDictionaryBuilder builder, ITypeInfo persistentTypeInfo) {
-                return persistentTypeInfo.Members.Where(info => builder.NeedsImport(new ImportedMemberInfo(persistentTypeInfo, info)));
+            IList<IMemberInfo> MemberInfos(InitDataDictionaryBuilder builder, ITypeInfo persistentTypeInfo) {
+                return persistentTypeInfo.Members.Where(info => builder.NeedsImport(new ImportedMemberInfo(persistentTypeInfo, info))).ToList();
             }
         }
-        public static void ImportFromSQLServer(this IObjectSpace objectSpace, string database) {
 
-            objectSpace.Import(string.Format("Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog={0}", database));
-        }
-
-        public static void ImportFromAccess(this IObjectSpace objectSpace, string path) {
-            objectSpace.Import(string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Password=;User ID=Admin;Data Source='{0}';Mode=Share Deny None;", path));
-        }
-
-        public static void Import(this IObjectSpace objectSpace, UnitOfWork unitOfWork) {
+        public static void Import(this UnitOfWork uow, UnitOfWork unitOfWork) {
             var initDataImpl = new InitDataImpl();
-            initDataImpl.ImportCore(objectSpace, unitOfWork);
+            initDataImpl.ImportCore(uow, unitOfWork);
         }
 
-        public static void Import(this IObjectSpace objectSpace, string connectionString) {
+        public static void Import(this UnitOfWork uow, string connectionString) {
             var initDataImpl = new InitDataImpl();
-            initDataImpl.ImportCore(objectSpace, connectionString);
+            initDataImpl.ImportCore(uow, connectionString);
         }
     }
 
     internal class InitDataDictionaryBuilder {
-        readonly IObjectSpace _objectSpace;
+        readonly UnitOfWork _unitOfWork;
         Dictionary<string, DBTable> _dbTables;
         IDataStoreSchemaExplorer _dataStoreSchemaExplorer;
+        readonly Dictionary<string, XPClassInfo> _classInfos = new Dictionary<string, XPClassInfo>();
 
-        public InitDataDictionaryBuilder(IObjectSpace objectSpace) {
-            _objectSpace = objectSpace;
+        public InitDataDictionaryBuilder(UnitOfWork unitOfWork) {
+            _unitOfWork = unitOfWork;
         }
 
         public Dictionary<XPMemberInfo, IMemberInfo> InitDictionary(XPDictionary dictionary, IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
@@ -275,11 +280,11 @@ namespace Xpand.ExpressApp.IO.Core {
         IEnumerable<ImportedMemberInfo> GetMembers(IEnumerable<ITypeInfo> persistentTypes) {
             var members = persistentTypes.Select(typeInfo => new { typeInfo, typeInfo.Members });
             var importedMemberInfos = members.SelectMany(member => member.Members, (member, info) => new ImportedMemberInfo(member.typeInfo, info));
-            return importedMemberInfos.Where(NeedsImport);
+            return importedMemberInfos.Where(NeedsImport).ToList();
         }
 
-        public IEnumerable<ITypeInfo> GetPersistentTypes() {
-            return XafTypesInfo.Instance.PersistentTypes.Where(info => IsImportedType(info) && IsNotAlreadyImported(info));
+        public IList<ITypeInfo> GetPersistentTypes() {
+            return XafTypesInfo.Instance.PersistentTypes.Where(info => IsImportedType(info) && IsNotAlreadyImported(info)).ToList();
         }
 
         string GetColumnName(ImportedMemberInfo importedMemberInfo) {
@@ -306,7 +311,7 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         bool IsNotAlreadyImported(ITypeInfo info) {
-            return _objectSpace.FindObject(info.Type, null) == null;
+            return _unitOfWork.FindObject(info.Type, null) == null;
         }
 
         XPClassInfo GetClassInfo(XPDictionary dictionary, ITypeInfo typeInfo) {
@@ -315,7 +320,9 @@ namespace Xpand.ExpressApp.IO.Core {
                 var dbTable = _dataStoreSchemaExplorer.GetStorageTables(className).Single();
                 _dbTables.Add(className, dbTable);
                 var attributes = new Attribute[] { new OptimisticLockingAttribute(false), new DeferredDeletionAttribute(false) };
-                return dictionary.CreateClass(className, attributes);
+                var classInfo = dictionary.CreateClass(className, attributes);
+                _classInfos.Add(classInfo.TableName, classInfo);
+                return classInfo;
             }
             return dictionary.QueryClassInfo(null, className);
         }
@@ -355,10 +362,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public XPClassInfo FindClassInfo(UnitOfWork unitOfWork, ITypeInfo typeInfo) {
             var tableName = GetTableName(typeInfo);
-            var classInfo = unitOfWork.Dictionary.Classes.OfType<XPDataObjectClassInfo>().SingleOrDefault(info => info.TableName == tableName);
-            if (classInfo == null)
-                throw new ArgumentNullException("Table " + tableName + " not found");
-            return classInfo;
+            return _classInfos[tableName];
         }
 
         public XPMemberInfo GetXpMemberInfo(XPClassInfo classInfo, ImportedMemberInfo importedMemberInfo) {
