@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             if (selectedColumn != null) {
                 selectedColumn.ImageIndex = -1;
             }
-            selectedColumn = (IXafGridColumn)gridView.CustomizationForm.ActiveListBox.SelectedItem;
+            selectedColumn = gridView.CustomizationForm.ActiveListBox.SelectedItem as IXafGridColumn;
             if (selectedColumn != null) {
                 //                selectedColumn.ImageIndex = GridPainter.IndicatorFocused;
             }
