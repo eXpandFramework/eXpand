@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
             var listView = View as ListView;
             if (listView != null && listView.Editor != null && listView.Editor.GetType() == typeof(PivotGridListEditor)) {
                 _pivotGridListEditor = (PivotGridListEditor)listView.Editor;
-                _pivotGridListEditor.ControlsCreated += PivotGridListEditorOnControlsCreated;
+                _pivotGridListEditor.CreateCustomModelSynchronizer += PivotGridListEditorOnControlsCreated;
             }
         }
 

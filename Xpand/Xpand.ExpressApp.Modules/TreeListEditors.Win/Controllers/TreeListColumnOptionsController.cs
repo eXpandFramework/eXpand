@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraTreeList.Columns;
 using Xpand.ExpressApp.Core.DynamicModel;
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
     public interface IModelTreeViewOptionsColumn : IModelNode {
     }
-
+    [Obsolete]
     public class TreeListColumnOptionsController : OptionsController {
         protected override List<ModelExtenderPair> GetModelExtenderPairs() {
             return new List<ModelExtenderPair> { new ModelExtenderPair(typeof(IModelColumn), typeof(IModelTreeViewColumnMainOptions)) };

@@ -141,12 +141,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\HideICategorizedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -164,11 +158,13 @@
     </Compile>
     <Compile Include="Controllers\TreeNodeExtensions.cs">
     </Compile>
-    <Compile Include="Core\TreeListColumnOptionsModelSynchronizer.cs" />
-    <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
-    <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="ListEditors\XpandTreeListEditor.cs" />
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
+    <Compile Include="Model\Interfaces.cs" />
+    <Compile Include="Model\Synchronizers.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

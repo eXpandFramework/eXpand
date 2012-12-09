@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.XtraTreeList;
@@ -42,7 +43,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         IModelTreeViewListOptionsSelection OptionsSelection { get; }
         IModelTreeViewListOptionsView OptionsView { get; }
     }
-
+    [Obsolete]
     public class TreeListOptionsController : OptionsController {
         protected override List<ModelExtenderPair> GetModelExtenderPairs() {
             return new List<ModelExtenderPair> {

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
@@ -20,9 +21,12 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
 
 
         public void ConvertXml(ConvertXmlParameters parameters) {
-            if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("EditorTypeName")) {
-                if (parameters.Values["EditorTypeName"] == "Xpand.ExpressApp.TreeListEditors.Win.XpandCategorizedListEditor")
-                    parameters.Values["EditorTypeName"] = "Xpand.ExpressApp.TreeListEditors.Win.ListEditor.XpandCategorizedListEditor";
+            if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType) &&
+                parameters.Values.ContainsKey("EditorTypeName")) {
+                if (parameters.Values["EditorTypeName"] ==
+                    "Xpand.ExpressApp.TreeListEditors.Win.XpandCategorizedListEditor")
+                    parameters.Values["EditorTypeName"] =
+                        "Xpand.ExpressApp.TreeListEditors.Win.ListEditor.XpandCategorizedListEditor";
             }
         }
     }

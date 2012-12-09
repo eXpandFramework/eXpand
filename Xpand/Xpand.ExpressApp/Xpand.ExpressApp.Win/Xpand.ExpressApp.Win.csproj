@@ -175,7 +175,9 @@
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs" />
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>

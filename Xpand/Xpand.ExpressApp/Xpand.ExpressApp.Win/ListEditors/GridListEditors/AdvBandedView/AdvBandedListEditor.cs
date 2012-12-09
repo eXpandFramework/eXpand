@@ -24,7 +24,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
     [ListEditor(typeof(object), false)]
-    public class AdvBandedListEditor : GridView.XpandGridListEditor {
+    public class AdvBandedListEditor : XpandGridListEditor {
         public AdvBandedListEditor(IModelListView model)
             : base(model) {
         }
