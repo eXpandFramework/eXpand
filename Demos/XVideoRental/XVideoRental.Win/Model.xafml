@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MyDetails" Shortcut="ViewID=SecuritySystemUser_DetailView&amp;ObjectKey=@CurrentUserID&amp;ScrollPosition=&amp;ObjectClassName=" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="12.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="12.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="12.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="12.1.7.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="Receipt_ListView_Statistics_Net_Income">
+      <Variants Current="Revenue" />
+    </ListView>
+  </Views>
+</Application>

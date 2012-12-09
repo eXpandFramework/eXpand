@@ -135,7 +135,9 @@
     <Compile Include="Controls\HintPanelBase.cs" />
     <Compile Include="Controls\WarningPanel.cs" />
     <Compile Include="Editors\AdditionalViewControlsItem.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Decorators\WebHintPanelDecorator.cs" />
     <Compile Include="Controls\HintPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
