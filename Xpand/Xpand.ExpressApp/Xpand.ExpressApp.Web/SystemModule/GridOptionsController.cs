@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Core.DynamicModel;
@@ -48,7 +49,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
     public interface IModelGridViewSettings : IModelNode {
     }
-
+    [Obsolete]
     public class GridOptionsController : ExpressApp.SystemModule.GridOptionsController {
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelGridViewSettings), typeof(ASPxGridViewSettings));

@@ -1,6 +1,8 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
+using Xpand.ExpressApp.ListEditors;
+using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 

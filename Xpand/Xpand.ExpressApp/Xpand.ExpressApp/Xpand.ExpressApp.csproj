@@ -134,6 +134,7 @@
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="DynamicSecuritySystemObjects.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
+    <Compile Include="ListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
@@ -141,6 +142,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\BaseDomainLogic.cs" />
+    <Compile Include="Model\IModelOptions.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />

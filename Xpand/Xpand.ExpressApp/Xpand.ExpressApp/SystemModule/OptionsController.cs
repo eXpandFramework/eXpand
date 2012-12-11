@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public Type InterfaceType { get; set; }
         public Type ExtenderType { get; set; }
     }
-
+    [Obsolete("", true)]
     public abstract class OptionsController : ViewController, IModelExtender {
 
 

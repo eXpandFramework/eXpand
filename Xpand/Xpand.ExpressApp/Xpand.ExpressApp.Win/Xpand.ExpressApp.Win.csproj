@@ -235,9 +235,6 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\EditorTypeVisibilityCalculator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewDesigner.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,12 +1,11 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.TreeListEditors.Win;
-using DevExpress.XtraTreeList;
-using DevExpress.XtraTreeList.Columns;
+using DevExpress.ExpressApp.TreeListEditors.Web;
+using DevExpress.Web.ASPxTreeList;
 using Xpand.ExpressApp.TreeListEditors.Model;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
-    public class TreeListModelAdapterController : TreeListModelAdapterController<TreeListEditor> {
+namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
+    public class TreeListModelAdapterController : TreeListModelAdapterController<ASPxTreeListEditor> {
 
         protected override ModelSynchronizer ModelSynchronizer() {
             return new TreeListEditorDynamicModelSynchronizer(_treeListEditor);
@@ -17,8 +16,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
         }
 
         protected override Type TreeListType() {
-            return typeof(TreeList);
+            return typeof(ASPxTreeList);
         }
 
     }
+
 }

@@ -313,19 +313,19 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var typeConverterAttribute = attribute as TypeConverterAttribute;
             if (typeConverterAttribute != null) {
                 var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
-                if (type != null && type.IsPublic)
+                if (type != null && type.IsPublic && !type.FullName.StartsWith("System.Web.UI.Design"))
                     return string.Format("{1}(typeof({0}))", type.FullName, TypeToString(attribute.GetType()));
                 return null;
             }
             Type attributeType = attribute.GetType();
-            //            if (attributeType == typeof(DXDescriptionAttribute)) {
-            //                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            //            }
-            //            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
-            //                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            //            }
+            if (attributeType == typeof(DXDescriptionAttribute)) {
+                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            }
+            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
+                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            }
             if (attributeType == typeof(DefaultValueAttribute)) {
                 string value = GetStringValue(((DefaultValueAttribute)attribute).Value);
                 return string.Format(@"System.ComponentModel.DefaultValue({0})", value);

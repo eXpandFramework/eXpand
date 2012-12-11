@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 
-namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors {
+namespace Xpand.ExpressApp.ListEditors {
     public abstract class EditorTypeVisibilityCalculator : IModelIsVisible {
 
         #region Implementation of IModelIsVisible

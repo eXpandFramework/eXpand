@@ -125,25 +125,21 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TreeListOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\TreeNavigationOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\TreeListOptionsModelSyncronizer.cs" />
-    <Compile Include="Core\XpandTreeListEditorModelSynchronizerList.cs" />
     <Compile Include="ListEditors\XpandASPxTreeListEditor.cs" />
+    <Compile Include="Model\Interfaces.cs" />
+    <Compile Include="Model\Synchronizers.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\TreeNavigationOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorsAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

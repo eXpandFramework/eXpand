@@ -8,8 +8,8 @@ using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using System.Linq;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.ExpressApp.ListEditors;
+using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {

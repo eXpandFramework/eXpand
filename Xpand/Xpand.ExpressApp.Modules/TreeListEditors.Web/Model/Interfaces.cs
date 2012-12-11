@@ -1,10 +1,11 @@
 ﻿using System;
-using DevExpress.ExpressApp.TreeListEditors.Win;
+using DevExpress.ExpressApp.TreeListEditors.Web;
 
-namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
+namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
     public class TreeListEditorVisibilityCalculatorHelper : TreeListEditors.Model.TreeListEditorVisibilityCalculatorHelper {
         public override Type TreelistEditorType() {
-            return typeof(TreeListEditor);
+            return typeof(ASPxTreeListEditor);
         }
     }
+
 }
