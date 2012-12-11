@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Utils.Linq;

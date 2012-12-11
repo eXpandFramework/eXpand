@@ -1,18 +1,18 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView;
+using DevExpress.ExpressApp.Web.Editors.ASPx;
 
-namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
+namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridListEditorVisibilityCalculatorHelper : ExpressApp.Model.Options.GridListEditorVisibilityCalculatorHelper {
         public override bool IsVisible(IModelNode node, string propertyName) {
             Type editorType = EditorType(node);
-            if (editorType == typeof(GridListEditor))
+            if (editorType == typeof(ASPxGridListEditor))
                 return true;
-            if (typeof(XpandGridListEditor).IsAssignableFrom(editorType) && !typeof(AdvBandedListEditor).IsAssignableFrom(editorType))
+            if (typeof(XpandASPxGridListEditor).IsAssignableFrom(editorType))
                 return true;
             return false;
         }
 
     }
+
 }

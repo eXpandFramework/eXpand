@@ -30,6 +30,7 @@ namespace Xpand.ExpressApp.ModelEditor {
 
         [STAThread]
         public static void Main(string[] args) {
+            Debugger.Break();
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += OnException;
             try {

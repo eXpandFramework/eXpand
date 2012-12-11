@@ -313,7 +313,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var typeConverterAttribute = attribute as TypeConverterAttribute;
             if (typeConverterAttribute != null) {
                 var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
-                if (type != null && type.IsPublic && !type.FullName.StartsWith("System.Web.UI.Design"))
+                if (type != null && type.IsPublic && !type.FullName.Contains(".Design."))
                     return string.Format("{1}(typeof({0}))", type.FullName, TypeToString(attribute.GetType()));
                 return null;
             }

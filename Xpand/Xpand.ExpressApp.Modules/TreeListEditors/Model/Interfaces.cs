@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Model;
 using System.Linq;
+using Xpand.ExpressApp.Model.Options;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
     [ModelAbstractClass]

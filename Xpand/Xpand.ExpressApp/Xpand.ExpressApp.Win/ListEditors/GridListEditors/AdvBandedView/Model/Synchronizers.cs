@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.XtraGrid.Views.BandedGrid;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;

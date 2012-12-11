@@ -10,6 +10,7 @@ using DevExpress.XtraCharts;
 using System.Linq;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {

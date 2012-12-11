@@ -155,7 +155,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\DynamicDouplicateTypesMapper.cs" />
     <Compile Include="Core\ListViewExtensions.cs" />
     <Compile Include="Editors\EnumEdit.cs">
       <SubType>Component</SubType>

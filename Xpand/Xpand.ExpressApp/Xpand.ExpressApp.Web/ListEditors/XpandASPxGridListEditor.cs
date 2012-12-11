@@ -135,11 +135,6 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
-
-        protected override IModelSynchronizable CreateModelSynchronizer() {
-            return new XpandASPxGridListEditorSynchronizer(this, Model);
-        }
-
     }
 
     public class ColumnCreatedEventArgs : EventArgs {
