@@ -57,7 +57,7 @@ using DevExpress.Web.ASPxEditors;
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(String), "HyperLinkPropertyEditor", false)]
     [CancelClickEventPropagation]
-    public class HyperLinkPropertyEditor : DevExpress.ExpressApp.Web.Editors.ASPx.ASPxStringPropertyEditor {
+    public class HyperLinkPropertyEditor : DevExpress.ExpressApp.Web.Editors.ASPx.ASPxPropertyEditor {
         public const string UrlEmailMask =
             @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
 
@@ -66,18 +66,36 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateEditModeControlCore() {
-            var textBox = (ASPxTextBox)base.CreateEditModeControlCore();
-            textBox.ValidationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
-            return textBox;
+
+            if (AllowEdit) {
+                var textBox = RenderHelper.CreateASPxTextBox();
+                textBox.MaxLength = MaxLength;
+                textBox.ValidationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
+                textBox.TextChanged += ExtendedEditValueChangedHandler;
+                return textBox;
+            }
+            else {
+                return CreateHyperLink();
+            }
         }
 
+
+        protected override void ApplyReadOnly() {
+            if (Editor is ASPxTextBox)
+                base.ApplyReadOnly();
+        }
+
+        protected override void ReadEditModeValueCore() {
+            base.ReadEditModeValueCore();
+            SetupHyperLink(PropertyValue, Editor);
+        }
         protected override WebControl CreateViewModeControlCore() {
             return CreateHyperLink();
         }
 
         protected override void ReadViewModeValueCore() {
             base.ReadViewModeValueCore();
-            SetupHyperLink(PropertyValue);
+            SetupHyperLink(PropertyValue, InplaceViewModeEditor);
         }
 
         static string GetResolvedUrl(object value) {
@@ -102,11 +120,15 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return hyperlink;
         }
 
-        void SetupHyperLink(object value) {
-            var hyperlink = (ASPxHyperLink)InplaceViewModeEditor;
-            string url = Convert.ToString(value);
-            hyperlink.Text = url;
-            hyperlink.NavigateUrl = GetResolvedUrl(url);
+        void SetupHyperLink(object value, object editor) {
+            
+            var hyperlink = editor as ASPxHyperLink;
+            if (hyperlink != null) {
+                string url = Convert.ToString(value);
+                hyperlink.Text = url;
+                hyperlink.NavigateUrl = GetResolvedUrl(url);
+                hyperlink.Target = "blank";
+            }
         }
     }
 }
