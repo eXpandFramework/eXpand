@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model.Options;
@@ -39,16 +40,16 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
             var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(ASPxGridView).Name));
 
-            builder.ExtendInteface<IModelListViewOptionsGridView, ASPxGridView>(assembly);
-            builder.ExtendInteface<IModelColumnOptionsGridView, GridViewColumn>(assembly);
+            builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
+            builder.ExtendInteface<IModelOptionsColumnGridView, GridViewColumn>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act = info => info.DXFilter()
+                Act = info => (info.DXFilter() || typeof(PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
-                Act = info => info.DXFilter() && info.Name != "Width"
+                Act = info => (info.DXFilter()) && info.Name != "Width"
             };
         }
     }

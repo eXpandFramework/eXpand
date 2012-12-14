@@ -522,14 +522,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return info.DXFilter(info.DeclaringType, attributes);
         }
 
-        static readonly Type[] _baseTypes = new[] { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions) };
+        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions) };
         public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null) {
-            return DXFilter(info, _baseTypes, componentBaseType, attributes);
+            return DXFilter(info, BaseTypes, componentBaseType, attributes);
         }
-        public static bool DXFilter(this DynamicModelPropertyInfo info, Type[] baseTypes, Type componentBaseType, Type[] attributes = null) {
+        public static bool DXFilter(this DynamicModelPropertyInfo info, IList<Type> baseTypes, Type componentBaseType, Type[] attributes = null) {
             if (attributes == null)
                 attributes = new[] { typeof(XtraSerializableProperty) };
-            return Filter(info, componentBaseType, _baseTypes.Union(baseTypes).ToArray(), attributes);
+            return Filter(info, componentBaseType, BaseTypes.Union(baseTypes).ToArray(), attributes);
         }
 
         public static bool Filter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] filteredPropertyBaseTypes, Type[] attributes) {
