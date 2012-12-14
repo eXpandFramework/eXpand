@@ -143,8 +143,8 @@
 	<UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
 	
 	<Target Name="ReplaceKey">
-		<!--Temporary disabled
-		<ConvertToSimpleNames Projects="@(ProjectFiles)"/>-->
+		<CreateItem Include="**\*.csproj;**\*.config;**\*.skin" Exclude=".git;Build;">
+			<Output ItemName="_filesToChange" TaskParameter="Include"/>
 		</CreateItem>    
 		<MSBuild.ExtensionPack.FileSystem.File TaskAction="FilterByContent" RegexPattern="c52ffed5d5ff0958" Files="@(_filesToChange)">
             <Output TaskParameter="IncludedFiles" ItemName="FilesToParse"/>
@@ -351,7 +351,7 @@
 		</Time>
 	</Target>
 	
-	<Target Name="NuGetPackage" DependsOnTargets="Copy">
+	<Target Name="NuGetPackage">
 		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
