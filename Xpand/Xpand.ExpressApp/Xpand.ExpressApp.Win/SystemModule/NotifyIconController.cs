@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsNotifyIconOptions : IModelNode {

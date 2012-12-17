@@ -56,7 +56,7 @@ namespace Xpand.Xpo.DB {
 
         public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
-            var dataStoreAttribute = _dataStoreAttributes.Where(attribute => nameSpace.StartsWith(attribute.NameSpace)).SingleOrDefault();
+            var dataStoreAttribute = _dataStoreAttributes.SingleOrDefault(attribute => nameSpace.StartsWith(attribute.NameSpace));
             return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString));
         }
 
@@ -82,7 +82,7 @@ namespace Xpand.Xpo.DB {
 
         XPClassInfo GetXPClassInfo(Type type) {
             var xpClassInfos = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>());
-            return xpClassInfos.Where(info => info.ClassType == type).Single();
+            return xpClassInfos.Single(info => info.ClassType == type);
         }
 
         public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo) {
@@ -125,8 +125,9 @@ namespace Xpand.Xpo.DB {
                 return connectionStringSettings.ConnectionString;
             }
             IDataStore connectionProvider = XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema);
-            if (connectionProvider is ConnectionProviderSql) {
-                IDbConnection dbConnection = ((ConnectionProviderSql)connectionProvider).Connection;
+            var sql = connectionProvider as ConnectionProviderSql;
+            if (sql != null) {
+                IDbConnection dbConnection = sql.Connection;
                 return _connectionString == null ? AccessConnectionProvider.GetConnectionString(key)
                                               : _connectionString.Replace(dbConnection.Database, String.Format("{0}{1}.mdb", dbConnection.Database, key));
 
@@ -137,6 +138,11 @@ namespace Xpand.Xpo.DB {
         public IDataStore GetConnectionProvider(string key) {
             string connectionString = GetConnectionString(key);
             return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
+        }
+
+        public static IEnumerable<DataStoreAttribute> GetDataStoreAttributes(string dataStoreNameSuffix) {
+            var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assmb => assmb.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
+            return dataStoreAttributes.Where(attribute => attribute.DataStoreNameSuffix.Equals(dataStoreNameSuffix, StringComparison.Ordinal));
         }
 
         public IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
@@ -176,14 +182,14 @@ namespace Xpand.Xpo.DB {
                 return StrDefault;
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();
             string key = StrDefault;
-            if (keyValuePairs.Count() > 0)
+            if (keyValuePairs.Any())
                 key = keyValuePairs[0].Key;
             return key;
         }
 
         public Type GetType(string typeName) {
             var types = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>()).Select(classInfo => classInfo.ClassType);
-            return types.Where(type => type.Name == typeName).SingleOrDefault();
+            return types.SingleOrDefault(type => type.Name == typeName);
         }
 
     }

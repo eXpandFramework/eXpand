@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartTester.Module.Win", "ChartTester.Module.Win\ChartTester.Module.Win.csproj", "{056364AF-2845-4E52-AA11-28B3D13C37A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartTester.Win", "ChartTester.Win\ChartTester.Win.csproj", "{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056364AF-2845-4E52-AA11-28B3D13C37A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -190,6 +190,8 @@
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="ModuleUpdaterHelper.cs" />
+    <Compile Include="PersistentMetaData\ComponentInterfaces.cs" />
+    <Compile Include="PersistentMetaData\IWorldCreatorModule.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security;
@@ -6,6 +7,8 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.MiddleTier;
 using Xpand.ExpressApp.Model;
+using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.Core {
     public static class XafApplicationExtensions {
@@ -27,16 +30,31 @@ namespace Xpand.ExpressApp.Core {
         public static string GetConnectionString(this XafApplication xafApplication) {
             if (xafApplication is ServerApplication && !(xafApplication is IXafApplication))
                 throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " + xafApplication.GetType());
-            return ((IXafApplication)xafApplication).ConnectionString;
+            return ((IConnectionString)xafApplication).ConnectionString;
         }
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            ((IXafApplication)xafApplication).ConnectionString = connectionString;
+            ((IConnectionString)xafApplication).ConnectionString = connectionString;
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
-            IDataStore dataStore = ((IXafApplication)xafApplication).GetDataStore(connectionProvider);
+            args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
+        }
+
+        public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreNameSuffix) {
+            if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
+                xafApplication.CreateCustomObjectSpaceprovider(args);
+            }
+        }
+
+        static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication, IDataStore connectionProvider, string connectionString) {
+            var xafApplicationDataStore = xafApplication as IXafApplicationDataStore;
             var selectDataSecurityProvider = xafApplication.Security as ISelectDataSecurityProvider;
-            args.ObjectSpaceProvider = dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), selectDataSecurityProvider) : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
+            if (xafApplicationDataStore != null) {
+                IDataStore dataStore = xafApplicationDataStore.GetDataStore(connectionProvider);
+                return dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), selectDataSecurityProvider)
+                                          : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
+            }
+            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
         }
 
         static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {

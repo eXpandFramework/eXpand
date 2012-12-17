@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Security.Win {
             base.CustomizeTypesInfo(typesInfo);
             var type = Application == null ? typeof(XpandRole) : RoleType;
             var typeInfo = typesInfo.FindTypeInfo(type);
-            if (typeInfo.FindMember("ModifyLayout") == null)
+            if (typeInfo != null && typeInfo.FindMember("ModifyLayout") == null)
                 typeInfo.CreateMember("ModifyLayout", typeof(bool));
         }
     }

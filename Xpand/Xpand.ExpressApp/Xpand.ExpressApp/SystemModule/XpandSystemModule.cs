@@ -20,6 +20,7 @@ using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.SystemModule {
 

@@ -316,9 +316,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" >
-	  <SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    <Reference Include="Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Workflow, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -343,6 +343,9 @@
     <Reference Include="Xpand.NCarousel, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.NCarousel.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

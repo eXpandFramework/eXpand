@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Security;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(XpandSecurityModule))]

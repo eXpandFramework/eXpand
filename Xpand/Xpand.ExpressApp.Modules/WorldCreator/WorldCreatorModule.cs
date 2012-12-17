@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel;
-using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
+using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {
 
@@ -13,11 +14,10 @@ namespace Xpand.ExpressApp.WorldCreator {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
 
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            if (RuntimeMode)
-                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
+        protected override Type ApplicationType() {
+            return typeof(IWorldCreatorModule);
         }
+
 
     }
 

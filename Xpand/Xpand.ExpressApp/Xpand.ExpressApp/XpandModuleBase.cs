@@ -184,7 +184,7 @@ namespace Xpand.ExpressApp {
             base.Setup(application);
             Type applicationType = ApplicationType();
             if (!applicationType.IsInstanceOfType(application))
-                throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " + applicationType.FullName);
+                throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " + applicationType.FullName + Environment.NewLine + "Please check folder Demos/Modules/" + GetType().Name.Replace("Module", null) + " to see how to install correctly this module");
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);

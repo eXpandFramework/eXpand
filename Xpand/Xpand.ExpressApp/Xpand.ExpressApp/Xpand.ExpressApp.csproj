@@ -209,7 +209,6 @@
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
-    <Compile Include="ComponentInterfaces.cs" />
     <Compile Include="IXpandObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />

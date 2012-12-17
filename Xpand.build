@@ -121,6 +121,34 @@
 			.\Demos\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj;
 			.\Demos\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj;
 			.\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj;
+			
+			.\Demos\Modules\AdditionalViewControlProvider\Tester.sln;
+			.\Demos\Modules\Chart\ChartTester.sln;
+			.\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln;
+			.\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln;
+			.\Demos\Modules\FilterDataStore\FilterDataStoreTester.sln;
+			.\Demos\Modules\ImportWizard\ImportWizardTester.sln;
+			.\Demos\Modules\IO\IOTester.sln;
+			.\Demos\Modules\JobsScheduler\JobsSchedulerTester.sln;
+			.\Demos\Modules\MasterDetail\MasterDetailTester.sln;
+			.\Demos\Modules\ModelArtifactState\ModelArtifactStateTester.sln;
+			.\Demos\Modules\ModelDifference\ModelDifferenceTester.sln;
+			.\Demos\Modules\NCarousel\NCarouselTester.sln;
+			.\Demos\Modules\PivotChart\PivotChartTester.sln;
+			.\Demos\Modules\Reports\ReportsTester.sln;
+			.\Demos\Modules\Scheduler\SchedulerTester.sln;
+			.\Demos\Modules\Security\SecurityTester.sln;
+			.\Demos\Modules\StateMachine\StateMachineTester.sln;
+			.\Demos\Modules\Thumbnail\ThumbnailTester.sln;
+			.\Demos\Modules\TreeListEditors\TreeListEditorsTester.sln;
+			.\Demos\Modules\Validation\ValidationTester.sln;
+			.\Demos\Modules\ViewVariants\ViewVariantsTester.sln;
+			.\Demos\Modules\WizardUI\WizardUITester.sln;
+			.\Demos\Modules\Workflow\WorkflowTester.sln;
+			.\Demos\Modules\WorldCreator\WorldCreatorTester.sln;
+			.\Demos\Modules\XpandSystem\XpandSystemTester.sln;
+			.\Demos\Modules\AdditionalViewControlProvider\Tester.sln;
+			
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
 			.\Xpand.Addins\XpandAddIns.csproj;
 			.\Xpand\Xpand.Tests\Xpand.Tests\Xpand.Tests.csproj;

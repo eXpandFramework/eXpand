@@ -7,18 +7,25 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
+using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.ExceptionHandling;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
     public abstract class ExceptionHandlingModule : XpandModuleBase {
         public const string ExceptionHandling = "ExceptionHandling";
 
-
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
             if (RuntimeMode)
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ExceptionHandling");
+            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
         }
+
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        }
+
         protected void Log(Exception exception) {
             if (IsEnabled()) {
                 if (EmailTraceListenersAreValid()) {

@@ -26,11 +26,13 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            if (RuntimeMode)
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
             application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
         }
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
             if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
-                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs, "WorldCreator");
         }
 
         public static string FullConnectionString {

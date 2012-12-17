@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {

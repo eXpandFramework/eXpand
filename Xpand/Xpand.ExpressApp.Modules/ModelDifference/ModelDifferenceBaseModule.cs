@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {

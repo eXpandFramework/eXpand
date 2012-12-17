@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module", "FilterDataStoreTester.Module\FilterDataStoreTester.Module.csproj", "{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module.Web", "FilterDataStoreTester.Module.Web\FilterDataStoreTester.Module.Web.csproj", "{2318B7AF-1176-4717-8079-DC28D12E35DB}"
+EndProject
+Project("{00000000-0000-0000-0000-000000000000}") = "FilterDataStoreTester.Web", "FilterDataStoreTester.Web\FilterDataStoreTester.Web.csproj", "{95739B89-F2C7-4E47-87AE-C4EC943ADE51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module.Win", "FilterDataStoreTester.Module.Win\FilterDataStoreTester.Module.Win.csproj", "{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Win", "FilterDataStoreTester.Win\FilterDataStoreTester.Win.csproj", "{543698D8-6BD3-442F-B2E6-0B37FA7C3508}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2318B7AF-1176-4717-8079-DC28D12E35DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95739B89-F2C7-4E47-87AE-C4EC943ADE51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543698D8-6BD3-442F-B2E6-0B37FA7C3508}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
