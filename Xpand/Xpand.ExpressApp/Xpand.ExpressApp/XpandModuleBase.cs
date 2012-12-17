@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp {
             TypesInfo = XafTypesInfo.Instance;
         }
 
-        static void LoadBaseImplAssembly() {
+        void LoadBaseImplAssembly() {
             var assemblyString = "Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*";
             var baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {

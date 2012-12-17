@@ -131,10 +131,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Layout\XpandLayoutManager.cs" />
-    <Compile Include="ListEditors\Model\Interfaces.cs" />
-    <Compile Include="ListEditors\Model\Synchronizers.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\Model\Interfaces.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ListEditors\Model\Synchronizers.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="PropertyEditors\ASPxTimePropertyEditor .cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
