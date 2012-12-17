@@ -122,7 +122,7 @@
 			.\Demos\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj;
 			.\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj;
 			
-			.\Demos\Modules\AdditionalViewControlProvider\Tester.sln;
+			.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;
 			.\Demos\Modules\Chart\ChartTester.sln;
 			.\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln;
 			.\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln;
@@ -147,7 +147,6 @@
 			.\Demos\Modules\Workflow\WorkflowTester.sln;
 			.\Demos\Modules\WorldCreator\WorldCreatorTester.sln;
 			.\Demos\Modules\XpandSystem\XpandSystemTester.sln;
-			.\Demos\Modules\AdditionalViewControlProvider\Tester.sln;
 			
 			.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;
 			.\Xpand.Addins\XpandAddIns.csproj;
