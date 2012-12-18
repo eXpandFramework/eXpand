@@ -286,6 +286,7 @@ Function InstallProjectTemplatesFiles
     Pop $R0
 	CreateDirectory "$R0ProjectTemplates\CSharp\DevExpress XAF"
     File "/oname=$R0ProjectTemplates\CSharp\DevExpress XAF\XpandFullSolutionCS.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\cs\XpandFullSolutionCS.${DevExVersion}.zip"
+	CreateDirectory "$R0ProjectTemplates\VisualBasic\DevExpress XAF"
     File "/oname=$R0ProjectTemplates\VisualBasic\DevExpress XAF\XpandFullSolutionVB.${DevExVersion}.zip" "Build\Installer\Xpand.DesignExperience\vs_templates\vb\XpandFullSolutionVB.${DevExVersion}.zip"
     Pop $R0
 FunctionEnd
