@@ -121,6 +121,8 @@
 			.\Demos\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj;
 			.\Demos\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj;
 			.\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj;
+			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
+			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;
 			
 			.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;
 			.\Demos\Modules\Chart\ChartTester.sln;

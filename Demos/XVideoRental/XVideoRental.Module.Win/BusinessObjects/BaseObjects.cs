@@ -55,7 +55,8 @@ namespace XVideoRental.Module.Win.BusinessObjects {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            CreatedBy = (SecuritySystemUser)XPObjectSpace.FindObjectSpaceByObject(this).GetObject(SecuritySystem.CurrentUser);
+            IObjectSpace objectSpace = XPObjectSpace.FindObjectSpaceByObject(this);
+            if (objectSpace != null) CreatedBy = (SecuritySystemUser)objectSpace.GetObject(SecuritySystem.CurrentUser);
         }
     }
 

@@ -1,13 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Updating;
+using System.Threading;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.XtraSplashScreen;
+using DevExpress.XtraWaitForm;
 using Xpand.ExpressApp.Win;
+using SplashScreen = DevExpress.ExpressApp.Win.Utils.SplashScreen;
 
 namespace XVideoRental.Win {
     public partial class XVideoRentalWindowsFormsApplication : XpandWinApplication {
@@ -15,34 +16,67 @@ namespace XVideoRental.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead += OnLastLogonParametersRead;
+            SplashScreen = null;
+            SplashScreenType = typeof(SplashScreen);
+        }
+
+        public override void UpdateSplash(string context, string caption, string description,
+                                          params object[] additionalParams) {
+            base.UpdateSplash(context, caption, description, additionalParams);
+            if (IsSplashScreenManagerFormVisible() && typeof(WaitForm).IsAssignableFrom(SplashScreenType)) {
+                if (!string.IsNullOrEmpty(caption)) {
+                    SplashScreenManager.Default.SetWaitFormCaption(caption);
+                }
+                if (!string.IsNullOrEmpty(description)) {
+                    SplashScreenManager.Default.SetWaitFormDescription(description);
+                }
+                Application.DoEvents();
+            }
+        }
+
+        public override void StartSplash() {
+            base.StartSplash();
+            if (SplashScreenType != null) {
+                SplashScreenManager.ShowForm(null, SplashScreenType, true, false, false);
+            }
+        }
+
+        public override void StopSplash() {
+            base.StopSplash();
+            if (IsSplashScreenManagerFormVisible()) {
+                SplashScreenManager.CloseForm(false, 0, null, true);
+            }
+        }
+
+        protected override void Logon(PopupWindowShowActionExecuteEventArgs logonWindowArgs) {
+            StartSplash();
+            base.Logon(logonWindowArgs);
         }
 
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs e) {
             var logonParameters = e.LogonObject as AuthenticationStandardLogonParameters;
             if (logonParameters != null) {
                 if (String.IsNullOrEmpty(logonParameters.UserName)) {
-                    logonParameters.UserName = "user";
+                    logonParameters.UserName = "Admin";
                 }
             }
-
         }
-
-        //        protected override string GetModelAssemblyFilePath() {
-        //            return Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "modelassembly.dll");
-        //        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
-        private void XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
-#if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
+
+        void XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch(object sender,
+                                                                         DatabaseVersionMismatchEventArgs e) {
+#if DEBUG
+            e.Updater.Update();
+            e.Handled = true;
 #else
             if (true) {
                 e.Updater.Update();
                 e.Handled = true;
-            } else {
+            }
+            else {
                 throw new InvalidOperationException(
                     "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
@@ -54,8 +88,9 @@ namespace XVideoRental.Win {
             }
 #endif
         }
-        private void XVideoRentalWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
-            string userLanguageName = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+
+        void XVideoRentalWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
+            string userLanguageName = Thread.CurrentThread.CurrentUICulture.Name;
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {
                 e.Languages.Add(userLanguageName);
             }

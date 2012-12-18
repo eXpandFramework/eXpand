@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.Reports;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -19,8 +18,9 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
-using Xpand.ExpressApp.Security.Core;
+using DevExpress.ExpressApp.Utils;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.Utils.Automation;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
@@ -40,14 +40,18 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 importHelper.Import();
                 SetPermissions(employersRole);
             }
+            CreateReports();
+            ObjectSpace.CommitChanges();
+            SequenceBaseObject.Updating = false;
+        }
+
+        void CreateReports() {
             CreateReport("Customer Cards", typeof(Customer));
             CreateReport("Active Customers", typeof(Customer));
             CreateReport("Most Profitable Genres", typeof(Movie));
             CreateReport("Movie Invetory", typeof(MovieItem));
             CreateReport("Movie Rentals By Customer", typeof(Customer));
             CreateReport("Top Movie Rentals", typeof(Movie));
-            ObjectSpace.CommitChanges();
-            SequenceBaseObject.Updating = false;
         }
 
         void SetPermissions(SecuritySystemRole employersRole) {
@@ -83,7 +87,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (ObjectSpace.IsNewObject(defaultRole)) {
                 var employersRole = ObjectSpace.GetRole<XpandRole>("Employers");
 
-                var user = employersRole.GetUser("user");
+                var user = employersRole.GetUser("User");
                 user.Roles.Add(defaultRole);
 
                 employersRole.CreateFullPermissionAttributes();
@@ -144,11 +148,14 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         void CreateViews() {
-            var dbCommand = _unitOfWork.Connection.CreateCommand();
-            CreatePersonView(dbCommand, "Artist", "vArtist");
-            CreatePersonView(dbCommand, "Customer", "vCustomer");
-            CreatePictureView(dbCommand, "ArtistPicture", "vArtistPicture");
-            CreatePictureView(dbCommand, "MoviePicture", "vMoviePicture");
+            if (_unitOfWork != null && _unitOfWork.Connection != null) {
+                var dbCommand = _unitOfWork.Connection.CreateCommand();
+                ApplicationStatusUpdater.Notify("CreateSqlViews", "Creating SQL views...");
+                CreatePersonView(dbCommand, "Artist", "vArtist");
+                CreatePersonView(dbCommand, "Customer", "vCustomer");
+                CreatePictureView(dbCommand, "ArtistPicture", "vArtistPicture");
+                CreatePictureView(dbCommand, "MoviePicture", "vMoviePicture");
+            }
         }
 
         void CreatePictureView(IDbCommand dbCommand, string tableName, string viewName) {
@@ -178,12 +185,12 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         public void Import() {
+            ApplicationStatusUpdater.Notify("Import", "");
             DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show("This operation may take a few minutes, please wait. Press OK to continue.", "Importing and transforming  initial data...", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.Cancel) {
                 Environment.Exit(Environment.ExitCode);
             }
-            var unitOfWork = new UnitOfWork(((XPObjectSpace)_objectSpace).Session.DataLayer);
-            unitOfWork.Import(_unitOfWork);
+            InitDataExtensions.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
         }
     }
 }

@@ -76,7 +76,7 @@ namespace Xpand.Utils.Automation {
                                                                                     null, null);
             if (!asyncResult.IsCompleted)
                 asyncResult.AsyncWaitHandle.WaitOne(5000, false);
-            return asyncResult.IsCompleted ? waitForWindowToBeDisableDelegate.EndInvoke(asyncResult) : false;
+            return asyncResult.IsCompleted && waitForWindowToBeDisableDelegate.EndInvoke(asyncResult);
         }
         #endregion
         #region WaitForWindowToHaveText
@@ -86,7 +86,7 @@ namespace Xpand.Utils.Automation {
                     if (InteractivityAutomation.GetText(windowHandle) == text)
                         return true;
                 } else {
-                    if (InteractivityAutomation.GetText(windowHandle).IndexOf(text) > -1)
+                    if (InteractivityAutomation.GetText(windowHandle).IndexOf(text, StringComparison.Ordinal) > -1)
                         return true;
                 }
             }
@@ -97,6 +97,7 @@ namespace Xpand.Utils.Automation {
         /// </summary>
         /// <param name="text"></param>
         /// <param name="windowHandle"></param>
+        /// <param name="partialMatch"></param>
         /// <returns></returns>
         public static bool WaitForWindowToHaveText(string text, IntPtr windowHandle, bool partialMatch) {
             waitForWindowToHaveTextDelegate waitForWindowToHaveTextDelegate = waitForWindowToHaveTextHandler;
@@ -104,7 +105,7 @@ namespace Xpand.Utils.Automation {
                                                                                    null, null);
             if (!asyncResult.IsCompleted)
                 asyncResult.AsyncWaitHandle.WaitOne(5000, false);
-            bool b = asyncResult.IsCompleted ? waitForWindowToHaveTextDelegate.EndInvoke(asyncResult) : false;
+            bool b = asyncResult.IsCompleted && waitForWindowToHaveTextDelegate.EndInvoke(asyncResult);
             return b;
         }
 
@@ -137,7 +138,7 @@ namespace Xpand.Utils.Automation {
             IAsyncResult asyncResult = waitForWindowToCloseDelegate.BeginInvoke(windowCaption, null, null);
             if (!asyncResult.IsCompleted)
                 asyncResult.AsyncWaitHandle.WaitOne(5000, false);
-            bool b = asyncResult.IsCompleted ? waitForWindowToCloseDelegate.EndInvoke(asyncResult) : false;
+            bool b = asyncResult.IsCompleted && waitForWindowToCloseDelegate.EndInvoke(asyncResult);
             return b;
         }
         #endregion
@@ -155,8 +156,8 @@ namespace Xpand.Utils.Automation {
             IAsyncResult asyncResult = findWindowsWithTimeoutDelegate.BeginInvoke(helperAutomation, windowCaption, null,
                                                                                   null);
             if (!asyncResult.IsCompleted)
-                asyncResult.AsyncWaitHandle.WaitOne(5000, false);
-            return asyncResult.IsCompleted ? findWindowsWithTimeoutDelegate.EndInvoke(asyncResult) : false;
+                asyncResult.AsyncWaitHandle.WaitOne(-1, false);
+            return asyncResult.IsCompleted && findWindowsWithTimeoutDelegate.EndInvoke(asyncResult);
         }
 
         private static bool findFocusedWindowsWithTimeout(string windowCaption) {
@@ -176,6 +177,7 @@ namespace Xpand.Utils.Automation {
         /// default timeout is 5000 millisec
         /// </summary>
         /// <param name="directoryPath"></param>
+        /// <param name="filter"></param>
         /// <returns>true if the file exists at the given time</returns>
         public static bool WaitForFileToBeCreated(string directoryPath, string filter) {
             return WaitForFileToBeCreated(directoryPath, 5000, filter);
@@ -194,6 +196,7 @@ namespace Xpand.Utils.Automation {
         /// _
         /// </summary>
         /// <param name="filePath">path and name of the file</param>
+        /// <param name="milliSec"></param>
         /// <returns>true if the file exists at the given time</returns>
         public static bool WaitForFileToBeCreated(string filePath, int milliSec) {
             return WaitForFileToBeCreated(Path.GetDirectoryName(filePath), milliSec, Path.GetFileName(filePath));
@@ -204,6 +207,8 @@ namespace Xpand.Utils.Automation {
         /// _
         /// </summary>
         /// <param name="directoryPath"></param>
+        /// <param name="milliSec"></param>
+        /// <param name="filter"></param>
         /// <returns>true if the file exists at the given time</returns>
         public static bool WaitForFileToBeCreated(string directoryPath, int milliSec, string filter) {
             var fileAutomation = new FileAutomation();
