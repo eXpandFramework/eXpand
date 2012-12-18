@@ -279,9 +279,6 @@
     <Compile Include="BusinessObjects\Rent\RentEvent.cs" />
     <Compile Include="Controllers\DiscountlevelSummaryValue.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Controllers\MediaPerformance_Movie_SummuryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\KPICustomersByDatesController.cs">
       <SubType>Component</SubType>
     </Compile>
