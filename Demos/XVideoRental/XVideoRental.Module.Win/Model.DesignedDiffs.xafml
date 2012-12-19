@@ -377,27 +377,30 @@
         </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Company_ListView_MasterDetail" ShowAutoFilterRow="True" AllowEdit="False" IsFooterVisible="False" IsActiveFilterEnabled="True" ActiveFilterString="" Caption="Companies">
+    <ListView Id="Company_ListView_MasterDetail" ShowAutoFilterRow="True" AllowEdit="False" IsFooterVisible="False" IsActiveFilterEnabled="True" ActiveFilterString="" Caption="Companies" EditorTypeName="XVideoRental.Module.Win.Editors.Common.XGridListEditor">
       <Columns>
-        <ColumnInfo Id="CompanyId" Index="-1" />
-        <ColumnInfo Id="Name" AllowEdit="False" Width="424" />
-        <ColumnInfo Id="Country" Index="1" AllowEdit="False" Width="227" PropertyName="Country.Name" Caption="Country" />
-        <ColumnInfo Id="Type" AllowEdit="False" Width="227" PropertyName="Type.Name" Caption="Type" />
-        <ColumnInfo Id="WebSite" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" Width="404">
+        <ColumnInfo Id="CompanyId" Index="-1" Removed="True" />
+        <ColumnInfo Id="Name" AllowEdit="False" Width="326" />
+        <ColumnInfo Id="Country" Index="1" AllowEdit="False" Width="100" PropertyName="Country" Caption="Country" IsNewNode="True" Removed="True">
+        </ColumnInfo>
+        <ColumnInfo Id="Type" AllowEdit="False" Width="119" PropertyName="Type" Caption="Type" Index="2" IsNewNode="True" Removed="True">
+          <OptionsColumnGridView IsNewNode="True" />
+        </ColumnInfo>
+        <ColumnInfo Id="WebSite" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" Width="677" Index="3">
           <RepositoryItems>
             <RepositoryItemHyperLinkEdit Id="HyperLinkEdit" ReadOnly="True" SingleClick="True" IsNewNode="True" />
           </RepositoryItems>
         </ColumnInfo>
-        <ColumnInfo Id="Flag" PropertyName="Country.Flag" ImageEditorMode="PictureEdit" Width="77" IsNewNode="True">
+        <ColumnInfo Id="Flag" PropertyName="Country.Flag" ImageEditorMode="PictureEdit" Width="137" Index="4" IsNewNode="True">
           <RepositoryItems IsNewNode="True">
             <RepositoryItemPictureEdit Id="PictureEditor" NullText=" " IsNewNode="True" />
           </RepositoryItems>
         </ColumnInfo>
       </Columns>
-      <GridViewOptions>
+      <OptionsGridView>
         <OptionsDetail EnableMasterViewMode="True" ShowDetailTabs="False" />
         <OptionsView ShowDetailButtons="True" />
-      </GridViewOptions>
+      </OptionsGridView>
     </ListView>
     <ListView Id="Company_LookupListView">
       <Columns>

@@ -23,12 +23,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         protected readonly HashSet<string> _columnPropertiesToExclude = new HashSet<string>{
             "VisibleIndex",
             "Visible",
-            "DisplayFormat"
+            "DisplayFormat",
+            "FieldName",
+            "PropertyName"
         };
 
-        protected static readonly Dictionary<string, string> _columnMappings = new Dictionary<string, string>{
-            {"FieldName","PropertyName"}
-        };
+        protected static readonly Dictionary<string, string> _columnMappings = new Dictionary<string, string>();
 
         protected readonly Dictionary<string, object> _defaultValues = new Dictionary<string, object>();
         protected readonly HashSet<string> _nonNullableObjects = new HashSet<string>();
