@@ -119,13 +119,13 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             try {
                 unitOfWork.Connect();
             } catch (UnableToOpenDatabaseException) {
-                if (StartVideoRent())
+                if (StartVideoRent(unitOfWork))
                     unitOfWork.Connect();
             }
             return unitOfWork;
         }
 
-        bool StartVideoRent() {
+        bool StartVideoRent(UnitOfWork unitOfWork) {
             string videoRentalPath = Environment.ExpandEnvironmentVariables(string.Format(ConfigurationManager.AppSettings["VideoRentLegacyPath"], AssemblyInfo.VersionShort));
             var dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(string.Format("XVideoRental uses the initial data from the database created by the original VideoRental application that is installed with our WinForms components at \r\n{0}.\r\n\r\nChoose 'Yes' to automatically run the WinForms VideRental application and create the required SQL Express database by default (application restart is required).\r\nChoose 'No' to do this manually later and exit this application for now.", videoRentalPath),
                     "Initial data was not found...", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
@@ -135,6 +135,10 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 }
                 Process videoRental = Process.Start(videoRentalPath);
                 if (videoRental != null) {
+                    WaitAutomation.WaitForWindowToOpen("Create Database");
+                    WaitAutomation.WaitForWindowToClose("Create Database");
+                    if (!LegacyDbExists(unitOfWork))
+                        return false;
                     WaitAutomation.WaitForWindowToOpen("About - Video Rental Demo (C#)");
                     videoRental.Kill();
                     return true;
@@ -143,6 +147,21 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             }
             return false;
         }
+
+        bool LegacyDbExists(UnitOfWork unitOfWork) {
+            try {
+                unitOfWork.Connect();
+                return true;
+            } catch (UnableToOpenDatabaseException) {
+                DevExpress.XtraEditors.XtraMessageBox.Show(
+                    "Application will now exit because you have not created the legacy database!!!", "Exit", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                Application.ExitThread();
+            }
+            return false;
+        }
+
+
         public UnitOfWork UnitOfWork {
             get { return _unitOfWork; }
         }
