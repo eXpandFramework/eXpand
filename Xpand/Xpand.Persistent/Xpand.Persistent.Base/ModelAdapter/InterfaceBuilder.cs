@@ -59,7 +59,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         string _assemblyName;
         static bool _loadFromPath;
         static bool _fileExistInPath;
-
+        static readonly Dictionary<string, Assembly> _assemblies = new Dictionary<string, Assembly>();
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this() {
             _extenders = extenders;
@@ -88,7 +88,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
 
-            _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath);
+            _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
@@ -99,7 +99,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath)
                 return Assembly.LoadFile(assemblyFilePath);
-            return CompileAssemblyFromSource(source, references, false, assemblyFilePath);
+            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
+                return _assemblies[_assemblyName];
+            }
+            var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
+            _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
+            return compileAssemblyFromSource;
         }
 
         Assembly LoadFromDomain(string assemblyFilePath) {
@@ -313,19 +318,19 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var typeConverterAttribute = attribute as TypeConverterAttribute;
             if (typeConverterAttribute != null) {
                 var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
-                if (type != null && type.IsPublic && !type.FullName.Contains(".Design."))
+                if (type != null && type.IsPublic)
                     return string.Format("{1}(typeof({0}))", type.FullName, TypeToString(attribute.GetType()));
                 return null;
             }
             Type attributeType = attribute.GetType();
-            if (attributeType == typeof(DXDescriptionAttribute)) {
-                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
-            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
-                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
+            //            if (attributeType == typeof(DXDescriptionAttribute)) {
+            //                string description = ((DXDescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
+            //            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)) {
+            //                string description = ((DescriptionAttribute)attribute).Description.Replace(@"""", @"""""");
+            //                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
+            //            }
             if (attributeType == typeof(DefaultValueAttribute)) {
                 string value = GetStringValue(((DefaultValueAttribute)attribute).Value);
                 return string.Format(@"System.ComponentModel.DefaultValue({0})", value);
