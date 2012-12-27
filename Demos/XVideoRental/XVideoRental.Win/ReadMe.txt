@@ -1,4 +1,6 @@
-﻿Project Description
+﻿For posts related to the XVideoRental demo please subscribe to this dedicated tag http://community.devexpress.com/blogs/eaf/archive/tags/XVideoRental/default.aspx
+
+Project Description
 
 The XVideoRental.Win project implements a Windows Forms application. The root project folder 
 contains the WinApplication.cs(vb) file with the class that inherits 
