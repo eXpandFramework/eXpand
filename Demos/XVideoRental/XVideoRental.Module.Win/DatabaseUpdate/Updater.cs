@@ -209,7 +209,19 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (dialogResult == DialogResult.Cancel) {
                 Environment.Exit(Environment.ExitCode);
             }
-            InitDataExtensions.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
+            var initDataImporter = new InitDataImporter();
+            initDataImporter.CreatingDynamicDictionary += (sender, args) => ApplicationStatusUpdater.Notify("Import", "Creating a dynamic dictionary...");
+            initDataImporter.TransformingRecords += (sender, args) => NotifyWhenTransform(args.InputClassName, args.Position);
+            initDataImporter.CommitingData += (sender, args) => ApplicationStatusUpdater.Notify("Import", "Commiting data...");
+
+            initDataImporter.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
+
+        }
+        void NotifyWhenTransform(string inputClassName, int position) {
+            var statusMessage = position > -1
+                                       ? string.Format("Transforming records from {0}: {1}", inputClassName, position)
+                                       : string.Format("Transforming records from {0} ...", inputClassName);
+            ApplicationStatusUpdater.Notify("Import", statusMessage);
         }
     }
 }
