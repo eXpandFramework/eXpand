@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.Data.Filtering;
@@ -37,7 +38,7 @@ namespace Xpand.ExpressApp.IO.Core {
                     var dictionaryMapper = new DictionaryMapper(dataStoreSchemaExplorer.GetStorageTables(dataStoreSchemaExplorer.GetStorageTablesList(true)));
                     dictionaryMapper.Map(mainOutputUow.Dictionary, mainInputUow.Dictionary);
                     foreach (var objectClassInfo in dictionaryMapper.InputClassInfos) {
-                        Import(createOutputUow, createInputOuw, objectClassInfo);
+                        ImportCore(createOutputUow, createInputOuw, objectClassInfo);
                     }
                     OnCommitingData();
                     ClearObjectCache();
@@ -128,11 +129,13 @@ namespace Xpand.ExpressApp.IO.Core {
                     objectDict.Values.Where(objectValue => objectValue.ImportGeneration == _currentImportGeneration));
         }
 
-        void Import(Func<UnitOfWork> createOutputUow, Func<UnitOfWork> createInputUow, InputObjectClassInfo inputObjectClassInfo) {
+
+        void ImportCore(Func<UnitOfWork> createOutputUow, Func<UnitOfWork> createInputUow, InputObjectClassInfo inputObjectClassInfo) {
             UnitOfWork inputUow = createInputUow();
             UnitOfWork outputUow = createOutputUow();
             try {
-                List<InputMemberInfo> inputMemberInfos = MemberMapper.MemberInfos(inputObjectClassInfo).OfType<InputMemberInfo>().ToList();
+                List<InputMemberInfo> inputMemberInfos =
+                    MemberMapper.MemberInfos(inputObjectClassInfo).OfType<InputMemberInfo>().ToList();
                 var keys = InputObjectKeys(inputObjectClassInfo, inputUow);
                 int position = 0;
                 int commitAccumulator = 0;
@@ -144,14 +147,18 @@ namespace Xpand.ExpressApp.IO.Core {
                     position += chunkSize;
                     commitAccumulator += chunkSize;
                     PrefetchDelayedMembers(inputMemberInfos, inputUow, objectsToImport);
-                    ImportMembers(inputObjectClassInfo, objectsToImport, keysToImport, outputUow, inputMemberInfos, inputUow);
+                    ImportMembers(inputObjectClassInfo, objectsToImport, keysToImport, outputUow, inputMemberInfos,
+                                  inputUow);
                     do {
                         var refsAndImports = RefsAndImports(outputUow);
                         foreach (KeyValuePair<InputMemberInfo, FillRefList> pair in refsAndImports) {
                             XPMemberInfo memberInfo = pair.Key.OutputMemberInfo;
                             FillRefList fillRefsList = pair.Value;
-                            XPClassInfo classInfo = memberInfo.IsAssociationList ? memberInfo.CollectionElementType : memberInfo.ReferenceType;
-                            var memberList = MemberMapper.MemberInfos(pair.Key.ReferenceType).OfType<InputMemberInfo>().ToList();
+                            XPClassInfo classInfo = memberInfo.IsAssociationList
+                                                        ? memberInfo.CollectionElementType
+                                                        : memberInfo.ReferenceType;
+                            var memberList =
+                                MemberMapper.MemberInfos(pair.Key.ReferenceType).OfType<InputMemberInfo>().ToList();
                             var importClassInfo = pair.Key.ReferenceType;
                             var objects = inputUow.GetObjectsByKey(importClassInfo, fillRefsList.RefKeyList, false);
                             PrefetchDelayedMembers(inputMemberInfos, inputUow, objects);
@@ -172,6 +179,10 @@ namespace Xpand.ExpressApp.IO.Core {
                         OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, position));
                     }
                 }
+
+            } catch (Exception e) {
+                Debug.Assert(false);
+                Debug.Print(e.ToString());
 
             } finally {
                 OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName));
@@ -311,7 +322,7 @@ namespace Xpand.ExpressApp.IO.Core {
             return xpoObject;
         }
 
-        void ImportSimpleProperty(UnitOfWork outputUow, UnitOfWork inputUow, InputMemberInfo memberInfo, ImportedMemberInfo importedMemberInfo, object objectToImport, object xafObject) {
+        void ImportSimpleProperty(UnitOfWork outputUow, UnitOfWork inputUow, InputMemberInfo memberInfo, ImportedMemberInfo importedMemberInfo, object objectToImport, object xpoObject) {
             XPMemberInfo xpMemberInfo = importedMemberInfo.MemberInfo;
             if (xpMemberInfo != null) {
                 var value = xpMemberInfo.GetValue(objectToImport);
@@ -321,17 +332,16 @@ namespace Xpand.ExpressApp.IO.Core {
                     bool returnImportKey;
                     value = GetReferenceMemberValue(outputUow, value, memberType, out returnKey, out returnImportKey);
                     if (returnKey) {
-                        AddFillRefInfo(memberInfo, xafObject, value);
+                        AddFillRefInfo(memberInfo, xpoObject, value);
                         return;
                     }
                     if (returnImportKey) {
                         value = inputUow.GetKeyValue(value);
-                        AddFillRefAndImportInfo(memberInfo, xafObject, value);
+                        AddFillRefAndImportInfo(memberInfo, xpoObject, value);
                         return;
                     }
                 }
-                memberInfo.OutputMemberInfo.SetValue(xafObject, value);
-
+                memberInfo.SetOutputMemberValue(xpoObject, value);
             }
         }
 
@@ -447,7 +457,9 @@ namespace Xpand.ExpressApp.IO.Core {
     }
 
     public class InputMemberInfo : XPCustomMemberInfo {
+
         readonly XPMemberInfo _outputMemberInfo;
+        readonly Type _conversionType;
 
         public InputMemberInfo(XPClassInfo owner, string propertyName, XPClassInfo referenceType, bool nonPersistent, XPMemberInfo outputMemberInfo, params Attribute[] attributes)
             : base(owner, propertyName, referenceType.ClassType, referenceType, nonPersistent, false) {
@@ -456,12 +468,58 @@ namespace Xpand.ExpressApp.IO.Core {
             AddAttributes(attributes);
         }
 
-        public InputMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, bool nonPersistent, XPMemberInfo outputMemberInfo, params Attribute[] attributes)
-            : base(owner, propertyName, propertyType, null, nonPersistent, false) {
+        public InputMemberInfo(XPClassInfo owner, string propertyName, DBColumnType dbColumnType, Type propertyType, bool nonPersistent, XPMemberInfo outputMemberInfo, params Attribute[] attributes)
+            : base(owner, propertyName, PropertyType(propertyType, dbColumnType), null, nonPersistent, false) {
             Guard.ArgumentNotNull(outputMemberInfo, "outputMemberInfo");
             _outputMemberInfo = outputMemberInfo;
+            _conversionType = propertyType;
             AddAttributes(attributes);
         }
+
+        static Type PropertyType(Type propertyType, DBColumnType dbColumnType) {
+            var type = GetType(dbColumnType, propertyType);
+            Guard.ArgumentNotNull(dbColumnType, dbColumnType.ToString());
+            if (propertyType == type)
+                return propertyType;
+            return type;
+        }
+
+        static Type GetType(DBColumnType dbColumnType, Type propertyType) {
+            Type underlyingNullableType = Nullable.GetUnderlyingType(propertyType);
+            if ((((underlyingNullableType != null && underlyingNullableType == typeof(TimeSpan) || propertyType == typeof(TimeSpan))) && dbColumnType == DBColumnType.Double))
+                return propertyType;
+            if (dbColumnType == DBColumnType.ByteArray)
+                return typeof(byte[]);
+            return Type.GetType(string.Format("System.{0}", dbColumnType));
+        }
+
+        object Convert(object objectToConvert, Type conversionType) {
+            Guard.ArgumentNotNull(objectToConvert, "objectToConvert");
+            Guard.ArgumentNotNull(conversionType, "conversionType");
+            Type underlyingNullableType = Nullable.GetUnderlyingType(conversionType);
+            if (underlyingNullableType != null) {
+                if (objectToConvert == null || (objectToConvert is string && string.IsNullOrEmpty((string)objectToConvert) && !typeof(string).IsAssignableFrom(conversionType))) {
+                    return null;
+                }
+                conversionType = underlyingNullableType;
+            }
+            MethodInfo methodInfo = conversionType.GetMethod("op_Implicit", new[] { objectToConvert.GetType() });
+            if (methodInfo != null) {
+                return methodInfo.Invoke(null, new[] { objectToConvert });
+            }
+            if (conversionType.IsEnum && !(objectToConvert is Enum)) {
+                return Enum.Parse(conversionType, objectToConvert.ToString());
+            }
+            if (conversionType == typeof(Guid) && objectToConvert is string) {
+                return new Guid(((string)objectToConvert).Trim());
+            }
+            if (conversionType == typeof(TimeSpan) && objectToConvert is double) {
+                var int32 = System.Convert.ToInt64(objectToConvert);
+                return new TimeSpan(int32);
+            }
+            return System.Convert.ChangeType(objectToConvert, conversionType);
+        }
+
 
         void AddAttributes(IEnumerable<Attribute> attributes) {
             foreach (Attribute attribute in attributes.Where(attribute => !(attribute is AssociationAttribute)))
@@ -470,6 +528,31 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public XPMemberInfo OutputMemberInfo {
             get { return _outputMemberInfo; }
+        }
+
+        public static bool CanChangeType(object value, Type conversionType) {
+            if (conversionType == null) {
+                return false;
+            }
+            if (value == null) {
+                return false;
+            }
+            var convertible = value as IConvertible;
+            if (convertible == null) {
+                return false;
+            }
+            return true;
+        }
+
+        public void SetOutputMemberValue(object theObject, object theValue) {
+            var outputValue = OutputValue(theValue);
+            _outputMemberInfo.SetValue(theObject, outputValue);
+        }
+
+        object OutputValue(object theValue) {
+            if (CanChangeType(theValue, _conversionType))
+                return Convert(theValue, _conversionType);
+            return theValue;
         }
     }
     public class DictionaryMapper {
@@ -502,7 +585,8 @@ namespace Xpand.ExpressApp.IO.Core {
             return _dbTables.SingleOrDefault(table => table.Name == classInfo.TableName);
         }
     }
-    internal class MemberMapper {
+
+    public class MemberMapper {
         readonly DBTable _dbTable;
 
         public MemberMapper(DBTable dbTable) {
@@ -532,22 +616,24 @@ namespace Xpand.ExpressApp.IO.Core {
                 CreateMemberCore(inputClassInfo, propertyName, xpMemberInfo);
             }
         }
-        bool ColumnExists(string columnName) {
-            return _dbTable.Columns.Any(column => column.Name == columnName);
+        DBColumn ColumnExists(string columnName) {
+            return _dbTable.Columns.FirstOrDefault(column => column.Name == columnName);
         }
 
         void CreateMemberCore(XPClassInfo inputClassInfo, string propertyName, XPMemberInfo xpMemberInfo) {
-            if (xpMemberInfo != null && ColumnExists(propertyName)) {
+            var dbColumn = ColumnExists(propertyName);
+            if (xpMemberInfo != null && dbColumn != null) {
                 var referenceType = xpMemberInfo.ReferenceType;
+                var dbColumnType = dbColumn.ColumnType;
                 if (referenceType == null) {
-                    new InputMemberInfo(inputClassInfo, propertyName, xpMemberInfo.MemberType, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
+                    new InputMemberInfo(inputClassInfo, propertyName, dbColumnType, xpMemberInfo.MemberType, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
                 } else if (xpMemberInfo.IsPersistent) {
                     var attributeInfo = (InitialDataAttribute)referenceType.FindAttributeInfo(typeof(InitialDataAttribute));
                     if (attributeInfo != null) {
                         var classInfo = inputClassInfo.Dictionary.QueryClassInfo(null, attributeInfo.Name ?? referenceType.ClassType.Name);
                         new InputMemberInfo(inputClassInfo, propertyName, classInfo, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
                     } else {
-                        new InputMemberInfo(inputClassInfo, propertyName, xpMemberInfo.ReferenceType.KeyProperty.MemberType, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
+                        new InputMemberInfo(inputClassInfo, propertyName, dbColumnType, xpMemberInfo.ReferenceType.KeyProperty.MemberType, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
                     }
                 }
             }
@@ -634,7 +720,8 @@ namespace Xpand.ExpressApp.IO.Core {
             get { return _outputClassInfo; }
         }
     }
-    internal class ClassMapper {
+
+    public class ClassMapper {
         IList<XPClassInfo> _outputClassInfos = new List<XPClassInfo>();
         readonly IList<InputObjectClassInfo> _inputClassInfos = new List<InputObjectClassInfo>();
         public void Map(XPDictionary outputDictionary, XPDictionary inputDictionary) {
