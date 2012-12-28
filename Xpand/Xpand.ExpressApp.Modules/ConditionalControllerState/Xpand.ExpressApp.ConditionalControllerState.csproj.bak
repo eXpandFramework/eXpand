@@ -56,7 +56,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v12.2.Core">
@@ -140,12 +140,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConditionalControllerStateModule.cs" />
+    <Compile Include="ConditionalControllerStateModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DomainLogic\ControllerStateRuleDomainLogic.cs" />
     <Compile Include="Logic\ControllerState.cs" />
     <Compile Include="Logic\ControllerStateRule.cs" />
     <Compile Include="Logic\ControllerStateRuleAttribute.cs" />
-    <Compile Include="Logic\ControllerStateRuleController.cs" />
+    <Compile Include="Logic\ControllerStateRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Logic\IControllerStateRule.cs" />
     <Compile Include="Model\IModelControllerStateRule.cs" />
     <Compile Include="NodeUpdaters\ControllerStateDefaultContextNodeUpdater.cs" />
