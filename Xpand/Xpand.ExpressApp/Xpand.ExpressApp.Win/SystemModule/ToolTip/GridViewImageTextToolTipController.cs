@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
@@ -47,12 +48,12 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
             GridView.GridControl.MouseMove += GridControl_MouseMove;
             GridView.TopRowChanged += GridViewTopRowChanged;
-            GridView.ShownEditor += delegate { HideHint(); };
-            GridView.GridControl.MouseDown += delegate { HideHint(); };
-            GridView.GridControl.MouseLeave += delegate { HideHint(); };
+            GridView.ShownEditor += HideHint;
+            GridView.GridControl.MouseDown += HideHint;
+            GridView.GridControl.MouseLeave += HideHint;
         }
 
-        void HideHint() {
+        void HideHint(object sender, EventArgs eventArgs) {
             _toolTipController.HideHint();
         }
 
@@ -72,7 +73,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             get { return _hotTrackInfo; }
             set {
                 if (!value.InRowCell) {
-                    HideHint();
+                    _toolTipController.HideHint();
                     _hotTrackInfo = null;
                     return;
                 }
@@ -84,7 +85,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
                 var columnTooltipData = ((IModelColumnTooltipData)modelColumn);
                 if (TooltipEnabled(columnTooltipData)) {
                     if (!HotTrackInfo.InRowCell || IsEditing) {
-                        HideHint();
+                        _toolTipController.HideHint();
                     } else
                         ShowToolTip(columnTooltipData);
                 }
@@ -110,11 +111,23 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
                        HotTrackInfo.RowHandle == GridView.FocusedRowHandle;
             }
         }
-        protected override void Dispose(bool disposing) {
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (GridView != null) {
+                GridView.TopRowChanged += GridViewTopRowChanged;
+                GridView.ShownEditor += HideHint;
+                GridControl gridControl = GridView.GridControl;
+                if (gridControl != null) {
+                    gridControl.MouseMove += GridControl_MouseMove;
+                    gridControl.MouseDown += HideHint;
+                    gridControl.MouseLeave += HideHint;
+                }
+            }
             if (_toolTipController != null)
                 _toolTipController.Dispose();
-            base.Dispose(disposing);
         }
+
         void ShowToolTip(IModelColumnTooltipData modelColumnTooltipData) {
             var toolTipControlInfo = new ToolTipControlInfo();
             var item = new ToolTipItem { ImageToTextDistance = 0 };
