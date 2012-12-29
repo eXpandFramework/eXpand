@@ -121,6 +121,8 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             } catch (UnableToOpenDatabaseException) {
                 if (StartVideoRent(unitOfWork))
                     unitOfWork.Connect();
+                else
+                    Application.ExitThread();
             }
             return unitOfWork;
         }
