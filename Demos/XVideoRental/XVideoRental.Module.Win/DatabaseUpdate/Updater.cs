@@ -133,6 +133,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 if (!File.Exists(videoRentalPath)) {
                     throw new FileNotFoundException(string.Format("Cannot run the WinForms VideoRental application by the following path: {0}", videoRentalPath));
                 }
+                DeleteMdbFiles();
                 Process videoRental = Process.Start(videoRentalPath);
                 if (videoRental != null) {
                     WaitAutomation.WaitForWindowToOpen("Create Database");
@@ -146,6 +147,13 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 throw new ApplicationException("The legacy VideoRent application failed to start");
             }
             return false;
+        }
+
+        void DeleteMdbFiles() {
+            string[] files = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath) + "", "*.mdb");
+            foreach (var file in files) {
+                File.Delete(file);
+            }
         }
 
         bool LegacyDbExists(UnitOfWork unitOfWork) {
