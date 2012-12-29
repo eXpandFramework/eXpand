@@ -3,10 +3,11 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Machine.Specifications;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.Tests.Xpand.ExpressApp;
 
 namespace Xpand.Tests.Xpand.IO.InitData {
     [Subject(typeof(DictionaryMapper))]
-    public class When_is_mapping_a_dictionary {
+    public class When_is_mapping_a_dictionary : With_Types_info {
         static DictionaryMapper _dictionaryMapper;
         static ReflectionDictionary _inputReflectionDictionary;
         static ReflectionDictionary _outputReflectionDictionary;

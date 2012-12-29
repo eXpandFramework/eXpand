@@ -5,10 +5,11 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Machine.Specifications;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.Tests.Xpand.ExpressApp;
 
 namespace Xpand.Tests.Xpand.IO.InitData {
     [Subject(typeof(InitDataImporter))]
-    public class When_importing_an_object {
+    public class When_importing_an_object : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         static InitDataImporter _initDataImporter;
         static UnitOfWork _outputUnitOfWork;
@@ -57,7 +58,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         It should_assign_all_mapped_properties = () => _importingObjectClass.Test.ShouldEqual("Test");
     }
     [Subject(typeof(InitDataImporter))]
-    public class When_input_membertype_is_different_than_output {
+    public class When_input_membertype_is_different_than_output : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         static InitDataImporter _initDataImporter;
         static UnitOfWork _outputUnitOfWork;

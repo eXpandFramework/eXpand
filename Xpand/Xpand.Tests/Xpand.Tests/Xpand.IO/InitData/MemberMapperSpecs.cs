@@ -5,10 +5,11 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Machine.Specifications;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.Tests.Xpand.ExpressApp;
 
 namespace Xpand.Tests.Xpand.IO.InitData {
     [Subject(typeof(MemberMapper))]
-    public class When_Class_Has_a_flag_that_includes_all_members {
+    public class When_Class_Has_a_flag_that_includes_all_members : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         static XPClassInfo _outputClassInfo;
         static XPClassInfo _inputClassInfo;
@@ -34,7 +35,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
     }
 
     [Subject(typeof(MemberMapper))]
-    public class When_class_does_not_have_a_flag_that_includes_all_ownmembers {
+    public class When_class_does_not_have_a_flag_that_includes_all_ownmembers : With_Types_info {
         const int TestProperty = 1;
         const int TotalPropertiesCount = TestProperty;
         private const string InputPutClass = "InputPutClass";
@@ -66,7 +67,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         It should_create_a_key_property_if_not_included_in_the_conficuration = () => _inputClassInfo.KeyProperty.ShouldNotBeNull();
     }
     [Subject(typeof(MemberMapper))]
-    public class When_class_attribute_has_data_for_base_members {
+    public class When_class_attribute_has_data_for_base_members : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         static ReflectionClassInfo _outputClassInfo;
         static XPMemberInfo _memberInfo;
@@ -95,7 +96,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         It should_map_their_attributes = () => _memberInfo.IsKey.ShouldBeTrue();
     }
     [Subject(typeof(MemberMapper))]
-    public class When_class_is_marked_to_include_all_member_but_member_is_marked_seperately {
+    public class When_class_is_marked_to_include_all_member_but_member_is_marked_seperately : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         static ReflectionClassInfo _outputClassInfo;
         static XPMemberInfo _memberInfo;
@@ -119,7 +120,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         It should_use_the_member_marking = () => _inputClassInfo.FindMember("Test1");
     }
     [Subject(typeof(MemberMapper))]
-    public class When_mapping_a_referenced_member {
+    public class When_mapping_a_referenced_member : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         private const string Test1 = "Test1";
         static ReflectionClassInfo _outputClassInfo;
@@ -130,7 +131,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         static XPClassInfo _inputRefMemberClassInfo;
 
         [InitialData(AllOwnMembers = true)]
-        public class MemberClass : BaseObject {
+        public class RefMemberMemberClass : BaseObject {
             [InitialData(Name = Test1)]
             public RefMemberClass Test { get; set; }
         }
@@ -142,7 +143,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         Establish context = () => {
             var table = InitDataImporterHelper.CreateDbTable(InputPutClass, new ColumnInfo(Test1, DBColumnType.String));
             _memberMapper = new MemberMapper(table);
-            _outputClassInfo = new ReflectionClassInfo(typeof(MemberClass), new ReflectionDictionary());
+            _outputClassInfo = new ReflectionClassInfo(typeof(RefMemberMemberClass), new ReflectionDictionary());
             var inputReflectionDictionary = new ReflectionDictionary();
             _inputMemberClassInfo = inputReflectionDictionary.CreateClass(InputPutClass);
             _inputRefMemberClassInfo = inputReflectionDictionary.CreateClass("RefMemberClass");
@@ -156,7 +157,7 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         };
     }
     [Subject(typeof(MemberMapper))]
-    public class When_reference_type_is_not_includedIN_the_configuration {
+    public class When_reference_type_is_not_includedIN_the_configuration : With_Types_info {
         private const string InputPutClass = "InputPutClass";
         private const string Test1 = "Test1";
         static ReflectionClassInfo _outputClassInfo;
@@ -169,10 +170,10 @@ namespace Xpand.Tests.Xpand.IO.InitData {
         [InitialData(AllOwnMembers = true)]
         public class MemberClass : BaseObject {
             [InitialData(Name = Test1)]
-            public RefMemberClass Test { get; set; }
+            public NotIncludedRefMemberClass Test { get; set; }
         }
 
-        public class RefMemberClass : BaseObject {
+        public class NotIncludedRefMemberClass : BaseObject {
 
         }
 
