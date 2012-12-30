@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxGridView;
@@ -17,14 +18,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
     public interface IModelGridViewColumnSettings : IModelNode {
     }
-
+    [Obsolete]
     public class GridColumnOptionsController : ColumnOptionsController {
 
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelGridViewColumnSettings), typeof(GridViewDataColumnSettings), null, null, new DynamicDouplicateTypesMapper());
         }
     }
-
+    [Obsolete]
     public class GridColumnPropertiesEditController : ColumnOptionsController {
         protected override IEnumerable<DynamicModelType> GetDynamicModelTypes() {
             yield return new DynamicModelType(typeof(IModelColumnPropertiesEdit), typeof(EditPropertiesBase));

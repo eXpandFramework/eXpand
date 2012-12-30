@@ -2,6 +2,7 @@
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security.Controllers {
     public class RememberMeController : WindowController {

@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp {

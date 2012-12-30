@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module", "TreeListEditorsTester.Module\TreeListEditorsTester.Module.csproj", "{6CA1178A-48DF-40E2-A96B-2C182EB984C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Web", "TreeListEditorsTester.Module.Web\TreeListEditorsTester.Module.Web.csproj", "{B2B863BE-B17A-485E-81F0-A113CA9A56FB}"
+EndProject
+Project("{00000000-0000-0000-0000-000000000000}") = "TreeListEditorsTester.Web", "TreeListEditorsTester.Web\TreeListEditorsTester.Web.csproj", "{35878E0B-D117-4CF0-A934-1DD37EFF051B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Win", "TreeListEditorsTester.Module.Win\TreeListEditorsTester.Module.Win.csproj", "{FBA1749A-94B8-4BE5-980D-3AA8A7652441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Win", "TreeListEditorsTester.Win\TreeListEditorsTester.Win.csproj", "{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA1178A-48DF-40E2-A96B-2C182EB984C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B863BE-B17A-485E-81F0-A113CA9A56FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35878E0B-D117-4CF0-A934-1DD37EFF051B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA1749A-94B8-4BE5-980D-3AA8A7652441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

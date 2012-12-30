@@ -15,6 +15,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.ModelAdapter;

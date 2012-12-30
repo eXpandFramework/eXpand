@@ -107,6 +107,65 @@ echo Building SecurityDemo.UiLevel.Web...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj"
 echo Building SecurityDemo.Web...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj"
+echo Building XVideoRental.Module.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj"
+echo Building XVideoRental.Win...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj"
+
+echo
+echo Building Module Testers...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln"
+echo Done Building AdditionalViewControlProvider
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Chart\ChartTester.sln"
+echo Done Building Chart
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln"
+echo Done Building ConditionalDetailViews
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln"
+echo Done Building ExceptionHanding
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\FilterDataStore\FilterDataStoreTester.sln"
+echo Done Building FilterDataStore
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ImportWizard\ImportWizardTester.sln"
+echo Done Building ImportWizard
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\IO\IOTester.sln"
+echo Done Building IO
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\JobsScheduler\JobsSchedulerTester.sln"
+echo Done Building JobsScheduler
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\MasterDetail\MasterDetailTester.sln"
+echo Done Building MasterDetail
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ModelArtifactState\ModelArtifactStateTester.sln"
+echo Done Building ModelArtifactState
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ModelDifference\ModelDifferenceTester.sln"
+echo Done Building ModelDifference
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\NCarousel\NCarouselTester.sln"
+echo Done Building NCarousel
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\PivotChart\PivotChartTester.sln"
+echo Done Building PivotChart
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Reports\ReportsTester.sln"
+echo Done Building Reports
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Scheduler\SchedulerTester.sln"
+echo Done Building Scheduler
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Security\SecurityTester.sln"
+echo Done Building Security
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\StateMachine\StateMachineTester.sln"
+echo Done Building StateMachine
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Thumbnail\ThumbnailTester.sln"
+echo Done Building Thumbnail
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\TreeListEditors\TreeListEditorsTester.sln"
+echo Done Building TreeListEditors
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Validation\ValidationTester.sln"
+echo Done Building Validation
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ViewVariants\ViewVariantsTester.sln"
+echo Done Building ViewVariants
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\WizardUI\WizardUITester.sln"
+echo Done Building WizardUI
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Workflow\WorkflowTester.sln"
+echo Done Building Workflow
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\WorldCreator\WorldCreatorTester.sln"
+echo Done Building WorldCreator
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\XpandSystem\XpandSystemTester.sln"
+echo Done Building XpandSystem
+
+echo
 
 
 echo Building Xpand.ExpressApp.ModelEditor...
@@ -115,3 +174,4 @@ echo Done Building Xpand.ExpressApp.ModelEditor
 echo Building XpandAddIns...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand.Addins\XpandAddIns.csproj"
 echo Done Building XpandAddIns
+

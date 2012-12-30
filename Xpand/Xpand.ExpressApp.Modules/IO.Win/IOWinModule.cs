@@ -4,6 +4,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using Xpand.ExpressApp.TreeListEditors.Win;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.IO.Win {
     [ToolboxBitmap(typeof(IOWinModule))]

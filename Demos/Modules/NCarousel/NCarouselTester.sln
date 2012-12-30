@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCarouselTester.Module", "NCarouselTester.Module\NCarouselTester.Module.csproj", "{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCarouselTester.Module.Web", "NCarouselTester.Module.Web\NCarouselTester.Module.Web.csproj", "{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}"
+EndProject
+Project("{00000000-0000-0000-0000-000000000000}") = "NCarouselTester.Web", "NCarouselTester.Web\NCarouselTester.Web.csproj", "{3672AD7C-9196-45E8-AD9B-91C46249A225}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

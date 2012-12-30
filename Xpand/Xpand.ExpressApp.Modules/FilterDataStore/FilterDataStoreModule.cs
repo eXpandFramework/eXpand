@@ -11,5 +11,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
             extenders.Add<IModelClass, IModelClassDisabledDataStoreFilters>();
             extenders.Add<IModelApplication, IModelApplicationFilterDataStore>();
         }
+
     }
 }

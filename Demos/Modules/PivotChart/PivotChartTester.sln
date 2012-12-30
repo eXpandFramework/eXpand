@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module", "PivotChartTester.Module\PivotChartTester.Module.csproj", "{650097DC-5C89-4A87-9F08-69E08CFF3D37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module.Web", "PivotChartTester.Module.Web\PivotChartTester.Module.Web.csproj", "{E90ED353-87F1-4284-8180-E42826C8A5F9}"
+EndProject
+Project("{00000000-0000-0000-0000-000000000000}") = "PivotChartTester.Web", "PivotChartTester.Web\PivotChartTester.Web.csproj", "{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module.Win", "PivotChartTester.Module.Win\PivotChartTester.Module.Win.csproj", "{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Win", "PivotChartTester.Win\PivotChartTester.Win.csproj", "{AD6911C9-46FE-4E33-9E87-28D442B085B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650097DC-5C89-4A87-9F08-69E08CFF3D37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90ED353-87F1-4284-8180-E42826C8A5F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD2C062-FD0E-4C4C-AE8F-1712F2C33A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

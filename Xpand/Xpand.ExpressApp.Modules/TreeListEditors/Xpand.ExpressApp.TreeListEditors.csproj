@@ -78,7 +78,7 @@
     <Reference Include="DevExpress.Persistent.Base.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v12.2">
@@ -119,8 +119,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IModelTreeViewOptionsBase.cs" />
     <Compile Include="ITreeListEditor.cs" />
+    <Compile Include="Model\Interfaces.cs" />
+    <Compile Include="Model\Synchronizers.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\TreeNavigationOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorServerModeUpdater.cs" />
     <Compile Include="XpandTreeListEditorsModule.cs">
       <SubType>Component</SubType>

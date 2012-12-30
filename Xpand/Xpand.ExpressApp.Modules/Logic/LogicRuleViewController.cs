@@ -124,10 +124,10 @@ namespace Xpand.ExpressApp.Logic {
         void ApplicationOnViewCreating(object sender, ViewCreatingEventArgs viewCreatingEventArgs) {
             if (Application != null) {
                 var modelObjectView = Application.Model.Views.Single(modelView => modelView.Id == viewCreatingEventArgs.ViewID).AsObjectView;
-                if (modelObjectView!= null) {
+                if (modelObjectView != null) {
                     var typeInfo = modelObjectView.ModelClass.TypeInfo;
-                    Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(typeInfo);
-                    ForceExecution(Active[ActiveObjectTypeHasRules], null, false, ExecutionContext.ViewCreating);
+                    bool hasRules = LogicRuleManager<TModelLogicRule>.HasRules(typeInfo);
+                    ForceExecution(hasRules, null, false, ExecutionContext.ViewCreating);
                 }
             }
         }
@@ -154,9 +154,8 @@ namespace Xpand.ExpressApp.Logic {
 
         void ForceExecutioning(View view, ExecutionContext executionContext) {
             if (View != null) InvertExecution(View, executionContext);
-            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(view);
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, false,
-                           executionContext);
+            bool hasRules = LogicRuleManager<TModelLogicRule>.HasRules(view);
+            ForceExecution(hasRules && view != null && view.ObjectTypeInfo != null, view, false, executionContext);
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
@@ -173,12 +172,19 @@ namespace Xpand.ExpressApp.Logic {
             if (IsReady) {
                 var actions = GetActions();
                 foreach (var action in actions) {
-                    if (action is SimpleAction)
-                        ((SimpleAction)action).Execute += ActionOnExecuted;
-                    else if (action is SingleChoiceAction)
-                        ((SingleChoiceAction)action).Execute += ActionOnExecuted;
-                    else if (action is ParametrizedAction)
-                        ((ParametrizedAction)action).Execute += ActionOnExecuted;
+                    var simpleAction = action as SimpleAction;
+                    if (simpleAction != null)
+                        simpleAction.Execute += ActionOnExecuted;
+                    else {
+                        var choiceAction = action as SingleChoiceAction;
+                        if (choiceAction != null)
+                            choiceAction.Execute += ActionOnExecuted;
+                        else {
+                            var parametrizedAction = action as ParametrizedAction;
+                            if (parametrizedAction != null)
+                                parametrizedAction.Execute += ActionOnExecuted;
+                        }
+                    }
                 }
                 View.SelectionChanged += ViewOnSelectionChanged;
                 ObjectSpace.Committed += ObjectSpaceOnCommitted;
@@ -238,12 +244,19 @@ namespace Xpand.ExpressApp.Logic {
             base.OnDeactivated();
             var actions = GetActions();
             foreach (var action in actions) {
-                if (action is SimpleAction)
-                    ((SimpleAction)action).Execute -= ActionOnExecuted;
-                else if (action is SingleChoiceAction)
-                    ((SingleChoiceAction)action).Execute -= ActionOnExecuted;
-                else if (action is ParametrizedAction)
-                    ((ParametrizedAction)action).Execute -= ActionOnExecuted;
+                var simpleAction = action as SimpleAction;
+                if (simpleAction != null)
+                    simpleAction.Execute -= ActionOnExecuted;
+                else {
+                    var choiceAction = action as SingleChoiceAction;
+                    if (choiceAction != null)
+                        choiceAction.Execute -= ActionOnExecuted;
+                    else {
+                        var parametrizedAction = action as ParametrizedAction;
+                        if (parametrizedAction != null)
+                            parametrizedAction.Execute -= ActionOnExecuted;
+                    }
+                }
             }
             View.SelectionChanged -= ViewOnSelectionChanged;
             if (ObjectSpace != null) {
@@ -283,13 +296,15 @@ namespace Xpand.ExpressApp.Logic {
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
             if (_previousObject != null && !(ObjectSpace.IsDisposedObject(_previousObject))) {
                 InvertExecution(View, ExecutionContext.CurrentObjectChanged, _previousObject);
-                if (_previousObject is INotifyPropertyChanged)
-                    ((INotifyPropertyChanged)_previousObject).PropertyChanged -= OnPropertyChanged;
+                var notifyPropertyChanged = _previousObject as INotifyPropertyChanged;
+                if (notifyPropertyChanged != null)
+                    notifyPropertyChanged.PropertyChanged -= OnPropertyChanged;
             }
             if (!isRefreshing) {
                 ForceExecution(ExecutionContext.CurrentObjectChanged);
-                if (View.CurrentObject is INotifyPropertyChanged)
-                    ((INotifyPropertyChanged)View.CurrentObject).PropertyChanged += OnPropertyChanged;
+                var notifyPropertyChanged = View.CurrentObject as INotifyPropertyChanged;
+                if (notifyPropertyChanged != null)
+                    notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
             }
         }
 
@@ -356,9 +371,9 @@ namespace Xpand.ExpressApp.Logic {
             if (rule.View != null)
                 return viewId == rule.View.Id;
             var viewContextsGroup = GetModelLogic().ViewContextsGroup;
-            var modelViewContexts = viewContextsGroup.Where(contexts => contexts.Id == rule.ViewContextGroup).FirstOrDefault();
+            var modelViewContexts = viewContextsGroup.FirstOrDefault(contexts => contexts.Id == rule.ViewContextGroup);
             return modelViewContexts == null ||
-                   modelViewContexts.Where(context => context.Name == viewId).FirstOrDefault() != null;
+                   modelViewContexts.FirstOrDefault(context => context.Name == viewId) != null;
         }
 
         bool IsValidTypeInfo(ViewInfo viewInfo, TModelLogicRule rule) {

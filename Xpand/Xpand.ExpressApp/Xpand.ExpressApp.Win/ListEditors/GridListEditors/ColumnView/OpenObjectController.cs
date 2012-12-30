@@ -34,33 +34,38 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         protected override void UpdateActionState(Object objectToOpen) {
-            if (View is ListView)
+            if (ShouldUseCustomImplementation(View as ListView))
                 _openObjectImplementation.UpdateOpenObjectActionState(objectToOpen);
             else
                 base.UpdateActionState(objectToOpen);
         }
 
         protected override void OnActivated() {
-            if (View is ListView) {
+            if (ShouldUseCustomImplementation(View as ListView)) {
                 _openObjectImplementation = new OpenObjectFromListView(this);
                 _openObjectImplementation.ObjectToOpenChanged += openObjectImplementation_ObjectToOpenChanged;
                 _openObjectImplementation.OnControllerActivated();
             } else {
                 base.OnActivated();
             }
+        }
 
+        bool ShouldUseCustomImplementation(ListView listView) {
+            return listView != null && listView.Editor is GridView.GridListEditorBase;
         }
 
         protected override void OnDeactivated() {
-            if (View is ListView) {
-                _openObjectImplementation.OnControllerDeactivated();
-                _openObjectImplementation.ObjectToOpenChanged -= openObjectImplementation_ObjectToOpenChanged;
-                _openObjectImplementation = null;
+            var listView = View as ListView;
+            if (listView != null) {
+                if (listView.Editor is GridView.GridListEditorBase) {
+                    _openObjectImplementation.OnControllerDeactivated();
+                    _openObjectImplementation.ObjectToOpenChanged -= openObjectImplementation_ObjectToOpenChanged;
+                    _openObjectImplementation = null;
+                }
             } else {
                 base.OnDeactivated();
             }
         }
-
     }
 
     internal sealed class OpenObjectFromListView : OpenObjectImplementation {

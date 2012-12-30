@@ -6,13 +6,14 @@ using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
         ApplicationModulesManager _applicationModulesManager;
-        string IXafApplication.ConnectionString { get; set; }
+        string IConnectionString.ConnectionString { get; set; }
 
-        IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
+        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
         }
 

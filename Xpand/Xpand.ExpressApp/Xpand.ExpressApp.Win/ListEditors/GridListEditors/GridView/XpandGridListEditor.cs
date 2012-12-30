@@ -10,6 +10,8 @@ using DevExpress.ExpressApp.Win.Core;
 using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
@@ -58,8 +60,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         }
 
         #region modelDetailViews
-        private void OnCustomGetSelectedObjects(MasterDetail.CustomGetSelectedObjectsArgs e) {
-            EventHandler<MasterDetail.CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;
+        private void OnCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e) {
+            EventHandler<CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;
             if (customGetSelectedObjectsHandler != null) customGetSelectedObjectsHandler(this, e);
         }
 
@@ -123,12 +125,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             return (IColumnView)(gridViewCreatingEventArgs.Handled ? gridViewCreatingEventArgs.GridView : new XpandXafGridView(this));
         }
 
-        public event EventHandler<MasterDetail.CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
+        public event EventHandler<CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
         public override IList GetSelectedObjects() {
             if (Grid != null && GridView != null) {
                 var focusedGridView = GetFocusedGridView(GridView);
                 var selectedObjects = GetSelectedObjects(focusedGridView);
-                var e = new MasterDetail.CustomGetSelectedObjectsArgs(selectedObjects);
+                var e = new CustomGetSelectedObjectsArgs(selectedObjects);
                 OnCustomGetSelectedObjects(e);
                 if (e.Handled)
                     return e.List;

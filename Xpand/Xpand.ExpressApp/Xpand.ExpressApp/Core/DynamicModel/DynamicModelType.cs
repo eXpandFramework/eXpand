@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Xpand.ExpressApp.Core.DynamicModel {
-
+    [Obsolete("", true)]
     public sealed class DynamicModelType : Type {
         readonly List<Attribute> attributesCore = new List<Attribute>();
         readonly Type baseTypeCore;

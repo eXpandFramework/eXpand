@@ -1,54 +1,24 @@
-﻿using System.Collections.Generic;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
+﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
-using Xpand.ExpressApp.Core;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.ExpressApp.TreeListEditors.Model;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
-    public class TreeListModelAdapterController : ModelAdapterController, IModelExtender {
-        TreeListEditor _treeListEditor;
+    public class TreeListModelAdapterController : TreeListModelAdapterController<TreeListEditor> {
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (_treeListEditor != null)
-                _treeListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
+        protected override ModelSynchronizer ModelSynchronizer() {
+            return new TreeListEditorDynamicModelSynchronizer(_treeListEditor);
         }
 
-        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CreateCustomModelSynchronizerHelper.Assign(e, new TreeListEditorDynamicModelSynchronizer(_treeListEditor));
+        protected override Type TreeListColumnType() {
+            return typeof(TreeListColumn);
         }
 
-        protected override void OnActivated() {
-            base.OnActivated();
-            var listView = View as ListView;
-            if (listView != null && listView.Editor != null && listView.Editor is TreeListEditor) {
-                _treeListEditor = (TreeListEditor)listView.Editor;
-                _treeListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
-            }
-        }
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelListView, IModelListViewOptionsTreeList>();
-            extenders.Add<IModelColumn, IModelColumnOptionsTreeListView>();
-
-            var builder = new InterfaceBuilder(extenders);
-
-            var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(TreeList).Name));
-
-            builder.ExtendInteface<IModelOptionsTreeList, TreeList>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnTreeListView, TreeListColumn>(assembly);
+        protected override Type TreeListType() {
+            return typeof(TreeList);
         }
 
-        IEnumerable<InterfaceBuilderData> CreateBuilderData() {
-            yield return new InterfaceBuilderData(typeof(TreeList)) {
-                Act = info => info.DXFilter()
-            };
-            yield return new InterfaceBuilderData(typeof(TreeListColumn)) {
-                Act = info => info.DXFilter()
-            };
-        }
     }
 }

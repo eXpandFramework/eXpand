@@ -647,8 +647,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             }
             return result == null || !result.Visible ? null : result;
         }
-        private void RemoveColumnInfo(GridColumn column) {
-            var xafGridColumn = column as IXafGridColumn;
+        private void RemoveColumnInfo(IXafGridColumn column) {
+            var xafGridColumn = column;
             if (xafGridColumn != null) {
                 IModelColumn columnInfo = Model.Columns[(xafGridColumn).Model.Id];
                 if (columnInfo != null) {
@@ -1068,10 +1068,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         protected abstract ColumnWrapper CreateGridColumnWrapper(IXafGridColumn column);
         protected abstract IXafGridColumn CreateGridColumn();
         public override void RemoveColumn(ColumnWrapper column) {
-            GridColumn gridColumn = ((XafGridColumnWrapper)column).Column;
-            if (GridView != null && GridView.Columns.Contains(gridColumn)) {
+            IXafGridColumn gridColumn = ((XpandGridColumnWrapper)column).Column;
+            if (GridView != null && GridView.Columns.Contains((GridColumn)gridColumn)) {
                 RemoveColumnInfo(gridColumn);
-                GridView.Columns.Remove(gridColumn);
+                GridView.Columns.Remove((GridColumn)gridColumn);
             } else {
                 throw new ArgumentException(string.Format(SystemExceptionLocalizer.GetExceptionMessage(ExceptionId.GridColumnDoesNotExist), column.PropertyName), "PropertyName");
             }

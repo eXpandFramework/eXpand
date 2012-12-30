@@ -7,12 +7,12 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
 using Xpand.ExpressApp.Core;
@@ -40,6 +40,11 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 SubscribeToDataStoreProxyEvents();
             }
         }
+
+        protected override Type ApplicationType() {
+            return typeof(IConnectionString);
+        }
+
         void SubscribeToDataStoreProxyEvents() {
             if (Application != null && Application.ObjectSpaceProvider != null) {
                 var objectSpaceProvider = (Application.ObjectSpaceProvider);
@@ -178,8 +183,9 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         void ApplyCondition(SelectStatement statement, FilterProviderBase providerBase, string nodeAlias) {
-            if (providerBase.FilterValue is IList) {
-                CriteriaOperator criteriaOperator = ((IEnumerable)providerBase.FilterValue).Cast<object>().Aggregate<object, CriteriaOperator>(null, (current, value)
+            var list = providerBase.FilterValue as IList;
+            if (list != null) {
+                CriteriaOperator criteriaOperator = list.Cast<object>().Aggregate<object, CriteriaOperator>(null, (current, value)
                     => current | new QueryOperand(providerBase.FilterMemberName, nodeAlias) == value.ToString());
                 criteriaOperator = new GroupOperator(criteriaOperator);
                 statement.Condition &= criteriaOperator;

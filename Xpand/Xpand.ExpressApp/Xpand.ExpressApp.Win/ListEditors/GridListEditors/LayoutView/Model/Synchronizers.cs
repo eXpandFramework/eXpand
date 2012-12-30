@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.XtraGrid.Columns;
+using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;

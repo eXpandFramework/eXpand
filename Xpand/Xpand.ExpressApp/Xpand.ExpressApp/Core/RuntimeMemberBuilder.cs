@@ -52,12 +52,14 @@ namespace Xpand.ExpressApp.Core {
         }
 
         static XpandCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
-            if (modelMember is IModelRuntimeCalculatedMember)
-                return xpClassInfo.CreateCalculabeMember(modelMember.Name, modelMember.Type,
-                                                      new Attribute[] { new PersistentAliasAttribute(((IModelRuntimeCalculatedMember)modelMember).AliasExpression) });
-            if (modelMember is IModelRuntimeOrphanedColection) {
-                var modelRuntimeOrphanedColection = ((IModelRuntimeOrphanedColection)modelMember);
-                return xpClassInfo.CreateCollection(modelMember.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
+            var calculatedMember = modelMember as IModelRuntimeCalculatedMember;
+            if (calculatedMember != null)
+                return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type,
+                                                      new Attribute[] { new PersistentAliasAttribute(calculatedMember.AliasExpression) });
+            var member = modelMember as IModelRuntimeOrphanedColection;
+            if (member != null) {
+                var modelRuntimeOrphanedColection = member;
+                return xpClassInfo.CreateCollection(member.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
                                                     modelRuntimeOrphanedColection.Criteria);
             }
             return xpClassInfo.CreateCustomMember(modelMember.Name, modelMember.Type, modelMember is IModelRuntimeNonPersistentMember);

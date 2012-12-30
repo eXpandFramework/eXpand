@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTester.Module", "SchedulerTester.Module\SchedulerTester.Module.csproj", "{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTester.Module.Win", "SchedulerTester.Module.Win\SchedulerTester.Module.Win.csproj", "{D3E1E9AC-C76C-433D-BE92-E89979897225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTester.Win", "SchedulerTester.Win\SchedulerTester.Win.csproj", "{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5370AC4D-82E6-43BF-99EB-DC45C0358CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3E1E9AC-C76C-433D-BE92-E89979897225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79066F10-6797-4BBE-9A36-74ACAD6CE4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

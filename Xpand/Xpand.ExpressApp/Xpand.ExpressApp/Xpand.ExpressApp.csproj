@@ -57,25 +57,25 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.configuration" />
@@ -124,8 +124,6 @@
     <Compile Include="Core\RuntimeMemberBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Core\DynamicModel\DynamicDouplicateTypesMapper.cs" />
-    <Compile Include="Core\DynamicModel\IDynamicModelPropertiesSource.cs" />
     <Compile Include="Core\FrameExtensions.cs" />
     <Compile Include="Core\ModelXmlReaderExtensions.cs" />
     <Compile Include="Core\ObjectObserver.cs" />
@@ -134,17 +132,19 @@
     <Compile Include="DataStoreProvider.cs" />
     <Compile Include="DynamicSecuritySystemObjects.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
-    <Compile Include="ListEditors\GridViewOptionsModelSynchronizer.cs" />
+    <Compile Include="ListEditors\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\BaseDomainLogic.cs" />
+    <Compile Include="Model\Options\Interfaces.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="Model\IModelRuntimeMember.cs" />
     <Compile Include="Model\IModelProccessViewShortcuts.cs" />
+    <Compile Include="Model\Options\Synchronizers.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
     <Compile Include="PropertyEditors\EnumCriteriaParser.cs" />
@@ -160,19 +160,10 @@
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ColumnOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\Dashboard\DashboardInteraction.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\Dashboard\Model.cs" />
-    <Compile Include="SystemModule\GridOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\OptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -218,7 +209,6 @@
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="Core\ModuleBaseExtensions.cs" />
-    <Compile Include="ComponentInterfaces.cs" />
     <Compile Include="IXpandObjectSpaceProvider.cs" />
     <Compile Include="IXpoDataStoreProxy.cs" />
     <Compile Include="ListEditors\OptionsModelSynchronizer.cs" />
@@ -261,7 +251,6 @@
     <Compile Include="SystemModule\DisableFullTextForMemoFieldsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\DynamicModel\DynamicModelType.cs" />
     <Compile Include="Model\IModelListViewLinq.cs" />
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
@@ -305,8 +294,6 @@
     <Compile Include="SystemModule\Search\SearchFromViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\DynamicModel\XpandPropertyInfo.cs" />
-    <Compile Include="Core\DynamicModel\DynamicModelPropertiesSource.cs" />
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>

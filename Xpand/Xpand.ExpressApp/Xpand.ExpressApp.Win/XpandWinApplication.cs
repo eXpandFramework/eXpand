@@ -18,6 +18,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win {
 
@@ -76,11 +77,11 @@ namespace Xpand.ExpressApp.Win {
             get { return base.ConnectionString; }
             set {
                 base.ConnectionString = value;
-                ((IXafApplication)this).ConnectionString = value;
+                ((IConnectionString)this).ConnectionString = value;
             }
         }
 
-        string IXafApplication.ConnectionString { get; set; }
+        string IConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
@@ -203,7 +204,7 @@ namespace Xpand.ExpressApp.Win {
             container.Add(this);
         }
 
-        IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
+        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
                 if (_cacheNode == null) {
                     var _cacheRoot = new DataCacheRoot(dataStore);

@@ -13,6 +13,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.Web {
@@ -84,11 +85,11 @@ namespace Xpand.ExpressApp.Web {
             get { return base.ConnectionString; }
             set {
                 base.ConnectionString = value;
-                ((IXafApplication)this).ConnectionString = value;
+                ((IConnectionString)this).ConnectionString = value;
             }
         }
 
-        string IXafApplication.ConnectionString { get; set; }
+        string IConnectionString.ConnectionString { get; set; }
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
@@ -130,7 +131,6 @@ namespace Xpand.ExpressApp.Web {
 
         protected XpandWebApplication(IContainer container) {
             container.Add(this);
-
         }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
@@ -141,7 +141,7 @@ namespace Xpand.ExpressApp.Web {
             base.WriteLastLogonParameters(view, logonObject);
         }
 
-        IDataStore IXafApplication.GetDataStore(IDataStore dataStore) {
+        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
                 var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
                 if (cacheNode == null) {
