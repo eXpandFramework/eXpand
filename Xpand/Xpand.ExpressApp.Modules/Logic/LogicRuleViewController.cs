@@ -103,7 +103,8 @@ namespace Xpand.ExpressApp.Logic {
 
 
         void InvertExecution(View view, ExecutionContext executionContext, object currentObject) {
-            ForceExecution(Active[ActiveObjectTypeHasRules] && view != null && view.ObjectTypeInfo != null, view, true, executionContext, currentObject);
+            bool hasRules = LogicRuleManager<TModelLogicRule>.HasRules(view);
+            ForceExecution(hasRules && view != null && view.ObjectTypeInfo != null, view, true, executionContext, currentObject);
         }
 
         protected void InvertExecution(View view, ExecutionContext executionContext) {
