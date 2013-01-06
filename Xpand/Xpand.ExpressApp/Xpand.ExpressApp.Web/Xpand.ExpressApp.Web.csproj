@@ -57,6 +57,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -120,6 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DisableProcessCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ListViewExtensions.cs">
