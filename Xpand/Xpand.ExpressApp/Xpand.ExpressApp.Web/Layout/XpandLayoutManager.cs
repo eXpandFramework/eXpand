@@ -11,6 +11,7 @@ using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxSplitter;
 using System.IO;
+using System.Reflection;
 
 
 
@@ -57,7 +58,7 @@ namespace Xpand.ExpressApp.Web.Layout {
             using (StreamReader reader = new StreamReader(t.Assembly.GetManifestResourceStream(
                 string.Format(CultureInfo.InvariantCulture, "{0}.AdjustSize.js", t.Namespace)
                 ))) {
-                    return reader.ReadToEnd();
+                return reader.ReadToEnd();
 
             }
         }
@@ -105,6 +106,15 @@ namespace Xpand.ExpressApp.Web.Layout {
                         frameContainer.Frame.View.BreakLinksToControls();
                 }
             }
+        }
+
+        internal void UpdateItemsVisibility() {
+            MethodInfo method = GetType().BaseType.GetMethod("UpdateItemsVisibility", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (method != null)
+                method.Invoke(this, null);
+            else
+                throw new InvalidOperationException(
+                    string.Format(CultureInfo.InvariantCulture, "Method 'UpdateItemsVisibility' not found in '{0}'", GetType().BaseType));
         }
     }
 }
