@@ -1,7 +1,7 @@
 ﻿function (s, e) {
     window.DetailUpdatePanelControl = s; s.GetMainElement().ClientControl = s;
     if (!window.AdjustSizeOverriden) {
-        window.AdjustSize = function () {
+        window.AdjustSizeCore = function () {
             var middleRowContent = document.getElementById("CP");
             middleRowContent.style.overflow = "hidden";
             var middleRowParent = document.getElementById("MRC");
@@ -42,8 +42,9 @@
             var controlToResize = window.MasterDetailSplitter;
             var footerTableHeight = footer != null ? footer.getElementsByTagName("table")[0].offsetHeight : 0;
 
-            var middleRowHeight = windowHeight - mainTableHeight + footerTableHeight + middleRowParent.offsetHeight - getHeight("UPVH") -
-        getHeight("TB_Menu") - getParentTagHeight("UPQC", "td");
+            var middleRowHeight = windowHeight - mainTableHeight + footerTableHeight + middleRowParent.offsetHeight - getHeight("Horizontal_UPVH") -
+				getHeight("Horizontal_TB_Menu") - getParentTagHeight("UPQC", "td") - getHeight("Vertical_UPVH") -
+				getHeight("Vertial_TB_Menu") - getHeight("VH");
 
             if (controlToResize) {
                 var elementToResize = controlToResize.GetMainElement();
@@ -65,12 +66,13 @@
                 }
             }
 
-
+			window.isAdjusting = false;
 
         }
         var dxo = aspxGetGlobalEvents();
         dxo.EndCallback.AddHandler(window.AdjustSize);
         window.AdjustSizeOverriden = true;
+		window.AdjustSizeCore();
     }
-
+	
 }
