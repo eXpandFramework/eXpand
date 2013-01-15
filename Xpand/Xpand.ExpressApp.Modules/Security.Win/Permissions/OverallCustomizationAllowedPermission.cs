@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
 
         static void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
+            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) {
                 ((XafApplication)sender).LoggedOn += ApplicationOnLoggedOn;
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;

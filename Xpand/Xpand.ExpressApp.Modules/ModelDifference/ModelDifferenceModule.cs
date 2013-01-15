@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             BuildSecuritySystemObjects();
-            var securityStrategy = SecuritySystem.Instance as SecurityStrategy;
+            var securityStrategy = ((XafApplication) sender).Security as SecurityStrategy;
             if (securityStrategy != null) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }

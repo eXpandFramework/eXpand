@@ -70,7 +70,9 @@ namespace Xpand.ExpressApp.SystemModule {
         void CreatePessimisticLockingField(ITypesInfo typesInfo) {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
             foreach (var typeInfo in typeInfos) {
-                typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
+                var optimisticLockingAttribute = typeInfo.FindAttribute<OptimisticLockingAttribute>();
+                if (optimisticLockingAttribute == null || optimisticLockingAttribute.Enabled)
+                    typeInfo.AddAttribute(new OptimisticLockingAttribute(false));
                 var memberInfo = typeInfo.FindMember(PessimisticLockingViewController.LockedUser);
                 if (memberInfo == null) {
                     memberInfo = typeInfo.CreateMember(PessimisticLockingViewController.LockedUser, Application.Security.UserType);
