@@ -32,8 +32,11 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
 
         void BuildSecuritySystemObjects() {
             var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
-            dynamicSecuritySystemObjects.BuildUser(typeof(SendEmailJobDetailDataMap), "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
-            dynamicSecuritySystemObjects.BuildRole(typeof(SendEmailJobDetailDataMap), "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+            var xpMemberInfos = dynamicSecuritySystemObjects.BuildUser(typeof(SendEmailJobDetailDataMap), "UserUsers_UserSendEmailDataMapObjectUserSendEmailDataMaps", "UserSendEmailDataMapObjects", "Users");
+            dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "UserSendEmailDataMapObjects");
+            xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(typeof(SendEmailJobDetailDataMap), "RoleRoles_RoleSendEmailDataMaps", "RoleSendEmailDataMapObjects", "Roles");
+            dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "RoleSendEmailDataMapObjects");
+
         }
     }
 }

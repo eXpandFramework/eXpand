@@ -87,6 +87,8 @@
 			.\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;
@@ -136,6 +138,7 @@
 			.\Demos\Modules\ModelArtifactState\ModelArtifactStateTester.sln;
 			.\Demos\Modules\ModelDifference\ModelDifferenceTester.sln;
 			.\Demos\Modules\NCarousel\NCarouselTester.sln;
+			.\Demos\Modules\Dashboard\DashboardTester.sln;
 			.\Demos\Modules\PivotChart\PivotChartTester.sln;
 			.\Demos\Modules\Reports\ReportsTester.sln;
 			.\Demos\Modules\Scheduler\SchedulerTester.sln;

@@ -160,10 +160,6 @@
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\Dashboard\DashboardInteraction.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\Dashboard\Model.cs" />
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>

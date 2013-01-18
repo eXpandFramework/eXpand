@@ -180,8 +180,16 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         private void PopulateCheckComboBox() {
             comboControl.Properties.Items.BeginUpdate();
-            GetAvaliableItems().OfType<object>().Select(o => new CheckedListBoxItemWrapper(string.Format(Model.DisplayFormat, o), o, false)).ToList().ForEach(item => comboControl.Properties.Items.Add(item));
+            CheckedItems().ForEach(item => comboControl.Properties.Items.Add(item));
             comboControl.Properties.Items.EndUpdate();
+        }
+
+        List<CheckedListBoxItemWrapper> CheckedItems() {
+            return GetAvaliableItems().OfType<object>().Select(o => new CheckedListBoxItemWrapper(FormatedValue(o), o, false)).ToList();
+        }
+
+        string FormatedValue(object o) {
+            return string.IsNullOrEmpty(Model.DisplayFormat) ? o.ToString() : string.Format(Model.DisplayFormat, o);
         }
 
         class CheckedListBoxItemWrapper : CheckedListBoxItem {
