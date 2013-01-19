@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             BuildSecuritySystemObjects();
-            var securityStrategy = ((XafApplication) sender).Security as SecurityStrategy;
+            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
@@ -46,8 +46,10 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void BuildSecuritySystemObjects() {
             var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
-            dynamicSecuritySystemObjects.BuildUser(typeof(UserModelDifferenceObject), "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
-            dynamicSecuritySystemObjects.BuildRole(typeof(RoleModelDifferenceObject), "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            var xpMemberInfos = dynamicSecuritySystemObjects.BuildUser(typeof(UserModelDifferenceObject), "UserUsers_UserModelDifferenceObjectUserModelDifferenceObjects", "UserModelDifferenceObjects", "Users");
+            dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "UserModelDifferenceObjects");
+            xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(typeof(RoleModelDifferenceObject), "RoleRoles_RoleModelDifferenceObjectRoleModelDifferenceObjects", "RoleModelDifferenceObjects", "Roles");
+            dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "RoleModelDifferenceObjects");
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {

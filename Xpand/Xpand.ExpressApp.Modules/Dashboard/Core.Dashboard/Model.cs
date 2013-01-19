@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 
-namespace Xpand.ExpressApp.SystemModule.Dashboard {
+namespace Xpand.ExpressApp.Dashboard.Core.Dashboard {
     public interface IModelDashboardViewFilter : IModelNode {
         [DataSourceProperty("FilteredColumns")]
         [ModelBrowsable(typeof(DashboardViewFilterVisibilityCalculator))]

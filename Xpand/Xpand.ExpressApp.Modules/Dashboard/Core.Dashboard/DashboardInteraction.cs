@@ -7,10 +7,9 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.SystemModule.Dashboard;
 using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.SystemModule.DashBoard {
+namespace Xpand.ExpressApp.Dashboard.Core.Dashboard {
 
     public class DashboardInteractionController : ViewController<DashboardView>, IModelExtender {
         public event EventHandler<ListViewFilteringArgs> ListViewFiltering;
