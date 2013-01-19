@@ -28,11 +28,13 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
-
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSetupComplete;
+            }
+            if (RuntimeMode) {
+                AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
             }
         }
 

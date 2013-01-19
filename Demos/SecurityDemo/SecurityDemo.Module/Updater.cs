@@ -27,7 +27,7 @@ namespace SecurityDemo.Module {
         }
 
         XpandRole CreateSecurityDemoRole() {
-            var securityDemoRole = ObjectSpace.GetRole("Demo");
+            var securityDemoRole = (XpandRole)ObjectSpace.GetRole("Demo");
             if (ObjectSpace.IsNewObject(securityDemoRole)) {
                 securityDemoRole.CreateTypePermission<FullAccessObject>();
 

@@ -14,6 +14,9 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             if (application != null && !DesignMode) {
                 application.SetupComplete += ApplicationOnSetupComplete;
             }
+            if (RuntimeMode) {
+                AddToAdditionalExportedTypes(typeof(SendEmailJobDataMap).Namespace, GetType().Assembly);
+            }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

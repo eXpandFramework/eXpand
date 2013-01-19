@@ -24,6 +24,9 @@ namespace Xpand.ExpressApp.Dashboard {
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSetupComplete;
             }
+            if (RuntimeMode) {
+                AddToAdditionalExportedTypes(typeof(DashboardDefinition).Namespace, GetType().Assembly);
+            }
         }
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             if (((XafApplication)sender).Security is ISecurityComplex)
