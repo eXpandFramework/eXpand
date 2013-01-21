@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Security.Core {
         IEnumerable<IOperationPermission> OperationPermissions(IEnumerable<IOperationPermission> permissions, XPMemberInfo member) {
             var collection = (XPBaseCollection)member.GetValue(this);
             var operationPermissions = new List<IOperationPermission>();
-            foreach (IObjectOperationPermission operationPermission in collection) {
+            foreach (var operationPermission in collection.OfType<IObjectOperationPermission>()) {
                 if (typeof(IObjectReadOperationPermission).IsAssignableFrom(member.CollectionElementType.ClassType))
                     AddOperationPermission(member, operationPermissions, operationPermission, "Read");
                 if (typeof(IObjectNavigateOperationPermission).IsAssignableFrom(member.CollectionElementType.ClassType))
