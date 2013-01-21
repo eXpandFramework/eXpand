@@ -3,7 +3,7 @@
     if (!window.AdjustSizeOverriden) {
         window.AdjustSizeCore = function () {
             var middleRowContent = document.getElementById("CP");
-            middleRowContent.style.overflow = "hidden";
+            
             var middleRowParent = document.getElementById("MRC");
             var mainTable = document.getElementById("MT");
 
@@ -47,8 +47,9 @@
 				getHeight("Vertial_TB_Menu") - getHeight("VH");
 
             if (controlToResize) {
+				middleRowContent.style.overflow = "hidden";
                 var elementToResize = controlToResize.GetMainElement();
-                if (controlToResize && controlToResize.GetMainElement()) {
+                if (elementToResize) {
                     controlToResize.SetWidth(window.innerWidth - 60 - document.getElementById("LPcell").offsetWidth);
                     controlToResize.SetHeight(middleRowHeight - 20);
                     if (elementToResize.parentNode.offsetHeight > elementToResize.offsetHeight)
@@ -56,8 +57,13 @@
 
                     middleRowContent.style.height = middleRowHeight + "px";
                 }
+				else {
+					middleRowContent.style.overflow = "auto";
+				}
+				
             }
             else {
+				middleRowContent.style.overflow = "auto";
                 if (windowHeight > mainTable.offsetHeight) {
                     middleRowContent.style.height = middleRowHeight + "px";
                 }
