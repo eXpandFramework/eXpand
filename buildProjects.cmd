@@ -46,6 +46,8 @@ call buildproject.cmd Xpand.ExpressApp.WorldCreator.Web ".\Xpand\Xpand.ExpressAp
 call buildproject.cmd Xpand.ExpressApp.IO ".\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO.Win ".\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO.Web ".\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj"
+call buildproject.cmd Xpand.ExpressApp.Dashboard ".\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj"
+call buildproject.cmd Xpand.ExpressApp.Dashboard.Win ".\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart ".\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Web ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj"
@@ -138,6 +140,8 @@ echo Done Building ModelArtifactState
 echo Done Building ModelDifference
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\NCarousel\NCarouselTester.sln"
 echo Done Building NCarousel
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Dashboard\DashboardTester.sln"
+echo Done Building Dashboard
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\PivotChart\PivotChartTester.sln"
 echo Done Building PivotChart
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Reports\ReportsTester.sln"

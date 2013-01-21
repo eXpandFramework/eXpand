@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {
@@ -13,25 +15,51 @@ namespace Xpand.ExpressApp {
             _application = application;
         }
 
-        public void BuildRole(Type otherPartMember, string association, string propertyName, string otherPartPropertyName) {
+        public List<XPMemberInfo> BuildRole(Type otherPartMember) {
+            return BuildRole(otherPartMember, "Role" + otherPartMember.Name + otherPartMember.Name + "s", otherPartMember.Name + "s", "Roles", false);
+        }
+
+        public List<XPMemberInfo> BuildRole(Type otherPartMember, string association, string propertyName, string otherPartPropertyName, bool visibleInDetailView = true) {
+            var xpCustomMemberInfos = new List<XPMemberInfo>();
             var securityComplex = _application.Security as IRoleTypeProvider;
             if (securityComplex != null) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = typeInfo.Type;
-                var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
-                xpCustomMemberInfos.First(info => info.Name == propertyName).AddAttribute(new VisibleInDetailViewAttribute(false));
+
+                xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
                 XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
             }
+            return xpCustomMemberInfos;
         }
 
-        public void BuildUser(Type otherPartMember, string association, string propertyName, string otherPartPropertyName) {
+        public List<XPMemberInfo> BuildUser(Type otherPartMember) {
+            return BuildUser(otherPartMember, "User" + otherPartMember.Name + otherPartMember.Name + "s", otherPartMember.Name + "s", "Users");
+        }
+
+        public List<XPMemberInfo> BuildUser(Type otherPartMember, string association, string propertyName, string otherPartPropertyName) {
+            var xpCustomMemberInfos = new List<XPMemberInfo>();
             if (_application.Security != null) {
                 if (XpandModuleBase.UserType != null) {
-                    var xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
-                    xpCustomMemberInfos.First(info => info.Name == propertyName).AddAttribute(new VisibleInDetailViewAttribute(false));
+
+                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
                     XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
                 }
             }
+            return xpCustomMemberInfos;
+        }
+
+        public void HideInDetailView(List<XPMemberInfo> xpMemberInfos, string name) {
+            var xpMemberInfo = xpMemberInfos.Single(info => info.Name == name);
+            HideMemberInDetailView(xpMemberInfo);
+        }
+
+        void HideMemberInDetailView(XPMemberInfo xpMemberInfo) {
+            xpMemberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+        }
+
+        public void HideRoleInDetailView(List<XPMemberInfo> xpMemberInfos) {
+            var xpMemberInfo = xpMemberInfos.Single(info => info.CollectionElementType.ClassType == XpandModuleBase.RoleType);
+            HideMemberInDetailView(xpMemberInfo);
         }
     }
 }

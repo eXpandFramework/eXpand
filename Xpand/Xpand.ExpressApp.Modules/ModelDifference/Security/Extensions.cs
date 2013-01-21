@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security {
                                           typeof (PersistentApplication)
                                       };
 
-        public static SecuritySystemRole GetDefaultModelRole(this IObjectSpace objectSpace, string roleName) {
+        public static SecuritySystemRoleBase GetDefaultModelRole(this IObjectSpace objectSpace, string roleName) {
             var modelRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(modelRole)) {
                 modelRole.CreateTypePermission<PersistentApplication>(o => {

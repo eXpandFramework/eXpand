@@ -19,6 +19,8 @@ using DevExpress.Xpo.DB.Exceptions;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using DevExpress.ExpressApp.Utils;
+using XVideoRental.Module.Win.BusinessObjects.Rent;
+using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Utils.Automation;
@@ -41,8 +43,35 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 SetPermissions(employersRole);
             }
             CreateReports();
+            CreateDashboard();
+
             ObjectSpace.CommitChanges();
             SequenceBaseObject.Updating = false;
+        }
+
+        void CreateDashboard() {
+            const string dashboardName = "Receipts";
+
+            ApplicationStatusUpdater.Notify("CreateDashboard", string.Format("Creating dashboard: {0}", dashboardName));
+            var dashboard = ObjectSpace.FindObject<DashboardDefinition>(new BinaryOperator("Name", dashboardName));
+            if (dashboard == null) {
+                dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
+                dashboard.Name = dashboardName;
+
+                dashboard.DashboardTypes.Add(new TypeWrapper(((XPObjectSpace)ObjectSpace).Session, typeof(Receipt)));
+
+                Type moduleType = typeof(XVideoRentalWindowsFormsModule);
+                string name = moduleType.Namespace + ".Resources.ReceiptDashboardLayout.txt";
+                Stream manifestResourceStream = moduleType.Assembly.GetManifestResourceStream(name);
+                if (manifestResourceStream == null)
+                    throw new ArgumentNullException(name);
+
+                var reader = new StreamReader(manifestResourceStream);
+                dashboard.Xml = reader.ReadLine();
+            }
+            var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
+            var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
+            dashboardCollection.BaseAdd(dashboard);
         }
 
         void CreateReports() {
@@ -83,21 +112,26 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         XpandRole InitVideoRentalSecurityData() {
-            var defaultRole = ObjectSpace.GetDefaultRole<XpandRole>();
+            var defaultRole = ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
-                var employersRole = ObjectSpace.GetRole<XpandRole>("Employers");
+                var employersRole = ObjectSpace.GetRole("Employers");
+                var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
 
                 var user = employersRole.GetUser("User");
+                var dashboardUser = dashboardRole.GetUser("DashboardUser");
+
                 user.Roles.Add(defaultRole);
+                dashboardUser.Roles.Add(defaultRole);
+                dashboardUser.Roles.Add(dashboardRole);
 
                 employersRole.CreateFullPermissionAttributes();
-                return employersRole;
+                return (XpandRole)employersRole;
             }
             return null;
         }
 
         void InitAdminSecurityData() {
-            var securitySystemRole = ObjectSpace.GetAdminRole<XpandRole>("Administrator");
+            var securitySystemRole = ObjectSpace.GetAdminRole("Administrator");
             securitySystemRole.GetUser("Admin");
         }
     }

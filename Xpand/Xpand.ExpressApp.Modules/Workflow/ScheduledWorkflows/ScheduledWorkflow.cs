@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.DC;
 using DevExpress.Persistent.Base;
@@ -12,57 +10,25 @@ using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public enum StartMode {
-        OneTime,
-        Daily,
-        Weekly
+        OneTime, Daily, Weekly
     }
 
     [DefaultClassOptions]
     [NavigationItem("Workflow")]
-    [Appearance("WeekDays", "StartMode <> 'Weekly'",
-        TargetItems = "RecurEveryWeeks;Monday;Tuesday;Wednesday;Thursday;Friday;Saturday;Sunday",
-        Visibility = ViewItemVisibility.Hide)]
+
     public class ScheduledWorkflow : XpandCustomObject, IXpandWorkflowDefinition {
-        public ScheduledWorkflow(Session session)
-            : base(session) {
-        }
+        public ScheduledWorkflow(Session session) : base(session) { }
 
         public bool IsActive {
             get { return GetPropertyValue<bool>("IsActive"); }
             set { SetPropertyValue("IsActive", value); }
         }
 
-
-
         #region Scheduled properties
-        [ImmediatePostData]
-        public StartMode StartMode {
-            get { return GetPropertyValue<StartMode>("StartMode"); }
-            set { SetPropertyValue("StartMode", value); }
-        }
 
-        public TimeSpan StartTime {
-            get { return GetPropertyValue<TimeSpan>("StartTime"); }
-            set { SetPropertyValue("StartTime", value); }
-        }
-        public bool RuntASAPIfScheduledStartIsMissed {
-            get { return GetPropertyValue<bool>("RuntASAPIfScheduledStartIsMissed"); }
-            set { SetPropertyValue("RuntASAPIfScheduledStartIsMissed", value); }
-        }
-        [Appearance("RecurEveryDays", "StartMode <> 'Daily'", Visibility = ViewItemVisibility.Hide)]
-        public int RecurEveryDays {
-            get { return GetPropertyValue<int>("RecurEveryDays"); }
-            set { SetPropertyValue("RecurEveryDays", value); }
-        }
-
-        public int RecurEveryWeeks {
-            get { return GetPropertyValue<int>("RecurEveryWeeks"); }
-            set { SetPropertyValue("RecurEveryWeeks", value); }
-        }
-
-        public bool Monday {
-            get { return GetPropertyValue<bool>("Monday"); }
-            set { SetPropertyValue("Monday", value); }
+        [Association("ScheduledWorkflow-LaunchScheduleItems"), Aggregated]
+        public XPCollection<ScheduledWorkflowLaunchSchedule> LaunchScheduleItems {
+            get { return GetCollection<ScheduledWorkflowLaunchSchedule>("LaunchScheduleItems"); }
         }
 
         [Association]
@@ -70,37 +36,6 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
             get { return GetCollection<ScheduledWorkflowLaunchHistory>("LaunchHistoryItems"); }
         }
 
-        public bool Tuesday {
-            get { return GetPropertyValue<bool>("Tuesday"); }
-            set { SetPropertyValue("Tuesday", value); }
-        }
-
-        public bool Wednesday {
-            get { return GetPropertyValue<bool>("Wednesday"); }
-            set { SetPropertyValue("Wednesday", value); }
-        }
-
-        public bool Thursday {
-            get { return GetPropertyValue<bool>("Thursday"); }
-            set { SetPropertyValue("Thursday", value); }
-        }
-
-        public bool Friday {
-            get { return GetPropertyValue<bool>("Friday"); }
-            set { SetPropertyValue("Friday", value); }
-        }
-
-        public bool Saturday {
-            get {
-                return GetPropertyValue<bool>("Saturday");
-            }
-            set { SetPropertyValue("Saturday", value); }
-        }
-
-        public bool Sunday {
-            get { return GetPropertyValue<bool>("Sunday"); }
-            set { SetPropertyValue("Sunday", value); }
-        }
         #endregion
 
         #region IWorkflowDefinition Members
@@ -113,9 +48,8 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         }
 
         public string GetUniqueId() {
-            if (Session.IsNewObject(this)) {
+            if (Session.IsNewObject(this))
                 throw new InvalidOperationException();
-            }
             return "ScheduledWorkflow" + Oid.ToString().ToUpper().Replace("-", "_");
         }
 
@@ -140,6 +74,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
             get { return GetPropertyValue<string>("Xaml"); }
             set { SetPropertyValue("Xaml", value); }
         }
+
         public override void AfterConstruction() {
             base.AfterConstruction();
             Xaml = DCWorkflowDefinitionLogic.InitialXaml;

@@ -9,8 +9,7 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
-using Xpand.ExpressApp.SystemModule.DashBoard;
-using Xpand.ExpressApp.SystemModule.Dashboard;
+using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     public interface IModelDashboardViewFilterPivot : IModelDashboardViewFilter {

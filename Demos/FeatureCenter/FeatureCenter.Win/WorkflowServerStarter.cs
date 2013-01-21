@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
-using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Data.Filtering;
@@ -79,12 +77,12 @@ namespace FeatureCenter.Win {
 
             server = new XpandWorkflowServer(ConfigurationManager.AppSettings["WorkflowServerAddress"], objectSpaceProvider, objectSpaceProvider);
             server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
-                e.WorkflowInstanceStoreBehavior.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
+                e.WorkflowInstanceStoreBehavior.WorkflowInstanceStore.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
             };
             //            server.WorkflowDefinitionProvider = new XpandWorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null, new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
             server.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
             server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
-            server.StartWorkflowByRequestService.RequestsDetectionPeriod = TimeSpan.FromSeconds(5);
+            server.StartWorkflowByRequestService.DelayPeriod = TimeSpan.FromSeconds(5);
             server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(30);
 
             server.Start();

@@ -97,8 +97,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (LoadFromCurrentDomain)
                 return LoadFromDomain(assemblyFilePath);
             _fileExistInPath = File.Exists(assemblyFilePath);
-            if (LoadFromPath && _fileExistInPath)
+            if (LoadFromPath && _fileExistInPath) {
                 return Assembly.LoadFile(assemblyFilePath);
+            }
             if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
                 return _assemblies[_assemblyName];
             }
