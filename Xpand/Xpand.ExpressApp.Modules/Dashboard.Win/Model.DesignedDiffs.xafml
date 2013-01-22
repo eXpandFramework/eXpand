@@ -12,14 +12,14 @@
             <LayoutGroup Id="DashboardDefinition" RelativeSize="100" ImageName="" Direction="Horizontal" Caption="DashboardDefinition" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
               <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="38" IsNewNode="True" Removed="True" />
               <LayoutItem Id="Active" ViewItem="Active" SizeConstraintsType="Default" Index="1" RelativeSize="20" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="20" Index="2" ViewItem="Icon" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" />
+              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="20" Index="2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Icon" />
               <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="3" RelativeSize="21" IsNewNode="True" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="5" CaptionLocation="Top" IsNewNode="True" />
           <TabbedGroup Id="Tabs" RelativeSize="89">
             <LayoutGroup Id="Roles" Index="0" RelativeSize="100" ImageName="">
-              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" />
+              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Roles" />
             </LayoutGroup>
             <LayoutGroup Id="DashboardTypes" Removed="True" />
           </TabbedGroup>
