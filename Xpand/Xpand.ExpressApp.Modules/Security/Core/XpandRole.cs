@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         IEnumerable<XPMemberInfo> OperationPermissionCollectionMembers() {
-            return ClassInfo.OwnMembers.Where(info => info.IsAssociationList && typeof(IOperationPermission).IsAssignableFrom(info.CollectionElementType.ClassType));
+            return ClassInfo.OwnMembers.Where(info => info.IsAssociationList && typeof(IObjectOperationPermission).IsAssignableFrom(info.CollectionElementType.ClassType));
         }
 
         public override string ToString() {
