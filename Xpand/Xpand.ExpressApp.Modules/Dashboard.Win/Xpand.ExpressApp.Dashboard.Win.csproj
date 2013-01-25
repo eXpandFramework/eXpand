@@ -151,7 +151,9 @@
     <Compile Include="Controllers\DashboardDesignerController.Designer.cs">
       <DependentUpon>DashboardDesignerController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\WinDashboardNavigationController.cs" />
+    <Compile Include="Controllers\WinDashboardNavigationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\WinDashboardNavigationController.designer.cs">
       <DependentUpon>WinDashboardNavigationController.cs</DependentUpon>
     </Compile>
