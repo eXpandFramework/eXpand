@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [ImageName("BO_DashboardDefinition")]
     [DefaultProperty("Name")]
     [DefaultClassOptions]
-    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition, IObjectReadOperationPermission, IObjectNavigateOperationPermission {
+    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition, ISecurityOperationsRead, ISecurityOperationsNavigate {
 
         bool _active;
         BindingList<ITypeWrapper> _dashboardTypes;

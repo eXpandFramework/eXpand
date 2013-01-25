@@ -19,12 +19,11 @@ namespace Xpand.ExpressApp.Security.Core {
         protected override IEnumerable<IOperationPermission> GetPermissionsCore() {
             var operationPermissions = base.GetPermissionsCore().Union(Permissions.SelectMany(data => data.GetPermissions()));
             var permissions = operationPermissions.Union(PermissionProviderStorage.Instance.SelectMany(info => info.GetPermissions(this)));
-            var collectionMembers = OperationPermissionCollectionMembers();
-            return collectionMembers.Aggregate(permissions, (current, xpMemberInfo) => current.Union(xpMemberInfo.ObjectOperationPermissions(this).Cast<IOperationPermission>()));
+            return OperationPermissionCollectionMembers().Aggregate(permissions, (current, xpMemberInfo) => current.Union(this.ObjectOperationPermissions(xpMemberInfo).Cast<IOperationPermission>()));
         }
 
         IEnumerable<XPMemberInfo> OperationPermissionCollectionMembers() {
-            return ClassInfo.OwnMembers.Where(info => info.IsAssociationList && typeof(IObjectOperationPermission).IsAssignableFrom(info.CollectionElementType.ClassType));
+            return ClassInfo.OwnMembers.Where(info => info.IsAssociationList && info.CollectionElementType.HasAttribute(typeof(SecurityOperationsAttribute)));
         }
 
         public override string ToString() {

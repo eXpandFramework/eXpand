@@ -10,15 +10,15 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
     public partial class DashboardNavigationController : WindowController, IModelExtender {
-        Dictionary<ChoiceActionItem, DashboardDefinition> _DashboardActions;
-        ShowNavigationItemController _NavigationController;
+        Dictionary<ChoiceActionItem, DashboardDefinition> _dashboardActions;
+        ShowNavigationItemController _navigationController;
 
         public DashboardNavigationController() {
             TargetWindowType = WindowType.Main;
         }
 
         protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions {
-            get { return _DashboardActions ?? (_DashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>()); }
+            get { return _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>()); }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
@@ -31,15 +31,15 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         void SubscribeToEvents() {
-            _NavigationController = Frame.GetController<ShowNavigationItemController>();
-            if (_NavigationController != null)
-                _NavigationController.ItemsInitialized += _NavigationController_ItemsInitialized;
+            _navigationController = Frame.GetController<ShowNavigationItemController>();
+            if (_navigationController != null)
+                _navigationController.ItemsInitialized += _NavigationController_ItemsInitialized;
         }
 
         void UnsubscribeFromEvents() {
-            if (_NavigationController != null) {
-                _NavigationController.ItemsInitialized -= _NavigationController_ItemsInitialized;
-                _NavigationController = null;
+            if (_navigationController != null) {
+                _navigationController.ItemsInitialized -= _NavigationController_ItemsInitialized;
+                _navigationController = null;
             }
         }
 
@@ -130,7 +130,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         public void RecreateNavigationItems() {
-            _NavigationController.RecreateNavigationItems();
+            _navigationController.RecreateNavigationItems();
         }
 
         ChoiceActionItem GetGroupFromActions(SingleChoiceAction action, String name) {
