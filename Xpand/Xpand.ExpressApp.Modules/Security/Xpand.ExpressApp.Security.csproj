@@ -139,6 +139,7 @@
     <Compile Include="Controllers\RememberMeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\SecuritySystemExtensions.cs" />
     <Compile Include="Permissions\PermissionProviderStorage.cs" />
     <Compile Include="Core\SecuritySystemRoleExtensions.cs" />
     <Compile Include="Core\XpandRole.cs" />
