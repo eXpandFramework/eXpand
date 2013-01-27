@@ -19,10 +19,12 @@ namespace Xpand.ExpressApp.Security {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var roleTypeProvider = Application.Security as IRoleTypeProvider;
-            if (roleTypeProvider != null) {
-                foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
-                    CreateMember(typesInfo, roleTypeProvider, attribute);
+            if (Application != null) {
+                var roleTypeProvider = Application.Security as IRoleTypeProvider;
+                if (roleTypeProvider != null) {
+                    foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
+                        CreateMember(typesInfo, roleTypeProvider, attribute);
+                    }
                 }
             }
         }
