@@ -13,10 +13,9 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
-    [PropertyEditor(typeof(ModelApplicationBase))]
+    [PropertyEditor(typeof(ModelApplicationBase), true)]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor {
         #region Members
         private ModelEditorViewController _modelEditorViewController;
@@ -157,7 +156,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
             DisposeController();
 
-            _modelEditorViewController = new ModelEditorViewController((IModelApplication)_masterModel, null);
+            _modelEditorViewController = new ExpressApp.Win.ModelEditorViewController((IModelApplication)_masterModel, null);
             _modelEditorViewController.SetControl(Control);
             _modelEditorViewController.LoadSettings();
 
