@@ -21,5 +21,10 @@ namespace Xpand.Xpo.MetaData {
         protected override bool CanPersist {
             get { return false; }
         }
+
+        public void SetAliasExpression(string aliasExpression) {
+            RemoveAttribute(typeof(PersistentAliasAttribute));
+            AddAttribute(new PersistentAliasAttribute(aliasExpression));
+        }
     }
 }
