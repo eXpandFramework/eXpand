@@ -51,6 +51,16 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
+            application.SetupComplete +=
+                (sender, args) =>
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+            application.LoggedOn +=
+                (sender, args) =>
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+        }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
