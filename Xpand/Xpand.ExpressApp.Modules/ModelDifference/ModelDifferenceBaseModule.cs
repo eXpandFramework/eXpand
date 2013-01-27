@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -31,13 +32,15 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void OnUserDifferencesLoaded(object sender, EventArgs eventArgs) {
+
             LoadModels(!ModelsLoaded.HasValue || !ModelsLoaded.Value);
         }
 
         public void LoadModels(bool loadResources) {
             var model = (ModelApplicationBase)Application.Model;
             LoadApplicationModels(loadResources, model);
-            _userModelDictionaryDifferenceStore.Load();
+            if (Application.Security is ISecurityComplex)
+                _userModelDictionaryDifferenceStore.Load();
         }
 
         void LoadApplicationModels(bool loadResources, ModelApplicationBase model) {
