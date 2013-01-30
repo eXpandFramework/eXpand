@@ -23,16 +23,18 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
-            } else if ((Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+            } else if ((Application.Security!=null&&Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
                 BuildSecuritySystemObjects();
             }
         }
-
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSetupComplete;
+            }
+            if (RuntimeMode) {
+                AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
             }
         }
 

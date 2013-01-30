@@ -73,7 +73,8 @@ namespace Xpand.ExpressApp {
                 }
                 return declaredExportedTypes;
             }
-            return base.GetDeclaredExportedTypes();
+            var exportedTypes = base.GetDeclaredExportedTypes();
+            return !exportedTypes.Any() ? AdditionalExportedTypes : exportedTypes;
         }
 
         void AssignSecurityEntities() {
@@ -154,11 +155,15 @@ namespace Xpand.ExpressApp {
 
         }
 
-        protected void AddToAdditionalExportedTypes(string nameSpaceName) {
+        protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
             if (RuntimeMode) {
-                var types = BaseImplAssembly.GetTypes().Where(type1 => (type1.Namespace + "").StartsWith(nameSpaceName));
+                var types = assembly.GetTypes().Where(type1 => string.Join("", new[] { type1.Namespace }).StartsWith(nameSpaceName));
                 AdditionalExportedTypes.AddRange(types);
             }
+        }
+
+        protected void AddToAdditionalExportedTypes(string nameSpaceName) {
+            AddToAdditionalExportedTypes(nameSpaceName, BaseImplAssembly);
         }
 
         protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {

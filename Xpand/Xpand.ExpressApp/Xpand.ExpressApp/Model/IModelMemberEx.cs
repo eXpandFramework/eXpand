@@ -11,6 +11,7 @@ namespace Xpand.ExpressApp.Model {
         [TypeConverter(typeof(StringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
         [Required]
+        [ModelReadOnly(typeof(ModelTypeReadOnlyCalculator))]
         new Type Type { get; set; }
     }
 
@@ -41,6 +42,16 @@ namespace Xpand.ExpressApp.Model {
             return ((IModelListView)columnUnbound.Parent.Parent).ModelClass.KeyProperty;
         }
     }
+    public class ModelTypeReadOnlyCalculator : IModelIsReadOnly {
+        public bool IsReadOnly(IModelNode node, string propertyName) {
+            return false;
+        }
+
+        public bool IsReadOnly(IModelNode node) {
+            return false;
+        }
+    }
+
     public class ModelTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
             return !(node is IModelRuntimeOrphanedColection) || propertyName != "Type";

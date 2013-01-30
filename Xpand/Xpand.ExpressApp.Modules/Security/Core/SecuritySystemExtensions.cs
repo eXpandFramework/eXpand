@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Security.Strategy.PermissionMatrix;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
+using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security.Core {
@@ -37,75 +38,62 @@ namespace Xpand.ExpressApp.Security.Core {
     }
     public static class SecuritySystemExtensions {
 
-        public static T GetDefaultRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
-            var defaultRole = objectSpace.GetRole<T>(roleName);
+        public static SecuritySystemRoleBase GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
+            var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
-                defaultRole.AddMemberAccessPermission<SecuritySystemUser>("ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
+                defaultRole.AddMemberAccessPermission(XpandModuleBase.UserType, "ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
                 defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType, SecurityOperations.Read, SecuritySystemModifier.Allow);
             }
             return defaultRole;
         }
 
-        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
-            return GetDefaultRole<SecuritySystemRole>(objectSpace, roleName);
+        public static SecuritySystemRoleBase GetDefaultRole(this IObjectSpace objectSpace) {
+            return objectSpace.GetDefaultRole("Default");
         }
 
-        public static T GetDefaultRole<T>(this IObjectSpace objectSpace) where T : SecuritySystemRole {
-            return objectSpace.GetDefaultRole<T>("Default");
-        }
-
-        public static SecuritySystemRole GetDefaultRole(this IObjectSpace objectSpace) {
-            return GetDefaultRole<SecuritySystemRole>(objectSpace);
-        }
-
-        public static SecuritySystemUser GetUser(this SecuritySystemRole systemRole, string userName, string passWord = "") {
+        public static ISecurityUserWithRoles GetUser(this SecuritySystemRoleBase systemRole, string userName, string passWord = "") {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
             return GetUser(objectSpace, userName, passWord, systemRole);
         }
 
-        public static SecuritySystemUser GetUser(this IObjectSpace objectSpace, string userName, string passWord = "", params SecuritySystemRole[] roles) {
-            var user2 = (SecuritySystemUser)objectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", userName)) ??
+        public static ISecurityUserWithRoles GetUser(this IObjectSpace objectSpace, string userName, string passWord = "", params SecuritySystemRoleBase[] roles) {
+            return (ISecurityUserWithRoles)objectSpace.FindObject(SecuritySystem.UserType, new BinaryOperator("UserName", userName)) ??
                         CreateUser(objectSpace, userName, passWord, roles);
+        }
+
+        public static ISecurityUserWithRoles CreateUser(IObjectSpace objectSpace, string userName, string passWord, IEnumerable<SecuritySystemRoleBase> roles) {
+            var user2 = (ISecurityUserWithRoles)objectSpace.CreateObject(SecuritySystem.UserType);
+            var typeInfo = objectSpace.TypesInfo.FindTypeInfo(user2.GetType());
+            typeInfo.FindMember("UserName").SetValue(user2, userName);
+            typeInfo.Type.GetMethod("SetPassword").Invoke(user2, new object[] { passWord });
+            var roleCollection = (XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user2);
+            foreach (var role in roles) {
+                roleCollection.BaseAdd(role);
+            }
             return user2;
         }
 
-        public static SecuritySystemUser CreateUser(IObjectSpace objectSpace, string userName, string passWord, IEnumerable<SecuritySystemRole> roles) {
-            var user2 = (SecuritySystemUser)objectSpace.CreateObject(SecuritySystem.UserType);
-            user2.UserName = userName;
-            user2.SetPassword(passWord + "");
-            user2.Roles.AddRange(roles);
-            return user2;
-        }
-
-        public static T GetAdminRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
-            var administratorRole = objectSpace.FindObject<T>(new BinaryOperator("Name", roleName));
+        public static SecuritySystemRoleBase GetAdminRole(this IObjectSpace objectSpace, string roleName) {
+            var administratorRole = (SecuritySystemRoleBase)objectSpace.FindObject(XpandModuleBase.RoleType, new BinaryOperator("Name", roleName));
             if (administratorRole == null) {
-                administratorRole = objectSpace.CreateObject<T>();
+                administratorRole = (SecuritySystemRoleBase)objectSpace.CreateObject(XpandModuleBase.RoleType);
                 administratorRole.Name = roleName;
                 administratorRole.IsAdministrative = true;
             }
             return administratorRole;
         }
 
-        public static SecuritySystemRole GetAdminRole(this IObjectSpace objectSpace, string roleName) {
-            return GetAdminRole<XpandRole>(objectSpace, roleName);
-        }
-
-        public static T GetRole<T>(this IObjectSpace objectSpace, string roleName) where T : SecuritySystemRole {
-            var securityDemoRole = objectSpace.FindObject<T>(new BinaryOperator("Name", roleName));
+        public static SecuritySystemRoleBase GetRole(this IObjectSpace objectSpace, string roleName) {
+            var securityDemoRole = (SecuritySystemRoleBase)objectSpace.FindObject(XpandModuleBase.RoleType, new BinaryOperator("Name", roleName));
             if (securityDemoRole == null) {
-                securityDemoRole = objectSpace.CreateObject<T>();
+                securityDemoRole = (SecuritySystemRoleBase)objectSpace.CreateObject(XpandModuleBase.RoleType);
                 securityDemoRole.Name = roleName;
             }
             return securityDemoRole;
         }
 
-        public static XpandRole GetRole(this IObjectSpace objectSpace, string roleName) {
-            return GetRole<XpandRole>(objectSpace, roleName);
-        }
-
-        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRole systemRole, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true) {
+        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase systemRole, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true) {
             var targetType = typeof(TObject);
             var permission = systemRole.CreateTypePermission<TObject>();
             permission.TargetType = targetType;
@@ -118,11 +106,11 @@ namespace Xpand.ExpressApp.Security.Core {
             return permission;
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRole systemRole) {
+        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase systemRole) {
             return CreateTypePermission(systemRole, typeof(TObject));
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRole systemRole, Type targetType) {
+        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase systemRole, Type targetType) {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
             var permissionObject = objectSpace.CreateObject<SecuritySystemTypePermissionObject>();
             permissionObject.TargetType = targetType;
@@ -130,7 +118,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return permissionObject;
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRole systemRole, Type targetType, Action<SecuritySystemTypePermissionObject> action,
+        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase systemRole, Type targetType, Action<SecuritySystemTypePermissionObject> action,
                                                                                                      bool defaultAllowValues = true) {
             var permission = systemRole.CreateTypePermission(targetType);
             permission.TargetType = targetType;
@@ -178,7 +166,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return permission;
         }
 
-        public static void CreatePermissionBehaviour(this SecuritySystemRole systemRole, Enum behaviourEnum, Action<SecuritySystemRole, ITypeInfo> action) {
+        public static void CreatePermissionBehaviour(this SecuritySystemRoleBase systemRole, Enum behaviourEnum, Action<SecuritySystemRoleBase, ITypeInfo> action) {
             var typeInfos = XafTypesInfo.Instance.PersistentTypes.Where(info => {
                 var permissionBehaviorAttribute = info.FindAttribute<PermissionBehaviorAttribute>();
                 return permissionBehaviorAttribute != null && permissionBehaviorAttribute.Name.Equals(Enum.GetName(behaviourEnum.GetType(), behaviourEnum));
@@ -188,7 +176,7 @@ namespace Xpand.ExpressApp.Security.Core {
             }
         }
 
-        public static void CreateFullPermissionAttributes(this SecuritySystemRole systemRole, Action<SecuritySystemTypePermissionObject> action = null, bool defaultAllowValues = true) {
+        public static void CreateFullPermissionAttributes(this SecuritySystemRoleBase systemRole, Action<SecuritySystemTypePermissionObject> action = null, bool defaultAllowValues = true) {
             var persistentTypes = XafTypesInfo.Instance.PersistentTypes.Where(info => info.FindAttribute<FullPermissionAttribute>() != null);
             foreach (var typeInfo in persistentTypes) {
                 systemRole.CreateTypePermission(typeInfo.Type, action, defaultAllowValues);

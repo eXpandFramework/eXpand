@@ -27,10 +27,13 @@ namespace Xpand.ExpressApp.Core {
                     Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
                     XPClassInfo typeInfo = dictionary.GetClassInfo(classType);
                     lock (typeInfo) {
-                        if (typeInfo.FindMember(modelRuntimeMember.Name) == null) {
+                        var xpMemberInfo = typeInfo.FindMember(modelRuntimeMember.Name);
+                        if (xpMemberInfo == null) {
                             XpandCustomMemberInfo memberInfo = GetMemberInfo(modelRuntimeMember, typeInfo);
                             AddAttributes(modelRuntimeMember, memberInfo);
                             XafTypesInfo.Instance.RefreshInfo(classType);
+                        } else {
+                            UpdateMember(modelRuntimeMember, xpMemberInfo);
                         }
                     }
                 } catch (Exception exception) {
@@ -42,6 +45,14 @@ namespace Xpand.ExpressApp.Core {
                             modelRuntimeMember.Name,
                             exception.Message));
                 }
+        }
+
+        static void UpdateMember(IModelRuntimeMember modelRuntimeMember, XPMemberInfo xpMemberInfo) {
+            var modelRuntimeCalculatedMember = modelRuntimeMember as IModelRuntimeCalculatedMember;
+            if (modelRuntimeCalculatedMember != null) {
+                ((XpandCalcMemberInfo)xpMemberInfo).SetAliasExpression(modelRuntimeCalculatedMember.AliasExpression);
+                XpandModuleBase.TypesInfo.RefreshInfo(xpMemberInfo.Owner.ClassType);
+            }
         }
 
         static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {

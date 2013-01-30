@@ -161,7 +161,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Helpers\ReflectionΕxtensions.cs" />
     <Compile Include="Helpers\DashBoardDefinitionExtensions.cs" />
     <Compile Include="Helpers\XPObjectSpaceAwareControlInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

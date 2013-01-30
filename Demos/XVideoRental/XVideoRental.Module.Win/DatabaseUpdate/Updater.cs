@@ -48,6 +48,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             ObjectSpace.CommitChanges();
             SequenceBaseObject.Updating = false;
         }
+
         void CreateDashboard() {
             const string dashboardName = "Receipts";
 
@@ -68,7 +69,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 var reader = new StreamReader(manifestResourceStream);
                 dashboard.Xml = reader.ReadLine();
             }
-            var dashboardRole = ObjectSpace.GetRole<XpandRole>("Dashboard View Role");
+            var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
             var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
             dashboardCollection.BaseAdd(dashboard);
         }
@@ -111,10 +112,10 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         XpandRole InitVideoRentalSecurityData() {
-            var defaultRole = ObjectSpace.GetDefaultRole<XpandRole>();
+            var defaultRole = ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
-                var employersRole = ObjectSpace.GetRole<XpandRole>("Employers");
-                var dashboardRole = ObjectSpace.GetRole<XpandRole>("Dashboard View Role");
+                var employersRole = ObjectSpace.GetRole("Employers");
+                var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
 
                 var user = employersRole.GetUser("User");
                 var dashboardUser = dashboardRole.GetUser("DashboardUser");
@@ -124,13 +125,13 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 dashboardUser.Roles.Add(dashboardRole);
 
                 employersRole.CreateFullPermissionAttributes();
-                return employersRole;
+                return (XpandRole)employersRole;
             }
             return null;
         }
 
         void InitAdminSecurityData() {
-            var securitySystemRole = ObjectSpace.GetAdminRole<XpandRole>("Administrator");
+            var securitySystemRole = ObjectSpace.GetAdminRole("Administrator");
             securitySystemRole.GetUser("Admin");
         }
     }
