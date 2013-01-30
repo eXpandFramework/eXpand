@@ -65,8 +65,7 @@ namespace Xpand.ExpressApp.Core {
         static XpandCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
             var calculatedMember = modelMember as IModelRuntimeCalculatedMember;
             if (calculatedMember != null)
-                return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type,
-                                                      new Attribute[] { new PersistentAliasAttribute(calculatedMember.AliasExpression) });
+                return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type, calculatedMember.AliasExpression);
             var member = modelMember as IModelRuntimeOrphanedColection;
             if (member != null) {
                 var modelRuntimeOrphanedColection = member;

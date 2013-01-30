@@ -4,17 +4,17 @@ using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.MetaData {
     public class XpandCalcMemberInfo : XpandCustomMemberInfo {
-        readonly string _propertyName;
 
-        public XpandCalcMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, XPClassInfo referenceType, bool nonPersistent, bool nonPublic)
-            : base(owner, propertyName, propertyType, referenceType, nonPersistent, nonPublic, true) {
-            _propertyName = propertyName;
+
+        public XpandCalcMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string aliasExpression)
+            : base(owner, propertyName, propertyType, null, true, false) {
+            AddAttribute(new PersistentAliasAttribute(aliasExpression));
         }
 
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
             return !xpBaseObject.Session.IsObjectsLoading && !xpBaseObject.Session.IsObjectsSaving
-                       ? xpBaseObject.EvaluateAlias(_propertyName)
+                       ? xpBaseObject.EvaluateAlias(Name)
                        : base.GetValue(theObject);
         }
 

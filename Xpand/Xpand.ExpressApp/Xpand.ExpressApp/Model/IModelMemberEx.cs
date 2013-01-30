@@ -11,8 +11,10 @@ namespace Xpand.ExpressApp.Model {
         [TypeConverter(typeof(StringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
         [Required]
-        [ModelReadOnly(typeof(ModelTypeReadOnlyCalculator))]
+        [ModelReadOnly(typeof(AlwaysEditableVisibilityCalculator))]
         new Type Type { get; set; }
+        [ModelBrowsable(typeof(DesignerOnlyCalculatorForNativeMembers))]
+        new bool IsCustom { get; set; }
     }
 
     public interface IModelColumnUnbound : IModelColumn {
@@ -30,11 +32,18 @@ namespace Xpand.ExpressApp.Model {
         [Required]
         new string Caption { get; set; }
     }
+
+    public class DesignerOnlyCalculatorForNativeMembers : IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName) {
+            return !(node is IModelRuntimeMember);
+        }
+    }
     public class ModelPropertyEditorTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
             return propertyName != "PropertyEditorType" && propertyName != "PropertyName";
         }
     }
+
 
     [DomainLogic(typeof(IModelColumnUnbound))]
     public class IModelColumnUnboundLogic {
@@ -42,7 +51,7 @@ namespace Xpand.ExpressApp.Model {
             return ((IModelListView)columnUnbound.Parent.Parent).ModelClass.KeyProperty;
         }
     }
-    public class ModelTypeReadOnlyCalculator : IModelIsReadOnly {
+    public class AlwaysEditableVisibilityCalculator : IModelIsReadOnly {
         public bool IsReadOnly(IModelNode node, string propertyName) {
             return false;
         }
