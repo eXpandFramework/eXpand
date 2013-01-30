@@ -277,7 +277,7 @@
 	<Target	Name="Installer">
 		<MakeDir Directories="$(InstallerFolder);" />
 				
-		<CreateItem Include="$(XpandPath)\*.dll;" Exclude="$(XpandPath)\Xpand.Tests.dll;$(XpandPath)\DevExpress.*;" >
+		<CreateItem Include="$(XpandPath)\*.dll;" Exclude="$(XpandPath)\Xpand.Tests.dll;$(XpandPath)\DevExpress.*;$(XpandPath)\FeatureCenter*;$(XpandPath)\*Tester*;$(XpandPath)\SecurityDemo*;$(XpandPath)\ExternalApplication.Module.Win.dll;$(XpandPath)\Machine.Specifications.dll;$(XpandPath)\Topshelf.dll;$(XpandPath)\XVideoRental.Module.Win.dll" >
 			<Output ItemName="files" TaskParameter="Include"/>
 		</CreateItem>
 		<Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
