@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         public string GetActivityTypeName() {
             return GetUniqueId();
         }
-
+        public bool CanCompileForDesigner { get; set; }
         public IList<IStartWorkflowCondition> GetConditions() {
             return new IStartWorkflowCondition[0];
         }
