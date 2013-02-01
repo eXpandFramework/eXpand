@@ -105,6 +105,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.RichEdit.v12.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DevExpress.Web.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

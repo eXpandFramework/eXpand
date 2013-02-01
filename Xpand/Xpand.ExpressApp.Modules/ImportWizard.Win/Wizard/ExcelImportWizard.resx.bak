@@ -138,7 +138,7 @@
     <value>labelControl2</value>
   </data>
   <data name="&gt;&gt;labelControl2.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;labelControl2.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -165,7 +165,7 @@
     <value>PrieviewRowCountSpinEdit</value>
   </data>
   <data name="&gt;&gt;PrieviewRowCountSpinEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;PrieviewRowCountSpinEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -192,7 +192,7 @@
     <value>HeaderRowSpinEdit</value>
   </data>
   <data name="&gt;&gt;HeaderRowSpinEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.SpinEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;HeaderRowSpinEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -206,7 +206,7 @@
   <data name="SheetSelectEdit.Location" type="System.Drawing.Point, System.Drawing">
     <value>21, 52</value>
   </data>
-  <assembly alias="DevExpress.Utils.v12.2" name="DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*" />
+  <assembly alias="DevExpress.Utils.v12.2" name="DevExpress.Utils.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*" />
   <data name="SheetSelectEdit.Properties.Buttons" type="DevExpress.XtraEditors.Controls.ButtonPredefines, DevExpress.Utils.v12.2">
     <value>Combo</value>
   </data>
@@ -223,7 +223,7 @@
     <value>SheetSelectEdit</value>
   </data>
   <data name="&gt;&gt;SheetSelectEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;SheetSelectEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -250,7 +250,7 @@
     <value>HeaderRowCheck</value>
   </data>
   <data name="&gt;&gt;HeaderRowCheck.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.CheckEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;HeaderRowCheck.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -278,7 +278,7 @@
     <value>ExcelSheetPreviewGrid</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGrid.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGrid.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -302,7 +302,7 @@
     <value>labelControl1</value>
   </data>
   <data name="&gt;&gt;labelControl1.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;labelControl1.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -329,7 +329,7 @@
     <value>FileSelectEdit</value>
   </data>
   <data name="&gt;&gt;FileSelectEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.MRUEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.MRUEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;FileSelectEdit.Parent" xml:space="preserve">
     <value>welcomeWizardPage1</value>
@@ -351,7 +351,7 @@
     <value>welcomeWizardPage1</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WelcomeWizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.WelcomeWizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;welcomeWizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -375,7 +375,7 @@
     <value>ResetButton</value>
   </data>
   <data name="&gt;&gt;ResetButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ResetButton.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -399,7 +399,7 @@
     <value>GuesMappingButton</value>
   </data>
   <data name="&gt;&gt;GuesMappingButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;GuesMappingButton.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -435,7 +435,7 @@
     <value>MappingRadioGroup</value>
   </data>
   <data name="&gt;&gt;MappingRadioGroup.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;MappingRadioGroup.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -467,7 +467,7 @@
   <data name="ImportMapLookUp.Properties.Columns5" type="System.Int32, mscorlib">
     <value>360</value>
   </data>
-  <assembly alias="DevExpress.Data.v12.2" name="DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*" />
+  <assembly alias="DevExpress.Data.v12.2" name="DevExpress.Data.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*" />
   <data name="ImportMapLookUp.Properties.Columns6" type="DevExpress.Utils.FormatType, DevExpress.Data.v12.2">
     <value>None</value>
   </data>
@@ -499,7 +499,7 @@
     <value>ImportMapLookUp</value>
   </data>
   <data name="&gt;&gt;ImportMapLookUp.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LookUpEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ImportMapLookUp.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -516,7 +516,7 @@
   <data name="ColName.Caption" xml:space="preserve">
     <value>Column Name</value>
   </data>
-  <assembly alias="DevExpress.XtraGrid.v12.2" name="DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*" />
+  <assembly alias="DevExpress.XtraGrid.v12.2" name="DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*" />
   <data name="ColName.Fixed" type="DevExpress.XtraGrid.Columns.FixedStyle, DevExpress.XtraGrid.v12.2">
     <value>Left</value>
   </data>
@@ -596,7 +596,7 @@
     <value>MappingGrid</value>
   </data>
   <data name="&gt;&gt;MappingGrid.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.GridControl, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;MappingGrid.Parent" xml:space="preserve">
     <value>wizardPage1</value>
@@ -614,7 +614,7 @@
     <value>wizardPage1</value>
   </data>
   <data name="&gt;&gt;wizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;wizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -629,7 +629,7 @@
     <value>completionWizardPage1</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.CompletionWizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.CompletionWizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;completionWizardPage1.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -653,7 +653,7 @@
     <value>SaveLabel</value>
   </data>
   <data name="&gt;&gt;SaveLabel.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;SaveLabel.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -689,7 +689,7 @@
     <value>radioGroup2</value>
   </data>
   <data name="&gt;&gt;radioGroup2.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.RadioGroup, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;radioGroup2.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -713,7 +713,7 @@
     <value>labelControl3</value>
   </data>
   <data name="&gt;&gt;labelControl3.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.LabelControl, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;labelControl3.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -737,7 +737,7 @@
     <value>ImportMapDescriptionEdit</value>
   </data>
   <data name="&gt;&gt;ImportMapDescriptionEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.TextEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ImportMapDescriptionEdit.Parent" xml:space="preserve">
     <value>wizardPage2</value>
@@ -755,7 +755,7 @@
     <value>wizardPage2</value>
   </data>
   <data name="&gt;&gt;wizardPage2.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;wizardPage2.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -779,7 +779,7 @@
     <value>ResultsMemoEdit</value>
   </data>
   <data name="&gt;&gt;ResultsMemoEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.MemoEdit, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.MemoEdit, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ResultsMemoEdit.Parent" xml:space="preserve">
     <value>wizardPage3</value>
@@ -806,7 +806,7 @@
     <value>ImportButton</value>
   </data>
   <data name="&gt;&gt;ImportButton.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.SimpleButton, DevExpress.XtraEditors.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ImportButton.Parent" xml:space="preserve">
     <value>wizardPage3</value>
@@ -821,7 +821,7 @@
     <value>wizardPage3</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.WizardPage, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;wizardPage3.Parent" xml:space="preserve">
     <value>WizardControl</value>
@@ -845,7 +845,7 @@
     <value>WizardControl</value>
   </data>
   <data name="&gt;&gt;WizardControl.Type" xml:space="preserve">
-    <value>DevExpress.XtraWizard.WizardControl, DevExpress.XtraWizard.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraWizard.WizardControl, DevExpress.XtraWizard.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;WizardControl.Parent" xml:space="preserve">
     <value>$this</value>
@@ -869,7 +869,7 @@
     <value>gridLookUpEdit1</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit1.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.GridLookUpEdit, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.GridLookUpEdit, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <metadata name="importMapBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1302,37 +1302,37 @@
     <value>ExcelSheetPreviewGridView</value>
   </data>
   <data name="&gt;&gt;ExcelSheetPreviewGridView.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;MappingBandedGridView.Name" xml:space="preserve">
     <value>MappingBandedGridView</value>
   </data>
   <data name="&gt;&gt;MappingBandedGridView.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.BandedGridView, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.BandedGridView, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;ColName.Name" xml:space="preserve">
     <value>ColName</value>
   </data>
   <data name="&gt;&gt;ColName.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;Values.Name" xml:space="preserve">
     <value>Values</value>
   </data>
   <data name="&gt;&gt;Values.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;MapTo.Name" xml:space="preserve">
     <value>MapTo</value>
   </data>
   <data name="&gt;&gt;MapTo.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.BandedGrid.GridBand, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit.Name" xml:space="preserve">
     <value>repositoryItemGridLookUpEdit</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;mappablePropertyBindingSource.Name" xml:space="preserve">
     <value>mappablePropertyBindingSource</value>
@@ -1344,31 +1344,31 @@
     <value>repositoryItemGridLookUpEdit1View</value>
   </data>
   <data name="&gt;&gt;repositoryItemGridLookUpEdit1View.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;NameColumn.Name" xml:space="preserve">
     <value>NameColumn</value>
   </data>
   <data name="&gt;&gt;NameColumn.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;DisplayNameColumn.Name" xml:space="preserve">
     <value>DisplayNameColumn</value>
   </data>
   <data name="&gt;&gt;DisplayNameColumn.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;Mapped.Name" xml:space="preserve">
     <value>Mapped</value>
   </data>
   <data name="&gt;&gt;Mapped.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Columns.GridColumn, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit2View.Name" xml:space="preserve">
     <value>gridLookUpEdit2View</value>
   </data>
   <data name="&gt;&gt;gridLookUpEdit2View.Type" xml:space="preserve">
-    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraGrid.Views.Grid.GridView, DevExpress.XtraGrid.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
   <data name="&gt;&gt;importMapBindingSource.Name" xml:space="preserve">
     <value>importMapBindingSource</value>
@@ -1392,6 +1392,6 @@
     <value>ExcelImportWizard</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>DevExpress.XtraEditors.XtraForm, DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=*</value>
+    <value>DevExpress.XtraEditors.XtraForm, DevExpress.Utils.v12.2, Version=12.2.5.0, Culture=neutral, PublicKeyToken=*</value>
   </data>
 </root>
