@@ -69,7 +69,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             referenceMemberInfo.Name = "Test";
             referenceMemberInfo.Owner = typeof(User);
             referenceMemberInfo.ReferenceType = typeof(Role);
-            referenceMemberInfo.TypeAttributes.Add(new PersistentAssociationAttribute(referenceMemberInfo.Session) { AssociationName = "ANAME", ElementType = typeof(User) });
+            referenceMemberInfo.TypeAttributes.Add(new PersistentPersistentAttribute(UnitOfWork));
 
             UnitOfWork.CommitChanges();
         };
@@ -83,7 +83,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             };
 
         It should_create_typedattributes =
-            () => memberInfo.FindAttributeInfo(typeof(AssociationAttribute)).ShouldNotBeNull();
+            () => memberInfo.FindAttributeInfo(typeof(PersistentAttribute)).ShouldNotBeNull();
     }
 
     [Subject(typeof(ExistentTypesMemberCreator))]
