@@ -53,13 +53,13 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             IModelView view = Application.FindModelView(Application.FindListViewId(typeof(DashboardDefinition)));
             var options = ((IModelOptionsDashboards)Application.Model.Options);
             var dashboardOptions = ((IModelOptionsDashboardNavigation)options.Dashboards);
-            if (dashboardOptions.GenerateDashboardsInGroup) {
+            if (dashboardOptions.DashboardsInGroup) {
                 ReloadDashboardActions();
                 var actions = new List<ChoiceActionItem>();
                 if (DashboardActions.Count > 0) {
-                    var dashboardGroup = GetGroupFromActions(((ShowNavigationItemController)sender).ShowNavigationItemAction, dashboardOptions.Group);
+                    var dashboardGroup = GetGroupFromActions(((ShowNavigationItemController)sender).ShowNavigationItemAction, dashboardOptions.DashboardGroupCaption);
                     if (dashboardGroup == null) {
-                        dashboardGroup = new ChoiceActionItem(dashboardOptions.Group, null) {
+                        dashboardGroup = new ChoiceActionItem(dashboardOptions.DashboardGroupCaption, null) {
                             ImageName = "BO_DashboardDefinition"
                         };
                         ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.Add(dashboardGroup);
@@ -139,10 +139,12 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
     }
 
     public interface IModelOptionsDashboardNavigation : IModelNode {
+        [Category("Navigation")]
         [DefaultValue("Dashboards")]
-        String Group { get; set; }
+        String DashboardGroupCaption { get; set; }
 
         [DefaultValue(true)]
-        bool GenerateDashboardsInGroup { get; set; }
+        [Category("Navigation")]
+        bool DashboardsInGroup { get; set; }
     }
 }
