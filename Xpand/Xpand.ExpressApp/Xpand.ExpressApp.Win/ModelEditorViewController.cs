@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 
 
@@ -11,7 +12,22 @@ namespace Xpand.ExpressApp.Win {
     public class ModelEditorViewController : DevExpress.ExpressApp.Win.Core.ModelEditor.ModelEditorViewController {
         public ModelEditorViewController(IModelApplication modelApplication, ModelDifferenceStore diffstore)
             : base(modelApplication, diffstore) {
+
+        }
+
+        protected override void SubscribeEvents() {
+            base.SubscribeEvents();
             AddNodeAction.ItemsChanged += AddNodeActionOnItemsChanged;
+            SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
+        }
+
+        protected override void UnSubscribeEvents() {
+            base.UnSubscribeEvents();
+            AddNodeAction.ItemsChanged -= AddNodeActionOnItemsChanged;
+            SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
+        }
+        void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            RuntimeMemberBuilder.AddFields(ModelApplication, XpandModuleBase.Dictiorary);
         }
 
         protected override void UpdateActionState() {
