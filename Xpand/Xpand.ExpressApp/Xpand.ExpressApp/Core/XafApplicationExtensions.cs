@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.MiddleTier;
@@ -34,14 +36,30 @@ namespace Xpand.ExpressApp.Core {
         }
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
-            var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            ((IConnectionString)xafApplication).ConnectionString = connectionString;
-            var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
+            var connectionString = ConnectionString(xafApplication, args);
+            var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
         }
 
+        static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
+            var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
+            ((IConnectionString)xafApplication).ConnectionString = connectionString;
+            return connectionString;
+        }
+
+        public static AutoCreateOption AutoCreateOption(this XafApplication xafApplication) {
+            return ConfigurationManager.AppSettings.AllKeys.Contains("AutoCreateOption")
+                       ? (AutoCreateOption)
+                         Enum.Parse(typeof(AutoCreateOption), ConfigurationManager.AppSettings["AutoCreateOption"])
+                       : DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema;
+        }
+
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreNameSuffix) {
-            if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
+            if (dataStoreNameSuffix == null) {
+                var connectionString = ConnectionString(xafApplication, args);
+                var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, ((IXafApplication)xafApplication).AutoCreateOption);
+                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new DataStoreProvider(connectionProvider));
+            } else if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
                 xafApplication.CreateCustomObjectSpaceprovider(args);
             }
         }

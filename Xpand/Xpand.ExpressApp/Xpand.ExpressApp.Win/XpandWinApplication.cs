@@ -27,7 +27,6 @@ namespace Xpand.ExpressApp.Win {
         DataCacheNode _cacheNode;
         ApplicationModulesManager _applicationModulesManager;
 
-
         public XpandWinApplication() {
             if (_application == null)
                 Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
@@ -40,6 +39,10 @@ namespace Xpand.ExpressApp.Win {
                 _application = this;
         }
 
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args, null);
+        }
+
         protected override void OnSetupComplete() {
             base.OnSetupComplete();
             var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
@@ -49,6 +52,12 @@ namespace Xpand.ExpressApp.Win {
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
+        }
+
+        public virtual AutoCreateOption AutoCreateOption {
+            get {
+                return this.AutoCreateOption();
+            }
         }
 
         public event EventHandler UserDifferencesLoaded;
@@ -89,12 +98,6 @@ namespace Xpand.ExpressApp.Win {
 
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
-        }
-
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            base.OnCreateCustomObjectSpaceProvider(args);
-            if (args.ObjectSpaceProvider == null)
-                this.CreateCustomObjectSpaceprovider(args);
         }
 
         public new void Start() {

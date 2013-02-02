@@ -38,6 +38,12 @@ namespace Xpand.ExpressApp.MiddleTier {
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
         }
+
+        public AutoCreateOption AutoCreateOption {
+            get { return AutoCreateOption.DatabaseAndSchema; }
+
+        }
+
         public event EventHandler UserDifferencesLoaded;
 
         SettingsStorage ISettingsStorage.CreateLogonParameterStoreCore() {

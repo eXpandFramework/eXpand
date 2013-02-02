@@ -28,10 +28,18 @@ namespace Xpand.ExpressApp.Web {
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
         }
+        public virtual AutoCreateOption AutoCreateOption {
+            get {
+                return this.AutoCreateOption();
+            }
+        }
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
             EventHandler handler = UserDifferencesLoaded;
             if (handler != null) handler(this, e);
+        }
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args, null);
         }
 
         protected override LayoutManager CreateLayoutManagerCore(bool simple) {
@@ -73,12 +81,6 @@ namespace Xpand.ExpressApp.Web {
         protected override void OnLoggedOn(LogonEventArgs args) {
             base.OnLoggedOn(args);
             ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
-        }
-
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            base.OnCreateCustomObjectSpaceProvider(args);
-            if (args.ObjectSpaceProvider == null)
-                this.CreateCustomObjectSpaceprovider(args);
         }
 
         public new string ConnectionString {

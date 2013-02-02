@@ -52,7 +52,7 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
         event EventHandler UserDifferencesLoaded;
         string RaiseEstablishingConnection();
         ApplicationModulesManager ApplicationModulesManager { get; }
-
+        AutoCreateOption AutoCreateOption { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
         event EventHandler<ViewShownEventArgs> AfterViewShown;
         void OnAfterViewShown(Frame frame, Frame sourceFrame);
