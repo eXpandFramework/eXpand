@@ -15,6 +15,8 @@ namespace Xpand.ExpressApp.Model {
         new Type Type { get; set; }
         [ModelBrowsable(typeof(DesignerOnlyCalculatorForNativeMembers))]
         new bool IsCustom { get; set; }
+        [Browsable(false)]
+        object Tag { get; set; }
     }
 
     public interface IModelColumnUnbound : IModelColumn {
