@@ -44,7 +44,7 @@
 
             var middleRowHeight = windowHeight - mainTableHeight + footerTableHeight + middleRowParent.offsetHeight - getHeight("Horizontal_UPVH") -
 				getHeight("Horizontal_TB_Menu") - getParentTagHeight("UPQC", "td") - getHeight("Vertical_UPVH") -
-				getHeight("Vertial_TB_Menu") - getHeight("VH");
+				getHeight("Vertial_TB_Menu");
 
             if (controlToResize) {
 				middleRowContent.style.overflow = "hidden";
