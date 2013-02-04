@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Machine.Specifications;
 using Xpand.Xpo;
@@ -27,7 +26,7 @@ namespace Xpand.Tests.Xpand.Xpo {
 
         Establish context = () => {
             _dynamicCalcPropertyObject = XPObjectSpace.CreateObject<DynamicCalcPropertyObject>();
-            _dynamicCalcPropertyObject.ClassInfo.CreateCalculabeMember("StringAge", typeof(string), new Attribute[] { new PersistentAliasAttribute("Concat(Age,'0')") });
+            _dynamicCalcPropertyObject.ClassInfo.CreateCalculabeMember("StringAge", typeof(string), "Concat(Age,'0')");
             _dynamicCalcPropertyObject.Age = 2;
             XPObjectSpace.CommitChanges();
         };

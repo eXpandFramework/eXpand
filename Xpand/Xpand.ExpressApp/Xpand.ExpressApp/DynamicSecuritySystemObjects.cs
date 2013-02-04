@@ -49,8 +49,9 @@ namespace Xpand.ExpressApp {
         }
 
         public void HideInDetailView(List<XPMemberInfo> xpMemberInfos, string name) {
-            var xpMemberInfo = xpMemberInfos.Single(info => info.Name == name);
-            HideMemberInDetailView(xpMemberInfo);
+            var xpMemberInfo = xpMemberInfos.SingleOrDefault(info => info.Name == name);
+            if (xpMemberInfo != null)
+                HideMemberInDetailView(xpMemberInfo);
         }
 
         void HideMemberInDetailView(XPMemberInfo xpMemberInfo) {
@@ -58,8 +59,8 @@ namespace Xpand.ExpressApp {
         }
 
         public void HideRoleInDetailView(List<XPMemberInfo> xpMemberInfos) {
-            var xpMemberInfo = xpMemberInfos.Single(info => info.CollectionElementType.ClassType == XpandModuleBase.RoleType);
-            HideMemberInDetailView(xpMemberInfo);
+            var xpMemberInfo = xpMemberInfos.SingleOrDefault(info => info.CollectionElementType.ClassType == XpandModuleBase.RoleType);
+            if (xpMemberInfo != null) HideMemberInDetailView(xpMemberInfo);
         }
     }
 }

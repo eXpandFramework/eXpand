@@ -9,18 +9,15 @@ namespace Xpand.Xpo {
 
         public static XpandCustomMemberInfo CreateCustomMember(this XPClassInfo classInfo, string propertyName, Type propertyType,
                                                                bool nonPersistent, params Attribute[] attributes) {
-            var xpandCustomMemberInfo = new XpandCustomMemberInfo(classInfo, propertyName, propertyType, null,nonPersistent,false);
+            var xpandCustomMemberInfo = new XpandCustomMemberInfo(classInfo, propertyName, propertyType, null, nonPersistent, false);
             foreach (Attribute attribute in attributes)
                 xpandCustomMemberInfo.AddAttribute(attribute);
             return xpandCustomMemberInfo;
         }
 
 
-        public static XpandCalcMemberInfo CreateCalculabeMember(this XPClassInfo classInfo, string propertyName, Type propertyType, params Attribute[] attributes) {
-            var newMemberInfo = new XpandCalcMemberInfo(classInfo, propertyName, propertyType, null, true, false);
-            foreach (Attribute attribute in attributes)
-                newMemberInfo.AddAttribute(attribute);
-            return newMemberInfo;
+        public static XpandCalcMemberInfo CreateCalculabeMember(this XPClassInfo classInfo, string propertyName, Type propertyType, string aliasExpression) {
+            return new XpandCalcMemberInfo(classInfo, propertyName, propertyType, aliasExpression);
         }
 
         public static bool IsUniqueConstrauntViolated<T>(this T prmValue, params string[] prmUniqueFields) where T : XPObject {

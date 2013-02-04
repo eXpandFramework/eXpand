@@ -7,22 +7,35 @@
   <Views>
     <DetailView Id="DashboardDefinition_DetailView">
       <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="6" ImageName="">
-            <LayoutGroup Id="DashboardDefinition" RelativeSize="100" ImageName="" Direction="Horizontal">
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="5" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="DashboardDefinition" RelativeSize="100" ImageName="" Direction="Horizontal" Caption="DashboardDefinition" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
               <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="38" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Active" ViewItem="Active" SizeConstraintsType="Default" Index="1" RelativeSize="19" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="20" Index="2" />
-              <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="3" RelativeSize="20" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="Active" ViewItem="Active" SizeConstraintsType="Default" Index="1" RelativeSize="20" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="20" Index="2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Icon" />
+              <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="3" RelativeSize="21" IsNewNode="True" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="93" CaptionLocation="Top" IsNewNode="True" />
-          <LayoutGroup Id="DashboardTypes_Group" Direction="Horizontal" RelativeSize="89" ImageName="" Index="2" Removed="True">
-            <LayoutItem Id="DashboardTypes" Removed="True" />
-          </LayoutGroup>
+          <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="5" CaptionLocation="Top" IsNewNode="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="89">
+            <LayoutGroup Id="Roles" Index="0" RelativeSize="100" ImageName="">
+              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Roles" />
+            </LayoutGroup>
+            <LayoutGroup Id="DashboardTypes" Removed="True" />
+          </TabbedGroup>
           <LayoutGroup Id="SizeableEditors" Direction="Horizontal" RelativeSize="81" Caption="Xml" ImageName="" Removed="True">
-            <LayoutItem Id="Xml" Removed="True" />
+            <LayoutItem Id="Xml" ViewItem="Xml" Removed="True" />
           </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.Dashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>

@@ -16,9 +16,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
         }
         public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
-            if (userWithRoles != null) {
-                IEnumerable<object> collection =
-                    userWithRoles.Roles.Cast<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+            var collection = Collection(userWithRoles);
+            if (collection != null) {
                 Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
                 ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleType);
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
@@ -26,8 +25,23 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
                 var roleAspectObjects = base.GetActiveModelDifferences(applicationName, name).ToList();
                 return roleAspectObjects.Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
             }
-
             return base.GetActiveModelDifferences(applicationName, name).OfType<RoleModelDifferenceObject>().AsQueryable();
+        }
+
+        static IEnumerable<object> Collection(IUserWithRoles userWithRoles) {
+            IEnumerable<object> collection = null;
+            if (userWithRoles != null) {
+                collection = userWithRoles.Roles.Cast<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+            }
+            if (collection == null) {
+                var securityUserWithRoles = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
+                if (securityUserWithRoles != null) {
+                    collection =
+                        securityUserWithRoles.Roles.Cast<XPBaseObject>()
+                                             .Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+                }
+            }
+            return collection;
         }
     }
 }

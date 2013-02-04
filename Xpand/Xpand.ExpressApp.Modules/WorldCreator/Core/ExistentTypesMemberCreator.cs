@@ -90,7 +90,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
                 return info.TypeAttributes.OfType<IPersistentPersistentAliasAttribute>().FirstOrDefault() == null
                            ? classInfo.CreateMember(info.Name, referenceType)
-                           : classInfo.CreateCalculabeMember(info.Name, referenceType);
+                           : classInfo.CreateCalculabeMember(info.Name, referenceType, "");
             }
             return null;
         }

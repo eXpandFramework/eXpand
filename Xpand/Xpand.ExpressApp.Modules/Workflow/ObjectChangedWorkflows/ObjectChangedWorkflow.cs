@@ -117,6 +117,9 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             get { return false; }
         }
 
+        public bool CanCompileForDesigner { get; set; }
+
+
         public bool IsActive {
             get { return GetPropertyValue<bool>("IsActive"); }
             set { SetPropertyValue("IsActive", value); }

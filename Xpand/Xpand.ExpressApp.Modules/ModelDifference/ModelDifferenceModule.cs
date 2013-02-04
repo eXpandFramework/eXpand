@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
-            } else if ((Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+            } else if ((Application.Security!=null&&Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
                 BuildSecuritySystemObjects();
             }
         }

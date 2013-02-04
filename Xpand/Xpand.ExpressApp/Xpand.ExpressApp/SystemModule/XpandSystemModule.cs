@@ -28,10 +28,18 @@ namespace Xpand.ExpressApp.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
-    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter {
+    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
+        }
+        public void UpdateNode(IModelMemberEx node, IModelApplication application) {
+            node.IsCustom = false;
+        }
+
+        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator) {
+            base.AddModelNodeUpdaters(updaterRegistrator);
+            updaterRegistrator.AddUpdater(this);
         }
 
         static XpandSystemModule() {
@@ -51,6 +59,16 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
+            application.SetupComplete +=
+                (sender, args) =>
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+            application.LoggedOn +=
+                (sender, args) =>
+                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+        }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
