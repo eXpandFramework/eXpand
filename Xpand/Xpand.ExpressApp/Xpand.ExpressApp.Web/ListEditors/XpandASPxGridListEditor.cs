@@ -139,7 +139,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
         public override void SetControlSelectedObjects(IList<object> objects)
         {
-            if (objects.Count != 1)
+            if (!MasterDetail || objects.Count != 1)
             {
                 base.SetControlSelectedObjects(objects);
             }
