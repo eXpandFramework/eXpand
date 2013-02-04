@@ -7,6 +7,8 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
 using System.Globalization;
+using System.Collections.Generic;
+using DevExpress.ExpressApp.Web.Editors;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
     class MasterDetailProvider {
@@ -135,6 +137,23 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
+        public override void SetControlSelectedObjects(IList<object> objects)
+        {
+            if (!MasterDetail || objects.Count != 1)
+            {
+                base.SetControlSelectedObjects(objects);
+            }
+            else
+            {
+                Grid.FocusedRowIndex =  Grid.FindVisibleIndexByKeyValue(((WebDataSource)Grid.DataSource).View.GetKeyValue(objects[0]));
+                OnSelectionChanged();
+            }
+        }
+
+ 
+
+ 
+
     }
 
     public class ColumnCreatedEventArgs : EventArgs {
