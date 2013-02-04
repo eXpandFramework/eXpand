@@ -138,18 +138,13 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             return gridViewDataColumnWithInfo;
         }
         public override void SetControlSelectedObjects(IList<object> objects) {
-            if (objects.Count != 1) {
+            if (!MasterDetail || objects.Count != 1)
                 base.SetControlSelectedObjects(objects);
-            } else {
+            else {
                 Grid.FocusedRowIndex = Grid.FindVisibleIndexByKeyValue(((WebDataSource)Grid.DataSource).View.GetKeyValue(objects[0]));
                 OnSelectionChanged();
             }
         }
-
-
-
-
-
     }
 
     public class ColumnCreatedEventArgs : EventArgs {
