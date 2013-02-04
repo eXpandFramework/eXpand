@@ -17,6 +17,15 @@
                 }
             };
 
+			var getWidth = function (id) {
+                var element = document.getElementById(id);
+                if (element) {
+                    return element.offsetWidth;
+                }
+                else {
+                    return 0;
+                }
+            };
             var getParentTagHeight = function (id, parentTagName) {
                 var element = document.getElementById(id);
                 parentTagName = parentTagName.toUpperCase();
@@ -50,7 +59,11 @@
 				middleRowContent.style.overflow = "hidden";
                 var elementToResize = controlToResize.GetMainElement();
                 if (elementToResize) {
-                    controlToResize.SetWidth(window.innerWidth - 60 - document.getElementById("LPcell").offsetWidth);
+					
+					var width = (window.innerWidth || document.documentElement.clientWidth) - 60 - getWidth("LPcell");
+                    if (width > 0)
+						controlToResize.SetWidth(width);
+						
                     controlToResize.SetHeight(middleRowHeight - 20);
                     if (elementToResize.parentNode.offsetHeight > elementToResize.offsetHeight)
                         controlToResize.SetHeight(elementToResize.parentNode.offsetHeight);
