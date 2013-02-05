@@ -192,9 +192,6 @@
     <Reference Include="DevExpress.Utils.v12.2.UI ">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
-    
-    
     <Reference Include="DevExpress.XtraReports.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

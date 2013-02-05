@@ -31,7 +31,6 @@ namespace Xpand.ExpressApp {
         static Assembly _baseImplAssembly;
 
         static XpandModuleBase() {
-            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             TypesInfo = XafTypesInfo.Instance;
         }
 
@@ -187,6 +186,7 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             Type applicationType = ApplicationType();
             if (!applicationType.IsInstanceOfType(application))
                 throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " + applicationType.FullName + Environment.NewLine + "Please check folder Demos/Modules/" + GetType().Name.Replace("Module", null) + " to see how to install correctly this module");

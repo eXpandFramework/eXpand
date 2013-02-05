@@ -139,6 +139,7 @@
     <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="General\SessionLessPersistentAttribute.cs" />
+    <Compile Include="General\XpandXpoTypeInfoSource.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\FailReason.cs" />
     <Compile Include="ImportExport\IIOError.cs" />

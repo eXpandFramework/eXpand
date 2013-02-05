@@ -152,7 +152,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
             }
 
-            RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel, XpandModuleBase.Dictiorary);
+            RuntimeMemberBuilder.AddFields((IModelApplication)_masterModel);
 
             DisposeController();
 

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
@@ -17,6 +18,9 @@ namespace Xpand.ExpressApp.Model {
         new bool IsCustom { get; set; }
         [Browsable(false)]
         object Tag { get; set; }
+
+
+
     }
 
     public interface IModelColumnUnbound : IModelColumn {

@@ -60,14 +60,16 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public override void Setup(XafApplication application) {
+            if (RuntimeMode)
+                XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+                RuntimeMemberBuilder.AddFields(application.Model);
             application.LoggedOn +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model, Dictiorary);
+                RuntimeMemberBuilder.AddFields(application.Model);
         }
 
         [Browsable(false)]
@@ -151,6 +153,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
+            //            extenders.Add<IModelColumn, IModelRuntimeCalculatedColumn>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {

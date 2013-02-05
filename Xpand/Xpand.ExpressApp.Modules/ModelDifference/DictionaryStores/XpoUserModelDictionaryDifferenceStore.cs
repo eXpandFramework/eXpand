@@ -116,7 +116,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
 
             CombineWithActiveDifferenceObjects(model.LastLayer, modelDifferenceObjects);
-            RuntimeMemberBuilder.AddFields((IModelApplication)model, XpandModuleBase.Dictiorary);
+            RuntimeMemberBuilder.AddFields((IModelApplication)model);
         }
         public override void Load(ModelApplicationBase model) {
 
