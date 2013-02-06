@@ -15,6 +15,7 @@ using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo;
 using DevExpress.DXCore.Controls.Xpo.DB;
 using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
+using DevExpress.Xpo.DB.Helpers;
 using EnvDTE;
 using XpandAddIns.Enums;
 using XpandAddIns.Extensions;
@@ -52,11 +53,11 @@ namespace XpandAddIns {
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(Enums.ConfigurationProperty.OutputPath);
             bool isWeb = IsWeb(startUpProject);
             string fullPath = startUpProject.FindProperty(ProjectProperty.FullPath).Value + "";
-            string path = Path.Combine(fullPath, outPut.Value.ToString())+"";
+            string path = Path.Combine(fullPath, outPut.Value.ToString()) + "";
             if (isWeb)
                 path = Path.GetDirectoryName(startUpProject.FullName);
             Func<Stream> streamSource = () => {
-                var path1 = path+"";
+                var path1 = path + "";
                 File.Copy(Path.Combine(path1, "expressAppFrameWork.log"), Path.Combine(path1, "expressAppFrameWork.locked"), true);
                 return File.Open(Path.Combine(path1, "expressAppFrameWork.locked"), FileMode.Open, FileAccess.Read, FileShare.Read);
             };
@@ -79,7 +80,7 @@ namespace XpandAddIns {
         }
 
         bool IsWeb(Project startUpProject) {
-            return startUpProject.ProjectItems.OfType<ProjectItem>().Where(item => item.Name.ToLower() == "web.config").Count() > 0;
+            return startUpProject.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.ToLower() == "web.config");
         }
 
 
@@ -97,7 +98,7 @@ namespace XpandAddIns {
                             }
                         }
                     }
-                    
+
                 }
             }
         }
@@ -115,16 +116,19 @@ namespace XpandAddIns {
             string database = name;
             try {
                 IDataStore provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-                if (provider is MSSqlConnectionProvider)
-                    database = DropSqlServerDatabase(connectionString);
-                else if (provider is AccessConnectionProvider) {
-                    database = ((AccessConnectionProvider)provider).Connection.Database;
-                    File.Delete(database);
+                if (provider is MSSqlConnectionProvider) {
+                    DropSqlServerDatabase(connectionString);
+                    database = ((MSSqlConnectionProvider)provider).Connection.Database;
                 } else {
-                    throw new NotImplementedException(provider.GetType().FullName);
+                    var connectionProvider = provider as AccessConnectionProvider;
+                    if (connectionProvider != null) {
+                        database = connectionProvider.Connection.Database;
+                        File.Delete(database);
+                    } else {
+                        throw new NotImplementedException(provider.GetType().FullName);
+                    }
                 }
-            }
-            catch (UnableToOpenDatabaseException) {
+            } catch (UnableToOpenDatabaseException) {
                 error = "UnableToOpenDatabase " + database;
             } catch (Exception e) {
                 Trace.WriteLine(e.ToString());
@@ -135,31 +139,41 @@ namespace XpandAddIns {
             actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
         }
 
-        private string DropSqlServerDatabase(string connectionString) {
-            using (var connection = new SqlConnection(connectionString)) {
-                using (var sqlConnection = new SqlConnection(connectionString.Replace(connection.Database, "master") + ";Pooling=false")) {
-                    sqlConnection.Open();
+        private static void DropSqlServerDatabase(string connectionString) {
+            var connectionProvider = (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
+            using (var dbConnection = connectionProvider.Connection) {
+                using (var sqlConnection = (SqlConnection)DataStore(connectionString).Connection) {
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                    sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", connection.Database);
+                    sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", dbConnection.Database);
                     sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = string.Format("DROP DATABASE {0}", connection.Database);
+                    sqlCommand.CommandText = string.Format("DROP DATABASE {0}", dbConnection.Database);
                     sqlCommand.ExecuteNonQuery();
                 }
-                return connection.Database;
             }
+        }
+        static MSSqlConnectionProvider DataStore(string connectionString) {
+            var connectionStringParser = new ConnectionStringParser(connectionString);
+            var userid = connectionStringParser.GetPartByName("UserId");
+            var password = connectionStringParser.GetPartByName("password");
+            string connectionStr;
+            if (!string.IsNullOrEmpty(userid) && !string.IsNullOrEmpty(password))
+                connectionStr = MSSqlConnectionProvider.GetConnectionString(connectionStringParser.GetPartByName("Data Source"), userid, password, "master");
+            else {
+                connectionStr = MSSqlConnectionProvider.GetConnectionString(connectionStringParser.GetPartByName("Data Source"), "master");
+            }
+            return (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionStr, AutoCreateOption.None);
         }
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
             string constants = Constants.vsext_wk_SProjectWindow;
-            if (ea.Action.ParentMenu=="Object Browser Objects Pane")
+            if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
             ProjectElement activeProject = CodeRush.Source.ActiveProject;
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
                 var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants);
                 projectLoader.Load(selectedAssemblyReferences.ToList(), constants);
-            }
-            else {
+            } else {
                 actionHint1.Text = "Active project not found. Please open a code file";
                 Rectangle rectangle = Screen.PrimaryScreen.Bounds;
                 actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
@@ -167,7 +181,7 @@ namespace XpandAddIns {
         }
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
-            
+
             if (succeeded) {
                 string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
                 if (File.Exists(gacUtilPath)) {
@@ -177,9 +191,8 @@ namespace XpandAddIns {
                         string outputPath = dteProject.FindOutputPath();
                         if (File.Exists(outputPath))
                             Process.Start("gacutil.exe", "/i " + @"""" + outputPath + @""" /f");
-                    }
-                    else {
-                        Log.Send("GagUtl Project Not Found:",dteProject.FileName);
+                    } else {
+                        Log.Send("GagUtl Project Not Found:", dteProject.FileName);
                     }
                 }
             }
@@ -193,7 +206,7 @@ namespace XpandAddIns {
         }
 
         static Func<string, bool> MatchProjectName(Project project) {
-            string fileName = Path.GetFileName(project.FileName)+"";
+            string fileName = Path.GetFileName(project.FileName) + "";
             string pattern = Options.ReadString(Options.GacUtilRegex);
             return s => {
                 string s1 = s.Split('|')[0];
