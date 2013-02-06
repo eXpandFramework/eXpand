@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -12,6 +13,7 @@ using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win;
+using Xpand.Persistent.Base.General;
 using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.PessimisticLockingViewController;
 using ViewEditModeController = Xpand.ExpressApp.Win.SystemModule.ViewEditModeController;
 
@@ -113,7 +115,11 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
-            XpoTypesInfoHelper.GetXpoTypeInfoSource().ResetDictionary();
+            if (XafTypesInfo.PersistentEntityStore != null)
+                ((XpandXpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).Reset();
+            else {
+                XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance));
+            }
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }

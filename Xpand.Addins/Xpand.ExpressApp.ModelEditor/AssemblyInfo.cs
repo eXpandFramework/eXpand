@@ -41,6 +41,6 @@ using System.Reflection;
 [assembly: AssemblyDescription("eXpand.ExpressApp.ModelEditor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyProduct("Xpand.ExpressApp.ModelEditor")]
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.Version)]
+[assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(XpandAssemblyInfo.Version)]
 

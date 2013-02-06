@@ -10,7 +10,7 @@ using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.Pessi
 using ViewEditModeController = Xpand.ExpressApp.Win.SystemModule.ViewEditModeController;
 using Xpand.Persistent.Base.General;
 
-namespace Xpand.Tests.Xpand.ExpressApp {
+namespace Xpand.Tests.Xpand.ExpressApp.ss {
     [Subject(typeof(PessimisticLockingViewController))]
     public class When_Object_Change : With_Application {
 

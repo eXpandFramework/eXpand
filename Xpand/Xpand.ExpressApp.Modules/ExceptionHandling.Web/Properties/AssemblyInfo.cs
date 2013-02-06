@@ -28,6 +28,6 @@ using System.Security;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
+[assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 [assembly: AllowPartiallyTrustedCallers]

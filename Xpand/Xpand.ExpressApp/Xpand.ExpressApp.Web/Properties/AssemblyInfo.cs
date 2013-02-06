@@ -33,6 +33,6 @@ using System.Web.UI;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [dataStoreNameSuffix: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(AssemblyInfo.FileVersion)]
+[assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
+[assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 [assembly: AllowPartiallyTrustedCallers]
