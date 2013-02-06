@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -116,7 +117,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
             if (XafTypesInfo.PersistentEntityStore != null)
-                ((XpandXpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).Reset();
+                ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).Reset();
             else {
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance));
             }

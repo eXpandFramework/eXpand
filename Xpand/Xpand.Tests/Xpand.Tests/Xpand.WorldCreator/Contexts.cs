@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
@@ -10,6 +12,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.WorldCreator;
 using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 
@@ -116,9 +119,13 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             ReflectionHelper.Reset();
             XafTypesInfo.Reset();
             XafTypesInfo.HardReset();
-            var xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
-            xpoTypeInfoSource.Reset();
-            XpandModuleBase.Dictiorary = xpoTypeInfoSource.XPDictionary;
+            if (XafTypesInfo.PersistentEntityStore != null)
+                ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).Reset();
+            else {
+                XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance));
+            }
+
+            XpandModuleBase.Dictiorary = ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).XPDictionary;
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }
