@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public override void Setup(XafApplication application) {
-            if (RuntimeMode)
+            if (RuntimeMode && !(XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource))
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;

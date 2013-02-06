@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.XtraSplashScreen;
 using DevExpress.XtraWaitForm;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Win;
 using SplashScreen = DevExpress.ExpressApp.Win.Utils.SplashScreen;
 
@@ -68,6 +69,8 @@ namespace XVideoRental.Win {
 
         void XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                          DatabaseVersionMismatchEventArgs e) {
+            if (this.DropDatabaseOnVersionMissmatch() > 0)
+                Application.ExitThread();
 #if DEBUG
             e.Updater.Update();
             e.Handled = true;

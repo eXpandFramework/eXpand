@@ -1,16 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Windows;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win;
 using Xpand.ExpressApp.Core;
+using Application = System.Windows.Forms.Application;
 
 namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
@@ -23,11 +29,14 @@ namespace FeatureCenter.Win {
         //        }
 
         private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
+
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
             if (true) {
+                if (this.DropDatabaseOnVersionMissmatch() > 0)
+                    Application.ExitThread();
                 e.Updater.Update();
                 e.Handled = true;
             } else {

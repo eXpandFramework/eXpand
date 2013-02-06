@@ -60,6 +60,8 @@ namespace FeatureCenter.Web.ApplicationCode {
 			e.Handled = true;
 #else
             if (true) {
+                if (this.DropDatabaseOnVersionMissmatch() > 0)
+                    Exit();
                 e.Updater.ForceUpdateDatabase = true;
                 e.Updater.Update();
                 e.Handled = true;
