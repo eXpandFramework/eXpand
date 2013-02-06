@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="FeatureCenter.Module.Customer">
+      <OwnMembers>
+        <RuntimeMember Name="RuntimeMember" IsNewNode="True" Type="System.String"  />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="RuntimeFieldsFromModel_DetailView">
+      <Items>
+        <PropertyEditor Id="RuntimeMember" IsNewNode="True" PropertyName="RuntimeMember" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutItem Id="RuntimeMember" IsNewNode="True" Index="0" RelativeSize="4" />
+          <LayoutGroup Id="SimpleEditors" Direction="Horizontal" Index="1" RelativeSize="95">
+            <LayoutGroup Id="Customer" Removed="True" />
+            <LayoutGroup Id="CustomerBase" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="Orders_Group" Removed="True" />
+          <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuntimeFieldsFromModel_ListView">
+      <Columns>
+        <ColumnInfo Id="City" Index="-1" />
+        <ColumnInfo Id="Name" Index="-1" />
+        <ColumnInfo Id="RuntimeMember" IsNewNode="True" PropertyName="RuntimeMember" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

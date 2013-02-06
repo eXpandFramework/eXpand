@@ -6,19 +6,19 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using Xpand.ExpressApp.Attributes;
 
 namespace Xpand.ExpressApp.NodeUpdaters {
-    public class ModelViewClonerUpdater:ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
+    public class ModelViewClonerUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
-            var modelClasses = node.Application.BOModel.Where(modelClass => modelClass.TypeInfo.FindAttribute<CloneViewAttribute>()!=null);
-            
-            foreach (var modelClass in modelClasses){
+            var modelClasses = node.Application.BOModel.Where(modelClass => modelClass.TypeInfo.FindAttribute<CloneViewAttribute>() != null);
+
+            foreach (var modelClass in modelClasses) {
                 var cloneViewAttributes = modelClass.TypeInfo.FindAttributes<CloneViewAttribute>().OrderBy(viewAttribute => viewAttribute.ViewType);
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
                     IModelView modelView = GetModelView(modelClass, cloneViewAttribute);
                     ModelNode cloneNodeFrom = ((ModelNode)modelView).Clone(cloneViewAttribute.ViewId);
-                    if (modelView is IModelListView&& !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
+                    if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
                         CloneViewAttribute attribute = cloneViewAttribute;
-                        var modelDetailView = node.Application.Views.OfType<IModelDetailView>().Where(view => view.Id == attribute.DetailView).FirstOrDefault();
-                        if (modelDetailView== null)
+                        var modelDetailView = node.Application.Views.OfType<IModelDetailView>().FirstOrDefault(view => view.Id == attribute.DetailView);
+                        if (modelDetailView == null)
                             throw new NullReferenceException(attribute.DetailView);
                         ((IModelListView)cloneNodeFrom).DetailView = modelDetailView;
                     }
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
         }
 
         IModelView GetModelView(IModelClass modelClass, CloneViewAttribute cloneViewAttribute) {
-            if (cloneViewAttribute.ViewType==CloneViewType.LookupListView)
+            if (cloneViewAttribute.ViewType == CloneViewType.LookupListView)
                 return modelClass.DefaultLookupListView;
             if (cloneViewAttribute.ViewType == CloneViewType.DetailView)
                 return modelClass.DefaultDetailView;

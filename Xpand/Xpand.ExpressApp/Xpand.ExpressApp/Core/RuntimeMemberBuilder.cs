@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
         static readonly XPDictionary _dictionary = XpandModuleBase.Dictiorary;
         private static IEnumerable<IModelRuntimeMember> GetCustomFields(IModelApplication model) {
-            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>();
+            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>().Distinct();
         }
 
         public static void AddFields(IModelApplication model) {

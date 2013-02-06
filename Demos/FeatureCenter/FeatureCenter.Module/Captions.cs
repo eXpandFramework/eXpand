@@ -21,6 +21,7 @@
         public const string HeaderControllingDetailViewSearch = "Controlling DetailView Search";
         public const string HeaderDetailViewNavigation = "Navigation to Detail View of Persistent object with records";
         public const string HeaderRuntimeMemberFromModel = "Runtime Member From Model";
+        public const string HeaderRuntimeMemberFromModelForDC = "DC Runtime Member From Model";
         public const string HeaderDisableEditDetailView = "Disable Edit Detail View";
         public const string HeaderConnectionInfoStatus = "Connection Info Status";
         public const string HeaderDisableFullTextForMemoFields = "Disable Full Text For Memo Fields";
@@ -89,6 +90,7 @@
         public const string ViewMessageControllingDetailViewSearch = "In this view i have add the city field of customer to be searchable so if you execute the search action on the toolbar it is going to search for all customers of the current city. Also if customers found you will notice that the navigation items will be enable and will allow you to navigate through search results";
         public const string ViewMessageDetailViewNavigation = "In this view you can see that you can set a detailview as a navigation item and if records are found it is going to allow you to navigate through them";
         public const string ViewMessageRuntimeMemberFromModel = "In this view you can see how to create a runtime member using your model editor. Go to Admin Navigation group/ Difference and open application model (1st row). There note the diffs of AddRuntimeFieldsFromModelObject";
+        public const string ViewMessageRuntimeMemberFromModelForDC = "In this view you can see how to create a runtime member using your model editor. Go to Admin Navigation group/ Difference and open application model (1st row). There explore the diffs of RuntimeFieldsFromModelForDC";
         public const string ViewMessageDisableEditDetailView = "In this view can see how you can disable edit for a detail view by using the AllowEdit attribute of a detailview";
         public const string ViewMessageConnectionInfoStatus = "In this view can how you can display the current connection info to the datastore at the status bar by using the options/ConnectionInfoMessage attribute (see bottom left corner of this window";
         public const string ViewMessageDisableFullTextForMemoFields = "In this view can how you can disable full text for memo fields so you can speed up your search queries. eg search for 'description' to test it. It should return no records even if all customers descriptions have the word 'description'";
