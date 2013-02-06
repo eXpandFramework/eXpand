@@ -65,9 +65,9 @@ namespace Xpand.ExpressApp.FilterDataStore {
             if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
                 SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
-                foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
+                foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent && !info.IsInterface)) {
                     var xpClassInfo = XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
-                    if (xpClassInfo.TableName != null && xpClassInfo.ClassType != null) {
+                    if (xpClassInfo != null && (xpClassInfo.TableName != null && xpClassInfo.ClassType != null)) {
                         if (!IsMappedToParent(xpClassInfo) && !_tablesDictionary.ContainsKey(xpClassInfo.TableName))
                             _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
                     }
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase provider1 = provider;
                 foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
-                    typeInfo => (provider1.ObjectType == null || provider1.ObjectType == typeInfo.Type) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent)) {
+                    typeInfo => (!typeInfo.IsInterface && provider1.ObjectType == null || provider1.ObjectType == typeInfo.Type) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent)) {
                     CreateMember(typeInfo, provider);
                 }
             }

@@ -1,10 +1,15 @@
 ﻿using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
+using System.Linq;
 
 namespace Xpand.ExpressApp.FilterDataStore.NodeGenerators {
     public class ModelSystemTablesNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
+            foreach (var modelClass in node.Application.BOModel.Where(@class => @class.TypeInfo.IsInterface)) {
+                node.AddNode<IModelFilterDataStoreSystemTable>(modelClass.Name);
+            }
+            node.AddNode<IModelFilterDataStoreSystemTable>("DCRuntimeCalcMember");
             node.AddNode<IModelFilterDataStoreSystemTable>("SecurityRole");
             node.AddNode<IModelFilterDataStoreSystemTable>("SecurityUser");
             node.AddNode<IModelFilterDataStoreSystemTable>("PropertyBag");
