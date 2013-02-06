@@ -112,13 +112,13 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         XpandRole InitVideoRentalSecurityData() {
-            var defaultRole = ObjectSpace.GetDefaultRole();
+            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
-                var employersRole = ObjectSpace.GetRole("Employers");
-                var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
+                var employersRole = (SecuritySystemRole)ObjectSpace.GetRole("Employers");
+                var dashboardRole = (SecuritySystemRole)ObjectSpace.GetRole("Dashboard View Role");
 
-                var user = employersRole.GetUser("User");
-                var dashboardUser = dashboardRole.GetUser("DashboardUser");
+                var user = (SecuritySystemUser)employersRole.GetUser("User");
+                var dashboardUser = (SecuritySystemUser)dashboardRole.GetUser("DashboardUser");
 
                 user.Roles.Add(defaultRole);
                 dashboardUser.Roles.Add(defaultRole);
