@@ -16,13 +16,14 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, IWinApplication {
+    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport {
         static XpandWinApplication _application;
         DataCacheNode _cacheNode;
         ApplicationModulesManager _applicationModulesManager;
@@ -221,6 +222,8 @@ namespace Xpand.ExpressApp.Win {
         string IXafApplication.RaiseEstablishingConnection() {
             return this.GetConnectionString();
         }
+
+        bool ITestSupport.IsTesting { get; set; }
     }
 
 }

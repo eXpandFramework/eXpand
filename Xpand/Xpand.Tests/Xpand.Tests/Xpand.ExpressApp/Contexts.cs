@@ -31,8 +31,9 @@ namespace Xpand.Tests.Xpand.ExpressApp {
 
     }
 
-    public class TestApplication : XpandWinApplication {
+    public class TestApplication : XpandWinApplication, ITestSupport {
         readonly XPObjectSpaceProvider _XPObjectSpaceProvider = new XPObjectSpaceProvider(new MemoryDataStoreProvider(DataSet));
+
         static DataSet _dataSet;
 
         static DataSet DataSet {
@@ -92,6 +93,11 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         void OnVersionMismatch(object sender, DatabaseVersionMismatchEventArgs args) {
             args.Updater.Update();
             args.Handled = true;
+        }
+
+        bool ITestSupport.IsTesting {
+            get { return true; }
+            set { }
         }
     }
 
