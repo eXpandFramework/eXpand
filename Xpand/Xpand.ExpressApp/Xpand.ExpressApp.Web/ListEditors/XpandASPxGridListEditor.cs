@@ -97,7 +97,11 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
 
         public override IList GetSelectedObjects() {
-            return MasterDetail ? _masterDetailProvider.GetSelectedObjects(FocusedObject) : base.GetSelectedObjects();
+            IList selectedObjects = base.GetSelectedObjects();
+            if (!MasterDetail || (selectedObjects != null && selectedObjects.Count > 0))
+                return selectedObjects;
+            else
+                return _masterDetailProvider.GetSelectedObjects(FocusedObject);
         }
 
         public bool MasterDetail {
@@ -137,10 +141,11 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
-        public override void SetControlSelectedObjects(IList<object> objects) {
-            if (!MasterDetail || objects.Count != 1)
+		public override void SetControlSelectedObjects(IList<object> objects) {
+            if (!MasterDetail || objects.Count != 1) {
                 base.SetControlSelectedObjects(objects);
-            else {
+            } else {
+                Grid.Selection.UnselectAll();
                 Grid.FocusedRowIndex = Grid.FindVisibleIndexByKeyValue(((WebDataSource)Grid.DataSource).View.GetKeyValue(objects[0]));
                 OnSelectionChanged();
             }
