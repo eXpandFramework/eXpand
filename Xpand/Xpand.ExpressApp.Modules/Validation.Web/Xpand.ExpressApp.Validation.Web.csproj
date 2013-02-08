@@ -128,9 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuleTypeController.cs" />
     <Compile Include="XpandValidationWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
