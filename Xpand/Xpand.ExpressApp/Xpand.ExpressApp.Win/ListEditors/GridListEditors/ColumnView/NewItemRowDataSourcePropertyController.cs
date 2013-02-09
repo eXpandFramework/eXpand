@@ -30,10 +30,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         void View_ControlsCreated(object sender, EventArgs e) {
             var listView = (ListView)View;
             ReleaseGridListEditor();
-            gridListEditor = listView.Editor as IColumnViewEditor;
-            if (gridListEditor != null) {
-                gridListEditor.ColumnView.ShowingEditor += GridView_ShowingEditor;
-                gridListEditor.ColumnView.HiddenEditor += GridView_HiddenEditor;
+            if (listView.Editor is GridView.GridListEditorBase) {
+                gridListEditor = listView.Editor as IColumnViewEditor;
+                if (gridListEditor != null) {
+                    gridListEditor.ColumnView.ShowingEditor += GridView_ShowingEditor;
+                    gridListEditor.ColumnView.HiddenEditor += GridView_HiddenEditor;
+                }
             }
         }
 
