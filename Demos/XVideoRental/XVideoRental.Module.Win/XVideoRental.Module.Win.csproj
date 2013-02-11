@@ -166,7 +166,6 @@
     <Reference Include="DevExpress.Utils.v12.2.UI , Version=12.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
     <Reference Include="DevExpress.XtraReports.v12.2, Version=12.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -444,7 +443,9 @@
     <EmbeddedResource Include="Images\Unknown-user.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\ReceiptDashboardLayout.txt" />
+    <EmbeddedResource Include="Resources\Customer Revenue Dashboard.txt" />
+    <EmbeddedResource Include="Resources\Demographics Dashboard.txt" />
+    <EmbeddedResource Include="Resources\Rentals Dashboard.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
