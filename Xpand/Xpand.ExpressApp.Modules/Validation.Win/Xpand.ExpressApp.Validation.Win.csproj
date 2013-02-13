@@ -137,9 +137,7 @@
     <Compile Include="CustomizeErrorMessageColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuleTypeController.cs" />
     <Compile Include="XpandValidationWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Validation {
         [ImageName("Information")]
         Information
     }
-    public class WarningGeneratorUpdater : ModelNodesGeneratorUpdater<ModelValidationRulesNodeGenerator> {
+    public class RuleTypeGeneratorUpdater : ModelNodesGeneratorUpdater<ModelValidationRulesNodeGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelValidationRules = ((IModelValidationRules)node).OfType<IRuleBaseProperties>();
             foreach (var validationRule in modelValidationRules) {

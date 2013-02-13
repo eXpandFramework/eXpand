@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Validation {
         RuleType RuleType { get; set; }
     }
 
-    public abstract class RuleTypeController : ViewController<ObjectView> {
+    public abstract class RuleTypeController : ViewController<ObjectView>, IModelExtender {
         public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>> Dictionary = new Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>>();
         protected override void OnActivated() {
@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (Validator.RuleSet!=null)
+            if (Validator.RuleSet != null)
                 Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
         }
 
@@ -95,6 +95,9 @@ namespace Xpand.ExpressApp.Validation {
             return (modelRuleBaseWarning == null && ruleType == RuleType.Critical) || (modelRuleBaseWarning != null && modelRuleBaseWarning.RuleType == ruleType);
         }
 
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            extenders.Add<IModelRuleBase, IModelRuleBaseRuleType>();
+        }
     }
 
 }

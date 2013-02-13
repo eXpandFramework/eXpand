@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Validation {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new WarningGeneratorUpdater());
+            updaters.Add(new RuleTypeGeneratorUpdater());
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Validation {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelRuleBase, IModelRuleBaseRuleType>();
+
         }
     }
 }

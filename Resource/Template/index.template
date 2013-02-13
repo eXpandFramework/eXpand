@@ -46,7 +46,7 @@
 Tip: To update Xpand version if you are using the binaries just override the old ones. For this to work you need to set the Specific Version attribute to false for all Xpand Assemblies.
 <p><sub><em>Build ${Version} released on ${BuildTime}.</em></sub></p>
 <p> The most recent release is available at our <a href="http://teamcity.expandframework.com/guestLogin.html?guest=1">build server </a></p>
-<p>To get notified on new releases you may follow us on twitter <a href="https://twitter.com/eXpandFramework">@expandframework</a> or subscribe to its <a href="http://pipes.yahoo.com/pipes/pipe.run?_id=8296c5e8d7a5eee54c9bca7e9bb1bc0c&_render=rss">rss feed</a>. Also condider subscribing to the <a href="http://www.expandframework.com/forum/11-news.html">news forum</p>
+<p>To get notified on new releases you may follow us on twitter <a href="https://twitter.com/eXpandFramework">@expandframework</a> or subscribe to its <a href="http://feeds.feedburner.com/expandframeworkfeed">rss feed</a>. Also condider subscribing to the <a href="http://www.expandframework.com/forum/11-news.html">news forum</p>
 
 <p>&copy;2010 eXpand. All rights reserved</p>
 </body>
