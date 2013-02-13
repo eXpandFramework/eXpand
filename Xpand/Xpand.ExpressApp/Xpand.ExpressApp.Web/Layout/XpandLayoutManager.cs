@@ -12,6 +12,12 @@ using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxSplitter;
 using System.IO;
 using System.Reflection;
+using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.Templates;
+using System.Collections.Generic;
+using DevExpress.Web.ASPxClasses.Internal;
+using System.Text;
+using System.Linq;
 
 
 
@@ -67,9 +73,64 @@ namespace Xpand.ExpressApp.Web.Layout {
             detailPane.ScrollBars = ScrollBars.Auto;
             var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientInstanceName = "DetailUpdatePanel" };
             updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
+            updatePanel.ClientSideEvents.EndCallback = "function(s,e) {ProcessMarkup(s, true);}";
+            updatePanel.CustomJSProperties += updatePanel_CustomJSProperties;
             detailPane.Controls.Add(updatePanel);
             return updatePanel;
         }
+
+        void updatePanel_CustomJSProperties(object sender, DevExpress.Web.ASPxClasses.CustomJSPropertiesEventArgs e) {
+
+            Page page = WebWindow.CurrentRequestPage;
+            List<XafUpdatePanel> updatePanels = new List<XafUpdatePanel>();
+            ICallbackManagerHolder callbackManagerHolder = page as ICallbackManagerHolder;
+            FindUpdatePanels(page, updatePanels);
+            StringBuilder controlNames = new StringBuilder();
+            foreach (XafUpdatePanel panel in updatePanels) {
+                if (!IsParentOf(panel, (Control)sender)) {
+                    controlNames.Append(panel.ClientID);
+                    controlNames.Append(";");
+                    e.Properties["cp" + panel.ClientID] = RenderUtils.GetControlChildrenRenderResult(panel);
+                }
+            }
+
+            e.Properties["cpControlsToUpdate"] = controlNames.ToString();
+
+        }
+
+
+        private static bool IsParentOf(Control parent, Control child) {
+            for (Control c = child; c != null; c = c.Parent)
+                if (c == parent)
+                    return true;
+
+            return false;
+        }
+
+        private bool ContainsActions(Control control) {
+            return
+                control != null && (
+                control is DevExpress.ExpressApp.Web.Templates.ActionContainers.ActionContainerHolder ||
+                control is DevExpress.ExpressApp.Templates.IActionContainer ||
+                control.Controls.Cast<Control>().Any(c => ContainsActions(c)));
+            
+        }
+        
+        private void FindUpdatePanels(Control sourceControl, List<XafUpdatePanel> updatePanels) {
+            XafUpdatePanel updatePanel = sourceControl as XafUpdatePanel;
+            if (updatePanel != null && updatePanel.UpdateAlways && !updatePanels.Contains(updatePanel) && ContainsActions(updatePanel)) {
+                updatePanels.Add(updatePanel);
+            }
+
+            if (sourceControl != null) {
+                foreach (Control currentControl in sourceControl.Controls) {
+                    if (currentControl != null) {
+                        FindUpdatePanels(currentControl, updatePanels);
+                    }
+                }
+            }
+        }
+
 
         SplitterPane CreateSplitterListPane(ASPxSplitter splitter) {
             SplitterPane listPane = splitter.Panes.Add();
