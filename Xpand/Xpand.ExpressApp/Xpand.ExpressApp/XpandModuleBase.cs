@@ -22,13 +22,22 @@ namespace Xpand.ExpressApp {
     [ToolboxItem(false)]
     public abstract class XpandModuleBase : ModuleBase {
         static List<object> _storeManagers;
-        public static XPDictionary Dictiorary { get; set; }
+        public static XPDictionary Dictiorary {
+            get {
+                if (!InterfaceBuilder.RuntimeMode && _dictiorary == null)
+                    _dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+                return _dictiorary;
+            }
+            set { _dictiorary = value; }
+        }
+
         public static ITypesInfo TypesInfo { get; set; }
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
+        static XPDictionary _dictiorary;
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
