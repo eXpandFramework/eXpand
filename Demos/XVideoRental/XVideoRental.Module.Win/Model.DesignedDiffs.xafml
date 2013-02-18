@@ -184,12 +184,12 @@
     <PrintingSettings Margins="100, 100, 100, 100" PageHeaderFooter="&lt;XtraSerializer version=&quot;1.0&quot; application=&quot;XtraPrintingPageHeaderFooter&quot;&gt;&#xD;&#xA;  &lt;property name=&quot;Footer&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Font&quot;&gt;Microsoft Sans Serif, 8.25pt&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;LineAlignment&quot;&gt;Near&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Content&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Header&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Font&quot;&gt;Microsoft Sans Serif, 8.25pt&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;LineAlignment&quot;&gt;Near&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Content&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;&lt;/XtraSerializer&gt;" />
   </Options>
   <SchemaModules>
-    <SchemaModule Name="LogicModule" Version="12.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerModuleBase" Version="12.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SchedulerWindowsFormsModule" Version="12.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="12.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemWindowsFormsModule" Version="12.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="12.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="12.2.6.6" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="12.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="12.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="12.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="12.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="12.2.6.6" IsNewNode="True" />
   </SchemaModules>
   <Templates>
     <Template Id="DevExpress.ExpressApp.Win.Templates.MainForm" NavigationWidth="200" IsNewNode="True">
@@ -377,15 +377,12 @@
         </ColumnInfo>
       </Columns>
     </ListView>
-    <ListView Id="Company_ListView_MasterDetail" ShowAutoFilterRow="True" AllowEdit="False" IsFooterVisible="False" IsActiveFilterEnabled="True" ActiveFilterString="" Caption="Companies" EditorTypeName="XVideoRental.Module.Win.Editors.Common.XGridListEditor">
+    <ListView Id="Company_ListView_MasterDetail" ShowAutoFilterRow="True" AllowEdit="False" IsFooterVisible="False" IsActiveFilterEnabled="True" ActiveFilterString="" Caption="Companies">
       <Columns>
         <ColumnInfo Id="CompanyId" Index="-1" Removed="True" />
         <ColumnInfo Id="Name" AllowEdit="False" Width="326" />
-        <ColumnInfo Id="Country" Index="1" AllowEdit="False" Width="100" PropertyName="Country" Caption="Country" IsNewNode="True" Removed="True">
-        </ColumnInfo>
-        <ColumnInfo Id="Type" AllowEdit="False" Width="119" PropertyName="Type" Caption="Type" Index="2" IsNewNode="True" Removed="True">
-          <OptionsColumnGridView IsNewNode="True" />
-        </ColumnInfo>
+        <ColumnInfo Id="Country" Index="1" AllowEdit="False" Width="100" PropertyName="Country" Caption="Country" IsNewNode="True" Removed="True" />
+        <ColumnInfo Id="Type" AllowEdit="False" Width="119" PropertyName="Type" Caption="Type" Index="2" IsNewNode="True" Removed="True" />
         <ColumnInfo Id="WebSite" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" Width="677" Index="3">
           <RepositoryItems>
             <RepositoryItemHyperLinkEdit Id="HyperLinkEdit" ReadOnly="True" SingleClick="True" IsNewNode="True" />
@@ -397,10 +394,10 @@
           </RepositoryItems>
         </ColumnInfo>
       </Columns>
-      <OptionsGridView>
+      <GridViewOptions>
         <OptionsDetail EnableMasterViewMode="True" ShowDetailTabs="False" />
         <OptionsView ShowDetailButtons="True" />
-      </OptionsGridView>
+      </GridViewOptions>
     </ListView>
     <ListView Id="Company_LookupListView">
       <Columns>
@@ -486,7 +483,6 @@
         <ColumnInfo Id="OverduePayment" Removed="True" />
         <ColumnInfo Id="Receipt" Removed="True" />
         <ColumnInfo Id="ReceiptOverdue" Removed="True" />
-        <ColumnInfo Id="ReceiptType" Removed="True" />
         <ColumnInfo Id="ReturnedOn" Removed="True" />
       </Columns>
       <HiddenActions>
@@ -499,10 +495,10 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="UseParentOptions" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" TextAlignMode="UseParentOptions" RelativeSize="84" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="Auto5058ea8a-4f26-4ecf-88e2-f6843ad4de3f" ShowCaption="False" Caption="Auto5058ea8a-4f26-4ecf-88e2-f6843ad4de3f(3)" Direction="Horizontal" Index="0" RelativeSize="75" TextAlignMode="AlignLocal" IsNewNode="True">
-              <LayoutItem Id="Photo" ShowCaption="False" SizeConstraintsType="Custom" MinSize="417, 496" MaxSize="417, 496" Index="0" RelativeSize="30" ViewItem="Photo" IsNewNode="True" />
-              <LayoutGroup Id="Auto7a1a9d94-cbcc-4035-839f-e61b34626a36" ShowCaption="False" Caption="Auto7a1a9d94-cbcc-4035-839f-e61b34626a36(5)" Index="1" RelativeSize="69" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" TextAlignMode="UseParentOptions" RelativeSize="100" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Auto5058ea8a-4f26-4ecf-88e2-f6843ad4de3f" ShowCaption="False" Caption="Auto5058ea8a-4f26-4ecf-88e2-f6843ad4de3f(3)" Direction="Horizontal" Index="0" RelativeSize="66" TextAlignMode="AlignLocal" IsNewNode="True">
+              <LayoutItem Id="Photo" ShowCaption="False" SizeConstraintsType="Custom" MinSize="417, 496" MaxSize="417, 496" Index="0" RelativeSize="55" ViewItem="Photo" IsNewNode="True" />
+              <LayoutGroup Id="Auto7a1a9d94-cbcc-4035-839f-e61b34626a36" ShowCaption="False" Caption="Auto7a1a9d94-cbcc-4035-839f-e61b34626a36(5)" Index="1" RelativeSize="44" IsNewNode="True">
                 <LayoutItem Id="FirstName" ViewItem="FirstName" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
                 <LayoutItem Id="LastName" ViewItem="LastName" SizeConstraintsType="Default" Index="1" RelativeSize="4" IsNewNode="True" />
                 <LayoutGroup Id="Autoe32d0b0c-3cce-46fe-8ef7-4ab2fcfebcc3" ShowCaption="False" Caption="Autoe32d0b0c-3cce-46fe-8ef7-4ab2fcfebcc3(8)" Direction="Horizontal" Index="2" RelativeSize="7" IsNewNode="True">
@@ -512,28 +508,28 @@
                 <TabbedGroup Id="Item3" CaptionLocation="Top" Index="3" RelativeSize="81" IsNewNode="True">
                   <LayoutGroup Id="Item2" ShowCaption="True" Caption="Address" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
                     <LayoutItem Id="Phone" ViewItem="Phone" SizeConstraintsType="Default" Index="0" RelativeSize="8" IsNewNode="True" />
-                    <LayoutItem Id="Address" ViewItem="Address" SizeConstraintsType="Default" Index="1" RelativeSize="82" IsNewNode="True" />
-                    <LayoutItem Id="Email" ViewItem="Email" SizeConstraintsType="Default" Index="2" RelativeSize="8" IsNewNode="True" />
+                    <LayoutItem Id="Address" ViewItem="Address" SizeConstraintsType="Default" Index="1" RelativeSize="6" IsNewNode="True" />
+                    <LayoutItem Id="Email" ViewItem="Email" SizeConstraintsType="Default" Index="2" RelativeSize="84" IsNewNode="True" />
                   </LayoutGroup>
                   <LayoutGroup Id="Item4" ShowCaption="True" Caption="Discount" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
                     <LayoutItem Id="DiscountLevel" ViewItem="DiscountLevel" SizeConstraintsType="Default" Index="0" RelativeSize="8" IsNewNode="True" />
                     <LayoutItem Id="Discount" ViewItem="Discount" SizeConstraintsType="Default" Index="1" RelativeSize="6" IsNewNode="True" />
-                    <LayoutItem Id="Discount.Value" ViewItem="" SizeConstraintsType="Default" Index="2" RelativeSize="72" ShowCaption="False" IsNewNode="True" />
-                    <LayoutItem Id="Discounttext" ViewItem="Discounttext" SizeConstraintsType="Default" Index="3" RelativeSize="12" IsNewNode="True" />
+                    <LayoutItem Id="Discount.Value" SizeConstraintsType="Default" Index="2" RelativeSize="70" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                    <LayoutItem Id="Discounttext" SizeConstraintsType="Default" Index="3" RelativeSize="14" ShowCaption="False" ViewItem="" IsNewNode="True" />
                   </LayoutGroup>
                 </TabbedGroup>
               </LayoutGroup>
             </LayoutGroup>
-            <LayoutItem Id="Comments" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="20, 159" MaxSize="0, 159" Index="1" RelativeSize="24" ViewItem="Comments" IsNewNode="True" />
+            <LayoutItem Id="Comments" CaptionLocation="Top" SizeConstraintsType="Custom" MinSize="20, 159" MaxSize="0, 159" Index="1" RelativeSize="33" ViewItem="Comments" IsNewNode="True" />
             <LayoutGroup Id="Customer" Removed="True" />
             <LayoutGroup Id="VideoPerson" Removed="True" />
           </LayoutGroup>
-          <TabbedGroup Id="Tabs" Index="1" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="Receipts" TextAlignMode="AlignLocal" RelativeSize="100" Caption="Receipts" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-              <LayoutItem Id="Receipts" TextAlignMode="AutoSize" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Receipts" />
-            </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="15" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Removed="True">
             <LayoutGroup Id="ActiveRents" TextAlignMode="AlignLocal" RelativeSize="100" Caption="Active Rents" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
               <LayoutItem Id="ActiveRents" TextAlignMode="AutoSize" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="ActiveRents" />
+            </LayoutGroup>
+            <LayoutGroup Id="Receipts" TextAlignMode="AlignLocal" RelativeSize="100" Caption="Receipts" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+              <LayoutItem Id="Receipts" TextAlignMode="AutoSize" SizeConstraintsType="Default" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Receipts" />
             </LayoutGroup>
           </TabbedGroup>
           <LayoutGroup Id="SizeableEditors" Direction="Horizontal" RelativeSize="0" Caption="SizeableEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" TextAlignMode="UseParentOptions" Removed="True">
@@ -553,10 +549,6 @@
             <LayoutGroup Id="ActiveRents" TextAlignMode="AlignLocal" RelativeSize="100" Index="1">
               <LayoutItem Id="ActiveRents" TextAlignMode="AutoSize" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ActiveRents" />
             </LayoutGroup>
-            <LayoutGroup Id="MyRents" TextAlignMode="AlignLocal" Index="1" RelativeSize="100" Removed="True">
-              <LayoutItem Id="MyRents" TextAlignMode="AutoSize" SizeConstraintsType="Default" RelativeSize="100" ViewItem="MyRents" />
-            </LayoutGroup>
-            <LayoutGroup Id="Events" Removed="True" />
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" Removed="True" />
           <LayoutGroup Id="SizeableEditors" Removed="True" />
@@ -1213,12 +1205,6 @@
     <ListView Id="MovieCategory_ChartPrices_ListView" EditorTypeName="DevExpress.ExpressApp.PivotGrid.Win.PivotGridListEditor" AllowEdit="True" HideToolBar="True">
       <ChartSettings Settings="﻿&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#xD;&#xA;&lt;ChartXmlSerializer version=&quot;12.1.6.0&quot;&gt;&#xD;&#xA;  &lt;Chart AppearanceNameSerializable=&quot;Default&quot;&gt;&#xD;&#xA;    &lt;Diagram TypeNameSerializable=&quot;XYDiagram&quot;&gt;&#xD;&#xA;      &lt;AxisX VisibleInPanesSerializable=&quot;-1&quot;&gt;&#xD;&#xA;        &lt;WorkdaysOptions /&gt;&#xD;&#xA;        &lt;Range SideMarginsEnabled=&quot;true&quot;&gt;&#xD;&#xA;          &lt;ScrollingRange SideMarginsEnabled=&quot;true&quot; /&gt;&#xD;&#xA;        &lt;/Range&gt;&#xD;&#xA;        &lt;Title Text=&quot;Days&quot; Visible=&quot;true&quot; /&gt;&#xD;&#xA;      &lt;/AxisX&gt;&#xD;&#xA;      &lt;AxisY VisibleInPanesSerializable=&quot;-1&quot;&gt;&#xD;&#xA;        &lt;WorkdaysOptions /&gt;&#xD;&#xA;        &lt;Range SideMarginsEnabled=&quot;true&quot;&gt;&#xD;&#xA;          &lt;ScrollingRange SideMarginsEnabled=&quot;true&quot; /&gt;&#xD;&#xA;        &lt;/Range&gt;&#xD;&#xA;        &lt;Title Text=&quot;Payment ($)&quot; Visible=&quot;true&quot; /&gt;&#xD;&#xA;      &lt;/AxisY&gt;&#xD;&#xA;    &lt;/Diagram&gt;&#xD;&#xA;    &lt;SeriesTemplate&gt;&#xD;&#xA;      &lt;Label LineVisible=&quot;true&quot; TextOrientation=&quot;Horizontal&quot; TypeNameSerializable=&quot;StackedLineSeriesLabel&quot; /&gt;&#xD;&#xA;      &lt;View TypeNameSerializable=&quot;StackedLineSeriesView&quot; /&gt;&#xD;&#xA;    &lt;/SeriesTemplate&gt;&#xD;&#xA;    &lt;SeriesSerializable&gt;&#xD;&#xA;      &lt;Item1 LegendText=&quot;Blue-Ray&quot; ArgumentDataMember=&quot;Day&quot; Name=&quot;BlueRay&quot; LabelsVisibility=&quot;True&quot; ValueDataMembersSerializable=&quot;Price&quot; ArgumentScaleType=&quot;Numerical&quot;&gt;&#xD;&#xA;        &lt;View TypeNameSerializable=&quot;StackedLineSeriesView&quot; /&gt;&#xD;&#xA;        &lt;Label LineVisible=&quot;true&quot; TextOrientation=&quot;Horizontal&quot; TypeNameSerializable=&quot;StackedLineSeriesLabel&quot; /&gt;&#xD;&#xA;      &lt;/Item1&gt;&#xD;&#xA;      &lt;Item2 LegendText=&quot;DVD&quot; ArgumentDataMember=&quot;Day&quot; Name=&quot;DVD&quot; LabelsVisibility=&quot;True&quot; ValueDataMembersSerializable=&quot;Price&quot; ArgumentScaleType=&quot;Numerical&quot;&gt;&#xD;&#xA;        &lt;View TypeNameSerializable=&quot;StackedLineSeriesView&quot; /&gt;&#xD;&#xA;        &lt;Label LineVisible=&quot;true&quot; TextOrientation=&quot;Horizontal&quot; TypeNameSerializable=&quot;StackedLineSeriesLabel&quot;&gt;&#xD;&#xA;          &lt;PointOptions TypeNameSerializable=&quot;PointOptions&quot; PointView=&quot;Argument&quot;&gt;&#xD;&#xA;            &lt;ArgumentNumericOptions Format=&quot;Number&quot; /&gt;&#xD;&#xA;          &lt;/PointOptions&gt;&#xD;&#xA;        &lt;/Label&gt;&#xD;&#xA;      &lt;/Item2&gt;&#xD;&#xA;      &lt;Item3 LegendText=&quot;Video CD&quot; ArgumentDataMember=&quot;Day&quot; Name=&quot;VideoCD&quot; LabelsVisibility=&quot;True&quot; ValueDataMembersSerializable=&quot;Price&quot; ArgumentScaleType=&quot;Numerical&quot;&gt;&#xD;&#xA;        &lt;View TypeNameSerializable=&quot;StackedLineSeriesView&quot; /&gt;&#xD;&#xA;        &lt;Label LineVisible=&quot;true&quot; TextOrientation=&quot;Horizontal&quot; TypeNameSerializable=&quot;StackedLineSeriesLabel&quot; /&gt;&#xD;&#xA;      &lt;/Item3&gt;&#xD;&#xA;    &lt;/SeriesSerializable&gt;&#xD;&#xA;  &lt;/Chart&gt;&#xD;&#xA;&lt;/ChartXmlSerializer&gt;" />
       <Columns>
-        <ColumnInfo Id="Category" Index="-1" Removed="True">
-          <OptionsColumnAdvBandedView ColVIndex="-1" />
-        </ColumnInfo>
-        <ColumnInfo Id="MovieId" Index="-1" Removed="True">
-          <OptionsColumnAdvBandedView ColVIndex="-1" />
-        </ColumnInfo>
         <ColumnInfo Id="Price" Index="0" />
         <ColumnInfo Id="Day" Index="1" />
         <ColumnInfo Id="Type" Index="2" />
@@ -1278,29 +1264,8 @@
     </DetailView>
     <ListView Id="MovieCategory_ListView" MasterDetailMode="ListViewAndDetailView" Caption="Movie Categories">
       <Columns>
-        <ColumnInfo Id="MovieTitle" SortIndex="1" Index="-1" Removed="True" />
         <ColumnInfo Id="Name" Width="334" SortOrder="Descending" />
         <ColumnInfo Id="IsDefault" Width="122" />
-        <ColumnInfo Id="AspectRatio" Removed="True" />
-        <ColumnInfo Id="Awards" Removed="True" />
-        <ColumnInfo Id="Category" Removed="True">
-          <OptionsColumnLayoutView SortMode="DisplayText" />
-        </ColumnInfo>
-        <ColumnInfo Id="Directors" Removed="True" />
-        <ColumnInfo Id="Genre" Removed="True">
-          <OptionsColumnLayoutView SortMode="Value" />
-        </ColumnInfo>
-        <ColumnInfo Id="IsColor" Removed="True" />
-        <ColumnInfo Id="Language" Removed="True">
-          <OptionsColumnLayoutView SortMode="DisplayText" />
-        </ColumnInfo>
-        <ColumnInfo Id="MovieId" Removed="True" />
-        <ColumnInfo Id="Rating" Removed="True">
-          <OptionsColumnLayoutView SortMode="Value" />
-        </ColumnInfo>
-        <ColumnInfo Id="RunTime" Removed="True" />
-        <ColumnInfo Id="Tagline" Removed="True" />
-        <ColumnInfo Id="WebSite" Removed="True" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
@@ -1350,9 +1315,6 @@
             <LayoutGroup Id="Picture" RelativeSize="4" Caption="Picture" ImageName="" Index="0">
               <LayoutItem Id="Image" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Image" />
               <LayoutItem Id="Description" ViewItem="Description" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="MoviePicture" RelativeSize="90" ImageName="" Direction="Horizontal" Caption="Movie" Removed="True">
-              <LayoutItem Id="Movie" ViewItem="Movie" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
         </LayoutGroup>
@@ -1692,7 +1654,6 @@
         <ColumnInfo Id="Payment" Width="43" Index="5" Removed="True" />
         <ColumnInfo Id="ItemFormat" Width="60" Index="7" Removed="True" />
         <ColumnInfo Id="Receipt" Width="60" Index="8" Removed="True" />
-        <ColumnInfo Id="ReceiptType" Width="60" Index="9" Removed="True" />
         <ColumnInfo Id="ReceiptOverdue" Width="76" Index="10" Removed="True" />
       </Columns>
       <HiddenActions>
@@ -1984,7 +1945,6 @@
         <ColumnInfo Id="OverduePayment" Removed="True" />
         <ColumnInfo Id="Receipt" Removed="True" />
         <ColumnInfo Id="ReceiptOverdue" Removed="True" />
-        <ColumnInfo Id="ReceiptType" Removed="True" />
         <ColumnInfo Id="RentedOn" Removed="True" />
         <ColumnInfo Id="ReturnedOn" Removed="True" />
       </Columns>
@@ -2011,7 +1971,6 @@
         <ColumnInfo Id="OverduePayment" Removed="True" />
         <ColumnInfo Id="Receipt" Removed="True" />
         <ColumnInfo Id="ReceiptOverdue" Removed="True" />
-        <ColumnInfo Id="ReceiptType" Removed="True" />
         <ColumnInfo Id="RentedOn" Removed="True" />
       </Columns>
       <HiddenActions>
