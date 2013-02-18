@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [DefaultProperty("Name")]
     [DefaultClassOptions]
     [SecurityOperations("DashboardDefinitions", "DashboardOperation")]
+    [NavigationItem("Reports")]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition {
 
         bool _active;
