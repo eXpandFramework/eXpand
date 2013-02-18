@@ -28,6 +28,7 @@
         <Member Name="CardNumber" DisplayFormat="{0:000000}" />
         <Member Name="Discount" DisplayFormat="p" />
         <Member Name="Phone" EditMask="(999)000-0000" />
+        <RuntimeCalculatedMember Name="ReceiptsCount" IsCustom="True" AliasExpression="Receipts.Count()" Type="System.String" IsNewNode="True" />
       </OwnMembers>
     </Class>
     <Class Name="XVideoRental.Module.Win.BusinessObjects.Movie.Artist">
