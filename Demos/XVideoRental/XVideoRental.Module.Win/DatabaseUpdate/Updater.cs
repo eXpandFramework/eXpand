@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -26,24 +27,19 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.Utils.Automation;
 using System.Drawing;
 
-namespace XVideoRental.Module.Win.DatabaseUpdate
-{
-    public enum PermissionBehavior
-    {
+namespace XVideoRental.Module.Win.DatabaseUpdate {
+    public enum PermissionBehavior {
         Admin,
         Settings,
         ReadOnlyAccess
     }
-    public class Updater : ModuleUpdater
-    {
+    public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
-        public override void UpdateDatabaseAfterUpdateSchema()
-        {
+        public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             SequenceBaseObject.Updating = true;
             var employersRole = CreateUserData();
-            if (employersRole != null)
-            {
+            if (employersRole != null) {
                 var importHelper = new ImportHelper(ObjectSpace);
                 importHelper.Import();
                 SetPermissions(employersRole);
@@ -56,19 +52,16 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             SequenceBaseObject.Updating = false;
         }
 
-        void CreateDashboards()
-        {
-            CreateDashboards("Rentals", 0, new Type[] { typeof(Rent), typeof(MovieItem) }, ImageLoader.Instance.GetLargeImageInfo("CustomerFilmRentsList").Image);
-            CreateDashboards("Customer Revenue", 1, new Type[] { typeof(Rent), typeof(Receipt) }, ImageLoader.Instance.GetLargeImageInfo("CustomerRevenue").Image);
-            CreateDashboards("Demographics", 2, new Type[] { typeof(Rent) }, ImageLoader.Instance.GetLargeImageInfo("CustomersKPI").Image);
+        void CreateDashboards() {
+            CreateDashboards("Rentals", 0, new[] { typeof(Rent), typeof(MovieItem) }, ImageLoader.Instance.GetLargeImageInfo("CustomerFilmRentsList").Image);
+            CreateDashboards("Customer Revenue", 1, new[] { typeof(Rent), typeof(Receipt) }, ImageLoader.Instance.GetLargeImageInfo("CustomerRevenue").Image);
+            CreateDashboards("Demographics", 2, new[] { typeof(Rent) }, ImageLoader.Instance.GetLargeImageInfo("CustomersKPI").Image);
         }
 
-        private void CreateDashboards(string dashboardName, int index, Type[] types, Image icon)
-        {
+        private void CreateDashboards(string dashboardName, int index, IEnumerable<Type> types, Image icon) {
             ApplicationStatusUpdater.Notify("CreateDashboard", string.Format("Creating dashboard: {0}", dashboardName));
             var dashboard = ObjectSpace.FindObject<DashboardDefinition>(new BinaryOperator("Name", dashboardName));
-            if (dashboard == null)
-            {
+            if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboard.Name = dashboardName;
                 dashboard.Xml = GetDashboardLayout(dashboardName);
@@ -80,11 +73,11 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             }
             var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
             var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
+            dashboardRole.SetMemberValue("DashboardOperation", SecurityOperationsEnum.ReadOnlyAccess);
             dashboardCollection.BaseAdd(dashboard);
         }
 
-        private static string GetDashboardLayout(string dashboardName)
-        {
+        private static string GetDashboardLayout(string dashboardName) {
             Type moduleType = typeof(XVideoRentalWindowsFormsModule);
             string name = moduleType.Namespace + ".Resources." + dashboardName + " Dashboard.txt";
             Stream manifestResourceStream = moduleType.Assembly.GetManifestResourceStream(name);
@@ -94,8 +87,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
                 return reader.ReadLine();
         }
 
-        void CreateReports()
-        {
+        void CreateReports() {
             CreateReport("Customer Cards", typeof(Customer));
             CreateReport("Active Customers", typeof(Customer));
             CreateReport("Most Profitable Genres", typeof(Movie));
@@ -104,18 +96,15 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             CreateReport("Top Movie Rentals", typeof(Movie));
         }
 
-        void SetPermissions(SecuritySystemRole employersRole)
-        {
+        void SetPermissions(SecuritySystemRole employersRole) {
             employersRole.SetTypePermissions<ReportData>(SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow);
             employersRole.CreatePermissionBehaviour(PermissionBehavior.ReadOnlyAccess, (role, info) => role.SetTypePermissions(info.Type, SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow));
         }
 
-        private void CreateReport(string reportName, Type type)
-        {
+        private void CreateReport(string reportName, Type type) {
             ApplicationStatusUpdater.Notify("CreateReport", string.Format("Creating reports: {0}", reportName));
             var reportdata = ObjectSpace.FindObject<ReportData>(new BinaryOperator("Name", reportName));
-            if (reportdata == null)
-            {
+            if (reportdata == null) {
                 reportdata = ObjectSpace.CreateObject<ReportData>();
                 var rep = new XafReport { ObjectSpace = ObjectSpace };
                 rep.LoadLayout(GetReportStream(reportName));
@@ -125,23 +114,19 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             }
         }
 
-        Stream GetReportStream(string reportName)
-        {
+        Stream GetReportStream(string reportName) {
             var moduleType = typeof(XVideoRentalWindowsFormsModule);
             return moduleType.Assembly.GetManifestResourceStream(string.Format(moduleType.Namespace + ".Resources.{0}.repx", reportName));
         }
 
-        XpandRole CreateUserData()
-        {
+        XpandRole CreateUserData() {
             InitAdminSecurityData();
             return InitVideoRentalSecurityData();
         }
 
-        XpandRole InitVideoRentalSecurityData()
-        {
+        XpandRole InitVideoRentalSecurityData() {
             var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
-            if (ObjectSpace.IsNewObject(defaultRole))
-            {
+            if (ObjectSpace.IsNewObject(defaultRole)) {
                 var employersRole = (SecuritySystemRole)ObjectSpace.GetRole("Employers");
                 var dashboardRole = (SecuritySystemRole)ObjectSpace.GetRole("Dashboard View Role");
 
@@ -158,37 +143,29 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             return null;
         }
 
-        void InitAdminSecurityData()
-        {
+        void InitAdminSecurityData() {
             var securitySystemRole = ObjectSpace.GetAdminRole("Administrator");
             securitySystemRole.GetUser("Admin");
         }
     }
 
-    class ImportHelper
-    {
+    class ImportHelper {
         readonly UnitOfWork _unitOfWork;
         readonly IObjectSpace _objectSpace;
 
-        public ImportHelper(IObjectSpace objectSpace)
-        {
+        public ImportHelper(IObjectSpace objectSpace) {
             _objectSpace = objectSpace;
             _unitOfWork = ConnectToLegacyVideoRentDB();
             CreateViews();
         }
-        UnitOfWork ConnectToLegacyVideoRentDB()
-        {
-            var unitOfWork = new UnitOfWork
-            {
+        UnitOfWork ConnectToLegacyVideoRentDB() {
+            var unitOfWork = new UnitOfWork {
                 ConnectionString = ConfigurationManager.ConnectionStrings["VideoRentLegacy"].ConnectionString,
                 AutoCreateOption = AutoCreateOption.None
             };
-            try
-            {
+            try {
                 unitOfWork.Connect();
-            }
-            catch (UnableToOpenDatabaseException)
-            {
+            } catch (UnableToOpenDatabaseException) {
                 if (StartVideoRent(unitOfWork))
                     unitOfWork.Connect();
                 else
@@ -197,21 +174,17 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             return unitOfWork;
         }
 
-        bool StartVideoRent(UnitOfWork unitOfWork)
-        {
+        bool StartVideoRent(UnitOfWork unitOfWork) {
             string videoRentalPath = Environment.ExpandEnvironmentVariables(string.Format(ConfigurationManager.AppSettings["VideoRentLegacyPath"], AssemblyInfo.VersionShort));
             var dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(string.Format("XVideoRental uses the initial data from the database created by the original VideoRental application that is installed with our WinForms components at \r\n{0}.\r\n\r\nChoose 'Yes' to automatically run the WinForms VideRental application and create the required SQL Express database by default (application restart is required).\r\nChoose 'No' to do this manually later and exit this application for now.", videoRentalPath),
                     "Initial data was not found...", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (dialogResult == DialogResult.Yes)
-            {
-                if (!File.Exists(videoRentalPath))
-                {
+            if (dialogResult == DialogResult.Yes) {
+                if (!File.Exists(videoRentalPath)) {
                     throw new FileNotFoundException(string.Format("Cannot run the WinForms VideoRental application by the following path: {0}", videoRentalPath));
                 }
                 DeleteMdbFiles();
                 Process videoRental = Process.Start(videoRentalPath);
-                if (videoRental != null)
-                {
+                if (videoRental != null) {
                     WaitAutomation.WaitForWindowToOpen("Create Database");
                     WaitAutomation.WaitForWindowToClose("Create Database");
                     if (!LegacyDbExists(unitOfWork))
@@ -225,24 +198,18 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             return false;
         }
 
-        void DeleteMdbFiles()
-        {
+        void DeleteMdbFiles() {
             string[] files = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath) + "", "*.mdb");
-            foreach (var file in files)
-            {
+            foreach (var file in files) {
                 File.Delete(file);
             }
         }
 
-        bool LegacyDbExists(UnitOfWork unitOfWork)
-        {
-            try
-            {
+        bool LegacyDbExists(UnitOfWork unitOfWork) {
+            try {
                 unitOfWork.Connect();
                 return true;
-            }
-            catch (UnableToOpenDatabaseException)
-            {
+            } catch (UnableToOpenDatabaseException) {
                 DevExpress.XtraEditors.XtraMessageBox.Show(
                     "Application will now exit because you have not created the legacy database!!!", "Exit", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -252,15 +219,12 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
         }
 
 
-        public UnitOfWork UnitOfWork
-        {
+        public UnitOfWork UnitOfWork {
             get { return _unitOfWork; }
         }
 
-        void CreateViews()
-        {
-            if (_unitOfWork != null && _unitOfWork.Connection != null)
-            {
+        void CreateViews() {
+            if (_unitOfWork != null && _unitOfWork.Connection != null) {
                 var dbCommand = _unitOfWork.Connection.CreateCommand();
                 ApplicationStatusUpdater.Notify("CreateSqlViews", "Creating SQL views...");
                 CreatePersonView(dbCommand, "Artist", "vArtist");
@@ -270,8 +234,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             }
         }
 
-        void CreatePictureView(IDbCommand dbCommand, string tableName, string viewName)
-        {
+        void CreatePictureView(IDbCommand dbCommand, string tableName, string viewName) {
             DropView(dbCommand, viewName);
             dbCommand.CommandText = string.Format("CREATE VIEW [dbo].[{0}] AS " +
                     "SELECT dbo.Picture.Image, dbo.Picture.Description, dbo.{1}.* " +
@@ -280,8 +243,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             dbCommand.ExecuteNonQuery();
         }
 
-        void CreatePersonView(IDbCommand dbCommand, string tableName, string viewName)
-        {
+        void CreatePersonView(IDbCommand dbCommand, string tableName, string viewName) {
             DropView(dbCommand, viewName);
             dbCommand.CommandText = string.Format("CREATE VIEW [dbo].[{0}] AS " +
                     "SELECT dbo.Person.FirstName, dbo.Person.LastName, dbo.Person.Gender, dbo.Person.BirthDate, dbo.{1}.* " +
@@ -290,24 +252,18 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             dbCommand.ExecuteNonQuery();
         }
 
-        void DropView(IDbCommand dbCommand, string viewName)
-        {
-            try
-            {
+        void DropView(IDbCommand dbCommand, string viewName) {
+            try {
                 dbCommand.CommandText = string.Format("DROP VIEW [dbo].[{0}]", viewName);
                 dbCommand.ExecuteNonQuery();
-            }
-            catch (SqlException)
-            {
+            } catch (SqlException) {
             }
         }
 
-        public void Import()
-        {
+        public void Import() {
             ApplicationStatusUpdater.Notify("Import", "");
             DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show("This operation may take a few minutes, please wait. Press OK to continue.", "Importing and transforming  initial data...", MessageBoxButtons.OKCancel);
-            if (dialogResult == DialogResult.Cancel)
-            {
+            if (dialogResult == DialogResult.Cancel) {
                 Environment.Exit(Environment.ExitCode);
             }
             var initDataImporter = new InitDataImporter();
@@ -318,8 +274,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate
             initDataImporter.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
 
         }
-        void NotifyWhenTransform(string inputClassName, int position)
-        {
+        void NotifyWhenTransform(string inputClassName, int position) {
             var statusMessage = position > -1
                                        ? string.Format("Transforming records from {0}: {1}", inputClassName, position)
                                        : string.Format("Transforming records from {0} ...", inputClassName);
