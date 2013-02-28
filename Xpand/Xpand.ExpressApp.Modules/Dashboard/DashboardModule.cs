@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;

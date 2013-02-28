@@ -74,14 +74,22 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         static string Convert(ISecurityRole securityRole, ITypeInfo roleTypeInfo, SecurityOperationsAttribute operationsAttribute) {
-            var value = roleTypeInfo.FindMember(operationsAttribute.OperationProviderProperty).GetValue(securityRole);
-            if (value == null || ReferenceEquals(value, ""))
-                return null;
-            var securityOperations = (SecurityOperationsEnum)value;
-            var fieldInfo = typeof(SecurityOperations).GetField(securityOperations.ToString(), BindingFlags.Public | BindingFlags.Static);
-            if (fieldInfo != null)
-                return fieldInfo.GetValue(null).ToString();
-            throw new NotImplementedException(value.ToString());
+            var memberInfo = MemberInfo(roleTypeInfo, operationsAttribute);
+            if (memberInfo != null) {
+                var value = memberInfo.GetValue(securityRole);
+                if (value == null || ReferenceEquals(value, ""))
+                    return null;
+                var securityOperations = (SecurityOperationsEnum)value;
+                var fieldInfo = typeof(SecurityOperations).GetField(securityOperations.ToString(), BindingFlags.Public | BindingFlags.Static);
+                if (fieldInfo != null)
+                    return fieldInfo.GetValue(null).ToString();
+                throw new NotImplementedException(value.ToString());
+            }
+            return null;
+        }
+
+        static IMemberInfo MemberInfo(ITypeInfo roleTypeInfo, SecurityOperationsAttribute operationsAttribute) {
+            return roleTypeInfo.FindMember(operationsAttribute.OperationProviderProperty);
         }
     }
 }
