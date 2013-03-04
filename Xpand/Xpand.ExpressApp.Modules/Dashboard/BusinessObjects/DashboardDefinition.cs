@@ -71,6 +71,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         [Size(SizeAttribute.Unlimited)]
         [Delayed]
+        [VisibleInDetailView(false)]
         public string Xml {
             get { return GetDelayedPropertyValue<String>("Xml"); }
             set { SetDelayedPropertyValue("Xml", value); }
