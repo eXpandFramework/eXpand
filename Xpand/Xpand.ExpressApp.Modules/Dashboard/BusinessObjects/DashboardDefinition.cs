@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         public DashboardDefinition(Session session)
             : base(session) {
+            _active = true;
         }
 
         [Browsable(false)]
