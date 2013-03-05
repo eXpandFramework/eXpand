@@ -78,11 +78,6 @@ namespace Xpand.ExpressApp.Web {
             return _applicationModulesManager;
         }
 
-        protected override void OnLoggedOn(LogonEventArgs args) {
-            base.OnLoggedOn(args);
-            ((ShowViewStrategy)ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
-        }
-
         public new string ConnectionString {
             get { return base.ConnectionString; }
             set {
