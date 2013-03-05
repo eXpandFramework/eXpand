@@ -233,6 +233,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseUpdate\ReadMe.txt" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Export.png" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Export_32x32.png" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Import.png" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Import_32x32.png" />
     <EmbeddedResource Include="Images\MenuBar_DashboardTemplateEdit.png" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.de.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
