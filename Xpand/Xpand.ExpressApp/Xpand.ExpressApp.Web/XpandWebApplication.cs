@@ -62,9 +62,7 @@ namespace Xpand.ExpressApp.Web {
 
         protected override void OnSetupComplete() {
             base.OnSetupComplete();
-            var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
-            if (xpandObjectSpaceProvider != null)
-                xpandObjectSpaceProvider.SetClientSideSecurity(this.ClientSideSecurity());
+            this.SetClientSideSecurity();
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {

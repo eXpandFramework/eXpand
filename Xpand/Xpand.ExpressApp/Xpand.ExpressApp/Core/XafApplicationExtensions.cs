@@ -23,6 +23,19 @@ namespace Xpand.ExpressApp.Core {
             return (T)xafApplication.Modules.FindModule(typeof(T));
         }
 
+        public static void SetClientSideSecurity(this XafApplication xafApplication) {
+            var xpandObjectSpaceProvider = (xafApplication.ObjectSpaceProvider as XpandObjectSpaceProvider);
+            if (xpandObjectSpaceProvider != null)
+                xpandObjectSpaceProvider.SetClientSideSecurity(xafApplication.ClientSideSecurity());
+            else {
+                var modelOptionsClientSideSecurity = xafApplication.Model.Options as IModelOptionsClientSideSecurity;
+                if (modelOptionsClientSideSecurity != null && modelOptionsClientSideSecurity.ClientSideSecurity != null &&
+                    modelOptionsClientSideSecurity.ClientSideSecurity.Value == Model.ClientSideSecurity.IntegratedMode) {
+                    throw new Exception("Set Application.Model.Options.ClientSideSecurity to another value than IntegratedMode or use " + typeof(XpandObjectSpaceProvider).FullName);
+                }
+            }
+        }
+
         public static int DropDatabaseOnVersionMissmatch(this XafApplication xafApplication) {
             int missMatchCount = 0;
             if (VersionMissMatch(xafApplication)) {

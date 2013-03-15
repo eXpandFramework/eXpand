@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -28,6 +29,15 @@ namespace Xpand.ExpressApp.MiddleTier {
 
         string IXafApplication.RaiseEstablishingConnection() {
             return this.GetConnectionString();
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
+        }
+
+        protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs args) {
+            args.Updater.Update();
+            args.Handled = true;
         }
 
         protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {

@@ -89,7 +89,7 @@
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v12.2">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.v12.2">
       <SpecificVersion>False</SpecificVersion>
