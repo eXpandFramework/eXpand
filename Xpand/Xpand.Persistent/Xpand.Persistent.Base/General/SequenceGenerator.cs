@@ -173,6 +173,9 @@ namespace Xpand.Persistent.Base.General {
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
             if (_defaultDataLayer == null)
                 return;
+            if (supportSequenceObject.Session is NestedUnitOfWork ||
+                !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
+                return;
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
