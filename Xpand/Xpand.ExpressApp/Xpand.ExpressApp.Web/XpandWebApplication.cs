@@ -51,8 +51,11 @@ namespace Xpand.ExpressApp.Web {
         }
 
         protected override IHttpRequestManager CreateHttpRequestManager() {
-            var modelOptionsFriendlyUrl = Model.Options as IModelOptionsFriendlyUrl;
-            return modelOptionsFriendlyUrl != null && modelOptionsFriendlyUrl.EnableFriendlyUrl ? new XpandHttpRequestManager() : base.CreateHttpRequestManager();
+            if (Model != null) {
+                var modelOptionsFriendlyUrl = Model.Options as IModelOptionsFriendlyUrl;
+                return modelOptionsFriendlyUrl != null && modelOptionsFriendlyUrl.EnableFriendlyUrl ? new XpandHttpRequestManager() : base.CreateHttpRequestManager();
+            }
+            return base.CreateHttpRequestManager();
         }
 
         protected override void LoadUserDifferences() {
