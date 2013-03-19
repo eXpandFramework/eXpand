@@ -15,7 +15,6 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
@@ -179,7 +178,7 @@ namespace Xpand.ExpressApp.Win {
             var applicationBase = ((ModelApplicationBase)Model);
             if (applicationBase.Id == "Application") {
                 var list = new List<ModelApplicationBase>();
-                while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId) {
+                while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId && applicationBase.LastLayer.Id != "Unchanged Master Part") {
                     list.Add(applicationBase.LastLayer);
                     ModelApplicationHelper.RemoveLayer(applicationBase);
                 }
