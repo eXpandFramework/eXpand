@@ -3,6 +3,8 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
@@ -17,7 +19,26 @@ namespace Xpand.ExpressApp.MiddleTier {
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
         }
+        protected XpandServerApplication(ISecurityStrategyBase securityStrategy) {
+            Security = securityStrategy;
+        }
 
+        protected override void LoadUserDifferences() {
+            base.LoadUserDifferences();
+            OnUserDifferencesLoaded(EventArgs.Empty);
+        }
+
+        protected override void OnSetupComplete() {
+            base.OnSetupComplete();
+            var modelApplicationBase = ((ModelApplicationBase)Model);
+            var afterSetup = modelApplicationBase.CreatorInstance.CreateModelApplication();
+            afterSetup.Id = "After Setup";
+            ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetup);
+            var userDiff = modelApplicationBase.CreatorInstance.CreateModelApplication();
+            userDiff.Id = "UserDiff";
+            ModelApplicationHelper.AddLayer(modelApplicationBase, userDiff);
+            OnUserDifferencesLoaded(EventArgs.Empty);
+        }
 
         public new string ConnectionString {
             get { return base.ConnectionString; }

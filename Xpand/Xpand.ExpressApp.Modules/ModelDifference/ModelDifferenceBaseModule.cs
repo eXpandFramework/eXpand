@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public void LoadModels(bool loadResources) {
             var model = (ModelApplicationBase)Application.Model;
             LoadApplicationModels(loadResources, model);
-            if (Application.Security is ISecurityComplex)
+            if (Application.Security is ISecurityComplex && _userModelDictionaryDifferenceStore != null)
                 _userModelDictionaryDifferenceStore.Load();
         }
 
