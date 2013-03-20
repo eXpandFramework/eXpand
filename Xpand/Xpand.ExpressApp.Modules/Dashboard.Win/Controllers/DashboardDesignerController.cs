@@ -16,8 +16,16 @@ namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
             TargetObjectType = typeof(IDashboardDefinition);
         }
 
-        public SimpleAction DashboardEditAction {
-            get { return dashboardEdit; }
+        public SimpleAction DashboardEdit {
+            get { return _dashboardEdit; }
+        }
+
+        public SimpleAction DashboardExportXml {
+            get { return _dashboardExportXml; }
+        }
+
+        public SimpleAction DashboardImportXml {
+            get { return _dashboardImportXml; }
         }
 
         protected override void OnActivated() {
@@ -33,9 +41,9 @@ namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
                     var clientPermissionRequest = new ClientPermissionRequest(typeof(IDashboardDefinition), "Xml", ObjectSpace.GetObjectHandle(selectedObject), SecurityOperations.Write);
                     isGranted = SecuritySystem.IsGranted(clientPermissionRequest);
                 }
-                dashboardEdit.Active["SecurityIsGranted"] = isGranted;
-                dashboardExportXML.Active["SecurityIsGranted"] = isGranted;
-                dashboardImportXML.Active["SecurityIsGranted"] = isGranted;
+                _dashboardEdit.Active["SecurityIsGranted"] = isGranted;
+                _dashboardExportXml.Active["SecurityIsGranted"] = isGranted;
+                _dashboardImportXml.Active["SecurityIsGranted"] = isGranted;
             }
         }
 
