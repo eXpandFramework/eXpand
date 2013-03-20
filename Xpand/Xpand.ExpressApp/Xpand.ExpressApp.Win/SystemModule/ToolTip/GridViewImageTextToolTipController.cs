@@ -166,7 +166,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         }
 
         void GridViewTopRowChanged(object sender, EventArgs e) {
-            _toolTipController.HideHint();
+            if (_toolTipController != null) _toolTipController.HideHint();
             HotTrackInfo = GridView.CalcHitInfo(GridView.GridControl.PointToClient(Cursor.Position));
         }
         #region Implementation of IModelExtender
