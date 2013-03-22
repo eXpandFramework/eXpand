@@ -174,7 +174,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationServerStarterBase.cs" />
     <Compile Include="ClassLevelObjects.cs" />
     <Compile Include="HintAttribute.cs" />
     <Compile Include="Hints.cs" />

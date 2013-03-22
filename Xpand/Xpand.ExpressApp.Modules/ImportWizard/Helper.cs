@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -11,36 +10,30 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Properties;
 
-namespace Xpand.ExpressApp.ImportWizard
-{
-    public static class Helper
-    {
+namespace Xpand.ExpressApp.ImportWizard {
+    public static class Helper {
 
         /// <summary>
         /// Copied from DevExpress.ExpressApp.SystemModule.NewObjectViewController
         /// </summary>
         /// <param name="vc">ViewController</param>
-        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc)
-        {
+        public static CollectionSourceBase GetCurrentCollectionSource(this ViewController vc) {
             PropertyCollectionSourceLink propertyCollectionSourceLink = null;
             CollectionSourceBase result = null;
-            if (vc.View is ListView)
-                result = ((ListView)vc.View).CollectionSource;
-            else
-            {
+            var listView = vc.View as ListView;
+            if (listView != null)
+                result = listView.CollectionSource;
+            else {
                 var linkToListViewController = vc.Frame.GetController<LinkToListViewController>();
                 var hasLink = (linkToListViewController != null) && (linkToListViewController.Link != null);
-                if (hasLink)
-                {
+                if (hasLink) {
                     if (linkToListViewController.Link.ListView != null)
                         result = linkToListViewController.Link.ListView.CollectionSource;
                     propertyCollectionSourceLink = linkToListViewController.Link.PropertyCollectionSourceLink;
                 }
             }
-            if (result == null)
-            {
-                if (propertyCollectionSourceLink != null)
-                {
+            if (result == null) {
+                if (propertyCollectionSourceLink != null) {
                     throw new NotImplementedException(Resources.Helper_GetCurrentCollectionSource_Bad_Extention_method_for_ViewController__See_TP_Shell_XAF_Module_Win_Extentions_GetCurrentCollectionSource_for_details__);
                 }
             }
@@ -49,8 +42,7 @@ namespace Xpand.ExpressApp.ImportWizard
 
 
         [Localizable(false)]
-        public static XPBaseObject GetXpObjectByKeyValue(XPObjectSpace oSpace, string value, Type type)
-        {
+        public static XPBaseObject GetXpObjectByKeyValue(XPObjectSpace oSpace, string value, Type type) {
             if (string.IsNullOrEmpty(value))
                 return null;
 
@@ -60,7 +52,7 @@ namespace Xpand.ExpressApp.ImportWizard
             var keyPropertyName = oSpace.Session.GetClassInfo(type).
                         PersistentProperties.
                         OfType<XPMemberInfo>().
-                        Where(p => p.HasAttribute(typeof(KeyPropertyAttribute))).
+                        Where(p => p.HasAttribute(typeof(KeyAttribute))).
                         Select(p => p.Name).
                         FirstOrDefault() ??
 
@@ -96,8 +88,7 @@ namespace Xpand.ExpressApp.ImportWizard
         }
 
 
-        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop)
-        {
+        public static XPBaseObject GetXpObjectByKeyValue(UnitOfWork uow, string value, Type type, string prop) {
             if (string.IsNullOrEmpty(value))
                 return null;
 

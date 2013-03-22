@@ -46,9 +46,7 @@ namespace Xpand.ExpressApp.Win {
 
         protected override void OnSetupComplete() {
             base.OnSetupComplete();
-            var xpandObjectSpaceProvider = (ObjectSpaceProvider as XpandObjectSpaceProvider);
-            if (xpandObjectSpaceProvider != null)
-                xpandObjectSpaceProvider.SetClientSideSecurity(this.ClientSideSecurity());
+            this.SetClientSideSecurity();
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
@@ -180,7 +178,7 @@ namespace Xpand.ExpressApp.Win {
             var applicationBase = ((ModelApplicationBase)Model);
             if (applicationBase.Id == "Application") {
                 var list = new List<ModelApplicationBase>();
-                while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId) {
+                while (applicationBase.LastLayer.Id != "UserDiff" && applicationBase.LastLayer.Id != AfterSetupLayerId && applicationBase.LastLayer.Id != "Unchanged Master Part") {
                     list.Add(applicationBase.LastLayer);
                     ModelApplicationHelper.RemoveLayer(applicationBase);
                 }

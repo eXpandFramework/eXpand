@@ -96,12 +96,11 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                                     DataManipulationRight.CanNavigate(type, objectByKey, space));
                         }
                     } catch {
-                        goto Label_00CB;
+                        return true;
                     }
                 }
                 return DataManipulationRight.CanNavigate(type, null, null);
             }
-        Label_00CB:
             return true;
         }
 

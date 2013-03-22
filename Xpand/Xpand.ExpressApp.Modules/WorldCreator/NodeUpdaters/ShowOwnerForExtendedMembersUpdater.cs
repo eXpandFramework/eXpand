@@ -4,11 +4,14 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.NodeUpdaters {
     public class ShowOwnerForExtendedMembersUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
+            if (!InterfaceBuilder.RuntimeMode)
+                return;
             IEnumerable<IModelColumn> columnInfoNodeWrappers =
                 GetListViewInfoNodeWrappers(node.Application).Select(listViewInfoNodeWrapper => listViewInfoNodeWrapper.Columns["Owner"])
                     .Where(columnInfoNodeWrapper => columnInfoNodeWrapper != null);

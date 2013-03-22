@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Validation {
         RuleType RuleType { get; set; }
     }
 
-    public abstract class RuleTypeController : ViewController<ObjectView>, IModelExtender {
+    public class RuleTypeController : ViewController<ObjectView>, IModelExtender {
         public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>> Dictionary = new Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>>();
         protected override void OnActivated() {

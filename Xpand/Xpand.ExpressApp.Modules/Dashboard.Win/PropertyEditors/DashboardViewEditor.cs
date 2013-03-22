@@ -40,8 +40,11 @@ namespace Xpand.ExpressApp.Dashboard.Win.PropertyEditors {
         }
 
         protected override void ReadValueCore() {
-            var template = CurrentObject as IDashboardDefinition;
-            DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
+            Control.BeginInvoke(new Action(() => {
+                var template = CurrentObject as IDashboardDefinition;
+                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
+            }));
+
         }
     }
 }

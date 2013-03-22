@@ -27,6 +27,8 @@ namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.dashboardEdit = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.dashboardExportXML = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.dashboardImportXML = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
             // dashboardEdit
             // 
@@ -34,19 +36,49 @@ namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
             this.dashboardEdit.ConfirmationMessage = null;
             this.dashboardEdit.Id = "DashboardEdit";
             this.dashboardEdit.ImageName = "BO_DashboardDefinition";
-            this.dashboardEdit.SelectionDependencyType = SelectionDependencyType.RequireSingleObject;
+            this.dashboardEdit.SelectionDependencyType = DevExpress.ExpressApp.Actions.SelectionDependencyType.RequireSingleObject;
             this.dashboardEdit.Shortcut = null;
             this.dashboardEdit.Tag = null;
             this.dashboardEdit.TargetObjectsCriteria = null;
             this.dashboardEdit.TargetViewId = null;
             this.dashboardEdit.ToolTip = null;
             this.dashboardEdit.TypeOfView = null;
-            this.dashboardEdit.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(dashboardEdit_Execute);
+            this.dashboardEdit.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashboardEdit_Execute);
+            // 
+            // dashboardExportXML
+            // 
+            this.dashboardExportXML.Caption = "Export to XML";
+            this.dashboardExportXML.ConfirmationMessage = null;
+            this.dashboardExportXML.Id = "DashboardExportXML";
+            this.dashboardExportXML.ImageName = "BO_DashboardDefinition_Export";
+            this.dashboardExportXML.Shortcut = null;
+            this.dashboardExportXML.Tag = null;
+            this.dashboardExportXML.TargetObjectsCriteria = null;
+            this.dashboardExportXML.TargetViewId = null;
+            this.dashboardExportXML.ToolTip = null;
+            this.dashboardExportXML.TypeOfView = null;
+            this.dashboardExportXML.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashbardExportXML_Execute);
+            // 
+            // dashboardImportXML
+            // 
+            this.dashboardImportXML.Caption = "Import From XML";
+            this.dashboardImportXML.ConfirmationMessage = null;
+            this.dashboardImportXML.Id = "dashboardImportXML";
+            this.dashboardImportXML.ImageName = "BO_DashboardDefinition_Import";
+            this.dashboardImportXML.Shortcut = null;
+            this.dashboardImportXML.Tag = null;
+            this.dashboardImportXML.TargetObjectsCriteria = null;
+            this.dashboardImportXML.TargetViewId = null;
+            this.dashboardImportXML.ToolTip = null;
+            this.dashboardImportXML.TypeOfView = null;
+            this.dashboardImportXML.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashboardImportXML_Execute);
 
         }
 
         #endregion
 
         private SimpleAction dashboardEdit;
+        private SimpleAction dashboardExportXML;
+        private SimpleAction dashboardImportXML;
     }
 }

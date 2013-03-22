@@ -125,6 +125,7 @@
 			.\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj;
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
 			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;
+			.\Demos\E4035-Middle Tier\E4035.sln;
 			
 			.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;
 			.\Demos\Modules\Chart\ChartTester.sln;

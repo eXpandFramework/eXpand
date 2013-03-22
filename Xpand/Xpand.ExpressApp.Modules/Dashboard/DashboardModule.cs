@@ -1,14 +1,13 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.Dashboard {
-    [ToolboxBitmap(typeof(DashboardModule))]
-    [ToolboxItem(true)]
+
+    [ToolboxItem(false)]
     public sealed class DashboardModule : XpandModuleBase {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

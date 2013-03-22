@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
-using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {

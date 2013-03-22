@@ -17,8 +17,10 @@ namespace Xpand.ExpressApp.Validation {
         public override void UpdateNode(ModelNode node) {
             var modelValidationRules = ((IModelValidationRules)node).OfType<IRuleBaseProperties>();
             foreach (var validationRule in modelValidationRules) {
-                var modelRuleBaseWarning = ((IModelRuleBaseRuleType)validationRule);
-                modelRuleBaseWarning.RuleType = GetRuleType(validationRule);
+                var type = validationRule as IModelRuleBaseRuleType;
+                if (type != null) {
+                    type.RuleType = GetRuleType(validationRule);
+                }
             }
         }
 

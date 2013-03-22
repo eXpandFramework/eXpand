@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [DefaultProperty("Name")]
     [DefaultClassOptions]
     [SecurityOperations("DashboardDefinitions", "DashboardOperation")]
+    [NavigationItem("Reports")]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition {
 
         bool _active;
@@ -40,6 +41,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         public DashboardDefinition(Session session)
             : base(session) {
+            _active = true;
         }
 
         [Browsable(false)]
@@ -70,6 +72,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         [Size(SizeAttribute.Unlimited)]
         [Delayed]
+        [VisibleInDetailView(false)]
         public string Xml {
             get { return GetDelayedPropertyValue<String>("Xml"); }
             set { SetDelayedPropertyValue("Xml", value); }

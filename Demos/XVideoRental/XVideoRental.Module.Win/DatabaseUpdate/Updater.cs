@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -24,6 +25,7 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Utils.Automation;
+using System.Drawing;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
     public enum PermissionBehavior {
@@ -42,36 +44,47 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 importHelper.Import();
                 SetPermissions(employersRole);
             }
+
             CreateReports();
-            CreateDashboard();
+            CreateDashboards();
 
             ObjectSpace.CommitChanges();
             SequenceBaseObject.Updating = false;
         }
 
-        void CreateDashboard() {
-            const string dashboardName = "Receipts";
+        void CreateDashboards() {
+            CreateDashboards("Rentals", 0, new[] { typeof(Rent), typeof(MovieItem) }, ImageLoader.Instance.GetLargeImageInfo("CustomerFilmRentsList").Image);
+            CreateDashboards("Customer Revenue", 1, new[] { typeof(Rent), typeof(Receipt) }, ImageLoader.Instance.GetLargeImageInfo("CustomerRevenue").Image);
+            CreateDashboards("Demographics", 2, new[] { typeof(Rent) }, ImageLoader.Instance.GetLargeImageInfo("CustomersKPI").Image);
+        }
 
+        private void CreateDashboards(string dashboardName, int index, IEnumerable<Type> types, Image icon) {
             ApplicationStatusUpdater.Notify("CreateDashboard", string.Format("Creating dashboard: {0}", dashboardName));
             var dashboard = ObjectSpace.FindObject<DashboardDefinition>(new BinaryOperator("Name", dashboardName));
             if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboard.Name = dashboardName;
-
-                dashboard.DashboardTypes.Add(new TypeWrapper(((XPObjectSpace)ObjectSpace).Session, typeof(Receipt)));
-
-                Type moduleType = typeof(XVideoRentalWindowsFormsModule);
-                string name = moduleType.Namespace + ".Resources.ReceiptDashboardLayout.txt";
-                Stream manifestResourceStream = moduleType.Assembly.GetManifestResourceStream(name);
-                if (manifestResourceStream == null)
-                    throw new ArgumentNullException(name);
-
-                var reader = new StreamReader(manifestResourceStream);
-                dashboard.Xml = reader.ReadLine();
+                dashboard.Xml = GetDashboardLayout(dashboardName);
+                dashboard.Icon = icon;
+                dashboard.Index = index;
+                dashboard.Active = true;
+                foreach (var type in types)
+                    dashboard.DashboardTypes.Add(new TypeWrapper(((XPObjectSpace)ObjectSpace).Session, type));
             }
             var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
             var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
+            dashboardRole.SetMemberValue("DashboardOperation", SecurityOperationsEnum.ReadOnlyAccess);
             dashboardCollection.BaseAdd(dashboard);
+        }
+
+        private static string GetDashboardLayout(string dashboardName) {
+            Type moduleType = typeof(XVideoRentalWindowsFormsModule);
+            string name = moduleType.Namespace + ".Resources." + dashboardName + " Dashboard.txt";
+            Stream manifestResourceStream = moduleType.Assembly.GetManifestResourceStream(name);
+            if (manifestResourceStream == null)
+                throw new ArgumentNullException(name);
+            using (var reader = new StreamReader(manifestResourceStream))
+                return reader.ReadLine();
         }
 
         void CreateReports() {

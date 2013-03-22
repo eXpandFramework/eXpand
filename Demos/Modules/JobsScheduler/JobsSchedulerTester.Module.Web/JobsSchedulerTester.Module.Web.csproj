@@ -63,6 +63,9 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v12.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v12.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v12.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
