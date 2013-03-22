@@ -13,6 +13,7 @@ using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     internal class ModelDifferenceObjectInfo {
@@ -76,7 +77,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
             Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
-            return !loadedModelDifferenceObjectInfos.Any() ? (Application is ServerApplication ? CreateNew(model) : loadedModelDifferenceObjectInfos) : loadedModelDifferenceObjectInfos;
+            if (!loadedModelDifferenceObjectInfos.Any())
+                if (ObjectSpace.IsServerSide() || !(Application is ServerApplication))
+                    return CreateNew(model);
+                else
+                    return loadedModelDifferenceObjectInfos;
+            return loadedModelDifferenceObjectInfos;
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> CreateNew(ModelApplicationBase model) {
