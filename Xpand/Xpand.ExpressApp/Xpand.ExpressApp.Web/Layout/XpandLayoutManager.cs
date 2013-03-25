@@ -149,10 +149,9 @@ namespace Xpand.ExpressApp.Web.Layout {
                 ID = "MasterDetailSplitter",
                 Orientation = (splitLayout.Direction == FlowDirection.Horizontal) ? Orientation.Horizontal : Orientation.Vertical,
                 ShowCollapseBackwardButton = true,
-                ShowCollapseForwardButton = true,
-                ClientInstanceName = "MasterDetailSplitter"
+                ShowCollapseForwardButton = true
             };
-            splitter.ClientSideEvents.Init = "function (s,e) {window.MasterDetailSplitter = s; s.AdjustControl(); s.GetMainElement().ClientControl = s;}";
+            splitter.ClientSideEvents.Init = "function (s,e) { if (XpandHelper.IsRootSplitter(s)) { window.MasterDetailSplitter = s; } s.AdjustControl(); s.GetMainElement().ClientControl = s;}";
             splitter.ClientSideEvents.PaneResized = paneResize;
             return splitter;
         }
