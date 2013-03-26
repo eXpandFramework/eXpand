@@ -17,7 +17,7 @@
                 }
             };
 
-			var getWidth = function (id) {
+            var getWidth = function (id) {
                 var element = document.getElementById(id);
                 if (element) {
                     return element.offsetWidth;
@@ -56,13 +56,13 @@
 				getHeight("Vertial_TB_Menu");
 
             if (controlToResize) {
-				middleRowContent.style.overflow = "hidden";
+                middleRowContent.style.overflow = "hidden";
                 var elementToResize = controlToResize.GetMainElement();
                 if (elementToResize) {
 					
-					var width = (window.innerWidth || document.documentElement.clientWidth) - 60 - getWidth("LPcell");
+                    var width = (window.innerWidth || document.documentElement.clientWidth) - 60 - getWidth("LPcell");
                     if (width > 0)
-						controlToResize.SetWidth(width);
+                        controlToResize.SetWidth(width);
 						
                     controlToResize.SetHeight(middleRowHeight - 20);
                     if (elementToResize.parentNode.offsetHeight > elementToResize.offsetHeight)
@@ -70,13 +70,13 @@
 
                     middleRowContent.style.height = middleRowHeight + "px";
                 }
-				else {
-					middleRowContent.style.overflow = "auto";
-				}
+                else {
+                    middleRowContent.style.overflow = "auto";
+                }
 				
             }
             else {
-				middleRowContent.style.overflow = "auto";
+                middleRowContent.style.overflow = "auto";
                 if (windowHeight > mainTable.offsetHeight) {
                     middleRowContent.style.height = middleRowHeight + "px";
                 }
@@ -85,13 +85,44 @@
                 }
             }
 
-			window.isAdjusting = false;
+            window.isAdjusting = false;
 
         }
         var dxo = aspxGetGlobalEvents();
         dxo.EndCallback.AddHandler(window.AdjustSize);
         window.AdjustSizeOverriden = true;
-		window.AdjustSizeCore();
+        window.AdjustSizeCore();
     }
-	
+
+    window.XpandHelper = {
+
+        GetParentControl: function(childControl) {
+            for(var c = childControl.GetMainElement().parentNode; c; c = c.parentNode) {
+                var parentControl  = ASPxClientControl.GetControlCollection().GetByName(c.id);
+                if (parentControl) {
+                    return parentControl;
+                }
+            }        
+        },
+
+        GetFirstChildControl: function(element) {
+            for(var i = 0; i < element.childNodes.length; i++) {
+                var control = ASPxClientControl.GetControlCollection().GetByName(element.childNodes[i].id);
+                if (control) {
+                    return control;
+                }
+            }        
+        },
+
+        IsRootSplitter: function(splitter) {
+            for(var c = splitter.GetMainElement().parentNode; c; c = c.parentNode) {
+                var parentControl  = ASPxClientControl.GetControlCollection().GetByName(c.id);
+                if (parentControl && parentControl.GetPane)
+                    return false;
+            }
+
+            return true;
+            
+    }
+}
 }

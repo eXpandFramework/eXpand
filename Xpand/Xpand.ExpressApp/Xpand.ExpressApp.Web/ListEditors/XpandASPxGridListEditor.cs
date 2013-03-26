@@ -41,8 +41,9 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
             gridView.ClientSideEvents.FocusedRowChanged =
                 @"function(s,e) { 
-                    var up = window.DetailUpdatePanelControl;
-                    if (s.firstRowChangedAfterInit!==true && up && up.GetMainElement()) { 
+                    var parentSplitter = XpandHelper.GetParentControl(s);
+                    var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
+                    if ((s.firstRowChangedAfterInit!==true || !XpandHelper.IsRootSplitter(parentSplitter)) && up && up.GetMainElement()) { 
                         up.PerformCallback(s.GetFocusedRowIndex());} 
                     s.firstRowChangedAfterInit = false; }";
 
