@@ -10,6 +10,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
+using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -28,6 +29,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
+            extenders.Add<IModelColumn, IModelColumnFastSearchItem>();
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {

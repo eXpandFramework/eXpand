@@ -32,8 +32,7 @@ namespace Xpand.ExpressApp.Security {
         void CreateMember(ITypesInfo typesInfo, IRoleTypeProvider roleTypeProvider, SecurityOperationsAttribute attribute) {
             var roleTypeInfo = typesInfo.FindTypeInfo(roleTypeProvider.RoleType);
             if (roleTypeInfo.FindMember(attribute.OperationProviderProperty) == null) {
-                var memberInfo = roleTypeInfo.CreateMember(attribute.OperationProviderProperty, typeof(SecurityOperationsEnum));
-                memberInfo.AddAttribute(new RuleRequiredFieldAttribute());
+                roleTypeInfo.CreateMember(attribute.OperationProviderProperty, typeof(SecurityOperationsEnum));
             }
         }
 

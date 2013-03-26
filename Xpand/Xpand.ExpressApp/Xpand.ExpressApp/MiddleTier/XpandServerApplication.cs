@@ -19,7 +19,8 @@ namespace Xpand.ExpressApp.MiddleTier {
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
         }
-        protected XpandServerApplication(ISecurityStrategyBase securityStrategy) {
+
+        public XpandServerApplication(ISecurityStrategyBase securityStrategy) {
             Security = securityStrategy;
         }
 

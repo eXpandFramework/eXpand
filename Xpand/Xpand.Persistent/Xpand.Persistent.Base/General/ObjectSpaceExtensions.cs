@@ -12,6 +12,15 @@ using Xpand.Utils.Linq;
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
 
+        public static bool IsServerSide(this IObjectSpace objectSpace) {
+            var xpObjectSpace = objectSpace as XPObjectSpace;
+            if (xpObjectSpace != null) {
+                var session = xpObjectSpace.Session;
+                return (session.DataLayer != null && session.ObjectLayer == null) || (session.DataLayer != null && session.ObjectLayer != null);
+            }
+            throw new NotImplementedException(objectSpace.GetType().FullName);
+        }
+
         public static void RollBackSilent(this IObjectSpace objectSpace) {
             objectSpace.ConfirmationRequired += (sender, args) => args.ConfirmationResult = ConfirmationResult.No;
             objectSpace.Rollback();
@@ -84,7 +93,7 @@ namespace Xpand.Persistent.Base.General {
             var innderType = typeof(Func<,>).MakeGenericType(new[] { objectType, typeof(bool) });
             var type = typeof(Expression<>).MakeGenericType(new[] { innderType });
             var methodInfo = genericType.GetMethod("TransformExpression", new[] { type });
-            return (CriteriaOperator)methodInfo.Invoke(xpquery, new object [] { transform });
+            return (CriteriaOperator)methodInfo.Invoke(xpquery, new object[] { transform });
         }
 
         public static T CreateObjectFromInterface<T>(this IObjectSpace objectSpace) {
