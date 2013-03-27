@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Win;
 
 namespace MasterDetailTester.Win {
-    public partial class MasterDetailTesterWindowsFormsApplication : WinApplication {
+    public partial class MasterDetailTesterWindowsFormsApplication : XpandWinApplication {
         public MasterDetailTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
@@ -16,7 +13,7 @@ namespace MasterDetailTester.Win {
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
-        private void MasterDetailTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void MasterDetailTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;

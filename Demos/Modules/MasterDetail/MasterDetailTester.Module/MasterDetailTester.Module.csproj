@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
