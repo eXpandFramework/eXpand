@@ -12,6 +12,7 @@ using Xpand.ExpressApp;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
 using Xpand.ExpressApp.ModelDifference;
+using Xpand.Persistent.BaseImpl;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 
@@ -49,7 +50,7 @@ namespace FeatureCenter.Module {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Analysis)), IsExportedType));
-            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Xpand.Persistent.BaseImpl.Updater)), IsExportedType));
+            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(SequenceObject)), IsExportedType));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(ThresholdSeverity)), IsExportedType));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Customer)), IsExportedType));
 

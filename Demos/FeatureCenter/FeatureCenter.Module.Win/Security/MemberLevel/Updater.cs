@@ -10,7 +10,7 @@ using Xpand.Xpo;
 namespace FeatureCenter.Module.Win.Security.MemberLevel {
     public class Updater : FCUpdater {
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion, updater) {
         }
 

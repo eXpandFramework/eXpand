@@ -12,6 +12,7 @@ using System.Linq;
 using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.Persistent.BaseImpl {
+    [Obsolete("")]
     public abstract class Updater : ModuleUpdater {
         public const string UserRole = "UserRole";
         public const string Admin = "Admin";

@@ -183,7 +183,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Extensions.cs" />
-    <Compile Include="Security\Improved\ModelCombOperationinePermission.cs" />
+    <Compile Include="Security\Improved\ModelCombineOperationPermission.cs" />
     <Compile Include="Security\Improved\ModelCombineOperationPermissionData.cs" />
     <Compile Include="Security\Improved\ModelCombinePermissionRequest.cs" />
     <Compile Include="Security\Improved\ModelCombineRequestProcessor.cs" />

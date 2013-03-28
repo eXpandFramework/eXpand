@@ -480,8 +480,6 @@
     <Compile Include="Miscellaneous\TrayIcon\TICustomer.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\SPECustomer.cs" />
-    <Compile Include="Security\MemberLevel\MLSCustomer.cs" />
-    <Compile Include="Security\MemberLevel\Updater.cs" />
     <Compile Include="WinCustomer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
@@ -721,6 +719,9 @@
     <EmbeddedResource Include="WorldCreator\DynamicAssemblyCalculatedField\WCCalculatedField.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Security\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

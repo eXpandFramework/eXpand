@@ -12,6 +12,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
+using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
@@ -84,11 +85,14 @@ namespace Xpand.ExpressApp.FilterDataStore {
         void CreateMembers(ITypesInfo typesInfo) {
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
                 FilterProviderBase provider1 = provider;
-                foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(
-                    typeInfo => (!typeInfo.IsInterface && provider1.ObjectType == null || provider1.ObjectType == typeInfo.Type) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent)) {
+                foreach (ITypeInfo typeInfo in typesInfo.PersistentTypes.Where(typeInfo => TypeMatch(typeInfo, provider1))) {
                     CreateMember(typeInfo, provider);
                 }
             }
+        }
+
+        bool TypeMatch(ITypeInfo typeInfo, FilterProviderBase provider1) {
+            return ((!typeInfo.IsInterface && provider1.ObjectType == null || provider1.ObjectType == typeInfo.Type) && typeInfo.FindMember(provider1.FilterMemberName) == null && typeInfo.IsPersistent) && !ModelSystemTablesNodesGenerator.SystemTables.Contains(typeInfo.Name);
         }
 
         public static void CreateMember(ITypeInfo typeInfo, FilterProviderBase provider) {
