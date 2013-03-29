@@ -131,6 +131,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OnErrorAutoScrollPageToTopController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RuleTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
