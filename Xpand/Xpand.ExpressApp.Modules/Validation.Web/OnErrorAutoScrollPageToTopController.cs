@@ -3,14 +3,20 @@ using System.ComponentModel;
 using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Validation.Web {
-    public interface IModelDetailViewOnErrorAutoScrollPageToTop : IModelNode {
-        [Category("eXpand.Validation")]
-        [DefaultValue(true)]
+    public interface IModelValidationOnErrorAutoScrollPageToTop : IModelNode {
+        [Category("eXpand")]
         bool OnErrorAutoScrollPageToTop { get; set; }
+    }
+    [ModelInterfaceImplementor(typeof(IModelValidationOnErrorAutoScrollPageToTop), "Validation")]
+    public interface IModelDetailViewValidationOnErrorAutoScrollPageToTop : IModelValidationOnErrorAutoScrollPageToTop {
+        [Browsable(false)]
+        [ModelValueCalculator("((DevExpress.ExpressApp.Validation.IModelApplicationValidation)Application).Validation")]
+        IModelValidation Validation { get; }
     }
 
     public class OnErrorAutoScrollPageToTopController : ViewController<DetailView>, IModelExtender {
@@ -26,7 +32,7 @@ namespace Xpand.ExpressApp.Validation.Web {
         }
 
         bool AutoScrollEnabled() {
-            return ((IModelDetailViewOnErrorAutoScrollPageToTop)View.Model).OnErrorAutoScrollPageToTop;
+            return ((IModelDetailViewValidationOnErrorAutoScrollPageToTop)View.Model).OnErrorAutoScrollPageToTop;
         }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
@@ -38,7 +44,8 @@ namespace Xpand.ExpressApp.Validation.Web {
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelDetailView, IModelDetailViewOnErrorAutoScrollPageToTop>();
+            extenders.Add<IModelValidation, IModelValidationOnErrorAutoScrollPageToTop>();
+            extenders.Add<IModelDetailView, IModelDetailViewValidationOnErrorAutoScrollPageToTop>();
         }
     }
 }
