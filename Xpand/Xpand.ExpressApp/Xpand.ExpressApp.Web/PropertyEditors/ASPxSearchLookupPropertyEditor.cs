@@ -19,6 +19,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
+    [PropertyEditor(typeof(object), false)]
     public class ASPxSearchLookupPropertyEditor : ASPxObjectPropertyEditorBase, IDependentPropertyEditor,
                                                   ISupportViewShowing, IFrameContainer {
         static int windowWidth = 800;
