@@ -137,9 +137,7 @@
     <Compile Include="RuleTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandValidationWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandValidationWebModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

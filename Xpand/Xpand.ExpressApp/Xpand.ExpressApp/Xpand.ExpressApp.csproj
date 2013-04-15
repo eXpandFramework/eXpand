@@ -118,6 +118,7 @@
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
+    <Compile Include="Core\BoBehavior.cs" />
     <Compile Include="Core\CriteriaOperatorExtensions.cs" />
     <Compile Include="Core\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="Core\ModelExtensions.cs" />
