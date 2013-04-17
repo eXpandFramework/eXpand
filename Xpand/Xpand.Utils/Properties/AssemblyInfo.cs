@@ -40,6 +40,6 @@ using Xpand;
 [assembly: AllowPartiallyTrustedCallers]
 
 public class XpandAssemblyInfo {
-    public const string Version = "12.2.8.3";
+    public const string Version = "12.2.8.4";
     public const string FileVersion = Version;
 }
