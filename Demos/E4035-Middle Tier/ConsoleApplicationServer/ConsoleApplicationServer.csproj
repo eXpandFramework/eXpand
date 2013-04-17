@@ -33,33 +33,33 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Security.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Security.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.v12.2.dll</HintPath>
+      
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v12.2, Version=12.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Web.v12.2.dll</HintPath>
+    <Reference Include="DevExpress.ExpressApp.Web.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v12.2, Version=12.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Win.v12.2.dll</HintPath>
+    <Reference Include="DevExpress.ExpressApp.Win.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Xpo.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Persistent.Base.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Xpo.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Xpo.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="System">
       <Private>False</Private>

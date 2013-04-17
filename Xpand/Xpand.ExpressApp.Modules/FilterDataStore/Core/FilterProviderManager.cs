@@ -28,25 +28,24 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
         }
 
         public static bool IsRegistered {
-            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration)!=null; }
-            
+            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null; }
+
         }
 
         public static FilterProviderBase GetFilterProvider(string tableName, string filterMemberName, StatementContext modify) {
-            FilterProviderBase provider = Providers.Cast<FilterProviderBase>().Where(
-                probase => (probase.ObjectType == null || probase.ObjectType.Name == tableName) && probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both)).FirstOrDefault();
+            FilterProviderBase provider = Providers.Cast<FilterProviderBase>().FirstOrDefault(probase => (probase.ObjectType == null || probase.ObjectType.Name == tableName) && probase.FilterMemberName == filterMemberName && (probase.StatementContext == modify || probase.StatementContext == StatementContext.Both));
             if (provider != null && HasFilterValue(provider) && !provider.UseFilterValueWhenNull)
                 return null;
             return provider;
         }
 
         static bool HasFilterValue(FilterProviderBase provider) {
-            return provider.FilterValue == null || (provider.FilterValue is ICollection && ((ICollection) provider.FilterValue).Count==0);
+            return provider.FilterValue == null || (provider.FilterValue is ICollection && ((ICollection)provider.FilterValue).Count == 0);
         }
 
         internal static void Initialize() {
             try {
-                var qc =ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration;
+                var qc = ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration;
 
                 if (qc == null)
                     throw new ConfigurationErrorsException(
@@ -56,15 +55,14 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
                 ValueManager.Value = new FilterProviderCollection();
                 ProvidersHelper.InstantiateProviders(qc.Providers, ValueManager.Value, typeof(FilterProviderBase));
                 ValueManager.Value.SetReadOnly();
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 Tracing.Tracer.LogError(ex);
                 throw;
             }
         }
 
-        
-       
-        
+
+
+
     }
 }

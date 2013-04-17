@@ -8,6 +8,7 @@ namespace Xpand.ExpressApp.MasterDetail.Win {
     public sealed class MasterDetailWindowsModule : XpandModuleBase {
         public MasterDetailWindowsModule() {
             RequiredModuleTypes.Add(typeof(MasterDetailModule));
+            RequiredModuleTypes.Add(typeof(ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
         }
     }
 }

@@ -6,8 +6,8 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
 namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
     public class Updater : FCUpdater {
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
-            : base(objectSpace, currentDBVersion, updater) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
         public override void UpdateDatabaseAfterUpdateSchema() {

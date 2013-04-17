@@ -3,13 +3,13 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
-    public class ModelCombOperationinePermission : OperationPermissionBase ,IModelCombinePermission{
+    public class ModelCombineOperationPermission : OperationPermissionBase, IModelCombinePermission {
         public const string OperationName = "ModelCombine";
 
         public override IList<string> GetSupportedOperations() {
             return new[] { OperationName };
         }
-        public ModelCombOperationinePermission(ApplicationModelCombineModifier modifier, string difference)
+        public ModelCombineOperationPermission(ApplicationModelCombineModifier modifier, string difference)
             : base(OperationName) {
             Modifier = modifier;
             Difference = difference;
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
 
         public override string ToString() {
             var enumDescriptor = new EnumDescriptor(typeof(ApplicationModelCombineModifier));
-            return CaptionHelper.GetClassCaption(GetType().FullName) + " (" + enumDescriptor.GetCaption(Modifier)+","+Difference + ")";
+            return CaptionHelper.GetClassCaption(GetType().FullName) + " (" + enumDescriptor.GetCaption(Modifier) + "," + Difference + ")";
         }
 
         public ApplicationModelCombineModifier Modifier { get; set; }

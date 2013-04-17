@@ -32,7 +32,7 @@ namespace Xpand.Xpo.DB {
                         sqlDataStore.GetTableSchema(actualTable, false, false);
                     }
                     DBColumn dbColumn = column;
-                    var actualColumn = actualTable.Columns.Find(col => string.Compare(col.Name, sqlDataStore.ComposeSafeColumnName(dbColumn.Name), true) == 0);
+                    var actualColumn = actualTable.Columns.Find(col => System.String.Compare(col.Name, sqlDataStore.ComposeSafeColumnName(dbColumn.Name), System.StringComparison.OrdinalIgnoreCase) == 0);
                     if (NeedsAltering(column, actualColumn)) {
                         if ((actualColumn.Size < column.Size) || (column.Size == DevExpress.Xpo.SizeAttribute.Unlimited)) {
                             var sql = GetSql(table, sqlDataStore, column);
@@ -49,7 +49,7 @@ namespace Xpand.Xpo.DB {
                                  sqlDataStore.FormatTableSafe(table),
                                  sqlDataStore.FormatColumnSafe(column.Name),
                                  sqlDataStore.GetSqlCreateColumnFullAttributes(table, column),
-                                 sqlDataStore is BaseOracleConnectionProvider ? "modify" : "alter column");
+                                 (sqlDataStore is BaseOracleConnectionProvider || sqlDataStore is MySqlConnectionProvider) ? "modify" : "alter column");
         }
 
 

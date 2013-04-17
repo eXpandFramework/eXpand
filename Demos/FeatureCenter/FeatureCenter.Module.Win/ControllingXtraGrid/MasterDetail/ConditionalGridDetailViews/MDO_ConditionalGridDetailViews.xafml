@@ -6,18 +6,18 @@
     </Rules>
   </MasterDetail>
   <Views>
-    <ListView Id="ConditionalMasterDetailCustomer_ListView">
+    <ListView Id="ConditionalMasterDetailCustomer_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor">
       <GridViewOptions>
         <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
-    <ListView Id="ConditionalMasterDetailOrder_ListView">
+    <ListView Id="ConditionalMasterDetailOrder_ListView"  EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor">
       <Columns>
         <ColumnInfo Id="Customer" Index="-1" />
       </Columns>
     </ListView>
-    <ListView Id="ConditionalMasterDetailOrderForParis_ListView">
+    <ListView Id="ConditionalMasterDetailOrderForParis_ListView"  EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor">
       <Columns>
         <ColumnInfo Id="Customer" Index="-1" />
         <ColumnInfo Id="OrderDate" Index="-1" />
