@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.FilterDataStore.Web {
     [ToolboxBitmap(typeof(FilterDataStoreAspNetModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
         bool _proxyEventsSubscribed;
         static FilterDataStoreAspNetModule() {

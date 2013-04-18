@@ -2,11 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Web;
 
 namespace Xpand.ExpressApp.ModelDifference.Web {
     [ToolboxBitmap(typeof(ModelDifferenceAspNetModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule {
         private bool? persistentApplicationModelUpdated;
 

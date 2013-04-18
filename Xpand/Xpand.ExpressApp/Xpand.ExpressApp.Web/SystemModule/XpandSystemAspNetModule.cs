@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
+using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -17,11 +18,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     [ToolboxItem(true)]
-    [DevExpress.Utils.ToolboxTabName(XafAssemblyInfo.DXTabXafModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for ASP.NET applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(XpandWebApplication), "Resources.WebSystemModule.ico")]
+    [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

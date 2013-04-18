@@ -67,6 +67,10 @@ call buildproject.cmd Xpand.ExpressApp.ImportWizard.Win ".\Xpand\Xpand.ExpressAp
 call buildproject.cmd Xpand.ExpressApp.Workflow ".\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj"
 call buildproject.cmd Xpand.ExpressApp.StateMachine ".\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj"
 
+echo Installing Toolbox Items...
+call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
+call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"
+
 echo Building Xpand.Quartz.Server...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj"
 echo Done Building Xpand.Quartz.Server

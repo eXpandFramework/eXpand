@@ -5,12 +5,14 @@ using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Utils;
 using Xpand.ExpressApp.MiddleTier;
 using Xpand.ExpressApp.Win;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
     [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class ModelDifferenceWindowsFormsModule : ModelDifferenceBaseModule {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));

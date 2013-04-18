@@ -108,6 +108,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;
+			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;

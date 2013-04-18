@@ -3,27 +3,22 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using DevExpress.ExpressApp.Win.Templates;
 
-namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
-{
-    [DesignerSerializer(typeof(ResourceManagerSetterSerializer), typeof(CodeDomSerializer)), ToolboxItem(true)]
+namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
+    [DesignerSerializer(typeof(ResourceManagerSetterSerializer), typeof(CodeDomSerializer)), ToolboxItem(false)]
     public class ResourceManagerSetter : Component { }
 
-    public class ResourceManagerSetterSerializer : CodeDomSerializer
-    {
-        public override object Deserialize(IDesignerSerializationManager manager, object codeDomObject)
-        {
+    public class ResourceManagerSetterSerializer : CodeDomSerializer {
+        public override object Deserialize(IDesignerSerializationManager manager, object codeDomObject) {
             var baseSerializer = (CodeDomSerializer)manager.GetSerializer(typeof(ResourceManagerSetter).BaseType, typeof(CodeDomSerializer));
             return baseSerializer.Deserialize(manager, codeDomObject);
         }
-        public override object Serialize(IDesignerSerializationManager manager, object value)
-        {
+        public override object Serialize(IDesignerSerializationManager manager, object value) {
             var baseSerializer = (CodeDomSerializer)manager
                 .GetSerializer(typeof(ResourceManagerSetter).BaseType, typeof(CodeDomSerializer));
             object codeObject = baseSerializer.Serialize(manager, value);
 
             var statements = codeObject as CodeStatementCollection;
-            if (statements != null)
-            {
+            if (statements != null) {
                 CodeExpression leftCodeExpression = new CodeVariableReferenceExpression("resources");
                 var classTypeDeclaration = (CodeTypeDeclaration)manager.GetService(typeof(CodeTypeDeclaration));
                 CodeExpression typeofExpression = new CodeTypeOfExpression(classTypeDeclaration.Name);

@@ -1,8 +1,8 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Utils;
 using Xpand.ExpressApp.ConditionalDetailViews.Logic;
 using Xpand.ExpressApp.ConditionalDetailViews.Model;
 using Xpand.ExpressApp.ConditionalDetailViews.NodeUpdaters;
@@ -12,6 +12,7 @@ using Xpand.ExpressApp.Logic.Model;
 namespace Xpand.ExpressApp.ConditionalDetailViews {
     [ToolboxBitmap(typeof(ConditionalDetailViewModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class ConditionalDetailViewModule : LogicModuleBase<IConditionalDetailViewRule, ConditionalDetailViewRule> {
         public ConditionalDetailViewModule() {
             RequiredModuleTypes.Add(typeof(LogicModule));

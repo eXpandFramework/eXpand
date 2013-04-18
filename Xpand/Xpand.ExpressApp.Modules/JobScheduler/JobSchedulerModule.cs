@@ -5,6 +5,7 @@ using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Calendar;
@@ -15,6 +16,7 @@ using Xpand.ExpressApp.Validation;
 namespace Xpand.ExpressApp.JobScheduler {
     [ToolboxBitmap(typeof(JobSchedulerModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {

@@ -5,13 +5,14 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.Validation;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security {
-    [ToolboxBitmap(typeof(XpandSecurityModule))]
+    [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));

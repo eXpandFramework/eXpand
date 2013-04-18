@@ -1,19 +1,16 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security;
-using System.Web.Configuration;
-using Xpand;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Xpand.Utils")]
+[assembly: AssemblyTitle("Xpand.ToolboxCreator")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Xpand.Utils")]
-[assembly: AssemblyCopyright("Copyright © 2009")]
+[assembly: AssemblyProduct("Xpand.ToolboxCreator")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,7 +20,7 @@ using Xpand;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("14e87e2c-acc6-45bf-bf56-865662d32223")]
+[assembly: Guid("304bb838-f59f-44dc-8e7f-2e19cb266460")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -35,13 +32,5 @@ using Xpand;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]
-
-public class XpandAssemblyInfo {
-    public const string Version = "12.2.8.6";
-    public const string FileVersion = Version;
-    public const string TabModules = "eXpand: Modules";
-    public const string TabSecurity = "eXpand: Security";
-}
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

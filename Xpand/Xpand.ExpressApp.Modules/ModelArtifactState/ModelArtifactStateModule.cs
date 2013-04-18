@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Utils;
 using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.ConditionalActionState;
 using Xpand.ExpressApp.ConditionalControllerState;
@@ -9,6 +9,7 @@ using Xpand.ExpressApp.ConditionalControllerState;
 namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxBitmap(typeof(ModelArtifactStateModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public class ModelArtifactStateModule : XpandModuleBase {
         public ModelArtifactStateModule() {
             RequiredModuleTypes.Add(typeof(ConditionalControllerStateModule));

@@ -27,7 +27,6 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));

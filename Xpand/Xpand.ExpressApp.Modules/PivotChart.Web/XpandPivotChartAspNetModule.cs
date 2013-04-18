@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Web;
+using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Web.Options;
@@ -15,8 +16,9 @@ using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Web.Core.A
 using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.PivotChart.Web {
-    [ToolboxBitmap(typeof(XpandPivotChartAspNetModule))]
+    [ToolboxBitmap(typeof(PivotChartAspNetModule), "Resources.Toolbox_Module_PivotChart_Web.ico")]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
     public sealed class XpandPivotChartAspNetModule : XpandPivotChartModuleBase {
         public XpandPivotChartAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandPivotChartModule));
