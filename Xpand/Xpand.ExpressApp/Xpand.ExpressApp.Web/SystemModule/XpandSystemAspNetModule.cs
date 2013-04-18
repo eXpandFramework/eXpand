@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     public interface IModelOptionsCollectionEditMode : IModelOptions {
@@ -39,6 +40,10 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
+            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(PropertyEditors.ASPxTimePropertyEditor), false)));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

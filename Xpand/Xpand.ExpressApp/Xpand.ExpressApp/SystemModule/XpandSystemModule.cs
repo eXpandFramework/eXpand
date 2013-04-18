@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -21,6 +22,7 @@ using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
+using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
 
@@ -98,6 +100,10 @@ namespace Xpand.ExpressApp.SystemModule {
                     memberInfo.AddAttribute(new BrowsableAttribute(false));
                 }
             }
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
+            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
         }
 
         void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
