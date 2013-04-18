@@ -76,10 +76,6 @@ namespace Xpand.ExpressApp.SystemModule {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType { get; set; }
 
-        public override void CustomizeLogics(CustomLogics customLogics) {
-            base.CustomizeLogics(customLogics);
-            customLogics.RegisterLogic(typeof(IModelClassBehavior), typeof(ModelClassBehaviorLogic));
-        }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
@@ -139,7 +135,6 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new ViewNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
@@ -158,7 +153,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
-            extenders.Add<IModelClass, IModelClassBehavior>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
