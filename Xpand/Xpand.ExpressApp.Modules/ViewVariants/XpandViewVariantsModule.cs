@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.ViewVariants {
      EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(ViewVariantsModule), "Resources.Toolbox_Module_ViewVariants.ico")]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandViewVariantsModule : XpandModuleBase {
         public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule() {

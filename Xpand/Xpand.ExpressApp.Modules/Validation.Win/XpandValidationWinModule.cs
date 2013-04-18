@@ -5,7 +5,7 @@ using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.Validation.Win {
     [ToolboxBitmap(typeof(ValidationModule), "Resources.BO_Validation.ico")]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     [ToolboxItem(true)]
     public sealed class XpandValidationWinModule : XpandModuleBase {
         public XpandValidationWinModule() {

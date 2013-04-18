@@ -6,7 +6,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.Validation.Web {
     [ToolboxItem(true)]
     [ToolboxBitmap(typeof(ValidationModule), "Resources.BO_Validation.ico")]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class XpandValidationWebModule : XpandModuleBase {
         public XpandValidationWebModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));

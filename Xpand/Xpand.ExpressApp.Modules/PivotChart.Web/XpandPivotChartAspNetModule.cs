@@ -18,7 +18,7 @@ using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 namespace Xpand.ExpressApp.PivotChart.Web {
     [ToolboxBitmap(typeof(PivotChartAspNetModule), "Resources.Toolbox_Module_PivotChart_Web.ico")]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class XpandPivotChartAspNetModule : XpandPivotChartModuleBase {
         public XpandPivotChartAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandPivotChartModule));

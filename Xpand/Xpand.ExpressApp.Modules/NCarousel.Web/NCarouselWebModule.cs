@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
     }
     [ToolboxBitmap(typeof(NCarouselWebModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class NCarouselWebModule : XpandModuleBase {
 
 

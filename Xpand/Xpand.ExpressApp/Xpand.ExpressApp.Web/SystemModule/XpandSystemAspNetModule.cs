@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for ASP.NET applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]

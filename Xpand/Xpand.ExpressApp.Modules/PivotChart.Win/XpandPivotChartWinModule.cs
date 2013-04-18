@@ -13,7 +13,7 @@ using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Win.Core.A
 namespace Xpand.ExpressApp.PivotChart.Win {
     [ToolboxBitmap(typeof(PivotChartWindowsFormsModule), "Resources.Toolbox_Module_PivotChart_Win.ico")]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandPivotChartWinModule : XpandPivotChartModuleBase {
         public XpandPivotChartWinModule() {
             RequiredModuleTypes.Add(typeof(XpandPivotChartModule));

@@ -12,7 +12,7 @@ using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
 namespace Xpand.ExpressApp.Workflow {
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     [ToolboxBitmap(typeof(WorkflowModule), "Resources.Toolbox_Module_Workflow.ico")]
     public sealed class XpandWorkFlowModule : XpandModuleBase {
         public XpandWorkFlowModule() {

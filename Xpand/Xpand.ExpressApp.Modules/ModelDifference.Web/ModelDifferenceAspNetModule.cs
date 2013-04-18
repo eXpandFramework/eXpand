@@ -8,7 +8,7 @@ using Xpand.ExpressApp.Web;
 namespace Xpand.ExpressApp.ModelDifference.Web {
     [ToolboxBitmap(typeof(ModelDifferenceAspNetModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule {
         private bool? persistentApplicationModelUpdated;
 

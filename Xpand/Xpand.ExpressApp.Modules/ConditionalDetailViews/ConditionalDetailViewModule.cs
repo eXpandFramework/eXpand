@@ -12,7 +12,7 @@ using Xpand.ExpressApp.Logic.Model;
 namespace Xpand.ExpressApp.ConditionalDetailViews {
     [ToolboxBitmap(typeof(ConditionalDetailViewModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ConditionalDetailViewModule : LogicModuleBase<IConditionalDetailViewRule, ConditionalDetailViewRule> {
         public ConditionalDetailViewModule() {
             RequiredModuleTypes.Add(typeof(LogicModule));

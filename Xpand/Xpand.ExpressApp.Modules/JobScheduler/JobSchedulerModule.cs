@@ -16,7 +16,7 @@ using Xpand.ExpressApp.Validation;
 namespace Xpand.ExpressApp.JobScheduler {
     [ToolboxBitmap(typeof(JobSchedulerModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class JobSchedulerModule : XpandModuleBase {
 
         public JobSchedulerModule() {

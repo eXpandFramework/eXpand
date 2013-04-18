@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         ), EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(TreeListEditorsWindowsFormsModule), "Resources.Toolbox_Module_TreeListEditors_Win.ico")]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter {
         public XpandTreeListEditorsWinModule() {
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));

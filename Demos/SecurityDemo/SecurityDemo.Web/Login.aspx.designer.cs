@@ -11,7 +11,7 @@
 
 
 public partial class LoginPage {
-
+    
     /// <summary>
     /// Head1 control.
     /// </summary>
@@ -20,7 +20,7 @@ public partial class LoginPage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlHead Head1;
-
+    
     /// <summary>
     /// form1 control.
     /// </summary>
@@ -29,7 +29,7 @@ public partial class LoginPage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-
+    
     /// <summary>
     /// ProgressControl control.
     /// </summary>
@@ -38,7 +38,7 @@ public partial class LoginPage {
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::DevExpress.ExpressApp.Web.Controls.ASPxProgressControl ProgressControl;
-
+    
     /// <summary>
     /// Content control.
     /// </summary>

@@ -3,12 +3,11 @@ using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.Utils;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.Win {
     [ToolboxBitmap(typeof(WorldCreatorWinModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class WorldCreatorWinModule : WorldCreatorModuleBase {
         public WorldCreatorWinModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));

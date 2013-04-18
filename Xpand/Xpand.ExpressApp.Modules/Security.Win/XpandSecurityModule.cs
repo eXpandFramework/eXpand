@@ -9,7 +9,7 @@ using Xpand.ExpressApp.Security.Win.Permissions;
 namespace Xpand.ExpressApp.Security.Win {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandSecurityWinModule : XpandModuleBase {
         public XpandSecurityWinModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));

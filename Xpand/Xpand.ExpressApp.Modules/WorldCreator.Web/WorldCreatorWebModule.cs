@@ -8,7 +8,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.WorldCreator.Web {
     [ToolboxBitmap(typeof(WorldCreatorWebModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class WorldCreatorWebModule : WorldCreatorModuleBase {
         public WorldCreatorWebModule() {
             RequiredModuleTypes.Add(typeof(FileAttachmentsAspNetModule));

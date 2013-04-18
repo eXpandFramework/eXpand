@@ -5,6 +5,5 @@ namespace SecurityDemo.Win {
         public SecurityDemoWindowsFormsApplication() {
             InitializeComponent();
         }
-
     }
 }

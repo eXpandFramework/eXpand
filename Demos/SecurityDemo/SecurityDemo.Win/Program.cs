@@ -23,6 +23,8 @@ using System.Runtime.Remoting;
 using System.ServiceModel;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Security.Strategy;
 
 namespace SecurityDemo.Win {
     static class Program {
@@ -39,21 +41,27 @@ namespace SecurityDemo.Win {
             application.CreateCustomLogonWindowControllers += new EventHandler<CreateCustomLogonWindowControllersEventArgs>(application_CreateCustomLogonWindowControllers);
 
             try {
-                application.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                    application.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                }
+                SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
+                application.Security = security;
 
-                //The functionality is build in the XpandObjectSpaceProvider. To enable or disable use Model/Options/ClientSideSecurity. You can continue using the designer if you want.
-
-
-
-                //                SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecurityDemoUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
-                //                application.Security = security;
+                //                This functionality is build in the XpandObjectSpaceProvider. To enable or disable use Model/Options/ClientSideSecurity. You can continue using the designer if you want.
 
                 //                application.CreateCustomObjectSpaceProvider += delegate(object sender, CreateCustomObjectSpaceProviderEventArgs e) {
                 //                    e.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e.ConnectionString, e.Connection);
                 //                };
                 application.DatabaseVersionMismatch += delegate(object sender, DatabaseVersionMismatchEventArgs e) {
-                    e.Updater.Update();
-                    e.Handled = true;
+                    try {
+                        e.Updater.Update();
+                        e.Handled = true;
+                    } catch (CompatibilityException exception) {
+                        if (exception.Error is CompatibilityUnableToOpenDatabaseError) {
+                            throw new UserFriendlyException(
+                            "The connection to the database failed. This demo requires the local instance of Microsoft SQL Server Express. To use another database server,\r\nopen the demo solution in Visual Studio and modify connection string in the \"app.config\" file.");
+                        }
+                    }
                 };
 
                 application.Setup();

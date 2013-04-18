@@ -7,7 +7,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.IO.Web {
     [ToolboxBitmap(typeof(IOAspNetModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class IOAspNetModule : XpandModuleBase {
         public IOAspNetModule() {
             RequiredModuleTypes.Add(typeof(IOModule));

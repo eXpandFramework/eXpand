@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.StateMachine {
 
     [ToolboxBitmap(typeof(XpandStateMachineModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandStateMachineModule : XpandModuleBase {
         public XpandStateMachineModule() {
             RequiredModuleTypes.Add(typeof(StateMachineModule));

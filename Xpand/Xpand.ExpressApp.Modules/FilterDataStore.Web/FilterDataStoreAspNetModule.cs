@@ -9,7 +9,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.FilterDataStore.Web {
     [ToolboxBitmap(typeof(FilterDataStoreAspNetModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
         bool _proxyEventsSubscribed;
         static FilterDataStoreAspNetModule() {

@@ -7,7 +7,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.ExceptionHandling.Web {
     [ToolboxBitmap(typeof(ExceptionHandlingWebModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class ExceptionHandlingWebModule : ExceptionHandlingModule {
 
         public override void Setup(XafApplication application) {

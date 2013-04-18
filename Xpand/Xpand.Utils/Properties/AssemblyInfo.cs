@@ -42,6 +42,8 @@ using Xpand;
 public class XpandAssemblyInfo {
     public const string Version = "12.2.8.6";
     public const string FileVersion = Version;
-    public const string TabModules = "eXpand: Modules";
+    public const string TabAspNetModules = "eXpand: Web Modules";
+    public const string TabWinModules = "eXpand: Win Modules";
+    public const string TabWinWebModules = "eXpand: Win-Web Modules";
     public const string TabSecurity = "eXpand: Security";
 }

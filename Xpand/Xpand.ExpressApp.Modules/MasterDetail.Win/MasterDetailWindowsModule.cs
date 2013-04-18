@@ -5,7 +5,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.MasterDetail.Win {
     [ToolboxBitmap(typeof(MasterDetailWindowsModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class MasterDetailWindowsModule : XpandModuleBase {
         public MasterDetailWindowsModule() {
             RequiredModuleTypes.Add(typeof(MasterDetailModule));

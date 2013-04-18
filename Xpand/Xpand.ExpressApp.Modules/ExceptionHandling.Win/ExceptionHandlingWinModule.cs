@@ -8,7 +8,7 @@ using DevExpress.Utils;
 namespace Xpand.ExpressApp.ExceptionHandling.Win {
     [ToolboxBitmap(typeof(ExceptionHandlingWinModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class ExceptionHandlingWinModule : ExceptionHandlingModule {
         public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
 

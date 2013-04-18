@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win {
      EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(MemberLevelSecurityModuleWin))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class MemberLevelSecurityModuleWin : MemberLevelSecurityModuleBase {
         public MemberLevelSecurityModuleWin() {
             RequiredModuleTypes.Add(typeof(MemberLevelSecurityModule));
