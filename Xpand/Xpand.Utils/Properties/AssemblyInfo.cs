@@ -40,7 +40,7 @@ using Xpand;
 [assembly: AllowPartiallyTrustedCallers]
 
 public class XpandAssemblyInfo {
-    public const string Version = "12.2.8.8";
+    public const string Version = "12.2.8.9";
     public const string FileVersion = Version;
     public const string TabAspNetModules = "eXpand: Web Modules";
     public const string TabWinModules = "eXpand: Win Modules";
