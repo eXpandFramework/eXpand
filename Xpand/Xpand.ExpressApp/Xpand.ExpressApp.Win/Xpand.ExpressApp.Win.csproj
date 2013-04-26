@@ -365,6 +365,9 @@
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\RibbonFromModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\EMailHighlightingController.cs">
       <SubType>Component</SubType>
     </Compile>
