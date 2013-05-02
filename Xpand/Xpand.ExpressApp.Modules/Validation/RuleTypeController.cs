@@ -24,7 +24,14 @@ namespace Xpand.ExpressApp.Validation {
             Validator.RuleSet.ValidationCompleted += RuleSetOnValidationCompleted;
             if (HasNonCriticalRulesForControlValueChangedContext()) {
                 ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+                ObjectSpace.Disposed += ObjectSpaceOnDisposed;
             }
+        }
+
+        void ObjectSpaceOnDisposed(object sender, EventArgs eventArgs) {
+            var objectSpace = ((IObjectSpace)sender);
+            objectSpace.Disposed -= ObjectSpaceOnDisposed;
+            objectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
