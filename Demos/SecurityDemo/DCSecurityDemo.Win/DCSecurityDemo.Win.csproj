@@ -38,20 +38,20 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Demos.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Demos.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Images.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Workflow.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Workflow.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -84,13 +84,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v12.2.Core, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v12.2.Core, Version=12.2.8.0, Culture=neutral" />
+    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.Workflow.Activities.v12.2, Version=12.2.8.0, Culture=neutral" />
     <Reference Include="DevExpress.Xpo.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -99,20 +99,20 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-    <Reference Include="DevExpress.XtraCharts.v12.2.UI, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v12.2.Wizard, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.XtraCharts.v12.2, Version=12.2.8.0, Culture=neutral" />
+    <Reference Include="DevExpress.XtraCharts.v12.2.UI, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v12.2.Wizard, Version=12.2.8.0, Culture=neutral" />
     <Reference Include="DevExpress.XtraEditors.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraLayout.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPivotGrid.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-    <Reference Include="DevExpress.XtraTreeList.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraWizard.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.XtraGrid.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v12.2, Version=12.2.8.0, Culture=neutral" />
+    <Reference Include="DevExpress.XtraTreeList.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraWizard.v12.2, Version=12.2.8.0, Culture=neutral" />
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -133,135 +133,135 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Xpand.ExpressApp, Version=12.2.8.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=12.2.8.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalActionState, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalActionState, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.IO, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.IO, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.IO.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Logic, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.MasterDetail, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.MasterDetail.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Security, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.StateMachine, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.StateMachine, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Validation, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Validation.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=12.2.8.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Win, Version=12.2.8.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WizardUI.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WizardUI.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Workflow, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=12.2.8.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base, Version=12.2.8.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.8.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.8.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.Xpo, Version=12.2.8.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Xpo, Version=12.2.8.7, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
