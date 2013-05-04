@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
 
@@ -73,6 +74,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxItemFilter("Xaf.Platform.Win")]
     [Description("Contains an RibbonDetailView Template with an Wizard Control on it.")]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class WizardUIWindowsFormsModule : XpandModuleBase {
         public WizardUIWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));

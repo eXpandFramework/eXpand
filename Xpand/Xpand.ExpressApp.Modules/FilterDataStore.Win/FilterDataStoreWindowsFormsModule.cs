@@ -5,12 +5,14 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.Utils;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Win.Providers;
 
 namespace Xpand.ExpressApp.FilterDataStore.Win {
     [ToolboxBitmap(typeof(FilterDataStoreWindowsFormsModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
         public FilterDataStoreWindowsFormsModule() {
             _tablesDictionary = new Dictionary<string, Type>();

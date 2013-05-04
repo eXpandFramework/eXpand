@@ -19,12 +19,21 @@ namespace Xpand.ExpressApp.Validation {
     public class RuleTypeController : ViewController<ObjectView>, IModelExtender {
         public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>> Dictionary = new Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>>();
+        protected List<Dictionary<ColumnWrapper, RuleType>> Columns = new List<Dictionary<ColumnWrapper, RuleType>>();
+
         protected override void OnActivated() {
             base.OnActivated();
             Validator.RuleSet.ValidationCompleted += RuleSetOnValidationCompleted;
             if (HasNonCriticalRulesForControlValueChangedContext()) {
                 ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+                ObjectSpace.Disposed += ObjectSpaceOnDisposed;
             }
+        }
+
+        void ObjectSpaceOnDisposed(object sender, EventArgs eventArgs) {
+            var objectSpace = ((IObjectSpace)sender);
+            objectSpace.Disposed -= ObjectSpaceOnDisposed;
+            objectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
@@ -52,13 +61,13 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
+            Columns = new List<Dictionary<ColumnWrapper, RuleType>>();
             if (View == null || View.IsDisposed)
                 return;
             if (!validationCompletedEventArgs.Successful) {
                 var items = new Dictionary<RuleType, List<RuleSetValidationResultItem>>();
-                var dictionary = CaptionHelper.GetLocalizedItems("Enums/" + typeof(RuleType).FullName);
-                foreach (var pair in dictionary) {
-                    var ruleType = (RuleType)Enum.Parse(typeof(RuleType), pair.Key);
+                var ruleTypes = CaptionHelper.GetLocalizedItems("Enums/" + typeof(RuleType).FullName).Select(pair => (RuleType)Enum.Parse(typeof(RuleType), pair.Key)).OrderByDescending(type => type);
+                foreach (var ruleType in ruleTypes) {
                     var resultsPerType = GetResultsPerType(validationCompletedEventArgs, ruleType);
                     items.Add(ruleType, resultsPerType);
                     Collect(resultsPerType, ruleType);
@@ -75,6 +84,22 @@ namespace Xpand.ExpressApp.Validation {
             Dictionary[ruleType] = resultItems;
             if (View is DetailView)
                 CollectPropertyEditors(resultItems, ruleType);
+            var listView = View as ListView;
+            if (listView != null && listView.AllowEdit && ListEditor != null) {
+                CollectColumns(resultItems, ruleType);
+            }
+        }
+        public ColumnsListEditor ListEditor {
+            get { return View is ListView ? ((ListView)View).Editor as ColumnsListEditor : null; }
+        }
+
+        void CollectColumns(IEnumerable<RuleSetValidationResultItem> resultItems, RuleType ruleType) {
+            Dictionary<ColumnWrapper, RuleType> ruleTypes = resultItems.SelectMany(GetColumns).Distinct().ToDictionary(wrapper => wrapper, wrapper => ruleType);
+            Columns.Add(ruleTypes);
+        }
+
+        IEnumerable<ColumnWrapper> GetColumns(RuleSetValidationResultItem resultItem) {
+            return ListEditor.Columns.Where(wrapper => resultItem.Rule.UsedProperties.Contains(wrapper.PropertyName));
         }
 
         List<RuleSetValidationResultItem> GetResultsPerType(ValidationCompletedEventArgs validationCompletedEventArgs, RuleType ruleType) {
@@ -82,8 +107,10 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         protected virtual Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {
-            return result.SelectMany(GetPropertyEditors).Distinct().ToDictionary(propertyEditor => propertyEditor, propertyEditor => ruleType);
+            var propertyEditors = result.SelectMany(GetPropertyEditors).Distinct();
+            return propertyEditors.ToDictionary(propertyEditor => propertyEditor, propertyEditor => ruleType);
         }
+
 
         IEnumerable<PropertyEditor> GetPropertyEditors(RuleSetValidationResultItem resultItem) {
             return View.GetItems<PropertyEditor>().Where(editor => resultItem.Rule.UsedProperties.Contains(editor.MemberInfo.Name) && editor.Control != null);

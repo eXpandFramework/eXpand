@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -21,13 +22,13 @@ using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
+using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
 
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(XafApplication), "Resources.SystemModule.ico")]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
@@ -76,10 +77,6 @@ namespace Xpand.ExpressApp.SystemModule {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType { get; set; }
 
-        public override void CustomizeLogics(CustomLogics customLogics) {
-            base.CustomizeLogics(customLogics);
-            customLogics.RegisterLogic(typeof(IModelClassBehavior), typeof(ModelClassBehaviorLogic));
-        }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (ModelApplicationCreator == null) {
@@ -103,6 +100,10 @@ namespace Xpand.ExpressApp.SystemModule {
                     memberInfo.AddAttribute(new BrowsableAttribute(false));
                 }
             }
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
+            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
         }
 
         void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
@@ -139,7 +140,6 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new ViewNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
@@ -158,7 +158,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
-            extenders.Add<IModelClass, IModelClassBehavior>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {

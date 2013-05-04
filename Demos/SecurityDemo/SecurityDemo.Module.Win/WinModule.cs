@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Updating;
 using FeatureCenter.Module.Win;
 
 namespace SecurityDemo.Module.Win
@@ -12,14 +10,6 @@ namespace SecurityDemo.Module.Win
     [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed partial class SecurityDemoWindowsFormsModule : ModuleBase
     {
-        protected override ModuleTypeList GetRequiredModuleTypesCore() {
-            ModuleTypeList result =base.GetRequiredModuleTypesCore();
-            result.Add(typeof(DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase));
-            result.Add(typeof(DevExpress.ExpressApp.TreeListEditors.Win.TreeListEditorsWindowsFormsModule));
-            result.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
-            result.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
-            return result;
-        }
         public SecurityDemoWindowsFormsModule()
         {
             InitializeComponent();
@@ -29,6 +19,9 @@ namespace SecurityDemo.Module.Win
             result.Add(typeof(FeatureCenterMainFormTemplateLocalizer));
             result.Add(typeof(FeatureCenterPopupFormTemplateLocalizer));
             return result;
+        }
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
+            return ModuleUpdater.EmptyModuleUpdaters;
         }
     }
 }

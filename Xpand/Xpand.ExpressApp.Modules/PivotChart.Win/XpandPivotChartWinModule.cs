@@ -5,13 +5,15 @@ using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Win;
+using DevExpress.Utils;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Win.Options;
 using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Win.Core.AnalysisPropertyEditorNodeUpdater;
 
 namespace Xpand.ExpressApp.PivotChart.Win {
-    [ToolboxBitmap(typeof(XpandPivotChartWinModule))]
+    [ToolboxBitmap(typeof(PivotChartWindowsFormsModule), "Resources.Toolbox_Module_PivotChart_Win.ico")]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandPivotChartWinModule : XpandPivotChartModuleBase {
         public XpandPivotChartWinModule() {
             RequiredModuleTypes.Add(typeof(XpandPivotChartModule));

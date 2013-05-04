@@ -31,7 +31,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { SetPropertyValue("Path", ref _path, value); }
         }
         public override AttributeInfoAttribute Create() {
-            var constructorInfo = typeof(XpandNavigationItemAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+            var constructorInfo = typeof(XpandNavigationItemAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string), typeof(int) });
             return new AttributeInfoAttribute(constructorInfo, new object[] { Path, ViewId, ObjectKey });
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.ViewVariantsModule;
@@ -8,9 +7,10 @@ using EditorBrowsableState = System.ComponentModel.EditorBrowsableState;
 namespace Xpand.ExpressApp.ViewVariants {
     [Description(
         "Includes Property Editors and Controllers to DevExpress.ExpressApp.ViewVariants Module. Enables View Cloning"),
-     ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(XpandViewVariantsModule))]
+     EditorBrowsable(EditorBrowsableState.Always)]
+    [ToolboxBitmap(typeof(ViewVariantsModule), "Resources.Toolbox_Module_ViewVariants.ico")]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandViewVariantsModule : XpandModuleBase {
         public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule() {

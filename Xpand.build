@@ -108,6 +108,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;
+			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
@@ -116,13 +117,7 @@
 			.\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.Module\SecurityDemo.Module.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.UiLevel.Win\SecurityDemo.UiLevel.Win.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.UiLevel.Web\SecurityDemo.UiLevel.Web.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.Win\SecurityDemo.Win.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.Web\SecurityDemo.Web.csproj;
+			.\Demos\SecurityDemo\SecurityDemo.sln;
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
 			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;
 			.\Demos\E4035-Middle Tier\E4035.sln;

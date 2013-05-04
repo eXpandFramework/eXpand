@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Web.Controllers {
 
         protected override void RefreshAppearance() {
             base.RefreshAppearance();
-            if (View != null) {
+            if (View != null && Frame.GetController<AppearanceController>() != null) {
                 XpandLayoutManager layoutManager = View.LayoutManager as XpandLayoutManager;
                 if (layoutManager != null)
                     layoutManager.UpdateItemsVisibility();

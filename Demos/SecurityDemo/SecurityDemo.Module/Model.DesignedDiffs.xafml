@@ -75,21 +75,5 @@
 				</LayoutGroup>
 			</Layout>
 		</DetailView>
-    <DetailView Id="SecurityDemoUser_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="15">
-            <LayoutGroup Id="SecurityUserBase" RelativeSize="100">
-              <LayoutItem Id="UserName" Index="0" RelativeSize="39" />
-              <LayoutItem Id="IsActive" Index="1" RelativeSize="26" />
-              <LayoutItem Id="ChangePasswordOnFirstLogon" Index="2" RelativeSize="34" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutGroup Id="Roles_Group" TextAlignMode="AlignLocal" Direction="Vertical" Index="1" RelativeSize="84">
-            <LayoutItem Id="Roles" RelativeSize="92" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
   </Views>
 </Application>

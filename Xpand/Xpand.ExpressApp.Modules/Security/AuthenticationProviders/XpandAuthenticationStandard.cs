@@ -3,8 +3,10 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
+    [ToolboxTabName(XpandAssemblyInfo.TabSecurity)]
     public class XpandAuthenticationStandard : AuthenticationStandard {
         public XpandAuthenticationStandard() {
         }

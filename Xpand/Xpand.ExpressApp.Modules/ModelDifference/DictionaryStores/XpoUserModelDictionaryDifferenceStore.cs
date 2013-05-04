@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -96,9 +97,15 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         private IEnumerable<string> GetNames() {
-            return ((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()
-                       ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference)
-                       : ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
+            object user = SecuritySystem.CurrentUser as IUser;
+            if (user != null) {
+                return ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
+            }
+            user = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
+            if (user != null) {
+                return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference);
+            }
+            throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);
         }
 
         public void Load() {

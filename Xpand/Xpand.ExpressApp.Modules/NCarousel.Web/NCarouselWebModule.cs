@@ -1,7 +1,7 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Utils;
 using Alignment = Xpand.NCarousel.Alignment;
 
 namespace Xpand.ExpressApp.NCarousel.Web {
@@ -23,6 +23,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
     }
     [ToolboxBitmap(typeof(NCarouselWebModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class NCarouselWebModule : XpandModuleBase {
 
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel; 
+using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Core {
         [Category("Behavior"), DefaultValue(true)]
         public Boolean AllowNew { get; set; }
 
-        [Category("Behavior"), DefaultValue(true)]
+        [Category("Behavior")]
         public Boolean AllowEdit { get; set; }
 
         [Category("Behavior"), DefaultValue(true)]
@@ -36,13 +36,13 @@ namespace Xpand.ExpressApp.Core {
     public interface IModelClassBehavior {
         [Category("Behavior"), DefaultValue(true)]
         Boolean AllowNew { get; set; }
-        
-        [Category("Behavior"), DefaultValue(true)]
+
+        [Category("Behavior")]
         Boolean AllowEdit { get; set; }
 
         [Category("Behavior"), DefaultValue(true)]
         Boolean AllowDelete { get; set; }
-
+        [Browsable(false)]
         IModelClassBehavior GetBehaviorInfo { get; }
     }
 

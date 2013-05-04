@@ -1,7 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Options ApplicationMultiInstances="True" />
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="11.2.1.0" IsNewNode="True" />
     <SchemaModule Name="SystemWindowsFormsModule" Version="11.2.1.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="SecuritySystemRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs1">
+            <LayoutGroup Id="Users">
+              <LayoutItem Id="Users" Index="0" ViewItem="Users" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissionMatrix" Index="1" Caption="Data Access Permissions" IsNewNode="True">
+              <LayoutItem Id="TypePermissionMatrix" ViewItem="TypePermissionMatrix" Index="0" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChildRoles" Index="2">
+              <LayoutItem Id="ChildRoles" Index="0" ViewItem="ChildRoles" />
+            </LayoutGroup>
+            <LayoutGroup Id="ParentRoles" Index="3">
+              <LayoutItem Id="ParentRoles" Index="0" ViewItem="ParentRoles" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" Removed="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>
