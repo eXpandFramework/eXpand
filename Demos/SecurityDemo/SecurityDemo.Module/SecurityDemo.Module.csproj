@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+﻿<?xml version="1.0" encoding="utf-8"?><Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -34,58 +34,58 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Xpand.ExpressApp, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Logic, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Security, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.StateMachine, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.StateMachine, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Workflow, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base, Version=12.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.1.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>

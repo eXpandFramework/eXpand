@@ -49,69 +49,69 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Xpand.ExpressApp, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.IO.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.NCarousel.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.NCarousel.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.NCarousel.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Thumbnail.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Thumbnail.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Thumbnail.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Validation.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Web, Version=12.1.2.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Web, Version=12.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
     </Reference>
