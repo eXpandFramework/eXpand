@@ -86,9 +86,12 @@
 			.\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;" />
+		<ProjectFiles Include="
 			.\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj;" 
+			 Condition="$(SkipDashboard)!='true'"/>
+		<ProjectFiles Include="
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;
@@ -108,20 +111,23 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;
-			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;
+			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;"/>
+		<ProjectFiles Include="
 			.\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj;
-			.\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;
+			.\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;"  Condition="$(SkipDashboard)!='true'"/>
+		<ProjectFiles Include="
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
-			.\Demos\SecurityDemo\SecurityDemo.sln;
+			.\Demos\SecurityDemo\SecurityDemo.sln;"/>
+		<ProjectFiles Include="	
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
 			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;
-			.\Demos\E4035-Middle Tier\E4035.sln;
-			
+			.\Demos\E4035-Middle Tier\E4035.sln;" Condition="$(SkipDashboard)!='true'"/>			
+		<ProjectFiles Include="	
 			.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;
 			.\Demos\Modules\Chart\ChartTester.sln;
 			.\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln;
@@ -133,8 +139,9 @@
 			.\Demos\Modules\MasterDetail\MasterDetailTester.sln;
 			.\Demos\Modules\ModelArtifactState\ModelArtifactStateTester.sln;
 			.\Demos\Modules\ModelDifference\ModelDifferenceTester.sln;
-			.\Demos\Modules\NCarousel\NCarouselTester.sln;
-			.\Demos\Modules\Dashboard\DashboardTester.sln;
+			.\Demos\Modules\NCarousel\NCarouselTester.sln; "/>
+		<ProjectFiles Include=".\Demos\Modules\Dashboard\DashboardTester.sln" Condition="$(SkipDashboard)!='true'"/>
+		<ProjectFiles Include="
 			.\Demos\Modules\PivotChart\PivotChartTester.sln;
 			.\Demos\Modules\Reports\ReportsTester.sln;
 			.\Demos\Modules\Scheduler\SchedulerTester.sln;
@@ -416,7 +423,7 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorkFlowWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" Condition="$(SkipDashboard)!='true'"/>
 	</Target>
 	
 	<Target Name="NuGet" DependsOnTargets="NuGetPackage">
@@ -456,7 +463,7 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorkFlowWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWin.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboardWin.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboardWin.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true'"/>
 	</Target>
 
 </Project>
