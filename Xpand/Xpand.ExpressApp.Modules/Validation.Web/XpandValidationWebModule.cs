@@ -1,10 +1,12 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.Validation.Web {
-    [ToolboxBitmap(typeof(XpandValidationWebModule))]
     [ToolboxItem(true)]
+    [ToolboxBitmap(typeof(ValidationModule), "Resources.BO_Validation.ico")]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class XpandValidationWebModule : XpandModuleBase {
         public XpandValidationWebModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));

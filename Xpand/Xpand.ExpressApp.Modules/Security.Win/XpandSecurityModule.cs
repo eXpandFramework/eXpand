@@ -1,12 +1,15 @@
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.Security;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.Security.Win.Permissions;
 
 namespace Xpand.ExpressApp.Security.Win {
-    [ToolboxBitmap(typeof(XpandSecurityWinModule))]
+    [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandSecurityWinModule : XpandModuleBase {
         public XpandSecurityWinModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));

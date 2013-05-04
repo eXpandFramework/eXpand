@@ -58,74 +58,74 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Security.v12.2.dll</HintPath>
+    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Xpo.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Utils.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Utils.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.BonusSkins.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Printing.v12.2.Core">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Printing.v12.2.Core.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Data.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Data.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Images.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Images.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.ExpressApp.Win.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Persistent.Base.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Persistent.BaseImpl.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Xpo.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.Xpo.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.XtraGrid.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.XtraBars.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.XtraBars.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.XtraEditors.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.XtraLayout.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v12.2">
       <Private>True</Private>
-      <HintPath>C:\DXperience 12.2\Bin\Framework\DevExpress.XtraNavBar.v12.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

@@ -1,24 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
-using Xpand.ExpressApp.ModelDifference.Security;
+using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.Xpo.Collections;
+using Xpand.ExpressApp.Security.Core;
 
 namespace FeatureCenter.Module.ApplicationDifferences {
 
     public class Updater : FCUpdater {
         private const string ModelCombine = "ModelCombine";
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
-            : base(objectSpace, currentDBVersion, updater) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
 
@@ -27,8 +25,13 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             var session = ((XPObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
-                var role = Updater.EnsureRoleExists(ModelCombine, customizableRole => GetPermissions(customizableRole, Updater));
-                var user = Updater.EnsureUserExists(ModelCombine, ModelCombine, role);
+                var role = (XpandRole)ObjectSpace.GetRole(ModelCombine);
+                role.CanEditModel = true;
+                var permissionData = ObjectSpace.CreateObject<ModelCombineOperationPermissionData>();
+                permissionData.Difference = ModelCombine;
+                role.Permissions.Add(permissionData);
+
+                var user = ObjectSpace.GetUser(ModelCombine, "", role);
                 var collection = (XPBaseCollection)((XafMemberInfo)XafTypesInfo.Instance.FindTypeInfo(role.GetType()).FindMember("Users")).GetValue(role);
                 collection.BaseAdd(user);
                 ObjectSpace.CommitChanges();
@@ -40,30 +43,6 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             }
             ObjectSpace.CommitChanges();
         }
-        protected List<object> GetPermissions(object customizableRole, Xpand.Persistent.BaseImpl.Updater updater) {
-            var permissions = updater.GetPermissions(customizableRole);
-            if (!updater.IsNewSecuritySystem) {
-                if (((ICustomizableRole)customizableRole).Name == ModelCombine) {
-                    permissions.Add(new EditModelPermission(ModelAccessModifier.Allow));
-                    permissions.Add(new ModelCombinePermission(ApplicationModelCombineModifier.Allow) { Difference = ModelCombine });
-                }
-            } else {
-                GetPermissions(permissions, ((SecurityRole)customizableRole));
-            }
-            return permissions;
-        }
 
-        private void GetPermissions(List<object> permissions, SecurityRole securityRole) {
-            if (securityRole.Name == ModelCombine) {
-                var modelPermission = ObjectSpace.CreateObject<ModelOperationPermissionData>();
-                modelPermission.Save();
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Read);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Write);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Create);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Delete);
-                securityRole.Permissions.GrantRecursive(typeof(object), SecurityOperations.Navigate);
-                permissions.Add(modelPermission);
-            }
-        }
     }
 }

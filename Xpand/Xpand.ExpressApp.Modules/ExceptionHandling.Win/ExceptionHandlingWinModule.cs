@@ -3,10 +3,12 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.ExceptionHandling.Win {
     [ToolboxBitmap(typeof(ExceptionHandlingWinModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class ExceptionHandlingWinModule : ExceptionHandlingModule {
         public event EventHandler<CustomHandleExceptionEventArgs> CustomHandleException;
 

@@ -9,7 +9,8 @@ namespace Xpand.ExpressApp.Validation.Web {
         protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<DevExpress.Persistent.Validation.RuleSetValidationResultItem> result, RuleType ruleType) {
             var dictionary = base.CollectPropertyEditors(result, ruleType);
             foreach (var keyValuePair in dictionary) {
-                if (keyValuePair.Key.Control is TableEx) {
+                var ex = keyValuePair.Key.Control as TableEx;
+                if (ex != null) {
                     EventHandler[] eventHandler = { null };
                     var pair = keyValuePair;
                     eventHandler[0] = (sender, args) => {
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.Validation.Web {
                         tableEx.PreRender -= eventHandler[0];
                         CreateRuleImage(pair, tableEx);
                     };
-                    ((TableEx)keyValuePair.Key.Control).PreRender += eventHandler[0];
+                    ex.PreRender += eventHandler[0];
                 }
             }
 

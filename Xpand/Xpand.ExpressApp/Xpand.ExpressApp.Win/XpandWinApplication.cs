@@ -45,8 +45,9 @@ namespace Xpand.ExpressApp.Win {
         }
 
         protected override void OnSetupComplete() {
-            base.OnSetupComplete();
             this.SetClientSideSecurity();
+            base.OnSetupComplete();
+
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {

@@ -41,7 +41,7 @@ namespace ConsoleApplicationServer {
             Modules.Add(new Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule());
             Modules.Add(new Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule());
             Modules.Add(new ModelDifferenceWindowsFormsModule());
-            Modules.Add(new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule());
+            //            Modules.Add(new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule());
             Modules.Add(new SecuritySystemExampleModule());
         }
 

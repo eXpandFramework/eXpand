@@ -71,6 +71,4 @@ namespace SecurityDemo.Module {
             : base(session) {
         }
     }
-
-
 }

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SecurityDemo" Logo="ExpressAppLogo" PreferredLanguage="(Default language)">
+	<Views>
+    <ListView Id="IObjectLevelSecurityObject_ListView" AllowEdit="True" />
+    <DetailView Id="IMemberLevelSecurityObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IMemberLevelSecurityObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IObjectLevelSecurityObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IObjectLevelSecurityObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IFullAccessObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IIrremovableObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IProtectedContentObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IReadOnlyObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+		<DetailView Id="IUncreatableObject_DetailView">
+			<Layout>
+				<LayoutGroup Id="Main">
+					<LayoutGroup Id="SimpleEditors">
+						<LayoutGroup Id="ISecurityDemoBaseObject" Index="0" />
+						<LayoutGroup Id="IClassLevelBaseObject" Index="1" />
+					</LayoutGroup>
+				</LayoutGroup>
+			</Layout>
+		</DetailView>
+    <DetailView Id="IDCTypePermissions_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" Index="0">
+            <LayoutGroup Id="SecuritySystemTypePermissionsObjectBase_col1" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="TargetType" ViewItem="TargetType" Index="0" RelativeSize="48" IsNewNode="True" />
+              <LayoutGroup Id="Item1" ShowCaption="False" CaptionLocation="Top" TextAlignMode="AlignLocal" Direction="Horizontal" Index="1" RelativeSize="51" IsNewNode="True">
+                <LayoutItem Id="AllowRead" ViewItem="AllowRead" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="AllowWrite" ViewItem="AllowWrite" Index="1" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="AllowCreate" ViewItem="AllowCreate" Index="2" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="AllowDelete" ViewItem="AllowDelete" Index="3" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="AllowNavigate" ViewItem="AllowNavigate" Index="4" RelativeSize="20" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="IDCTypePermissions" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="86">
+            <LayoutGroup Id="MemberPermissions" Caption="Member Permissions" ImageName="BO_Security_Permission_Member">
+              <LayoutItem Id="MemberPermissions"/>
+            </LayoutGroup>
+            <LayoutGroup Id="ObjectPermissions" Caption="Object Permissions" ImageName="BO_Security_Permission_Object">
+              <LayoutItem Id="ObjectPermissions"/>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="IDCMemberPermissions_DetailView">
+      <Items>
+        <PropertyEditor Id="Members" RowCount="0" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="IDCMemberPermissions">
+              <LayoutItem Id="Members" ViewItem="Members" Index="0" IsNewNode="True" />
+              <LayoutItem Id="EffectiveRead" Index="1" />
+              <LayoutItem Id="EffectiveWrite" Index="2" />
+              <LayoutItem Id="InheritedFrom" Index="3" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="IDCObjectPermissions_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutItem Id="Criteria" ViewItem="Criteria" Index="0" IsNewNode="True" />
+            <LayoutGroup Id="AutoCreatedLayoutGroup" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" IsNewNode="True">
+              <LayoutItem Id="EffectiveRead" ViewItem="EffectiveRead" Index="0" RelativeSize="25" IsNewNode="True" />
+              <LayoutItem Id="EffectiveWrite" ViewItem="EffectiveWrite" Index="1" RelativeSize="25" IsNewNode="True" />
+              <LayoutItem Id="EffectiveDelete" ViewItem="EffectiveDelete" Index="2" RelativeSize="25" IsNewNode="True" />
+              <LayoutItem Id="EffectiveNavigate" ViewItem="EffectiveNavigate" Index="3" RelativeSize="25" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutItem Id="InheritedFrom" ViewItem="InheritedFrom" Index="2" IsNewNode="True" />
+            <LayoutGroup Id="IDCObjectPermissions" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

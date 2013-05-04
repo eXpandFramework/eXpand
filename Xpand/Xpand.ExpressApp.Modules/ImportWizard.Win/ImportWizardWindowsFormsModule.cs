@@ -1,11 +1,12 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.ImportWizard.Win {
     [ToolboxBitmap(typeof(ImportWizardWindowsFormsModule))]
     [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class ImportWizardWindowsFormsModule : XpandModuleBase {
         public const string XpandImportWizardWin = "eXpand.ImportWizard.Win";
 

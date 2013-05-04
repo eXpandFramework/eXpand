@@ -42,9 +42,6 @@ namespace Xpand.ExpressApp.Logic {
                     var permissionsLogicRules = CollectRulesFromPermissions(modelLogic, typeInfo, reloadPermissions).ToList();
                     modelLogicRules.AddRange(permissionsLogicRules);
                     LogicRuleManager<TLogicRule>.Instance[typeInfo] = modelLogicRules;
-                    if (typeInfo.Name == "IOrder" && this.GetType().Name.StartsWith("MasterDet")) {
-                        var logicRules = LogicRuleManager<TLogicRule>.Instance[typeInfo];
-                    }
                 }
             }
             OnRulesCollected(EventArgs.Empty);
@@ -66,9 +63,14 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         IEnumerable GetPermissions() {
-            return !((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()
-                       ? (IEnumerable)((IUser)SecuritySystem.CurrentUser).Permissions.ToList()
-                       : ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions();
+            object user = SecuritySystem.CurrentUser as IUser;
+            if (user != null) {
+                return ((IUser)SecuritySystem.CurrentUser).Permissions.ToList();
+            }
+            user = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
+            if (user != null)
+                return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions();
+            throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);
         }
 
         IEnumerable<TLogicRule> CollectRulesFromModel(IModelLogic modelLogic, ITypeInfo info) {

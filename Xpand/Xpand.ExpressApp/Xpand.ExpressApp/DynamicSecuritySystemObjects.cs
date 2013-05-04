@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp {
             var securityComplex = _application.Security as IRoleTypeProvider;
             if (securityComplex != null) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
-                var typeToCreateOn = typeInfo.Type;
+                var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
 
                 xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
                 XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);

@@ -3,6 +3,7 @@
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 
 namespace FeatureCenter.Win {
@@ -96,7 +97,19 @@ namespace FeatureCenter.Win {
             this.xpandStateMachineModule1 = new Xpand.ExpressApp.StateMachine.XpandStateMachineModule();
             this.xpandWorkFlowModule2 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
             this.xpandValidationWinModule1 = new Xpand.ExpressApp.Validation.Win.XpandValidationWinModule();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.worldCreatorDBMapperModule1 = new Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule();
+            this.xpandSecurityWinModule1 = new Xpand.ExpressApp.Security.Win.XpandSecurityWinModule();
+            this.xpandSchedulerWindowsFormsModule1 = new Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule();
+            this.chartModule1 = new DevExpress.ExpressApp.Chart.ChartModule();
+            this.chartWindowsFormsModule1 = new DevExpress.ExpressApp.Chart.Win.ChartWindowsFormsModule();
+            this.xpandChartWinModule1 = new Xpand.ExpressApp.Chart.Win.XpandChartWinModule();
+            this.pivotGridModule1 = new DevExpress.ExpressApp.PivotGrid.PivotGridModule();
+            this.pivotGridWindowsFormsModule1 = new DevExpress.ExpressApp.PivotGrid.Win.PivotGridWindowsFormsModule();
+            this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
+            this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.Dashboard.Win.DashboardWindowsFormsModule();
+            this.xpandPivotGridWinModule1 = new Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule();
+            this.xpandReportsWindowsFormsModule1 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new XpandAuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -107,7 +120,7 @@ namespace FeatureCenter.Win {
             // sqlConnection1
             // 
             this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=FeatureCenter;Integrated Security=SSPI;Poolin" +
-                "g=false";
+    "g=false";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // viewVariantsModule1
@@ -122,11 +135,16 @@ namespace FeatureCenter.Win {
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
-            this.reportsModule1.ReportDataType = typeof(ReportData);
+            this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportData);
             // 
             // stateMachineModule1
             // 
             this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            // 
+            // importWizardWindowsFormsModule1
+            // 
+            this.importWizardWindowsFormsModule1.ResourcesExportedToModel.Add(typeof(Xpand.ExpressApp.ImportWizard.Win.ImportWizResourceLocalizer));
+            this.importWizardWindowsFormsModule1.ResourcesExportedToModel.Add(typeof(Xpand.ExpressApp.ImportWizard.Win.ImportWizFrameTemplateLocalizer));
             // 
             // workflowModule1
             // 
@@ -138,15 +156,15 @@ namespace FeatureCenter.Win {
             this.workflowModule1.WorkflowInstanceKeyType = typeof(DevExpress.Workflow.Xpo.XpoInstanceKey);
             this.workflowModule1.WorkflowInstanceType = typeof(DevExpress.Workflow.Xpo.XpoWorkflowInstance);
             // 
-            // securityComplex1
+            // securityStrategyComplex1
             // 
-            this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
-            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(XpandLogonParameters);
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // FeatureCenterWindowsFormsApplication
             // 
@@ -165,8 +183,8 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.conditionalControllerStateModule1);
             this.Modules.Add(this.conditionalActionStateModule1);
             this.Modules.Add(this.modelArtifactStateModule1);
-            this.Modules.Add(this.modelDifferenceModule1);
             this.Modules.Add(this.xpandSecurityModule1);
+            this.Modules.Add(this.modelDifferenceModule1);
             this.Modules.Add(this.xpandViewVariantsModule1);
             this.Modules.Add(this.worldCreatorModule1);
             this.Modules.Add(this.treeListEditorsModuleBase1);
@@ -188,6 +206,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.workflowModule1);
             this.Modules.Add(this.xpandStateMachineModule1);
             this.Modules.Add(this.xpandWorkFlowModule2);
+            this.Modules.Add(this.worldCreatorDBMapperModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
@@ -216,8 +235,19 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.importWizardWindowsFormsModule1);
             this.Modules.Add(this.workflowWindowsFormsModule1);
             this.Modules.Add(this.xpandValidationWinModule1);
+            this.Modules.Add(this.xpandSecurityWinModule1);
+            this.Modules.Add(this.xpandSchedulerWindowsFormsModule1);
+            this.Modules.Add(this.chartModule1);
+            this.Modules.Add(this.chartWindowsFormsModule1);
+            this.Modules.Add(this.xpandChartWinModule1);
+            this.Modules.Add(this.pivotGridModule1);
+            this.Modules.Add(this.pivotGridWindowsFormsModule1);
+            this.Modules.Add(this.dashboardModule1);
+            this.Modules.Add(this.dashboardWindowsFormsModule1);
+            this.Modules.Add(this.xpandPivotGridWinModule1);
+            this.Modules.Add(this.xpandReportsWindowsFormsModule1);
             this.Modules.Add(this.module4);
-            this.Security = this.securityComplex1;
+            this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
@@ -300,7 +330,19 @@ namespace FeatureCenter.Win {
 
         private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule2;
         private Xpand.ExpressApp.Validation.Win.XpandValidationWinModule xpandValidationWinModule1;
-        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule worldCreatorDBMapperModule1;
+        private Xpand.ExpressApp.Security.Win.XpandSecurityWinModule xpandSecurityWinModule1;
+        private Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule xpandSchedulerWindowsFormsModule1;
+        private DevExpress.ExpressApp.Chart.ChartModule chartModule1;
+        private DevExpress.ExpressApp.Chart.Win.ChartWindowsFormsModule chartWindowsFormsModule1;
+        private Xpand.ExpressApp.Chart.Win.XpandChartWinModule xpandChartWinModule1;
+        private DevExpress.ExpressApp.PivotGrid.PivotGridModule pivotGridModule1;
+        private DevExpress.ExpressApp.PivotGrid.Win.PivotGridWindowsFormsModule pivotGridWindowsFormsModule1;
+        private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
+        private Xpand.ExpressApp.Dashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
+        private Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule xpandPivotGridWinModule1;
+        private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule xpandReportsWindowsFormsModule1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
         private XpandAuthenticationStandard authenticationStandard1;
     }
 }

@@ -7,7 +7,9 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
+using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     public interface IModelOptionsCollectionEditMode : IModelOptions {
@@ -17,11 +19,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     [ToolboxItem(true)]
-    [DevExpress.Utils.ToolboxTabName(XafAssemblyInfo.DXTabXafModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for ASP.NET applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(XpandWebApplication), "Resources.WebSystemModule.ico")]
+    [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
@@ -38,6 +40,10 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
+            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(PropertyEditors.ASPxTimePropertyEditor), false)));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

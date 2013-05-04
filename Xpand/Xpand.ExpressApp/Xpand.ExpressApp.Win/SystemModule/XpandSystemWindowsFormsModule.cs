@@ -15,11 +15,11 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
-    [ToolboxTabName(XafAssemblyInfo.DXTabXafModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for Windows Forms applications.")]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    [ToolboxBitmap(typeof(WinApplication), "Resources.WinSystemModule.ico")]
+    [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
     public sealed class XpandSystemWindowsFormsModule : XpandModuleBase {
         public const string XpandWin = "Xpand.Win";
 

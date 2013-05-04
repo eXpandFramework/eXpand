@@ -11,8 +11,8 @@ using Xpand.Xpo;
 namespace FeatureCenter.Module.ImportExport.UpdateMembers {
     public class Updater : FCUpdater {
 
-        public Updater(IObjectSpace objectSpace, Version currentDBVersion, Xpand.Persistent.BaseImpl.Updater updater)
-            : base(objectSpace, currentDBVersion, updater) {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
 

@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
         }
 
         public override IList<IOperationPermission> GetPermissions() {
-            return new IOperationPermission[] { new ModelCombOperationinePermission(modifier, Difference) };
+            return new IOperationPermission[] { new ModelCombineOperationPermission(modifier, Difference) };
         }
 
         public ApplicationModelCombineModifier Modifier {
