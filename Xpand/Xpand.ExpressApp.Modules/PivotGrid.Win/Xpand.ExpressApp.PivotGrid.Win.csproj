@@ -129,14 +129,6 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard, Version=12.2.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard.Win, Version=12.2.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.Win.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Win, Version=12.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
@@ -176,9 +168,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DashboardInteractionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\PivotGridModelAdapterController.cs">
       <SubType>Component</SubType>

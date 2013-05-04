@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
 using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
-namespace Xpand.ExpressApp.PivotGrid.Win {
+namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
     public interface IModelDashboardViewFilterPivot : IModelDashboardViewFilter {
         [DataSourceProperty("SummaryDataSourceViews")]
         [ModelBrowsable(typeof(DashboardViewFilterVisibilityCalculator))]
