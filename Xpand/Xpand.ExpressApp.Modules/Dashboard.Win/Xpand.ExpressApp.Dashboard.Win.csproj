@@ -65,6 +65,8 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotGrid.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Reports.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -87,6 +89,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v12.2.Core, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -110,6 +113,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System.Drawing" />
     <Reference Include="System">
       <Name>System</Name>
@@ -164,6 +169,10 @@
     <Compile Include="Controllers\DashboardDesignerController.Designer.cs">
       <DependentUpon>DashboardDesignerController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\DashboardInteractionReportsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\DashboardReportViewItem.cs" />
     <Compile Include="Controllers\PivotGridInteractionController.cs">
       <SubType>Component</SubType>
     </Compile>
