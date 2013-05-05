@@ -63,7 +63,6 @@
     </Reference>
     <Reference Include="DevExpress.Data.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=9.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,10 +81,6 @@
     </Reference>
     <Reference Include="DevExpress.DXCore.Parser, Version=10.2.3.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <SpecificVersion>False</SpecificVersion>
@@ -123,6 +118,9 @@
     <Reference Include="DevExpress.CodeRush.VSCore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Xpand\Xpand.Utils\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AssociationBuilder.cs" />
     <Compile Include="AvaliabiltityCalulator.cs" />
     <Compile Include="Enums\ProjectItemProperty.cs" />
@@ -158,7 +156,6 @@
     <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
     <Compile Include="ProjectLoader.cs" />
     <Compile Include="ProjectPathBuilder.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\SolutionExtension.cs" />
     <Compile Include="Enums\SolutionProperty.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
