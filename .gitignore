@@ -33,3 +33,4 @@ objSL
 *.pdb
 TestResults
 pingme.txt
+/Build
