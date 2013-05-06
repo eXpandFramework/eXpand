@@ -142,6 +142,7 @@
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
       <SubType>Component</SubType>
