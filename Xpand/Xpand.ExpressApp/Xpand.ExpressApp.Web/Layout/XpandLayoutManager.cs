@@ -25,6 +25,9 @@ namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager {
         ViewItemsCollection _detailViewItems;
 
+        public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
+
+
         public override object LayoutControls(IModelNode layoutInfo, ViewItemsCollection detailViewItems) {
             var splitLayout = layoutInfo as IModelSplitLayout;
             if (IsMasterDetail(layoutInfo, detailViewItems, splitLayout)) {
@@ -33,24 +36,38 @@ namespace Xpand.ExpressApp.Web.Layout {
                 if (gridView != null) {
                     var detailControl = (Control)detailViewItems[1].Control;
                     SetupViewItems(detailControl, gridView);
-                    return LayoutControls(detailControl, gridView, splitLayout);
+                    ASPxSplitter splitter = LayoutMasterDetail(detailControl, gridView, splitLayout);
+
+                    RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs() {
+                        MasterViewItem = detailViewItems[0],
+                        DetailViewItem = detailViewItems[1],
+                        SplitterControl = splitter
+                    });
+
+                    return splitter;
                 }
                 throw new NotImplementedException(detailViewItems[0].Control.ToString());
             }
             return base.LayoutControls(layoutInfo, detailViewItems);
         }
 
+        private void RaiseMasterDetailLayout(MasterDetailLayoutEventArgs args) {
+            if (MasterDetailLayout != null) {
+                MasterDetailLayout(this, args);
+            }
+        }
+
         bool IsMasterDetail(IModelNode layoutInfo, ViewItemsCollection detailViewItems, IModelSplitLayout splitLayout) {
             return splitLayout != null && detailViewItems.Count > 1 && ((IModelListView)layoutInfo.Parent).MasterDetailMode == MasterDetailMode.ListViewAndDetailView;
         }
 
-        object LayoutControls(Control detailControl, ASPxGridView gridView, IModelSplitLayout splitLayout) {
-            ASPxSplitter splitter = CreateAsPxSplitter(splitLayout, PaneResized(gridView));
+        ASPxSplitter LayoutMasterDetail(Control detailControl, ASPxGridView gridView, IModelSplitLayout splitLayout) {
+            ASPxSplitter splitter = CreateSplitter(splitLayout, PaneResized(gridView));
             var listPane = CreateSplitterListPane(splitter);
             listPane.Controls.Add(gridView);
 
-            var asPxCallbackPanel = CreateSplitterDetailPane(splitter);
-            asPxCallbackPanel.Controls.Add(detailControl);
+            var callbackPanel = CreateSplitterDetailPane(splitter);
+            callbackPanel.Controls.Add(detailControl);
             return splitter;
         }
 
@@ -113,9 +130,9 @@ namespace Xpand.ExpressApp.Web.Layout {
                 control is DevExpress.ExpressApp.Web.Templates.ActionContainers.ActionContainerHolder ||
                 control is DevExpress.ExpressApp.Templates.IActionContainer ||
                 control.Controls.Cast<Control>().Any(c => ContainsActions(c)));
-            
+
         }
-        
+
         private void FindUpdatePanels(Control sourceControl, List<XafUpdatePanel> updatePanels) {
             XafUpdatePanel updatePanel = sourceControl as XafUpdatePanel;
             if (updatePanel != null && updatePanel.UpdateAlways && !updatePanels.Contains(updatePanel) && ContainsActions(updatePanel)) {
@@ -144,7 +161,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                                  gridView.ClientInstanceName);
         }
 
-        ASPxSplitter CreateAsPxSplitter(IModelSplitLayout splitLayout, string paneResize) {
+        ASPxSplitter CreateSplitter(IModelSplitLayout splitLayout, string paneResize) {
             var splitter = new ASPxSplitter {
                 ID = "MasterDetailSplitter",
                 Orientation = (splitLayout.Direction == FlowDirection.Horizontal) ? Orientation.Horizontal : Orientation.Vertical,

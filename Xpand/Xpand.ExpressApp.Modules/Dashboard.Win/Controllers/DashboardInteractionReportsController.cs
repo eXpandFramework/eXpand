@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Reports;
 using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
-namespace Xpand.ExpressApp.Reports.Win.Dashboard {
+namespace Xpand.ExpressApp.Dashboard.Win.Controllers  {
     public interface IModelDashboardViewFilterReport : IModelDashboardViewFilter {
         string ReportDataTypeMember { get; set; }
     }
