@@ -1,9 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.ExpressApp.ListEditors;
 
 namespace Xpand.ExpressApp {
-    public class XpandListView:ListView {
+    public class XpandListView : ListView {
         public XpandListView(CollectionSourceBase collectionSource, XafApplication application, bool isRoot) : base(collectionSource, application, isRoot) {
         }
 
@@ -17,6 +18,12 @@ namespace Xpand.ExpressApp {
         }
 
         public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor) : base(collectionSource, listEditor) {
+        }
+        protected override void OnControlsCreated() {
+            base.OnControlsCreated();
+            IXpandListEditor xpandEditor = Editor as IXpandListEditor;
+            if (xpandEditor != null)
+                xpandEditor.NotifyViewControlsCreated(this);
         }
     }
 }

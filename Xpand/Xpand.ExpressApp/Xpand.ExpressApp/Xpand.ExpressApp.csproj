@@ -133,6 +133,7 @@
     <Compile Include="DynamicSecuritySystemObjects.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
     <Compile Include="ListEditors\EditorTypeVisibilityCalculator.cs" />
+    <Compile Include="ListEditors\IXpandListEditor.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">

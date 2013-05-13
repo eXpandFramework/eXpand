@@ -9,6 +9,8 @@ using DevExpress.Web.ASPxGridView;
 using System.Globalization;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Web.Editors;
+using Xpand.ExpressApp.ListEditors;
+using DevExpress.Web.ASPxSplitter;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
     class MasterDetailProvider {
@@ -55,10 +57,14 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
     }
     [ListEditor(typeof(object))]
-    public class XpandASPxGridListEditor : ASPxGridListEditor {
+    public class XpandASPxGridListEditor : ASPxGridListEditor, IXpandListEditor {
         object _lastFiredFocusedObject;
         readonly MasterDetailProvider _masterDetailProvider = new MasterDetailProvider();
+
+        internal event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
         public event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
+
+
 
         protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
             EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
@@ -142,7 +148,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
-		public override void SetControlSelectedObjects(IList<object> objects) {
+        public override void SetControlSelectedObjects(IList<object> objects) {
             if (!MasterDetail || objects.Count != 1) {
                 base.SetControlSelectedObjects(objects);
             } else {
@@ -151,7 +157,18 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 OnSelectionChanged();
             }
         }
+
+        public void NotifyViewControlsCreated(XpandListView listView) {
+            if (listView == null)
+                throw new ArgumentNullException("listView");
+
+            if (ViewControlsCreated != null)
+                ViewControlsCreated(this, new ViewControlCreatedEventArgs(listView.IsRoot));
+
+        }
+
     }
+
 
     public class ColumnCreatedEventArgs : EventArgs {
         private readonly GridViewDataColumnWithInfo _gridViewDataColumnWithInfo;
@@ -163,5 +180,13 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         public GridViewDataColumnWithInfo GridViewDataColumnWithInfo {
             get { return _gridViewDataColumnWithInfo; }
         }
+    }
+
+    class ViewControlCreatedEventArgs : EventArgs {
+        public ViewControlCreatedEventArgs(bool isRoot) {
+            this.IsRoot = isRoot;
+        }
+
+        internal bool IsRoot { get; private set; }
     }
 }
