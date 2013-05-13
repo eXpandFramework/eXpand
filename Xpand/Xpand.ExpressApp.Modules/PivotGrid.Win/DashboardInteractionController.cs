@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if !SKIPDASHBOARD
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -9,6 +10,7 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
+
 using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
@@ -71,3 +73,4 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         #endregion
     }
 }
+#endif

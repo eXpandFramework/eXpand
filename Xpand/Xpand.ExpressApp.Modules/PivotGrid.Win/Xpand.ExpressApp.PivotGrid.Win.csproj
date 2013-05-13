@@ -41,7 +41,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;$(SKIPDASHBOARD)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -176,9 +176,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DashboardInteractionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DashboardInteractionController.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\PivotGridModelAdapterController.cs">
       <SubType>Component</SubType>
