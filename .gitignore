@@ -1,3 +1,7 @@
+diff --git a/.gitignore b/.gitignore
+-- /dev/null
+++ b/.gitignore
+@@ -0,0 +1,35 @@
 Xpand.DLL
 *.o
 *.lo
@@ -34,3 +38,4 @@ objSL
 TestResults
 pingme.txt
 /Build
+\ No newline at end of file

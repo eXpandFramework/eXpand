@@ -1,20 +1,19 @@
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using DevExpress.CodeRush.Common;
-using Xpand;
 
-[assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "eXpandAddIns", PlugInLoadType.Demand, LoadAbilityType.LoadEnabled)]
+[assembly: DXCoreAssembly(DXCoreAssemblyType.PlugIn, "XpandAddins", PlugInLoadType.StartUp, LoadAbilityType.LoadEnabled)]
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("eXpandAddIns")]
+[assembly: AssemblyTitle("XpandAddins")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(".")]
-[assembly: AssemblyProduct("eXpandAddIns")]
-[assembly: AssemblyCopyright("Copyright © . 2009")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("XpandAddins")]
+[assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -24,7 +23,7 @@ using Xpand;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b6e612db-162a-4821-8b56-7851fc1f2dd2")]
+[assembly: Guid("180ea7f4-0af8-4acf-b190-73e1aca753b6")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,6 +32,5 @@ using Xpand;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion(DevExpress.DXCore.LicenseUtils.AssemblyInfo.Version)]
-[assembly: AssemblyFileVersion(DevExpress.DXCore.LicenseUtils.AssemblyInfo.FileVersion)]
-
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

@@ -12,35 +12,38 @@ using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.DXCore.Controls.Xpo;
-using DevExpress.DXCore.Controls.Xpo.DB;
 using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
+using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using EnvDTE;
+using XpandAddIns;
 using XpandAddIns.Enums;
 using XpandAddIns.Extensions;
-using XpandAddIns.FormatOnSave;
+using AutoCreateOption = DevExpress.Xpo.DB.AutoCreateOption;
 using Configuration = System.Configuration.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
+using ConfigurationProperty = XpandAddIns.Enums.ConfigurationProperty;
 using Process = System.Diagnostics.Process;
 using Project = EnvDTE.Project;
 using Property = EnvDTE.Property;
 
-namespace XpandAddIns {
+namespace XpandAddins {
     public partial class PlugIn1 : StandardPlugIn {
-        RunningDocumentTableEventProvider _docEvents;
+
 
         private void convertProject_Execute(ExecuteEventArgs ea) {
             string path = Options.ReadString(Options.ProjectConverterPath);
             string token = Options.ReadString(Options.Token);
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(token)) {
                 var directoryName = Path.GetDirectoryName(CodeRush.Solution.Active.FileName);
-
+                _actionHint.Text = "Project Converter Started !!!";
+                var position = Cursor.Position;
+                Rectangle rectangle = Screen.FromPoint(position).Bounds;
+                _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
                 var userName = string.Format("/s /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
-                actionHint1.Text = "Project Converter Started !!!";
-                Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-                actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+                
             }
         }
 
@@ -50,7 +53,7 @@ namespace XpandAddIns {
 
         private void exploreXafErrors_Execute(ExecuteEventArgs ea) {
             Project startUpProject = CodeRush.ApplicationObject.Solution.FindStartUpProject();
-            Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(Enums.ConfigurationProperty.OutputPath);
+            Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
             bool isWeb = IsWeb(startUpProject);
             string fullPath = startUpProject.FindProperty(ProjectProperty.FullPath).Value + "";
             string path = Path.Combine(fullPath, outPut.Value.ToString()) + "";
@@ -115,10 +118,11 @@ namespace XpandAddIns {
             string error = null;
             string database = name;
             try {
-                IDataStore provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-                if (provider is MSSqlConnectionProvider) {
+                var provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
+                var sqlConnectionProvider = provider as MSSqlConnectionProvider;
+                if (sqlConnectionProvider != null) {
                     DropSqlServerDatabase(connectionString);
-                    database = ((MSSqlConnectionProvider)provider).Connection.Database;
+                    database = sqlConnectionProvider.Connection.Database;
                 } else {
                     var connectionProvider = provider as AccessConnectionProvider;
                     if (connectionProvider != null) {
@@ -134,9 +138,9 @@ namespace XpandAddIns {
                 Trace.WriteLine(e.ToString());
                 error = database + " Error check log";
             }
-            actionHint1.Text = error ?? database + " DataBase Dropped !!!";
+            _actionHint.Text = error ?? database + " DataBase Dropped !!!";
             Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-            actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+            _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
         }
 
         private static void DropSqlServerDatabase(string connectionString) {
@@ -165,18 +169,24 @@ namespace XpandAddIns {
         }
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
+            var dte = CodeRush.ApplicationObject;
+            var UIHSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+            if (UIHSolutionExplorer == null || UIHSolutionExplorer.UIHierarchyItems.Count == 0)
+                return;
+            var uiHierarchyItem = UIHSolutionExplorer.UIHierarchyItems.Item(1);
+            
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
-            ProjectElement activeProject = CodeRush.Source.ActiveProject;
+            ProjectElement activeProject = CodeRush.Language.LoadProject(CodeRush.Solution.FindEnvDTEProject(uiHierarchyItem.Name));
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
-                var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants);
-                projectLoader.Load(selectedAssemblyReferences.ToList(), constants);
+                var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants).ToList();
+                projectLoader.Load(selectedAssemblyReferences.ToList());
             } else {
-                actionHint1.Text = "Active project not found. Please open a code file";
+                _actionHint.Text = "Active project not found. Please open a code file";
                 Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-                actionHint1.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+                _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
             }
         }
 
@@ -190,7 +200,7 @@ namespace XpandAddIns {
                         Environment.CurrentDirectory = Path.GetDirectoryName(gacUtilPath) + "";
                         string outputPath = dteProject.FindOutputPath();
                         if (File.Exists(outputPath))
-                            Process.Start("gacutil.exe", "/i " + @"""" + outputPath + @""" /f");
+                            Process.Start("gacutil.exe", String.Format(@"/i ""{0}"" /f", outputPath));
                     } else {
                         Log.Send("GagUtl Project Not Found:", dteProject.FileName);
                     }

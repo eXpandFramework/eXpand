@@ -1,10 +1,4 @@
-using System;
-using DevExpress.CodeRush.Core;
-using XpandAddIns.FormatOnSave;
-using DocumentEventArgs = XpandAddIns.FormatOnSave.DocumentEventArgs;
-
-namespace XpandAddIns
-{
+namespace XpandAddins {
     partial class PlugIn1 {
         /// <summary>
         /// Required designer variable.
@@ -16,64 +10,6 @@ namespace XpandAddIns
             /// Required for Windows.Forms Class Composition Designer support
             /// </summary>
             InitializeComponent();
-        }
-        public override void InitializePlugIn() {
-            base.InitializePlugIn();
-            this._docEvents = new RunningDocumentTableEventProvider();
-            this._docEvents.Initialize();
-            this._docEvents.Saving += new EventHandler<DocumentEventArgs>(DocumentSaving);
-        }
-        private void DocumentSaving(object sender, DocumentEventArgs e) {
-            this.FormatDocument(e.Document);
-        }
-        /// <summary>
-        /// Formats a document.
-        /// </summary>
-        /// <param name="doc">The document to format.</param>
-        public void FormatDocument(Document doc) {
-            // If the user disabled the plugin, bail.
-            if (!Options.Storage.ReadBoolean(Options.GetPageName(), Options.FormatOnSave)) {
-                return;
-            }
-
-            // If the document isn't text or an enabled language, bail.
-            TextDocument textDoc = doc as TextDocument;
-            if (textDoc == null || !this.LanguageSelectedForFormatting(textDoc.Language)) {
-                return;
-            }
-
-            // You can only format the active document, so we have to temporarily
-            // activate each document that needs formatting.
-            Document active = CodeRush.Documents.Active;
-            if (textDoc != active) {
-                textDoc.Activate();
-            }
-            CodeRush.Documents.Format();
-            if (textDoc != active) {
-                active.Activate();
-            }
-        }
-        /// <summary>
-        /// Determines whether a document should be formatted based on the provided
-        /// language ID and the user's selected options.
-        /// </summary>
-        /// <param name="language">The language ID for the document in question.</param>
-        /// <returns>
-        /// <see langword="true" /> if the user elected to format documents of the
-        /// given language; <see langword="false" /> if not.
-        /// </returns>
-        public bool LanguageSelectedForFormatting(string language) {
-            if (String.IsNullOrEmpty(language)) {
-                return false;
-            }
-            switch (language) {
-               
-                case DevExpress.DXCore.Constants.Str.Language.CSharp:
-                case DevExpress.DXCore.Constants.Str.Language.VisualBasic:
-                    return true;
-                default:
-                    return false;
-            }
         }
 
         /// <summary>
@@ -94,21 +30,23 @@ namespace XpandAddIns
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlugIn1));
-            this.convertProject = new DevExpress.CodeRush.Core.Action();
-            this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action();
-            this.exploreXafErrors = new DevExpress.CodeRush.Core.Action();
-            this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents();
-            this.dropDataBase = new DevExpress.CodeRush.Core.Action();
-            this.actionHint1 = new DevExpress.CodeRush.PlugInCore.ActionHint();
-            this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action();
+            this.convertProject = new DevExpress.CodeRush.Core.Action(this.components);
+            this.collapseAllItemsInSolutionExplorer = new DevExpress.CodeRush.Core.Action(this.components);
+            this.events = new DevExpress.DXCore.PlugInCore.DXCoreEvents(this.components);
+            this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
+            this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
+            this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
+            this._actionHint = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._actionHint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -133,40 +71,9 @@ namespace XpandAddIns
             this.collapseAllItemsInSolutionExplorer.ToolbarItem.Image = null;
             this.collapseAllItemsInSolutionExplorer.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.collapseAllItemsInSolutionExplorer_Execute);
             // 
-            // exploreXafErrors
-            // 
-            this.exploreXafErrors.ActionName = "exploreXafErrors";
-            this.exploreXafErrors.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.exploreXafErrors.Image = ((System.Drawing.Bitmap)(resources.GetObject("exploreXafErrors.Image")));
-            this.exploreXafErrors.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.exploreXafErrors.ToolbarItem.ButtonIsPressed = false;
-            this.exploreXafErrors.ToolbarItem.Caption = null;
-            this.exploreXafErrors.ToolbarItem.Image = null;
-            this.exploreXafErrors.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.exploreXafErrors_Execute);
-            // 
             // events
             // 
             this.events.ProjectBuildDone += new DevExpress.CodeRush.Core.BuildProjectDoneHandler(this.events_ProjectBuildDone);
-            
-            // 
-            // dropDataBase
-            // 
-            this.dropDataBase.ActionName = "dropDataBase";
-            this.dropDataBase.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
-            this.dropDataBase.Image = ((System.Drawing.Bitmap)(resources.GetObject("dropDataBase.Image")));
-            this.dropDataBase.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
-            this.dropDataBase.ToolbarItem.ButtonIsPressed = false;
-            this.dropDataBase.ToolbarItem.Caption = null;
-            this.dropDataBase.ToolbarItem.Image = null;
-            this.dropDataBase.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.SpAtDesignTime_Execute);
-            // 
-            // actionHint1
-            // 
-            this.actionHint1.Color = System.Drawing.Color.MediumBlue;
-            this.actionHint1.Feature = null;
-            this.actionHint1.OptionsPath = null;
-            this.actionHint1.ResetDisplayCountOnStartup = true;
-            this.actionHint1.Text = "DataBase Dropped !!!";
             // 
             // loadProjectFromReferenceItem
             // 
@@ -180,13 +87,44 @@ namespace XpandAddIns
             this.loadProjectFromReferenceItem.ToolbarItem.Caption = null;
             this.loadProjectFromReferenceItem.ToolbarItem.Image = null;
             this.loadProjectFromReferenceItem.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.loadProjects_Execute);
+            // 
+            // dropDataBase
+            // 
+            this.dropDataBase.ActionName = "dropDataBase";
+            this.dropDataBase.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.dropDataBase.Image = ((System.Drawing.Bitmap)(resources.GetObject("dropDataBase.Image")));
+            this.dropDataBase.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.dropDataBase.ToolbarItem.ButtonIsPressed = false;
+            this.dropDataBase.ToolbarItem.Caption = null;
+            this.dropDataBase.ToolbarItem.Image = null;
+            this.dropDataBase.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.SpAtDesignTime_Execute);
+            // 
+            // exploreXafErrors
+            // 
+            this.exploreXafErrors.ActionName = "exploreXafErrors";
+            this.exploreXafErrors.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.exploreXafErrors.Image = ((System.Drawing.Bitmap)(resources.GetObject("exploreXafErrors.Image")));
+            this.exploreXafErrors.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.exploreXafErrors.ToolbarItem.ButtonIsPressed = false;
+            this.exploreXafErrors.ToolbarItem.Caption = null;
+            this.exploreXafErrors.ToolbarItem.Image = null;
+            this.exploreXafErrors.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.exploreXafErrors_Execute);
+            // 
+            // _actionHint
+            // 
+            this._actionHint.Color = System.Drawing.Color.Blue;
+            this._actionHint.Feature = null;
+            this._actionHint.OptionsPath = null;
+            this._actionHint.ResetDisplayCountOnStartup = false;
+            this._actionHint.Text = null;
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.actionHint1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._actionHint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -195,10 +133,10 @@ namespace XpandAddIns
 
         private DevExpress.CodeRush.Core.Action convertProject;
         private DevExpress.CodeRush.Core.Action collapseAllItemsInSolutionExplorer;
-        private DevExpress.CodeRush.Core.Action exploreXafErrors;
         private DevExpress.DXCore.PlugInCore.DXCoreEvents events;
-        private DevExpress.CodeRush.Core.Action dropDataBase;
-        private DevExpress.CodeRush.PlugInCore.ActionHint actionHint1;
         private DevExpress.CodeRush.Core.Action loadProjectFromReferenceItem;
+        private DevExpress.CodeRush.Core.Action dropDataBase;
+        private DevExpress.CodeRush.Core.Action exploreXafErrors;
+        private DevExpress.CodeRush.PlugInCore.ActionHint _actionHint;
     }
 }

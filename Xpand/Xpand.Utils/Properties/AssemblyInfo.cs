@@ -1,9 +1,6 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Web.Configuration;
-using Xpand;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -40,7 +37,7 @@ using Xpand;
 [assembly: AllowPartiallyTrustedCallers]
 
 public class XpandAssemblyInfo {
-    public const string Version = "12.2.8.10";
+    public const string Version = "12.2.8.12";
     public const string FileVersion = Version;
     public const string TabAspNetModules = "eXpand: Web Modules";
     public const string TabWinModules = "eXpand: Win Modules";

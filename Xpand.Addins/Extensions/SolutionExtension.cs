@@ -8,16 +8,16 @@ namespace XpandAddIns.Extensions {
     public static class SolutionExtension {
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
-            DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Where(project1 => project1.UniqueName==projectName).Single();
+            DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Single(project1 => project1.UniqueName==projectName);
             return CodeRush.Solution.FindEnvDTEProject(single.Name);
         }
 
         public static Project FindProject(this Solution solution, string projectName) {
-            DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Where(project => project.Name == projectName).Single();
+            DevExpress.CodeRush.Core.Project single = CodeRush.Solution.AllProjects.Single(project => project.Name == projectName);
             return CodeRush.Solution.FindEnvDTEProject(single.Name);
         }
         public static Property GetProperty(this Solution solution, SolutionProperty solutionProperty) {
-            return solution.Properties.Cast<Property>().Where(property => property.Name == solutionProperty.ToString()).Single();
+            return solution.Properties.Cast<Property>().Single(property => property.Name == solutionProperty.ToString());
         }
         public static void CollapseAllFolders(this Solution solution) {
             var DTE = CodeRush.ApplicationObject;

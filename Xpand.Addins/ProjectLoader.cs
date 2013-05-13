@@ -37,7 +37,7 @@ namespace XpandAddIns {
         }
 
 
-        public void Load(IList<AssemblyReference> assemblyReferences, string constants) {
+        public void Load(IList<AssemblyReference> assemblyReferences) {
             Log.Send("References Count:"+assemblyReferences.Count());
             var sourceCodeInfos = Options.GetSourceCodeInfos();
             for (int i = 0; i < sourceCodeInfos.Count; i++) {
@@ -47,13 +47,13 @@ namespace XpandAddIns {
             CodeRush.ApplicationObject.Solution.CollapseAllFolders();
         }
 
-        void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1) {
-            var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, i1+"_"+sourceCodeInfo.ProjectRegex);
+        public void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1) {
+            var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex));
             Log.Send("ProjectsCount:"+readStrings.Count());
             for (int i = 0; i < readStrings.Count(); i++) {
                 var strings = readStrings[i].Split('|');
                 var assemblyPath = strings[1].ToLower();
-                var assemblyReference = assemblyReferences.Where(reference => reference.FilePath.ToLower() == assemblyPath).FirstOrDefault();
+                var assemblyReference = assemblyReferences.FirstOrDefault(reference => reference.FilePath.ToLower() == assemblyPath);
                 if (assemblyReference != null) {
                     Log.Send("Path found");
                     if (!IsProjectLoaded(strings[0])) {
