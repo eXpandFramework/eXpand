@@ -9,7 +9,6 @@ namespace Xpand.ExpressApp.Dashboard.Win {
     public sealed class DashboardWindowsFormsModule : XpandModuleBase {
         public DashboardWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(DashboardModule));
-			RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule));
         }
     }
 }
