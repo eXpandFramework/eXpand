@@ -120,13 +120,6 @@
     <Reference Include="DevExpress.Utils.v12.2.UI , Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
-    
-    
-    
-    
-    
-    
     <Reference Include="DevExpress.XtraReports.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

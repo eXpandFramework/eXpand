@@ -31,7 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=12.2.8.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -42,7 +42,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DevExpress\CodeRush 12.2\System\DXCore\BIN\DevExpress.DXCore.Controls.XtraGrid.v6.3.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

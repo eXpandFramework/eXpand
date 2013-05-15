@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
+using Xpand.ExpressApp.Web.ListEditors;
 
 
 
@@ -32,11 +33,20 @@ namespace Xpand.ExpressApp.Web.Layout {
             var splitLayout = layoutInfo as IModelSplitLayout;
             if (IsMasterDetail(layoutInfo, detailViewItems, splitLayout)) {
                 _detailViewItems = detailViewItems;
+
                 var gridView = (Control)detailViewItems[0].Control as ASPxGridView;
                 if (gridView != null) {
                     var detailControl = (Control)detailViewItems[1].Control;
                     SetupViewItems(detailControl, gridView);
                     ASPxSplitter splitter = LayoutMasterDetail(detailControl, gridView, splitLayout);
+                    ListEditorViewItem viewItem = detailViewItems[0] as ListEditorViewItem;
+                   
+                    if (viewItem != null) {
+                        XpandASPxGridListEditor listEditor = viewItem.ListEditor as XpandASPxGridListEditor;
+                        if (listEditor != null) {
+                            listEditor.ViewControlsCreated += (s, e) => SetSplitterInitClientEvent(splitter, e.IsRoot);
+                        }
+                    }
 
                     RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs() {
                         MasterViewItem = detailViewItems[0],
@@ -49,6 +59,12 @@ namespace Xpand.ExpressApp.Web.Layout {
                 throw new NotImplementedException(detailViewItems[0].Control.ToString());
             }
             return base.LayoutControls(layoutInfo, detailViewItems);
+        }
+
+
+        private static void SetSplitterInitClientEvent(ASPxSplitter splitter, bool isRoot) {
+            splitter.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
+                "function (s,e) {{ {0}  s.AdjustControl(); s.GetMainElement().ClientControl = s;}}", isRoot ? "window.MasterDetailSplitter = s;" : string.Empty);
         }
 
         private void RaiseMasterDetailLayout(MasterDetailLayoutEventArgs args) {
@@ -168,7 +184,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 ShowCollapseBackwardButton = true,
                 ShowCollapseForwardButton = true
             };
-            splitter.ClientSideEvents.Init = "function (s,e) { if (XpandHelper.IsRootSplitter(s)) { window.MasterDetailSplitter = s; } s.AdjustControl(); s.GetMainElement().ClientControl = s;}";
+
             splitter.ClientSideEvents.PaneResized = paneResize;
             return splitter;
         }

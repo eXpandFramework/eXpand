@@ -1,4 +1,5 @@
-﻿using DevExpress.Data.Filtering;
+﻿#if !SKIPDASHBOARD
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
@@ -49,3 +50,4 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
         #endregion
     }
 }
+#endif
