@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Dashboard.Controllers;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public partial class WinDashboardNavigationController : DashboardNavigationController {
         NavBarNavigationControl _navBarNavigationControl;
 

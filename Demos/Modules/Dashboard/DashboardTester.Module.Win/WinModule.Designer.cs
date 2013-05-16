@@ -1,4 +1,4 @@
-using Xpand.ExpressApp.Dashboard.Win;
+using Xpand.ExpressApp.XtraDashboard.Win;
 
 namespace DashboardTester.Module.Win {
     partial class DashboardTesterWindowsFormsModule {

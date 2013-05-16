@@ -1,4 +1,4 @@
-namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     partial class WinDashboardNavigationController {
         /// <summary>
         /// Required designer variable.

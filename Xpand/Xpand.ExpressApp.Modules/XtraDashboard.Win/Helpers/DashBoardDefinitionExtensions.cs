@@ -7,7 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Helpers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
     public static class DashBoardDefinitionExtensions {
         static Type DashBoardObjectType(IDashboardDefinition template, DevExpress.DashboardCommon.Dashboard dashboard, ITypeWrapper typeWrapper) {
             var wrapper = template.DashboardTypes.FirstOrDefault(type => type.Caption.Equals(dashboard.DataSources.First(ds => ds.Name.Equals(typeWrapper.Caption)).Name));

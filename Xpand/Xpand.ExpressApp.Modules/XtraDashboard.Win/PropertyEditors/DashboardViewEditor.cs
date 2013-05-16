@@ -5,10 +5,10 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraDashboard;
-using Xpand.ExpressApp.Dashboard.Win.Helpers;
+using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
-namespace Xpand.ExpressApp.Dashboard.Win.PropertyEditors {
+namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
     [PropertyEditor(typeof(String), false)]
     public class DashboardViewEditor : WinPropertyEditor, IComplexPropertyEditor {
         XafApplication _application;

@@ -88,7 +88,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Win\Xpand.ExpressApp.XtraDashboard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;
@@ -416,7 +416,8 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorkFlowWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandWorldCreatorWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandDashboard.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandXtraDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 	</Target>
 	
 	<Target Name="NuGet" DependsOnTargets="NuGetPackage">
@@ -456,7 +457,8 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorkFlowWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWin.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboardWin.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboard.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandXtraDashboardWin.$(Version).nupkg $(NuGetApiKey)"/>
 	</Target>
 
 </Project>

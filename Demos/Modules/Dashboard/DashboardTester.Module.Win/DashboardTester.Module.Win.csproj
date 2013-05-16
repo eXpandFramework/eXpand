@@ -103,9 +103,9 @@
     <Reference Include="Xpand.ExpressApp, Version=12.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard.Win, Version=12.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Win, Version=12.2.8.12, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-	  <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.Win.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

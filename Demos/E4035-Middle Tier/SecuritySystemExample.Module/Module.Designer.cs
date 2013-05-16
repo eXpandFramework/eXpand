@@ -67,7 +67,7 @@ namespace SecuritySystemExample.Module {
             RequiredModuleTypes.Add(typeof(XpandValidationWinModule));
             RequiredModuleTypes.Add(typeof(XpandViewVariantsModule));
             RequiredModuleTypes.Add(typeof(WizardUIWindowsFormsModule));
-            RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Dashboard.Win.DashboardWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
         }

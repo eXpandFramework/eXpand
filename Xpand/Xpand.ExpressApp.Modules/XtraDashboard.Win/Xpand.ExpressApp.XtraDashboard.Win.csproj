@@ -8,8 +8,8 @@
     <ProjectGuid>{3E1BF021-F83E-49C0-9BC0-C1C967DF1269}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.Dashboard.Win</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.Dashboard.Win</AssemblyName>
+    <RootNamespace>Xpand.ExpressApp.XtraDashboard.Win</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.XtraDashboard.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>

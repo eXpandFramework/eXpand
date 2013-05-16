@@ -1,7 +1,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Helpers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
     public interface IXPObjectSpaceAwareControl {
         void UpdateDataSource(IObjectSpace objectSpace);
     }

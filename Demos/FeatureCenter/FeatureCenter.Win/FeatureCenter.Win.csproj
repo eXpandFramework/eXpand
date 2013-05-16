@@ -328,9 +328,6 @@
     <Reference Include="Xpand.ExpressApp.Dashboard, Version=12.2.7.3, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard.Win, Version=12.2.7.3, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
@@ -511,6 +508,10 @@
     <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Win, Version=12.2.8.12, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
