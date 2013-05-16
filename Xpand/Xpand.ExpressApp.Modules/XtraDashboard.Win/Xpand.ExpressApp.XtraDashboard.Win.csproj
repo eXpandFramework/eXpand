@@ -238,22 +238,6 @@
     <EmbeddedResource Include="Images\BO_DashboardDefinition_Import.png" />
     <EmbeddedResource Include="Images\BO_DashboardDefinition_Import_32x32.png" />
     <EmbeddedResource Include="Images\MenuBar_DashboardTemplateEdit.png" />
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.de.xafml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.es.xafml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.ja.xafml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Model.DesignedDiffs.Localization.ru.xafml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="Resources\MenuBar_Close_32x32.png" />
     <None Include="Resources\MenuBar_SaveAndClose_32x32.png" />
     <None Include="Resources\MenuBar_Save_32x32.png" />
