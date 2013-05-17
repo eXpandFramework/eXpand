@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Web {
     public class XpandWebApplication : WebApplication, IXafApplication {
         ApplicationModulesManager _applicationModulesManager;
 
-        protected XpandWebApplication() {
+        public XpandWebApplication() {
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
         }
@@ -85,6 +85,11 @@ namespace Xpand.ExpressApp.Web {
                 base.ConnectionString = value;
                 ((IConnectionString)this).ConnectionString = value;
             }
+        }
+
+        protected override void OnSetupStarted() {
+            base.OnSetupStarted();
+            ConnectionString = base.ConnectionString;
         }
 
         string IConnectionString.ConnectionString { get; set; }
