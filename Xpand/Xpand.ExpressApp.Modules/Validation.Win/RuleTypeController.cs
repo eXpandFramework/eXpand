@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -38,8 +39,13 @@ namespace Xpand.ExpressApp.Validation.Win {
             if (resultItem != null) {
                 errorIcon = ErrorIcon(resultItem, enumDescriptor);
             } else if (Columns.Any()) {
-                var caption = Columns.SelectMany(types => types).Last(pair => e.Column.PropertyName() == pair.Key.PropertyName).Value.ToString();
-                errorIcon = DXErrorProvider.GetErrorIconInternal((ErrorType)enumDescriptor.ParseCaption(caption));
+                var keyValuePairs = Columns.SelectMany(types => types);
+                var propertyName = e.Column.PropertyName();
+                Func<KeyValuePair<ColumnWrapper, RuleType>, bool> predicate = pair => propertyName == pair.Key.PropertyName;
+                if (keyValuePairs.Any(predicate)) {
+                    var caption = keyValuePairs.Last(predicate).Value.ToString();
+                    errorIcon = DXErrorProvider.GetErrorIconInternal((ErrorType)enumDescriptor.ParseCaption(caption));
+                }
             }
             if (errorIcon != null) {
                 info.ErrorIcon = errorIcon;
