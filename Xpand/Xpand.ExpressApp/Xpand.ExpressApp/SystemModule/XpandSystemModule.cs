@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -30,6 +29,13 @@ namespace Xpand.ExpressApp.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
+        public event CancelEventHandler InitSeqGenerator;
+
+        void OnInitSeqGenerator(CancelEventArgs e) {
+            CancelEventHandler handler = InitSeqGenerator;
+            if (handler != null) handler(this, e);
+        }
+
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -114,9 +120,12 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public void InitializeSequenceGenerator() {
-            if (SequenceObjectType == null)
-                return;
+            
             try {
+                var cancelEventArgs = new CancelEventArgs();
+                OnInitSeqGenerator(cancelEventArgs);
+                if (cancelEventArgs.Cancel)
+                    return;
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
