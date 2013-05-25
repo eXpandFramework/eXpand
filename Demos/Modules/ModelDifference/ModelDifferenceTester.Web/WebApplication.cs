@@ -28,6 +28,7 @@ namespace ModelDifferenceTester.Web {
 
         public ModelDifferenceTesterAspNetApplication() {
             InitializeComponent();
+            DatabaseVersionMismatch+=ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
