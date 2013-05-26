@@ -111,9 +111,12 @@ Section -post SEC0001
     WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     
     # add To display an assembly in the Add Reference dialog box http://msdn.microsoft.com/en-us/library/wkze6zky.aspx
-    WriteRegStr HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand" "" "$INSTDIR\Xpand.DLL"
+    #WriteRegStr HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand" "" "$INSTDIR\Xpand.DLL"
     
-    call DllsToGAC
+    #call DllsToGAC
+		
+		ExecWait "$INSTDIR\Xpand.Dll\GACInstaller.exe" $0
+		ExecWait "$INSTDIR\Xpand.Dll\Xpand.ToolboxCreator.exe" $0
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -151,17 +154,20 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
+		ExecWait '"$INSTDIR\Xpand.Dll\GACInstaller.exe" "" u' $0
+		ExecWait '"$INSTDIR\Xpand.Dll\Xpand.ToolboxCreator.exe" u' $0
     !insertmacro DELETE_SMGROUP_SHORTCUT "Dll list"
-	!insertmacro DELETE_SMGROUP_SHORTCUT "Source"
+		!insertmacro DELETE_SMGROUP_SHORTCUT "Source"
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
 SectionEnd
 
 Section -un.post UNSEC0001
     # remove To display an assembly in the Add Reference dialog box http://msdn.microsoft.com/en-us/library/wkze6zky.aspx
-    DeleteRegKey HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand"
-
-    call un.DllsFromGAC
+    #DeleteRegKey HKLM "SOFTWARE\Microsoft\.NETFramework\v3.0\AssemblyFoldersEx\Xpand"
+		
+    #call un.DllsFromGAC
+				
     call un.InstallProjectTemplates
     
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
@@ -192,6 +198,8 @@ Function un.onInit
     !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
     call un.SetGacutilPath
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
+		#'"$INSTDIR\someprogram.exe" some parameters'
+		
 FunctionEnd
 
 # Installer Language Strings
@@ -199,87 +207,88 @@ FunctionEnd
 
 LangString ^UninstallLink ${LANG_ENGLISH} "Uninstall $(^Name)"
 
-Function MakeFileList
-    Exch $R0 #path
-    Exch
-    Exch $R1 #filter
-    Exch
-    Exch 2
-    Exch $R2 #output file
-    Exch 2
-    Push $R3
-    Push $R4
-    Push $R5
-     ClearErrors
-     FindFirst $R3 $R4 "$R0\$R1"
-      FileOpen $R5 $R2 w
-     
-     Loop:
-     IfErrors Done
-      FileWrite $R5 "$R0\$R4$\r$\n"
-      FindNext $R3 $R4
-      Goto Loop
-     
-     Done:
-      FileClose $R5
-     FindClose $R3
-    Pop $R5
-    Pop $R4
-    Pop $R3
-    Pop $R2
-    Pop $R1
-    Pop $R0
-FunctionEnd
+;Function MakeFileList
+;    Exch $R0 #path
+;    Exch
+;    Exch $R1 #filter
+;    Exch
+;    Exch 2
+;    Exch $R2 #output file
+;    Exch 2
+;    Push $R3
+;    Push $R4
+;    Push $R5
+;     ClearErrors
+;     FindFirst $R3 $R4 "$R0\$R1"
+;      FileOpen $R5 $R2 w
+;     
+;     Loop:
+;     IfErrors Done
+;      FileWrite $R5 "$R0\$R4$\r$\n"
+;      FindNext $R3 $R4
+;      Goto Loop
+;     
+;     Done:
+;      FileClose $R5
+;     FindClose $R3
+;    Pop $R5
+;    Pop $R4
+;    Pop $R3
+;    Pop $R2
+;    Pop $R1
+;    Pop $R0
+;FunctionEnd
 
-Function DllsToGAC
-    IfFileExists $gacutilPath +3 0
-      StrCpy $0 "1"
-      Goto Ende
-      
-    # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
-    Push "$INSTDIR\XpandDllList.txt" # output file
-    Push "*.dll" # filter
-    Push "$INSTDIR\Xpand.DLL" # folder to search in
-    Call MakeFileList
-    
-    # install all eXpand Dll's to the GAC 
-    ExecWait '"$gacutilPath" /il "$INSTDIR\XpandDllList.txt" /f' $0
-    
-    Ende:
-    StrCmp $0 "1" 0 +2
-    DetailPrint "install assamblies into the GAC failed"
-FunctionEnd
+;Function DllsToGAC
+;    IfFileExists $gacutilPath +3 0
+;      StrCpy $0 "1"
+;      Goto Ende
+;      
+;    # get all eXpand Dll's from the $INSTDIR and put into XpandDllList.txt 
+;    Push "$INSTDIR\XpandDllList.txt" # output file
+;    Push "*.dll" # filter
+;    Push "$INSTDIR\Xpand.DLL" # folder to search in
+;    Call MakeFileList
+;    
+;    # install all eXpand Dll's to the GAC 
+;    Exec '"$gacutilPath" /il "$INSTDIR\XpandDllList.txt" /f'
+;    
+;    Ende:
+;    StrCmp $0 "1" 0 +2
+;    DetailPrint "install assamblies into the GAC failed"
+;FunctionEnd
 
-Function un.DllsFromGAC
-    IfFileExists $gacutilPath +3 0
-      StrCpy $0 "1"
-      Goto Ende
-    
-    CreateDirectory "$TEMP\${APP_NAME}"
-    
-    StrCpy $3 "$TEMP\${APP_NAME}\getDlls.cmd"
-    Delete $3
-    
-    StrCpy $1 "$TEMP\${APP_NAME}\tempDllList.txt"
-    
-    FileOpen $0 "$3" w
-    # get all eXpand Dll's from the GAC and put into tempDllList.txt 
-    FileWrite $0 '"$gacutilPath" /l | find /i "Xpand." > "$1"' 
-    FileClose $0
-
-    #ExecWait '"$gacutilPath" /l | find /i "Xpand." > "$1"'
-    ExecWait "$3"
-
-    # uninstall all eXpand Dll's to the GAC 
-    ExecWait '"$gacutilPath" /ul "$1" /f' $0
-    
-    RMDir /r "$TEMP\${APP_NAME}"
-    
-    Ende:
-    StrCmp $0 "1" 0 +2
-    DetailPrint "uninstall assamblies from the GAC failed"
-FunctionEnd
-
+;Function un.DllsFromGAC
+;    IfFileExists $gacutilPath +3 0
+;      StrCpy $0 "1"
+;      Goto Ende
+;
+;    CreateDirectory "$TEMP\${APP_NAME}"
+;
+;    StrCpy $3 "$TEMP\${APP_NAME}\getDlls.cmd"
+;    Delete $3
+;
+;    StrCpy $1 "$TEMP\${APP_NAME}\tempDllList.txt"
+;
+;    FileOpen $0 "$3" w
+;    # get all eXpand Dll's from the GAC and put into tempDllList.txt
+;    FileWrite $0 '"$gacutilPath" /l | find /i "Xpand." > "$1"'
+;    FileClose $0
+;
+;    #ExecWait '"$gacutilPath" /l | find /i "Xpand." > "$1"'
+;    ExecWait "$3"
+;
+;
+;    # uninstall all eXpand Dll's to the GAC
+;    ExecWait '"$gacutilPath" /ul "$1" /f' $0
+;
+;    RMDir /r "$TEMP\${APP_NAME}"
+;
+;    Ende:
+;    StrCmp $0 "1" 0 +2
+;    DetailPrint "uninstall assamblies from the GAC failed"
+;FunctionEnd
+;
 Function InstallProjectTemplatesFiles
     Push $R0
     Exch
@@ -314,7 +323,7 @@ Function InstallProjectTemplates
     call InstallProjectTemplatesFiles
     WriteRegStr HKLM "${REGKEY}" "VS10Path" $0
 	
-	ExecWait  "$0devenv.exe /InstallVSTemplates"	
+	Exec  "$0devenv.exe /InstallVSTemplates"
     
 	Pop $0
 FunctionEnd
