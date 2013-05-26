@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,11 +12,23 @@ using Microsoft.Win32;
 
 namespace Xpand.ToolboxCreator {
     class Program {
-        static void Main() {
+        static void Main(string[] args) {
+            
             var isWow64 = InternalCheckIsWow64();
             string wow = isWow64 ? @"Wow6432Node\" : null;
             var registryKeys = RegistryKeys(wow);
-            DeleteXpandEntries(registryKeys);
+            DeleteXpandEntries(registryKeys,wow);
+            if (args.Length == 1 && args[0] == "u") {
+                Console.WriteLine("Unistalled");
+                return;
+            }
+            RegistryKey assemblyFolderExKey = GetAssemblyFolderExKey(wow);
+            RegistryKey key = assemblyFolderExKey.CreateSubKey("Xpand");
+            if (key != null)
+                key.SetValue(null, AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+            
+
+
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand*.dll")) {
                 var assembly = Assembly.LoadFrom(file);
                 foreach (var type in assembly.GetTypes()) {
@@ -31,13 +44,31 @@ namespace Xpand.ToolboxCreator {
             openSubKey.SetValue("ConfigurationChanged", DateTime.Now.ToFileTime(), RegistryValueKind.QWord);
         }
 
-        static void DeleteXpandEntries(IEnumerable<RegistryKey> keys) {
+        static RegistryKey GetAssemblyFolderExKey(string wow) {
+            RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\.NETFramework", true);
+            string minimumClrVersion = MinimumCLRVersion(registryKey);
+            if (registryKey != null) {
+                var subKey = registryKey.OpenSubKey(minimumClrVersion + @"\AssemblyFoldersEx", true);
+                if (subKey != null) {
+                    return subKey;
+                }
+            }
+            throw new KeyNotFoundException(minimumClrVersion + @"\AssemblyFoldersEx");
+        }
+
+        static string MinimumCLRVersion(RegistryKey registryKey) {
+            return registryKey.GetSubKeyNames().First(s => s.StartsWith("v")&&!s.StartsWith("v1"));
+        }
+
+        static void DeleteXpandEntries(IEnumerable<RegistryKey> keys, string wow) {
             foreach (var registryKey in keys) {
                 var names = registryKey.GetSubKeyNames().Where(s => s.StartsWith("Xpand"));
                 foreach (var name in names) {
                     registryKey.DeleteSubKeyTree(name);
                 }
             }
+            RegistryKey assemblyFolderExKey = GetAssemblyFolderExKey(wow);
+            assemblyFolderExKey.DeleteSubKeyTree("Xpand",false);
         }
 
         static List<RegistryKey> RegistryKeys(string wow) {
