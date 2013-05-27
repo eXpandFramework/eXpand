@@ -109,14 +109,16 @@ namespace XpandAddIns {
         }
 
         private void Options_CommitChanges(object sender, CommitChangesEventArgs ea) {
-            ea.Storage.WriteString(PageName, Token, publicTokenTextEdit.Text);
-            ea.Storage.WriteString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
-            ea.Storage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
-            ea.Storage.WriteString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
-            ea.Storage.WriteString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
-            ea.Storage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
-            SaveDataSource(SerializeConnectionString, "ConnectionStrings", ea.Storage, (BindingList<ConnectionString>)gridControl1.DataSource);
-            SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", ea.Storage,(BindingList<SourceCodeInfo>) gridControl2.DataSource);
+            var decoupledStorage = ea.Storage;
+            decoupledStorage.WriteString(PageName, Token, publicTokenTextEdit.Text);
+            decoupledStorage.WriteString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
+            decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
+            decoupledStorage.WriteString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
+            decoupledStorage.WriteString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
+            decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
+            decoupledStorage.WriteString(PageName, "SourceCodeInfos","");
+            SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
+            SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", decoupledStorage, (BindingList<SourceCodeInfo>)gridControl2.DataSource);
         }
 
         string SerializeSourceCodeInfo(SourceCodeInfo sourceCodeInfo) {
@@ -143,7 +145,7 @@ namespace XpandAddIns {
             gridControl2.RefreshDataSource();
         }
         void StoreProjectPaths(SourceCodeInfo sourceCodeInfo,int index) {
-            var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(s, sourceCodeInfo.ProjectRegex));
+            var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(Path.GetFileName(s)+"", sourceCodeInfo.ProjectRegex));
             IEnumerable<string> paths = projectPaths.Select(s1 => s1+"|"+GetOutPutPath(s1));
             sourceCodeInfo.Count = paths.Count();
             Storage.WriteStrings(ProjectPaths, index+"_"+sourceCodeInfo.ProjectRegex, paths.ToArray());
@@ -176,8 +178,8 @@ namespace XpandAddIns {
 
         void ShowDialog(string modelEditorPath) {
             openFileDialog1.FileName = Storage.ReadString(PageName, modelEditorPath, modelEditorPathButtonEdit.Text);
-            openFileDialog1.ShowDialog();
             openFileDialog1.Tag = modelEditorPath;
+            openFileDialog1.ShowDialog();
         }
 
         private void projectConverterPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {

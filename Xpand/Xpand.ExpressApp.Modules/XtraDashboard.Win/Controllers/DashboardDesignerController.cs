@@ -2,13 +2,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Win.Helpers;
-using Xpand.ExpressApp.Dashboard.Win.Templates;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
+using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
+using Xpand.ExpressApp.XtraDashboard.Win.Templates;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public partial class DashboardDesignerController : ViewController {
         public DashboardDesignerController() {
             InitializeComponent();

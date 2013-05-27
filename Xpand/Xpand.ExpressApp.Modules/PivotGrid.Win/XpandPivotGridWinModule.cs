@@ -4,10 +4,8 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Dashboard;
 
-#if !SKIPDASHBOARD
-using Xpand.ExpressApp.Dashboard.Win;
-#endif
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     [ToolboxBitmap(typeof(PivotGridWindowsFormsModule), "Resources.Toolbox_Module_PivotGridEditor_Win.ico")]
@@ -18,11 +16,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             RequiredModuleTypes.Add(typeof(PivotGridModule));
             RequiredModuleTypes.Add(typeof(PivotGridWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ViewVariantsModule));
-#if !SKIPDASHBOARD
-            RequiredModuleTypes.Add(typeof(DashboardWindowsFormsModule));
-#endif
+            RequiredModuleTypes.Add(typeof(DashboardModule));
         }
-
 
     }
 }

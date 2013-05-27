@@ -8,9 +8,9 @@ using DevExpress.XtraDashboard;
 using DevExpress.XtraDashboard.Native;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Win.Helpers;
+using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Templates {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
     public partial class DashboardDesignerForm : RibbonForm, IXPObjectSpaceAwareControl {
         History _editHistory;
         IObjectSpace _objectSpace;

@@ -43,37 +43,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.8.0, Culture=neutral, processorArchitecture=MSIL">
-      
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.Printing.v12.2.Core">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.Data.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="DevExpress.Xpo.v12.2">
       <Private>True</Private>
-      
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -98,10 +90,6 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.2.7.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard.Win, Version=12.2.7.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=12.2.7.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -149,6 +137,10 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.WizardUI.Win, Version=12.2.7.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Win, Version=12.2.8.12, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

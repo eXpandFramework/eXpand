@@ -106,7 +106,7 @@ namespace FeatureCenter.Win {
             this.pivotGridModule1 = new DevExpress.ExpressApp.PivotGrid.PivotGridModule();
             this.pivotGridWindowsFormsModule1 = new DevExpress.ExpressApp.PivotGrid.Win.PivotGridWindowsFormsModule();
             this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
-            this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.Dashboard.Win.DashboardWindowsFormsModule();
+            this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule();
             this.xpandPivotGridWinModule1 = new Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule();
             this.xpandReportsWindowsFormsModule1 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
             this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
@@ -339,7 +339,7 @@ namespace FeatureCenter.Win {
         private DevExpress.ExpressApp.PivotGrid.PivotGridModule pivotGridModule1;
         private DevExpress.ExpressApp.PivotGrid.Win.PivotGridWindowsFormsModule pivotGridWindowsFormsModule1;
         private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
-        private Xpand.ExpressApp.Dashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
+        private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
         private Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule xpandPivotGridWinModule1;
         private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule xpandReportsWindowsFormsModule1;
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;

@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
             var template = e.Template as IClassicToRibbonTransformerHolder;
-            if (template != null) {
+            if (template != null && template.RibbonTransformer != null) {
                 template.RibbonTransformer.BarItemAdding += RibbonTransformer_BarItemAdding;
                 template.RibbonTransformer.Form.Disposed += Form_Disposed;
             }

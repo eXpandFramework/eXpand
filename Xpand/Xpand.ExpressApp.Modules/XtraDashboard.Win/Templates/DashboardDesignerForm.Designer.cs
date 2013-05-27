@@ -1,4 +1,4 @@
-﻿namespace Xpand.ExpressApp.Dashboard.Win.Templates {
+﻿namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
     partial class DashboardDesignerForm {
         /// <summary>
         /// Required designer variable.
@@ -642,7 +642,7 @@
             this.fileSaveBarItem.Caption = "Save";
             this.fileSaveBarItem.Enabled = false;
             this.fileSaveBarItem.Id = 3;
-            this.fileSaveBarItem.LargeGlyph = global::Xpand.ExpressApp.Dashboard.Win.Properties.Resources.MenuBar_Save_32x32;
+            this.fileSaveBarItem.LargeGlyph = global::Xpand.ExpressApp.XtraDashboard.Win.Properties.Resources.MenuBar_Save_32x32;
             this.fileSaveBarItem.Name = "fileSaveBarItem";
             this.fileSaveBarItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.Save);
             // 
@@ -2403,7 +2403,7 @@
             // 
             this.fileSaveCloseBarItem.Caption = "Save and Close";
             this.fileSaveCloseBarItem.Id = 99;
-            this.fileSaveCloseBarItem.LargeGlyph = global::Xpand.ExpressApp.Dashboard.Win.Properties.Resources.MenuBar_SaveAndClose_32x32;
+            this.fileSaveCloseBarItem.LargeGlyph = global::Xpand.ExpressApp.XtraDashboard.Win.Properties.Resources.MenuBar_SaveAndClose_32x32;
             this.fileSaveCloseBarItem.Name = "fileSaveCloseBarItem";
             this.fileSaveCloseBarItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.SaveAndClose);
             // 
@@ -2411,7 +2411,7 @@
             // 
             this.closeBarItem.Caption = "Close";
             this.closeBarItem.Id = 100;
-            this.closeBarItem.LargeGlyph = global::Xpand.ExpressApp.Dashboard.Win.Properties.Resources.MenuBar_Close_32x32;
+            this.closeBarItem.LargeGlyph = global::Xpand.ExpressApp.XtraDashboard.Win.Properties.Resources.MenuBar_Close_32x32;
             this.closeBarItem.Name = "closeBarItem";
             this.closeBarItem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.Close);
             // 

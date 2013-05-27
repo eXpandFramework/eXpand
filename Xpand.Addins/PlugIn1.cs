@@ -178,16 +178,35 @@ namespace XpandAddins {
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
-            ProjectElement activeProject = CodeRush.Language.LoadProject(CodeRush.Solution.FindEnvDTEProject(uiHierarchyItem.Name));
+            Project dteProject = FindProject(uiHierarchyItem);
+            ProjectElement activeProject = CodeRush.Language.LoadProject(dteProject);
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
                 var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants).ToList();
-                projectLoader.Load(selectedAssemblyReferences.ToList());
+                projectLoader.Load(selectedAssemblyReferences.ToList(), NotifyOnNotFound);
             } else {
-                _actionHint.Text = "Active project not found. Please open a code file";
-                Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-                _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+                throw new NotImplementedException();
             }
+        }
+
+        void NotifyOnNotFound(string s) {
+            _actionHint.Text = "Assembly not found " + s;
+            Rectangle rectangle = Screen.PrimaryScreen.Bounds;
+            _actionHint.PointTo(new Point(rectangle.Width/2, rectangle.Height/2));
+        }
+
+        Project FindProject(UIHierarchyItem uiHierarchyItem, Project project=null) {
+            var proj = project;
+            foreach (UIHierarchyItem hierarchyItem in uiHierarchyItem.UIHierarchyItems) {
+                var findProject = proj ?? hierarchyItem.Object as Project;
+                if (hierarchyItem.UIHierarchyItems.Count > 0) {
+                    if (hierarchyItem.UIHierarchyItems.Expanded&&FindProject(hierarchyItem, findProject)!=null)
+                        return findProject;
+                }
+                else if (hierarchyItem.IsSelected)
+                    return findProject;
+            }
+            throw new NotImplementedException();
         }
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {

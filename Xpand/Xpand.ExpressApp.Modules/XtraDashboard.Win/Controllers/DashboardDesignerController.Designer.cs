@@ -1,6 +1,6 @@
 using DevExpress.ExpressApp.Actions;
 
-namespace Xpand.ExpressApp.Dashboard.Win.Controllers {
+namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     partial class DashboardDesignerController {
         /// <summary>
         /// Required designer variable.

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -76,11 +77,15 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return targetInterface.GetPublicProperties().Union(properties).Select(info => info.Name);
         }
 
-        public string GetPath(string name) {
-            var folder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            var applicationFolder = Path.Combine(folder, "ModelAdaptor/" + XpandAssemblyInfo.FileVersion);
-            var path2 = "ModelAdaptor" + name + ".dll";
-            return Path.Combine(applicationFolder + "", path2);
+        public virtual string GetPath(string name) {
+            string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
+            if (appSetting==null) {
+                var folder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                var applicationFolder = Path.Combine(folder, "/ModelAdaptor");
+                var path2 = "ModelAdaptor" + name + ".dll";
+                return Path.Combine(applicationFolder + "", path2);
+            }
+            return appSetting;
         }
     }
 

@@ -1,8 +1,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Dashboard;
 
-namespace Xpand.ExpressApp.Dashboard.Win {
+namespace Xpand.ExpressApp.XtraDashboard.Win {
     [ToolboxBitmap(typeof(DashboardWindowsFormsModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]

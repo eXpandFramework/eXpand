@@ -47,7 +47,7 @@ call buildproject.cmd Xpand.ExpressApp.IO ".\Xpand\Xpand.ExpressApp.Modules\IO\X
 call buildproject.cmd Xpand.ExpressApp.IO.Win ".\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.IO.Web ".\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Dashboard ".\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj"
-call buildproject.cmd Xpand.ExpressApp.Dashboard.Win ".\Xpand\Xpand.ExpressApp.Modules\Dashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.XtraDashboard.Win ".\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Win\Xpand.ExpressApp.XtraDashboard.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart ".\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.PivotChart.Web ".\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj"

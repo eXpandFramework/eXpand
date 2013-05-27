@@ -37,23 +37,23 @@ namespace XpandAddIns {
         }
 
 
-        public void Load(IList<AssemblyReference> assemblyReferences) {
+        public void Load(IList<AssemblyReference> assemblyReferences,Action<string> notFound ) {
             Log.Send("References Count:"+assemblyReferences.Count());
             var sourceCodeInfos = Options.GetSourceCodeInfos();
             for (int i = 0; i < sourceCodeInfos.Count; i++) {
                 Log.Send("SourceCodeInfo:"+sourceCodeInfos[i]);
-                LoadProject(sourceCodeInfos[i], assemblyReferences,i);
+                LoadProject(sourceCodeInfos[i], assemblyReferences,i,notFound);
             }
             CodeRush.ApplicationObject.Solution.CollapseAllFolders();
         }
 
-        public void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1) {
+        public void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1,Action<string> notFound ) {
             var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex));
             Log.Send("ProjectsCount:"+readStrings.Count());
             for (int i = 0; i < readStrings.Count(); i++) {
                 var strings = readStrings[i].Split('|');
                 var assemblyPath = strings[1].ToLower();
-                var assemblyReference = assemblyReferences.FirstOrDefault(reference => reference.FilePath.ToLower() == assemblyPath);
+                var assemblyReference = GetAssemblyReference(assemblyReferences, assemblyPath);
                 if (assemblyReference != null) {
                     Log.Send("Path found");
                     if (!IsProjectLoaded(strings[0])) {
@@ -68,9 +68,20 @@ namespace XpandAddIns {
                         }
                     }
                 }
+                else {
+                    notFound.Invoke(assemblyPath);
+                }
             }
         }
 
-
+        AssemblyReference GetAssemblyReference(IEnumerable<AssemblyReference> assemblyReferences, string assemblyPath) {
+            return assemblyReferences.FirstOrDefault(reference => {
+                var b = reference.FilePath.ToLower() == assemblyPath;
+                if (!b) {
+                    b = Path.GetFileName(reference.FilePath.ToLower()) == Path.GetFileName(assemblyPath);
+                }
+                return b;
+            });
+        }
     }
 }
