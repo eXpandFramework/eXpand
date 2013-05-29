@@ -19,7 +19,7 @@ using Xpand.ExpressApp.PropertyEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, false)]
-    public class WebFilterableEnumPropertyEditor : ASPxEnumPropertyEditor, IComplexPropertyEditor {
+    public class WebFilterableEnumPropertyEditor : ASPxEnumPropertyEditor, IComplexViewItem {
         static PropertyDescriptorCollection _propertyDescriptorCollection;
         readonly PropertyInfo _dataSourceProperty;
         readonly string _isNullCriteria;

@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
 
     [PropertyEditor(typeof(IXPObject), false)]
-    public class WinLookUpPropertyEditor : DXPropertyEditor, IComplexPropertyEditor {
+    public class WinLookUpPropertyEditor : DXPropertyEditor, IComplexViewItem {
         // Fields
         LookupEditorHelper _helper;
         LookUpGridEditEx _lookup;

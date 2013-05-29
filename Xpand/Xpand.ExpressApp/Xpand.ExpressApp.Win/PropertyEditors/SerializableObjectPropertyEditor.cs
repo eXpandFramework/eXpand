@@ -10,7 +10,7 @@ using Xpand.ExpressApp.PropertyEditors;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(object), false)]
-    public class SerializableObjectPropertyEditor : WinPropertyEditor, IComplexPropertyEditor, ISerializableObjectPropertyEditor, ISupportEditControl {
+    public class SerializableObjectPropertyEditor : WinPropertyEditor, IComplexViewItem, ISerializableObjectPropertyEditor, ISupportEditControl {
         public SerializableObjectPropertyEditor(Type objectType, IModelMemberViewItem modelMemberViewItem)
             : base(objectType, modelMemberViewItem) {
             SerializableObjectPropertyEditorBuilder.Create()

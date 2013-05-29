@@ -11,7 +11,7 @@ using Xpand.ExpressApp.PropertyEditors;
 namespace Xpand.ExpressApp.Web.PropertyEditors {
 
     [PropertyEditor(typeof(object),false)]
-    public class SerializableObjectPropertyEditor : ASPxPropertyEditor, IComplexPropertyEditor, ISerializableObjectPropertyEditor,ISupportEditControl {
+    public class SerializableObjectPropertyEditor : ASPxPropertyEditor, IComplexViewItem, ISerializableObjectPropertyEditor, ISupportEditControl {
         XafApplication _application;
         Panel _editModePanel;
 

@@ -7,6 +7,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -71,7 +72,8 @@ namespace Xpand.Persistent.Base.General {
             var references = codeInfos.SelectMany(info => info.References).ToList();
             RegisterReferences(references, typeof(ICommandChannel), typeof(CSharpCodeProvider));
             var source = String.Join(Environment.NewLine, codeInfos.Select(info => info.Source).ToArray());
-            TypeGenerator.CreateDll(source, references.ToArray(), null);
+            var compiler = new CSCodeCompiler();
+            compiler.Compile(source, references.ToArray(), null);
             return codeInfos.Select(info => info.ViewTypeInfo).ToList();
         }
     }

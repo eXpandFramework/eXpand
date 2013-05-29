@@ -13,7 +13,7 @@ using Xpand.ExpressApp.Win.Editors;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, false)]
-    public class FilterableEnumPropertyEditor : DXPropertyEditor, IComplexPropertyEditor {
+    public class FilterableEnumPropertyEditor : DXPropertyEditor, IComplexViewItem {
         private void UpdateControlWithCurrentObject() {
             var control = Control as IGridInplaceEdit;
             if (control != null)
