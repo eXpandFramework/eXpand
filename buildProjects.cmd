@@ -1,4 +1,7 @@
 call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
+echo FixReferences
+%msbuild% /nologo /t:FixReferences /verbosity:quiet /p:Configuration=%configuration% Xpand.build
+
 call buildproject.cmd Xpand.Utils ".\Xpand\Xpand.Utils\Xpand.Utils.csproj"
 call buildproject.cmd Xpand.ExpressApp.EmailTemplateEngine ".\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj"
 call buildproject.cmd Xpand.Xpo ".\Xpand\Xpand.Xpo\Xpand.Xpo.csproj"

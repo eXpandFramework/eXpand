@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project=".\HelloWorld.targets" />
-    <Target Name="Hello">
-    <HelloWorld MSBuildProjectDirectory="$(MSBuildProjectDirectory)" />
-  </Target>
     <PropertyGroup>
         <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
 		<TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
@@ -11,6 +7,7 @@
 
 	<Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
 	<Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks"/>
+  <Import Project="Resource\FixReferences.targets" />
 	<!--
 	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
 	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
@@ -196,27 +193,9 @@
 			Condition="$(FilesToParseCount) > 0"
 			RegexPattern="c52ffed5d5ff0958" Replacement="b88d1754d700e49a" Files="@(FilesToParse)"/>
 	</Target>
-	<Target Name="FixReferences"> <!--
-		<MSBuild.ExtensionPack.FileSystem.File TaskAction="FilterByContent" RegexPattern="c52ffed5d5ff0958" Files="@(_filesToChange)">
-            <Output TaskParameter="IncludedFiles" ItemName="FilesToParse"/>
-			    <Output TaskParameter="IncludedFileCount" PropertyName="FilesToParseCount"/>
-     </MSBuild.ExtensionPack.FileSystem.File>
--->
-    <!--Remove token
-    <CreateItem Include="**\*.csproj;" Exclude=".git;Build;">
-			<Output ItemName="_filesToChange" TaskParameter="Include"/>
-		</CreateItem>    
-		<MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" 
-			RegexPattern="Reference Include=&quot;((DevExpress.|Xpand.)[^&quot;,]*)[^&quot;]*&quot;>" Replacement="Reference Include=&quot;$1&quot;>" Files="@(_filesToChange)"/>
-      -->
-    <CreateItem Include=".\Xpand\Xpand.Modules\*.csproj;" Exclude=".git;Build;">
-			<Output ItemName="_filesToChange" TaskParameter="Include"/>
-		</CreateItem>
-    <!--HintPath-->
-<MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" 	
-			RegexPattern="&lt;Reference Include=&quot;(Xpand.[^&quot;]*)[^>]*>(.*?)&lt;/Reference>" Replacement="&lt;Reference Included=&quot;$1&quot;>\r\n      &lt;SpecificVersion>False&lt;/SpecificVersion>\r\n      &lt;Private>False&lt;/Private>\r\n      &lt;HintPath>$(MSBuildProjectDirectory)&lt;/HintPath>\r\n    &lt;Reference/>" 
-      Files="@(_filesToChange)"/>
-	</Target>
+		<Target Name="FixReferences">
+    <FixReferences MSBuildProjectDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
