@@ -14,7 +14,7 @@ using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     [ViewItem(typeof(IModelDashboardReportViewItem))]
-    public class DashboardReportViewItem : DashboardViewItem, IComplexPropertyEditor {
+    public class DashboardReportViewItem : DashboardViewItem, IComplexViewItem {
         readonly IModelDashboardReportViewItem _model;
         XafReport _report;
         PrintControl PrintControl;
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
             new PrintRibbonController { PrintControl = PrintControl }.Initialize(ribbon, ribbon.StatusBar);
         }
         #region Implementation of IComplexPropertyEditor
-        void IComplexPropertyEditor.Setup(IObjectSpace objectSpace, XafApplication application) {
+        void IComplexViewItem.Setup(IObjectSpace objectSpace, XafApplication application) {
             _application = application;
         }
         #endregion

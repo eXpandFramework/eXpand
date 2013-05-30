@@ -223,7 +223,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(String.Format(".{0}", property)))));
 
                     string reason;
-                    if (ruleInUse && RuleSet.NeedToValidateRule(rule, obj, out reason)) {
+                    if (ruleInUse && RuleSet.NeedToValidateRule(ObjectSpace, rule, obj, out reason)) {
                         RuleValidationResult result = rule.Validate(obj);
 
                         if (result.State == ValidationState.Invalid) {

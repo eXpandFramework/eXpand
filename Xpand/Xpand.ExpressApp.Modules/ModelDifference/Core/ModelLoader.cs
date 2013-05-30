@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;

@@ -5,11 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.XtraSplashScreen;
-using DevExpress.XtraWaitForm;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Win;
-using SplashScreen = DevExpress.ExpressApp.Win.Utils.SplashScreen;
 
 namespace XVideoRental.Win {
     public partial class XVideoRentalWindowsFormsApplication : XpandWinApplication {
@@ -18,40 +15,6 @@ namespace XVideoRental.Win {
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead += OnLastLogonParametersRead;
             SplashScreen = null;
-            SplashScreenType = typeof(SplashScreen);
-        }
-
-        public override void UpdateSplash(string context, string caption, string description,
-                                          params object[] additionalParams) {
-            base.UpdateSplash(context, caption, description, additionalParams);
-            if (IsSplashScreenManagerFormVisible() && typeof(WaitForm).IsAssignableFrom(SplashScreenType)) {
-                if (!string.IsNullOrEmpty(caption)) {
-                    SplashScreenManager.Default.SetWaitFormCaption(caption);
-                }
-                if (!string.IsNullOrEmpty(description)) {
-                    SplashScreenManager.Default.SetWaitFormDescription(description);
-                }
-                Application.DoEvents();
-            }
-        }
-
-        public override void StartSplash() {
-            base.StartSplash();
-            if (SplashScreenType != null) {
-                SplashScreenManager.ShowForm(null, SplashScreenType, true, false, false);
-            }
-        }
-
-        public override void StopSplash() {
-            base.StopSplash();
-            if (IsSplashScreenManagerFormVisible()) {
-                SplashScreenManager.CloseForm(false, 0, null, true);
-            }
-        }
-
-        protected override void Logon(PopupWindowShowActionExecuteEventArgs logonWindowArgs) {
-            StartSplash();
-            base.Logon(logonWindowArgs);
         }
 
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs e) {

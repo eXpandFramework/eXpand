@@ -10,7 +10,7 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
     [PropertyEditor(typeof(String), false)]
-    public class DashboardViewEditor : WinPropertyEditor, IComplexPropertyEditor {
+    public class DashboardViewEditor : WinPropertyEditor, IComplexViewItem {
         XafApplication _application;
         IObjectSpace _objectSpace;
 
