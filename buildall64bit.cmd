@@ -9,7 +9,7 @@ mkdir Xpand.Key
 %sn% -k Xpand.Key\Xpand.snk
 
 :build
-call RegisterAssemblyFolders64bit.bat
+
 
 call buildProjects.cmd
 

@@ -1,3 +1,4 @@
+call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
 call buildproject.cmd Xpand.Utils ".\Xpand\Xpand.Utils\Xpand.Utils.csproj"
 call buildproject.cmd Xpand.ExpressApp.EmailTemplateEngine ".\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj"
 call buildproject.cmd Xpand.Xpo ".\Xpand\Xpand.Xpo\Xpand.Xpo.csproj"
@@ -68,7 +69,6 @@ call buildproject.cmd Xpand.ExpressApp.Workflow ".\Xpand\Xpand.ExpressApp.Module
 call buildproject.cmd Xpand.ExpressApp.StateMachine ".\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj"
 
 echo Installing Toolbox Items...
-call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
 call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"
 
 echo Building Xpand.Quartz.Server...
