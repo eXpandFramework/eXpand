@@ -165,8 +165,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return null;
         }
 
-        ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
-            InterfaceBuilder.LoadFromCurrentDomain = true;
+        ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager, bool rebuild) {
+            InterfaceBuilder.LoadFromCurrentDomain = XpandModuleBase.TypesInfo != XafTypesInfo.Instance || rebuild;
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
@@ -246,7 +246,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             string config = GetConfigPath();
             if (!rebuild)
                 _modulesManager = CreateModulesManager(_application, config, _assembliesPath, _typesInfo);
-            return BuildModel(_application, config, _modulesManager);
+            return BuildModel(_application, config, _modulesManager,rebuild);
         }
 
         public ModelBuilder UsingTypesInfo(ITypesInfo typesInfo) {

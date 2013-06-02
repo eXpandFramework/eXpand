@@ -81,7 +81,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (appSetting==null) {
                 var folder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-                var applicationFolder = Path.Combine(folder, "/ModelAdaptor");
+                var applicationFolder = Path.Combine(folder, "ModelAdaptor");
                 var path2 = "ModelAdaptor" + name + ".dll";
                 return Path.Combine(applicationFolder + "", path2);
             }
