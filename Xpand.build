@@ -89,7 +89,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;" />
 		<ProjectFiles Include="
 			.\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Win\Xpand.ExpressApp.Dashboard.Win.csproj;" 
+			.\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Win\Xpand.ExpressApp.XtraDashboard.Win.csproj;" 
 			 Condition="$(SkipDashboard)!='true'"/>
 		<ProjectFiles Include="
 			.\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;
