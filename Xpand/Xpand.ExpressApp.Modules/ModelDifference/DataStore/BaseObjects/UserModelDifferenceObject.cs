@@ -38,11 +38,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public void AssignToCurrentUser() {
-            var list = ((IList)GetMemberValue("Users"));
-            object value =
-                ((XPBaseObject)SecuritySystem.CurrentUser).ClassInfo.KeyProperty.GetValue(SecuritySystem.CurrentUser);
-            object objectByKey = Session.GetObjectByKey(SecuritySystem.UserType, value);
-            list.Add(objectByKey);
+            if (ClassInfo.FindMember("Users")!=null) {
+                var list = ((IList)GetMemberValue("Users"));
+                object value =
+                    ((XPBaseObject)SecuritySystem.CurrentUser).ClassInfo.KeyProperty.GetValue(SecuritySystem.CurrentUser);
+                object objectByKey = Session.GetObjectByKey(SecuritySystem.UserType, value);
+                list.Add(objectByKey);
+            }
         }
         public override IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
             IQueryable<ModelDifferenceObject> differenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null).Cast<ModelDifferenceObject>();

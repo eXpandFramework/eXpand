@@ -36,8 +36,8 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
         }
 
         protected void ShowInAnalysis(SingleChoiceActionExecuteEventArgs e) {
-            var os = Application.CreateObjectSpace();
             var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
+            var os = Application.CreateObjectSpace(typeInfoContainer.TypesInfo.AnalysisType);
             var report =
                 os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, e.SelectedChoiceActionItem.Data) as IAnalysisInfo;
             e.ShowViewParameters.CreatedView = Application.CreateDetailView(os, report);
@@ -59,9 +59,9 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
         }
 
         protected override void OnActivated() {
-            var os = Application.CreateObjectSpace();
             List<object> reportList = InplaceAnalysisCacheController.GetAnalysisDataList(Application, View.ObjectTypeInfo.Type);
             var typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
+            var os = Application.CreateObjectSpace(typeInfoContainer.TypesInfo.AnalysisType);
             List<ChoiceActionItem> items = (from id in reportList
                                             let report =
                                                 os.GetObjectByKey(typeInfoContainer.TypesInfo.AnalysisType, id) as IAnalysisInfo

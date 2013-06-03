@@ -172,6 +172,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v12.2, Version=12.2.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -192,6 +193,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Workflow.v12.2, Version=12.2.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.Base.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -216,6 +219,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Workflow.Activities.v12.2, Version=12.2.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -293,39 +298,79 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"><Private>False</Private></Reference>
+    <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
     <Reference Include="System">
       <Name>System</Name>
-    <Private>False</Private></Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations"><Private>False</Private></Reference>
-    <Reference Include="System.configuration"><Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Activities" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    <Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
-    <Private>False</Private></Reference>
-    <Reference Include="System.Data.Entity"><Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
-    <Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
-    <Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
-    <Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="Xpand.ExpressApp.Security, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.StateMachine, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.Validation, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Persistent.Base, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Utils, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Xpo, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    
     <Content Include="Model.xafml">
       <Subtype>Designer</Subtype>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -351,6 +396,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj">
+      <Project>{56242176-A728-4B97-BC0A-58B7D80FF412}</Project>
+      <Name>Xpand.ExpressApp.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
+      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
+      <Name>Xpand.ExpressApp.Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFDemo.Module.Win\EFDemo.Module.Win.csproj">
       <Project>{70AC2425-F2E8-480A-825C-9E42C8F071E6}</Project>
       <Name>EFDemo.Module.Win</Name>
@@ -365,6 +418,7 @@
       <DependentUpon>EFDemoWinApplication.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -390,7 +444,5 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    
-    
   </PropertyGroup>
 </Project>

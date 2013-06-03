@@ -48,9 +48,9 @@ namespace EFDemo.Module.Data {
 			modelBuilder.Entity<Organization>().ToTable("Parties_Organization");
 			modelBuilder.Entity<PortfolioFileData>().ToTable("FileAttachments_PortfolioFileData");
 			modelBuilder.Entity<DemoTask>().ToTable("Tasks_DemoTask");
-			modelBuilder.Entity<Analysis>().ToTable("Analysis");
-			modelBuilder.Entity<ReportData>().ToTable("ReportData");
-			modelBuilder.Entity<ModuleInfo>().ToTable("ModulesInfo");
+			modelBuilder.Entity<Analysis_EF>().ToTable("Analysis");
+			modelBuilder.Entity<ReportData_EF>().ToTable("ReportData_EF");
+//			modelBuilder.Entity<ModuleInfo_EF>().ToTable("ModulesInfo");
 
 			modelBuilder.Entity<DemoTask>().HasMany(t => t.Contacts).WithMany(c => c.Tasks).Map(mc => {
 				mc.ToTable("DemoTasks_Contacts");
@@ -104,20 +104,20 @@ namespace EFDemo.Module.Data {
 		}
 
 		public DbSet<Address> Addresses { get; set; }
-		public DbSet<Analysis> Analysis { get; set; }
+//		public DbSet<Analysis> Analysis { get; set; }
 		public DbSet<Country> Countries { get; set; }
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<Event> Events { get; set; }
 		public DbSet<FileAttachment> FileAttachments { get; set; }
 		public DbSet<FileData> FileData { get; set; }
 		public DbSet<HCategory> HCategories { get; set; }
-		public DbSet<ModuleInfo> ModulesInfo { get; set; }
+//		public DbSet<ModuleInfo_EF> ModulesInfo { get; set; }
 		public DbSet<Note> Notes { get; set; }
 		public DbSet<Party> Parties { get; set; }
 		public DbSet<Payment> Payments { get; set; }
 		public DbSet<PhoneNumber> PhoneNumbers { get; set; }
-		public DbSet<Position> Positions { get; set; }
-		public DbSet<ReportData> ReportData { get; set; }
+		public DbSet<Position_EF> Positions { get; set; }
+		public DbSet<ReportData_EF> ReportData { get; set; }
 		public DbSet<Resource> Resources { get; set; }
 		public DbSet<Resume> Resumes { get; set; }
 		public DbSet<Role> Roles { get; set; }

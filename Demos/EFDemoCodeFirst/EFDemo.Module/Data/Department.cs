@@ -11,14 +11,14 @@ namespace EFDemo.Module.Data {
     [DefaultProperty("Title")]
     public class Department {
 		public Department() {
-			Positions = new List<Position>();
+			Positions = new List<Position_EF>();
 			Contacts = new List<Contact>();
 		}
 		[Browsable(false)]
 		public Int32 ID { get; protected set; }
 		public String Title { get; set; }
 		public String Office { get; set; }
-		public virtual IList<Position> Positions { get; set; }
+		public virtual IList<Position_EF> Positions { get; set; }
 		public virtual IList<Contact> Contacts { get; set; }
 	}
 }

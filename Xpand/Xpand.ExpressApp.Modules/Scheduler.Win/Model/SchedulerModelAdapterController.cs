@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Model {
         void SchedulerListEditorOnResourceDataSourceCreating(object sender, ResourceDataSourceCreatingEventArgs e) {
             var resourceListView = ((IModelListViewOptionsScheduler)View.Model).ResourceListView;
             if (resourceListView != null) {
-                var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
+                var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
                 Application.CreateListView(resourceListView.Id, collectionSourceBase, true);
                 e.DataSource = collectionSourceBase.Collection;
                 e.Handled = true;

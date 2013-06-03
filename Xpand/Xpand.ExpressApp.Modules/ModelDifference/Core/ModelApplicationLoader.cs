@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         public void EnableModel(Expression<Func<ModelDifferenceObject, bool>> expression, IEnumerable<string> modelsToUnload) {
             var winApplication = _application;
-            using (var objectSpace = (XPObjectSpace)winApplication.CreateObjectSpace()) {
+            using (var objectSpace = (XPObjectSpace)winApplication.CreateObjectSpace(typeof(ModelDifferenceObject))) {
                 var modelDifferenceObject = objectSpace.Session.FindObject(expression);
                 var modelApplicationBase = (ModelApplicationBase)winApplication.Model;
                 var modelApplicationBases = RemoveLayers(modelApplicationBase, modelsToUnload).Reverse().ToList();

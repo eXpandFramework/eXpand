@@ -39,8 +39,8 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
             if (analysisCache.TryGetValue(targetObjectType, out cachedReports)) {
                 return cachedReports;
             }
-            _typeInfoContainer = (ITypeInfoContainer)Application.Modules.Where(@base => typeof(ITypeInfoContainer).IsAssignableFrom(@base.GetType())).Single();
-            using (var objectSpace = Application.CreateObjectSpace()) {
+            _typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
+            using (var objectSpace = Application.CreateObjectSpace(_typeInfoContainer.TypesInfo.AnalysisType)) {
                 List<string> targetObjectTypeNames = GetTargetObjectTypeNames(targetObjectType);
                 var result = new List<object>();
                 if (targetObjectTypeNames.Count > 0) {

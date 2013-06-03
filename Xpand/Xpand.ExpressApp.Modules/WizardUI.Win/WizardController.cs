@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         protected override void OnActivated() {
             base.OnActivated();
 
-            if (Frame.Template != null && Frame.Template is WizardDetailViewForm) {
+            if (Frame.Template is WizardDetailViewForm) {
                 var modelWizard = (IModelDetailViewWizard)((DetailView)View).Model;
                 _WizardForm = Frame.Template as WizardDetailViewForm;
 
@@ -118,9 +118,10 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 _WizardForm.WizardControl.SelectedPageChanging -= WizardControl_SelectedPageChanging;
 
                 foreach (BaseWizardPage page in _WizardForm.WizardControl.Pages) {
-                    if (page is XafWizardPage) {
-                        ((XafWizardPage)page).View.SaveModel();
-                        ((XafWizardPage)page).View.Dispose();
+                    var wizardPage = page as XafWizardPage;
+                    if (wizardPage != null) {
+                        wizardPage.View.SaveModel();
+                        wizardPage.View.Dispose();
                     }
                 }
 
@@ -196,7 +197,6 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// Fires after the next button has been clicked
         /// </summary>
         private bool Validate(XafWizardPage page) {
-            RuleValidationResult result;
             var validationResults = new RuleSetValidationResult();
             var usedProperties = new List<string>();
             var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() };
@@ -204,10 +204,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             foreach (var item in page.View.GetItems<PropertyEditor>()) {
                 if (item.Control != null && ((Control)item.Control).Visible) {
                     usedProperties.Add(item.PropertyName);
-                    if (item is ListPropertyEditor) {
-                        usedProperties.AddRange(((ListPropertyEditor)item).ListView.Editor.RequiredProperties.Select(property => property.TrimEnd('!')));
+                    var editor = item as ListPropertyEditor;
+                    if (editor != null) {
+                        usedProperties.AddRange(editor.ListView.Editor.RequiredProperties.Select(property => property.TrimEnd('!')));
 
-                        var nestedController = ((ListPropertyEditor)item).Frame.GetController<ResultsHighlightController>();
+                        var nestedController = editor.Frame.GetController<ResultsHighlightController>();
                         if (nestedController != null) {
                             resultsHighlightControllers.Add(nestedController);
                         }
@@ -219,11 +220,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             foreach (var obj in modifiedObjects) {
                 IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules) {
-                    bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.Where(p => p.EndsWith(String.Format(".{0}", property))).FirstOrDefault()));
+                    bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(String.Format(".{0}", property)))));
 
                     string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(rule, obj, out reason)) {
-                        result = rule.Validate(obj);
+                        RuleValidationResult result = rule.Validate(obj);
 
                         if (result.State == ValidationState.Invalid) {
                             validationResults.AddResult(new RuleSetValidationResultItem(obj, ContextIdentifier.Save, rule, result));
@@ -263,7 +264,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             }
 
             if (_WizardForm.ShowRecordAfterCompletion) {
-                var os = Application.CreateObjectSpace();
+                var os = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
 
                 var showViewParameter = new ShowViewParameters {
                     Context = TemplateContext.View,

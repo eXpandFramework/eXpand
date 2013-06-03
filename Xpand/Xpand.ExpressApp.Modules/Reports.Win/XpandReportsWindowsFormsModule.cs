@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.Reports.Win {
             ModuleTypeList requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
             requiredModuleTypesCore.Add(typeof(DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule));
             requiredModuleTypesCore.Add(typeof(DashboardModule));
+            requiredModuleTypesCore.Add(typeof(XpandReportsModule));
             return requiredModuleTypesCore;
         }
     }

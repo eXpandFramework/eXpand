@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
         }
 
         string GetObjectKey(IModelDetailViewFriendlyUrl modelView, string[] strings) {
-            var objectSpace = WebApplication.Instance.CreateObjectSpace();
+            var objectSpace = WebApplication.Instance.CreateObjectSpace(modelView.ModelClass.TypeInfo.Type);
             var modelMember = modelView.ModelClass.FindMember(modelView.Url.ValueMemberName);
             var findObject = objectSpace.FindObject(modelView.ModelClass.TypeInfo.Type, CriteriaOperator.Parse(modelMember.Name + "=?", strings[1]));
             return modelView.ModelClass.TypeInfo.KeyMember.GetValue(findObject).ToString();
@@ -83,8 +83,8 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
 
         object GetObjectByKey(string objectKey, IModelObjectView modelObjectView) {
             if (modelObjectView != null && modelObjectView.ModelClass.TypeInfo.IsPersistent) {
-                var objectSpace = WebApplication.Instance.CreateObjectSpace();
                 var typeInfo = modelObjectView.ModelClass.TypeInfo;
+                var objectSpace = WebApplication.Instance.CreateObjectSpace(typeInfo.Type);
                 var convert = ReflectionHelper.Convert(objectKey, typeInfo.KeyMember.MemberType);
                 return objectSpace.GetObjectByKey(typeInfo.Type, convert);
             }

@@ -29,9 +29,9 @@ namespace EFDemo.Module.Data {
 		public String Notes { get; set; }
 		[ImmediatePostData]
 		public virtual Department Department { get; set; }
-		public virtual Position Position { get; set; }
+		public virtual Position_EF Position { get; set; }
 		public virtual IList<Resume> Resumes { get; set; }
-		[DataSourceProperty("Department.Contacts", DataSourcePropertyIsNullMode.SelectAll), DataSourceCriteria("Position.Title = 'Manager'")]
+		[DataSourceProperty("Department.Contacts", DataSourcePropertyIsNullMode.SelectAll), DataSourceCriteria("Position_EF.Title = 'Manager'")]
 		public virtual Contact Manager { get; set; }
 		public virtual IList<Contact> Contacts { get; set; }
 		public virtual IList<DemoTask> Tasks { get; set; }

@@ -18,7 +18,6 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
-        private static string _connectionString;
         List<Type> _dynamicModuleTypes = new List<Type>();
         static ExistentTypesMemberCreator _existentTypesMemberCreator;
 
@@ -44,8 +43,6 @@ namespace Xpand.ExpressApp.WorldCreator {
         protected override void OnApplicationInitialized(XafApplication xafApplication) {
             if (xafApplication == null)
                 return;
-            if (RuntimeMode)
-                _connectionString = FullConnectionString;
             base.OnApplicationInitialized(xafApplication);
         }
 
@@ -56,7 +53,6 @@ namespace Xpand.ExpressApp.WorldCreator {
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
             if (Application == null || GetPath() == null)
                 return;
-            Application.SettingUp += ApplicationOnSettingUp;
             if (FullConnectionString != null) {
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(FullConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
@@ -86,7 +82,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var session = (((XPObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false))).Session;
+            var session =((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
             MergeTypes(new UnitOfWork(session.DataLayer));
 
         }
@@ -118,16 +114,6 @@ namespace Xpand.ExpressApp.WorldCreator {
                 reflectionDictionary.QueryClassInfo(type);
             }
             return reflectionDictionary;
-        }
-
-        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
-            CreateDataStore(setupEventArgs);
-        }
-
-        void CreateDataStore(SetupEventArgs setupEventArgs) {
-            var objectSpaceProvider = setupEventArgs.SetupParameters.ObjectSpaceProvider as IXpandObjectSpaceProvider;
-            if (objectSpaceProvider == null)
-                throw new NotImplementedException("WorldCreator ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
         }
 
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {

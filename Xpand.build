@@ -99,6 +99,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\PivotGrid.Win\Xpand.ExpressApp.PivotGrid.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Chart.Win\Xpand.ExpressApp.Chart.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Reports\Xpand.ExpressApp.Reports.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Reports.Win\Xpand.ExpressApp.Reports.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj;

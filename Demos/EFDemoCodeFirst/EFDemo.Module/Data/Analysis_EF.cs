@@ -14,7 +14,7 @@ using DevExpress.ExpressApp.DC;
 
 namespace EFDemo.Module.Data {
 	[NavigationItem("Reports")]
-	public class Analysis : IAnalysisInfo, IAnalysisInfoTestable, ISupportInitialize {
+	public class Analysis_EF : IAnalysisInfo, IAnalysisInfoTestable, ISupportInitialize {
 		private const String propertiesSeparator = ";";
 		private InitializeIndicator initializeIndicator;
 		private DimensionPropertiesList dimensionProperties;
@@ -51,7 +51,7 @@ namespace EFDemo.Module.Data {
 			}
 		}
 
-		public Analysis() {
+		public Analysis_EF() {
 			dimensionProperties = new DimensionPropertiesList();
 			initializeIndicator = new InitializeIndicator();
 		}

@@ -55,6 +55,7 @@ call buildproject.cmd Xpand.ExpressApp.PivotChart.Web ".\Xpand\Xpand.ExpressApp.
 call buildproject.cmd Xpand.ExpressApp.PivotGrid.Win ".\Xpand\Xpand.ExpressApp.Modules\PivotGrid.Win\Xpand.ExpressApp.PivotGrid.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Chart.Win ".\Xpand\Xpand.ExpressApp.Modules\Chart.Win\Xpand.ExpressApp.Chart.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Scheduler.Win ".\Xpand\Xpand.ExpressApp.Modules\Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Reports ".\Xpand\Xpand.ExpressApp.Modules\Reports\Xpand.ExpressApp.Reports.csproj"
 call buildproject.cmd Xpand.ExpressApp.Reports.Win ".\Xpand\Xpand.ExpressApp.Modules\Reports.Win\Xpand.ExpressApp.Reports.Win.csproj"
 call buildproject.cmd Xpand.NCarousel ".\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj"
 call buildproject.cmd Xpand.ExpressApp.NCarousel.Web ".\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj"

@@ -134,6 +134,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationRequest.cs" />
     <Compile Include="Security\IStateMachineTransitionPermission.cs" />

@@ -174,14 +174,75 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System"><Private>False</Private></Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    <Private>False</Private></Reference>
-    <Reference Include="System.Data"><Private>False</Private></Reference>
-    <Reference Include="System.Data.Entity"><Private>False</Private></Reference>
-    <Reference Include="System.Web"><Private>False</Private></Reference>
-    <Reference Include="System.Xml"><Private>False</Private></Reference>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NCarousel.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NCarousel.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Thumbnail.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Thumbnail.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Web, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ChooseTemplateController.cs">
@@ -218,6 +279,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\ModelDifference\Xpand.ExpressApp.ModelDifference.csproj">
+      <Project>{8D97AC44-202D-4659-8CB0-6D8DCC796156}</Project>
+      <Name>Xpand.ExpressApp.ModelDifference</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj">
+      <Project>{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}</Project>
+      <Name>Xpand.ExpressApp.WorldCreator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj">
+      <Project>{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}</Project>
+      <Name>Xpand.ExpressApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EFDemo.Module\EFDemo.Module.csproj">
       <Project>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</Project>
       <Name>EFDemo.Module</Name>

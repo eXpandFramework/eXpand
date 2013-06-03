@@ -9,9 +9,10 @@ using DevExpress.ExpressApp.Security;
 
 using EFDemo.Module;
 using EFDemo.Module.Data;
+using Xpand.ExpressApp.Web;
 
 namespace EFDemo.Web {
-	public class EFDemoWebApplication : WebApplication {
+	public class EFDemoWebApplication : XpandWebApplication {
 		private DevExpress.ExpressApp.SystemModule.SystemModule systemModule1;
 		private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule webSystemModule1;
 		private SecurityModule securityModule1;
@@ -77,7 +78,7 @@ namespace EFDemo.Web {
 			// reportsModule1
 			// 
 			this.reportsModule1.EnableInplaceReports = true;
-			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData);
+			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData_EF);
 			this.reportsModule1.ShowAdditionalNavigation = false;
 			// 
 			// validationModule1
@@ -124,17 +125,14 @@ namespace EFDemo.Web {
 			e.Updater.Update();
 			e.Handled = true;
 		}
+
+        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomProvider(args.ConnectionString, (TypesInfo)TypesInfo, args.ObjectSpaceProviders, () => base.OnCreateCustomObjectSpaceProvider(args));
+        }
+
 		protected override void OnLoggedOn(LogonEventArgs args) {
 			base.OnLoggedOn(args);
 			((ShowViewStrategy)base.ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
-		}
-		protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-			if(args.Connection != null) {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), (TypesInfo)TypesInfo, null, (DbConnection)args.Connection);
-			}
-			else {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), (TypesInfo)TypesInfo, null, args.ConnectionString);
-			}
 		}
 
 		public EFDemoWebApplication() {

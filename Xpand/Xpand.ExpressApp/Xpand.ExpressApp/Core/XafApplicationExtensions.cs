@@ -97,7 +97,7 @@ namespace Xpand.ExpressApp.Core {
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = ConnectionString(xafApplication, args);
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
+            args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication, connectionProvider, connectionString));
         }
 
         static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {

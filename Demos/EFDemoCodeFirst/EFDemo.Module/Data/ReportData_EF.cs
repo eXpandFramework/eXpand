@@ -14,7 +14,7 @@ using DevExpress.ExpressApp.Reports;
 
 namespace EFDemo.Module.Data {
 	[DefaultProperty("ReportName")]
-	public class ReportData : IReportData, IXtraReportData, IInplaceReport {
+	public class ReportData_EF : IReportData, IXtraReportData, IInplaceReport {
 		[Browsable(false)]
 		public Int32 ID { get; protected set; }
 		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]

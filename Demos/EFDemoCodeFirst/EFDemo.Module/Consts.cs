@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace EFDemo.Module {
-	public static class Consts {
+    public static class Consts {
 		public static String EntityFrameworkAssemblyName = "EntityFramework";
 		public static String CodeFirstMessageText =
 			"This demo illustrates the use of the Entity Framework Code First data model, and consequently, requires the EntityFramework.dll assembly.\r\n" +

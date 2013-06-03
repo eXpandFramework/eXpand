@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
@@ -40,14 +39,19 @@ namespace Xpand.ExpressApp.IO.Controllers {
         void ShowSerializationView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var groupObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>();
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
-            var objectSpace = Application.CreateObjectSpace() as XPObjectSpace;
+            
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             showViewParameters.Context = TemplateContext.View;
             showViewParameters.CreateAllControllers = true;
             View view;
-            if (ObjectSpace.FindObject(groupObjectType, null) == null)
-                view = Application.CreateDetailView(objectSpace, objectSpace.CreateObjectFromInterface<ISerializationConfigurationGroup>());
+            if (ObjectSpace.FindObject(groupObjectType, null) == null) {
+                IObjectSpace objectSpace = Application.CreateObjectSpace(XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>()) ;                
+                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISerializationConfigurationGroup>();
+                view = Application.CreateDetailView(objectSpace, objectFromInterface);
+                
+            }
             else {
+                IObjectSpace objectSpace = Application.CreateObjectSpace(groupObjectType);
                 view = Application.CreateListView(objectSpace, groupObjectType, true);
             }
             showViewParameters.CreatedView = view;
@@ -73,7 +77,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var objectSpace = ((XPObjectSpace)Application.CreateObjectSpace());
+            var objectSpace = ((XPObjectSpace)Application.CreateObjectSpace(TypesInfo.Instance.XmlFileChooserType));
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
             var dialogController = new DialogController { SaveOnAccept = false };

@@ -31,13 +31,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
         static IEnumerable<object> Collection(IUserWithRoles userWithRoles) {
             IEnumerable<object> collection = null;
             if (userWithRoles != null) {
-                collection = userWithRoles.Roles.Cast<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+                collection = userWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
             }
             if (collection == null) {
                 var securityUserWithRoles = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
                 if (securityUserWithRoles != null) {
                     collection =
-                        securityUserWithRoles.Roles.Cast<XPBaseObject>()
+                        securityUserWithRoles.Roles.OfType<XPBaseObject>()
                                              .Select(role => role.ClassInfo.KeyProperty.GetValue(role));
                 }
             }

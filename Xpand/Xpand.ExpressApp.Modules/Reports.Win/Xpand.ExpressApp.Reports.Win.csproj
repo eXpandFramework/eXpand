@@ -120,7 +120,6 @@
     <Reference Include="DevExpress.Utils.v12.2.UI , Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
     <Reference Include="DevExpress.XtraReports.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -132,6 +131,10 @@
     <Reference Include="Xpand.ExpressApp.Dashboard, Version=12.2.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Reports, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base, Version=12.1.7.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected virtual void AddNewObject() {
             var svp = new ShowViewParameters();
-            IObjectSpace newObjectViewObjectSpace = _helper.Application.CreateObjectSpace();
+            IObjectSpace newObjectViewObjectSpace = _helper.Application.CreateObjectSpace(_helper.LookupObjectTypeInfo.Type);
             object newObject =
                 RuntimeHelpers.GetObjectValue(newObjectViewObjectSpace.CreateObject(_helper.LookupObjectTypeInfo.Type));
             lookupObjectView = _helper.Application.CreateDetailView(newObjectViewObjectSpace,
@@ -152,7 +152,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected virtual void OpenCurrentObject() {
             var svp = new ShowViewParameters();
-            IObjectSpace openObjectViewObjectSpace = _helper.Application.CreateObjectSpace();
+            IObjectSpace openObjectViewObjectSpace = _helper.Application.CreateObjectSpace(_lookup.EditValue.GetType());
             object targetObject =
                 RuntimeHelpers.GetObjectValue(
                     openObjectViewObjectSpace.GetObject(RuntimeHelpers.GetObjectValue(_lookup.EditValue)));

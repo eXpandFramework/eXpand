@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
@@ -25,11 +27,17 @@ namespace Xpand.ExpressApp {
             if (securityComplex != null) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
-
-                xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
-                XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
+                if (IsXpoType(typeToCreateOn)) {
+                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
+                    XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
+                }
             }
             return xpCustomMemberInfos;
+        }
+
+        bool IsXpoType(Type typeToCreateOn) {
+            XpoTypeInfoSource xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
+            return xpoTypeInfoSource.GetOriginalType(typeToCreateOn) != null && xpoTypeInfoSource.RegisteredEntities.Contains(typeToCreateOn);
         }
 
         public List<XPMemberInfo> BuildUser(Type otherPartMember) {
@@ -40,9 +48,10 @@ namespace Xpand.ExpressApp {
             var xpCustomMemberInfos = new List<XPMemberInfo>();
             if (_application.Security != null) {
                 if (XpandModuleBase.UserType != null) {
-
-                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
-                    XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
+                    if (IsXpoType(XpandModuleBase.UserType)) {
+                        xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
+                        XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
+                    }
                 }
             }
             return xpCustomMemberInfos;
