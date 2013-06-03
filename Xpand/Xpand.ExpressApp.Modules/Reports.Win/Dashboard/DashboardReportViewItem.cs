@@ -1,4 +1,3 @@
-#if !SKIPDASHBOARD
 using System;
 using System.Windows.Forms;
 using DevExpress.Data.Filtering;
@@ -74,4 +73,3 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     }
 
 }
-#endif
