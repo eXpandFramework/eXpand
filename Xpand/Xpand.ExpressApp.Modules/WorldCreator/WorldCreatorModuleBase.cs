@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -37,14 +38,14 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public static string FullConnectionString {
             get {
-                return _connectionString;
+                return ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
         }
         protected override void OnApplicationInitialized(XafApplication xafApplication) {
             if (xafApplication == null)
                 return;
             if (RuntimeMode)
-                _connectionString = xafApplication.GetConnectionString();
+                _connectionString = FullConnectionString;
             base.OnApplicationInitialized(xafApplication);
         }
 

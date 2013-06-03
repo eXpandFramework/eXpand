@@ -63,11 +63,6 @@ namespace Xpand.ExpressApp.Web {
             OnUserDifferencesLoaded(EventArgs.Empty);
         }
 
-        protected override void OnSetupComplete() {
-            this.SetClientSideSecurity();
-            base.OnSetupComplete();
-        }
-
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
             get { return _applicationModulesManager; }
         }
@@ -78,21 +73,7 @@ namespace Xpand.ExpressApp.Web {
             _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
             return _applicationModulesManager;
         }
-
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
-
-        protected override void OnSetupStarted() {
-            base.OnSetupStarted();
-            ConnectionString = base.ConnectionString;
-        }
-
-        string IConnectionString.ConnectionString { get; set; }
+      
         public event EventHandler<ViewShownEventArgs> AfterViewShown;
 
         public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
@@ -156,8 +137,5 @@ namespace Xpand.ExpressApp.Web {
             return null;
         }
 
-        string IXafApplication.RaiseEstablishingConnection() {
-            return this.GetConnectionString();
-        }
     }
 }

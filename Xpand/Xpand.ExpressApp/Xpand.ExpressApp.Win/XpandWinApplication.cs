@@ -82,16 +82,6 @@ namespace Xpand.ExpressApp.Win {
             return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
         }
 
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
-
-        string IConnectionString.ConnectionString { get; set; }
-
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }
@@ -216,10 +206,6 @@ namespace Xpand.ExpressApp.Win {
                 return _cacheNode;
             }
             return null;
-        }
-
-        string IXafApplication.RaiseEstablishingConnection() {
-            return this.GetConnectionString();
         }
 
         bool ITestSupport.IsTesting { get; set; }

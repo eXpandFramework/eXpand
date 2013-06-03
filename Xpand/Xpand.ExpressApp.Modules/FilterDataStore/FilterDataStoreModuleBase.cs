@@ -13,7 +13,6 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
-using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
 using Xpand.ExpressApp.Core;
@@ -40,10 +39,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
             if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
-        }
-
-        protected override Type ApplicationType() {
-            return typeof(IConnectionString);
         }
 
         void SubscribeToDataStoreProxyEvents() {

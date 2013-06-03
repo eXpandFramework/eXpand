@@ -8,13 +8,12 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
         ApplicationModulesManager _applicationModulesManager;
-        string IConnectionString.ConnectionString { get; set; }
+        
 
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
@@ -39,18 +38,6 @@ namespace Xpand.ExpressApp.MiddleTier {
             userDiff.Id = "UserDiff";
             ModelApplicationHelper.AddLayer(modelApplicationBase, userDiff);
             OnUserDifferencesLoaded(EventArgs.Empty);
-        }
-
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IXafApplication)this).ConnectionString = value;
-            }
-        }
-
-        string IXafApplication.RaiseEstablishingConnection() {
-            return this.GetConnectionString();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

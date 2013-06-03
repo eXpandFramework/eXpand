@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -20,7 +21,6 @@ using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -129,7 +129,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
-                    var connectionString = ((IXafApplication)Application).RaiseEstablishingConnection();
+                    var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                     SequenceGenerator.Initialize(connectionString, SequenceObjectType);
                 }
             } catch (Exception e) {
