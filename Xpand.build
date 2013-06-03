@@ -465,7 +465,7 @@
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorkFlowWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWin.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboardWin.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true'"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboard.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true'"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandXtraDashboardWin.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true'"/>
 	</Target>
 
