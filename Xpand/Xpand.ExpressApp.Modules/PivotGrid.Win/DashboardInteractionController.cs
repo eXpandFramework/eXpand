@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
-
 using Xpand.ExpressApp.Dashboard.Core.Dashboard;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
