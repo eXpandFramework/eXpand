@@ -12,17 +12,7 @@ namespace WorldCreatorTester.Win {
         public WorldCreatorTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
-        }
-
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
-
-        string IConnectionString.ConnectionString { get; set; }
+        }      
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();

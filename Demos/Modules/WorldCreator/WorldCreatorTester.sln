@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreatorTester.Module", "WorldCreatorTester.Module\WorldCreatorTester.Module.csproj", "{07106F56-CEF9-4A5F-91C4-71C308DEB988}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreatorTester.Module.Web", "WorldCreatorTester.Module.Web\WorldCreatorTester.Module.Web.csproj", "{970E214A-6380-48AF-87C7-26E0EAE954A2}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "WorldCreatorTester.Web", "WorldCreatorTester.Web\WorldCreatorTester.Web.csproj", "{78E329BE-A33C-4B58-9D76-65A5B90EA6A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreatorTester.Web", "WorldCreatorTester.Web\WorldCreatorTester.Web.csproj", "{78E329BE-A33C-4B58-9D76-65A5B90EA6A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldCreatorTester.Module.Win", "WorldCreatorTester.Module.Win\WorldCreatorTester.Module.Win.csproj", "{7B2E4E13-2F71-42F9-A88B-E93DAD6A9FCC}"
 EndProject
