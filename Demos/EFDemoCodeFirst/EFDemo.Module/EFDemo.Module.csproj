@@ -156,6 +156,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraCharts.v12.2.Wizard">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraCharts.v12.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -165,6 +169,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v12.2">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v12.2.UI">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
