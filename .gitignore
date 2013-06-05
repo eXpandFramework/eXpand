@@ -37,5 +37,6 @@ objSL
 *.pdb
 TestResults
 pingme.txt
+/Build
 \ No newline at end of file
 Demos/FeatureCenter/Backup*
