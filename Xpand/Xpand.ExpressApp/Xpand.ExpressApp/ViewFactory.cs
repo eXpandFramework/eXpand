@@ -44,7 +44,9 @@ namespace Xpand.ExpressApp {
             }
 
             Debug.Assert(obj != null, "obj != null");
-            var detailView = new XpandDetailView(xafApplication.CreateObjectSpace(obj.GetType()), obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
+            IObjectSpace objectSpace = xafApplication.CreateObjectSpace(obj.GetType());
+            obj = objectSpace.GetObject(obj);
+            var detailView = new XpandDetailView(objectSpace, obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
             detailView.SetModel(modelView);
             return detailView;
         }
