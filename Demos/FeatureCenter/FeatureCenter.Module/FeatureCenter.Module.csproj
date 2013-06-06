@@ -12,8 +12,7 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -117,118 +116,145 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\Quartz.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=11.2.8.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ArtifactState, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ArtifactState">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalActionState, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalActionState">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalActionState.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalActionState.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalControllerState, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalControllerState">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ConditionalDetailViews">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalDetailViews.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard, Version=11.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ImportWizard">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.IO, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.IO">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler, Version=10.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs, Version=10.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelArtifactState, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.StateMachine">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl">
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.StateMachine, Version=11.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Workflow, Version=11.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper, Version=11.2.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.5.178, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Xpo, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -292,8 +318,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
-    </Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs"></Compile>
     <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
     <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
       <SubType>Component</SubType>
@@ -379,8 +404,7 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
-    </Compile>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
     <Compile Include="DisplayUpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>

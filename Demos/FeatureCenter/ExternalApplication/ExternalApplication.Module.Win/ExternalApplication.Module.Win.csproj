@@ -11,8 +11,7 @@
     <RootNamespace>ExternalApplication.Module.Win</RootNamespace>
     <AssemblyName>ExternalApplication.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -140,45 +139,55 @@
     <Reference Include="FeatureCenter.Base">
       <HintPath>..\..\FeatureCenter.Base\bin\Debug\FeatureCenter.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=10.1.5.179, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=12.2.7.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation, Version=10.1.5.179, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=10.1.5.179, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=10.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=10.2.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=10.1.5.179, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <Private>True</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -203,13 +212,15 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Xpo, Version=10.1.7.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

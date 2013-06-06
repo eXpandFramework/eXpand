@@ -10,11 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ExceptionHandling.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ExceptionHandling.Win</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -85,22 +83,25 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="Xpand.ExpressApp, Version=10.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=0.0.0.11, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=11.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Utils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,22 +189,25 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -250,8 +252,7 @@
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>

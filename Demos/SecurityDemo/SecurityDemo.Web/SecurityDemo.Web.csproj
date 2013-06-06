@@ -12,11 +12,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecurityDemo.Web</RootNamespace>
     <AssemblyName>SecurityDemo.Web</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -180,18 +178,20 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=12.2.7.4, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -245,8 +245,7 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Web\SecurityDemo.Module.Web.csproj">
       <Project>{57A17A31-1CFC-43B5-9CA2-7DF9661EE4E9}</Project>
@@ -285,12 +284,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>62546</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

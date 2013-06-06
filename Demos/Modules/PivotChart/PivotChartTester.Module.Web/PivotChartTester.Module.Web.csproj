@@ -85,14 +85,19 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Web, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
     </Reference>
   </ItemGroup>

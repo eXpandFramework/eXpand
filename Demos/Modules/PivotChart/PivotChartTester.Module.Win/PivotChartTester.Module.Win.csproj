@@ -103,14 +103,19 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.2.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Win.dll</HintPath>
     </Reference>
   </ItemGroup>

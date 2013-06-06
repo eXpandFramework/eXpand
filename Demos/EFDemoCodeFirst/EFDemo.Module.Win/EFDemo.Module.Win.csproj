@@ -11,8 +11,7 @@
     <RootNamespace>EFDemo.Module.Win</RootNamespace>
     <AssemblyName>EFDemo.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -167,78 +166,119 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Chart.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Chart.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Chart.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ImportWizard.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.IO.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotChart, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.PivotChart.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotChart">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotGrid.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.PivotGrid.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Reports.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Reports.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Security.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Validation.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WizardUI.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WizardUI.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WizardUI.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Win, Version=12.2.10.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
     </Reference>
   </ItemGroup>
