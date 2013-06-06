@@ -129,7 +129,9 @@ namespace Xpand.ExpressApp.SystemModule {
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
-                    var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    var connectionStringSettings = ConfigurationManager.ConnectionStrings["ConnectionString"];
+                    if (connectionStringSettings == null) throw new NullReferenceException("connectionStringSettings");
+                    var connectionString = connectionStringSettings.ConnectionString;
                     SequenceGenerator.Initialize(connectionString, SequenceObjectType);
                 }
             } catch (Exception e) {
