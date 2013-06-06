@@ -37,7 +37,8 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public static string FullConnectionString {
             get {
-                return ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"];
+                return connectionString != null ? connectionString.ConnectionString : null;
             }
         }
         protected override void OnApplicationInitialized(XafApplication xafApplication) {
