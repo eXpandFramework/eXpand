@@ -3,7 +3,7 @@
 namespace Xpand.ExpressApp.Web.SystemModule {
     public class ViewEditModeController : ExpressApp.SystemModule.ViewEditModeController {
         protected override void UpdateViewEditModeState(DevExpress.ExpressApp.Editors.ViewEditMode viewEditMode) {
-            Frame.GetController<WebDetailViewController>().EditAction.DoExecute();
+            Frame.GetController<WebModificationsController>().EditAction.DoExecute();
         }
     }
 }

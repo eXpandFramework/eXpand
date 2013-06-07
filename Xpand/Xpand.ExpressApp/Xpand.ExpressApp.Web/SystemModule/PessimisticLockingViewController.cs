@@ -6,7 +6,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     public class PessimisticLockingViewController : ExpressApp.SystemModule.PessimisticLockingViewController {
         protected override void SubscribeToEvents() {
             base.SubscribeToEvents();
-            Frame.GetController<WebDetailViewController>().EditAction.Execute += EditActionOnExecute;
+            Frame.GetController<WebModificationsController>().EditAction.Execute += EditActionOnExecute;
         }
 
         void EditActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<WebDetailViewController>().EditAction.Execute -= EditActionOnExecute;
+            Frame.GetController<WebModificationsController>().EditAction.Execute -= EditActionOnExecute;
         }
     }
 }

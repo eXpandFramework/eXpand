@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid;
@@ -106,8 +105,7 @@ Forms.DockStyle.None) {
         }
 
         private CriteriaOperator GetCriteriaFromView() {
-            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type,
-((IModelListViewWin)View.Model).ActiveFilterString, false);
+            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type,View.Model.Filter, false);
             new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
             FilterWithObjectsProcessorMode.StringToObject);
             return criteriaWrapper.CriteriaOperator;

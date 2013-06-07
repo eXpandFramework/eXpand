@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils.Frames;
 using View = DevExpress.ExpressApp.View;
 using System.Linq;
@@ -9,11 +8,11 @@ using System.Linq;
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController {
         protected override string GetActiveFilter(IModelListView modelListView) {
-            return ((IModelListViewWin)modelListView).ActiveFilterString;
+            return modelListView.Filter;
         }
 
         protected override void SetActiveFilter(IModelListView modelListView, string filter) {
-            ((IModelListViewWin)modelListView).ActiveFilterString = filter;
+            modelListView.Filter = filter;
         }
 
         protected override void AddFilterPanel(string text, object viewSiteControl) {

@@ -15,7 +15,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
@@ -118,7 +117,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         private void SetupActiveFilterCriteriaToControl() {
             IObjectSpace objectSpace = _columnViewEditor.CollectionSource.ObjectSpace;
             ITypeInfo typeInfo = Model.ModelClass.TypeInfo;
-            CriteriaOperator criteriaOperator = objectSpace.ParseCriteria(((IModelListViewWin)Model).ActiveFilterString);
+            CriteriaOperator criteriaOperator = objectSpace.ParseCriteria(Model.Filter);
             if (_columnViewEditor.IsAsyncServerMode()) {
                 new AsyncServerModeCriteriaProccessor(typeInfo).Process(criteriaOperator);
             }
@@ -132,24 +131,24 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             Control.OptionsView.ShowFooter = Model.IsFooterVisible;
             Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
             Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
-            var modelListViewWin = Model as IModelListViewWin;
+            var modelListViewWin = Model;
             if (modelListViewWin != null) {
                 if (_columnViewEditor.CollectionSource != null) {
                     SetupActiveFilterCriteriaToControl();
                 }
-                Control.ActiveFilterEnabled = (modelListViewWin).IsActiveFilterEnabled;
+                Control.ActiveFilterEnabled = (modelListViewWin).FilterEnabled;
             }
         }
         protected override void ApplyModelCore() {
             Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
             Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
-            var modelListViewWin = Model as IModelListViewWin;
+            var modelListViewWin = Model;
             if (modelListViewWin != null) {
-                Control.ActiveFilterEnabled = (modelListViewWin).IsActiveFilterEnabled;
+                Control.ActiveFilterEnabled = (modelListViewWin).FilterEnabled;
                 if (_columnViewEditor.CollectionSource != null) {
                     SetupActiveFilterCriteriaToControl();
                 } else {
-                    Control.ActiveFilterString = (modelListViewWin).ActiveFilterString;
+                    Control.ActiveFilterString = (modelListViewWin).Filter;
                 }
             }
             var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
@@ -168,13 +167,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         public override void SynchronizeModel() {
             Model.AutoExpandAllGroups = Control.OptionsBehavior.AutoExpandAllGroups;
             Model.IsGroupPanelVisible = Control.OptionsView.ShowGroupPanel;
-            var modelListViewWin = Model as IModelListViewWin;
+            var modelListViewWin = Model;
             if (modelListViewWin != null) {
-                (modelListViewWin).IsActiveFilterEnabled = Control.ActiveFilterEnabled;
+                (modelListViewWin).FilterEnabled = Control.ActiveFilterEnabled;
                 if (!ReferenceEquals(Control.ActiveFilterCriteria, null) && _columnViewEditor.CollectionSource != null) {
-                    (modelListViewWin).ActiveFilterString = CriteriaOperator.ToString(Control.ActiveFilterCriteria);
+                    (modelListViewWin).Filter = CriteriaOperator.ToString(Control.ActiveFilterCriteria);
                 } else {
-                    (modelListViewWin).ActiveFilterString = null;
+                    (modelListViewWin).Filter = null;
                 }
             }
             var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;

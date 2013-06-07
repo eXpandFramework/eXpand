@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.Win.SystemModule
@@ -22,24 +23,24 @@ namespace Xpand.ExpressApp.Win.SystemModule
         protected override void OnViewControllersActivated()
         {
             base.OnActivated();
-            var winDetailViewController = Frame.GetController<WinDetailViewController>();
+            var winDetailViewController = Frame.GetController<WinModificationsController>();
             if (winDetailViewController != null && ((IModelListViewAutoCommitListView)View.Model).AutoCommitListView) {
-                winDetailViewController.AutoCommitListView = true;
+                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
                 View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
             }
         }
         protected override void OnDeactivated()
         {
             base.OnDeactivated();
-            var winDetailViewController = Frame.GetController<WinDetailViewController>();
+            var winDetailViewController = Frame.GetController<WinModificationsController>();
             if (winDetailViewController != null && ((IModelListViewAutoCommitListView)View.Model).AutoCommitListView)
             {
-                winDetailViewController.AutoCommitListView = true;
+                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
                 View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
             }
         }
         void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {
-            if (Frame.GetController<WinDetailViewController>().SuppressConfirmation)
+            if (Frame.GetController<WinModificationsController>().ModificationsHandlingMode!=ModificationsHandlingMode.Confirmation)
                 ObjectSpace.CommitChanges();
         }
 

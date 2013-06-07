@@ -256,9 +256,9 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             UpdateControllers(View);
             var currentObject = View.CurrentObject;
-            var controller = Frame.GetController<DetailViewController>();
+            var controller = Frame.GetController<ModificationsController>();
             if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled) {
-                Frame.GetController<DetailViewController>().SaveAndCloseAction.DoExecute();
+                Frame.GetController<ModificationsController>().SaveAndCloseAction.DoExecute();
             } else {
                 Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
             }

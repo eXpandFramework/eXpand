@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp.Win.SystemModule;
 
 namespace Xpand.ExpressApp.Win.SystemModule
 {
@@ -36,7 +35,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
 
         protected override string GetActiveFilter()
         {
-            return ((IModelListViewWin)View.Model).ActiveFilterString;
+            return View.Model.Filter;
         }
     }
 }
