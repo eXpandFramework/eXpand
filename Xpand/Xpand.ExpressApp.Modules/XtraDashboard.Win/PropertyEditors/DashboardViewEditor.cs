@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraDashboard;
+using DevExpress.DashboardWin;
 using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
