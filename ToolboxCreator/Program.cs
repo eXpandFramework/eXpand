@@ -29,7 +29,7 @@ namespace Xpand.ToolboxCreator {
             
 
 
-            foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand*.dll")) {
+            foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
                 var assembly = Assembly.LoadFrom(file);
                 foreach (var type in assembly.GetTypes()) {
                     var toolboxItemAttribute = type.GetCustomAttributes(typeof(ToolboxItemAttribute), true).OfType<ToolboxItemAttribute>().FirstOrDefault();
