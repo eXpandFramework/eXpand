@@ -200,6 +200,11 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -224,6 +229,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelDifference.Web">
       <SpecificVersion>False</SpecificVersion>
@@ -264,6 +274,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator.Web">
       <SpecificVersion>False</SpecificVersion>
@@ -306,18 +321,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\ModelDifference\Xpand.ExpressApp.ModelDifference.csproj">
-      <Project>{8D97AC44-202D-4659-8CB0-6D8DCC796156}</Project>
-      <Name>Xpand.ExpressApp.ModelDifference</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj">
-      <Project>{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}</Project>
-      <Name>Xpand.ExpressApp.WorldCreator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj">
-      <Project>{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}</Project>
-      <Name>Xpand.ExpressApp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\EFDemo.Module\EFDemo.Module.csproj">
       <Project>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</Project>
       <Name>EFDemo.Module</Name>

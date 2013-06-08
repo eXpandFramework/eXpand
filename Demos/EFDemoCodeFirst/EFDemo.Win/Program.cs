@@ -39,7 +39,6 @@ namespace EFDemo.Win {
 			EFDemoWinApplication winApplication = new EFDemoWinApplication();
 #if DEBUG
 			EasyTestRemotingRegistration.Register();
-			winApplication.SplashScreenType = null;
 #endif
 			winApplication.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(winApplication_CustomizeFormattingCulture);
 			winApplication.LastLogonParametersReading += new EventHandler<LastLogonParametersReadingEventArgs>(winApplication_LastLogonParametersReading);

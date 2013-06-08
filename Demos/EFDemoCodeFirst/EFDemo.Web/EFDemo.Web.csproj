@@ -358,7 +358,9 @@
     <Content Include="Login.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EFDemo.Module.Web\EFDemo.Module.Web.csproj">
