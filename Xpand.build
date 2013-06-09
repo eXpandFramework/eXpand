@@ -119,10 +119,10 @@
 			.\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj;
 			.\Demos\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj;
-			.\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;"  Condition="$(SkipDashboard)!='true'"/>
-		<ProjectFiles Include="
+			.\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;
-			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;
+			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;"  Condition="$(SkipDashboard)!='true'"/>
+		<ProjectFiles Include="		
 			.\Demos\SecurityDemo\SecurityDemo.sln;"/>
 		<ProjectFiles Include="	
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
