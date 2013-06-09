@@ -14,8 +14,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
 
         private static ContainsOperator UsersContainsOperator {
             get {
-                XPMemberInfo mi = ((XPBaseObject)SecuritySystem.CurrentUser).ClassInfo.KeyProperty;
-                return new ContainsOperator("Users", new BinaryOperator(mi.Name, mi.GetValue(SecuritySystem.CurrentUser)));
+                var xpBaseObject = (SecuritySystem.CurrentUser) as XPBaseObject;
+                if (xpBaseObject != null) {
+                    XPMemberInfo mi = xpBaseObject.ClassInfo.KeyProperty;
+                    return new ContainsOperator("Users", new BinaryOperator(mi.Name, mi.GetValue(SecuritySystem.CurrentUser)));
+                }
+                return null;
             }
         }
 

@@ -14,7 +14,7 @@ using DevExpress.Persistent.Base;
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
         void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
-            var request = ObjectSpace.CreateObject<ObjectChangedXpoStartWorkflowRequest>();
+            var request = GetObjectSpace().CreateObject<ObjectChangedXpoStartWorkflowRequest>();
             request.TargetWorkflowUniqueId = objectChangedWorkflow.GetUniqueId();
             request.TargetObjectType = typeInfo.Type;
             request.TargetObjectKey = targetObjectKey;
@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         protected override void OnActivated() {
             base.OnActivated();
             if (TypeHasWorkflows()) {
-                ObjectSpace.ObjectChanged += PopulateObjectChangedEventArgs;
-                ObjectSpace.Committing += StartWorkFlows;
+                GetObjectSpace().ObjectChanged += PopulateObjectChangedEventArgs;
+                GetObjectSpace().Committing += StartWorkFlows;
             }
         }
 
@@ -65,13 +65,17 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            ObjectSpace.ObjectChanged -= PopulateObjectChangedEventArgs;
-            ObjectSpace.Committing -= StartWorkFlows;
+            GetObjectSpace().ObjectChanged -= PopulateObjectChangedEventArgs;
+            GetObjectSpace().Committing -= StartWorkFlows;
+        }
+
+        protected IObjectSpace GetObjectSpace() {
+            return Application.CreateObjectSpace(typeof(ObjectChangedWorkflow));
         }
 
         bool TypeHasWorkflows() {
             try {
-                return ObjectSpace.GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
+                return GetObjectSpace().GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
             } catch (Exception e) {
                 Tracing.Tracer.LogError(e);
                 return false;
@@ -105,7 +109,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             foreach (var objectChangedEventArgs in _objectChangedEventArgses) {
                 groupOperator.Operands.Add(CriteriaOperator.Parse("TargetObjectType=?", objectChangedEventArgs.Object.GetType(), objectChangedEventArgs.PropertyName));
             }
-            return ObjectSpace.GetObjects<ObjectChangedWorkflow>(groupOperator);
+            return GetObjectSpace().GetObjects<ObjectChangedWorkflow>(groupOperator);
         }
 
     }

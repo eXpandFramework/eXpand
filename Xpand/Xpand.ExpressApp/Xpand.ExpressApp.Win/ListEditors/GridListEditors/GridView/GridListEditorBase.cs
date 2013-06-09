@@ -1452,6 +1452,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         AppearanceObjectEx AppearanceCell { get; }
         string FieldNameSortGroup { get; set; }
         int ImageIndex { get; set; }
+        bool Visible { get; set; }
         void Assign(GridColumn gridColumn);
         IXafGridColumn CreateNew(ITypeInfo typeInfo, ColumnsListEditor editor);
         void ApplyModel(IModelColumn columnInfo);
@@ -1804,6 +1805,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         private readonly IXafGridColumn column;
         public XpandGridColumnWrapper(IXafGridColumn column) {
             this.column = column;
+        }
+        public override bool Visible {
+            get {
+                return column.Visible;
+            }
         }
         public IXafGridColumn Column {
             get {

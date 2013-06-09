@@ -9,10 +9,9 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using FilterDataStoreTester.Module;
 using FilterDataStoreTester.Module.Web;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace FilterDataStoreTester.Web {
-    public class FilterDataStoreTesterAspNetApplication : WebApplication, IConnectionString {
+    public class FilterDataStoreTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         FilterDataStoreTesterModule module3;
@@ -23,15 +22,8 @@ namespace FilterDataStoreTester.Web {
             InitializeComponent();
         }
 
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
 
-        string IConnectionString.ConnectionString { get; set; }
+        
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);

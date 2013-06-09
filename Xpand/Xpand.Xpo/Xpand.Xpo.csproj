@@ -10,15 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.Xpo</RootNamespace>
     <AssemblyName>Xpand.Xpo</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <OutputPath>..\..\Xpand.Dll\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Xpo/</PublishUrl>
@@ -58,21 +57,21 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.9.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.ServiceModel" />
-    <Reference Include="Xpand.Utils, Version=0.0.0.11, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -113,8 +112,7 @@
     <Compile Include="DB\XpoServerId.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\XPBaseCollectionExtensions.cs">
-    </Compile>
+    <Compile Include="Collections\XPBaseCollectionExtensions.cs"></Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescConverter.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescTypeConverter.cs" />

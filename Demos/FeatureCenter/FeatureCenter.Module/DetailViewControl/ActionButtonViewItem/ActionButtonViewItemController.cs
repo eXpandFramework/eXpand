@@ -19,7 +19,7 @@ namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem {
         protected override void OnActivated()
         {
             base.OnActivated();
-            Frame.GetController<DetailViewController>().SaveAction.ExecuteCompleted+=SaveActionOnExecuteCompleted;
+            Frame.GetController<ModificationsController>().SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
             
         }
 

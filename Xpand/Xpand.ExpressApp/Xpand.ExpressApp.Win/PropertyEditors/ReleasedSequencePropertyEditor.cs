@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), false)]
     [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), false)]
     [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), false)]
-    public class ReleasedSequencePropertyEditor : DXPropertyEditor, IComplexPropertyEditor, IReleasedSequencePropertyEditor {
+    public class ReleasedSequencePropertyEditor : DXPropertyEditor, IComplexViewItem, IReleasedSequencePropertyEditor {
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }

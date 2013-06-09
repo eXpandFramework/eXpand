@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -182,24 +183,32 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 if (!File.Exists(videoRentalPath)) {
                     throw new FileNotFoundException(string.Format("Cannot run the WinForms VideoRental application by the following path: {0}", videoRentalPath));
                 }
-                DeleteMdbFiles();
+                DeleteLegacyFiles();
                 Process videoRental = Process.Start(videoRentalPath);
                 if (videoRental != null) {
                     WaitAutomation.WaitForWindowToOpen("Create Database");
                     WaitAutomation.WaitForWindowToClose("Create Database");
-                    if (!LegacyDbExists(unitOfWork))
-                        return false;
+                    var legacyDbExists = LegacyDbExists(unitOfWork);
                     WaitAutomation.WaitForWindowToOpen("About - Video Rental Demo (C#)");
                     videoRental.Kill();
-                    return true;
+                    return legacyDbExists;
                 }
                 throw new ApplicationException("The legacy VideoRent application failed to start");
             }
             return false;
         }
 
-        void DeleteMdbFiles() {
-            string[] files = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath) + "", "*.mdb");
+        void DeleteLegacyFiles() {
+            var directoryName = Path.GetDirectoryName(Application.ExecutablePath);
+            var ini = Path.Combine(directoryName + "", "VideoRent.ini");
+            if (File.Exists(ini)) {
+                File.Delete(ini);
+            }
+            using (var fileStream = File.Open(ini, FileMode.OpenOrCreate)) {
+                var bytes = Encoding.UTF8.GetBytes(@"DBFormat = ""Sql""");
+                fileStream.Write(bytes, 0, bytes.Length);
+            }
+            string[] files = Directory.GetFiles(directoryName + "", "*.mdb");
             foreach (var file in files) {
                 File.Delete(file);
             }
@@ -211,7 +220,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 return true;
             } catch (UnableToOpenDatabaseException) {
                 DevExpress.XtraEditors.XtraMessageBox.Show(
-                    "Application will now exit because you have not created the legacy database!!!", "Exit", MessageBoxButtons.OK,
+                    "Application will now exit because you have not created the legacy database- Use setting from VideoRentLegacy in app.config!!!", "Exit", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 Application.ExitThread();
             }

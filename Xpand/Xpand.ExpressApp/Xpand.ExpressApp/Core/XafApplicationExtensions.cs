@@ -3,7 +3,6 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -11,7 +10,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
-using Xpand.ExpressApp.MiddleTier;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -95,21 +93,16 @@ namespace Xpand.ExpressApp.Core {
             return new SimpleDataLayer(XpandModuleBase.Dictiorary, cacheNode);
         }
 
-        public static string GetConnectionString(this XafApplication xafApplication) {
-            if (xafApplication is ServerApplication && !(xafApplication is IXafApplication))
-                throw new NotImplementedException("Use " + typeof(XpandServerApplication) + " insted of " + xafApplication.GetType());
-            return ((IConnectionString)xafApplication).ConnectionString;
-        }
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = ConnectionString(xafApplication, args);
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
+            args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication, connectionProvider, connectionString));
         }
 
         static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            ((IConnectionString)xafApplication).ConnectionString = connectionString;
+            (xafApplication).ConnectionString = connectionString;
             return connectionString;
         }
 

@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         protected void ValidateControlValueChangedContext(object currentObject) {
-            Validator.RuleSet.ValidateAll(new List<object> { currentObject }, ObjectSpaceObjectChanged);
+            Validator.RuleSet.ValidateAll(ObjectSpace, new List<object> { currentObject }, ObjectSpaceObjectChanged);
         }
 
         protected override void OnDeactivated() {

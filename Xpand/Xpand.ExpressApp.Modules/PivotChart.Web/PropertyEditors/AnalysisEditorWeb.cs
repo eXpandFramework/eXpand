@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
 
         void AnalysisControlOnPreRender(object sender, EventArgs eventArgs) {
             Control.ChartTypeComboBox.SelectedIndex =
-                (int)SeriesViewFactory.GetViewType(Control.Chart.SeriesTemplate.View);
+                (int)SeriesViewFactory.GetViewType(Control.Chart.DataContainer.SeriesTemplate.View);
         }
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {

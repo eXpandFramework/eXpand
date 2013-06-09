@@ -30,10 +30,10 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
 
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data == "MapSqlDB") {
-                var space = Application.CreateObjectSpace();
+                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(ISqlMapperInfo))).Single();
+                var space = Application.CreateObjectSpace(typeInfo.Type);
                 var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                ITypeInfo typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof(ISqlMapperInfo))).Single();
                 showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObject(typeInfo.Type));
                 var dialogController = new DialogController();
                 dialogController.AcceptAction.Execute += AcceptActionOnExecute;

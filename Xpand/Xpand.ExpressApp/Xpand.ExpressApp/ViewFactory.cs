@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
@@ -31,8 +32,7 @@ namespace Xpand.ExpressApp {
             return result;
         }
 
-        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, object obj,
-                                                  IObjectSpace objectSpace, bool isRoot) {
+        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, object obj,bool isRoot) {
             if (obj != null) {
                 CheckDetailViewId(viewId, obj.GetType());
             }
@@ -43,6 +43,9 @@ namespace Xpand.ExpressApp {
                     null, typeof(IModelDetailView).Name, viewId));
             }
 
+            Debug.Assert(obj != null, "obj != null");
+            IObjectSpace objectSpace = xafApplication.CreateObjectSpace(obj.GetType());
+            obj = objectSpace.GetObject(obj);
             var detailView = new XpandDetailView(objectSpace, obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
             detailView.SetModel(modelView);
             return detailView;

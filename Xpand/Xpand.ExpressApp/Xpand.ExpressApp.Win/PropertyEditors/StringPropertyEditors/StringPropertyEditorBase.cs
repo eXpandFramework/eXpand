@@ -9,7 +9,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
-    public abstract class StringPropertyEditorBase : DXPropertyEditor, IComplexPropertyEditor {
+    public abstract class StringPropertyEditorBase : DXPropertyEditor, IComplexViewItem {
         protected LookupEditorHelper helper;
 
         protected StringPropertyEditorBase(Type objectType, IModelMemberViewItem model)

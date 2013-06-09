@@ -10,9 +10,6 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     public interface ISettingsStorage {
         SettingsStorage CreateLogonParameterStoreCore();
     }
-    public interface IConnectionString {
-        string ConnectionString { get; set; }
-    }
     public class CreatingListEditorEventArgs : HandledEventArgs {
         readonly IModelListView _modelListView;
         readonly CollectionSourceBase _collectionSource;
@@ -50,7 +47,6 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule {
         string ModelAssemblyFilePath { get; }
         event EventHandler UserDifferencesLoaded;
-        string RaiseEstablishingConnection();
         ApplicationModulesManager ApplicationModulesManager { get; }
         AutoCreateOption AutoCreateOption { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);

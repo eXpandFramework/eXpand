@@ -340,18 +340,18 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         private void listEditor_ControlsCreated(object sender, EventArgs e) {
             if (listEditor.CollectionSource != null) {
-                CriteriaOperator criteriaOperator = CriteriaOperator.Parse(((IModelListViewWin)Model).ActiveFilterString);
+                CriteriaOperator criteriaOperator = CriteriaOperator.Parse((Model).Filter);
                 var criteriaProcessor = new FilterWithObjectsProcessor(listEditor.CollectionSource.ObjectSpace, Model.ModelClass.TypeInfo, false);
                 criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
                 var enumParametersProcessor = new EnumPropertyValueCriteriaProcessor(listEditor.CollectionSource.ObjectTypeInfo);
                 enumParametersProcessor.Process(criteriaOperator);
                 Control.ActiveFilterCriteria = criteriaOperator;
             }
-            Control.ActiveFilterEnabled = ((IModelListViewWin)Model).IsActiveFilterEnabled;
+            Control.ActiveFilterEnabled = (Model).FilterEnabled;
         }
         protected override void ApplyModelCore() {
-            Control.ActiveFilterEnabled = ((IModelListViewWin)Model).IsActiveFilterEnabled;
-            Control.ActiveFilterString = ((IModelListViewWin)Model).ActiveFilterString;
+            Control.ActiveFilterEnabled = (Model).FilterEnabled;
+            Control.ActiveFilterString = Model.Filter;
             var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
             if (modelListViewShowFindPanel != null) {
                 if ((modelListViewShowFindPanel).ShowFindPanel) {
@@ -373,14 +373,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
 
 
         public override void SynchronizeModel() {
-            ((IModelListViewWin)Model).IsActiveFilterEnabled = Control.ActiveFilterEnabled;
+            Model.FilterEnabled = Control.ActiveFilterEnabled;
             if (!ReferenceEquals(Control.ActiveFilterCriteria, null) && listEditor.CollectionSource != null) {
                 CriteriaOperator criteriaOperator = CriteriaOperator.Clone(Control.ActiveFilterCriteria);
                 var criteriaProcessor = new FilterWithObjectsProcessor(listEditor.CollectionSource.ObjectSpace);
                 criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.ObjectToString);
-                ((IModelListViewWin)Model).ActiveFilterString = criteriaOperator.ToString();
+                Model.Filter = criteriaOperator.ToString();
             } else {
-                ((IModelListViewWin)Model).ActiveFilterString = null;
+                Model.Filter = null;
             }
             var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
             if (modelListViewShowFindPanel != null) {

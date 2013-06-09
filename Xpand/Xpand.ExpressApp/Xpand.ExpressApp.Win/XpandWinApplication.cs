@@ -36,8 +36,20 @@ namespace Xpand.ExpressApp.Win {
             }
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
+            CreateCustomCollectionSource+=OnCreateCustomCollectionSource;
             if (_application == null)
                 _application = this;
+        }
+
+        void OnCreateCustomCollectionSource(object sender, CreateCustomCollectionSourceEventArgs e) {
+            IObjectSpace objectSpace = CreateObjectSpace(e.ObjectType);
+            CollectionSourceBase result;
+            if (e.IsServerMode && IsAsyncServerMode) {
+                result = new CollectionSource(objectSpace, e.ObjectType, e.IsServerMode, e.Mode);
+            } else {
+                result = CreateCollectionSourceCore(objectSpace, e.ObjectType, e.IsServerMode, e.Mode);
+            }
+            e.CollectionSource=result;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -81,16 +93,6 @@ namespace Xpand.ExpressApp.Win {
             }
             return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
         }
-
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
-
-        string IConnectionString.ConnectionString { get; set; }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
@@ -171,7 +173,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.ObjectSpace, args.IsRoot);
+            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj,  args.IsRoot);
         }
 
 
@@ -216,10 +218,6 @@ namespace Xpand.ExpressApp.Win {
                 return _cacheNode;
             }
             return null;
-        }
-
-        string IXafApplication.RaiseEstablishingConnection() {
-            return this.GetConnectionString();
         }
 
         bool ITestSupport.IsTesting { get; set; }

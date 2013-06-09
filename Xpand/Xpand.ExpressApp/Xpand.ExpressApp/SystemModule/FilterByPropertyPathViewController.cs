@@ -206,8 +206,8 @@ namespace Xpand.ExpressApp.SystemModule {
             var filtersByCollectionWrapper = ((FiltersByCollectionWrapper)e.SelectedChoiceActionItem.Data);
 
             IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);
-            var objectSpace = Application.CreateObjectSpace();
             var classType = filtersByCollectionWrapper.BinaryOperatorLastMemberClassType;
+            var objectSpace = Application.CreateObjectSpace(classType);
             CollectionSourceBase newCollectionSource = new CollectionSource(objectSpace, classType, memberSearchWrapper.UseServerMode);
 
             SetActiveFilter(memberSearchWrapper, filtersByCollectionWrapper.PropertyPathFilter);

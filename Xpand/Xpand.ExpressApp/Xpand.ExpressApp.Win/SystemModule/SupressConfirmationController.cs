@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Model;
 
@@ -26,18 +27,18 @@ namespace Xpand.ExpressApp.Win.SystemModule
             
         }
 
-        private WinDetailViewController winDetailViewController;
+        private WinModificationsController winDetailViewController;
 
         protected override void OnActivated()
         {
             base.OnActivated();
-            winDetailViewController = Frame.GetController<WinDetailViewController>();
-            winDetailViewController.SuppressConfirmation = ((IModelViewSupressConfirmation)View.Model).SupressConfirmation;
+            winDetailViewController = Frame.GetController<WinModificationsController>();
+            winDetailViewController.ModificationsHandlingMode = ((IModelViewSupressConfirmation)View.Model).SupressConfirmation?ModificationsHandlingMode.AutoCommit : ModificationsHandlingMode.Confirmation;
 
             if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject))
             {
                 ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
-                winDetailViewController.SuppressConfirmation = true;
+                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
             }
         }
 
@@ -49,7 +50,7 @@ namespace Xpand.ExpressApp.Win.SystemModule
 
         private void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)
         {
-            winDetailViewController.SuppressConfirmation = false;
+            winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.Confirmation;
         }
     }
 }

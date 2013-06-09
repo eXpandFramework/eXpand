@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="EFDemo.Module.Data.Note">
+      <OwnMembers>
+        <Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.4.4025" IsNewNode="True" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.4.4025" />
+    <SchemaModule Name="SystemModule" Version="11.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="11.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="ValidationModule" Version="11.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="ViewVariantsModule" Version="11.2.1.0" IsNewNode="True" />
+  </SchemaModules>
+</Application>

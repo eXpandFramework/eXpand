@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
         PivotGridControl GetPivotGridControl(IGrouping<IModelListView, IModelSeries> grouping) {
             var modelListView = grouping.Key;
             if (modelListView != null) {
-                var objectSpace = _application.CreateObjectSpace();
+                var objectSpace = _application.CreateObjectSpace(modelListView.ModelClass.TypeInfo.Type);
                 var collectionSource = _application.CreateCollectionSource(objectSpace, modelListView.ModelClass.TypeInfo.Type, modelListView.Id);
                 var listView = _application.CreateListView(modelListView, collectionSource, true);
                 var window = _application.CreateWindow(TemplateContext.View, null, true, false);

@@ -16,7 +16,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase), true)]
-    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexPropertyEditor {
+    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem {
         #region Members
         private ModelEditorViewController _modelEditorViewController;
         ModelLoader _modelLoader;

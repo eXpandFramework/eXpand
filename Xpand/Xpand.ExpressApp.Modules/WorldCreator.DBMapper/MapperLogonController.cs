@@ -1,9 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
@@ -61,7 +58,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if ((string)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data == "MapDB") {
                 ObjectSpace.CommitChanges();
-                var space = Application.CreateObjectSpace();
+                var space = Application.CreateObjectSpace(typeof(LogonObject));
                 var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 showViewParameters.CreatedView = Application.CreateDetailView(space, space.CreateObject(typeof(LogonObject)));

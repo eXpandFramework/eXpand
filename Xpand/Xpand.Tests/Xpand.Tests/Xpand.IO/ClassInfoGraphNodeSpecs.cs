@@ -217,7 +217,7 @@ namespace Xpand.Tests.Xpand.IO {
 
         It should_be_able_to_validate_graph_for_the_associated_collection_type =
             () => {
-                var ruleSetValidationResult = Validator.RuleSet.ValidateTarget(_serializationConfiguration2,
+                var ruleSetValidationResult = Validator.RuleSet.ValidateTarget(_XPObjectSpace, _serializationConfiguration2,
                                                                                ContextIdentifier.Save);
                 ruleSetValidationResult.State.ShouldEqual(ValidationState.Valid);
             };

@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelViewRollBackChangesBeforeViewChanges : IModelClassRollBackObjectChangesOnCurrentObjectChange {
     }
 
-    public class XpandWinDetailViewController : WinDetailViewController, IModelExtender {
+    public class XpandWinDetailViewController : WinModificationsController, IModelExtender {
         protected override void OnViewQueryCanChangeCurrentObject(CancelEventArgs e) {
             if (((IModelViewRollBackChangesBeforeViewChanges)View.Model)
                 .RollBackObjectChangesOnCurrentObjectChange)

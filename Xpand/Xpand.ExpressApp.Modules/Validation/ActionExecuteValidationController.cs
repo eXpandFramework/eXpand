@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.Validation {
                 var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(contextValidatingEventArgs);
                 if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context))
-                    Validator.RuleSet.ValidateAll(contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                    Validator.RuleSet.ValidateAll(ObjectSpace, contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
         }
 

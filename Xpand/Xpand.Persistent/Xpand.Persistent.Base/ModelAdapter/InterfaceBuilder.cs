@@ -12,6 +12,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Utils.Controls;

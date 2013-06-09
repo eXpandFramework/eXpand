@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         private void combineSimpleAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             var modelDifferenceObjects = e.SelectedObjects.OfType<ModelDifferenceObject>();
             CheckIfMixingApplications(modelDifferenceObjects);
-            e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(), typeof(ModelDifferenceObject), true);
+            e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(typeof(ModelDifferenceObject)), typeof(ModelDifferenceObject), true);
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             var dialogController = new DialogController();
             e.ShowViewParameters.Controllers.Add(dialogController);

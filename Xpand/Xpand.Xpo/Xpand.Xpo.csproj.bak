@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.Xpo</RootNamespace>
+    <AssemblyName>Xpand.Xpo</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <DelaySign>false</DelaySign>
+    <OutputPath>..\..\Xpand.Dll\</OutputPath>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>http://localhost/Xpand.Xpo/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Xpand.Dll\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Xpand.DLL\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="Xpand.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\AggregatedDelete.cs" />
+    <Compile Include="Attributes\Encrypt.cs" />
+    <Compile Include="ChangedMemberCollector.cs" />
+    <Compile Include="Collections\ManyToManyCollectionHelper.cs" />
+    <Compile Include="Collections\XpandXPCollection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
+    <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
+    <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\XpandUtcDateTimeConverter.cs" />
+    <Compile Include="DB\XpandDataStoreService.cs" />
+    <Compile Include="DB\SchemaColumnSizeUpdater.cs" />
+    <Compile Include="DB\XpoSequencer.cs" />
+    <Compile Include="DB\DataStoreAttribute.cs" />
+    <Compile Include="DB\XpoServerId.cs" />
+    <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
+    <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
+    <Compile Include="Collections\XPBaseCollectionExtensions.cs"></Compile>
+    <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
+    <Compile Include="Converters\TypeConverters\EnumDescConverter.cs" />
+    <Compile Include="Converters\TypeConverters\EnumDescTypeConverter.cs" />
+    <Compile Include="Converters\TypeConverters\Int32TypeConverter.cs" />
+    <Compile Include="Converters\ValueConverters\BooleanToDecimalValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\DictionaryValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\PictureValueConverter.cs" />
+    <Compile Include="Converters\ValueConverters\SerializableObjectConverter.cs" />
+    <Compile Include="Converters\ValueConverters\StringValueConverter.cs" />
+    <Compile Include="DB\DataStoreManager.cs" />
+    <Compile Include="DB\DataStoreModifyDataEventArgs.cs" />
+    <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
+    <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
+    <Compile Include="DB\IDataStoreProxy.cs" />
+    <Compile Include="DB\MultiDataStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IXPSimpleObjectExtensions.cs" />
+    <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
+    <Compile Include="MetaData\XpandCodeMemberInfo.cs" />
+    <Compile Include="MetaData\XpandCustomMemberInfo.cs" />
+    <Compile Include="ExpressionVisitor.cs" />
+    <Compile Include="XpandCustomObject.cs" />
+    <Compile Include="FunctionOperators\ContainsFunction.cs" />
+    <Compile Include="ISupportChangedMembers.cs" />
+    <Compile Include="Parser\PropertyPathParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XpandReflectionHelper.cs" />
+    <Compile Include="DB\DataStoreProxy.cs" />
+    <Compile Include="SessionExtensions.cs" />
+    <Compile Include="XpandUnitOfWork.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

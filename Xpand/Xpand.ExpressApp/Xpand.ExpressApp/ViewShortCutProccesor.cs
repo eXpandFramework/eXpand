@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp {
             if ((modelDetailView != null && IsEnable(modelDetailView))) {
                 if (CanCreate(modelDetailView.ModelClass.TypeInfo)) {
                     shortcutEventArgs.Handled = true;
-                    var objectSpace = _application.CreateObjectSpace();
+                    var objectSpace = _application.CreateObjectSpace(modelDetailView.ModelClass.TypeInfo.Type);
                     object obj = GetObject(shortcut, modelDetailView, objectSpace);
                     _detailView = _application.CreateDetailView(objectSpace, modelDetailView, true, obj);
                     shortcutEventArgs.View = _detailView;

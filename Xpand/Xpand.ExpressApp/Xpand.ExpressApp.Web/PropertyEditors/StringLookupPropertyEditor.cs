@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(string), false)]
-    public class StringLookupPropertyEditor : ASPxPropertyEditor, IComplexPropertyEditor, IStringLookupPropertyEditor {
+    public class StringLookupPropertyEditor : ASPxPropertyEditor, IComplexViewItem, IStringLookupPropertyEditor {
         public event EventHandler<HandledEventArgs> ItemsCalculating;
 
         protected virtual void OnItemsCalculating(HandledEventArgs e) {

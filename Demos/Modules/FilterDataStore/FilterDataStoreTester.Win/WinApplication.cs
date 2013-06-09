@@ -4,24 +4,15 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace FilterDataStoreTester.Win {
-    public partial class FilterDataStoreTesterWindowsFormsApplication : WinApplication, IConnectionString {
+    public partial class FilterDataStoreTesterWindowsFormsApplication : WinApplication {
         public FilterDataStoreTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
 
-        public new string ConnectionString {
-            get { return base.ConnectionString; }
-            set {
-                base.ConnectionString = value;
-                ((IConnectionString)this).ConnectionString = value;
-            }
-        }
 
-        string IConnectionString.ConnectionString { get; set; }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);

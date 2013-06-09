@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.SystemModule {
             if (typeToCreateOn == null)
                 throw new NotImplementedException();
             XPMemberInfo xpCustomMemberInfo;
-            if (!(memberInfo.IsCollection) || (memberInfo.IsCollection && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
+            if (!(memberInfo.IsNonAssociationList) || (memberInfo.IsNonAssociationList && providedAssociationAttribute.RelationType == RelationType.ManyToMany)) {
                 xpCustomMemberInfo = typesInfo.CreateCollection(
                     typeToCreateOn,
                     memberInfo.Owner.ClassType,

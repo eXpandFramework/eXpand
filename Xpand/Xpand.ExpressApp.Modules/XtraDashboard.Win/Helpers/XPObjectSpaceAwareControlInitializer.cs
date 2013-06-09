@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
     public interface IXPObjectSpaceAwareControl {
@@ -15,7 +16,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
         }
 
         public XPObjectSpaceAwareControlInitializer(IXPObjectSpaceAwareControl control, XafApplication theApplication)
-            : this(control, theApplication != null ? theApplication.CreateObjectSpace() : null) {
+            : this(control, theApplication != null ? theApplication.CreateObjectSpace(typeof(DashboardDefinition)) : null) {
         }
     }
 }

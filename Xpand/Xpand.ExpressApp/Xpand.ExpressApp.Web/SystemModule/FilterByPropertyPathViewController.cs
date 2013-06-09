@@ -1,5 +1,4 @@
 using System.Web.UI;
-using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxPanel;
@@ -34,11 +33,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         protected override string GetActiveFilter(DevExpress.ExpressApp.Model.IModelListView modelListView) {
-            return ((IModelListViewWeb)modelListView).FilterExpression;
+            return modelListView.Filter;
         }
 
         protected override void SetActiveFilter(DevExpress.ExpressApp.Model.IModelListView modelListView, string filter) {
-            ((IModelListViewWeb)modelListView).FilterExpression = filter;
+            modelListView.Filter = filter;
         }
     }
 }

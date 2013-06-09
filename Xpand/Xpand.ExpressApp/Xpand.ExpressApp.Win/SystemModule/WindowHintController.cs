@@ -24,9 +24,9 @@ namespace Xpand.ExpressApp.Win.SystemModule
             base.OnActivated();
             Active[""] = false;
             Window.TemplateViewChanged += Window_TemplateViewChanged;
-            Frame.GetController<DetailViewController>().Activated += (sender, e) =>
+            Frame.GetController<ModificationsController>().Activated += (sender, e) =>
             {
-                var view = ((DetailViewController)sender).View;
+                var view = ((ModificationsController)sender).View;
                 view.CurrentObjectChanged += (sender1, e1) => hidePanels();
             };
         }

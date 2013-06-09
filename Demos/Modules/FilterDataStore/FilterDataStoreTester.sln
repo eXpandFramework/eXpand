@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module", "FilterDataStoreTester.Module\FilterDataStoreTester.Module.csproj", "{7C4FF1CC-497F-4AF9-831D-9DC0847C732F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module.Web", "FilterDataStoreTester.Module.Web\FilterDataStoreTester.Module.Web.csproj", "{2318B7AF-1176-4717-8079-DC28D12E35DB}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "FilterDataStoreTester.Web", "FilterDataStoreTester.Web\FilterDataStoreTester.Web.csproj", "{95739B89-F2C7-4E47-87AE-C4EC943ADE51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Web", "FilterDataStoreTester.Web\FilterDataStoreTester.Web.csproj", "{95739B89-F2C7-4E47-87AE-C4EC943ADE51}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilterDataStoreTester.Module.Win", "FilterDataStoreTester.Module.Win\FilterDataStoreTester.Module.Win.csproj", "{FBCF2436-A20D-4E68-8C66-5C8360A6EA18}"
 EndProject

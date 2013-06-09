@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -65,7 +66,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
                 SecuritySystem.SetInstance(instance);
                 if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                    ((IXafApplication)xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    (xafApplication).ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
                 return xafApplication;
             } finally {
@@ -165,8 +166,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return null;
         }
 
-        ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
-            InterfaceBuilder.LoadFromCurrentDomain = true;
+        ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager, bool rebuild) {
+            InterfaceBuilder.LoadFromCurrentDomain = XpandModuleBase.TypesInfo != XafTypesInfo.Instance || rebuild;
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
@@ -246,7 +247,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             string config = GetConfigPath();
             if (!rebuild)
                 _modulesManager = CreateModulesManager(_application, config, _assembliesPath, _typesInfo);
-            return BuildModel(_application, config, _modulesManager);
+            return BuildModel(_application, config, _modulesManager,rebuild);
         }
 
         public ModelBuilder UsingTypesInfo(ITypesInfo typesInfo) {

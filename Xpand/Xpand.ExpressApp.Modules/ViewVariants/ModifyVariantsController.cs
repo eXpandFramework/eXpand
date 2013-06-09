@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         void CloneView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(typeof(ViewCloner));
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewCloner>());
             detailView.ViewEditMode = ViewEditMode.Edit;
             detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "CreateViewCaption");
@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         void RenameView() {
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(typeof(ViewCloner));
             var viewCloner = objectSpace.CreateObject<ViewCloner>();
             viewCloner.Caption = Frame.GetController<ChangeVariantController>().ChangeVariantAction.SelectedItem.Caption;
             var detailView = Application.CreateDetailView(objectSpace, viewCloner);

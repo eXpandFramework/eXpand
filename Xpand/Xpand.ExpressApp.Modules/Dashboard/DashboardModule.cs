@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.Dashboard {
@@ -26,11 +27,18 @@ namespace Xpand.ExpressApp.Dashboard {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSetupComplete;
+                application.CreateCustomObjectSpaceProvider+=ApplicationOnCreateCustomObjectSpaceProvider;
             }
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(typeof(DashboardDefinition).Namespace, GetType().Assembly);
             }
         }
+
+        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        }
+
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             if (((XafApplication)sender).Security is ISecurityComplex)
                 BuildSecuritySystemObjects();

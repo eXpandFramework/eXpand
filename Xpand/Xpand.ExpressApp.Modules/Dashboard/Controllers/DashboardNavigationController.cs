@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         protected virtual IObjectSpace CreateObjectSpace() {
-            return Application.CreateObjectSpace();
+            return Application.CreateObjectSpace(typeof(DashboardDefinition));
         }
 
         public virtual void UpdateNavigationImages() {
@@ -113,7 +113,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         void ReloadDashboardActions() {
             DashboardActions.Clear();
-            IObjectSpace objectSpace = Application.CreateObjectSpace();
+            IObjectSpace objectSpace = Application.CreateObjectSpace(typeof(DashboardDefinition));
             IOrderedEnumerable<DashboardDefinition> templates =
                 objectSpace.GetObjects<DashboardDefinition>().Where(t => t.Active).OrderBy(i => i.Index);
             foreach (DashboardDefinition template in templates) {

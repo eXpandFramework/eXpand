@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.ConditionalDetailViews.Logic {
         void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
             if (_ruleForCustomProcessSelectedItem != null) {
                 e.Handled = true;
-                var objectSpace = Application.CreateObjectSpace();
+                var objectSpace = Application.CreateObjectSpace(_ruleForCustomProcessSelectedItem.DetailView.ModelClass.TypeInfo.Type);
                 var o = objectSpace.GetObject(e.InnerArgs.CurrentObject);
                 var startUpInfoController = MakeRulesApplicable(o, _ruleForCustomProcessSelectedItem);
                 var showViewParameters = e.InnerArgs.ShowViewParameters;

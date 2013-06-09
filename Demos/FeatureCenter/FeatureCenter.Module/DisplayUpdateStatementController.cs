@@ -21,7 +21,7 @@ namespace FeatureCenter.Module {
         protected override void OnActivated() {
             base.OnActivated();
             _dataStoreProxy = ((IXpandObjectSpaceProvider)Application.ObjectSpaceProvider).DataStoreProvider.Proxy;
-            _saveAction = Frame.GetController<DetailViewController>().SaveAction;
+            _saveAction = Frame.GetController<ModificationsController>().SaveAction;
             _saveAction.Executing += SaveActionOnExecuting;
             _saveAction.Executed += SaveActionOnExecuted;
         }
