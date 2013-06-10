@@ -39,7 +39,7 @@ namespace Xpand.ToolboxCreator {
                     }
                 }
                 catch (ReflectionTypeLoadException reflectionTypeLoadException) {
-                    Console.WriteLine(reflectionTypeLoadException);
+                    throw reflectionTypeLoadException.LoaderExceptions[0];
                 }
             }
             var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\", true);
