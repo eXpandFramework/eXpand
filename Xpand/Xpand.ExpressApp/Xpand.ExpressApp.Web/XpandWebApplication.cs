@@ -110,7 +110,9 @@ namespace Xpand.ExpressApp.Web {
             return new XpandPopupWindow(this, context, controllers);
         }
         void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj,  args.IsRoot);
+            if (args.Obj != null) {
+                args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj, args.IsRoot);
+            }
         }
 
         protected XpandWebApplication(IContainer container) {
