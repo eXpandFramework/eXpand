@@ -194,7 +194,7 @@
 			RegexPattern="c52ffed5d5ff0958" Replacement="b88d1754d700e49a" Files="@(FilesToParse)"/>
 	</Target>
 		<Target Name="FixReferences">
-    <FixReferences MSBuildProjectDirectory="$(MSBuildProjectDirectory)" />
+    <FixReferences MSBuildProjectDirectory="$(MSBuildProjectDirectory)" ProjectFiles="@(ProjectFiles)" Token="c52ffed5d5ff0958" />
   </Target>
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
