@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -28,15 +27,19 @@ namespace Xpand.ToolboxCreator {
                 key.SetValue(null, AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
             
 
-
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
-                var assembly = Assembly.LoadFrom(file);
-                foreach (var type in assembly.GetTypes()) {
-                    var toolboxItemAttribute = type.GetCustomAttributes(typeof(ToolboxItemAttribute), true).OfType<ToolboxItemAttribute>().FirstOrDefault();
-                    if (toolboxItemAttribute != null && !string.IsNullOrEmpty(toolboxItemAttribute.ToolboxItemTypeName)) {
-                        Register(type, file, registryKeys);
-                        Console.WriteLine("Toolbox-->" + type.FullName);
+                try {
+                    var assembly = Assembly.LoadFrom(file);
+                    foreach (var type in assembly.GetTypes()) {
+                        var toolboxItemAttribute = type.GetCustomAttributes(typeof(ToolboxItemAttribute), true).OfType<ToolboxItemAttribute>().FirstOrDefault();
+                        if (toolboxItemAttribute != null && !string.IsNullOrEmpty(toolboxItemAttribute.ToolboxItemTypeName)) {
+                            Register(type, file, registryKeys);
+                            Console.WriteLine("Toolbox-->" + type.FullName);
+                        }
                     }
+                }
+                catch (ReflectionTypeLoadException reflectionTypeLoadException) {
+                    Console.WriteLine(reflectionTypeLoadException);
                 }
             }
             var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\", true);
