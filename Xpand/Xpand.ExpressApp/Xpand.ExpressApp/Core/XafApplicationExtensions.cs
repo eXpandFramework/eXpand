@@ -93,8 +93,11 @@ namespace Xpand.ExpressApp.Core {
             return new SimpleDataLayer(XpandModuleBase.Dictiorary, cacheNode);
         }
 
+        public static bool DisableObjectSpaceProderCreation { get; set; }
 
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
+            if (DisableObjectSpaceProderCreation)
+                return;
             var connectionString = ConnectionString(xafApplication, args);
             var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
             args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication, connectionProvider, connectionString));
