@@ -33,12 +33,12 @@ namespace Xpand.ExpressApp.Win.SystemModule
         {
             base.OnActivated();
             winDetailViewController = Frame.GetController<WinModificationsController>();
-            winDetailViewController.ModificationsHandlingMode = ((IModelViewSupressConfirmation)View.Model).SupressConfirmation?ModificationsHandlingMode.AutoCommit : ModificationsHandlingMode.Confirmation;
-
-            if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject))
-            {
-                ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+            if (((IModelViewSupressConfirmation)View.Model).SupressConfirmation)
                 winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
+
+            if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject)){
+                ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoRollback;
             }
         }
 
