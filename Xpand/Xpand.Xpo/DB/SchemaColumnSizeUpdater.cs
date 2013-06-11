@@ -7,6 +7,7 @@ using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
+        static readonly HashSet<string> _hashSet=new HashSet<string>(); 
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
             if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider)
                 return;
@@ -15,8 +16,9 @@ namespace Xpand.Xpo.DB {
                     return;
 
                 try {
-                    if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists)
+                    if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists) {
                         UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, connectionProviderSql);
+                    }
                 } catch (System.Exception e) {
                     System.Diagnostics.Trace.TraceError(e.ToString());
                 }
@@ -24,7 +26,8 @@ namespace Xpand.Xpo.DB {
         }
 
         private void UpdateColumnSize(IEnumerable<DBTable> tables, ConnectionProviderSql sqlDataStore) {
-            foreach (var table in tables) {
+            foreach (var table in tables.Where(table => !_hashSet.Contains(table.Name))) {
+                _hashSet.Add(table.Name);
                 DBTable actualTable = null;
                 foreach (var column in table.Columns.Where(col => col.ColumnType == DBColumnType.String)) {
                     if (actualTable == null) {
