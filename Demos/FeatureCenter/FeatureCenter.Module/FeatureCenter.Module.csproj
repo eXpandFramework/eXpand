@@ -61,56 +61,73 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Kpi.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Kpi.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Workflow.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -153,7 +170,7 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ImportWizard">

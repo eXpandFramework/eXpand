@@ -23,6 +23,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Security.ClientServer.Remoting;
+using Xpand.ExpressApp.Core;
 
 namespace SecuritySystemExample.Win {
     static class Program {
@@ -31,6 +32,7 @@ namespace SecuritySystemExample.Win {
         /// </summary>
         [STAThread]
         static void Main() {
+            XafApplicationExtensions.DisableObjectSpaceProderCreation = true;
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif

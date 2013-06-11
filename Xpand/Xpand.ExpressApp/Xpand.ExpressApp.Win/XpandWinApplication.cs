@@ -36,20 +36,8 @@ namespace Xpand.ExpressApp.Win {
             }
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
-            CreateCustomCollectionSource+=OnCreateCustomCollectionSource;
             if (_application == null)
                 _application = this;
-        }
-
-        void OnCreateCustomCollectionSource(object sender, CreateCustomCollectionSourceEventArgs e) {
-            IObjectSpace objectSpace = CreateObjectSpace(e.ObjectType);
-            CollectionSourceBase result;
-            if (e.IsServerMode && IsAsyncServerMode) {
-                result = new CollectionSource(objectSpace, e.ObjectType, e.IsServerMode, e.Mode);
-            } else {
-                result = CreateCollectionSourceCore(objectSpace, e.ObjectType, e.IsServerMode, e.Mode);
-            }
-            e.CollectionSource=result;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -173,7 +161,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.Obj,  args.IsRoot);
+            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.ObjectSpace, args.Obj,  args.IsRoot);
         }
 
 

@@ -56,11 +56,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
@@ -70,29 +72,37 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraNavBar.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraWizard.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraWizard.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>

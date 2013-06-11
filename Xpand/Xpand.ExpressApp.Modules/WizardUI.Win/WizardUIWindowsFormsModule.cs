@@ -23,6 +23,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
     [ModelNodesGenerator(typeof(DetailViewWizardPagesNodesGenerator))]
     public interface IModelDetailViewWizardPages : IModelNode, IModelList<IModelDetailViewWizardPage> {
         bool ShowInWizard { get; set; }
+        bool NewObjectsOnly { get; set; }
         bool ShowCompletionWizardPage { get; set; }
     }
 

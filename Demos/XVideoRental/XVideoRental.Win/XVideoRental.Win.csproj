@@ -59,161 +59,213 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Chart.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Chart.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Chart.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Reports.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.PivotGrid.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Images.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Charts.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Charts.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.Wizard, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v13.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.UI, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v13.1.UI">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v13.1.Core, Version=13.1.4.0, Culture=neutral">
+    <Reference Include="DevExpress.XtraGauges.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v13.1.Win, Version=13.1.4.0, Culture=neutral">
+    <Reference Include="DevExpress.XtraGauges.v13.1.Win">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPivotGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPrinting.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1.UI , Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v13.1.UI ">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Sparkline.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraReports.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.1.Extensions, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraReports.v13.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Office.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Docs.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Docs.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.RichEdit.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraRichEdit.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Reporting.Extensions, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v13.1.Reporting.Extensions">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Core, Version=13.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

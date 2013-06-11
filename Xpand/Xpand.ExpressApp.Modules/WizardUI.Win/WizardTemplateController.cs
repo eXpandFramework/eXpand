@@ -33,7 +33,6 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
         private void Action_Executed(object sender, ActionBaseEventArgs e) {
             IModelDetailViewWizard modelWizard = null;
-
             if (e.ShowViewParameters.CreatedView != null) {
                 modelWizard = e.ShowViewParameters.CreatedView.Model as IModelDetailViewWizard;
             } else if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController) {
@@ -41,7 +40,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 modelWizard = Application.Model.Views[viewID] as IModelDetailViewWizard;
             }
 
-            if (modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard) {
+            if (CanCreateView(e, modelWizard)){
                 e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 e.ShowViewParameters.Context = "WizardDetailViewForm";
                 if (e.ShowViewParameters.CreatedView == null)
@@ -50,6 +49,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             _objectSpace = null;
             _newObject = null;
+        }
+
+        bool CanCreateView(ActionBaseEventArgs e, IModelDetailViewWizard modelWizard) {
+            var canCreate = modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard;
+            return canCreate && (!(e.Action.Controller is NewObjectViewController) || modelWizard.Wizard.NewObjectsOnly);
         }
     }
 }

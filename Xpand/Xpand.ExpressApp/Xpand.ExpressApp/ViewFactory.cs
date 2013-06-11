@@ -32,10 +32,13 @@ namespace Xpand.ExpressApp {
             return result;
         }
 
-        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, object obj,bool isRoot) {
-            if (obj != null) {
-                CheckDetailViewId(viewId, obj.GetType());
-            }
+        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, IObjectSpace objectSpace, object obj, bool isRoot) {
+
+            if (obj == null)
+                throw new ArgumentNullException("obj");
+
+            CheckDetailViewId(viewId, obj.GetType());
+
             IModelView modelView = xafApplication.FindModelView(viewId);
             if (!(modelView is IModelDetailView)) {
                 throw new ArgumentException(string.Format(
@@ -43,9 +46,9 @@ namespace Xpand.ExpressApp {
                     null, typeof(IModelDetailView).Name, viewId));
             }
 
-            Debug.Assert(obj != null, "obj != null");
-            IObjectSpace objectSpace = xafApplication.CreateObjectSpace(obj.GetType());
-            obj = objectSpace.GetObject(obj);
+            
+            
+            
             var detailView = new XpandDetailView(objectSpace, obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
             detailView.SetModel(modelView);
             return detailView;
