@@ -204,6 +204,11 @@ namespace Xpand.ExpressApp {
             OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
+            application.CreateCustomObjectSpaceProvider+=ApplicationOnCreateCustomObjectSpaceProvider;
+        }
+
+        void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
+            _connectionString = createCustomObjectSpaceProviderEventArgs.ConnectionString;
         }
 
         void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
@@ -211,6 +216,12 @@ namespace Xpand.ExpressApp {
         }
 
         protected Type DefaultXafAppType = typeof(XafApplication);
+        static string _connectionString;
+
+        public static string ConnectionString {
+            get { return _connectionString; }
+        }
+
         protected virtual Type ApplicationType() {
             return DefaultXafAppType;
         }

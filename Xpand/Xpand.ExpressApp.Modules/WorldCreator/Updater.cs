@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.UpdateDatabaseAfterUpdateSchema();
 
             if (CurrentDBVersion == new Version(0, 0, 0, 0)) {
-                new TypeSynchronizer().SynchronizeTypes(WorldCreatorModuleBase.FullConnectionString);
+                new TypeSynchronizer().SynchronizeTypes(XpandModuleBase.ConnectionString);
             }
         }
     }
