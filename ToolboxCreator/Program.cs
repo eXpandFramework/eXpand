@@ -60,7 +60,7 @@ namespace Xpand.ToolboxCreator {
         }
 
         static string MinimumCLRVersion(RegistryKey registryKey) {
-            return registryKey.GetSubKeyNames().First(s => s.StartsWith("v")&&!s.StartsWith("v1"));
+            return registryKey.GetSubKeyNames().First(s => s.StartsWith("v4"));
         }
 
         static void DeleteXpandEntries(IEnumerable<RegistryKey> keys, string wow) {
