@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Win</AssemblyName>
     <ApplicationIcon>XpandWinSolution.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OutputPath>bin\Debug\</OutputPath>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
@@ -350,10 +351,13 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="FeatureCenter.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="FeatureCenter.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
