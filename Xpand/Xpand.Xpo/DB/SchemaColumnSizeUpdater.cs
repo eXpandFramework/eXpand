@@ -7,7 +7,7 @@ using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
-        ~SchemaColumnSizeUpdater() {
+        static SchemaColumnSizeUpdater() {
             Disabled = true;
         }
 
