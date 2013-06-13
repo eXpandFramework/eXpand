@@ -2,7 +2,7 @@
 
 namespace Xpand.ExpressApp.FilterDataStore.Model {
     [DisplayProperty("Name"), KeyProperty("Name")]
-    public interface IModelFilterDataStoreSystemTable
+    public interface IModelFilterDataStoreSystemTable:IModelNode
     {
         string Name { get; set; }
     }
