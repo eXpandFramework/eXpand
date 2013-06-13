@@ -97,13 +97,16 @@
                                      string MSBuildProjectDirectory) {
             
             reference.Add(new XElement(xNamespace + "SpecificVersion"){Value = "False"});
-            reference.Add(new XElement(xNamespace + "Private"){Value = (assemblyName.Contains("BaseImpl")||assemblyName.Contains("FilterDataStore")) ? "True" : "False"});
+            if (assemblyName.Contains("BaseImpl")||assemblyName.Contains("FilterDataStore"))
+                reference.Add(new XElement(xNamespace + "Private"){Value = copyLocal});
+                
             if (reference.Attribute("Include").Value.StartsWith("Xpand.")){
                 reference.Add(new XElement(xNamespace + "HintPath"){
                     Value = CalcPathToXpandDll(directoryName, MSBuildProjectDirectory) + assemblyName + ".dll"
                 });
             }
         }
+        
         string CalcPathToXpandDll(string project, string msBuildProjectDirectory) {
             string path = null;
             while (project!=msBuildProjectDirectory) {
