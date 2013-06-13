@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
@@ -34,10 +33,9 @@ namespace Xpand.ExpressApp {
 
         public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, IObjectSpace objectSpace, object obj, bool isRoot) {
 
-            if (obj == null)
-                throw new ArgumentNullException("obj");
-
-            CheckDetailViewId(viewId, obj.GetType());
+            if (obj != null) {
+                CheckDetailViewId(viewId, obj.GetType());
+            }
 
             IModelView modelView = xafApplication.FindModelView(viewId);
             if (!(modelView is IModelDetailView)) {
@@ -45,9 +43,6 @@ namespace Xpand.ExpressApp {
                     "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
                     null, typeof(IModelDetailView).Name, viewId));
             }
-
-            
-            
             
             var detailView = new XpandDetailView(objectSpace, obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
             detailView.SetModel(modelView);
