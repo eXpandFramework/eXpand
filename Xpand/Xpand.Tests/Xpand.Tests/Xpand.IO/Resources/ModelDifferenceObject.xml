@@ -1333,7 +1333,8 @@
     <Property type="simple" name="UniqueName" isKey="false"><![CDATA[Shell.Win.ShellWindowsFormsApplication]]></Property>
     <Property type="simple" name="oid" isKey="true">2a07f16c-8ecb-4be3-b30d-90bb34d8c5fd</Property>
     <Property type="simple" name="Name" isKey="false"><![CDATA[Shell.Win]]></Property>
-    <Property type="simple" name="Model" isKey="false"><![CDATA[<item><key><string>Schema</string></key><value><string>&lt;Element Name=":Application" ImageName=":ModelEditor_Application"&gt;
+    <Property type="simple" name="Model" isKey="false">
+      <![CDATA[<item><key><string>Schema</string></key><value><string>&lt;Element Name=":Application" ImageName=":ModelEditor_Application"&gt;
 	&lt;Attribute Name=":Title" IsLocalized=":True"/&gt;
 	&lt;Attribute Name=":Subtitle" IsLocalized=":True"/&gt;
 	&lt;Attribute Name=":Company" IsLocalized=":True"/&gt;
@@ -3526,7 +3527,7 @@
 		&lt;Class Name=":Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedCollectionMemberInfo" ShortName=":ExtendedCollectionMemberInfo" Caption=":Extended Collection Member Info" IsCreatableItem=":True" DefaultListViewAllowEdit=":False" DefaultListViewMasterDetailMode=":ListViewOnly" BaseClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.ExtendedMemberInfo" DefaultProperty=":Name" DefaultListViewShowAutoFilterRow=":False" DefaultListViewNewItemRowPosition=":None" IsNavigationItem=":True" GroupName=":WorldCreator" VisibleInReports=":True" DefaultListView=":ExtendedCollectionMemberInfo_ListView" DefaultDetailView=":ExtendedCollectionMemberInfo_DetailView" FriendlyKeyProperty=":" DefaultLookupListView=":ExtendedCollectionMemberInfo_LookupListView" IsClonable=":True"&gt;
 			&lt;DisabledDataStoreFilters /&gt;
 		&lt;/Class&gt;
-		&lt;Class Name=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute" ShortName=":PersistentCustomAttribute" Caption=":Persistent Custom Attribute" DefaultListViewAllowEdit=":False" DefaultListViewMasterDetailMode=":ListViewOnly" BaseClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo" DefaultProperty=":PropertyName" ObjectCaptionFormat=":{0:PropertyName}" DefaultListViewShowAutoFilterRow=":False" DefaultListViewNewItemRowPosition=":None" VisibleInReports=":False" KeyProperty=":" DefaultListView=":PersistentCustomAttribute_ListView" DefaultDetailView=":PersistentCustomAttribute_DetailView" FriendlyKeyProperty=":" DefaultLookupListView=":PersistentCustomAttribute_LookupListView"&gt;
+		&lt;Class Name=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentModelDefaultAttribute" ShortName=":PersistentCustomAttribute" Caption=":Persistent Custom Attribute" DefaultListViewAllowEdit=":False" DefaultListViewMasterDetailMode=":ListViewOnly" BaseClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAttributeInfo" DefaultProperty=":PropertyName" ObjectCaptionFormat=":{0:PropertyName}" DefaultListViewShowAutoFilterRow=":False" DefaultListViewNewItemRowPosition=":None" VisibleInReports=":False" KeyProperty=":" DefaultListView=":PersistentCustomAttribute_ListView" DefaultDetailView=":PersistentCustomAttribute_DetailView" FriendlyKeyProperty=":" DefaultLookupListView=":PersistentCustomAttribute_LookupListView"&gt;
 			&lt;Member Name=":PropertyName" Type=":System.String" IsMemberReadOnly=":False" AllowEdit=":True" AllowAdd=":Default" IsDelayed=":False" Caption=":Property Name" Size=":100" IsVisibleInAnalysis=":True"/&gt;
 			&lt;Member Name=":Value" Type=":System.String" IsMemberReadOnly=":False" AllowEdit=":True" AllowAdd=":Default" IsDelayed=":False" Caption=":Value" Size=":100" IsVisibleInAnalysis=":True"/&gt;
 			&lt;DisabledDataStoreFilters /&gt;
@@ -11657,7 +11658,7 @@ and you can modify this filter yourself by setting the FilterForDesignPreview pr
 				&lt;Variant ID=":Default" Caption=":Default" ViewID=":ExtendedCollectionMemberInfo_LookupListView"/&gt;
 			&lt;/Variants&gt;
 		&lt;/ListView&gt;
-		&lt;ListView ID=":PersistentCustomAttribute_ListView" ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute" IsGroupPanelVisible=":False" AutoExpandAllGroups=":False" IsFooterVisible=":True" IsActiveFilterEnabled=":True" EditorTypeName=":" IsColumnHeadersVisible=":True" UseTabKey=":True" GuessAutoFilterRowValuesFromFilter=":True" DetailViewID=":"&gt;
+		&lt;ListView ID=":PersistentModelDefaultAttribute_ListView" ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute" IsGroupPanelVisible=":False" AutoExpandAllGroups=":False" IsFooterVisible=":True" IsActiveFilterEnabled=":True" EditorTypeName=":" IsColumnHeadersVisible=":True" UseTabKey=":True" GuessAutoFilterRowValuesFromFilter=":True" DetailViewID=":"&gt;
 			&lt;Columns &gt;
 				&lt;ColumnInfo PropertyName=":PropertyName" Width=":400" Index=":0" SortIndex=":0" SortOrder=":Ascending" PropertyType=":" AutoFilterCondition=":Contains" ImmediateUpdateAutoFilter=":False" GroupInterval=":"/&gt;
 				&lt;ColumnInfo PropertyName=":Value" Width=":70" Index=":1" PropertyType=":" AutoFilterCondition=":Contains" ImmediateUpdateAutoFilter=":False" GroupInterval=":"/&gt;
@@ -11666,10 +11667,10 @@ and you can modify this filter yourself by setting the FilterForDesignPreview pr
 			&lt;/Columns&gt;
 			&lt;SplitLayout Direction=":Horizontal"/&gt;
 			&lt;Variants Current=":Default"&gt;
-				&lt;Variant ID=":Default" Caption=":Default" ViewID=":PersistentCustomAttribute_ListView"/&gt;
+				&lt;Variant ID=":Default" Caption=":Default" ViewID=":PersistentModelDefaultAttribute_ListView"/&gt;
 			&lt;/Variants&gt;
 		&lt;/ListView&gt;
-		&lt;DetailView ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute" ID=":PersistentCustomAttribute_DetailView"&gt;
+		&lt;DetailView ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentModelDefaultAttribute" ID=":PersistentCustomAttribute_DetailView"&gt;
 			&lt;Items &gt;
 				&lt;PropertyEditor PropertyName=":PropertyName" Index=":" RowCount=":"/&gt;
 				&lt;PropertyEditor PropertyName=":Value" Index=":" RowCount=":"/&gt;
@@ -11678,7 +11679,7 @@ and you can modify this filter yourself by setting the FilterForDesignPreview pr
 			&lt;Layout &gt;
 				&lt;LayoutGroup ID=":Main" Index=":0" Direction=":Vertical" ShowCaption=":False" Caption=":Main"&gt;
 					&lt;LayoutGroup ID=":SimpleEditors" Index=":0" Direction=":Vertical" ShowCaption=":False" Caption=":Simple Editors"&gt;
-						&lt;LayoutGroup ID=":PersistentCustomAttribute" Index=":0" Direction=":Vertical" ShowCaption=":False" Caption=":Persistent Custom Attribute"&gt;
+						&lt;LayoutGroup ID=":PersistentModelDefaultAttribute" Index=":0" Direction=":Vertical" ShowCaption=":False" Caption=":Persistent Custom Attribute"&gt;
 							&lt;LayoutItem ID=":PropertyName" ShowCaption=":True" Index=":0"/&gt;
 							&lt;LayoutItem ID=":Value" ShowCaption=":True" Index=":1"/&gt;
 						&lt;/LayoutGroup&gt;
@@ -11686,12 +11687,12 @@ and you can modify this filter yourself by setting the FilterForDesignPreview pr
 				&lt;/LayoutGroup&gt;
 			&lt;/Layout&gt;
 		&lt;/DetailView&gt;
-		&lt;ListView ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute" ID=":PersistentCustomAttribute_LookupListView" IsGroupPanelVisible=":False" AutoExpandAllGroups=":False" IsFooterVisible=":False" EditorTypeName=":" IsColumnHeadersVisible=":True" UseTabKey=":True" GuessAutoFilterRowValuesFromFilter=":True" DetailViewID=":"&gt;
+		&lt;ListView ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentModelDefaultAttribute" ID=":PersistentCustomAttribute_LookupListView" IsGroupPanelVisible=":False" AutoExpandAllGroups=":False" IsFooterVisible=":False" EditorTypeName=":" IsColumnHeadersVisible=":True" UseTabKey=":True" GuessAutoFilterRowValuesFromFilter=":True" DetailViewID=":"&gt;
 			&lt;Columns &gt;
 				&lt;ColumnInfo PropertyName=":PropertyName" Width=":340" SortOrder=":Ascending" PropertyType=":" AutoFilterCondition=":Contains" ImmediateUpdateAutoFilter=":False" GroupInterval=":"/&gt;
 			&lt;/Columns&gt;
 			&lt;Variants Current=":Default"&gt;
-				&lt;Variant ID=":Default" Caption=":Default" ViewID=":PersistentCustomAttribute_LookupListView"/&gt;
+				&lt;Variant ID=":Default" Caption=":Default" ViewID=":PersistentModelDefaultAttribute_LookupListView"/&gt;
 			&lt;/Variants&gt;
 		&lt;/ListView&gt;
 		&lt;ListView ID=":PersistentAggregatedAttribute_ListView" ClassName=":Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentAggregatedAttribute" IsGroupPanelVisible=":False" AutoExpandAllGroups=":False" IsFooterVisible=":True" IsActiveFilterEnabled=":True" EditorTypeName=":" IsColumnHeadersVisible=":True" UseTabKey=":True" GuessAutoFilterRowValuesFromFilter=":True" DetailViewID=":"&gt;
