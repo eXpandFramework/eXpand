@@ -98,7 +98,7 @@
             
             reference.Add(new XElement(xNamespace + "SpecificVersion"){Value = "False"});
             if (assemblyName.Contains("BaseImpl")||assemblyName.Contains("FilterDataStore"))
-                reference.Add(new XElement(xNamespace + "Private"){Value = copyLocal});
+                reference.Add(new XElement(xNamespace + "Private"){Value = "True"});
                 
             if (reference.Attribute("Include").Value.StartsWith("Xpand.")){
                 reference.Add(new XElement(xNamespace + "HintPath"){
