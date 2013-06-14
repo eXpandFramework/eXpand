@@ -40,8 +40,6 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.OnApplicationInitialized(xafApplication);
         }
 
-
-
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
