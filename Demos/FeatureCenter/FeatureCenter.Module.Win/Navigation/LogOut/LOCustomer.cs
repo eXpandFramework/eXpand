@@ -8,8 +8,8 @@ namespace FeatureCenter.Module.Win.Navigation.LogOut {
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderLogOut, "1=1", "1=1", Captions.HeaderLogOut
         , Position.Top)]
     [NonPersistent]
-    [XpandNavigationItem("Navigation/Log Out", "LOCustomer_DetailView")]
-    [DisplayFeatureModel("LOCustomer_DetailView", "LogOut")]
+    [XpandNavigationItem("Navigation/Log Out", "FeatureCenter.Module.Win.Navigation.LogOut.LOCustomer_DetailView")]
+    [DisplayFeatureModel("FeatureCenter.Module.Win.Navigation.LogOut.LOCustomer_DetailView", "LogOut")]
     public class LOCustomer  {
         
     }

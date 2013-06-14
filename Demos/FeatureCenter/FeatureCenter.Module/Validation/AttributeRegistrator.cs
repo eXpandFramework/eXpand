@@ -7,8 +7,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Validation {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-
-        private const string RuleType_ListView = "RuleTypeCustomer_ListView";
+        static readonly string RuleType_ListView = typeof(RuleTypeCustomer).Namespace+".RuleTypeCustomer_ListView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(RuleTypeCustomer)) yield break;

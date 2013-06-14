@@ -1,8 +1,6 @@
 ﻿using System.ComponentModel;
-using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PivotChart.PivotedProperty;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
@@ -10,10 +8,10 @@ using Xpand.Xpo.Collections;
 
 namespace FeatureCenter.Module.PivotChart.ConnectWithCustomer
 {
-    [XpandNavigationItem("PivotChart/Connecting with customer", "CAWCustomer_DetailView")]
+    [XpandNavigationItem("PivotChart/Connecting with customer", "FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer_DetailView")]
 //    [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderConnectWithCustomer, "1=1", "1=1", Captions.ViewMessageConnectWithCustomer, Position.Bottom, ViewType = ViewType.DetailView)]
 //    [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderConnectWithCustomer, "1=1", "1=1", Captions.HeaderConnectWithCustomer, Position.Top, ViewType = ViewType.DetailView)]
-    [DisplayFeatureModel("CAWCustomer_DetailView", "ConnectWithCustomer")]
+    [DisplayFeatureModel("FeatureCenter.Module.PivotChart.ConnectWithCustomer.CAWCustomer_DetailView", "ConnectWithCustomer")]
     public class CAWCustomer:CustomerBase
     {
         public CAWCustomer(Session session) : base(session) {

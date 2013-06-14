@@ -12,10 +12,11 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
             //yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFilterControl, "1=1", "1=1",
             //    Captions.HeaderFilterControl, Position.Top){View = "FilterControl_ListView"};
             //yield return new CloneViewAttribute(CloneViewType.ListView, "FilterControl_ListView");
-            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("ImportWizard", "TestImportObject_ListView");
+            var testimportobjectListview = typeof(TestImportObject).Namespace+".TestImportObject_ListView";
+            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("ImportWizard", testimportobjectListview);
             yield return xpandNavigationItemAttribute;
 
-            yield return new DisplayFeatureModelAttribute("TestImportObject_ListView");
+            yield return new DisplayFeatureModelAttribute(testimportobjectListview);
             yield return new WhatsNewAttribute(new DateTime(2011, 5, 10), xpandNavigationItemAttribute);
         }
     }

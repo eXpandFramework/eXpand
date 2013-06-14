@@ -6,7 +6,8 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.MessageBox {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        private const string ShowMessageBoxObject_DetailView = "ShowMessageBoxObject_DetailView";
+        static readonly string ShowMessageBoxObject_DetailView = typeof(ShowMessageBoxObject).Namespace+ ".ShowMessageBoxObject_DetailView";
+
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(ShowMessageBoxObject)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderShowMessageBox, "1=1", "1=1", Captions.ViewMessageShowMessageBox, Position.Bottom);

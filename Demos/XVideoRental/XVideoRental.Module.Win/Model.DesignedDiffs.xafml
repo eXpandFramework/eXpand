@@ -490,7 +490,7 @@
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <DetailView Id="Customer_DetailView">
+    <DetailView Id="FeatureCenter.Module.Customer_DetailView">
       <Items>
         <PropertyEditor Id="DiscountLevel" AllowEdit="False" />
       </Items>
@@ -667,7 +667,7 @@
         <SortProperty Id="FullName" PropertyName="FullName" IsNewNode="True" />
       </Sorting>
     </ListView>
-    <ListView Id="Customer_ListView_Rentals" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.AdvBandedListEditor" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="False" AllowEdit="False" Caption="Movie Rentals" RememberSelection="True" SelectedRows="2" DetailViewID="Customer_DetailView">
+    <ListView Id="Customer_ListView_Rentals" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.AdvBandedListEditor" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="False" AllowEdit="False" Caption="Movie Rentals" RememberSelection="True" SelectedRows="2" DetailViewID="FeatureCenter.Module.Customer_DetailView">
       <Columns>
         <ColumnInfo Id="Comments">
           <OptionsColumnAdvBandedView ColVIndex="-1" />

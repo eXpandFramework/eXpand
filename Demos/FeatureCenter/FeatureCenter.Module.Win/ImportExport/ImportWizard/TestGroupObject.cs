@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace FeatureCenter.Module.Win.ImportExport
+namespace FeatureCenter.Module.Win.ImportExport.ImportWizard
 {
     
     public class TestGroupObject : BaseObject

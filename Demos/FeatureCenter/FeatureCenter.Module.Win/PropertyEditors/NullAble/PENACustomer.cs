@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ConditionalActionState.Logic;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
@@ -13,8 +12,8 @@ namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderNullAble, "1=1", "1=1",
         Captions.HeaderNullAble, Position.Top, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule("NullAblePropertyEditors", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
-    
-    [DisplayFeatureModel("PENACustomer_DetailView", "NullAblePropertyEditors")]
+
+    [DisplayFeatureModel("FeatureCenter.Module.Win.PropertyEditors.NullAble.PENACustomer_DetailView", "NullAblePropertyEditors")]
     [ActionStateRule("HideSaveAndClose_For_NullablePropertyEditors","SaveAndClose","1=1",null,ActionState.Hidden)]
     public class PENACustomer : BaseObject, ISupportModificationStatements {
         public PENACustomer(Session session)

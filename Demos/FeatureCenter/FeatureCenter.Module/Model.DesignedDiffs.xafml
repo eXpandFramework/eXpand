@@ -19,7 +19,7 @@
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />
   <Views>
-    <DetailView Id="EAMOrder_DetailView">
+    <DetailView Id="FeatureCenter.Module.ExpandAbleMembers.EAMOrder_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="28">

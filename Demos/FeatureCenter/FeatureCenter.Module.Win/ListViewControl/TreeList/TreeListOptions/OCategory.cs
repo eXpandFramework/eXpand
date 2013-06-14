@@ -8,8 +8,8 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions {
         Captions.ViewMessageTreeListOptions, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderTreeListOptions, "1=1", "1=1",
         Captions.HeaderTreeListOptions, Position.Top)]
-    [XpandNavigationItem(Module.Captions.ListViewCotrol +Module.Captions.TreeListView + "Tree Options", "OCategory_ListView")]
-    [DisplayFeatureModel("OCategory_ListView", "TreeListOptions")]
+    [XpandNavigationItem(Module.Captions.ListViewCotrol + Module.Captions.TreeListView + "Tree Options", "FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions.OCategory_ListView")]
+    [DisplayFeatureModel("FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions.OCategory_ListView", "TreeListOptions")]
     public class OCategory : HCategory {
         public OCategory(Session session)
             : base(session) {

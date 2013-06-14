@@ -7,7 +7,7 @@ namespace FeatureCenter.Module.Navigation
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderNonPersistent, "1=1", "1=1", Captions.HeaderNonPersistent, Position.Top)]
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderNonPersistent, "1=1", "1=1", Captions.ViewMessageNonPersistent, Position.Bottom)]
     [NonPersistent, System.ComponentModel.DisplayName(Captions.HeaderNonPersistent)]
-    [XpandNavigationItem("Navigation/NonPersistent", "NonPersistentObject_DetailView")]
+    [XpandNavigationItem("Navigation/NonPersistent", "FeatureCenter.Module.Navigation.NonPersistentObject_DetailView")]
     public class NonPersistentObject
     {
         public string StringProperty {

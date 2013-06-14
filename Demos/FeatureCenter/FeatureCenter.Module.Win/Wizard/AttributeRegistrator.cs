@@ -6,7 +6,8 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.Wizard {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        public const string WizardCustomer_DetailView = "WizardCustomer_DetailView";
+        public static readonly string WizardCustomer_DetailView = typeof(WizardCustomer).Namespace+".WizardCustomer_DetailView";
+
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(WizardCustomer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderWizard, "1=1", "1=1", Captions.HeaderWizard, Position.Top) { View = WizardCustomer_DetailView + 1 };

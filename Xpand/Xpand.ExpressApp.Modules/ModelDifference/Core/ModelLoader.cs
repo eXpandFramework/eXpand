@@ -120,6 +120,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         ITypesInfo _typesInfo;
         string _moduleName;
         ApplicationModulesManager _modulesManager;
+        bool _loadFromCurrentDomain;
 
         ModelBuilder() {
         }
@@ -165,9 +166,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
             return null;
         }
+        
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager, bool rebuild) {
-            InterfaceBuilder.LoadFromCurrentDomain = XpandModuleBase.TypesInfo != XafTypesInfo.Instance || rebuild;
+            InterfaceBuilder.LoadFromCurrentDomain = XpandModuleBase.TypesInfo != XafTypesInfo.Instance || rebuild || _loadFromCurrentDomain;
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
             ModelApplicationBase modelApplication = ModelApplicationHelper.CreateModel(XpandModuleBase.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
@@ -237,7 +239,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         }
 
-        public ModelBuilder WithApplication(XafApplication xafApplication) {
+        public ModelBuilder WithApplication(XafApplication xafApplication, bool loadFromCurrentDomain=false) {
+            _loadFromCurrentDomain = loadFromCurrentDomain;
             _application = xafApplication;
             return this;
         }
@@ -273,9 +276,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         public ModelApplicationBase ReCreate() {
-            return GetMasterModelCore(true);
+            return GetMasterModelCore(true, false);
         }
-        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo) {
+        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo, bool loadFromCurrentDomain=false) {
             _typesInfo = TypesInfoBuilder.Create()
                 .FromModule(_moduleName)
                 .Build(tryToUseCurrentTypesInfo);
@@ -283,10 +286,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 UsingTypesInfo(s => _typesInfo).
                 FromModule(_moduleName).
                 Build();
-            return GetMasterModelCore(false);
+            return GetMasterModelCore(false, loadFromCurrentDomain);
         }
 
-        ModelApplicationBase GetMasterModelCore(bool rebuild) {
+        ModelApplicationBase GetMasterModelCore(bool rebuild, bool loadFromCurrentDomain) {
             XpandModuleBase.DisposeManagers();
             ModelApplicationBase modelApplicationBase;
             try {
@@ -294,7 +297,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 modelApplicationBase = _modelBuilder
                     .UsingTypesInfo(_typesInfo)
                     .FromModule(_moduleName)
-                    .WithApplication(_xafApplication)
+                    .WithApplication(_xafApplication, loadFromCurrentDomain)
                     .Build(rebuild);
             } catch (CompilerErrorException e) {
                 Tracing.Tracer.LogSeparator("CompilerErrorException");
@@ -306,8 +309,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return modelApplicationBase;
         }
 
-        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo) {
-            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo);
+        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo, bool loadFromCurrentDomain=false) {
+            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo, loadFromCurrentDomain);
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
             masterModel.AddLayerBeforeLast(layer);
