@@ -122,6 +122,7 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Office.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -183,10 +184,12 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore.Web">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.IO.Web">

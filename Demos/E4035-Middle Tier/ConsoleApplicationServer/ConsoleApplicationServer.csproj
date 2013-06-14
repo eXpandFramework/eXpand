@@ -165,6 +165,7 @@
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
   </ItemGroup>

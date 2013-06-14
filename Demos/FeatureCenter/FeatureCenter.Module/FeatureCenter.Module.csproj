@@ -108,6 +108,7 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +147,7 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ImportWizard">
@@ -218,6 +220,7 @@
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
