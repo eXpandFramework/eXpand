@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
         bool CanCreateView(ActionBaseEventArgs e, IModelDetailViewWizard modelWizard) {
             var canCreate = modelWizard != null && modelWizard.Wizard.Count > 0 && modelWizard.Wizard.ShowInWizard;
-            return canCreate && (!(e.Action.Controller is NewObjectViewController) || modelWizard.Wizard.NewObjectsOnly);
+            return canCreate && (!modelWizard.Wizard.NewObjectsOnly || ((e.Action.Controller is NewObjectViewController) && modelWizard.Wizard.NewObjectsOnly));
         }
     }
 }
