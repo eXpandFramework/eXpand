@@ -22,19 +22,16 @@
         <![CDATA[
          public override bool Execute()
         {
-            
             var version=GetVersion();
             Console.WriteLine(version);
             var xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
             var files = Directory.GetFiles(this.MSBuildProjectDirectory, "*.csproj", SearchOption.AllDirectories);
             foreach (var file in files) {
-                //Console.WriteLine(Path.GetFileNameWithoutExtension(file));
                 var directoryName = Path.GetDirectoryName(file) + "";
                 var document = GetXDocument(file);
                 CreateAttributes(document, xNamespace, directoryName, this.MSBuildProjectDirectory,version);
                 document.Save(file,SaveOptions.None);
                 var configFile=GetConfigFile(file);
-                Console.WriteLine(configFile);
                 if (configFile!=null)
                   UpdateConfig(configFile,version);
             }
@@ -45,8 +42,11 @@
             XDocument xDocument = GetXDocument(file);
             XNamespace xNamespace = "urn:schemas-microsoft-com:asm.v1";
             XElement runtimeElement = xDocument.Descendants().FirstOrDefault(element => element.Name == "runtime");
-            if (runtimeElement != null)
+            if (runtimeElement != null){
                 runtimeElement.Remove();
+                xDocument.Save(file, SaveOptions.None);
+            }
+            return;
             runtimeElement = new XElement("runtime");
             xDocument.Root.Add(runtimeElement);
             var assemblyBindingElement = new XElement(xNamespace+"assemblyBinding");
