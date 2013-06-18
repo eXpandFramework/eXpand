@@ -5,6 +5,7 @@ using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
@@ -15,7 +16,7 @@ using Xpand.ExpressApp.Web;
 
 namespace ModelDifferenceTester.Web {
     public class ModelDifferenceTesterAspNetApplication : XpandWebApplication {
-        AuthenticationActiveDirectory authenticationActiveDirectory1;
+        AuthenticationStandard _authenticationStandard;
         CloneObjectModule cloneObjectModule1;
         SystemModule module1;
         SystemAspNetModule module2;
@@ -23,7 +24,10 @@ namespace ModelDifferenceTester.Web {
         ModelDifferenceTesterAspNetModule module4;
         SecurityModule securityModule1;
 
-        SecuritySimple securitySimple1;
+        SecurityStrategyComplex _securityStrategyComplex;
+        private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
+        private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
+        private Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule modelDifferenceAspNetModule1;
         SqlConnection sqlConnection1;
 
         public ModelDifferenceTesterAspNetApplication() {
@@ -65,49 +69,53 @@ namespace ModelDifferenceTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new ModelDifferenceTesterModule();
-            module4 = new ModelDifferenceTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
-            cloneObjectModule1 = new CloneObjectModule();
-            securityModule1 = new SecurityModule();
-
-            securitySimple1 = new SecuritySimple();
-            authenticationActiveDirectory1 = new AuthenticationActiveDirectory();
-            ((ISupportInitialize)(this)).BeginInit();
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this.module3 = new ModelDifferenceTester.Module.ModelDifferenceTesterModule();
+            this.module4 = new ModelDifferenceTester.Module.Web.ModelDifferenceTesterAspNetModule();
+            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this._securityStrategyComplex = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this._authenticationStandard = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
+            this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
+            this.modelDifferenceAspNetModule1 = new Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
-                "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
-                "odelDifferenceTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
+    "odelDifferenceTester";
+            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
-            // securitySimple1
+            // _securityStrategyComplex
             // 
-            securitySimple1.Authentication = authenticationActiveDirectory1;
-            securitySimple1.UserType = typeof(SimpleUser);
+            this._securityStrategyComplex.Authentication = this._authenticationStandard;
+            this._securityStrategyComplex.UserType = typeof(SecuritySystemUser);
+            this._securityStrategyComplex.RoleType = typeof(SecuritySystemRole);
             // 
-            // authenticationActiveDirectory1
+            // _authenticationStandard
             // 
-            authenticationActiveDirectory1.CreateUserAutomatically = true;
-            authenticationActiveDirectory1.LogonParametersType = null;
+
+            this._authenticationStandard.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
             // 
             // ModelDifferenceTesterAspNetApplication
             // 
-            ApplicationName = "ModelDifferenceTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(cloneObjectModule1);
-            Modules.Add(securityModule1);
+            this.ApplicationName = "ModelDifferenceTester";
+            this.Connection = this.sqlConnection1;
+            this.Modules.Add(this.module1);
+            this.Modules.Add(this.module2);
+            this.Modules.Add(this.module3);
+            this.Modules.Add(this.cloneObjectModule1);
+            this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.xpandSecurityModule1);
+            this.Modules.Add(this.modelDifferenceModule1);
+            this.Modules.Add(this.modelDifferenceAspNetModule1);
+            this.Modules.Add(this.module4);
+            this.Security = this._securityStrategyComplex;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-            Modules.Add(module4);
-            Security = securitySimple1;
-            DatabaseVersionMismatch += ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
-            ((ISupportInitialize)(this)).EndInit();
         }
     }
 }
