@@ -520,7 +520,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 if (conversionType == typeof(Guid) && objectToConvert is string) {
                     return new Guid(((string)objectToConvert).Trim());
                 }
-                if (conversionType == typeof(TimeSpan) && objectToConvert is double) {
+                if (conversionType == typeof(TimeSpan) && (objectToConvert is double || objectToConvert is string)) {
                     var int32 = System.Convert.ToInt64(objectToConvert);
                     return new TimeSpan(int32);
                 }
