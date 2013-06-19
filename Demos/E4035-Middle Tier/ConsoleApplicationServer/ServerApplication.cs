@@ -28,7 +28,7 @@ namespace ConsoleApplicationServer {
             // Add your client application's modules to the ServerApplication.Modules collection here. 
             Modules.Add(new AdditionalViewControlsProviderWindowsFormsModule());
             Modules.Add(new Xpand.ExpressApp.Chart.Win.XpandChartWinModule());
-            Modules.Add(new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule());
+            Modules.Add(new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule());
             Modules.Add(new Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule());
             Modules.Add(new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule());
             Modules.Add(new Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule());

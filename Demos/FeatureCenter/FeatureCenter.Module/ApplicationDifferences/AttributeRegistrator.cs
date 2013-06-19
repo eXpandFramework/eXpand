@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.ApplicationDifferences
     {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(ModelDifferenceObject)) yield break;
-            yield return new DisplayFeatureModelAttribute("ModelDifferenceObject_ListView", "ModelDifference");
+            yield return new DisplayFeatureModelAttribute(typeof(ModelDifferenceObject).Namespace+".ModelDifferenceObject_ListView", "ModelDifference");
         }
     }
 }

@@ -63,7 +63,7 @@ call buildproject.cmd Xpand.ExpressApp.Reports.Win ".\Xpand\Xpand.ExpressApp.Mod
 call buildproject.cmd Xpand.NCarousel ".\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj"
 call buildproject.cmd Xpand.ExpressApp.NCarousel.Web ".\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Thumbnail.Web ".\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj"
-call buildproject.cmd Xpand.ExpressApp.ConditionalDetailViews ".\Xpand\Xpand.ExpressApp.Modules\ConditionalDetailViews\Xpand.ExpressApp.ConditionalDetailViews.csproj"
+call buildproject.cmd Xpand.ExpressApp.ConditionalObjectView ".\Xpand\Xpand.ExpressApp.Modules\ConditionalObjectView\Xpand.ExpressApp.ConditionalObjectView.csproj"
 call buildproject.cmd Xpand.ExpressApp.JobScheduler ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj"
 call buildproject.cmd Xpand.Persistent.BaseImpl ".\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj"
 call buildproject.cmd Xpand.ExpressApp.JobScheduler.Jobs ".\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj"
@@ -119,7 +119,7 @@ echo Building Module Testers...
 echo Done Building AdditionalViewControlProvider
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\Chart\ChartTester.sln"
 echo Done Building Chart
-%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln"
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ConditionalObjectView\ConditionalObjectViewTester.sln"
 echo Done Building ConditionalDetailViews
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln"
 echo Done Building ExceptionHanding

@@ -34,7 +34,7 @@ namespace DCSecurityDemo.Win {
             this.authentication1 = new DCSecurityDemo.Module.DCSecurityDemoAuthentication();
             this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
+            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
@@ -200,7 +200,7 @@ namespace DCSecurityDemo.Win {
         private DCSecurityDemo.Module.DCSecurityDemoAuthentication authentication1;
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
-        private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
+        private Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule conditionalDetailViewModule1;
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;

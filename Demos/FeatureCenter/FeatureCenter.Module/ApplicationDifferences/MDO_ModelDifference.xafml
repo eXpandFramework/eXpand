@@ -2,7 +2,7 @@
 <Application>
   <AdditionalViewControls>
     <Rules>
-      <AdditionalViewControlsRule Id="Header Model Difference" IsNewNode="True" Index="0" TypeInfo="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Model Differences" View="ModelDifferenceObject_ListView" />
+      <AdditionalViewControlsRule Id="Header Model Difference" IsNewNode="True" Index="0" TypeInfo="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="Model Differences" View="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject_ListView" />
       <AdditionalViewControlsRule Id="UpdateOnlyChangeFields" ExecutionContextGroup="UpdateOnlyChangeFields" />
       <AdditionalViewControlsRule Id="ViewMessage Model Difference 1" IsNewNode="True" Index="0" TypeInfo="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="In this view you can see all application models (Application,User,Roles) note the application model with the name 'RuntimeMemberModelStore'. This one has been loaded at runtime to provide the demo for the runtime members through model" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" />
       <AdditionalViewControlsRule Id="ViewMessage Model Difference 2" IsNewNode="True" Index="0" TypeInfo="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="You can create as many models as you like of any type (Application,User,Role) combine them using the combine actions avaliable from the model or even modify models of other applications (eg. web)" NormalCriteria="1=1" Position="Bottom" ViewType="ListView" NotUseSameType="True" FrameTemplateContext="ApplicationWindow" />
@@ -15,7 +15,7 @@
     <Items>
       <Item Id="Application Differences" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="ModelDifferenceObject_ListView" />
+          <Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject_ListView" />
         </Items>
       </Item>
     </Items>
