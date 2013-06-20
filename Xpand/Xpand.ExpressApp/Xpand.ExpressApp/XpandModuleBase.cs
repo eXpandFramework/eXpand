@@ -195,6 +195,7 @@ namespace Xpand.ExpressApp {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            ApplicationHelper.Instance.Initialize(application);
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             Type applicationType = ApplicationType();
             if (!applicationType.IsInstanceOfType(application))
