@@ -1,9 +1,7 @@
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
-using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
 
@@ -56,8 +54,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void EnableBOModelClassMembersAddMenu() {
-            var adapter = (ExtendModelInterfaceAdapter)GetType().GetProperty("Adapter", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this, null);
-            var childNodeTypes = adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo);
+            var childNodeTypes = Adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo);
             foreach (var childNodeType in childNodeTypes) {
                 AddNodeAction.Items.Add(new ChoiceActionItem(childNodeType.Key, childNodeType.Value));
             }
