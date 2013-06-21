@@ -79,9 +79,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
         }
 
-        public static bool LoadFromCurrentDomain { get; set; }
         public static bool LoadFromPath {
-            get { return !Debugger.IsAttached && RuntimeMode && _fileExistInPath || _loadFromPath; }
+            get { return RuntimeMode && _fileExistInPath || _loadFromPath; }
             set { _loadFromPath = value; }
         }
 
@@ -95,10 +94,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.Add(_usingTypes);
             string[] references = _referencesCollector.References.ToArray();
-            if (LoadFromCurrentDomain)
-                return LoadFromDomain(assemblyFilePath);
             _fileExistInPath = File.Exists(assemblyFilePath);
-            if (LoadFromPath && _fileExistInPath) {
+            if (LoadFromPath && _fileExistInPath&&VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
             }
             if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
@@ -109,7 +106,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return compileAssemblyFromSource;
         }
 
-        Assembly LoadFromDomain(string assemblyFilePath) {
+        bool VersionMatch(string assemblyFilePath) {
+            return FileVersionInfo.GetVersionInfo(assemblyFilePath).FileVersion ==
+                   typeof (XafApplication).Assembly.GetName().Version.ToString();
+        }
+
+        protected Assembly LoadFromDomain(string assemblyFilePath) {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             string fileName = Path.GetFileName(assemblyFilePath);
             foreach (var assembly in assemblies) {
@@ -156,9 +158,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string GetAssemblyVersionCode() {
-            var entryAssembly = Assembly.GetEntryAssembly();
-            var designTime = entryAssembly == null;
-            return !designTime ? string.Format(@"[assembly: {1}(""{0}"")]", ReflectionHelper.GetAssemblyVersion(entryAssembly), TypeToString(typeof(AssemblyVersionAttribute))) : null;
+            var assemblyVersion = ReflectionHelper.GetAssemblyVersion(typeof (XafApplication).Assembly);
+            return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion, TypeToString(typeof(AssemblyVersionAttribute)));
         }
 
         string AssemblyFilePath() {

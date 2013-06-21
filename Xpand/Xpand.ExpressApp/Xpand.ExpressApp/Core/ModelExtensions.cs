@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.Core {
     public static class CreateCustomModelSynchronizerHelper {
@@ -47,6 +49,11 @@ namespace Xpand.ExpressApp.Core {
     public static class ModelApplicationBaseExtensions {
         public static void RemoveLayer(this ModelApplicationBase application, string id) {
             RefreshLayers(application, @base => @base.Id == id ? null : @base);
+        }
+
+        public static ITypesInfo GetTypesInfo(this IModelApplication application) {
+            var typesInfoProvider = application as ITypesInfoProvider;
+            return typesInfoProvider != null ? typesInfoProvider.TypesInfo ?? XpandModuleBase.TypesInfo : XpandModuleBase.TypesInfo;
         }
 
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {

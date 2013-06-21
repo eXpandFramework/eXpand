@@ -20,7 +20,7 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
                 var modelDifferenceObject = new ModelDifferenceObject(session).InitializeMembers("ExternalApplication", "ExternalApplication.Win", uniqueName);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
                 var modelApplicationBuilder = new ModelLoader(modelDifferenceObject.PersistentApplication.ExecutableName);
-                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore), false,true);
+                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore), false);
                 modelDifferenceObject.CreateAspects(model);
                 ObjectSpace.CommitChanges();
             }

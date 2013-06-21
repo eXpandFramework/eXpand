@@ -17,6 +17,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
             if (handler != null) handler(this, e);
         }
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
@@ -32,7 +33,6 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void OnUserDifferencesLoaded(object sender, EventArgs eventArgs) {
-
             LoadModels(!ModelsLoaded.HasValue || !ModelsLoaded.Value);
         }
 

@@ -14,6 +14,14 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
+    public class ApplicationModulesManager : DevExpress.ExpressApp.ApplicationModulesManager {
+        public ITypesInfo TypesInfo { get; set; }
+
+        public ApplicationModulesManager(ControllersManager controllersManager, string assembliesPath)
+            : base(controllersManager, assembliesPath) {
+        }
+    }
+
     [Obsolete("User ModelLoader", true)]
     public class ModelApplicationBuilder {
         readonly string _executableName;
@@ -53,8 +61,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             TypesInfo typesInfo = GetTypesInfo();
             using (var application = GetApplication(_executableName, typesInfo)) {
                 ApplicationModulesManager modulesManager = GetModulesManager(typesInfo, application);
-                var masterModel = GetModelApplication(application, modulesManager);
-                return masterModel;
+                return GetModelApplication(application, modulesManager);
             }
         }
 
@@ -71,9 +78,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var modelApplicationCreator = XpandModuleBase.ModelApplicationCreator;
             XpandModuleBase.ModelApplicationCreator = null;
             var modelApplication = new DesignerModelFactory().CreateApplicationModel(application, modulesManager, null, null);
-            // ReSharper disable SuspiciousTypeConversion.Global
             var modelApplicationBase = (ModelApplicationBase)modelApplication;
-            // ReSharper restore SuspiciousTypeConversion.Global
             AddAfterSetupLayer(modelApplicationBase);
             XpandModuleBase.ModelApplicationCreator = modelApplicationCreator;
             return modelApplicationBase;

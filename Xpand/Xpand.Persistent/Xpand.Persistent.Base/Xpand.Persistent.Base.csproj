@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -186,6 +187,7 @@
     </Compile>
     <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
+    <Compile Include="ModelDifference\ITypesInfoProvider.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
