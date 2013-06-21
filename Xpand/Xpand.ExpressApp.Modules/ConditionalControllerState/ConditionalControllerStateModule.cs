@@ -1,13 +1,14 @@
-using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
+using Xpand.ExpressApp.ConditionalControllerState.Model;
 using Xpand.ExpressApp.ConditionalControllerState.NodeUpdaters;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Model;
 using Xpand.ExpressApp.Validation;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ConditionalControllerState {
 
@@ -27,5 +28,11 @@ namespace Xpand.ExpressApp.ConditionalControllerState {
         protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
             return ((IModelApplicationModelArtifactState)applicationModel).ModelArtifactState.ConditionalControllerState;
         }
+
+        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+            base.CustomizeTypesInfo(typesInfo);
+            typesInfo.FindTypeInfo(typeof(IModelLogicConditionalControllerState)).AddAttribute(new ModelLogicRuleAttribute(typeof(IModelControllerStateRule)));
+        }
+
     }
 }

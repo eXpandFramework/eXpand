@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ConditionalObjectView {
     [ToolboxBitmap(typeof(ConditionalObjectViewModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class ConditionalObjectViewModule : LogicModuleBase<IConditionalObjectViewRule, ConditionalObjectViewRule>, IModelXmlConverter {
+    public sealed class ConditionalObjectViewModule : LogicModuleBase<IConditionalObjectViewRule, ConditionalObjectViewRule>,IModelXmlConverter {
         public ConditionalObjectViewModule() {
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
@@ -36,9 +36,9 @@ namespace Xpand.ExpressApp.ConditionalObjectView {
 
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (parameters.XmlNodeName == "ConditionalDetailView") {
-                parameters.NodeType = typeof(IModelApplicationConditionalObjectView);
+                parameters.NodeType = typeof(IModelLogicConditionalObjectView);
             } else if (parameters.XmlNodeName == "ConditionalDetailViewRule") {
-                parameters.NodeType = typeof(IConditionalObjectViewRule);
+                parameters.NodeType = typeof(IModelConditionalObjectViewRule);
             }
         }
     }

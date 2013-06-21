@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
                     modelViews.Where(modelView => (modelLogicRule.ViewType == ViewType.ListView
                              ? modelView is IModelListView
                              : modelView is IModelDetailView));
-            calculatedModelNodeList.AddRange(modelViews.Cast<IModelView>());
+            calculatedModelNodeList.AddRange(modelViews);
             return calculatedModelNodeList;
         }
     }

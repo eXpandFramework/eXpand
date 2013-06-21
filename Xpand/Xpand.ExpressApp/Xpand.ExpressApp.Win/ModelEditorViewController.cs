@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using System.Linq;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.Win {
@@ -62,9 +63,11 @@ namespace Xpand.ExpressApp.Win {
 
         void FilterModelLogicRules(SingleChoiceAction singleChoiceAction) {
             var modelTreeListNode = CurrentModelNode.Parent;
+            var typesInfo = modelTreeListNode.ModelNode.Application.GetTypesInfo();
+            var type=modelTreeListNode.ModelNode.GetType().GetInterface("I" + modelTreeListNode.ModelNode.GetType().Name);
+            var modelLogicRuleAttribute = typesInfo.FindTypeInfo(type).FindAttributes<ModelLogicRuleAttribute>().Single();
             for (int i = singleChoiceAction.Items.Count - 1; i > -1; i--) {
-                var value = modelTreeListNode.ModelNode.Id.Replace("Conditional", "");
-                if (!singleChoiceAction.Items[i].Id.StartsWith(value))
+                if (!modelLogicRuleAttribute.RuleType.Name.EndsWith(singleChoiceAction.Items[i].Id))
                     singleChoiceAction.Items.RemoveAt(i);
             }
         }

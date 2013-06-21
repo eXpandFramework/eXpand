@@ -6,10 +6,10 @@ using Xpand.ExpressApp.ConditionalObjectView.Model;
 namespace Xpand.ExpressApp.ConditionalObjectView.DomainLogic {
     [DomainLogic(typeof(IModelConditionalObjectViewRule))]
     public class ConditionalObjectViewRuleDomainLogic {
-        public static IModelList<IModelDetailView> Get_DetailViews(IModelConditionalObjectViewRule conditionalObjectViewRule) {
-            var calculatedModelNodeList = new CalculatedModelNodeList<IModelDetailView>();
+        public static IModelList<IModelObjectView> Get_ObjectViews(IModelConditionalObjectViewRule conditionalObjectViewRule) {
+            var calculatedModelNodeList = new CalculatedModelNodeList<IModelObjectView>();
             if (conditionalObjectViewRule.ModelClass != null) {
-                var modelDetailViews = conditionalObjectViewRule.Application.Views.OfType<IModelDetailView>().Where(view => view.ModelClass == conditionalObjectViewRule.ModelClass);
+                var modelDetailViews = conditionalObjectViewRule.Application.Views.OfType<IModelObjectView>().Where(view => view.ModelClass == conditionalObjectViewRule.ModelClass);
                 calculatedModelNodeList.AddRange(modelDetailViews);
             }
             return calculatedModelNodeList;
