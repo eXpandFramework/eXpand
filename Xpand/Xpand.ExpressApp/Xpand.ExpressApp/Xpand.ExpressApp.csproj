@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -109,6 +110,7 @@
     <Compile Include="ApplicationHelper.cs" />
     <Compile Include="Attributes\AllowEditAttribute.cs" />
     <Compile Include="Attributes\HideFromNewMenuAttribute.cs" />
+    <Compile Include="Attributes\InVisibleInAllViewsAttribute.cs" />
     <Compile Include="Attributes\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="Attributes\PessimisticLockingAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
