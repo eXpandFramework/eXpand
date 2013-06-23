@@ -9,15 +9,10 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.Model;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public interface IModelOptionsCollectionEditMode : IModelOptions {
-        [DefaultValue(ViewEditMode.Edit)]
-        [Category("eXpand")]
-        ViewEditMode CollectionsEditMode { get; set; }
-    }
-
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for ASP.NET applications.")]
@@ -50,6 +45,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
+            extenders.Add<IModelListView, IModelListViewOpenViewWhenNested>();
         }
     }
 }

@@ -156,6 +156,7 @@
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\IModelViewOpenViewWhenNested.cs" />
     <Compile Include="PropertyEditors\ASPxTimePropertyEditor .cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\ASPxSearchLookupPropertyEditor.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
+    <Compile Include="Model\IModelOptionsCollectionEditMode.cs" />
     <Compile Include="SystemModule\NullTextController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -207,6 +209,7 @@
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ViewStrategies\XpandShowViewStrategy.cs" />
     <Compile Include="XpandPopupWindow.cs" />
     <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>
