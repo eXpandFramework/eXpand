@@ -175,7 +175,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         ou.Dispose();
                         iu.Dispose();
                         commitAccumulator = 0;
-                        OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, position));
+                        OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName, position));
                     }
                 }
 
@@ -183,13 +183,11 @@ namespace Xpand.ExpressApp.IO.Core {
                 throw;
 
             } finally {
-                OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName));
                 outputUow.CommitChanges();
+                OnTransformRecords(new TransformRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName));
                 GenerationNext(outputUow);
                 outputUow.Dispose();
                 inputUow.Dispose();
-
-
             }
         }
 
@@ -395,9 +393,14 @@ namespace Xpand.ExpressApp.IO.Core {
             if (handler != null) handler(this, EventArgs.Empty);
         }
         public event EventHandler<TransformingRecordsArgs> TransformingRecords;
+        public event EventHandler<TransformRecordsArgs> TransformRecords;
 
         protected virtual void OnTransformingRecords(TransformingRecordsArgs e) {
             var handler = TransformingRecords;
+            if (handler != null) handler(this, e);
+        }
+        protected virtual void OnTransformRecords(TransformRecordsArgs e) {
+            var handler = TransformRecords;
             if (handler != null) handler(this, e);
         }
 
@@ -409,22 +412,30 @@ namespace Xpand.ExpressApp.IO.Core {
         }
     }
 
-    public class TransformingRecordsArgs : EventArgs {
+    public class TransformRecordsArgs:EventArgs {
         readonly string _inputClassName;
-        readonly int _position = -1;
+        readonly string _outputClassName;
 
-        public TransformingRecordsArgs(string inputClassName, int position) {
+        public TransformRecordsArgs(string inputClassName, string outputClassName) {
             _inputClassName = inputClassName;
-            _position = position;
+            _outputClassName = outputClassName;
         }
 
-        public TransformingRecordsArgs(string inputClassName) {
-            _inputClassName = inputClassName;
+        public string OutputClassName {
+            get { return _outputClassName; }
         }
 
         public string InputClassName {
             get { return _inputClassName; }
         }
+    }
+    public class TransformingRecordsArgs : TransformRecordsArgs {
+        
+        readonly int _position = -1;
+
+        public TransformingRecordsArgs(string inputClassName, string outputClassName, int position) : base(inputClassName, outputClassName) {
+            _position = position;
+        }      
 
         public int Position {
             get { return _position; }
