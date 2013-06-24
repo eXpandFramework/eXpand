@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
@@ -26,6 +27,9 @@ namespace Xpand.ExpressApp.Security {
                     foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
                         CreateMember(typesInfo, roleTypeProvider, attribute);
                     }
+                    if (CriteriaOperator.GetCustomFunction(IsAllowedToRoleOperator.OperatorName) == null) {
+                        CriteriaOperator.RegisterCustomFunction(new IsAllowedToRoleOperator());
+                    }
                 }
             }
         }
@@ -41,7 +45,6 @@ namespace Xpand.ExpressApp.Security {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<SecurityOperationsAttribute>() != null);
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
-
         #region Overrides of XpandModuleBase
         protected override Type ApplicationType() {
             return typeof(ISettingsStorage);
