@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp {
         }
 
         bool IsValidType(Type typeToCreateOn) {
-            var isValidDataLayer = _application.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
+            var isValidDataLayer = _application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
             return isValidDataLayer && IsXpoType(typeToCreateOn);
         }
 
