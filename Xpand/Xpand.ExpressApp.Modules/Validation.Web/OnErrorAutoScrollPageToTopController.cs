@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.Validation.Web {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (ValidationScrollEnabled()) {
-                Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+                if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
             }
             if (ActionExceptionScroll()) {
                 foreach (var action in Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions)) {
