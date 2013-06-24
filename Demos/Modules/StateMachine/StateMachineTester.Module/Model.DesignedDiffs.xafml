@@ -1,3 +1,8 @@
-﻿<?xml version="1.0" ?>
-<Application Title="StateMachineTester" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="StateMachineTester" Logo="ExpressAppLogo">
+  <Validation>
+    <Rules>
+      <RuleRequiredField Id="@412e0d76-5d05-4265-a6c0-b19fb380a0d3" TargetType="StateMachineTester.Module.BusinessObjects.TestTask" TargetPropertyName="Subject" TargetContextIDs="Save" IsNewNode="True" />
+    </Rules>
+  </Validation>
+</Application>

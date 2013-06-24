@@ -38,6 +38,12 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -82,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\TestTask.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,6 +104,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -117,6 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj">
+      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
+      <Name>Xpand.ExpressApp.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

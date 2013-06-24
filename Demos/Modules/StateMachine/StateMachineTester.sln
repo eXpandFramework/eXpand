@@ -1,15 +1,23 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module", "StateMachineTester.Module\StateMachineTester.Module.csproj", "{918B81A0-4F42-46A4-A8FA-D042B76B5809}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module.Web", "StateMachineTester.Module.Web\StateMachineTester.Module.Web.csproj", "{CDDD4514-0DB0-4FAC-82C5-17241C886F97}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "StateMachineTester.Web", "StateMachineTester.Web\StateMachineTester.Web.csproj", "{17CB167C-BB43-4E04-9C77-6AB52ECFE4CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Web", "StateMachineTester.Web\StateMachineTester.Web.csproj", "{17CB167C-BB43-4E04-9C77-6AB52ECFE4CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module.Win", "StateMachineTester.Module.Win\StateMachineTester.Module.Win.csproj", "{352A96F9-7D2B-4054-817E-52F031091A35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Win", "StateMachineTester.Win\StateMachineTester.Win.csproj", "{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj", "{B964E541-EBA2-4971-B104-A99ABBD95D36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.StateMachine", "..\..\..\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj", "{5F9E1E64-7384-475E-99A6-50407FAF329A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +56,26 @@ Global
 		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
