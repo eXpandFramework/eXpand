@@ -71,6 +71,7 @@ call buildproject.cmd Xpand.ExpressApp.ImportWizard ".\Xpand\Xpand.ExpressApp.Mo
 call buildproject.cmd Xpand.ExpressApp.ImportWizard.Win ".\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Workflow ".\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj"
 call buildproject.cmd Xpand.ExpressApp.StateMachine ".\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj"
+call buildproject.cmd Xpand.ExpressApp.HtmlPropertyEditor.Web ".\Xpand\Xpand.ExpressApp.Modules\HtmlPropertyEditor.Web\Xpand.ExpressApp.HtmlPropertyEditor.Web.csproj"
 
 echo Installing Toolbox Items...
 call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"

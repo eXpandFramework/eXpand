@@ -114,6 +114,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\HtmlPropertyEditor.Web\Xpand.ExpressApp.HtmlPropertyEditor.Web.csproj;
 			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;"/>
 		<ProjectFiles Include="
 			.\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
