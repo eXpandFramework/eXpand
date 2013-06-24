@@ -5,7 +5,6 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
-using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.Model.Options {
     [ModelAbstractClass]
