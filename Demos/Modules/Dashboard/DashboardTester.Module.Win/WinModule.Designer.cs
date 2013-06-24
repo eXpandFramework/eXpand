@@ -1,4 +1,4 @@
-using Xpand.ExpressApp.XtraDashboard.Win;
+
 
 namespace DashboardTester.Module.Win {
     partial class DashboardTesterWindowsFormsModule {
@@ -30,7 +30,6 @@ namespace DashboardTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(DashboardTester.Module.DashboardTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(DashboardWindowsFormsModule));
 
         }
 
