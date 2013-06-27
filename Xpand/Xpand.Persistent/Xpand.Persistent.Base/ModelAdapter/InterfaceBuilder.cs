@@ -78,6 +78,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
             }
         }
+        public static bool XpandModelEditor {
+            get {
+                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor" };
+                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName);
+            }
+        }
 
         public static bool LoadFromPath {
             get { return RuntimeMode && _fileExistInPath || _loadFromPath; }
@@ -87,7 +93,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
-            if (Debugger.IsAttached&&File.Exists(assemblyFilePath))
+            if ((Debugger.IsAttached||XpandModelEditor) && File.Exists(assemblyFilePath))
                 File.Delete(assemblyFilePath);
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             _createdInterfaces = new Dictionary<Type, string>();
@@ -285,9 +291,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         string GetAttributesCode(DynamicModelPropertyInfo property) {
             var attributes = property.GetCustomAttributes(false).OfType<Attribute>().ToList();
-            if (property.PropertyType == typeof(string) && !attributes.OfType<LocalizableAttribute>().Any()) {
+            if (property.PropertyType == typeof (string) && !attributes.OfType<LocalizableAttribute>().Any()) 
                 attributes.Add(new LocalizableAttribute(true));
-            }
             IEnumerable<string> codeList = attributes.Select(attribute => GetAttributeCode(attribute, property)).Where(attributeCode => !string.IsNullOrEmpty(attributeCode));
             return codeList.Aggregate<string, string>(null, (current, attributeCode) => current + string.Format("   [{0}]{1}", attributeCode, Environment.NewLine));
         }

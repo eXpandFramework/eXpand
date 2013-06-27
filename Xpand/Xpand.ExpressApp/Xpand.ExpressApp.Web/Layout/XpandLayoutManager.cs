@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxSplitter;
-using System.IO;
 using System.Reflection;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
@@ -19,7 +18,7 @@ using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.Web.ListEditors;
-
+using Xpand.Utils.Helpers;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
@@ -37,18 +36,18 @@ namespace Xpand.ExpressApp.Web.Layout {
                 var gridView = (Control)detailViewItems[0].Control as ASPxGridView;
                 if (gridView != null) {
                     var detailControl = (Control)detailViewItems[1].Control;
-                    SetupViewItems(detailControl, gridView);
+                    SetupViewItems(gridView);
                     ASPxSplitter splitter = LayoutMasterDetail(detailControl, gridView, splitLayout);
-                    ListEditorViewItem viewItem = detailViewItems[0] as ListEditorViewItem;
+                    var viewItem = detailViewItems[0] as ListEditorViewItem;
                    
                     if (viewItem != null) {
-                        XpandASPxGridListEditor listEditor = viewItem.ListEditor as XpandASPxGridListEditor;
+                        var listEditor = viewItem.ListEditor as XpandASPxGridListEditor;
                         if (listEditor != null) {
                             listEditor.ViewControlsCreated += (s, e) => SetSplitterInitClientEvent(splitter, e.IsRoot);
                         }
                     }
 
-                    RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs() {
+                    RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs{
                         MasterViewItem = detailViewItems[0],
                         DetailViewItem = detailViewItems[1],
                         SplitterControl = splitter
@@ -87,20 +86,16 @@ namespace Xpand.ExpressApp.Web.Layout {
             return splitter;
         }
 
-        void SetupViewItems(Control detailControl, ASPxGridView gridView) {
+        void SetupViewItems(ASPxGridView gridView) {
             if (string.IsNullOrEmpty(gridView.ClientInstanceName))
                 gridView.ClientInstanceName = "gridViewInSplitter";
         }
 
         private string GetAdjustSizeScript() {
             Type t = typeof(XpandLayoutManager);
-            using (StreamReader reader = new StreamReader(t.Assembly.GetManifestResourceStream(
-                string.Format(CultureInfo.InvariantCulture, "{0}.AdjustSize.js", t.Namespace)
-                ))) {
-                return reader.ReadToEnd();
-
-            }
+            return t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture, "{0}.AdjustSize.js", t.Namespace)).ReadToEndAsString();
         }
+
         ASPxCallbackPanel CreateSplitterDetailPane(ASPxSplitter splitter) {
             SplitterPane detailPane = splitter.Panes.Add();
             detailPane.ScrollBars = ScrollBars.Auto;
@@ -115,10 +110,9 @@ namespace Xpand.ExpressApp.Web.Layout {
         void updatePanel_CustomJSProperties(object sender, DevExpress.Web.ASPxClasses.CustomJSPropertiesEventArgs e) {
 
             Page page = WebWindow.CurrentRequestPage;
-            List<XafUpdatePanel> updatePanels = new List<XafUpdatePanel>();
-            ICallbackManagerHolder callbackManagerHolder = page as ICallbackManagerHolder;
+            var updatePanels = new List<XafUpdatePanel>();
             FindUpdatePanels(page, updatePanels);
-            StringBuilder controlNames = new StringBuilder();
+            var controlNames = new StringBuilder();
             foreach (XafUpdatePanel panel in updatePanels) {
                 if (!IsParentOf(panel, (Control)sender)) {
                     controlNames.Append(panel.ClientID);
@@ -145,12 +139,12 @@ namespace Xpand.ExpressApp.Web.Layout {
                 control != null && (
                 control is DevExpress.ExpressApp.Web.Templates.ActionContainers.ActionContainerHolder ||
                 control is DevExpress.ExpressApp.Templates.IActionContainer ||
-                control.Controls.Cast<Control>().Any(c => ContainsActions(c)));
+                control.Controls.Cast<Control>().Any(ContainsActions));
 
         }
 
         private void FindUpdatePanels(Control sourceControl, List<XafUpdatePanel> updatePanels) {
-            XafUpdatePanel updatePanel = sourceControl as XafUpdatePanel;
+            var updatePanel = sourceControl as XafUpdatePanel;
             if (updatePanel != null && updatePanel.UpdateAlways && !updatePanels.Contains(updatePanel) && ContainsActions(updatePanel)) {
                 updatePanels.Add(updatePanel);
             }
@@ -202,12 +196,15 @@ namespace Xpand.ExpressApp.Web.Layout {
         }
 
         internal void UpdateItemsVisibility() {
-            MethodInfo method = GetType().BaseType.GetMethod("UpdateItemsVisibility", BindingFlags.Instance | BindingFlags.NonPublic);
-            if (method != null)
-                method.Invoke(this, null);
-            else
-                throw new InvalidOperationException(
-                    string.Format(CultureInfo.InvariantCulture, "Method 'UpdateItemsVisibility' not found in '{0}'", GetType().BaseType));
+            var baseType = GetType().BaseType;
+            if (baseType != null) {
+                MethodInfo method = baseType.GetMethod("UpdateItemsVisibility", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (method != null)
+                    method.Invoke(this, null);
+                else
+                    throw new InvalidOperationException(
+                        string.Format(CultureInfo.InvariantCulture, "Method 'UpdateItemsVisibility' not found in '{0}'", baseType));
+            }
         }
     }
 }

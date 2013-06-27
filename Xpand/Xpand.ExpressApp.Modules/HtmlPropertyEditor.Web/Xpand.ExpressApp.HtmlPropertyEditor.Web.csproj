@@ -149,7 +149,6 @@
     <Compile Include="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ToolBars\ToolbarInsertFileDialogButton.cs" />
     <Compile Include="XpandHtmlPropertyEditorAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -202,6 +201,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DialogForms\insertfile.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
