@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxClasses;
@@ -29,7 +30,10 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
 
             builder.ExtendInteface<IModelHtmlEditor, ASPxHtmlEditor>(assembly);
             builder.ExtendInteface<IModelHtmlEditorToolBar, HtmlEditorToolbar>(assembly);
+            builder.ExtendInteface<IModelHtmlEditorShortcut, HtmlEditorShortcut>(assembly);
             builder.ExtendInteface<IModelHtmlEditorToolBarItem, HtmlEditorToolbarItem>(assembly);
+            builder.ExtendInteface<IModelToolbarCustomDialogButton, ToolbarCustomDialogButton>(assembly);
+            builder.ExtendInteface<IModelHtmlEditorCustomDialog, HtmlEditorCustomDialog>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
@@ -49,13 +53,35 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
                 Act = info => info.DXFilter()
             };
             yield return new InterfaceBuilderData(typeof(HtmlEditorToolbarItem)){
+                Act = info => {
+                    var dxFilter = info.DXFilter(new[]{typeof (ToolbarItemImageProperties)}, typeof (object));
+                    return dxFilter;
+                }
+            };
+            yield return new InterfaceBuilderData(typeof(HtmlEditorShortcut)){
                 Act = info => info.DXFilter()
+            };
+            yield return new InterfaceBuilderData(typeof(HtmlEditorCustomDialog)){
+                Act = info => {
+                    if (info.Name == "Name")
+                        info.AddAttribute(new BrowsableAttribute(false));
+                    return info.DXFilter();
+                }
+            };
+            yield return new InterfaceBuilderData(typeof(ToolbarCustomDialogButton)) {
+                Act = info => {
+                    if (info.Name == "Name" || info.Name == "CommandName") {
+                        info.AddAttribute(new BrowsableAttribute(false));
+                        info.AddAttribute(new BrowsableAttribute(false));
+                    }
+                    return info.DXFilter();
+                }
             };
         }
 
         Type[] BaseHtmlEditorControlTypes() {
             return new[]{
-                typeof (ASPxHtmlEditorSettingsBase),typeof(StylesBase),typeof(ImagesBase)
+                typeof (ASPxHtmlEditorSettingsBase),typeof(StylesBase),typeof(ImagesBase),typeof (ClientSideEvents)
             };
         }
     }
