@@ -261,7 +261,7 @@ namespace Xpand.ExpressApp {
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
-            _customizeTypesInfoCalled = false;
+            _customizeTypesInfoCalled = true;
         }
 
         void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
