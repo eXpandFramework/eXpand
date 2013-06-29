@@ -12,7 +12,7 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ConditionalControllerState {
 
     [ToolboxItem(false)]
-    public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule, IModelControllerStateRule, IModelArtifactState,IModelLogicConditionalControllerState> {
+    public sealed class ConditionalControllerStateModule : LogicModuleBase<IControllerStateRule, ControllerStateRule, IModelControllerStateRule, IModelApplicationModelArtifactState, IModelLogicConditionalControllerState> {
         public ConditionalControllerStateModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
         }
@@ -21,12 +21,12 @@ namespace Xpand.ExpressApp.ConditionalControllerState {
             get { return new List<ExecutionContext>{ ExecutionContext.ViewChanging }; }
         }
 
-        public override LogicRulesNodeUpdater<IControllerStateRule, IModelControllerStateRule, IModelArtifactState> LogicRulesNodeUpdater {
+        public override LogicRulesNodeUpdater<IControllerStateRule, IModelControllerStateRule, IModelApplicationModelArtifactState> LogicRulesNodeUpdater {
             get { return new ControllerStateRulesNodeUpdater(); }
         }
 
-        public override IModelLogicConditionalControllerState GetModelLogic(IModelArtifactState modelArtifactState) {
-            return modelArtifactState.ConditionalControllerState;
+        public override IModelLogicConditionalControllerState GetModelLogic(IModelApplicationModelArtifactState applicationModel) {
+            return applicationModel.ModelArtifactState.ConditionalControllerState;
         }
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
