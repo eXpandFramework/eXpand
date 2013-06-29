@@ -142,7 +142,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if exist C:\DxCore\PlugIns\NUL copy "$(TargetDir)*.*" c:\dxcore\plugins\*.*</PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
