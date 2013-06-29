@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalActionState.Logic {
-    public class ActionStateRuleController : ConditionalLogicRuleViewController<IActionStateRule> {
+    public class ActionStateRuleController : ConditionalLogicRuleViewController<IActionStateRule,ConditionalActionStateModule> {
         public override void ExecuteRule(LogicRuleInfo<IActionStateRule> logicRuleInfo,
                                          ExecutionContext executionContext) {
             IActionStateRule rule = logicRuleInfo.Rule;
@@ -33,10 +31,6 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic {
                         break;
                 }
             }
-        }
-
-        protected override IModelLogic GetModelLogic() {
-            return ((IModelApplicationModelArtifactState)Application.Model).ModelArtifactState.ConditionalActionState;
         }
 
         void ActivateDeActivateAction(LogicRuleInfo<IActionStateRule> info, ActionBase actionBase) {

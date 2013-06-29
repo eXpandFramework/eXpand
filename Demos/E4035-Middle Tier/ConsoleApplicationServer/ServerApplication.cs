@@ -10,8 +10,6 @@
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecuritySystemExample.Module;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win;

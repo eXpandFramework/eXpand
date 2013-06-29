@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
     public abstract class LogicRule : ILogicRule {

@@ -7,8 +7,7 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.NodeUpdaters {
     public class ControllerStateRulesNodeUpdater :
-        LogicRulesNodeUpdater<IControllerStateRule, IModelControllerStateRule, IModelArtifactState>
-    {
+        LogicRulesNodeUpdater<IControllerStateRule, IModelControllerStateRule, IModelArtifactState> {
         protected override void SetAttribute(IModelControllerStateRule rule,
                                              IControllerStateRule attribute) {
             rule.Attribute = attribute;

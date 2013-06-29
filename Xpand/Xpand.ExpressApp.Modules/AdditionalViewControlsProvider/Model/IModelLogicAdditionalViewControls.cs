@@ -1,8 +1,7 @@
-﻿using Xpand.ExpressApp.Logic.Model;
-using Xpand.Persistent.Base.General;
+﻿using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {
-    [ModelLogicRule(typeof(IModelAdditionalViewControlsRule))]
+    
     public interface IModelLogicAdditionalViewControls:IModelLogic {
         
     }

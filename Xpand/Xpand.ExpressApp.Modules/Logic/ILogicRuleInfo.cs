@@ -1,8 +1,8 @@
 using DevExpress.ExpressApp;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public interface ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule
-    {
+    public interface ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule {
         /// <summary>
         /// Represents a string that describes the current rule.
         /// </summary>

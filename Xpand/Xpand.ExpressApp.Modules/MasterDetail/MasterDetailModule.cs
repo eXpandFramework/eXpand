@@ -1,9 +1,7 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.ExpressApp.MasterDetail.NodeUpdaters;
@@ -11,23 +9,22 @@ using Xpand.ExpressApp.MasterDetail.NodeUpdaters;
 namespace Xpand.ExpressApp.MasterDetail {
 
     [ToolboxItem(false)]
-    public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule> {
+    public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule, IModelMasterDetailRule, IModelApplicationMasterDetail, IModelLogicMasterDetail> {
         public MasterDetailModule() {
             RequiredModuleTypes.Add(typeof(LogicModule));
         }
         #region IModelExtender Members
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelApplication, IModelApplicationMasterDetail>();
+
+        public override List<ExecutionContext> ExecutionContexts {
+            get { return new List<ExecutionContext>{ ExecutionContext.ObjectSpaceObjectChanged, ExecutionContext.CurrentObjectChanged, ExecutionContext.ControllerActivated }; }
         }
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new MasterDetailDefaultGroupContextNodeUpdater());
-            updaters.Add(new MasterDetailRulesNodeUpdater());
-            updaters.Add(new MasterDetailDefaultContextNodeUpdater());
+
+        public override LogicRulesNodeUpdater<IMasterDetailRule, IModelMasterDetailRule, IModelApplicationMasterDetail> LogicRulesNodeUpdater {
+            get { return new MasterDetailRulesNodeUpdater(); }
         }
         #endregion
-        protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
-            return ((IModelApplicationMasterDetail)applicationModel).MasterDetail;
+        public override IModelLogicMasterDetail GetModelLogic(IModelApplicationMasterDetail modelApplicationMasterDetail) {
+            return modelApplicationMasterDetail.MasterDetail;
         }
     }
 }

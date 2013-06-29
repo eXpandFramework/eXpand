@@ -10,10 +10,13 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
-    public abstract class LogicRuleViewController<TModelLogicRule> : ViewController where TModelLogicRule : ILogicRule {
+    public abstract class LogicRuleViewController<TModelLogicRule, TModule> : ViewController
+        where TModelLogicRule : ILogicRule
+        where TModule : XpandModuleBase, ILogicModuleBase {
 
         private bool isRefreshing;
         public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TModelLogicRule).Name;
@@ -422,14 +425,14 @@ namespace Xpand.ExpressApp.Logic {
                                                 current | (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString(CultureInfo.InvariantCulture)));
         }
 
-        protected abstract IModelLogic GetModelLogic();
-
-
-
+        public IModelLogic GetModelLogic() {
+            return Application.Modules.FindModule<TModule>().GetModelLogic(Application.Model);
+        }
 
         public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, TModelLogicRule logicRuleInfo) {
             var context = CalculateCurrentExecutionContext(logicRuleInfo.ExecutionContextGroup);
             return (context | executionContext) == context;
         }
     }
+
 }

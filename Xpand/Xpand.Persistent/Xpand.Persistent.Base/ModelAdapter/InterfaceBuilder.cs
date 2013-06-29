@@ -635,6 +635,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static void CreateValueCalculator(this DynamicModelPropertyInfo info, string expressionPath = null) {
+            info.AddAttribute(new BrowsableAttribute(false));
+            return;
             CreateValueCalculatorCore(info);
             ModelValueCalculatorAttribute modelValueCalculatorAttribute;
             if (expressionPath != null) {

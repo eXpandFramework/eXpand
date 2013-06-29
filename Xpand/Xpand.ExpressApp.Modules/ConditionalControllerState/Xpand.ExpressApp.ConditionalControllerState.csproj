@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ConditionalControllerState</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ConditionalControllerState</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -150,11 +152,10 @@
     </Compile>
     <Compile Include="Logic\IControllerStateRule.cs" />
     <Compile Include="Model\IModelControllerStateRule.cs" />
-    <Compile Include="NodeUpdaters\ControllerStateDefaultContextNodeUpdater.cs" />
-    <Compile Include="NodeUpdaters\ControllerStateDefaultGroupContextNodeUpdater.cs" />
     <Compile Include="NodeUpdaters\ControllerStateRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\ControllerStateRulePermission.cs"></Compile>
+    <Compile Include="Security\ControllerStateRulePermission.cs">
+    </Compile>
     <Compile Include="Security\ControllerTypeConverter.cs" />
     <Compile Include="Security\Improved\ControllerStateOperationPermissionData.cs" />
     <Compile Include="Security\Improved\ControllerStateRulePermission.cs" />

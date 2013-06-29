@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -136,6 +137,18 @@
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
@@ -277,6 +290,8 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\ModelAdaptor\IModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\ModelAdaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -526,6 +541,7 @@
   <ItemGroup>
     <Content Include="PropertyEditors\RichEdit\Resources\fit_to_size.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

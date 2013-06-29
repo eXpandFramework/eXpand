@@ -1,24 +1,19 @@
-using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.NodeUpdaters;
 using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.ExpressApp.Logic.NodeUpdaters;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     [ToolboxBitmap(typeof(AdditionalViewControlsModule))]
     [ToolboxItem(false)]
-    public sealed class AdditionalViewControlsModule : LogicModuleBase<IAdditionalViewControlsRule, AdditionalViewControlsRule>, IModelExtender {
+    public sealed class AdditionalViewControlsModule : LogicModuleBase<IAdditionalViewControlsRule, AdditionalViewControlsRule,IModelAdditionalViewControlsRule,IModelApplicationAdditionalViewControls,IModelLogicAdditionalViewControls>{
         #region IModelExtender Members
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelApplication, IModelApplicationAdditionalViewControls>();
-        }
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
@@ -34,15 +29,16 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
             }
         }
 
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new AdditionalViewControlsDefaultGroupContextNodeUpdater());
-            updaters.Add(new AdditionalViewControlsRulesNodeUpdater());
-            updaters.Add(new AdditionalViewControlsDefaultContextNodeUpdater());
+        public override List<ExecutionContext> ExecutionContexts {
+            get { return new List<ExecutionContext>{ ExecutionContext.ViewChanged }; }
+        }
+
+        public override LogicRulesNodeUpdater<IAdditionalViewControlsRule, IModelAdditionalViewControlsRule, IModelApplicationAdditionalViewControls> LogicRulesNodeUpdater {
+            get { return new AdditionalViewControlsRulesNodeUpdater(); }
         }
         #endregion
-        protected override IModelLogic GetModelLogic(IModelApplication applicationModel) {
-            return ((IModelApplicationAdditionalViewControls)applicationModel).AdditionalViewControls;
+        public override IModelLogicAdditionalViewControls GetModelLogic(IModelApplicationAdditionalViewControls modelApplicationAdditionalViewControls) {
+            return modelApplicationAdditionalViewControls.AdditionalViewControls;
         }
     }
 }

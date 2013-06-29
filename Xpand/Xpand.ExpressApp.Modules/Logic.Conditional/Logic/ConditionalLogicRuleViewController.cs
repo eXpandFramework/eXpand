@@ -7,8 +7,8 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Logic.Conditional.Security;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
-    public abstract class ConditionalLogicRuleViewController<TConditionalLogicRule> :
-        LogicRuleViewController<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule {
+    public abstract class ConditionalLogicRuleViewController<TConditionalLogicRule, TModule> :
+        LogicRuleViewController<TConditionalLogicRule,TModule> where TConditionalLogicRule : IConditionalLogicRule where TModule : XpandModuleBase, ILogicModuleBase {
         protected override LogicRuleInfo<TConditionalLogicRule> CalculateLogicRuleInfo(object targetObject, TConditionalLogicRule logicRule, ActionBase action) {
             LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo = base.CalculateLogicRuleInfo(targetObject, logicRule, action);
             ConditionalLogicRuleManager<TConditionalLogicRule>.CalculateLogicRuleInfo(calculateLogicRuleInfo);

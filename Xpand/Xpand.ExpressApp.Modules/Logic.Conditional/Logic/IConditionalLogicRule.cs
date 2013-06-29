@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public interface IConditionalLogicRule : ILogicRule {

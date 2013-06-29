@@ -1,5 +1,7 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
 using Xpand.ExpressApp.Core;
@@ -42,14 +44,16 @@ namespace Xpand.ExpressApp.Win {
         void AddNodeActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
             var singleChoiceAction = (sender) as SingleChoiceAction;
             if ((singleChoiceAction != null && singleChoiceAction.Id == "Add") && (itemsChangedEventArgs.ChangedItemsInfo.Values.Contains(ChoiceActionItemChangesType.ItemsAdd | ChoiceActionItemChangesType.ItemsRemove))) {
-                string name = CurrentModelNode.ModelNode.GetType().Name;
-                switch (name) {
-                    case "ModelLogicRules":
-                        FilterModelLogicRules(singleChoiceAction);
-                        break;
-                    case "ModelBOModelClassMembers":
-                        EnableBOModelClassMembersAddMenu();
-                        break;
+                if (CurrentModelNode != null) {
+                    string name = CurrentModelNode.ModelNode.GetType().Name;
+                    switch (name) {
+                        case "ModelLogicRules":
+                            FilterModelLogicRules(singleChoiceAction);
+                            break;
+                        case "ModelBOModelClassMembers":
+                            EnableBOModelClassMembersAddMenu();
+                            break;
+                    }
                 }
             }
         }
@@ -62,14 +66,18 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void FilterModelLogicRules(SingleChoiceAction singleChoiceAction) {
-            var modelTreeListNode = CurrentModelNode.Parent;
-            var typesInfo = modelTreeListNode.ModelNode.Application.GetTypesInfo();
-            var type=modelTreeListNode.ModelNode.GetType().GetInterface("I" + modelTreeListNode.ModelNode.GetType().Name);
-            var modelLogicRuleAttribute = typesInfo.FindTypeInfo(type).FindAttributes<ModelLogicRuleAttribute>().Single();
+            ITypesInfo typesInfo = CurrentModelNode.ModelNode.Application.GetTypesInfo();
+            var parentNode = CurrentModelNode.Parent;
+
             for (int i = singleChoiceAction.Items.Count - 1; i > -1; i--) {
-                if (!modelLogicRuleAttribute.RuleType.Name.EndsWith(singleChoiceAction.Items[i].Id))
+                var type = ((Type) singleChoiceAction.Items[i].Data);
+                var typeInfo = typesInfo.FindTypeInfo(type);
+                typeInfo = typeInfo.ImplementedInterfaces.Single(info => info.Name == "I" + type.Name);
+                var logicRuleAttribute = typeInfo.FindAttributes<ModelEditorLogicRuleAttribute>().Single();
+                if (logicRuleAttribute != null && !logicRuleAttribute.RuleType.IsInstanceOfType(parentNode.ModelNode))
                     singleChoiceAction.Items.RemoveAt(i);
             }
+
         }
     }
 }

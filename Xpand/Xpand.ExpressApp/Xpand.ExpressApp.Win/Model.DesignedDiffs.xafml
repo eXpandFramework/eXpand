@@ -11,4 +11,9 @@
       <LocalizationItem Name="PromptOnExitTitle" Value="Exit" IsNewNode="True" />
     </LocalizationGroup>
   </Localization>
+  <ModelAdaptor>
+    <Rules>
+      <ModelAdaptorGridViewOptionsRule Id="@d4f007b3-c1a8-45f8-b680-b60c34efe376" IsNewNode="True" />
+    </Rules>
+  </ModelAdaptor>
 </Application>

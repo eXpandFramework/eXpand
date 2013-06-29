@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -117,6 +118,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=13.1.4.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelAdaptor, Version=13.1.4.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -153,6 +162,8 @@
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\Model\ModelAfaptor\IModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAfaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,6 +266,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\AdjustSize.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
+      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
+      <Name>Xpand.ExpressApp.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

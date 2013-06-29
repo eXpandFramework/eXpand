@@ -1,11 +1,13 @@
-﻿using DevExpress.ExpressApp.DC;
+﻿using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
-    [DomainLogic(typeof(ILogicRule))]
+    
     public class LogicRuleExecutionContextGroupDomainLogic {
         public static string Get_ExecutionContextGroup(ILogicRule modelNode) {
-            return LogicDefaultGroupContextNodeUpdater.Default;
+            return LogicDefaultGroupContextNodeUpdater<IModelLogic,IModelNode>.Default;
         }
     }
 

@@ -104,6 +104,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional, Version=13.1.4.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelAdaptor, Version=13.1.4.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
@@ -111,10 +119,6 @@
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
@@ -145,6 +149,8 @@
     <Compile Include="Model\HtmlEditorModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\ModelAdaptor\IModelAdaptorHtmlEditorRule.cs" />
+    <Compile Include="Model\ModelAdaptor\IModelModelAdaptorHtmlEditorRule.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
@@ -201,7 +207,12 @@
   <ItemGroup>
     <EmbeddedResource Include="DialogForms\insertfile.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Xpand.ExpressApp.Logic.csproj">
+      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
+      <Name>Xpand.ExpressApp.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

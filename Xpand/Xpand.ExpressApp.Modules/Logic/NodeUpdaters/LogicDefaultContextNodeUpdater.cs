@@ -1,35 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using Xpand.ExpressApp.Logic.Model;
-using Xpand.ExpressApp.Logic.NodeGenerators;
+using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
-    public abstract class LogicDefaultContextNodeUpdater : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator> {
+    public class LogicDefaultContextNodeUpdater<TModelLogic, TModelApplication> : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator> where TModelLogic : IModelLogic where TModelApplication:IModelNode {
+        readonly List<ExecutionContext> _executionContexts;
+        readonly Func<TModelApplication, TModelLogic> _modelLogic;
+
+        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<TModelApplication, TModelLogic> modelLogic) {
+            _executionContexts = executionContexts;
+            _modelLogic = modelLogic;
+        }
+
+
         public override void UpdateNode(ModelNode node) {
-            IModelExecutionContexts defaultModelExecutionContexts = GetDefaulModelExecutionContextsModelNode(node);
+            IModelExecutionContexts defaultModelExecutionContexts = GetDefaulModelExecutionContextsModelNode((TModelApplication) node.Application);
             if (defaultModelExecutionContexts != null) {
-                foreach (ExecutionContext executionContext in GetContexts(defaultModelExecutionContexts)) {
+                foreach (var executionContext in GetContexts(defaultModelExecutionContexts)) {
                     var modelExecutionContext = defaultModelExecutionContexts.AddNode<IModelExecutionContext>();
                     modelExecutionContext.Name = executionContext.ToString();
                 }
             }
         }
 
-        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(ModelNode node) {
-            return GetModelLogicNode(node).ExecutionContextsGroup.Where(
-                context => context.Id == LogicDefaultGroupContextNodeUpdater.Default).SingleOrDefault();
+        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(TModelApplication application) {
+            return _modelLogic.Invoke(application).ExecutionContextsGroup.SingleOrDefault(context => context.Id == LogicDefaultGroupContextNodeUpdater<IModelLogic, IModelNode>.Default);
         }
-
 
         IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts) {
-            List<ExecutionContext> executionContexts = GetExecutionContexts();
-            return executionContexts.Where(executionContext => modelExecutionContexts[executionContext.ToString()] == null);
+            return _executionContexts.Where(executionContext => modelExecutionContexts[executionContext.ToString()] == null);
         }
-
-        protected abstract List<ExecutionContext> GetExecutionContexts();
-
-        protected abstract IModelLogic GetModelLogicNode(ModelNode node);
     }
 }

@@ -7,13 +7,11 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ConditionalObjectView.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalObjectView.Logic {
-    public class ConditionalObjectViewRuleController : ConditionalLogicRuleViewController<IConditionalObjectViewRule> {
+    public class ConditionalObjectViewRuleController : ConditionalLogicRuleViewController<IConditionalObjectViewRule,ConditionalObjectViewModule> {
         IConditionalObjectViewRule _ruleForCustomProcessSelectedItem;
         IModelView _previousModel;
 
@@ -107,9 +105,6 @@ namespace Xpand.ExpressApp.ConditionalObjectView.Logic {
             foreach (var defaultValuePair in defaultValuesRulesStorage) {
                 defaultValuePair.Key.View = defaultValuePair.Value;
             }
-        }
-        protected override IModelLogic GetModelLogic() {
-            return ((IModelApplicationConditionalObjectView)Application.Model).ConditionalObjectView;
         }
 
         readonly Dictionary<IConditionalObjectViewRule, IModelView> defaultValuesRulesStorage = new Dictionary<IConditionalObjectViewRule, IModelView>();
