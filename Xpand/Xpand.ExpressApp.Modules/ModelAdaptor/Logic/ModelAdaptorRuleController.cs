@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
                 var modelAdaptorModule = Application.Modules.FindModule<ModelAdaptorModule>();
                 IModelLogicRules modelLogicRules = modelAdaptorModule.GetModelLogic(Application.Model).Rules;
                 IModelLogicRule modelLogicRule = modelLogicRules[info.Rule.Id];
-                modelNodeEnableds.Add((IModelOptionsGridView) modelLogicRule);
+                modelNodeEnableds.Add((IModelNodeEnabled) modelLogicRule);
             }            
         }
 

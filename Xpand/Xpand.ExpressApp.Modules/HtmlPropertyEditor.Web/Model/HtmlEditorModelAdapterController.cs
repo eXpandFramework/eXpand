@@ -17,11 +17,11 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var detailView = (DetailView) View;
-            new HtmlEditorModelSynchronizer(detailView).ApplyModel();
+            new HtmlEditorModelSynchronizer(Frame).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            
             extenders.Add<IModelPropertyEditor, IModelPropertyHtmlEditor>();
 
             var builder = new InterfaceBuilder(extenders);

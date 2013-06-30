@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelAdaptor {
         LogicModuleBase
             <IModelAdaptorRule, ModelAdaptorRule, IModelModelAdaptorRule, IModelApplicationModelAdaptor,
             IModelModelAdaptorLogic> {
-        readonly List<ExecutionContext> _executionContexts = new List<ExecutionContext>();
+        readonly List<ExecutionContext> _executionContexts = new List<ExecutionContext>{ExecutionContext.ControllerActivated};
 
         public override List<ExecutionContext> ExecutionContexts {
             get { return _executionContexts; }

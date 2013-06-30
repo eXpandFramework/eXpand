@@ -5,15 +5,18 @@ using DevExpress.ExpressApp.Model;
 using System.Linq;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Web.ASPxHtmlEditor;
+using Xpand.ExpressApp.HtmlPropertyEditor.Web.Model.ModelAdaptor;
+using Xpand.ExpressApp.ModelAdaptor.Logic;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
-    public class HtmlEditorModelSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<DetailView, IModelDetailView> {
-        public HtmlEditorModelSynchronizer(DetailView control)
-            : base(control, control.Model) {
+    public class HtmlEditorModelSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<Frame, IModelDetailView> {
+        public HtmlEditorModelSynchronizer(Frame control)
+            : base(control, (IModelDetailView) control.View.Model) {
         }
 
         protected override void ApplyModelCore() {
-            foreach (var htmlEditor in Control.GetItems<ASPxHtmlPropertyEditor>()) {
+            foreach (var htmlEditor in ((DetailView) Control.View).GetItems<ASPxHtmlPropertyEditor>()) {
                 htmlEditor.ControlCreated+=HtmlEditorOnControlCreated;
             }
         }
@@ -24,15 +27,24 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
             var htmlEditor = htmlPropertyEditor.Editor;
             var modelHtmlEditor = ((IModelPropertyHtmlEditor) htmlPropertyEditor.Model).HtmlEditor;
             if (htmlEditor != null) {
-                ApplyModel(modelHtmlEditor, htmlEditor, ApplyValues);
-                ApplyToolbarModel(modelHtmlEditor,htmlEditor);
-                ApplyShortcutModel(modelHtmlEditor, htmlEditor);
-                ApplyCustomDialodModel(modelHtmlEditor, htmlEditor);
+                var modelAdaptorRuleController = Control.GetController<ModelAdaptorRuleController>();
+                if (modelAdaptorRuleController != null) {
+                    modelAdaptorRuleController.ExecuteLogic<IModelAdaptorHtmlEditorRule, IModelModelAdaptorHtmlEditorRule>(rule => ApplyModel(rule, htmlEditor));
+                }
+                ApplyModel(modelHtmlEditor, htmlEditor);
             }
         }
 
-        void ApplyCustomDialodModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
-            foreach (var modelCustomDialog in modelHtmlEditor.CustomDialogs.OfType<ModelNode>()) {
+        void ApplyModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
+            ApplyModel(modelHtmlEditor, htmlEditor, ApplyValues);
+            ApplyToolbarModel(modelHtmlEditor, htmlEditor,modelHtmlEditor.GetPropertyName(editor => editor.ToolBars));
+            ApplyShortcutModel(modelHtmlEditor, htmlEditor, modelHtmlEditor.GetPropertyName(editor => editor.Shortcuts));
+            ApplyCustomDialodModel(modelHtmlEditor, htmlEditor, modelHtmlEditor.GetPropertyName(editor => editor.CustomDialogs));
+        }
+
+        void ApplyCustomDialodModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor, string propertyName) {
+            var editorCustomDialogs = (IModelHtmlEditorCustomDialogs)((ModelNode)modelHtmlEditor)[propertyName];
+            foreach (var modelCustomDialog in editorCustomDialogs.OfType<ModelNode>()) {
                 var editorCustomDialog = htmlEditor.CustomDialogs[modelCustomDialog.Id];
                 if (editorCustomDialog == null) {
                     var htmlEditorCustomDialog = new HtmlEditorCustomDialog();
@@ -42,9 +54,10 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
             }
         }
 
-        void ApplyToolbarModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
+        void ApplyToolbarModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor, string propertyName) {
             int index = 0;
-            foreach (var toolbar in modelHtmlEditor.ToolBars.ToList()) {
+            var toolBars = (IModelHtmlEditorToolBars)((ModelNode)modelHtmlEditor)[propertyName];
+            foreach (var toolbar in toolBars.ToList()) {
                 var editorToolBar = htmlEditor.Toolbars[toolbar.GetValue<string>("Id")];
                 ApplyModel(toolbar, editorToolBar, ApplyValues);
                 ApplyToolbarItemModel(toolbar, editorToolBar,index);
@@ -75,8 +88,9 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
             return editorToolbarItem;
         }
 
-        void ApplyShortcutModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
-            foreach (var modelShortcut in modelHtmlEditor.Shortcuts) {
+        void ApplyShortcutModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor,string propertyName) {
+            var editorShortcuts = (IModelHtmlEditorShortcuts)((ModelNode)modelHtmlEditor)[propertyName];
+            foreach (var modelShortcut in editorShortcuts) {
                 var editorShortcut = new HtmlEditorShortcut();
                 htmlEditor.Shortcuts.Add(editorShortcut);
                 ApplyModel(modelShortcut, editorShortcut,ApplyValues);        
