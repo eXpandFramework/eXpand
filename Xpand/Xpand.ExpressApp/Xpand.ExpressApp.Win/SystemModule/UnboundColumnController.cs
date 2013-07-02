@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((ColumnsListEditor)sender, View.Model));
+            CustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((ColumnsListEditor)sender, View.Model));
         }
     }
 

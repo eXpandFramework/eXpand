@@ -1,4 +1,6 @@
-﻿namespace Xpand.ExpressApp.Logic.Conditional.Logic {
+﻿using Xpand.Persistent.Base.Logic;
+
+namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public abstract class ConditionalLogicRuleAttribute:LogicRuleAttribute,IConditionalLogicRule {
         protected ConditionalLogicRuleAttribute(string id, string normalCriteria, string emptyCriteria) : base(id) {
             NormalCriteria = normalCriteria;

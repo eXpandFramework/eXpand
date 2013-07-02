@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ConditionalObjectView.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalObjectView.Model {
     [ModelInterfaceImplementor(typeof(IConditionalObjectViewRule), "Attribute")]

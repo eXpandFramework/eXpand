@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {
     [ModelInterfaceImplementor(typeof(IAdditionalViewControlsRule), "Attribute")]

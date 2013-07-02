@@ -1,5 +1,5 @@
-﻿using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Security;
+﻿using Xpand.ExpressApp.Logic.Security;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Security {
     public abstract class ConditionalLogicRulePermission:LogicRulePermission,IConditionalLogicRule {

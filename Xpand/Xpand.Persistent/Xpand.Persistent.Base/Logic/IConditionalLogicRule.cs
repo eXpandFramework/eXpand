@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using Xpand.Persistent.Base.Logic;
 
-namespace Xpand.ExpressApp.Logic.Conditional.Logic {
+namespace Xpand.Persistent.Base.Logic {
     public interface IConditionalLogicRule : ILogicRule {
         [Category("Behavior")]
         [Description("Specifies the criteria string which is used when determining whether logic should be executed.")]

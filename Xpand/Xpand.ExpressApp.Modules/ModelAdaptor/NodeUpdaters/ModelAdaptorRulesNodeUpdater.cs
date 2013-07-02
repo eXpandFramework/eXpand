@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.ModelAdaptor.Logic;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor.NodeUpdaters {
     public class ModelAdaptorRulesNodeUpdater :

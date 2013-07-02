@@ -15,4 +15,13 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
     }
 
+    public interface IModelGridViewOptions {
+        IModelGridViewBands Bands { get; }
+    }
+    public interface IModelGridViewBands:IModelList<IModelGridViewBand>,IModelNode {
+         
+    }
+
+    public interface IModelGridViewBand:IModelNode {
+    }
 }

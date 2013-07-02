@@ -1,8 +1,7 @@
 ﻿using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Conditional.Model;
-using Xpand.ExpressApp.ModelAdaptor.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
-namespace Xpand.ExpressApp.ModelAdaptor.Model {
+namespace Xpand.Persistent.Base.ModelAdapter.Logic {
     [ModelInterfaceImplementor(typeof(IModelAdaptorRule), "Attribute")]
     [ModelAbstractClass]
     public interface IModelModelAdaptorRule : IModelAdaptorRule, IModelConditionalLogicRule<IModelAdaptorRule> {

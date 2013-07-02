@@ -7,6 +7,7 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.ExpressApp.ModelAdaptor.NodeUpdaters;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor {
     [ToolboxBitmap(typeof (ModelAdaptorModule))]

@@ -1,7 +1,7 @@
 ﻿using System;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.Persistent.Base.Logic;
 
-namespace Xpand.ExpressApp.ModelAdaptor.Logic {
+namespace Xpand.Persistent.Base.ModelAdapter.Logic {
     public interface IModelAdaptorRule : IConditionalLogicRule {
         Type RuleType { get; set; }
     }

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.Core {
-    public static class CreateCustomModelSynchronizerHelper {
+    public static class CustomModelSynchronizerHelper {
         public static void Assign(CreateCustomModelSynchronizerEventArgs e, IModelSynchronizable modelSynchronizer) {
             var modelSynchronizerList = e.ModelSynchronizer as ModelSynchronizerList;
             if (modelSynchronizerList == null) {
@@ -17,6 +19,16 @@ namespace Xpand.ExpressApp.Core {
             }
             var synchronizerList = ((ModelSynchronizerList)e.ModelSynchronizer);
             synchronizerList.Add(modelSynchronizer);
+        }
+
+        public static void Assign<TModelAdaptorRule, TModelModelAdaptorRule>(CreateCustomModelSynchronizerEventArgs e, IModelSynchronizable modelSynchronizer, Frame frame, Func<TModelModelAdaptorRule, IModelSynchronizable> func)
+            where TModelAdaptorRule : IModelAdaptorRule
+            where TModelModelAdaptorRule : IModelNode {
+            var modelAdaptorRuleController = frame.Controllers.ToList<Controller>().OfType<IModelAdaptorRuleController>().FirstOrDefault();
+            if (modelAdaptorRuleController != null) {
+                modelAdaptorRuleController.ExecuteLogic(typeof(TModelAdaptorRule), typeof(TModelModelAdaptorRule), rule => Assign(e, func.Invoke((TModelModelAdaptorRule)rule)));
+            }
+            Assign(e, modelSynchronizer);
         }
     }
     public static class ModelNodeExtensions {

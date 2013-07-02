@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Model.Options;
-using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
+using IModelModelAdaptorRule = Xpand.Persistent.Base.ModelAdapter.Logic.IModelModelAdaptorRule;
 
 namespace Xpand.ExpressApp.ModelAdaptor.Logic {
-    public class ModelAdaptorRuleController : ConditionalLogicRuleViewController<IModelAdaptorRule,ModelAdaptorModule> {
+    public class ModelAdaptorRuleController : ConditionalLogicRuleViewController<IModelAdaptorRule, ModelAdaptorModule>, IModelAdaptorRuleController {
         readonly Dictionary<Type,List<IModelNodeEnabled>> _ruleTypeActiveModels = new Dictionary<Type, List<IModelNodeEnabled>>();
 
         public Dictionary<Type, List<IModelNodeEnabled>> RuleTypeActiveModels {
@@ -31,15 +31,21 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
         public void ExecuteLogic<TModelAdaptorRule, TModelModelAdaptorRule>(Action<TModelModelAdaptorRule> action)
             where TModelAdaptorRule : IModelAdaptorRule
             where TModelModelAdaptorRule : IModelModelAdaptorRule {
-            var type = typeof (TModelAdaptorRule);
+            ((IModelAdaptorRuleController) this).ExecuteLogic(typeof(TModelAdaptorRule),typeof(TModelModelAdaptorRule),rule => action.Invoke((TModelModelAdaptorRule) rule));
+        }
+
+        void IModelAdaptorRuleController.ExecuteLogic(Type modelAdaptorRuleType, Type modelModelAdaptorRuleType, Action<IModelAdaptorRule> action) {
+            var type = modelAdaptorRuleType;
             if (RuleTypeActiveModels.ContainsKey(type)) {
                 var activeModels = RuleTypeActiveModels[type];
-                foreach (var modelOptionsGridView in activeModels.ToList().OfType<TModelModelAdaptorRule>()) {
-                    action.Invoke(modelOptionsGridView);
-                    activeModels.Remove((IModelNodeEnabled) modelOptionsGridView);
+                foreach (var modelNodeEnabled in activeModels.ToList().Where(enabled => "I"+enabled.GetType().Name==modelModelAdaptorRuleType.Name)) {
+                    action.Invoke((IModelAdaptorRule)modelNodeEnabled);
+                    activeModels.Remove(modelNodeEnabled);
                 }
                 RuleTypeActiveModels.Remove(type);
             }
+
         }
     }
+
 }
