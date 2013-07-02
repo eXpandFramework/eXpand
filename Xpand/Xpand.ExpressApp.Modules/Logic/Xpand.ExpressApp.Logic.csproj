@@ -56,62 +56,48 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System">
@@ -132,7 +118,6 @@
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -155,11 +140,8 @@
     <Compile Include="FillRulesFromPermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ILogicModelClassRule.cs" />
-    <Compile Include="ILogicRule.cs" />
     <Compile Include="ILogicRuleInfo.cs" />
     <Compile Include="ILogicRuleManager.cs" />
-    <Compile Include="IRule.cs"></Compile>
     <Compile Include="IRuleCollector.cs" />
     <Compile Include="IRuleHolder.cs">
       <SubType>Code</SubType>
@@ -191,32 +173,6 @@
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\IModelFrameTemplateContext.cs" />
-    <Compile Include="Model\IModelFrameTemplateContexts.cs" />
-    <Compile Include="Model\IModelFrameTemplateContextsGroup.cs" />
-    <Compile Include="Model\IModelViewContextsGroup.cs" />
-    <Compile Include="NodeGenerators\FrameTemplateContextNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\FrameTemplateContextsGroupNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\ViewContextsGroupNodeGenerator.cs" />
-    <Compile Include="Model\IModelApplicationLogic.cs" />
-    <Compile Include="Model\IModelExecutionContext.cs" />
-    <Compile Include="Model\IModelExecutionContextsGroup.cs" />
-    <Compile Include="Model\IModelExecutionContexts.cs" />
-    <Compile Include="Model\IModelLogic.cs" />
-    <Compile Include="Model\IModelLogicRule.cs" />
-    <Compile Include="Model\IModelLogicRules.cs" />
-    <Compile Include="Model\IModelViewContext.cs" />
-    <Compile Include="Model\IModelViewContexts.cs" />
-    <Compile Include="NodeGenerators\ViewContextNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\ExecutionContextsGroupNodeGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -238,7 +194,6 @@
     <Compile Include="Security\PopulateViewsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FrameTemplateContext.cs" />
     <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
       <SubType>Code</SubType>
     </Compile>

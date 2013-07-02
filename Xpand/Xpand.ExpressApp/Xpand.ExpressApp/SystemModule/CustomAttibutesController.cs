@@ -3,7 +3,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.SystemModule {

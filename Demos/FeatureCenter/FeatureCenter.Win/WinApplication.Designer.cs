@@ -67,7 +67,7 @@ namespace FeatureCenter.Win {
             this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
+            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule();
             this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
@@ -298,7 +298,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
-        private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
+        private Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule conditionalDetailViewModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;

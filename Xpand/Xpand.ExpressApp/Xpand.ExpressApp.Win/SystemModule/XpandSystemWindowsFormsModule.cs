@@ -7,6 +7,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Logic;
+using Xpand.ExpressApp.ModelAdaptor;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
@@ -30,6 +32,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
             extenders.Add<IModelColumn, IModelColumnFastSearchItem>();
+            
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
@@ -38,16 +41,20 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application != null)
+            if (Application != null) {
+                var modelAdaptorModule = Application.Modules.FindModule<ModelAdaptorModule>();
+                if (modelAdaptorModule != null) {
+                    modelAdaptorModule.ExecutionContexts.Add(ExecutionContext.ControllerActivated);
+                }
                 Application.LogonFailed += (o, eventArgs) => {
                     var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
                     if (logonParameters != null && logonParameters.RememberMe) {
                         eventArgs.Handled = true;
                         logonParameters.RememberMe = false;
-                        ((IXafApplication)Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
+                        ((IXafApplication) Application).WriteLastLogonParameters(null, SecuritySystem.LogonParameters);
                     }
-
                 };
+            }
         }
 
 

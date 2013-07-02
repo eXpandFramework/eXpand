@@ -1,8 +1,8 @@
-﻿using Xpand.ExpressApp.Logic.Model;
+﻿using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
-    public interface IModelLogicMasterDetail:IModelLogic
-    {
-        
+    
+    public interface IModelLogicMasterDetail : IModelLogic {
+
     }
 }

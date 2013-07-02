@@ -45,16 +45,21 @@
 			.\Xpand\Xpand.Xpo\Xpand.Xpo.csproj;
 			.\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj;
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ModelAdaptor\Xpand.ExpressApp.ModelAdaptor.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ArtifactState\Xpand.ExpressApp.ArtifactState.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj;
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj;
 			.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Logic.Win\Xpand.ExpressApp.Logic.Win.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\Logic.Conditional\Xpand.ExpressApp.Logic.Conditional.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity\Xpand.ExpressApp.MemberLevelSecurity.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj;
@@ -66,10 +71,6 @@
 			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore\Xpand.ExpressApp.FilterDataStore.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Win\Xpand.ExpressApp.FilterDataStore.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Web\Xpand.ExpressApp.FilterDataStore.Web.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\ArtifactState\Xpand.ExpressApp.ArtifactState.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\ConditionalActionState\Xpand.ExpressApp.ConditionalActionState.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\ConditionalControllerState\Xpand.ExpressApp.ConditionalControllerState.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\WizardUI.Win\Xpand.ExpressApp.WizardUI.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\ViewVariants\Xpand.ExpressApp.ViewVariants.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj;
@@ -105,7 +106,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj;
-			.\Xpand\Xpand.ExpressApp.Modules\ConditionalDetailViews\Xpand.ExpressApp.ConditionalDetailViews.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\ConditionalObjectView\Xpand.ExpressApp.ConditionalObjectView.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj;
 			.\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;
@@ -114,6 +115,7 @@
 			.\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;
 			.\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;
+			.\Xpand\Xpand.ExpressApp.Modules\HtmlPropertyEditor.Web\Xpand.ExpressApp.HtmlPropertyEditor.Web.csproj;
 			.\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;"/>
 		<ProjectFiles Include="
 			.\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;
@@ -133,7 +135,7 @@
 		<ProjectFiles Include="	
 			.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;
 			.\Demos\Modules\Chart\ChartTester.sln;
-			.\Demos\Modules\ConditionalDetailViews\ConditionalDetailViewsTester.sln;
+			.\Demos\Modules\ConditionalObjectView\ConditionalObjectViewTester.sln;
 			.\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln;
 			.\Demos\Modules\FilterDataStore\FilterDataStoreTester.sln;
 			.\Demos\Modules\ImportWizard\ImportWizardTester.sln;
@@ -398,8 +400,7 @@
 		<!-- Package -->
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandConditionalDetailViewsWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandConditionalDetailViewsWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandConditionalObjectView.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandExceptionHandlingWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandExceptionHandlingWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandFilterDatastoreWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
@@ -439,8 +440,7 @@
 
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWin.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandConditionalDetailViewsWeb.$(Version).nupkg $(NuGetApiKey)"/>
-		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandConditionalDetailViewsWin.$(Version).nupkg $(NuGetApiKey)"/>
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandConditionalObjectView.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandExceptionHandlingWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandExceptionHandlingWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandFilterDatastoreWeb.$(Version).nupkg $(NuGetApiKey)"/>

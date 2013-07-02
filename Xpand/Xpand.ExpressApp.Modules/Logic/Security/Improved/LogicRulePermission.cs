@@ -6,6 +6,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.Logic;
+using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     public abstract class LogicRulePermission : OperationPermissionBase, ILogicRule {

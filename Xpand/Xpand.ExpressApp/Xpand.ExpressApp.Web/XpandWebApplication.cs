@@ -13,6 +13,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
+using Xpand.ExpressApp.Web.ViewStrategies;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 
@@ -23,6 +24,9 @@ namespace Xpand.ExpressApp.Web {
         public XpandWebApplication() {
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
+        }
+        protected override ShowViewStrategyBase CreateShowViewStrategy() {
+            return new XpandShowViewStrategy(this);
         }
 
         string IXafApplication.ModelAssemblyFilePath {

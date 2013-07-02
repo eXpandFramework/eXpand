@@ -14,11 +14,15 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Exceptions;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp {
+
     [ToolboxItem(false)]
     public abstract class XpandModuleBase : ModuleBase {
         static List<object> _storeManagers;
@@ -189,22 +193,33 @@ namespace Xpand.ExpressApp {
             return new List<Type>(moduleList.SelectMany(@base => @base.AdditionalExportedTypes));
         }
 
+        static bool _setupCalled;
+        static bool _setup2Called;
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            if (_setupCalled)
+                return;
             OnApplicationInitialized(Application);
+            _setupCalled = true;
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            if (_setup2Called)
+                return;
+            ApplicationHelper.Instance.Initialize(application);
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             Type applicationType = ApplicationType();
-            if (!applicationType.IsInstanceOfType(application))
+            if (!applicationType.IsInstanceOfType(application)) {
                 throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " + applicationType.FullName + Environment.NewLine + "Please check folder Demos/Modules/" + GetType().Name.Replace("Module", null) + " to see how to install correctly this module");
+                
+            }
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
             application.CreateCustomObjectSpaceProvider+=ApplicationOnCreateCustomObjectSpaceProvider;
+            _setup2Called = true;
         }
 
         void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
@@ -226,8 +241,13 @@ namespace Xpand.ExpressApp {
             return DefaultXafAppType;
         }
 
+        static bool _customizeTypesInfoCalled ;
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            if (_customizeTypesInfoCalled)
+                return;
+            
+
             AssignSecurityEntities();
             OnApplicationInitialized(Application);
             var findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
@@ -241,7 +261,26 @@ namespace Xpand.ExpressApp {
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
+            _customizeTypesInfoCalled = true;
         }
+
+        void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
+            var typeInfo = typesInfo.FindTypeInfo(typeof (ISequenceObject));
+            var descendants = typeInfo.Implementors.Where(IsMySql);
+            foreach (var descendant in descendants) {
+                var memberInfo = (XafMemberInfo) descendant.KeyMember;
+                if (memberInfo != null) {
+                    memberInfo.RemoveAttributes<SizeAttribute>();
+                    memberInfo.AddAttribute(new SizeAttribute(255));
+                }
+            }
+        }
+
+        bool IsMySql(ITypeInfo typeInfo) {
+            var objectSpace = Application.CreateObjectSpace(typeInfo.Type) as XpandObjectSpace;
+            return objectSpace != null && ((BaseDataLayer)objectSpace.Session.DataLayer).ConnectionProvider is MySqlConnectionProvider;
+        }
+
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
             DisposeManagers();
@@ -265,6 +304,7 @@ namespace Xpand.ExpressApp {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             lock (_lockObject) {
+                ModifySequenceObjectWhenMySqlDatalayer(TypesInfo);
                 if (_instanceModelApplicationCreatorManager == null)
                     _instanceModelApplicationCreatorManager = ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");
                 if (_instanceModelApplicationCreatorManager.Value == null)

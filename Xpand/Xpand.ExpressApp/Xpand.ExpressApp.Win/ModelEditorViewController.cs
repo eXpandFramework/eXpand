@@ -1,11 +1,12 @@
-using System.Reflection;
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
-using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.Win {
@@ -43,33 +44,40 @@ namespace Xpand.ExpressApp.Win {
         void AddNodeActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
             var singleChoiceAction = (sender) as SingleChoiceAction;
             if ((singleChoiceAction != null && singleChoiceAction.Id == "Add") && (itemsChangedEventArgs.ChangedItemsInfo.Values.Contains(ChoiceActionItemChangesType.ItemsAdd | ChoiceActionItemChangesType.ItemsRemove))) {
-                string name = CurrentModelNode.ModelNode.GetType().Name;
-                switch (name) {
-                    case "ModelLogicRules":
-                        FilterModelLogicRules(singleChoiceAction);
-                        break;
-                    case "ModelBOModelClassMembers":
-                        EnableBOModelClassMembersAddMenu();
-                        break;
+                if (CurrentModelNode != null) {
+                    string name = CurrentModelNode.ModelNode.GetType().Name;
+                    switch (name) {
+                        case "ModelLogicRules":
+                            FilterModelLogicRules(singleChoiceAction);
+                            break;
+                        case "ModelBOModelClassMembers":
+                            EnableBOModelClassMembersAddMenu();
+                            break;
+                    }
                 }
             }
         }
 
         void EnableBOModelClassMembersAddMenu() {
-            var adapter = (ExtendModelInterfaceAdapter)GetType().GetProperty("Adapter", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(this, null);
-            var childNodeTypes = adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo);
+            var childNodeTypes = Adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo);
             foreach (var childNodeType in childNodeTypes) {
                 AddNodeAction.Items.Add(new ChoiceActionItem(childNodeType.Key, childNodeType.Value));
             }
         }
 
         void FilterModelLogicRules(SingleChoiceAction singleChoiceAction) {
-            var modelTreeListNode = CurrentModelNode.Parent;
+            ITypesInfo typesInfo = CurrentModelNode.ModelNode.Application.GetTypesInfo();
+            var parentNode = CurrentModelNode.Parent;
+
             for (int i = singleChoiceAction.Items.Count - 1; i > -1; i--) {
-                var value = modelTreeListNode.ModelNode.Id.Replace("Conditional", "");
-                if (!singleChoiceAction.Items[i].Id.StartsWith(value))
+                var type = ((Type) singleChoiceAction.Items[i].Data);
+                var typeInfo = typesInfo.FindTypeInfo(type);
+                typeInfo = typeInfo.ImplementedInterfaces.Single(info => info.Name == "I" + type.Name);
+                var logicRuleAttribute = typeInfo.FindAttributes<ModelEditorLogicRuleAttribute>().Single();
+                if (logicRuleAttribute != null && !logicRuleAttribute.RuleType.IsInstanceOfType(parentNode.ModelNode))
                     singleChoiceAction.Items.RemoveAt(i);
             }
+
         }
     }
 }

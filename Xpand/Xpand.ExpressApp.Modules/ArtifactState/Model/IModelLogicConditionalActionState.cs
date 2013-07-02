@@ -1,8 +1,7 @@
-﻿using Xpand.ExpressApp.Logic.Model;
+﻿using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ArtifactState.Model {
-    public interface IModelLogicConditionalActionState : IModelLogic
-    {
-        
+    public interface IModelLogicConditionalActionState : IModelLogic {
+
     }
 }

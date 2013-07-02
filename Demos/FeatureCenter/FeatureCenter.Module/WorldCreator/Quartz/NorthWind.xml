@@ -223,7 +223,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Categories_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Categories_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Categories]]></Property>
     

@@ -15,8 +15,8 @@ namespace FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields {
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderUpdateOnlyChangeFields, "1=1", "1=1",
         Captions.HeaderUpdateOnlyChangeFields, Position.Top, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule("UpdateOnlyChangeFields", "1=1", "1=1", null, Position.Bottom, MessageProperty = "ModificationStatements")]
-    [XpandNavigationItem(Captions.Miscellaneous + "Update Only Changed Fields", "UOCFCustomer_DetailView")]
-    [DisplayFeatureModel("UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
+    [XpandNavigationItem(Captions.Miscellaneous + "Update Only Changed Fields", "FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields.UOCFCustomer_DetailView")]
+    [DisplayFeatureModel("FeatureCenter.Module.Miscellaneous.UpdateOnlyChangeFields.UOCFCustomer_DetailView", "UpdateOnlyChangeFields")]
     public class UOCFCustomer : CustomerBase, ISupportChangedMembers, ISupportModificationStatements {
 
         public UOCFCustomer(Session session)

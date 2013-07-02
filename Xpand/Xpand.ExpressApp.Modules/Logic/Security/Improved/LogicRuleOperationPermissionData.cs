@@ -10,6 +10,9 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
+using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     [NonPersistent]
@@ -23,7 +26,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater.Default;
+            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater<IModelLogic, IModelNode>.Default;
         }
 
 

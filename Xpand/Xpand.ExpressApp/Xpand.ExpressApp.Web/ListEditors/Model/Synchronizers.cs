@@ -6,11 +6,12 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridViewListEditorModelSynchronizer : ModelListSynchronizer {
-        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor)
-            : base(columnViewEditor, columnViewEditor.Model) {
-            var modelListViewOptionsGridView = ((IModelListViewOptionsGridView)columnViewEditor.Model);
-            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(columnViewEditor.Grid, modelListViewOptionsGridView.GridViewOptions));
-            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, modelListViewOptionsGridView));
+        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor): this(columnViewEditor.Grid, ((IModelListViewOptionsGridView)columnViewEditor.Model).GridViewOptions) {
+            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, (IModelListViewOptionsGridView) columnViewEditor.Model));
+        }
+
+        public GridViewListEditorModelSynchronizer(ASPxGridView asPxGridView, IModelOptionsGridView modelOptionsGridView): base(asPxGridView, modelOptionsGridView) {
+            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(asPxGridView, modelOptionsGridView));
         }
     }
 

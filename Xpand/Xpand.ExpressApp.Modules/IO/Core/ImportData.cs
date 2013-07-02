@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.Data.Filtering;
@@ -176,22 +175,19 @@ namespace Xpand.ExpressApp.IO.Core {
                         ou.Dispose();
                         iu.Dispose();
                         commitAccumulator = 0;
-                        OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, position));
+                        OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName, position));
                     }
                 }
 
             } catch (Exception e) {
-                Debug.Assert(false);
-                Debug.Print(e.ToString());
+                throw;
 
             } finally {
-                OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName));
                 outputUow.CommitChanges();
+                OnTransformRecords(new TransformRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName));
                 GenerationNext(outputUow);
                 outputUow.Dispose();
                 inputUow.Dispose();
-
-
             }
         }
 
@@ -397,9 +393,14 @@ namespace Xpand.ExpressApp.IO.Core {
             if (handler != null) handler(this, EventArgs.Empty);
         }
         public event EventHandler<TransformingRecordsArgs> TransformingRecords;
+        public event EventHandler<TransformRecordsArgs> TransformRecords;
 
         protected virtual void OnTransformingRecords(TransformingRecordsArgs e) {
             var handler = TransformingRecords;
+            if (handler != null) handler(this, e);
+        }
+        protected virtual void OnTransformRecords(TransformRecordsArgs e) {
+            var handler = TransformRecords;
             if (handler != null) handler(this, e);
         }
 
@@ -411,22 +412,30 @@ namespace Xpand.ExpressApp.IO.Core {
         }
     }
 
-    public class TransformingRecordsArgs : EventArgs {
+    public class TransformRecordsArgs:EventArgs {
         readonly string _inputClassName;
-        readonly int _position = -1;
+        readonly string _outputClassName;
 
-        public TransformingRecordsArgs(string inputClassName, int position) {
+        public TransformRecordsArgs(string inputClassName, string outputClassName) {
             _inputClassName = inputClassName;
-            _position = position;
+            _outputClassName = outputClassName;
         }
 
-        public TransformingRecordsArgs(string inputClassName) {
-            _inputClassName = inputClassName;
+        public string OutputClassName {
+            get { return _outputClassName; }
         }
 
         public string InputClassName {
             get { return _inputClassName; }
         }
+    }
+    public class TransformingRecordsArgs : TransformRecordsArgs {
+        
+        readonly int _position = -1;
+
+        public TransformingRecordsArgs(string inputClassName, string outputClassName, int position) : base(inputClassName, outputClassName) {
+            _position = position;
+        }      
 
         public int Position {
             get { return _position; }
@@ -454,6 +463,14 @@ namespace Xpand.ExpressApp.IO.Core {
         public string DataProviderResultColumnName { get; set; }
 
         public bool ThrowIfColumnNotFound { get; set; }
+
+        public Type inputKeyPropertyType { get; set; }
+
+        public string InputKeyPropertyName { get; set; }
+
+        public bool CaseInSensitive { get; set; }
+
+        
     }
 
     public class InputMemberInfo : XPCustomMemberInfo {
@@ -494,30 +511,39 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         object Convert(object objectToConvert, Type conversionType) {
-            Guard.ArgumentNotNull(objectToConvert, "objectToConvert");
-            Guard.ArgumentNotNull(conversionType, "conversionType");
-            Type underlyingNullableType = Nullable.GetUnderlyingType(conversionType);
-            if (underlyingNullableType != null) {
-                if (objectToConvert == null || (objectToConvert is string && string.IsNullOrEmpty((string)objectToConvert) && !typeof(string).IsAssignableFrom(conversionType))) {
-                    return null;
+            try {
+                Guard.ArgumentNotNull(objectToConvert, "objectToConvert");
+                Guard.ArgumentNotNull(conversionType, "conversionType");
+                Type underlyingNullableType = Nullable.GetUnderlyingType(conversionType);
+                if (underlyingNullableType != null) {
+                    if (objectToConvert == null || (objectToConvert is string && string.IsNullOrEmpty((string)objectToConvert) && !typeof(string).IsAssignableFrom(conversionType))) {
+                        return null;
+                    }
+                    conversionType = underlyingNullableType;
                 }
-                conversionType = underlyingNullableType;
+                MethodInfo methodInfo = conversionType.GetMethod("op_Implicit", new[] { objectToConvert.GetType() });
+                if (methodInfo != null) {
+                    return methodInfo.Invoke(null, new[] { objectToConvert });
+                }
+                if (conversionType.IsEnum && !(objectToConvert is Enum)) {
+                    return Enum.Parse(conversionType, objectToConvert.ToString());
+                }
+                if (conversionType == typeof(Guid) && objectToConvert is string) {
+                    return new Guid(((string)objectToConvert).Trim());
+                }
+                if (conversionType == typeof(TimeSpan) && (objectToConvert is double || objectToConvert is string)) {
+                    var int32 = System.Convert.ToInt64(objectToConvert);
+                    return new TimeSpan(int32);
+                }
+                if (conversionType == typeof (DateTime) && objectToConvert is string)
+                    return DateTime.Parse((string) objectToConvert);
+                return System.Convert.ChangeType(objectToConvert, conversionType);
             }
-            MethodInfo methodInfo = conversionType.GetMethod("op_Implicit", new[] { objectToConvert.GetType() });
-            if (methodInfo != null) {
-                return methodInfo.Invoke(null, new[] { objectToConvert });
+            catch (FormatException e) {
+                if (!_outputMemberInfo.HasAttribute(typeof(SwallowFormatExceptionAttribute)))
+                    throw new FormatException(ToString(), e);
+                return Activator.CreateInstance(conversionType);
             }
-            if (conversionType.IsEnum && !(objectToConvert is Enum)) {
-                return Enum.Parse(conversionType, objectToConvert.ToString());
-            }
-            if (conversionType == typeof(Guid) && objectToConvert is string) {
-                return new Guid(((string)objectToConvert).Trim());
-            }
-            if (conversionType == typeof(TimeSpan) && objectToConvert is double) {
-                var int32 = System.Convert.ToInt64(objectToConvert);
-                return new TimeSpan(int32);
-            }
-            return System.Convert.ChangeType(objectToConvert, conversionType);
         }
 
 
@@ -538,10 +564,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 return false;
             }
             var convertible = value as IConvertible;
-            if (convertible == null) {
-                return false;
-            }
-            return true;
+            return convertible != null;
         }
 
         public void SetOutputMemberValue(object theObject, object theValue) {
@@ -550,11 +573,13 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         object OutputValue(object theValue) {
-            if (CanChangeType(theValue, _conversionType))
-                return Convert(theValue, _conversionType);
-            return theValue;
+            return CanChangeType(theValue, _conversionType) ? Convert(theValue, _conversionType) : theValue;
         }
     }
+    [AttributeUsage(AttributeTargets.Property,AllowMultiple = false)]
+    public class SwallowFormatExceptionAttribute:Attribute {
+    }
+
     public class DictionaryMapper {
         readonly DBTable[] _dbTables;
 
@@ -594,34 +619,35 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         public void Map(XPClassInfo outputClassInfo, XPClassInfo inputClassInfo) {
+            var caseInSensitive = CaseInSensitive(outputClassInfo);
             if (!AllOwnMembers(outputClassInfo)) {
                 foreach (var memberInfo in MemberInfos(outputClassInfo)) {
-                    CreateMemberFromAttribute(inputClassInfo, memberInfo);
+                    CreateMemberFromAttribute(inputClassInfo, memberInfo,caseInSensitive);
                 }
             } else {
-                CreateAllOwnMembers(outputClassInfo, inputClassInfo);
+                CreateAllOwnMembers(outputClassInfo, inputClassInfo,caseInSensitive);
             }
-            CreateBaseMembers(outputClassInfo, inputClassInfo);
-            CreateKey(inputClassInfo);
+            CreateBaseMembers(outputClassInfo, inputClassInfo, caseInSensitive);
+            CreateKey(outputClassInfo,inputClassInfo);
         }
 
         internal static IEnumerable<XPMemberInfo> MemberInfos(XPClassInfo classInfo) {
             return classInfo.Members.Where(info => info.IsPersistent && !(info is ServiceField) && !info.IsReadOnly);
         }
 
-        void CreateBaseMembers(XPClassInfo outputClassInfo, XPClassInfo inputClassInfo) {
+        void CreateBaseMembers(XPClassInfo outputClassInfo, XPClassInfo inputClassInfo, bool caseInSensitive) {
             foreach (var memberInfo in BaseMemberInfos(outputClassInfo)) {
                 var xpMemberInfo = memberInfo.Value;
                 var propertyName = memberInfo.Key;
-                CreateMemberCore(inputClassInfo, propertyName, xpMemberInfo);
+                CreateMemberCore(inputClassInfo, propertyName, xpMemberInfo, caseInSensitive);
             }
         }
-        DBColumn ColumnExists(string columnName) {
-            return _dbTable.Columns.FirstOrDefault(column => column.Name == columnName);
+        DBColumn ColumnExists(string columnName, bool caseInSensitive) {
+            return _dbTable.Columns.FirstOrDefault(column => !caseInSensitive ? column.Name == columnName : column.Name.ToLower() == columnName.ToLower());
         }
 
-        void CreateMemberCore(XPClassInfo inputClassInfo, string propertyName, XPMemberInfo xpMemberInfo) {
-            var dbColumn = ColumnExists(propertyName);
+        void CreateMemberCore(XPClassInfo inputClassInfo, string propertyName, XPMemberInfo xpMemberInfo, bool caseInSensitive) {
+            var dbColumn = ColumnExists(propertyName, caseInSensitive);
             if (xpMemberInfo != null && dbColumn != null) {
                 var referenceType = xpMemberInfo.ReferenceType;
                 var dbColumnType = dbColumn.ColumnType;
@@ -653,8 +679,18 @@ namespace Xpand.ExpressApp.IO.Core {
             return xpMemberInfos;
         }
 
-        void CreateKey(XPClassInfo classInfo) {
-            if (!HasKey(classInfo)) {
+        void CreateKey(XPClassInfo outputClassInfo, XPClassInfo classInfo) {
+            var initialDataAttribute = ((InitialDataAttribute) outputClassInfo.FindAttributeInfo(typeof (InitialDataAttribute)));
+            var inputKeyPropertyName = initialDataAttribute.InputKeyPropertyName;
+            if (!String.IsNullOrEmpty(inputKeyPropertyName) ) {
+                var member = classInfo.FindMember(inputKeyPropertyName);
+                if (member == null)
+                    classInfo.CreateMember(inputKeyPropertyName, initialDataAttribute.inputKeyPropertyType).AddAttribute(new KeyAttribute(true));
+                else {
+                    member.AddAttribute(new KeyAttribute(true));
+                }
+            }
+            else if (!HasKey(classInfo)) {
                 classInfo.CreateMember("Oid_" + classInfo.TableName, typeof(int)).AddAttribute(new KeyAttribute(true));
             }
         }
@@ -671,23 +707,28 @@ namespace Xpand.ExpressApp.IO.Core {
             return xpMemberInfo != null;
         }
 
-        void CreateMemberFromAttribute(XPClassInfo classInfo, XPMemberInfo memberInfo) {
+        void CreateMemberFromAttribute(XPClassInfo classInfo, XPMemberInfo memberInfo, bool caseInSensitive) {
             var initialDataAttribute = (InitialDataAttribute)memberInfo.FindAttributeInfo(typeof(InitialDataAttribute));
             if (initialDataAttribute != null) {
-                CreateMemberCore(classInfo, initialDataAttribute.Name ?? memberInfo.Name, memberInfo);
+                CreateMemberCore(classInfo, initialDataAttribute.Name ?? memberInfo.Name, memberInfo, caseInSensitive);
             }
+        }
+
+        bool CaseInSensitive(XPClassInfo xpClassInfo) {
+            var attribute = xpClassInfo.FindAttributeInfo(typeof(InitialDataAttribute)) as InitialDataAttribute;
+            return attribute == null || attribute.CaseInSensitive;
         }
 
         bool AllOwnMembers(XPClassInfo classInfo) {
             return ((InitialDataAttribute)classInfo.FindAttributeInfo(typeof(InitialDataAttribute))).AllOwnMembers;
         }
 
-        void CreateAllOwnMembers(XPClassInfo outputClassInfo, XPClassInfo inputClassInfo) {
+        void CreateAllOwnMembers(XPClassInfo outputClassInfo, XPClassInfo inputClassInfo, bool caseInSensitive) {
             foreach (var memberInfo in MemberInfos(outputClassInfo)) {
                 if (memberInfo.HasAttribute(typeof(InitialDataAttribute))) {
-                    CreateMemberFromAttribute(inputClassInfo, memberInfo);
+                    CreateMemberFromAttribute(inputClassInfo, memberInfo, caseInSensitive);
                 } else {
-                    CreateMemberCore(inputClassInfo, memberInfo.Name, memberInfo);
+                    CreateMemberCore(inputClassInfo, memberInfo.Name, memberInfo, caseInSensitive);
                 }
             }
         }
@@ -704,17 +745,18 @@ namespace Xpand.ExpressApp.IO.Core {
 
     public class InputObjectClassInfo : XPDataObjectClassInfo {
         readonly XPClassInfo _outputClassInfo;
+        
 
         public InputObjectClassInfo(XPDictionary dictionary, string className, XPClassInfo outputClassInfo)
             : base(dictionary, null, className, GetAttributes()) {
             Guard.ArgumentNotNull(outputClassInfo, "outputClassInfo");
             _outputClassInfo = outputClassInfo;
-
         }
 
         static Attribute[] GetAttributes() {
             return new Attribute[] { new OptimisticLockingAttribute(false), new DeferredDeletionAttribute(false) };
         }
+
 
         public XPClassInfo OutputClassInfo {
             get { return _outputClassInfo; }

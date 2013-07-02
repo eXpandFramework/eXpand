@@ -35,6 +35,7 @@ namespace Xpand.ExpressApp.Web.Controllers
         }
         protected override void OnActivated()
         {
+
             base.OnActivated();
             if (IsMasterDetail) {
                 Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active["DisableProcessCurrentObjectController"] = false;

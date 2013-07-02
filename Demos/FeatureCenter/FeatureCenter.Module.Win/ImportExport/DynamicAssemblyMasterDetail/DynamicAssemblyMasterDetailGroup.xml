@@ -1169,7 +1169,7 @@
       </Property>
     </SerializedObject>
     <SerializedObject type="SerializationConfiguration">
-      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentCustomAttribute]]></Property>
+      <Property type="simple" name="TypeToSerialize" isKey="false"><![CDATA[Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos.PersistentModelDefaultAttribute]]></Property>
       <Property type="simple" name="Skin" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="UserFilter" isKey="false" strategy="DoNotSerialize"></Property>
       <Property type="simple" name="City" isKey="false" strategy="DoNotSerialize"></Property>

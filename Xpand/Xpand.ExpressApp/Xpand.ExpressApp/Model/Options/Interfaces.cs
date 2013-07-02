@@ -1,7 +1,7 @@
 ﻿using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
@@ -19,10 +19,13 @@ namespace Xpand.ExpressApp.Model.Options {
     public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
-            var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(GridListEditorVisibilityCalculatorHelper))).Single();
+            var typesInfo = node.Application.GetTypesInfo();
+            var typeToTypeInfo = typesInfo.FindTypeInfo(typeof(GridListEditorVisibilityCalculatorHelper));
+            var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).Single();
             var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)Activator.CreateInstance(typeInfo.Type);
             return calculatorHelper.IsVisible(node, propertyName);
         }
+
         #endregion
     }
 

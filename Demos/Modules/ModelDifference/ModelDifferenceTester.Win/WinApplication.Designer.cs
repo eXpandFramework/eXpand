@@ -1,3 +1,6 @@
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
+
 namespace ModelDifferenceTester.Win {
     partial class ModelDifferenceTesterWindowsFormsApplication {
         /// <summary> 
@@ -31,8 +34,8 @@ namespace ModelDifferenceTester.Win {
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
 
-            this.securitySimple1 = new DevExpress.ExpressApp.Security.SecuritySimple();
-            this.authenticationActiveDirectory1 = new DevExpress.ExpressApp.Security.AuthenticationActiveDirectory();
+            this._securityStrategyComplex = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this._authenticationStandard = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -41,15 +44,16 @@ namespace ModelDifferenceTester.Win {
     "odelDifferenceTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
-            // securitySimple1
+            // _securityStrategyComplex
             // 
-            this.securitySimple1.Authentication = this.authenticationActiveDirectory1;
-            this.securitySimple1.UserType = typeof(DevExpress.Persistent.BaseImpl.SimpleUser);
+            this._securityStrategyComplex.Authentication = this._authenticationStandard;
+            this._securityStrategyComplex.UserType = typeof(SecuritySystemUser);
+            this._securityStrategyComplex.RoleType = typeof(SecuritySystemRole);
             // 
-            // authenticationActiveDirectory1
+            // _authenticationStandard
             // 
-            this.authenticationActiveDirectory1.CreateUserAutomatically = true;
-            this.authenticationActiveDirectory1.LogonParametersType = null;
+            
+            this._authenticationStandard.LogonParametersType =  typeof(AuthenticationStandardLogonParameters);
             // 
             // ModelDifferenceTesterWindowsFormsApplication
             // 
@@ -62,7 +66,7 @@ namespace ModelDifferenceTester.Win {
             this.Modules.Add(this.securityModule1);
 
             this.Modules.Add(this.module4);
-            this.Security = this.securitySimple1;
+            this.Security = this._securityStrategyComplex;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ModelDifferenceTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.ModelDifferenceTesterWindowsFormsApplication_CustomizeLanguagesList);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -79,7 +83,7 @@ namespace ModelDifferenceTester.Win {
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
 
-        private DevExpress.ExpressApp.Security.SecuritySimple securitySimple1;
-        private DevExpress.ExpressApp.Security.AuthenticationActiveDirectory authenticationActiveDirectory1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex _securityStrategyComplex;
+        private AuthenticationStandard _authenticationStandard;
     }
 }

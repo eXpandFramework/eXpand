@@ -5,7 +5,17 @@
     <SchemaModule Name="SystemWindowsFormsModule" Version="12.2.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="DashboardDefinition_DetailView">
+    <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
           <LayoutGroup Id="SimpleEditors" RelativeSize="5" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
@@ -23,19 +33,6 @@
             </LayoutGroup>
             <LayoutGroup Id="DashboardTypes" Removed="True" />
           </TabbedGroup>
-          <LayoutGroup Id="SizeableEditors" Direction="Horizontal" RelativeSize="81" Caption="Xml" ImageName="" Removed="True">
-            <LayoutItem Id="Xml" ViewItem="Xml" Removed="True" />
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
-      <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.Dashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
-      </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>

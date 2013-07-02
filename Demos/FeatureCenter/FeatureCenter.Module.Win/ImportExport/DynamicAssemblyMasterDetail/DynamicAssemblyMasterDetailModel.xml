@@ -37,7 +37,7 @@
     </Rules>
   </MasterDetail>
   <Views>
-    <ListView Id="IODMDCustomer_ListView">
+    <ListView Id="IOMasterDetailDynamicAssembly.IODMDCustomer_ListView">
       <GridViewOptions>
         <OptionsDetail AllowExpandEmptyDetails="True" EnableMasterViewMode="True" />
         <OptionsView ShowDetailButtons="True" />

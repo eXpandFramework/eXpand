@@ -7,9 +7,15 @@ using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
-        static readonly HashSet<string> _hashSet=new HashSet<string>(); 
+        static SchemaColumnSizeUpdater() {
+            Disabled = true;
+        }
+
+        static readonly HashSet<string> _hashSet=new HashSet<string>();
+        public static bool Disabled { get; set; }
+
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
-            if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider)
+            if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider||Disabled)
                 return;
             lock (connectionProviderSql.SyncRoot) {
                 if (!connectionProviderSql.CanCreateSchema)

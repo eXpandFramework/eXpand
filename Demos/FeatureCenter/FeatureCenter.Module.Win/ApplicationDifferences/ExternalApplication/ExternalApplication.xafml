@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="ExternalCustomer_ListView">
+    <ListView Id="ExternalApplication.Module.Win.ExternalCustomer_ListView">
       <Columns>
         <ColumnInfo Id="City" GroupIndex="0" />
       </Columns>

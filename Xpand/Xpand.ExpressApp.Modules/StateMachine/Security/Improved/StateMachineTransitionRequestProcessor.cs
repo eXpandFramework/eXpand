@@ -11,9 +11,9 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
 
         public override bool IsGranted(StateMachineTransitionOperationRequest permissionRequest) {
             var permission = _permissions.FindFirst<StateMachineTransitionPermission>();
-            return permissionRequest.Modifier == permission.Modifier &&
-                       permissionRequest.StateCaption == permission.StateCaption &&
-                       permissionRequest.StateMachineName == permission.StateMachineName;
+            return permission == null || permissionRequest.Modifier == permission.Modifier &&
+                   permissionRequest.StateCaption == permission.StateCaption &&
+                   permissionRequest.StateMachineName == permission.StateMachineName;
         }
     }
 }

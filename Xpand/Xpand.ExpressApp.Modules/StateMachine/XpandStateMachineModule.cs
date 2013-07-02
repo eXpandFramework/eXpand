@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionRequestProcessor), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
+            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
         }
 
     }

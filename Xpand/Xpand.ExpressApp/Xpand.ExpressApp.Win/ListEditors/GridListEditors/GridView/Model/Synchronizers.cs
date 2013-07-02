@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Columns;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
@@ -78,14 +77,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
     public class GridLstEditorDynamicModelSynchronizer : ModelListSynchronizer {
         internal GridLstEditorDynamicModelSynchronizer(GridListEditor columnViewEditor, IModelListView viewDesignMode,
                                                        bool overrideViewDesignMode)
-            : base(columnViewEditor, viewDesignMode) {
-            ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(columnViewEditor, overrideViewDesignMode));
-            ModelSynchronizerList.Add(new GridListEditorColumnOptionsSynchroniser(columnViewEditor));
-            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
+            : this(columnViewEditor.GridView, (IModelListViewOptionsGridView)viewDesignMode, overrideViewDesignMode) {
+            
+        }
+
+        public GridLstEditorDynamicModelSynchronizer(XafGridView gridView, IModelListViewOptionsGridView modelListView, bool overrideViewDesignMode)
+            : base(gridView, modelListView) {
+            ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(gridView, modelListView.GridViewOptions, overrideViewDesignMode));
+            ModelSynchronizerList.Add(new GridListEditorColumnOptionsSynchroniser(gridView, modelListView));
+            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(gridView, modelListView));
         }
 
         public GridLstEditorDynamicModelSynchronizer(GridListEditor columnViewEditor)
             : this(columnViewEditor, columnViewEditor.Model, false) {
+        }
+
+        public GridLstEditorDynamicModelSynchronizer(object control, IModelNode model) : base(control, model) {
         }
     }
 
@@ -94,14 +101,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         public GridListEditorViewOptionsSynchronizer(GridListEditor control, bool overrideViewDesignMode)
             : base(control.GridView, ((IModelListViewOptionsGridView)control.Model).GridViewOptions, overrideViewDesignMode) {
         }
+
+        public GridListEditorViewOptionsSynchronizer(XafGridView control, IModelOptionsGridView modelNode, bool overrideViewDesignMode) : base(control, modelNode, overrideViewDesignMode) {
+        }
     }
     public class GridListEditorColumnOptionsSynchroniser : ColumnViewEditorColumnOptionsSynchronizer<GridListEditor, IModelListViewOptionsGridView, IModelColumnOptionsGridView> {
+        readonly XafGridView _gridView;
+
         public GridListEditorColumnOptionsSynchroniser(GridListEditor control)
             : base(control, (IModelListViewOptionsGridView)control.Model) {
         }
 
+        public GridListEditorColumnOptionsSynchroniser(XafGridView gridView, IModelListViewOptionsGridView modelNode) : this(new GridListEditor(modelNode)) {
+            _gridView= gridView;
+        }
+
         protected override DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView() {
-            return Control.GridView;
+            return _gridView ?? Control.GridView;
         }
 
         protected override IModelColumnViewColumnOptions GetColumnOptions(IModelColumnOptionsGridView modelColumnOptionsView) {

@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -33,6 +34,10 @@ namespace Xpand.ExpressApp.ModelEditor {
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += OnException;
             try {
+                var appSetting = ConfigurationManager.AppSettings["debug"];
+                if (appSetting != null && appSetting.ToLower() == "true") {
+                    Debugger.Break();
+                }
                 var pathInfo = new PathInfo(args);
                 Tracing.Tracer.LogSeparator("PathInfo");
                 Tracing.Tracer.LogText(pathInfo.ToString());

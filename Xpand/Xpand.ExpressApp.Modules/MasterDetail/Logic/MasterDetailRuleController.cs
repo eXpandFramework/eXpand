@@ -2,19 +2,12 @@
 using System.Linq;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Model;
-using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
-    public class MasterDetailRuleController : ConditionalLogicRuleViewController<IMasterDetailRule> {
+    public class MasterDetailRuleController : ConditionalLogicRuleViewController<IMasterDetailRule,MasterDetailModule> {
         readonly List<IMasterDetailRule> _masterDetailRules = new List<IMasterDetailRule>();
-
-        protected override IModelLogic GetModelLogic() {
-            return ((IModelApplicationMasterDetail)Application.Model).MasterDetail;
-        }
-
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().Single();

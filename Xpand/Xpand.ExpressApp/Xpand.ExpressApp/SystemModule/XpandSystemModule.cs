@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -89,6 +88,11 @@ namespace Xpand.ExpressApp.SystemModule {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
                 }
+            }
+            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InVisibleInAllViewsAttribute>()!=null)) {
+                memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
             }
             if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);

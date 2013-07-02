@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Options LogOutEnable="True"  />
-  <DetailView Id="LOCustomer_DetailView">
+  <DetailView Id="FeatureCenter.Module.Win.Navigation.LogOut.LOCustomer_DetailView">
     <Items>
       <ActionButton Id="381b9740-3a95-4baf-803b-35a4c867f339" IsNewNode="True" ActionId="LogOut" />
     </Items>

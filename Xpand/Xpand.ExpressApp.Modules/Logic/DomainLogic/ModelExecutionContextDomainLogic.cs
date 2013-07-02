@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
-    [DomainLogic(typeof(IModelExecutionContext))]
+    
     public class ModelExecutionContextDomainLogic {
         public static List<string> Get_ExecutionContexts(IModelExecutionContext modelExecutionContext) {
             return Enum.GetValues(typeof(ExecutionContext)).OfType<ExecutionContext>().Select(context => context.ToString()).ToList();

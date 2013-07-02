@@ -10,8 +10,8 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView
         Captions.ViewMessageRecursiveView, Position.Bottom)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderRecursiveView, "1=1", "1=1",
         Captions.HeaderRecursiveView, Position.Top)]
-    [XpandNavigationItem(Module.Captions.ListViewCotrol + Module.Captions.TreeListView + "RecursiveView", "RVItem_ListView")]
-    [DisplayFeatureModel("RVItem_ListView", "RecursiveView")]
+    [XpandNavigationItem(Module.Captions.ListViewCotrol + Module.Captions.TreeListView + "RecursiveView", "FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView.RVItem_ListView")]
+    [DisplayFeatureModel("FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView.RVItem_ListView", "RecursiveView")]
     public class RVItem : BaseObject, ICategorizedItem
     {
         public RVItem(Session session) : base(session) { }

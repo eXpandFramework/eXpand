@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -9,6 +10,15 @@ using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
+    [ModelAbstractClass]
+    public interface IModelPropertyEditorDashboardViewEditor : IModelPropertyEditor {
+        [DefaultValue(true)]
+        [Category("eXpand.XtraDashoard.Win")]
+        bool AllowPrintDashboard { get; set; }
+        [Category("eXpand.XtraDashoard.Win")]
+        [DefaultValue(true)]
+        bool AllowPrintDashboardItems { get; set; }
+    }
     [PropertyEditor(typeof(String), false)]
     public class DashboardViewEditor : WinPropertyEditor, IComplexViewItem {
         XafApplication _application;
@@ -40,10 +50,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
         }
 
         protected override void ReadValueCore() {
+            var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewEditor)Model);
             Control.BeginInvoke(new Action(() => {
                 var template = CurrentObject as IDashboardDefinition;
                 DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
-            }));
+                DashboardViewer.AllowPrintDashboard = modelPropertyEditorDashboardViewEditor.AllowPrintDashboard;
+                DashboardViewer.AllowPrintDashboardItems = modelPropertyEditorDashboardViewEditor.AllowPrintDashboardItems;
+         }));
 
         }
     }

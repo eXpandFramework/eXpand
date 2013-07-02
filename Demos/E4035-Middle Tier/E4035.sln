@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemExample.Win",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplicationServer", "ConsoleApplicationServer\ConsoleApplicationServer.csproj", "{2A5DC812-0374-4976-BC23-3DC10D6E5292}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp", "..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,12 +32,6 @@ Global
 		{2A5DC812-0374-4976-BC23-3DC10D6E5292}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{2A5DC812-0374-4976-BC23-3DC10D6E5292}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A5DC812-0374-4976-BC23-3DC10D6E5292}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

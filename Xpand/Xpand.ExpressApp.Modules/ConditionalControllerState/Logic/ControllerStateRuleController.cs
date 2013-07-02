@@ -2,14 +2,12 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
-    public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule> {
+    public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule,ConditionalControllerStateModule> {
         protected void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
             Frame.GetController(info.Rule.ControllerType).Active[ActiveObjectTypeHasRules] = info.Rule.ControllerState==ControllerState.Enabled;
         }
@@ -36,10 +34,6 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
                 ChangeStateOnModules(info);
             } else
                 ChangeState(info);
-        }
-
-        protected override IModelLogic GetModelLogic() {
-            return ((IModelApplicationModelArtifactState)Application.Model).ModelArtifactState.ConditionalControllerState;
         }
 
     }

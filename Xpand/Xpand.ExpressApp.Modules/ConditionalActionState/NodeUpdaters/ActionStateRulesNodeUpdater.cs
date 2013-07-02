@@ -7,15 +7,14 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 
 namespace Xpand.ExpressApp.ConditionalActionState.NodeUpdaters {
     public class ActionStateRulesNodeUpdater :
-        LogicRulesNodeUpdater<IActionStateRule, IModelActionStateRule, IModelArtifactState>
-    {
+        LogicRulesNodeUpdater<IActionStateRule, IModelActionStateRule, IModelApplicationModelArtifactState> {
         protected override void SetAttribute(IModelActionStateRule rule,
                                              IActionStateRule attribute) {
             rule.Attribute = attribute;
         }
 
-        protected override Expression<Func<IModelArtifactState, object>> ExecuteExpression() {
-            return state => state.ConditionalActionState;
+        protected override Expression<Func<IModelApplicationModelArtifactState, object>> ExecuteExpression() {
+            return state => state.ModelArtifactState.ConditionalActionState;
         }
     }
 }

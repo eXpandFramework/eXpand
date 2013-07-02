@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
 
 namespace FeatureCenter.Web.ApplicationCode {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
         private XpandAuthenticationStandard authenticationStandard1;
         private Module.FeatureCenterModule featureCenterModule1;
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
@@ -34,7 +35,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
 
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
-        private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
+        private Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule conditionalDetailViewModule1;
 
         private Module.Web.FeatureCenterAspNetModule featureCenterAspNetModule1;
 
@@ -86,7 +87,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.module6 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new XpandAuthenticationStandard();
             this.featureCenterModule1 = new FeatureCenter.Module.FeatureCenterModule();
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
@@ -110,7 +111,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
 
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
+            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule();
 
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
 
@@ -139,8 +140,8 @@ namespace FeatureCenter.Web.ApplicationCode {
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
-            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
+            this.securityComplex1.RoleType = typeof(XpandRole);
+            this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // authenticationStandard1
             // 

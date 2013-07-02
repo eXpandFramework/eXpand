@@ -1,15 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module", "StateMachineTester.Module\StateMachineTester.Module.csproj", "{918B81A0-4F42-46A4-A8FA-D042B76B5809}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module.Web", "StateMachineTester.Module.Web\StateMachineTester.Module.Web.csproj", "{CDDD4514-0DB0-4FAC-82C5-17241C886F97}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "StateMachineTester.Web", "StateMachineTester.Web\StateMachineTester.Web.csproj", "{17CB167C-BB43-4E04-9C77-6AB52ECFE4CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Web", "StateMachineTester.Web\StateMachineTester.Web.csproj", "{17CB167C-BB43-4E04-9C77-6AB52ECFE4CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module.Win", "StateMachineTester.Module.Win\StateMachineTester.Module.Win.csproj", "{352A96F9-7D2B-4054-817E-52F031091A35}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Win", "StateMachineTester.Win\StateMachineTester.Win.csproj", "{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,12 +40,6 @@ Global
 		{352A96F9-7D2B-4054-817E-52F031091A35}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{352A96F9-7D2B-4054-817E-52F031091A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{352A96F9-7D2B-4054-817E-52F031091A35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

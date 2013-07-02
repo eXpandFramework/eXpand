@@ -6,11 +6,11 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderExistentAssemblyMasterDetail, "1=1", "1=1",
-        Captions.ViewMessageExistentAssemblyMasterDetail, Position.Bottom, View = "EAMDCustomer_ListView")]
+        Captions.ViewMessageExistentAssemblyMasterDetail, Position.Bottom, View = "FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer_ListView")]
     [AdditionalViewControlsRule(Captions.Header + " " + Captions.HeaderExistentAssemblyMasterDetail, "1=1", "1=1",
-        Captions.HeaderExistentAssemblyMasterDetail, Position.Top, View = "EAMDCustomer_ListView")]
-    [XpandNavigationItem("WorldCreator/Existent Assembly/Master Detail", "EAMDCustomer_ListView")]
-    [DisplayFeatureModel("EAMDCustomer_ListView", "ExistentAssemblyMasterDetailModelStore")]
+        Captions.HeaderExistentAssemblyMasterDetail, Position.Top, View = "FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer_ListView")]
+    [XpandNavigationItem("WorldCreator/Existent Assembly/Master Detail", "FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer_ListView")]
+    [DisplayFeatureModel("FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer_ListView", "ExistentAssemblyMasterDetailModelStore")]
     public class EAMDCustomer : BaseObject, ICustomer {
         string _city;
         string _description;

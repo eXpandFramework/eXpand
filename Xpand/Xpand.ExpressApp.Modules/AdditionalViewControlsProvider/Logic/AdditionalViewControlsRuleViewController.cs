@@ -8,13 +8,11 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
-using Xpand.ExpressApp.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public abstract class AdditionalViewControlsRuleViewController : ConditionalLogicRuleViewController<IAdditionalViewControlsRule> {
+    public abstract class AdditionalViewControlsRuleViewController : ConditionalLogicRuleViewController<IAdditionalViewControlsRule,AdditionalViewControlsModule> {
         Dictionary<string, object> _infoToLayoutMapCore;
         protected Dictionary<string, object> RuleToLayoutMap {
             get { return _infoToLayoutMapCore ?? (_infoToLayoutMapCore = new Dictionary<string, object>()); }
@@ -23,14 +21,14 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             RuleToLayoutMap.Clear();
         }
         protected void FillInfoToLayoutMap(ViewItem detailViewItem, IModelViewLayoutElement itemModel, object layoutItem) {
-            if (detailViewItem is AdditionalViewControlsItem) {
-                var id = ((AdditionalViewControlsItem)detailViewItem).Model.Rule.Id;
+            var item = detailViewItem as AdditionalViewControlsItem;
+            if (item != null) {
+                var id = item.Model.Rule.Id;
                 if (RuleToLayoutMap.ContainsKey(id))
                     RuleToLayoutMap[id] = layoutItem;
                 else
                     RuleToLayoutMap.Add(id, layoutItem);
             }
-
         }
 
         public override void ExecuteRule(LogicRuleInfo<IAdditionalViewControlsRule> info, ExecutionContext executionContext) {
@@ -55,7 +53,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                             AddControl(control, controls, info);
                         }
                     } else if (additionalViewControl != null) {
-                        controls.GetType().GetMethod("Remove").Invoke(controls, new[] { additionalViewControl });
+                        controls.GetType().GetMethod("Remove").Invoke(controls, new object[] { additionalViewControl });
                     }
                 }
             }
@@ -68,18 +66,19 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         protected virtual IAdditionalViewControl GetControl(Type controlType, IAdditionalViewControl additionalViewControl, LogicRuleInfo<IAdditionalViewControlsRule> info) {
             var control = additionalViewControl ?? Activator.CreateInstance(controlType) as IAdditionalViewControl;
-            if (control is ISupportLayoutManager) {
+            var manager = control as ISupportLayoutManager;
+            if (manager != null) {
                 if (info.Rule.Position != Position.DetailViewItem)
                     throw new ArgumentException("Rule with Id:" + info.Rule.Id + " position should be set to " + Position.DetailViewItem);
                 if (RuleToLayoutMap.ContainsKey(info.Rule.Id))
-                    ((ISupportLayoutManager)control).LayoutItem = RuleToLayoutMap[info.Rule.Id];
+                    manager.LayoutItem = RuleToLayoutMap[info.Rule.Id];
             }
             return control;
         }
 
         protected object GetContainerControl(IViewSiteTemplate viewSiteTemplate, IAdditionalViewControlsRule rule) {
             if (rule.Position == Position.DetailViewItem && View is DetailView) {
-                var modelAdditionalViewControlsItem = ((DetailView)View).Items.OfType<AdditionalViewControlsItem>().Where(item => item.Model.Rule.Id == rule.Id).FirstOrDefault();
+                var modelAdditionalViewControlsItem = ((DetailView)View).Items.OfType<AdditionalViewControlsItem>().FirstOrDefault(item => item.Model.Rule.Id == rule.Id);
                 return modelAdditionalViewControlsItem != null ? modelAdditionalViewControlsItem.Control : null;
             }
             return viewSiteTemplate.ViewSiteControl;
@@ -90,7 +89,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         IAdditionalViewControl FindControl(IAdditionalViewControlsRule rule, ICollection controls) {
-            return controls.OfType<IAdditionalViewControl>().Where(o => o.Rule.Id == rule.Id).FirstOrDefault();
+            return controls.OfType<IAdditionalViewControl>().FirstOrDefault(o => o.Rule.Id == rule.Id);
         }
 
         protected virtual void RemoveControl(IList controls, object firstOrDefault, LogicRuleInfo<IAdditionalViewControlsRule> info) {
@@ -102,18 +101,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             controls.GetType().GetMethod("Add").Invoke(controls, new[] { control });
         }
 
-
-        protected override IModelLogic GetModelLogic() {
-            return ((IModelApplicationAdditionalViewControls)Application.Model).AdditionalViewControls;
-        }
-
-
-
-
-
         protected virtual void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {
-            if (control is ISupportAppeareance) {
-                var supportAppeareance = ((ISupportAppeareance)control);
+            var appeareance = control as ISupportAppeareance;
+            if (appeareance != null) {
+                var supportAppeareance = appeareance;
                 supportAppeareance.BackColor = additionalViewControlsRule.Rule.BackColor;
                 supportAppeareance.Height = additionalViewControlsRule.Rule.Height;
                 supportAppeareance.ForeColor = additionalViewControlsRule.Rule.ForeColor;

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.NodeUpdaters {
     public class AdditionalViewControlsRulesNodeUpdater :
-        LogicRulesNodeUpdater<IAdditionalViewControlsRule, IModelAdditionalViewControlsRule,IModelApplicationAdditionalViewControls> {
+        LogicRulesNodeUpdater<IAdditionalViewControlsRule, IModelAdditionalViewControlsRule, IModelApplicationAdditionalViewControls> {
         protected override void SetAttribute(IModelAdditionalViewControlsRule rule,
                                              IAdditionalViewControlsRule attribute) {
             rule.Attribute = attribute;
@@ -15,5 +15,5 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.NodeUpdaters {
         protected override Expression<Func<IModelApplicationAdditionalViewControls, object>> ExecuteExpression() {
             return controls => controls.AdditionalViewControls;
         }
-        }
+    }
 }

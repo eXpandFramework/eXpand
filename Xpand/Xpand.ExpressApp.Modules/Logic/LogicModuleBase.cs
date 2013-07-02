@@ -5,21 +5,32 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
-    public abstract class LogicModuleBase<TLogicRule, TLogicRule2> : XpandModuleBase, IRuleHolder, IRuleCollector
+    public interface ILogicModuleBase {
+        IModelLogic GetModelLogic(IModelNode applicationModel);
+    }
+
+    public abstract class LogicModuleBase<TLogicRule, TLogicRule2, TModelLogicRule, TModelApplication, TModelLogic> : XpandModuleBase, IRuleHolder, IRuleCollector, ILogicModuleBase where TModelLogic : IModelLogic
+        where TModelLogicRule : IModelLogicRule
         where TLogicRule : ILogicRule
-        where TLogicRule2 : ILogicRule {
+        where TLogicRule2 : ILogicRule where TModelApplication : IModelNode {
         public event EventHandler RulesCollected;
 
         protected void OnRulesCollected(EventArgs e) {
             EventHandler handler = RulesCollected;
             if (handler != null) handler(this, e);
+        }
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            extenders.Add<IModelApplication, TModelApplication>();
         }
 
         protected LogicModuleBase() {
@@ -32,6 +43,18 @@ namespace Xpand.ExpressApp.Logic {
             application.LoggedOn += (o, eventArgs) => CollectRules((XafApplication)o);
         }
 
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new LogicDefaultContextNodeUpdater<TModelLogic,TModelApplication>(ExecutionContexts, GetModelLogic));
+            updaters.Add(new LogicDefaultGroupContextNodeUpdater<TModelLogic, TModelApplication>(GetModelLogic));
+            updaters.Add(LogicRulesNodeUpdater);
+        }
+
+        public abstract List<ExecutionContext>  ExecutionContexts { get; }
+
+        
+        public abstract LogicRulesNodeUpdater<TLogicRule, TModelLogicRule, TModelApplication> LogicRulesNodeUpdater { get; }
+        
         public virtual void CollectRules(XafApplication xafApplication) {
             lock (LogicRuleManager<TLogicRule>.Instance) {
                 bool reloadPermissions = ReloadPermissions();
@@ -83,7 +106,11 @@ namespace Xpand.ExpressApp.Logic {
             return logicRule2;
         }
 
-        protected abstract IModelLogic GetModelLogic(IModelApplication applicationModel);
+        public abstract TModelLogic GetModelLogic(TModelApplication applicationModel);
+
+        public IModelLogic GetModelLogic(IModelNode applicationModel) {
+            return GetModelLogic((TModelApplication) applicationModel);
+        }
 
         public bool HasRules(View view) {
             return LogicRuleManager<TLogicRule>.HasRules(view);

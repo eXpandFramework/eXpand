@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Model;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
-    [DomainLogic(typeof(IModelLogicRule))]
+    
     public class ModelLogicRuleDomainLogic {
         public static List<string> Get_ActionExecutionContexts(IModelLogicRule modelLogicRule) {
             var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ActionExecutionContextGroup;
@@ -42,7 +41,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
                     modelViews.Where(modelView => (modelLogicRule.ViewType == ViewType.ListView
                              ? modelView is IModelListView
                              : modelView is IModelDetailView));
-            calculatedModelNodeList.AddRange(modelViews.Cast<IModelView>());
+            calculatedModelNodeList.AddRange(modelViews);
             return calculatedModelNodeList;
         }
     }

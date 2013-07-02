@@ -33,6 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
             HttpRequest request = HttpContext.Current.Request;
             return request.MapPath(request.ApplicationPath);
         }
+
         #region Overrides of XpandModuleBase
         protected override Type ApplicationType() {
             return typeof(XpandWebApplication);

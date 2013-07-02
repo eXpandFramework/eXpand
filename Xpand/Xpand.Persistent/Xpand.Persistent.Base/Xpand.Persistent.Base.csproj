@@ -58,39 +58,30 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -109,12 +100,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -133,6 +122,7 @@
     <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\IXpandObjectSpace.cs" />
     <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
+    <Compile Include="General\ModelEditorLogicRuleAttribute.cs" />
     <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />
     <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\ObjectToViewMapper.cs" />
@@ -189,6 +179,17 @@
     <Compile Include="JobScheduler\Triggers\IXpandSimpleTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\IXpandJobTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\ITriggerListenerTrigger.cs" />
+    <Compile Include="Logic\FrameTemplateContext.cs" />
+    <Compile Include="Logic\ILogicModelClassRule.cs" />
+    <Compile Include="Logic\ILogicRule.cs" />
+    <Compile Include="Logic\IRule.cs" />
+    <Compile Include="Logic\NodeGenerators\ExecutionContextNodeGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\ExecutionContextsGroupNodeGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\FrameTemplateContextNodeGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\FrameTemplateContextsGroupNodeGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\LogicRulesNodesGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\ViewContextNodeGenerator.cs" />
+    <Compile Include="Logic\NodeGenerators\ViewContextsGroupNodeGenerator.cs" />
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
@@ -197,10 +198,24 @@
     </Compile>
     <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
+    <Compile Include="ModelDifference\ITypesInfoProvider.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="ModuleUpdaterHelper.cs" />
+    <Compile Include="Logic\Model\IModelApplicationLogic.cs" />
+    <Compile Include="Logic\Model\IModelExecutionContext.cs" />
+    <Compile Include="Logic\Model\IModelExecutionContexts.cs" />
+    <Compile Include="Logic\Model\IModelExecutionContextsGroup.cs" />
+    <Compile Include="Logic\Model\IModelFrameTemplateContext.cs" />
+    <Compile Include="Logic\Model\IModelFrameTemplateContexts.cs" />
+    <Compile Include="Logic\Model\IModelFrameTemplateContextsGroup.cs" />
+    <Compile Include="Logic\Model\IModelLogic.cs" />
+    <Compile Include="Logic\Model\IModelLogicRule.cs" />
+    <Compile Include="Logic\Model\IModelLogicRules.cs" />
+    <Compile Include="Logic\Model\IModelViewContext.cs" />
+    <Compile Include="Logic\Model\IModelViewContexts.cs" />
+    <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
     <Compile Include="PersistentMetaData\ComponentInterfaces.cs" />
     <Compile Include="PersistentMetaData\IWorldCreatorModule.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />

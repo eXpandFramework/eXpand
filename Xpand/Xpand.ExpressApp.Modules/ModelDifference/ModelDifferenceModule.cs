@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
+using Xpand.Persistent.Base.ModelDifference;
+using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
@@ -28,17 +31,28 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelApplication, ITypesInfoProvider>();
+        }
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
-                application.SettingUp += ApplicationOnSetupComplete;
+                application.SettingUp += ApplicationOnSettingUp;
+                application.SetupComplete += AssignModelTypesInfo;
+                ((IXafApplication) application).UserDifferencesLoaded+=AssignModelTypesInfo;
             }
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
             }
         }
 
-        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+        void AssignModelTypesInfo(object sender, EventArgs eventArgs) {
+            ((ITypesInfoProvider) Application.Model).TypesInfo=TypesInfo;
+        }
+
+        void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {
             BuildSecuritySystemObjects();
             var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) {
@@ -59,7 +73,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombinePermissionRequest), modelCombineRequestProcessor);
             customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
         }
-
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

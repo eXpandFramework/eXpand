@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
 
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp {
             if (securityComplex != null) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
-                if (IsXpoType(typeToCreateOn)) {
+                if (IsValidType(typeToCreateOn)) {
                     xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
                     XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
                 }
@@ -35,9 +36,15 @@ namespace Xpand.ExpressApp {
             return xpCustomMemberInfos;
         }
 
+        bool IsValidType(Type typeToCreateOn) {
+            var isValidDataLayer = _application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
+            return isValidDataLayer && IsXpoType(typeToCreateOn);
+        }
+
         bool IsXpoType(Type typeToCreateOn) {
             XpoTypeInfoSource xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
-            return xpoTypeInfoSource.GetOriginalType(typeToCreateOn) != null && xpoTypeInfoSource.RegisteredEntities.Contains(typeToCreateOn);
+            return xpoTypeInfoSource.GetOriginalType(typeToCreateOn) != null &&
+                   xpoTypeInfoSource.RegisteredEntities.Contains(typeToCreateOn);
         }
 
         public List<XPMemberInfo> BuildUser(Type otherPartMember) {
@@ -48,7 +55,7 @@ namespace Xpand.ExpressApp {
             var xpCustomMemberInfos = new List<XPMemberInfo>();
             if (_application.Security != null) {
                 if (XpandModuleBase.UserType != null) {
-                    if (IsXpoType(XpandModuleBase.UserType)) {
+                    if (IsValidType(XpandModuleBase.UserType)) {
                         xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
                         XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
                     }

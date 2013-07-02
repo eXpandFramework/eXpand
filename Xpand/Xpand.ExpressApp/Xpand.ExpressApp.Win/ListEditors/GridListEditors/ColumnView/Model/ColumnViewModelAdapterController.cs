@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -63,7 +64,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             }
             if (typeof(BaseView).IsAssignableFrom(typeForDynamicProperties)) {
                 if (_gridViewMappings.ContainsKey(info.Name))
-                    info.CreateValueCalculator("((IModelListView)this.Parent.Parent)." + _gridViewMappings[info.Name]);
+                    info.AddAttribute(new BrowsableAttribute(false));
+//                    info.CreateValueCalculator("((IModelListView)this.Parent.Parent)." + _gridViewMappings[info.Name]);
             } else if (typeof(GridColumn).IsAssignableFrom(typeForDynamicProperties)) {
                 if (_columnMappings.ContainsKey(info.Name)) {
                     var expressionPath = "((IModelColumn)this.Parent)." + _columnMappings[info.Name];

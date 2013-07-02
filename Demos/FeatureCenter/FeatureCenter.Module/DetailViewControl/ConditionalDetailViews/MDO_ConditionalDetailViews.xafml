@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <ConditionalDetailView>
+  <ConditionalObjectView>
     <ExecutionContextsGroup DefaultContext="CustomProcessSelectedItem">
       <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
         <ExecutionContext Name="CustomProcessSelectedItem" IsNewNode="True" />
@@ -11,10 +11,10 @@
       </ExecutionContexts>
     </ExecutionContextsGroup>
     <Rules>
-      <ConditionalDetailViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="ViewOnSelectionChanged" />
-      <ConditionalDetailViewRule Id="Paris_DetailViews_When_CustomProcessSelectedItem" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" DetailView="ConditionalDetailViews_DetailView" ExecutionContextGroup="CustomProcessSelectedItem" />
+      <ConditionalObjectViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="ViewOnSelectionChanged" />
+      <ConditionalObjectViewRule Id="Paris_DetailViews_When_CustomProcessSelectedItem" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" ExecutionContextGroup="CustomProcessSelectedItem" />
     </Rules>
-  </ConditionalDetailView>
+  </ConditionalObjectView>
   <Views>
     <DetailView Id="ConditionalDetailViews_DetailView">
       <Layout>

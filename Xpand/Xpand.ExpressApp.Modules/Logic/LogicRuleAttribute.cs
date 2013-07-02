@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.TypeConverters;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
