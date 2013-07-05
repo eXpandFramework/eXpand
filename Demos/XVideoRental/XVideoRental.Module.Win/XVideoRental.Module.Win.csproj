@@ -234,7 +234,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor, Version=13.1.4.12, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
