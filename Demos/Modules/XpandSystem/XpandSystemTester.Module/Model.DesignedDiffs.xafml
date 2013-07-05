@@ -1,3 +1,10 @@
-﻿<?xml version="1.0" ?>
-<Application Title="XpandSystemTester" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XpandSystemTester" Logo="ExpressAppLogo">
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="XpandSystemTester.Module.BusinessObjects.Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="XpandSystemTester.Module.BusinessObjects.SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
+  </Views>
+</Application>

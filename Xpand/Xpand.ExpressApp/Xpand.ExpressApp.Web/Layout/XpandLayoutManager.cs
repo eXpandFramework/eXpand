@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                     SetupViewItems(gridView);
                     ASPxSplitter splitter = LayoutMasterDetail(detailControl, gridView, splitLayout);
                     var viewItem = detailViewItems[0] as ListEditorViewItem;
-                   
+
                     if (viewItem != null) {
                         var listEditor = viewItem.ListEditor as XpandASPxGridListEditor;
                         if (listEditor != null) {
@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                         }
                     }
 
-                    RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs{
+                    RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs {
                         MasterViewItem = detailViewItems[0],
                         DetailViewItem = detailViewItems[1],
                         SplitterControl = splitter
@@ -91,16 +91,28 @@ namespace Xpand.ExpressApp.Web.Layout {
                 gridView.ClientInstanceName = "gridViewInSplitter";
         }
 
-        private string GetAdjustSizeScript() {
+        private static string GetScript(string scriptName) {
             Type t = typeof(XpandLayoutManager);
-            return t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture, "{0}.AdjustSize.js", t.Namespace)).ReadToEndAsString();
+            return t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture,
+                "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
+        }
+
+        private static string GetAdjustSizeScript() {
+            return GetScript("AdjustSize");
+        }
+
+        internal static string GetXpandHelperScript() {
+            return GetScript("XpandHelper");
         }
 
         ASPxCallbackPanel CreateSplitterDetailPane(ASPxSplitter splitter) {
             SplitterPane detailPane = splitter.Panes.Add();
             detailPane.ScrollBars = ScrollBars.Auto;
             var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientInstanceName = "DetailUpdatePanel" };
-            updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
+
+            if (!(WebWindow.CurrentRequestWindow is PopupWindow))
+                updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
+
             updatePanel.ClientSideEvents.EndCallback = "function(s,e) {ProcessMarkup(s, true);}";
             updatePanel.CustomJSProperties += updatePanel_CustomJSProperties;
             detailPane.Controls.Add(updatePanel);
