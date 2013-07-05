@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
+using DevExpress.Data.PLinq.Helpers;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridViewListEditorModelSynchronizer : ModelListSynchronizer {
@@ -36,10 +39,36 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         protected override void ApplyModelCore() {
-            foreach (var column in Model.Columns.OfType<IModelColumnOptionsGridView>()) {
-                if (column.OptionsColumnGridView.NodeEnabled)
-                    ApplyModel(column.OptionsColumnGridView, Control.Columns[column.PropertyName], ApplyValues);
+            var sources = Control.Columns.OfType<GridViewDataColumnWithInfo>().ToList();
+            
+            var modelColumnOptionsGridViewBands = Model.Columns.OfType<IModelColumnOptionsGridViewBand>().Where(band => band.GridViewBand != null);
+            if (modelColumnOptionsGridViewBands.Any()) {
+                Control.Columns.Clear();    
             }
+            foreach (var column in modelColumnOptionsGridViewBands) {
+                if (column.OptionsColumnGridView.NodeEnabled) {
+                    var gridViewColumn = sources.Single(info => info.Model==column);
+                    ApplyModel(column.OptionsColumnGridView, gridViewColumn, ApplyValues);
+                    var modelGridViewBand = column.GridViewBand;
+                    if (modelGridViewBand != null) {
+                        var name = modelGridViewBand.GetValue<string>("Name");
+                        GridViewBandColumn gridViewBandColumn;
+                        if (Control.Columns[name] == null) {
+                            gridViewBandColumn = new GridViewBandColumn{Name = name};
+                            ApplyModel(modelGridViewBand, gridViewBandColumn,ApplyValues);
+                            Control.Columns.Add(gridViewBandColumn);
+                        }
+                        else gridViewBandColumn = (GridViewBandColumn) Control.Columns[name];
+                        
+                        gridViewBandColumn.Columns.Add(gridViewColumn);
+//                        Control.Columns.Remove(gridViewColumn);
+                    }
+                }
+            }
+            if (modelColumnOptionsGridViewBands.Any()) {
+                Control.DataBind();
+            }
+            
         }
 
         public override void SynchronizeModel() {

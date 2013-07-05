@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -38,7 +39,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptionsGridView, IModelGridViewOptions>();
+            extenders.Add<IModelColumn, IModelColumnOptionsGridViewBand>();
+            extenders.Add<IModelOptionsGridView, IModelGridViewOptionsBands>();
             extenders.Add<IModelListView, IModelListViewOptionsGridView>();
             extenders.Add<IModelColumn, IModelColumnOptionsGridView>();
 
@@ -48,6 +50,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
             builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnGridView, GridViewColumn>(assembly);
+            builder.ExtendInteface<IModelGridViewBand, GridViewBandColumn>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
@@ -57,6 +60,18 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
                 Act = info => (info.DXFilter()) && info.Name != "Width"
             };
+            yield return new InterfaceBuilderData(typeof(GridViewBandColumn)) {
+                Act = info => {
+                    var propertyName = GetPropertyName<GridViewBandColumn>(x=>x.Name);
+                    if (info.Name==propertyName)
+                        info.AddAttribute(new RequiredAttribute());
+                    return info.DXFilter(BaseGridViewBandColumnControlTypes(), typeof(object));
+                } 
+            };
+        }
+
+        IList<Type> BaseGridViewBandColumnControlTypes() {
+            return new List<Type>{ typeof (AppearanceStyleBase) };
         }
     }
 }
