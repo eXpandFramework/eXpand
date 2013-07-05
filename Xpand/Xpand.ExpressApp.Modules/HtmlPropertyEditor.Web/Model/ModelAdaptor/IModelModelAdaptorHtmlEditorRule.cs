@@ -3,6 +3,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model.ModelAdaptor {
     [ModelInterfaceImplementor(typeof(IModelAdaptorHtmlEditorRule), "Attribute")]

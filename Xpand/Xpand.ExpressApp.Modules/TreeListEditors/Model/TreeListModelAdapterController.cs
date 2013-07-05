@@ -17,10 +17,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
                 _treeListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
         }
 
-
-
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CreateCustomModelSynchronizerHelper.Assign(e, ModelSynchronizer());
+            CustomModelSynchronizerHelper.Assign(e, ModelSynchronizer());
         }
 
         protected abstract ModelSynchronizer ModelSynchronizer();

@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer(GridListEditor, View.Model));
+            CustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer(GridListEditor, View.Model));
         }
 
         public ASPxGridListEditor GridListEditor {

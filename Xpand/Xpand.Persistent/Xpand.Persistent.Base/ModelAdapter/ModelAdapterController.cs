@@ -4,10 +4,12 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
@@ -75,6 +77,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     type => (type.Namespace + "").StartsWith("DevExpress"));
             var properties = types.SelectMany(type => type.GetPublicProperties());
             return targetInterface.GetPublicProperties().Union(properties).Select(info => info.Name);
+        }
+
+        public string GetPropertyName<TTarget>(Expression<Func<TTarget, object>> property) {
+            return ReflectionExtensions.GetPropertyName(property);
         }
 
         public virtual string GetPath(string name) {

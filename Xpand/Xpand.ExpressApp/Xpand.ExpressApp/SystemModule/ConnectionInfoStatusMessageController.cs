@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using System.Data.SqlClient;
+using System.Data.Common;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         void controller_CustomizeWindowStatusMessages(object sender, CustomizeWindowStatusMessagesEventArgs e) {
-            var dbConnection = ((XPObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false)).Session.Connection as SqlConnection;
+            var dbConnection = ((XPObjectSpace)Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false)).Session.Connection as DbConnection;
             if (dbConnection != null)
                 e.StatusMessages.Add(string.Format("({0} - {1})", dbConnection.DataSource, dbConnection.Database));
         }

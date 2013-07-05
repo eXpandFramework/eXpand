@@ -26,7 +26,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (Application != null) Application.LoggedOn += ApplicationOnLoggedOn;
+            if (Application != null) {
+                Application.LoggedOn += ApplicationOnLoggedOn;
+            }
         }
 
         void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {

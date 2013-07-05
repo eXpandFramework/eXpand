@@ -3,7 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.ConditionalActionState.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Model;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalActionState.Model {
     [ModelInterfaceImplementor(typeof (IActionStateRule), "Attribute")]

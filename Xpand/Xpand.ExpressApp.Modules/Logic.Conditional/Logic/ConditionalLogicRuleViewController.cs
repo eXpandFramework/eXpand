@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Logic.Conditional.Security;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public abstract class ConditionalLogicRuleViewController<TConditionalLogicRule, TModule> :

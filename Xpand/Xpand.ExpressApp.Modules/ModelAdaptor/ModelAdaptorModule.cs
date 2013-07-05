@@ -7,6 +7,7 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.ExpressApp.ModelAdaptor.NodeUpdaters;
+using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor {
     [ToolboxBitmap(typeof (ModelAdaptorModule))]
@@ -16,7 +17,7 @@ namespace Xpand.ExpressApp.ModelAdaptor {
         LogicModuleBase
             <IModelAdaptorRule, ModelAdaptorRule, IModelModelAdaptorRule, IModelApplicationModelAdaptor,
             IModelModelAdaptorLogic> {
-        readonly List<ExecutionContext> _executionContexts = new List<ExecutionContext>();
+        readonly List<ExecutionContext> _executionContexts = new List<ExecutionContext>{ExecutionContext.ControllerActivated};
 
         public override List<ExecutionContext> ExecutionContexts {
             get { return _executionContexts; }

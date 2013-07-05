@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Conditional.Model;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
     [ModelInterfaceImplementor(typeof(IMasterDetailRule), "Attribute")]

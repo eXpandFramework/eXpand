@@ -4,7 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ArtifactState.Model;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Model;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Model {
     [ModelInterfaceImplementor(typeof (IControllerStateRule), "Attribute")]

@@ -4,7 +4,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model.Options;
-using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model.ModelAdaptor;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -26,17 +25,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             }
         }
 
-        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            var modelAdaptorRuleController = Frame.GetController<ModelAdaptorRuleController>();
-            if (modelAdaptorRuleController != null) {
-                modelAdaptorRuleController.ExecuteLogic<IModelAdaptorGridViewOptionsRule, IModelModelAdaptorGridViewOptionsRule>(
-                        rule =>AssignSynchronizer(createCustomModelSynchronizerEventArgs, rule));
-            }
-            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new GridLstEditorDynamicModelSynchronizer(_gridListEditor));
-        }
-
-        void AssignSynchronizer(CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs, IModelModelAdaptorGridViewOptionsRule rule) {
-            CreateCustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs,new GridLstEditorDynamicModelSynchronizer(_gridListEditor.GridView, rule));
+        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
+            CustomModelSynchronizerHelper.
+                Assign<IModelAdaptorGridViewOptionsRule, IModelModelAdaptorGridViewOptionsRule>
+                (e, new GridLstEditorDynamicModelSynchronizer(_gridListEditor), Frame,
+                 rule => new GridLstEditorDynamicModelSynchronizer(_gridListEditor.GridView, rule));
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {

@@ -132,7 +132,6 @@
     <Compile Include="Logic\ConditionalLogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Logic\IConditionalLogicRule.cs" />
     <Compile Include="Model\IModelConditionalLogicRule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ConditionalLogicRulePermission.cs" />

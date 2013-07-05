@@ -2,6 +2,7 @@
 using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {
     public class ConditionalLogicRuleManager<TConditionalLogicRule> : LogicRuleManager<TConditionalLogicRule> where TConditionalLogicRule : IConditionalLogicRule {

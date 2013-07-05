@@ -125,12 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\ModelAdaptorRule.cs" />
-    <Compile Include="Logic\IModelAdaptorRule.cs" />
     <Compile Include="Logic\ModelAdaptorRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelApplicationModelAdaptor.cs" />
-    <Compile Include="Model\IModelModelAdaptorRule.cs" />
     <Compile Include="Model\IModelModelAdaptorLogic.cs" />
     <Compile Include="NodeUpdaters\ModelAdaptorRulesNodeUpdater.cs" />
     <Compile Include="ModelAdaptorModule.cs">

@@ -110,6 +110,9 @@
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
+    <Compile Include="Logic\IConditionalLogicRule.cs" />
+    <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
+    <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />
     <Compile Include="General\MasterDetailRuleInfo.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
@@ -193,6 +196,8 @@
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
+    <Compile Include="ModelAdapter\Logic\IModelAdaptorRuleController.cs" />
+    <Compile Include="ModelAdapter\Logic\IModelModelAdaptorRule.cs" />
     <Compile Include="ModelAdapter\ModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>

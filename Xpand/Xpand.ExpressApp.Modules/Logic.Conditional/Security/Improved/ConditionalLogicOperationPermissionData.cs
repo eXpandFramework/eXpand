@@ -1,6 +1,6 @@
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Security.Improved {
     [NonPersistent]
