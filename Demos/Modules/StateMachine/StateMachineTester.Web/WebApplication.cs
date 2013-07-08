@@ -18,10 +18,17 @@ namespace StateMachineTester.Web {
         SystemAspNetModule module2;
         StateMachineTesterModule module3;
         StateMachineTesterAspNetModule module4;
+        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
+        private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
+        private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
+        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         SqlConnection sqlConnection1;
 
         public StateMachineTesterAspNetApplication() {
             InitializeComponent();
+            DatabaseVersionMismatch+=StateMachineTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
@@ -62,30 +69,58 @@ namespace StateMachineTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new StateMachineTesterModule();
-            module4 = new StateMachineTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
-            ((ISupportInitialize)(this)).BeginInit();
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this.module3 = new StateMachineTester.Module.StateMachineTesterModule();
+            this.module4 = new StateMachineTester.Module.Web.StateMachineTesterAspNetModule();
+            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
-                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=StateMachineTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=S" +
+    "tateMachineTester";
+            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // validationModule1
+            // 
+            this.validationModule1.AllowValidationDetailsAccess = true;
+            // 
+            // stateMachineModule1
+            // 
+            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            // 
+            // securityStrategyComplex1
+            // 
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // StateMachineTesterAspNetApplication
             // 
-            ApplicationName = "StateMachineTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
+            this.ApplicationName = "StateMachineTester";
+            this.Connection = this.sqlConnection1;
+            this.Modules.Add(this.module1);
+            this.Modules.Add(this.module2);
+            this.Modules.Add(this.module3);
+            this.Modules.Add(this.module4);
+            this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.stateMachineModule1);
+            this.Modules.Add(this.securityModule1);
+            this.Security = this.securityStrategyComplex1;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-            DatabaseVersionMismatch += StateMachineTesterAspNetApplication_DatabaseVersionMismatch;
-            ((ISupportInitialize)(this)).EndInit();
         }
     }
 }
