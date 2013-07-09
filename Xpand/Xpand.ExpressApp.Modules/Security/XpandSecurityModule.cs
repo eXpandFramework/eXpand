@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security {
@@ -17,6 +19,27 @@ namespace Xpand.ExpressApp.Security {
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            if (RuntimeMode) {
+                Application.SetupComplete += ApplicationOnSetupComplete;
+            }
+        }
+
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
+            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+        }
+
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
+            var keyValuePairs = new[]{
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
+            };
+            foreach (var keyValuePair in keyValuePairs) {
+                customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);    
+            }
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

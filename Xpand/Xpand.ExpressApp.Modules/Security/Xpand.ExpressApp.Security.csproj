@@ -13,9 +13,11 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
@@ -121,8 +123,14 @@
     <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="AuthenticationProviders\AuthenticationCombined.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="AuthenticationProviders\XpandLogonParameters.cs" />
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MyDetailsPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\FilterCustomPermissionsController.cs">
@@ -139,9 +147,11 @@
     </Compile>
     <Compile Include="Core\IsAllowedToRoleOperator.cs" />
     <Compile Include="Core\SecuritySystemExtensions.cs" />
+    <Compile Include="Permissions\MyDetailsPermission.cs" />
     <Compile Include="Permissions\PermissionProviderStorage.cs" />
     <Compile Include="Core\SecuritySystemRoleExtensions.cs" />
     <Compile Include="Core\XpandRole.cs" />
+    <Compile Include="Permissions\ModifierPermission.cs" />
     <Compile Include="Permissions\XpandPermissionData.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
