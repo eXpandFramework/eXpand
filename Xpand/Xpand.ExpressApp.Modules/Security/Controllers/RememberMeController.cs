@@ -23,12 +23,13 @@ namespace Xpand.ExpressApp.Security.Controllers {
         void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
             if (!loggingOffEventArgs.CanCancel)
                 return;
+            const string rememberMePropertyName = "RememberMe";
             if (HttpContext.Current != null) {
-                var httpCookie = HttpContext.Current.Response.Cookies[Application.ApplicationName + "RememberMe"];
+                var httpCookie = HttpContext.Current.Response.Cookies[Application.ApplicationName + rememberMePropertyName];
                 if (httpCookie != null) httpCookie.Expires = DateTime.Now.AddDays(-1);
             } else {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.LogonParameters.GetType());
-                var memberInfo = typeInfo.FindMember("RememberMe");
+                var memberInfo = typeInfo.FindMember(rememberMePropertyName);
                 if (memberInfo != null) memberInfo.SetValue(SecuritySystem.LogonParameters, false);
                 var logonParameterStoreCore = ((ISettingsStorage)sender).CreateLogonParameterStoreCore();
                 ObjectSerializer.WriteObjectPropertyValues(null, logonParameterStoreCore, SecuritySystem.LogonParameters);
