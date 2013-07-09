@@ -31,5 +31,8 @@ namespace Xpand.ExpressApp.Logic {
         public ExecutionContext ExecutionContext { get; set; }
 
         public ActionBase Action { get; set; }
+        public override string ToString() {
+            return ReferenceEquals(Rule,null) ? base.ToString() : Rule.ToString();
+        }
     }
 }
