@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
 using System.Linq;
 using Xpand.ExpressApp.Attributes;
@@ -14,9 +15,13 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 var navigationItemAttributes = modelClass.TypeInfo.FindAttributes<XpandNavigationItemAttribute>();
                 foreach (var itemAttribute in navigationItemAttributes) {
                     var paths = itemAttribute.Path.Split('/');
-                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), itemAttribute.ViewId, itemAttribute.ObjectKey, itemAttribute.Index);
+                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), ViewId(itemAttribute, modelClass.TypeInfo.Type.Namespace), itemAttribute.ObjectKey, itemAttribute.Index);
                 }
             }
+        }
+
+        string ViewId(XpandNavigationItemAttribute itemAttribute, string ns) {
+            return !ModelNodeIdHelper.ProcessShortViewIDs ? string.Format("{0}.{1}", ns, itemAttribute.ViewId) : itemAttribute.ViewId;
         }
 
         void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string viewId, string objectKey, int index) {
