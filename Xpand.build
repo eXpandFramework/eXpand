@@ -196,7 +196,7 @@
 <!--			Condition="$(FilesToParseCount) > 0"-->
 <!--			RegexPattern="c52ffed5d5ff0958" Replacement="c52ffed5d5ff0958" Files="@(FilesToParse)"/>-->
 <!--	</Target>-->
-		<Target Name="FixReferences">
+		<Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
     <FixReferences MSBuildProjectDirectory="$(MSBuildProjectDirectory)" ProjectFiles="@(ProjectFiles)" Token="c52ffed5d5ff0958" />
   </Target>
 	<!-- 
