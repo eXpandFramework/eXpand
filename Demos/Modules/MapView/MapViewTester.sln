@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module", "MapViewTester.Module\MapViewTester.Module.csproj", "{EF04B36B-E62F-40CB-8BC6-C1B740489383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module.Web", "MapViewTester.Module.Web\MapViewTester.Module.Web.csproj", "{7F35AA45-1714-44F7-813B-CD7104541ACA}"
+EndProject
+Project("{00000000-0000-0000-0000-000000000000}") = "MapViewTester.Web", "MapViewTester.Web\MapViewTester.Web.csproj", "{EF27B268-6029-49DA-9956-EE3E303BC5A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module.Win", "MapViewTester.Module.Win\MapViewTester.Module.Win.csproj", "{8708CC79-0FB7-40E1-A15A-72C0566F69EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Win", "MapViewTester.Win\MapViewTester.Win.csproj", "{AC53C9E5-B661-4D60-BC6F-7277618BBE55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		EasyTest|Any CPU = EasyTest|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8708CC79-0FB7-40E1-A15A-72C0566F69EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC53C9E5-B661-4D60-BC6F-7277618BBE55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
