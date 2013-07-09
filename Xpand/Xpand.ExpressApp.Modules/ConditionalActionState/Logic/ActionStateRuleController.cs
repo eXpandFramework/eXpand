@@ -14,6 +14,10 @@ namespace Xpand.ExpressApp.ConditionalActionState.Logic {
             IActionStateRule rule = logicRuleInfo.Rule;
             foreach (ActionBase actionBase in GetActions(rule)) {
                 switch (rule.ActionState) {
+                    case ActionState.ForceActive: {
+                        actionBase.Active.Clear();
+                        break;
+                    }
                     case ActionState.Hidden:
                         ActivateDeActivateAction(logicRuleInfo, actionBase);
                         break;
