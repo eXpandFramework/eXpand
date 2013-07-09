@@ -53,6 +53,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Artem.Google, Version=6.1.0.0, Culture=neutral, PublicKeyToken=fc8d6190a3aeb01c, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -114,6 +117,8 @@
     <Reference Include="System.EnterpriseServices">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web">
       <Private>False</Private>
     </Reference>
@@ -207,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WebApplication.resx">
       <DependentUpon>WebApplication.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -219,6 +225,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\MapView.Web\Xpand.ExpressApp.MapView.Web.csproj">
+      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
+      <Name>Xpand.ExpressApp.MapView.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\MapView\Xpand.ExpressApp.MapView.csproj">
+      <Project>{a334ac3a-c12b-484d-ae4e-da24038f443d}</Project>
+      <Name>Xpand.ExpressApp.MapView</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MapViewTester.Module.Web\MapViewTester.Module.Web.csproj">
       <Project>{7F35AA45-1714-44F7-813B-CD7104541ACA}</Project>
       <Name>MapViewTester.Module.Web</Name>

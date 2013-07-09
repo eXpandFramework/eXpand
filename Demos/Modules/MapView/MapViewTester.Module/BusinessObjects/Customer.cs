@@ -5,11 +5,12 @@ using System.Text;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.MapView;
 
 namespace MapViewTester.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class Customer : Person
+    public class Customer : Person, IGeoCoded
     {
         public Customer(Session session)
             : base(session)
@@ -18,6 +19,18 @@ namespace MapViewTester.Module.BusinessObjects
 
         [Association, Aggregated]
         public XPCollection<SalesVolume> SalesVolumes { get { return GetCollection<SalesVolume>("SalesVolumes"); } }
+
+
+        string IGeoCoded.Address
+        {
+            get
+            {
+                if (Address1 != null)
+                    return Address1.FullAddress;
+
+                return string.Empty;
+            }
+        }
     }
 
     public class SalesVolume : BaseObject

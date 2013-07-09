@@ -16,6 +16,10 @@ namespace MapViewTester.Web {
         SystemAspNetModule module2;
         MapViewTesterModule module3;
         MapViewTesterAspNetModule module4;
+        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
+        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
+        private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
+        private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
         SqlConnection sqlConnection1;
 
         public MapViewTesterAspNetApplication() {
@@ -57,32 +61,42 @@ namespace MapViewTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new MapViewTesterModule();
-            module4 = new MapViewTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
-            ((ISupportInitialize) (this)).BeginInit();
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this.module3 = new MapViewTester.Module.MapViewTesterModule();
+            this.module4 = new MapViewTester.Module.Web.MapViewTesterAspNetModule();
+            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
+            this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
-                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=MapViewTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
+    "apViewTester";
+            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // validationModule1
+            // 
+            this.validationModule1.AllowValidationDetailsAccess = true;
             // 
             // MapViewTesterAspNetApplication
             // 
             this.ApplicationName = "MapViewTester";
-            this.Connection = sqlConnection1;
-            this.Modules.Add(module1);
-            this.Modules.Add(module2);
-            this.Modules.Add(module3);
-            this.Modules.Add(module4);
+            this.Connection = this.sqlConnection1;
+            this.Modules.Add(this.module1);
+            this.Modules.Add(this.module2);
+            this.Modules.Add(this.module3);
+            this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.xpandSystemModule1);
+            this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.xpandSystemAspNetModule1);
+            this.Modules.Add(this.module4);
+            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.MapViewTesterAspNetApplication_DatabaseVersionMismatch);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-            this.DatabaseVersionMismatch +=
-                new EventHandler<DatabaseVersionMismatchEventArgs>(
-                    MapViewTesterAspNetApplication_DatabaseVersionMismatch);
-            ((ISupportInitialize) (this)).EndInit();
         }
     }
 }

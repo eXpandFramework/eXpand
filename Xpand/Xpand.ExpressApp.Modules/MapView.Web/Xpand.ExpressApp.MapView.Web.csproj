@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,7 +31,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,32 +40,29 @@
     <Reference Include="Artem.Google">
       <HintPath>..\packages\GoogleMapControl.6.1.12290.1016\lib\net40\Artem.Google.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.ExpressApp.Web.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\DevExpress.ExpressApp.Web.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Printing.v13.1.Core">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Data.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Xpo.v13.1">
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -90,20 +87,28 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=13.1.4.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Web, Version=13.1.4.13, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MapListEditor.cs" />
-    <Compile Include="Module.cs">
+    <Compile Include="XpandMapViewWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Module.Designer.cs">
-      <DependentUpon>Module.cs</DependentUpon>
+    <Compile Include="XpandMapViewWebModule.Designer.cs">
+      <DependentUpon>XpandMapViewWebModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Module.resx">
-      <DependentUpon>Module.cs</DependentUpon>
+    <EmbeddedResource Include="XpandMapViewWebModule.resx">
+      <DependentUpon>XpandMapViewWebModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -115,7 +120,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xpand.ExpressApp.MapView\Xpand.ExpressApp.MapView.csproj">
+    <ProjectReference Include="..\MapView\Xpand.ExpressApp.MapView.csproj">
       <Project>{a334ac3a-c12b-484d-ae4e-da24038f443d}</Project>
       <Name>Xpand.ExpressApp.MapView</Name>
     </ProjectReference>

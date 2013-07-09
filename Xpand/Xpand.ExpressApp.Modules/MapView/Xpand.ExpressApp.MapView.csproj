@@ -23,7 +23,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -31,38 +31,31 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Printing.v13.1.Core">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Data.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.10.0, PublicKeyToken=8f2823b07f50ed12">
-      <SpecificVersion>True</SpecificVersion>
+    <Reference Include="DevExpress.Xpo.v13.1">
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
