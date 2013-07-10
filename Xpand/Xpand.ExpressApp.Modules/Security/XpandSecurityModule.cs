@@ -7,16 +7,13 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
-    [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
+    [ToolboxItem(false)]
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
@@ -28,7 +25,6 @@ namespace Xpand.ExpressApp.Security {
                 Application.SetupComplete += ApplicationOnSetupComplete;
             }
         }
-
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
@@ -70,8 +66,8 @@ namespace Xpand.ExpressApp.Security {
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
         #region Overrides of XpandModuleBase
-        protected override Type ApplicationType() {
-            return typeof(ISettingsStorage);
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof(ISettingsStorage)};
         }
         #endregion
     }

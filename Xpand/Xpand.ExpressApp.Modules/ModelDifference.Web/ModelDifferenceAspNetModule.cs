@@ -35,8 +35,8 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
         }
 
         #region Overrides of XpandModuleBase
-        protected override Type ApplicationType() {
-            return typeof(XpandWebApplication);
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof(XpandWebApplication)};
         }
         #endregion
     }
