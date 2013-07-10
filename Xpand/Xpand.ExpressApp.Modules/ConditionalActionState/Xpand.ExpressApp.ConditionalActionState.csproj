@@ -10,11 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ConditionalActionState</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ConditionalActionState</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -154,8 +152,7 @@
     <Compile Include="Model\IModelActionStateRule.cs" />
     <Compile Include="NodeUpdaters\ActionStateRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\ActionStateRulePermission.cs">
-    </Compile>
+    <Compile Include="Security\ActionStateRulePermission.cs"></Compile>
     <Compile Include="Security\Improved\ActionStateOperationPermissionData.cs" />
     <Compile Include="Security\Improved\ActionStateRulePermission.cs" />
     <Compile Include="Security\Improved\PopulateActionsController.cs">
