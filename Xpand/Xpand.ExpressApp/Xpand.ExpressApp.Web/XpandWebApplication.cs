@@ -18,7 +18,8 @@ using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.Web {
-    public class XpandWebApplication : WebApplication, IXafApplication {
+
+    public class XpandWebApplication : WebApplication, IWebApplication {
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWebApplication() {
@@ -32,10 +33,9 @@ namespace Xpand.ExpressApp.Web {
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
         }
+
         public virtual AutoCreateOption AutoCreateOption {
-            get {
-                return this.AutoCreateOption();
-            }
+            get { return this.AutoCreateOption(); }
         }
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
@@ -123,6 +123,10 @@ namespace Xpand.ExpressApp.Web {
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
+        }
+
+        public new void WriteSecuredLogonParameters() {
+            base.WriteSecuredLogonParameters();
         }
 
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {

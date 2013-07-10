@@ -33,7 +33,13 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     public interface IWinApplication : IXafApplication {
         void LogOff();
     }
+    public interface IWebApplication : IXafApplication, IWriteSecuredLogonParameters {
+        void LogOff();
+    }
 
+    public interface IWriteSecuredLogonParameters {
+        void WriteSecuredLogonParameters();
+    }
 
     public interface IConfirmationRequired {
         event CancelEventHandler ConfirmationRequired;
