@@ -11,6 +11,7 @@ using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.PropertyEditors;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win.SystemModule {

@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecurityTester.Module;
 using SecurityTester.Module.Web;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Web {
     public class SecurityTesterAspNetApplication : WebApplication, ISettingsStorage {

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace IOTester.Win {
     public partial class IOTesterWindowsFormsApplication : WinApplication, IConfirmationRequired {

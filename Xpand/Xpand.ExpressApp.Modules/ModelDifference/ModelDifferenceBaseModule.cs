@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.ModelDifference {

@@ -5,8 +5,9 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
+using Xpand.Persistent.Base.PersistentMetaData;
 
-namespace Xpand.Persistent.Base.PersistentMetaData {
+namespace Xpand.Persistent.Base.General {
     public interface ISettingsStorage {
         SettingsStorage CreateLogonParameterStoreCore();
     }

@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Security {

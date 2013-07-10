@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.TreeListEditors.Win;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.IO.Win {

@@ -12,6 +12,7 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo.DB;
 

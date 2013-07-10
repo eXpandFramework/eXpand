@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.PersistentMetaData;
 

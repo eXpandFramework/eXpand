@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win {

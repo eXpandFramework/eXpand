@@ -9,7 +9,7 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using IOTester.Module;
 using IOTester.Module.Web;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
     public class IOTesterAspNetApplication : WebApplication, IConfirmationRequired {

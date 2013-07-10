@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module", "IOTester.Module\IOTester.Module.csproj", "{7794EC1D-F5E0-4A1D-9013-AD91F680A691}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module.Web", "IOTester.Module.Web\IOTester.Module.Web.csproj", "{23A63369-AF23-4209-A6F0-B9F824869426}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "IOTester.Web", "IOTester.Web\IOTester.Web.csproj", "{C770725B-6B47-449D-95A0-B8506357715E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Web", "IOTester.Web\IOTester.Web.csproj", "{C770725B-6B47-449D-95A0-B8506357715E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module.Win", "IOTester.Module.Win\IOTester.Module.Win.csproj", "{D485AAEA-3571-45A4-8B43-95178434E4C6}"
 EndProject
