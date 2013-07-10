@@ -15,7 +15,6 @@ using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.ViewStrategies;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.Web {
@@ -126,8 +125,11 @@ namespace Xpand.ExpressApp.Web {
             return base.CreateLogonParameterStoreCore();
         }
 
-        public new void WriteSecuredLogonParameters() {
-            base.WriteSecuredLogonParameters();
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
         }
 
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
@@ -146,5 +148,11 @@ namespace Xpand.ExpressApp.Web {
             return null;
         }
 
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
+        }
     }
 }

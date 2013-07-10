@@ -11,6 +11,7 @@ namespace Xpand.Persistent.Base.General {
     public interface ISettingsStorage {
         SettingsStorage CreateLogonParameterStoreCore();
     }
+
     public class CreatingListEditorEventArgs : HandledEventArgs {
         readonly IModelListView _modelListView;
         readonly CollectionSourceBase _collectionSource;
@@ -39,7 +40,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public interface IWriteSecuredLogonParameters {
-        void WriteSecuredLogonParameters();
+        event HandledEventHandler CustomWriteSecuredLogonParameters;
     }
 
     public interface IConfirmationRequired {

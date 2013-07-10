@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Xpand.Utils.Helpers {
     public static class DateTimeUtils {
+
         public static IEnumerable<DateTime> GetDates() {
             return GetDates(DateTime.Today.Year);
         }
@@ -21,6 +22,11 @@ namespace Xpand.Utils.Helpers {
         }
         public static int GetMonths(this TimeSpan timespan) {
             return (int)(timespan.Days / 30.436875);
+        }
+
+        public static DateTime UnixTimeStampToDateTime(this long unixTimeStamp) {
+            var dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
         }
 
         public static string RelativeDate(this DateTime theDate) {

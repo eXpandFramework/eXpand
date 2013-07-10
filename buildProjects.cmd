@@ -19,6 +19,7 @@ call buildproject.cmd Xpand.ExpressApp.ModelArtifactState ".\Xpand\Xpand.Express
 call buildproject.cmd Xpand.ExpressApp.Win ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Web ".\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Security.Win ".\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj"
+call buildproject.cmd Xpand.ExpressApp.Security.Web ".\Xpand\Xpand.ExpressApp.Modules\Security.Web\Xpand.ExpressApp.Security.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation.Win ".\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj"
 call buildproject.cmd Xpand.ExpressApp.Validation.Web ".\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj"
 call buildproject.cmd Xpand.ExpressApp.Logic.Win ".\Xpand\Xpand.ExpressApp.Modules\Logic.Win\Xpand.ExpressApp.Logic.Win.csproj"
