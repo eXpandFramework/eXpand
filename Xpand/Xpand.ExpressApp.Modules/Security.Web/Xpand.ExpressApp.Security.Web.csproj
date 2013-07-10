@@ -123,7 +123,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RememberMeController.cs" />
+    <Compile Include="AutoAuthentication.cs" />
+    <Compile Include="RememberMeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandSecurityWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
