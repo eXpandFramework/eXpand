@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
         }
 
         string ViewId(XpandNavigationItemAttribute itemAttribute, string ns) {
-            return !ModelNodeIdHelper.ProcessShortViewIDs ? string.Format("{0}.{1}", ns, itemAttribute.ViewId) : itemAttribute.ViewId;
+            return !ModelNodeIdHelper.ProcessShortViewIDs && itemAttribute.ViewId.IndexOf(".", StringComparison.Ordinal)==-1 ? string.Format("{0}.{1}", ns, itemAttribute.ViewId) : itemAttribute.ViewId;
         }
 
         void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string viewId, string objectKey, int index) {
