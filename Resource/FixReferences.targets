@@ -97,7 +97,7 @@
                                      string MSBuildProjectDirectory) {
             
             reference.Add(new XElement(xNamespace + "SpecificVersion"){Value = "False"});
-            if (assemblyName.Contains("BaseImpl")||assemblyName.Contains("FilterDataStore"))
+            if (assemblyName.Contains("BaseImpl")||assemblyName.Contains("FilterDataStore")||||assemblyName.Contains("ModelAdaptor"))
                 reference.Add(new XElement(xNamespace + "Private"){Value = "True"});
                 
             if (reference.Attribute("Include").Value.StartsWith("Xpand.")){

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
@@ -23,8 +24,8 @@ namespace FeatureCenter.Module.ApplicationDifferences {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             var session = ((XPObjectSpace)ObjectSpace).Session;
-            if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, FeatureCenterModule.Application) == null) {
-                new ModelDifferenceObject(session).InitializeMembers(ModelCombine, FeatureCenterModule.Application);
+            if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, ApplicationHelper.Instance.Application) == null) {
+                new ModelDifferenceObject(session).InitializeMembers(ModelCombine, ApplicationHelper.Instance.Application);
                 var role = (XpandRole)ObjectSpace.GetRole(ModelCombine);
                 role.CanEditModel = true;
                 var permissionData = ObjectSpace.CreateObject<ModelCombineOperationPermissionData>();

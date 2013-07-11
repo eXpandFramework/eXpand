@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 
@@ -15,9 +16,9 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail {
             base.UpdateDatabaseAfterUpdateSchema();
             string name = typeof(ExistentAssemblyMasterDetailModelStore).Name;
             var session = ((XPObjectSpace)ObjectSpace).Session;
-            if (new QueryModelDifferenceObject(session).GetActiveModelDifference(name, FeatureCenterModule.Application) == null) {
+            if (new QueryModelDifferenceObject(session).GetActiveModelDifference(name, ApplicationHelper.Instance.Application) == null) {
                 ModelDifferenceObject modelDifferenceObject =
-                    new ModelDifferenceObject(session).InitializeMembers(name, FeatureCenterModule.Application);
+                    new ModelDifferenceObject(session).InitializeMembers(name, ApplicationHelper.Instance.Application);
                 modelDifferenceObject.Name = name;
                 ObjectSpace.CommitChanges();
             }
