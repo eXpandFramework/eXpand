@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
-            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProviders.OfType<IXpandObjectSpaceProvider>().Any()))
                 Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
         }
 
