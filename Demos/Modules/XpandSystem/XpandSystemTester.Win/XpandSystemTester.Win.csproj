@@ -123,6 +123,7 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelAdaptor">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
