@@ -90,10 +90,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             set { _loadFromPath = value; }
         }
 
+        public static bool SkipAssemblyCleanup { get; set; }
+
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
-            if ((Debugger.IsAttached||XpandModelEditor) && File.Exists(assemblyFilePath))
+            if (!SkipAssemblyCleanup && ((Debugger.IsAttached || XpandModelEditor) && File.Exists(assemblyFilePath)))
                 File.Delete(assemblyFilePath);
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             _createdInterfaces = new Dictionary<Type, string>();
