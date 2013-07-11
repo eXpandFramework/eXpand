@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -24,14 +22,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
     public sealed class XpandSystemWindowsFormsModule : XpandModuleBase {
         public const string XpandWin = "Xpand.Win";
-        static XpandSystemWindowsFormsModule() {
-            try {
-                Assembly.Load("Xpand.ExpressApp.ModelAdaptor, Version=*, Culture=neutral, PublicKeyToken=*");
-            } catch (FileNotFoundException e) {
-                throw new FileNotFoundException(
-                    "Xpand.ExpressApp.ModelAdaptor not found please reference it in your front end project and set its Copy Local=true",e);
-            }
-        }
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
         }

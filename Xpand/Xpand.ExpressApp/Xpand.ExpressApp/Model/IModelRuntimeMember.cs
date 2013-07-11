@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Model {
     [DomainLogic(typeof(IModelRuntimeMember))]
     public class ModelRuntimeMemberDomainLogic {
         public static IMemberInfo Get_MemberInfo(IModelRuntimeMember modelRuntimeMember) {
-            if (InterfaceBuilder.RuntimeMode) {
+            if (InterfaceBuilder.RuntimeMode&&!modelRuntimeMember.HasValue("MemberInfo")) {
                 CreateMemberInfo(modelRuntimeMember);
                 return modelRuntimeMember.ModelClass.TypeInfo.FindMember(modelRuntimeMember.Name);
             }
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Model {
             return false;
         }
 
-        static bool ValidState(IModelRuntimeMember runtimeMember, XpandCustomMemberInfo memberInfo) {
+        static bool ValidState(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
             if (CheckTag(runtimeMember)) return false;
             if (memberInfo == null && !String.IsNullOrEmpty(runtimeMember.Name)) {
                 runtimeMember.Tag = true;
@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.Model {
 
         static void CreateMemberInfoCore(IModelRuntimeMember modelRuntimeMember) {
             XPClassInfo classInfo = FindXPClassInfo(modelRuntimeMember);
-            var customMemberInfo = (XpandCustomMemberInfo) classInfo.FindMember(modelRuntimeMember.Name);
+            var customMemberInfo = classInfo.FindMember(modelRuntimeMember.Name) as XPCustomMemberInfo;
             if (ValidState(modelRuntimeMember, customMemberInfo)) {
                 var xpClassInfo = FindXPClassInfo(modelRuntimeMember);
                 var calcMemberInfo = (XpandCustomMemberInfo) xpClassInfo.FindMember(modelRuntimeMember.Name);
