@@ -227,16 +227,7 @@ namespace Xpand.ExpressApp {
                 return;
             ApplicationHelper.Instance.Initialize(application);
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
-            Type[] applicationTypes = ApplicationTypes();
-            foreach (var applicationType in applicationTypes) {
-                if (!applicationType.IsInstanceOfType(application)) {
-                    throw new CannotLoadInvalidTypeException(application.GetType().FullName + " must implement/derive from " +
-                                                             applicationType.FullName + Environment.NewLine +
-                                                             "Please check folder Demos/Modules/" +
-                                                             GetType().Name.Replace("Module", null) +
-                                                             " to see how to install correctly this module");
-                }
-            }
+            CheckApplicationTypes();
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             OnApplicationInitialized(application);
@@ -244,6 +235,20 @@ namespace Xpand.ExpressApp {
             application.SettingUp += ApplicationOnSettingUp;
             application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
             _setup2Called = true;
+        }
+
+        void CheckApplicationTypes() {
+            if (RuntimeMode) {
+                foreach (var applicationType in ApplicationTypes()) {
+                    if (!applicationType.IsInstanceOfType(Application)) {
+                        throw new CannotLoadInvalidTypeException(Application.GetType().FullName + " must implement/derive from " +
+                                                                 applicationType.FullName + Environment.NewLine +
+                                                                 "Please check folder Demos/Modules/" +
+                                                                 GetType().Name.Replace("Module", null) +
+                                                                 " to see how to install correctly this module");
+                    }
+                }
+            }
         }
 
         void ApplicationOnCreateCustomObjectSpaceProvider(object sender,
