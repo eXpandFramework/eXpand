@@ -23,8 +23,10 @@ namespace Xpand.ExpressApp.Core {
         }
 
         static void AddRuntimeMembers(IModelApplication model) {
+            bool needSchemaUpdate = false;
             foreach (IModelRuntimeMember modelRuntimeMember in GetCustomFields(model))
                 try {
+                    needSchemaUpdate = true;
                     Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
                     XPClassInfo typeInfo = _dictionary.GetClassInfo(classType);
                     lock (typeInfo) {
@@ -46,6 +48,9 @@ namespace Xpand.ExpressApp.Core {
                             modelRuntimeMember.Name,
                             exception.Message));
                 }
+            if (needSchemaUpdate) {
+                ApplicationHelper.Instance.Application.ObjectSpaceProvider.UpdateSchema();
+            }
         }
 
         static void UpdateMember(IModelRuntimeMember modelRuntimeMember, XPMemberInfo xpMemberInfo) {

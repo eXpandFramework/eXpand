@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void EnableBOModelClassMembersAddMenu() {
-            var childNodeTypes = Adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo);
+            var childNodeTypes = Adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo).Where(pair => pair.Key!="Member");
             foreach (var childNodeType in childNodeTypes) {
                 AddNodeAction.Items.Add(new ChoiceActionItem(childNodeType.Key, childNodeType.Value));
             }
