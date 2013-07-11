@@ -1,44 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.ExpressApp.Model;
 
-namespace Xpand.ExpressApp.Web.Controllers
-{
-    public class DisableProcessCurrentObjectController : ViewController
-    {
-        public DisableProcessCurrentObjectController()
-        {
+namespace Xpand.ExpressApp.Web.Controllers {
+    public class DisableProcessCurrentObjectController : ViewController<ListView> {
+        private const string STR_DisableProcessCurrentObjectController = "DisableProcessCurrentObjectController";
+        public DisableProcessCurrentObjectController() {
             TargetViewType = ViewType.ListView;
         }
-        protected override void OnDeactivated()
-        {
+        protected override void OnDeactivated() {
             if (IsMasterDetail) {
-                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active["HideViewElementsController"] = true;
-                Frame.GetController<ListViewController>().EditAction.Active["DisableProcessCurrentObjectController"] = true;
+                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = true;
+                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = true;
             }
             base.OnDeactivated();
         }
 
-        private bool IsMasterDetail {
-            get {
-                IModelListView listView = View.Model as IModelListView;
-                if (listView != null)
-                    return listView.MasterDetailMode == MasterDetailMode.ListViewAndDetailView;
-                else
-                    return false;
-            }
+        bool IsMasterDetail {
+            get { return View.Model != null && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
         }
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
 
             base.OnActivated();
             if (IsMasterDetail) {
-                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active["DisableProcessCurrentObjectController"] = false;
+                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = false;
+                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = false;
             }
         }
     }
