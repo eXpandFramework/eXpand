@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Security.Web {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (RuntimeMode) {
-                new AutoAuthentication().Attach(this);
+                new Authentication().Attach(this);
             }
         }
 
