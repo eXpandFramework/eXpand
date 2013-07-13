@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            if (ConnectionString != null && _existentTypesMemberCreator != null) {
+            if (ConnectionString != null && _existentTypesMemberCreator == null) {
                 _existentTypesMemberCreator = new ExistentTypesMemberCreator();
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
