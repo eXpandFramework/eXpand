@@ -21,11 +21,7 @@ namespace Xpand.ToolboxCreator {
                 Console.WriteLine("Unistalled");
                 return;
             }
-            RegistryKey assemblyFolderExKey = GetAssemblyFolderExKey(wow);
-            RegistryKey key = assemblyFolderExKey.CreateSubKey("Xpand");
-            if (key != null)
-                key.SetValue(null, AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
-            
+            AssemblyFoldersKey(wow);
 
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
                 try {
@@ -45,6 +41,22 @@ namespace Xpand.ToolboxCreator {
             var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\", true);
             Debug.Assert(openSubKey != null, "openSubKey != null");
             openSubKey.SetValue("ConfigurationChanged", DateTime.Now.ToFileTime(), RegistryValueKind.QWord);
+        }
+
+        static void AssemblyFoldersKey(string wow) {
+            var registryKeys = new[]{GetAssemblyFolderExKey(wow), Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\.NETFramework\AssemblyFolders", true)};
+            foreach (var registryKey in registryKeys) {
+                CreateXpandKey(registryKey);    
+            }
+        }
+
+        static void CreateXpandKey(RegistryKey assemblyFoldersKey) {
+            if (assemblyFoldersKey != null) {
+                var registryKey = assemblyFoldersKey.CreateSubKey("Xpand");
+                if (registryKey != null) {
+                    registryKey.SetValue(null, AppDomain.CurrentDomain.SetupInformation.ApplicationBase);
+                }
+            }
         }
 
         static RegistryKey GetAssemblyFolderExKey(string wow) {
