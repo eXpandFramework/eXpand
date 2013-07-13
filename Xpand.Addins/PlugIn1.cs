@@ -212,16 +212,22 @@ namespace XpandAddins {
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
 
             if (succeeded) {
-                string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
-                if (File.Exists(gacUtilPath)) {
-                    Project dteProject = CodeRush.Solution.Active.FindProjectFromUniqueName(project);
-                    if (ProjectExists(dteProject)) {
-                        Environment.CurrentDirectory = Path.GetDirectoryName(gacUtilPath) + "";
-                        string outputPath = dteProject.FindOutputPath();
-                        if (File.Exists(outputPath))
-                            Process.Start("gacutil.exe", String.Format(@"/i ""{0}"" /f", outputPath));
-                    } else {
-                        Log.Send("GagUtl Project Not Found:", dteProject.FileName);
+                if (project == "Xpand.ExpressApp.ModelEditor.csproj") {
+                    var outputPath = CodeRush.Solution.Active.FindProjectFromUniqueName(project).FindOutputPath();
+                    File.Copy(outputPath, Options.Storage.ReadString(Options.GetPageName(), Options.ModelEditorPath),true);
+                }
+                else {
+                    string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
+                    if (File.Exists(gacUtilPath)) {
+                        Project dteProject = CodeRush.Solution.Active.FindProjectFromUniqueName(project);
+                        if (ProjectExists(dteProject)) {
+                            Environment.CurrentDirectory = Path.GetDirectoryName(gacUtilPath) + "";
+                            string outputPath = dteProject.FindOutputPath();
+                            if (File.Exists(outputPath))
+                                Process.Start("gacutil.exe", String.Format(@"/i ""{0}"" /f", outputPath));
+                        } else {
+                            Log.Send("GagUtl Project Not Found:", dteProject.FileName);
+                        }
                     }
                 }
             }

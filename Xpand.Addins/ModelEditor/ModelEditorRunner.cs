@@ -26,7 +26,8 @@ namespace XpandAddIns.ModelEditor {
                 MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
                 return;
             }
-
+            File.Copy(path, Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""),true);
+            path = Path.Combine(Path.GetDirectoryName(assemblyPath)+"", Path.GetFileName(path)+"");
             string arguments = String.Format("\"{0}\" \"{2}\" \"{1}\"", Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
             if (File.Exists(path))
                 Process.Start(path, arguments);
