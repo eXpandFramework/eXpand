@@ -6,13 +6,11 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Xpo;
-using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.MetaData;
 using Xpand.Xpo;
 
@@ -23,11 +21,8 @@ namespace Xpand.ExpressApp.Model {
     [DomainLogic(typeof(IModelRuntimeMember))]
     public class ModelRuntimeMemberDomainLogic {
         public static IMemberInfo Get_MemberInfo(IModelRuntimeMember modelRuntimeMember) {
-            if (InterfaceBuilder.RuntimeMode&&!modelRuntimeMember.HasValue("MemberInfo")) {
-                CreateMemberInfo(modelRuntimeMember);
-                return modelRuntimeMember.ModelClass.TypeInfo.FindMember(modelRuntimeMember.Name);
-            }
-            return ModelMemberLogic.Get_MemberInfo(modelRuntimeMember);
+            CreateMemberInfo(modelRuntimeMember);
+            return modelRuntimeMember.ModelClass.TypeInfo.FindMember(modelRuntimeMember.Name);
         }
 
         static void UpdateAliasExpression(XpandCalcMemberInfo memberInfo, string aliasExpression) {
