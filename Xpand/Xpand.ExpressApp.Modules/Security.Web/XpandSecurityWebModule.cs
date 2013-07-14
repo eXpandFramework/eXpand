@@ -5,6 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Web {
@@ -21,7 +23,7 @@ namespace Xpand.ExpressApp.Security.Web {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptions, IModelOptionsAutoAuthentication>();
+            extenders.Add<IModelOptions, IModelOptionsAuthentication>();
         }
 
 

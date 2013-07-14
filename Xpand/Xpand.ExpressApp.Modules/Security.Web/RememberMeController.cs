@@ -3,8 +3,9 @@ using System.Web;
 using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.Security.Web {
-    public class RememberMeController : Controllers.RememberMeController {
+    public class RememberMeController : Xpand.ExpressApp.Security.Controllers.RememberMeController {
         protected override void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
+            return;
             if (!loggingOffEventArgs.CanCancel)
                 return;
             const string rememberMePropertyName = "RememberMe";

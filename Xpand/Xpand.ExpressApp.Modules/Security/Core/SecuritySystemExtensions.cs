@@ -12,7 +12,10 @@ using DevExpress.ExpressApp.Security.Strategy.PermissionMatrix;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
-using Xpand.Utils.Helpers;
+﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
+﻿using Xpand.ExpressApp.Security.Permissions;
+﻿using Xpand.Utils.Helpers;
+﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
 
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
@@ -59,6 +62,17 @@ namespace Xpand.ExpressApp.Security.Core {
             return objectSpace.GetDefaultRole("Default");
         }
 
+        public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole) {
+            var optionsAthentication = ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication;
+            var anonymousUserName = optionsAthentication.AnonymousAuthentication.AnonymousUser;
+            return GetAnonymousUser(systemRole, anonymousUserName);
+        }
+
+        public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole, string userName) {
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
+            return GetUser(objectSpace, userName);
+        }
+
         public static ISecurityUserWithRoles GetUser(this SecuritySystemRoleBase systemRole, string userName, string passWord = "") {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
             return GetUser(objectSpace, userName, passWord, systemRole);
@@ -89,6 +103,22 @@ namespace Xpand.ExpressApp.Security.Core {
                 administratorRole.IsAdministrative = true;
             }
             return administratorRole;
+        }
+
+        public static XpandRole GetAnonymousRole(this IObjectSpace objectSpace, string roleName, bool selfReadOnlyPermissions = true) {
+            var anonymousRole = (XpandRole) objectSpace.GetRole(roleName);
+            anonymousRole.Permissions.AddRange(new[]{
+                objectSpace.CreateModifierPermission<MyDetailsOperationPermissionData>(Modifier.Allow),
+                objectSpace.CreateModifierPermission<AnonymousLoginOperationPermissionData>(Modifier.Allow)
+            });
+            return  anonymousRole;
+        }
+
+
+        public static XpandPermissionData CreateModifierPermission<T>(this IObjectSpace objectSpace, Modifier modifier) where T : ModifierPermissionData {
+            var operationPermissionData = objectSpace.CreateObject<T>();
+            operationPermissionData.Modifier = modifier;
+            return operationPermissionData;
         }
 
         public static SecuritySystemRoleBase GetRole(this IObjectSpace objectSpace, string roleName,bool selfReadOnlyPermissions=true) {

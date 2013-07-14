@@ -13,18 +13,24 @@ namespace Xpand.ExpressApp.Security.Controllers {
         protected override void OnActivated() {
             base.OnActivated();
 
-            if (!SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Allow)))) {
+            if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
+                var isGranted = SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Allow)));
+                
                 _myDetailsController = Frame.GetController<DevExpress.ExpressApp.Security.MyDetailsController>();
                 if (_myDetailsController != null) {
-                    _myDetailsController.Active.SetItemValue(keyDisable, false);
+                    _myDetailsController.Active.SetItemValue(keyDisable, !isGranted);
                 }
                 _showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
                 if (_showNavigationItemController != null) {
                     _myDetailsItem = FindMyDetailsItem(_showNavigationItemController.ShowNavigationItemAction.Items);
                     if (_myDetailsItem != null) {
-                        _myDetailsItem.Active.SetItemValue(keyDisable, false);
+                        _myDetailsItem.Active.SetItemValue(keyDisable, !isGranted);
                     }
                 }
+                
+            }
+            else {
+                Active["IsAdmin"] = false;
             }
         }
         protected override void OnDeactivated() {

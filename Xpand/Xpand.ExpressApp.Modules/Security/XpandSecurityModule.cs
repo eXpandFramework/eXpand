@@ -5,8 +5,11 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General;
@@ -17,6 +20,7 @@ namespace Xpand.ExpressApp.Security {
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -32,7 +36,9 @@ namespace Xpand.ExpressApp.Security {
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
             var keyValuePairs = new[]{
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
             };
             foreach (var keyValuePair in keyValuePairs) {
                 customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);    
@@ -51,9 +57,18 @@ namespace Xpand.ExpressApp.Security {
                         CriteriaOperator.RegisterCustomFunction(new IsAllowedToRoleOperator());
                     }
                 }
+                AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
             }
         }
 
+        void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
+            foreach (var type in types) {
+                var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(type));
+                foreach (var typeInfo in typeDescendants) {
+                    typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("SimpleModifer"));
+                }
+            }
+        }
         void CreateMember(ITypesInfo typesInfo, IRoleTypeProvider roleTypeProvider, SecurityOperationsAttribute attribute) {
             var roleTypeInfo = typesInfo.FindTypeInfo(roleTypeProvider.RoleType);
             if (roleTypeInfo.FindMember(attribute.OperationProviderProperty) == null) {

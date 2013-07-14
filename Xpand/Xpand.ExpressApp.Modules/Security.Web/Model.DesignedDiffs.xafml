@@ -1,4 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-
+  <Views>
+    <DetailView Id="Xpand.ExpressApp.Security.Web.AuthenticationProviders.AnonymousLogonParameters_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="XpandLogonParameters" Index="0" RelativeSize="100" ImageName="">
+              <LayoutItem Id="UserName" SizeConstraintsType="Default" Index="0" RelativeSize="4" ViewItem="UserName" />
+              <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" Index="1" ViewItem="Password" />
+              <LayoutItem Id="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="92" ViewItem="RememberMe" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

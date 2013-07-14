@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.Security;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -9,7 +10,12 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
 
         [Index(2)]
         public bool RememberMe { get; set; }
-
+        
+        [Browsable(false)]
+        public bool AutoAuthentication {
+            get { return ApplicationHelper.Instance.Application!=null && ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication.AutoAthentication.Enabled; }
+        }
+        
         void ICustomObjectSerialize.ReadPropertyValues(SettingsStorage storage) {
             ReadPropertyValuesCore(storage);
         }

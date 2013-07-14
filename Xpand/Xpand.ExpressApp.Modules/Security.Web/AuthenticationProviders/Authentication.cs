@@ -5,27 +5,18 @@ using System.Web;
 using System.Web.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.Security.Web {
-    public interface IOptionsAthentication : IModelNode {
-        [Description("If enabled you need to use XpandLogonParameters object in your authentication ")]
-        bool EnableAutoAuthentication { get; set; }
-        [DefaultValue(15)]
-        [Description("The time in days after which the authentication ticket will expire. To ue the Session timeout set this value to zero")]
-        int TicketExpiration { get; set; }
-        [DefaultValue(true)]
-        bool UseOnlySecuredStorage { get; set; }
-    }
-    public interface IModelOptionsAutoAuthentication {
-        IOptionsAthentication Athentication { get; }
-    }
+namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
+
     public class Authentication {
-        IOptionsAthentication _athentication;
+        IModelAutoAthentication _autoAthentication;
+        IModelAnonymousAuthentication _anonymousAuthentication;
 
         void ApplicationOnLoggingOn(object sender, LogonEventArgs logonEventArgs) {
             var webApplication = ((WebApplication)sender);
@@ -44,18 +35,29 @@ namespace Xpand.ExpressApp.Security.Web {
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var webApplication = ((WebApplication) sender);
             webApplication.SetupComplete -= ApplicationOnSetupComplete;
-            _athentication = ((IModelOptionsAutoAuthentication)webApplication.Model.Options).Athentication;
-            if (_athentication.UseOnlySecuredStorage) {
+            _autoAthentication = ((IModelOptionsAuthentication)webApplication.Model.Options).Athentication.AutoAthentication;
+            _anonymousAuthentication = ((IModelOptionsAuthentication) webApplication.Model.Options).Athentication.AnonymousAuthentication;
+            if (_autoAthentication.UseOnlySecuredStorage) {
                 webApplication.LastLogonParametersWriting += ApplicationOnLastLogonParametersWriting;
             }
             if (AutomaticallyLogonEnabled(webApplication)) {
                 webApplication.CanAutomaticallyLogonWithStoredLogonParameters = true;
                 ((IWriteSecuredLogonParameters)webApplication).CustomWriteSecuredLogonParameters += OnCustomWriteSecuredLogonParameters;
             }
+            if (_anonymousAuthentication.Enabled) {
+                var anomymousLogonParameters = webApplication.Security.LogonParameters as AnonymousLogonParameters;
+                if (anomymousLogonParameters == null) {
+                    throw new NotImplementedException(webApplication.Security+" LogonParameter is not of type " +typeof(AnonymousLogonParameters));
+                }
+                var anonymousAuthenticationStandard = ((SecurityStrategyBase) webApplication.Security).Authentication as AnonymousAuthenticationStandard;
+                if (anonymousAuthenticationStandard == null) {
+                    throw new NotImplementedException("Seucirty authentication is not of type " + typeof(AnonymousAuthenticationStandard));
+                }
+            }
         }
 
         bool AutomaticallyLogonEnabled(WebApplication webApplication) {
-            var b = _athentication.EnableAutoAuthentication || webApplication.CanAutomaticallyLogonWithStoredLogonParameters;
+            var b = _autoAthentication.Enabled || webApplication.CanAutomaticallyLogonWithStoredLogonParameters;
             if (b&&!(webApplication.Security.LogonParameters is XpandLogonParameters))
                 throw new NotImplementedException("use XpandLogonParameters object in your authentication ");
             return b;
@@ -127,14 +129,22 @@ namespace Xpand.ExpressApp.Security.Web {
         }
 
         double GetExpiration() {
-            var ticketExpiration = _athentication.TicketExpiration;
+            var ticketExpiration = _autoAthentication.TicketExpiration;
             return ticketExpiration == 0
                        ? HttpContext.Current.Session.Timeout + 1
                        : new TimeSpan(ticketExpiration, 0, 0, 0).TotalMinutes;
         }
         public void Attach(ModuleBase securityModule) {
-            securityModule.Application.SetupComplete += ApplicationOnSetupComplete;
-            securityModule.Application.LoggingOn += ApplicationOnLoggingOn;        
+            var xafApplication = securityModule.Application;
+            xafApplication.SetupComplete += ApplicationOnSetupComplete;
+            xafApplication.LoggingOn += ApplicationOnLoggingOn;    
+            xafApplication.LastLogonParametersReading+=XafApplicationOnLastLogonParametersReading;
+        }
+
+        void XafApplicationOnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs lastLogonParametersReadingEventArgs) {
+//            if (((WebApplication) sender).CanAutomaticallyLogonWithStoredLogonParameters &&_anonymousAuthentication.Enabled) {
+//                ((AnonymousLogonParameters)lastLogonParametersReadingEventArgs.LogonObject).WriteOption("AnonymousLogin", false.ToString());
+//            }
         }
 
         void ApplicationOnLastLogonParametersWriting(object sender, LastLogonParametersWritingEventArgs lastLogonParametersWritingEventArgs) {

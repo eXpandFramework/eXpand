@@ -92,6 +92,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=13.1.5.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -123,10 +127,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication.cs" />
-    <Compile Include="RememberMeController.cs">
+    <Compile Include="AuthenticationProviders\Authentication.cs" />
+    <Compile Include="AuthenticationProviders\AnonymousLogonParameters.cs" />
+    <Compile Include="AuthenticationProviders\AnonymousAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\AnonymousLogonWindowsController.cs" />
     <Compile Include="XpandSecurityWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,12 +171,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\Security\Xpand.ExpressApp.Security.csproj">
-      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
-      <Name>Xpand.ExpressApp.Security</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
