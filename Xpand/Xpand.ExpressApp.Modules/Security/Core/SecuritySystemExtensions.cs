@@ -69,8 +69,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole, string userName) {
-            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
-            return GetUser(objectSpace, userName);
+            return systemRole.GetUser(userName);
         }
 
         public static ISecurityUserWithRoles GetUser(this SecuritySystemRoleBase systemRole, string userName, string passWord = "") {
