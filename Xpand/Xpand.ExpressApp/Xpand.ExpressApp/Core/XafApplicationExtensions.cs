@@ -124,7 +124,10 @@ namespace Xpand.ExpressApp.Core {
                 var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, ((IXafApplication)xafApplication).AutoCreateOption);
                 args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
             } else if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
+                var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
+                DisableObjectSpaceProderCreation = false;
                 xafApplication.CreateCustomObjectSpaceprovider(args);
+                DisableObjectSpaceProderCreation=disableObjectSpaceProderCreation;
             }
         }
 
