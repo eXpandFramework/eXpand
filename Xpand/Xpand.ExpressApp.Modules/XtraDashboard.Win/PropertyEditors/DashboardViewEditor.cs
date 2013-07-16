@@ -54,6 +54,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
         }
 
         void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
+            Control.HandleCreated -= ControlOnHandleCreated;
             var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewEditor)Model);
             Control.BeginInvoke(new Action(() => {
                 var template = CurrentObject as IDashboardDefinition;

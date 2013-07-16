@@ -7,12 +7,12 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IExtendedCoreTypeMemberInfo))]
-    public class ExtendedCoreTypeMemberInfo:ExtendedMemberInfo, IExtendedCoreTypeMemberInfo {
-        public ExtendedCoreTypeMemberInfo(Session session) : base(session) {
+    public class ExtendedCoreTypeMemberInfo : ExtendedMemberInfo, IExtendedCoreTypeMemberInfo {
+        public ExtendedCoreTypeMemberInfo(Session session)
+            : base(session) {
         }
         DBColumnType _dataType;
-        public DBColumnType DataType
-        {
+        public DBColumnType DataType {
             get { return _dataType; }
             set { SetPropertyValue("Type", ref _dataType, value); }
         }

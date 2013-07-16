@@ -24,7 +24,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public string TypeInfoName {
             get { return GetType().Name.Replace("Persistent", ""); }
         }
-
+        [Browsable(false)]
         public PersistentClassInfo OwnerClassInfo {
             get { return _ownerClassInfo; }
             set { SetPropertyValue("OwnerClassInfo", ref _ownerClassInfo, value); }
