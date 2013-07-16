@@ -14,14 +14,14 @@ namespace Xpand.ExpressApp.ViewVariants {
     public interface IModelClassViewClonable {
         [Description("Determines if the clone action will be shown for the view")]
         [Category("eXpand.ViewVariants")]
-        bool IsClonable { get; set; }
+        bool IsViewClonable { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassViewClonable), "ModelClass")]
     public interface IModelListViewViewClonable : IModelClassViewClonable {
     }
 
     public class ModifyVariantsController : ViewController<XpandListView>, IModelExtender {
-        private const string IsClonable = "IsClonable";
+        private const string IsClonable = "IsViewClonable";
         private const string Rename = "Rename";
         private const string Clone1 = "Clone";
         private const string Delete = "Delete";
@@ -144,7 +144,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
         protected override void OnViewControllersActivated() {
             base.OnViewControllersActivated();
-            _viewVariantsChoiceAction.Active[IsClonable] = ((IModelListViewViewClonable)_rootView).IsClonable && Frame.GetController<ChangeVariantController>().ChangeVariantAction.Active;
+            _viewVariantsChoiceAction.Active[IsClonable] = ((IModelListViewViewClonable)_rootView).IsViewClonable && Frame.GetController<ChangeVariantController>().ChangeVariantAction.Active;
         }
 
         private IModelVariant GetNewVariantNode(ViewCloner viewCloner) {
