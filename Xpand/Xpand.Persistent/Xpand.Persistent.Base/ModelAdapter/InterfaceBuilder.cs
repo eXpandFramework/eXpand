@@ -79,10 +79,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
         }
         public static bool XpandModelEditor {
-            get {
-                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor" };
-                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName);
-            }
+            get { return Process.GetCurrentProcess().ProcessName == "Xpand.ExpressApp.ModelEditor"; }
         }
 
         public static bool LoadFromPath {
@@ -95,21 +92,23 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
-            if (!SkipAssemblyCleanup && ((Debugger.IsAttached || XpandModelEditor) && File.Exists(assemblyFilePath)))
+            var isAttached = Debugger.IsAttached;
+            if (!SkipAssemblyCleanup && ((isAttached || XpandModelEditor) && File.Exists(assemblyFilePath)))
                 File.Delete(assemblyFilePath);
+            _fileExistInPath = File.Exists(assemblyFilePath);
+            if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
+                return Assembly.LoadFile(assemblyFilePath);
+            }
+            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
+                return _assemblies[_assemblyName];
+            }
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.Add(_usingTypes);
             string[] references = _referencesCollector.References.ToArray();
-            _fileExistInPath = File.Exists(assemblyFilePath);
-            if (LoadFromPath && _fileExistInPath&&VersionMatch(assemblyFilePath)) {
-                return Assembly.LoadFile(assemblyFilePath);
-            }
-            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
-                return _assemblies[_assemblyName];
-            }
+            
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
             _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
