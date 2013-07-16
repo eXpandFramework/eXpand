@@ -50,14 +50,18 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
         }
 
         protected override void ReadValueCore() {
+            Control.HandleCreated+=ControlOnHandleCreated;
+        }
+
+        void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
             var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewEditor)Model);
             Control.BeginInvoke(new Action(() => {
                 var template = CurrentObject as IDashboardDefinition;
                 DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
                 DashboardViewer.AllowPrintDashboard = modelPropertyEditorDashboardViewEditor.AllowPrintDashboard;
-                DashboardViewer.AllowPrintDashboardItems = modelPropertyEditorDashboardViewEditor.AllowPrintDashboardItems;
-         }));
-
+                DashboardViewer.AllowPrintDashboardItems =
+                    modelPropertyEditorDashboardViewEditor.AllowPrintDashboardItems;
+            }));
         }
     }
 }
