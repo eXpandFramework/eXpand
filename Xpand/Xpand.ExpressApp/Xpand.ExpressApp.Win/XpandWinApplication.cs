@@ -19,7 +19,7 @@ using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.ExpressApp.Core;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win {
 

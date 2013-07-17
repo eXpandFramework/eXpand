@@ -4,19 +4,45 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Utils;
+using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
-    [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
+    [ToolboxItem(false)]
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            if (RuntimeMode) {
+                Application.SetupComplete += ApplicationOnSetupComplete;
+            }
+        }
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
+            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+        }
+
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
+            var keyValuePairs = new[]{
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
+            };
+            foreach (var keyValuePair in keyValuePairs) {
+                customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);    
+            }
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -31,9 +57,18 @@ namespace Xpand.ExpressApp.Security {
                         CriteriaOperator.RegisterCustomFunction(new IsAllowedToRoleOperator());
                     }
                 }
+                AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
             }
         }
 
+        void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
+            foreach (var type in types) {
+                var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(type));
+                foreach (var typeInfo in typeDescendants) {
+                    typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("SimpleModifer"));
+                }
+            }
+        }
         void CreateMember(ITypesInfo typesInfo, IRoleTypeProvider roleTypeProvider, SecurityOperationsAttribute attribute) {
             var roleTypeInfo = typesInfo.FindTypeInfo(roleTypeProvider.RoleType);
             if (roleTypeInfo.FindMember(attribute.OperationProviderProperty) == null) {
@@ -46,8 +81,8 @@ namespace Xpand.ExpressApp.Security {
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
         #region Overrides of XpandModuleBase
-        protected override Type ApplicationType() {
-            return typeof(ISettingsStorage);
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof(ISettingsStorage)};
         }
         #endregion
     }

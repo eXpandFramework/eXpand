@@ -14,11 +14,12 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.ViewStrategies;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.Web {
-    public class XpandWebApplication : WebApplication, IXafApplication {
+
+    public class XpandWebApplication : WebApplication, IWebApplication {
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWebApplication() {
@@ -32,10 +33,9 @@ namespace Xpand.ExpressApp.Web {
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
         }
+
         public virtual AutoCreateOption AutoCreateOption {
-            get {
-                return this.AutoCreateOption();
-            }
+            get { return this.AutoCreateOption(); }
         }
 
         protected virtual void OnUserDifferencesLoaded(EventArgs e) {
@@ -125,6 +125,13 @@ namespace Xpand.ExpressApp.Web {
             return base.CreateLogonParameterStoreCore();
         }
 
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
         }
@@ -141,5 +148,11 @@ namespace Xpand.ExpressApp.Web {
             return null;
         }
 
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
+        }
     }
 }

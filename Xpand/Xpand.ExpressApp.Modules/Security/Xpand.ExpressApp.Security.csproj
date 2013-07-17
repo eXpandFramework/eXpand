@@ -55,6 +55,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Printing.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -82,7 +85,6 @@
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
@@ -118,11 +120,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationProviders\Authentication.cs" />
     <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AuthenticationProviders\AuthenticationCombined.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AuthenticationProviders\XpandLogonParameters.cs" />
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MyDetailsPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\FilterCustomPermissionsController.cs">
@@ -139,9 +151,13 @@
     </Compile>
     <Compile Include="Core\IsAllowedToRoleOperator.cs" />
     <Compile Include="Core\SecuritySystemExtensions.cs" />
+    <Compile Include="Permissions\IsAdministratorPermission.cs" />
+    <Compile Include="Permissions\LogoffPermission.cs" />
+    <Compile Include="Permissions\MyDetailsPermission.cs" />
     <Compile Include="Permissions\PermissionProviderStorage.cs" />
     <Compile Include="Core\SecuritySystemRoleExtensions.cs" />
     <Compile Include="Core\XpandRole.cs" />
+    <Compile Include="Permissions\ModifierPermission.cs" />
     <Compile Include="Permissions\XpandPermissionData.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>

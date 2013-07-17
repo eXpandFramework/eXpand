@@ -28,6 +28,7 @@ namespace SecurityTester.Module.Web {
             // 
             this.RequiredModuleTypes.Add(typeof(SecurityTester.Module.SecurityTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.Web.XpandSecurityWebModule));
 
         }
 

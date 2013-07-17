@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Model;
@@ -22,6 +23,7 @@ namespace Xpand.ExpressApp {
             : base(provider) {
             _selectDataSecurityProvider = selectDataSecurityProvider;
             DataStoreProvider = provider;
+            Tracing.Tracer.LogVerboseValue(GetType().FullName,Environment.StackTrace);
         }
 
         public ISelectDataSecurityProvider SelectDataSecurityProvider {

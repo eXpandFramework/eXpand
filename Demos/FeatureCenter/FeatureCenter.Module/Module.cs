@@ -18,8 +18,6 @@ using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifferen
 
 namespace FeatureCenter.Module {
     public sealed partial class FeatureCenterModule : XpandModuleBase {
-        static XafApplication _application;
-
         public FeatureCenterModule() {
             InitializeComponent();
         }
@@ -39,14 +37,6 @@ namespace FeatureCenter.Module {
 
         }
 
-
-        public new static XafApplication Application {
-            get { return _application; }
-        }
-        protected override void OnApplicationInitialized(XafApplication xafApplication) {
-            base.OnApplicationInitialized(xafApplication);
-            _application = xafApplication;
-        }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Analysis)), IsExportedType));

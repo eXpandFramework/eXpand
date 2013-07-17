@@ -1,14 +1,8 @@
-﻿using System;
-using System.Web;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Utils;
-using Xpand.Persistent.Base.PersistentMetaData;
+﻿using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.Security.Controllers {
-    public class RememberMeController : WindowController {
-
-
-        public RememberMeController() {
+    public abstract class RememberMeController : WindowController {
+        protected RememberMeController() {
             TargetWindowType = WindowType.Main;
         }
         protected override void OnActivated() {
@@ -20,21 +14,6 @@ namespace Xpand.ExpressApp.Security.Controllers {
             Application.LoggingOff -= ApplicationOnLoggingOff;
         }
 
-        void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
-            if (!loggingOffEventArgs.CanCancel)
-                return;
-            if (HttpContext.Current != null) {
-                var httpCookie = HttpContext.Current.Response.Cookies[Application.ApplicationName + "RememberMe"];
-                if (httpCookie != null) httpCookie.Expires = DateTime.Now.AddDays(-1);
-            } else {
-                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SecuritySystem.LogonParameters.GetType());
-                var memberInfo = typeInfo.FindMember("RememberMe");
-                if (memberInfo != null) memberInfo.SetValue(SecuritySystem.LogonParameters, false);
-                var logonParameterStoreCore = ((ISettingsStorage)sender).CreateLogonParameterStoreCore();
-                ObjectSerializer.WriteObjectPropertyValues(null, logonParameterStoreCore, SecuritySystem.LogonParameters);
-            }
-
-        }
+        protected abstract void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs);
     }
-
 }

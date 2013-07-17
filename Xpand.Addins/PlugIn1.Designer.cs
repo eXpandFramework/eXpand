@@ -39,7 +39,6 @@ namespace XpandAddins {
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
             this._actionHint = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
@@ -117,7 +116,6 @@ namespace XpandAddins {
             this._actionHint.OptionsPath = null;
             this._actionHint.ResetDisplayCountOnStartup = false;
             this._actionHint.Text = null;
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();

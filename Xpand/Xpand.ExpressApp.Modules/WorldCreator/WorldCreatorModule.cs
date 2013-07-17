@@ -13,8 +13,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
 
-        protected override Type ApplicationType() {
-            return typeof(IWorldCreatorModule);
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof(IWorldCreatorModule)};
         }
 
 

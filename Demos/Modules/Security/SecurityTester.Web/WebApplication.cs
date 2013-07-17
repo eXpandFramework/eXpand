@@ -10,10 +10,10 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecurityTester.Module;
 using SecurityTester.Module.Web;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Web {
-    public class SecurityTesterAspNetApplication : WebApplication, ISettingsStorage {
+    public class SecurityTesterAspNetApplication : WebApplication, ISettingsStorage,IWriteSecuredLogonParameters {
         SystemModule module1;
         SystemAspNetModule module2;
         SecurityTesterModule module3;
@@ -85,6 +85,20 @@ namespace SecurityTester.Web {
 
             DatabaseVersionMismatch += SecurityTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();
+        }
+
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
         }
     }
 }

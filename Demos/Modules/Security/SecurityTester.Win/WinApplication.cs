@@ -5,7 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Win {
     public partial class SecurityTesterWindowsFormsApplication : WinApplication, ISettingsStorage {

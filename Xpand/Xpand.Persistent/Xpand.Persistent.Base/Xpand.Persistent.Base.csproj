@@ -221,7 +221,7 @@
     <Compile Include="Logic\Model\IModelViewContext.cs" />
     <Compile Include="Logic\Model\IModelViewContexts.cs" />
     <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
-    <Compile Include="PersistentMetaData\ComponentInterfaces.cs" />
+    <Compile Include="General\ComponentInterfaces.cs" />
     <Compile Include="PersistentMetaData\IWorldCreatorModule.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />

@@ -164,7 +164,7 @@ namespace FeatureCenter.Win {
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            this.authenticationStandard1.LogonParametersType = typeof(XpandLogonParameters);
             // 
             // FeatureCenterWindowsFormsApplication
             // 

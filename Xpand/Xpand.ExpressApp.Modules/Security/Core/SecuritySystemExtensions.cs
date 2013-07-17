@@ -12,7 +12,10 @@ using DevExpress.ExpressApp.Security.Strategy.PermissionMatrix;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
-using Xpand.Utils.Helpers;
+﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
+﻿using Xpand.ExpressApp.Security.Permissions;
+﻿using Xpand.Utils.Helpers;
+﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
 
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
@@ -42,14 +45,31 @@ namespace Xpand.ExpressApp.Security.Core {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
-                defaultRole.AddMemberAccessPermission(XpandModuleBase.UserType, "ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write);
-                defaultRole.SetTypePermissions(((IRoleTypeProvider)SecuritySystem.Instance).RoleType, SecurityOperations.Read, SecuritySystemModifier.Allow);
+                defaultRole.AddMemberAccessPermission(XpandModuleBase.UserType, "ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write, "[Oid] = CurrentUserId()");
+                defaultRole.GrandObjectAccessRecursively();
             }
             return defaultRole;
         }
 
+        public static void GrandObjectAccessRecursively(this SecuritySystemRoleBase defaultRole) {
+            Type roleType=defaultRole.GetType();
+            foreach (Type type in SecurityStrategy.GetSecuredTypes().Where(type => roleType == type || type.IsAssignableFrom(roleType))) {
+                defaultRole.AddObjectAccessPermission(type, "[Name]='" + defaultRole.Name + "'", SecurityOperations.ReadOnlyAccess);
+            }
+        }
+
         public static SecuritySystemRoleBase GetDefaultRole(this IObjectSpace objectSpace) {
             return objectSpace.GetDefaultRole("Default");
+        }
+
+        public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole) {
+            var optionsAthentication = ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication;
+            var anonymousUserName = optionsAthentication.AnonymousAuthentication.AnonymousUser;
+            return GetAnonymousUser(systemRole, anonymousUserName);
+        }
+
+        public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole, string userName) {
+            return systemRole.GetUser(userName);
         }
 
         public static ISecurityUserWithRoles GetUser(this SecuritySystemRoleBase systemRole, string userName, string passWord = "") {
@@ -84,11 +104,30 @@ namespace Xpand.ExpressApp.Security.Core {
             return administratorRole;
         }
 
-        public static SecuritySystemRoleBase GetRole(this IObjectSpace objectSpace, string roleName) {
+        public static XpandRole GetAnonymousRole(this IObjectSpace objectSpace, string roleName, bool selfReadOnlyPermissions = true) {
+            var anonymousRole = (XpandRole) objectSpace.GetRole(roleName);
+            anonymousRole.Permissions.AddRange(new[]{
+                objectSpace.CreateModifierPermission<MyDetailsOperationPermissionData>(Modifier.Allow),
+                objectSpace.CreateModifierPermission<AnonymousLoginOperationPermissionData>(Modifier.Allow)
+            });
+            return  anonymousRole;
+        }
+
+
+        public static XpandPermissionData CreateModifierPermission<T>(this IObjectSpace objectSpace, Modifier modifier) where T : ModifierPermissionData {
+            var operationPermissionData = objectSpace.CreateObject<T>();
+            operationPermissionData.Modifier = modifier;
+            return operationPermissionData;
+        }
+
+        public static SecuritySystemRoleBase GetRole(this IObjectSpace objectSpace, string roleName,bool selfReadOnlyPermissions=true) {
             var securityDemoRole = (SecuritySystemRoleBase)objectSpace.FindObject(XpandModuleBase.RoleType, new BinaryOperator("Name", roleName));
             if (securityDemoRole == null) {
                 securityDemoRole = (SecuritySystemRoleBase)objectSpace.CreateObject(XpandModuleBase.RoleType);
                 securityDemoRole.Name = roleName;
+                if (selfReadOnlyPermissions) {
+                    securityDemoRole.GrandObjectAccessRecursively();
+                }
             }
             return securityDemoRole;
         }
@@ -140,9 +179,6 @@ namespace Xpand.ExpressApp.Security.Core {
             permission.EffectiveWrite = defaultAllowValues;
             securitySystemTypePermissionObject.MemberPermissions.Add(permission);
             action.Invoke(permission);
-            //            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(securitySystemTypePermissionObject.TargetType);
-            //            var members = permission.Members.Split(',');
-            //            permission.Members = memb
             return permission;
         }
 

@@ -4,6 +4,7 @@
         Disabled,
         Hidden,
         Executed,
-        ExecutedAndDisable
+        ExecutedAndDisable,
+        ForceActive
     }
 }

@@ -5,11 +5,13 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
+using Xpand.Persistent.Base.PersistentMetaData;
 
-namespace Xpand.Persistent.Base.PersistentMetaData {
+namespace Xpand.Persistent.Base.General {
     public interface ISettingsStorage {
         SettingsStorage CreateLogonParameterStoreCore();
     }
+
     public class CreatingListEditorEventArgs : HandledEventArgs {
         readonly IModelListView _modelListView;
         readonly CollectionSourceBase _collectionSource;
@@ -33,7 +35,13 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
     public interface IWinApplication : IXafApplication {
         void LogOff();
     }
+    public interface IWebApplication : IXafApplication, IWriteSecuredLogonParameters {
+        void LogOff();
+    }
 
+    public interface IWriteSecuredLogonParameters {
+        event HandledEventHandler CustomWriteSecuredLogonParameters;
+    }
 
     public interface IConfirmationRequired {
         event CancelEventHandler ConfirmationRequired;

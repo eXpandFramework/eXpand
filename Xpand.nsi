@@ -189,14 +189,14 @@ SectionEnd
 # Installer functions
 Function .onInit
     InitPluginsDir
-    call SetGacutilPath
+    #call SetGacutilPath
 FunctionEnd
 
 # Uninstaller functions
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
-    call un.SetGacutilPath
+    #call un.SetGacutilPath
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 		#'"$INSTDIR\someprogram.exe" some parameters'
 		

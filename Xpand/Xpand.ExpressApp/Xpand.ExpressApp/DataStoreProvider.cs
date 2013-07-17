@@ -5,19 +5,22 @@ using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp {
     public class DataStoreProvider : IXpoDataStoreProxy {
-        private readonly DataStoreProxy proxyCore;
-        private readonly string connectionStringCore;
+        private readonly DataStoreProxy _storeProxy;
+        private readonly string _connectionString;
         public DataStoreProvider(string connectionString) {
-            connectionStringCore = connectionString;
-            proxyCore = new DataStoreProxy(connectionString);
+            _connectionString = connectionString;
+            _storeProxy = new DataStoreProxy(connectionString);
         }
 
         public DataStoreProvider(IDataStore dataStore) {
-            proxyCore = new DataStoreProxy(dataStore);
+            _storeProxy = new DataStoreProxy(dataStore);
+            var connectionProviderSql = dataStore as ConnectionProviderSql;
+            if (connectionProviderSql!=null)
+                _connectionString = connectionProviderSql.ConnectionString;
         }
 
         public string ConnectionString {
-            get { return connectionStringCore; }
+            get { return _connectionString; }
         }
         public virtual IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;
@@ -32,7 +35,7 @@ namespace Xpand.ExpressApp {
         }
         public virtual DataStoreProxy Proxy {
             get {
-                return proxyCore;
+                return _storeProxy;
             }
         }
     }

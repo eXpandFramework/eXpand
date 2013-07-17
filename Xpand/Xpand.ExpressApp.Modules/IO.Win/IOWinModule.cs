@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.TreeListEditors.Win;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.IO.Win {
     [ToolboxBitmap(typeof(IOWinModule))]
@@ -19,8 +19,8 @@ namespace Xpand.ExpressApp.IO.Win {
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
         }
         #region Overrides of XpandModuleBase
-        protected override Type ApplicationType() {
-            return typeof(IConfirmationRequired);
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof(IConfirmationRequired)};
         }
         #endregion
     }

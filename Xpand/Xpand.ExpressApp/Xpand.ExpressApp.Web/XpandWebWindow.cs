@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using Xpand.ExpressApp.Web.Layout;
 using System.Linq;
+using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.Web
 {
@@ -15,6 +16,8 @@ namespace Xpand.ExpressApp.Web
         public XpandWebWindow(XafApplication application, TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly)
             : base(application, context, controllers, isMain, activateControllersImmediatelly)
         {
+
+            ClientScripts.Add("XpandHelper", XpandLayoutManager.GetXpandHelperScript());
 
             ClientScripts.Add("XpandHelper", XpandLayoutManager.GetXpandHelperScript());
         }

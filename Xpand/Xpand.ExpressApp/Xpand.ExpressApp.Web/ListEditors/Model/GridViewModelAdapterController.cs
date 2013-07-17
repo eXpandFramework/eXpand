@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Utils;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Core;
@@ -55,7 +56,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act = info => (info.DXFilter() || typeof(PropertiesBase).IsAssignableFrom(info.PropertyType))
+                Act = info => (info.DXFilter(BaseGridViewControlTypes(),typeof(object)) || typeof(PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
                 Act = info => (info.DXFilter()) && info.Name != "Width"
@@ -68,6 +69,10 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
                     return info.DXFilter(BaseGridViewBandColumnControlTypes(), typeof(object));
                 } 
             };
+        }
+
+        IList<Type> BaseGridViewControlTypes() {
+            return new List<Type>{ typeof(AppearanceStyleBase) };
         }
 
         IList<Type> BaseGridViewBandColumnControlTypes() {

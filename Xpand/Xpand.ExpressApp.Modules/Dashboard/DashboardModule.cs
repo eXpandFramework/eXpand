@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using System.Linq;
 
 namespace Xpand.ExpressApp.Dashboard {
 
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.Dashboard {
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
-            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
+            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().Any()))
                 Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
         }
 

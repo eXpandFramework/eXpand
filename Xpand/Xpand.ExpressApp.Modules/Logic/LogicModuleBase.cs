@@ -70,10 +70,12 @@ namespace Xpand.ExpressApp.Logic {
             OnRulesCollected(EventArgs.Empty);
         }
 
+        static bool _permissionsReloaded;
         bool ReloadPermissions() {
             if (SecuritySystem.Instance is ISecurityComplex)
-                if (SecuritySystem.CurrentUser != null) {
+                if (SecuritySystem.CurrentUser != null && !_permissionsReloaded) {
                     SecuritySystem.ReloadPermissions();
+                    _permissionsReloaded = true;
                     return true;
                 }
             return false;

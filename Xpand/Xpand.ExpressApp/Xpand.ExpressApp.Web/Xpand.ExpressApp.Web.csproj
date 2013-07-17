@@ -16,8 +16,7 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -106,7 +105,6 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -125,6 +123,7 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelAdaptor">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
@@ -155,9 +154,6 @@
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Layout\GridViewListAdapter.cs" />
-    <Compile Include="Layout\IListControlAdapter.cs" />
-    <Compile Include="Layout\ListControlAdapterBase.cs" />
     <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
@@ -189,6 +185,9 @@
     <Compile Include="PropertyEditors\UriEditor.cs" />
     <Compile Include="Model\IModelOptionsCollectionEditMode.cs" />
     <Compile Include="SystemModule\NullTextController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\PreviewRowDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\UnboundColumnController.cs">

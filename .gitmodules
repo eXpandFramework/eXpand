@@ -1,0 +1,3 @@
+[submodule "DXBuildGenerator"]
+	path = DXBuildGenerator
+	url = https://github.com/derjabkin/DXBuildGenerator.git

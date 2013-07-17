@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -12,11 +11,14 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.Core {
     public static class XafApplicationExtensions {
+        static  XafApplicationExtensions() {
+            DisableObjectSpaceProderCreation = true;
+        }
         public static T FindModule<T>(this XafApplication xafApplication) where T : ModuleBase {
             return (T)xafApplication.Modules.FindModule(typeof(T));
         }
@@ -120,9 +122,12 @@ namespace Xpand.ExpressApp.Core {
             if (dataStoreNameSuffix == null) {
                 var connectionString = ConnectionString(xafApplication, args);
                 var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, ((IXafApplication)xafApplication).AutoCreateOption);
-                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new DataStoreProvider(connectionProvider));
+                args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
             } else if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
+                var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
+                DisableObjectSpaceProderCreation = false;
                 xafApplication.CreateCustomObjectSpaceprovider(args);
+                DisableObjectSpaceProderCreation=disableObjectSpaceProderCreation;
             }
         }
 

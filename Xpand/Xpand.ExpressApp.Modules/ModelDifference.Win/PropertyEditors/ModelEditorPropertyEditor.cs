@@ -13,6 +13,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase), true)]
@@ -65,7 +66,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         protected override void OnCurrentObjectChanged() {
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
+            InterfaceBuilder.SkipAssemblyCleanup = true;
             _masterModel = _modelLoader.GetMasterModel(false);
+            InterfaceBuilder.SkipAssemblyCleanup = false;
             base.OnCurrentObjectChanged();
         }
 
@@ -119,7 +122,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
             if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
+                InterfaceBuilder.SkipAssemblyCleanup = true;
                 _masterModel = _modelLoader.GetMasterModel(false);
+                InterfaceBuilder.SkipAssemblyCleanup = false;
                 CreateModelEditorController(aspect);
             }
         }
@@ -147,7 +152,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         private void CreateModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
+            InterfaceBuilder.SkipAssemblyCleanup = true;
             _masterModel = _modelLoader.ReCreate();
+            InterfaceBuilder.SkipAssemblyCleanup = false;
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
             }

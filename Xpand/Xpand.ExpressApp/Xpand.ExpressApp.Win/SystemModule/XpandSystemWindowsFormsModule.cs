@@ -11,7 +11,7 @@ using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.PropertyEditors;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -22,7 +22,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
     public sealed class XpandSystemWindowsFormsModule : XpandModuleBase {
         public const string XpandWin = "Xpand.Win";
-
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
         }

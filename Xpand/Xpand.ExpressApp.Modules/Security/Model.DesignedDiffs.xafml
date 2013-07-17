@@ -1,35 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.Security.AuthenticationProviders.XpandLogonParameters">
+      <AppearanceRules>
+        <AppearanceRule Id="Show_RememberMe_When_AutoAthentication" Criteria="AutoAuthentication=false" Visibility="Hide" TargetItems="RememberMe" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
   <SchemaModules IsNewNode="True">
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.1.2.5458" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.1.2.5458" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="SecurityRole_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="8" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="SecurityStrategyRole" ImageName="" Caption="SecurityStrategyRole" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-              <LayoutItem Id="Name" RelativeSize="51" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Name" />
-              <LayoutItem Id="CanEditModel" RelativeSize="48" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="CanEditModel" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="91" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="Permissions" RelativeSize="100" ImageName="Action_Grant" Caption="Permissions" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-              <LayoutItem Id="Permissions" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Permissions" />
-            </LayoutGroup>
-            <LayoutGroup Id="Users" RelativeSize="100" Caption="Users" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-              <LayoutItem Id="Users" RelativeSize="100" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Users" />
-            </LayoutGroup>
-            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="PersistentPermissions" IsNewNode="True">
-              <LayoutItem Id="PersistentPermissions" ViewItem="PersistentPermissions" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
-            </LayoutGroup>
-          </TabbedGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="XpandLogonParameters_DetailView">
+    <DetailView Id="Xpand.ExpressApp.Security.AuthenticationProviders.XpandLogonParameters_DetailView" >
       <Items>
         <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
         <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />

@@ -27,10 +27,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             }
         }
 
-        protected override Type ApplicationType() {
-            return RuntimeMode && Application is ServerApplication
-                       ? typeof(XpandServerApplication)
-                       : typeof(XpandWinApplication);
+        protected override Type[] ApplicationTypes() {
+            return new[]{RuntimeMode && Application is ServerApplication
+                             ? typeof(XpandServerApplication)
+                             : typeof(XpandWinApplication)};
         }
 
         void Application_Disposed(object sender, EventArgs e) {
