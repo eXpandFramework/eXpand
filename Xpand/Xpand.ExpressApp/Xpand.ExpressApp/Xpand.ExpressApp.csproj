@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -244,7 +245,7 @@
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DisableFullTextForMemoFieldsController.cs">
+    <Compile Include="SystemModule\Search\DisableFullTextForMemoFieldsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelListViewLinq.cs" />
