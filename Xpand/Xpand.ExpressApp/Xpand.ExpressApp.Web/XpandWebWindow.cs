@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Web
             }
         }
 
-        private static CType FindControlByType<CType>(Control parent) where CType : Control
+        public static CType FindControlByType<CType>(Control parent) where CType : Control
         {
             CType result = parent as CType;
             if (result != null) return result;

@@ -20,6 +20,7 @@ namespace MapViewTester.Web {
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
+        private Xpand.ExpressApp.MapView.Web.XpandMapViewWebModule xpandMapViewWebModule1;
         SqlConnection sqlConnection1;
 
         public MapViewTesterAspNetApplication() {
@@ -70,6 +71,7 @@ namespace MapViewTester.Web {
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
+            this.xpandMapViewWebModule1 = new Xpand.ExpressApp.MapView.Web.XpandMapViewWebModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -93,6 +95,7 @@ namespace MapViewTester.Web {
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.xpandSystemAspNetModule1);
+            this.Modules.Add(this.xpandMapViewWebModule1);
             this.Modules.Add(this.module4);
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.MapViewTesterAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
