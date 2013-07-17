@@ -11,7 +11,7 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelClassDisableFullTextForMemoFields {
-        [Category("eXpand")]
+        [Category(SearchFromViewController.AttributesCategory)]
         [Description("Remove all fields marked with unlimited size attribute from full text")]
         bool DisableFullTextForMemoFields { get; set; }
     }

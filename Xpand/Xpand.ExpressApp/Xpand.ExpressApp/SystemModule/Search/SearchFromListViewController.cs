@@ -4,7 +4,12 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public class SearchFromListViewController : SearchFromViewController {
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<FilterController>().CustomGetFullTextSearchProperties += OnCustomGetFullTextSearchProperties;
+            var filterController = Frame.GetController<FilterController>();
+            var modelListView = View.Model as IModelListViewFullTextSearch;
+            if (modelListView != null && modelListView.FullTextSearchMode.HasValue) {
+                filterController.FullTextSearchMode = modelListView.FullTextSearchMode.Value;
+            }
+            filterController.CustomGetFullTextSearchProperties += OnCustomGetFullTextSearchProperties;
         }
 
         protected override void OnDeactivated() {

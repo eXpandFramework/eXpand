@@ -11,11 +11,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelMemberSearchMode {
-        [Category("eXpand")]
+        [Category(SearchFromViewController.AttributesCategory)]
         [Description("Control if member will be included on full text search")]
         SearchMemberMode SearchMemberMode { get; set; }
+        
     }
     [ModelInterfaceImplementor(typeof(IModelMemberSearchMode), "ModelMember")]
     public interface IModelPropertyEditorSearchMode : IModelMemberSearchMode {
@@ -25,12 +26,25 @@ namespace Xpand.ExpressApp.SystemModule {
 
     }
 
-    public interface IModelClassSearchMemberMode {
-        [Category("eXpand")]
-        FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; } 
+    public interface IModelClassFullTextSearch:IModelNode {
+        [Category(SearchFromViewController.AttributesCategory)]
+        FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }
+        [Category(SearchFromViewController.AttributesCategory)]
+        SearchMode? FullTextSearchMode { get; set; }
+        [Category(SearchFromViewController.AttributesCategory)]
+        [DataSourceProperty("ListViews")]
+        IModelListView FullTextListView { get; set; }
+        [Browsable(false)]
+        IModelList<IModelListView> ListViews { get; }
     }
-    [ModelInterfaceImplementor(typeof(IModelClassSearchMemberMode), "ModelClass")]
-    public interface IModelListViewSearchMemberMode:IModelClassSearchMemberMode {
+    [DomainLogic(typeof(IModelClassFullTextSearch))]
+    public class ModelClassFullTextSearchDomainLogic {
+        public static IModelList<IModelListView> Get_ListViews(IModelClassFullTextSearch modelClassFullTextSearch) {
+            return new CalculatedModelNodeList<IModelListView>(modelClassFullTextSearch.Application.Views.OfType<IModelListView>());
+        }
+    }
+    [ModelInterfaceImplementor(typeof(IModelClassFullTextSearch), "ModelClass")]
+    public interface IModelListViewFullTextSearch:IModelClassFullTextSearch {
         
     }
     public class XpandSearchCriteriaBuilder : SearchCriteriaBuilder {
@@ -73,13 +87,15 @@ namespace Xpand.ExpressApp.SystemModule {
     }
 
     public class SearchFromViewController : ViewController, IModelExtender {
+        public const string AttributesCategory = "eXpand.Search";
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberSearchMode>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorSearchMode>();
             extenders.Add<IModelColumn, IModelColumnSearchMode>();
-            extenders.Add<IModelClass, IModelClassSearchMemberMode>();
-            extenders.Add<IModelListView, IModelListViewSearchMemberMode>();
+            extenders.Add<IModelClass, IModelClassFullTextSearch>();
+            extenders.Add<IModelListView, IModelListViewFullTextSearch>();
         }
+
         private string[] GetShownProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
             var visibleProperties = new List<string>();
             var modelColumns = ((ListView)View).Model.Columns.GetVisibleColumns().Where(column => !criteriaBuilder.ExcludedColumns.Contains(column.ModelMember.MemberInfo));
@@ -122,7 +138,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         FullTextSearchTargetPropertiesMode GetFullTextSearchTargetPropertiesMode() {
             var fullTextSearchTargetPropertiesMode = Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
-            var textSearchTargetPropertiesMode = ((IModelListViewSearchMemberMode) View.Model).FullTextSearchTargetPropertiesMode;
+            var textSearchTargetPropertiesMode = ((IModelListViewFullTextSearch) View.Model).FullTextSearchTargetPropertiesMode;
             if (textSearchTargetPropertiesMode.HasValue)
                 fullTextSearchTargetPropertiesMode = textSearchTargetPropertiesMode.Value;
             return fullTextSearchTargetPropertiesMode;
