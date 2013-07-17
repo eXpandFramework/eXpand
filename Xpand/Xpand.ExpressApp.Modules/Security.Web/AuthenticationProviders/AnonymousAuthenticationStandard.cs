@@ -3,10 +3,6 @@ using Xpand.ExpressApp.Security.AuthenticationProviders;
 
 namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
     public class AnonymousAuthenticationStandard : XpandAuthenticationStandard {
-        public override void ClearSecuredLogonParameters() {
-            base.ClearSecuredLogonParameters();
-//            LogonParameters.AnonymousLogin = true;
-        }
 
         public override bool AskLogonParametersViaUI {
             get {
