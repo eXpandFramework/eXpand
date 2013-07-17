@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Web.UI.WebControls;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
+    [PropertyEditor(typeof(DateTime),EditorAliases.TimeSpanPropertyEditor,false)]
     public class ASPxTimePropertyEditor : ASPxPropertyEditor {
         private const string TimeFormat = "HH:mm";
 
