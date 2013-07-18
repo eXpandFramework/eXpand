@@ -213,7 +213,7 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         private string GetPaneResizedEventScript(IListControlAdapter adapter) {
             return string.Format(CultureInfo.InvariantCulture,
-                                 "function (s,e) {{ alert('test'); if (e.pane.name==='listPane') {{ {0} }}}}",
+                                 "function (s,e) {{ if (e.pane.name==='listPane') {{ {0} }}}}",
                                   adapter.CreateSetBoundsScript("e.pane.GetClientWidth()", "e.pane.GetClientHeight()"));
         }
 
