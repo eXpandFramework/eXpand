@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
@@ -60,6 +61,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
 
         public override void Load(ModelApplicationBase model) {
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
             if (UseModelFromPath()) {
@@ -67,12 +69,17 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
-            if (_loadResources)
+            if (_loadResources) {
+                Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- CreateResourceModels");
                 CreateResourceModels(model, loadedModelDifferenceObjectInfos);
+            }
             if (model.Application.PreferredLanguage != language) {
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Layers added to application model");
             ObjectSpace.CommitChanges();
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Application model saved to the database");
+            
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {

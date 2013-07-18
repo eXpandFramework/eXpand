@@ -123,7 +123,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             }
 
             CombineWithActiveDifferenceObjects(model.LastLayer, modelDifferenceObjects);
-            RuntimeMemberBuilder.AddFields((IModelApplication)model);
+            RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication)model);
         }
         public override void Load(ModelApplicationBase model) {
 

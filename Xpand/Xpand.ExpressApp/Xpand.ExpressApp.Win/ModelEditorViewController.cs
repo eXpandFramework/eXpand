@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Win {
             SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
         }
         void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            RuntimeMemberBuilder.AddFields(ModelApplication);
+            RuntimeMemberBuilder.CreateRuntimeMembers(ModelApplication);
         }
 
         protected override void UpdateActionState() {

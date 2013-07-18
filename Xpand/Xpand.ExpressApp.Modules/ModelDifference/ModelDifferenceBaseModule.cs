@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!customModelDifferenceStoreEventArgs.Handled)
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
             ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, userDiffLayer);
-            RuntimeMemberBuilder.AddFields(Application.Model);
+            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
 
         public abstract string GetPath();

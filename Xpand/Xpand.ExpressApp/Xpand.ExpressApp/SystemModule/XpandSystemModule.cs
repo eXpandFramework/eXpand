@@ -72,10 +72,10 @@ namespace Xpand.ExpressApp.SystemModule {
             application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             application.SetupComplete +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model);
+                RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             application.LoggedOn +=
                 (sender, args) =>
-                RuntimeMemberBuilder.AddFields(application.Model);
+                RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
         }
 
         [Browsable(false)]
