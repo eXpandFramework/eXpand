@@ -25,7 +25,7 @@ using Xpand.Utils.Helpers;
 namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager {
 
-        private static readonly List<Tuple<Type,Type>> listControlAdapters = new List<Tuple<Type, Type>>();
+        private static readonly List<Tuple<Type, Type>> listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
         public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
@@ -33,14 +33,13 @@ namespace Xpand.ExpressApp.Web.Layout {
 
 
 
-        static XpandLayoutManager()
-        {
+        static XpandLayoutManager() {
             RegisterListControlAdapter(typeof(ASPxGridView), typeof(GridViewListAdapter));
         }
 
         public static void RegisterListControlAdapter(Type controlType, Type adapterType) {
             Guard.ArgumentNotNull(controlType, "controlType");
-            if (!typeof(IListControlAdapter).   IsAssignableFrom(adapterType))
+            if (!typeof(IListControlAdapter).IsAssignableFrom(adapterType))
                 throw new ArgumentException("Class must implement the IListControlAdapter interface", "adapterType");
 
             for (int i = 0; i < listControlAdapters.Count; i++) {
@@ -89,12 +88,12 @@ namespace Xpand.ExpressApp.Web.Layout {
         private static IListControlAdapter GetListControlAdapter(Control control) {
             Guard.ArgumentNotNull(control, "control");
 
-            Type t =  listControlAdapters.Where(at => at.Item1.IsInstanceOfType(control)).Select(at=>at.Item2).FirstOrDefault();
+            Type t = listControlAdapters.Where(at => at.Item1.IsInstanceOfType(control)).Select(at => at.Item2).FirstOrDefault();
             if (t == null)
                 throw new ArgumentException(
-                    string.Format(CultureInfo.InvariantCulture, "No IListControlAdapter found for controlType {0}",control.GetType()));
+                    string.Format(CultureInfo.InvariantCulture, "No IListControlAdapter found for controlType {0}", control.GetType()));
 
-            IListControlAdapter adapter =  (IListControlAdapter) Activator.CreateInstance(t);
+            IListControlAdapter adapter = (IListControlAdapter)Activator.CreateInstance(t);
             adapter.Control = control;
             return adapter;
         }
@@ -126,8 +125,9 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         private static string GetScript(string scriptName) {
             Type t = typeof(XpandLayoutManager);
-            return t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture,
-                "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
+
+            return
+                t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture, "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
         }
 
         private static string GetAdjustSizeScript() {
@@ -145,6 +145,7 @@ namespace Xpand.ExpressApp.Web.Layout {
 
             if (!(WebWindow.CurrentRequestWindow is PopupWindow))
                 updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
+
 
             updatePanel.ClientSideEvents.EndCallback = "function(s,e) {ProcessMarkup(s, true);}";
             updatePanel.CustomJSProperties += updatePanel_CustomJSProperties;
@@ -212,19 +213,22 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         private string GetPaneResizedEventScript(IListControlAdapter adapter) {
             return string.Format(CultureInfo.InvariantCulture,
-                                 "function (s,e) {{ if (e.pane.name==='listPane') {{ {0} }}}}",
+                                 "function (s,e) {{ alert('test'); if (e.pane.name==='listPane') {{ {0} }}}}",
                                   adapter.CreateSetBoundsScript("e.pane.GetClientWidth()", "e.pane.GetClientHeight()"));
         }
 
-        ASPxSplitter CreateSplitter(IModelSplitLayout splitLayout, IListControlAdapter adapter) {
+        private ASPxSplitter CreateSplitter(IModelSplitLayout splitLayout, IListControlAdapter adapter) {
             var splitter = new ASPxSplitter {
                 ID = "MasterDetailSplitter",
-                Orientation = (splitLayout.Direction == FlowDirection.Horizontal) ? Orientation.Horizontal : Orientation.Vertical,
+                Orientation =
+                    (splitLayout.Direction == FlowDirection.Horizontal)
+                        ? Orientation.Horizontal
+                        : Orientation.Vertical,
                 ShowCollapseBackwardButton = true,
                 ShowCollapseForwardButton = true
             };
 
-            splitter.PreRender += (s, e) => splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
+            splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
             return splitter;
         }
 

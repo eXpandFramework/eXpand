@@ -10,8 +10,15 @@ namespace Xpand.ExpressApp.Web.Layout {
 
 
         public override string CreateSetBoundsScript(string widthFunc, string heightFunc) {
-            return string.Format(CultureInfo.InvariantCulture, "var control = ASPxClientControl.GetControlCollection().GetByName('{0}'); control.SetWidth({1}); control.SetHeight({2});",
-                 Control.ClientID, widthFunc, heightFunc);
+            if (string.IsNullOrEmpty(Control.ClientInstanceName))
+                Control.ClientInstanceName = GenerateClientInstanceName();
+
+            return string.Format(CultureInfo.InvariantCulture, "var control = {0}; control.SetWidth({1}); control.SetHeight({2});",
+                 Control.ClientInstanceName, widthFunc, heightFunc);
+        }
+
+        private string GenerateClientInstanceName() {
+            return "ClientInstance_" + Guid.NewGuid().ToString("N");
         }
 
     }

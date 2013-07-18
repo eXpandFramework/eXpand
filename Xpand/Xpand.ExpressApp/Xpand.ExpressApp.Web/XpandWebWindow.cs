@@ -17,25 +17,7 @@ namespace Xpand.ExpressApp.Web
             : base(application, context, controllers, isMain, activateControllersImmediatelly)
         {
 
-            ClientScripts.Add("XpandHelper", XpandLayoutManager.GetXpandHelperScript());
-
-            ClientScripts.Add("XpandHelper", XpandLayoutManager.GetXpandHelperScript());
-        }
-
-        protected override void OnTemplateChanged()
-        {
-            base.OnTemplateChanged();
-            Page page = Template as Page;
-            if (page != null)
-            {
-                HtmlForm form = FindControlByType<HtmlForm>(page);
-                if (form != null)
-                {
-                    ScriptManager scriptManager = new ScriptManager();
-                    scriptManager.ID = "scriptManager";
-                    form.Controls.AddAt(0, scriptManager);
-                }
-            }
+            
         }
 
         public static CType FindControlByType<CType>(Control parent) where CType : Control

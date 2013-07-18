@@ -7,7 +7,6 @@ namespace Xpand.ExpressApp.Web {
     public class XpandPopupWindow : PopupWindow {
         public XpandPopupWindow(XafApplication application, TemplateContext context, ICollection<Controller> controllers)
             : base(application, context, controllers) {
-                ClientScripts.Add("XpandHelper", XpandLayoutManager.GetXpandHelperScript());
         }
 
         

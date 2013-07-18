@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -154,6 +155,9 @@
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Layout\GridViewListAdapter.cs" />
+    <Compile Include="Layout\IListControlAdapter.cs" />
+    <Compile Include="Layout\ListControlAdapterBase.cs" />
     <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
