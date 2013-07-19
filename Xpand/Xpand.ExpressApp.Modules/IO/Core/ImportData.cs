@@ -12,6 +12,7 @@ using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
 using DevExpress.Xpo.Metadata.Helpers;
+using Xpand.Xpo.ConnectionProviders;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class InitDataImporter {
@@ -179,10 +180,14 @@ namespace Xpand.ExpressApp.IO.Core {
                     }
                 }
 
+// ReSharper disable RedundantCatchClause
+#pragma warning disable 168
             } catch (Exception e) {
+#pragma warning restore 168
                 throw;
 
             } finally {
+// ReSharper restore RedundantCatchClause
                 outputUow.CommitChanges();
                 OnTransformRecords(new TransformRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName));
                 GenerationNext(outputUow);
@@ -494,21 +499,11 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         static Type PropertyType(Type propertyType, DBColumnType dbColumnType) {
-            var type = GetType(dbColumnType, propertyType);
+            var type = dbColumnType.GetType(propertyType);
             Guard.ArgumentNotNull(dbColumnType, dbColumnType.ToString());
-            if (propertyType == type)
-                return propertyType;
-            return type;
+            return propertyType == type ? propertyType : type;
         }
 
-        static Type GetType(DBColumnType dbColumnType, Type propertyType) {
-            Type underlyingNullableType = Nullable.GetUnderlyingType(propertyType);
-            if ((((underlyingNullableType != null && underlyingNullableType == typeof(TimeSpan) || propertyType == typeof(TimeSpan))) && dbColumnType == DBColumnType.Double))
-                return propertyType;
-            if (dbColumnType == DBColumnType.ByteArray)
-                return typeof(byte[]);
-            return Type.GetType(string.Format("System.{0}", dbColumnType));
-        }
 
         object Convert(object objectToConvert, Type conversionType) {
             try {

@@ -37,6 +37,7 @@ namespace Xpand.ExpressApp {
         static string _connectionString;
         static bool _customizeTypesInfoCalled;
         protected Type DefaultXafAppType = typeof (XafApplication);
+        static bool _compatibilityChecked;
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
@@ -234,8 +235,19 @@ namespace Xpand.ExpressApp {
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
             application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            application.CustomCheckCompatibility+=ApplicationOnCustomCheckCompatibility;
             _setup2Called = true;
         }
+
+        void ApplicationOnCustomCheckCompatibility(object sender, CustomCheckCompatibilityEventArgs customCheckCompatibilityEventArgs) {
+            ((XafApplication) sender).CustomCheckCompatibility-=ApplicationOnCustomCheckCompatibility;
+            _compatibilityChecked = true;
+        }
+
+        public static bool CompatibilityChecked {
+            get { return _compatibilityChecked; }
+        }
+
 
         void CheckApplicationTypes() {
             if (RuntimeMode) {

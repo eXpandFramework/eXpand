@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
@@ -7,12 +8,14 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
+using DevExpress.Xpo.DB.Helpers;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Xpo;
 using Xpand.Xpo.MetaData;
-using IXPSimpleObjectExtensions = Xpand.Xpo.IXPSimpleObjectExtensions;
 
 namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
@@ -21,42 +24,36 @@ namespace Xpand.ExpressApp.Core {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>().Distinct();
         }
 
-        
-
         public static void CreateRuntimeMembers(IModelApplication model) {
-            Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
-            foreach (IModelRuntimeMember modelRuntimeMember in GetRuntimeMembers(model))
-                CreateRuntimeMember(modelRuntimeMember);
-            
-            UpdateSchema();
-            
-        }
-
-        static void UpdateSchema() {
-            if (IXPSimpleObjectExtensions.ClassInfosToUpdate.Any()) {
-                var xpObjectSpace =ApplicationHelper.Instance.Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(true) as XPObjectSpace;
-                if (xpObjectSpace != null) {
-                    using (var updatingObjectSpace = xpObjectSpace) {
-                        updatingObjectSpace.Session.UpdateSchema(IXPSimpleObjectExtensions.ClassInfosToUpdate.ToArray());
-                        IXPSimpleObjectExtensions.ClassInfosToUpdate.Clear();
-                    }
-                    Tracing.Tracer.LogVerboseSubSeparator("Schema updated");
-                }
+            using (var objectSpace = CreateObjectSpace()) {
+                Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
+                foreach (var modelRuntimeMember in GetRuntimeMembers(model))
+                    CreateRuntimeMember(modelRuntimeMember,objectSpace as XPObjectSpace);
             }
+            Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
         }
 
-        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember) {
+        static IObjectSpace CreateObjectSpace() {
+            return XpandModuleBase.CompatibilityChecked?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
+        }
+
+        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember, XPObjectSpace objectSpace) {
             try {
                 Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
-                XPClassInfo typeInfo = _dictionary.GetClassInfo(classType);
-                lock (typeInfo) {
-                    var xpMemberInfo = typeInfo.FindMember(modelRuntimeMember.Name);
+                XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
+                lock (xpClassInfo) {
+                    var xpMemberInfo = xpClassInfo.FindMember(modelRuntimeMember.Name);
                     if (xpMemberInfo == null) {
-                        var memberInfo = CreateMemberInfo(modelRuntimeMember, typeInfo);
+                        var memberInfo = CreateMemberInfo(modelRuntimeMember, xpClassInfo);
                         AddAttributes(modelRuntimeMember, memberInfo);
                         XafTypesInfo.Instance.RefreshInfo(classType);
                     }
                     else {
+                        if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
+                            CreateColumn(objectSpace, xpMemberInfo, xpClassInfo);
+                            modelRuntimeMember.CreatedAtDesignTime = true;
+                            XafTypesInfo.Instance.RefreshInfo(classType);
+                        }
                         UpdateMember(modelRuntimeMember, xpMemberInfo);
                     }
                 }
@@ -70,6 +67,18 @@ namespace Xpand.ExpressApp.Core {
                         modelRuntimeMember.Name,
                         exception.Message));
             }
+        }
+
+        static void CreateColumn(XPObjectSpace objectSpace, XPMemberInfo xpMemberInfo, XPClassInfo xpClassInfo) {
+            var dbColumnType = DBColumn.GetColumnType(xpMemberInfo.StorageType);
+            var column = new DBColumn(xpMemberInfo.Name, false, null, xpMemberInfo.MappingFieldSize, dbColumnType);
+            var connectionProviderSql =((ConnectionProviderSql) ((BaseDataLayer) objectSpace.Session.DataLayer).ConnectionProvider);
+            var table = xpClassInfo.Table;
+            string textSql = String.Format(CultureInfo.InvariantCulture, "alter table {0} add {1} {2}",
+                                           connectionProviderSql.FormatTableSafe(table),
+                                           connectionProviderSql.FormatColumnSafe(column.Name),
+                                           connectionProviderSql.GetSqlCreateColumnFullAttributes(table, column));
+            connectionProviderSql.ExecSql(new Query(textSql));
         }
 
 
