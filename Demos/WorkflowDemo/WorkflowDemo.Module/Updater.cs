@@ -1,114 +1,17 @@
 using System;
-using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo;
-using System.Data.OleDb;
-using WorkflowDemo.Module;
-using System.Data;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.Workflow.Xpo;
-using DevExpress.ExpressApp.Workflow.Xpo;
-using WorkflowDemo.Module.Objects;
-using DevExpress.ExpressApp.Actions;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
-using System.ServiceModel;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Workflow;
-using DevExpress.ExpressApp.Workflow;
-using System.Activities;
+using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Workflow.Xpo;
+using DevExpress.Persistent.BaseImpl;
+using WorkflowDemo.Module.Objects;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
+using Task = WorkflowDemo.Module.Objects.Task;
 
 namespace WorkflowDemo.Module {
     public class Updater : ModuleUpdater {
-		public Updater(IObjectSpace objectSpace, Version currentDBVersion)
-			: base(objectSpace, currentDBVersion) {
-			
-		}
-                                                                                                       
-        public override void UpdateDatabaseAfterUpdateSchema() {
-            base.UpdateDatabaseAfterUpdateSchema();
-
-            CreateDemoObjects();
-        }
-
-		private void CreateDemoObjects() {
-            User user = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "Sam"));
-            if(user == null) {
-                user = ObjectSpace.CreateObject<User>();
-                user.UserName = "Sam";
-                user.FirstName = "Sam";
-            }
-            User user2 = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "John"));
-            if(user2 == null) {
-                user2 = ObjectSpace.CreateObject<User>();
-                user2.UserName = "John";
-                user2.FirstName = "John";
-            }
-
-            User workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
-            if(workflowServiceUser == null) {
-                workflowServiceUser = ObjectSpace.CreateObject<User>();
-                workflowServiceUser.UserName = "WorkflowService";
-                workflowServiceUser.FirstName = "WorkflowService";
-            }
-
-            Role adminRole = ObjectSpace.FindObject<Role>(new BinaryOperator("Name", "Administrators"));
-            if(adminRole == null) {
-                adminRole = ObjectSpace.CreateObject<Role>();
-                adminRole.Name = "Administrators";
-                adminRole.AddPermission(new ObjectAccessPermission(typeof(object), ObjectAccess.AllAccess));
-                adminRole.AddPermission(new EditModelPermission(ModelAccessModifier.Allow));
-                adminRole.Users.Add(user);
-                adminRole.Users.Add(workflowServiceUser);
-            }
-
-            if(ObjectSpace.GetObjects<Issue>().Count == 0) {
-                Issue issue = ObjectSpace.CreateObject<Issue>();
-                issue.Subject = "Processed issue";
-                issue.Active = false;
-                issue.SetCreatedBy(user);
-
-                Issue issue2 = ObjectSpace.CreateObject<Issue>();
-                issue2.Subject = "Active issue";
-                issue2.Active = true;
-                issue2.SetCreatedBy(user);
-            }
-
-            if(ObjectSpace.GetObjects<XpoWorkflowDefinition>().Count == 0) {
-                XpoWorkflowDefinition definition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
-                definition.Name = "Create Task for active Issue";
-                definition.Xaml = CreateTaskForActiveIssueWorkflowXaml;
-                definition.TargetObjectType = typeof(Issue);
-                definition.AutoStartWhenObjectFitsCriteria = true;
-                definition.Criteria = "[Active] = True";
-                definition.IsActive = true;
-
-                XpoWorkflowDefinition codeActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
-                codeActivityDefinition.Name = "Create Task for active Issue (Code Activity)";
-                codeActivityDefinition.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
-                codeActivityDefinition.TargetObjectType = typeof(Issue);
-                codeActivityDefinition.AutoStartWhenObjectFitsCriteria = true;
-                codeActivityDefinition.Criteria = "Contains([Subject], 'Code Activity')";
-                codeActivityDefinition.IsActive = true;
-
-				XpoWorkflowDefinition customStartWorkflowActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
-				customStartWorkflowActivityDefinition.Name = "Custom start workflow";
-				customStartWorkflowActivityDefinition.Xaml = StartWorkflowViaReceiveAndCustomContractXaml;
-				customStartWorkflowActivityDefinition.TargetObjectType = typeof(WorkflowDemo.Module.Objects.Task);
-				customStartWorkflowActivityDefinition.IsActive = true;
-
-
-				XpoWorkflowDefinition receiveCorrelationsActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
-				receiveCorrelationsActivityDefinition.Name = "Start/stop (correlations) demo";
-				receiveCorrelationsActivityDefinition.Xaml = ReceiveCorrelationsXaml;
-				receiveCorrelationsActivityDefinition.TargetObjectType = typeof(WorkflowDemo.Module.Objects.Task);
-				receiveCorrelationsActivityDefinition.IsActive = true;
-
-            }
-            ObjectSpace.CommitChanges();
-		}
-        private const string CreateTaskForActiveIssueWorkflowXaml =
+        const string CreateTaskForActiveIssueWorkflowXaml =
             @"
 <Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v13.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v13.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v13.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v13.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v13.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:s4=""clr-namespace:System;assembly=System.Drawing.Design"" xmlns:s5=""clr-namespace:System;assembly=System.Configuration.Install"" xmlns:s6=""clr-namespace:System;assembly=System.DirectoryServices.Protocols"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:wc=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <x:Members>
@@ -142,8 +45,9 @@ namespace WorkflowDemo.Module {
     <Delay Duration=""00:00:01"" sap:VirtualizedContainerService.HintSize=""242,22"" />
   </dwa:ObjectSpaceTransactionScope>
 </Activity>";
-        private const string CodeActivityCreateTaskForActiveIssueWorkflowXaml =
-        @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wm=""clr-namespace:WorkflowDemo.Module.Activities;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+
+        const string CodeActivityCreateTaskForActiveIssueWorkflowXaml =
+            @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wm=""clr-namespace:WorkflowDemo.Module.Activities;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <x:Members>
     <x:Property Name=""targetObjectId"" Type=""InArgument(x:Object)"" />
   </x:Members>
@@ -162,8 +66,9 @@ namespace WorkflowDemo.Module {
     <WriteLine sap:VirtualizedContainerService.HintSize=""211,59"" Text=""[&quot;Write to track record: &quot; + createdTaskKey.ToString()]"" />
   </Sequence>
 </Activity>";
-		private const string StartWorkflowViaReceiveAndCustomContractXaml = 
-			@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""812,627"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v13.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v13.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v13.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v13.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v13.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+
+        const string StartWorkflowViaReceiveAndCustomContractXaml =
+            @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""812,627"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v13.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v13.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v13.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v13.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v13.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <Sequence sap:VirtualizedContainerService.HintSize=""772,587"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments=""x:String, x:Object"">
@@ -227,8 +132,9 @@ namespace WorkflowDemo.Module {
   </Sequence>
 </Activity>
 ";
-		private const string ReceiveCorrelationsXaml = 
-			@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""330,1198"" mva:VisualBasic.Settings=""Assembly references and imported namespaces for internal implementation"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v13.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v13.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v13.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v13.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v13.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mv=""clr-namespace:Microsoft.VisualBasic;assembly=System"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Xml"" xmlns:s3=""clr-namespace:System;assembly=System.Core"" xmlns:s4=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sad=""clr-namespace:System.Activities.Debugger;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=System"" xmlns:scg1=""clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"" xmlns:scg2=""clr-namespace:System.Collections.Generic;assembly=System.Core"" xmlns:scg3=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:sd=""clr-namespace:System.Data;assembly=System.Data"" xmlns:sl=""clr-namespace:System.Linq;assembly=System.Core"" xmlns:ssa=""clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities"" xmlns:ssx=""clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"" xmlns:st=""clr-namespace:System.Text;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+
+        const string ReceiveCorrelationsXaml =
+            @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""330,1198"" mva:VisualBasic.Settings=""Assembly references and imported namespaces for internal implementation"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v13.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v13.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v13.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v13.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v13.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v13.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mv=""clr-namespace:Microsoft.VisualBasic;assembly=System"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Xml"" xmlns:s3=""clr-namespace:System;assembly=System.Core"" xmlns:s4=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sad=""clr-namespace:System.Activities.Debugger;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=System"" xmlns:scg1=""clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"" xmlns:scg2=""clr-namespace:System.Collections.Generic;assembly=System.Core"" xmlns:scg3=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:sd=""clr-namespace:System.Data;assembly=System.Data"" xmlns:sl=""clr-namespace:System.Linq;assembly=System.Core"" xmlns:ssa=""clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities"" xmlns:ssx=""clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"" xmlns:st=""clr-namespace:System.Text;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <Sequence DisplayName=""Main"" sap:VirtualizedContainerService.HintSize=""290,1158"">
     <Sequence.Variables>
       <Variable x:TypeArguments=""p:CorrelationHandle"" Name=""clientIdHandle"" />
@@ -306,6 +212,102 @@ namespace WorkflowDemo.Module {
 </Activity>
 ";
 
-}
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
+        }
 
+        public override void UpdateDatabaseAfterUpdateSchema() {
+            base.UpdateDatabaseAfterUpdateSchema();
+
+            CreateDemoObjects();
+        }
+
+        void CreateDemoObjects() {
+            var user = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "Sam"));
+            if (user == null) {
+                user = ObjectSpace.CreateObject<User>();
+                user.UserName = "Sam";
+                user.FirstName = "Sam";
+            }
+            var user2 = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "John"));
+            if (user2 == null) {
+                user2 = ObjectSpace.CreateObject<User>();
+                user2.UserName = "John";
+                user2.FirstName = "John";
+            }
+
+            var workflowServiceUser = ObjectSpace.FindObject<User>(new BinaryOperator("UserName", "WorkflowService"));
+            if (workflowServiceUser == null) {
+                workflowServiceUser = ObjectSpace.CreateObject<User>();
+                workflowServiceUser.UserName = "WorkflowService";
+                workflowServiceUser.FirstName = "WorkflowService";
+            }
+
+            var adminRole = ObjectSpace.FindObject<Role>(new BinaryOperator("Name", "Administrators"));
+            if (adminRole == null) {
+                adminRole = ObjectSpace.CreateObject<Role>();
+                adminRole.Name = "Administrators";
+                adminRole.AddPermission(new ObjectAccessPermission(typeof (object), ObjectAccess.AllAccess));
+                adminRole.AddPermission(new EditModelPermission(ModelAccessModifier.Allow));
+                adminRole.Users.Add(user);
+                adminRole.Users.Add(workflowServiceUser);
+            }
+
+            if (ObjectSpace.GetObjects<Issue>().Count == 0) {
+                var issue = ObjectSpace.CreateObject<Issue>();
+                issue.Subject = "Processed issue";
+                issue.Active = false;
+                issue.SetCreatedBy(user);
+
+                var issue2 = ObjectSpace.CreateObject<Issue>();
+                issue2.Subject = "Active issue";
+                issue2.Active = true;
+                issue2.SetCreatedBy(user);
+            }
+
+            if (ObjectSpace.GetObjects<XpoWorkflowDefinition>().Count == 0) {
+                var definition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
+                definition.Name = "Create Task for active Issue";
+                definition.Xaml = CreateTaskForActiveIssueWorkflowXaml;
+                definition.TargetObjectType = typeof (Issue);
+                definition.AutoStartWhenObjectFitsCriteria = true;
+                definition.Criteria = "[Active] = True";
+                definition.IsActive = true;
+
+                var codeActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
+                codeActivityDefinition.Name = "Create Task for active Issue (Code Activity)";
+                codeActivityDefinition.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
+                codeActivityDefinition.TargetObjectType = typeof (Issue);
+                codeActivityDefinition.AutoStartWhenObjectFitsCriteria = true;
+                codeActivityDefinition.Criteria = "Contains([Subject], 'Code Activity')";
+                codeActivityDefinition.IsActive = true;
+
+                var customStartWorkflowActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
+                customStartWorkflowActivityDefinition.Name = "Custom start workflow";
+                customStartWorkflowActivityDefinition.Xaml = StartWorkflowViaReceiveAndCustomContractXaml;
+                customStartWorkflowActivityDefinition.TargetObjectType = typeof (Task);
+                customStartWorkflowActivityDefinition.IsActive = true;
+
+
+                var receiveCorrelationsActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
+                receiveCorrelationsActivityDefinition.Name = "Start/stop (correlations) demo";
+                receiveCorrelationsActivityDefinition.Xaml = ReceiveCorrelationsXaml;
+                receiveCorrelationsActivityDefinition.TargetObjectType = typeof (Task);
+                receiveCorrelationsActivityDefinition.IsActive = true;
+            }
+
+//            if (ObjectSpace.FindObject<ScheduledWorkflow>(null) == null) {
+//                var scheduledWorkflow = ObjectSpace.CreateObject<ScheduledWorkflow>();
+//                scheduledWorkflow.Name = "Create Task every day";
+//                scheduledWorkflow.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
+//                scheduledWorkflow.IsActive = true;
+//                var launchSchedule = ObjectSpace.CreateObject<ScheduledWorkflowLaunchSchedule>();
+//                launchSchedule.StartMode=StartMode.Daily;
+//                launchSchedule.StartTime=DateTime.Now.TimeOfDay;
+//                launchSchedule.RuntASAPIfScheduledStartIsMissed=true;
+//                scheduledWorkflow.LaunchScheduleItems.Add(launchSchedule);
+//            }
+            ObjectSpace.CommitChanges();
+        }
+    }
 }

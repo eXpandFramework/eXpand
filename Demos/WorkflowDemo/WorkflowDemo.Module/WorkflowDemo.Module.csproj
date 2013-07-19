@@ -36,7 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Management" />
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>

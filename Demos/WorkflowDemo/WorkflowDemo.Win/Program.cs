@@ -17,6 +17,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using WorkflowDemo.Module;
 using WorkflowDemo.Module.Activities;
+using WorkflowDemo.Module.Win;
+using Xpand.ExpressApp.Workflow;
 
 namespace WorkflowDemo.Win
 {
@@ -94,16 +96,8 @@ namespace WorkflowDemo.Win
     }
 
     public class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XafApplication {
-            protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-                args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
-            }
-            protected override DevExpress.ExpressApp.Layout.LayoutManager CreateLayoutManagerCore(bool simple) {
-                throw new NotImplementedException();
-            }
-            public void Logon() {
-                base.Logon(null);
-            }
+        private class ServerApplication : XpandWorkflowApplication {
+
         }
         private static WorkflowServerStarter starter;
         private WorkflowServer server;
@@ -115,8 +109,8 @@ namespace WorkflowDemo.Win
         }
         private void Start_(string connectionString, string applicationName) {
             ServerApplication serverApplication = new ServerApplication();
+            serverApplication.Modules.Add(new WorkflowDemoWindowsFormsModule());
             serverApplication.ApplicationName = applicationName;
-            serverApplication.Modules.Add(new WorkflowDemoModule());
             serverApplication.ConnectionString = connectionString;
             serverApplication.Security = new SecurityComplex<User, Role>(
                 new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
@@ -125,7 +119,7 @@ namespace WorkflowDemo.Win
 
             IObjectSpaceProvider objectSpaceProvider = serverApplication.ObjectSpaceProvider;
 
-            server = new WorkflowServer("http://localhost:46232", objectSpaceProvider, objectSpaceProvider);
+            server = new XpandWorkflowServer("http://localhost:46232", objectSpaceProvider, objectSpaceProvider);
             server.WorkflowDefinitionProvider = new WorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null);
             server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
             server.StartWorkflowByRequestService.DelayPeriod = TimeSpan.FromSeconds(5);

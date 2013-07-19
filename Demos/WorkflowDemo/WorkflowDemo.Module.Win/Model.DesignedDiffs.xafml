@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Options ApplicationMultiInstances="True" />
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.1.1.0" IsNewNode="True" />
     <SchemaModule Name="SystemWindowsFormsModule" Version="13.1.1.0" IsNewNode="True" />
