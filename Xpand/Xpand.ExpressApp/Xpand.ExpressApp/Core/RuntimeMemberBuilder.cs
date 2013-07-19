@@ -42,19 +42,19 @@ namespace Xpand.ExpressApp.Core {
                 Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
                 XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
                 lock (xpClassInfo) {
-                    var xpMemberInfo = xpClassInfo.FindMember(modelRuntimeMember.Name);
-                    if (xpMemberInfo == null) {
-                        var memberInfo = CreateMemberInfo(modelRuntimeMember, xpClassInfo);
-                        AddAttributes(modelRuntimeMember, memberInfo);
+                    var customMemberInfo = xpClassInfo.FindMember(modelRuntimeMember.Name) as XpandCustomMemberInfo;
+                    if (customMemberInfo == null) {
+                        customMemberInfo= CreateMemberInfo(modelRuntimeMember, xpClassInfo);
+                        AddAttributes(modelRuntimeMember, customMemberInfo);
                         XafTypesInfo.Instance.RefreshInfo(classType);
                     }
                     else {
                         if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
-                            CreateColumn(objectSpace, xpMemberInfo, xpClassInfo);
+                            CreateColumn(objectSpace, customMemberInfo, xpClassInfo);
                             modelRuntimeMember.CreatedAtDesignTime = true;
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
-                        UpdateMember(modelRuntimeMember, xpMemberInfo);
+                        UpdateMember(modelRuntimeMember, customMemberInfo);
                     }
                 }
             }

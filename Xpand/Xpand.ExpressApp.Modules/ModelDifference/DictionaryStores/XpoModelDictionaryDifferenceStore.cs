@@ -94,8 +94,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         Dictionary<string, ModelDifferenceObjectInfo> CreateNew(ModelApplicationBase model) {
             var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
-            var application = model.CreatorInstance.CreateModelApplication();
-            application.Id = Application.Title;
+            var application = CreateModelApplication(model, DifferenceType);
+            
+            
             model.AddLayerBeforeLast(application);
             var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
             if (Application is ServerApplication) {
@@ -108,6 +109,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return modelDifferenceObjectInfos;
         }
 
+        protected ModelApplicationBase CreateModelApplication(ModelApplicationBase model, DifferenceType differenceType) {
+            var application = model.CreatorInstance.CreateModelApplication();
+            application.Id = Application.Title;
+            return application;
+        }
+
 
         void CreateResourceModels(ModelApplicationBase model, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos) {
             var resourcesLayerBuilder = new ResourcesLayerBuilder(ObjectSpace, Application, this);
@@ -116,7 +123,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         void CreateResourceRoleModels(ResourcesLayerBuilder resourcesLayerBuilder, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, ModelApplicationBase model) {
-            var roleMarker = model.CreatorInstance.CreateModelApplication();
+            var roleMarker = CreateModelApplication(model,DifferenceType.Role);
             roleMarker.Id = "RoleMarker";
             model.AddLayerBeforeLast(roleMarker);
             resourcesLayerBuilder.AddLayers(RoleApplicationPrefix, loadedModelDifferenceObjectInfos, model);
@@ -142,8 +149,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         private ModelApplicationBase LoadFromPath() {
             var reader = new ModelXmlReader();
-            var model = ((ModelApplicationBase)Application.Model).CreatorInstance.CreateModelApplication();
-
+            var model = CreateModelApplication(((ModelApplicationBase)Application.Model), DifferenceType); 
+            
             foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s) + "").ToLower().StartsWith("model") && s.IndexOf(".User", System.StringComparison.Ordinal) == -1)) {
                 string replace = s.Replace(".xafml", "");
                 string aspect = string.Empty;
