@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application PreferredLanguage="(Default language)">
+  <BOModel>
+    <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" DefaultDetailView="AuthenticationStandardLogonParameters_DetailView_Demo" />
+  </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="WorkflowDemo.Module.Objects.Issue_ListView" Index="0" />
+          <Item Id="WorkflowDemo.Module.Objects.Task_ListView" Index="1" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.1.1.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="AuthenticationStandardLogonParameters_DetailView_Demo" ClassName="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" Caption="Log On" IsNewNode="True">
+      <Items IsNewNode="True">
+        <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
+        <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
+        <PropertyEditor Id="Password" PropertyName="Password" View="" ToolTip="Leave this field empty and hit the Enter key to log on" IsNewNode="True" />
+        <StaticText Id="PasswordHint" Text="(By default, built-in users have empty passwords)" IsNewNode="True" />
+        <PropertyEditor Id="UserName" PropertyName="UserName" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" IsNewNode="True">
+          <LayoutGroup Id="RootGroup" Direction="Horizontal" ShowCaption="False" Index="0" IsNewNode="True">
+            <LayoutGroup Id="ImageGroup" Index="0" ShowCaption="False" RelativeSize="1" IsNewNode="True">
+              <LayoutItem Id="LogonImage" Index="0" ShowCaption="False" ViewItem="LogonImage" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="EditorsGroup" Index="1" ShowCaption="False" RelativeSize="99" IsNewNode="True">
+              <LayoutGroup Id="Text" Index="0" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="LogonText" Index="0" ShowCaption="False" ViewItem="LogonText" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Editors" Index="1" ShowCaption="False" IsNewNode="True">
+                <LayoutItem Id="UserName" Index="1" ViewItem="UserName" IsNewNode="True" />
+                <LayoutItem Id="Password" Index="2" ViewItem="Password" IsNewNode="True" />
+                <LayoutItem Id="PasswordHint" Index="3" ViewItem="PasswordHint" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
