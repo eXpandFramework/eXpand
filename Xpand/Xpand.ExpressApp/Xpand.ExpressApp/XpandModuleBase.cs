@@ -18,6 +18,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -53,7 +54,10 @@ namespace Xpand.ExpressApp {
         }
 
         public static ITypesInfo TypesInfo { get; set; }
-
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelColumn, IModelColumnDetailViews>();
+        }
         public static Type UserType { get; set; }
 
         public static Type RoleType { get; set; }
