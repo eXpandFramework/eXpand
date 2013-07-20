@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
     public interface IModelMemberEx : IModelMember {
         [Description("Specifies the current property type."), Category("Data")]
-        [TypeConverter(typeof(StringToTypeConverterExtended))]
+        [TypeConverter(typeof(XpandStringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
         [Required]
         [ModelReadOnly(typeof(AlwaysEditableVisibilityCalculator))]
@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Model {
         object Tag { get; set; }
     }
 
-    public class StringToTypeConverterExtended : DevExpress.ExpressApp.Model.Core.StringToTypeConverterExtended {
+    public class XpandStringToTypeConverterExtended : DevExpress.ExpressApp.Model.Core.StringToTypeConverterExtended {
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
             if (value != null) {
