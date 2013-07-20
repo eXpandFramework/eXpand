@@ -25,6 +25,10 @@ namespace WorkflowDemo.Module {
 		private void InitializeComponent() {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Workflow.XpandWorkFlowModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Dashboard.DashboardModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule));
         }
 
 		#endregion

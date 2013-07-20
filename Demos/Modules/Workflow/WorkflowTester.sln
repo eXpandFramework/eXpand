@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module", "WorkflowTester.Module\WorkflowTester.Module.csproj", "{23D2F6B6-BCA3-42FB-94C8-C2B4C57F1AA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module.Web", "WorkflowTester.Module.Web\WorkflowTester.Module.Web.csproj", "{0D2BF22B-ED7A-4EE0-86E4-553E254783EB}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "WorkflowTester.Web", "WorkflowTester.Web\WorkflowTester.Web.csproj", "{7A3AA658-691F-48E0-9116-6F209B9521D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Web", "WorkflowTester.Web\WorkflowTester.Web.csproj", "{7A3AA658-691F-48E0-9116-6F209B9521D1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module.Win", "WorkflowTester.Module.Win\WorkflowTester.Module.Win.csproj", "{346E9BB4-D720-4BAA-9629-730FFED0C6D2}"
 EndProject

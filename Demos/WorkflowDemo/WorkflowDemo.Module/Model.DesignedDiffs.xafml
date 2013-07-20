@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" DefaultDetailView="AuthenticationStandardLogonParameters_DetailView_Demo" />
   </BOModel>
-  <NavigationItems>
+  <NavigationItems StartupNavigationItem="WorkflowDemo.Module.Objects.Task_ListView">
     <Items>
       <Item Id="Default">
         <Items>
