@@ -247,7 +247,7 @@ namespace WorkflowDemo.Module {
             if (adminRole == null) {
                 adminRole = ObjectSpace.CreateObject<Role>();
                 adminRole.Name = "Administrators";
-                adminRole.AddPermission(new ObjectAccessPermission(typeof (object), ObjectAccess.AllAccess));
+                adminRole.AddPermission(new ObjectAccessPermission(typeof(object), ObjectAccess.AllAccess));
                 adminRole.AddPermission(new EditModelPermission(ModelAccessModifier.Allow));
                 adminRole.Users.Add(user);
                 adminRole.Users.Add(workflowServiceUser);
@@ -269,7 +269,7 @@ namespace WorkflowDemo.Module {
                 var definition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
                 definition.Name = "Create Task for active Issue";
                 definition.Xaml = CreateTaskForActiveIssueWorkflowXaml;
-                definition.TargetObjectType = typeof (Issue);
+                definition.TargetObjectType = typeof(Issue);
                 definition.AutoStartWhenObjectFitsCriteria = true;
                 definition.Criteria = "[Active] = True";
                 definition.IsActive = true;
@@ -277,7 +277,7 @@ namespace WorkflowDemo.Module {
                 var codeActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
                 codeActivityDefinition.Name = "Create Task for active Issue (Code Activity)";
                 codeActivityDefinition.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
-                codeActivityDefinition.TargetObjectType = typeof (Issue);
+                codeActivityDefinition.TargetObjectType = typeof(Issue);
                 codeActivityDefinition.AutoStartWhenObjectFitsCriteria = true;
                 codeActivityDefinition.Criteria = "Contains([Subject], 'Code Activity')";
                 codeActivityDefinition.IsActive = true;
@@ -285,28 +285,28 @@ namespace WorkflowDemo.Module {
                 var customStartWorkflowActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
                 customStartWorkflowActivityDefinition.Name = "Custom start workflow";
                 customStartWorkflowActivityDefinition.Xaml = StartWorkflowViaReceiveAndCustomContractXaml;
-                customStartWorkflowActivityDefinition.TargetObjectType = typeof (Task);
+                customStartWorkflowActivityDefinition.TargetObjectType = typeof(Task);
                 customStartWorkflowActivityDefinition.IsActive = true;
 
 
                 var receiveCorrelationsActivityDefinition = ObjectSpace.CreateObject<XpoWorkflowDefinition>();
                 receiveCorrelationsActivityDefinition.Name = "Start/stop (correlations) demo";
                 receiveCorrelationsActivityDefinition.Xaml = ReceiveCorrelationsXaml;
-                receiveCorrelationsActivityDefinition.TargetObjectType = typeof (Task);
+                receiveCorrelationsActivityDefinition.TargetObjectType = typeof(Task);
                 receiveCorrelationsActivityDefinition.IsActive = true;
             }
 
-//            if (ObjectSpace.FindObject<ScheduledWorkflow>(null) == null) {
-//                var scheduledWorkflow = ObjectSpace.CreateObject<ScheduledWorkflow>();
-//                scheduledWorkflow.Name = "Create Task every day";
-//                scheduledWorkflow.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
-//                scheduledWorkflow.IsActive = true;
-//                var launchSchedule = ObjectSpace.CreateObject<ScheduledWorkflowLaunchSchedule>();
-//                launchSchedule.StartMode=StartMode.Daily;
-//                launchSchedule.StartTime=DateTime.Now.TimeOfDay;
-//                launchSchedule.RuntASAPIfScheduledStartIsMissed=true;
-//                scheduledWorkflow.LaunchScheduleItems.Add(launchSchedule);
-//            }
+            if (ObjectSpace.FindObject<ScheduledWorkflow>(null) == null) {
+                var scheduledWorkflow = ObjectSpace.CreateObject<ScheduledWorkflow>();
+                scheduledWorkflow.Name = "Create Task every day";
+                scheduledWorkflow.Xaml = CodeActivityCreateTaskForActiveIssueWorkflowXaml;
+                scheduledWorkflow.IsActive = true;
+                var launchSchedule = ObjectSpace.CreateObject<ScheduledWorkflowLaunchSchedule>();
+                launchSchedule.StartMode=StartMode.Daily;
+                launchSchedule.StartTime=DateTime.Now.TimeOfDay;
+                launchSchedule.RuntASAPIfScheduledStartIsMissed=true;
+                scheduledWorkflow.LaunchScheduleItems.Add(launchSchedule);
+            }
             ObjectSpace.CommitChanges();
         }
     }
