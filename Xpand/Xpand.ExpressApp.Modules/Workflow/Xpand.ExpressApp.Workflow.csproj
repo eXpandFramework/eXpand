@@ -165,6 +165,9 @@
     <Compile Include="ScheduledWorkflows\ScheduledWorkflowLaunchSchedule.cs" />
     <Compile Include="WorkflowStartService.cs" />
     <Compile Include="ObjectChangedWorkflows\StartWorkflowOnObjectChangeService.cs" />
+    <Compile Include="XpandWorkflowApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandWorkflowDefinitionProvider.cs" />
     <Compile Include="ScheduledWorkflows\ScheduledWorkflow.cs" />
     <Compile Include="ScheduledWorkflows\ScheduledWorkflowLaunchHistory.cs" />

@@ -52,9 +52,12 @@ namespace Xpand.Persistent.Base.General {
         IDataStore GetDataStore(IDataStore dataStore);
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule {
-        string ModelAssemblyFilePath { get; }
+    public interface IUserDifferencesLoaded {
         event EventHandler UserDifferencesLoaded;
+    }
+
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded {
+        string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }
         AutoCreateOption AutoCreateOption { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
