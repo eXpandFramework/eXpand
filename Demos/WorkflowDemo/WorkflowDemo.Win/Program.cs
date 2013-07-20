@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.Data.Filtering;
@@ -19,6 +20,8 @@ using WorkflowDemo.Module;
 using WorkflowDemo.Module.Activities;
 using WorkflowDemo.Module.Win;
 using Xpand.ExpressApp.Workflow;
+using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
 namespace WorkflowDemo.Win
 {
@@ -100,7 +103,7 @@ namespace WorkflowDemo.Win
 
         }
         private static WorkflowServerStarter starter;
-        private WorkflowServer server;
+        private XpandWorkflowServer server;
         private AppDomain domain;
         void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e) {
             if(OnCustomHandleException != null) {
@@ -120,10 +123,10 @@ namespace WorkflowDemo.Win
             IObjectSpaceProvider objectSpaceProvider = serverApplication.ObjectSpaceProvider;
 
             server = new XpandWorkflowServer("http://localhost:46232", objectSpaceProvider, objectSpaceProvider);
-            server.WorkflowDefinitionProvider = new WorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null);
+            server.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
             server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
             server.StartWorkflowByRequestService.DelayPeriod = TimeSpan.FromSeconds(5);
-            server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(600);
+            server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(5);
             server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
                 //
                 // SqlWorkflowInstanceStoreBehavior
