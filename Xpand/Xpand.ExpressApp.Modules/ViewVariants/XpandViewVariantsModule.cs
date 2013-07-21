@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using EditorBrowsableState = System.ComponentModel.EditorBrowsableState;
@@ -15,6 +16,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule() {
             RequiredModuleTypes.Add(typeof(ViewVariantsModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
     }
 }
