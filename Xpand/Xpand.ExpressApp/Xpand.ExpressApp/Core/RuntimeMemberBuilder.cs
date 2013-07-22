@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
@@ -7,6 +8,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
@@ -48,7 +50,7 @@ namespace Xpand.ExpressApp.Core {
                     }
                     else {
                         if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
-                            ((BaseDataLayer)objectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo, xpClassInfo);
+                            CreateColumn(objectSpace, customMemberInfo, xpClassInfo);
                             modelRuntimeMember.CreatedAtDesignTime = true;
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
@@ -64,6 +66,19 @@ namespace Xpand.ExpressApp.Core {
                         ((IModelClass) modelRuntimeMember.Parent).Name,
                         modelRuntimeMember.Name,
                         exception.Message));
+            }
+        }
+
+        static void CreateColumn(XPObjectSpace objectSpace, XpandCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo) {
+            try {
+                ((BaseDataLayer) objectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo,
+                                                                                                xpClassInfo.Table);
+            }
+            catch (SqlExecutionErrorException sqlExecutionErrorException) {
+                var sqlException = sqlExecutionErrorException.InnerException as SqlException;
+                const int columnExists = 2705;
+                if (sqlException == null || sqlException.Number != columnExists)
+                    throw;
             }
         }
 
