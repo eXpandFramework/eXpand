@@ -228,9 +228,10 @@ namespace Xpand.ExpressApp {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            ApplicationHelper.Instance.Initialize(application);
             if (_setup2Called)
                 return;
-            ApplicationHelper.Instance.Initialize(application);
+            
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             CheckApplicationTypes();
             if (ManifestModuleName == null)

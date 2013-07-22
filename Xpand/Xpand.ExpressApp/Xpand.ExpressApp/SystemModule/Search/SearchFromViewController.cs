@@ -26,6 +26,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
     }
 
+    public enum FullTextSearchTargetPropertiesMode {
+        AllSearchableMembers, VisibleColumns,IncludedColumns
+    }
     public interface IModelClassFullTextSearch:IModelNode {
         [Category(SearchFromViewController.AttributesCategory)]
         FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }
@@ -48,11 +51,15 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         
     }
     public class XpandSearchCriteriaBuilder : SearchCriteriaBuilder {
-        readonly List<IMemberInfo> _excludedColumns;
-        readonly List<IMemberInfo> _inculdedColumns;
+        readonly Dictionary<IModelColumn,IMemberInfo> _excludedColumns;
+        readonly Dictionary<IModelColumn,IMemberInfo> includedColumns;
 
-        public List<IMemberInfo> ExcludedColumns {
+        public Dictionary<IModelColumn,IMemberInfo> ExcludedColumns {
             get { return _excludedColumns; }
+        }
+
+        public Dictionary<IModelColumn, IMemberInfo> IncludedColumns {
+            get { return includedColumns; }
         }
 
         public XpandSearchCriteriaBuilder() {
@@ -61,13 +68,12 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, View view) : base(typeInfo) {
             var listView = ((XpandListView)view);
             _excludedColumns = GetColumns(listView, SearchMemberMode.Exclude);
-            _inculdedColumns = GetColumns(listView, SearchMemberMode.Include);
+            includedColumns = GetColumns(listView, SearchMemberMode.Include);
         }
 
-        List<IMemberInfo> GetColumns(XpandListView listView, SearchMemberMode searchMemberMode) {
-            return listView.Model.Columns.OfType
-                <IModelColumnSearchMode>().Where(
-                    wrapper => wrapper.SearchMemberMode == searchMemberMode).OfType<IModelColumn>().Select(column => GetActualSearchProperty(column.PropertyName)).ToList();
+        Dictionary<IModelColumn,IMemberInfo> GetColumns(XpandListView listView, SearchMemberMode searchMemberMode) {
+            return listView.Model.Columns.OfType<IModelColumnSearchMode>().Where(wrapper => wrapper.SearchMemberMode == searchMemberMode).OfType<IModelColumn>()
+                        .Select(column => new{Column = column, Member = GetActualSearchProperty(column.PropertyName)}).ToDictionary(item => item.Column, item => item.Member);
         }
 
         public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, ICollection<string> properties, string valueToSearch, GroupOperatorType valuesGroupOperatorType, bool includeNonPersistentMembers, SearchMode searchMode) : base(typeInfo, properties, valueToSearch, valuesGroupOperatorType, includeNonPersistentMembers, searchMode) {
@@ -80,8 +86,8 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         protected override bool AllowSearchForMember(IMemberInfo memberInfo) {
-            if (_excludedColumns != null && _excludedColumns.Contains(memberInfo)) return false;
-            if (_inculdedColumns != null && _inculdedColumns.Contains(memberInfo)) return true;
+            if (_excludedColumns != null && _excludedColumns.Select(pair => pair.Value).Contains(memberInfo)) return false;
+            if (includedColumns != null && includedColumns.Select(pair => pair.Value) .Contains(memberInfo)) return true;
             return base.AllowSearchForMember(memberInfo);
         }
     }
@@ -98,7 +104,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
         private string[] GetShownProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
             var visibleProperties = new List<string>();
-            var modelColumns = ((ListView)View).Model.Columns.GetVisibleColumns().Where(column => !criteriaBuilder.ExcludedColumns.Contains(column.ModelMember.MemberInfo));
+            var modelColumns = ((ListView)View).Model.Columns.GetVisibleColumns().Where(column => !criteriaBuilder.ExcludedColumns.Select(pair => pair.Key).Contains(column));
             foreach (IModelColumn column in modelColumns) {
                 IMemberInfo memberInfo = null;
                 if (column.ModelMember != null) {
@@ -130,6 +136,11 @@ namespace Xpand.ExpressApp.SystemModule.Search {
                     }
                     criteriaBuilder.SetSearchProperties(shownProperties);
                     break;
+                case FullTextSearchTargetPropertiesMode.IncludedColumns: {
+                    var properties = criteriaBuilder.IncludedColumns.Select(pair => pair.Value.Name).ToArray();
+                    criteriaBuilder.SetSearchProperties(properties);
+                    break;
+                }
                 default:
                     throw new ArgumentException(fullTextSearchTargetPropertiesMode.ToString(), "criteriaBuilder");
             }
@@ -137,7 +148,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         FullTextSearchTargetPropertiesMode GetFullTextSearchTargetPropertiesMode() {
-            var fullTextSearchTargetPropertiesMode = Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
+            var fullTextSearchTargetPropertiesMode = (FullTextSearchTargetPropertiesMode) Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
             var textSearchTargetPropertiesMode = ((IModelListViewFullTextSearch) View.Model).FullTextSearchTargetPropertiesMode;
             if (textSearchTargetPropertiesMode.HasValue)
                 fullTextSearchTargetPropertiesMode = textSearchTargetPropertiesMode.Value;
