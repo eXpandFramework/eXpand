@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
@@ -8,13 +7,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
-using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Xpo;
+using Xpand.Xpo.DB;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.Core {
@@ -50,7 +48,7 @@ namespace Xpand.ExpressApp.Core {
                     }
                     else {
                         if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
-                            CreateColumn(objectSpace, customMemberInfo, xpClassInfo);
+                            ((BaseDataLayer)objectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo, xpClassInfo);
                             modelRuntimeMember.CreatedAtDesignTime = true;
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
@@ -68,19 +66,6 @@ namespace Xpand.ExpressApp.Core {
                         exception.Message));
             }
         }
-
-        static void CreateColumn(XPObjectSpace objectSpace, XPMemberInfo xpMemberInfo, XPClassInfo xpClassInfo) {
-            var dbColumnType = DBColumn.GetColumnType(xpMemberInfo.StorageType);
-            var column = new DBColumn(xpMemberInfo.Name, false, null, xpMemberInfo.MappingFieldSize, dbColumnType);
-            var connectionProviderSql =((ConnectionProviderSql) ((BaseDataLayer) objectSpace.Session.DataLayer).ConnectionProvider);
-            var table = xpClassInfo.Table;
-            string textSql = String.Format(CultureInfo.InvariantCulture, "alter table {0} add {1} {2}",
-                                           connectionProviderSql.FormatTableSafe(table),
-                                           connectionProviderSql.FormatColumnSafe(column.Name),
-                                           connectionProviderSql.GetSqlCreateColumnFullAttributes(table, column));
-            connectionProviderSql.ExecSql(new Query(textSql));
-        }
-
 
         static void UpdateMember(IModelRuntimeMember modelRuntimeMember, XPMemberInfo xpMemberInfo) {
             var modelRuntimeCalculatedMember = modelRuntimeMember as IModelRuntimeCalculatedMember;
