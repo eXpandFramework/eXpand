@@ -21,7 +21,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
-                ((IXafApplication)Application).UserDifferencesLoaded += OnUserDifferencesLoaded;
+                var userDifferencesLoaded = Application as IUserDifferencesLoaded;
+                if (userDifferencesLoaded != null) userDifferencesLoaded.UserDifferencesLoaded += OnUserDifferencesLoaded;
                 Application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }
@@ -51,7 +52,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!customModelDifferenceStoreEventArgs.Handled)
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
             ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, userDiffLayer);
-            RuntimeMemberBuilder.AddFields(Application.Model);
+            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
 
         public abstract string GetPath();

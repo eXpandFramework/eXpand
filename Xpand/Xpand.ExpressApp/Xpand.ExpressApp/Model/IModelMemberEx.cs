@@ -1,14 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
     public interface IModelMemberEx : IModelMember {
         [Description("Specifies the current property type."), Category("Data")]
-        [TypeConverter(typeof(StringToTypeConverterExtended))]
+        [TypeConverter(typeof(XpandStringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
         [Required]
         [ModelReadOnly(typeof(AlwaysEditableVisibilityCalculator))]
@@ -17,6 +18,17 @@ namespace Xpand.ExpressApp.Model {
         new bool IsCustom { get; set; }
         [Browsable(false)]
         object Tag { get; set; }
+    }
+
+    public class XpandStringToTypeConverterExtended : DevExpress.ExpressApp.Model.Core.StringToTypeConverterExtended {
+
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
+            if (value != null) {
+                ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(Type.GetType(value.ToString()));
+                return typeInfo != null ? typeInfo.Type : null;
+            }
+            return null;
+        }
     }
 
     public interface IModelColumnUnbound : IModelColumn {

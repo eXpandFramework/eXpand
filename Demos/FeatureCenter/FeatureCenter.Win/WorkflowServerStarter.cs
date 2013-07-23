@@ -24,13 +24,7 @@ namespace FeatureCenter.Win {
     }
 
     public class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XafApplication {
-            protected override DevExpress.ExpressApp.Layout.LayoutManager CreateLayoutManagerCore(bool simple) {
-                throw new NotImplementedException();
-            }
-            public void Logon() {
-                base.Logon(null);
-            }
+        private class ServerApplication : XpandWorkflowApplication {
 
         }
         private static WorkflowServerStarter starter;

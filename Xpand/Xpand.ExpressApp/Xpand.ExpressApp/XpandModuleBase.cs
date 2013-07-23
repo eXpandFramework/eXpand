@@ -18,6 +18,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -37,6 +38,7 @@ namespace Xpand.ExpressApp {
         static string _connectionString;
         static bool _customizeTypesInfoCalled;
         protected Type DefaultXafAppType = typeof (XafApplication);
+        static bool _compatibilityChecked;
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
@@ -52,7 +54,10 @@ namespace Xpand.ExpressApp {
         }
 
         public static ITypesInfo TypesInfo { get; set; }
-
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelColumn, IModelColumnDetailViews>();
+        }
         public static Type UserType { get; set; }
 
         public static Type RoleType { get; set; }
@@ -223,9 +228,10 @@ namespace Xpand.ExpressApp {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
+            ApplicationHelper.Instance.Initialize(application);
             if (_setup2Called)
                 return;
-            ApplicationHelper.Instance.Initialize(application);
+            
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             CheckApplicationTypes();
             if (ManifestModuleName == null)
@@ -234,8 +240,19 @@ namespace Xpand.ExpressApp {
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
             application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            application.CustomCheckCompatibility+=ApplicationOnCustomCheckCompatibility;
             _setup2Called = true;
         }
+
+        void ApplicationOnCustomCheckCompatibility(object sender, CustomCheckCompatibilityEventArgs customCheckCompatibilityEventArgs) {
+            ((XafApplication) sender).CustomCheckCompatibility-=ApplicationOnCustomCheckCompatibility;
+            _compatibilityChecked = true;
+        }
+
+        public static bool CompatibilityChecked {
+            get { return _compatibilityChecked; }
+        }
+
 
         void CheckApplicationTypes() {
             if (RuntimeMode) {

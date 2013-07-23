@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Localization>
-    <LocalizationGroup IsNewNode="True" Name="eXpand.ViewVariants">
-      <LocalizationItem IsNewNode="True" Name="CreateViewCaption" Value="Create New View" />
+    <LocalizationGroup Name="eXpand.ViewVariants" IsNewNode="True">
+      <LocalizationItem Name="CreateView" Value="Create New..." IsNewNode="True" />
+      <LocalizationItem Name="DeleteView" Value="Delete" IsNewNode="True" />
+      <LocalizationItem Name="RenameView" Value="Rename" IsNewNode="True" />
     </LocalizationGroup>
   </Localization>
   <SchemaModules IsNewNode="True">
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" IsNewNode="True" Version="8.3.4.5247" />
-    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" IsNewNode="True" Version="8.3.4.5247" />
-    <SchemaModule Name="SystemModule" IsNewNode="True" Version="8.3.4.5247" />
-    <SchemaModule Name="ViewVariantsModule" IsNewNode="True" Version="8.3.4.5247" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="8.3.4.5247" IsNewNode="True" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="8.3.4.5247" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="8.3.4.5247" IsNewNode="True" />
+    <SchemaModule Name="ViewVariantsModule" Version="8.3.4.5247" IsNewNode="True" />
   </SchemaModules>
 </Application>

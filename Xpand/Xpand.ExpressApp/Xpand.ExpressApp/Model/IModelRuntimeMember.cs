@@ -11,11 +11,14 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Xpo;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.MetaData;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Model {
     public interface IModelRuntimeMember : IModelMemberEx {
+        [Browsable(false)]
+        bool CreatedAtDesignTime { get; set; }
     }
 
     [DomainLogic(typeof(IModelRuntimeMember))]
@@ -94,12 +97,13 @@ namespace Xpand.ExpressApp.Model {
             return customMember;
         }
 
-        static XpandCustomMemberInfo CreateXpandCustomMemberInfoCore(IModelRuntimeMember runtimeCalculatedMember,XPClassInfo xpClassInfo) {
-            var calculatedMember = runtimeCalculatedMember as IModelRuntimeCalculatedMember;
+        static XpandCustomMemberInfo CreateXpandCustomMemberInfoCore(IModelRuntimeMember runtimeMember,XPClassInfo xpClassInfo) {
+            var calculatedMember = runtimeMember as IModelRuntimeCalculatedMember;
             if (calculatedMember != null) {
-                return new XpandCalcMemberInfo(xpClassInfo, runtimeCalculatedMember.Name, runtimeCalculatedMember.Type, calculatedMember.AliasExpression);
+                return new XpandCalcMemberInfo(xpClassInfo, runtimeMember.Name, runtimeMember.Type, calculatedMember.AliasExpression);
             }
-            return xpClassInfo.CreateCustomMember(runtimeCalculatedMember.Name, runtimeCalculatedMember.Type, false);
+            runtimeMember.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
+            return xpClassInfo.CreateCustomMember(runtimeMember.Name, runtimeMember.Type, false);
         }
 
         static XPClassInfo FindXPClassInfo(IModelRuntimeMember runtimeCalculatedMember) {

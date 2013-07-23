@@ -5,8 +5,8 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.SystemModule {
 
-    public class AddRuntimeFieldsFromModelToXPDictionary : ViewController {
-        public AddRuntimeFieldsFromModelToXPDictionary() {
+    public class ModelDifferenceObjectsRuntimeMembersController : ViewController {
+        public ModelDifferenceObjectsRuntimeMembersController() {
             TargetObjectType = typeof(IXpoModelDifference);
         }
 
@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs args) {
-            RuntimeMemberBuilder.AddFields(Application.Model);
+            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
     }
 }

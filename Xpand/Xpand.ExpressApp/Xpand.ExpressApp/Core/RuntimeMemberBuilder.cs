@@ -1,55 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB.Exceptions;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Xpo;
+using Xpand.Xpo.DB;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
         static readonly XPDictionary _dictionary = XpandModuleBase.Dictiorary;
-        private static IEnumerable<IModelRuntimeMember> GetCustomFields(IModelApplication model) {
+        private static IEnumerable<IModelRuntimeMember> GetRuntimeMembers(IModelApplication model) {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>().Distinct();
         }
 
-        public static void AddFields(IModelApplication model) {
-            AddRuntimeMembers(model);
+        public static void CreateRuntimeMembers(IModelApplication model) {
+            using (var objectSpace = CreateObjectSpace()) {
+                Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
+                foreach (var modelRuntimeMember in GetRuntimeMembers(model))
+                    CreateRuntimeMember(modelRuntimeMember,objectSpace as XPObjectSpace);
+            }
+            Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
         }
 
-        static void AddRuntimeMembers(IModelApplication model) {
-            bool needSchemaUpdate = false;
-            foreach (IModelRuntimeMember modelRuntimeMember in GetCustomFields(model))
-                try {
-                    needSchemaUpdate = true;
-                    Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
-                    XPClassInfo typeInfo = _dictionary.GetClassInfo(classType);
-                    lock (typeInfo) {
-                        var xpMemberInfo = typeInfo.FindMember(modelRuntimeMember.Name);
-                        if (xpMemberInfo == null) {
-                            XpandCustomMemberInfo memberInfo = GetMemberInfo(modelRuntimeMember, typeInfo);
-                            AddAttributes(modelRuntimeMember, memberInfo);
-                            XafTypesInfo.Instance.RefreshInfo(classType);
-                        } else {
-                            UpdateMember(modelRuntimeMember, xpMemberInfo);
-                        }
+        static IObjectSpace CreateObjectSpace() {
+            return XpandModuleBase.CompatibilityChecked?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
+        }
+
+        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember, XPObjectSpace objectSpace) {
+            try {
+                Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
+                XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
+                lock (xpClassInfo) {
+                    var customMemberInfo = xpClassInfo.FindMember(modelRuntimeMember.Name) as XpandCustomMemberInfo;
+                    if (customMemberInfo == null) {
+                        customMemberInfo= CreateMemberInfo(modelRuntimeMember, xpClassInfo);
+                        AddAttributes(modelRuntimeMember, customMemberInfo);
+                        XafTypesInfo.Instance.RefreshInfo(classType);
                     }
-                } catch (Exception exception) {
-                    throw new Exception(
-                        ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
-                            ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
-                            modelRuntimeMember.MemberInfo.MemberType,
-                            ((IModelClass)modelRuntimeMember.Parent).Name,
-                            modelRuntimeMember.Name,
-                            exception.Message));
+                    else {
+                        if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
+                            CreateColumn(objectSpace, customMemberInfo, xpClassInfo);
+                            modelRuntimeMember.CreatedAtDesignTime = true;
+                            XafTypesInfo.Instance.RefreshInfo(classType);
+                        }
+                        UpdateMember(modelRuntimeMember, customMemberInfo);
+                    }
                 }
-            if (needSchemaUpdate) {
-                ApplicationHelper.Instance.Application.ObjectSpaceProvider.UpdateSchema();
+            }
+            catch (Exception exception) {
+                throw new Exception(
+                    ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
+                        ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
+                        modelRuntimeMember.MemberInfo.MemberType,
+                        ((IModelClass) modelRuntimeMember.Parent).Name,
+                        modelRuntimeMember.Name,
+                        exception.Message));
+            }
+        }
+
+        static void CreateColumn(XPObjectSpace objectSpace, XpandCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo) {
+            try {
+                ((BaseDataLayer) objectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo,
+                                                                                                xpClassInfo.Table);
+            }
+            catch (SqlExecutionErrorException sqlExecutionErrorException) {
+                var sqlException = sqlExecutionErrorException.InnerException as SqlException;
+                const int columnExists = 2705;
+                if (sqlException == null || sqlException.Number != columnExists)
+                    throw;
             }
         }
 
@@ -68,7 +97,7 @@ namespace Xpand.ExpressApp.Core {
                 memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
-        static XpandCustomMemberInfo GetMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
+        static XpandCustomMemberInfo CreateMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
             var calculatedMember = modelMember as IModelRuntimeCalculatedMember;
             if (calculatedMember != null)
                 return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type, calculatedMember.AliasExpression);

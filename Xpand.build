@@ -129,6 +129,8 @@
 			.\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;"  Condition="$(SkipDashboard)!='true'"/>
 		<ProjectFiles Include="
 			.\Demos\SecurityDemo\SecurityDemo.sln;"/>
+		<ProjectFiles Include="
+			.\Demos\WorkflowDemo\WorkflowDemo.sln;"/>
 		<ProjectFiles Include="	
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
 			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;

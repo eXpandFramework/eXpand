@@ -36,12 +36,17 @@ namespace Xpand.ExpressApp.ModelDifference {
             extenders.Add<IModelApplication, ITypesInfoProvider>();
         }
 
+        protected override Type[] ApplicationTypes() {
+            return new[]{typeof (IXafApplication)};
+        }
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
                 application.SetupComplete += AssignModelTypesInfo;
-                ((IXafApplication) application).UserDifferencesLoaded+=AssignModelTypesInfo;
+                var userDifferencesLoaded = application as IUserDifferencesLoaded;
+                if (userDifferencesLoaded != null) userDifferencesLoaded.UserDifferencesLoaded += AssignModelTypesInfo;
             }
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);

@@ -28,6 +28,7 @@ namespace WorkflowTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(WorkflowTester.Module.WorkflowTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule));
 
         }
 

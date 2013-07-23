@@ -139,6 +139,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\BaseDomainLogic.cs" />
+    <Compile Include="Model\ListView.cs" />
     <Compile Include="Model\Options\Interfaces.cs" />
     <Compile Include="Model\IModelMemberEx.cs" />
     <Compile Include="Model\IModelOptionsClientSideSecurity.cs" />
@@ -229,7 +230,7 @@
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AddRuntimeFieldsFromModelToXPDictionary.cs">
+    <Compile Include="SystemModule\ModelDifferenceObjectsRuntimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
@@ -244,10 +245,9 @@
     <Compile Include="SystemModule\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DisableFullTextForMemoFieldsController.cs">
+    <Compile Include="SystemModule\Search\DisableFullTextForMemoFieldsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\IModelListViewLinq.cs" />
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>

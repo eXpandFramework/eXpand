@@ -96,6 +96,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
+    <Compile Include="ConnectionProviders\DBColumbTypeExtensions.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
     <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\XpandUtcDateTimeConverter.cs" />
+    <Compile Include="DB\IDataStoreExtensions.cs" />
     <Compile Include="DB\XpandDataStoreService.cs" />
     <Compile Include="DB\SchemaColumnSizeUpdater.cs" />
     <Compile Include="DB\XpoSequencer.cs" />
