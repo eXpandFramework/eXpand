@@ -21,6 +21,11 @@ namespace Xpand.ExpressApp.Model {
         bool CreatedAtDesignTime { get; set; }
     }
 
+    public interface IModelOptionRuntimeMembers {
+        [Category("eXpand")]
+        [Description("If set when creating Runtime members it will throw any SqlExecutionErrorException/ConstrainsVionationException")]
+        bool ThrowOnDbColumnCreationError { get; set; }
+    }
     [DomainLogic(typeof(IModelRuntimeMember))]
     public class ModelRuntimeMemberDomainLogic {
         public static IMemberInfo Get_MemberInfo(IModelRuntimeMember modelRuntimeMember) {

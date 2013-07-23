@@ -165,6 +165,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
+            extenders.Add<IModelOptions, IModelOptionRuntimeMembers>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
 

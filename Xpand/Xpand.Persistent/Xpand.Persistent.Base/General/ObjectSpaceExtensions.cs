@@ -6,11 +6,21 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
+using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
+        public static void CreateColumn(this IObjectSpace objectSpace, XPCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo,bool throwOnError=false) {
+            var xpObjectSpace = objectSpace as XPObjectSpace;
+            if (xpObjectSpace != null) {
+                ((BaseDataLayer)xpObjectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo, xpClassInfo.Table, throwOnError);
+                return;
+            }
+            throw new NotImplementedException();
+        }
 
         public static bool IsServerSide(this IObjectSpace objectSpace) {
             var xpObjectSpace = objectSpace as XPObjectSpace;

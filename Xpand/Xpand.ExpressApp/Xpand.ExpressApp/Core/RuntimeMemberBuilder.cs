@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
@@ -8,14 +7,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using DevExpress.Xpo.DB.Exceptions;
-using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Xpo;
-using Xpand.Xpo.DB;
 using Xpand.Xpo.MetaData;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
@@ -27,8 +24,9 @@ namespace Xpand.ExpressApp.Core {
         public static void CreateRuntimeMembers(IModelApplication model) {
             using (var objectSpace = CreateObjectSpace()) {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
+                var throwOnDbColumnCreationError = ((IModelOptionRuntimeMembers)model.Options).ThrowOnDbColumnCreationError;
                 foreach (var modelRuntimeMember in GetRuntimeMembers(model))
-                    CreateRuntimeMember(modelRuntimeMember,objectSpace as XPObjectSpace);
+                    CreateRuntimeMember(modelRuntimeMember, objectSpace as XPObjectSpace, throwOnDbColumnCreationError);
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
         }
@@ -37,7 +35,7 @@ namespace Xpand.ExpressApp.Core {
             return XpandModuleBase.CompatibilityChecked?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
         }
 
-        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember, XPObjectSpace objectSpace) {
+        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError) {
             try {
                 Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
                 XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
@@ -50,7 +48,7 @@ namespace Xpand.ExpressApp.Core {
                     }
                     else {
                         if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
-                            CreateColumn(objectSpace, customMemberInfo, xpClassInfo);
+                            objectSpace.CreateColumn(customMemberInfo, xpClassInfo,throwOnDbColumnCreationError);
                             modelRuntimeMember.CreatedAtDesignTime = true;
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
@@ -69,18 +67,6 @@ namespace Xpand.ExpressApp.Core {
             }
         }
 
-        static void CreateColumn(XPObjectSpace objectSpace, XpandCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo) {
-            try {
-                ((BaseDataLayer) objectSpace.Session.DataLayer).ConnectionProvider.CreateColumn(customMemberInfo,
-                                                                                                xpClassInfo.Table);
-            }
-            catch (SqlExecutionErrorException sqlExecutionErrorException) {
-                var sqlException = sqlExecutionErrorException.InnerException as SqlException;
-                const int columnExists = 2705;
-                if (sqlException == null || sqlException.Number != columnExists)
-                    throw;
-            }
-        }
 
         static void UpdateMember(IModelRuntimeMember modelRuntimeMember, XPMemberInfo xpMemberInfo) {
             var modelRuntimeCalculatedMember = modelRuntimeMember as IModelRuntimeCalculatedMember;
