@@ -45,7 +45,7 @@ namespace Xpand.Utils.Automation {
                 switch (iRet) {
                     case Win32Constants.ChangeDisplaySettingsResult.DISP_CHANGE_RESTART: {
                             MessageBox.Show(
-                                "Description: You Need To Reboot For The Change To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Change Resolution In Safe Mode.",
+                                "Description: You Need To Reboot For The Convert To Happen.\n If You Feel Any Problem After Rebooting Your Machine\nThen Try To Convert Resolution In Safe Mode.",
                                 "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             break;
                         }
