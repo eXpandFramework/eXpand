@@ -24,6 +24,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public const string XpandWin = "Xpand.Win";
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

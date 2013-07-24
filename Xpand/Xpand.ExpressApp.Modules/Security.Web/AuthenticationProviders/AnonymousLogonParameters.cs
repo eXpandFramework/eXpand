@@ -15,8 +15,6 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
         [Browsable(false)]
         public bool AnonymousLogin { get; set; }
         
-//        public new bool RememberMe { get; set; }
-
         [Browsable(false)]
         public string AnonymousUserName {
             get {return _anonymousUserName ??(_anonymousUserName =((IModelOptionsAuthentication) WebApplication.Instance.Model.Options).Athentication.AnonymousAuthentication.AnonymousUser);}

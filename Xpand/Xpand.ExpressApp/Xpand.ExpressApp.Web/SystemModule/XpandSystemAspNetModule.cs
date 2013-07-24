@@ -24,6 +24,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
