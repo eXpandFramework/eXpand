@@ -56,6 +56,9 @@ namespace Xpand.Persistent.Base.General {
         event EventHandler UserDifferencesLoaded;
     }
 
+    public interface IXafApplicationDirectory {
+        string BinDirectory { get;  }
+    }
     public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded {
         string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }

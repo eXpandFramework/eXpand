@@ -23,7 +23,7 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport {
+    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport, IXafApplicationDirectory {
         static XpandWinApplication _application;
         DataCacheNode _cacheNode;
         ApplicationModulesManager _applicationModulesManager;
@@ -209,6 +209,10 @@ namespace Xpand.ExpressApp.Win {
         }
 
         bool ITestSupport.IsTesting { get; set; }
+
+        string IXafApplicationDirectory.BinDirectory {
+            get { return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; }
+        }
     }
 
 }

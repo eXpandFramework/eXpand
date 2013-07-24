@@ -19,7 +19,7 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web {
 
-    public class XpandWebApplication : WebApplication, IWebApplication {
+    public class XpandWebApplication : WebApplication, IWebApplication, IXafApplicationDirectory {
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWebApplication() {
@@ -153,6 +153,11 @@ namespace Xpand.ExpressApp.Web {
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
             if (handler != null) handler(this, e);
+        }
+
+        string IXafApplicationDirectory.BinDirectory {
+            get { return AppDomain.CurrentDomain.SetupInformation.PrivateBinPath; }
+            
         }
     }
 }
