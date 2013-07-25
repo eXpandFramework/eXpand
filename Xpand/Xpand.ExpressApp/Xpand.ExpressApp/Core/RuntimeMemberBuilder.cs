@@ -47,9 +47,9 @@ namespace Xpand.ExpressApp.Core {
                         XafTypesInfo.Instance.RefreshInfo(classType);
                     }
                     else {
-                        if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime) {
+                        if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime&&!modelRuntimeMember.DataStoreColumnCreated) {
                             objectSpace.CreateColumn(customMemberInfo, xpClassInfo,throwOnDbColumnCreationError);
-                            modelRuntimeMember.CreatedAtDesignTime = true;
+                            modelRuntimeMember.DataStoreColumnCreated = true;
                             XafTypesInfo.Instance.RefreshInfo(classType);
                         }
                         UpdateMember(modelRuntimeMember, customMemberInfo);

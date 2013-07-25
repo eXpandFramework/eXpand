@@ -17,7 +17,7 @@ namespace Xpand.Xpo.DB {
         }
 
         public static void CreateColumn(this ConnectionProviderSql connectionProviderSql, XPMemberInfo xpMemberInfo, DBTable table, bool throwOnError) {
-            var dbColumnType = DBColumn.GetColumnType(xpMemberInfo.StorageType);
+            var dbColumnType = GetDbColumnType(xpMemberInfo);
             var column = new DBColumn(xpMemberInfo.Name, false, null, xpMemberInfo.MappingFieldSize, dbColumnType);
             string textSql = String.Format(CultureInfo.InvariantCulture, "alter table {0} add {1} {2}",
                                             connectionProviderSql.FormatTableSafe(table),
@@ -35,5 +35,13 @@ namespace Xpand.Xpo.DB {
             
         }
 
+        static DBColumnType GetDbColumnType(XPMemberInfo xpMemberInfo) {
+            Type type = xpMemberInfo.StorageType;
+            var xpClassInfo = xpMemberInfo.Owner.Dictionary.QueryClassInfo(type);
+            if (xpClassInfo != null) {
+                type = xpClassInfo.KeyProperty.StorageType;
+            }
+            return DBColumn.GetColumnType(type);
+        }
     }
 }

@@ -8,7 +8,8 @@ using DevExpress.ExpressApp.Model;
 namespace Xpand.ExpressApp.Model {
     [ModelAbstractClass]
     public interface IModelMemberEx : IModelMember {
-        [Description("Specifies the current property type."), Category("Data")]
+        [Category("eXpand")]
+        [Description("Specifies the current property type.")]
         [TypeConverter(typeof(XpandStringToTypeConverterExtended))]
         [ModelBrowsable(typeof(ModelTypeVisibilityCalculator))]
         [Required]
@@ -25,7 +26,7 @@ namespace Xpand.ExpressApp.Model {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
             if (value != null) {
                 ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(Type.GetType(value.ToString()));
-                return typeInfo != null ? typeInfo.Type : null;
+                return typeInfo != null ? typeInfo.Type : base.ConvertFrom(context,culture, value);
             }
             return null;
         }

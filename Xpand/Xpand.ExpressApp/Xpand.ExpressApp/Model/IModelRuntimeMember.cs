@@ -6,19 +6,23 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.MetaData;
 using Xpand.Xpo;
+using DisplayNameAttribute = System.ComponentModel.DisplayNameAttribute;
+using Guard = DevExpress.Utils.Guard;
 
 namespace Xpand.ExpressApp.Model {
     public interface IModelRuntimeMember : IModelMemberEx {
         [Browsable(false)]
         bool CreatedAtDesignTime { get; set; }
+        [Browsable((false))]
+        bool DataStoreColumnCreated { get; set; }
     }
 
     public interface IModelOptionRuntimeMembers {
@@ -28,6 +32,34 @@ namespace Xpand.ExpressApp.Model {
     }
     [DomainLogic(typeof(IModelRuntimeMember))]
     public class ModelRuntimeMemberDomainLogic {
+        public static string Get_Caption(IModelRuntimeMember modelRuntimeMember) {
+            return modelRuntimeMember.MemberInfo!=null ? GetMemberCaption(modelRuntimeMember.MemberInfo) : string.Empty;
+        }
+
+        static string GetMemberCaption(IMemberInfo memberInfo) {
+            string memberCaption = null;
+            
+            var displayNameAttr =
+                memberInfo.FindAttribute<DisplayNameAttribute>();
+            if (displayNameAttr != null) {
+                memberCaption = displayNameAttr.DisplayName;
+            }
+            
+            if (string.IsNullOrEmpty(memberCaption)) {
+                var attribute = memberInfo.FindAttribute<XafDisplayNameAttribute>();
+                if (attribute != null) {
+                    memberCaption = attribute.DisplayName;
+                }
+            }
+            if (string.IsNullOrEmpty(memberCaption)) {
+                memberCaption = memberInfo.DisplayName;
+            }
+            if (string.IsNullOrEmpty(memberCaption)) {
+                memberCaption = CaptionHelper.ConvertCompoundName(memberInfo.Name);
+            }
+            return memberCaption;
+        }
+
         public static IMemberInfo Get_MemberInfo(IModelRuntimeMember modelRuntimeMember) {
             CreateMemberInfo(modelRuntimeMember);
             return modelRuntimeMember.ModelClass.TypeInfo.FindMember(modelRuntimeMember.Name);
