@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 
 namespace Xpand.ExpressApp.NodeUpdaters {
     public class ModelMemberGeneratorUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator> {
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                         var memberInfo = modelClass.TypeInfo.CreateMember(customQueryPropertyAttribute.Name, customQueryPropertyAttribute.Type);
                         memberInfo.AddAttribute(new BrowsableAttribute(false));
                         memberInfo.AddAttribute(new NonPersistentAttribute());
-                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelRuntimeNonPersistentMember>(customQueryPropertyAttribute.Name);
+                        var modelRuntimeMember = modelClass.OwnMembers.AddNode<IModelMemberNonPersistent>(customQueryPropertyAttribute.Name);
                         modelRuntimeMember.Type = customQueryPropertyAttribute.Type;
                     }
                 }

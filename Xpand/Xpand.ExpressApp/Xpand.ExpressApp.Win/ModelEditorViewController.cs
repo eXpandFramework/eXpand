@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.Persistent.Base.General;
 
 
@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Win {
         protected override void UpdateActionState() {
             base.UpdateActionState();
             if (CurrentModelNode != null) {
-                var modelRuntimeMember = CurrentModelNode.ModelNode as IModelRuntimeMember;
+                var modelRuntimeMember = CurrentModelNode.ModelNode as IModelMemberEx;
                 if (modelRuntimeMember != null) {
                     DeleteAction.Enabled.SetItemValue("CanDeleteNode", true);
                 }

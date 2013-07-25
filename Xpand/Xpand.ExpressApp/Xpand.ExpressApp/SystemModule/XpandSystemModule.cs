@@ -17,6 +17,7 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
@@ -55,6 +56,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
         }
+
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -138,13 +140,9 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-
-
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
-
-
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
@@ -163,7 +161,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
-            extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelOptions, IModelOptionRuntimeMembers>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
@@ -172,10 +169,10 @@ namespace Xpand.ExpressApp.SystemModule {
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
                 if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
-                    parameters.NodeType = typeof(IModelRuntimeMember);
+                    parameters.NodeType = typeof(IModelMemberPersistent);
             }
             if (parameters.XmlNodeName == "CalculatedRuntimeMember") {
-                parameters.NodeType = typeof(IModelRuntimeCalculatedMember);
+                parameters.NodeType = typeof(IModelMemberCalculated);
             }
         }
 

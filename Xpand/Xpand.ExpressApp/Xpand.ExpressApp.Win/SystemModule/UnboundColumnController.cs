@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Columns;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {

@@ -8,7 +8,8 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
+using Xpand.ExpressApp.Model.RuntimeMembers.Collections;
 using Xpand.ExpressApp.Xpo;
 using Xpand.Xpo;
 using Xpand.Xpo.MetaData;
@@ -17,15 +18,15 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.Core {
     public class RuntimeMemberBuilder {
         static readonly XPDictionary _dictionary = XpandModuleBase.Dictiorary;
-        private static IEnumerable<IModelRuntimeMember> GetRuntimeMembers(IModelApplication model) {
-            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelRuntimeMember>().Distinct();
+        private static IEnumerable<IModelMemberEx> GetMembersEx(IModelApplication model) {
+            return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberEx>().Distinct();
         }
 
         public static void CreateRuntimeMembers(IModelApplication model) {
             using (var objectSpace = CreateObjectSpace()) {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
                 var throwOnDbColumnCreationError = ((IModelOptionRuntimeMembers)model.Options).ThrowOnDbColumnCreationError;
-                foreach (var modelRuntimeMember in GetRuntimeMembers(model))
+                foreach (var modelRuntimeMember in GetMembersEx(model))
                     CreateRuntimeMember(modelRuntimeMember, objectSpace as XPObjectSpace, throwOnDbColumnCreationError);
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
@@ -35,24 +36,20 @@ namespace Xpand.ExpressApp.Core {
             return XpandModuleBase.CompatibilityChecked?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
         }
 
-        static void CreateRuntimeMember(IModelRuntimeMember modelRuntimeMember, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError) {
+        static void CreateRuntimeMember(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError) {
             try {
-                Type classType = modelRuntimeMember.ModelClass.TypeInfo.Type;
+                Type classType = modelMemberEx.ModelClass.TypeInfo.Type;
                 XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
                 lock (xpClassInfo) {
-                    var customMemberInfo = xpClassInfo.FindMember(modelRuntimeMember.Name) as XpandCustomMemberInfo;
+                    var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XpandCustomMemberInfo;
                     if (customMemberInfo == null) {
-                        customMemberInfo= CreateMemberInfo(modelRuntimeMember, xpClassInfo);
-                        AddAttributes(modelRuntimeMember, customMemberInfo);
+                        customMemberInfo= CreateMemberInfo(modelMemberEx, xpClassInfo);
+                        AddAttributes(modelMemberEx, customMemberInfo);
                         XafTypesInfo.Instance.RefreshInfo(classType);
                     }
                     else {
-                        if (objectSpace != null && !modelRuntimeMember.CreatedAtDesignTime&&!modelRuntimeMember.DataStoreColumnCreated) {
-                            objectSpace.CreateColumn(customMemberInfo, xpClassInfo,throwOnDbColumnCreationError);
-                            modelRuntimeMember.DataStoreColumnCreated = true;
-                            XafTypesInfo.Instance.RefreshInfo(classType);
-                        }
-                        UpdateMember(modelRuntimeMember, customMemberInfo);
+                        CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace, throwOnDbColumnCreationError, customMemberInfo, xpClassInfo, classType);
+                        UpdateMember(modelMemberEx, customMemberInfo);
                     }
                 }
             }
@@ -60,40 +57,56 @@ namespace Xpand.ExpressApp.Core {
                 throw new Exception(
                     ExceptionLocalizerTemplate<SystemExceptionResourceLocalizer, ExceptionId>.GetExceptionMessage(
                         ExceptionId.ErrorOccursWhileAddingTheCustomProperty,
-                        modelRuntimeMember.MemberInfo.MemberType,
-                        ((IModelClass) modelRuntimeMember.Parent).Name,
-                        modelRuntimeMember.Name,
+                        modelMemberEx.MemberInfo.MemberType,
+                        ((IModelClass) modelMemberEx.Parent).Name,
+                        modelMemberEx.Name,
                         exception.Message));
             }
         }
 
+        static void CreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError,
+                                 XpandCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo, Type classType) {
+                                     if (CanCreateColumn(modelMemberPersistent, objectSpace)) {
+                objectSpace.CreateColumn(customMemberInfo, xpClassInfo, throwOnDbColumnCreationError);
+                modelMemberPersistent.DataStoreColumnCreated = true;
+                XafTypesInfo.Instance.RefreshInfo(classType);
+            }
+        }
 
-        static void UpdateMember(IModelRuntimeMember modelRuntimeMember, XPMemberInfo xpMemberInfo) {
-            var modelRuntimeCalculatedMember = modelRuntimeMember as IModelRuntimeCalculatedMember;
+        static bool CanCreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace) {
+            return  modelMemberPersistent != null &&
+                                   (objectSpace != null && modelMemberPersistent.MemberInfo.MemberTypeInfo.IsPersistent &&
+                                    !modelMemberPersistent.CreatedAtDesignTime &&
+                                    !modelMemberPersistent.DataStoreColumnCreated);
+        }
+
+
+        static void UpdateMember(IModelMemberEx modelMemberEx, XPMemberInfo xpMemberInfo) {
+            var modelRuntimeCalculatedMember = modelMemberEx as IModelMemberCalculated;
             if (modelRuntimeCalculatedMember != null) {
                 ((XpandCalcMemberInfo)xpMemberInfo).SetAliasExpression(modelRuntimeCalculatedMember.AliasExpression);
                 XpandModuleBase.TypesInfo.RefreshInfo(xpMemberInfo.Owner.ClassType);
             }
         }
 
-        static void AddAttributes(IModelRuntimeMember runtimeMember, XPCustomMemberInfo memberInfo) {
-            if (runtimeMember.Size != 0)
-                memberInfo.AddAttribute(new SizeAttribute(runtimeMember.Size));
-            if (runtimeMember is IModelRuntimeNonPersistentMember && !(runtimeMember is IModelRuntimeCalculatedMember))
+        static void AddAttributes(IModelMemberEx modelMemberEx, XPCustomMemberInfo memberInfo) {
+            if (modelMemberEx.Size != 0)
+                memberInfo.AddAttribute(new SizeAttribute(modelMemberEx.Size));
+            if (modelMemberEx is IModelMemberNonPersistent && !(modelMemberEx is IModelMemberCalculated))
                 memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
-        static XpandCustomMemberInfo CreateMemberInfo(IModelRuntimeMember modelMember, XPClassInfo xpClassInfo) {
-            var calculatedMember = modelMember as IModelRuntimeCalculatedMember;
+        static XpandCustomMemberInfo CreateMemberInfo(IModelMemberEx modelMemberEx, XPClassInfo xpClassInfo) {
+            var calculatedMember = modelMemberEx as IModelMemberCalculated;
             if (calculatedMember != null)
                 return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type, calculatedMember.AliasExpression);
-            var member = modelMember as IModelRuntimeOrphanedColection;
+            var member = modelMemberEx as IModelMemberOrphanedColection;
             if (member != null) {
                 var modelRuntimeOrphanedColection = member;
                 return xpClassInfo.CreateCollection(member.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
                                                     modelRuntimeOrphanedColection.Criteria);
             }
-            return xpClassInfo.CreateCustomMember(modelMember.Name, modelMember.Type, modelMember is IModelRuntimeNonPersistentMember);
+            return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type, modelMemberEx is IModelMemberNonPersistent);
         }
     }
 }

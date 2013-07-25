@@ -25,7 +25,8 @@ namespace Xpand.ExpressApp.Model {
     [DomainLogic(typeof(IModelColumnDetailViews))]
     public class IModelColumnDetailViewsDomainLogic {
         public static IModelList<IModelDetailView> Get_DetailViews(IModelColumnDetailViews detailViews) {
-            var modelDetailViews = ((ModelNode) detailViews).Application.Views.OfType<IModelDetailView>().Where(view => detailViews.ModelMember.MemberInfo.MemberTypeInfo==view.ModelClass.TypeInfo);
+            var modelDetailViews =((ModelNode) detailViews).Application.Views.OfType<IModelDetailView>()
+                                         .Where(view =>detailViews.ModelMember.MemberInfo.MemberTypeInfo ==view.ModelClass.TypeInfo);
             return new CalculatedModelNodeList<IModelDetailView>(modelDetailViews);
         }
     }
