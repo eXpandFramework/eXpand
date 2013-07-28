@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -137,19 +138,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -179,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\ListViewExtensions.cs" />
+    <Compile Include="EditModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Editors\EnumEdit.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -387,6 +378,12 @@
     <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
     <Compile Include="SystemModule\RibbonFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -507,6 +504,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\EMailHighlightingController.resx">
       <DependentUpon>EMailHighlightingController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemModule\Module.resx">
+      <DependentUpon>Module.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
