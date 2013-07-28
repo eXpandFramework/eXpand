@@ -11,10 +11,11 @@ namespace Xpand.ExpressApp.NodeUpdaters {
             var modelClasses = node.Application.BOModel.Where(modelClass => modelClass.TypeInfo.FindAttribute<CloneViewAttribute>() != null);
 
             foreach (var modelClass in modelClasses) {
-                var cloneViewAttributes = modelClass.TypeInfo.FindAttributes<CloneViewAttribute>().OrderBy(viewAttribute => viewAttribute.ViewType);
+                var cloneViewAttributes = modelClass.TypeInfo.FindAttributes<CloneViewAttribute>(false).OrderBy(viewAttribute => viewAttribute.ViewType);
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
-                    IModelView modelView = GetModelView(modelClass, cloneViewAttribute);
-                    ModelNode cloneNodeFrom = ((ModelNode)modelView).Clone(cloneViewAttribute.ViewId);
+                    var modelView = GetModelView(modelClass, cloneViewAttribute);
+                    var cloneNodeFrom = ((ModelNode)modelView).Clone(cloneViewAttribute.ViewId);
+                    AssignAsDefaultView(cloneViewAttribute, (IModelObjectView)cloneNodeFrom);
                     if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
                         CloneViewAttribute attribute = cloneViewAttribute;
                         var modelDetailView = node.Application.Views.OfType<IModelDetailView>().FirstOrDefault(view => view.Id == attribute.DetailView);
@@ -26,7 +27,19 @@ namespace Xpand.ExpressApp.NodeUpdaters {
             }
         }
 
-        IModelView GetModelView(IModelClass modelClass, CloneViewAttribute cloneViewAttribute) {
+        void AssignAsDefaultView(CloneViewAttribute cloneViewAttribute, IModelObjectView modelView) {
+            if (cloneViewAttribute.IsDefault) {
+                var view = modelView as IModelListView;
+                if (view != null) {
+                    view.ModelClass.DefaultListView = view;
+                }
+                else {
+                    modelView.ModelClass.DefaultDetailView = (IModelDetailView) modelView;
+                }
+            }
+        }
+
+        IModelObjectView GetModelView(IModelClass modelClass, CloneViewAttribute cloneViewAttribute) {
             if (cloneViewAttribute.ViewType == CloneViewType.LookupListView)
                 return modelClass.DefaultLookupListView;
             if (cloneViewAttribute.ViewType == CloneViewType.DetailView)
