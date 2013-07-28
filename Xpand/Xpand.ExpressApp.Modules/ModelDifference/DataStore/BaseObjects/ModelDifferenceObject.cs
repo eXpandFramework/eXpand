@@ -21,6 +21,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
+    [CloneView(CloneViewType.DetailView, "MDO_DetailView",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView",true)]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;

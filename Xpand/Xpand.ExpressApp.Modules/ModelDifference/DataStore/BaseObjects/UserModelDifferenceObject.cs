@@ -15,6 +15,7 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, ModelDefault("Caption", "User Difference"), VisibleInReports(false)]
+    [CloneView(CloneViewType.DetailView, "UDO_DetailView",true)]
     public class UserModelDifferenceObject : ModelDifferenceObject {
         private bool nonPersistent;
 

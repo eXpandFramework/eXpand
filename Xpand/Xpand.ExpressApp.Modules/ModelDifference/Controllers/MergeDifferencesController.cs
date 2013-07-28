@@ -11,10 +11,10 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
-    public class CombineDifferencesController : ViewController<ListView> {
+    public class MergeDifferencesController : ViewController<ListView> {
 
-        public CombineDifferencesController() {
-            var combineAction = new SimpleAction(this, "Combine", PredefinedCategory.ObjectsCreation);
+        public MergeDifferencesController() {
+            var combineAction = new SimpleAction(this, "MergeModels", PredefinedCategory.ObjectsCreation);
             combineAction.Execute += combineSimpleAction_Execute;
             TargetObjectType = typeof(ModelDifferenceObject);
         }
