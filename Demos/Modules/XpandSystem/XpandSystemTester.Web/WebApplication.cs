@@ -4,14 +4,14 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Web;
 using XpandSystemTester.Module;
 using XpandSystemTester.Module.Web;
 
 namespace XpandSystemTester.Web {
-    public class XpandSystemTesterAspNetApplication : XpandWebApplication {
+    public class XpandSystemTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         XpandSystemTesterModule module3;
@@ -72,16 +72,15 @@ namespace XpandSystemTester.Web {
             // 
             // XpandSystemTesterAspNetApplication
             // 
-            this.ApplicationName = "XpandSystemTester";
-            this.Connection = sqlConnection1;
-            this.Modules.Add(module1);
-            this.Modules.Add(module2);
-            this.Modules.Add(module3);
-            this.Modules.Add(module4);
+            ApplicationName = "XpandSystemTester";
+            Connection = sqlConnection1;
+            Modules.Add(module1);
+            Modules.Add(module2);
+            Modules.Add(module3);
+            Modules.Add(module4);
 
-            this.DatabaseVersionMismatch +=
-                new EventHandler<DatabaseVersionMismatchEventArgs>(
-                    XpandSystemTesterAspNetApplication_DatabaseVersionMismatch);
+            DatabaseVersionMismatch +=
+                XpandSystemTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize) (this)).EndInit();
         }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -29,15 +28,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             } else if ((Application.Security!=null&&Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
                 BuildSecuritySystemObjects();
             }
-        }
-
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelApplication, ITypesInfoProvider>();
-        }
-
-        protected override Type[] ApplicationTypes() {
-            return new[]{typeof (IXafApplication)};
         }
 
         public override void Setup(XafApplication application) {

@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Model.Options;
-using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 

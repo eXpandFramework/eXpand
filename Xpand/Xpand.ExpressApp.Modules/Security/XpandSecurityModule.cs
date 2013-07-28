@@ -8,11 +8,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -27,6 +27,13 @@ namespace Xpand.ExpressApp.Security {
             base.Setup(moduleManager);
             if (RuntimeMode) {
                 Application.SetupComplete += ApplicationOnSetupComplete;
+                Application.LogonFailed += (o, eventArgs) => {
+                    var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
+                    if (logonParameters != null && logonParameters.RememberMe) {
+                        logonParameters.RememberMe = false;
+                        ObjectSerializer.WriteObjectPropertyValues(null, logonParameters.Storage, logonParameters);
+                    }
+                };
             }
         }
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
@@ -81,9 +88,6 @@ namespace Xpand.ExpressApp.Security {
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
         #region Overrides of XpandModuleBase
-        protected override Type[] ApplicationTypes() {
-            return new[]{typeof(ISettingsStorage)};
-        }
         #endregion
     }
 }

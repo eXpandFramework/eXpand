@@ -3,11 +3,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
-using Xpand.ExpressApp.MiddleTier;
-using Xpand.ExpressApp.Win;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
     [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
@@ -22,15 +20,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
+                ((WinApplication) Application).HandleException();
                 Application.LoggedOff += Application_LoggedOff;
                 Application.Disposed += Application_Disposed;
             }
-        }
-
-        protected override Type[] ApplicationTypes() {
-            return new[]{RuntimeMode && Application is ServerApplication
-                             ? typeof(XpandServerApplication)
-                             : typeof(XpandWinApplication)};
         }
 
         void Application_Disposed(object sender, EventArgs e) {

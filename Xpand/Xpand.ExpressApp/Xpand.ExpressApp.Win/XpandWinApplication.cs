@@ -11,8 +11,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Win.Core.ModelEditor;
-using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Security;
@@ -24,20 +22,12 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.Win {
 
     public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport, IXafApplicationDirectory {
-        static XpandWinApplication _application;
         DataCacheNode _cacheNode;
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWinApplication() {
-            if (_application == null)
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, this);
-            else {
-                Application.ThreadException += (sender, args) => HandleException(args.Exception, _application);
-            }
             DetailViewCreating += OnDetailViewCreating;
             ListViewCreating += OnListViewCreating;
-            if (_application == null)
-                _application = this;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -47,7 +37,6 @@ namespace Xpand.ExpressApp.Win {
         protected override void OnSetupComplete() {
             this.SetClientSideSecurity();
             base.OnSetupComplete();
-
         }
 
         ApplicationModulesManager IXafApplication.ApplicationModulesManager {
@@ -55,9 +44,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         public virtual AutoCreateOption AutoCreateOption {
-            get {
-                return this.AutoCreateOption();
-            }
+            get { return this.AutoCreateOption(); }
         }
 
         public event EventHandler UserDifferencesLoaded;
@@ -73,13 +60,7 @@ namespace Xpand.ExpressApp.Win {
         }
 
         protected override Form CreateModelEditorForm() {
-            var controller = new ModelEditorViewController(Model, CreateUserModelDifferenceStore());
-            ModelDifferenceStore modelDifferencesStore = CreateModelDifferenceStore();
-            if (modelDifferencesStore != null) {
-                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo> { new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model") };
-                controller.SetModuleDiffStore(modulesDiffStoreInfo);
-            }
-            return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)Model).ModelEditorSettings));
+            return ModelEditorViewController.CreateModelEditorForm(this);
         }
 
         public new SettingsStorage CreateLogonParameterStoreCore() {
@@ -186,11 +167,6 @@ namespace Xpand.ExpressApp.Win {
             var creatingListEditorEventArgs = new CreatingListEditorEventArgs(modelListView, collectionSource);
             OnCustomCreateListEditor(creatingListEditorEventArgs);
             return creatingListEditorEventArgs.Handled ? creatingListEditorEventArgs.ListEditor : base.CreateListEditorCore(modelListView, collectionSource);
-        }
-
-
-        public static void HandleException(Exception exception, XpandWinApplication xpandWinApplication) {
-            xpandWinApplication.HandleException(exception);
         }
 
         public XpandWinApplication(IContainer container) {

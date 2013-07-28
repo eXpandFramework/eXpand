@@ -129,7 +129,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelApplicationModelAdaptor.cs" />
-    <Compile Include="Model\IModelModelAdaptorLogic.cs" />
     <Compile Include="NodeUpdaters\ModelAdaptorRulesNodeUpdater.cs" />
     <Compile Include="ModelAdaptorModule.cs">
       <SubType>Component</SubType>

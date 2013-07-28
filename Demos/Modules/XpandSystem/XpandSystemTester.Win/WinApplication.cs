@@ -2,11 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Win;
 
 namespace XpandSystemTester.Win {
-    public partial class XpandSystemTesterWindowsFormsApplication : XpandWinApplication {
+    public partial class XpandSystemTesterWindowsFormsApplication : WinApplication {
         public XpandSystemTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;

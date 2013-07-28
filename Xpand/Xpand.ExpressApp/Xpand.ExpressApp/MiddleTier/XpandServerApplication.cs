@@ -5,11 +5,9 @@ using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
@@ -65,10 +63,6 @@ namespace Xpand.ExpressApp.MiddleTier {
         }
 
         public event EventHandler UserDifferencesLoaded;
-
-        SettingsStorage ISettingsStorage.CreateLogonParameterStoreCore() {
-            throw new NotImplementedException();
-        }
 
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {
             throw new NotImplementedException();
