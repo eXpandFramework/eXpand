@@ -12,8 +12,8 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
 
         [Index(2)]
         public bool RememberMe { get; set; }
-
-        SettingsStorage IXpandLogonParameters.Storage {
+        [Browsable(false)]
+        public SettingsStorage Storage {
             get { return _storage; }
         }
 

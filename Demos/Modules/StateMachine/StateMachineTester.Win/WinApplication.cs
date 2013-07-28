@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.General;
 
 
 namespace StateMachineTester.Win {
-    public partial class StateMachineTesterWindowsFormsApplication : WinApplication, ISettingsStorage {
+    public partial class StateMachineTesterWindowsFormsApplication : WinApplication {
         public StateMachineTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
