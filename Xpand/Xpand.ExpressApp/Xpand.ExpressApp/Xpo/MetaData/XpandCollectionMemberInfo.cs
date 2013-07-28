@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -7,6 +9,9 @@ using Xpand.Xpo.MetaData;
 namespace Xpand.ExpressApp.Xpo.MetaData {
     public class XpandCollectionMemberInfo : XpandCustomMemberInfo {
         readonly string _criteria;
+        static XpandCollectionMemberInfo() {
+            var propertyInfo = typeof (PersistentBase).GetProperty("CustomPropertyStore", BindingFlags.Instance | BindingFlags.NonPublic);
+        }
 
         public XpandCollectionMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string criteria)
             : base(owner, propertyName, propertyType, null, true, false) {
@@ -19,7 +24,7 @@ namespace Xpand.ExpressApp.Xpo.MetaData {
 
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
-            return base.GetStore(this).GetCustomPropertyValue(this) == null
+            return base.GetStore(theObject).GetCustomPropertyValue(this) == null
                        ? Activator.CreateInstance(MemberType, GetArguments(xpBaseObject))
                        : base.GetValue(theObject);
         }

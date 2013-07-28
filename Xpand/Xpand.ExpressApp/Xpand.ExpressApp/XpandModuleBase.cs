@@ -18,30 +18,35 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
+using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp {
     [ToolboxItem(false)]
     public abstract class XpandModuleBase : ModuleBase {
         static List<object> _storeManagers;
-
+        readonly static HashSet<string> _callMonitor=new HashSet<string>();
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
         static XPDictionary _dictiorary;
-        static bool _setupCalled;
-        static bool _setup2Called;
         static string _connectionString;
-        static bool _customizeTypesInfoCalled;
         protected Type DefaultXafAppType = typeof (XafApplication);
         static bool _compatibilityChecked;
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
+        }
+
+        public static HashSet<string> CallMonitor {
+            get { return _callMonitor; }
         }
 
         public static XPDictionary Dictiorary {
@@ -53,14 +58,39 @@ namespace Xpand.ExpressApp {
             set { _dictiorary = value; }
         }
 
+        public override void CustomizeLogics(CustomLogics customLogics) {
+            base.CustomizeLogics(customLogics);
+            if (Executed("CustomizeLogics"))
+                return;
+            customLogics.RegisterLogic(typeof(ITypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
+        }
+
+        public bool Executed(string name) {
+            if (_callMonitor.Contains(name))
+                return true;
+            _callMonitor.Add(name);
+            return false;
+        }
+
         public static ITypesInfo TypesInfo { get; set; }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
+            if (Executed("ExtendModelInterfaces"))
+                return;
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
+            extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
+            extenders.Add<IModelApplication, ITypesInfoProvider>();
         }
         public static Type UserType { get; set; }
 
         public static Type RoleType { get; set; }
+
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            if (Executed("AddGeneratorUpdaters"))
+                return;
+            updaters.Add(new ModelViewClonerUpdater());
+        }
 
         protected bool RuntimeMode {
             get { return InterfaceBuilder.RuntimeMode; }
@@ -91,11 +121,15 @@ namespace Xpand.ExpressApp {
         }
 
         public static string ConnectionString {
-            get { return _connectionString; }
+            get {
+                if (_connectionString != null) return _connectionString;
+                throw new NullReferenceException("ConnectionString");
+            }
+            protected set { _connectionString = value; }
         }
 
         void LoadBaseImplAssembly() {
-            string assemblyString = "Xpand.Persistent.BaseImpl, Version=*, Culture=neutral, PublicKeyToken=*";
+            string assemblyString = string.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo .FileVersion, XpandAssemblyInfo.Token);
             string baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {
                 assemblyString = baseImplName;
@@ -217,31 +251,55 @@ namespace Xpand.ExpressApp {
         public IList<Type> GetAdditionalClasses(ModuleList moduleList) {
             return new List<Type>(moduleList.SelectMany(@base => @base.AdditionalExportedTypes));
         }
-
+        
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (_setupCalled)
+            if (Executed("Setup2"))
                 return;
+            SetConnectionString();
             OnApplicationInitialized(Application);
-            _setupCalled = true;
         }
+
+        void SetConnectionString() {
+            if (!RuntimeMode)
+                return;
+            if (Application.ObjectSpaceProviders.Count == 0) {
+                ConnectionString = Application.ConnectionString;
+            }
+            else {
+                var provider = Application.ObjectSpaceProvider as IXpandObjectSpaceProvider;
+                if (provider != null) {
+                    ConnectionString =provider.DataStoreProvider.ConnectionString;
+                }
+                else if (Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
+                    var fieldInfo = typeof(XPObjectSpaceProvider).GetField("dataStoreProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+                    if (fieldInfo == null) throw new NullReferenceException("dataStoreProvider fieldInfo");
+                    var xpoDataStoreProvider = ((IXpoDataStoreProvider) fieldInfo.GetValue(Application.ObjectSpaceProvider));
+                    ConnectionString = xpoDataStoreProvider.ConnectionString;
+                }
+                else {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            ApplicationHelper.Instance.Initialize(application);
-            if (_setup2Called)
-                return;
-            
-            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+            if (RuntimeMode)
+                ApplicationHelper.Instance.Initialize(application);
             CheckApplicationTypes();
+            OnApplicationInitialized(application);
+            if (Executed("Setup"))
+                return;
+            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+            
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
-            OnApplicationInitialized(application);
+            
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
             application.CustomCheckCompatibility+=ApplicationOnCustomCheckCompatibility;
-            _setup2Called = true;
         }
 
         void ApplicationOnCustomCheckCompatibility(object sender, CustomCheckCompatibilityEventArgs customCheckCompatibilityEventArgs) {
@@ -258,20 +316,13 @@ namespace Xpand.ExpressApp {
             if (RuntimeMode) {
                 foreach (var applicationType in ApplicationTypes()) {
                     if (!applicationType.IsInstanceOfType(Application)) {
-                        throw new CannotLoadInvalidTypeException(Application.GetType().FullName + " must implement/derive from " +
+                        throw new CannotLoadInvalidTypeException(Application.GetType().FullName + " from " + GetType().FullName + ". "+Environment.NewLine + Application.GetType().FullName + " must implement/derive from " +
                                                                  applicationType.FullName + Environment.NewLine +
                                                                  "Please check folder Demos/Modules/" +
-                                                                 GetType().Name.Replace("Module", null) +
-                                                                 " to see how to install correctly this module");
+                                                                 GetType().Name.Replace("Module", null) + " to see how to install correctly this module. As an quick workaround you can derive your " +Application.GetType().FullName+ " from XpandWinApplication or from XpandWebApplication");
                     }
                 }
             }
-        }
-
-        void ApplicationOnCreateCustomObjectSpaceProvider(object sender,
-                                                          CreateCustomObjectSpaceProviderEventArgs
-                                                              createCustomObjectSpaceProviderEventArgs) {
-            _connectionString = createCustomObjectSpaceProviderEventArgs.ConnectionString;
         }
 
         void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
@@ -284,10 +335,8 @@ namespace Xpand.ExpressApp {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (_customizeTypesInfoCalled)
+            if (Executed("CustomizeTypesInfo"))
                 return;
-
-
             AssignSecurityEntities();
             OnApplicationInitialized(Application);
             ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
@@ -301,7 +350,6 @@ namespace Xpand.ExpressApp {
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
-            _customizeTypesInfoCalled = true;
         }
 
         void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
@@ -25,18 +26,42 @@ namespace Xpand.ExpressApp.Core {
         public static void CreateRuntimeMembers(IModelApplication model) {
             using (var objectSpace = CreateObjectSpace()) {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
-                var throwOnDbColumnCreationError = ((IModelOptionRuntimeMembers)model.Options).ThrowOnDbColumnCreationError;
-                foreach (var modelRuntimeMember in GetMembersEx(model))
-                    CreateRuntimeMember(modelRuntimeMember, objectSpace as XPObjectSpace, throwOnDbColumnCreationError);
+                var modelMemberOneToManyCollections = new List<IModelMemberOneToManyCollection>();
+                var xpObjectSpace = objectSpace as XPObjectSpace;
+                var modelMemberExs = GetMembersEx(model);
+                foreach (var memberEx in modelMemberExs) {
+                    var modelMemberOneToManyCollection = memberEx as IModelMemberOneToManyCollection;
+                    if (modelMemberOneToManyCollection==null) {
+                        CreateXpandCustomMemberInfo(memberEx, xpObjectSpace);
+                    }
+                    else {
+                        modelMemberOneToManyCollections.Add(modelMemberOneToManyCollection);
+                    }
+                }
+                RefreshTypes(model.GetTypesInfo(), modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
+                CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
+                RefreshTypes(model.GetTypesInfo(), modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
+        }
+
+        static void CreateAssociatedCollectionMembers(IEnumerable<IModelMemberOneToManyCollection> modelMemberOneToManyCollections, XPObjectSpace xpObjectSpace) {
+            foreach (var modelMemberOneToManyCollection in modelMemberOneToManyCollections) {
+                CreateXpandCustomMemberInfo(modelMemberOneToManyCollection, xpObjectSpace);
+            }
+        }
+
+        static void RefreshTypes(ITypesInfo typesInfo, IEnumerable<ITypeInfo> typeInfos) {
+            foreach (var typeInfo in typeInfos) {
+                typesInfo.RefreshInfo(typeInfo);
+            }
         }
 
         static IObjectSpace CreateObjectSpace() {
             return XpandModuleBase.CompatibilityChecked?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
         }
 
-        static void CreateRuntimeMember(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError) {
+        static void CreateXpandCustomMemberInfo(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
             try {
                 Type classType = modelMemberEx.ModelClass.TypeInfo.Type;
                 XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
@@ -45,12 +70,10 @@ namespace Xpand.ExpressApp.Core {
                     if (customMemberInfo == null) {
                         customMemberInfo= CreateMemberInfo(modelMemberEx, xpClassInfo);
                         AddAttributes(modelMemberEx, customMemberInfo);
-                        XafTypesInfo.Instance.RefreshInfo(classType);
                     }
-                    else {
-                        CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace, throwOnDbColumnCreationError, customMemberInfo, xpClassInfo, classType);
-                        UpdateMember(modelMemberEx, customMemberInfo);
-                    }
+                    CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace,  customMemberInfo);
+                    CreateForeignKey(modelMemberEx as IModelMemberOneToManyCollection, objectSpace,  customMemberInfo);
+                    UpdateMember(modelMemberEx, customMemberInfo);
                 }
             }
             catch (Exception exception) {
@@ -64,28 +87,42 @@ namespace Xpand.ExpressApp.Core {
             }
         }
 
-        static void CreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace, bool throwOnDbColumnCreationError,
-                                 XpandCustomMemberInfo customMemberInfo, XPClassInfo xpClassInfo, Type classType) {
-                                     if (CanCreateColumn(modelMemberPersistent, objectSpace)) {
-                objectSpace.CreateColumn(customMemberInfo, xpClassInfo, throwOnDbColumnCreationError);
+        static void CreateForeignKey(IModelMemberOneToManyCollection modelMemberOneToManyCollection, XPObjectSpace objectSpace,  XpandCustomMemberInfo customMemberInfo) {
+            if (CanCreateForeignKey(modelMemberOneToManyCollection, objectSpace)) {
+                var throwUnableToCreateDbObjectException = ((IModelOptionMemberPersistent) modelMemberOneToManyCollection.Application.Options).ThrowUnableToCreateDbObjectException;
+                var xpCustomMemberInfo = customMemberInfo.GetAssociatedMember() as XPCustomMemberInfo;
+                if (xpCustomMemberInfo == null) throw new NullReferenceException("xpCustomMemberInfo");
+                objectSpace.CreateForeignKey(xpCustomMemberInfo,throwUnableToCreateDbObjectException);
+                modelMemberOneToManyCollection.AssociatedMember.DataStoreForeignKeyCreated = true;
+                modelMemberOneToManyCollection.DataStoreForeignKeyCreated = true;
+            }
+        }
+
+        static bool CanCreateForeignKey(IModelMemberOneToManyCollection modelMemberOneToManyCollection, XPObjectSpace objectSpace) {
+            return CanCreateDbArtifact(modelMemberOneToManyCollection, objectSpace)&&!modelMemberOneToManyCollection.AssociatedMember.DataStoreForeignKeyCreated;
+        }
+
+        static void CreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace, 
+                                 XpandCustomMemberInfo customMemberInfo) {
+            if (CanCreateColumn(modelMemberPersistent, objectSpace)) {
+                objectSpace.CreateColumn(customMemberInfo, ((IModelOptionMemberPersistent)modelMemberPersistent.Application.Options).ThrowUnableToCreateDbObjectException);
                 modelMemberPersistent.DataStoreColumnCreated = true;
-                XafTypesInfo.Instance.RefreshInfo(classType);
+                modelMemberPersistent.DataStoreForeignKeyCreated = customMemberInfo.HasAttribute(typeof(AssociationAttribute));
             }
         }
 
         static bool CanCreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace) {
-            return  modelMemberPersistent != null &&
-                                   (objectSpace != null && modelMemberPersistent.MemberInfo.MemberTypeInfo.IsPersistent &&
-                                    !modelMemberPersistent.CreatedAtDesignTime &&
-                                    !modelMemberPersistent.DataStoreColumnCreated);
+            return CanCreateDbArtifact(modelMemberPersistent, objectSpace) && !modelMemberPersistent.DataStoreColumnCreated && modelMemberPersistent.MemberInfo.IsPersistent;
         }
 
+        static bool CanCreateDbArtifact(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
+            return modelMemberEx != null && objectSpace != null &&!modelMemberEx.CreatedAtDesignTime.Value;
+        }
 
         static void UpdateMember(IModelMemberEx modelMemberEx, XPMemberInfo xpMemberInfo) {
             var modelRuntimeCalculatedMember = modelMemberEx as IModelMemberCalculated;
             if (modelRuntimeCalculatedMember != null) {
                 ((XpandCalcMemberInfo)xpMemberInfo).SetAliasExpression(modelRuntimeCalculatedMember.AliasExpression);
-                XpandModuleBase.TypesInfo.RefreshInfo(xpMemberInfo.Owner.ClassType);
             }
         }
 
@@ -100,11 +137,18 @@ namespace Xpand.ExpressApp.Core {
             var calculatedMember = modelMemberEx as IModelMemberCalculated;
             if (calculatedMember != null)
                 return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type, calculatedMember.AliasExpression);
-            var member = modelMemberEx as IModelMemberOrphanedColection;
-            if (member != null) {
-                var modelRuntimeOrphanedColection = member;
-                return xpClassInfo.CreateCollection(member.Name, modelRuntimeOrphanedColection.CollectionType.TypeInfo.Type,
-                                                    modelRuntimeOrphanedColection.Criteria);
+            var modelMemberOrphanedColection = modelMemberEx as IModelMemberOrphanedColection;
+            if (modelMemberOrphanedColection != null) {
+                return xpClassInfo.CreateCollection(modelMemberOrphanedColection.Name, modelMemberOrphanedColection.CollectionType.TypeInfo.Type,
+                                                    modelMemberOrphanedColection.Criteria);
+            }
+            var modelMemberOneToManyCollection = modelMemberEx as IModelMemberOneToManyCollection;
+            if (modelMemberOneToManyCollection!=null) {
+                var elementType = modelMemberOneToManyCollection.CollectionType.TypeInfo.Type;
+                var associationAttribute = new AssociationAttribute(modelMemberOneToManyCollection.AssociationName, elementType);
+                var xpandCollectionMemberInfo = xpClassInfo.CreateCollection(modelMemberOneToManyCollection.Name, elementType, null, associationAttribute);
+                modelMemberOneToManyCollection.AssociatedMember.ModelClass.TypeInfo.FindMember(modelMemberOneToManyCollection.AssociatedMember.Name).AddAttribute(associationAttribute);
+                return xpandCollectionMemberInfo;
             }
             return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type, modelMemberEx is IModelMemberNonPersistent);
         }

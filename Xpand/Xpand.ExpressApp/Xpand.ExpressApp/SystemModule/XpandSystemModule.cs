@@ -71,9 +71,12 @@ namespace Xpand.ExpressApp.SystemModule {
             if (RuntimeMode && (XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource) && !((ITestSupport)application).IsTesting)
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
-            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-            application.SetupComplete +=(sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
-            application.LoggedOn +=(sender, args) =>RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+            if (RuntimeMode) {
+                application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
+                application.SetupComplete +=
+                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+                application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+            }
         }
 
         [Browsable(false)]
@@ -149,7 +152,7 @@ namespace Xpand.ExpressApp.SystemModule {
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
-            updaters.Add(new ModelViewClonerUpdater());
+            
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
@@ -162,7 +165,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
-            extenders.Add<IModelOptions, IModelOptionRuntimeMembers>();
+            extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
 

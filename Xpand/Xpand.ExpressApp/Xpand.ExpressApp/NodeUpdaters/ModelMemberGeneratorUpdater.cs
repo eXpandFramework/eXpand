@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Model.RuntimeMembers;
 
 namespace Xpand.ExpressApp.NodeUpdaters {

@@ -9,9 +9,18 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model.RuntimeMembers.Collections;
 using Xpand.ExpressApp.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.Model.RuntimeMembers {
+    [DomainLogic((typeof(IModelClass)))]
+    public class ModelClassExDomainLogic {
+        public static ITypeInfo  Get_TypeInfo(IModelClass modelClass) {
+            var typesInfo = ((ITypesInfoProvider) modelClass.Application).TypesInfo;
+            if (typesInfo != null) return typesInfo.FindTypeInfo(modelClass.Name);
+            return XpandModuleBase.TypesInfo.FindTypeInfo(modelClass.Name);
+        }
+    }
     [ModelAbstractClass]
     public interface IModelMemberEx : IModelMember {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
@@ -26,7 +35,7 @@ namespace Xpand.ExpressApp.Model.RuntimeMembers {
         [Browsable(false)]
         object Tag { get; set; }
         [Browsable(false)]
-        bool CreatedAtDesignTime { get; set; }
+        bool? CreatedAtDesignTime { get; set; }
     }
     [ModelDisplayName("NonPersistent")]
     [ModelPersistentName("RuntimeNonPersistentMember")]
@@ -51,7 +60,7 @@ namespace Xpand.ExpressApp.Model.RuntimeMembers {
 
     public class ModelMemberExTypeVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !(node is IModelMemberOrphanedColection) || propertyName != "Type";
+            return !(node is IModelMemberColection) || propertyName != "Type";
         }
     }
 
@@ -64,7 +73,8 @@ namespace Xpand.ExpressApp.Model.RuntimeMembers {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
                 var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
                 if (xpandCustomMemberInfo == null) {
-                    modelMemberEx.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
+                    if (!modelMemberEx.CreatedAtDesignTime.HasValue)
+                        modelMemberEx.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
                     CreateXpandCustomMemberInfo.Invoke(modelMemberEx, xpClassInfo);
                     var typesInfo = ((BaseInfo)modelMemberEx.ModelClass.TypeInfo).Store;
                     typesInfo.RefreshInfo(xpClassInfo.ClassType);

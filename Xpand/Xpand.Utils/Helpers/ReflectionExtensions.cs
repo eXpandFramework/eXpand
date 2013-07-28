@@ -12,6 +12,12 @@ namespace Xpand.Utils.Helpers {
             return assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit";
         }
 
+        public static object Invoke(this Type type, object target, string methodName) {
+            MethodInfo methodInfo = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, new ParameterModifier[0]);
+            if (methodInfo == null) throw new NullReferenceException("methodInfo");
+            return methodInfo.Invoke(target, new object[0]);
+        }
+
         public static IEnumerable<Type> GetTypes(this AppDomain appdomain, string typeToFind) {
             var types = new List<Type>();
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()) {

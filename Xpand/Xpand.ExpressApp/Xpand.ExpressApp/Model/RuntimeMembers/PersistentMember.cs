@@ -6,16 +6,21 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.Model.RuntimeMembers {
     [ModelPersistentName("RuntimeMember")]
     [ModelDisplayName("Persistent")]
-    public interface IModelMemberPersistent : IModelMemberEx {
+    public interface IModelMemberPersistent : IModelMemberEx, IModelMemberDataStoreForeignKeyCreated {
         
         [Browsable((false))]
         bool DataStoreColumnCreated { get; set; }
+        
     }
-
-    public interface IModelOptionRuntimeMembers {
+    [ModelAbstractClass]
+    public interface IModelMemberDataStoreForeignKeyCreated:IModelMember {
+        [Browsable((false))]
+        bool DataStoreForeignKeyCreated { get; set; }
+    }
+    public interface IModelOptionMemberPersistent {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Description("If set when creating Runtime members it will throw any SqlExecutionErrorException/ConstrainsVionationException")]
-        bool ThrowOnDbColumnCreationError { get; set; }
+        bool ThrowUnableToCreateDbObjectException { get; set; }
     }
 
     [DomainLogic(typeof(IModelMemberPersistent))]
