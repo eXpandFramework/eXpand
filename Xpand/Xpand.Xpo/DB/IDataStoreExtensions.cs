@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Reflection;
-using Castle.DynamicProxy;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.DB {
-    public static class ProxyGeneratorExtensions {
-        public static TInterface MockObject<TInterface>(this object target) where TInterface : class {
-            var generator = new ProxyGenerator();
-            return generator.CreateInterfaceProxyWithoutTarget<TInterface>(
-                new DuckTypingInterceptor(target,typeof(TInterface),interception => interception.Invocation.ReturnValue = true));
-        }
-    }
     public static class IDataStoreExtensions {
         public static ConnectionProviderSql ConnectionProviderSql(this IDataStore dataStore) {
             var dataStoreProxy = dataStore as DataStoreProxy;
@@ -83,92 +73,5 @@ namespace Xpand.Xpo.DB {
         bool CanCreateSchema { get; }
         void CreateColumn(DBTable table, DBColumn column);
     }
-    public class DuckTypingInterceptor : IInterceptor {
-        private readonly object target;
-        readonly Action<Interception> _action;
 
-        public class Interception {
-            readonly IInvocation _invocation;
-            readonly MethodInfo _methodInfo;
-
-            public Interception(IInvocation invocation, MethodInfo methodInfo) {
-                _invocation = invocation;
-                _methodInfo = methodInfo;
-            }
-
-            public object ReturnObject { get; set; }
-
-            public IInvocation Invocation {
-                get { return _invocation; }
-            }
-
-            public MethodInfo MethodInfo {
-                get { return _methodInfo; }
-            }
-        }
-
-        readonly HashSet<string>  _names=new HashSet<string>();
-        public DuckTypingInterceptor(object target,Type interfaceType, Action<Interception> action) {
-            this.target = target;
-            var propertyNames = interfaceType.GetProperties().Where(info => info.GetCustomAttributes(typeof (InterceptAttribute), false).Any()).Select(info => info.Name);
-            var methodNmeas = interfaceType.GetMethods().Where(info => info.GetCustomAttributes(typeof (InterceptAttribute), false).Any()).Select(info => info.Name);
-            foreach (var source in propertyNames.Union(methodNmeas)) {
-                _names.Add(source);
-            }
-            _action = action;
-        }
-
-        public void Intercept(IInvocation invocation) {
-            var methods = target.GetType().GetMethods()
-                .Where(m => m.Name == invocation.Method.Name)
-                .Where(m => m.GetParameters().Length == invocation.Arguments.Length)
-                .ToList();
-            if (methods.Count > 1)
-                throw new ApplicationException(string.Format("Ambiguous method match for '{0}'", invocation.Method.Name));
-            if (methods.Count == 0)
-                throw new ApplicationException(string.Format("No method '{0}' found", invocation.Method.Name));
-            var method = methods[0];
-            if (invocation.GenericArguments != null && invocation.GenericArguments.Length > 0)
-                method = method.MakeGenericMethod(invocation.GenericArguments);
-            var interception = new Interception(invocation, method);
-            if (!_names.Contains(method.Name))
-                invocation.ReturnValue = method.Invoke(target, invocation.Arguments);
-            else
-                _action.Invoke(interception);
-        }
-    }
-
-    public sealed class InterceptAttribute:Attribute {
-    }
-
-//    public static class DuckType {
-//        private static readonly ProxyGenerator generator = new ProxyGenerator();
-//
-//        public static T As<T>(object o) where T : class {
-//            return generator.CreateInterfaceProxyWithoutTarget<T>(new DuckTypingInterceptor(o));
-//        }
-//    }
-
-//    public class DuckTypingInterceptor : IInterceptor {
-//        private readonly object target;
-//
-//        public DuckTypingInterceptor(object target) {
-//            this.target = target;
-//        }
-//
-//        public void Intercept(IInvocation invocation) {
-//            var methods = target.GetType().GetMethods()
-//                .Where(m => m.Name == invocation.Method.Name)
-//                .Where(m => m.GetParameters().Length == invocation.Arguments.Length)
-//                .ToList();
-//            if (methods.Count > 1)
-//                throw new ApplicationException(string.Format("Ambiguous method match for '{0}'", invocation.Method.Name));
-//            if (methods.Count == 0)
-//                throw new ApplicationException(string.Format("No method '{0}' found", invocation.Method.Name));
-//            var method = methods[0];
-//            if (invocation.GenericArguments != null && invocation.GenericArguments.Length > 0)
-//                method = method.MakeGenericMethod(invocation.GenericArguments);
-//            invocation.ReturnValue = method.Invoke(target, invocation.Arguments);
-//        }
-//    }
 }
