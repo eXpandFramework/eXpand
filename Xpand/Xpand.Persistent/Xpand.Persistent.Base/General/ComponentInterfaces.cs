@@ -60,13 +60,22 @@ namespace Xpand.Persistent.Base.General {
     public interface IXafApplicationDirectory {
         string BinDirectory { get;  }
     }
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded {
-        string ModelAssemblyFilePath { get; }
-        ApplicationModulesManager ApplicationModulesManager { get; }
-        AutoCreateOption AutoCreateOption { get; }
-        void WriteLastLogonParameters(DetailView view, object logonObject);
+    public interface ILayoutManager {
+    }
+
+    public interface IAfterViewShown {
         event EventHandler<ViewShownEventArgs> AfterViewShown;
         void OnAfterViewShown(Frame frame, Frame sourceFrame);
+    }
+
+    public interface IAutoCreateOption {
+        AutoCreateOption AutoCreateOption { get; }
+    }
+
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption {
+        string ModelAssemblyFilePath { get; }
+        ApplicationModulesManager ApplicationModulesManager { get; }
+        void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 
 }

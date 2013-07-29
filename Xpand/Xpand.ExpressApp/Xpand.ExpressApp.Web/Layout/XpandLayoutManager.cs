@@ -18,11 +18,12 @@ using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.Web.ListEditors;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
-    public class XpandLayoutManager : WebLayoutManager {
+    public class XpandLayoutManager : WebLayoutManager, ILayoutManager {
         ViewItemsCollection _detailViewItems;
 
         public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
@@ -219,4 +220,5 @@ namespace Xpand.ExpressApp.Web.Layout {
             }
         }
     }
+
 }

@@ -72,11 +72,23 @@ namespace Xpand.ExpressApp.SystemModule {
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
+                application.ListViewCreating+=ApplicationOnListViewCreating;
+                application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
                 application.SetupComplete +=
                     (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
+        }
+
+        void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
+            if (!(args.View is XpandDetailView))
+                args.View = ViewFactory.CreateDetailView((XafApplication) sender, args.ViewID, args.ObjectSpace, args.Obj, args.IsRoot);
+        }
+
+        void ApplicationOnListViewCreating(object sender, ListViewCreatingEventArgs args) {
+            if (!(args.View is XpandListView))
+                args.View = ViewFactory.CreateListView((XafApplication) sender, args.ViewID, args.CollectionSource, args.IsRoot);
         }
 
         [Browsable(false)]
