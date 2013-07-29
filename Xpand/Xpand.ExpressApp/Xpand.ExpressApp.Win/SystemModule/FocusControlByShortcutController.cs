@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -11,6 +12,7 @@ using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraBars;
 using DevExpress.XtraLayout;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelMemberFocusControlByShortcut : IModelNode {
@@ -53,7 +55,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             int newItemId = barManager.GetNewItemId();
             return shortCut => new BarSubItem {
                 Id = newItemId,
-                Name = newItemId.ToString(),
+                Name = newItemId.ToString(CultureInfo.InvariantCulture),
                 Caption = shortCut.Value.Id,
                 ItemShortcut = new BarShortcut(shortCut.Key)
             };
@@ -81,7 +83,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     _shortCuts.Add(ShortcutHelper.ParseBarShortcut(shortcut).Key, propertyEditor);
                 var listEditor = propertyEditor as ListPropertyEditor;
                 if (listEditor != null && listEditor.Frame != null) {
-                    var listView = ((XpandListView)((ListPropertyEditor)propertyEditor).Frame.View);
+                    var listView = ((ListView)((ListPropertyEditor)propertyEditor).Frame.View);
                     if (listView != null) {
                         var listViewInfoNodeWrapper = listView.Model;
                         if (listViewInfoNodeWrapper.MasterDetailMode == MasterDetailMode.ListViewAndDetailView)

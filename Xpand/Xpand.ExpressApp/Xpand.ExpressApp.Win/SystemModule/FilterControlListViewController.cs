@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     }
 
-    public class FilterControlListViewController : ViewController<XpandListView>, IModelExtender {
+    public class FilterControlListViewController : ViewController<ListView>, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassFilterControlSettings>();
             extenders.Add<IModelListView, IModelListViewFilterControlSettings>();
@@ -67,7 +67,7 @@ Forms.DockStyle.None) {
                 UseMenuForOperandsAndOperators = false,
                 AllowAggregateEditing = FilterControlAllowAggregateEditing.AggregateWithCondition
             };
-            IFilterColumnCollectionHelper helper = new FilterColumnCollectionHelper(Application, ObjectSpace, View.ObjectTypeInfo);
+            var helper = new FilterColumnCollectionHelper(Application, ObjectSpace, View.ObjectTypeInfo);
             _xpandFilterControl.SetFilterColumnsCollection(new MemberInfoFilterColumnCollection(helper));
             OnCustomAssignFilterControlSourceControl(e);
             gridControl = (GridControl)_xpandFilterControl.SourceControl;

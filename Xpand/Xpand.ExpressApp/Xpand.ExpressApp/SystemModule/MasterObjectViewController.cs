@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.SystemModule {
-    public abstract class MasterObjectViewController<TObject> : ViewController<XpandListView> where TObject : class {
+    public abstract class MasterObjectViewController<TObject> : ViewController<ListView> where TObject : class {
         protected MasterObjectViewController() {
             TargetViewNesting = Nesting.Nested;
         }
@@ -12,8 +12,9 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            if (View.CollectionSource is PropertyCollectionSource) {
-                var collectionSource = (PropertyCollectionSource)View.CollectionSource;
+            var source = View.CollectionSource as PropertyCollectionSource;
+            if (source != null) {
+                var collectionSource = source;
                 collectionSource.MasterObjectChanged += collectionSource_MasterObjectChanged;
             }
         }

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.Templates;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
-    public class ModelEditorCustomTemplateViewController : ViewController<XpandListView> {
+    public class ModelEditorCustomTemplateViewController : ViewController<ListView> {
         public ModelEditorCustomTemplateViewController() {
             TargetObjectType = typeof(ModelDifferenceObject);
         }

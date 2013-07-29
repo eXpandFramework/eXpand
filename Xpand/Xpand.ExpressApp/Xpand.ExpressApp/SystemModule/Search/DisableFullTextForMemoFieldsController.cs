@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelListViewDisableFullTextForMemoFields : IModelClassDisableFullTextForMemoFields {
     }
 
-    public class DisableFullTextForMemoFieldsController : ViewController<XpandListView>, IModelExtender {
+    public class DisableFullTextForMemoFieldsController : ViewController<ListView>, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassDisableFullTextForMemoFields>();
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();

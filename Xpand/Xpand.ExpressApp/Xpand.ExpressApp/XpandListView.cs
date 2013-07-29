@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp {
         }
         protected override void OnControlsCreated() {
             base.OnControlsCreated();
-            IXpandListEditor xpandEditor = Editor as IXpandListEditor;
+            var xpandEditor = Editor as IXpandListEditor;
             if (xpandEditor != null)
                 xpandEditor.NotifyViewControlsCreated(this);
         }

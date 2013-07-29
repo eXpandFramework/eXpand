@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     }
 
-    public class HideGridPopUpMenuViewController : ViewController<XpandListView>, IModelExtender {
+    public class HideGridPopUpMenuViewController : ViewController<ListView>, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassHidePopupMenu>();
             extenders.Add<IModelListView, IModelListViewHidePopupMenu>();

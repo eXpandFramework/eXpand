@@ -199,7 +199,7 @@ namespace Xpand.ExpressApp.Logic {
                 View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
-                if (View is XpandListView)
+                if (View is ListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
             }
         }
@@ -274,7 +274,7 @@ namespace Xpand.ExpressApp.Logic {
             View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
             View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
 
-            if (View is XpandListView)
+            if (View is ListView)
                 Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
         }
 

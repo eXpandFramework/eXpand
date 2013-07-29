@@ -66,17 +66,17 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, View view) : base(typeInfo) {
-            var listView = ((XpandListView)view);
+            var listView = ((ListView)view);
             _excludedColumns = GetColumns(listView, SearchMemberMode.Exclude);
             includedColumns = GetColumns(listView, SearchMemberMode.Include);
         }
 
-        Dictionary<IModelColumn,IMemberInfo> GetColumns(XpandListView listView, SearchMemberMode searchMemberMode) {
-            return listView.Model.Columns.OfType<IModelColumnSearchMode>().Where(wrapper => wrapper.SearchMemberMode == searchMemberMode).OfType<IModelColumn>()
-                        .Select(column => new{Column = column, Member = GetActualSearchProperty(column.PropertyName)}).ToDictionary(item => item.Column, item => item.Member);
+        public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, ICollection<string> properties, string valueToSearch, GroupOperatorType valuesGroupOperatorType, bool includeNonPersistentMembers, SearchMode searchMode) : base(typeInfo, properties, valueToSearch, valuesGroupOperatorType, includeNonPersistentMembers, searchMode) {
         }
 
-        public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, ICollection<string> properties, string valueToSearch, GroupOperatorType valuesGroupOperatorType, bool includeNonPersistentMembers, SearchMode searchMode) : base(typeInfo, properties, valueToSearch, valuesGroupOperatorType, includeNonPersistentMembers, searchMode) {
+        Dictionary<IModelColumn,IMemberInfo> GetColumns(ListView listView, SearchMemberMode searchMemberMode) {
+            return listView.Model.Columns.OfType<IModelColumnSearchMode>().Where(wrapper => wrapper.SearchMemberMode == searchMemberMode).OfType<IModelColumn>()
+                           .Select(column => new{Column = column, Member = GetActualSearchProperty(column.PropertyName)}).ToDictionary(item => item.Column, item => item.Member);
         }
 
         public XpandSearchCriteriaBuilder(ITypeInfo typeInfo, ICollection<string> properties, string valueToSearch, GroupOperatorType valuesGroupOperatorType, bool includeNonPersistentMembers) : base(typeInfo, properties, valueToSearch, valuesGroupOperatorType, includeNonPersistentMembers) {

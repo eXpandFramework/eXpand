@@ -1,5 +1,6 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace XpandSystemTester.Module.BusinessObjects {
@@ -27,6 +28,7 @@ namespace XpandSystemTester.Module.BusinessObjects {
         }
 
         private int year;
+        [RuleRange("aaa",DefaultContexts.Save, 2013,2014)]
         public int Year {
             get { return year; }
             set { SetPropertyValue("Year", ref year, value); }
