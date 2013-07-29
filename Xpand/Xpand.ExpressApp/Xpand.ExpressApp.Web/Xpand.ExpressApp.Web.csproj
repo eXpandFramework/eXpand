@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -140,10 +141,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DisableProcessCurrentObjectController.cs">
+    <Compile Include="SystemModule\MasterDetail\RegisterScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\UpdateVisibilityController.cs">
+    <Compile Include="SystemModule\MasterDetail\DisableProcessCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ListViewExtensions.cs">

@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.SystemModule;
 
-namespace Xpand.ExpressApp.Web.Controllers {
+namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
     public class DisableProcessCurrentObjectController : ViewController<ListView> {
         private const string STR_DisableProcessCurrentObjectController = "DisableProcessCurrentObjectController";
         public DisableProcessCurrentObjectController() {
