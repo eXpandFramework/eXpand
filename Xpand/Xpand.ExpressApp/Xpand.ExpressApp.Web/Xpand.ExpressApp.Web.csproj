@@ -118,15 +118,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -274,12 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\AdjustSize.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
-      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
-      <Name>Xpand.ExpressApp.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\XpandHelper.js" />
