@@ -116,7 +116,7 @@ namespace Xpand.ExpressApp.Core {
         }
 
         static bool CanCreateDbArtifact(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
-            return modelMemberEx != null && objectSpace != null &&!modelMemberEx.CreatedAtDesignTime.Value;
+            return modelMemberEx != null && objectSpace != null && (modelMemberEx.CreatedAtDesignTime.HasValue&&!modelMemberEx.CreatedAtDesignTime.Value);
         }
 
         static void UpdateMember(IModelMemberEx modelMemberEx, XPMemberInfo xpMemberInfo) {

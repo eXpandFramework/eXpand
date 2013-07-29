@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.Core {
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreNameSuffix) {
             if (dataStoreNameSuffix == null) {
                 var connectionString = ConnectionString(xafApplication, args);
-                var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, ((IXafApplication)xafApplication).AutoCreateOption);
+                var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DefaultAutoCreateOption(xafApplication));
                 args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
             } else if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
                 var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
@@ -129,6 +129,11 @@ namespace Xpand.ExpressApp.Core {
                 xafApplication.CreateCustomObjectSpaceprovider(args);
                 DisableObjectSpaceProderCreation=disableObjectSpaceProderCreation;
             }
+        }
+
+        static AutoCreateOption DefaultAutoCreateOption(XafApplication xafApplication) {
+            var autoCreateOption = xafApplication as IAutoCreateOption;
+            return autoCreateOption != null ? autoCreateOption.AutoCreateOption : DevExpress.Xpo.DB.AutoCreateOption.None;
         }
 
         static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication, IDataStore connectionProvider, string connectionString) {

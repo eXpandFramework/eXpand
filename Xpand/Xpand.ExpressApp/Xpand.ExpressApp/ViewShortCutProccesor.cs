@@ -10,7 +10,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp {
@@ -85,8 +84,9 @@ namespace Xpand.ExpressApp {
                     obj = objectSpace.GetObjectByKey(type, objectKey);
                 else {
                     obj = objectSpace.FindObject(type, (CriteriaOperator)objectKey) ?? objectSpace.CreateObject(type);
-                    if (!(objectSpace.IsNewObject(obj)))
-                        ((IXafApplication)_application).AfterViewShown += OnAfterViewShown;
+                    if (!(objectSpace.IsNewObject(obj))) {
+                        ((IAfterViewShown)_application).AfterViewShown += OnAfterViewShown;
+                    }
                 }
             } else {
                 obj = (type.GetConstructor(new[] { typeof(Session) }) != null) ? objectSpace.CreateObject(type) : Activator.CreateInstance(type);
