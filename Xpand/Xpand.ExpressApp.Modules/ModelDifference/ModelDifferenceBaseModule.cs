@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.Handled = true;
-            _userModelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Application);
+            _userModelDictionaryDifferenceStore =_userModelDictionaryDifferenceStore?? new XpoUserModelDictionaryDifferenceStore(Application);
             createCustomModelDifferenceStoreEventArgs.Store = _userModelDictionaryDifferenceStore;
         }
 

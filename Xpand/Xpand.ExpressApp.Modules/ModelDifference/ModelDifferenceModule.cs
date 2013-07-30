@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -28,6 +29,10 @@ namespace Xpand.ExpressApp.ModelDifference {
             } else if ((Application.Security!=null&&Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
                 BuildSecuritySystemObjects();
             }
+        }
+
+        protected override Type[] ApplicationTypes() {
+            return new[] { typeof (IUserDifferencesLoaded) };
         }
 
         public override void Setup(XafApplication application) {

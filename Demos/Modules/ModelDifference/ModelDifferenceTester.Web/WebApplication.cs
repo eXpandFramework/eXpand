@@ -15,9 +15,10 @@ using ModelDifferenceTester.Module.Web;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Web;
 using Xpand.ExpressApp.Security;
+using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : WebApplication {
+    public class ModelDifferenceTesterAspNetApplication : WebApplication,IUserDifferencesLoaded {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule cloneObjectModule1;
@@ -119,6 +120,17 @@ namespace ModelDifferenceTester.Web {
             Modules.Add(module4);
             Security = _securityStrategyComplex;
             ((ISupportInitialize) (this)).EndInit();
+        }
+
+        public event EventHandler UserDifferencesLoaded;
+        protected override void LoadUserDifferences() {
+            base.LoadUserDifferences();
+            OnUserDifferencesLoaded();
+        }
+
+        protected virtual void OnUserDifferencesLoaded() {
+            EventHandler handler = UserDifferencesLoaded;
+            if (handler != null) handler(this, EventArgs.Empty);
         }
     }
 }
