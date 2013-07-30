@@ -128,7 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StateMachineCacheController.cs">
+    <Compile Include="Controllers\StateMachineCacheController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
