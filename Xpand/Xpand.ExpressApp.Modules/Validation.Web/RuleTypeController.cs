@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
+using System.Linq;
+using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Validation.Web {
     public class RuleTypeController : Validation.RuleTypeController {
-        protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<DevExpress.Persistent.Validation.RuleSetValidationResultItem> result, RuleType ruleType) {
+        protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {
             var dictionary = base.CollectPropertyEditors(result, ruleType);
-            foreach (var keyValuePair in dictionary) {
+            foreach (var keyValuePair in dictionary.Where(pair => pair.Value!=RuleType.Critical)) {
                 var ex = keyValuePair.Key.Control as TableEx;
                 if (ex != null) {
                     EventHandler[] eventHandler = { null };
@@ -25,6 +27,17 @@ namespace Xpand.ExpressApp.Validation.Web {
             return dictionary;
         }
 
+        protected override void OnValidationFail(ValidationCompletedEventArgs validationCompletedEventArgs) {
+            base.OnValidationFail(validationCompletedEventArgs);
+            if (!validationCompletedEventArgs.Handled) {
+                validationCompletedEventArgs.Handled = true;
+                var ruleSetValidationResult = new RuleSetValidationResult();
+                foreach (var result in validationCompletedEventArgs.Exception.Result.Results.Where(item => GetRuleType(item.Rule)==RuleType.Critical)) {
+                    ruleSetValidationResult.AddResult(result);
+                }
+                throw new ValidationException(ruleSetValidationResult.GetFormattedErrorMessage(), ruleSetValidationResult);
+            }
+        }
 
         void CreateRuleImage(KeyValuePair<PropertyEditor, RuleType> keyValuePair, TableEx tableEx) {
             var tableCell = tableEx.Rows[0].Cells[0];
