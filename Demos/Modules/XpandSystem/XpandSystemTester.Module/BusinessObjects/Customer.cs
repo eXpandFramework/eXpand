@@ -13,7 +13,6 @@ namespace XpandSystemTester.Module.BusinessObjects {
         [Association, Aggregated]
         public XPCollection<SalesVolume> SalesVolumes { get { return GetCollection<SalesVolume>("SalesVolumes"); } }
     }
-
     public class SalesVolume : BaseObject {
         public SalesVolume(Session session)
             : base(session) {
@@ -28,7 +27,6 @@ namespace XpandSystemTester.Module.BusinessObjects {
         }
 
         private int year;
-        [RuleRange("aaa",DefaultContexts.Save, 2013,2014)]
         public int Year {
             get { return year; }
             set { SetPropertyValue("Year", ref year, value); }
