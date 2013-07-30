@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Web.SystemModule;
+using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
     public class DisableProcessCurrentObjectController : ViewController<ListView> {
@@ -9,23 +9,17 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
             TargetViewType = ViewType.ListView;
         }
         protected override void OnDeactivated() {
-            if (IsMasterDetail) {
-                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = true;
-                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = true;
-            }
+            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = IsMasterDetail;
             base.OnDeactivated();
         }
 
         bool IsMasterDetail {
-            get { return View.Model != null && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
+            get { return View.Model != null && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView&&View.LayoutManager is XpandLayoutManager; }
         }
-        protected override void OnActivated() {
 
+        protected override void OnActivated() {
             base.OnActivated();
-            if (IsMasterDetail) {
-                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = false;
-                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = false;
-            }
+            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = !IsMasterDetail;
         }
     }
 }
