@@ -10,49 +10,53 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
     [System.ComponentModel.DisplayName("StateMachineTransition")]
     public class StateMachineTransitionOperationPermissionData : XpandPermissionData, IStateMachineTransitionPermission {
+        bool _hide;
+        StateMachineTransitionModifier _modifier;
+
+        string _stateCaption;
+
+        IList<string> _stateCaptions = new List<string>();
+        string _stateMachineName;
+
+
         public StateMachineTransitionOperationPermissionData(Session session)
             : base(session) {
         }
 
-        public override IList<IOperationPermission> GetPermissions() {
-            return new IOperationPermission[] { new StateMachineTransitionPermission(this) };
+        [Browsable(false)]
+        public IList<string> StateCaptions {
+            get { return _stateCaptions; }
         }
-        private StateMachineTransitionModifier _modifier;
+
         public StateMachineTransitionModifier Modifier {
-            get {
-                return _modifier;
-            }
-            set {
-                SetPropertyValue("Modifier", ref _modifier, value);
-            }
+            get { return _modifier; }
+            set { SetPropertyValue("Modifier", ref _modifier, value); }
         }
-        private string _stateMachineName;
+
         [ImmediatePostData]
         public string StateMachineName {
-            get {
-                return _stateMachineName;
-            }
-            set {
-                SetPropertyValue("StateMachineName", ref _stateMachineName, value);
-            }
+            get { return _stateMachineName; }
+            set { SetPropertyValue("StateMachineName", ref _stateMachineName, value); }
         }
-        private string _stateCaption;
-        [PropertyEditor(typeof(IStringLookupPropertyEditor))]
+
+        [PropertyEditor(typeof (IStringLookupPropertyEditor))]
         [DataSourceProperty("StateCaptions")]
         public string StateCaption {
-            get {
-                return _stateCaption;
-            }
-            set {
-                SetPropertyValue("StateCaption", ref _stateCaption, value);
-            }
+            get { return _stateCaption; }
+            set { SetPropertyValue("StateCaption", ref _stateCaption, value); }
         }
-        IList<string> _stateCaptions = new List<string>();
-        [Browsable(false)]
-        public IList<string> StateCaptions { get { return _stateCaptions; } }
 
         public void SyncStateCaptions(IList<string> stateCaptions, string machineName) {
             _stateCaptions = stateCaptions;
+        }
+
+        public bool Hide {
+            get { return _hide; }
+            set { SetPropertyValue("Hide", ref _hide, value); }
+        }
+
+        public override IList<IOperationPermission> GetPermissions() {
+            return new IOperationPermission[]{new StateMachineTransitionPermission(this)};
         }
     }
 }

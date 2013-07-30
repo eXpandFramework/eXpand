@@ -22,5 +22,6 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
         void IStateMachineTransitionPermission.SyncStateCaptions(IList<string> stateCaptions, string machineName) {
 
         }
+        public bool Hide { get; set; }
     }
 }

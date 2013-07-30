@@ -10,6 +10,8 @@ using DevExpress.Persistent.Base.General;
 using StateMachineTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 using System.Linq;
+using Xpand.ExpressApp.StateMachine.Security;
+using Xpand.ExpressApp.StateMachine.Security.Improved;
 
 namespace StateMachineTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
@@ -18,10 +20,19 @@ namespace StateMachineTester.Module.DatabaseUpdate {
             base.UpdateDatabaseAfterUpdateSchema();
             var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
 
-            var adminRole = ObjectSpace.GetAdminRole("Admin");
+            var adminRole =  ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
+            
 
-            var userRole = ObjectSpace.GetRole("User");
+            var userRole = (XpandRole) ObjectSpace.GetRole("User");
+            if (ObjectSpace.IsNewObject(userRole)) {
+                var permissionData = ObjectSpace.CreateObject<StateMachineTransitionOperationPermissionData>();
+                permissionData.StateCaption = "InProgress";
+                permissionData.StateMachineName = "Test";
+                permissionData.Modifier = StateMachineTransitionModifier.Deny;
+                userRole.Permissions.Add(permissionData);
+            }
+
             userRole.SetTypePermissions<TestTask>( SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
             userRole.SetTypePermissions<XpoStateMachine>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
             userRole.SetTypePermissions<XpoState>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);

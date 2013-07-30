@@ -9,10 +9,13 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
             StateCaption=permission.StateCaption;
             StateMachineName=permission.StateMachineName;
             Modifier=permission.Modifier;
+            Hide=permission.Hide;
         }
 
         public StateMachineTransitionPermission() : base(OperationName) {
         }
+
+        public bool Hide { get; set; }
 
         public override IList<string> GetSupportedOperations() {
             return new[] { OperationName };
