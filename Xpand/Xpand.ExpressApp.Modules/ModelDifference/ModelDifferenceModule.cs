@@ -18,7 +18,6 @@ namespace Xpand.ExpressApp.ModelDifference {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
-            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
