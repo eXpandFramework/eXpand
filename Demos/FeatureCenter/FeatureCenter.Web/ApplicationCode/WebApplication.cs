@@ -140,6 +140,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
+            this.authenticationStandard1.LogonParametersType = typeof (XpandLogonParameters);
             this.securityComplex1.RoleType = typeof(XpandRole);
             this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 

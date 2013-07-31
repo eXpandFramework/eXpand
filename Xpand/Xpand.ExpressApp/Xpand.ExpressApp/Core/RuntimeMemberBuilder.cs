@@ -12,6 +12,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.Model.RuntimeMembers.Collections;
 using Xpand.ExpressApp.Xpo;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Xpo;
 using Xpand.Xpo.MetaData;
 using Xpand.Persistent.Base.General;
@@ -66,14 +67,18 @@ namespace Xpand.ExpressApp.Core {
                 Type classType = modelMemberEx.ModelClass.TypeInfo.Type;
                 XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
                 lock (xpClassInfo) {
-                    var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XpandCustomMemberInfo;
+                    var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
                     if (customMemberInfo == null) {
                         customMemberInfo= CreateMemberInfo(modelMemberEx, xpClassInfo);
+                        ((ITypesInfoProvider) modelMemberEx.Application).TypesInfo.RefreshInfo(classType);
                         AddAttributes(modelMemberEx, customMemberInfo);
                     }
-                    CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace,  customMemberInfo);
-                    CreateForeignKey(modelMemberEx as IModelMemberOneToManyCollection, objectSpace,  customMemberInfo);
-                    UpdateMember(modelMemberEx, customMemberInfo);
+                    var xpandCustomMemberInfo = customMemberInfo as XpandCustomMemberInfo;
+                    if (xpandCustomMemberInfo != null) {
+                        CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace, xpandCustomMemberInfo);
+                        CreateForeignKey(modelMemberEx as IModelMemberOneToManyCollection, objectSpace, xpandCustomMemberInfo);
+                        UpdateMember(modelMemberEx, customMemberInfo);
+                    }
                 }
             }
             catch (Exception exception) {
