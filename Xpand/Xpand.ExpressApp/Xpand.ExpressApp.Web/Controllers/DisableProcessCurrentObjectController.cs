@@ -11,7 +11,6 @@ namespace Xpand.ExpressApp.Web.Controllers {
         protected override void OnDeactivated() {
             if (IsMasterDetail) {
                 Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = true;
-                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = true;
             }
             base.OnDeactivated();
         }
@@ -24,7 +23,6 @@ namespace Xpand.ExpressApp.Web.Controllers {
             base.OnActivated();
             if (IsMasterDetail) {
                 Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = false;
-                Frame.GetController<ListViewController>().EditAction.Active[STR_DisableProcessCurrentObjectController] = false;
             }
         }
     }
