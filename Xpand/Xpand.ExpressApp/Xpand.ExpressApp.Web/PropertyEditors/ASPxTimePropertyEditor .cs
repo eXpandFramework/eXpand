@@ -3,6 +3,7 @@ using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Web.ASPxEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
@@ -20,6 +21,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
             EditValueChangedHandler(source, e);
         }
+
+        protected override IJScriptTestControl GetEditorTestControlImpl() {
+            return new JSASPxDateTestControl();
+        }
+
         protected override string GetPropertyDisplayValue() {
             if (Equals(PropertyValue, DateTime.MinValue) || !(PropertyValue is DateTime)) {
                 return string.Empty;
