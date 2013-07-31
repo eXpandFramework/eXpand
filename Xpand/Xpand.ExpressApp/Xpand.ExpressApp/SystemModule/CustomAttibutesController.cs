@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -14,7 +15,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 HandleCustomAttribute(memberInfo, typesInfo);
             }
         }
-
+        [DebuggerStepThrough]
         void HandleCustomAttribute(IMemberInfo memberInfo, ITypesInfo typesInfo) {
             var customAttributes = memberInfo.FindAttributes<Attribute>().OfType<ICustomAttribute>().ToList();
             foreach (var customAttribute in customAttributes) {

@@ -7,9 +7,7 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
         public override bool AskLogonParametersViaUI {
             get {
                 var b = string.IsNullOrEmpty(LogonParameters.UserName) || LogonParameters.AnonymousUserName != LogonParameters.UserName;
-                if (b && !string.IsNullOrEmpty(LogonParameters.UserName))
-                    return !LogonParameters.AnonymousLogin;
-                return b;
+                return b && !string.IsNullOrEmpty(LogonParameters.UserName) ? !LogonParameters.AnonymousLogin : b;
             }
         }
 

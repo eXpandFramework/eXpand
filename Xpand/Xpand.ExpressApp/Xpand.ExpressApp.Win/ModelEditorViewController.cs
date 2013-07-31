@@ -1,12 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Win.Core.ModelEditor;
+using DevExpress.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 
 namespace Xpand.ExpressApp.Win {
@@ -28,13 +35,14 @@ namespace Xpand.ExpressApp.Win {
             SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
         }
         void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            RuntimeMemberBuilder.CreateRuntimeMembers(ModelApplication);
+            if (!SaveAction.Enabled)
+                RuntimeMemberBuilder.CreateRuntimeMembers(ModelApplication);
         }
 
         protected override void UpdateActionState() {
             base.UpdateActionState();
             if (CurrentModelNode != null) {
-                var modelRuntimeMember = CurrentModelNode.ModelNode as IModelRuntimeMember;
+                var modelRuntimeMember = CurrentModelNode.ModelNode as IModelMemberEx;
                 if (modelRuntimeMember != null) {
                     DeleteAction.Enabled.SetItemValue("CanDeleteNode", true);
                 }
@@ -78,6 +86,17 @@ namespace Xpand.ExpressApp.Win {
                     singleChoiceAction.Items.RemoveAt(i);
             }
 
+        }
+
+        public static Form CreateModelEditorForm(WinApplication winApplication) {
+            var modelDifferenceStore = (ModelDifferenceStore)ReflectionExtensions.Invoke(typeof(XafApplication), winApplication, "CreateUserModelDifferenceStore");
+            var controller = new ModelEditorViewController(winApplication.Model,  modelDifferenceStore);
+            var modelDifferencesStore = (ModelDifferenceStore) ReflectionExtensions.Invoke(typeof(XafApplication), winApplication, "CreateModelDifferenceStore");
+            if (modelDifferencesStore != null) {
+                var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo> { new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model") };
+                controller.SetModuleDiffStore(modulesDiffStoreInfo);
+            }
+            return new ModelEditorForm(controller, new SettingsStorageOnModel(((IModelApplicationModelEditor)winApplication.Model).ModelEditorSettings));
         }
     }
 }

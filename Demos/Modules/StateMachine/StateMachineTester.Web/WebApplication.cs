@@ -12,7 +12,7 @@ using StateMachineTester.Module.Web;
 using Xpand.Persistent.Base.General;
 
 namespace StateMachineTester.Web {
-    public class StateMachineTesterAspNetApplication : WebApplication, ISettingsStorage {
+    public class StateMachineTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         StateMachineTesterModule module3;

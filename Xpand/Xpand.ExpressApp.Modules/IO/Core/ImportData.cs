@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.Data.Filtering;
+using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -12,6 +13,7 @@ using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
 using DevExpress.Xpo.Metadata.Helpers;
+using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 
 namespace Xpand.ExpressApp.IO.Core {
@@ -31,20 +33,24 @@ namespace Xpand.ExpressApp.IO.Core {
 
 
         public void Import(Func<UnitOfWork> createOutputUow, Func<UnitOfWork> createInputOuw) {
+            Tracing.Tracer.LogVerboseSubSeparator("Import started");
             using (UnitOfWork mainOutputUow = createOutputUow()) {
                 using (UnitOfWork mainInputUow = createInputOuw()) {
                     OnCreatingDynamicDictionary();
                     var dataStoreSchemaExplorer = (IDataStoreSchemaExplorer)((BaseDataLayer)mainInputUow.DataLayer).ConnectionProvider;
                     var dictionaryMapper = new DictionaryMapper(dataStoreSchemaExplorer.GetStorageTables(dataStoreSchemaExplorer.GetStorageTablesList(true)));
                     dictionaryMapper.Map(mainOutputUow.Dictionary, mainInputUow.Dictionary);
+                    Tracing.Tracer.LogVerboseText("Dictionary created");
                     foreach (var objectClassInfo in dictionaryMapper.InputClassInfos) {
                         ImportCore(createOutputUow, createInputOuw, objectClassInfo);
                     }
+                    Tracing.Tracer.LogVerboseText("Comming data");
                     OnCommitingData();
+                    Tracing.Tracer.LogVerboseText("Data commited");
                     ClearObjectCache();
                 }
             }
-
+            Tracing.Tracer.LogVerboseSubSeparator("Import finished");
         }
         int _currentImportGeneration;
         readonly Dictionary<Type, Dictionary<object, ObjectValue>> _importedObjecs = new Dictionary<Type, Dictionary<object, ObjectValue>>();
@@ -134,8 +140,7 @@ namespace Xpand.ExpressApp.IO.Core {
             UnitOfWork inputUow = createInputUow();
             UnitOfWork outputUow = createOutputUow();
             try {
-                List<InputMemberInfo> inputMemberInfos =
-                    MemberMapper.MemberInfos(inputObjectClassInfo).OfType<InputMemberInfo>().ToList();
+                var inputMemberInfos =MemberMapper.MemberInfos(inputObjectClassInfo).OfType<InputMemberInfo>().ToList();
                 var keys = InputObjectKeys(inputObjectClassInfo, inputUow);
                 int position = 0;
                 int commitAccumulator = 0;
@@ -147,18 +152,14 @@ namespace Xpand.ExpressApp.IO.Core {
                     position += chunkSize;
                     commitAccumulator += chunkSize;
                     PrefetchDelayedMembers(inputMemberInfos, inputUow, objectsToImport);
-                    ImportMembers(inputObjectClassInfo, objectsToImport, keysToImport, outputUow, inputMemberInfos,
-                                  inputUow);
+                    ImportMembers(inputObjectClassInfo, objectsToImport, keysToImport, outputUow, inputMemberInfos,inputUow);
                     do {
                         var refsAndImports = RefsAndImports(outputUow);
                         foreach (KeyValuePair<InputMemberInfo, FillRefList> pair in refsAndImports) {
-                            XPMemberInfo memberInfo = pair.Key.OutputMemberInfo;
-                            FillRefList fillRefsList = pair.Value;
-                            XPClassInfo classInfo = memberInfo.IsAssociationList
-                                                        ? memberInfo.CollectionElementType
-                                                        : memberInfo.ReferenceType;
-                            var memberList =
-                                MemberMapper.MemberInfos(pair.Key.ReferenceType).OfType<InputMemberInfo>().ToList();
+                            var memberInfo = pair.Key.OutputMemberInfo;
+                            var fillRefsList = pair.Value;
+                            var classInfo = memberInfo.IsAssociationList? memberInfo.CollectionElementType: memberInfo.ReferenceType;
+                            var memberList =MemberMapper.MemberInfos(pair.Key.ReferenceType).OfType<InputMemberInfo>().ToList();
                             var importClassInfo = pair.Key.ReferenceType;
                             var objects = inputUow.GetObjectsByKey(importClassInfo, fillRefsList.RefKeyList, false);
                             PrefetchDelayedMembers(inputMemberInfos, inputUow, objects);
@@ -176,6 +177,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         ou.Dispose();
                         iu.Dispose();
                         commitAccumulator = 0;
+                        
                         OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName, position));
                     }
                 }
@@ -401,10 +403,12 @@ namespace Xpand.ExpressApp.IO.Core {
         public event EventHandler<TransformRecordsArgs> TransformRecords;
 
         protected virtual void OnTransformingRecords(TransformingRecordsArgs e) {
+            Tracing.Tracer.LogVerboseValue("TransformingRecords",e);
             var handler = TransformingRecords;
             if (handler != null) handler(this, e);
         }
         protected virtual void OnTransformRecords(TransformRecordsArgs e) {
+            Tracing.Tracer.LogVerboseValue("TransformRecords", e);
             var handler = TransformRecords;
             if (handler != null) handler(this, e);
         }
@@ -433,6 +437,10 @@ namespace Xpand.ExpressApp.IO.Core {
         public string InputClassName {
             get { return _inputClassName; }
         }
+
+        public override string ToString() {
+            return string.Format("OutputClassName: {0}", OutputClassName );
+        }
     }
     public class TransformingRecordsArgs : TransformRecordsArgs {
         
@@ -444,6 +452,10 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public int Position {
             get { return _position; }
+        }
+        public override string ToString() {
+            var s = base.ToString();
+            return string.Format("{0} " + "Position: {1}", s, Position);
         }
     }
 
@@ -482,6 +494,8 @@ namespace Xpand.ExpressApp.IO.Core {
 
         readonly XPMemberInfo _outputMemberInfo;
         readonly Type _conversionType;
+        readonly ImportValueConverterAttribute _importValueConverterAttribute;
+
 
         public InputMemberInfo(XPClassInfo owner, string propertyName, XPClassInfo referenceType, bool nonPersistent, XPMemberInfo outputMemberInfo, params Attribute[] attributes)
             : base(owner, propertyName, referenceType.ClassType, referenceType, nonPersistent, false) {
@@ -496,6 +510,7 @@ namespace Xpand.ExpressApp.IO.Core {
             _outputMemberInfo = outputMemberInfo;
             _conversionType = propertyType;
             AddAttributes(attributes);
+            _importValueConverterAttribute = FindAttributeInfo(typeof (ImportValueConverterAttribute)) as ImportValueConverterAttribute;
         }
 
         static Type PropertyType(Type propertyType, DBColumnType dbColumnType) {
@@ -503,44 +518,21 @@ namespace Xpand.ExpressApp.IO.Core {
             Guard.ArgumentNotNull(dbColumnType, dbColumnType.ToString());
             return propertyType == type ? propertyType : type;
         }
-
-
+        
         object Convert(object objectToConvert, Type conversionType) {
-            try {
-                Guard.ArgumentNotNull(objectToConvert, "objectToConvert");
-                Guard.ArgumentNotNull(conversionType, "conversionType");
-                Type underlyingNullableType = Nullable.GetUnderlyingType(conversionType);
-                if (underlyingNullableType != null) {
-                    if (objectToConvert == null || (objectToConvert is string && string.IsNullOrEmpty((string)objectToConvert) && !typeof(string).IsAssignableFrom(conversionType))) {
-                        return null;
-                    }
-                    conversionType = underlyingNullableType;
-                }
-                MethodInfo methodInfo = conversionType.GetMethod("op_Implicit", new[] { objectToConvert.GetType() });
-                if (methodInfo != null) {
-                    return methodInfo.Invoke(null, new[] { objectToConvert });
-                }
-                if (conversionType.IsEnum && !(objectToConvert is Enum)) {
-                    return Enum.Parse(conversionType, objectToConvert.ToString());
-                }
-                if (conversionType == typeof(Guid) && objectToConvert is string) {
-                    return new Guid(((string)objectToConvert).Trim());
-                }
-                if (conversionType == typeof(TimeSpan) && (objectToConvert is double || objectToConvert is string)) {
-                    var int32 = System.Convert.ToInt64(objectToConvert);
-                    return new TimeSpan(int32);
-                }
-                if (conversionType == typeof (DateTime) && objectToConvert is string)
-                    return DateTime.Parse((string) objectToConvert);
-                return System.Convert.ChangeType(objectToConvert, conversionType);
+            object result;
+            var changed = objectToConvert.TryToChange(conversionType, out result, Conversion.GuessValues);
+            if (changed)
+                return result;
+            if (_importValueConverterAttribute != null) {
+                object o;
+                if (_importValueConverterAttribute.ValueConverter.TryConvert(Name, objectToConvert,conversionType, out o))
+                    return o;
             }
-            catch (FormatException e) {
-                if (!_outputMemberInfo.HasAttribute(typeof(SwallowFormatExceptionAttribute)))
-                    throw new FormatException(ToString(), e);
-                return Activator.CreateInstance(conversionType);
-            }
+            throw new ImportFormatException(
+                string.Format("Cannot format value {0} to {1} for the member {2} of the class {3}. Consider using the {4} in the "+_outputMemberInfo.Name+" member of the "+_outputMemberInfo.Owner.FullName+" class",
+                    objectToConvert, conversionType, this, Owner.FullName, typeof (ImportValueConverterAttribute)));
         }
-
 
         void AddAttributes(IEnumerable<Attribute> attributes) {
             foreach (Attribute attribute in attributes.Where(attribute => !(attribute is AssociationAttribute)))
@@ -571,10 +563,31 @@ namespace Xpand.ExpressApp.IO.Core {
             return CanChangeType(theValue, _conversionType) ? Convert(theValue, _conversionType) : theValue;
         }
     }
+
+    public class ImportFormatException : FormatException {
+        public ImportFormatException(string message) : base(message) {
+        }
+    }
     [AttributeUsage(AttributeTargets.Property,AllowMultiple = false)]
-    public class SwallowFormatExceptionAttribute:Attribute {
+    public class ImportValueConverterAttribute:Attribute {
+        readonly Type _valueConverterType;
+        public ImportValueConverterAttribute(Type valueConverterType) {
+            DevExpress.ExpressApp.Utils.Guard.TypeArgumentIs(typeof(IImportValueConverter), valueConverterType, "ValueConverterType");
+            _valueConverterType = valueConverterType;
+        }
+
+        public Type ValueConverterType {
+            get { return _valueConverterType; }
+        }
+
+        public IImportValueConverter ValueConverter {
+            get { return (IImportValueConverter) Activator.CreateInstance(ValueConverterType); }
+        }
     }
 
+    public interface IImportValueConverter {
+        bool TryConvert(string memberName, object value, Type conversionType, out object result);
+    }
     public class DictionaryMapper {
         readonly DBTable[] _dbTables;
 

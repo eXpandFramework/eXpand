@@ -17,6 +17,7 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
+using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
@@ -56,6 +57,7 @@ namespace Xpand.ExpressApp.SystemModule {
             return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
         }
 
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (RuntimeMode) {
@@ -69,9 +71,12 @@ namespace Xpand.ExpressApp.SystemModule {
             if (RuntimeMode && (XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource) && !((ITestSupport)application).IsTesting)
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
-            application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-            application.SetupComplete +=(sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
-            application.LoggedOn +=(sender, args) =>RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+            if (RuntimeMode) {
+                application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
+                application.SetupComplete +=
+                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+                application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+            }
         }
 
         [Browsable(false)]
@@ -138,20 +143,16 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-
-
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
-
-
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
-            updaters.Add(new ModelViewClonerUpdater());
+            
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
@@ -163,18 +164,18 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
-            extenders.Add<IModelMember, IModelMemberEx>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
+            extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
                 if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
-                    parameters.NodeType = typeof(IModelRuntimeMember);
+                    parameters.NodeType = typeof(IModelMemberPersistent);
             }
             if (parameters.XmlNodeName == "CalculatedRuntimeMember") {
-                parameters.NodeType = typeof(IModelRuntimeCalculatedMember);
+                parameters.NodeType = typeof(IModelMemberCalculated);
             }
         }
 

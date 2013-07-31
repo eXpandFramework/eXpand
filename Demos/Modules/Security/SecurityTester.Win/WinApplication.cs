@@ -2,21 +2,16 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Win {
-    public partial class SecurityTesterWindowsFormsApplication : WinApplication, ISettingsStorage {
+    public partial class SecurityTesterWindowsFormsApplication : WinApplication {
         public SecurityTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
 
-        public new SettingsStorage CreateLogonParameterStoreCore() {
-            return base.CreateLogonParameterStoreCore();
-        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);

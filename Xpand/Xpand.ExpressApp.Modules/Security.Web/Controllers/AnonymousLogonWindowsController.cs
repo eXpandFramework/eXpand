@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Web.Controllers {
     public class AnonymousLogonWindowsController : Security.Controllers.AnonymousLogonWindowsController {
@@ -48,8 +47,7 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
 
         void LoginAnonymously(AnonymousLogonParameters anonymousLogonParameters) {
             anonymousLogonParameters.AnonymousLogin = false;
-            SettingsStorage settingsStorage = ((ISettingsStorage) Application).CreateLogonParameterStoreCore();
-            ObjectSerializer.WriteObjectPropertyValues(null, settingsStorage, anonymousLogonParameters);
+            ObjectSerializer.WriteObjectPropertyValues(null, anonymousLogonParameters.Storage, anonymousLogonParameters);
 
             SecuritySystem.Instance.Logoff();
             HttpContext.Current.Session.Abandon();

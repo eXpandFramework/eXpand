@@ -13,7 +13,7 @@ using SecurityTester.Module.Web;
 using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Web {
-    public class SecurityTesterAspNetApplication : WebApplication, ISettingsStorage,IWriteSecuredLogonParameters {
+    public class SecurityTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
         SystemModule module1;
         SystemAspNetModule module2;
         SecurityTesterModule module3;

@@ -58,14 +58,20 @@ namespace Xpand.ExpressApp.Core {
             return _modelNode.Id;
         }
     }
+    [DomainLogic((typeof(ITypesInfoProvider)))]
+    public class TypesInfoProviderDomainLogic {
+        public static ITypesInfo Get_TypesInfo(ITypesInfoProvider typesInfoProvider) {
+            return XpandModuleBase.TypesInfo;
+        }
+    }
+
     public static class ModelApplicationBaseExtensions {
         public static void RemoveLayer(this ModelApplicationBase application, string id) {
             RefreshLayers(application, @base => @base.Id == id ? null : @base);
         }
 
         public static ITypesInfo GetTypesInfo(this IModelApplication application) {
-            var typesInfoProvider = application as ITypesInfoProvider;
-            return typesInfoProvider != null ? typesInfoProvider.TypesInfo ?? XpandModuleBase.TypesInfo : XpandModuleBase.TypesInfo;
+            return ((ITypesInfoProvider) application).TypesInfo;
         }
 
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {

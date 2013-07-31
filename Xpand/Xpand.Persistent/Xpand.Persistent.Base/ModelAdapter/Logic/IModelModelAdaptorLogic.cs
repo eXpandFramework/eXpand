@@ -1,6 +1,6 @@
 ﻿using Xpand.Persistent.Base.Logic.Model;
 
-namespace Xpand.ExpressApp.ModelAdaptor.Model {
+namespace Xpand.Persistent.Base.ModelAdapter.Logic {
     public interface IModelModelAdaptorLogic : IModelLogic {
     }
 }

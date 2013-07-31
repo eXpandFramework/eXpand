@@ -5,31 +5,26 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace Xpand.Utils.Helpers
-{
+namespace Xpand.Utils.Helpers {
     /// <summary>
     /// Summary description for StringHelper.
     /// </summary>
-    public static class StringExtensions
-    {
+    public static class StringExtensions {
         private static readonly Regex isGuid =
             new Regex(
                 @"^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$",
                 RegexOptions.Compiled);
 
-        public static string XMLEncode(this string value)
-        {
+        public static string XMLEncode(this string value) {
             return value.TrimEnd((char)1).Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
-        public static string XMLDecode(this string Value)
-        {
+        public static string XMLDecode(this string Value) {
             return Value.Replace("&amp;", "&").Replace("&apos;", "'").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">");
         }
-        public static String RemoveDiacritics(this String s)
-        {
+        public static String RemoveDiacritics(this String s) {
             String normalizedString = s.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new StringBuilder();
+            var stringBuilder = new System.Text.StringBuilder();
 
             foreach (char c in normalizedString) {
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
@@ -38,34 +33,29 @@ namespace Xpand.Utils.Helpers
 
             return stringBuilder.ToString();
         }
-        
-        public static string GetAttributeValue(this XElement element, XName name)
-        {
+
+        public static string GetAttributeValue(this XElement element, XName name) {
             XAttribute xAttribute = element.Attribute(name);
-            if (xAttribute != null)
-            {
+            if (xAttribute != null) {
                 return xAttribute.Value;
             }
             return null;
         }
 
- 
 
- 
 
-        public static string MakeFirstCharUpper(this string s)
-        {
-            if ((s+"").Length > 0)
-            {
+
+
+        public static string MakeFirstCharUpper(this string s) {
+            if ((s + "").Length > 0) {
                 string substring1 = s.Substring(0, 1).ToUpper();
                 string substring2 = s.Substring(1);
                 return substring1 + substring2;
             }
             return s;
         }
-        public static string MakeFirstCharLower(this string s)
-        {
-            if ((s + "").Length > 0){
+        public static string MakeFirstCharLower(this string s) {
+            if ((s + "").Length > 0) {
                 string substring1 = s.Substring(0, 1).ToLower();
                 string substring2 = s.Substring(1);
                 return substring1 + substring2;
@@ -75,9 +65,8 @@ namespace Xpand.Utils.Helpers
 
 
 
-        public static string Inject(this string injectToString, int positionToInject, string stringToInject)
-        {
-            var builder = new StringBuilder();
+        public static string Inject(this string injectToString, int positionToInject, string stringToInject) {
+            var builder = new System.Text.StringBuilder();
             builder.Append(injectToString.Substring(0, positionToInject));
             builder.Append(stringToInject);
             builder.Append(injectToString.Substring(positionToInject));
@@ -85,25 +74,42 @@ namespace Xpand.Utils.Helpers
         }
 
         public static long Val(this string value) {
-            string returnVal = string.Empty;
+            string returnVal = String.Empty;
 
             MatchCollection collection = Regex.Matches(value, "\\d+");
 
             returnVal = collection.Cast<Match>().Aggregate(returnVal, (current, match) => current + match.ToString());
 
             return Convert.ToInt64(returnVal);
-        } 
-        public static bool IsGuid(this string candidate)
-        {
-            if (candidate != null)
-            {
-                if (isGuid.IsMatch(candidate))
-                {
+        }
+        public static bool IsGuid(this string candidate) {
+            if (candidate != null) {
+                if (isGuid.IsMatch(candidate)) {
                     return true;
                 }
             }
-
             return false;
+        }
+
+        public static bool IsValueNull(this object value) {
+            return value == null || value == DBNull.Value;
+        }
+
+        public static object GetDefaultValue(this Type type) {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
+        public static bool IsGeneric(this Type type) {
+            return type.IsGenericType &&
+                   type.GetGenericTypeDefinition() == typeof(Nullable<>).GetGenericTypeDefinition();
+        }
+
+        public static Type GetUnderlyingType(this Type type) {
+            return Nullable.GetUnderlyingType(type);
+        }
+
+        public static bool IsWhiteSpace(this string value) {
+            return value.All(Char.IsWhiteSpace);
         }
     }
 }

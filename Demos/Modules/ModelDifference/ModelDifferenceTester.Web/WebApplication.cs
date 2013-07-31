@@ -7,32 +7,34 @@ using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.BaseImpl;
 using ModelDifferenceTester.Module;
 using ModelDifferenceTester.Module.Web;
-using Xpand.ExpressApp.Web;
+using Xpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp.ModelDifference.Web;
+using Xpand.ExpressApp.Security;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : XpandWebApplication {
+    public class ModelDifferenceTesterAspNetApplication : WebApplication {
         AuthenticationStandard _authenticationStandard;
+        SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule cloneObjectModule1;
+        ModelDifferenceAspNetModule modelDifferenceAspNetModule1;
+        ModelDifferenceModule modelDifferenceModule1;
         SystemModule module1;
         SystemAspNetModule module2;
         ModelDifferenceTesterModule module3;
         ModelDifferenceTesterAspNetModule module4;
         SecurityModule securityModule1;
 
-        SecurityStrategyComplex _securityStrategyComplex;
-        private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
-        private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
-        private Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule modelDifferenceAspNetModule1;
         SqlConnection sqlConnection1;
+        XpandSecurityModule xpandSecurityModule1;
 
         public ModelDifferenceTesterAspNetApplication() {
             InitializeComponent();
-            DatabaseVersionMismatch+=ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
+            DatabaseVersionMismatch += ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -48,7 +50,8 @@ namespace ModelDifferenceTester.Web {
             if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
-            } else {
+            }
+            else {
                 string message =
                     "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
@@ -69,53 +72,53 @@ namespace ModelDifferenceTester.Web {
         }
 
         void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new ModelDifferenceTester.Module.ModelDifferenceTesterModule();
-            this.module4 = new ModelDifferenceTester.Module.Web.ModelDifferenceTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this._securityStrategyComplex = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this._authenticationStandard = new DevExpress.ExpressApp.Security.AuthenticationStandard();
-            this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
-            this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
-            this.modelDifferenceAspNetModule1 = new Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            module1 = new SystemModule();
+            module2 = new SystemAspNetModule();
+            module3 = new ModelDifferenceTesterModule();
+            module4 = new ModelDifferenceTesterAspNetModule();
+            sqlConnection1 = new SqlConnection();
+            cloneObjectModule1 = new CloneObjectModule();
+            securityModule1 = new SecurityModule();
+            _securityStrategyComplex = new SecurityStrategyComplex();
+            _authenticationStandard = new AuthenticationStandard();
+            xpandSecurityModule1 = new XpandSecurityModule();
+            modelDifferenceModule1 = new ModelDifferenceModule();
+            modelDifferenceAspNetModule1 = new ModelDifferenceAspNetModule();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
-    "odelDifferenceTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            sqlConnection1.ConnectionString =
+                "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
+                "odelDifferenceTester";
+            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // _securityStrategyComplex
             // 
-            this._securityStrategyComplex.Authentication = this._authenticationStandard;
-            this._securityStrategyComplex.UserType = typeof(SecuritySystemUser);
-            this._securityStrategyComplex.RoleType = typeof(SecuritySystemRole);
+            _securityStrategyComplex.Authentication = _authenticationStandard;
+            _securityStrategyComplex.UserType = typeof (SecuritySystemUser);
+            _securityStrategyComplex.RoleType = typeof (SecuritySystemRole);
             // 
             // _authenticationStandard
             // 
 
-            this._authenticationStandard.LogonParametersType = typeof(AuthenticationStandardLogonParameters);
+            _authenticationStandard.LogonParametersType = typeof (AuthenticationStandardLogonParameters);
             // 
             // ModelDifferenceTesterAspNetApplication
             // 
-            this.ApplicationName = "ModelDifferenceTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.cloneObjectModule1);
-            this.Modules.Add(this.securityModule1);
-            this.Modules.Add(this.xpandSecurityModule1);
-            this.Modules.Add(this.modelDifferenceModule1);
-            this.Modules.Add(this.modelDifferenceAspNetModule1);
-            this.Modules.Add(this.module4);
-            this.Security = this._securityStrategyComplex;
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-
+            ApplicationName = "ModelDifferenceTester";
+            Connection = sqlConnection1;
+            Modules.Add(module1);
+            Modules.Add(module2);
+            Modules.Add(module3);
+            Modules.Add(cloneObjectModule1);
+            Modules.Add(securityModule1);
+            Modules.Add(xpandSecurityModule1);
+            Modules.Add(modelDifferenceModule1);
+            Modules.Add(modelDifferenceAspNetModule1);
+            Modules.Add(module4);
+            Security = _securityStrategyComplex;
+            ((ISupportInitialize) (this)).EndInit();
         }
     }
 }

@@ -11,9 +11,11 @@
     <RootNamespace>Xpand.ExpressApp.ModelDifference.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ModelDifference.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -159,6 +161,7 @@
     <Compile Include="Templates\ModelEditorDetailViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WinApplicationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

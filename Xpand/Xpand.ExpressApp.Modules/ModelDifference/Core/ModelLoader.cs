@@ -18,7 +18,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
-using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {
@@ -170,8 +170,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
+            XpandModuleBase.CallMonitor.Clear();
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
-            var modelAssemblyFile = ((IXafApplication)application).ModelAssemblyFilePath;
+            var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
             ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo; 

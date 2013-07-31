@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.Model;
+using Xpand.ExpressApp.Web.PropertyEditors;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -23,6 +24,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -41,13 +43,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
             base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(PropertyEditors.ASPxTimePropertyEditor), false)));
+            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(ASPxTimePropertyEditor), false)));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
             extenders.Add<IModelListView, IModelListViewOpenViewWhenNested>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
         }
     }
 }

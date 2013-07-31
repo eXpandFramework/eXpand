@@ -135,7 +135,7 @@
     <Compile Include="Controllers\CloneObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\CombineDifferencesController.cs">
+    <Compile Include="Controllers\MergeDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CombineActiveUserDiffsWithLastLayerController.cs">

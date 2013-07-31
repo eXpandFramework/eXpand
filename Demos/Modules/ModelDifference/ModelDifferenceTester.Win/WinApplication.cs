@@ -2,11 +2,11 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Win;
 
 namespace ModelDifferenceTester.Win {
-    public partial class ModelDifferenceTesterWindowsFormsApplication : XpandWinApplication {
+    public partial class ModelDifferenceTesterWindowsFormsApplication : WinApplication {
         public ModelDifferenceTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;

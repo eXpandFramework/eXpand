@@ -8,6 +8,7 @@ using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.Base.General {
+    [Obsolete("", true)]
     public interface ISettingsStorage {
         SettingsStorage CreateLogonParameterStoreCore();
     }
@@ -56,6 +57,9 @@ namespace Xpand.Persistent.Base.General {
         event EventHandler UserDifferencesLoaded;
     }
 
+    public interface IXafApplicationDirectory {
+        string BinDirectory { get;  }
+    }
     public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded {
         string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }
