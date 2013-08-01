@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 using Xpand.Xpo.DB;
 
@@ -41,9 +43,9 @@ namespace Xpand.ExpressApp.WorldCreator {
                     var xpoObjectHacker = new XpoObjectHacker();
                     bool sync = false;
                     int[] oid = { 0 };
-                    sqlDataStoreProxy.DataStoreUpdateSchema += (o, eventArgs) => xpoObjectHacker.EnsureIsNotIdentity(eventArgs.Tables);
+                    sqlDataStoreProxy.DataStoreUpdateSchema += EnsureIsNotIdentity(xpoObjectHacker);
                     sqlDataStoreProxy.DataStoreModifyData += (sender, args) => {
-                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().Where(statement => statement.TableName == typeof(XPObjectType).Name).SingleOrDefault();
+                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().SingleOrDefault(statement => statement.TableName == typeof(XPObjectType).Name);
                         if (insertStatement != null && !sync) {
                             sync = true;
                             xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, oid[0]);
@@ -61,5 +63,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             }
         }
 
+        static EventHandler<DataStoreUpdateSchemaEventArgs> EnsureIsNotIdentity(XpoObjectHacker xpoObjectHacker) {
+            return (o, eventArgs) => xpoObjectHacker.EnsureIsNotIdentity(eventArgs.Tables);
+        }
     }
 }

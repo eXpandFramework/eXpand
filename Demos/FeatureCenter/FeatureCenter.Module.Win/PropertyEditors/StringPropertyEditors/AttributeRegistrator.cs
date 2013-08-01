@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (!Object.Equals(typesInfo.Type, typeof (SPECustomer))) yield break;
+            if (!(typesInfo.Type == typeof (SPECustomer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
                 Captions.ViewMessageStringPropertyEditors, Position.Bottom) { View = "StringPropertyEditors_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderStringPropertyEditors + "1", "1=1", "1=1",

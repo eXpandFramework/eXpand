@@ -46,7 +46,7 @@ namespace EFDemo.Win {
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
             this.scriptRecorderWindowsFormsModule1 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule();
+            
             this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
             this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
             this.xpandStateMachineModule1 = new Xpand.ExpressApp.StateMachine.XpandStateMachineModule();
@@ -177,7 +177,7 @@ namespace EFDemo.Win {
             this.Modules.Add(this.reportsModule1);
             this.Modules.Add(this.pivotChartModuleBase1);
             this.Modules.Add(this.logicModule1);
-            this.Modules.Add(this.conditionalDetailViewModule1);
+            
             this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.xpandStateMachineModule1);
@@ -264,7 +264,7 @@ namespace EFDemo.Win {
 		private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule scriptRecorderWindowsFormsModule1;
 		private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
-        private Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule conditionalDetailViewModule1;
+        
         private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
         private Xpand.ExpressApp.StateMachine.XpandStateMachineModule xpandStateMachineModule1;

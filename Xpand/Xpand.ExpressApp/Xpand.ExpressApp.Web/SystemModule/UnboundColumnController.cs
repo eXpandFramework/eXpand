@@ -5,9 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.RuntimeMembers;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Web.SystemModule {

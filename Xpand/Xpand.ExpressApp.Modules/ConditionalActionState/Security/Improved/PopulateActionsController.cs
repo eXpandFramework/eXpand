@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.ConditionalActionState.Security.Improved {
     public class PopulateActionsController : PopulateController<ActionStateRulePermission> {

@@ -5,13 +5,12 @@ using System.Drawing;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.ExceptionHandling;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.ExceptionHandling;
 using Xpand.Persistent.Base.General.ValueConverters;
-using Xpand.Xpo.DB;
 
-[assembly: DataStore(typeof(ExceptionObject), "ExceptionHandling")]
+[assembly: Xpand.Xpo.DB.DataStore(typeof(ExceptionObject), "ExceptionHandling")]
 namespace Xpand.Persistent.BaseImpl.ExceptionHandling {
 
     [HideFromNewMenu]

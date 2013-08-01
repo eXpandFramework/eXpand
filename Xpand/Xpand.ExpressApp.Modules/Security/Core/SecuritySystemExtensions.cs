@@ -14,6 +14,7 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 ﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
 ﻿using Xpand.ExpressApp.Security.Permissions;
+﻿using Xpand.Persistent.Base.General;
 ﻿using Xpand.Utils.Helpers;
 ﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
 

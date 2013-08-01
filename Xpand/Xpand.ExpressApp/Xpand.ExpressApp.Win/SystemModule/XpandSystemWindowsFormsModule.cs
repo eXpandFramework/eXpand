@@ -10,6 +10,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.PropertyEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]

@@ -3,8 +3,8 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.PropertyEditors;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {

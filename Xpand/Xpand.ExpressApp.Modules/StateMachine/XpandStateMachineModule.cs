@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.StateMachine;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine {
 

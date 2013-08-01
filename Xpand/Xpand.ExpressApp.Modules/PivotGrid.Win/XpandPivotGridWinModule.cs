@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
+using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.PivotGrid.Win {

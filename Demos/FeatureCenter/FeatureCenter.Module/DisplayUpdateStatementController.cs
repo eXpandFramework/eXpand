@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata.Helpers;
-using Xpand.ExpressApp;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo.DB;
 
 namespace FeatureCenter.Module {

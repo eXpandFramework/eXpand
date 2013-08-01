@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
-using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// <summary>

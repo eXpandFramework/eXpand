@@ -7,11 +7,6 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(TestImportObject)) yield break;
-            //yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderFilterControl, "1=1", "1=1",
-            //    Captions.ViewMessageFilterControl, Position.Bottom){View = "FilterControl_ListView"};
-            //yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFilterControl, "1=1", "1=1",
-            //    Captions.HeaderFilterControl, Position.Top){View = "FilterControl_ListView"};
-            //yield return new CloneViewAttribute(CloneViewType.ListView, "FilterControl_ListView");
             var testimportobjectListview = typeof(TestImportObject).Namespace+".TestImportObject_ListView";
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("ImportWizard", testimportobjectListview);
             yield return xpandNavigationItemAttribute;

@@ -12,6 +12,7 @@ using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using System.Linq;
 using Xpand.ExpressApp.Validation;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     [ToolboxBitmap(typeof(JobSchedulerModule))]

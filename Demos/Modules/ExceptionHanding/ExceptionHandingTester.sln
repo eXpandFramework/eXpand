@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module", "ExceptionHandingTester.Module\ExceptionHandingTester.Module.csproj", "{3CD21FAF-5B95-412A-B23D-5C84A48103F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module.Web", "ExceptionHandingTester.Module.Web\ExceptionHandingTester.Module.Web.csproj", "{838A29A7-6956-4048-B650-EC5CC477F5EA}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "ExceptionHandingTester.Web", "ExceptionHandingTester.Web\ExceptionHandingTester.Web.csproj", "{5463669F-09E4-4C47-8040-4EC23DC25436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Web", "ExceptionHandingTester.Web\ExceptionHandingTester.Web.csproj", "{5463669F-09E4-4C47-8040-4EC23DC25436}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module.Win", "ExceptionHandingTester.Module.Win\ExceptionHandingTester.Module.Win.csproj", "{578B8B24-38D0-4333-965A-3DAEA5C76106}"
 EndProject

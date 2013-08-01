@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]

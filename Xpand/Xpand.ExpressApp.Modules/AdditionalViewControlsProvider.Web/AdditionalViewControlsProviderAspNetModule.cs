@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web {
     [ToolboxBitmap(typeof(AdditionalViewControlsProviderAspNetModule))]

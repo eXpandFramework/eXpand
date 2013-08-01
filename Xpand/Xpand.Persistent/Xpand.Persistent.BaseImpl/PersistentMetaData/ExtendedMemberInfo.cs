@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {

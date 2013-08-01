@@ -7,8 +7,10 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
+
     public class NewObjectCreateGroupController : ViewController<ListView> {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();

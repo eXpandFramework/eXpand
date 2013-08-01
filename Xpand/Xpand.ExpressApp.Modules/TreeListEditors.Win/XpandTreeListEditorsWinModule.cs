@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -19,7 +20,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         }
 
 
-        public void ConvertXml(ConvertXmlParameters parameters) {
+        void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
+            ConvertXml(parameters);
             if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType) &&
                 parameters.Values.ContainsKey("EditorTypeName")) {
                 if (parameters.Values["EditorTypeName"] ==

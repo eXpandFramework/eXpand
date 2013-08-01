@@ -9,13 +9,15 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, ModelDefault("Caption", "User Difference"), VisibleInReports(false)]
     [CloneView(CloneViewType.DetailView, "UDO_DetailView",true)]
+    [CreatableItem(false)]
     public class UserModelDifferenceObject : ModelDifferenceObject {
         private bool nonPersistent;
 

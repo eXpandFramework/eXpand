@@ -14,11 +14,10 @@ using DevExpress.Utils;
 using System.Linq;
 using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraPivotGrid;
-using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
+using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {

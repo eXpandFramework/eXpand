@@ -13,10 +13,10 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using XVideoRental.Module.Win.BusinessObjects.Rent;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Helpers;
 
 namespace XVideoRental.Module.Win.BusinessObjects {

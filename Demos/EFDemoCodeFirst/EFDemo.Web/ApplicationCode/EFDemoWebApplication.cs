@@ -3,7 +3,6 @@ using System.Data.Common;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.EF;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Security;
 

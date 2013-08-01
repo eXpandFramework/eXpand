@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Model;
 
-namespace FeatureCenter.Module.Win.Navigation.TabStopForReadOnly
-{
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator
-    {
+namespace FeatureCenter.Module.Win.Navigation.TabStopForReadOnly {
+    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (typesInfo.Type!=typeof(WinCustomer))yield break;
+            if (typesInfo.Type != typeof(WinCustomer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderTabStopForReadOnly, "1=1", "1=1",
-                Captions.ViewMessageTabStopForReadOnly, Position.Bottom){View = "TabStopForReadOnly_DetailView"};
+                Captions.ViewMessageTabStopForReadOnly, Position.Bottom) { View = "TabStopForReadOnly_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderTabStopForReadOnly, "1=1", "1=1",
-                Captions.HeaderTabStopForReadOnly, Position.Top){View = "TabStopForReadOnly_DetailView"};
+                Captions.HeaderTabStopForReadOnly, Position.Top) { View = "TabStopForReadOnly_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "TabStopForReadOnly_DetailView");
             yield return new XpandNavigationItemAttribute("Navigation/Tab Stop For ReadOnly", "TabStopForReadOnly_DetailView");
             yield return new DisplayFeatureModelAttribute("TabStopForReadOnly_DetailView");

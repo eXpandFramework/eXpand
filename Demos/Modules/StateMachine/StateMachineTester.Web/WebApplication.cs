@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using StateMachineTester.Module;
 using StateMachineTester.Module.Web;
-using Xpand.Persistent.Base.General;
 
 namespace StateMachineTester.Web {
     public class StateMachineTesterAspNetApplication : WebApplication {

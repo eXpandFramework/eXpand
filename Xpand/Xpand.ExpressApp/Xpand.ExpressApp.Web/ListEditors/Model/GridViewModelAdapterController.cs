@@ -4,12 +4,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Utils;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
-using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Web.ListEditors.Model.ModelAfaptor;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {

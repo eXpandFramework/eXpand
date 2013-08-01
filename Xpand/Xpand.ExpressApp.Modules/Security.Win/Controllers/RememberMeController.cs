@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Win.Controllers {
     public class RememberMeController:Security.Controllers.RememberMeController {

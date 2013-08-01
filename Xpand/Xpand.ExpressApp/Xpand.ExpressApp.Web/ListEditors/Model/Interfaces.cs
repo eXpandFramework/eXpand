@@ -4,11 +4,11 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Model.Options;
+using Xpand.Persistent.Base.General.Model.Options;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridListEditorVisibilityCalculatorHelper :
-        ExpressApp.Model.Options.GridListEditorVisibilityCalculatorHelper {
+        Persistent.Base.General.Model.Options.GridListEditorVisibilityCalculatorHelper {
         public override bool IsVisible(IModelNode node, string propertyName) {
             Type editorType = EditorType(node);
             if (editorType == typeof (ASPxGridListEditor))

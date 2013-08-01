@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security.ClientServer;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -17,10 +16,13 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.RuntimeMembers;
+using Xpand.Persistent.Base.RuntimeMembers.Model;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -28,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
+    public sealed class XpandSystemModule : XpandModuleBase {
         public event CancelEventHandler InitSeqGenerator;
 
         void OnInitSeqGenerator(CancelEventArgs e) {
@@ -39,14 +41,6 @@ namespace Xpand.ExpressApp.SystemModule {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
-        }
-        public void UpdateNode(IModelMemberEx node, IModelApplication application) {
-            node.IsCustom = false;
-        }
-
-        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator) {
-            base.AddModelNodeUpdaters(updaterRegistrator);
-            updaterRegistrator.AddUpdater(this);
         }
 
         static XpandSystemModule() {
@@ -181,17 +175,9 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
 
-        public void ConvertXml(ConvertXmlParameters parameters) {
-            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
-                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
-                    parameters.NodeType = typeof(IModelMemberPersistent);
-            }
-            if (parameters.XmlNodeName == "CalculatedRuntimeMember") {
-                parameters.NodeType = typeof(IModelMemberCalculated);
-            }
-        }
 
     }
+
 
     public interface ITestSupport {
         bool IsTesting { get; set; }

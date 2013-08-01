@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.Logic.DomainLogic;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
@@ -19,7 +20,8 @@ namespace Xpand.ExpressApp.Logic {
             customLogics.RegisterLogic(typeof(IModelLogicRule), typeof(ModelLogicRuleDomainLogic));
         }
 
-        public void ConvertXml(ConvertXmlParameters parameters) {
+        void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
+            ConvertXml(parameters);
             if (typeof(IModelExecutionContext).IsAssignableFrom(parameters.NodeType)) {
                 switch (parameters.Values["Name"]) {
                     case "ViewControlAdding":

@@ -34,7 +34,7 @@ namespace EFDemo.Module {
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Reports.ReportsModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.PivotChart.PivotChartModuleBase));
-			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ConditionalDetailViews.ConditionalDetailViewModule));
+			
 			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Dashboard.DashboardModule));
 //			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
 //			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));

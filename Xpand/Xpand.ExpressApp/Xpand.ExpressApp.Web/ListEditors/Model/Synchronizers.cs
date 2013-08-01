@@ -1,11 +1,8 @@
 ﻿using System.Linq;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
-using Xpand.ExpressApp.Model.Options;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
-using DevExpress.Data.PLinq.Helpers;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridViewListEditorModelSynchronizer : ModelListSynchronizer {

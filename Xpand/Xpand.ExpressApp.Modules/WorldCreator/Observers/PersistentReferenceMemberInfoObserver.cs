@@ -4,7 +4,6 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using System.Linq;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 

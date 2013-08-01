@@ -3,6 +3,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 using EditorBrowsableState = System.ComponentModel.EditorBrowsableState;
 
 namespace Xpand.ExpressApp.ViewVariants {

@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 if (classInfo.TypeInfo.IsPersistent) {
                     if (!string.IsNullOrEmpty(classInfo.Name)) {
                         foreach (string method in LinqCollectionSourceHelper.GetXPQueryMethods(classInfo.TypeInfo.Type)) {
-                            string id = ModelListViewNodesGenerator.GetListViewId(classInfo.TypeInfo.Name) + "_" + method + LinqCollectionSource.DefaultSuffix;
+                            string id = ModelListViewNodesGenerator.GetListViewId(classInfo.TypeInfo.Type) + "_" + method + LinqCollectionSource.DefaultSuffix;
                             var listViewInfo = (IModelListView) (node.Application.Views[id] ??
                                                                             node.AddNode<IModelListView>(id));
                             listViewInfo.ModelClass = classInfo;

@@ -15,7 +15,6 @@ using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;

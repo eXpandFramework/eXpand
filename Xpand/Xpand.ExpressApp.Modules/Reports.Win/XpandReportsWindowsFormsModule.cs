@@ -3,6 +3,7 @@ using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Reports.Win {
     [ToolboxBitmap(typeof(XpandReportsWindowsFormsModule))]

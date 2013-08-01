@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp.Actions;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-    public class PessimisticLockingViewController : ExpressApp.SystemModule.PessimisticLockingViewController {
+    public class PessimisticLockingViewController : Persistent.Base.General.Controllers.PessimisticLockingViewController {
         protected override void SubscribeToEvents() {
             base.SubscribeToEvents();
             Frame.GetController<ViewEditModeController>().EditAction.Execute+=EditActionOnExecute;

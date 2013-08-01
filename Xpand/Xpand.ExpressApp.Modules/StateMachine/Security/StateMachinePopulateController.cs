@@ -7,8 +7,7 @@ using System.Linq.Expressions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.StateMachine.Xpo;
-using Xpand.ExpressApp.PropertyEditors;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Utils.Helpers;
 using Xpand.Persistent.Base.General;
 

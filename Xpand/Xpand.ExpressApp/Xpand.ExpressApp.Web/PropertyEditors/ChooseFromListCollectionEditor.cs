@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(IList<>), false)]

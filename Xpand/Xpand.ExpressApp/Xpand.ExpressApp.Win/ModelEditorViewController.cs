@@ -11,8 +11,9 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.RuntimeMembers;
+using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.Helpers;
 
 

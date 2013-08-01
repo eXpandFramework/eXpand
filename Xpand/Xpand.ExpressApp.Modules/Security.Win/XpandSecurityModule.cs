@@ -5,6 +5,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.Security.Win.Permissions;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Win {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]

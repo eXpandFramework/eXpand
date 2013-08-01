@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win {
     [ToolboxBitmap(typeof(DashboardWindowsFormsModule))]

@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 

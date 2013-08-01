@@ -5,6 +5,8 @@ using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Model {
     public interface IModelListViewLinq : IModelListView {
@@ -16,11 +18,6 @@ namespace Xpand.ExpressApp.Model {
         [Category("eXpand")]
         [Editor(typeof(MultilineStringEditor), typeof(UITypeEditor))]
         new string Text { get; set; }
-    }
-    [ModelAbstractClass]
-    public interface IModelColumnDetailViews:IModelColumn {
-        [Browsable(false)]
-        IModelList<IModelDetailView> DetailViews { get; }
     }
     [DomainLogic(typeof(IModelColumnDetailViews))]
     public class IModelColumnDetailViewsDomainLogic {

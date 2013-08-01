@@ -9,21 +9,16 @@
 // http://www.devexpress.com/example=E4035
 
 using System;
-using System.Configuration;
 using System.Windows.Forms;
 
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 using System.Collections;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Security.ClientServer.Remoting;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace SecuritySystemExample.Win {
     static class Program {

@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 

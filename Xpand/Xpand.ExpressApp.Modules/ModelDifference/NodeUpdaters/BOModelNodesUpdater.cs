@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {

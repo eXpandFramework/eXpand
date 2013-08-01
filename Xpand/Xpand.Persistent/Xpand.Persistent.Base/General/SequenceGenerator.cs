@@ -208,7 +208,7 @@ namespace Xpand.Persistent.Base.General {
         public static void Initialize(string connectionString, Type sequenceObjectType) {
             _sequenceObjectType = sequenceObjectType;
             DefaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
-            RegisterSequences(XafTypesInfo.Instance.PersistentTypes);
+//            RegisterSequences(applicationh.PersistentTypes);
         }
 
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {

@@ -1,6 +1,4 @@
 using System.Runtime.Remoting.Channels;
-using DevExpress.ExpressApp.MiddleTier.Remoting;
-using System.Runtime.Remoting.Channels.Tcp;
 using System;
 using System.Configuration;
 namespace SecurityDemo.Win

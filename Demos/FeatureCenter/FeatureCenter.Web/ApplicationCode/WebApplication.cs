@@ -4,6 +4,7 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Web.ApplicationCode {
     public partial class FeatureCenterAspNetApplication : XpandWebApplication {

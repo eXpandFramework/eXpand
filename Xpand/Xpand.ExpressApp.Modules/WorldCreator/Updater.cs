@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public class Updater : ModuleUpdater {

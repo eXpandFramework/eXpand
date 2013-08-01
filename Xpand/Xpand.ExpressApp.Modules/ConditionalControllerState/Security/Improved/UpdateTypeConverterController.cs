@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Security.Improved {
     public class UpdateTypeConverterController : UpdateTypeConverterController<ControllerStateRulePermission, ControllerTypeConverter> {

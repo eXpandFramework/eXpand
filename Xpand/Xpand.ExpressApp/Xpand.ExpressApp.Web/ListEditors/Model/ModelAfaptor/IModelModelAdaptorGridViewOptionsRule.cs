@@ -1,8 +1,8 @@
 ﻿using System;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model.ModelAfaptor {

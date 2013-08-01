@@ -4,9 +4,9 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using XVideoRental.Module.Win.DatabaseUpdate;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General.Model;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Rent {
     public enum ActiveRentType { None, Overdue, Today, Active }

@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {
     public abstract class MemberLevelSecurityModuleBase : XpandModuleBase {

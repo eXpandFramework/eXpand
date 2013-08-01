@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 
 namespace FeatureCenter.Module.RuntimeFields.CalculatedWithCode {

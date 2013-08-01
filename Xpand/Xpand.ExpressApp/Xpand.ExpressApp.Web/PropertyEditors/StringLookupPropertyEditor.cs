@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxEditors;
 using Xpand.ExpressApp.PropertyEditors;
 using System.Linq;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(string), false)]

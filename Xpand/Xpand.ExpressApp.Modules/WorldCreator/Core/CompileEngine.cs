@@ -12,6 +12,7 @@ using DevExpress.Persistent.Base;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using CodeDomProvider = Xpand.Persistent.Base.PersistentMetaData.CodeDomProvider;
 

@@ -1,7 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class PessimisticLockingMessageAttribute : AdditionalViewControlsRuleAttribute {

@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Module", "ThumbnailTester.Module\ThumbnailTester.Module.csproj", "{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Module.Web", "ThumbnailTester.Module.Web\ThumbnailTester.Module.Web.csproj", "{6A996DFD-E299-411A-B10B-107C4D6DD08D}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "ThumbnailTester.Web", "ThumbnailTester.Web\ThumbnailTester.Web.csproj", "{769F99E3-F213-43EC-890F-8BF5126ADAD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Web", "ThumbnailTester.Web\ThumbnailTester.Web.csproj", "{769F99E3-F213-43EC-890F-8BF5126ADAD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

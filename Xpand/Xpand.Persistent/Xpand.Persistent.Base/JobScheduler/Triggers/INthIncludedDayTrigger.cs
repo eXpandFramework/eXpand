@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using DevExpress.XtraScheduler;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.Persistent.Base.JobScheduler.Triggers {

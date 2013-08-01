@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module", "TreeListEditorsTester.Module\TreeListEditorsTester.Module.csproj", "{6CA1178A-48DF-40E2-A96B-2C182EB984C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Web", "TreeListEditorsTester.Module.Web\TreeListEditorsTester.Module.Web.csproj", "{B2B863BE-B17A-485E-81F0-A113CA9A56FB}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "TreeListEditorsTester.Web", "TreeListEditorsTester.Web\TreeListEditorsTester.Web.csproj", "{35878E0B-D117-4CF0-A934-1DD37EFF051B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Web", "TreeListEditorsTester.Web\TreeListEditorsTester.Web.csproj", "{35878E0B-D117-4CF0-A934-1DD37EFF051B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Win", "TreeListEditorsTester.Module.Win\TreeListEditorsTester.Module.Win.csproj", "{FBA1749A-94B8-4BE5-980D-3AA8A7652441}"
 EndProject

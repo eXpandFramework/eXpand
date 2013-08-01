@@ -2,8 +2,8 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class ReloadApplicationModelController : ViewController<DetailView> {

@@ -6,11 +6,12 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ConditionalControllerState.Logic;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (!Object.Equals(typesInfo.Type, typeof (Customer))) yield break;
+            if (!(typesInfo.Type == typeof (Customer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderConditionalFKViolation, "1=1", "1=1",
                 Captions.ViewMessageConditionalFKViolation, Position.Bottom) { View = "ConditionalForeignKeyViolation_ListView", ViewType = ViewType.ListView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderConditionalFKViolation, "1=1", "1=1",

@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Design;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Design;
+using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
     public interface IModelOptionsLayoutView : IModelOptionsColumnView {

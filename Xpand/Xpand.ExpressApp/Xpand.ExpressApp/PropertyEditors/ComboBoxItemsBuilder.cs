@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.PropertyEditors {
     public class ComboBoxItemsBuilder {

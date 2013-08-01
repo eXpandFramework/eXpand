@@ -6,10 +6,10 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.PropertyEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {

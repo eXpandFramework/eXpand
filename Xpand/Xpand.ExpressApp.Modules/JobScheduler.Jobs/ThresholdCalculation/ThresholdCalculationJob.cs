@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Quartz;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Xpo;
 

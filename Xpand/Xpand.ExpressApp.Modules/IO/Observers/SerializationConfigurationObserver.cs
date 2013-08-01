@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using Xpand.ExpressApp.IO.PersistentTypesHelpers;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 

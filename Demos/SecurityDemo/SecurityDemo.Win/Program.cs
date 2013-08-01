@@ -3,24 +3,19 @@ using System.Configuration;
 using System.Windows.Forms;
 
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Demos;
 
 using SecurityDemo.Module;
-using DevExpress.ExpressApp.MiddleTier.Remoting;
 using DevExpress.ExpressApp.MiddleTier;
 using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Tcp;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.Xpo;
 using DevExpress.Utils;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security.ClientServer.Remoting;
 using System.Runtime.Remoting;
-using System.ServiceModel;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;

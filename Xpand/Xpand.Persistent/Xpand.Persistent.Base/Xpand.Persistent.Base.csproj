@@ -59,9 +59,6 @@
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -80,19 +77,12 @@
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -110,6 +100,53 @@
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
+    <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\MasterObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\PessimisticLockingViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\PopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\XpandReferenceConverter.cs" />
+    <Compile Include="General\CustomShowNavigationItemEventArgsExtensions.cs" />
+    <Compile Include="General\DataStoreProvider.cs" />
+    <Compile Include="General\DynamicSecuritySystemObjects.cs" />
+    <Compile Include="General\FrameExtensions.cs" />
+    <Compile Include="General\HideFromNewMenuAttribute.cs" />
+    <Compile Include="General\IChooseFromListCollectionEditor.cs" />
+    <Compile Include="General\IStringLookupPropertyEditor.cs" />
+    <Compile Include="General\ISupportValueReading.cs" />
+    <Compile Include="General\IXpandLogonParameters.cs" />
+    <Compile Include="General\ModelExtensions.cs" />
+    <Compile Include="General\ModelXmlReaderExtensions.cs" />
+    <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
+    <Compile Include="General\Model\Interfaces.cs" />
+    <Compile Include="General\Model\CloneView.cs" />
+    <Compile Include="General\Model\ModuleController.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\EditorTypeVisibilityCalculator.cs" />
+    <Compile Include="General\Model\Options\Interfaces.cs" />
+    <Compile Include="General\Model\Options\Synchronizers.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\AlwaysEditableVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\NotVisibileCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\RuntimeOnlyCalculator.cs" />
+    <Compile Include="General\MultiDataStoreProvider.cs" />
+    <Compile Include="General\MultiDataStoreProxy.cs" />
+    <Compile Include="General\NewObjectCreateGroupAttribute.cs" />
+    <Compile Include="General\ObjectObserver.cs" />
+    <Compile Include="General\ValueConverters\TypeValueConverter.cs" />
+    <Compile Include="General\XafApplicationExtensions.cs" />
+    <Compile Include="General\XpandModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\XpandObjectSpace.cs" />
+    <Compile Include="General\XpandObjectSpaceProvider.cs" />
+    <Compile Include="General\XpoObjectHacker.cs" />
     <Compile Include="Logic\IConditionalLogicRule.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
@@ -224,6 +261,12 @@
     <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
     <Compile Include="General\ComponentInterfaces.cs" />
     <Compile Include="PersistentMetaData\IWorldCreatorModule.cs" />
+    <Compile Include="RuntimeMembers\RuntimeMemberBuilder.cs" />
+    <Compile Include="RuntimeMembers\Model\CalculatedMembers.cs" />
+    <Compile Include="RuntimeMembers\Model\Collections\AssociatedCollection.cs" />
+    <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
+    <Compile Include="RuntimeMembers\Model\Members.cs" />
+    <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
@@ -292,6 +335,8 @@
     <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
     <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
     <Compile Include="XpandBaseCustomObject.cs" />
+    <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
+    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
     public class QueryUserModelDifferenceObject : QueryDifferenceObject<UserModelDifferenceObject> {

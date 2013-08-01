@@ -6,7 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Utils.Helpers;

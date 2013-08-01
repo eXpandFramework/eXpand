@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Model;
 
-namespace FeatureCenter.Module.Win.Navigation.FocusControl
-{
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator
-    {
+namespace FeatureCenter.Module.Win.Navigation.FocusControl {
+    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (typesInfo.Type!=typeof(WinCustomer))yield break;
+            if (typesInfo.Type != typeof(WinCustomer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderFocusControl, "1=1", "1=1",
-                Captions.ViewMessageFocusControl, Position.Bottom){View = "FocusControl_DetailView"};
+                Captions.ViewMessageFocusControl, Position.Bottom) { View = "FocusControl_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFocusControl, "1=1", "1=1",
-                Captions.HeaderFocusControl, Position.Top){View = "FocusControl_DetailView"};
+                Captions.HeaderFocusControl, Position.Top) { View = "FocusControl_DetailView" };
             yield return new CloneViewAttribute(CloneViewType.DetailView, "FocusControl_DetailView");
             yield return new XpandNavigationItemAttribute("Navigation/Focus Control", "FocusControl_DetailView");
             yield return new DisplayFeatureModelAttribute("FocusControl_DetailView");
