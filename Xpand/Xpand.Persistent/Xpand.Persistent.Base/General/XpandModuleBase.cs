@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -37,7 +38,7 @@ namespace Xpand.Persistent.Base.General {
         static XPDictionary _dictiorary;
         static string _connectionString;
         protected Type DefaultXafAppType = typeof (XafApplication);
-        static bool _compatibilityChecked;
+        static bool _objectSpaceCreated;
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
@@ -304,18 +305,17 @@ namespace Xpand.Persistent.Base.General {
             
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-            application.CustomCheckCompatibility+=ApplicationOnCustomCheckCompatibility;
+            Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
         }
 
-        void ApplicationOnCustomCheckCompatibility(object sender, CustomCheckCompatibilityEventArgs customCheckCompatibilityEventArgs) {
-            ((XafApplication) sender).CustomCheckCompatibility-=ApplicationOnCustomCheckCompatibility;
-            _compatibilityChecked = true;
+        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
+            ((XafApplication) sender).ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
+            _objectSpaceCreated = true;
         }
 
-        public static bool CompatibilityChecked {
-            get { return _compatibilityChecked; }
+        public static bool ObjectSpaceCreated {
+            get { return _objectSpaceCreated; }
         }
-
 
         void CheckApplicationTypes() {
             if (RuntimeMode) {
