@@ -20,7 +20,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
-                ((WinApplication) Application).HandleException();
+                var winApplication = Application as WinApplication;
+                if (winApplication != null) winApplication.HandleException();
                 Application.LoggedOff += Application_LoggedOff;
                 Application.Disposed += Application_Disposed;
             }
