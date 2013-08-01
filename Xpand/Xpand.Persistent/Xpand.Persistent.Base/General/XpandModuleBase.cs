@@ -282,7 +282,7 @@ namespace Xpand.Persistent.Base.General {
                     ConnectionString = xpoDataStoreProvider.ConnectionString;
                 }
                 else {
-                    throw new NotImplementedException();
+                    ConnectionString = Application.ConnectionString;
                 }
             }
         }
