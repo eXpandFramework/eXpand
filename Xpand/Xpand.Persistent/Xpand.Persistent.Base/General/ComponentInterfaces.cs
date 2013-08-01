@@ -53,6 +53,7 @@ namespace Xpand.Persistent.Base.General {
         IDataStore GetDataStore(IDataStore dataStore);
     }
 
+    [Obsolete("In 13.2 there will be a XAF event for this and can be removed")]
     public interface IUserDifferencesLoaded {
         event EventHandler UserDifferencesLoaded;
     }
