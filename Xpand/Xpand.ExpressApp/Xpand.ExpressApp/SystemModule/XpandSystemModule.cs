@@ -57,8 +57,13 @@ namespace Xpand.ExpressApp.SystemModule {
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
                 SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
-                InitializeSequenceGenerator();
+                Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
             }
+        }
+
+        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
+            ((XafApplication) sender).ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
+            InitializeSequenceGenerator();
         }
 
         public override void Setup(XafApplication application) {
