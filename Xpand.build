@@ -7,7 +7,7 @@
 
 	<Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
 	<Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks"/>
-  <Import Project="Resource\FixReferences.targets" />
+  
 	<!--
 	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
 	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
@@ -185,23 +185,10 @@
 	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />	
 	<UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
 	
-<!--	<Target Name="ReplaceKey"  DependsOnTargets="FixReferences">-->
-<!--		<CreateItem Include="**\*.csproj;**\*.config;**\*.skin" Exclude=".git;Build;">-->
-<!--			<Output ItemName="_filesToChange" TaskParameter="Include"/>-->
-<!--		</CreateItem>    -->
-<!--		<MSBuild.ExtensionPack.FileSystem.File TaskAction="FilterByContent" RegexPattern="c52ffed5d5ff0958" Files="@(_filesToChange)">-->
-<!--            <Output TaskParameter="IncludedFiles" ItemName="FilesToParse"/>-->
-<!--			<Output TaskParameter="IncludedFileCount" PropertyName="FilesToParseCount"/>-->
-<!--    </MSBuild.ExtensionPack.FileSystem.File>-->
-<!---->
-<!--	-->
-<!--  <MSBuild.ExtensionPack.FileSystem.File TaskAction="Replace" -->
-<!--			Condition="$(FilesToParseCount) > 0"-->
-<!--			RegexPattern="c52ffed5d5ff0958" Replacement="c52ffed5d5ff0958" Files="@(FilesToParse)"/>-->
-<!--	</Target>-->
-		<Target Name="FixReferences">
-    <FixReferences MSBuildProjectDirectory="$(MSBuildProjectDirectory)" ProjectFiles="@(ProjectFiles)" Token="c52ffed5d5ff0958" />
-  </Target>
+	<Target Name="FixReferences">
+		<MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build"  /> 
+		<Exec Command=".\FixReferences\bin\debug\FixReferences.exe"/>
+	</Target>
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
