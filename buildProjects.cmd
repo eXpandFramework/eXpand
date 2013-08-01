@@ -9,8 +9,8 @@ echo Building all other modules...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand\Xpand.ExpressApp.Modules\AllModules.sln"
 
 echo Installing assemblies to GAC...
-xcopy "_third_party_assemblies\GACInstaller.exe" ".\Xpand.DLL\GacInstaller.exe" /S /Y /H /I
-call Xpand.DLL\GACInstaller.exe 
+xcopy "_third_party_assemblies\GACInstaller.exe" ".\Xpand.DLL\*.*" /S /Y /H /I
+call ".\Xpand.DLL\GACInstaller.exe" 
 
 echo Installing Toolbox Items...
 call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"

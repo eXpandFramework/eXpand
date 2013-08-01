@@ -9,7 +9,6 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.ModelDifference;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
@@ -38,17 +37,10 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
-                application.SetupComplete += AssignModelTypesInfo;
-                var userDifferencesLoaded = application as IUserDifferencesLoaded;
-                if (userDifferencesLoaded != null) userDifferencesLoaded.UserDifferencesLoaded += AssignModelTypesInfo;
             }
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
             }
-        }
-
-        void AssignModelTypesInfo(object sender, EventArgs eventArgs) {
-            ((ITypesInfoProvider) Application.Model).TypesInfo=TypesInfo;
         }
 
         void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {

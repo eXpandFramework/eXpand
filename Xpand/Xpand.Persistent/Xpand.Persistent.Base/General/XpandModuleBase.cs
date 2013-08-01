@@ -66,6 +66,7 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("CustomizeLogics"))
                 return;
             customLogics.RegisterLogic(typeof(ITypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
         }
 
         public bool Executed(string name) {
@@ -426,12 +427,6 @@ namespace Xpand.Persistent.Base.General {
             node.IsCustom = false;
         }
 
-    }
-    [DomainLogic((typeof(ITypesInfoProvider)))]
-    public class TypesInfoProviderDomainLogic {
-        public static ITypesInfo Get_TypesInfo(ITypesInfoProvider typesInfoProvider) {
-            return XpandModuleBase.TypesInfo;
-        }
     }
 
 }
