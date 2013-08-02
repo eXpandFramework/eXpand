@@ -12,7 +12,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -38,10 +37,44 @@ namespace Xpand.Persistent.Base.General {
         static XPDictionary _dictiorary;
         static string _connectionString;
         protected Type DefaultXafAppType = typeof (XafApplication);
-        static bool _objectSpaceCreated;
-
+        static readonly bool _isHosted;
+        public static event CancelEventHandler InitSeqGenerator;
+        
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
+            _isHosted = GetIsHosted();
+        }
+
+        public static bool IsHosted {
+            get { return _isHosted; }
+        }
+
+        static bool GetIsHosted() {
+            try {
+                var webAssemblies = AppDomain.CurrentDomain.GetAssemblies()
+                  .Where(a => a.FullName.StartsWith("System.Web"));
+                foreach (var webAssembly in webAssemblies) {
+                    var hostingEnvironmentType = webAssembly.GetType("System.Web.Hosting.HostingEnvironment");
+                    if (hostingEnvironmentType != null) {
+                        var isHostedProperty = hostingEnvironmentType.GetProperty("IsHosted",
+                          BindingFlags.GetProperty | BindingFlags.Static | BindingFlags.Public);
+                        if (isHostedProperty != null) {
+                            object result = isHostedProperty.GetValue(null, null);
+                            if (result is bool) {
+                                return (bool)result;
+                            }
+                        }
+                    }
+                }
+            } catch (Exception) {
+                // Failed to find or execute HostingEnvironment.IsHosted; assume false
+            }
+            return false;
+        }
+
+        internal void OnInitSeqGenerator(CancelEventArgs e) {
+            CancelEventHandler handler = InitSeqGenerator;
+            if (handler != null) handler(this, e);
         }
 
         public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator) {
@@ -98,7 +131,7 @@ namespace Xpand.Persistent.Base.General {
             updaters.Add(new ModelViewClonerUpdater());
         }
 
-        protected bool RuntimeMode {
+        protected internal bool RuntimeMode {
             get { return InterfaceBuilder.RuntimeMode; }
         }
 
@@ -131,11 +164,12 @@ namespace Xpand.Persistent.Base.General {
                 if (_connectionString != null) return _connectionString;
                 throw new NullReferenceException("ConnectionString");
             }
-            protected set { _connectionString = value; }
+            internal set { _connectionString = value; }
         }
 
+
         void LoadBaseImplAssembly() {
-            string assemblyString = string.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo .FileVersion, XpandAssemblyInfo.Token);
+            string assemblyString = String.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo.FileVersion, XpandAssemblyInfo.Token);
             string baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {
                 assemblyString = baseImplName;
@@ -222,7 +256,7 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        protected void AddToAdditionalExportedTypes(string[] types) {
+        protected internal void AddToAdditionalExportedTypes(string[] types) {
             if (RuntimeMode) {
                 IEnumerable<Type> types1 = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
                 AdditionalExportedTypes.AddRange(types1);
@@ -233,7 +267,7 @@ namespace Xpand.Persistent.Base.General {
             if (RuntimeMode) {
                 IEnumerable<Type> types =
                     assembly.GetTypes()
-                            .Where(type1 => string.Join("", new[]{type1.Namespace}).StartsWith(nameSpaceName));
+                            .Where(type1 => String.Join("", new[]{type1.Namespace}).StartsWith(nameSpaceName));
                 AdditionalExportedTypes.AddRange(types);
             }
         }
@@ -260,33 +294,11 @@ namespace Xpand.Persistent.Base.General {
         
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            OnApplicationInitialized(Application);
             if (Executed("Setup2"))
                 return;
-            SetConnectionString();
-            OnApplicationInitialized(Application);
-        }
-
-        void SetConnectionString() {
-            if (!RuntimeMode)
-                return;
-            if (Application.ObjectSpaceProviders.Count == 0) {
-                ConnectionString = Application.ConnectionString;
-            }
-            else {
-                var provider = Application.ObjectSpaceProvider as IXpandObjectSpaceProvider;
-                if (provider != null) {
-                    ConnectionString =provider.DataStoreProvider.ConnectionString;
-                }
-                else if (Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
-                    var fieldInfo = typeof(XPObjectSpaceProvider).GetField("dataStoreProvider", BindingFlags.Instance | BindingFlags.NonPublic);
-                    if (fieldInfo == null) throw new NullReferenceException("dataStoreProvider fieldInfo");
-                    var xpoDataStoreProvider = ((IXpoDataStoreProvider) fieldInfo.GetValue(Application.ObjectSpaceProvider));
-                    ConnectionString = xpoDataStoreProvider.ConnectionString;
-                }
-                else {
-                    ConnectionString = Application.ConnectionString;
-                }
-            }
+            ConnectionString = this.GetConnectionString();
+            TypesInfo.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
 
@@ -296,8 +308,14 @@ namespace Xpand.Persistent.Base.General {
                 ApplicationHelper.Instance.Initialize(application);
             CheckApplicationTypes();
             OnApplicationInitialized(application);
+            var helper = new ConnectionStringHelper();
+            helper.Attach(this);
+            var generatorHelper = new SequenceGeneratorHelper();
+            generatorHelper.Attach(this,helper);
+
             if (Executed("Setup"))
                 return;
+
             Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
             
             if (ManifestModuleName == null)
@@ -305,17 +323,10 @@ namespace Xpand.Persistent.Base.General {
             
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-            Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
+            
         }
 
-        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
-            ((XafApplication) sender).ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
-            _objectSpaceCreated = true;
-        }
-
-        public static bool ObjectSpaceCreated {
-            get { return _objectSpaceCreated; }
-        }
+        public static bool ObjectSpaceCreated { get; internal set; }
 
         void CheckApplicationTypes() {
             if (RuntimeMode) {
@@ -426,7 +437,75 @@ namespace Xpand.Persistent.Base.General {
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.IsCustom = false;
         }
-
     }
 
+    public static class ModuleBaseExtensions {
+        public static string GetConnectionString(this ModuleBase moduleBase) {
+            if (moduleBase.Application.ObjectSpaceProviders.Count == 0) {
+                return moduleBase.Application.ConnectionString;
+            }
+            var provider = moduleBase.Application.ObjectSpaceProvider as IXpandObjectSpaceProvider;
+            if (provider != null) {
+                return provider.DataStoreProvider.ConnectionString;
+            }
+            if (moduleBase.Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
+                var fieldInfo = typeof(XPObjectSpaceProvider).GetField("dataStoreProvider", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (fieldInfo == null) throw new NullReferenceException("dataStoreProvider fieldInfo");
+                var xpoDataStoreProvider = ((IXpoDataStoreProvider)fieldInfo.GetValue(moduleBase.Application.ObjectSpaceProvider));
+                return xpoDataStoreProvider.ConnectionString;
+            }
+            return moduleBase.Application.ConnectionString;
+        }
+ 
+    }
+    class ConnectionStringHelper {
+        const string ConnectionStringHelperName = "ConnectionStringHelper";
+        static string _currentConnectionString;
+        XpandModuleBase _xpandModuleBase;
+        public event EventHandler ConnectionStringUpdated;
+
+        void OnConnectionStringUpdated() {
+            var handler = ConnectionStringUpdated;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+       
+        void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
+            XpandModuleBase.ObjectSpaceCreated = false;
+            ((XafApplication)sender).LoggedOff -= ApplicationOnLoggedOff;
+            if (!XpandModuleBase.IsHosted)
+                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+            else
+                XpandModuleBase.CallMonitor.Remove(ConnectionStringHelperName);
+        }
+
+        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
+            Application.LoggedOff += ApplicationOnLoggedOff;
+            ((XafApplication)sender).ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
+            XpandModuleBase.ObjectSpaceCreated = true;
+            if (String.CompareOrdinal(_currentConnectionString, Application.ConnectionString) != 0) {
+                _currentConnectionString = Application.ConnectionString;
+                XpandModuleBase.ConnectionString=_xpandModuleBase.GetConnectionString();
+                OnConnectionStringUpdated();
+            }
+        }
+
+        protected XafApplication Application {
+            get { return _xpandModuleBase.Application; }
+        }
+
+        protected bool RuntimeMode {
+            get { return _xpandModuleBase.RuntimeMode; }
+        }
+
+        public void Attach(XpandModuleBase moduleBase) {
+            _xpandModuleBase=moduleBase;
+            if (RuntimeMode&&!Executed(ConnectionStringHelperName)) {
+                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+            }
+        }
+
+        bool Executed(string name) {
+            return _xpandModuleBase.Executed(name);
+        }
+    }
 }

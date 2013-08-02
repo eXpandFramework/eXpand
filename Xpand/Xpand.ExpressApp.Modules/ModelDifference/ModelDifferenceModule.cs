@@ -13,7 +13,7 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(false)]
-    public sealed class ModelDifferenceModule : XpandModuleBase {
+    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));

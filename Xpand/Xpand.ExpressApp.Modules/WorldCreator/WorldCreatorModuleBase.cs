@@ -25,9 +25,10 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode)
+            if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
-            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+                application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            }
         }
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
             if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
@@ -39,6 +40,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 return;
             base.OnApplicationInitialized(xafApplication);
         }
+
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);

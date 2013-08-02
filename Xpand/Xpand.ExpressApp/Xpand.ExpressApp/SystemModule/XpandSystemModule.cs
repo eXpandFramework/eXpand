@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -30,14 +29,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    public sealed class XpandSystemModule : XpandModuleBase {
-        public event CancelEventHandler InitSeqGenerator;
-
-        void OnInitSeqGenerator(CancelEventArgs e) {
-            CancelEventHandler handler = InitSeqGenerator;
-            if (handler != null) handler(this, e);
-        }
-
+    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -49,21 +41,6 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
-        }
-
-
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
-                SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
-                Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
-            }
-        }
-
-        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
-            ((XafApplication) sender).ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
-            InitializeSequenceGenerator();
         }
 
         public override void Setup(XafApplication application) {
@@ -89,10 +66,6 @@ namespace Xpand.ExpressApp.SystemModule {
             if (!(args.View is XpandListView))
                 args.View = ViewFactory.CreateListView((XafApplication) sender, args.ViewID, args.CollectionSource, args.IsRoot);
         }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Type SequenceObjectType { get; set; }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
@@ -132,25 +105,6 @@ namespace Xpand.ExpressApp.SystemModule {
             IEnumerable<Attribute> attributes = GetAttributes(persistentType);
             foreach (var attribute in attributes) {
                 persistentType.AddAttribute(attribute);
-            }
-        }
-
-        public void InitializeSequenceGenerator() {
-            
-            try {
-                var cancelEventArgs = new CancelEventArgs();
-                OnInitSeqGenerator(cancelEventArgs);
-                if (cancelEventArgs.Cancel)
-                    return;
-                if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
-                    throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
-                    SequenceGenerator.Initialize(ConnectionString, SequenceObjectType);
-                }
-            } catch (Exception e) {
-                if (e.InnerException != null)
-                    throw e.InnerException;
-                throw;
             }
         }
 
