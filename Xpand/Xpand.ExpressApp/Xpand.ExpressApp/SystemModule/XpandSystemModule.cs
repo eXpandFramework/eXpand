@@ -48,6 +48,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
+                application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
                 application.ListViewCreating+=ApplicationOnListViewCreating;
                 application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
@@ -55,6 +56,10 @@ namespace Xpand.ExpressApp.SystemModule {
                     (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
+        }
+
+        void ApplicationOnCustomProcessShortcut(object sender, CustomProcessShortcutEventArgs args) {
+            new ViewShortCutProccesor(Application).Proccess(args);
         }
 
         void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
