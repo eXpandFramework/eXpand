@@ -1,7 +1,4 @@
-﻿using System;
-using DevExpress.Data.Filtering.Helpers;
-using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.Xpo;
+﻿using DevExpress.Data.Filtering;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
@@ -11,21 +8,12 @@ namespace Xpand.ExpressApp.Logic.Conditional.Logic {
         /// Determines whether a passed object satisfies to the target criteria and the editor's customization according to a given business criteria should be performed.
         /// </summary>
         public static bool Fit(object targetObject, IConditionalLogicRule logicRule) {
-            string criteria = logicRule.NormalCriteria;
+            var criteria = CriteriaOperator.Parse(logicRule.NormalCriteria);
             return targetObject == null
-                       ? string.IsNullOrEmpty(logicRule.EmptyCriteria) || Fit(new object(), logicRule.EmptyCriteria)
-                       : Fit(targetObject, criteria);
+                       ? string.IsNullOrEmpty(logicRule.EmptyCriteria) || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object())
+                       : criteria.Fit(targetObject);
         }
 
-        static bool Fit(object targetObject, string criteria) {
-            Type objectType = targetObject.GetType();
-            var wrapper = new LocalizedCriteriaWrapper(objectType, criteria);
-            wrapper.UpdateParametersValues(targetObject);
-            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(targetObject);
-            EvaluatorContextDescriptor descriptor = objectSpace != null ? objectSpace.GetEvaluatorContextDescriptor(objectType) : new EvaluatorContextDescriptorDefault(objectType);
-            var evaluator = new ExpressionEvaluator(descriptor, wrapper.CriteriaOperator, XpandModuleBase.Dictiorary.CustomFunctionOperators);
-            return evaluator.Fit(targetObject);
-        }
 
         public static void CalculateLogicRuleInfo(LogicRuleInfo<TConditionalLogicRule> calculateLogicRuleInfo) {
             calculateLogicRuleInfo.Active = Fit(calculateLogicRuleInfo.Object, calculateLogicRuleInfo.Rule);

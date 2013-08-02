@@ -12,8 +12,7 @@ namespace ExternalApplication.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            //            if (System.Diagnostics.Debugger.IsAttached)
-            if (true) {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

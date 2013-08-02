@@ -34,9 +34,9 @@ namespace Xpand.Xpo.Filtering {
                    XPObject.Fields.ObjectType == new OperandValue(xpObjectType.Oid);
         }
         public static CriteriaOperator Parse(string propertyPath, CriteriaOperator criteriaOperator) {
-            while (propertyPath.IndexOf(".") > -1) {
-                propertyPath = propertyPath.Substring(0, propertyPath.IndexOf(".")) + "[" +
-                               propertyPath.Substring(propertyPath.IndexOf(".") + 1) + "]";
+            while (propertyPath.IndexOf(".", StringComparison.Ordinal) > -1) {
+                propertyPath = propertyPath.Substring(0, propertyPath.IndexOf(".", StringComparison.Ordinal)) + "[" +
+                               propertyPath.Substring(propertyPath.IndexOf(".", StringComparison.Ordinal) + 1) + "]";
             }
             for (int i = propertyPath.Length - 1; i > -1; i--)
                 if (propertyPath[i] != ']') {

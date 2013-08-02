@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {

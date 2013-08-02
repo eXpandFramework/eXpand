@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -114,6 +115,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\XpandReferenceConverter.cs" />
+    <Compile Include="General\CriteriaOperatorExtensions.cs" />
     <Compile Include="General\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="General\DataStoreProvider.cs" />
     <Compile Include="General\DynamicSecuritySystemObjects.cs" />

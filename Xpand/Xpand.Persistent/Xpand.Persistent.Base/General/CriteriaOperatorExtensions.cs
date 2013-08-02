@@ -4,7 +4,7 @@ using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Xpo;
 
-namespace Xpand.ExpressApp.Core {
+namespace Xpand.Persistent.Base.General {
     public static class CriteriaOperatorExtensions {
         public static bool Fit(this CriteriaOperator criteriaOperator, object targetObject) {
             if (ReferenceEquals(criteriaOperator, null))
