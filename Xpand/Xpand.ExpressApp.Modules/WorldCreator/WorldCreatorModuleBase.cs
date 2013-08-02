@@ -18,7 +18,6 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         List<Type> _dynamicModuleTypes = new List<Type>();
-        static ExistentTypesMemberCreator _existentTypesMemberCreator;
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
@@ -40,7 +39,6 @@ namespace Xpand.ExpressApp.WorldCreator {
                 return;
             base.OnApplicationInitialized(xafApplication);
         }
-
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -81,23 +79,12 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         }
 
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            if (ConnectionString != null && _existentTypesMemberCreator == null) {
-                _existentTypesMemberCreator = new ExistentTypesMemberCreator();
-                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
-                var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
-                var session = new Session(simpleDataLayer);
-                _existentTypesMemberCreator.CreateMembers(session);
-            }
-            return base.GetDeclaredExportedTypes();
-        }
-
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
         }
 
-        ReflectionDictionary GetReflectionDictionary() {
-            var externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
+        public static ReflectionDictionary GetReflectionDictionary(XpandModuleBase moduleBase) {
+            var externalModelBusinessClassesList = moduleBase.GetAdditionalClasses(moduleBase.Application.Modules);
             Type persistentAssemblyInfoType = externalModelBusinessClassesList.FirstOrDefault(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1));
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
@@ -108,6 +95,10 @@ namespace Xpand.ExpressApp.WorldCreator {
                 reflectionDictionary.QueryClassInfo(type);
             }
             return reflectionDictionary;
+        }
+
+        ReflectionDictionary GetReflectionDictionary() {
+            return GetReflectionDictionary(this);
         }
 
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {

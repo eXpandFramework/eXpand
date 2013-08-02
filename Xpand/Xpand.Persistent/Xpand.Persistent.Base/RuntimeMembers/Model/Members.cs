@@ -38,6 +38,11 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         [Browsable(false)]
         bool? CreatedAtDesignTime { get; set; }
     }
+
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public sealed class ModelMemberExMemberInfoAttribute : Attribute {
+    }
+
     [ModelDisplayName("NonPersistent")]
     [ModelPersistentName("RuntimeNonPersistentMember")]
     public interface IModelMemberNonPersistent : IModelMemberEx {
@@ -77,6 +82,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
                     if (!modelMemberEx.CreatedAtDesignTime.HasValue)
                         modelMemberEx.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
                     CreateXpandCustomMemberInfo.Invoke(modelMemberEx, xpClassInfo);
+                    classInfo.FindMember(modelMemberEx.Name).AddAttribute(new ModelMemberExMemberInfoAttribute());
                     var typesInfo = ((BaseInfo)modelMemberEx.ModelClass.TypeInfo).Store;
                     typesInfo.RefreshInfo(xpClassInfo.ClassType);
                 }

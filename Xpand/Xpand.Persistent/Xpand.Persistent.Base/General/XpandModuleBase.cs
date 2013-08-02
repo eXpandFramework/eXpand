@@ -225,7 +225,7 @@ namespace Xpand.Persistent.Base.General {
             return (typeInfo.GetRequiredTypes(info => IsExportedType(info.Type)).Select(required => required.Type));
         }
 
-        bool IsLoadingExternalModel() {
+        public static bool IsLoadingExternalModel() {
             return TypesInfo != XafTypesInfo.Instance;
         }
 
