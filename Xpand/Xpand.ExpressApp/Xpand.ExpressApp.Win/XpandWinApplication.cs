@@ -15,7 +15,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win {
@@ -25,8 +24,6 @@ namespace Xpand.ExpressApp.Win {
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWinApplication() {
-            DetailViewCreating += OnDetailViewCreating;
-            ListViewCreating += OnListViewCreating;
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -108,12 +105,6 @@ namespace Xpand.ExpressApp.Win {
             if (handler != null) handler(this, e);
         }
 
-        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args) {
-            base.OnCustomProcessShortcut(args);
-            new ViewShortCutProccesor(this).Proccess(args);
-
-        }
-
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
             var cancelEventArgs = new CancelEventArgs();
             OnConfirmationRequired(cancelEventArgs);
@@ -127,10 +118,6 @@ namespace Xpand.ExpressApp.Win {
                        : showViewStrategyBase;
         }
 
-        void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
-        }
-
         protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
             Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
             return new XpandWinWindow(this, context, controllers, isMain, activateControllersImmediatelly);
@@ -139,11 +126,6 @@ namespace Xpand.ExpressApp.Win {
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
             return new XpandWinWindow(this, context, controllers, false, true);
         }
-
-        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID, args.ObjectSpace, args.Obj,  args.IsRoot);
-        }
-
 
         public override IModelTemplate GetTemplateCustomizationModel(IFrameTemplate template) {
             var applicationBase = ((ModelApplicationBase)Model);

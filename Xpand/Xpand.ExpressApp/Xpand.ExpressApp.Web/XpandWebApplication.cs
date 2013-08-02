@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.ViewStrategies;
@@ -23,9 +22,8 @@ namespace Xpand.ExpressApp.Web {
         ApplicationModulesManager _applicationModulesManager;
 
         public XpandWebApplication() {
-            DetailViewCreating += OnDetailViewCreating;
-            ListViewCreating += OnListViewCreating;
         }
+
         protected override ShowViewStrategyBase CreateShowViewStrategy() {
             return new XpandShowViewStrategy(this);
         }
@@ -92,29 +90,19 @@ namespace Xpand.ExpressApp.Web {
             CancelEventHandler handler = ConfirmationRequired;
             if (handler != null) handler(this, e);
         }
-        protected override void OnCustomProcessShortcut(CustomProcessShortcutEventArgs args) {
-            base.OnCustomProcessShortcut(args);
-            new ViewShortCutProccesor(this).Proccess(args);
 
-        }
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
             var cancelEventArgs = new CancelEventArgs();
             OnConfirmationRequired(cancelEventArgs);
             return !cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
         }
 
-        void OnListViewCreating(object sender, ListViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateListView(this, args.ViewID, args.CollectionSource, args.IsRoot);
-        }
         protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
             Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
             return new XpandWebWindow(this, context, controllers, isMain, activateControllersImmediatelly);
         }
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
             return new XpandPopupWindow(this, context, controllers);
-        }
-        void OnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
-            args.View = ViewFactory.CreateDetailView(this, args.ViewID,args.ObjectSpace, args.Obj,  args.IsRoot);
         }
 
         protected XpandWebApplication(IContainer container) {
