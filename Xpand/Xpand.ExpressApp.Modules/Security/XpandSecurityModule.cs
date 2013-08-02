@@ -87,7 +87,5 @@ namespace Xpand.ExpressApp.Security {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<SecurityOperationsAttribute>() != null);
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
-        #region Overrides of XpandModuleBase
-        #endregion
     }
 }

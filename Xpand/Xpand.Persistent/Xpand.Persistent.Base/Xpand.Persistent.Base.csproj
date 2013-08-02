@@ -262,7 +262,6 @@
     <Compile Include="Logic\Model\IModelViewContexts.cs" />
     <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
     <Compile Include="General\ComponentInterfaces.cs" />
-    <Compile Include="PersistentMetaData\IWorldCreatorModule.cs" />
     <Compile Include="RuntimeMembers\RuntimeMemberBuilder.cs" />
     <Compile Include="RuntimeMembers\Model\CalculatedMembers.cs" />
     <Compile Include="RuntimeMembers\Model\Collections\AssociatedCollection.cs" />

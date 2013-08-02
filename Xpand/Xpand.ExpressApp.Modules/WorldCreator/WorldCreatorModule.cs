@@ -1,11 +1,9 @@
-using System;
 using System.ComponentModel;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator {
 
@@ -16,10 +14,6 @@ namespace Xpand.ExpressApp.WorldCreator {
         public WorldCreatorModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
-        }
-
-        protected override Type[] ApplicationTypes() {
-            return new[]{typeof(IWorldCreatorModule)};
         }
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {

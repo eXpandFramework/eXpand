@@ -2,21 +2,15 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace WorldCreatorTester.Win {
-    public partial class WorldCreatorTesterWindowsFormsApplication : WinApplication, IWorldCreatorModule {
+    public partial class WorldCreatorTesterWindowsFormsApplication : WinApplication {
         public WorldCreatorTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }      
-
-        public new SettingsStorage CreateLogonParameterStoreCore() {
-            return base.CreateLogonParameterStoreCore();
-        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);

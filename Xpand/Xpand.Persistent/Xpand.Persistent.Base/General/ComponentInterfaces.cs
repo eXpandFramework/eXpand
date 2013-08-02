@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.Base.General {
     [Obsolete("", true)]
@@ -73,7 +72,7 @@ namespace Xpand.Persistent.Base.General {
         AutoCreateOption AutoCreateOption { get; }
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption {
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption {
         string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);

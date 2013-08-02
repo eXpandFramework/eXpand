@@ -4,16 +4,14 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using WorldCreatorTester.Module;
 using WorldCreatorTester.Module.Web;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace WorldCreatorTester.Web {
-    public class WorldCreatorTesterAspNetApplication : WebApplication, IWorldCreatorModule {
+    public class WorldCreatorTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         WorldCreatorTesterModule module3;
@@ -22,11 +20,6 @@ namespace WorldCreatorTester.Web {
 
         public WorldCreatorTesterAspNetApplication() {
             InitializeComponent();
-        }
-
-
-        public new SettingsStorage CreateLogonParameterStoreCore() {
-            return base.CreateLogonParameterStoreCore();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
