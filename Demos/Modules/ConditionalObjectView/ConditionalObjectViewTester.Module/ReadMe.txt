@@ -1,6 +1,6 @@
 ﻿Project Description
 
-The ConditionalDetailViewsTester.Module project implements a platform-agnostic Module. UI-independent application 
+The ConditionalObjectViewTester.Module project implements a platform-agnostic Module. UI-independent application 
 elements can be implemented here (Business Objects, Controllers, etc.). The root 
 project folder contains the Module.cs(vb) file with the class that inherits 
 ModuleBase. This class can be designed with the Module Designer that allows 

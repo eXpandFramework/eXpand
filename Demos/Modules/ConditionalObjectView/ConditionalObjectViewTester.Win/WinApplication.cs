@@ -6,9 +6,9 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 
-namespace ConditionalDetailViewsTester.Win {
-    public partial class ConditionalDetailViewsTesterWindowsFormsApplication : WinApplication {
-        public ConditionalDetailViewsTesterWindowsFormsApplication() {
+namespace ConditionalObjectViewTester.Win {
+    public partial class ConditionalObjectViewTesterWindowsFormsApplication : WinApplication {
+        public ConditionalObjectViewTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
@@ -16,7 +16,7 @@ namespace ConditionalDetailViewsTester.Win {
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
-        private void ConditionalDetailViewsTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void ConditionalObjectViewTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -36,7 +36,7 @@ namespace ConditionalDetailViewsTester.Win {
             }
 #endif
         }
-        private void ConditionalDetailViewsTesterWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
+        private void ConditionalObjectViewTesterWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
             string userLanguageName = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {
                 e.Languages.Add(userLanguageName);

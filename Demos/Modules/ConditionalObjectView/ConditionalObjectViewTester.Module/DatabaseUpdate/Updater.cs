@@ -1,10 +1,8 @@
 using System;
-
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Security;
 
-namespace ConditionalDetailViewsTester.Module.DatabaseUpdate {
+namespace ConditionalObjectViewTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {

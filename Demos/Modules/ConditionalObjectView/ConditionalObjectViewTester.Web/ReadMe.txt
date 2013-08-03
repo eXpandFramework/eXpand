@@ -1,6 +1,6 @@
 ﻿Project Description
 
-The ConditionalDetailViewsTester.Web project implements an ASP.NET application. The ApplicationCode project 
+The ConditionalObjectViewTester.Web project implements an ASP.NET application. The ApplicationCode project 
 folder contains the WebApplication.cs(vb) file with the class that inherits 
 WebApplication. This class can be designed with the Application Designer that 
 allows you to view and customize application components: referenced modules, 

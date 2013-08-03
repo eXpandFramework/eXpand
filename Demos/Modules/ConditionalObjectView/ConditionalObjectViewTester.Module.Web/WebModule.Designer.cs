@@ -1,5 +1,5 @@
-namespace ConditionalDetailViewsTester.Module.Web {
-    partial class ConditionalDetailViewsTesterAspNetModule {
+namespace ConditionalObjectViewTester.Module.Web {
+    partial class ConditionalObjectViewTesterAspNetModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -24,9 +24,9 @@ namespace ConditionalDetailViewsTester.Module.Web {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // ConditionalDetailViewsTesterAspNetModule
+            // ConditionalObjectViewTesterAspNetModule
             // 
-            this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewsTester.Module.ConditionalDetailViewsTesterModule));
+            this.RequiredModuleTypes.Add(typeof(ConditionalObjectViewTester.Module.ConditionalObjectViewTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
 
         }
