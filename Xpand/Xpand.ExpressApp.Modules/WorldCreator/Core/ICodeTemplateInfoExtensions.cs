@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using DevExpress.ExpressApp.Xpo;
+﻿using System;
+using System.Linq;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class ICodeTemplateInfoExtensions {
         public static void CloneProperties(this ICodeTemplateInfo codeTemplateInfo) {
-            var templateInfo = codeTemplateInfo.TemplateInfo ?? XPObjectSpace.FindObjectSpaceByObject(codeTemplateInfo).CreateWCObject<ITemplateInfo>();
+            var templateInfo = codeTemplateInfo.TemplateInfo ?? CreateWcObject(codeTemplateInfo);
             codeTemplateInfo.TemplateInfo = templateInfo;
             var type = templateInfo.GetType();
             var infos = typeof(ITemplateInfo).GetProperties().Select(propertyInfo =>
@@ -18,5 +18,9 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             }
         }
 
+        static ITemplateInfo CreateWcObject(ICodeTemplateInfo codeTemplateInfo) {
+            var type = WCTypesInfo.Instance.FindBussinessObjectType(typeof(ITemplateInfo));
+            return (ITemplateInfo) Activator.CreateInstance(type,new object[]{codeTemplateInfo.Session});
+        }
     }
 }

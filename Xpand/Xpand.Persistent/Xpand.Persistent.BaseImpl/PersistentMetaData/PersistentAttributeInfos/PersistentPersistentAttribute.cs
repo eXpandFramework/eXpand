@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -7,6 +8,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos
 {
     [InterfaceRegistrator(typeof(IPersistentPersistentAttribute))]
     [DefaultProperty("MapTo")]
+    [System.ComponentModel.DisplayName("Persistent")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IPersistentClassInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentPersistentAttribute : PersistentAttributeInfo, IPersistentPersistentAttribute {
         public PersistentPersistentAttribute(Session session) : base(session) {
         }

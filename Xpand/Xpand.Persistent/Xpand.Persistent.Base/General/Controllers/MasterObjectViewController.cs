@@ -2,29 +2,33 @@
 using DevExpress.ExpressApp;
 
 namespace Xpand.Persistent.Base.General.Controllers {
-    public abstract class MasterObjectViewController<TObject> : ViewController<ListView> where TObject : class {
+    public abstract class MasterObjectViewController<TNestedObject, TMasterObject> : ViewController<ListView> {
         protected MasterObjectViewController() {
             TargetViewNesting = Nesting.Nested;
-        }
-        private TObject _masterObject;
-        public TObject MasterObject {
-            get { return _masterObject; }
+            TargetObjectType = typeof(TNestedObject);
         }
         protected override void OnActivated() {
             base.OnActivated();
-            var source = View.CollectionSource as PropertyCollectionSource;
-            if (source != null) {
-                var collectionSource = source;
-                collectionSource.MasterObjectChanged += collectionSource_MasterObjectChanged;
+            var collectionSource = View.CollectionSource as PropertyCollectionSource;
+            if (collectionSource != null) {
+                collectionSource.MasterObjectChanged += OnMasterObjectChanged;
+                if (collectionSource.MasterObject != null)
+                    UpdateMasterObject((TMasterObject) collectionSource.MasterObject);
             }
         }
-        void collectionSource_MasterObjectChanged(object sender, EventArgs e) {
-            if (((PropertyCollectionSource)sender).MasterObject is TObject)
-                OnMasterObjectChanged(sender);
-        }
 
-        protected virtual void OnMasterObjectChanged(object sender) {
-            _masterObject = ((PropertyCollectionSource)sender).MasterObject as TObject;
+        protected abstract void UpdateMasterObject(TMasterObject masterObject);
+
+        void OnMasterObjectChanged(object sender, EventArgs e) {
+            
+            UpdateMasterObject((TMasterObject) ((PropertyCollectionSource)sender).MasterObject);
+        }
+        protected override void OnDeactivated() {
+            var collectionSource = View.CollectionSource as PropertyCollectionSource;
+            if (collectionSource != null) {
+                collectionSource.MasterObjectChanged -= OnMasterObjectChanged;
+            }
+            base.OnDeactivated();
         }
     }
 }

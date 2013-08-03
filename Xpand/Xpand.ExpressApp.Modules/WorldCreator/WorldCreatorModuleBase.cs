@@ -18,6 +18,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         List<Type> _dynamicModuleTypes = new List<Type>();
+        ExistentTypesMemberCreator _existentTypesMemberCreator;
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
@@ -48,12 +49,10 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (ConnectionString != null) {
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
-                    using (var session = new Session(dataLayer)) {
-                        using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
-                            RunUpdaters(session);
-                            AddDynamicModules(moduleManager, unitOfWork);
-                        }
-                    }
+                    using (var unitOfWork = new UnitOfWork(dataLayer)) {
+                        RunUpdaters(unitOfWork);
+                        AddDynamicModules(moduleManager, unitOfWork);
+                    }                    
                 }
             } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
@@ -61,22 +60,20 @@ namespace Xpand.ExpressApp.WorldCreator {
                     moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
+            Application.LoggedOn+=ApplicationOnLoggedOn;
+            
 
-            Application.SetupComplete += ApplicationOnSetupComplete;
+        }
 
+        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
+            var session = ((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
+            MergeTypes(new UnitOfWork(session.DataLayer));
         }
 
         void RunUpdaters(Session session) {
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
             }
-        }
-
-
-        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var session =((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
-            MergeTypes(new UnitOfWork(session.DataLayer));
-
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
@@ -129,6 +126,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (sqlDataStore != null) {
                 IDbCommand dbCommand = sqlDataStore.CreateCommand();
                 new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
+                unitOfWork.CommitChanges();
             }
         }
 

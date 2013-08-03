@@ -105,6 +105,9 @@
     <Compile Include="General\Controllers\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\CreatableItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\PessimisticLockingViewController.cs">
       <SubType>Component</SubType>
     </Compile>

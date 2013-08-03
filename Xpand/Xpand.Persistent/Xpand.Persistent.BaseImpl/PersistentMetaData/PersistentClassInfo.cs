@@ -18,6 +18,9 @@ using Xpand.Utils.Helpers;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IPersistentClassInfo))]
     public class PersistentClassInfo : PersistentTemplatedTypeInfo, IPersistentClassInfo, IPropertyValueValidator {
+        private const string BaseTypeFullNameName = "BaseTypeFullName";
+        private const string MergedObjectFullNameName = "MergedObjectFullName";
+        private const string BaseTypeName = "BaseType";
         PersistentClassInfo _baseClassInfo;
         Type _baseType;
         string _baseTypeFullName;
@@ -45,11 +48,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public Type BaseType {
             get { return _baseType; }
             set {
-                SetPropertyValue("BaseType", ref _baseType, value);
-                if (_baseType != null)
+                SetPropertyValue(BaseTypeName, ref _baseType, value);
+                if (_baseType != null) {
                     _baseTypeFullName = _baseType.FullName;
-                else if (_baseClassInfo == null && _baseType == null)
+                    OnChanged(BaseTypeFullNameName);
+                }
+                else if (_baseClassInfo == null && _baseType == null) {
                     _baseTypeFullName = null;
+                    OnChanged(BaseTypeFullNameName);
+                }
             }
         }
 
@@ -61,8 +68,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
                 if (_baseClassInfo != null && _baseClassInfo.PersistentAssemblyInfo != null) {
                     _baseTypeFullName = _baseClassInfo.PersistentAssemblyInfo.Name + "." + _baseClassInfo.Name;
-                } else if (_baseClassInfo == null && _baseType == null)
+                    OnChanged(BaseTypeFullNameName);
+                } else if (_baseClassInfo == null && _baseType == null) {
                     _baseTypeFullName = null;
+                    OnChanged(BaseTypeFullNameName);
+                }
             }
         }
 
@@ -75,10 +85,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _mergedObjectType; }
             set {
                 SetPropertyValue("MergedObjectType", ref _mergedObjectType, value);
-                if (_mergedObjectType != null)
+                if (_mergedObjectType != null) {
                     _mergedObjectFullName = _mergedObjectType.FullName;
-                else if (_mergedClassInfo == null && _mergedObjectType == null)
+                    OnChanged(MergedObjectFullNameName);
+                }
+                else if (_mergedClassInfo == null && _mergedObjectType == null) {
                     _mergedObjectFullName = null;
+                    OnChanged(MergedObjectFullNameName);
+                }
             }
         }
 
@@ -108,7 +122,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return GetCollection<PersistentMemberInfo>("OwnMembers"); }
         }
 
-        [Association("PersistentClassInfos-Interfaces")]
+        [Association("PersistentClassInfos-Interfaces"),Aggregated]
         public XPCollection<InterfaceInfo> Interfaces {
             get { return GetCollection<InterfaceInfo>("Interfaces"); }
         }
@@ -125,8 +139,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public string BaseTypeFullName {
             get { return _baseTypeFullName; }
             set {
-                SetPropertyValue("BaseTypeFullName", ref _baseTypeFullName, value);
+                SetPropertyValue(BaseTypeFullNameName, ref _baseTypeFullName, value);
                 _baseType = ReflectionHelper.FindType(value);
+                OnChanged(BaseTypeName);
             }
         }
 
@@ -134,7 +149,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         public string MergedObjectFullName {
             get { return _mergedObjectFullName; }
-            set { SetPropertyValue("MergedObjectFullName", ref _mergedObjectFullName, value); }
+            set {
+                SetPropertyValue(MergedObjectFullNameName, ref _mergedObjectFullName, value);
+                _mergedObjectType=ReflectionHelper.FindType(value);
+                OnChanged("MergedObjectType");
+            }
         }
 
         IList<IInterfaceInfo> IPersistentClassInfo.Interfaces {

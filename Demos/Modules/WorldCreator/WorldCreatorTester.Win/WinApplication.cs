@@ -12,9 +12,6 @@ namespace WorldCreatorTester.Win {
             DelayedViewItemsInitialization = true;
         }      
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
-        }
 
         void WorldCreatorTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                                DatabaseVersionMismatchEventArgs e) {

@@ -1,15 +1,17 @@
 using System;
 using System.ComponentModel;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Owner,Name")]
+    [Appearance("Hide_ExtendedMemberInfo_TemplateInfos", AppearanceItemType.ViewItem, null, TargetItems = "TemplateInfos",Visibility = ViewItemVisibility.Hide)]
     public abstract class ExtendedMemberInfo : PersistentTypeInfo, IExtendedMemberInfo {
         
         Type _owner;

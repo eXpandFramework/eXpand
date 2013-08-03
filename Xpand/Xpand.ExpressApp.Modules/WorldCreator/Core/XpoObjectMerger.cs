@@ -13,19 +13,20 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var findBussinessObjectType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>();
             var collection = new XPCollection(unitOfWork, findBussinessObjectType).Cast<IPersistentClassInfo>().Where(info => info.MergedObjectFullName != null).ToList();
             foreach (IPersistentClassInfo classInfo in collection) {
-                XPClassInfo xpClassInfo = getClassInfo(classInfo.Session, classInfo.PersistentAssemblyInfo.Name + "." + classInfo.Name, persistentTypes);
-                var mergedXPClassInfo = getClassInfo(classInfo.Session, classInfo.MergedObjectFullName, persistentTypes) ?? classInfo.Session.GetClassInfo(ReflectionHelper.GetType(classInfo.MergedObjectFullName));
+                XPClassInfo xpClassInfo = GetClassInfo(classInfo.Session, classInfo.PersistentAssemblyInfo.Name + "." + classInfo.Name, persistentTypes);
+                var mergedXPClassInfo = GetClassInfo(classInfo.Session, classInfo.MergedObjectFullName, persistentTypes) ?? classInfo.Session.GetClassInfo(ReflectionHelper.GetType(classInfo.MergedObjectFullName));
                 if (xpClassInfo != null) {
                     unitOfWork.UpdateSchema(xpClassInfo.ClassType, mergedXPClassInfo.ClassType);
-                    updateObjectType(unitOfWork, xpClassInfo, mergedXPClassInfo, command);
+                    if (ObjectType(unitOfWork, xpClassInfo, mergedXPClassInfo, command)>0)
+                        classInfo.MergedObjectFullName = null;
                 }
             }
         }
-        private void updateObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo, IDbCommand command) {
+        private int ObjectType(UnitOfWork unitOfWork, XPClassInfo xpClassInfo, XPClassInfo mergedXPClassInfo, IDbCommand command) {
             var propertyName = XPObject.Fields.ObjectType.PropertyName;
             command.CommandText = "UPDATE [" + getTableName(mergedXPClassInfo) + "] SET " + propertyName + "=" + unitOfWork.GetObjectType(xpClassInfo).Oid +
                                   " WHERE " + propertyName + " IS NULL OR " + propertyName + "=" + unitOfWork.GetObjectType(mergedXPClassInfo).Oid;
-            command.ExecuteNonQuery();
+            return command.ExecuteNonQuery();
         }
 
         string getTableName(XPClassInfo mergedXPClassInfo) {
@@ -38,7 +39,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
 
-        private XPClassInfo getClassInfo(Session session, string assemblyQualifiedName, IEnumerable<Type> persistentTypes) {
+        private XPClassInfo GetClassInfo(Session session, string assemblyQualifiedName, IEnumerable<Type> persistentTypes) {
             Type classType = persistentTypes.Where(type => type.FullName == assemblyQualifiedName).SingleOrDefault();
             if (classType != null) {
                 return session.GetClassInfo(classType);

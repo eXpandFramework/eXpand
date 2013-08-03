@@ -19,6 +19,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -70,6 +71,12 @@ namespace Xpand.Persistent.Base.General {
                 // Failed to find or execute HostingEnvironment.IsHosted; assume false
             }
             return false;
+        }
+        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
+            var declaredControllerTypes = base.GetDeclaredControllerTypes();
+            if (!Executed("GetDeclaredControllerTypes"))
+                return declaredControllerTypes.Union(new[] { typeof(CreatableItemController) });
+            return declaredControllerTypes;
         }
 
         internal void OnInitSeqGenerator(CancelEventArgs e) {
@@ -297,7 +304,8 @@ namespace Xpand.Persistent.Base.General {
             OnApplicationInitialized(Application);
             if (Executed("Setup2"))
                 return;
-            ConnectionString = this.GetConnectionString();
+            if (RuntimeMode)
+                ConnectionString = this.GetConnectionString();
             TypesInfo.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 

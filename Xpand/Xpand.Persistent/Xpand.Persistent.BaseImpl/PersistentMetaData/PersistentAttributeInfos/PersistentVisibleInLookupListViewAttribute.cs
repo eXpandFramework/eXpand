@@ -1,10 +1,15 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PersistentVisibleInLookupListViewName")]
+    [System.ComponentModel.DisplayName("Lisible In LookupView")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentVisibleInLookupListViewAttribute : PersistentAttributeInfo {
         public PersistentVisibleInLookupListViewAttribute(Session session)
             : base(session) {

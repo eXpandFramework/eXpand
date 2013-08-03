@@ -3,10 +3,14 @@ using System.ComponentModel;
 using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("ConverterType")]
+    [System.ComponentModel.DisplayName("Value Converter")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentValueConverter : PersistentAttributeInfo {
         Type _converterType;
 

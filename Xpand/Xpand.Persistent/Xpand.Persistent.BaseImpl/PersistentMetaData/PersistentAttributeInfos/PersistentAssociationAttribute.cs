@@ -11,6 +11,9 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("AssociationName")]
     [InterfaceRegistrator(typeof(IPersistentAssociationAttribute))]
+    [System.ComponentModel.DisplayName("Association")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentAssociationAttribute : PersistentAttributeInfo, IPersistentAssociationAttribute {
         string _associationName;
         PersistentClassInfo _elementClassInfo;

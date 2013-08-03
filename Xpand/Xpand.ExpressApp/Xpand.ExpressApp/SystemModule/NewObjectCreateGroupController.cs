@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -39,7 +38,6 @@ namespace Xpand.ExpressApp.SystemModule {
             foreach (var removeGroupedType in removeGroupedTypes.ToList()) {
                 string[] strings = removeGroupedType.FindAttribute<NewObjectCreateGroupAttribute>().GroupPath.Split('/');
                 AddItem(choiceActionItemCollection, strings.ToList(), removeGroupedType);
-
             }
         }
 
@@ -75,7 +73,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         IEnumerable<ITypeInfo> RemoveGroupedTypes(ICollection<Type> types) {
             var removeGroupedTypes = new List<ITypeInfo>();
-            List<ITypeInfo> groupedInfos = types.Select(type => XafTypesInfo.Instance.FindTypeInfo(type)).Where(info => info.FindAttribute<NewObjectCreateGroupAttribute>() != null).ToList();
+            var groupedInfos = types.Select(type => Application.TypesInfo.FindTypeInfo(type)).Where(info => info.FindAttribute<NewObjectCreateGroupAttribute>() != null).ToList();
             foreach (var groupedInfo in groupedInfos) {
                 types.Remove(groupedInfo.Type);
                 removeGroupedTypes.Add(groupedInfo);

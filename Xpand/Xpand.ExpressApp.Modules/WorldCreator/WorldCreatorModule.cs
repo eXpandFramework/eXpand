@@ -14,11 +14,12 @@ namespace Xpand.ExpressApp.WorldCreator {
         public WorldCreatorModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
         }
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (_existentTypesMemberCreator == null) {
+            if (_existentTypesMemberCreator == null && RuntimeMode) {
                 _existentTypesMemberCreator = new ExistentTypesMemberCreator();
                 var reflectionDictionary = WorldCreatorModuleBase.GetReflectionDictionary(this);
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, reflectionDictionary);

@@ -1,10 +1,15 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PersistentVisibleInDetailViewName")]
+    [System.ComponentModel.DisplayName("Visible In Detail View")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentVisibleInDetailViewAttribute : PersistentAttributeInfo {
         public PersistentVisibleInDetailViewAttribute(Session session)
             : base(session) {

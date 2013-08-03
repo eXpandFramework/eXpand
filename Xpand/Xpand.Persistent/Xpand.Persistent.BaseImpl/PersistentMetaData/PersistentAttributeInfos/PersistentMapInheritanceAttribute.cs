@@ -1,9 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
-    [DefaultProperty("MapInheritanceType")]
+    [DefaultProperty("Map InheritanceType")]
+    [System.ComponentModel.DisplayName("MapInheritance")]
+    [CreateableItem(typeof(IPersistentClassInfo))]
     public class PersistentMapInheritanceAttribute : PersistentAttributeInfo {
         MapInheritanceType _mapInheritanceType;
 
