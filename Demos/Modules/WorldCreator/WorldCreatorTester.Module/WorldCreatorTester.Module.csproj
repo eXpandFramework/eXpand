@@ -60,8 +60,9 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=13.1.5.15, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper">
       <SpecificVersion>False</SpecificVersion>

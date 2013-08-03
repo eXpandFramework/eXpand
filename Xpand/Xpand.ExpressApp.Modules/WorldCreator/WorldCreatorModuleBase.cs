@@ -18,7 +18,6 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         List<Type> _dynamicModuleTypes = new List<Type>();
-        ExistentTypesMemberCreator _existentTypesMemberCreator;
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
