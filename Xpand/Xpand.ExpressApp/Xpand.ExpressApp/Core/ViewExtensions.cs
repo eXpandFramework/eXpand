@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
@@ -8,13 +9,10 @@ namespace Xpand.ExpressApp.Core {
     public static class ViewExtensions {
         public static ILayoutManager LayoutManager {
             get {
-                var valueManager = ValueManager.GetValueManager<ILayoutManager>("ILayoutManager");
-                if (valueManager.Value == null) {
-                    var typeInfo = ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof(ILayoutManager))).FirstOrDefault();
-                    if (typeInfo != null)
-                        valueManager.Value = (ILayoutManager) ReflectionHelper.CreateObject(typeInfo.Type);
-                }
-                return valueManager.Value;
+                var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).FirstOrDefault();
+                if (typeInfo != null)
+                    return (ILayoutManager) ReflectionHelper.CreateObject(typeInfo.Type);
+                throw new NotImplementedException();
             }
         }
 

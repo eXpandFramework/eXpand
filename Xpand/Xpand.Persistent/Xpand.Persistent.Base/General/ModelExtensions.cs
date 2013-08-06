@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Persistent.Base.ModelDifference;
+using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
     public static class CustomModelSynchronizerHelper {
@@ -42,6 +43,10 @@ namespace Xpand.Persistent.Base.General {
             return (IModelNode)_methodInfo.MakeGenericMethod(new[] { type }).Invoke(modelNode, new object[] { id });
         }
 
+        public static IEnumerable<IModelLayoutViewItem> ViewItems(this IEnumerable<IModelViewLayoutElement> modelViewLayout,IModelMemberViewItem memberViewItem) {
+            var layoutViewItems = modelViewLayout.GetItems<ModelNode>(ModelEditorHelper.GetChildNodes).OfType<IModelLayoutViewItem>();
+            return layoutViewItems.Where(item => item.ViewItem == memberViewItem);
+        }
     }
     public class ModelNodeWrapper {
         readonly ModelNode _modelNode;

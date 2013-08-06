@@ -23,11 +23,21 @@ using Xpand.Utils.Helpers;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
-    public class XpandLayoutManager : WebLayoutManager, ILayoutManager {
+
+    public interface IWebLayoutManager {
+        event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
+    }
+
+    public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         ViewItemsCollection _detailViewItems;
+        public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
+
+        protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
+            var handler = Instantiated;
+            if (handler != null) handler(this, e);
+        }
 
         public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
-
 
         public override object LayoutControls(IModelNode layoutInfo, ViewItemsCollection detailViewItems) {
             var splitLayout = layoutInfo as IModelSplitLayout;
@@ -61,6 +71,21 @@ namespace Xpand.ExpressApp.Web.Layout {
             return base.LayoutControls(layoutInfo, detailViewItems);
         }
 
+        protected override LayoutBaseTemplate CreateLayoutItemTemplate() {
+            var layoutBaseTemplate = base.CreateLayoutItemTemplate();
+            layoutBaseTemplate.Instantiated+=LayoutBaseTemplateOnInstantiated;
+            return layoutBaseTemplate;
+        }
+
+        protected override LayoutBaseTemplate CreateLayoutGroupTemplate() {
+            var layoutBaseTemplate = base.CreateLayoutGroupTemplate();
+            layoutBaseTemplate.Instantiated += LayoutBaseTemplateOnInstantiated;
+            return layoutBaseTemplate;
+        }
+
+        void LayoutBaseTemplateOnInstantiated(object sender, TemplateInstantiatedEventArgs templateInstantiatedEventArgs) {
+            OnInstantiated(templateInstantiatedEventArgs);
+        }
 
         private static void SetSplitterInitClientEvent(ASPxSplitter splitter, bool isRoot) {
             splitter.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
