@@ -38,7 +38,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridViewOnFocusedColumnChanged(object sender, FocusedColumnChangedEventArgs focusedColumnChangedEventArgs) {
-            _cellFilterAction.Active[_actionActiveContext] =((IModelColumnCellFilter) ((XafGridColumn) focusedColumnChangedEventArgs.FocusedColumn).Model).CellFilter;
+            var columnCellFilter = focusedColumnChangedEventArgs.FocusedColumn.Model() as IModelColumnCellFilter;
+            if (columnCellFilter != null) _cellFilterAction.Active[_actionActiveContext] =columnCellFilter.CellFilter;
         }
 
         void CellFilterActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
