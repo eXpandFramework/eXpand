@@ -8,10 +8,12 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -488,8 +490,8 @@ namespace Xpand.Persistent.Base.General {
 
         void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
             Application.LoggedOff += ApplicationOnLoggedOff;
-            ((XafApplication)sender).ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
             XpandModuleBase.ObjectSpaceCreated = true;
+            ((XafApplication)sender).ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
             if (String.CompareOrdinal(_currentConnectionString, Application.ConnectionString) != 0) {
                 _currentConnectionString = Application.ConnectionString;
                 XpandModuleBase.ConnectionString=_xpandModuleBase.GetConnectionString();
@@ -509,6 +511,19 @@ namespace Xpand.Persistent.Base.General {
             _xpandModuleBase=moduleBase;
             if (RuntimeMode&&!Executed(ConnectionStringHelperName)) {
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+                Application.DatabaseVersionMismatch+=ApplicationOnDatabaseVersionMismatch;
+            }
+        }
+
+        void ApplicationOnDatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs databaseVersionMismatchEventArgs) {
+            ((XafApplication) sender).DatabaseVersionMismatch-=ApplicationOnDatabaseVersionMismatch;
+            ApplicationStatusUpdater.UpdateStatus+=ApplicationStatusUpdaterOnUpdateStatus;
+        }
+
+        void ApplicationStatusUpdaterOnUpdateStatus(object sender, UpdateStatusEventArgs updateStatusEventArgs) {
+            if (updateStatusEventArgs.Context == ApplicationStatusMesssageId.UpdateDatabaseData.ToString()) {
+                ApplicationStatusUpdater.UpdateStatus -= ApplicationStatusUpdaterOnUpdateStatus;
+                ApplicationOnObjectSpaceCreated(Application, null);
             }
         }
 
