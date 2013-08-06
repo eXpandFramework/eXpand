@@ -15,7 +15,8 @@
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -82,6 +83,7 @@
     <Compile Include="Automation\SystemAutomation.cs" />
     <Compile Include="Automation\Wait.cs" />
     <Compile Include="Automation\WaitAutomation.cs" />
+    <Compile Include="Dynamic\DynamicElement.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
