@@ -87,10 +87,13 @@ namespace Xpand.Utils.Helpers {
 
         public static string GetPropertyName<TTarget>(Expression<Func<TTarget, object>> property) {
             var memberExpression = property.Body as MemberExpression;
-
-            if (memberExpression == null)
-                throw new NotImplementedException();
-            return memberExpression.Member.Name;
+            if (memberExpression != null) return memberExpression.Member.Name;
+            var unaryExpression = property.Body as UnaryExpression;
+            if (unaryExpression != null) {
+                var expression = unaryExpression.Operand as MemberExpression;
+                if (expression != null) return expression.Member.Name;
+            }
+            throw new NotImplementedException();
         }
 
         public static string GetPropertyName<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property) {

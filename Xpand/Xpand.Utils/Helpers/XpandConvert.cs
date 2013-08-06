@@ -120,6 +120,9 @@ namespace Xpand.Utils.Helpers {
             }
             if (destinationType.IsInstanceOfType(value)) {
                 result = value;
+                if (destinationType==typeof(string)&&IsNullString(value.ToString())) {
+                    result = null;
+                }
                 return true;
             }
             Type coreDestinationType = destinationType.IsGeneric() ? destinationType.GetUnderlyingType() : destinationType;
@@ -181,14 +184,22 @@ namespace Xpand.Utils.Helpers {
             return false;
         }
 
+        static bool TryChangeNullString(object value, Type destinationType, ref object result) {
+            var asString = value.ToString();
+            return IsNullString(asString) && TryToChange(null, destinationType, out result, Conversion.TreatNullAsDefault);
+        }
+
+        static bool IsNullString(string asString) {
+            return asString != String.Empty && string.CompareOrdinal("(NULL)", asString) == 0;
+        }
+
         private static bool TryChangeGuessedValues(object value, Type destinationType, ref object result) {
             if (value is char && destinationType == typeof(bool)) {
                 return TryChangeCharToBool((char)value, ref result);
             }
-            var asString = value.ToString();
-            if (asString!=String.Empty&& string.CompareOrdinal("(NULL)", asString)==0) {
-                return TryToChange(null, destinationType, out result, Conversion.TreatNullAsDefault);
-            }
+            var changeNullString = TryChangeNullString(value, destinationType, ref result);
+            if (changeNullString)
+                return true;
             if ( destinationType == typeof(bool)) {
                 return TryChangeStringToBool(value.ToString(), ref result);
             }

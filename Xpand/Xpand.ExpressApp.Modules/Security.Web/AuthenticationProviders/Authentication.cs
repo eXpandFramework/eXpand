@@ -74,7 +74,6 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             var logonParametersAsString = LogonParametersAsString();
             var cookie = HttpCookie(logonParametersAsString, webApplication);
             HttpContext.Current.Response.Cookies.Add(cookie);
-
         }
 
         string LogonParametersAsString() {

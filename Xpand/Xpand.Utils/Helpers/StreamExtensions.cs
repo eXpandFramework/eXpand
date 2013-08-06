@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 
 namespace Xpand.Utils.Helpers {
     public static class StreamExtensions {
@@ -24,6 +25,10 @@ namespace Xpand.Utils.Helpers {
 
         public static void WriteResourceToFile(this Type type, string resourceName,string filePath) {
             type.Assembly.GetManifestResourceStream(type,resourceName).SaveToFile(filePath);
+        }
+
+        public static string GetResourceString(this Assembly assembly, string name) {
+            return assembly.GetManifestResourceStream(name).ReadToEndAsString();
         }
 
         public static string GetResourceString(this Type type, string name) {

@@ -122,7 +122,6 @@ namespace Xpand.ExpressApp.SystemModule {
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
-            
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
@@ -138,8 +137,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
-
-
     }
 
 

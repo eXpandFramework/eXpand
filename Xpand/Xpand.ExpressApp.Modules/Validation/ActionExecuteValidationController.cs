@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+            if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
             foreach (var controller in Frame.Controllers) {
                 foreach (var action in controller.Actions) {
                     action.Executed -= ActionOnExecuted;

@@ -3,6 +3,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MemberLevelSecurity;
 
@@ -24,10 +25,12 @@ namespace Xpand.ExpressApp {
         }
         public XpandDetailView(IModelDetailView info, IObjectSpace objectSpace, object obj, XafApplication application, bool isRoot)
             : base(info, objectSpace, obj, application, isRoot) {
+            this.UpdateLayoutManager();
         }
 
         public XpandDetailView(IObjectSpace objectSpace, object obj, XafApplication application, bool isRoot)
             : base(objectSpace, obj, application, isRoot) {
+            this.UpdateLayoutManager();
         }
 
         protected override ViewItem CreateItem(IModelViewItem info) {

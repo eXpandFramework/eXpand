@@ -5,13 +5,11 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.Web.FriendlyUrl;
-using Xpand.ExpressApp.Web.Layout;
 using Xpand.ExpressApp.Web.ViewStrategies;
 using Xpand.Persistent.Base.General;
 
@@ -42,10 +40,6 @@ namespace Xpand.ExpressApp.Web {
         }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             this.CreateCustomObjectSpaceprovider(args, null);
-        }
-
-        protected override LayoutManager CreateLayoutManagerCore(bool simple) {
-            return new XpandLayoutManager();
         }
 
         protected override bool SupportMasterDetailMode {

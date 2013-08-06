@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -39,7 +38,6 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         }
 
         protected void WritePropertyValuesCore(SettingsStorage storage) {
-            Debug.Assert(storage.GetType() == _storage.GetType());
             storage.SaveOption("", "UserName", UserName);
             storage.SaveOption("", "Password", Password);
             storage.SaveOption("", "RememberMe", RememberMe.ToString());
