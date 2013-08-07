@@ -26,12 +26,13 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
+using Xpand.Utils.GeneralDataStructures;
 
 namespace Xpand.Persistent.Base.General {
     [ToolboxItem(false)]
     public abstract class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter {
         static List<object> _storeManagers;
-        readonly static HashSet<string> _callMonitor=new HashSet<string>();
+        readonly static MultiValueDictionary<string,object> _callMonitor=new MultiValueDictionary<string, object>();
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
@@ -77,7 +78,7 @@ namespace Xpand.Persistent.Base.General {
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             var declaredControllerTypes = base.GetDeclaredControllerTypes();
             if (!Executed("GetDeclaredControllerTypes"))
-                return declaredControllerTypes.Union(new[] { typeof(CreatableItemController) });
+                return declaredControllerTypes.Union(new[] { typeof(CreatableItemController),typeof(FilterByColumnController) });
             return declaredControllerTypes;
         }
 
@@ -91,7 +92,7 @@ namespace Xpand.Persistent.Base.General {
             updaterRegistrator.AddUpdater(this);
         }
 
-        public static HashSet<string> CallMonitor {
+        public static MultiValueDictionary<string, object> CallMonitor {
             get { return _callMonitor; }
         }
 
@@ -112,22 +113,41 @@ namespace Xpand.Persistent.Base.General {
             customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
         }
 
+        public bool Executed<T>(string name) {
+            if (typeof(T).IsAssignableFrom(GetType())) {
+                Type value = typeof (T);
+                if (_callMonitor.ContainsKey(name)) {
+                    if (!_callMonitor.GetValues(name, true).Contains(value)) {
+                        _callMonitor.Add(name,value);
+                        return false;
+                    }
+                    return true;
+                }
+                _callMonitor.Add(name,value);
+                return false;
+            }
+            return true;
+        }
+
         public bool Executed(string name) {
-            if (_callMonitor.Contains(name))
-                return true;
-            _callMonitor.Add(name);
-            return false;
+            return Executed<object>(name);
         }
 
         public static ITypesInfo TypesInfo { get; set; }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
+            if (!Executed<IColumnCellFilterUser>("ExtendModelInterfaces")) {
+                extenders.Add<IModelMember, IModelMemberCellFilter>();
+                extenders.Add<IModelColumn, IModelColumnCellFilter>();   
+            }
             if (Executed("ExtendModelInterfaces"))
                 return;
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, ITypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
+
+            
         }
         public static Type UserType { get; set; }
 

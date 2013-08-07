@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -13,12 +14,11 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
     [ToolboxBitmap(typeof(TreeListEditorsWindowsFormsModule), "Resources.Toolbox_Module_TreeListEditors_Win.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter {
+    public sealed class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter, IColumnCellFilterUser {
         public XpandTreeListEditorsWinModule() {
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
         }
-
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);

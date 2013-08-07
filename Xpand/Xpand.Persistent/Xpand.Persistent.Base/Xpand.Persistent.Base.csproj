@@ -102,6 +102,9 @@
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\FilterByColumnController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -130,6 +133,7 @@
     <Compile Include="General\IXpandLogonParameters.cs" />
     <Compile Include="General\ModelExtensions.cs" />
     <Compile Include="General\ModelXmlReaderExtensions.cs" />
+    <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="General\Model\Interfaces.cs" />
     <Compile Include="General\Model\CloneView.cs" />

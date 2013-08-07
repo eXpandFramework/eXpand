@@ -266,7 +266,7 @@ namespace Xpand.Persistent.Base.General {
 
         public void Attach(XpandModuleBase xpandModuleBase, ConnectionStringHelper helper) {
             _xpandModuleBase=xpandModuleBase;
-            if (_xpandModuleBase is ISequenceGeneratorUser && !_xpandModuleBase.Executed(SequenceGeneratorHelperName)) {
+            if (!_xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
                 if (_xpandModuleBase.RuntimeMode) {
                     Application.LoggedOff+=ApplicationOnLoggedOff;
                     AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });

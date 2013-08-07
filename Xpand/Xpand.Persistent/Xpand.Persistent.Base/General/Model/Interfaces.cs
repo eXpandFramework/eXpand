@@ -25,5 +25,15 @@ namespace Xpand.Persistent.Base.General.Model {
         [Browsable((false))]
         bool DataStoreForeignKeyCreated { get; set; }
     }
+    public interface IModelMemberCellFilter : IModelNode {
+        [Category(AttributeCategoryNameProvider.Search)]
+        bool CellFilter { get; set; }
+    }
+    [ModelInterfaceImplementor(typeof(IModelMemberCellFilter), "ModelMember")]
+    public interface IModelColumnCellFilter : IModelMemberCellFilter {
+    }
 
+    public interface IColumnCellFilterUser {
+         
+    }
 }

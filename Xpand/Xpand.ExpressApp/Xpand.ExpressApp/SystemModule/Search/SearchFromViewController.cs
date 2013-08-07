@@ -10,10 +10,11 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelMemberSearchMode {
-        [Category(SearchFromViewController.AttributesCategory)]
+        [Category(AttributeCategoryNameProvider.Search)]
         [Description("Control if member will be included on full text search")]
         SearchMemberMode SearchMemberMode { get; set; }
         
@@ -30,11 +31,11 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         AllSearchableMembers, VisibleColumns,IncludedColumns
     }
     public interface IModelClassFullTextSearch:IModelNode {
-        [Category(SearchFromViewController.AttributesCategory)]
+        [Category(AttributeCategoryNameProvider.Search)]
         FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }
-        [Category(SearchFromViewController.AttributesCategory)]
+        [Category(AttributeCategoryNameProvider.Search)]
         SearchMode? FullTextSearchMode { get; set; }
-        [Category(SearchFromViewController.AttributesCategory)]
+        [Category(AttributeCategoryNameProvider.Search)]
         [DataSourceProperty("ListViews")]
         IModelListView FullTextListView { get; set; }
         [Browsable(false)]
@@ -93,7 +94,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     }
 
     public class SearchFromViewController : ViewController, IModelExtender {
-        public const string AttributesCategory = "eXpand.Search";
+        
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelMember, IModelMemberSearchMode>();
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorSearchMode>();
