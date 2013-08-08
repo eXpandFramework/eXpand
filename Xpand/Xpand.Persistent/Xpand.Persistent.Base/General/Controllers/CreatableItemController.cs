@@ -30,7 +30,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs e) {
             var nestedFrame = Frame as NestedFrame;
-            if (nestedFrame != null && nestedFrame.ViewItem.View!=null) {
+            if (nestedFrame != null && nestedFrame.ViewItem.View as ObjectView!=null) {
                 var parentType = nestedFrame.ViewItem.View.ObjectTypeInfo.Type;
                 var typeInfos = e.Types.Select(type => Application.TypesInfo.FindTypeInfo(type));
                 var typeAttributes = typeInfos.Select(info => new{info.Type, Attributes = info.FindAttributes<CreateableItemAttribute>()}).
