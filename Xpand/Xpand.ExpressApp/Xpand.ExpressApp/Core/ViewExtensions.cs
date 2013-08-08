@@ -10,15 +10,15 @@ namespace Xpand.ExpressApp.Core {
         public static ILayoutManager LayoutManager {
             get {
                 var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).FirstOrDefault();
-                if (typeInfo != null)
-                    return (ILayoutManager) ReflectionHelper.CreateObject(typeInfo.Type);
-                throw new NotImplementedException();
+                return typeInfo != null ? (ILayoutManager) ReflectionHelper.CreateObject(typeInfo.Type) : null;
             }
         }
 
         public static void UpdateLayoutManager(this CompositeView compositeView) {
             if (!(compositeView.LayoutManager is ILayoutManager)) {
-                compositeView.SetPropertyInfoBackingFieldValue(view => compositeView.LayoutManager, compositeView, LayoutManager);
+                var layoutManager = LayoutManager;
+                if (layoutManager != null)
+                    compositeView.SetPropertyInfoBackingFieldValue(view => compositeView.LayoutManager, compositeView, layoutManager);
             }
         }
     }
