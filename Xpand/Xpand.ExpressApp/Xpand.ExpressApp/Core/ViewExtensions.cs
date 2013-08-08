@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Core {
         }
 
         public static void UpdateLayoutManager(this CompositeView compositeView) {
-            if ((compositeView.LayoutManager is ILayoutManager)) {
+            if (!(compositeView.LayoutManager is ILayoutManager)) {
                 compositeView.SetPropertyInfoBackingFieldValue(view => compositeView.LayoutManager, compositeView, LayoutManager);
             }
         }
