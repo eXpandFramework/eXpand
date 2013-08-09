@@ -93,7 +93,10 @@ namespace Xpand.ExpressApp.Web {
 
         protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
             Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
-            return new XpandWebWindow(this, context, controllers, isMain, activateControllersImmediatelly);
+            var windowCreatingEventArgs = new WindowCreatingEventArgs();
+            OnWindowCreating(windowCreatingEventArgs);
+            return windowCreatingEventArgs.Handled? windowCreatingEventArgs.Window
+                       : new XpandWebWindow(this, context, controllers, isMain, activateControllersImmediatelly);
         }
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
             return new XpandPopupWindow(this, context, controllers);
@@ -140,6 +143,13 @@ namespace Xpand.ExpressApp.Web {
         string IXafApplicationDirectory.BinDirectory {
             get { return AppDomain.CurrentDomain.SetupInformation.PrivateBinPath; }
             
+        }
+
+        public event EventHandler<WindowCreatingEventArgs> WindowCreating;
+
+        protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
+            var handler = WindowCreating;
+            if (handler != null) handler(this, e);
         }
     }
 }
