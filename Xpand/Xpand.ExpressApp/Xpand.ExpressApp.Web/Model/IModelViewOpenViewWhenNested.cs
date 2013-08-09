@@ -11,5 +11,8 @@ namespace Xpand.ExpressApp.Web.Model {
         [Category("eXpand")]
         [Description("Works only with XpandShowViewStragey or derive from XpandWebApplication")]
         OpenViewWhenNestedStrategy OpenViewWhenNestedStrategy { get; set; }
+
+        [Category("eXpand")]
+        bool OpenDetailViewAsPopup { get; set; }
     }
 }
