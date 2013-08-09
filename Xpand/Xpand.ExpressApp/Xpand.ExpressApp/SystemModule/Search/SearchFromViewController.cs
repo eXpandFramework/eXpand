@@ -30,23 +30,20 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public enum FullTextSearchTargetPropertiesMode {
         AllSearchableMembers, VisibleColumns,IncludedColumns
     }
-    public interface IModelClassFullTextSearch:IModelNode {
+
+    public interface IModelFullTextSearch:IModelApplicationListViews {
+        [Category(AttributeCategoryNameProvider.Search)]
+        [DataSourceProperty(ModelApplicationListViewsDomainLogic.ListViews)]
+        IModelListView FullTextListView { get; set; }
+    }
+
+    public interface IModelClassFullTextSearch: IModelFullTextSearch {
         [Category(AttributeCategoryNameProvider.Search)]
         FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }
         [Category(AttributeCategoryNameProvider.Search)]
         SearchMode? FullTextSearchMode { get; set; }
-        [Category(AttributeCategoryNameProvider.Search)]
-        [DataSourceProperty("ListViews")]
-        IModelListView FullTextListView { get; set; }
-        [Browsable(false)]
-        IModelList<IModelListView> ListViews { get; }
     }
-    [DomainLogic(typeof(IModelClassFullTextSearch))]
-    public class ModelClassFullTextSearchDomainLogic {
-        public static IModelList<IModelListView> Get_ListViews(IModelClassFullTextSearch modelClassFullTextSearch) {
-            return new CalculatedModelNodeList<IModelListView>(modelClassFullTextSearch.Application.Views.OfType<IModelListView>());
-        }
-    }
+    
     [ModelInterfaceImplementor(typeof(IModelClassFullTextSearch), "ModelClass")]
     public interface IModelListViewFullTextSearch:IModelClassFullTextSearch {
         
@@ -103,9 +100,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
             extenders.Add<IModelListView, IModelListViewFullTextSearch>();
         }
 
-        private string[] GetShownProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
+        private string[] GetShownProperties(XpandSearchCriteriaBuilder criteriaBuilder, ListView listView) {
             var visibleProperties = new List<string>();
-            var modelColumns = ((ListView)View).Model.Columns.GetVisibleColumns().Where(column => !criteriaBuilder.ExcludedColumns.Select(pair => pair.Key).Contains(column));
+            var modelColumns = listView.Model.Columns.GetVisibleColumns().Where(column => !criteriaBuilder.ExcludedColumns.Select(pair => pair.Key).Contains(column));
             foreach (IModelColumn column in modelColumns) {
                 IMemberInfo memberInfo = null;
                 if (column.ModelMember != null) {
@@ -120,17 +117,16 @@ namespace Xpand.ExpressApp.SystemModule.Search {
             return visibleProperties.ToArray();
         }
 
-        protected virtual ICollection<String> GetFullTextSearchProperties(XpandSearchCriteriaBuilder criteriaBuilder) {
-
+        protected virtual ICollection<string> GetFullTextSearchProperties(XpandSearchCriteriaBuilder criteriaBuilder, ListView listView) {
             criteriaBuilder.IncludeNonPersistentMembers = false;
-            FullTextSearchTargetPropertiesMode fullTextSearchTargetPropertiesMode = GetFullTextSearchTargetPropertiesMode();
+            var fullTextSearchTargetPropertiesMode = GetFullTextSearchTargetPropertiesMode();
             switch (fullTextSearchTargetPropertiesMode) {
                 case FullTextSearchTargetPropertiesMode.AllSearchableMembers:
                     criteriaBuilder.FillSearchProperties();
-                    criteriaBuilder.AddSearchProperties(GetShownProperties(criteriaBuilder));
+                    criteriaBuilder.AddSearchProperties(GetShownProperties(criteriaBuilder, listView));
                     break;
                 case FullTextSearchTargetPropertiesMode.VisibleColumns:
-                    var shownProperties = new List<string>(GetShownProperties(criteriaBuilder));
+                    var shownProperties = new List<string>(GetShownProperties(criteriaBuilder, listView));
                     string friendlyKeyMemberName = FriendlyKeyPropertyAttribute.FindFriendlyKeyMemberName(View.ObjectTypeInfo, true);
                     if (!string.IsNullOrEmpty(friendlyKeyMemberName) && !shownProperties.Contains(friendlyKeyMemberName)) {
                         shownProperties.Add(friendlyKeyMemberName);
@@ -149,8 +145,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         FullTextSearchTargetPropertiesMode GetFullTextSearchTargetPropertiesMode() {
-            var fullTextSearchTargetPropertiesMode = (FullTextSearchTargetPropertiesMode) Frame.GetController<FilterController>().FullTextSearchTargetPropertiesMode;
-            var textSearchTargetPropertiesMode = ((IModelListViewFullTextSearch) View.Model).FullTextSearchTargetPropertiesMode;
+            var filterController = Frame.GetController<FilterController>();
+            var fullTextSearchTargetPropertiesMode = (FullTextSearchTargetPropertiesMode) filterController.FullTextSearchTargetPropertiesMode;
+            var textSearchTargetPropertiesMode = ((IModelListViewFullTextSearch)filterController.View.Model).FullTextSearchTargetPropertiesMode;
             if (textSearchTargetPropertiesMode.HasValue)
                 fullTextSearchTargetPropertiesMode = textSearchTargetPropertiesMode.Value;
             return fullTextSearchTargetPropertiesMode;
