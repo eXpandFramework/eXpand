@@ -54,5 +54,8 @@ namespace Xpand.ExpressApp.Logic {
 
         public int? Index { get; set; }
         #endregion
+        public override string ToString() {
+            return !string.IsNullOrEmpty(ID) ? ID : base.ToString();
+        }
     }
 }

@@ -31,16 +31,13 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
 
         private Type _objectTypeData;
+
         [RuleRequiredField]
-        [ValueConverter(typeof(TypeValueConverter))]
-        [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
+        [ValueConverter(typeof (TypeValueConverter))]
+        [TypeConverter(typeof (XpandLocalizedClassInfoTypeConverter))]
         public Type ObjectTypeData {
-            get {
-                return _objectTypeData;
-            }
-            set {
-                SetPropertyValue("ObjectTypeData", ref _objectTypeData, value);
-            }
+            get { return _objectTypeData; }
+            set { SetPropertyValue("ObjectTypeData", ref _objectTypeData, value); }
         }
         [RuleRequiredField]
         public string ID { get; set; }

@@ -2,6 +2,7 @@
     public enum ControllerState {
         Default,
         Disabled,
-        Enabled
+        Enabled,
+        Register,
     }
 }
