@@ -520,19 +520,19 @@ namespace Xpand.ExpressApp.IO.Core {
             return propertyType == type ? propertyType : type;
         }
         
-        object Convert(object objectToConvert, Type conversionType) {
-            object result;
-            var changed = objectToConvert.TryToChange(conversionType, out result, Conversion.GuessValues);
+        object Convert(object theObject, object theValue, Type conversionType) {
+            object result=theValue;
+            if (_importValueConverterAttribute != null) {
+                if (_importValueConverterAttribute.ValueConverter.TryConvert(theObject, Name, ref result, conversionType))
+                    return result;
+            }
+            var changed = result.TryToChange(conversionType, out result, Conversion.GuessValues);
             if (changed)
                 return result;
-            if (_importValueConverterAttribute != null) {
-                object o;
-                if (_importValueConverterAttribute.ValueConverter.TryConvert(Name, objectToConvert,conversionType, out o))
-                    return o;
-            }
+            
             throw new ImportFormatException(
                 string.Format("Cannot format value {0} to {1} for the member {2} of the class {3}. Consider using the {4} in the "+_outputMemberInfo.Name+" member of the "+_outputMemberInfo.Owner.FullName+" class",
-                    objectToConvert, conversionType, this, Owner.FullName, typeof (ImportValueConverterAttribute)));
+                    theValue, conversionType, this, Owner.FullName, typeof (ImportValueConverterAttribute)));
         }
 
         void AddAttributes(IEnumerable<Attribute> attributes) {
@@ -556,12 +556,12 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         public void SetOutputMemberValue(object theObject, object theValue) {
-            var outputValue = OutputValue(theValue);
+            var outputValue = OutputValue(theObject,theValue);
             _outputMemberInfo.SetValue(theObject, outputValue);
         }
 
-        object OutputValue(object theValue) {
-            return CanChangeType(theValue, _conversionType) ? Convert(theValue, _conversionType) : theValue;
+        object OutputValue(object theObject, object theValue) {
+            return CanChangeType(theValue, _conversionType) ? Convert(theObject,theValue, _conversionType) : theValue;
         }
     }
 
@@ -587,7 +587,7 @@ namespace Xpand.ExpressApp.IO.Core {
     }
 
     public interface IImportValueConverter {
-        bool TryConvert(string memberName, object value, Type conversionType, out object result);
+        bool TryConvert(object theObject, string memberName, ref object value, Type conversionType);
     }
     public class DictionaryMapper {
         readonly DBTable[] _dbTables;
