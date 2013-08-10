@@ -1,8 +1,8 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp;
-using Xpand.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Xpo;
 
 namespace FeatureCenter.Module.RuntimeFields.OrphanedCollectionWithCode {
     public class CreateRuntimeOrphanedCollectionController : ViewController {

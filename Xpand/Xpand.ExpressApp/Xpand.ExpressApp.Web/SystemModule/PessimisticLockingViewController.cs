@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public class PessimisticLockingViewController : ExpressApp.SystemModule.PessimisticLockingViewController {
+    public class PessimisticLockingViewController : Persistent.Base.General.Controllers.PessimisticLockingViewController {
         protected override void SubscribeToEvents() {
             base.SubscribeToEvents();
             Frame.GetController<WebModificationsController>().EditAction.Execute += EditActionOnExecute;

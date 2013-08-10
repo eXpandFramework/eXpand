@@ -15,7 +15,8 @@
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -56,9 +57,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -69,11 +67,9 @@
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
     <Reference Include="Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\Wintellect.Threading.dll</HintPath>
@@ -87,6 +83,7 @@
     <Compile Include="Automation\SystemAutomation.cs" />
     <Compile Include="Automation\Wait.cs" />
     <Compile Include="Automation\WaitAutomation.cs" />
+    <Compile Include="Dynamic\DynamicElement.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />

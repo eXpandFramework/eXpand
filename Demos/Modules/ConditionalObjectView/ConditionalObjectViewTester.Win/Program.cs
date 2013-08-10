@@ -6,9 +6,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 
-namespace ConditionalDetailViewsTester.Win {
+namespace ConditionalObjectViewTester.Win {
     static class Program {
         /// <summary>
         /// The main entry point for the application.
@@ -22,7 +21,7 @@ namespace ConditionalDetailViewsTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
-            ConditionalDetailViewsTesterWindowsFormsApplication winApplication = new ConditionalDetailViewsTesterWindowsFormsApplication();
+            ConditionalObjectViewTesterWindowsFormsApplication winApplication = new ConditionalObjectViewTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;

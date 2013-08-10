@@ -41,12 +41,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [MemberDesignTimeVisibility(false)]
         public Type Type {
             get {
-                Assembly singleOrDefault =
-                    AppDomain.CurrentDomain.GetAssemblies().Where(
-                        assembly => new AssemblyName(assembly.FullName + "").Name == Assembly).SingleOrDefault();
-                if (singleOrDefault != null)
-                    return singleOrDefault.GetType(Name);
-                return null;
+                var singleOrDefault =
+                    AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(assembly => new AssemblyName(assembly.FullName + "").Name == Assembly);
+                return singleOrDefault != null ? singleOrDefault.GetType(Name) : null;
             }
         }
 

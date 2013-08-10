@@ -1,5 +1,4 @@
 ﻿using System;
-using DevExpress.XtraEditors.DXErrorProvider;
 
 namespace Xpand.ExpressApp.Validation {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = true)]

@@ -2,7 +2,7 @@
 using DevExpress.Xpo;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace FeatureCenter.Module.Miscellaneous.PessimisticLocking {
     [PessimisticLocking]

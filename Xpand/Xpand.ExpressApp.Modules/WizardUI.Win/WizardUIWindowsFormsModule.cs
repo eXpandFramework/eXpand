@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
 

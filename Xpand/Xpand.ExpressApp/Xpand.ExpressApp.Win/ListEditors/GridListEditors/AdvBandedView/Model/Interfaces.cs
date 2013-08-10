@@ -3,10 +3,10 @@ using System.Drawing.Design;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
@@ -28,10 +28,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public interface IModelAdvBandedGridBandOptions : IModelNode {
     }
 
-//    [ModelAbstractClass]
-//    public interface IModelGridBandOptions : IModelGridBand {
-//        IModelAdvBandedGridBandOptions Options { get; }
-//    }
 
     [ModelAbstractClass]
     public interface IModelColumnOptionsAdvBandedView : IModelColumnOptionsColumnView {

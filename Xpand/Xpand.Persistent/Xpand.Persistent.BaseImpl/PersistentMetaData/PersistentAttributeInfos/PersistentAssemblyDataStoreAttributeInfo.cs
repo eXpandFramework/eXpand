@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [HideFromNewMenu]
     [InterfaceRegistrator(typeof(IPersistentAssemblyDataStoreAttribute))]
+    [CreateableItem]
     public class PersistentAssemblyDataStoreAttribute : PersistentAssemblyAttributeInfo, IPersistentAssemblyDataStoreAttribute {
         public PersistentAssemblyDataStoreAttribute(Session session)
             : base(session) {
@@ -56,6 +57,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
     }
     [HideFromNewMenu]
     [InterfaceRegistrator(typeof(IPersistentAssemblyDataStoreAttributeInfo))]
+    [CreateableItem]
     public class PersistentAssemblyDataStoreAttributeInfo : PersistentAssemblyAttributeInfo, IPersistentAssemblyDataStoreAttributeInfo {
         public PersistentAssemblyDataStoreAttributeInfo(Session session)
             : base(session) {

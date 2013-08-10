@@ -2,10 +2,13 @@
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("Version")]
+    [System.ComponentModel.DisplayName("Version")]
+    [CreateableItem]
     public class PersistentAssemblyVersionAttributeInfo : PersistentAssemblyAttributeInfo,
                                                           IPersistentAssemblyVersionAttributeInfo {
         static FieldsClass _Fields;

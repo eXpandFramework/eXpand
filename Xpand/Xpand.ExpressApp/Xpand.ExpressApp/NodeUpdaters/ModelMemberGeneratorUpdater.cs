@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model.RuntimeMembers;
+using Xpand.Persistent.Base.RuntimeMembers.Model;
 
 namespace Xpand.ExpressApp.NodeUpdaters {
     public class ModelMemberGeneratorUpdater : ModelNodesGeneratorUpdater<ModelBOModelClassNodesGenerator> {

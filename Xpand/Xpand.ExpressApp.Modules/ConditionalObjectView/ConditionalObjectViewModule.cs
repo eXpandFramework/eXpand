@@ -31,7 +31,8 @@ namespace Xpand.ExpressApp.ConditionalObjectView {
             return modelApplicationConditionalObjectView.ConditionalObjectView;
         }
 
-        public void ConvertXml(ConvertXmlParameters parameters) {
+        void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
+            ConvertXml(parameters);
             if (parameters.XmlNodeName == "ConditionalDetailView") {
                 parameters.NodeType = typeof(IModelLogicConditionalObjectView);
             } else if (parameters.XmlNodeName == "ConditionalDetailViewRule") {

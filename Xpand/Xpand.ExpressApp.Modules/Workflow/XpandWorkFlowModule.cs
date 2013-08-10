@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Workflow;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Workflow {
     [ToolboxItem(true)]

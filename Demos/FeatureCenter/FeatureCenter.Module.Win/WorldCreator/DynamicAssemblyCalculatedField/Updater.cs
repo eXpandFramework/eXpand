@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField {
     public class Updater : FCUpdater {

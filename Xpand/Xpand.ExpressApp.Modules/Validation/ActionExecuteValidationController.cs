@@ -8,6 +8,7 @@ using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Validation {
     public class ActionExecuteValidationController : ObjectViewController {
+        bool _otherValidationContextFailed;
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
         public event EventHandler<ContextValidatingEventArgs> ContextValidating;
@@ -25,6 +26,7 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
+            if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
             foreach (var controller in Frame.Controllers) {
                 foreach (var action in controller.Actions) {
                     action.Executed -= ActionOnExecuted;
@@ -34,11 +36,16 @@ namespace Xpand.ExpressApp.Validation {
 
         protected override void OnActivated() {
             base.OnActivated();
+            Validator.RuleSet.ValidationCompleted+=RuleSetOnValidationCompleted;
             foreach (var controller in Frame.Controllers) {
                 foreach (var action in controller.Actions) {
                     action.Executed += ActionOnExecuted;
                 }
             }
+        }
+
+        void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
+            _otherValidationContextFailed = !validationCompletedEventArgs.Successful;
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
@@ -49,8 +56,9 @@ namespace Xpand.ExpressApp.Validation {
                 var context = actionBaseEventArgs.Action.Id;
                 var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(contextValidatingEventArgs);
-                if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context))
+                if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context)&&!_otherValidationContextFailed)
                     Validator.RuleSet.ValidateAll(ObjectSpace, contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                _otherValidationContextFailed = false;
             }
         }
 

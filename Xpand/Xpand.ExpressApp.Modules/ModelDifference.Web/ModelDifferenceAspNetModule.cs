@@ -1,9 +1,7 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web;
 using DevExpress.Utils;
-using Xpand.ExpressApp.Web;
 
 namespace Xpand.ExpressApp.ModelDifference.Web {
     [ToolboxBitmap(typeof(ModelDifferenceAspNetModule))]
@@ -33,11 +31,5 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
             HttpRequest request = HttpContext.Current.Request;
             return request.MapPath(request.ApplicationPath);
         }
-
-        #region Overrides of XpandModuleBase
-        protected override Type[] ApplicationTypes() {
-            return new[]{typeof(XpandWebApplication)};
-        }
-        #endregion
     }
 }

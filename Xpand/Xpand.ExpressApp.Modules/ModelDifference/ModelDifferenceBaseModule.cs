@@ -3,8 +3,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.ModelDifference.DictionaryStores;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.RuntimeMembers;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.Handled = true;
-            _userModelDictionaryDifferenceStore = new XpoUserModelDictionaryDifferenceStore(Application);
+            _userModelDictionaryDifferenceStore =_userModelDictionaryDifferenceStore?? new XpoUserModelDictionaryDifferenceStore(Application);
             createCustomModelDifferenceStoreEventArgs.Store = _userModelDictionaryDifferenceStore;
         }
 

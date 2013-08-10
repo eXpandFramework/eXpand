@@ -36,3 +36,8 @@ using System.Web.UI;
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 [assembly: AllowPartiallyTrustedCallers]
+[assembly: WebResource(ResourceNames.CommonStyles, "text/css")]
+class ResourceNames {
+    public const string CommonStyles = "Xpand.ExpressApp.Web.Styles.CommonStyle.css";
+}
+

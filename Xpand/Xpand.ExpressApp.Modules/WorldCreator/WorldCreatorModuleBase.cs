@@ -9,25 +9,25 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         List<Type> _dynamicModuleTypes = new List<Type>();
-        static ExistentTypesMemberCreator _existentTypesMemberCreator;
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode)
+            if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
-            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+                application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            }
         }
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
             if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
@@ -48,12 +48,10 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (ConnectionString != null) {
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
                 using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
-                    using (var session = new Session(dataLayer)) {
-                        using (var unitOfWork = new UnitOfWork(session.DataLayer)) {
-                            RunUpdaters(session);
-                            AddDynamicModules(moduleManager, unitOfWork);
-                        }
-                    }
+                    using (var unitOfWork = new UnitOfWork(dataLayer)) {
+                        RunUpdaters(unitOfWork);
+                        AddDynamicModules(moduleManager, unitOfWork);
+                    }                    
                 }
             } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
@@ -61,9 +59,14 @@ namespace Xpand.ExpressApp.WorldCreator {
                     moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
+            Application.LoggedOn+=ApplicationOnLoggedOn;
+            
 
-            Application.SetupComplete += ApplicationOnSetupComplete;
+        }
 
+        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
+            var session = ((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
+            MergeTypes(new UnitOfWork(session.DataLayer));
         }
 
         void RunUpdaters(Session session) {
@@ -72,30 +75,12 @@ namespace Xpand.ExpressApp.WorldCreator {
             }
         }
 
-
-        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var session =((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
-            MergeTypes(new UnitOfWork(session.DataLayer));
-
-        }
-
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            if (ConnectionString != null && _existentTypesMemberCreator == null) {
-                _existentTypesMemberCreator = new ExistentTypesMemberCreator();
-                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
-                var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
-                var session = new Session(simpleDataLayer);
-                _existentTypesMemberCreator.CreateMembers(session);
-            }
-            return base.GetDeclaredExportedTypes();
-        }
-
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
         }
 
-        ReflectionDictionary GetReflectionDictionary() {
-            var externalModelBusinessClassesList = GetAdditionalClasses(Application.Modules);
+        public static ReflectionDictionary GetReflectionDictionary(XpandModuleBase moduleBase) {
+            var externalModelBusinessClassesList = moduleBase.GetAdditionalClasses(moduleBase.Application.Modules);
             Type persistentAssemblyInfoType = externalModelBusinessClassesList.FirstOrDefault(type1 => typeof(IPersistentAssemblyInfo).IsAssignableFrom(type1));
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
@@ -106,6 +91,10 @@ namespace Xpand.ExpressApp.WorldCreator {
                 reflectionDictionary.QueryClassInfo(type);
             }
             return reflectionDictionary;
+        }
+
+        ReflectionDictionary GetReflectionDictionary() {
+            return GetReflectionDictionary(this);
         }
 
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {
@@ -136,6 +125,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (sqlDataStore != null) {
                 IDbCommand dbCommand = sqlDataStore.CreateCommand();
                 new XpoObjectMerger().MergeTypes(unitOfWork, persistentTypes.ToList(), dbCommand);
+                unitOfWork.CommitChanges();
             }
         }
 

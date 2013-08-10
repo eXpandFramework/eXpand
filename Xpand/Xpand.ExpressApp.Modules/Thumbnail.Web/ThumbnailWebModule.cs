@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Thumbnail.Web {
     public interface IModelListViewThumbnailWeb : IModelListView {

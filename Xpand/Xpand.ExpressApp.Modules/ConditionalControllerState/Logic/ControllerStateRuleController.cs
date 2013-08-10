@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
     public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule,ConditionalControllerStateModule> {

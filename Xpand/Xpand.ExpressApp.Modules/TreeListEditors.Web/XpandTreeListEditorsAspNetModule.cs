@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.TreeListEditors.Web;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.TreeListEditors.Web {
     [Description, EditorBrowsable(EditorBrowsableState.Always)]

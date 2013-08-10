@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Validation {
@@ -20,14 +22,54 @@ namespace Xpand.ExpressApp.Validation {
         public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>> Dictionary = new Dictionary<RuleType, IEnumerable<RuleSetValidationResultItem>>();
         protected List<Dictionary<ColumnWrapper, RuleType>> Columns = new List<Dictionary<ColumnWrapper, RuleType>>();
+        ShowAllContextsController _showAllContextsController;
 
         protected override void OnActivated() {
             base.OnActivated();
+            _showAllContextsController = Frame.GetController<ShowAllContextsController>();
+            if (_showAllContextsController != null) {
+                _showAllContextsController.Validating += ShowAllContextsControllerOnValidating;
+                _showAllContextsController.Action.ExecuteCompleted+=ActionOnExecuteCompleted;
+                _showAllContextsController.Action.Executing+=ActionOnExecuting;
+            }
             Validator.RuleSet.ValidationCompleted += RuleSetOnValidationCompleted;
             if (HasNonCriticalRulesForControlValueChangedContext()) {
                 ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 ObjectSpace.Disposed += ObjectSpaceOnDisposed;
             }
+        }
+
+        void ActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
+            Frame.GetController<ResultsHighlightController>().ClearHighlighting();
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            _showAllContextsController = Frame.GetController<ShowAllContextsController>();
+            if (_showAllContextsController != null) {
+                _showAllContextsController.Validating -= ShowAllContextsControllerOnValidating;
+                _showAllContextsController.Action.ExecuteCompleted -= ActionOnExecuteCompleted;
+                _showAllContextsController.Action.Executing -= ActionOnExecuting;
+            }
+            if (Validator.RuleSet != null)
+                Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+        }
+
+        void ActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            RuleSet.CustomNeedToValidateRule -= RuleSetOnCustomNeedToValidateRule;
+        }
+
+        void ShowAllContextsControllerOnValidating(object sender, AllContextsValidatingEventArgs e) {
+            RuleSet.CustomNeedToValidateRule += RuleSetOnCustomNeedToValidateRule;
+        }
+
+        void RuleSetOnCustomNeedToValidateRule(object sender, CustomNeedToValidateRuleEventArgs e) {
+            IRule rule = e.Rule;
+            e.NeedToValidateRule = GetRuleType(rule) == RuleType.Critical;
+        }
+
+        protected RuleType GetRuleType(IRule rule) {
+            return ((IModelRuleBaseRuleType)((IModelApplicationValidation)Application.Model).Validation.Rules[rule.Id]).RuleType;
         }
 
         void ObjectSpaceOnDisposed(object sender, EventArgs eventArgs) {
@@ -54,26 +96,27 @@ namespace Xpand.ExpressApp.Validation {
             Validator.RuleSet.ValidateAll(ObjectSpace, new List<object> { currentObject }, ObjectSpaceObjectChanged);
         }
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (Validator.RuleSet != null)
-                Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
-        }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
             Columns = new List<Dictionary<ColumnWrapper, RuleType>>();
             if (View == null || View.IsDisposed)
                 return;
             if (!validationCompletedEventArgs.Successful) {
-                var items = new Dictionary<RuleType, List<RuleSetValidationResultItem>>();
-                var ruleTypes = CaptionHelper.GetLocalizedItems("Enums/" + typeof(RuleType).FullName).Select(pair => (RuleType)Enum.Parse(typeof(RuleType), pair.Key)).OrderByDescending(type => type);
-                foreach (var ruleType in ruleTypes) {
-                    var resultsPerType = GetResultsPerType(validationCompletedEventArgs, ruleType);
-                    items.Add(ruleType, resultsPerType);
-                    Collect(resultsPerType, ruleType);
-                }
-                validationCompletedEventArgs.Handled = CriticalErrorsNotExist(items);
+                OnValidationFail(validationCompletedEventArgs);
             }
+        }
+
+        protected virtual void OnValidationFail(ValidationCompletedEventArgs validationCompletedEventArgs) {
+            var items = new Dictionary<RuleType, List<RuleSetValidationResultItem>>();
+            var ruleTypes =CaptionHelper.GetLocalizedItems("Enums/" + typeof (RuleType).FullName)
+                             .Select(pair => (RuleType) Enum.Parse(typeof (RuleType), pair.Key))
+                             .OrderByDescending(type => type);
+            foreach (var ruleType in ruleTypes) {
+                var resultsPerType = GetResultsPerType(validationCompletedEventArgs, ruleType);
+                items.Add(ruleType, resultsPerType);
+                Collect(resultsPerType, ruleType);
+            }
+            validationCompletedEventArgs.Handled = CriticalErrorsNotExist(items);
         }
 
         bool CriticalErrorsNotExist(Dictionary<RuleType, List<RuleSetValidationResultItem>> items) {

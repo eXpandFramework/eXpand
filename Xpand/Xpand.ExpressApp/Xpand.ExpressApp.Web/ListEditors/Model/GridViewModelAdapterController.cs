@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Utils;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
-using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Web.ListEditors.Model.ModelAfaptor;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
@@ -56,7 +56,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act = info => (info.DXFilter(BaseGridViewControlTypes(),typeof(object)) || typeof(PropertiesBase).IsAssignableFrom(info.PropertyType))
+                Act =info =>(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
+                     typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
                 Act = info => (info.DXFilter()) && info.Name != "Width"
@@ -72,11 +73,11 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         IList<Type> BaseGridViewControlTypes() {
-            return new List<Type>{ typeof(AppearanceStyleBase) };
+            return BaseGridViewBandColumnControlTypes();
         }
 
         IList<Type> BaseGridViewBandColumnControlTypes() {
-            return new List<Type>{ typeof (AppearanceStyleBase) };
+            return new List<Type> { typeof(Style) };
         }
     }
 }

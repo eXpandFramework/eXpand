@@ -1,9 +1,9 @@
-;#DropDB ConditionalDetailViewsTesterEasyTest
+;#DropDB ConditionalObjectViewTesterEasyTest
 
-#Application ConditionalDetailViewsTester.Win
-#Application ConditionalDetailViewsTester.Web
+#Application ConditionalObjectViewTester.Win
+#Application ConditionalObjectViewTester.Web
 
-#IfDef ConditionalDetailViewsTester.Win
+#IfDef ConditionalObjectViewTester.Win
 
 *Action About...
  
@@ -11,7 +11,7 @@
 
 #EndIf
 
-#IfDef ConditionalDetailViewsTester.Web
+#IfDef ConditionalObjectViewTester.Web
 
 *Action Choose Theme(Black Glass)
 

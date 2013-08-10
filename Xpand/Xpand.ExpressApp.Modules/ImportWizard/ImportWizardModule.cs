@@ -1,6 +1,7 @@
 
 using System;
 using System.ComponentModel;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ImportWizard {
     [ToolboxItem(false)]

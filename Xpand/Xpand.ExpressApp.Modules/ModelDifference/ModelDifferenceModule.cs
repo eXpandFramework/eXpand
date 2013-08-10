@@ -9,12 +9,11 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.ModelDifference;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(false)]
-    public sealed class ModelDifferenceModule : XpandModuleBase {
+    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
@@ -30,21 +29,18 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
+        protected override Type[] ApplicationTypes() {
+            return new[] { typeof (IUserDifferencesLoaded) };
+        }
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
-                application.SetupComplete += AssignModelTypesInfo;
-                var userDifferencesLoaded = application as IUserDifferencesLoaded;
-                if (userDifferencesLoaded != null) userDifferencesLoaded.UserDifferencesLoaded += AssignModelTypesInfo;
             }
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
             }
-        }
-
-        void AssignModelTypesInfo(object sender, EventArgs eventArgs) {
-            ((ITypesInfoProvider) Application.Model).TypesInfo=TypesInfo;
         }
 
         void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {

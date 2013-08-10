@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Validation.Win {
     [ToolboxBitmap(typeof(ValidationModule), "Resources.BO_Validation.ico")]

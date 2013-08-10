@@ -5,8 +5,8 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
+using Xpand.Persistent.Base.General.ValueConverters;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     [System.ComponentModel.DisplayName("AdditionalViewControls")]

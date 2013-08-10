@@ -8,7 +8,8 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.ValueConverters;
 
 namespace Xpand.ExpressApp.PivotChart.Core {
     public abstract class XpandPivotChartModuleBase : XpandModuleBase, ITypeInfoContainer {

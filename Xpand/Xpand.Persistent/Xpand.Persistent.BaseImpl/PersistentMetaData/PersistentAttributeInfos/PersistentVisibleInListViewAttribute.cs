@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PersistentVisibleInListViewName")]
+    [System.ComponentModel.DisplayName("Visible In ListView")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentVisibleInListViewAttribute : PersistentAttributeInfo {
         public PersistentVisibleInListViewAttribute(Session session)
             : base(session) {

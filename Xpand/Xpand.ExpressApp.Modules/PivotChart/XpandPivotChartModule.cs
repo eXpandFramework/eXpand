@@ -10,6 +10,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.PivotChart.AnalysisControlVisibility;
 using Xpand.ExpressApp.PivotChart.Security;
 using Xpand.ExpressApp.Validation;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.PivotChart {
     [ToolboxItem(false)]

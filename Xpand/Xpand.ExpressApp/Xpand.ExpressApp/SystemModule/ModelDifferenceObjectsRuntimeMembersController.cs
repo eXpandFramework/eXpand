@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.RuntimeMembers;
 
 namespace Xpand.ExpressApp.SystemModule {
 

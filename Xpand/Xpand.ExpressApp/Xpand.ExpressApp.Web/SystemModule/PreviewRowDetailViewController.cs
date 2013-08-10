@@ -41,10 +41,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
             void ITemplate.InstantiateIn(Control container) {
                 var templateContainer = (GridViewPreviewRowTemplateContainer) container;
+                var window = _xafApplication.CreateWindow(TemplateContext.View, null, true, false);
                 object obj = templateContainer.Grid.GetRow(templateContainer.VisibleIndex);
-                var detailView = ViewFactory.CreateDetailView(_xafApplication, _viewId, _objectSpace, obj, false);
+                var detailView = _xafApplication.CreateDetailView(_objectSpace, _viewId, false, obj);
+                window.SetView(detailView);
                 detailView.CreateControls();
-                templateContainer.Controls.Add((Control) detailView.Control);
+                templateContainer.Controls.Add((Control)detailView.Control);
+                
             }
 
         }

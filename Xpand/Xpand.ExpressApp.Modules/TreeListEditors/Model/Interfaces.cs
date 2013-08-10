@@ -3,10 +3,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Model;
 using System.Linq;
-using Xpand.ExpressApp.Model.Options;
+using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
     [ModelAbstractClass]

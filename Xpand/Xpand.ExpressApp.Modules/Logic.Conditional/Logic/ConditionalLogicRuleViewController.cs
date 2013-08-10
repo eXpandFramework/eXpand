@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Logic.Conditional.Security;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic.Conditional.Logic {

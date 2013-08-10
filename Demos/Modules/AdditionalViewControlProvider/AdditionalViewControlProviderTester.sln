@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Module", "AdditionalViewControlProviderTester.Module\AdditionalViewControlProviderTester.Module.csproj", "{CA2BC9F6-76BE-47EC-BB1E-D7FF2DC3C8A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Module.Web", "AdditionalViewControlProviderTester.Module.Web\AdditionalViewControlProviderTester.Module.Web.csproj", "{024EFA52-3D72-46CC-883E-9053C5651CCD}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "AdditionalViewControlProviderTester.Web", "AdditionalViewControlProviderTester.Web\AdditionalViewControlProviderTester.Web.csproj", "{2A5976C9-ACEE-4EA3-9F65-855427346C54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Web", "AdditionalViewControlProviderTester.Web\AdditionalViewControlProviderTester.Web.csproj", "{2A5976C9-ACEE-4EA3-9F65-855427346C54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Module.Win", "AdditionalViewControlProviderTester.Module.Win\AdditionalViewControlProviderTester.Module.Win.csproj", "{279EC70D-4351-468E-B300-E2018B66E61F}"
 EndProject

@@ -6,6 +6,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 

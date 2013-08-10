@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;

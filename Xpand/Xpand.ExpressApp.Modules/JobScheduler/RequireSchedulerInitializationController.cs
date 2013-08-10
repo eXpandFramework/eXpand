@@ -6,7 +6,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Utils.Helpers;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class RequireSchedulerInitializationController : ViewController<DetailView> {

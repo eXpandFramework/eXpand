@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.ModelDifference.Web {
     public class PopulateAspectsController:PopulateController<ModelDifferenceObject> {

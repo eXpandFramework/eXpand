@@ -1,7 +1,6 @@
-﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Security;
+﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Security {
-    public class UpdateDecoratorTypeTypeConverterController :UpdateDecoratorTypeTypeConverterController<DecoratorTypeConverter>
-    {
+    public class UpdateDecoratorTypeTypeConverterController : UpdateDecoratorTypeTypeConverterController<DecoratorTypeConverter> {
     }
 }

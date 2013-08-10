@@ -1,21 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Windows;
-using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-using FeatureCenter.Module;
-using Xpand.ExpressApp.Security;
-using Xpand.ExpressApp.Security.AuthenticationProviders;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 using Application = System.Windows.Forms.Application;
 
 namespace FeatureCenter.Win {

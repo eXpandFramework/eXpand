@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -15,6 +14,8 @@ using Xpand.ExpressApp.ModelDifference.Security;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.RuntimeMembers;
 using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {

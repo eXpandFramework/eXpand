@@ -1,7 +1,7 @@
 using DevExpress.ExpressApp.Scheduler.Win;
 using DevExpress.XtraScheduler;
 using System.Linq;
-using Xpand.ExpressApp.Model.Options;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Win.Model {

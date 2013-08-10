@@ -2,7 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.ArtifactState.Model;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.ArtifactState.DomainLogic {
     [DomainLogic(typeof(IModelArtifactStateRule))]

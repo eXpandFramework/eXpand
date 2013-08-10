@@ -3,8 +3,8 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.PivotChart.Win.Editors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.PivotChart.Win.PropertyEditors {
     [PropertyEditor(typeof(IAnalysisInfo), true)]

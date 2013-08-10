@@ -1,7 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using Quartz.Impl;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class ShutDownSchedulerController : WindowController {
@@ -14,8 +14,9 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
 
         void WindowOnDisposing(object sender, EventArgs eventArgs) {
-            var scheduler = Application.FindModule<JobSchedulerModule>().Scheduler;
-            if (scheduler != null && (scheduler is StdScheduler)) {
+            var jobSchedulerModule = Application.FindModule<JobSchedulerModule>();
+            var scheduler = jobSchedulerModule.Scheduler;
+            if (scheduler is StdScheduler) {
                 scheduler.Shutdown();
             }
         }

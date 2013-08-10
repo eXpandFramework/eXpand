@@ -4,6 +4,7 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Web.ApplicationCode {
     public partial class FeatureCenterAspNetApplication : XpandWebApplication {
@@ -140,6 +141,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
+            this.authenticationStandard1.LogonParametersType = typeof (XpandLogonParameters);
             this.securityComplex1.RoleType = typeof(XpandRole);
             this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 

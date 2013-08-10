@@ -7,9 +7,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {

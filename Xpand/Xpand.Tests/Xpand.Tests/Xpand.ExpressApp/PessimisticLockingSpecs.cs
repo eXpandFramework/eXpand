@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.PessimisticLockingViewController;
 using ViewEditModeController = Xpand.ExpressApp.Win.SystemModule.ViewEditModeController;
 using Xpand.Persistent.Base.General;
@@ -132,13 +132,13 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         static SimpleAction _editAction;
 
         Establish context = () => {
-            Info.DetailView.AllowEdit[global::Xpand.ExpressApp.SystemModule.PessimisticLockingViewController.PessimisticLocking] = false;
+            Info.DetailView.AllowEdit[Persistent.Base.General.Controllers.PessimisticLockingViewController.PessimisticLocking] = false;
             _editAction = Info.Window.GetController<ViewEditModeController>().EditAction;
             _editAction.Active["ViewEditMode"] = true;
         };
 
         Because of = () => _editAction.DoExecute();
-        It should_allow_edit_for_the_pessimistic_locking_context = () => Info.DetailView.AllowEdit[global::Xpand.ExpressApp.SystemModule.PessimisticLockingViewController.PessimisticLocking].ShouldBeTrue();
+        It should_allow_edit_for_the_pessimistic_locking_context = () => Info.DetailView.AllowEdit[Persistent.Base.General.Controllers.PessimisticLockingViewController.PessimisticLocking].ShouldBeTrue();
     }
 
     public abstract class With_new_object {

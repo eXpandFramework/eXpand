@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class MergeDifferencesController : ViewController<ListView> {

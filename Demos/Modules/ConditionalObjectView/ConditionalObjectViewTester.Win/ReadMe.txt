@@ -1,6 +1,6 @@
 ﻿Project Description
 
-The ConditionalDetailViewsTester.Win project implements a Windows Forms application. The root project folder 
+The ConditionalObjectViewTester.Win project implements a Windows Forms application. The root project folder 
 contains the WinApplication.cs(vb) file with the class that inherits 
 WinApplication. This class can be designed with the Application Designer that 
 allows you to view and customize application components: referenced modules, 

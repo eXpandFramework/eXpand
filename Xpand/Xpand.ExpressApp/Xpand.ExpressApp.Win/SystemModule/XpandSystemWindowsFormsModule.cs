@@ -10,6 +10,8 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.PropertyEditors;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -18,7 +20,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
-    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase {
+    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase, IColumnCellFilterUser {
         public const string XpandWin = "Xpand.Win";
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

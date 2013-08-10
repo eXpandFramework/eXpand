@@ -1,8 +1,8 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General.Model;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [FullPermission]

@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.ConditionalObjectView.Logic {
         protected override void OnActivated() {
             base.OnActivated();
             if (IsReady) {
-                if (View is XpandListView)
+                if (View is ListView)
                     Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
                 else {
                     ResetRules();
@@ -100,7 +100,7 @@ namespace Xpand.ExpressApp.ConditionalObjectView.Logic {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (View is XpandListView)
+            if (View is ListView)
                 Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
             foreach (var defaultValuePair in defaultValuesRulesStorage) {
                 defaultValuePair.Key.View = defaultValuePair.Value;

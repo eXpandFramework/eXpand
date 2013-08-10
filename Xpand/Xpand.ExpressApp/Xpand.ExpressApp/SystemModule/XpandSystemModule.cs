@@ -7,8 +7,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Security.ClientServer;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -17,10 +15,13 @@ using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.RuntimeMembers;
+using Xpand.Persistent.Base.RuntimeMembers.Model;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -28,25 +29,10 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    public sealed class XpandSystemModule : XpandModuleBase, IModelXmlConverter, IModelNodeUpdater<IModelMemberEx> {
-        public event CancelEventHandler InitSeqGenerator;
-
-        void OnInitSeqGenerator(CancelEventArgs e) {
-            CancelEventHandler handler = InitSeqGenerator;
-            if (handler != null) handler(this, e);
-        }
-
+    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
-        }
-        public void UpdateNode(IModelMemberEx node, IModelApplication application) {
-            node.IsCustom = false;
-        }
-
-        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator) {
-            base.AddModelNodeUpdaters(updaterRegistrator);
-            updaterRegistrator.AddUpdater(this);
         }
 
         static XpandSystemModule() {
@@ -57,21 +43,14 @@ namespace Xpand.ExpressApp.SystemModule {
             return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
         }
 
-
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
-                SequenceObjectType = AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
-                InitializeSequenceGenerator();
-            }
-        }
-
         public override void Setup(XafApplication application) {
             if (RuntimeMode && (XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource) && !((ITestSupport)application).IsTesting)
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
+                application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
+                application.ListViewCreating+=ApplicationOnListViewCreating;
+                application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
                 application.SetupComplete +=
                     (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
@@ -79,9 +58,19 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Type SequenceObjectType { get; set; }
+        void ApplicationOnCustomProcessShortcut(object sender, CustomProcessShortcutEventArgs args) {
+            new ViewShortCutProccesor(Application).Proccess(args);
+        }
+
+        void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
+            if (!(args.View is XpandDetailView))
+                args.View = ViewFactory.CreateDetailView((XafApplication) sender, args.ViewID, args.ObjectSpace, args.Obj, args.IsRoot);
+        }
+
+        void ApplicationOnListViewCreating(object sender, ListViewCreatingEventArgs args) {
+            if (!(args.View is XpandListView))
+                args.View = ViewFactory.CreateListView((XafApplication) sender, args.ViewID, args.CollectionSource, args.IsRoot);
+        }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
@@ -124,25 +113,6 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        public void InitializeSequenceGenerator() {
-            
-            try {
-                var cancelEventArgs = new CancelEventArgs();
-                OnInitSeqGenerator(cancelEventArgs);
-                if (cancelEventArgs.Cancel)
-                    return;
-                if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
-                    throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
-                    SequenceGenerator.Initialize(ConnectionString, SequenceObjectType);
-                }
-            } catch (Exception e) {
-                if (e.InnerException != null)
-                    throw e.InnerException;
-                throw;
-            }
-        }
-
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
         }
@@ -152,7 +122,6 @@ namespace Xpand.ExpressApp.SystemModule {
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
             updaters.Add(new ModelListViewLinqColumnsNodesGeneratorUpdater());
             updaters.Add(new ModelMemberGeneratorUpdater());
-            
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
@@ -168,18 +137,8 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
-
-        public void ConvertXml(ConvertXmlParameters parameters) {
-            if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
-                if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
-                    parameters.NodeType = typeof(IModelMemberPersistent);
-            }
-            if (parameters.XmlNodeName == "CalculatedRuntimeMember") {
-                parameters.NodeType = typeof(IModelMemberCalculated);
-            }
-        }
-
     }
+
 
     public interface ITestSupport {
         bool IsTesting { get; set; }

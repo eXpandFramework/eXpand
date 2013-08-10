@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using System.Linq;
 using DevExpress.XtraPivotGrid;
-using Xpand.ExpressApp.Model.Options;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {

@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using Quartz;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public abstract class SupportSchedulerController : ViewController {

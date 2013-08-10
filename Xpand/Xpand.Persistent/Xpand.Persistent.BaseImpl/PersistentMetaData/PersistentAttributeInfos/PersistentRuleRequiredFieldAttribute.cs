@@ -1,14 +1,16 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.PropertyEditors;
-using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [InterfaceRegistrator(typeof(IPersistentRuleRequiredFieldAttribute))]
     [DefaultProperty("DefaultProperty")]
+    [System.ComponentModel.DisplayName("Rule Required")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentRuleRequiredFieldAttribute : PersistentAttributeInfo, IPersistentRuleRequiredFieldAttribute {
         string _context;
         string _iD;

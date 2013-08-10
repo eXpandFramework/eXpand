@@ -15,6 +15,7 @@ using System.Linq;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
+using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class InitDataImporter {
@@ -490,7 +491,7 @@ namespace Xpand.ExpressApp.IO.Core {
         
     }
 
-    public class InputMemberInfo : XPCustomMemberInfo {
+    public class InputMemberInfo : XpandCustomMemberInfo {
 
         readonly XPMemberInfo _outputMemberInfo;
         readonly Type _conversionType;

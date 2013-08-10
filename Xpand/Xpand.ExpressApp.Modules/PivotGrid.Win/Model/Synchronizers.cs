@@ -1,8 +1,8 @@
 using DevExpress.ExpressApp.PivotGrid.Win;
 using System.Linq;
 using DevExpress.XtraEditors.Repository;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {

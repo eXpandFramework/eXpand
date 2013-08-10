@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Xpand.Utils.BackingFieldResolver;
 
 namespace Xpand.Utils.Helpers {
     public static class ReflectionExtensions {
@@ -86,14 +87,23 @@ namespace Xpand.Utils.Helpers {
 
         public static string GetPropertyName<TTarget>(Expression<Func<TTarget, object>> property) {
             var memberExpression = property.Body as MemberExpression;
-
-            if (memberExpression == null)
-                throw new NotImplementedException();
-            return memberExpression.Member.Name;
+            if (memberExpression != null) return memberExpression.Member.Name;
+            var unaryExpression = property.Body as UnaryExpression;
+            if (unaryExpression != null) {
+                var expression = unaryExpression.Operand as MemberExpression;
+                if (expression != null) return expression.Member.Name;
+            }
+            throw new NotImplementedException();
         }
 
         public static string GetPropertyName<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property) {
             return GetPropertyInfo(target, property).Name;
+        }
+
+        public static void SetPropertyInfoBackingFieldValue<TTarget>(this TTarget target,Expression<Func<TTarget, object>> property,object obj,object value) {
+            var propertyInfo = GetPropertyInfo(target, property);
+            FieldInfo backingField = propertyInfo.GetBackingField();
+            backingField.SetValue(obj, value);
         }
 
         public static PropertyInfo GetPropertyInfo<TTarget>(this TTarget target, Expression<Func<TTarget, object>> property) {

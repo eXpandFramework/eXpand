@@ -13,9 +13,9 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Model;
 using Xpand.ExpressApp.FilterDataStore.NodeGenerators;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo.DB;
 using Xpand.Xpo.Filtering;
-using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     public abstract class FilterDataStoreModuleBase : XpandModuleBase {

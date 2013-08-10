@@ -1,5 +1,5 @@
-namespace ConditionalDetailViewsTester.Module.Win {
-    partial class ConditionalDetailViewsTesterWindowsFormsModule {
+namespace ConditionalObjectViewTester.Module.Win {
+    partial class ConditionalObjectViewTesterWindowsFormsModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -24,9 +24,9 @@ namespace ConditionalDetailViewsTester.Module.Win {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // ConditionalDetailViewsTesterWindowsFormsModule
+            // ConditionalObjectViewTesterWindowsFormsModule
             // 
-            this.RequiredModuleTypes.Add(typeof(ConditionalDetailViewsTester.Module.ConditionalDetailViewsTesterModule));
+            this.RequiredModuleTypes.Add(typeof(ConditionalObjectViewTester.Module.ConditionalObjectViewTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
 
         }

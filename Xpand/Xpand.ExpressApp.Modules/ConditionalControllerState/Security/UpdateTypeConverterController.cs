@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Security {
     public class UpdateTypeConverterController :
@@ -8,5 +8,5 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Security {
         protected override Expression<Func<ControllerStateRulePermission, object>> Expression() {
             return permission => permission.ControllerType;
         }
-        }
+    }
 }

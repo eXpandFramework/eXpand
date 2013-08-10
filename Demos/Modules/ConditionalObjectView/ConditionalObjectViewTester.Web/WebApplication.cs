@@ -5,15 +5,15 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 
-namespace ConditionalDetailViewsTester.Web {
-    public partial class ConditionalDetailViewsTesterAspNetApplication : WebApplication {
+namespace ConditionalObjectViewTester.Web {
+    public partial class ConditionalObjectViewTesterAspNetApplication : WebApplication {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private ConditionalDetailViewsTester.Module.ConditionalDetailViewsTesterModule module3;
-        private ConditionalDetailViewsTester.Module.Web.ConditionalDetailViewsTesterAspNetModule module4;
+        private ConditionalObjectViewTester.Module.ConditionalObjectViewTesterModule module3;
+        private ConditionalObjectViewTester.Module.Web.ConditionalObjectViewTesterAspNetModule module4;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
 
-        public ConditionalDetailViewsTesterAspNetApplication() {
+        public ConditionalObjectViewTesterAspNetApplication() {
             InitializeComponent();
         }
 
@@ -21,7 +21,7 @@ namespace ConditionalDetailViewsTester.Web {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
         }
 
-        private void ConditionalDetailViewsTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void ConditionalObjectViewTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -51,26 +51,26 @@ namespace ConditionalDetailViewsTester.Web {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new ConditionalDetailViewsTester.Module.ConditionalDetailViewsTesterModule();
-            this.module4 = new ConditionalDetailViewsTester.Module.Web.ConditionalDetailViewsTesterAspNetModule();
+            this.module3 = new ConditionalObjectViewTester.Module.ConditionalObjectViewTesterModule();
+            this.module4 = new ConditionalObjectViewTester.Module.Web.ConditionalObjectViewTesterAspNetModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ConditionalDetailViewsTester";
+            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ConditionalObjectViewTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
-            // ConditionalDetailViewsTesterAspNetApplication
+            // ConditionalObjectViewTesterAspNetApplication
             // 
-            this.ApplicationName = "ConditionalDetailViewsTester";
+            this.ApplicationName = "ConditionalObjectViewTester";
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.module4);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ConditionalDetailViewsTesterAspNetApplication_DatabaseVersionMismatch);
+            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ConditionalObjectViewTesterAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }

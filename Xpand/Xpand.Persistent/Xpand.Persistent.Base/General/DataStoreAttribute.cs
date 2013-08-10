@@ -3,7 +3,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-    public class DataStoreAttribute : Xpo.DB.DataStoreAttribute {
+    public class DataStoreAttribute : Xpand.Xpo.DB.DataStoreAttribute {
         public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix)
             : base(nameSpaceType, dataStoreNameSuffix) {
         }

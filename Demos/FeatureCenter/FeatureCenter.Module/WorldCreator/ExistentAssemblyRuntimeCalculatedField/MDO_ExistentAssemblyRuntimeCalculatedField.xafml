@@ -29,7 +29,7 @@
     </DetailView>
     <ListView Id="ExistentAssemblyRuntimeFields_ListView">
       <Columns>
-        <ColumnInfo Id="MinOfOrderTotals" Index="5" />
+        <RuntimeCalculatedColumn Id="MinOfOrderTotals" Index="5" />
       </Columns>
     </ListView>
   </Views>

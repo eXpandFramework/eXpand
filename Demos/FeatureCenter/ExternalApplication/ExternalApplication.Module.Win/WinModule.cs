@@ -1,8 +1,7 @@
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp;
+using Xpand.Persistent.Base.General;
 
 namespace ExternalApplication.Module.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]

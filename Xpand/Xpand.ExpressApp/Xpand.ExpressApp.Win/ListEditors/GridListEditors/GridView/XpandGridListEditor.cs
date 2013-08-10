@@ -10,10 +10,10 @@ using DevExpress.ExpressApp.Win.Core;
 using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
-using Xpand.ExpressApp.Model.Options;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
+using Xpand.Persistent.Base.General.Model.Options;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     [ListEditor(typeof(object), false)]

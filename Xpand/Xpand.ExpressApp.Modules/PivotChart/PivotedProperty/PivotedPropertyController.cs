@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Editors;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         protected override void OnActivated() {
             base.OnActivated();
             IEnumerable<IMemberInfo> memberInfos = GetMemberInfos();
-            if (memberInfos.Count() > 0) {
+            if (memberInfos.Any()) {
                 AttachControllers(memberInfos);
             }
 
@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         }
 
         IEnumerable<IMemberInfo> GetMemberInfos() {
-            return View.ObjectTypeInfo.Members.OfType<IMemberInfo>().Where(
+            return View.ObjectTypeInfo.Members.Where(
                 memberInfo => memberInfo.FindAttribute<PivotedPropertyAttribute>() != null).Select(info1 => info1);
         }
 

@@ -16,6 +16,7 @@ using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Workflow;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Win {
 

@@ -3,6 +3,7 @@ using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     public class PersistentApplication : XpandBaseCustomObject {

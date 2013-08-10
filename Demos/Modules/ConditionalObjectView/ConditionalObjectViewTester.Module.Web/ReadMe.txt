@@ -1,6 +1,6 @@
 ﻿Project Description
 
-The ConditionalDetailViewsTester.Module.Web project implements an ASP.NET Module. Platform-specific application elements 
+The ConditionalObjectViewTester.Module.Web project implements an ASP.NET Module. Platform-specific application elements 
 can be implemented here (Controllers, Editors & View Items, etc.). The root project 
 folder contains the WebModule.cs(vb) file with the class that inherits ModuleBase. 
 This class can be designed with the Module Designer that allows you to view and 

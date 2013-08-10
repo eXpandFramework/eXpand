@@ -11,6 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 

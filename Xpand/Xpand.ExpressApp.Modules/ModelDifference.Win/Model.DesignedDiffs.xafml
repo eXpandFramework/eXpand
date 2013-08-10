@@ -1,3 +1,61 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Views>
+    <DetailView Id="MDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Model" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" ImageName="Action_EditModel" IsNewNode="True">
+              <LayoutItem Id="Model" ViewItem="Model" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Xml Content" Index="1" />
+            <LayoutGroup Id="General" Index="2">
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" ImageName="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" ImageName="" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="RDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Model" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" ImageName="Action_EditModel" IsNewNode="True">
+              <LayoutItem Id="Model" ViewItem="Model" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Xml Content" Index="1" />
+            <LayoutGroup Id="Roles" Index="2" />
+            <LayoutGroup Id="General" Index="3">
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44" ImageName="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55" ImageName="" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="UDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
+            <LayoutGroup Id="Model" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Model" ImageName="Action_EditModel" IsNewNode="True">
+              <LayoutItem Id="Model" ViewItem="Model" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Xml Content" Index="1" />
+            <LayoutGroup Id="Users" Index="2" />
+            <LayoutGroup Id="General" Index="3">
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46" ImageName="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53" ImageName="" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

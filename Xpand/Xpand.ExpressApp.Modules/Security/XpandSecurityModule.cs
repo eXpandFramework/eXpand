@@ -10,9 +10,9 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -87,7 +87,5 @@ namespace Xpand.ExpressApp.Security {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<SecurityOperationsAttribute>() != null);
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
-        #region Overrides of XpandModuleBase
-        #endregion
     }
 }

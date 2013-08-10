@@ -2,11 +2,10 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Win;
+using Xpand.Persistent.Base.General;
 
 namespace XVideoRental.Win {
     public partial class XVideoRentalWindowsFormsApplication : XpandWinApplication {

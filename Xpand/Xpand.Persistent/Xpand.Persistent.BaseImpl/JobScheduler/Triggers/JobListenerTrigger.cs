@@ -6,7 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Xpo;

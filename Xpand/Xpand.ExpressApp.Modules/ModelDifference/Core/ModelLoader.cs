@@ -15,7 +15,6 @@ using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
@@ -66,12 +65,21 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var instance = SecuritySystem.Instance;
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
                 SecuritySystem.SetInstance(instance);
-                if (XpandModuleBase.ConnectionString != null) {
-                    (xafApplication).ConnectionString = XpandModuleBase.ConnectionString;
-                }
+                SetConnectionString(xafApplication);
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);
+            }
+        }
+
+        static void SetConnectionString(XafApplication xafApplication) {
+            try {
+                var connectionString = XpandModuleBase.ConnectionString;
+                if (connectionString != null) {
+                    (xafApplication).ConnectionString = connectionString;
+                }
+            }
+            catch (NullReferenceException) {
             }
         }
     }

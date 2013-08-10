@@ -5,9 +5,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.Linq;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Dashboard {
 

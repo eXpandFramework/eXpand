@@ -4,9 +4,10 @@ using System.Linq;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {

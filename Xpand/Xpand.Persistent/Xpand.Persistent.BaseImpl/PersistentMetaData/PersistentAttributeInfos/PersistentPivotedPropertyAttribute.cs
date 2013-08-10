@@ -1,10 +1,15 @@
 ﻿using System.ComponentModel;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PivotChart.PivotedProperty;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("CollectionName")]
+    [System.ComponentModel.DisplayName("Pivoted Property")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentPivotedPropertyAttribute : PersistentAttributeInfo {
         string _associatedMemberName;
         string _collectionName;

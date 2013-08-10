@@ -467,10 +467,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
                 }
             }
             RepositoryItem edit = gridView.FocusedColumn.ColumnEdit;
-            OnCustomizeAppearance(propertyName, new DevExpress.ExpressApp.Win.Editors.CancelEventArgsAppearanceAdapter(e), gridView.FocusedRowHandle);
+            OnCustomizeAppearance(propertyName, new GridViewCancelEventArgsAppearanceAdapter((DevExpress.XtraGrid.Views.Grid.GridView)gridView,e), gridView.FocusedRowHandle);
             if (!e.Cancel) {
                 if (edit != null) {
-                    OnCustomizeAppearance(propertyName, new DevExpress.ExpressApp.Win.Editors.AppearanceObjectAdapterWithReset(edit.Appearance), gridView.FocusedRowHandle);
+                    OnCustomizeAppearance(propertyName, new GridViewCancelEventArgsAppearanceAdapterWithReset((DevExpress.XtraGrid.Views.Grid.GridView) gridView,e,edit.Appearance), gridView.FocusedRowHandle);
                     edit.MouseDown += new MouseEventHandler(Editor_MouseDown);
                     edit.MouseUp += new MouseEventHandler(Editor_MouseUp);
                     RepositoryItemButtonEdit buttonEdit = edit as RepositoryItemButtonEdit;

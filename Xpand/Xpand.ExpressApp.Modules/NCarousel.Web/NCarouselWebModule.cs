@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 using Alignment = Xpand.NCarousel.Alignment;
 
 namespace Xpand.ExpressApp.NCarousel.Web {

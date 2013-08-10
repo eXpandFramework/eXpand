@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Model;
 
-namespace FeatureCenter.Module.Win.ControllingXtraGrid.XtraGridViewOptions
-{
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator
-    {
+namespace FeatureCenter.Module.Win.ControllingXtraGrid.XtraGridViewOptions {
+    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
-            if (typesInfo.Type!=typeof(WinCustomer))yield break;
+            if (typesInfo.Type != typeof(WinCustomer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderControlXtraGrid, "1=1", "1=1",
-                Captions.ViewMessageControlXtraGrid, Position.Bottom){View = "XtraGridViewOptions_ListView"};
+                Captions.ViewMessageControlXtraGrid, Position.Bottom) { View = "XtraGridViewOptions_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderControlXtraGrid, "1=1", "1=1",
-                Captions.HeaderControlXtraGrid, Position.Top){View = "XtraGridViewOptions_ListView"};
+                Captions.HeaderControlXtraGrid, Position.Top) { View = "XtraGridViewOptions_ListView" };
             yield return new CloneViewAttribute(CloneViewType.ListView, "XtraGridViewOptions_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/GridView options", "XtraGridViewOptions_ListView");
             yield return new DisplayFeatureModelAttribute("XtraGridViewOptions_ListView");

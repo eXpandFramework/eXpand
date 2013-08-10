@@ -3,15 +3,16 @@ using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Updater = ConditionalObjectViewTester.Module.DatabaseUpdate.Updater;
 
 
-namespace ConditionalDetailViewsTester.Module {
-    public sealed partial class ConditionalDetailViewsTesterModule : ModuleBase {
-        public ConditionalDetailViewsTesterModule() {
+namespace ConditionalObjectViewTester.Module {
+    public sealed partial class ConditionalObjectViewTesterModule : ModuleBase {
+        public ConditionalObjectViewTesterModule() {
             InitializeComponent();
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
+            ModuleUpdater updater = new Updater(objectSpace, versionFromDB);
             return new ModuleUpdater[] { updater };
         }
     }

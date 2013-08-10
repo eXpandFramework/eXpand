@@ -19,17 +19,28 @@ using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.Web.ListEditors;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
-    public class XpandLayoutManager : WebLayoutManager {
+
+    public interface IWebLayoutManager {
+        event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
+    }
+
+    public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
+        public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
         private static readonly List<Tuple<Type, Type>> listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
-        public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
+        protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
+            var handler = Instantiated;
+            if (handler != null) handler(this, e);
+        }
 
+        public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
 
 
 
@@ -84,6 +95,21 @@ namespace Xpand.ExpressApp.Web.Layout {
             return base.LayoutControls(layoutInfo, detailViewItems);
         }
 
+        protected override LayoutBaseTemplate CreateLayoutItemTemplate() {
+            var layoutBaseTemplate = base.CreateLayoutItemTemplate();
+            layoutBaseTemplate.Instantiated+=LayoutBaseTemplateOnInstantiated;
+            return layoutBaseTemplate;
+        }
+
+        protected override LayoutBaseTemplate CreateLayoutGroupTemplate() {
+            var layoutBaseTemplate = base.CreateLayoutGroupTemplate();
+            layoutBaseTemplate.Instantiated += LayoutBaseTemplateOnInstantiated;
+            return layoutBaseTemplate;
+        }
+
+        void LayoutBaseTemplateOnInstantiated(object sender, TemplateInstantiatedEventArgs templateInstantiatedEventArgs) {
+            OnInstantiated(templateInstantiatedEventArgs);
+        }
 
         private static IListControlAdapter GetListControlAdapter(Control control) {
             Guard.ArgumentNotNull(control, "control");
@@ -256,4 +282,5 @@ namespace Xpand.ExpressApp.Web.Layout {
             }
         }
     }
+
 }

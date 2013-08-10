@@ -18,9 +18,14 @@ namespace XpandSystemTester.Web {
         XpandSystemTesterModule module3;
         XpandSystemTesterAspNetModule module4;
         SqlConnection sqlConnection1;
+        
 
         public XpandSystemTesterAspNetApplication() {
             InitializeComponent();
+        }
+
+        protected override bool SupportMasterDetailMode {
+            get { return true; }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

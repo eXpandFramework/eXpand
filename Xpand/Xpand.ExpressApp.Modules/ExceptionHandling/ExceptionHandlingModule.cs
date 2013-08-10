@@ -7,8 +7,8 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
 using Microsoft.Practices.EnterpriseLibrary.Logging.Configuration;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.ExceptionHandling;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
     public abstract class ExceptionHandlingModule : XpandModuleBase {

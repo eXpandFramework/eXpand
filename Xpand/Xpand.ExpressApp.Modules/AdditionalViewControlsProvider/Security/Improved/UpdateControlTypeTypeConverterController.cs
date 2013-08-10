@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     public abstract class UpdateControlTypeTypeConverterController<TReferenceConverter> : UpdateTypeConverterController<AdditionalViewControlsOperationPermissionData, TReferenceConverter> where TReferenceConverter : XpandReferenceConverter {

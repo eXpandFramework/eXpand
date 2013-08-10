@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MemberLevelSecurity;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity {

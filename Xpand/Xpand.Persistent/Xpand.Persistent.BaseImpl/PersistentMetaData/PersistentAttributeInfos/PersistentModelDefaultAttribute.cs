@@ -1,10 +1,16 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [DefaultProperty("PropertyName")]
+    [System.ComponentModel.DisplayName("ModelDefault")]
+    [CreateableItem(typeof(IPersistentMemberInfo))]
+    [CreateableItem(typeof(IPersistentClassInfo))]
+    [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentModelDefaultAttribute : PersistentAttributeInfo {
         string _propertyName;
         string _value;

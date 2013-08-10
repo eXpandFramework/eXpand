@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Scheduler.Win {
     [ToolboxBitmap(typeof(XpandSchedulerWindowsFormsModule))]

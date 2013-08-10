@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.MiddleTier {
             remove { throw new NotImplementedException(); }
         }
 
-        event EventHandler<ViewShownEventArgs> IXafApplication.AfterViewShown {
+        event EventHandler<ViewShownEventArgs> IAfterViewShown.AfterViewShown {
             add { throw new NotImplementedException(); }
             remove { throw new NotImplementedException(); }
         }

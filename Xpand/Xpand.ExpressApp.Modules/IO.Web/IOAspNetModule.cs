@@ -3,6 +3,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.FileAttachments.Web;
 using DevExpress.ExpressApp.TreeListEditors.Web;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.IO.Web {
     [ToolboxBitmap(typeof(IOAspNetModule))]

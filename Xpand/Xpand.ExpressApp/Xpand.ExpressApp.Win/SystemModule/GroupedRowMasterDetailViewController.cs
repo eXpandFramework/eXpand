@@ -6,10 +6,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelColumnMasterDetailView {
-        [DataSourceProperty("DetailViews")]
+        [DataSourceProperty(ModelColumnDetailViewsDomainLogic.DetailViews)]
         [Category("eXpand")]
         [ModelBrowsable(typeof(ModelColumnMasterDetailViewVisibilityCalculator))]
         IModelDetailView MasterDetailView { get; set; }

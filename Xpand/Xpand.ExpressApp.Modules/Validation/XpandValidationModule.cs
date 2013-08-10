@@ -2,6 +2,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Validation;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 

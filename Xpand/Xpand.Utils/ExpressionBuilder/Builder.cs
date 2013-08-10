@@ -77,11 +77,7 @@ namespace Xpand.Utils.ExpressionBuilder {
 
         void RegisterPropertyAndValue(PropertyInfo property,
                                       Object value) {
-            if (IsCollection(property))
-                PropertiesAndValues.Add(property,
-                                        new List<Object> {value});
-            else
-                PropertiesAndValues.Add(property, value);
+            PropertiesAndValues.Add(property,IsCollection(property) ? new List<Object>{value} : value);
         }
 
         static Boolean IsCollection(PropertyInfo property) {
@@ -104,7 +100,7 @@ namespace Xpand.Utils.ExpressionBuilder {
                 return true;
 
             Type[] interfaces = type.GetInterfaces();
-            return interfaces.Where(@interface => @interface.Name == collectionType.Name).FirstOrDefault() != null;
+            return interfaces.FirstOrDefault(@interface => @interface.Name == collectionType.Name) != null;
         }
 
         static Boolean HasParameterlessConstructor(Type type) {
@@ -126,7 +122,7 @@ namespace Xpand.Utils.ExpressionBuilder {
 
         static void SetCollectionValuesFor(PropertyInfo property,
                                            T instance,
-                                           List<Object> values) {
+                                           IEnumerable<object> values) {
             FieldInfo backingField = property.GetBackingField();
             if (false == IsCollection(backingField)) {
                 throw new InvalidOperationException("InvalidCollectionType");

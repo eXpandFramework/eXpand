@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.JobScheduler.Jobs.SendEmail;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs {
     public class JobSchedulerJobsModule : XpandModuleBase {

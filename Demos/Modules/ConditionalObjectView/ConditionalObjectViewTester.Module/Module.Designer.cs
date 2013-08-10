@@ -1,5 +1,5 @@
-namespace ConditionalDetailViewsTester.Module {
-    partial class ConditionalDetailViewsTesterModule {
+namespace ConditionalObjectViewTester.Module {
+    partial class ConditionalObjectViewTesterModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@ namespace ConditionalDetailViewsTester.Module {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // ConditionalDetailViewsTesterModule
+            // ConditionalObjectViewTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule));

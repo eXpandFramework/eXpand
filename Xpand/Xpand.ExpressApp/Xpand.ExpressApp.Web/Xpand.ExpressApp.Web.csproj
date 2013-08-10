@@ -63,12 +63,6 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -79,18 +73,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Docs.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.v13.1">
@@ -106,26 +88,9 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
@@ -135,16 +100,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DisableProcessCurrentObjectController.cs">
+    <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\UpdateVisibilityController.cs">
+    <Compile Include="SystemModule\RegisterScriptsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetail\DisableProcessCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ListViewExtensions.cs">
@@ -276,13 +243,10 @@
     <EmbeddedResource Include="Layout\AdjustSize.js" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
-      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
-      <Name>Xpand.ExpressApp.Logic</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Layout\XpandHelper.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Layout\XpandHelper.js" />
+    <EmbeddedResource Include="Styles\CommonStyle.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

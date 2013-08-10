@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.TreeListEditors;
 using Xpand.ExpressApp.IO.NodeUpdaters;
 using Xpand.ExpressApp.ModelArtifactState;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.IO {
     [ToolboxItem(false)]

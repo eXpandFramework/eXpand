@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.FilterDataStore.Model;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.FilterDataStore {
     [ToolboxItem(false)]

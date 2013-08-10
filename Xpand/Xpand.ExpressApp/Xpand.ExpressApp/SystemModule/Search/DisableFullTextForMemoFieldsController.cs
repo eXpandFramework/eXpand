@@ -8,10 +8,11 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelClassDisableFullTextForMemoFields {
-        [Category(SearchFromViewController.AttributesCategory)]
+        [Category(AttributeCategoryNameProvider.Search)]
         [Description("Remove all fields marked with unlimited size attribute from full text")]
         bool DisableFullTextForMemoFields { get; set; }
     }
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelListViewDisableFullTextForMemoFields : IModelClassDisableFullTextForMemoFields {
     }
 
-    public class DisableFullTextForMemoFieldsController : ViewController<XpandListView>, IModelExtender {
+    public class DisableFullTextForMemoFieldsController : ViewController<ListView>, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassDisableFullTextForMemoFields>();
             extenders.Add<IModelListView, IModelListViewDisableFullTextForMemoFields>();

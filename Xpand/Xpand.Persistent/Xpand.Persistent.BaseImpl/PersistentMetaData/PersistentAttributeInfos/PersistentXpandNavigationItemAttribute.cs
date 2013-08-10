@@ -2,12 +2,15 @@
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos {
     [InterfaceRegistrator(typeof(IPersistentNavigationItemAttribute))]
     [DefaultProperty("Path")]
+    [System.ComponentModel.DisplayName("Xpand Navigation")]
+    [CreateableItem(typeof(IPersistentClassInfo))]
     public class PersistentXpandNavigationItemAttribute : PersistentAttributeInfo, IPersistentNavigationItemAttribute {
         public PersistentXpandNavigationItemAttribute(Session session)
             : base(session) {

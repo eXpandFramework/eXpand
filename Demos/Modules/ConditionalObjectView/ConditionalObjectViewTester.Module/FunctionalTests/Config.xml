@@ -3,31 +3,31 @@
 	<Applications>
 		<!-- Win -->
 		<Application
-			Name="ConditionalDetailViewsTester.Win"
-			FileName="[WinAppBin]\ConditionalDetailViewsTester.Win.exe"
+			Name="ConditionalObjectViewTester.Win"
+			FileName="[WinAppBin]\ConditionalObjectViewTester.Win.exe"
 			AdapterAssemblyName="[WinAdapterAssemblyName]"
 			CommunicationPort="4100"/>
 		<!-- Web -->
 		<Application
-			Name="ConditionalDetailViewsTester.Web"
+			Name="ConditionalObjectViewTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
 		<!-- For IIS -->
 		<!--Application
-			Name="ConditionalDetailViewsTester.Web"
-			Url="http://localhost/ConditionalDetailViewsTester.Web/Default.aspx"
+			Name="ConditionalObjectViewTester.Web"
+			Url="http://localhost/ConditionalObjectViewTester.Web/Default.aspx"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="ConditionalDetailViewsTesterEasyTest" />
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="ConditionalObjectViewTesterEasyTest" />
 	</TestDatabases>
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ConditionalDetailViewsTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ConditionalDetailViewsTester.Web" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ConditionalObjectViewTester.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ConditionalObjectViewTester.Web" />
 	</Aliases>
 </Options>

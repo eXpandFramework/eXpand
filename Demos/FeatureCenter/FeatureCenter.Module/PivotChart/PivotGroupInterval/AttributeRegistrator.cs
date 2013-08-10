@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.PivotChart.PivotGroupInterval {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {

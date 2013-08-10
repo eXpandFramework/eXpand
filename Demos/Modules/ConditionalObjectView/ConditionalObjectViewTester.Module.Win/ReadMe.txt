@@ -1,6 +1,6 @@
 ﻿Project Description
 
-The ConditionalDetailViewsTester.Module.Win project implements a Windows Forms Module. Platform-specific application 
+The ConditionalObjectViewTester.Module.Win project implements a Windows Forms Module. Platform-specific application 
 elements can be implemented here (Controllers, Editors & View Items, etc.). 
 The root project folder contains the WinModule.cs(vb) file with the class that 
 inherits ModuleBase. This class can be designed with the Module Designer that 

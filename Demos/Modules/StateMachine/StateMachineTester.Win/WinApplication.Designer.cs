@@ -1,3 +1,5 @@
+using Xpand.ExpressApp.Security.Core;
+
 namespace StateMachineTester.Win {
     partial class StateMachineTesterWindowsFormsApplication {
         /// <summary> 
@@ -53,7 +55,7 @@ namespace StateMachineTester.Win {
             // securityStrategyComplex1
             // 
             this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
             this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // authenticationStandard1

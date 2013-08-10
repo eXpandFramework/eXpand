@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.SystemModule {
         IModelListView PropertyPathListViewId { get; set; }
     }
 
-    public abstract class FilterByPropertyPathViewController : ViewController<XpandListView> {
+    public abstract class FilterByPropertyPathViewController : ViewController<ListView> {
         private Dictionary<string, FiltersByCollectionWrapper> _filtersByPropertyPathWrappers;
         readonly SingleChoiceAction _filterSingleChoiceAction;
 

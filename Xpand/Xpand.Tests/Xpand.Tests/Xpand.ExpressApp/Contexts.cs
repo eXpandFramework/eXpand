@@ -10,11 +10,10 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Machine.Specifications;
 using TypeMock.ArrangeActAssert;
-using Xpand.ExpressApp;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers;
 using PessimisticLockingViewController = Xpand.ExpressApp.Win.SystemModule.PessimisticLockingViewController;
 using ViewEditModeController = Xpand.ExpressApp.Win.SystemModule.ViewEditModeController;
 
@@ -62,7 +61,7 @@ namespace Xpand.Tests.Xpand.ExpressApp {
         private TestPessimisticLockingInfo TestSetupCore(TestPessimisticLockingInfo info) {
             var systemModule = new XpandSystemModule();
             // ReSharper disable ConvertClosureToMethodGroup
-            Isolate.WhenCalled(() => systemModule.InitializeSequenceGenerator()).IgnoreCall();
+//            Isolate.WhenCalled(() => systemModule.InitializeSequenceGenerator()).IgnoreCall();
             // ReSharper restore ConvertClosureToMethodGroup
             Modules.Add(systemModule);
             Setup("TestApplication", _XPObjectSpaceProvider);

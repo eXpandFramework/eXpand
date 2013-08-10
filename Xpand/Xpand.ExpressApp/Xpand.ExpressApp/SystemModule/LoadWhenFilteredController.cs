@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelListViewLoadWhenFiltered : IModelClassLoadWhenFiltered {
     }
 
-    public abstract class LoadWhenFilteredController : ViewController<XpandListView> {
+    public abstract class LoadWhenFilteredController : ViewController<ListView> {
         protected const string LoadWhenFiltered = "LoadWhenFiltered";
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();

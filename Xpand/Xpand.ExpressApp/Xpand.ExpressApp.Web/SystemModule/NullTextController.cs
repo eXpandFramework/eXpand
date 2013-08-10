@@ -21,12 +21,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     public interface IModelMemberNullText {
-        [Category("Behavior")]
+        [Category("eXpand")]
         string NullText { get; set; }
     }
 
     public interface IModelLayoutNullText {
-        [Category("Behavior")]
+        [Category("eXpand")]
         string NullText { get; set; }
     }
 

@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web {
     [ToolboxItem(true)]

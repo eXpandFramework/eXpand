@@ -1,26 +1,23 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers {
-    public class CreateMembersFromInterfacesController : MasterObjectViewController<IPersistentClassInfo> {
-        public CreateMembersFromInterfacesController() {
-            TargetObjectType = typeof (IInterfaceInfo);
-        }
-
-
+    public class CreateMembersFromInterfacesController : MasterObjectViewController<IInterfaceInfo,IPersistentClassInfo> {
+        IPersistentClassInfo _masterObject;
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<LinkUnlinkController>().LinkAction.Execute += LinkActionOnExecute;
+            Frame.GetController<LinkUnlinkController>().LinkAction.ExecuteCompleted+=LinkActionOnExecuteCompleted;
         }
 
+        void LinkActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            _masterObject.CreateMembersFromInterfaces();
+        }
 
-        void LinkActionOnExecute(object sender, PopupWindowShowActionExecuteEventArgs e) {
-            if (e.PopupWindow.View.SelectedObjects.Count > 0) {
-                MasterObject.CreateMembersFromInterfaces();
-            }
+        protected override void UpdateMasterObject(IPersistentClassInfo masterObject) {
+            _masterObject = masterObject;
         }
     }
 }

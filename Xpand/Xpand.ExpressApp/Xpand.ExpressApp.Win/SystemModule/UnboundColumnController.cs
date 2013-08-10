@@ -5,10 +5,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid.Columns;
-using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Model;
-using Xpand.ExpressApp.Model.RuntimeMembers;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class UnboundColumnController : ViewController<ListView> {

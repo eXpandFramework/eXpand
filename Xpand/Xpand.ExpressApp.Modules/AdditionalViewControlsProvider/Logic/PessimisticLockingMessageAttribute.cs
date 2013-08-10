@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class PessimisticLockingMessageAttribute : AdditionalViewControlsRuleAttribute {
@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             MessageProperty = "LockedUserMessage";
         }
     }
-    public class LockedUserMessageXpMemberInfo : XPCustomMemberInfo, ISupportCancelModification {
+    public class LockedUserMessageXpMemberInfo : XpandCustomMemberInfo, ISupportCancelModification {
         string _theValue;
 
         public LockedUserMessageXpMemberInfo(XPClassInfo owner)

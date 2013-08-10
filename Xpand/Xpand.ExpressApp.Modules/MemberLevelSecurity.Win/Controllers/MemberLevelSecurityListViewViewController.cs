@@ -4,7 +4,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -13,7 +12,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
-    public class MemberLevelSecurityListViewViewController : ViewController<XpandListView> {
+    public class MemberLevelSecurityListViewViewController : ViewController<ListView> {
         private GridControl gridControl;
 
 

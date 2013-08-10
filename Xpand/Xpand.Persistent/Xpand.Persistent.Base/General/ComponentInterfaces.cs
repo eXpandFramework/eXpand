@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.DB;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.Base.General {
     [Obsolete("", true)]
@@ -53,6 +52,7 @@ namespace Xpand.Persistent.Base.General {
         IDataStore GetDataStore(IDataStore dataStore);
     }
 
+    [Obsolete("In 13.2 there will be a XAF event for this and can be removed")]
     public interface IUserDifferencesLoaded {
         event EventHandler UserDifferencesLoaded;
     }
@@ -60,13 +60,22 @@ namespace Xpand.Persistent.Base.General {
     public interface IXafApplicationDirectory {
         string BinDirectory { get;  }
     }
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IWorldCreatorModule, IUserDifferencesLoaded {
-        string ModelAssemblyFilePath { get; }
-        ApplicationModulesManager ApplicationModulesManager { get; }
-        AutoCreateOption AutoCreateOption { get; }
-        void WriteLastLogonParameters(DetailView view, object logonObject);
+    public interface ILayoutManager {
+    }
+
+    public interface IAfterViewShown {
         event EventHandler<ViewShownEventArgs> AfterViewShown;
         void OnAfterViewShown(Frame frame, Frame sourceFrame);
+    }
+
+    public interface IAutoCreateOption {
+        AutoCreateOption AutoCreateOption { get; }
+    }
+
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption {
+        string ModelAssemblyFilePath { get; }
+        ApplicationModulesManager ApplicationModulesManager { get; }
+        void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 
 }

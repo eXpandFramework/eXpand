@@ -4,9 +4,10 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Win {
-    public partial class ModelDifferenceTesterWindowsFormsApplication : WinApplication {
+    public partial class ModelDifferenceTesterWindowsFormsApplication : WinApplication, IUserDifferencesLoaded {
         public ModelDifferenceTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
@@ -45,6 +46,18 @@ namespace ModelDifferenceTester.Win {
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {
                 e.Languages.Add(userLanguageName);
             }
+        }
+
+        protected override void LoadUserDifferences() {
+            base.LoadUserDifferences();
+            OnUserDifferencesLoaded();
+        }
+
+        public event EventHandler UserDifferencesLoaded;
+
+        protected virtual void OnUserDifferencesLoaded() {
+            EventHandler handler = UserDifferencesLoaded;
+            if (handler != null) handler(this, EventArgs.Empty);
         }
     }
 }

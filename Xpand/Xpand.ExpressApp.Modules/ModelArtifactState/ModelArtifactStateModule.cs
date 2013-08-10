@@ -3,6 +3,7 @@ using System.Drawing;
 using DevExpress.Utils;
 using Xpand.ExpressApp.ConditionalActionState;
 using Xpand.ExpressApp.ConditionalControllerState;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxBitmap(typeof(ModelArtifactStateModule))]

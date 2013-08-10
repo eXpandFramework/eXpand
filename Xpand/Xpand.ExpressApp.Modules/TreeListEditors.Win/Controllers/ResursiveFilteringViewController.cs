@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args) {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
             UpdateActionState(filterControlListViewController.XpandFilterControl);
-            var categorizedListEditor = ((XpandListView)View).Editor as CategorizedListEditor;
+            var categorizedListEditor = ((ListView)View).Editor as CategorizedListEditor;
             if (categorizedListEditor != null) filterControlListViewController.XpandFilterControl.SourceControl = (categorizedListEditor).Grid;
             filterControlListViewController.XpandFilterControl.FilterChanged += FilterOnFilterChanged;
 

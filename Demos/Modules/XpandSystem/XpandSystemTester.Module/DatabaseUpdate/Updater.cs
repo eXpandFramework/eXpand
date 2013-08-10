@@ -13,7 +13,13 @@ namespace XpandSystemTester.Module.DatabaseUpdate {
                 var customer = ObjectSpace.CreateObject<Customer>();
                 customer.FirstName = "Apostolis";
                 customer.LastName = "Bekiaris";
-                customer.Email = "apostolis.bekiaris@gmail.com";
+                customer.Email = "apostolis.bekiaris at gmail";
+                ObjectSpace.CommitChanges();
+                
+                customer = ObjectSpace.CreateObject<Customer>();
+                customer.FirstName = "Tolis";
+                customer.LastName = "Bek";
+                customer.Email = "apostolis.bekiaris at gmail";
                 ObjectSpace.CommitChanges();
             }
         }
