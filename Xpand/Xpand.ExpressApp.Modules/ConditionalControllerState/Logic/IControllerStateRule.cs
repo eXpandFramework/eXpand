@@ -16,7 +16,5 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
         [Category("Behavior")]
         [ModelPersistentName("State")]
         ControllerState ControllerState { get; set; }
-
-        
     }
 }

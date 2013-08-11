@@ -5,8 +5,6 @@ using Xpand.ExpressApp.ArtifactState.Logic;
 
 namespace Xpand.ExpressApp.ConditionalControllerState.Logic{
     public class ControllerStateRule : ArtifactStateRule,IControllerStateRule{
-        
-
         public ControllerStateRule(IControllerStateRule controllerStateRule): base(controllerStateRule){
             ControllerType = controllerStateRule.ControllerType;    
             ControllerState=controllerStateRule.ControllerState;    

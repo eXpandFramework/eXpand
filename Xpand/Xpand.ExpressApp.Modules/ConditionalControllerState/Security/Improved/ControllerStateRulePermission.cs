@@ -20,6 +20,7 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Security.Improved {
         public Type ControllerType { get; set; }
 
         public ControllerState ControllerState { get; set; }
+
         #endregion
         public override IList<string> GetSupportedOperations() {
             return new[] { OperationName };

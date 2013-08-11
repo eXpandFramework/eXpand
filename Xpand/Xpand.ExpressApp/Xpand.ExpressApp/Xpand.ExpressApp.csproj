@@ -145,6 +145,9 @@
     <Compile Include="SystemModule\ReloadObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\Search\DetailViewFullTextSearchController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>
     </Compile>

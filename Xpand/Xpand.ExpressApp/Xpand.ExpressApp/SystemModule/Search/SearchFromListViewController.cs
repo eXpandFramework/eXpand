@@ -1,6 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
@@ -16,7 +17,8 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         void FullTextFilterActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-            var modelListView = ((IModelListViewFullTextSearch) View.Model).FullTextListView;
+            IModelView modelView = ((ViewController) ((ActionBase) sender).Controller).View.Model;
+            var modelListView = ((IModelListViewFullTextSearch)modelView).FullTextListView;
             if (modelListView!=null) {
                 cancelEventArgs.Cancel = true;
                 var action = ((ParametrizedAction)sender);
@@ -38,8 +40,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         void OnCustomGetFullTextSearchProperties(object sender, CustomGetFullTextSearchPropertiesEventArgs customGetFullTextSearchPropertiesEventArgs) {
-            var xpandSearchCriteriaBuilder = new XpandSearchCriteriaBuilder(View.ObjectTypeInfo, View);
-            var fullTextSearchProperties = GetFullTextSearchProperties(xpandSearchCriteriaBuilder);
+            ListView listView = ((FilterController) sender).View;
+            var xpandSearchCriteriaBuilder = new XpandSearchCriteriaBuilder(listView.ObjectTypeInfo, listView);
+            var fullTextSearchProperties = GetFullTextSearchProperties(xpandSearchCriteriaBuilder,listView);
             customGetFullTextSearchPropertiesEventArgs.Properties.Clear();
             customGetFullTextSearchPropertiesEventArgs.Properties.AddRange(fullTextSearchProperties);
             customGetFullTextSearchPropertiesEventArgs.Handled = true;

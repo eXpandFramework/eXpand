@@ -11,7 +11,6 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
         public Type ControllerType { get; set; }
         public ControllerState ControllerState { get; set; }
 
-
         #endregion
     }
 }

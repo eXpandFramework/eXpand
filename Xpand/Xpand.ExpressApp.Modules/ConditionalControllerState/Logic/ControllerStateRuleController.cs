@@ -9,7 +9,15 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ConditionalControllerState.Logic {
     public class ControllerStateRuleController : ConditionalLogicRuleViewController<IControllerStateRule,ConditionalControllerStateModule> {
         protected void ChangeState(LogicRuleInfo<IControllerStateRule> info) {
-            Frame.GetController(info.Rule.ControllerType).Active[ActiveObjectTypeHasRules] = info.Rule.ControllerState==ControllerState.Enabled;
+            Controller controller = Frame.GetController(info.Rule.ControllerType);
+            if (info.Rule.ControllerState==ControllerState.Register) {
+                if (!controller.Active) {
+                    Frame.RegisterController(controller);
+                }
+            }
+            else {
+                controller.Active[ActiveObjectTypeHasRules] = info.Rule.ControllerState == ControllerState.Enabled;
+            }
         }
 
         void ChangeStateOnModules(LogicRuleInfo<IControllerStateRule> info) {

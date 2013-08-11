@@ -83,6 +83,7 @@
     <Compile Include="Automation\SystemAutomation.cs" />
     <Compile Include="Automation\Wait.cs" />
     <Compile Include="Automation\WaitAutomation.cs" />
+    <Compile Include="Dynamic\ObjectFactory.cs" />
     <Compile Include="Dynamic\DynamicElement.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
     <Compile Include="Helpers\DateTimeUtils.cs" />

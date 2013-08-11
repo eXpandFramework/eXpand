@@ -119,8 +119,11 @@ namespace Xpand.ExpressApp.Win {
         }
 
         protected override Window CreateWindowCore(TemplateContext context, ICollection<Controller> controllers, bool isMain, bool activateControllersImmediatelly) {
+            var windowCreatingEventArgs = new WindowCreatingEventArgs();
+            OnWindowCreating(windowCreatingEventArgs);
             Tracing.Tracer.LogVerboseValue("WinApplication.CreateWindowCore.activateControllersImmediatelly", activateControllersImmediatelly);
-            return new XpandWinWindow(this, context, controllers, isMain, activateControllersImmediatelly);
+            return windowCreatingEventArgs.Handled? windowCreatingEventArgs.Window
+                       : new XpandWinWindow(this, context, controllers, isMain, activateControllersImmediatelly);
         }
 
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
@@ -169,6 +172,13 @@ namespace Xpand.ExpressApp.Win {
 
         string IXafApplicationDirectory.BinDirectory {
             get { return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; }
+        }
+
+        public event EventHandler<WindowCreatingEventArgs> WindowCreating;
+
+        protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
+            var handler = WindowCreating;
+            if (handler != null) handler(this, e);
         }
     }
 

@@ -72,10 +72,17 @@ namespace Xpand.Persistent.Base.General {
         AutoCreateOption AutoCreateOption { get; }
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption {
+    public interface IWindowCreating {
+        event EventHandler<WindowCreatingEventArgs> WindowCreating;
+    }
+
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption, IWindowCreating {
         string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 
+    public class WindowCreatingEventArgs : HandledEventArgs{
+        public Window Window { get; set; }
+    }
 }

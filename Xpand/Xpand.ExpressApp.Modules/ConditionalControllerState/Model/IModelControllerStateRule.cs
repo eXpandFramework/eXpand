@@ -11,6 +11,5 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Model {
     public interface IModelControllerStateRule : IControllerStateRule, IModelConditionalLogicRule<IControllerStateRule>,IModelArtifactStateRule {
         [Browsable(false)]
         IEnumerable<Type> Controllers { get; }
-    
     }
 }

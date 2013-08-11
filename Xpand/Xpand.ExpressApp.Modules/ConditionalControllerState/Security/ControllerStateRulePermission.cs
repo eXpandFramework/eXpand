@@ -14,6 +14,7 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Security {
         public Type ControllerType { get; set; }
 
         public ControllerState ControllerState { get; set; }
+
         #endregion
         public override IPermission Copy() {
             return new ControllerStateRulePermission();

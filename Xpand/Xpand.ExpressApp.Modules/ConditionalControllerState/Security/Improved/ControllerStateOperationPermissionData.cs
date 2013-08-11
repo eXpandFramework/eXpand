@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.ConditionalControllerState.Security.Improved {
         public Type ControllerType { get; set; }
 
         public ControllerState ControllerState { get; set; }
+
         #endregion
         public override IList<IOperationPermission> GetPermissions() {
             return new IOperationPermission[] { new ControllerStateRulePermission(this) };

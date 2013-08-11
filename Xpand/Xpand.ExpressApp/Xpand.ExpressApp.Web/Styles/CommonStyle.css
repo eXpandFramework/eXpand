@@ -1,3 +1,9 @@
 ﻿.ClearTdPadding td{
     padding: 0 !important;
  }
+.DefaultCursor  {
+    cursor: default !important;
+}
+.FullWidth {
+    width: 100%
+}

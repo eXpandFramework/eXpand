@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
                      typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
-                Act = info => (info.DXFilter()) && info.Name != "Width"
+                Act = info => (info.DXFilter(BaseGridViewControlTypes(), typeof(object))) && info.Name != "Width"
             };
             yield return new InterfaceBuilderData(typeof(GridViewBandColumn)) {
                 Act = info => {
