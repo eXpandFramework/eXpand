@@ -102,6 +102,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\IModelViewOpenView.cs" />
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -138,7 +139,6 @@
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\IModelViewOpenViewWhenNested.cs" />
     <Compile Include="PropertyEditors\ASPxDateTimePropertyEditor.cs" />
     <Compile Include="PropertyEditors\ASPxTimePropertyEditor .cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
