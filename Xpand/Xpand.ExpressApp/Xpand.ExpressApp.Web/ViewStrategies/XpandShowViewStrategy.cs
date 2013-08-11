@@ -14,12 +14,20 @@ namespace Xpand.ExpressApp.Web.ViewStrategies {
             if (model != null) {
                 if (model.OpenViewWhenNestedStrategy == OpenViewWhenNestedStrategy.InMainWindow)
                     Application.MainWindow.SetView(parameters.CreatedView, showViewSource.SourceFrame);
-                else if (model.OpenDetailViewAsPopup) {
-                    base.ShowViewInModalWindow(parameters, showViewSource);
-                }
-                else {
+                else
                     base.ShowViewFromNestedView(parameters, showViewSource);
-                }
+            }
+        }
+
+        protected override void ShowViewFromCommonView(ShowViewParameters parameters, ShowViewSource showViewSource) {
+            IModelListViewOpenViewWhenNested model =
+                showViewSource.SourceView.Model as IModelListViewOpenViewWhenNested;
+
+            if (model != null && model.OpenDetailViewAsPopup) {
+                base.ShowViewInModalWindow(parameters, showViewSource);
+            }
+            else {
+                base.ShowViewFromCommonView(parameters, showViewSource);
             }
         }
 
