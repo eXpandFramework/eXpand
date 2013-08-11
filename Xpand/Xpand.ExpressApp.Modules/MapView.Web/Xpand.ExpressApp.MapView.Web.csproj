@@ -40,7 +40,7 @@
     <Reference Include="Artem.Google">
       <HintPath>..\packages\GoogleMapControl.6.1.12290.1016\lib\net40\Artem.Google.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\DevExpress.ExpressApp.Web.v13.1.dll</HintPath>
     </Reference>
@@ -62,7 +62,7 @@
     <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Demos\Modules\MapView\MapViewTester.Module.Web\bin\Debug\DevExpress.Web.v13.1.dll</HintPath>
     </Reference>

@@ -54,8 +54,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Artem.Google, Version=6.1.0.0, Culture=neutral, PublicKeyToken=fc8d6190a3aeb01c, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1" />
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
