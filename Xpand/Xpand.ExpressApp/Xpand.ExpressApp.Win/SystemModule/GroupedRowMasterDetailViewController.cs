@@ -19,7 +19,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class ModelColumnMasterDetailViewVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
             var modelColumn = ((IModelColumn)node);
-            return modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent && ((IModelListView)modelColumn.ParentView).MasterDetailMode == MasterDetailMode.ListViewAndDetailView;
+            return ((IModelListView)modelColumn.ParentView).MasterDetailMode == MasterDetailMode.ListViewAndDetailView
+                && (modelColumn.ModelMember!=null&&modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent);
         }
     }
 

@@ -34,6 +34,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
     [ModelDisplayName("CalculatedColumn")]
     [ModelPersistentName("RuntimeCalculatedColumn")]
+    [Obsolete("use normal IModelColumn",true)]
     public interface IModelColumnCalculated : IModelColumn {
         [ModelBrowsable(typeof(NotVisibileCalculator))]
         [RefreshProperties(RefreshProperties.All)]
@@ -47,11 +48,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         [Required]
         string CalcPropertyName { get; set; }
     }
-    [DomainLogic(typeof(IModelColumnCalculated))]
-    public class ModelColumnCalculatedDomainLogic {
-        public static string Get_PropertyName(IModelColumnCalculated runtimeCalculatedColumn) {
-            return DesignerOnlyCalculator.IsRunFromDesigner ? ((IModelListView)runtimeCalculatedColumn.Parent.Parent).ModelClass.AllMembers.First().Name : runtimeCalculatedColumn.CalcPropertyName;
-        }
-    }
+
 
 }
