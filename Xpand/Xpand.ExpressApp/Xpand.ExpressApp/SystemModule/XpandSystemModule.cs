@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -29,7 +30,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(false)]
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser {
+    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -136,6 +137,19 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
+        }
+
+        void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
+            ConvertXml(parameters);
+#pragma warning disable 612,618
+            if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0)
+#pragma warning restore 612,618
+            {
+                parameters.NodeType = typeof (IModelColumn);
+                string name = parameters.Values["CalcPropertyName"];
+                parameters.Values.Remove("CalcPropertyName");
+                parameters.Values.Add("PropertyName",name);
+            }
         }
     }
 

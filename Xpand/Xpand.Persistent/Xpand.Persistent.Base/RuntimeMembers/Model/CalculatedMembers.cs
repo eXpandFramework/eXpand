@@ -1,13 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
-using DevExpress.Persistent.Base;
-using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.Persistent.Base.RuntimeMembers.Model {
@@ -32,22 +27,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         }
     }
 
-    [ModelDisplayName("CalculatedColumn")]
-    [ModelPersistentName("RuntimeCalculatedColumn")]
-    [Obsolete("use normal IModelColumn",true)]
-    public interface IModelColumnCalculated : IModelColumn {
-        [ModelBrowsable(typeof(NotVisibileCalculator))]
-        [RefreshProperties(RefreshProperties.All)]
-        [Category("Data")]
-        new string PropertyName { get; set; }
-        [Category("Appearance")]
-        [DataSourceProperty("PropertyEditorsType")]
-        [TypeConverter(typeof(StringToTypeConverterBase))]
-        [ModelBrowsable(typeof(NotVisibileCalculator))]
-        new Type PropertyEditorType { get; set; }
-        [Required]
-        string CalcPropertyName { get; set; }
-    }
 
 
 }
