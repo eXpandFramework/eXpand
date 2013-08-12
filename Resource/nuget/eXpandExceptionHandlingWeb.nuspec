@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandExceptionHandlingWeb</id>
@@ -12,14 +12,13 @@
     <summary>ExceptionHandling Module (Web) / eXpand Framework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand</tags>
+    <dependencies>
+      <dependency id="eXpandSystem" />
+    </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
-	
-	<file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
-	<file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
   </files>
 </package>
