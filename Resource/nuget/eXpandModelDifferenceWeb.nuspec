@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <version>11.1</version>
@@ -22,26 +22,23 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
     <summary>Model managment</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand</tags>
+    <dependencies>
+      <dependency id="eXpandSystem" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.ModelAdaptor.dll" target="lib\Xpand.ExpressApp.ModelAdaptor.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.ModelAdaptor.dll" target="lib\Xpand.ExpressApp.ModelAdaptor.dll" />
     <file src="Build\Temp\Xpand.ExpressApp.ModelDifference.dll" target="lib\Xpand.ExpressApp.ModelDifference.dll" />
     <file src="Build\Temp\Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\Xpand.ExpressApp.ModelDifference.Web.dll" />
     <file src="Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\Xpand.ExpressApp.Security.dll" />
     <file src="Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.ConditionalControllerState.dll" target="lib\Xpand.ExpressApp.ConditionalControllerState.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.ArtifactState.dll" target="lib\Xpand.ExpressApp.ArtifactState.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.PivotChart.dll" target="lib\Xpand.ExpressApp.PivotChart.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\Xpand.ExpressApp.WorldCreator.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
-	<file src="Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\Xpand.ExpressApp.Validation.dll" />
-    <file src="Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
-    <file src="Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
-    <file src="Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
-    <file src="Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
-	<file src="Build\Temp\Wintellect.Threading.dll" target="lib\Wintellect.Threading.dll"/>
+    <file src="Build\Temp\Xpand.ExpressApp.ConditionalControllerState.dll" target="lib\Xpand.ExpressApp.ConditionalControllerState.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.ArtifactState.dll" target="lib\Xpand.ExpressApp.ArtifactState.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.PivotChart.dll" target="lib\Xpand.ExpressApp.PivotChart.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\Xpand.ExpressApp.WorldCreator.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
+    <file src="Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\Xpand.ExpressApp.Validation.dll" />
   </files>
 </package>
