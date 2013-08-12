@@ -388,6 +388,7 @@
 	<Target Name="NuGetPackage">
 		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandSystem.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandConditionalObjectView.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
@@ -428,6 +429,7 @@
 	<Target Name="NuGet" DependsOnTargets="NuGetPackage">
 		<!-- Publish -->
 
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystem.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandConditionalObjectView.$(Version).nupkg $(NuGetApiKey)"/>
