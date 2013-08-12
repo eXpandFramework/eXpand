@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Web.Editors;
 using Xpand.ExpressApp.ListEditors;
 using DevExpress.Web.ASPxSplitter;
+using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
     class MasterDetailProvider {
@@ -41,13 +42,14 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             gridView.Load += (s, e) => OnFocusedObjectChanged();
 
             gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
-            gridView.ClientSideEvents.FocusedRowChanged =
-                @"function(s,e) { 
+            gridView.ClientSideEvents.FocusedRowChanged = string.Format(
+                @"function(s,e) {{ 
+                    {0}
                     var parentSplitter = XpandHelper.GetParentControl(s);
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
-                    if ((s.firstRowChangedAfterInit!==true || !XpandHelper.IsRootSplitter(parentSplitter)) && up && up.GetMainElement()) { 
-                        up.PerformCallback(s.GetFocusedRowIndex());} 
-                    s.firstRowChangedAfterInit = false; }";
+                    if ((s.firstRowChangedAfterInit!==true || !XpandHelper.IsRootSplitter(parentSplitter)) && up && up.GetMainElement()) {{ 
+                        up.PerformCallback(s.GetFocusedRowIndex());}} 
+                    s.firstRowChangedAfterInit = false; }}", XpandLayoutManager.GetXpandHelperScript());
 
             gridView.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
         }

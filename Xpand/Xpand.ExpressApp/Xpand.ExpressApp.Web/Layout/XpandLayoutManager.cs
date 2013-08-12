@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGridView;
@@ -29,8 +30,10 @@ namespace Xpand.ExpressApp.Web.Layout {
     }
 
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
-        ViewItemsCollection _detailViewItems;
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
+
+        private static readonly List<Tuple<Type, Type>> listControlAdapters = new List<Tuple<Type, Type>>();
+        private ViewItemsCollection _detailViewItems;
 
         protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
             var handler = Instantiated;
@@ -39,16 +42,37 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
 
+
+
+        static XpandLayoutManager() {
+            RegisterListControlAdapter(typeof(ASPxGridView), typeof(GridViewListAdapter));
+        }
+
+        public static void RegisterListControlAdapter(Type controlType, Type adapterType) {
+            Guard.ArgumentNotNull(controlType, "controlType");
+            if (!typeof(IListControlAdapter).IsAssignableFrom(adapterType))
+                throw new ArgumentException("Class must implement the IListControlAdapter interface", "adapterType");
+
+            for (int i = 0; i < listControlAdapters.Count; i++) {
+                if (listControlAdapters[i].Item1.IsAssignableFrom(controlType)) {
+                    listControlAdapters[i] = new Tuple<Type, Type>(controlType, adapterType);
+                    return;
+                }
+            }
+
+            listControlAdapters.Add(new Tuple<Type, Type>(controlType, adapterType));
+        }
+
+
         public override object LayoutControls(IModelNode layoutInfo, ViewItemsCollection detailViewItems) {
             var splitLayout = layoutInfo as IModelSplitLayout;
             if (IsMasterDetail(layoutInfo, detailViewItems, splitLayout)) {
                 _detailViewItems = detailViewItems;
 
-                var gridView = (Control)detailViewItems[0].Control as ASPxGridView;
-                if (gridView != null) {
+                IListControlAdapter adapter = GetListControlAdapter((Control)detailViewItems[0].Control);
+                if (adapter != null) {
                     var detailControl = (Control)detailViewItems[1].Control;
-                    SetupViewItems(gridView);
-                    ASPxSplitter splitter = LayoutMasterDetail(detailControl, gridView, splitLayout);
+                    ASPxSplitter splitter = LayoutMasterDetail(detailControl, adapter, splitLayout);
                     var viewItem = detailViewItems[0] as ListEditorViewItem;
 
                     if (viewItem != null) {
@@ -87,6 +111,18 @@ namespace Xpand.ExpressApp.Web.Layout {
             OnInstantiated(templateInstantiatedEventArgs);
         }
 
+        private static IListControlAdapter GetListControlAdapter(Control control) {
+            Guard.ArgumentNotNull(control, "control");
+
+            Type t = listControlAdapters.Where(at => at.Item1.IsInstanceOfType(control)).Select(at => at.Item2).FirstOrDefault();
+            if (t == null)
+                throw new ArgumentException(
+                    string.Format(CultureInfo.InvariantCulture, "No IListControlAdapter found for controlType {0}", control.GetType()));
+
+            IListControlAdapter adapter = (IListControlAdapter)Activator.CreateInstance(t);
+            adapter.Control = control;
+            return adapter;
+        }
         private static void SetSplitterInitClientEvent(ASPxSplitter splitter, bool isRoot) {
             splitter.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
                 "function (s,e) {{ {0}  s.AdjustControl(); s.GetMainElement().ClientControl = s;}}", isRoot ? "window.MasterDetailSplitter = s;" : string.Empty);
@@ -102,25 +138,22 @@ namespace Xpand.ExpressApp.Web.Layout {
             return splitLayout != null && detailViewItems.Count > 1 && ((IModelListView)layoutInfo.Parent).MasterDetailMode == MasterDetailMode.ListViewAndDetailView;
         }
 
-        ASPxSplitter LayoutMasterDetail(Control detailControl, ASPxGridView gridView, IModelSplitLayout splitLayout) {
-            ASPxSplitter splitter = CreateSplitter(splitLayout, PaneResized(gridView));
+        ASPxSplitter LayoutMasterDetail(Control detailControl, IListControlAdapter adapter, IModelSplitLayout splitLayout) {
+            ASPxSplitter splitter = CreateSplitter(splitLayout, adapter);
             var listPane = CreateSplitterListPane(splitter);
-            listPane.Controls.Add(gridView);
+            listPane.Controls.Add(adapter.Control);
 
             var callbackPanel = CreateSplitterDetailPane(splitter);
             callbackPanel.Controls.Add(detailControl);
             return splitter;
         }
 
-        void SetupViewItems(ASPxGridView gridView) {
-            if (string.IsNullOrEmpty(gridView.ClientInstanceName))
-                gridView.ClientInstanceName = "gridViewInSplitter";
-        }
 
         private static string GetScript(string scriptName) {
             Type t = typeof(XpandLayoutManager);
-            return t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture,
-                "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
+
+            return
+                t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture, "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
         }
 
         private static string GetAdjustSizeScript() {
@@ -138,6 +171,7 @@ namespace Xpand.ExpressApp.Web.Layout {
 
             if (!(WebWindow.CurrentRequestWindow is PopupWindow))
                 updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
+
 
             updatePanel.ClientSideEvents.EndCallback = "function(s,e) {ProcessMarkup(s, true);}";
             updatePanel.CustomJSProperties += updatePanel_CustomJSProperties;
@@ -203,21 +237,24 @@ namespace Xpand.ExpressApp.Web.Layout {
             return listPane;
         }
 
-        string PaneResized(ASPxGridView gridView) {
+        private string GetPaneResizedEventScript(IListControlAdapter adapter) {
             return string.Format(CultureInfo.InvariantCulture,
-                                 "function (s,e) {{ if (e.pane.name==='listPane') {{ {0}.SetWidth(e.pane.GetClientWidth()); {0}.SetHeight(e.pane.GetClientHeight());}}}}",
-                                 gridView.ClientInstanceName);
+                                 "function (s,e) {{ if (e.pane.name==='listPane') {{ {0} }}}}",
+                                  adapter.CreateSetBoundsScript("e.pane.GetClientWidth()", "e.pane.GetClientHeight()"));
         }
 
-        ASPxSplitter CreateSplitter(IModelSplitLayout splitLayout, string paneResize) {
+        private ASPxSplitter CreateSplitter(IModelSplitLayout splitLayout, IListControlAdapter adapter) {
             var splitter = new ASPxSplitter {
                 ID = "MasterDetailSplitter",
-                Orientation = (splitLayout.Direction == FlowDirection.Horizontal) ? Orientation.Horizontal : Orientation.Vertical,
+                Orientation =
+                    (splitLayout.Direction == FlowDirection.Horizontal)
+                        ? Orientation.Horizontal
+                        : Orientation.Vertical,
                 ShowCollapseBackwardButton = true,
                 ShowCollapseForwardButton = true
             };
 
-            splitter.ClientSideEvents.PaneResized = paneResize;
+            splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
             return splitter;
         }
 
