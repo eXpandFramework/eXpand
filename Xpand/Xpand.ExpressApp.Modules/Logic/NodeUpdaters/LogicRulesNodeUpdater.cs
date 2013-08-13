@@ -11,13 +11,13 @@ using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 using Xpand.Utils;
 using Xpand.Utils.Helpers;
+using System.Linq;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
-    public abstract class LogicRulesNodeUpdater<TLogicRule, TModelLogicRule, TRootModelNode> :
+    public abstract class LogicRulesNodeUpdater<TLogicRule, TModelLogicRule> :
         ModelNodesGeneratorUpdater<LogicRulesNodesGenerator>
         where TLogicRule : ILogicRule
-        where TModelLogicRule : IModelLogicRule
-        where TRootModelNode : IModelNode {
+        where TModelLogicRule : IModelLogicRule{
         IEnumerable<PropertyInfo> _explicitProperties;
 
         void AddRules(ModelNode node, IEnumerable<TLogicRule> attributes, IModelClass modelClass) {
@@ -52,16 +52,15 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
         protected abstract void SetAttribute(TModelLogicRule rule, TLogicRule attribute);
 
         public override void UpdateNode(ModelNode node) {
-            TRootModelNode rootModelNode = default(TRootModelNode);
-            var propertyName = rootModelNode.GetPropertyName(ExecuteExpression());
+            var propertyName = ReflectionExtensions.GetPropertyName(ExecuteExpression());
             if (node.Parent.Id == propertyName) {
                 foreach (IModelClass modelClass in node.Application.BOModel) {
-                    var findAttributes = LogicRuleManager<TLogicRule>.FindAttributes(modelClass.TypeInfo);
-                    AddRules(node, findAttributes, modelClass);
+                    var findAttributes = LogicRuleManager.FindAttributes(modelClass.TypeInfo);
+                    AddRules(node, findAttributes.OfType<TLogicRule>(), modelClass);
                 }
             }
         }
 
-        protected abstract Expression<Func<TRootModelNode, object>> ExecuteExpression();
+        protected abstract Expression<Func<IModelApplication, object>> ExecuteExpression();
     }
 }

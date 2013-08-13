@@ -26,6 +26,8 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
             ViewEditMode = logicRule.ViewEditMode;
             ViewType = logicRule.ViewType;
             ObjectType = logicRule.TypeInfo.Type;
+            NormalCriteria=logicRule.NormalCriteria;
+            EmptyCriteria=logicRule.EmptyCriteria;
         }
         public string ViewId { get; set; }
 
@@ -41,6 +43,11 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
         public string ViewContextGroup { get; set; }
         public string FrameTemplateContextGroup { get; set; }
+
+        public string NormalCriteria { get; set; }
+
+        public string EmptyCriteria { get; set; }
+
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
         public bool? IsRootView { get; set; }

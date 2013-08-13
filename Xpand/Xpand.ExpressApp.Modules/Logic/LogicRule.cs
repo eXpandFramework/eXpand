@@ -20,6 +20,8 @@ namespace Xpand.ExpressApp.Logic {
             ViewEditMode = logicRule.ViewEditMode;
             ViewContextGroup = logicRule.ViewContextGroup;
             FrameTemplateContextGroup = logicRule.FrameTemplateContextGroup;
+            NormalCriteria=logicRule.NormalCriteria;
+            EmptyCriteria=logicRule.EmptyCriteria;
         }
 
         public string ID { get; set; }
@@ -30,6 +32,10 @@ namespace Xpand.ExpressApp.Logic {
         public string ViewContextGroup { get; set; }
         public ViewEditMode? ViewEditMode { get; set; }
 
+
+        public string NormalCriteria { get; set; }
+
+        public string EmptyCriteria { get; set; }
 
         public FrameTemplateContext FrameTemplateContext { get; set; }
         public string FrameTemplateContextGroup { get; set; }

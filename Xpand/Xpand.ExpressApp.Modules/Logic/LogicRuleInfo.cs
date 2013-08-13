@@ -6,12 +6,12 @@ namespace Xpand.ExpressApp.Logic {
     /// <summary>
     /// A helper class that is used to store the information about the artifact
     /// </summary>
-    public class LogicRuleInfo<TLogicRule> : ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule {
+    public class LogicRuleInfo : ILogicRuleInfo{
 
         /// <summary>
         /// Represents a string that describes the current rule.
         /// </summary>
-        public TLogicRule Rule { get; set; }
+        public ILogicRule Rule { get; set; }
 
         /// <summary>
         /// Currently processed object in the View.

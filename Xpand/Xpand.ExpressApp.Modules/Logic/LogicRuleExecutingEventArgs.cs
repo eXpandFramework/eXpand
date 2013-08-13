@@ -1,12 +1,11 @@
 using System.ComponentModel;
-using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleExecutingEventArgs<TLogicRule> : CancelEventArgs where TLogicRule : ILogicRule {
+    public class LogicRuleExecutingEventArgs : CancelEventArgs  {
         readonly ExecutionContext _executionContext;
 
 
-        public LogicRuleExecutingEventArgs(LogicRuleInfo<TLogicRule> info, bool cancel,
+        public LogicRuleExecutingEventArgs(LogicRuleInfo info, bool cancel,
                                            ExecutionContext executionContext) {
             _executionContext = executionContext;
             LogicRuleInfo = info;
@@ -17,7 +16,7 @@ namespace Xpand.ExpressApp.Logic {
         /// <summary>
         /// Allows you to customize the information about the artifact states.
         /// </summary>
-        public LogicRuleInfo<TLogicRule> LogicRuleInfo { get; set; }
+        public LogicRuleInfo LogicRuleInfo { get; set; }
 
         public ExecutionContext ExecutionContext {
             get { return _executionContext; }

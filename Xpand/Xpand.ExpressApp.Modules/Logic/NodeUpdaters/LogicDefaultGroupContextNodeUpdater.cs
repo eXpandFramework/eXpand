@@ -1,24 +1,23 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
-    public class LogicDefaultGroupContextNodeUpdater<TModelLogic, TModelApplication> : ModelNodesGeneratorUpdater<ExecutionContextsGroupNodeGenerator> where TModelLogic : IModelLogic where TModelApplication:IModelNode {
-        readonly Func<TModelApplication, TModelLogic> _modelLogic;
-        public const string Default = "Default";
+    public class LogicDefaultGroupContextNodeUpdater : ModelNodesGeneratorUpdater<ExecutionContextsGroupNodeGenerator>   {
+        readonly Func<IModelApplication, IModelLogic> _modelLogic;
+        
 
-        public LogicDefaultGroupContextNodeUpdater(Func<TModelApplication, TModelLogic> modelLogic) {
+        public LogicDefaultGroupContextNodeUpdater(Func<IModelApplication, IModelLogic> modelLogic) {
             _modelLogic = modelLogic;
         }
 
         public override void UpdateNode(ModelNode node) {
-            IModelExecutionContextsGroup m = _modelLogic.Invoke((TModelApplication) node.Application).ExecutionContextsGroup;
-            if (m[Default] != null) return;
-            m.AddNode<IModelExecutionContexts>(Default);
+            IModelExecutionContextsGroup m = _modelLogic.Invoke(node.Application).ExecutionContextsGroup;
+            if (m[LogicRuleDomainLogic.DefaultExecutionContextGroup] != null) return;
+            m.AddNode<IModelExecutionContexts>(LogicRuleDomainLogic.DefaultExecutionContextGroup);
         }
-
-        
     }
 }

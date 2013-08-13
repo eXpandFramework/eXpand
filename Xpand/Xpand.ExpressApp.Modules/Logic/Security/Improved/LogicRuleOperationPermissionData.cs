@@ -6,12 +6,10 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
@@ -26,7 +24,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater<IModelLogic, IModelNode>.Default;
+            ExecutionContextGroup = LogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
 
 
@@ -46,6 +44,11 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public string ActionExecutionContextGroup { get; set; }
         public string ViewContextGroup { get; set; }
         public string FrameTemplateContextGroup { get; set; }
+
+        public string NormalCriteria { get; set; }
+
+        public string EmptyCriteria { get; set; }
+
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
         public bool? IsRootView { get; set; }

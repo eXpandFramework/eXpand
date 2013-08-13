@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Logic.Security;
 
@@ -30,10 +28,9 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void CollectRules() {
-            IEnumerable<IRuleCollector> ruleCollectors = Application.Modules.OfType<IRuleCollector>();
-            foreach (IRuleCollector ruleCollector in ruleCollectors) {
-                ruleCollector.CollectRules(Application);
-            }
+            var ruleCollector = Application.Modules.FindModule<LogicModule>().LogicRuleCollector;
+            LogicRuleCollector.PermissionsReloaded = false;
+            ruleCollector.CollectRules(Application);
         }
 
         void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs args) {

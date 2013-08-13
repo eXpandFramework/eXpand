@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
-    public class LogicDefaultContextNodeUpdater<TModelLogic, TModelApplication> : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator> where TModelLogic : IModelLogic where TModelApplication:IModelNode {
+    public class LogicDefaultContextNodeUpdater : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator>  {
         readonly List<ExecutionContext> _executionContexts;
-        readonly Func<TModelApplication, TModelLogic> _modelLogic;
+        readonly Func<IModelApplication, IModelLogic> _modelLogic;
 
-        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<TModelApplication, TModelLogic> modelLogic) {
+        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<IModelApplication, IModelLogic> modelLogic) {
             _executionContexts = executionContexts;
             _modelLogic = modelLogic;
         }
 
 
         public override void UpdateNode(ModelNode node) {
-            IModelExecutionContexts defaultModelExecutionContexts = GetDefaulModelExecutionContextsModelNode((TModelApplication) node.Application);
+            IModelExecutionContexts defaultModelExecutionContexts = GetDefaulModelExecutionContextsModelNode(node.Application);
             if (defaultModelExecutionContexts != null) {
                 foreach (var executionContext in GetContexts(defaultModelExecutionContexts)) {
                     var modelExecutionContext = defaultModelExecutionContexts.AddNode<IModelExecutionContext>();
@@ -27,8 +28,8 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
             }
         }
 
-        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(TModelApplication application) {
-            return _modelLogic.Invoke(application).ExecutionContextsGroup.SingleOrDefault(context => context.Id == LogicDefaultGroupContextNodeUpdater<IModelLogic, IModelNode>.Default);
+        IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(IModelApplication application) {
+            return _modelLogic.Invoke(application).ExecutionContextsGroup.SingleOrDefault(context => context.Id == LogicRuleDomainLogic.DefaultExecutionContextGroup);
         }
 
         IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts) {

@@ -13,10 +13,19 @@ namespace Xpand.ExpressApp.Logic {
         protected LogicRuleAttribute(string id) {
             Id = id;
         }
+
+        protected LogicRuleAttribute(string id, string normalCriteria, string emptyCriteria):this(id) {
+            NormalCriteria=normalCriteria;
+            EmptyCriteria=emptyCriteria;
+        }
         #region ILogicRule Members
         public string Id { get; set; }
         public string Description { get; set; }
         public int? Index { get; set; }
+
+        public string NormalCriteria { get; set; }
+
+        public string EmptyCriteria { get; set; }
 
         public FrameTemplateContext FrameTemplateContext { get; set; }
 

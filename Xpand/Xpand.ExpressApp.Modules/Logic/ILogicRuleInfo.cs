@@ -2,11 +2,11 @@ using DevExpress.ExpressApp;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public interface ILogicRuleInfo<TLogicRule> where TLogicRule : ILogicRule {
+    public interface ILogicRuleInfo {
         /// <summary>
         /// Represents a string that describes the current rule.
         /// </summary>
-        TLogicRule Rule { get; }
+        ILogicRule Rule { get; }
 
         /// <summary>
         /// Currently processed object in the View.

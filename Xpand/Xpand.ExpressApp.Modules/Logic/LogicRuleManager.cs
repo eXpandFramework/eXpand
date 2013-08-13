@@ -1,87 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleManager<TLogicRule> : ILogicRuleManager<TLogicRule> {
+    public class LogicRuleManager {
         public const BindingFlags MethodRuleBindingFlags =
             BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public |
             BindingFlags.NonPublic;
 
-        static IValueManager<LogicRuleManager<TLogicRule>>
-            instanceManager;
+        static IValueManager<LogicRuleManager> _instanceManager;
 
-        readonly Dictionary<Type, List<TLogicRule>> rules;
+        readonly Dictionary<ITypeInfo, List<ILogicRule>> rules;
 
-        protected LogicRuleManager() {
-            rules = new Dictionary<Type, List<TLogicRule>>();
+        LogicRuleManager() {
+            rules = new Dictionary<ITypeInfo, List<ILogicRule>>();
         }
 
-        public static LogicRuleManager<TLogicRule> Instance {
+        internal Dictionary<ITypeInfo, List<ILogicRule>> Rules {
+            get { return rules; }
+        }
+
+        public static LogicRuleManager Instance {
             get {
-                if (instanceManager == null) {
-                    instanceManager = ValueManager.GetValueManager<LogicRuleManager<TLogicRule>>("LogicRuleManager");
+                if (_instanceManager == null) {
+                    _instanceManager = ValueManager.GetValueManager<LogicRuleManager>("LogicRuleManager");
                 }
-                return instanceManager.Value ?? (instanceManager.Value = new LogicRuleManager<TLogicRule>());
+                return _instanceManager.Value ?? (_instanceManager.Value = new LogicRuleManager());
             }
         }
-        #region ILogicRuleManager<TLogicRule> Members
-        public List<TLogicRule> this[ITypeInfo typeInfo] {
+        
+        public List<ILogicRule> this[ITypeInfo typeInfo] {
             get {
                 lock (rules) {
-                    return GetLogicRules(typeInfo.Type);
-                }
-            }
-            set {
-                lock (rules) {
-                    rules[typeInfo.Type] = value;
+                    if (!rules.ContainsKey(typeInfo)) 
+                        rules.Add(typeInfo, new List<ILogicRule>());
+                    return rules[typeInfo];
                 }
             }
         }
-
-        List<TLogicRule> GetLogicRules(Type type) {
-            List<TLogicRule> result = GetEmptyRules();
-            while (type != null && type != typeof(object)) {
-                result.AddRange(GetTypeRules(type));
-                type = type.BaseType;
-            }
-            return result;
-        }
-        #endregion
-        IEnumerable<TLogicRule> GetTypeRules(Type typeInfo) {
-            List<TLogicRule> result;
-            if (!rules.TryGetValue(typeInfo, out result)) {
-                result = GetEmptyRules();
-                rules.Add(typeInfo, result);
-            }
-            return result ?? GetEmptyRules();
-        }
-
-        List<TLogicRule> GetEmptyRules() {
-            return new List<TLogicRule>();
-        }
-
+        
         public static bool HasRules(ITypeInfo typeInfo) {
-            foreach (var rule in Instance.rules) {
-                if (rule.Key.Name == "IOrder") {
-                    Debug.Print("");
-                }
-            }
-            return Instance[typeInfo].Count > 0;
+            return Instance[typeInfo].Any() ;
         }
-
+        
         public static bool HasRules(View view) {
-            if (view != null && view.ObjectTypeInfo != null) {
-                return HasRules(view.ObjectTypeInfo);
-            }
-            return false;
+            return view != null && view.ObjectTypeInfo != null && HasRules(view.ObjectTypeInfo);
         }
-
 
         public static bool IsDisplayedMember(IMemberInfo memberInfo) {
             if (memberInfo.Owner.KeyMember == memberInfo) {
@@ -92,14 +61,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
 
-        public static IEnumerable<TLogicRule> FindAttributes(ITypeInfo typeInfo) {
+        public static IEnumerable<ILogicRule> FindAttributes(ITypeInfo typeInfo) {
             return typeInfo != null ? GetLogicRuleAttributes(typeInfo) : null;
         }
 
-        static IEnumerable<TLogicRule> GetLogicRuleAttributes(ITypeInfo typeInfo) {
-            return typeInfo.FindAttributes<Attribute>(false).OfType<TLogicRule>();
+        static IEnumerable<ILogicRule> GetLogicRuleAttributes(ITypeInfo typeInfo) {
+            return typeInfo.FindAttributes<Attribute>(false).OfType<ILogicRule>();
         }
-
-
     }
 }

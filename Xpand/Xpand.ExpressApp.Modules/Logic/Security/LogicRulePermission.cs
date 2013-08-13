@@ -5,16 +5,14 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
 
 namespace Xpand.ExpressApp.Logic.Security {
     public abstract class LogicRulePermission : PermissionBase, ILogicRule {
         protected LogicRulePermission() {
-            ExecutionContextGroup = LogicDefaultGroupContextNodeUpdater<IModelLogic,IModelNode>.Default;
+            ExecutionContextGroup = LogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
 
         public string ViewId { get; set; }
@@ -31,6 +29,11 @@ namespace Xpand.ExpressApp.Logic.Security {
 
         public string ViewContextGroup { get; set; }
         public string FrameTemplateContextGroup { get; set; }
+
+        public string NormalCriteria { get; set; }
+
+        public string EmptyCriteria { get; set; }
+
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
         public bool? IsRootView { get; set; }

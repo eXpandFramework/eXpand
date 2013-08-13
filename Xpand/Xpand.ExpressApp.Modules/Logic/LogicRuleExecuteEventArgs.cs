@@ -1,16 +1,14 @@
 using System;
-using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
     /// <summary>
     /// Arguments of the ArtifactStateCustomized event.
     /// </summary>
-    public class LogicRuleExecutedEventArgs<TLogicRule> : EventArgs
-        where TLogicRule : ILogicRule {
+    public class LogicRuleExecuteEventArgs : EventArgs         {
         readonly ExecutionContext _executionContext;
 
 
-        public LogicRuleExecutedEventArgs(LogicRuleInfo<TLogicRule> info, ExecutionContext executionContext) {
+        public LogicRuleExecuteEventArgs(LogicRuleInfo info, ExecutionContext executionContext) {
             _executionContext = executionContext;
             LogicRuleInfo = info;
         }
@@ -22,6 +20,6 @@ namespace Xpand.ExpressApp.Logic {
         /// <summary>
         /// Allows you to know the information about the artifact states.
         /// </summary>
-        public LogicRuleInfo<TLogicRule> LogicRuleInfo { get; set; }
+        public LogicRuleInfo LogicRuleInfo { get; set; }
         }
 }

@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
-    
     public class ModelLogicRuleDomainLogic {
         public static List<string> Get_ActionExecutionContexts(IModelLogicRule modelLogicRule) {
             var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ActionExecutionContextGroup;
