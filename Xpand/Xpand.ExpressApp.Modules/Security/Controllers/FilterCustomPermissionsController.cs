@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
             Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;
             Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes;
         }

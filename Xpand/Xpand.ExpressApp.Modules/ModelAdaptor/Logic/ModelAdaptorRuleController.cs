@@ -37,6 +37,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
             _logicRuleViewController.LogicRuleExecute -= OnLogicRuleExecute;
         }
         

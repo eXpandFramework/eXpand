@@ -46,6 +46,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
             Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;        
         }
     }

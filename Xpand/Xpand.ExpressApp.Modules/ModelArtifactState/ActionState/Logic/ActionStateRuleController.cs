@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
             _logicRuleViewController.LogicRuleExecute-=OnLogicRuleExecute;
         }
 
