@@ -64,8 +64,7 @@ namespace XVideoRental.Win {
             
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this._xpandReportsWindowsFormsModule2 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
-            this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
-            this.additionalViewControlsProviderWindowsFormsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule();
+            
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -137,8 +136,6 @@ namespace XVideoRental.Win {
             
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this._xpandReportsWindowsFormsModule2);
-            this.Modules.Add(this.additionalViewControlsModule1);
-            this.Modules.Add(this.additionalViewControlsProviderWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch);
@@ -185,7 +182,6 @@ namespace XVideoRental.Win {
 
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule _xpandReportsWindowsFormsModule2;
-        private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
-        private Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule additionalViewControlsProviderWindowsFormsModule1;
+        
     }
 }
