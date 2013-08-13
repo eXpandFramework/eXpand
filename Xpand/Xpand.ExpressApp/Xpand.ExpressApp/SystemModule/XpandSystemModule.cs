@@ -143,8 +143,11 @@ namespace Xpand.ExpressApp.SystemModule {
             ConvertXml(parameters);
             if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
                 parameters.NodeType = typeof (IModelColumn);
-                string name = parameters.Values["CalcPropertyName"];
-                parameters.Values.Remove("CalcPropertyName");
+                string name = parameters.Values["Id"];
+                if (parameters.Values.ContainsKey("CalcPropertyName")) {
+                    name = parameters.Values["CalcPropertyName"];
+                    parameters.Values.Remove("CalcPropertyName");
+                }
                 parameters.Values.Add("PropertyName",name);
             }
         }

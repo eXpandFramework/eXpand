@@ -63,7 +63,6 @@ namespace Xpand.Persistent.Base.General {
             if (handler != null) handler(this, e);
         }
 
-
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
             _isHosted = GetIsHosted();
