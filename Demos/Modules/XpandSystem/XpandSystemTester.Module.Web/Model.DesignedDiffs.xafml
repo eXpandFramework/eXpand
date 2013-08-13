@@ -1,2 +1,12 @@
-<?xml version="1.0"?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.5.24" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.1.5.24" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="XpandSystemTester.Module.BusinessObjects.Customer_ListView" OpenDetailViewAsPopup="True" />
+  </Views>
+</Application>

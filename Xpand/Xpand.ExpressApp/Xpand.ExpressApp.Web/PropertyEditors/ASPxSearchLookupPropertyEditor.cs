@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         string editorId;
         internal NestedFrame frame;
         WebLookupEditorHelper helper;
-        ListView listView;
+        DevExpress.ExpressApp.ListView listView;
         object newObject;
         IObjectSpace newObjectSpace;
         NewObjectViewController newObjectViewController;

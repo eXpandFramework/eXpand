@@ -130,7 +130,7 @@
 		<ProjectFiles Include="
 			.\Demos\SecurityDemo\SecurityDemo.sln;"/>
 		<ProjectFiles Include="
-			.\Demos\WorkflowDemo\WorkflowDemo.sln;"/>
+			.\Demos\WorkflowDemo\WorkflowDemo.sln;" Condition="$(SkipDashboard)!='true'"/>
 		<ProjectFiles Include="	
 			.\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;
 			.\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;
@@ -185,10 +185,10 @@
 	<UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />	
 	<UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
 	
-	<Target Name="FixReferences">
+		<Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
 		<MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build"  /> 
 		<Exec Command=".\FixReferences\bin\debug\FixReferences.exe"/>
-	</Target>
+  </Target>
 	<!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
@@ -388,6 +388,7 @@
 	<Target Name="NuGetPackage">
 		<MakeDir Directories="$(BuildPath)\NuGet" />
 		<!-- Package -->
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandSystem.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandAdditionalViewControlsProviderWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\eXpandConditionalObjectView.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
@@ -428,6 +429,7 @@
 	<Target Name="NuGet" DependsOnTargets="NuGetPackage">
 		<!-- Publish -->
 
+		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystem.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWeb.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWin.$(Version).nupkg $(NuGetApiKey)"/>
 		<Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandConditionalObjectView.$(Version).nupkg $(NuGetApiKey)"/>

@@ -102,6 +102,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\IModelViewOpenView.cs" />
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -122,6 +123,9 @@
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Layout\GridViewListAdapter.cs" />
+    <Compile Include="Layout\IListControlAdapter.cs" />
+    <Compile Include="Layout\ListControlAdapterBase.cs" />
     <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
@@ -135,7 +139,6 @@
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\IModelViewOpenViewWhenNested.cs" />
     <Compile Include="PropertyEditors\ASPxDateTimePropertyEditor.cs" />
     <Compile Include="PropertyEditors\ASPxTimePropertyEditor .cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />

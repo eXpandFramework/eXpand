@@ -7,7 +7,7 @@ using Xpand.ExpressApp.SystemModule;
 namespace Xpand.ExpressApp.Web.SystemModule {
     public class WebToolTipsController : ToolTipsController {
         protected override void SetListViewToolTips() {
-            var editor = ((ListView)View).Editor as ASPxGridListEditor;
+            var editor = ((DevExpress.ExpressApp.ListView)View).Editor as ASPxGridListEditor;
             if (editor != null) {
                 foreach (ColumnWrapper columnWrapper in editor.Columns) {
                     if (columnWrapper is ASPxGridViewColumnWrapper) {

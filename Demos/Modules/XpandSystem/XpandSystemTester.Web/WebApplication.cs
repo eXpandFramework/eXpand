@@ -7,11 +7,12 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Web;
 using XpandSystemTester.Module;
 using XpandSystemTester.Module.Web;
 
 namespace XpandSystemTester.Web {
-    public class XpandSystemTesterAspNetApplication : WebApplication {
+    public class XpandSystemTesterAspNetApplication : XpandWebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         XpandSystemTesterModule module3;
