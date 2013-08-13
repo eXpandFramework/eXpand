@@ -11,9 +11,11 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Xpand.ExpressApp.Validation.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Validation.Web</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -95,9 +97,7 @@
     <Compile Include="OnErrorAutoScrollPageToTopController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuleTypeController.cs" />
     <Compile Include="XpandValidationWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

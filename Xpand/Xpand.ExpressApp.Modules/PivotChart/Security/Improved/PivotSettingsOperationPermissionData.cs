@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ConditionalControllerState.Security.Improved;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Security.Improved;
 
 namespace Xpand.ExpressApp.PivotChart.Security.Improved {
     [System.ComponentModel.DisplayName("PivotSettings")]

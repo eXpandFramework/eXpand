@@ -4,11 +4,11 @@ using System.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Security;
+using Xpand.ExpressApp.Logic.Security;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
     [NonPersistent]
-    public class AdditionalViewControlsPermission : ConditionalLogicRulePermission, IAdditionalViewControlsRule {
+    public class AdditionalViewControlsPermission : LogicRulePermission, IAdditionalViewControlsRule {
         [RuleRequiredField]
         public Type ControlType { get; set; }
         [RuleRequiredField]

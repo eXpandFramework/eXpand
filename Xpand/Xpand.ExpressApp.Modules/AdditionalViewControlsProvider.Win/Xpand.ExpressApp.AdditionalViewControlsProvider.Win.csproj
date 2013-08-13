@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AdditionalViewControlsProvider.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AdditionalViewControlsProvider.Win</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -83,10 +85,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
@@ -126,7 +124,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decorators\WinFrameControlDecorator.cs" />
-    <Compile Include="Editors\AdditionalViewControlsItem.cs"></Compile>
+    <Compile Include="Editors\AdditionalViewControlsItem.cs">
+    </Compile>
     <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -145,7 +144,8 @@
     <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Updater.cs"></Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

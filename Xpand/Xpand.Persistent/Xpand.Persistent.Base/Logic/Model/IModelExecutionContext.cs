@@ -13,6 +13,7 @@ namespace Xpand.Persistent.Base.Logic.Model {
         [Browsable(false)]
         IEnumerable<string> ExecutionContexts { get; }
     }
+
     [KeyProperty("Name")]
     [DisplayProperty("Name")]
     public interface IModelActionExecutionContext : IModelNode {

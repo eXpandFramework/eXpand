@@ -1,5 +1,5 @@
 ﻿using DevExpress.Xpo;
-using Xpand.ExpressApp.ConditionalControllerState.Security;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Security;
 
 namespace Xpand.ExpressApp.PivotChart.Security {
     [NonPersistent]

@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model.ModelAdaptor {
     [ModelInterfaceImplementor(typeof(IModelAdaptorGridViewOptionsRule), "Attribute")]
-    [ModelEditorLogicRule(typeof(IModelModelAdaptorLogic))]
+    [ModelLogicValidRule(typeof(IModelModelAdaptorLogic))]
     public interface IModelModelAdaptorGridViewOptionsRule : IModelModelAdaptorRule, IModelOptionsGridView {
     }
 

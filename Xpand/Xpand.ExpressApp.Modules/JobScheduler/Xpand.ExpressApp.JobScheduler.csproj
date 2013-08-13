@@ -80,10 +80,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>

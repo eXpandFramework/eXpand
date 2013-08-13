@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Xpand.ExpressApp.ConditionalControllerState.Logic;
-using Xpand.ExpressApp.ConditionalControllerState.Security.Improved;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Security.Improved;
 
 namespace Xpand.ExpressApp.PivotChart.Security.Improved {
     public class ShowInAnalysisPermission : ControllerStateRulePermission {

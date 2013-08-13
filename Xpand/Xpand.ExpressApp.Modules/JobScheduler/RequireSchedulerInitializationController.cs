@@ -10,6 +10,8 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public class RequireSchedulerInitializationController : ViewController<DetailView> {
+        LogicRuleViewController _logicRuleViewController;
+
         public RequireSchedulerInitializationController() {
             TargetObjectType = typeof(IRequireSchedulerInitialization);
         }
@@ -22,24 +24,24 @@ namespace Xpand.ExpressApp.JobScheduler {
         }
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            var additionalViewControlsRuleViewController = Frame.GetController<AdditionalViewControlsRuleViewController>();
-            if (additionalViewControlsRuleViewController == null)
+            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
+            if (_logicRuleViewController == null)
                 throw new NullReferenceException("Use the application designer to drag and drop the AdditionalViewControlsProvider module");
-            additionalViewControlsRuleViewController.LogicRuleExecuting += OnLogicRuleExecuting;
+            _logicRuleViewController.LogicRuleExecuting += OnLogicRuleExecuting;
             Frame.Disposing += FrameOnDisposing;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            Frame.GetController<AdditionalViewControlsRuleViewController>().LogicRuleExecuting -= OnLogicRuleExecuting;
+            _logicRuleViewController.LogicRuleExecuting -= OnLogicRuleExecuting;
         }
 
-        void OnLogicRuleExecuting(object sender, LogicRuleExecutingEventArgs<IAdditionalViewControlsRule> logicRuleExecutingEventArgs) {
-            if (logicRuleExecutingEventArgs.LogicRuleInfo.Rule.TypeInfo.Implements<IRequireSchedulerInitialization>()) {
+        void OnLogicRuleExecuting(object sender, LogicRuleExecutingEventArgs logicRuleExecutingEventArgs) {
+            if (logicRuleExecutingEventArgs.LogicRuleInfo.Rule is IAdditionalViewControlsRule&&logicRuleExecutingEventArgs.LogicRuleInfo.Rule.TypeInfo.Implements<IRequireSchedulerInitialization>()) {
                 View.AllowEdit["SchedulerNotStarted"] = GetScedulerState(logicRuleExecutingEventArgs.LogicRuleInfo);
             }
         }
 
-        bool GetScedulerState(LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo) {
+        bool GetScedulerState(LogicRuleInfo logicRuleInfo) {
             IScheduler scheduler = Application.FindModule<JobSchedulerModule>().Scheduler;
             if (scheduler != null) {
                 logicRuleInfo.Active = !scheduler.IsStarted;

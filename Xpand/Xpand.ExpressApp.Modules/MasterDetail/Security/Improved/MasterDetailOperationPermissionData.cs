@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
+using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     [System.ComponentModel.DisplayName("MasterDetail")]
-    public class MasterDetailOperationPermissionData : ConditionalLogicOperationPermissionData, IMasterDetailRule {
+    public class MasterDetailOperationPermissionData : LogicRuleOperationPermissionData, IMasterDetailRule {
         public MasterDetailOperationPermissionData(Session session)
             : base(session) {
         }

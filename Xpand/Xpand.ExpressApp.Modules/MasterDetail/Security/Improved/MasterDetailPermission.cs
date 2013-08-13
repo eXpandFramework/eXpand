@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
+using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
-    public class MasterDetailPermission : ConditionalLogicRulePermission, IMasterDetailRule {
+    public class MasterDetailPermission : LogicRulePermission, IMasterDetailRule {
         public const string OperationName = "MasterDetail";
 
         public MasterDetailPermission(IMasterDetailRule logicRule)

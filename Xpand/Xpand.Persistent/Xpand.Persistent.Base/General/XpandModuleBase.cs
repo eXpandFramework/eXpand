@@ -42,8 +42,28 @@ namespace Xpand.Persistent.Base.General {
         static string _connectionString;
         protected Type DefaultXafAppType = typeof (XafApplication);
         static readonly bool _isHosted;
+        public event EventHandler ApplicationModulesManagerSetup;
+
+        protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
+            EventHandler handler = ApplicationModulesManagerSetup;
+            if (handler != null) handler(null, e);
+        }
+
         public static event CancelEventHandler InitSeqGenerator;
-        
+        public event EventHandler<ExtendingModelInterfacesArgs> ExtendingModelInterfaces ;
+        public event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters ;
+
+        void OnCustomAddGeneratorUpdaters(GeneratorUpdaterEventArgs e) {
+            EventHandler<GeneratorUpdaterEventArgs> handler = CustomAddGeneratorUpdaters;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnExtendingModelInterfaces(ExtendingModelInterfacesArgs e) {
+            EventHandler<ExtendingModelInterfacesArgs> handler = ExtendingModelInterfaces;
+            if (handler != null) handler(this, e);
+        }
+
+
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
             _isHosted = GetIsHosted();
@@ -137,6 +157,7 @@ namespace Xpand.Persistent.Base.General {
         public static ITypesInfo TypesInfo { get; set; }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
+            OnExtendingModelInterfaces(new ExtendingModelInterfacesArgs(extenders));
             if (!Executed<IColumnCellFilterUser>("ExtendModelInterfaces")) {
                 extenders.Add<IModelMember, IModelMemberCellFilter>();
                 extenders.Add<IModelColumn, IModelColumnCellFilter>();   
@@ -157,6 +178,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
+            OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
             if (Executed("AddGeneratorUpdaters"))
                 return;
             updaters.Add(new ModelViewClonerUpdater());
@@ -325,7 +347,7 @@ namespace Xpand.Persistent.Base.General {
         
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            OnApplicationInitialized(Application);
+            OnApplicationModulesManagerSetup(EventArgs.Empty);
             if (Executed("Setup2"))
                 return;
             if (RuntimeMode)
@@ -339,7 +361,6 @@ namespace Xpand.Persistent.Base.General {
             if (RuntimeMode)
                 ApplicationHelper.Instance.Initialize(application);
             CheckApplicationTypes();
-            OnApplicationInitialized(application);
             var helper = new ConnectionStringHelper();
             helper.Attach(this);
             var generatorHelper = new SequenceGeneratorHelper();
@@ -386,7 +407,6 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("CustomizeTypesInfo"))
                 return;
             AssignSecurityEntities();
-            OnApplicationInitialized(Application);
             ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
             var type = (BaseInfo) findTypeInfo.FindMember("Type");
 
@@ -443,8 +463,6 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        protected virtual void OnApplicationInitialized(XafApplication xafApplication) {
-        }
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
                 if (parameters.Values.ContainsKey("IsRuntimeMember") && parameters.XmlNodeName == "Member" && parameters.Values["IsRuntimeMember"].ToLower() == "true")
@@ -468,6 +486,30 @@ namespace Xpand.Persistent.Base.General {
         }
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.IsCustom = false;
+        }
+    }
+
+    public class GeneratorUpdaterEventArgs : EventArgs {
+        readonly ModelNodesGeneratorUpdaters _updaters;
+
+        public GeneratorUpdaterEventArgs(ModelNodesGeneratorUpdaters updaters) {
+            _updaters = updaters;
+        }
+
+        public ModelNodesGeneratorUpdaters Updaters {
+            get { return _updaters; }
+        }
+    }
+
+    public class ExtendingModelInterfacesArgs : EventArgs {
+        readonly ModelInterfaceExtenders _extenders;
+
+        public ExtendingModelInterfacesArgs(ModelInterfaceExtenders extenders) {
+            _extenders = extenders;
+        }
+
+        public ModelInterfaceExtenders Extenders {
+            get { return _extenders; }
         }
     }
 

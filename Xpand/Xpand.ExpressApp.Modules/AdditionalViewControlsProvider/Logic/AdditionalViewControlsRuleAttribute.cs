@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public class AdditionalViewControlsRuleAttribute:ConditionalLogicRuleAttribute,IAdditionalViewControlsRule {
+    public class AdditionalViewControlsRuleAttribute:LogicRuleAttribute,IAdditionalViewControlsRule {
         public AdditionalViewControlsRuleAttribute(string id, string normalCriteria, string emptyCriteria, Type controlType, Type decoratorType, string message, Position position) : base(id, normalCriteria, emptyCriteria) {
             ControlType = controlType;
             DecoratorType = decoratorType;

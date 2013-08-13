@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.MasterDetail</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.MasterDetail</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -70,10 +72,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
@@ -100,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\MasterDetailViewControllerBase.cs" />
+    <Compile Include="MasterDetailLogicInstaller.cs" />
     <Compile Include="MasterDetailModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -109,11 +108,10 @@
     <Compile Include="Logic\MasterDetailRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DomainLogic\MasterDetailRuleDomainLogic.cs" />
     <Compile Include="Model\IModelApplicationMasterDetail.cs" />
     <Compile Include="Model\IModelLogicMasterDetail.cs" />
     <Compile Include="Model\IModelMasterDetailRule.cs" />
-    <Compile Include="NodeUpdaters\MasterDetailRulesNodeUpdater.cs" />
+    <Compile Include="Model\MasterDetailRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Improved\MasterDetailOperationPermissionData.cs" />
     <Compile Include="Security\Improved\MasterDetailPermission.cs" />

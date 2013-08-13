@@ -93,5 +93,10 @@ namespace Xpand.ExpressApp.MiddleTier {
         }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
+
+        protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
+            EventHandler<WindowCreatingEventArgs> handler = WindowCreating;
+            if (handler != null) handler(this, e);
+        }
     }
 }

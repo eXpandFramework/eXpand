@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ConditionalControllerState.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
 

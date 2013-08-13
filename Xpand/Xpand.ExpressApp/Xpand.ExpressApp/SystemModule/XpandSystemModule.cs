@@ -141,10 +141,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
-#pragma warning disable 612,618
-            if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0)
-#pragma warning restore 612,618
-            {
+            if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
                 parameters.NodeType = typeof (IModelColumn);
                 string name = parameters.Values["CalcPropertyName"];
                 parameters.Values.Remove("CalcPropertyName");

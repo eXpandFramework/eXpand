@@ -78,21 +78,13 @@
     <Reference Include="DevExpress.PivotGrid.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ArtifactState">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalControllerState">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>

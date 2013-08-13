@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
+using Xpand.ExpressApp.Logic.Security.Improved;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
-    public class AdditionalViewControlsPermission : ConditionalLogicRulePermission, IAdditionalViewControlsRule {
+    public class AdditionalViewControlsPermission : LogicRulePermission, IAdditionalViewControlsRule {
         public const string OperationName = "AdditionalViewControls";
         public AdditionalViewControlsPermission(IAdditionalViewControlsRule logicRule)
             : base(OperationName, logicRule) {

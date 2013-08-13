@@ -7,15 +7,13 @@ using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
-        
-
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.ViewChanged += FrameOnViewChanged;
         }
         protected override void OnActivated() {
             base.OnActivated();
-            if (IsReady && View is DetailView) {
+            if (HasRules && View is DetailView) {
                 ResetInfoToLayoutMap();
                 var detailView = ((DetailView)View);
                 var winLayoutManager = ((WinLayoutManager)detailView.LayoutManager);
@@ -25,7 +23,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         }
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (IsReady && View is DetailView) {
+            if (HasRules && View is DetailView) {
                 var detailView = ((DetailView)View);
                 var winLayoutManager = ((WinLayoutManager)detailView.LayoutManager);
                 winLayoutManager.Container.DefaultLayoutLoading += Container_DefaultLayoutLoading;
@@ -34,7 +32,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (IsReady && View is DetailView) {
+            if (HasRules && View is DetailView) {
                 ResetInfoToLayoutMap();
                 var winLayoutManager = ((WinLayoutManager)((DetailView)View).LayoutManager);
                 winLayoutManager.ItemCreated -= OnItemCreated;
@@ -68,28 +66,27 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         void BringViewControlToFront(Control control) {
             if (control != null && control.Parent != null)
                 control.BringToFront();
-            else
+            else if (control != null)
                 control.ParentChanged += control_ParentChanged;
         }
 
-        protected override void InitializeControl(object control, LogicRuleInfo<IAdditionalViewControlsRule> logicRuleInfo,
+        protected override void InitializeControl(object control, IAdditionalViewControlsRule rule,
                                              AdditionalViewControlsProviderCalculator additionalViewControlsProviderCalculator,
                                              ExecutionContext executionContext) {
-            base.InitializeControl(control, logicRuleInfo, additionalViewControlsProviderCalculator, executionContext);
+            base.InitializeControl(control, rule, additionalViewControlsProviderCalculator, executionContext);
             var value = (Control)control;
-            if (logicRuleInfo.Rule.Position != Position.DetailViewItem) {
-                if (logicRuleInfo.Rule.Position == Position.Bottom)
+            if (rule.Position != Position.DetailViewItem) {
+                if (rule.Position == Position.Bottom)
                     value.Dock = DockStyle.Bottom;
-                else if (logicRuleInfo.Rule.Position == Position.Top)
+                else if (rule.Position == Position.Top)
                     value.Dock = DockStyle.Top;
             } else {
                 value.Dock = DockStyle.Fill;
             }
         }
 
-        void control_ParentChanged(object sender, EventArgs e)
-        {
-            var control = sender as Control;
+        void control_ParentChanged(object sender, EventArgs e) {
+            var control = ((Control)sender);
             control.ParentChanged -= control_ParentChanged;
             control.BringToFront();
         }

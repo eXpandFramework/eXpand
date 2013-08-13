@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -111,6 +112,7 @@
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
     <Compile Include="Core\ViewExtensions.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListEditors\IXpandListEditor.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />

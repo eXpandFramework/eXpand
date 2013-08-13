@@ -1,8 +1,8 @@
 ﻿using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
-    public class MasterDetailRule : ConditionalLogicRule, IMasterDetailRule {
+    public class MasterDetailRule : LogicRule, IMasterDetailRule {
         public MasterDetailRule(IMasterDetailRule masterDetailRule)
             : base(masterDetailRule) {
             ChildListView = masterDetailRule.ChildListView;

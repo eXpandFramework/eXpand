@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.TypeConverters;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
-    public class MasterDetailAttribute : ConditionalLogicRuleAttribute, IMasterDetailRule {
+    public class MasterDetailAttribute : LogicRuleAttribute, IMasterDetailRule {
         public MasterDetailAttribute(string id, string normalCriteria, string childListView, string collectionMember)
             : base(id, normalCriteria, String.Empty) {
             ChildListView = childListView;

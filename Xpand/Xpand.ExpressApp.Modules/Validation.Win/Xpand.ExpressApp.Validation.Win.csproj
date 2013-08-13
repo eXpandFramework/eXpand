@@ -11,9 +11,11 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Xpand.ExpressApp.Validation.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Validation.Win</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -111,9 +113,7 @@
     <Compile Include="CustomizeErrorMessageColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuleTypeController.cs" />
     <Compile Include="XpandValidationWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

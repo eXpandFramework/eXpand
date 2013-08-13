@@ -5,12 +5,12 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Security.Improved;
+using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.Persistent.Base.General.ValueConverters;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     [System.ComponentModel.DisplayName("AdditionalViewControls")]
-    public class AdditionalViewControlsOperationPermissionData : ConditionalLogicOperationPermissionData, IAdditionalViewControlsRule {
+    public class AdditionalViewControlsOperationPermissionData : LogicRuleOperationPermissionData, IAdditionalViewControlsRule {
 
         public AdditionalViewControlsOperationPermissionData(Session session)
             : base(session) {

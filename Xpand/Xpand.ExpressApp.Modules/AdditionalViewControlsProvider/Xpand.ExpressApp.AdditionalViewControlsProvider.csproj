@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AdditionalViewControlsProvider</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AdditionalViewControlsProvider</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -74,10 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
@@ -107,14 +105,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdditionalViewControlsLogicInstaller.cs" />
     <Compile Include="AdditionalViewControlsModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IAdditionalViewControl.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
-    <Compile Include="DomainLogic\AdditionalViewControlsRuleDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelAdditionalViewControlsRuleDomainLogic.cs" />
     <Compile Include="Editors\AdditionalViewControlsItem.cs" />
     <Compile Include="Logic\AdditionalViewControlsRule.cs" />
     <Compile Include="Logic\AdditionalViewControlsRuleAttribute.cs" />
@@ -127,7 +124,7 @@
     <Compile Include="Model\IModelAdditionalViewControlsRule.cs" />
     <Compile Include="Model\IModelApplicationAdditionalViewControls.cs" />
     <Compile Include="Model\IModelLogicAdditionalViewControls.cs" />
-    <Compile Include="NodeUpdaters\AdditionalViewControlsRulesNodeUpdater.cs" />
+    <Compile Include="Model\AdditionalViewControlsRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\AdditionalViewControlsPermission.cs" />
     <Compile Include="Security\Improved\AdditionalViewControlsOperationPermissionData.cs" />
@@ -179,7 +176,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NodeUpdaters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

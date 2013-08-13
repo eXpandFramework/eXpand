@@ -34,12 +34,6 @@ namespace Xpand.ExpressApp.WorldCreator {
                 Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs, "WorldCreator");
         }
 
-        protected override void OnApplicationInitialized(XafApplication xafApplication) {
-            if (xafApplication == null)
-                return;
-            base.OnApplicationInitialized(xafApplication);
-        }
-
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));

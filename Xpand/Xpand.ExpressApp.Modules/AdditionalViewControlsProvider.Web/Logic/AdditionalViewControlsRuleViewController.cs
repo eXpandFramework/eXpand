@@ -15,13 +15,14 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
 
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
 
-        protected override void AddControl(object control, object controls, LogicRuleInfo<IAdditionalViewControlsRule> info) {
+        protected override void AddControl(object control, object controls, LogicRuleInfo info) {
             base.AddControl(control, controls, info);
-            if (info.Rule.Position != Position.DetailViewItem) {
+            var rule = (IAdditionalViewControlsRule) info.Rule;
+            if (rule.Position != Position.DetailViewItem) {
                 var supportAdditionalViewControls = Frame.Template as ISupportAdditionalViewControls;
                 if (supportAdditionalViewControls != null) {
                     var asPxCallbackPanel = supportAdditionalViewControls.TopPanel;
-                    if (info.Rule.Position == Position.Bottom)
+                    if (rule.Position == Position.Bottom)
                         asPxCallbackPanel = supportAdditionalViewControls.BottomPanel;
                     var control1 = ((Control)control);
                     control1.Visible = info.Active;
@@ -33,7 +34,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            if (IsReady && View is DetailView) {
+            if (HasRules && View is DetailView) {
                 ResetInfoToLayoutMap();
                 var detailView = ((DetailView)View);
                 var winLayoutManager = ((WebLayoutManager)detailView.LayoutManager);
@@ -46,7 +47,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
         }
 
 
-        void ModifyClientEvent(ASPxGlobalEvents asPxGlobalEvents, LogicRuleInfo<IAdditionalViewControlsRule> info) {
+        void ModifyClientEvent(ASPxGlobalEvents asPxGlobalEvents, LogicRuleInfo info) {
             asPxGlobalEvents.ClientSideEvents.EndCallback = info.Active
                                                                 ? "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); if(s != TopCallBackPanel&&s != BottomCallBackPanel) {TopCallBackPanel.PerformCallback();BottomCallBackPanel.PerformCallback();};  }"
                                                                 : "function(s, e) { DXUpdateSplitterSize();DXMoveFooter(); }";

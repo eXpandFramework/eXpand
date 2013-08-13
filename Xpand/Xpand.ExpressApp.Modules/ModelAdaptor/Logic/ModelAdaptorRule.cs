@@ -1,9 +1,9 @@
 ﻿using System;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor.Logic {
-    public class ModelAdaptorRule : ConditionalLogicRule, IModelAdaptorRule {
+    public class ModelAdaptorRule : LogicRule, IModelAdaptorRule {
         public ModelAdaptorRule(IModelAdaptorRule modelAdaptorRule)
             : base(modelAdaptorRule) {   
             RuleType=modelAdaptorRule.RuleType;

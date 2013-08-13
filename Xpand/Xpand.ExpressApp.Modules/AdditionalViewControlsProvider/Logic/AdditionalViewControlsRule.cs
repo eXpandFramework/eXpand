@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
+using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public class AdditionalViewControlsRule : ConditionalLogicRule, IAdditionalViewControlsRule {
+    public class AdditionalViewControlsRule : LogicRule, IAdditionalViewControlsRule {
         public AdditionalViewControlsRule(IAdditionalViewControlsRule additionalViewControlsRule)
             : base(additionalViewControlsRule) {
                 Message = additionalViewControlsRule.Message;

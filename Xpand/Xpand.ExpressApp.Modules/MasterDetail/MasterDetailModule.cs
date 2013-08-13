@@ -1,30 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
-using Xpand.ExpressApp.MasterDetail.NodeUpdaters;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MasterDetail {
-
     [ToolboxItem(false)]
-    public class MasterDetailModule : LogicModuleBase<IMasterDetailRule, MasterDetailRule, IModelMasterDetailRule, IModelApplicationMasterDetail, IModelLogicMasterDetail> {
+    public class MasterDetailModule : XpandModuleBase {
+
         public MasterDetailModule() {
-            RequiredModuleTypes.Add(typeof(LogicModule));
-        }
-        #region IModelExtender Members
-
-        public override List<ExecutionContext> ExecutionContexts {
-            get { return new List<ExecutionContext>{ ExecutionContext.ObjectSpaceObjectChanged, ExecutionContext.CurrentObjectChanged, ExecutionContext.ControllerActivated }; }
+            LogicInstallerManager.Instance.RegisterInstaller(new MasterDetailLogicInstaller(this));
         }
 
-        public override LogicRulesNodeUpdater<IMasterDetailRule, IModelMasterDetailRule, IModelApplicationMasterDetail> LogicRulesNodeUpdater {
-            get { return new MasterDetailRulesNodeUpdater(); }
-        }
-        #endregion
-        public override IModelLogicMasterDetail GetModelLogic(IModelApplicationMasterDetail modelApplicationMasterDetail) {
-            return modelApplicationMasterDetail.MasterDetail;
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelApplication,IModelApplicationMasterDetail>();
         }
     }
 }

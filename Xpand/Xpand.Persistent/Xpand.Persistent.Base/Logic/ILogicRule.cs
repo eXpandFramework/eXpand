@@ -10,6 +10,13 @@ namespace Xpand.Persistent.Base.Logic {
 
     [RuleCriteria("testrule1", DefaultContexts.Save, "(Not IsNullOrEmpty(ExecutionContextGroup)) OR (Not IsNullOrEmpty(ActionExecutionContextGroup))", SkipNullOrEmptyValues = false, CustomMessageTemplate = "At least one of ExecutionContextGroup, ActionExecutionContextGroup should not be null")]
     public interface ILogicRule : IRule {
+        [Category("ConditionalLogic.Behavior")]
+        [Description("Specifies the criteria string which is used when determining whether logic should be executed.")]
+        string NormalCriteria { get; set; }
+
+        [Category("ConditionalLogic.Behavior")]
+        [Description("Specifies the criteria string which is used when determining whether logic should be executed only used for listviews with no records.")]
+        string EmptyCriteria { get; set; }
         [Category("Logic.Behavior")]
         FrameTemplateContext FrameTemplateContext { get; set; }
         [Category("Logic.Behavior")]
@@ -51,4 +58,15 @@ namespace Xpand.Persistent.Base.Logic {
         [Browsable(false)]
         ITypeInfo TypeInfo { get; set; }
     }
+    public class LogicRuleDomainLogic {
+        public const string DefaultExecutionContextGroup = "Default";
+        public static ITypeInfo Get_TypeInfo(ILogicRule modelNode) {
+            return ((ILogicModelClassRule)modelNode).ModelClass.TypeInfo;
+        }
+
+        public static string Get_ExecutionContextGroup(ILogicRule modelNode) {
+            return DefaultExecutionContextGroup;
+        }
+    }
+
 }

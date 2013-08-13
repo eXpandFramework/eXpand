@@ -1,30 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.Conditional.Logic;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
-    public class MasterDetailRuleController : ConditionalLogicRuleViewController<IMasterDetailRule,MasterDetailModule> {
+    public class MasterDetailRuleController : ViewController {
         readonly List<IMasterDetailRule> _masterDetailRules = new List<IMasterDetailRule>();
+        LogicRuleViewController _logicRuleViewController;
+
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().Single();
             masterDetailViewControllerBase.RequestRules = frame1 => {
-                IEnumerable<IMasterDetailRule> masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
+                var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
                 return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
             };
         }
 
-        public override void ExecuteRule(LogicRuleInfo<IMasterDetailRule> info, ExecutionContext executionContext) {
-            if (info.Active) {
-                if (!(_masterDetailRules.Contains(info.Rule))) {
-                    _masterDetailRules.Add(info.Rule);
+        protected override void OnActivated() {
+            base.OnActivated();
+            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
+            _logicRuleViewController.LogicRuleExecute+=LogicRuleViewControllerOnLogicRuleExecute;
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            _logicRuleViewController.LogicRuleExecute-=LogicRuleViewControllerOnLogicRuleExecute;
+        }
+
+        void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
+            var info = logicRuleExecuteEventArgs.LogicRuleInfo;
+            var masterDetailRule = info.Rule as IMasterDetailRule;
+            if (masterDetailRule!=null&& info.Active) {
+                if (!(_masterDetailRules.Contains(masterDetailRule))) {
+                    _masterDetailRules.Add(masterDetailRule);
                 }
             } else {
-                _masterDetailRules.Remove(info.Rule);
-            }
+                _masterDetailRules.Remove(masterDetailRule);
+            }    
         }
 
         public List<IMasterDetailRule> MasterDetailRules {

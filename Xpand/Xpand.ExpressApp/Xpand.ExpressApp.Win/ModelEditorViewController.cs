@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.SystemModule;
-using Xpand.ExpressApp.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
@@ -82,7 +81,7 @@ namespace Xpand.ExpressApp.Win {
                 var type = ((Type) singleChoiceAction.Items[i].Data);
                 var typeInfo = typesInfo.FindTypeInfo(type);
                 typeInfo = typeInfo.ImplementedInterfaces.Single(info => info.Name == "I" + type.Name);
-                var logicRuleAttribute = typeInfo.FindAttributes<ModelEditorLogicRuleAttribute>().Single();
+                var logicRuleAttribute = typeInfo.FindAttributes<ModelLogicValidRuleAttribute>().Single();
                 if (logicRuleAttribute != null && !logicRuleAttribute.RuleType.IsInstanceOfType(parentNode.ModelNode))
                     singleChoiceAction.Items.RemoveAt(i);
             }
@@ -90,9 +89,9 @@ namespace Xpand.ExpressApp.Win {
         }
 
         public static Form CreateModelEditorForm(WinApplication winApplication) {
-            var modelDifferenceStore = (ModelDifferenceStore)ReflectionExtensions.Invoke(typeof(XafApplication), winApplication, "CreateUserModelDifferenceStore");
+            var modelDifferenceStore = (ModelDifferenceStore)typeof(XafApplication).Invoke(winApplication, "CreateUserModelDifferenceStore");
             var controller = new ModelEditorViewController(winApplication.Model,  modelDifferenceStore);
-            var modelDifferencesStore = (ModelDifferenceStore) ReflectionExtensions.Invoke(typeof(XafApplication), winApplication, "CreateModelDifferenceStore");
+            var modelDifferencesStore = (ModelDifferenceStore) typeof(XafApplication).Invoke(winApplication, "CreateModelDifferenceStore");
             if (modelDifferencesStore != null) {
                 var modulesDiffStoreInfo = new List<ModuleDiffStoreInfo> { new ModuleDiffStoreInfo(null, modelDifferencesStore, "Model") };
                 controller.SetModuleDiffStore(modulesDiffStoreInfo);
