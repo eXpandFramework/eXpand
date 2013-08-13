@@ -13,7 +13,6 @@ namespace XVideoRental.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead += OnLastLogonParametersRead;
-            SplashScreen = null;
         }
 
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs e) {

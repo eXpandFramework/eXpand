@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Win.Utils;
 
 namespace XVideoRental.Win {
     static class Program {
@@ -17,7 +18,7 @@ namespace XVideoRental.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
-            var winApplication = new XVideoRentalWindowsFormsApplication();
+            var winApplication = new XVideoRentalWindowsFormsApplication{SplashScreen = new DXSplashScreen()};
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
