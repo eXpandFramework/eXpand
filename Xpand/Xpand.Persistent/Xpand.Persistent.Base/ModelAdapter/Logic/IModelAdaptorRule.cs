@@ -2,7 +2,7 @@
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.Persistent.Base.ModelAdapter.Logic {
-    public interface IModelAdaptorRule : IConditionalLogicRule {
+    public interface IModelAdaptorRule : ILogicRule {
         Type RuleType { get; set; }
     }
 }

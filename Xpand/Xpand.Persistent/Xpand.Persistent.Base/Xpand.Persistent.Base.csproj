@@ -156,7 +156,6 @@
     <Compile Include="General\XpandObjectSpace.cs" />
     <Compile Include="General\XpandObjectSpaceProvider.cs" />
     <Compile Include="General\XpoObjectHacker.cs" />
-    <Compile Include="Logic\IConditionalLogicRule.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />

@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         int? FontSize { get; set; }
     }
 
-    public interface IAdditionalViewControlsRule : IConditionalLogicRule, ISupportAppeareance {
+    public interface IAdditionalViewControlsRule : ILogicRule, ISupportAppeareance {
         [Category("Data")]
         [Description("The type of the control to be added to the view")]
         [TypeConverter(typeof(StringToTypeConverter))]

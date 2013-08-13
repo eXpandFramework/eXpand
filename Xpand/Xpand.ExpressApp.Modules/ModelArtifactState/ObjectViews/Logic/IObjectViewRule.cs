@@ -4,7 +4,7 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
-    public interface IObjectViewRule : IConditionalLogicRule {
+    public interface IObjectViewRule : ILogicRule {
         [DataSourceProperty("ObjectViews")]
         [Category("Data")]
         [Required]

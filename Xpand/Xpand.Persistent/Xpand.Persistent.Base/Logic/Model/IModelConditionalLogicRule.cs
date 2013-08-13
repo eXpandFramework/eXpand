@@ -8,7 +8,7 @@ namespace Xpand.Persistent.Base.Logic.Model {
         T Attribute { get; set; }
     }
     [ModelAbstractClass]
-    public interface IModelConditionalLogicRule : IModelLogicRule, IConditionalLogicRule {
+    public interface IModelConditionalLogicRule : IModelLogicRule {
 
     }
 }

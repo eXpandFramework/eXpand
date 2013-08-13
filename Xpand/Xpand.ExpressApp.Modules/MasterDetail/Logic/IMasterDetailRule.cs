@@ -4,7 +4,7 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
-    public interface IMasterDetailRule : IConditionalLogicRule {
+    public interface IMasterDetailRule : ILogicRule {
 
         [DataSourceProperty("ChildListViews")]
         [Category("Data")]
