@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 
 namespace Xpand.Utils.Win32 {

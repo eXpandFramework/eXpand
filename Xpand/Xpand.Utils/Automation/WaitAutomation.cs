@@ -1,10 +1,12 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Security;
 using System.Windows.Forms;
 using Xpand.Utils.Win32;
 
 namespace Xpand.Utils.Automation {
+    [SecuritySafeCritical]
     public class WaitAutomation {
         #region delegates
         #region Nested type: findWindowsWithTimeoutDelegate
@@ -129,17 +131,12 @@ namespace Xpand.Utils.Automation {
             }
         }
 
-        /// <summary>
-        /// default timeout is 5000 millisec
-        /// </summary>
-        /// <param name="windowCaption"></param>
-        public static bool WaitForWindowToClose(string windowCaption) {
+        public static bool WaitForWindowToClose(string windowCaption,int timeOut=-1) {
             waitForWindowToCloseDelegate waitForWindowToCloseDelegate = waitForWindowToCloseHandler;
             IAsyncResult asyncResult = waitForWindowToCloseDelegate.BeginInvoke(windowCaption, null, null);
             if (!asyncResult.IsCompleted)
-                asyncResult.AsyncWaitHandle.WaitOne(5000, false);
-            bool b = asyncResult.IsCompleted && waitForWindowToCloseDelegate.EndInvoke(asyncResult);
-            return b;
+                asyncResult.AsyncWaitHandle.WaitOne(timeOut, false);
+            return asyncResult.IsCompleted && waitForWindowToCloseDelegate.EndInvoke(asyncResult);
         }
         #endregion
         #region private methods

@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Drawing;
+using System.Security;
 using System.Text;
 using Xpand.Utils.Win32;
 
 namespace Xpand.Utils.Automation {
+    [SecuritySafeCritical]
     public class HelperAutomation {
         private ArrayList allWindowCaptions;
         private ArrayList allWindowHandles;
