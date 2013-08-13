@@ -74,18 +74,20 @@ namespace Xpand.ExpressApp.Win {
         }
 
         void FilterModelLogicRules(SingleChoiceAction singleChoiceAction) {
-            ITypesInfo typesInfo = CurrentModelNode.ModelNode.Application.GetTypesInfo();
-            var parentNode = CurrentModelNode.Parent;
-
+            var ruleType = GetRuleType();
             for (int i = singleChoiceAction.Items.Count - 1; i > -1; i--) {
                 var type = ((Type) singleChoiceAction.Items[i].Data);
-                var typeInfo = typesInfo.FindTypeInfo(type);
-                typeInfo = typeInfo.ImplementedInterfaces.Single(info => info.Name == "I" + type.Name);
-                var logicRuleAttribute = typeInfo.FindAttributes<ModelLogicValidRuleAttribute>().Single();
-                if (logicRuleAttribute != null && !logicRuleAttribute.RuleType.IsInstanceOfType(parentNode.ModelNode))
+                if (!ruleType.IsAssignableFrom(type))
                     singleChoiceAction.Items.RemoveAt(i);
             }
+        }
 
+        Type GetRuleType() {
+            ITypesInfo typesInfo = CurrentModelNode.ModelNode.Application.GetTypesInfo();
+            var parentNode = CurrentModelNode.Parent;
+            var interfaces = typesInfo.FindTypeInfo(parentNode.ModelNode.GetType()).ImplementedInterfaces;
+            var ruleAttributes = interfaces.Select(info=>info.FindAttribute<ModelLogicValidRuleAttribute>()).Where(attribute => attribute != null);
+            return ruleAttributes.Select(attribute => attribute.RuleType).Single();
         }
 
         public static Form CreateModelEditorForm(WinApplication winApplication) {

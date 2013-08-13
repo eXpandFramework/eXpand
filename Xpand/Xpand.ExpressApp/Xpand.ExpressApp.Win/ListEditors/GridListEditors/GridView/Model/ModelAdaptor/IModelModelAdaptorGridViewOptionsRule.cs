@@ -1,13 +1,11 @@
 ﻿using System;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model.ModelAdaptor {
     [ModelInterfaceImplementor(typeof(IModelAdaptorGridViewOptionsRule), "Attribute")]
-    [ModelLogicValidRule(typeof(IModelModelAdaptorLogic))]
     public interface IModelModelAdaptorGridViewOptionsRule : IModelModelAdaptorRule, IModelOptionsGridView {
     }
 
