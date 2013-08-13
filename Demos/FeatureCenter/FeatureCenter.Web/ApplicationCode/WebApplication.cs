@@ -22,8 +22,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
-        private Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule conditionalControllerStateModule1;
-        private Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule conditionalActionStateModule1;
+        
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
         private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
@@ -36,7 +35,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
 
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
-        private Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule conditionalDetailViewModule1;
+        
 
         private Module.Web.FeatureCenterAspNetModule featureCenterAspNetModule1;
 
@@ -97,8 +96,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            this.conditionalControllerStateModule1 = new Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule();
-            this.conditionalActionStateModule1 = new Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule();
+            
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
             this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
@@ -112,7 +110,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
 
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule();
+            
 
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
 
@@ -173,8 +171,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            this.Modules.Add(this.conditionalControllerStateModule1);
-            this.Modules.Add(this.conditionalActionStateModule1);
+            
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.modelDifferenceModule1);
             this.Modules.Add(this.xpandSecurityModule1);
@@ -188,7 +185,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.filterDataStoreModule1);
 
             this.Modules.Add(this.scriptRecorderModuleBase1);
-            this.Modules.Add(this.conditionalDetailViewModule1);
+            
 
             this.Modules.Add(this.featureCenterModule1);
 

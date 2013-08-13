@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderNullAble, "1=1", "1=1",

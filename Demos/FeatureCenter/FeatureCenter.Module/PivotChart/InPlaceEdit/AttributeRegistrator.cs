@@ -4,7 +4,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.PivotChart.InPlaceEdit {

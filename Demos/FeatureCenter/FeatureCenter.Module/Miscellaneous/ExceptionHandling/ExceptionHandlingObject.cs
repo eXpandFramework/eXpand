@@ -1,6 +1,6 @@
 ﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ConditionalActionState.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.BaseImpl.ExceptionHandling;
 
 namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling {

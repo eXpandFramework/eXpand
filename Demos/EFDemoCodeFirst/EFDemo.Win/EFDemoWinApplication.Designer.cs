@@ -5,11 +5,10 @@ namespace EFDemo.Win {
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void DisposeCore() {
+	    /// <summary> 
+	    /// Clean up any resources being used.
+	    /// </summary>
+	    protected override void DisposeCore() {
 			if((components != null)) {
 				components.Dispose();
 			}
@@ -55,8 +54,7 @@ namespace EFDemo.Win {
             this.xpandWorkFlowModule1 = new Xpand.ExpressApp.Workflow.XpandWorkFlowModule();
             this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            this.conditionalControllerStateModule1 = new Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule();
-            this.conditionalActionStateModule1 = new Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule();
+            
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this.xpandReportsModule1 = new Xpand.ExpressApp.Reports.XpandReportsModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
@@ -186,8 +184,7 @@ namespace EFDemo.Win {
             this.Modules.Add(this.xpandWorkFlowModule1);
             this.Modules.Add(this.dashboardModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            this.Modules.Add(this.conditionalControllerStateModule1);
-            this.Modules.Add(this.conditionalActionStateModule1);
+            
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.xpandReportsModule1);
             this.Modules.Add(this.efDemoModule1);
@@ -273,8 +270,7 @@ namespace EFDemo.Win {
         private Xpand.ExpressApp.Workflow.XpandWorkFlowModule xpandWorkFlowModule1;
         private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
-        private Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule conditionalControllerStateModule1;
-        private Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule conditionalActionStateModule1;
+        
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.Reports.XpandReportsModule xpandReportsModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;

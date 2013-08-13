@@ -1,7 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.ExpressApp.StateMachine;
-using Xpand.ExpressApp.ConditionalObjectView;
 using Xpand.ExpressApp.ImportWizard;
 using Xpand.ExpressApp.JobScheduler;
 
@@ -55,7 +54,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorDBMapperModule));
-            this.RequiredModuleTypes.Add(typeof(ConditionalObjectViewModule));
+            
 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));

@@ -10,7 +10,6 @@
 
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win;
 using Xpand.ExpressApp.Chart.Win;
-using Xpand.ExpressApp.ConditionalObjectView;
 using Xpand.ExpressApp.ImportWizard.Win;
 using Xpand.ExpressApp.MasterDetail.Win;
 using Xpand.ExpressApp.ModelDifference.Win;
@@ -55,7 +54,6 @@ namespace SecuritySystemExample.Module {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandChartWinModule));
-            RequiredModuleTypes.Add(typeof(ConditionalObjectViewModule));
             RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(MasterDetailWindowsModule));
             RequiredModuleTypes.Add(typeof(XpandPivotGridWinModule));

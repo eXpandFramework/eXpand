@@ -29,8 +29,7 @@ namespace FeatureCenter.Module.Win {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.Where(
-                    mbase => typeof(ModelDifferenceBaseModule).IsAssignableFrom(mbase.GetType())).FirstOrDefault();
+            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.FirstOrDefault(mbase => mbase is ModelDifferenceBaseModule);
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
             var exceptionHandlingWinModule =
@@ -50,13 +49,12 @@ namespace FeatureCenter.Module.Win {
 
 
         bool IsExculded(Exception exception) {
-            return (exception is ValidationException) ||
-                   (exception.InnerException != null && exception.InnerException is ValidationException);
+            return (exception is ValidationException) ||( exception.InnerException is ValidationException);
         }
 
         protected override void AdditionalViewControlsModuleOnRulesCollected(object sender, EventArgs e) {
             foreach (var typeInfo in XafTypesInfo.Instance.PersistentTypes) {
-                var additionalViewControlsRules = LogicRuleManager<IAdditionalViewControlsRule>.Instance[typeInfo];
+                var additionalViewControlsRules = LogicRuleManager.Instance[typeInfo].OfType<IAdditionalViewControlsRule>();
                 foreach (var additionalViewControlsRule in additionalViewControlsRules) {
                     if (additionalViewControlsRule.Id.StartsWith(Module.Captions.Header))
                         additionalViewControlsRule.ControlType = typeof(ApplicationCaption);

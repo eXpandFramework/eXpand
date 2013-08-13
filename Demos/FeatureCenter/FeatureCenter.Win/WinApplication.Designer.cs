@@ -54,8 +54,7 @@ namespace FeatureCenter.Win {
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            this.conditionalControllerStateModule1 = new Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule();
-            this.conditionalActionStateModule1 = new Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule();
+            
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
             this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
@@ -67,7 +66,7 @@ namespace FeatureCenter.Win {
             this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
-            this.conditionalDetailViewModule1 = new Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule();
+            
             this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
@@ -80,7 +79,7 @@ namespace FeatureCenter.Win {
             this.filterDataStoreWindowsFormsModule1 = new Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule();
             this.additionalViewControlsProviderWindowsFormsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule();
             this.xpandPivotChartWinModule1 = new Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule();
-            this.logicWindowsModule1 = new Xpand.ExpressApp.Logic.Win.LogicWindowsModule();
+            
             this.masterDetailWindowsModule1 = new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule();
             this.scriptRecorderWindowsFormsModule1 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
             this.memberLevelSecurityModuleWin1 = new Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin();
@@ -180,8 +179,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            this.Modules.Add(this.conditionalControllerStateModule1);
-            this.Modules.Add(this.conditionalActionStateModule1);
+            
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.modelDifferenceModule1);
@@ -195,7 +193,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.filterDataStoreModule1);
             this.Modules.Add(this.additionalViewControlsModule1);
             this.Modules.Add(this.scriptRecorderModuleBase1);
-            this.Modules.Add(this.conditionalDetailViewModule1);
+            
             this.Modules.Add(this.memberLevelSecurityModule1);
             this.Modules.Add(this.jobSchedulerModule1);
             this.Modules.Add(this.jobSchedulerJobsModule1);
@@ -228,7 +226,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.filterDataStoreWindowsFormsModule1);
             this.Modules.Add(this.additionalViewControlsProviderWindowsFormsModule1);
             this.Modules.Add(this.xpandPivotChartWinModule1);
-            this.Modules.Add(this.logicWindowsModule1);
+            
             this.Modules.Add(this.masterDetailWindowsModule1);
             this.Modules.Add(this.scriptRecorderWindowsFormsModule1);
             this.Modules.Add(this.memberLevelSecurityModuleWin1);
@@ -285,8 +283,8 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
-        private Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule conditionalControllerStateModule1;
-        private Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule conditionalActionStateModule1;
+        
+        
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
         private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
@@ -298,7 +296,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
-        private Xpand.ExpressApp.ConditionalObjectView.ConditionalObjectViewModule conditionalDetailViewModule1;
+        
         private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
@@ -311,7 +309,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule filterDataStoreWindowsFormsModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule additionalViewControlsProviderWindowsFormsModule1;
         private Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule xpandPivotChartWinModule1;
-        private Xpand.ExpressApp.Logic.Win.LogicWindowsModule logicWindowsModule1;
+        
         private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule scriptRecorderWindowsFormsModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin memberLevelSecurityModuleWin1;

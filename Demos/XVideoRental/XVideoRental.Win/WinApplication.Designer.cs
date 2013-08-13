@@ -61,8 +61,7 @@ namespace XVideoRental.Win {
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            this.conditionalControllerStateModule1 = new Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule();
-            this.conditionalActionStateModule1 = new Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule();
+            
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this._xpandReportsWindowsFormsModule2 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
@@ -135,8 +134,7 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.treeListEditorsModuleBase1);
             this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            this.Modules.Add(this.conditionalControllerStateModule1);
-            this.Modules.Add(this.conditionalActionStateModule1);
+            
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this._xpandReportsWindowsFormsModule2);
             this.Modules.Add(this.additionalViewControlsModule1);
@@ -183,8 +181,8 @@ namespace XVideoRental.Win {
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
-        private Xpand.ExpressApp.ConditionalControllerState.ConditionalControllerStateModule conditionalControllerStateModule1;
-        private Xpand.ExpressApp.ConditionalActionState.ConditionalActionStateModule conditionalActionStateModule1;
+
+
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule _xpandReportsWindowsFormsModule2;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
