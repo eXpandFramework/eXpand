@@ -18,8 +18,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ConditionalObjectView.dll" target="lib\Xpand.ExpressApp.ConditionalObjectView.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Logic.Conditional.dll" target="lib\Xpand.ExpressApp.Logic.Conditional.dll" />
   </files>
 </package>
