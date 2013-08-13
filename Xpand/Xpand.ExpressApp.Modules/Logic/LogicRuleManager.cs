@@ -37,9 +37,12 @@ namespace Xpand.ExpressApp.Logic {
         public List<ILogicRule> this[ITypeInfo typeInfo] {
             get {
                 lock (rules) {
-                    if (!rules.ContainsKey(typeInfo)) 
-                        rules.Add(typeInfo, new List<ILogicRule>());
-                    return rules[typeInfo];
+                    if (typeInfo!=null) {
+                        if (!rules.ContainsKey(typeInfo))
+                            rules.Add(typeInfo, new List<ILogicRule>());
+                        return rules[typeInfo];
+                    }
+                    return new List<ILogicRule>();
                 }
             }
         }

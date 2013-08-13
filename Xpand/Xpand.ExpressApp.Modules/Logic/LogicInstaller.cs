@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.Logic {
 
         void LogicRuleCollectorOnCollectModelLogics(object sender, CollectModelLogicsArgs collectModelLogicsArgs) {
             ((LogicRuleCollector) sender).CollectModelLogics-=LogicRuleCollectorOnCollectModelLogics;
-            collectModelLogicsArgs.ModelLogic = GetModelLogic( _application.Model.Application);
+            collectModelLogicsArgs.ModelLogics.Add(GetModelLogic(_application.Model.Application));
         }
 
         void OnApplicationOnSetupComplete(object sender, EventArgs args) {

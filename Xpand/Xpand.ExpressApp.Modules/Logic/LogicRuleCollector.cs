@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual void CollectRules(IEnumerable<ILogicRule> logicRules) {
             var ruleObjects = logicRules.Select(CreateRuleObject);
-            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(rules => new{rules.Key, Rules = rules.ToList()});
+            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(rules => new{rules.Key, Rules = rules});
             foreach (var grouping in groupings) {
                 var typeInfo = grouping.Key;
                 var rules = LogicRuleManager.Instance[typeInfo];
@@ -107,8 +107,10 @@ namespace Xpand.ExpressApp.Logic {
         void AddModelLogics() {
             var collectModelLogicsArgs = new CollectModelLogicsArgs();
             OnCollectModelLogics(collectModelLogicsArgs);
-            if (collectModelLogicsArgs.ModelLogic != null && !_modelLogics.Contains(collectModelLogicsArgs.ModelLogic))
-                _modelLogics.Add(collectModelLogicsArgs.ModelLogic);
+            var modelLogics = collectModelLogicsArgs.ModelLogics.Where(modelLogic => !_modelLogics.Contains(modelLogic));
+            foreach (var modelLogic in modelLogics) {
+                _modelLogics.Add(modelLogic);
+            }
         }
 
         public void Attach(ModuleBase moduleBase) {
@@ -121,6 +123,9 @@ namespace Xpand.ExpressApp.Logic {
     }
 
     public class CollectModelLogicsArgs : EventArgs {
-        public IModelLogic ModelLogic { get; set; }
+        readonly List<IModelLogic> _modelLogics=new List<IModelLogic>();
+        public List<IModelLogic> ModelLogics {
+            get { return _modelLogics; }
+        }
     }
 }
