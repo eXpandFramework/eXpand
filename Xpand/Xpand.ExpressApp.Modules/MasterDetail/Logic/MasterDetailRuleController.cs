@@ -8,7 +8,7 @@ using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRuleController : ViewController {
-        readonly List<IMasterDetailRule> _masterDetailRules = new List<IMasterDetailRule>();
+        List<IMasterDetailRule> _masterDetailRules ;
         LogicRuleViewController _logicRuleViewController;
 
         protected override void OnFrameAssigned() {
@@ -22,7 +22,10 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
                 return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
             };
         }
-
+        protected override void OnActivated() {
+            base.OnActivated();
+            _masterDetailRules=new List<IMasterDetailRule>();
+        }
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             _logicRuleViewController.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }
