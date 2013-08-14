@@ -156,6 +156,8 @@
     <Compile Include="General\XpandObjectSpace.cs" />
     <Compile Include="General\XpandObjectSpaceProvider.cs" />
     <Compile Include="General\XpoObjectHacker.cs" />
+    <Compile Include="Logic\ExecutionContext.cs" />
+    <Compile Include="Logic\LogicRule.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRuleController.cs" />
     <Compile Include="ModelAdapter\Logic\IModelModelAdaptorLogic.cs" />
     <Compile Include="ModelAdapter\Logic\IModelModelAdaptorRule.cs" />
+    <Compile Include="ModelAdapter\Logic\ModelAdaptorRule.cs" />
     <Compile Include="ModelAdapter\ModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,4 +1,4 @@
-﻿using Xpand.ExpressApp.Logic;
+﻿using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic {
     public abstract class ArtifactStateRule : LogicRule, IArtifactStateRule {

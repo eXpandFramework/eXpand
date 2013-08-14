@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public abstract class AdditionalViewControlsRuleViewController:ViewController {

@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ObjectViewRule : LogicRule, IObjectViewRule {

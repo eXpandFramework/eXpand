@@ -6,6 +6,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleViewController : ViewController {
@@ -17,6 +19,7 @@ namespace Xpand.ExpressApp.Logic {
         object _previousObject;
         XafApplication _application;
         readonly LogicRuleEvaluator _evaluator = new LogicRuleEvaluator();
+        ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
 
         public virtual bool IsReady {
             get {
@@ -29,12 +32,13 @@ namespace Xpand.ExpressApp.Logic {
             get { return _evaluator; }
         }
 
+
         public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject,
-                                           ActionBase action) {
+                                           ActionBaseEventArgs args) {
             if (isReady && view != null) {
                 //                var modelLogicRules = GetValidModelLogicRules(view);
                 //                var logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization, action);
-                var ruleInfos = _evaluator.GetContextValidLogicRuleInfos(view, currentObject, executionContext, invertCustomization, action);
+                var ruleInfos = _evaluator.GetContextValidLogicRuleInfos(view, currentObject, executionContext, invertCustomization, args);
                 foreach (var logicRuleInfo in ruleInfos) {
                     ForceExecutionCore(logicRuleInfo, executionContext);
                 }
@@ -162,14 +166,25 @@ namespace Xpand.ExpressApp.Logic {
                 View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
                 View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
                 View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
-                if (View is ListView)
-                    Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+                if (View is ListView) {
+                    _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
+                    _listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+                    _listViewProcessCurrentObjectController.CustomizeShowViewParameters+=CustomizeShowViewParameters;
+                }
             }
+        }
+
+        void CustomizeShowViewParameters(object sender, CustomizeShowViewParametersEventArgs customizeShowViewParametersEventArgs) {
+            ForceExecution(ExecutionContext.CustomizeShowViewParameters);
+        }
+
+        IEnumerable<IModelLogic> ModelLogics {
+            get { return LogicInstallerManager.Instance.LogicInstallers.Select(installer => installer.GetModelLogic()); }
         }
 
         IEnumerable<ActionBase> GetActions() {
             var actionBases = Enumerable.Empty<ActionBase>();
-            var actionExecutionContextGroups = LogicRuleEvaluator.ModelLogics.SelectMany(logic => logic.ActionExecutionContextGroup);
+            var actionExecutionContextGroups = ModelLogics.SelectMany(logic => logic.ActionExecutionContextGroup);
             return actionExecutionContextGroups.SelectMany(@group => @group, (@group, executionContext)
                 => executionContext.Name).Aggregate(actionBases, (current, actionContexts)
                 => current.Union(Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base
@@ -182,7 +197,7 @@ namespace Xpand.ExpressApp.Logic {
 
         void ForceExecution(ActionBaseEventArgs args) {
             //            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(args.ShowViewParameters.CreatedView.ObjectTypeInfo);
-            ForceExecution(IsReady, args.ShowViewParameters.CreatedView, false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args.Action);
+            ForceExecution(IsReady, args.ShowViewParameters.CreatedView,  false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args);
         }
 
 
@@ -234,8 +249,10 @@ namespace Xpand.ExpressApp.Logic {
             View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
             View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
 
-            if (View is ListView)
-                Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
+            if (View is ListView) {
+                _listViewProcessCurrentObjectController.CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
+                _listViewProcessCurrentObjectController.CustomizeShowViewParameters-=CustomizeShowViewParameters;
+            }
         }
 
         void ViewOnQueryCanChangeCurrentObject(object sender, CancelEventArgs cancelEventArgs) {

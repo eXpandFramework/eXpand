@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Logic.DomainLogic;
 using Xpand.Persistent.Base.Logic;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;

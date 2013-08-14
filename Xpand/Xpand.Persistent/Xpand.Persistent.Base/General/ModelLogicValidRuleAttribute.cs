@@ -4,7 +4,7 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Interface,AllowMultiple = false,Inherited = false)]
-    public class ModelLogicValidRuleAttribute:Attribute {
+    public sealed class ModelLogicValidRuleAttribute:Attribute {
         readonly Type _ruleType;
 
         public ModelLogicValidRuleAttribute(Type ruleType) {

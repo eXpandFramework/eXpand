@@ -4,6 +4,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 

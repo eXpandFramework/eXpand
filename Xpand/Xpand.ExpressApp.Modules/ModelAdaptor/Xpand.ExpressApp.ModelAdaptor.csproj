@@ -84,7 +84,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Logic\ModelAdaptorRule.cs" />
     <Compile Include="Logic\ModelAdaptorRuleController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -26,7 +26,8 @@ namespace Xpand.ExpressApp.Logic {
             customLogics.RegisterLogic(typeof(ILogicRule), typeof(LogicRuleDomainLogic));
             customLogics.RegisterLogic(typeof(IModelExecutionContext), typeof(ModelExecutionContextDomainLogic));
             customLogics.RegisterLogic(typeof(IModelActionExecutionContext), typeof(ModelActionExecutionContextDomainLogic));
-            customLogics.RegisterLogic(typeof(IModelExecutionContextsGroup), typeof(ModelExecutionContextsGroupDefaultContextDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelExecutionContexts), typeof(ModelExecutionContextsDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelExecutionContextsGroup), typeof(ModelExecutionContextsGroupDomainLogic));
             customLogics.RegisterLogic(typeof(IModelFrameTemplateContext), typeof(ModelFrameTemplateContextDomainLogic));
             customLogics.RegisterLogic(typeof(IModelLogicRule), typeof(ModelLogicRuleDomainLogic));
         }

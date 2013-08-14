@@ -1,3 +1,35 @@
-﻿<?xml version="1.0" ?>
-<Application Title="ModelArtifactStateTester" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ConditionalObjectViewDemo" Logo="ExpressAppLogo">
+  <ConditionalObjectView>
+    <Rules>
+      <ObjectViewRule Id="Customer_DetailView_For_EUMembers" TypeInfo="ModelArtifactStateTester.Module.BusinessObjects.Customer" NormalCriteria="!Country.EUMember Or Country Is Null" View="" ObjectView="ModelArtifactStateTester.Module.BusinessObjects.Customer_DetailView_NonEu" IsNewNode="True" />
+    </Rules>
+  </ConditionalObjectView>
+  <SchemaModules>
+    <SchemaModule Name="ConditionalObjectViewModule" Version="13.1.5.19" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.1.5.19" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="ModelArtifactStateTester.Module.BusinessObjects.Customer_DetailView_NonEu" ClassName="ModelArtifactStateTester.Module.BusinessObjects.Customer" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Country" PropertyName="Country" IsNewNode="True" />
+        <PropertyEditor Id="Name" PropertyName="Name" IsNewNode="True" />
+        <PropertyEditor Id="Oid" PropertyName="Oid" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+            <LayoutGroup Id="Customer" Index="0" ShowCaption="False" RelativeSize="12" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" CaptionLocation="Top" SizeConstraintsType="Default" RelativeSize="52" IsNewNode="True" />
+              <LayoutItem Id="Country" ViewItem="Country" Index="1" SizeConstraintsType="Default" RelativeSize="47" CaptionLocation="Top" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="XPObject" Index="1" ShowCaption="False" RelativeSize="87" IsNewNode="True">
+              <LayoutItem Id="Oid" ViewItem="Oid" Index="0" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

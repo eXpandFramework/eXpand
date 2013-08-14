@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Logic;
@@ -25,6 +26,11 @@ namespace Xpand.ExpressApp.ModelArtifactState {
             });
         }
 
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new ObjectViewActionExecutionContextsGroupNodeUpdater());
+        }
+
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication,IModelApplicationModelArtifactState>();
@@ -33,10 +39,16 @@ namespace Xpand.ExpressApp.ModelArtifactState {
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
-            if (parameters.XmlNodeName == "ConditionalDetailView") {
-                parameters.NodeType = typeof(IModelLogicConditionalObjectView);
-            } else if (parameters.XmlNodeName == "ConditionalDetailViewRule") {
-                parameters.NodeType = typeof(IModelObjectViewRule);
+            switch (parameters.XmlNodeName) {
+                case "ConditionalDetailView":
+                    parameters.NodeType = typeof(IModelLogicConditionalObjectView);
+                    break;
+                case "ConditionalDetailViewRule":
+                    parameters.NodeType = typeof(IModelObjectViewRule);
+                    break;
+                case "ConditionalObjectViewRule":
+                    parameters.NodeType = typeof(IModelObjectViewRule);
+                    break;
             }
         }
 

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</ProjectGuid>
+    <ProjectGuid>{BF2AA27E-91EA-4B1F-AA91-8BBA3D4C63CE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.Logic</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.Logic</AssemblyName>
+    <RootNamespace>Xpand.ExpressApp.ConditionalObjectView</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.ConditionalObjectView</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -56,27 +56,20 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Data.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="System.Drawing" />
+    <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Security">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
@@ -93,85 +86,25 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainLogic\LogicRuleDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelActionExecutionContextDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelExecutionContextsDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelExecutionContextsGroupDomainLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DomainLogic\ModelFrameTemplateContextDomainLogic.cs" />
-    <Compile Include="DomainLogic\ModelLogicRuleDomainLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DomainLogic\ModelViewContextDomainLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FillRulesFromPermissionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ILogicRuleInfo.cs" />
-    <Compile Include="LogicInstaller.cs" />
-    <Compile Include="LogicModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LogicRuleAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogicRuleEvaluator.cs" />
-    <Compile Include="LogicRuleExecuteEventArgs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogicRuleExecutingEventArgs.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogicRuleInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogicRuleManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogicRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeUpdaters\LogicDefaultGroupContextNodeUpdater.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeUpdaters\LogicRulesNodeUpdater.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="DomainLogic\ConditionalObjectViewRuleDomainLogic.cs" />
+    <Compile Include="Logic\ConditionalObjectViewRule.cs" />
+    <Compile Include="Logic\ConditionalObjectViewRuleAttribute.cs" />
+    <Compile Include="Logic\IConditionalObjectViewRule.cs" />
+    <Compile Include="Logic\ConditionalObjectViewRuleController.cs" />
+    <Compile Include="Model\IModelApplicationConditionalObjectView.cs" />
+    <Compile Include="Model\IModelConditionalObjectViewRule.cs" />
+    <Compile Include="Model\IModelLogicConditionalObjectView.cs" />
+    <Compile Include="NodeUpdaters\ConditionalObjectViewRulesNodeUpdater.cs" />
+    <Compile Include="ConditionalObjectViewModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LogicRuleCollector.cs" />
-    <Compile Include="Security\Improved\LogicRuleOperationPermissionData.cs" />
-    <Compile Include="Security\Improved\LogicRulePermission.cs" />
-    <Compile Include="Security\LogicRulePermission.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\PopulateViewsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TypeConverters\StringToModelViewConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

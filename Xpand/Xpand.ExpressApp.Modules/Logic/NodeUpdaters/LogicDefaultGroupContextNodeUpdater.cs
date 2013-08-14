@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using Xpand.Persistent.Base.Logic;
+using Xpand.ExpressApp.Logic.DomainLogic;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 

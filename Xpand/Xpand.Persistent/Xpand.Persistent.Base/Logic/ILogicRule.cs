@@ -58,15 +58,5 @@ namespace Xpand.Persistent.Base.Logic {
         [Browsable(false)]
         ITypeInfo TypeInfo { get; set; }
     }
-    public class LogicRuleDomainLogic {
-        public const string DefaultExecutionContextGroup = "Default";
-        public static ITypeInfo Get_TypeInfo(ILogicRule modelNode) {
-            return ((ILogicModelClassRule)modelNode).ModelClass.TypeInfo;
-        }
-
-        public static string Get_ExecutionContextGroup(ILogicRule modelNode) {
-            return DefaultExecutionContextGroup;
-        }
-    }
 
 }

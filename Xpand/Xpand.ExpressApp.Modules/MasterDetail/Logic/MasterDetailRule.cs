@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRule : LogicRule, IMasterDetailRule {

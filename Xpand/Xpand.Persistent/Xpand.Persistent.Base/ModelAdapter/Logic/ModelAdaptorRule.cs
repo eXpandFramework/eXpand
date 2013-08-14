@@ -1,8 +1,7 @@
 ﻿using System;
-using Xpand.ExpressApp.Logic;
-using Xpand.Persistent.Base.ModelAdapter.Logic;
+using Xpand.Persistent.Base.Logic;
 
-namespace Xpand.ExpressApp.ModelAdaptor.Logic {
+namespace Xpand.Persistent.Base.ModelAdapter.Logic {
     public class ModelAdaptorRule : LogicRule, IModelAdaptorRule {
         public ModelAdaptorRule(IModelAdaptorRule modelAdaptorRule)
             : base(modelAdaptorRule) {   

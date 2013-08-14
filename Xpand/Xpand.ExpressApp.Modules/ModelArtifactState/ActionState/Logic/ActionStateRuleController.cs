@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
-    public class ActionStateRuleController2:ViewController {
+    public class ActionStateRuleController:ViewController {
         LogicRuleViewController _logicRuleViewController;
         public const string ActiveObjectTypeHasActionRules = "ActiveObjectTypeHasActionRules";
 

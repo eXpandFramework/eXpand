@@ -42,6 +42,7 @@ namespace Xpand.ExpressApp.Logic {
     public interface ILogicInstaller {
         List<ExecutionContext> ExecutionContexts { get; }
         IModelLogic GetModelLogic(IModelApplication applicationModel);
+        IModelLogic GetModelLogic();
     }
 
     public abstract class LogicInstaller<TLogicRule,  TModelLogicRule> : ILogicInstaller where TModelLogicRule : IModelLogicRule
@@ -57,11 +58,11 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ModuleOnApplicationModulesManagerSetup(object sender, EventArgs eventArgs) {
-            _module.ApplicationModulesManagerSetup-=OnApplicationOnSetupComplete;
+            _module.ApplicationModulesManagerSetup-=ModuleOnApplicationModulesManagerSetup;
             if (InterfaceBuilder.RuntimeMode) {
                 _application = _module.Application;
                 _module.Application.Modules.FindModule<LogicModule>().LogicRuleCollector.CollectModelLogics+=LogicRuleCollectorOnCollectModelLogics;
-                _application.SetupComplete += OnApplicationOnSetupComplete;
+//                _application.SetupComplete += OnApplicationOnSetupComplete;
             }
         }
 
@@ -70,11 +71,11 @@ namespace Xpand.ExpressApp.Logic {
             collectModelLogicsArgs.ModelLogics.Add(GetModelLogic(_application.Model.Application));
         }
 
-        void OnApplicationOnSetupComplete(object sender, EventArgs args) {
-            _application.SetupComplete-=OnApplicationOnSetupComplete;
-            IModelLogic modelLogic = GetModelLogic(_application.Model);
-            LogicRuleEvaluator.ModelLogics.Add(modelLogic);
-        }
+//        void OnApplicationOnSetupComplete(object sender, EventArgs args) {
+//            _application.SetupComplete-=OnApplicationOnSetupComplete;
+////            IModelLogic modelLogic = GetModelLogic(_application.Model);
+////            LogicRuleEvaluator.ModelLogics.Add(modelLogic);
+//        }
 
         void ModuleOnCustomAddGeneratorUpdaters(object sender, GeneratorUpdaterEventArgs generatorUpdaterEventArgs) {
             _module.CustomAddGeneratorUpdaters-=ModuleOnCustomAddGeneratorUpdaters;

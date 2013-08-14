@@ -2,12 +2,13 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using Xpand.Persistent.Base.Logic;
 
-namespace Xpand.ExpressApp.Logic {
+namespace Xpand.Persistent.Base.Logic {
     public abstract class LogicRule : ILogicRule {
         protected LogicRule(ILogicRule logicRule) {
-            ExecutionContextGroup = logicRule.ExecutionContextGroup;
+            var rule = ((ILogicRule) this);
+            rule.ExecutionContextGroup = logicRule.ExecutionContextGroup;
+            rule.FrameTemplateContextGroup = logicRule.FrameTemplateContextGroup;
             Description = logicRule.Description;
             FrameTemplateContext = logicRule.FrameTemplateContext;
             ID = logicRule.Id;
@@ -19,14 +20,14 @@ namespace Xpand.ExpressApp.Logic {
             ViewType = logicRule.ViewType;
             ViewEditMode = logicRule.ViewEditMode;
             ViewContextGroup = logicRule.ViewContextGroup;
-            FrameTemplateContextGroup = logicRule.FrameTemplateContextGroup;
+            
             NormalCriteria=logicRule.NormalCriteria;
             EmptyCriteria=logicRule.EmptyCriteria;
         }
 
         public string ID { get; set; }
         #region ILogicRule Members
-        public string ExecutionContextGroup { get; set; }
+        string ILogicRule.ExecutionContextGroup { get; set; }
         public string ActionExecutionContextGroup { get; set; }
 
         public string ViewContextGroup { get; set; }
@@ -59,6 +60,8 @@ namespace Xpand.ExpressApp.Logic {
         public ITypeInfo TypeInfo { get; set; }
 
         public int? Index { get; set; }
+
+        public ExecutionContext ExecutionContext { get; set; }
         #endregion
         public override string ToString() {
             return !string.IsNullOrEmpty(ID) ? ID : base.ToString();

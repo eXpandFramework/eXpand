@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleExecutingEventArgs : CancelEventArgs  {

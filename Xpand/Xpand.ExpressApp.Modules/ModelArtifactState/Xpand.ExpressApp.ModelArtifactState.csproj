@@ -157,6 +157,7 @@
     <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ObjectViews\Model\ObjectViewActionExecutionContextsGroupNodeUpdater.cs" />
     <Compile Include="ObjectViews\ObjectViewsLogicInstaller.cs" />
     <Compile Include="ObjectViews\Logic\ObjectViewRule.cs" />
     <Compile Include="ObjectViews\Logic\ObjectViewRuleAttribute.cs" />

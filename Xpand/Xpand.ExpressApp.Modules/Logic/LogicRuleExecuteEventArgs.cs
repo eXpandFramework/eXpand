@@ -1,4 +1,5 @@
 using System;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
     /// <summary>

@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Logic {
         /// <summary>
         /// Represents a string that describes the current rule.
         /// </summary>
-        public ILogicRule Rule { get; set; }
+        public LogicRule Rule { get; set; }
 
         /// <summary>
         /// Currently processed object in the View.
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public ExecutionContext ExecutionContext { get; set; }
 
-        public ActionBase Action { get; set; }
+        public ActionBaseEventArgs ActionBaseEventArgs { get; set; }
         public override string ToString() {
             return ReferenceEquals(Rule,null) ? base.ToString() : Rule.ToString();
         }

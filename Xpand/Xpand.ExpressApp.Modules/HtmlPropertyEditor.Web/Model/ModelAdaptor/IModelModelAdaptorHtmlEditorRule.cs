@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model.ModelAdaptor {
-    [ModelInterfaceImplementor(typeof(IModelAdaptorHtmlEditorRule), "Attribute")]
+    [ModelInterfaceImplementor(typeof(IModelAdaptorRule), "Attribute")]
     public interface IModelModelAdaptorHtmlEditorRule : IModelModelAdaptorRule, IModelHtmlEditor {
     }
 

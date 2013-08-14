@@ -15,13 +15,13 @@ namespace Xpand.ExpressApp.Logic {
 
         static IValueManager<LogicRuleManager> _instanceManager;
 
-        readonly Dictionary<ITypeInfo, List<ILogicRule>> rules;
+        readonly Dictionary<ITypeInfo, List<LogicRule>> rules;
 
         LogicRuleManager() {
-            rules = new Dictionary<ITypeInfo, List<ILogicRule>>();
+            rules = new Dictionary<ITypeInfo, List<LogicRule>>();
         }
 
-        internal Dictionary<ITypeInfo, List<ILogicRule>> Rules {
+        internal Dictionary<ITypeInfo, List<LogicRule>> Rules {
             get { return rules; }
         }
 
@@ -33,16 +33,16 @@ namespace Xpand.ExpressApp.Logic {
                 return _instanceManager.Value ?? (_instanceManager.Value = new LogicRuleManager());
             }
         }
-        
-        public List<ILogicRule> this[ITypeInfo typeInfo] {
+
+        public List<LogicRule> this[ITypeInfo typeInfo] {
             get {
                 lock (rules) {
                     if (typeInfo!=null) {
                         if (!rules.ContainsKey(typeInfo))
-                            rules.Add(typeInfo, new List<ILogicRule>());
+                            rules.Add(typeInfo, new List<LogicRule>());
                         return rules[typeInfo];
                     }
-                    return new List<ILogicRule>();
+                    return new List<LogicRule>();
                 }
             }
         }

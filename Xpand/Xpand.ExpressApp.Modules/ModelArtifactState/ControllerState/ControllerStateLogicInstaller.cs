@@ -6,6 +6,7 @@ using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ControllerState.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState {
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState {
         }
 
         public override IModelLogic GetModelLogic(IModelApplication modelApplication) {
-            return ((IModelApplicationModelArtifactState) modelApplication).ModelArtifactState.ConditionalActionState;
+            return ((IModelApplicationModelArtifactState) modelApplication).ModelArtifactState.ConditionalControllerState;
         }
 
     }

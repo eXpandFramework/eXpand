@@ -11,6 +11,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
         [Browsable(false)]
         IModelList<IModelObjectView> ObjectViews { get; }
     }
+
     [DomainLogic(typeof(IModelObjectViewRule))]
     public class ObjectViewRuleDomainLogic {
         public static IModelList<IModelObjectView> Get_ObjectViews(IModelObjectViewRule objectViewRule) {
@@ -21,6 +22,10 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
             }
             return calculatedModelNodeList;
         }
+        public static string Get_ActionExecutionContextGroup(IObjectViewRule objectViewRule) {
+            return ObjectViewActionExecutionContextsGroupNodeUpdater.ObjectViewActionContext;
+        }
+
     }
 
 }

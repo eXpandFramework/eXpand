@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xpand.ExpressApp.Logic {
+namespace Xpand.Persistent.Base.Logic {
     [Flags]
     public enum ExecutionContext {
         None = 0,
@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.Logic {
         ViewOnSelectionChanged = 4096,
         NotifyPropertyObjectChanged = 8192,
         ViewShowing=16384,
-        ViewCreating=32768
+        ViewCreating=32768,
+        CustomizeShowViewParameters = ViewCreating*2
     }
 }

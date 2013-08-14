@@ -54,30 +54,22 @@ namespace Xpand.ExpressApp.Logic {
                 }
         }
 
-        protected virtual void CollectRules(IEnumerable<ILogicRule> logicRules) {
-            var ruleObjects = logicRules.Select(CreateRuleObject);
-            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(rules => new{rules.Key, Rules = rules});
-            foreach (var grouping in groupings) {
-                var typeInfo = grouping.Key;
-                var rules = LogicRuleManager.Instance[typeInfo];
-                rules.AddRange(grouping.Rules);
-                foreach (var info in typeInfo.Descendants) {
-                    LogicRuleManager.Instance[info].AddRange(grouping.Rules);
-                }
-            }
+        protected virtual LogicRule CreateRuleObject(ILogicRule logicRule, IModelLogic modelLogic) {
+            var logicRuleObjectType = LogicRuleObjectType(logicRule);
+            var logicRuleObject = ((LogicRule)ReflectionHelper.CreateObject(logicRuleObjectType, logicRule));
+            logicRuleObject.TypeInfo = logicRule.TypeInfo;
+            logicRuleObject.ExecutionContext = GetExecutionContext(logicRule, modelLogic);
+            return logicRuleObject;
         }
 
-        protected virtual ILogicRule CreateRuleObject(ILogicRule modelLogicRule) {
-            var logicRuleObjectType = LogicRuleObjectType(modelLogicRule);
-            var logicRuleObject = ((LogicRule)ReflectionHelper.CreateObject(logicRuleObjectType, modelLogicRule));
-            logicRuleObject.TypeInfo = modelLogicRule.TypeInfo;
-            return logicRuleObject;
+        ExecutionContext GetExecutionContext(ILogicRule logicRule, IModelLogic modelLogic) {
+            return modelLogic.ExecutionContextsGroup.First(contexts => contexts.Id==logicRule.ExecutionContextGroup).ExecutionContext;
         }
 
         Type LogicRuleObjectType(ILogicRule modelLogicRule) {
             var typesInfo = _module.Application.TypesInfo;
             var type = ConcreteType(modelLogicRule,typesInfo);
-            return typesInfo.FindTypeInfo<LogicRule>().Descendants.Single(info => type.IsAssignableFrom(info.Type)).Type;
+            return typesInfo.FindTypeInfo<LogicRule>().Descendants.Single(info => !info.Type.IsAbstract&&type.IsAssignableFrom(info.Type)).Type;
         }
 
         Type ConcreteType(ILogicRule logicRule, ITypesInfo typesInfo) {
@@ -96,12 +88,38 @@ namespace Xpand.ExpressApp.Logic {
             lock (LogicRuleManager.Instance) {
                 ReloadPermissions();
                 LogicRuleManager.Instance.Rules.Clear();
+                var logicTypes = new Dictionary<Type, IModelLogic>();
                 foreach (var modelLogic in _modelLogics) {
-                    CollectRules(modelLogic.Rules);
+                    CollectRules(modelLogic.Rules,modelLogic);
+                    var ruleType = _module.Application.TypesInfo.FindTypeInfo(modelLogic.GetType()).FindAttributes<ModelLogicValidRuleAttribute>().First().RuleType;
+                    logicTypes.Add(ruleType, modelLogic);
                 }
-                CollectRules(GetPermissions());
+                var groupings = GetPermissions().Select(rule => new{rule,Type=rule.GetType()}).
+                    GroupBy(arg => arg.Type).Select(grouping 
+                        => new { ModelLogic = GetModelLogic(grouping.Key,logicTypes), Rules = grouping.Select(arg => arg.rule) });
+                foreach (var grouping in groupings) {
+                    CollectRules(grouping.Rules, grouping.ModelLogic);
+                }
             }
             OnRulesCollected(EventArgs.Empty);
+        }
+
+        protected virtual void CollectRules(IEnumerable<ILogicRule> logicRules, IModelLogic modelLogic) {
+            var ruleObjects = logicRules.Select(rule => CreateRuleObject(rule, modelLogic));
+            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(grouping => new { grouping.Key, Rules = grouping });
+            foreach (var grouping in groupings) {
+                var typeInfo = grouping.Key;
+                var rules = LogicRuleManager.Instance[typeInfo];
+                IGrouping<ITypeInfo, LogicRule> collection = grouping.Rules;
+                rules.AddRange(collection);
+                foreach (var info in typeInfo.Descendants) {
+                    LogicRuleManager.Instance[info].AddRange(collection);
+                }
+            }
+        }
+
+        IModelLogic GetModelLogic(Type type, Dictionary<Type, IModelLogic> modelLogics) {
+            return modelLogics.First(pair => pair.Key.IsInstanceOfType(type)).Value;
         }
 
         void AddModelLogics() {

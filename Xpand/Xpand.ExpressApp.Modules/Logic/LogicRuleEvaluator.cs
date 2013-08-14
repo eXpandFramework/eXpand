@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -14,8 +13,6 @@ using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleEvaluator  {
-        static readonly IList<IModelLogic> _modelLogics=new List<IModelLogic>();
-
         public class ViewInfo {
             public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo, ViewEditMode? viewEditMode) {
                 ViewId = viewId;
@@ -38,8 +35,8 @@ namespace Xpand.ExpressApp.Logic {
             return !(info.Rule.IsRootView.HasValue) || info.Rule.IsRootView == Frame.View.IsRoot;
         }
 
-        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, ILogicRule logicRuleInfo) {
-            var context = CalculateCurrentExecutionContext(logicRuleInfo);
+        public virtual bool ExecutionContextIsValid(ExecutionContext executionContext, LogicRule logicRule) {
+            var context = logicRule.ExecutionContext;
             return (context | executionContext) == context;
         }
 
@@ -49,9 +46,9 @@ namespace Xpand.ExpressApp.Logic {
                 ? frameTemplateContext + "Context" == Frame.Context : TemplateContextGroupIsValid(info);
         }
 
-        LogicRuleInfo GetInfo(View view, object currentObject, ILogicRule rule, ExecutionContext executionContext, bool invertCustomization, ActionBase action) {
-            if (action != null || ExecutionContextIsValid(executionContext, rule)) {
-                var info = CalculateLogicRuleInfo(currentObject, rule, action);
+        LogicRuleInfo GetInfo(View view, object currentObject, LogicRule logicRule, ExecutionContext executionContext, bool invertCustomization, ActionBaseEventArgs actionBaseEventArgs) {
+            if (actionBaseEventArgs != null || ExecutionContextIsValid(executionContext, logicRule)) {
+                var info = CalculateLogicRuleInfo(currentObject, logicRule, actionBaseEventArgs);
                 if (info != null && TemplateContextIsValid(info) && ViewIsRoot(info)) {
                     info.InvertingCustomization = invertCustomization;
                     if (info.InvertingCustomization) {
@@ -64,23 +61,23 @@ namespace Xpand.ExpressApp.Logic {
             return null;
         }
 
-        protected IEnumerable<ILogicRule> GetValidModelLogicRules(View view) {
+        protected IEnumerable<LogicRule> GetValidModelLogicRules(View view) {
             return LogicRuleManager.Instance[view.ObjectTypeInfo].Where(rule => IsValidRule(rule, view)).OrderBy(rule => rule.Index);
         }
 
-        public virtual IEnumerable<LogicRuleInfo> GetContextValidLogicRuleInfos(View view,  object currentObject, ExecutionContext executionContext, bool invertCustomization, ActionBase action) {
+        public virtual IEnumerable<LogicRuleInfo> GetContextValidLogicRuleInfos(View view, object currentObject, ExecutionContext executionContext, bool invertCustomization, ActionBaseEventArgs actionBaseEventArgs) {
             var modelLogicRules = GetValidModelLogicRules(view);
-            var logicRuleInfos = modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization, action));
+            var logicRuleInfos = modelLogicRules.Select(rule => GetInfo(view, currentObject, rule, executionContext, invertCustomization, actionBaseEventArgs));
             return logicRuleInfos.Where(info => info != null);
         }
 
-        public virtual bool IsValidRule(ILogicRule rule, ViewInfo viewInfo) {
+        public virtual bool IsValidRule(LogicRule rule, ViewInfo viewInfo) {
             return (IsValidViewId(viewInfo.ViewId, rule)) &&
                    IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule) 
                    && IsValidViewEditMode(viewInfo, rule);
         }
 
-        protected virtual bool IsValidViewEditMode(ViewInfo viewInfo, ILogicRule rule) {
+        protected virtual bool IsValidViewEditMode(ViewInfo viewInfo, LogicRule rule) {
             return !rule.ViewEditMode.HasValue || viewInfo.ViewEditMode == rule.ViewEditMode;
         }
 
@@ -92,12 +89,12 @@ namespace Xpand.ExpressApp.Logic {
                 => context.Name + "Context" == Frame.Context) != null;
         }
 
-        protected virtual bool IsValidRule(ILogicRule rule, View view) {
+        protected virtual bool IsValidRule(LogicRule rule, View view) {
             var viewEditMode = view is DetailView ? ((DetailView)view).ViewEditMode : (ViewEditMode?)null;
             return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode));
         }
 
-        bool IsValidViewId(string viewId, ILogicRule rule) {
+        bool IsValidViewId(string viewId, LogicRule rule) {
             if (rule.View != null)
                 return viewId == rule.View.Id;
             var viewContextsGroup = GetModelLogic(rule).ViewContextsGroup;
@@ -105,12 +102,12 @@ namespace Xpand.ExpressApp.Logic {
             return modelViewContexts == null ||modelViewContexts.FirstOrDefault(context => context.Name == viewId) != null;
         }
 
-        bool IsValidTypeInfo(ViewInfo viewInfo, ILogicRule rule) {
+        bool IsValidTypeInfo(ViewInfo viewInfo, LogicRule rule) {
             return (((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(viewInfo.ObjectTypeInfo)) 
                 || IsValidDCTypeInfo(viewInfo, rule)) || rule.TypeInfo == null);
         }
 
-        bool IsValidDCTypeInfo(ViewInfo viewInfo, ILogicRule rule) {
+        bool IsValidDCTypeInfo(ViewInfo viewInfo, LogicRule rule) {
             if (viewInfo.ObjectTypeInfo.IsDomainComponent) {
                 var entityType = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(viewInfo.ObjectTypeInfo.Type);
                 var types = new List<Type> { entityType };
@@ -123,26 +120,26 @@ namespace Xpand.ExpressApp.Logic {
             return true;
         }
 
-        private bool IsValidNestedType(ILogicRule rule, ViewInfo viewInfo) {
+        private bool IsValidNestedType(LogicRule rule, ViewInfo viewInfo) {
             return viewInfo.IsDetailView || (rule.Nesting == Nesting.Any || viewInfo.IsRoot);
         }
 
-        private bool IsValidViewType(ViewInfo viewInfo, ILogicRule rule) {
+        private bool IsValidViewType(ViewInfo viewInfo, LogicRule rule) {
             return (rule.ViewType == ViewType.Any || (viewInfo.IsDetailView ? rule.ViewType == ViewType.DetailView : rule.ViewType == ViewType.ListView));
         }
 
-        protected virtual LogicRuleInfo CalculateLogicRuleInfo(object targetObject, ILogicRule modelLogicRule, ActionBase action) {
+        protected virtual LogicRuleInfo CalculateLogicRuleInfo(object targetObject, LogicRule modelLogicRule, ActionBaseEventArgs actionBaseEventArgs) {
             var logicRuleInfo = new LogicRuleInfo{Active = true, Object = targetObject, Rule = modelLogicRule};
-            if (action == null)
-                logicRuleInfo.ExecutionContext = CalculateCurrentExecutionContext(modelLogicRule);
+            if (actionBaseEventArgs == null)
+                logicRuleInfo.ExecutionContext = modelLogicRule.ExecutionContext;
             else {
-                logicRuleInfo.Action = action;
+                logicRuleInfo.ActionBaseEventArgs = actionBaseEventArgs;
             }
             CalculateLogicRuleInfo(logicRuleInfo);
             return logicRuleInfo;
         }
 
-        public bool Fit(object targetObject, ILogicRule logicRule) {
+        public bool Fit(object targetObject, LogicRule logicRule) {
             var criteria = CriteriaOperator.Parse(logicRule.NormalCriteria);
             return targetObject != null? criteria.Fit(targetObject): string.IsNullOrEmpty(logicRule.EmptyCriteria) 
                 || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object());
@@ -152,16 +149,9 @@ namespace Xpand.ExpressApp.Logic {
             calculateLogicRuleInfo.Active = Fit(calculateLogicRuleInfo.Object, calculateLogicRuleInfo.Rule);
         }
 
-        ExecutionContext CalculateCurrentExecutionContext(ILogicRule logicRule) {
-            var modelLogic = GetModelLogic(logicRule);
-            var modelExecutionContexts = modelLogic.ExecutionContextsGroup.Single(context => context.Id == logicRule.ExecutionContextGroup);
-            return modelExecutionContexts.Aggregate(ExecutionContext.None, (current, modelGroupContext) =>current | 
-                (ExecutionContext)Enum.Parse(typeof(ExecutionContext), modelGroupContext.Name.ToString(CultureInfo.InvariantCulture)));
-        }
-
-        IModelLogic GetModelLogic(ILogicRule logicRule) {
+        IModelLogic GetModelLogic(LogicRule logicRule) {
             var typesInfo = Frame.Application.TypesInfo;
-            return _modelLogics.Select(logic 
+            return ModelLogics.Select(logic 
                 => new { logic, Info = typesInfo.FindTypeInfo(logic.GetType()) })
                 .Select(arg => new{arg.logic,Attribute = arg.Info.ImplementedInterfaces.Select(info 
                     => info.FindAttribute<ModelLogicValidRuleAttribute>()).Single(attribute => attribute!=null)})
@@ -169,8 +159,8 @@ namespace Xpand.ExpressApp.Logic {
                 .Select(arg => arg.logic).Single();
         }
 
-        internal static IList<IModelLogic> ModelLogics {
-            get { return _modelLogics; }
+        IEnumerable<IModelLogic> ModelLogics {
+            get { return LogicInstallerManager.Instance.LogicInstallers.Select(installer => installer.GetModelLogic()); }
         }
     }
 }
