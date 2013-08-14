@@ -230,7 +230,6 @@
     <Compile Include="JobScheduler\Triggers\IXpandJobTrigger.cs" />
     <Compile Include="JobScheduler\Triggers\ITriggerListenerTrigger.cs" />
     <Compile Include="Logic\FrameTemplateContext.cs" />
-    <Compile Include="Logic\ILogicModelClassRule.cs" />
     <Compile Include="Logic\ILogicRule.cs" />
     <Compile Include="Logic\IRule.cs" />
     <Compile Include="Logic\NodeGenerators\ExecutionContextNodeGenerator.cs" />

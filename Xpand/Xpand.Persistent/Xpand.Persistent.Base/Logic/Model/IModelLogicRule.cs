@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     [ModelAbstractClass]
+    public interface IModelLogicRule : ILogicRule,IModelNode {
 
-    // ReSharper disable PossibleInterfaceMemberAmbiguity
-    public interface IModelLogicRule : IModelNode, ILogicModelClassRule {
-        // ReSharper restore PossibleInterfaceMemberAmbiguity
+        [ModelPersistentName("TypeInfo")]
+        [DataSourceProperty("Application.BOModel"), Required]
+        [Description("Required. Specifies the business class whose properties are affected by the current rule."), Category("Logic.Data")]
+        [RefreshProperties(RefreshProperties.All)]
+        IModelClass ModelClass { get; set; }
 
         [Browsable(false)]
         IEnumerable<IModelView> Views { get; }
