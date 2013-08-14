@@ -157,6 +157,7 @@
     <Compile Include="General\XpandObjectSpaceProvider.cs" />
     <Compile Include="General\XpoObjectHacker.cs" />
     <Compile Include="Logic\ExecutionContext.cs" />
+    <Compile Include="Logic\ILogicInstaller.cs" />
     <Compile Include="Logic\LogicRule.cs" />
     <Compile Include="Logic\Model\IContextLogicRule.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />

@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="ILogicRuleInfo.cs" />
     <Compile Include="LogicInstaller.cs" />
+    <Compile Include="LogicInstallerManager.cs" />
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>
     </Compile>

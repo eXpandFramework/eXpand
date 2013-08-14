@@ -11,6 +11,7 @@ using Xpand.ExpressApp.ModelArtifactState.ControllerState;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxBitmap(typeof(ModelArtifactStateModule))]

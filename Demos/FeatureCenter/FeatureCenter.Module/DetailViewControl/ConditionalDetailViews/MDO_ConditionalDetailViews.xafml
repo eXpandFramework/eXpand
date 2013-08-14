@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="FeatureCenter.Module.Customer">
+      <OwnMembers>
+        <RuntimeCalculatedMember Name="MaxOfOrderTotals" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+        <RuntimeOrphanedColection Name="OrderLines" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+        <RuntimeMember Name="RuntimeMember" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <ConditionalObjectView>
-    <ExecutionContextsGroup DefaultContext="CustomProcessSelectedItem">
-      <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
-        <ExecutionContext Name="CustomProcessSelectedItem" IsNewNode="True" />
-      </ExecutionContexts>
-      <ExecutionContexts Id="Default" Removed="True" />
-      <ExecutionContexts Id="ViewOnSelectionChanged" IsNewNode="True">
-        <ExecutionContext Name="ViewOnSelectionChanged" IsNewNode="True" />
-      </ExecutionContexts>
-    </ExecutionContextsGroup>
     <Rules>
-      <ConditionalObjectViewRule Id="Paris_DetailViews_Copy_When_CurrentObjectChanged" IsNewNode="True" ViewType="DetailView" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" View="ConditionalDetailViewsDefault_DetailView" ExecutionContextGroup="ViewOnSelectionChanged" />
-      <ConditionalObjectViewRule Id="Paris_DetailViews_When_CustomProcessSelectedItem" IsNewNode="True" TypeInfo="FeatureCenter.Module.Customer" View="ConditionalDetailViews_ListView" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" ExecutionContextGroup="CustomProcessSelectedItem" />
+      <ObjectViewRule Id="Paris_DetailViews" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" View="" IsNewNode="True" />
     </Rules>
   </ConditionalObjectView>
   <Views>

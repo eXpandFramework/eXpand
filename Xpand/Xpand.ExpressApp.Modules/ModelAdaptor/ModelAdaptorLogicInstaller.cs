@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor {
-    public class ModelAdaptorLogicInstaller:LogicInstaller<IModelAdaptorRule,IModelModelAdaptorRule> {
+    public class ModelAdaptorLogicInstaller:LogicInstaller<IModelAdaptorRule,IModelModelAdaptorRule>,IModelAdaptorLogicIntaller {
         public ModelAdaptorLogicInstaller(XpandModuleBase xpandModuleBase) : base(xpandModuleBase) {
         }
 
