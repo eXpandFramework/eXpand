@@ -85,6 +85,7 @@
     <Compile Include="Automation\WaitAutomation.cs" />
     <Compile Include="Dynamic\ObjectFactory.cs" />
     <Compile Include="Dynamic\DynamicElement.cs" />
+    <Compile Include="GeneralDataStructures\MultiKeyDictionary.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
