@@ -47,7 +47,6 @@ namespace FeatureCenter.Module.Win {
             
         }
 
-
         bool IsExculded(Exception exception) {
             return (exception is ValidationException) ||( exception.InnerException is ValidationException);
         }

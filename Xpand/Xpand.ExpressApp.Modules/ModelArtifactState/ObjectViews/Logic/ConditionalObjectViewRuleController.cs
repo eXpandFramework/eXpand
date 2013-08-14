@@ -8,19 +8,7 @@ using Xpand.Persistent.Base.Logic;
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ConditionalObjectViewRuleController : ViewController {
         LogicRuleViewController _logicRuleViewController;
-        IModelDetailView _modelForCustomizeShowViewParameters;
-        ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
         IModelView _defaultObjectView;
-        IModelListView _modelForCustomProcessSelectedItem;
-
-        protected override void OnActivated() {
-            base.OnActivated();
-            if (View is ListView && LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
-                _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
-                _listViewProcessCurrentObjectController.CustomizeShowViewParameters += CustomizeShowViewParameters;
-                _listViewProcessCurrentObjectController.CustomProcessSelectedItem += CustomProcessSelectedItem;
-            }
-        }
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -34,17 +22,6 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }
 
-        void CustomizeShowViewParameters(object sender, CustomizeShowViewParametersEventArgs e) {
-            var createdView = e.ShowViewParameters.CreatedView;
-            if (createdView is DetailView ) {
-                _defaultObjectView = createdView.Model;
-                e.ShowViewParameters.Controllers.Add(new InfoController(true){Model=_defaultObjectView});
-                if (_modelForCustomizeShowViewParameters != null)
-                    createdView.SetModel(_modelForCustomizeShowViewParameters);
-                    
-            }
-            _modelForCustomizeShowViewParameters = null;
-        }
 
         public class InfoController:ViewController {
             public InfoController(bool active) {
@@ -57,56 +34,74 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
 
             public IModelView Model { get; set; }
         }
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (View is ListView && LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
-                _listViewProcessCurrentObjectController.CustomizeShowViewParameters -= CustomizeShowViewParameters;
-                _listViewProcessCurrentObjectController.CustomProcessSelectedItem-=CustomProcessSelectedItem;
-            }
-        }
-
-        void CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
-            if (_modelForCustomProcessSelectedItem != null) {
-                var type = _modelForCustomProcessSelectedItem.ModelClass.TypeInfo.Type;
-                var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(type), type, _modelForCustomProcessSelectedItem.Id);
-                e.InnerArgs.ShowViewParameters.CreatedView = Application.CreateListView(_modelForCustomProcessSelectedItem, collectionSource, true);
-                e.Handled = true;
-            }
-            _modelForCustomProcessSelectedItem = null;
-        }
 
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
             LogicRuleInfo info = logicRuleExecuteEventArgs.LogicRuleInfo;
-            if (info.InvertingCustomization)
+            if (info.InvertCustomization)
                 return;
             var objectViewRule = info.Rule as IObjectViewRule;
             if (objectViewRule!=null) {
                 ExecutionContext executionContext = logicRuleExecuteEventArgs.ExecutionContext;
                 switch (executionContext) {
                     case ExecutionContext.None:
-                        if (info.Active && objectViewRule.ObjectView is IModelDetailView) {
-                            var createdView = info.ActionBaseEventArgs.ShowViewParameters.CreatedView;
-                            createdView.SetModel(objectViewRule.ObjectView);
+                        if (info.Active) {
+                            ProcessActions(info, objectViewRule);
                         }
                         break;
                     case ExecutionContext.CustomProcessSelectedItem:
-                        if (info.Active && objectViewRule.ObjectView is IModelListView)
-                            _modelForCustomProcessSelectedItem = ((IModelListView)objectViewRule.ObjectView);
+                        if (info.Active && objectViewRule.ObjectView is IModelListView) {
+                            CustomProcessSelectedItem(info, objectViewRule);
+                        }
                         break;
                     case ExecutionContext.CustomizeShowViewParameters:
-                        if (info.Active&&objectViewRule.ObjectView is IModelDetailView)
-                            _modelForCustomizeShowViewParameters = ((IModelDetailView)objectViewRule.ObjectView);
+                        if (info.Active&&objectViewRule.ObjectView is IModelDetailView) {
+                            CustomizeShowViewParameters(info, objectViewRule);
+                        }
                         break;
                     case ExecutionContext.CurrentObjectChanged:
-                        if (View.Model.AsObjectView is IModelDetailView) {
-                            var defaultObjectView = GetDefaultObjectView();
-                            View.SetModel(info.Active ? objectViewRule.ObjectView : defaultObjectView);
+                        if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView) {
+                            CurrentObjectChanged(info, objectViewRule);
                         }
                         break;
                 }
 
             }
         }
+
+        static void ProcessActions(LogicRuleInfo info, IObjectViewRule objectViewRule) {
+            var createdView = info.ActionBaseEventArgs.ShowViewParameters.CreatedView;
+            if (createdView.Model.GetType() == objectViewRule.ObjectView.GetType())
+                createdView.SetModel(objectViewRule.ObjectView);
+        }
+
+        void CustomProcessSelectedItem(LogicRuleInfo info, IObjectViewRule objectViewRule) {
+            var customProcessListViewSelectedItemEventArgs = ((CustomProcessListViewSelectedItemEventArgs) info.EventArgs);
+            var type = objectViewRule.ObjectView.ModelClass.TypeInfo.Type;
+            var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(type), type,
+                                                                      objectViewRule.ObjectView.Id);
+            var showViewParameters = customProcessListViewSelectedItemEventArgs.InnerArgs.ShowViewParameters;
+            showViewParameters.CreatedView = Application.CreateListView((IModelListView) objectViewRule.ObjectView,
+                                                                        collectionSource, true);
+            customProcessListViewSelectedItemEventArgs.Handled = true;
+        }
+
+        void CurrentObjectChanged(LogicRuleInfo info, IObjectViewRule objectViewRule) {
+            var defaultObjectView = GetDefaultObjectView();
+            View.SetModel(info.Active ? objectViewRule.ObjectView : defaultObjectView);
+        }
+
+        void CustomizeShowViewParameters(LogicRuleInfo info, IObjectViewRule objectViewRule) {
+            var customizeShowViewParametersEventArgs = ((CustomizeShowViewParametersEventArgs) info.EventArgs);
+            var createdView = customizeShowViewParametersEventArgs.ShowViewParameters.CreatedView;
+            if (createdView is DetailView) {
+                _defaultObjectView = createdView.Model;
+                customizeShowViewParametersEventArgs.ShowViewParameters.Controllers.Add(new InfoController(true){
+                    Model = _defaultObjectView
+                });
+                createdView.SetModel(objectViewRule.ObjectView);
+            }
+        }
+
 
         IModelView GetDefaultObjectView() {
             return _defaultObjectView??Frame.GetController<InfoController>().Model;

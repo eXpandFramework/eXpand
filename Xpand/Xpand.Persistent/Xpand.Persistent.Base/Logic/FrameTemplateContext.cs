@@ -3,7 +3,7 @@
 namespace Xpand.Persistent.Base.Logic {
     [Flags]
     public enum FrameTemplateContext {
-        None,
+        All,
         PopupWindow=1,
         LookupControl=PopupWindow*2,
         LookupWindow=LookupControl*2,

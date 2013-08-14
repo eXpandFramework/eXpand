@@ -1,28 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleManager {
-        public const BindingFlags MethodRuleBindingFlags =
-            BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public |
-            BindingFlags.NonPublic;
-
         static IValueManager<LogicRuleManager> _instanceManager;
-
-        readonly Dictionary<ITypeInfo, List<ILogicRuleObject>> rules;
+        readonly Dictionary<Tuple<ITypeInfo,ExecutionContext>,List<ILogicRuleObject>> _rules;
 
         LogicRuleManager() {
-            rules = new Dictionary<ITypeInfo, List<ILogicRuleObject>>();
-        }
-
-        internal Dictionary<ITypeInfo, List<ILogicRuleObject>> Rules {
-            get { return rules; }
+            _rules=new Dictionary<Tuple<ITypeInfo, ExecutionContext>, List<ILogicRuleObject>>();
         }
 
         public static LogicRuleManager Instance {
@@ -34,25 +25,34 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
-        public List<ILogicRuleObject> this[ITypeInfo typeInfo] {
+        public ReadOnlyCollection<ILogicRuleObject> this[Tuple<ITypeInfo,ExecutionContext> tuple] {
             get {
-                lock (rules) {
-                    if (typeInfo!=null) {
-                        if (!rules.ContainsKey(typeInfo))
-                            rules.Add(typeInfo, new List<ILogicRuleObject>());
-                        return rules[typeInfo];
+                lock (_rules) {
+                    if (!_rules.ContainsKey(tuple)) {
+                        _rules.Add(tuple, new List<ILogicRuleObject>());
                     }
-                    return new List<ILogicRuleObject>();
+                    return _rules[tuple].AsReadOnly();
                 }
             }
         }
-        
-        public static bool HasRules(ITypeInfo typeInfo) {
-            return Instance[typeInfo].Any() ;
+        public ReadOnlyCollection<ILogicRuleObject> this[ITypeInfo typeInfo] {
+            get {
+                var logicRuleObjects = new List<ILogicRuleObject>();
+                foreach (var result in LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ExecutionContexts)) {
+                    logicRuleObjects.AddRange(Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, result)]);
+                }
+                return logicRuleObjects.AsReadOnly();
+            }
         }
-        
-        public static bool HasRules(View view) {
-            return view != null && view.ObjectTypeInfo != null && HasRules(view.ObjectTypeInfo);
+
+        public static bool HasRules(ITypeInfo typeInfo) {
+            var executionContexts = LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ExecutionContexts);
+            return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any());
+        }
+
+        public static bool HasRules<TLogicInstaller>(ITypeInfo typeInfo) where TLogicInstaller : ILogicInstaller {
+            return LogicInstallerManager.Instance.LogicInstallers.OfType<TLogicInstaller>().First().ExecutionContexts.Any(context 
+                => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any());
         }
 
         public static bool IsDisplayedMember(IMemberInfo memberInfo) {
@@ -63,13 +63,34 @@ namespace Xpand.ExpressApp.Logic {
                    (memberInfo.MemberTypeInfo.IsDomainComponent || memberInfo.Owner.IsDomainComponent);
         }
 
-
         public static IEnumerable<ILogicRule> FindAttributes(ITypeInfo typeInfo) {
             return typeInfo != null ? GetLogicRuleAttributes(typeInfo) : null;
         }
 
         static IEnumerable<ILogicRule> GetLogicRuleAttributes(ITypeInfo typeInfo) {
             return typeInfo.FindAttributes<Attribute>(false).OfType<ILogicRule>();
+        }
+
+        public void ClearAllRules() {
+            _rules.Clear();
+            _rules.Clear();
+        }
+
+        public void AddRules(ITypeInfo typeInfo, IEnumerable<ILogicRuleObject> rules) {
+            foreach (var logicRuleObject in rules) {
+                AddRuleCore(typeInfo,ExecutionContext.None,logicRuleObject);
+                var executionContexts = logicRuleObject.ExecutionContext.GetIndividualValues<ExecutionContext>();
+                foreach (var executionContext in executionContexts) {
+                    AddRuleCore(typeInfo, executionContext, logicRuleObject);
+                }                
+            }
+        }
+
+        void AddRuleCore(ITypeInfo typeInfo, ExecutionContext executionContext, ILogicRuleObject logicRuleObject) {
+            var tuple = new Tuple<ITypeInfo, ExecutionContext>(typeInfo, executionContext);
+            if (!_rules.ContainsKey(tuple))
+                _rules.Add(tuple, new List<ILogicRuleObject>());
+            _rules[tuple].Add(logicRuleObject);
         }
     }
 }

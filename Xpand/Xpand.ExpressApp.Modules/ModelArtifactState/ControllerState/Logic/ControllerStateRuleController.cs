@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
+            if (LogicRuleManager.HasRules<ControllerStateLogicInstaller>(View.ObjectTypeInfo)) {
                 _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
                 _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=LogicRuleViewControllerOnLogicRuleExecute;
             }
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (LogicRuleManager.HasRules(View.ObjectTypeInfo))
+            if (LogicRuleManager.HasRules<ControllerStateLogicInstaller>(View.ObjectTypeInfo))
                 _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=LogicRuleViewControllerOnLogicRuleExecute;
         }
 

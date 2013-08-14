@@ -7,14 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelArtifactStateTester.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelArtifactStateTester.Win", "ModelArtifactStateTester.Win\ModelArtifactStateTester.Win.csproj", "{AC73DFB7-E0C5-4CE7-ACCE-CF052462A1E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ModelArtifactState", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj", "{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Logic", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj", "{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,26 +32,6 @@ Global
 		{AC73DFB7-E0C5-4CE7-ACCE-CF052462A1E4}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{AC73DFB7-E0C5-4CE7-ACCE-CF052462A1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC73DFB7-E0C5-4CE7-ACCE-CF052462A1E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

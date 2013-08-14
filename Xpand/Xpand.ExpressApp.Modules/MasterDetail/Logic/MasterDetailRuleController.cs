@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
+            _masterDetailRules = new List<IMasterDetailRule>();
             Frame.Disposing+=FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
@@ -22,10 +23,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
                 return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
             };
         }
-        protected override void OnActivated() {
-            base.OnActivated();
-            _masterDetailRules=new List<IMasterDetailRule>();
-        }
+
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }

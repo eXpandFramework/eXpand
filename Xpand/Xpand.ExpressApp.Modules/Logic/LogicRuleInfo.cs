@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using Xpand.Persistent.Base.Logic;
@@ -24,13 +25,16 @@ namespace Xpand.ExpressApp.Logic {
         /// </summary>
         public bool Active { get; set; }
 
-        public bool InvertingCustomization { get; set; }
-
         public View View { get; set; }
 
         public ExecutionContext ExecutionContext { get; set; }
 
         public ActionBaseEventArgs ActionBaseEventArgs { get; set; }
+
+        public EventArgs EventArgs { get; set; }
+
+        public bool InvertCustomization { get; set; }
+
         public override string ToString() {
             return ReferenceEquals(Rule,null) ? base.ToString() : Rule.ToString();
         }

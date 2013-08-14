@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
     public class ModelFrameTemplateContextsDomainLogic {
         public static FrameTemplateContext Get_FrameTemplateContext(IModelFrameTemplateContexts modelFrameTemplateContexts) {
             var executionContexts = modelFrameTemplateContexts.Select(context => Enum.Parse(typeof(FrameTemplateContext), context.Name)).Cast<FrameTemplateContext>();
-            return executionContexts.Aggregate(FrameTemplateContext.None, (current, context) => current | context);
+            return executionContexts.Aggregate(FrameTemplateContext.All, (current, context) => current | context);
         }
     }
 }

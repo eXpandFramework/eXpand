@@ -18,7 +18,6 @@ namespace Xpand.Persistent.Base.Logic {
         ViewOnSelectionChanged = 4096,
         NotifyPropertyObjectChanged = 8192,
         ViewShowing=16384,
-        ViewCreating=32768,
-        CustomizeShowViewParameters = ViewCreating*2
+        CustomizeShowViewParameters = ViewShowing * 2
     }
 }

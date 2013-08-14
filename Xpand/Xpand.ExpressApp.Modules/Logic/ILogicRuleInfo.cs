@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using Xpand.Persistent.Base.Logic;
 
@@ -18,7 +19,8 @@ namespace Xpand.ExpressApp.Logic {
         /// </summary>
         bool Active { get; }
 
-        bool InvertingCustomization { get; set; }
         View View { get; set; }
+        EventArgs EventArgs { get; set; }
+        bool InvertCustomization { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
 
         protected bool HasRules {
-            get { return LogicRuleManager.HasRules(View.ObjectTypeInfo); }
+            get { return LogicRuleManager.HasRules<AdditionalViewControlsLogicInstaller>(View.ObjectTypeInfo); }
         }
         
         void OnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

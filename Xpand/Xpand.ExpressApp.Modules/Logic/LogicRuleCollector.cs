@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.Logic {
 
         FrameTemplateContext GetFrameTemplateContext(IContextLogicRule contextLogicRule, IModelLogic modelLogic) {
             var templateContexts = modelLogic.FrameTemplateContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.FrameTemplateContextGroup);
-            return templateContexts != null ? templateContexts.FrameTemplateContext : FrameTemplateContext.None;
+            return templateContexts != null ? templateContexts.FrameTemplateContext : FrameTemplateContext.All;
         }
 
         ExecutionContext GetExecutionContext(IContextLogicRule contextLogicRule, IModelLogic modelLogic) {
@@ -96,7 +96,7 @@ namespace Xpand.ExpressApp.Logic {
             AddModelLogics();
             lock (LogicRuleManager.Instance) {
                 ReloadPermissions();
-                LogicRuleManager.Instance.Rules.Clear();
+                LogicRuleManager.Instance.ClearAllRules();
                 foreach (var modelLogic in _modelLogics.Select(pair => pair.Key)) {
                     CollectRules(modelLogic.Rules,modelLogic);
                 }
@@ -112,14 +112,11 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual void CollectRules(IEnumerable<IContextLogicRule> logicRules, IModelLogic modelLogic) {
             var ruleObjects = logicRules.Select(rule => CreateRuleObject(rule, modelLogic));
-            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(grouping => new { grouping.Key, Rules = grouping });
+            var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(grouping => new { grouping.Key, Rules = grouping }).ToList();
             foreach (var grouping in groupings) {
-                var typeInfo = grouping.Key;
-                var rules = LogicRuleManager.Instance[typeInfo];
-                IGrouping<ITypeInfo, ILogicRuleObject> collection = grouping.Rules;
-                rules.AddRange(collection);
-                foreach (var info in typeInfo.Descendants) {
-                    LogicRuleManager.Instance[info].AddRange(collection);
+                LogicRuleManager.Instance.AddRules(grouping.Key,grouping.Rules);
+                foreach (var info in grouping.Key.Descendants) {
+                    LogicRuleManager.Instance.AddRules(info, grouping.Rules);
                 }
             }
         }
