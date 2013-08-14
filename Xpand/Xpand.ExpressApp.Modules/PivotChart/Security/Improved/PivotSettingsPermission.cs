@@ -5,7 +5,7 @@ using Xpand.ExpressApp.ModelArtifactState.ControllerState.Security.Improved;
 namespace Xpand.ExpressApp.PivotChart.Security.Improved {
     public class PivotSettingsPermission : ControllerStateRulePermission {
         public new const string OperationName = "PivotSettings";
-        public PivotSettingsPermission(IControllerStateRule logicRule)
+        public PivotSettingsPermission(IContextControllerStateRule logicRule)
             : base(OperationName, logicRule) {
 
         }

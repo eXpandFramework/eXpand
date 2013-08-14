@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
-using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security.Improved;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
-    public class ActionStateRulePermission : ArtifactStateRulePermission, IActionStateRule {
+    public class ActionStateRulePermission : ArtifactStateRulePermission, IContextActionStateRule {
         public const string OperationName = "ActionState";
-        public ActionStateRulePermission(IActionStateRule logicRule)
+        public ActionStateRulePermission(IContextActionStateRule logicRule)
             : base(OperationName, logicRule) {
             ActionId = logicRule.ActionId;
             ActionState = logicRule.ActionState;
         }
 
-        protected ActionStateRulePermission(string operation, IArtifactStateRule logicRule)
+        protected ActionStateRulePermission(string operation, IContextActionStateRule logicRule)
             : base(operation, logicRule) {
         }
 

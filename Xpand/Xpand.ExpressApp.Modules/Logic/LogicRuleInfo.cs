@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Logic {
         /// <summary>
         /// Represents a string that describes the current rule.
         /// </summary>
-        public LogicRule Rule { get; set; }
+        public ILogicRuleObject Rule { get; set; }
 
         /// <summary>
         /// Currently processed object in the View.

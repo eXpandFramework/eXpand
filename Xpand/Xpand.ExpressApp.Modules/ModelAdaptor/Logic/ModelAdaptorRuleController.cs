@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecute += OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += OnLogicRuleExecute;
         }
 
         void OnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs e) {
@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecute -= OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute;
         }
         
         public void ExecuteLogic<TModelAdaptorRule, TModelModelAdaptorRule>(Action<TModelModelAdaptorRule> action)

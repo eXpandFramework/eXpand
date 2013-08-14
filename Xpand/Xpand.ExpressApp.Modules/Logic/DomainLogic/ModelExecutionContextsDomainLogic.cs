@@ -10,4 +10,10 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             return executionContexts.Aggregate(ExecutionContext.None, (current, context) => current | context);
         }
     }
+    public class ModelFrameTemplateContextsDomainLogic {
+        public static FrameTemplateContext Get_FrameTemplateContext(IModelFrameTemplateContexts modelFrameTemplateContexts) {
+            var executionContexts = modelFrameTemplateContexts.Select(context => Enum.Parse(typeof(FrameTemplateContext), context.Name)).Cast<FrameTemplateContext>();
+            return executionContexts.Aggregate(FrameTemplateContext.None, (current, context) => current | context);
+        }
+    }
 }

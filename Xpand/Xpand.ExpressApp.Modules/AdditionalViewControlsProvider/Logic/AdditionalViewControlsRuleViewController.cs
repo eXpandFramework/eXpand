@@ -19,12 +19,12 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         protected override void OnActivated() {
             base.OnActivated();
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecute+=OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=OnLogicRuleExecute;
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _logicRuleViewController.LogicRuleExecute-=OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=OnLogicRuleExecute;
         }
 
         protected bool HasRules {

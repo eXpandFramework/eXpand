@@ -26,12 +26,12 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
             base.OnFrameAssigned();
             Frame.Disposing+=FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }
 
         void CustomizeShowViewParameters(object sender, CustomizeShowViewParametersEventArgs e) {

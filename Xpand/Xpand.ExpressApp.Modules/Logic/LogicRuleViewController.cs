@@ -10,47 +10,29 @@ using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleViewController : ViewController {
+    public class LogicRuleExecutor {
+        readonly LogicRuleEvaluator _evaluator = new LogicRuleEvaluator();
         public event EventHandler<LogicRuleExecuteEventArgs> LogicRuleExecuted;
         public event EventHandler<LogicRuleExecutingEventArgs> LogicRuleExecuting;
         public event EventHandler<LogicRuleExecuteEventArgs> LogicRuleExecute;
-        private bool isRefreshing;
-        //        public static readonly string ActiveObjectTypeHasRules = "ObjectTypeHas" + typeof(TModelLogicRule).Name;
-        object _previousObject;
-        XafApplication _application;
-        readonly LogicRuleEvaluator _evaluator = new LogicRuleEvaluator();
-        ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
-
-        public virtual bool IsReady {
-            get {
-                return View != null && View.ObjectTypeInfo != null;
-                //                return Active.ResultValue && View != null && View.ObjectTypeInfo != null;
-            }
-        }
 
         public LogicRuleEvaluator Evaluator {
             get { return _evaluator; }
         }
 
-
-        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject,
-                                           ActionBaseEventArgs args) {
-            if (isReady && view != null) {
-                //                var modelLogicRules = GetValidModelLogicRules(view);
-                //                var logicRuleInfos = GetContextValidLogicRuleInfos(view, modelLogicRules, currentObject, executionContext, invertCustomization, action);
-                var ruleInfos = _evaluator.GetContextValidLogicRuleInfos(view, currentObject, executionContext, invertCustomization, args);
-                foreach (var logicRuleInfo in ruleInfos) {
-                    ForceExecutionCore(logicRuleInfo, executionContext);
-                }
+        public virtual void ForceExecution(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject, ActionBaseEventArgs args) {
+            var ruleInfos = _evaluator.GetValidRuleInfos(view, currentObject, executionContext, invertCustomization, args);
+            foreach (var logicRuleInfo in ruleInfos) {
+                ForceExecutionCore(logicRuleInfo, executionContext);
             }
         }
 
-        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
-            ForceExecution(isReady, view, invertCustomization, executionContext, currentObject, null);
+        public virtual void ForceExecution(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject) {
+            ForceExecution(view, invertCustomization, executionContext, currentObject, null);
         }
 
-        public virtual void ForceExecution(bool isReady, View view, bool invertCustomization, ExecutionContext executionContext) {
-            ForceExecution(isReady, view, invertCustomization, executionContext, view == null ? null : view.CurrentObject);
+        public virtual void ForceExecution(View view, bool invertCustomization, ExecutionContext executionContext) {
+            ForceExecution(view, invertCustomization, executionContext, view == null ? null : view.CurrentObject);
         }
 
         void ForceExecutionCore(LogicRuleInfo logicRuleInfo, ExecutionContext executionContext) {
@@ -62,27 +44,64 @@ namespace Xpand.ExpressApp.Logic {
             OnLogicRuleExecuted(new LogicRuleExecuteEventArgs(logicRuleInfo, executionContext));
         }
 
-        protected virtual void ExecuteRule(LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
-
-        }
-
         protected virtual void OnLogicRuleExecute(LogicRuleExecuteEventArgs e) {
             EventHandler<LogicRuleExecuteEventArgs> handler = LogicRuleExecute;
             if (handler != null) handler(this, e);
         }
 
-        void InvertExecution(View view, ExecutionContext executionContext, object currentObject) {
-            bool hasRules = LogicRuleManager.HasRules(view);
-            ForceExecution(hasRules && view != null && view.ObjectTypeInfo != null, view, true, executionContext, currentObject);
+        public void InvertExecution(View view, ExecutionContext executionContext, object currentObject) {
+            ForceExecution(view, true, executionContext, currentObject);
         }
 
         protected void InvertExecution(View view, ExecutionContext executionContext) {
             InvertExecution(view, executionContext, View.CurrentObject);
         }
 
+        public View View { get; set; }
+
+        public void ForceExecutioning(View view, ExecutionContext executionContext) {
+            if (View != null) InvertExecution(View, executionContext);
+            ForceExecution(view, false, executionContext);
+        }
+
+        public void ForceExecution(ActionBaseEventArgs args) {
+            ForceExecution(args.ShowViewParameters.CreatedView, false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args);
+        }
+
+        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs args) {
+            if (LogicRuleExecuting != null) {
+                LogicRuleExecuting(this, args);
+            }
+        }
+
+        protected virtual void OnLogicRuleExecuted(LogicRuleExecuteEventArgs args) {
+            if (LogicRuleExecuted != null) {
+                LogicRuleExecuted(this, args);
+            }
+        }
+
+        public void ForceExecution(ExecutionContext executionContext, View view) {
+            ForceExecution(view, false, executionContext);
+        }
+
+        public void ForceExecution(ExecutionContext executionContext) {
+            ForceExecution(executionContext, View);
+        }
+    }
+    public class LogicRuleViewController : ViewController {
+        readonly LogicRuleExecutor _logicRuleExecutor=new LogicRuleExecutor();
+        private bool isRefreshing;
+        object _previousObject;
+        XafApplication _application;
+        ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
+
+        public LogicRuleExecutor LogicRuleExecutor {
+            get { return _logicRuleExecutor; }
+        }
+
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            _evaluator.Frame = Frame;
+            _logicRuleExecutor.Evaluator.Frame = Frame;
             Frame.ViewChanging += FrameOnViewChanging;
             Frame.TemplateChanged += FrameOnTemplateChanged;
             if (_application == null) {
@@ -93,19 +112,11 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ApplicationOnViewCreating(object sender, ViewCreatingEventArgs viewCreatingEventArgs) {
-            if (Application != null) {
-                var modelObjectView = Application.Model.Views.Single(modelView => modelView.Id == viewCreatingEventArgs.ViewID).AsObjectView;
-                if (modelObjectView != null) {
-                    var typeInfo = modelObjectView.ModelClass.TypeInfo;
-                    bool hasRules = LogicRuleManager.HasRules(typeInfo);
-                    ForceExecution(hasRules, null, false, ExecutionContext.ViewCreating);
-                }
-            }
+            _logicRuleExecutor.ForceExecution(viewCreatingEventArgs.View, false, ExecutionContext.ViewCreating);
         }
 
         void ApplicationOnViewShowing(object sender, ViewShowingEventArgs viewShowingEventArgs) {
-            if (Application != null)
-                ForceExecutioning(viewShowingEventArgs.View, ExecutionContext.ViewShowing);
+            _logicRuleExecutor.ForceExecutioning(viewShowingEventArgs.View, ExecutionContext.ViewShowing);
         }
 
         protected override void Dispose(bool disposing) {
@@ -120,62 +131,51 @@ namespace Xpand.ExpressApp.Logic {
             base.Dispose(disposing);
         }
         void FrameOnViewChanging(object sender, ViewChangingEventArgs args) {
-            ForceExecutioning(args.View, ExecutionContext.ViewChanging);
-        }
-
-        void ForceExecutioning(View view, ExecutionContext executionContext) {
-            if (View != null) InvertExecution(View, executionContext);
-            bool hasRules = LogicRuleManager.HasRules(view);
-            ForceExecution(hasRules && view != null && view.ObjectTypeInfo != null, view, false, executionContext);
+            _logicRuleExecutor.ForceExecutioning(args.View, ExecutionContext.ViewChanging);
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewChanged = (Frame.Template) as ISupportViewChanged;
             if (supportViewChanged != null)
-                supportViewChanged.ViewChanged += (o, args) => {
-                    //                    Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(args.View);
-                    ForceExecution(ExecutionContext.ViewChanged, args.View);
-                };
+                supportViewChanged.ViewChanged += (o, args) => _logicRuleExecutor.ForceExecution(ExecutionContext.ViewChanged, args.View);
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (IsReady) {
-                var actions = GetActions();
-                foreach (var action in actions) {
-                    var simpleAction = action as SimpleAction;
-                    if (simpleAction != null)
-                        simpleAction.Execute += ActionOnExecuted;
+            var actions = GetActions();
+            foreach (var action in actions) {
+                var simpleAction = action as SimpleAction;
+                if (simpleAction != null)
+                    simpleAction.Execute += ActionOnExecuted;
+                else {
+                    var choiceAction = action as SingleChoiceAction;
+                    if (choiceAction != null)
+                        choiceAction.Execute += ActionOnExecuted;
                     else {
-                        var choiceAction = action as SingleChoiceAction;
-                        if (choiceAction != null)
-                            choiceAction.Execute += ActionOnExecuted;
-                        else {
-                            var parametrizedAction = action as ParametrizedAction;
-                            if (parametrizedAction != null)
-                                parametrizedAction.Execute += ActionOnExecuted;
-                        }
+                        var parametrizedAction = action as ParametrizedAction;
+                        if (parametrizedAction != null)
+                            parametrizedAction.Execute += ActionOnExecuted;
                     }
                 }
-                View.SelectionChanged += ViewOnSelectionChanged;
-                ObjectSpace.Committed += ObjectSpaceOnCommitted;
-                Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
-                ForceExecution(ExecutionContext.ControllerActivated);
-                View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
-                View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
-                View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
-                View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
-                View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
-                if (View is ListView) {
-                    _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
-                    _listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
-                    _listViewProcessCurrentObjectController.CustomizeShowViewParameters+=CustomizeShowViewParameters;
-                }
+            }
+            View.SelectionChanged += ViewOnSelectionChanged;
+            ObjectSpace.Committed += ObjectSpaceOnCommitted;
+            Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
+            _logicRuleExecutor.ForceExecution(ExecutionContext.ControllerActivated);
+            View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+            View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
+            View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
+            View.ObjectSpace.Refreshing += ObjectSpace_Refreshing;
+            View.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
+            if (View is ListView) {
+                _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
+                _listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+                _listViewProcessCurrentObjectController.CustomizeShowViewParameters+=CustomizeShowViewParameters;
             }
         }
 
         void CustomizeShowViewParameters(object sender, CustomizeShowViewParametersEventArgs customizeShowViewParametersEventArgs) {
-            ForceExecution(ExecutionContext.CustomizeShowViewParameters);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.CustomizeShowViewParameters);
         }
 
         IEnumerable<IModelLogic> ModelLogics {
@@ -192,33 +192,26 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            ForceExecution(actionBaseEventArgs);
+            _logicRuleExecutor.ForceExecution(actionBaseEventArgs);
         }
-
-        void ForceExecution(ActionBaseEventArgs args) {
-            //            Active[ActiveObjectTypeHasRules] = LogicRuleManager<TModelLogicRule>.HasRules(args.ShowViewParameters.CreatedView.ObjectTypeInfo);
-            ForceExecution(IsReady, args.ShowViewParameters.CreatedView,  false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args);
-        }
-
 
         void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {
-            ForceExecution(ExecutionContext.ViewOnSelectionChanged);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.ViewOnSelectionChanged);
         }
-
 
         void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs customProcessListViewSelectedItemEventArgs) {
-            ForceExecution(ExecutionContext.CustomProcessSelectedItem);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.CustomProcessSelectedItem);
         }
 
-
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
-            ForceExecution(ExecutionContext.ObjectSpaceCommited);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.ObjectSpaceCommited);
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            ForceExecution(ExecutionContext.ViewControlsCreated);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.ViewControlsCreated);
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var actions = GetActions();
@@ -259,15 +252,13 @@ namespace Xpand.ExpressApp.Logic {
             _previousObject = View.CurrentObject;
         }
 
-
         void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
-            ForceExecution(ExecutionContext.TemplateViewChanged);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.TemplateViewChanged);
         }
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e) {
             isRefreshing = false;
-            if (View != null)
-                ForceExecution(ExecutionContext.ObjectSpaceReloaded);
+            _logicRuleExecutor.ForceExecution(ExecutionContext.ObjectSpaceReloaded);
         }
 
         private void ObjectSpace_Refreshing(object sender, CancelEventArgs e) {
@@ -276,13 +267,13 @@ namespace Xpand.ExpressApp.Logic {
 
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
             if (_previousObject != null && !(ObjectSpace.IsDisposedObject(_previousObject))) {
-                InvertExecution(View, ExecutionContext.CurrentObjectChanged, _previousObject);
+                _logicRuleExecutor.InvertExecution(View, ExecutionContext.CurrentObjectChanged, _previousObject);
                 var notifyPropertyChanged = _previousObject as INotifyPropertyChanged;
                 if (notifyPropertyChanged != null)
                     notifyPropertyChanged.PropertyChanged -= OnPropertyChanged;
             }
             if (!isRefreshing) {
-                ForceExecution(ExecutionContext.CurrentObjectChanged);
+                _logicRuleExecutor.ForceExecution(ExecutionContext.CurrentObjectChanged);
                 var notifyPropertyChanged = View.CurrentObject as INotifyPropertyChanged;
                 if (notifyPropertyChanged != null)
                     notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
@@ -290,33 +281,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs) {
-            ForceExecution(IsReady, View, false, ExecutionContext.NotifyPropertyObjectChanged, sender);
-        }
-
-
-        private void ForceExecution(ExecutionContext executionContext, View view) {
-            ForceExecution(IsReady, view, false, executionContext);
-        }
-
-        private void ForceExecution(ExecutionContext executionContext) {
-            ForceExecution(executionContext, View);
+            _logicRuleExecutor.ForceExecution(View, false, ExecutionContext.NotifyPropertyObjectChanged, sender);
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args) {
             if (!String.IsNullOrEmpty(args.PropertyName) && View != null)
-                ForceExecution(ExecutionContext.ObjectSpaceObjectChanged);
-        }
-
-        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs args) {
-            if (LogicRuleExecuting != null) {
-                LogicRuleExecuting(this, args);
-            }
-        }
-
-        protected virtual void OnLogicRuleExecuted(LogicRuleExecuteEventArgs args) {
-            if (LogicRuleExecuted != null) {
-                LogicRuleExecuted(this, args);
-            }
-        }
+                _logicRuleExecutor.ForceExecution(ExecutionContext.ObjectSpaceObjectChanged);
+        }        
     }
 }

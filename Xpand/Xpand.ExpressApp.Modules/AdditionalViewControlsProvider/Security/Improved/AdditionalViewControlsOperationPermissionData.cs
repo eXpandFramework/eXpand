@@ -10,7 +10,7 @@ using Xpand.Persistent.Base.General.ValueConverters;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     [System.ComponentModel.DisplayName("AdditionalViewControls")]
-    public class AdditionalViewControlsOperationPermissionData : LogicRuleOperationPermissionData, IAdditionalViewControlsRule {
+    public class AdditionalViewControlsOperationPermissionData : LogicRuleOperationPermissionData, IContextAdditionalViewControlsRule {
 
         public AdditionalViewControlsOperationPermissionData(Session session)
             : base(session) {

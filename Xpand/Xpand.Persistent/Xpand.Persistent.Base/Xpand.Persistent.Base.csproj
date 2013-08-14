@@ -158,6 +158,7 @@
     <Compile Include="General\XpoObjectHacker.cs" />
     <Compile Include="Logic\ExecutionContext.cs" />
     <Compile Include="Logic\LogicRule.cs" />
+    <Compile Include="Logic\Model\IContextLogicRule.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />

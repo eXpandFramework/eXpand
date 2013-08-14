@@ -5,10 +5,10 @@ using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
-    public class MasterDetailPermission : LogicRulePermission, IMasterDetailRule {
+    public class MasterDetailPermission : LogicRulePermission, IContextMasterDetailRule {
         public const string OperationName = "MasterDetail";
 
-        public MasterDetailPermission(IMasterDetailRule logicRule)
+        public MasterDetailPermission(IContextMasterDetailRule logicRule)
             : base(OperationName, logicRule) {
 
         }

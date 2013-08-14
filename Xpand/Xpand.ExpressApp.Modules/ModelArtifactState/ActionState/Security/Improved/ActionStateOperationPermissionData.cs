@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "Module,ActionId")]
     [System.ComponentModel.DisplayName("ActionState")]
-    public class ActionStateOperationPermissionData : ArtifactStateOperationPermissionData, IActionStateRule {
+    public class ActionStateOperationPermissionData : ArtifactStateOperationPermissionData, IContextActionStateRule {
         public ActionStateOperationPermissionData(Session session)
             : base(session) {
         }

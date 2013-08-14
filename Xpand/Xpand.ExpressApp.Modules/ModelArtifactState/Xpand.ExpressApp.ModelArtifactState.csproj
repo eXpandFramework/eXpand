@@ -111,6 +111,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ActionState\Logic\IActionStateRule.cs" />
+    <Compile Include="ActionState\Logic\IContextActionStateRule.cs" />
     <Compile Include="ActionState\Model\IModelActionStateRule.cs" />
     <Compile Include="ActionState\Model\ActionStateRulesNodeUpdater.cs" />
     <Compile Include="ActionState\Security\ActionStateRulePermission.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="ArtifactState\Logic\ArtifactStateRule.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactStateRuleAttribute.cs" />
     <Compile Include="ArtifactState\Logic\IArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Logic\IContextArtifactStateRule.cs" />
     <Compile Include="ArtifactState\Model\IModelApplicationModelArtifactState.cs" />
     <Compile Include="ArtifactState\Model\IModelArtifactState.cs" />
     <Compile Include="ArtifactState\Model\IModelArtifactStateRule.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ControllerState\Logic\IContextControllerStateRule.cs" />
     <Compile Include="ControllerState\Logic\IControllerStateRule.cs" />
     <Compile Include="ControllerState\Model\IModelControllerStateRule.cs" />
     <Compile Include="ControllerState\Model\ControllerStateRulesNodeUpdater.cs" />

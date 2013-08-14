@@ -27,12 +27,12 @@ namespace Xpand.ExpressApp.JobScheduler {
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
             if (_logicRuleViewController == null)
                 throw new NullReferenceException("Use the application designer to drag and drop the AdditionalViewControlsProvider module");
-            _logicRuleViewController.LogicRuleExecuting += OnLogicRuleExecuting;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecuting += OnLogicRuleExecuting;
             Frame.Disposing += FrameOnDisposing;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            _logicRuleViewController.LogicRuleExecuting -= OnLogicRuleExecuting;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecuting -= OnLogicRuleExecuting;
         }
 
         void OnLogicRuleExecuting(object sender, LogicRuleExecutingEventArgs logicRuleExecutingEventArgs) {

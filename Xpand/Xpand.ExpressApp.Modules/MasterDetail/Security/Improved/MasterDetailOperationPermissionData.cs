@@ -8,7 +8,7 @@ using Xpand.ExpressApp.MasterDetail.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     [System.ComponentModel.DisplayName("MasterDetail")]
-    public class MasterDetailOperationPermissionData : LogicRuleOperationPermissionData, IMasterDetailRule {
+    public class MasterDetailOperationPermissionData : LogicRuleOperationPermissionData, IContextMasterDetailRule {
         public MasterDetailOperationPermissionData(Session session)
             : base(session) {
         }

@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
         }
 
         IModelExecutionContexts GetDefaulModelExecutionContextsModelNode(IModelApplication application) {
-            return _modelLogic.Invoke(application).ExecutionContextsGroup.SingleOrDefault(context => context.Id == LogicRuleDomainLogic.DefaultExecutionContextGroup);
+            return _modelLogic.Invoke(application).ExecutionContextsGroup.SingleOrDefault(context => context.Id == ContextLogicRuleDomainLogic.DefaultExecutionContextGroup);
         }
 
         IEnumerable<ExecutionContext> GetContexts(IModelExecutionContexts modelExecutionContexts) {

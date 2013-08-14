@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     [ModelAbstractClass]
-    public interface IModelLogicRule : ILogicRule,IModelNode {
+    public interface IModelLogicRule : IModelNode, IContextLogicRule {
 
         [ModelPersistentName("TypeInfo")]
         [DataSourceProperty("Application.BOModel"), Required]

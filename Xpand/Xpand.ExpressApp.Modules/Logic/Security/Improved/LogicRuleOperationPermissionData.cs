@@ -11,11 +11,12 @@ using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     [NonPersistent]
-    public abstract class LogicRuleOperationPermissionData : XpandPermissionData, ILogicRule {
+    public abstract class LogicRuleOperationPermissionData : XpandPermissionData, IContextLogicRule {
 
         protected LogicRuleOperationPermissionData(Session session)
             : base(session) {
@@ -25,9 +26,8 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
         public override void AfterConstruction() {
             base.AfterConstruction();
-            ExecutionContextGroup = LogicRuleDomainLogic.DefaultExecutionContextGroup;
+            ExecutionContextGroup = ContextLogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
-
 
         private Type _objectTypeData;
 

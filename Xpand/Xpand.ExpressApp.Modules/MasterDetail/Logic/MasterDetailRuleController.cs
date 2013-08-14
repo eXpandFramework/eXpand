@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             base.OnFrameAssigned();
             Frame.Disposing+=FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
             var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().Single();
             masterDetailViewControllerBase.RequestRules = frame1 => {
                 var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             _masterDetailRules=new List<IMasterDetailRule>();
         }
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            _logicRuleViewController.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }
 
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

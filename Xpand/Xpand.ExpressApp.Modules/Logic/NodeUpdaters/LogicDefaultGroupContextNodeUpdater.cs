@@ -16,8 +16,8 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
 
         public override void UpdateNode(ModelNode node) {
             IModelExecutionContextsGroup m = _modelLogic.Invoke(node.Application).ExecutionContextsGroup;
-            if (m[LogicRuleDomainLogic.DefaultExecutionContextGroup] != null) return;
-            m.AddNode<IModelExecutionContexts>(LogicRuleDomainLogic.DefaultExecutionContextGroup);
+            if (m[ContextLogicRuleDomainLogic.DefaultExecutionContextGroup] != null) return;
+            m.AddNode<IModelExecutionContexts>(ContextLogicRuleDomainLogic.DefaultExecutionContextGroup);
         }
     }
 }

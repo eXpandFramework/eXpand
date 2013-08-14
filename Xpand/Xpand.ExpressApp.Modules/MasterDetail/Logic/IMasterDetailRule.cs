@@ -2,8 +2,12 @@
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
+    public interface IContextMasterDetailRule:IContextLogicRule,IMasterDetailRule {
+         
+    }
     public interface IMasterDetailRule : ILogicRule {
 
         [DataSourceProperty("ChildListViews")]

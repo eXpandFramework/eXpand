@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public interface ISupportAppeareance {
@@ -26,6 +27,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         int? FontSize { get; set; }
     }
 
+    public interface IContextAdditionalViewControlsRule:IContextLogicRule,IAdditionalViewControlsRule {
+         
+    }
     public interface IAdditionalViewControlsRule : ILogicRule, ISupportAppeareance {
         [Category("Data")]
         [Description("The type of the control to be added to the view")]
@@ -55,7 +59,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         [Category("Behavior")]
         [Description("Specifies the position at which the control is to be inserted")]
-        Position Position { get; set; } 
+        Position Position { get; set; }
+
     }
     [DomainLogic(typeof(IAdditionalViewControlsRule))]
     public class AdditionalViewControlsRuleDomainLogic {

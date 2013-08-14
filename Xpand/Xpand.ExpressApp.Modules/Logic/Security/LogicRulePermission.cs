@@ -7,13 +7,14 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.DomainLogic;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 using PermissionBase = Xpand.ExpressApp.Security.Permissions.PermissionBase;
 
 namespace Xpand.ExpressApp.Logic.Security {
-    public abstract class LogicRulePermission : PermissionBase, ILogicRule {
+    public abstract class LogicRulePermission : PermissionBase, IContextLogicRule {
         protected LogicRulePermission() {
-            ExecutionContextGroup = LogicRuleDomainLogic.DefaultExecutionContextGroup;
+            ExecutionContextGroup = ContextLogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
 
         public string ViewId { get; set; }

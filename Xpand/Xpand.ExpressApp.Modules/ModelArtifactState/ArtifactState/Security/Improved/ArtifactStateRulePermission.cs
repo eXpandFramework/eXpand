@@ -3,8 +3,8 @@ using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security.Improved {
-    public abstract class ArtifactStateRulePermission : LogicRulePermission, IArtifactStateRule {
-        protected ArtifactStateRulePermission(string operation, IArtifactStateRule logicRule)
+    public abstract class ArtifactStateRulePermission : LogicRulePermission, IContextArtifactStateRule {
+        protected ArtifactStateRulePermission(string operation, IContextArtifactStateRule logicRule)
             : base(operation, logicRule) {
             Module = logicRule.Module;
         }

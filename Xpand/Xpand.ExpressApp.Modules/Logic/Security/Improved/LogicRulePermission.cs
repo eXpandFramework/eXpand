@@ -7,27 +7,29 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
-    public abstract class LogicRulePermission : OperationPermissionBase, ILogicRule {
-        protected LogicRulePermission(string operation, ILogicRule logicRule)
+    public abstract class LogicRulePermission : OperationPermissionBase, IContextLogicRule {
+        protected LogicRulePermission(string operation, IContextLogicRule contextLogicRule)
             : base(operation) {
-            Description = logicRule.Description;
-            ExecutionContextGroup = logicRule.ExecutionContextGroup;
-            FrameTemplateContext = logicRule.FrameTemplateContext;
-            FrameTemplateContextGroup = logicRule.FrameTemplateContextGroup;
-            ID = logicRule.Id;
-            Index = logicRule.Index;
-            IsRootView = logicRule.IsRootView;
-            Nesting = logicRule.Nesting;
-            ((ILogicRule)this).View = logicRule.View;
-            ViewContextGroup = logicRule.ViewContextGroup;
-            ViewEditMode = logicRule.ViewEditMode;
-            ViewType = logicRule.ViewType;
-            ObjectType = logicRule.TypeInfo.Type;
-            NormalCriteria=logicRule.NormalCriteria;
-            EmptyCriteria=logicRule.EmptyCriteria;
+            ExecutionContextGroup = contextLogicRule.ExecutionContextGroup;
+            FrameTemplateContextGroup = contextLogicRule.FrameTemplateContextGroup;
+            ViewContextGroup = contextLogicRule.ViewContextGroup;
+            ActionExecutionContextGroup=contextLogicRule.ActionExecutionContextGroup;
+
+            Description = contextLogicRule.Description;
+            ID = contextLogicRule.Id;
+            Index = contextLogicRule.Index;
+            IsRootView = contextLogicRule.IsRootView;
+            Nesting = contextLogicRule.Nesting;
+            ((ILogicRule)this).View = contextLogicRule.View;
+            ViewEditMode = contextLogicRule.ViewEditMode;
+            ViewType = contextLogicRule.ViewType;
+            ObjectType = contextLogicRule.TypeInfo.Type;
+            NormalCriteria=contextLogicRule.NormalCriteria;
+            EmptyCriteria=contextLogicRule.EmptyCriteria;
         }
         public string ViewId { get; set; }
 
@@ -37,18 +39,17 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         [RuleRequiredField]
         public string ID { get; set; }
 
+        public string FrameTemplateContextGroup { get; set; }
+
         public string ExecutionContextGroup { get; set; }
+
         public string ActionExecutionContextGroup { get; set; }
 
-
         public string ViewContextGroup { get; set; }
-        public string FrameTemplateContextGroup { get; set; }
 
         public string NormalCriteria { get; set; }
 
         public string EmptyCriteria { get; set; }
-
-        public FrameTemplateContext FrameTemplateContext { get; set; }
 
         public bool? IsRootView { get; set; }
 

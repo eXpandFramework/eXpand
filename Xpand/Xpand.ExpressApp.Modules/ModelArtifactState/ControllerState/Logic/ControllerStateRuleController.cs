@@ -42,14 +42,14 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
             base.OnActivated();
             if (LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
                 _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-                _logicRuleViewController.LogicRuleExecute+=LogicRuleViewControllerOnLogicRuleExecute;
+                _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=LogicRuleViewControllerOnLogicRuleExecute;
             }
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (LogicRuleManager.HasRules(View.ObjectTypeInfo))
-                _logicRuleViewController.LogicRuleExecute-=LogicRuleViewControllerOnLogicRuleExecute;
+                _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=LogicRuleViewControllerOnLogicRuleExecute;
         }
 
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

@@ -15,12 +15,12 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             base.OnFrameAssigned();
             Frame.Disposing+=FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecute+=OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=OnLogicRuleExecute;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecute-=OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=OnLogicRuleExecute;
         }
 
         IEnumerable<ActionBase> GetActions(IActionStateRule rule) {
