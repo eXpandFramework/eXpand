@@ -40,7 +40,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.ExpressApp.Web.v13.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <Private>False</Private>
@@ -66,9 +66,17 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      
+    </Reference>
     <Reference Include="DevExpress.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Demos\Modules\MapView\MapViewTester.Module.Web\bin\Debug\DevExpress.Web.v13.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <Private>False</Private>

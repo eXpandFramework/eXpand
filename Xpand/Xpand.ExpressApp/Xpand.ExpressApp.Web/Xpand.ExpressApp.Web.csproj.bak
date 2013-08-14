@@ -10,13 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Web</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -56,86 +57,62 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v12.2.Core, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v12.2.Core, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Web.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.configuration" />
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Persistent.Base">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Reference Include="Xpand.ExpressApp">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DisableProcessCurrentObjectController.cs">
+    <Compile Include="Model\IModelViewOpenView.cs" />
+    <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\UpdateVisibilityController.cs">
+    <Compile Include="SystemModule\RegisterScriptsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetail\DisableProcessCurrentObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Core\ListViewExtensions.cs">
@@ -146,6 +123,9 @@
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Layout\GridViewListAdapter.cs" />
+    <Compile Include="Layout\IListControlAdapter.cs" />
+    <Compile Include="Layout\ListControlAdapterBase.cs" />
     <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
     <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
@@ -154,9 +134,12 @@
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\Model\ModelAfaptor\IModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAfaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\ASPxDateTimePropertyEditor.cs" />
     <Compile Include="PropertyEditors\ASPxTimePropertyEditor .cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\ASPxSearchLookupPropertyEditor.cs" />
@@ -172,7 +155,11 @@
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
+    <Compile Include="Model\IModelOptionsCollectionEditMode.cs" />
     <Compile Include="SystemModule\NullTextController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\PreviewRowDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\UnboundColumnController.cs">
@@ -208,6 +195,7 @@
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ViewStrategies\XpandShowViewStrategy.cs" />
     <Compile Include="XpandPopupWindow.cs" />
     <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>
@@ -253,6 +241,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\AdjustSize.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Layout\XpandHelper.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Styles\CommonStyle.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

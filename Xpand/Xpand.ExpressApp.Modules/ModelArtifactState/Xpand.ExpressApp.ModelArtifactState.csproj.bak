@@ -10,12 +10,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ModelArtifactState</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ModelArtifactState</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <TargetFrameworkProfile />
@@ -54,97 +56,125 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.2.Core">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.Security.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v12.2">
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.Persistent.Base.v13.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.Xpo.v13.1.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ArtifactState">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ArtifactState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalActionState">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalActionState.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ConditionalControllerState">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ConditionalControllerState.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Logic.Conditional">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.Conditional.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-      <Private>False</Private>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionState\Logic\ActionState.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRule.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRuleAttribute.cs" />
+    <Compile Include="ActionState\Logic\ActionStateRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActionState\Logic\IActionStateRule.cs" />
+    <Compile Include="ActionState\Logic\IContextActionStateRule.cs" />
+    <Compile Include="ActionState\Model\IModelActionStateRule.cs" />
+    <Compile Include="ActionState\Model\ActionStateRulesNodeUpdater.cs" />
+    <Compile Include="ActionState\Security\ActionStateRulePermission.cs" />
+    <Compile Include="ActionState\Security\Improved\ActionStateOperationPermissionData.cs" />
+    <Compile Include="ActionState\Security\Improved\ActionStateRulePermission.cs" />
+    <Compile Include="ActionState\Security\Improved\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActionState\Security\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActionState\ActionStateLogicInstaller.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Logic\ArtifactStateRuleAttribute.cs" />
+    <Compile Include="ArtifactState\Logic\IArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Logic\IContextArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Model\IModelApplicationModelArtifactState.cs" />
+    <Compile Include="ArtifactState\Model\IModelArtifactState.cs" />
+    <Compile Include="ArtifactState\Model\IModelArtifactStateRule.cs" />
+    <Compile Include="ArtifactState\Model\IModelLogicConditionalActionState.cs" />
+    <Compile Include="ArtifactState\Model\IModelLogicConditionalControllerState.cs" />
+    <Compile Include="ArtifactState\Security\ArtifactStateRulePermission.cs" />
+    <Compile Include="ArtifactState\Security\Improved\ArtifactStateOperationPermissionData.cs" />
+    <Compile Include="ArtifactState\Security\Improved\ArtifactStateRulePermission.cs" />
+    <Compile Include="ControllerState\ControllerStateLogicInstaller.cs" />
+    <Compile Include="ControllerState\Logic\ControllerState.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRule.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRuleAttribute.cs" />
+    <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControllerState\Logic\IContextControllerStateRule.cs" />
+    <Compile Include="ControllerState\Logic\IControllerStateRule.cs" />
+    <Compile Include="ControllerState\Model\IModelControllerStateRule.cs" />
+    <Compile Include="ControllerState\Model\ControllerStateRulesNodeUpdater.cs" />
+    <Compile Include="ControllerState\Security\ControllerStateRulePermission.cs" />
+    <Compile Include="ControllerState\Security\ControllerTypeConverter.cs" />
+    <Compile Include="ControllerState\Security\Improved\ControllerStateOperationPermissionData.cs" />
+    <Compile Include="ControllerState\Security\Improved\ControllerStateRulePermission.cs" />
+    <Compile Include="ControllerState\Security\Improved\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControllerState\Security\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ObjectViews\Model\ObjectViewActionExecutionContextsGroupNodeUpdater.cs" />
+    <Compile Include="ObjectViews\ObjectViewsLogicInstaller.cs" />
+    <Compile Include="ObjectViews\Logic\ObjectViewRule.cs" />
+    <Compile Include="ObjectViews\Logic\ObjectViewRuleAttribute.cs" />
+    <Compile Include="ObjectViews\Logic\ConditionalObjectViewRuleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ObjectViews\Logic\IObjectViewRule.cs" />
+    <Compile Include="ObjectViews\Model\IModelApplicationConditionalObjectView.cs" />
+    <Compile Include="ObjectViews\Model\IModelObjectViewRule.cs" />
+    <Compile Include="ObjectViews\Model\IModelLogicConditionalObjectView.cs" />
+    <Compile Include="ObjectViews\Model\ObjectViewRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs"></Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
@@ -183,6 +213,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
