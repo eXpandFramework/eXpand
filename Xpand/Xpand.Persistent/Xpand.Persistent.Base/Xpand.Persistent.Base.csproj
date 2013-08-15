@@ -149,6 +149,7 @@
     <Compile Include="General\NewObjectCreateGroupAttribute.cs" />
     <Compile Include="General\ObjectObserver.cs" />
     <Compile Include="General\ValueConverters\TypeValueConverter.cs" />
+    <Compile Include="General\ViewExtensions.cs" />
     <Compile Include="General\XafApplicationExtensions.cs" />
     <Compile Include="General\XpandModuleBase.cs">
       <SubType>Component</SubType>

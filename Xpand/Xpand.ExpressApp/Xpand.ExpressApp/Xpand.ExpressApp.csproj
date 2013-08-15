@@ -110,7 +110,6 @@
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
     <Compile Include="Core\AttributeRegistrator.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
-    <Compile Include="Core\ViewExtensions.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ListEditors\IXpandListEditor.cs" />

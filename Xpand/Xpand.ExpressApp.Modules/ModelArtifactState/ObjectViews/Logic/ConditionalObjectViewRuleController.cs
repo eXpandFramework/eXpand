@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ConditionalObjectViewRuleController : ViewController {
@@ -60,15 +61,15 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
                         break;
                     case ExecutionContext.CurrentObjectChanged:
                         if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView) {
-                            CurrentObjectChanged(info, objectViewRule);
+                            View.SetModel(info.Active ? objectViewRule.ObjectView : GetDefaultObjectView(),true);
                         }
                         break;
                 }
 
             }
         }
-
-        static void ProcessActions(LogicRuleInfo info, IObjectViewRule objectViewRule) {
+        
+        void ProcessActions(LogicRuleInfo info, IObjectViewRule objectViewRule) {
             var createdView = info.ActionBaseEventArgs.ShowViewParameters.CreatedView;
             if (createdView.Model.GetType() == objectViewRule.ObjectView.GetType())
                 createdView.SetModel(objectViewRule.ObjectView);
@@ -77,17 +78,10 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
         void CustomProcessSelectedItem(LogicRuleInfo info, IObjectViewRule objectViewRule) {
             var customProcessListViewSelectedItemEventArgs = ((CustomProcessListViewSelectedItemEventArgs) info.EventArgs);
             var type = objectViewRule.ObjectView.ModelClass.TypeInfo.Type;
-            var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(type), type,
-                                                                      objectViewRule.ObjectView.Id);
+            var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(type), type,objectViewRule.ObjectView.Id);
             var showViewParameters = customProcessListViewSelectedItemEventArgs.InnerArgs.ShowViewParameters;
-            showViewParameters.CreatedView = Application.CreateListView((IModelListView) objectViewRule.ObjectView,
-                                                                        collectionSource, true);
+            showViewParameters.CreatedView = Application.CreateListView((IModelListView) objectViewRule.ObjectView,collectionSource, true);
             customProcessListViewSelectedItemEventArgs.Handled = true;
-        }
-
-        void CurrentObjectChanged(LogicRuleInfo info, IObjectViewRule objectViewRule) {
-            var defaultObjectView = GetDefaultObjectView();
-            View.SetModel(info.Active ? objectViewRule.ObjectView : defaultObjectView);
         }
 
         void CustomizeShowViewParameters(LogicRuleInfo info, IObjectViewRule objectViewRule) {

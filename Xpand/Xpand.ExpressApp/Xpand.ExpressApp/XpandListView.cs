@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Core;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {
     public class XpandListView : ListView {
