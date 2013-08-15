@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering.RFCustomer_ListView" IsActiveFilterEnabled="True" ActiveFilterString="[Category!] In ()" FilterControlPosition="Top" />
-    <ListView Id="FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering.RVItem_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.XpandCategorizedListEditor" />
+    <ListView Id="RFCustomer_ListView" IsActiveFilterEnabled="True" ActiveFilterString="[Category!] In ()" FilterControlPosition="Top" />
+    <ListView Id="RVItem_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.XpandCategorizedListEditor" />
   </Views>
 </Application>

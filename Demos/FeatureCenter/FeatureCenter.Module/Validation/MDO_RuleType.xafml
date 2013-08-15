@@ -24,7 +24,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="FeatureCenter.Module.Validation.RuleTypeCustomer_ListView" AllowEdit="True">
+    <ListView Id="RuleTypeCustomer_ListView" AllowEdit="True">
       <Columns>
         <ColumnInfo Id="BirthDate" Removed="True" />
         <ColumnInfo Id="City" Removed="True" />

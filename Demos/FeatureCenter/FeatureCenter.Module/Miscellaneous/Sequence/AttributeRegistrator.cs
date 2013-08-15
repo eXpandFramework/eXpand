@@ -8,7 +8,7 @@ using Xpand.ExpressApp.Attributes;
 namespace FeatureCenter.Module.Miscellaneous.Sequence {
 
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        static readonly string SequenceCustomer_DetailView = typeof(SequenceCustomer).Namespace+".SequenceCustomer_DetailView";
+        const string SequenceCustomer_DetailView = "SequenceCustomer_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!(typesInfo.Type == typeof (SequenceCustomer))) yield break;

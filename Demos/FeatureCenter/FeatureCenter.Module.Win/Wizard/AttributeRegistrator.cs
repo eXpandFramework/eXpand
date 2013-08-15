@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.Wizard {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        public static readonly string WizardCustomer_DetailView = typeof(WizardCustomer).Namespace+".WizardCustomer_DetailView";
+        public static readonly string WizardCustomer_DetailView = "WizardCustomer_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(WizardCustomer)) yield break;

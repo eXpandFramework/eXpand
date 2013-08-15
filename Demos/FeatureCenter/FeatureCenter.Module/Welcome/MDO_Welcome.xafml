@@ -2,7 +2,7 @@
 <Application>
   <NavigationItems StartupNavigationItem="Welcome"></NavigationItems>
   <Views>
-    <DetailView Id="FeatureCenter.Module.Welcome.WelcomeObject_DetailView">
+    <DetailView Id="WelcomeObject_DetailView">
       <Items>
         <StaticText Id="Welcome_Static" Text="This demo has been designed to help you quickly get acquainted with the eXpand Framework and start using it effectively. &#xD;&#xA;If you are new to the eXpand Framework, you can get a glimpse of various features offered by it. Each individual demo shows off some particular XAF feature and comes with a description of that functionality.&#xD;&#xA;If you are a seasoned XAF developer, this demo can prove valuable to you too. You can refer to this demo's source code to see how some specific behavior can be implemented.&#xD;&#xA;&#xD;&#xA; To navigate through the individual demos, use the tree view on the left. Also for each view there is a special model configuration, you can see it through the model difference action (next to the refresh button). You can execute this action and examine the differences that are applied to show this feature." IsNewNode="True" />
       </Items>

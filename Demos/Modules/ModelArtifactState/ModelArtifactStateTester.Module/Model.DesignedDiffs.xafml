@@ -2,7 +2,7 @@
 <Application Title="ConditionalObjectViewDemo" Logo="ExpressAppLogo">
   <ConditionalObjectView>
     <Rules>
-      <ObjectViewRule Id="Customer_DetailView_For_EUMembers" TypeInfo="ModelArtifactStateTester.Module.BusinessObjects.Customer" NormalCriteria="!Country.EUMember Or Country Is Null" View="" ObjectView="ModelArtifactStateTester.Module.BusinessObjects.Customer_DetailView_NonEu" IsNewNode="True" />
+      <ObjectViewRule Id="Customer_DetailView_For_EUMembers" TypeInfo="ModelArtifactStateTester.Module.BusinessObjects.Customer" NormalCriteria="!Country.EUMember Or Country Is Null" View="" ObjectView="Customer_DetailView_NonEu" IsNewNode="True" />
     </Rules>
   </ConditionalObjectView>
   <SchemaModules>
@@ -11,7 +11,7 @@
     <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="ModelArtifactStateTester.Module.BusinessObjects.Customer_DetailView_NonEu" ClassName="ModelArtifactStateTester.Module.BusinessObjects.Customer" IsNewNode="True">
+    <DetailView Id="Customer_DetailView_NonEu" ClassName="ModelArtifactStateTester.Module.BusinessObjects.Customer" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Country" PropertyName="Country" IsNewNode="True" />
         <PropertyEditor Id="Name" PropertyName="Name" IsNewNode="True" />

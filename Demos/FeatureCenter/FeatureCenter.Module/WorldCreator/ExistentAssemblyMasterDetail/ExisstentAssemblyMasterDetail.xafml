@@ -2,17 +2,17 @@
 <Application>
   <MasterDetail>
     <Rules>
-      <MasterDetailRule Id="EAMDCustomer-Orders" IsNewNode="True" TypeInfo="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer" CollectionMember="Orders" ChildListView="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDOrder_ListView" NormalCriteria="1=1" />
+      <MasterDetailRule Id="EAMDCustomer-Orders" IsNewNode="True" TypeInfo="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer" CollectionMember="Orders" ChildListView="EAMDOrder_ListView" NormalCriteria="1=1" />
     </Rules>
   </MasterDetail>
   <Views>
-    <ListView Id="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDCustomer_ListView">
+    <ListView Id="EAMDCustomer_ListView">
       <GridViewOptions>
         <OptionsDetail EnableMasterViewMode="True" />
         <OptionsView ShowDetailButtons="True" />
       </GridViewOptions>
     </ListView>
-    <ListView Id="FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail.EAMDOrder_ListView">
+    <ListView Id="EAMDOrder_ListView">
       <Columns>
         <ColumnInfo Id="Customer" Index="-1" />
       </Columns>

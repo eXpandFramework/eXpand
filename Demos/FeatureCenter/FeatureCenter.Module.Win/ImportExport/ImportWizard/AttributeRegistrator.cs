@@ -7,7 +7,7 @@ namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(TestImportObject)) yield break;
-            var testimportobjectListview = typeof(TestImportObject).Namespace+".TestImportObject_ListView";
+            const string testimportobjectListview = "TestImportObject_ListView";
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("ImportWizard", testimportobjectListview);
             yield return xpandNavigationItemAttribute;
 

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.MessageBox {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        static readonly string ShowMessageBoxObject_DetailView = typeof(ShowMessageBoxObject).Namespace+ ".ShowMessageBoxObject_DetailView";
+        const string ShowMessageBoxObject_DetailView = "ShowMessageBoxObject_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(ShowMessageBoxObject)) yield break;

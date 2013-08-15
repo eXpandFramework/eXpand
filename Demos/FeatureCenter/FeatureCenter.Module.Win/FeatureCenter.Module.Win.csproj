@@ -350,9 +350,7 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\SPECustomer.cs" />
     <Compile Include="WinCustomer.cs" />
-    <Compile Include="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WinModule.Designer.cs">

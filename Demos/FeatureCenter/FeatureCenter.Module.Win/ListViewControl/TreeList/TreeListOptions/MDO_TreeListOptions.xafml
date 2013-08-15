@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions.OCategory_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.ListEditors.XpandTreeListEditor">
+    <ListView Id="OCategory_ListView" EditorTypeName="Xpand.ExpressApp.TreeListEditors.Win.ListEditors.XpandTreeListEditor">
       <Columns>
         <ColumnInfo Id="FullName">
           <TreeListColumnOptions>

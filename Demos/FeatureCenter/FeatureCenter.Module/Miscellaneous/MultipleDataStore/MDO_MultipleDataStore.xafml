@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="FeatureCenter.Module.Miscellaneous.MultipleDataStore.MDSCustomer_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <ListView Id="FeatureCenter.Module.Miscellaneous.MultipleDataStore.MDSCustomer_MDSOrders_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="MDSCustomer_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="MDSCustomer_MDSOrders_ListView" MasterDetailMode="ListViewAndDetailView" />
   </Views>
 </Application>

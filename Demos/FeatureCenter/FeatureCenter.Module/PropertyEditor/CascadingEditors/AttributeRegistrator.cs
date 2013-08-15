@@ -9,7 +9,7 @@ namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!ReferenceEquals(typesInfo.Type, typeof(CascadingPropertyEditorObject))) yield break;
-            var cascadingpropertyeditorobjectListview = typeof(CascadingPropertyEditorObject).Namespace+".CascadingPropertyEditorObject_ListView";
+            const string cascadingpropertyeditorobjectListview = "CascadingPropertyEditorObject_ListView";
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Captions.PropertyEditors + "Cascading editors", cascadingpropertyeditorobjectListview);
             yield return xpandNavigationItemAttribute;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderCascadingEditors, "1=1", "1=1", Captions.ViewMessageCascadingEditors, Position.Bottom) { ViewType = ViewType.ListView };
