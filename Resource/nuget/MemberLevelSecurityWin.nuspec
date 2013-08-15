@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandMemberLevelSecurityWin</id>
+    <version>11.1</version>
+    <title>DevExpress eXpandFramework MemberLevelSecurity Module (Win)</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MemberLevelSecurity Module (Win) / eXpandFramework</description>
+    <summary>MemberLevelSecurity Module (Win) / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" target="lib\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\Xpand.ExpressApp.Security.dll" />
+  </files>
+</package>

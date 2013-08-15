@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>11.1</version>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <projectUrl>http://www.expandframework.com/</projectUrl>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <id>eXpandSystemWin</id>
+    <title>DevExpress eXpandFramework System Module (Win)</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extends XAF by adding great new features for example;
+
+◦the ability to generate runtime members for your objects, 
+◦creating Application/Role/User models in the database, 
+◦storing your web cookies in the database, 
+◦handling of external application models, 
+◦combine end user modifications with application model, 
+◦support for multiple models at design time,
+Blogs:
+http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
+    <summary>System module</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+  </metadata>
+  <files>
+    <file src="Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
+	<file src="Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+    <file src="Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
+	<file src="Build\Temp\Wintellect.Threading.dll" target="lib\Wintellect.Threading.dll"/>
+  </files>
+</package>

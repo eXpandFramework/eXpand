@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandTreelistViewWeb</id>
+    <version>11.1</version>
+    <title>DevExpress eXpandFramework TreelistView Module (Web)</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TreelistView Module (Web) / eXpandFramework</description>
+    <summary>TreelistView Module (Web) / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\Xpand.ExpressApp.TreeListEditors.dll" />
+  </files>
+</package>

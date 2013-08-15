@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
     }
     [ToolboxBitmap(typeof(ThumbnailWebModule))]
     [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]    
     public sealed class ThumbnailWebModule : XpandModuleBase {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

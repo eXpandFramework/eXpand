@@ -20,10 +20,9 @@ namespace Xpand.ExpressApp.Validation {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var registrator = new ValidationRulesRegistrator(moduleManager);
-            registrator.RegisterRule(typeof(RuleRequiredForAtLeast1Property),
+            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleRequiredForAtLeast1Property),
                                      typeof(IRuleRequiredForAtLeast1PropertyProperties));
-            registrator.RegisterRule(typeof(RuleFromIPropertyValueValidator),
+            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleFromIPropertyValueValidator),
                                      typeof(IRuleFromIPropertyValueValidatorProperties));
         }
     }

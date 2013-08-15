@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandWorkFlow</id>
+    <version>11.1</version>
+    <title>DevExpress eXpandFramework WorkFlow Module</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>WorkFlow Module/ eXpandFramework</description>
+    <summary>WorkFlow Module / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Workflow.dll" target="lib\Xpand.ExpressApp.Workflow.dll" />
+  </files>
+</package>

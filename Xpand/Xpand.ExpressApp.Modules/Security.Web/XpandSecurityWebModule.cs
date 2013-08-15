@@ -10,22 +10,16 @@ using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Web {
-
-   
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class XpandSecurityWebModule : XpandModuleBase{
-        
-
-
         public XpandSecurityWebModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsAuthentication>();
         }
-
 
         protected override Type[] ApplicationTypes() {
             return new[] { typeof (IWriteSecuredLogonParameters) };
