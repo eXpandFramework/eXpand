@@ -13,16 +13,21 @@ namespace FixReferences {
             var nuspecFiles = DocumentHelper.SavedFiles.Select(Path.GetFileName).Where(s => Path.GetExtension(s) == ".nuspec").ToList();
             var document = DocumentHelper.GetXDocument(file);
             CreateNugetPackageElements(document,nuspecFiles);
-            var nuGetElement = document.Descendants().First(element => element.Name.LocalName == "Target" && element.Attribute("Name").Value == "NuGet");
+            CreateNuGetElements(document);
+            DocumentHelper.Save(document, file);
+        }
+
+        void CreateNuGetElements(XDocument document) {
+            var nuGetElement =document.Descendants().First(element => element.Name.LocalName == "Target" && element.Attribute("Name").Value == "NuGet");
             nuGetElement.RemoveNodes();
-            foreach (var nuspecFile in nuspecFiles.Select(Path.GetFileNameWithoutExtension)) {
-                var element = new XElement(_xNamespace+"Exec");
+            foreach (var nuspecFile in DocumentHelper.SavedFiles.Where(s => Path.GetExtension(s)==".nuspec")) {
+                var id = DocumentHelper.GetXDocument(nuspecFile).Descendants().First(xElement => xElement.Name.LocalName.ToLower() == "id").Value;
+                var element = new XElement(_xNamespace + "Exec");
                 element.Add(new XAttribute("ContinueOnError", "false"));
-                element.Add(new XAttribute("Command",@"Resource\Tool\NuGet.exe push Build\NuGet\"+nuspecFile+
-                                                             ".$(Version).nupkg $(NuGetApiKey)"));
+                element.Add(new XAttribute("Command", @"Resource\Tool\NuGet.exe push Build\NuGet\" + id +
+                                                      ".$(Version).nupkg $(NuGetApiKey)"));
                 nuGetElement.Add(element);
             }
-            DocumentHelper.Save(document, file);
         }
 
         void CreateNugetPackageElements(XDocument document, IEnumerable<string> nuspecFiles) {
