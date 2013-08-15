@@ -10,10 +10,8 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 
-namespace FeatureCenter.Module
-{
-    public class DisplayFeatureModelController:ViewController<ObjectView>
-    {
+namespace FeatureCenter.Module {
+    public class DisplayFeatureModelController : ViewController<ObjectView> {
         public event EventHandler<RequestingModelNameArgs> RequestingModelName;
 
         public void OnRequestingModelName(RequestingModelNameArgs e) {
@@ -26,8 +24,8 @@ namespace FeatureCenter.Module
         DisplayFeatureModelAttribute _displayFeatureModelAttribute;
 
         public DisplayFeatureModelController() {
-            _simpleAction = new SimpleAction(this,"Differences",PredefinedCategory.View);
-            _simpleAction.Execute+=SimpleActionOnExecute;
+            _simpleAction = new SimpleAction(this, "Differences", PredefinedCategory.View);
+            _simpleAction.Execute += SimpleActionOnExecute;
             _simpleAction.ImageName = "MenuBar_EditModel";
         }
 
@@ -38,39 +36,38 @@ namespace FeatureCenter.Module
         void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             var objectSpace = Application.CreateObjectSpace();
             var modelDifferenceObject = ((XPObjectSpace)objectSpace).Session.FindObject<ModelDifferenceObject>(o => o.Name == GetModelName() && o.PersistentApplication.UniqueName == Application.GetType().FullName);
-            simpleActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace,modelDifferenceObject);
+            simpleActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelDifferenceObject);
         }
 
         string GetModelName() {
             var requestingModelNameArgs = new RequestingModelNameArgs();
             OnRequestingModelName(requestingModelNameArgs);
-            if (requestingModelNameArgs.ModelName!= null)
+            if (requestingModelNameArgs.ModelName != null)
                 return requestingModelNameArgs.ModelName;
-            var s =_displayFeatureModelAttribute.ModelDifferenceObjectName?? _displayFeatureModelAttribute.ViewId;
-            return s.Replace("_DetailView","").Replace("_ListView","");
+            var s = _displayFeatureModelAttribute.ModelDifferenceObjectName ?? _displayFeatureModelAttribute.ViewId;
+            return s.Replace("_DetailView", "").Replace("_ListView", "");
         }
 
-        protected override void OnActivated()
-        {
+        protected override void OnActivated() {
             base.OnActivated();
             var displayFeatureModelAttributes = View.ObjectTypeInfo.FindAttributes<DisplayFeatureModelAttribute>();
             _displayFeatureModelAttribute =
                 displayFeatureModelAttributes.Where(AttributePredicate()).FirstOrDefault();
-            _simpleAction.Active[NoModelAssociated] = (_displayFeatureModelAttribute != null&&_displayFeatureModelAttribute.ViewId==View.Id);    
+            _simpleAction.Active[NoModelAssociated] = (_displayFeatureModelAttribute != null && _displayFeatureModelAttribute.ViewId == View.Id);
         }
 
         Func<DisplayFeatureModelAttribute, bool> AttributePredicate() {
             return attribute => {
                 var view = attribute.ViewId == View.Id;
                 var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(View.CurrentObject, attribute.Criteria);
-                if (!(isObjectFitForCriteria.HasValue)||View is ListView)
+                if (!(isObjectFitForCriteria.HasValue) || View is ListView)
                     return view;
-                return view&&isObjectFitForCriteria.Value;
+                return view && isObjectFitForCriteria.Value;
             };
         }
     }
 
-    public class RequestingModelNameArgs:EventArgs {
+    public class RequestingModelNameArgs : EventArgs {
         public string ModelName { get; set; }
     }
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
@@ -93,8 +90,8 @@ namespace FeatureCenter.Module
 
     }
 
-    [AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
-    public class DisplayFeatureModelAttribute:Attribute,ISupportViewId {
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class DisplayFeatureModelAttribute : Attribute, ISupportViewId {
         readonly CriteriaOperator _criteria;
         readonly string _viewId;
         readonly string _modelDifferenceObjectName;
@@ -115,8 +112,7 @@ namespace FeatureCenter.Module
         }
 
         public DisplayFeatureModelAttribute(string viewId, string modelDifferenceObjectName, CriteriaOperator criteria)
-            : this(viewId, modelDifferenceObjectName)
-        {
+            : this(viewId, modelDifferenceObjectName) {
             _criteria = criteria;
         }
 

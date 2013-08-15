@@ -1575,7 +1575,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="Movie.Artist_ListView" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor" ShowAutoFilterRow="True" Caption="Actors/Crew" PreviewColumnName="Biography">
+    <ListView Id="Artist_ListView" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor" ShowAutoFilterRow="True" Caption="Actors/Crew" PreviewColumnName="Biography">
       <Columns>
         <ColumnInfo Id="ArtistId" Index="-1" Width="94" />
         <ColumnInfo Id="Biography" Index="-1" Width="90" />

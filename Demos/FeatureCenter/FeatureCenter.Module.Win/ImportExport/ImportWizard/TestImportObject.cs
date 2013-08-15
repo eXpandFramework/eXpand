@@ -6,7 +6,7 @@ using Xpand.Xpo.Converters.ValueConverters;
 namespace FeatureCenter.Module.Win.ImportExport.ImportWizard {
 
 
-    [DisplayFeatureModel("FeatureCenter.Module.Win.ImportExport.ImportWizard.TestImportObject_ListView", "ImportWizard")]
+    [DisplayFeatureModel("TestImportObject_ListView", "ImportWizard")]
     public class TestImportObject : BaseObject {
         private string _Code;
 

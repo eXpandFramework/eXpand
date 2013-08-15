@@ -7,8 +7,8 @@ namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type.FullName != DynamicAssemblyCalculatedField.AttributeRegistrator.MasterDetailDynamicAssembly + "." + DynamicAssemblyCalculatedField.AttributeRegistrator.DMDCustomer) yield break;
-            yield return new DisplayFeatureModelAttribute("MasterDetailDynamicAssembly.DMDCustomer_ListView", "WC3LevelMasterDetailModelStore");
-            yield return new XpandNavigationItemAttribute("WorldCreator/Dynamic Assembly/Master detail", "MasterDetailDynamicAssembly.DMDCustomer_ListView");
+            yield return new DisplayFeatureModelAttribute("DMDCustomer_ListView", "WC3LevelMasterDetailModelStore");
+            yield return new XpandNavigationItemAttribute("WorldCreator/Dynamic Assembly/Master detail", "DMDCustomer_ListView");
         }
     }
 }

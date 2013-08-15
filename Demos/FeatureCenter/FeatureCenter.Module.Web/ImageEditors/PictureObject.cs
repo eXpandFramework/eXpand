@@ -9,7 +9,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
-    [DisplayFeatureModel("FeatureCenter.Module.Web.ImageEditors.PictureObject_ListView", "Thumbnail")]
+    [DisplayFeatureModel("PictureObject_ListView", "Thumbnail")]
     [DefaultProperty("Title")]
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderThumbnail, "1=1", "1=1",
         Captions.ViewMessageThumbnail, Position.Bottom, ViewType = ViewType.ListView, Nesting = Nesting.Root)]

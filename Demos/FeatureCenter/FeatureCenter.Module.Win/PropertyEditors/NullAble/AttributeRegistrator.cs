@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
         
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(PENACustomer)) yield break;
-            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "Null Able properties", "FeatureCenter.Module.Win.PropertyEditors.NullAble.PENACustomer_ListView");
+            var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "Null Able properties", "PENACustomer_ListView");
             yield return xpandNavigationItemAttribute;
             yield return new WhatsNewAttribute(new DateTime(2011, 1, 28), xpandNavigationItemAttribute);
 

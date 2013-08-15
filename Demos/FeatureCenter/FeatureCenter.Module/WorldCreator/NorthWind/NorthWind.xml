@@ -223,7 +223,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Categories_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Categories_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Categories]]></Property>
     
@@ -876,7 +876,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Products_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Products_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Products]]></Property>
     
@@ -1691,7 +1691,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.OrderDetails_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[OrderDetails_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/OrderDetails]]></Property>
     
@@ -2413,7 +2413,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Orders_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Orders_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Orders]]></Property>
     
@@ -2946,7 +2946,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Shippers_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Shippers_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Shippers]]></Property>
     
@@ -4504,7 +4504,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Customers_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Customers_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Customers]]></Property>
     
@@ -5103,7 +5103,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.CustomerCustomerDemo_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[CustomerCustomerDemo_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/CustomerCustomerDemo]]></Property>
     
@@ -5710,7 +5710,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.CustomerDemographics_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[CustomerDemographics_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/CustomerDemographics]]></Property>
     
@@ -8319,7 +8319,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Employees_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Employees_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Employees]]></Property>
     
@@ -8538,7 +8538,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.EmployeeTerritories_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[EmployeeTerritories_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/EmployeeTerritories]]></Property>
     
@@ -9036,7 +9036,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Territories_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Territories_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Territories]]></Property>
     
@@ -9306,7 +9306,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Region_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Region_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Region]]></Property>
     
@@ -14104,7 +14104,7 @@ using System.Linq;
     </Property>
   </SerializedObject>
   <SerializedObject type="PersistentXpandNavigationItemAttribute">
-    <Property type="simple" name="ViewId" isKey="false"><![CDATA[NorthWind.Suppliers_ListView]]></Property>
+    <Property type="simple" name="ViewId" isKey="false"><![CDATA[Suppliers_ListView]]></Property>
     <Property type="simple" name="ObjectKey" isKey="false"></Property>
     <Property type="simple" name="Path" isKey="false"><![CDATA[WorldCreator/NorthWind/BOModel/Suppliers]]></Property>
     

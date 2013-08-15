@@ -9,8 +9,8 @@ namespace FeatureCenter.Module.Win.Miscellaneous.ApplicationMultipleInstances
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderApplicationMultipleInstances, "1=1", "1=1",
         Captions.HeaderApplicationMultipleInstances, Position.Top)]
     [NonPersistent]
-    [XpandNavigationItem(Module.Captions.Miscellaneous + "Application Multiple Instances", "FeatureCenter.Module.Win.Miscellaneous.ApplicationMultipleInstances.AMIObject_DetailView")]
-    [DisplayFeatureModel("FeatureCenter.Module.Win.Miscellaneous.ApplicationMultipleInstances.AMIObject_DetailView", "ApplicationMultipleInstances")]
+    [XpandNavigationItem(Module.Captions.Miscellaneous + "Application Multiple Instances", "AMIObject_DetailView")]
+    [DisplayFeatureModel("AMIObject_DetailView", "ApplicationMultipleInstances")]
     public class AMIObject {
         
     }

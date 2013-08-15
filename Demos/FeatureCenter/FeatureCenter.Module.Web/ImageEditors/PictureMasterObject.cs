@@ -5,7 +5,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
 
-    [DisplayFeatureModelAttribute("FeatureCenter.Module.Web.ImageEditors.PictureMasterObject_ListView", "NCarousel")]
+    [DisplayFeatureModelAttribute("PictureMasterObject_ListView", "NCarousel")]
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderNCarousel, "1=1", "1=1",
         Captions.ViewMessageNCarousel, Position.Bottom, ViewType = ViewType.DetailView)]
     [AdditionalViewControlsRule(Module.Captions.Header + " " + Captions.HeaderNCarousel, "1=1", "1=1",
