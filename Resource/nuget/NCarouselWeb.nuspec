@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.NCarousel.Web.dll" target="lib\Xpand.ExpressApp.NCarousel.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
     <file src="\Build\Temp\Xpand.NCarousel.dll" target="lib\Xpand.NCarousel.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
   </files>
 </package>

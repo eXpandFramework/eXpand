@@ -14,7 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ViewVariants.dll" target="lib\Xpand.ExpressApp.ViewVariants.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
   </files>
 </package>

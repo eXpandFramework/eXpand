@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Win.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\Xpand.ExpressApp.TreeListEditors.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
   </files>
 </package>

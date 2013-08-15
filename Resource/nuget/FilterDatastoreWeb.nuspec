@@ -15,7 +15,7 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.FilterDataStore.dll" target="lib\Xpand.ExpressApp.FilterDataStore.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.FilterDataStore.Web.dll" target="lib\Xpand.ExpressApp.FilterDataStore.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
   </files>
 </package>
