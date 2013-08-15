@@ -99,10 +99,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
             }
+            _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
                 return _assemblies[_assemblyName];
             }
-            _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
@@ -637,19 +637,19 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         public static void CreateValueCalculator(this DynamicModelPropertyInfo info, string expressionPath = null) {
             info.AddAttribute(new BrowsableAttribute(false));
-            return;
-            CreateValueCalculatorCore(info);
-            ModelValueCalculatorAttribute modelValueCalculatorAttribute;
-            if (expressionPath != null) {
-                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(expressionPath);
-                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, null));
-            } else {
-                info.RemoveAttributes(typeof(ReadOnlyAttribute));
-                var type = typeof(MapModelValueCalculator);
-                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(type);
-                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, type));
-                info.AddAttribute(new ModelReadOnlyAttribute(typeof(MapModelReadOnlyCalculator)));
-            }
+//            return;
+//            CreateValueCalculatorCore(info);
+//            ModelValueCalculatorAttribute modelValueCalculatorAttribute;
+//            if (expressionPath != null) {
+//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(expressionPath);
+//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, null));
+//            } else {
+//                info.RemoveAttributes(typeof(ReadOnlyAttribute));
+//                var type = typeof(MapModelValueCalculator);
+//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(type);
+//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, type));
+//                info.AddAttribute(new ModelReadOnlyAttribute(typeof(MapModelReadOnlyCalculator)));
+//            }
         }
 
         static void CreateValueCalculatorCore(DynamicModelPropertyInfo info) {

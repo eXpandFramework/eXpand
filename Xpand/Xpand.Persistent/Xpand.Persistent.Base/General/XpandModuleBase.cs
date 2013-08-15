@@ -134,6 +134,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public bool Executed<T>(string name) {
+            if (!RuntimeMode)
+                return false;
             if (typeof(T).IsAssignableFrom(GetType())) {
                 Type value = typeof (T);
                 if (_callMonitor.ContainsKey(name)) {
