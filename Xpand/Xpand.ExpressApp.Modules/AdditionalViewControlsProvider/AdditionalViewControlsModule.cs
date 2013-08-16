@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     public sealed class AdditionalViewControlsModule : XpandModuleBase{
 
         public AdditionalViewControlsModule() {
-            LogicInstallerManager.Instance.RegisterInstaller(new AdditionalViewControlsLogicInstaller(this));
+            LogicInstallerManager.RegisterInstaller(new AdditionalViewControlsLogicInstaller(this));
         }
 
         #region IModelExtender Members

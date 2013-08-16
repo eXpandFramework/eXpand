@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.ModelAdaptor {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ModelAdaptorModule :XpandModuleBase {
         public ModelAdaptorModule() {
-            LogicInstallerManager.Instance.RegisterInstaller(new ModelAdaptorLogicInstaller(this));
+            LogicInstallerManager.RegisterInstaller(new ModelAdaptorLogicInstaller(this));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

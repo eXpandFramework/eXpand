@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
 
@@ -19,16 +20,16 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
-        public List<ILogicInstaller> LogicInstallers {
-            get { return _logicInstallers; }
+        public ReadOnlyCollection<ILogicInstaller> LogicInstallers {
+            get { return _logicInstallers.AsReadOnly(); }
         }
 
-        public void RegisterInstaller(ILogicInstaller logicInstaller) {
-            _logicInstallers.Add(logicInstaller);
+        public static void RegisterInstaller(ILogicInstaller logicInstaller) {
+            Instance._logicInstallers.Add(logicInstaller);
         }
 
-        public void RegisterInstallers(IEnumerable<ILogicInstaller> logicInstallers) {
-            _logicInstallers.AddRange(logicInstallers);
+        public static void RegisterInstallers(IEnumerable<ILogicInstaller> logicInstallers) {
+            Instance._logicInstallers.AddRange(logicInstallers);
         }
     }
 }

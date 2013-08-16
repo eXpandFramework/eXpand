@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.MasterDetail {
     public class MasterDetailModule : XpandModuleBase {
 
         public MasterDetailModule() {
-            LogicInstallerManager.Instance.RegisterInstaller(new MasterDetailLogicInstaller(this));
+            LogicInstallerManager.RegisterInstaller(new MasterDetailLogicInstaller(this));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
