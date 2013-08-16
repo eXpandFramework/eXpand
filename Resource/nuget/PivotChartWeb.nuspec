@@ -12,6 +12,7 @@
     <summary>PivotChart Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.dll" target="lib\Xpand.ExpressApp.PivotChart.dll" />

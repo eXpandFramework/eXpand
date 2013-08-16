@@ -12,6 +12,7 @@
     <summary>Security Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#Security</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />

@@ -9,19 +9,10 @@
     <id>eXpandSystemWin</id>
     <title>DevExpress eXpandFramework System Module (Win)</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Extends XAF by adding great new features for example;
-
-◦the ability to generate runtime members for your objects, 
-◦creating Application/Role/User models in the database, 
-◦storing your web cookies in the database, 
-◦handling of external application models, 
-◦combine end user modifications with application model, 
-◦support for multiple models at design time,
-Blogs:
-http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
     <summary>System module</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#core</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />

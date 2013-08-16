@@ -12,6 +12,7 @@
     <summary>XtraDashboard Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Dashboard.dll" target="lib\Xpand.ExpressApp.Dashboard.dll" />

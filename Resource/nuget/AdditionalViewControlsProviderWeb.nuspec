@@ -11,6 +11,7 @@
     <description>AdditionalViewControlsProvider Module (Web) / eXpandFramework</description>
     <summary>AdditionalViewControlsProvider Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
+	<projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
   </metadata>
   <files>

@@ -12,6 +12,7 @@
     <summary>NCarousel Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.NCarousel.dll" target="lib\Xpand.NCarousel.dll" />

@@ -12,6 +12,7 @@
     <summary>JobSheduler Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />

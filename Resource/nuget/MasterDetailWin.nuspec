@@ -12,6 +12,7 @@
     <summary>MasterDetail Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\Xpand.ExpressApp.Logic.dll" />

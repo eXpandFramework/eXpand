@@ -12,6 +12,7 @@
     <summary>WorldCreator DbMapper Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\Xpand.ExpressApp.WorldCreator.dll" />

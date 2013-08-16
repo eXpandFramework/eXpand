@@ -12,6 +12,7 @@
     <summary>Validation Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+	<projectUrl>http://www.expandframework.com/#validation</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\Xpand.ExpressApp.Validation.dll" />
