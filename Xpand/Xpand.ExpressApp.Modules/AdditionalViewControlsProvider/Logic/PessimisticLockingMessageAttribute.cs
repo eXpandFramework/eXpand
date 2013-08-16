@@ -4,7 +4,7 @@ using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public class PessimisticLockingMessageAttribute : AdditionalViewControlsRuleAttribute {
+    public sealed class PessimisticLockingMessageAttribute : AdditionalViewControlsRuleAttribute {
         public PessimisticLockingMessageAttribute(string id)
             : base(id, PessimisticLockingViewController.LockedUser + "!='@CurrentUserID' AND " + PessimisticLockingViewController.LockedUser + " Is Not Null", "1=0", "Record is locked by user {0}", Position.Top) {
             MessageProperty = "LockedUserMessage";

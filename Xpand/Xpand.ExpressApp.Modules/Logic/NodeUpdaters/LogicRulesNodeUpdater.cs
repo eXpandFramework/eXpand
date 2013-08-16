@@ -61,6 +61,6 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
             }
         }
 
-        protected abstract Expression<Func<IModelApplication, object>> ExecuteExpression();
+        protected abstract Expression<Func<IModelApplication, IModelLogic>> ExecuteExpression();
     }
 }

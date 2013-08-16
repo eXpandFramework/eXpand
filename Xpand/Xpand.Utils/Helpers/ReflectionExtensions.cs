@@ -86,6 +86,10 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static string GetPropertyName<TTarget>(Expression<Func<TTarget, object>> property) {
+            return GetPropertyName<TTarget, object>(property);
+        }
+
+        public static string GetPropertyName<TTarget, TObject>(Expression<Func<TTarget, TObject>> property)  {
             var memberExpression = property.Body as MemberExpression;
             if (memberExpression != null) return memberExpression.Member.Name;
             var unaryExpression = property.Body as UnaryExpression;

@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor.Model {
@@ -10,7 +11,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Model {
             rule.Attribute = attribute;
         }
 
-        protected override Expression<Func<IModelApplication, object>> ExecuteExpression() {
+        protected override Expression<Func<IModelApplication, IModelLogic>> ExecuteExpression() {
             return application => ((IModelApplicationModelAdaptor) application).ModelAdaptor;
         }
     }

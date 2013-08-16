@@ -4,7 +4,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.TypeConverters;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
-    public class ObjectViewRuleAttribute : LogicRuleAttribute, IObjectViewRule {
+    public sealed class ObjectViewRuleAttribute : LogicRuleAttribute, IObjectViewRule {
         public ObjectViewRuleAttribute(string id, string normalCriteria, string emptyCriteria, string objectView)
             : base(id, normalCriteria, emptyCriteria) {
             ObjectView = objectView;

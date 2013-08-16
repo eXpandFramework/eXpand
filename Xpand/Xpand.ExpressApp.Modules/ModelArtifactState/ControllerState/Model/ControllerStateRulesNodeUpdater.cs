@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Model {
     public class ControllerStateRulesNodeUpdater :
@@ -13,7 +14,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Model {
             rule.Attribute = attribute;
         }
 
-        protected override Expression<Func<IModelApplication, object>> ExecuteExpression() {
+        protected override Expression<Func<IModelApplication, IModelLogic>> ExecuteExpression() {
             return state => ((IModelApplicationModelArtifactState) state).ModelArtifactState.ConditionalControllerState;
         }
     }
