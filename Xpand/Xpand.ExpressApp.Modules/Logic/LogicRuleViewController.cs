@@ -60,14 +60,14 @@ namespace Xpand.ExpressApp.Logic {
             Execute(view, true, executionContext, currentObject,eventArgs);
         }
 
-        protected void InvertExecution(View view, ExecutionContext executionContext,EventArgs args) {
-            InvertExecution(view, executionContext, View.CurrentObject,args);
+        protected void InvertExecution(View view, ExecutionContext executionContext, EventArgs args, View oldView) {
+            InvertExecution(view, executionContext, oldView.CurrentObject,args);
         }
 
-        public View View { get; set; }
+//        public View View { get; set; }
 
-        public void InvertAndExecute(View view, ExecutionContext executionContext, EventArgs eventArgs) {
-            if (View != null) InvertExecution(View, executionContext,eventArgs);
+        public void InvertAndExecute(View view, ExecutionContext executionContext, EventArgs eventArgs,View oldView) {
+            if (oldView != null) InvertExecution(oldView, executionContext, eventArgs,oldView);
             Execute(executionContext, view, eventArgs);
         }
 
@@ -91,8 +91,8 @@ namespace Xpand.ExpressApp.Logic {
             Execute(view, false, executionContext,view!=null? view.CurrentObject:null, eventArgs);
         }
 
-        public void Execute(ExecutionContext executionContext,EventArgs eventArgs) {
-            Execute(executionContext, View, eventArgs);
+        public void Execute(ExecutionContext executionContext,EventArgs eventArgs,View view) {
+            Execute(executionContext, view, eventArgs);
         }
     }
     public class LogicRuleViewController : ViewController {
@@ -124,7 +124,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ApplicationOnViewShowing(object sender, ViewShowingEventArgs viewShowingEventArgs) {
-            _logicRuleExecutor.InvertAndExecute(viewShowingEventArgs.View, ExecutionContext.ViewShowing,viewShowingEventArgs);
+            _logicRuleExecutor.InvertAndExecute(viewShowingEventArgs.View, ExecutionContext.ViewShowing,viewShowingEventArgs,View);
         }
 
         protected override void Dispose(bool disposing) {
@@ -138,14 +138,13 @@ namespace Xpand.ExpressApp.Logic {
             base.Dispose(disposing);
         }
         void FrameOnViewChanging(object sender, ViewChangingEventArgs args) {
-            _logicRuleExecutor.View = args.View;
-            _logicRuleExecutor.InvertAndExecute(args.View, ExecutionContext.ViewChanging, args);
+            _logicRuleExecutor.InvertAndExecute(args.View, ExecutionContext.ViewChanging, args,View);
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var supportViewChanged = (Frame.Template) as ISupportViewChanged;
             if (supportViewChanged != null)
-                supportViewChanged.ViewChanged += (o, args) => _logicRuleExecutor.Execute(ExecutionContext.ViewChanged, args);
+                supportViewChanged.ViewChanged += (o, args) => _logicRuleExecutor.Execute(ExecutionContext.ViewChanged, args,View);
         }
 
         protected override void OnActivated() {
@@ -162,7 +161,7 @@ namespace Xpand.ExpressApp.Logic {
                 ObjectSpace.Reloaded += ObjectSpace_Reloaded;
 
                 Frame.TemplateViewChanged += FrameOnTemplateViewChanged;
-                _logicRuleExecutor.Execute(ExecutionContext.ControllerActivated,EventArgs.Empty);
+                _logicRuleExecutor.Execute(ExecutionContext.ControllerActivated,EventArgs.Empty,View);
                 
                 if (View is ListView) {
                     _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
@@ -213,25 +212,26 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {
-            _logicRuleExecutor.Execute(ExecutionContext.ViewOnSelectionChanged,eventArgs);
+            _logicRuleExecutor.Execute(ExecutionContext.ViewOnSelectionChanged,eventArgs,View);
         }
 
         void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs customProcessListViewSelectedItemEventArgs) {
-            _logicRuleExecutor.Execute(ExecutionContext.CustomProcessSelectedItem, customProcessListViewSelectedItemEventArgs);
+            _logicRuleExecutor.Execute(ExecutionContext.CustomProcessSelectedItem, customProcessListViewSelectedItemEventArgs,View);
         }
 
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
-            _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceCommited, eventArgs);
+            _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceCommited, eventArgs,View);
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            _logicRuleExecutor.Execute(ExecutionContext.ViewControlsCreated, EventArgs.Empty);
+            _logicRuleExecutor.Execute(ExecutionContext.ViewControlsCreated, EventArgs.Empty,View);
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
+                _logicRuleExecutor.Execute(ExecutionContext.ControllerDeActivated,EventArgs.Empty,View);
                 UnsubscribeFromActionEvents();
                 View.SelectionChanged -= ViewOnSelectionChanged;
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
@@ -276,12 +276,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs) {
-            _logicRuleExecutor.Execute(ExecutionContext.TemplateViewChanged, eventArgs);
+            _logicRuleExecutor.Execute(ExecutionContext.TemplateViewChanged, eventArgs,View);
         }
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e) {
             isRefreshing = false;
-            _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceReloaded, e);
+            _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceReloaded, e,View);
         }
 
         private void ObjectSpace_Refreshing(object sender, CancelEventArgs e) {
@@ -296,7 +296,7 @@ namespace Xpand.ExpressApp.Logic {
                     notifyPropertyChanged.PropertyChanged -= OnPropertyChanged;
             }
             if (!isRefreshing) {
-                _logicRuleExecutor.Execute(ExecutionContext.CurrentObjectChanged, args);
+                _logicRuleExecutor.Execute(ExecutionContext.CurrentObjectChanged, args,View);
                 var notifyPropertyChanged = View.CurrentObject as INotifyPropertyChanged;
                 if (notifyPropertyChanged != null)
                     notifyPropertyChanged.PropertyChanged += OnPropertyChanged;
@@ -309,7 +309,7 @@ namespace Xpand.ExpressApp.Logic {
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args) {
             if (!String.IsNullOrEmpty(args.PropertyName) && View != null)
-                _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceObjectChanged, args);
+                _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceObjectChanged, args,View);
         }        
     }
 }

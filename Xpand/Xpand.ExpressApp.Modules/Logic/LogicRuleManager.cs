@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Logic {
             get {
                 lock (_rules) {
                     if (!_rules.ContainsKey(tuple)) {
-                        _rules.Add(tuple, new List<ILogicRuleObject>());
+                        return new List<ILogicRuleObject>().AsReadOnly();
                     }
                     return _rules[tuple].AsReadOnly();
                 }
@@ -72,8 +72,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public void ClearAllRules() {
-            _rules.Clear();
-            _rules.Clear();
+            Instance._rules.Clear();
         }
 
         public void AddRules(ITypeInfo typeInfo, IEnumerable<ILogicRuleObject> rules) {
@@ -88,9 +87,9 @@ namespace Xpand.ExpressApp.Logic {
 
         void AddRuleCore(ITypeInfo typeInfo, ExecutionContext executionContext, ILogicRuleObject logicRuleObject) {
             var tuple = new Tuple<ITypeInfo, ExecutionContext>(typeInfo, executionContext);
-            if (!_rules.ContainsKey(tuple))
-                _rules.Add(tuple, new List<ILogicRuleObject>());
-            _rules[tuple].Add(logicRuleObject);
+            if (!Instance._rules.ContainsKey(tuple))
+                Instance._rules.Add(tuple, new List<ILogicRuleObject>());
+            Instance._rules[tuple].Add(logicRuleObject);
         }
     }
 }

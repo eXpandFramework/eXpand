@@ -18,6 +18,7 @@ namespace Xpand.Persistent.Base.Logic {
         ViewOnSelectionChanged = 4096,
         NotifyPropertyObjectChanged = 8192,
         ViewShowing=16384,
-        CustomizeShowViewParameters = ViewShowing * 2
+        CustomizeShowViewParameters = ViewShowing * 2,
+        ControllerDeActivated=CustomizeShowViewParameters*2
     }
 }

@@ -4,7 +4,6 @@ using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.Persistent.Base.ModelAdapter.Logic {
     [ModelLogicValidRule(typeof(IModelAdaptorRule))]
-    [LogicInstaller(typeof(IModelAdaptorLogicIntaller))]
     public interface IModelModelAdaptorLogic : IModelLogic {
     }
 
