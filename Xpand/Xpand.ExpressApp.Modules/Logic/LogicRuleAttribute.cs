@@ -6,10 +6,11 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.TypeConverters;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public abstract class LogicRuleAttribute : Attribute, ILogicRule {
+    public abstract class LogicRuleAttribute : Attribute,IContextLogicRule {
         protected LogicRuleAttribute(string id) {
             Id = id;
         }
