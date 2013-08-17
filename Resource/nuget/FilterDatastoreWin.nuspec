@@ -12,7 +12,7 @@
     <summary>FilterDatastore Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
-	<projectUrl>http://www.expandframework.com/#filterdatastore</projectUrl>
+    <projectUrl>http://www.expandframework.com/#filterdatastore</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.FilterDataStore.dll" target="lib\Xpand.ExpressApp.FilterDataStore.dll" />

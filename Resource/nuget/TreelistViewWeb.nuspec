@@ -12,7 +12,7 @@
     <summary>TreelistView Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
-	<projectUrl>http://www.expandframework.com/#treelist</projectUrl>
+    <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\Xpand.ExpressApp.TreeListEditors.dll" />

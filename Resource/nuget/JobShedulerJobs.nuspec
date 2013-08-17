@@ -12,7 +12,7 @@
     <summary>JobSheduler Jobs Module  / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
-	<projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
+    <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.EmailTemplateEngine.dll" target="lib\Xpand.EmailTemplateEngine.dll" />
