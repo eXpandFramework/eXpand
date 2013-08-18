@@ -72,10 +72,16 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _referencesCollector = new ReferencesCollector();
         }
 
+        static IValueManager<bool> _runtimeMode ; 
         public static bool RuntimeMode {
             get {
-                var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
-                return !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                if (_runtimeMode == null) {
+                    _runtimeMode = ValueManager.GetValueManager<bool>("RuntimeMode");
+                    var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
+                    _runtimeMode.Value = !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                }
+                return _runtimeMode.Value;
+
             }
         }
         public static bool XpandModelEditor {
