@@ -1,11 +1,15 @@
-﻿using Xpand.ExpressApp.MasterDetail.Logic;
-using Xpand.Persistent.Base.General;
+﻿using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
-
-    [ModelLogicValidRule(typeof(IMasterDetailRule))]
-    public interface IModelLogicMasterDetail : IModelLogic {
-
+    public interface IModelLogicMasterDetail:IModelNode  {
+        IModelMasterDetailLogicRules Rules { get; }
+        IModelExecutionContextsGroup ExecutionContextsGroup { get; }
+        IModelViewContextsGroup ViewContextsGroup { get; }
+        IModelFrameTemplateContextsGroup FrameTemplateContextsGroup { get; }
+    }
+    [ModelNodesGenerator(typeof(LogicRulesNodesGenerator))]
+    public interface IModelMasterDetailLogicRules:IModelNode,IModelList<IModelMasterDetailRule> {
     }
 }

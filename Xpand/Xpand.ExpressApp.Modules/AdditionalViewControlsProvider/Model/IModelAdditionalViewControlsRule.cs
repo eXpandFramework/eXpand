@@ -10,8 +10,8 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {
-    [ModelInterfaceImplementor(typeof(IAdditionalViewControlsRule), "Attribute")]
-    public interface IModelAdditionalViewControlsRule : IAdditionalViewControlsRule, IModelConditionalLogicRule<IAdditionalViewControlsRule>{
+    [ModelInterfaceImplementor(typeof(IContextAdditionalViewControlsRule), "Attribute")]
+    public interface IModelAdditionalViewControlsRule : IContextAdditionalViewControlsRule, IModelConditionalLogicRule<IAdditionalViewControlsRule> {
         [Browsable(false)]
         IEnumerable<Type> ControlTypes { get; }
         [Browsable(false)]

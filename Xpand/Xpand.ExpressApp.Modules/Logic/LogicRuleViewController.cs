@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleExecutor {
@@ -194,13 +193,14 @@ namespace Xpand.ExpressApp.Logic {
             _logicRuleExecutor.Execute(ExecutionContext.CustomizeShowViewParameters, customizeShowViewParametersEventArgs.ShowViewParameters.CreatedView,customizeShowViewParametersEventArgs);
         }
 
-        IEnumerable<IModelLogic> ModelLogics {
+        IEnumerable<IModelLogicWrapper> ModelLogics {
             get { return LogicInstallerManager.Instance.LogicInstallers.Select(installer => installer.GetModelLogic()); }
         }
 
         IEnumerable<ActionBase> GetActions() {
             var actionBases = Enumerable.Empty<ActionBase>();
-            var actionExecutionContextGroups = ModelLogics.SelectMany(logic => logic.ActionExecutionContextGroup);
+            var modelLogicWrappers = ModelLogics.Where(wrapper => wrapper.ActionExecutionContextGroup != null);
+            var actionExecutionContextGroups = modelLogicWrappers.SelectMany(logic => logic.ActionExecutionContextGroup);
             return actionExecutionContextGroups.SelectMany(@group => @group, (@group, executionContext)
                 => executionContext.Name).Aggregate(actionBases, (current, actionContexts)
                 => current.Union(Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base

@@ -9,8 +9,6 @@ using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Logic {
-    
-
     public abstract class LogicInstaller<TLogicRule,  TModelLogicRule> : ILogicInstaller where TModelLogicRule : IModelLogicRule
         where TLogicRule : ILogicRule {
         readonly XpandModuleBase _module;
@@ -48,10 +46,17 @@ namespace Xpand.ExpressApp.Logic {
 
         public abstract LogicRulesNodeUpdater<TLogicRule, TModelLogicRule> LogicRulesNodeUpdater { get; }
 
-        public IModelLogic GetModelLogic() {
+        public IModelLogicWrapper GetModelLogic() {
             return GetModelLogic(_application.Model);
         }
 
-        public abstract IModelLogic GetModelLogic(IModelApplication applicationModel);
+        protected abstract IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel);
+
+        public IModelLogicWrapper GetModelLogic(IModelApplication applicationModel) {
+            var modelLogicWrapper = GetModelLogicCore(applicationModel);
+            modelLogicWrapper.RuleType = typeof(TLogicRule);        
+            return modelLogicWrapper;
+        }
     }
+
 }

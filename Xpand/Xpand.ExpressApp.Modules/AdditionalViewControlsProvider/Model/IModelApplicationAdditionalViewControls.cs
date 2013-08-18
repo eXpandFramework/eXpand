@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {

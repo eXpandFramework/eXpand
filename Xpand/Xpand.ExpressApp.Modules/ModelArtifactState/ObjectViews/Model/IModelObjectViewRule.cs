@@ -6,8 +6,8 @@ using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
-    [ModelInterfaceImplementor(typeof(IObjectViewRule), "Attribute")]
-    public interface IModelObjectViewRule : IObjectViewRule, IModelConditionalLogicRule<IObjectViewRule> {
+    [ModelInterfaceImplementor(typeof(IContextObjectViewRule), "Attribute")]
+    public interface IModelObjectViewRule : IContextObjectViewRule, IModelConditionalLogicRule<IObjectViewRule> {
         [Browsable(false)]
         IModelList<IModelObjectView> ObjectViews { get; }
     }

@@ -3,7 +3,7 @@ using System.Drawing;
 using Xpand.ExpressApp.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
-    public class AdditionalViewControlsRuleAttribute:LogicRuleAttribute,IAdditionalViewControlsRule {
+    public class AdditionalViewControlsRuleAttribute:LogicRuleAttribute,IContextAdditionalViewControlsRule {
         public AdditionalViewControlsRuleAttribute(string id, string normalCriteria, string emptyCriteria, Type controlType, Type decoratorType, string message, Position position) : base(id, normalCriteria, emptyCriteria) {
             ControlType = controlType;
             DecoratorType = decoratorType;

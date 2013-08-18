@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model;
 using Xpand.Persistent.Base.General;
@@ -27,9 +28,9 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews {
             get { return new ObjectViewRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication modelApplication) {
-            return ((IModelApplicationConditionalObjectView) modelApplication).ConditionalObjectView;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var conditionalObjectView = ((IModelApplicationConditionalObjectView) applicationModel).ConditionalObjectView;
+            return new ModelLogicWrapper(conditionalObjectView.Rules, conditionalObjectView);
         }
-
     }
 }

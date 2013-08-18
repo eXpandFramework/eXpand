@@ -6,7 +6,6 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     public class AdditionalViewControlsLogicInstaller:LogicInstaller<IAdditionalViewControlsRule,IModelAdditionalViewControlsRule> {
@@ -21,8 +20,12 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
             get { return new AdditionalViewControlsRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication applicationModel) {
-            return ((IModelApplicationAdditionalViewControls) applicationModel).AdditionalViewControls;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var additionalViewControls = ((IModelApplicationAdditionalViewControls) applicationModel).AdditionalViewControls;
+            return new ModelLogicWrapper(additionalViewControls.Rules, additionalViewControls.ExecutionContextsGroup,
+                                         additionalViewControls.ViewContextsGroup,
+                                         additionalViewControls.FrameTemplateContextsGroup);
         }
+
     }
 }

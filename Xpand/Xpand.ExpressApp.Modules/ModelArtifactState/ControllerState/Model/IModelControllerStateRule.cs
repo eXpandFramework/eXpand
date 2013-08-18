@@ -7,8 +7,8 @@ using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Model {
-    [ModelInterfaceImplementor(typeof (IControllerStateRule), "Attribute")]
-    public interface IModelControllerStateRule : IControllerStateRule, IModelConditionalLogicRule<IControllerStateRule>,IModelArtifactStateRule {
+    [ModelInterfaceImplementor(typeof (IContextControllerStateRule), "Attribute")]
+    public interface IModelControllerStateRule : IContextControllerStateRule, IModelConditionalLogicRule<IControllerStateRule>, IModelArtifactStateRule {
         [Browsable(false)]
         IEnumerable<Type> Controllers { get; }
     }

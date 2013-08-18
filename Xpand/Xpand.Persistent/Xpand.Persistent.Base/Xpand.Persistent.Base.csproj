@@ -175,7 +175,6 @@
     <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\IXpandObjectSpace.cs" />
     <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
-    <Compile Include="General\ModelLogicValidRuleAttribute.cs" />
     <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />
     <Compile Include="General\ObjectSpaceExtensions.cs" />
     <Compile Include="General\ObjectToViewMapper.cs" />
@@ -259,7 +258,6 @@
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="ModuleUpdaterHelper.cs" />
-    <Compile Include="Logic\Model\IModelApplicationLogic.cs" />
     <Compile Include="Logic\Model\IModelExecutionContext.cs" />
     <Compile Include="Logic\Model\IModelExecutionContexts.cs" />
     <Compile Include="Logic\Model\IModelExecutionContextsGroup.cs" />

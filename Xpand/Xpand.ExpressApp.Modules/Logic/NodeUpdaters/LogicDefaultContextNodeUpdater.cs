@@ -11,9 +11,9 @@ using Xpand.Persistent.Base.Logic.NodeGenerators;
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
     public class LogicDefaultContextNodeUpdater : ModelNodesGeneratorUpdater<ExecutionContextNodeGenerator>  {
         readonly List<ExecutionContext> _executionContexts;
-        readonly Func<IModelApplication, IModelLogic> _modelLogic;
+        readonly Func<IModelApplication, IModelLogicExecutionContextWrapper> _modelLogic;
 
-        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<IModelApplication, IModelLogic> modelLogic) {
+        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<IModelApplication, IModelLogicExecutionContextWrapper> modelLogic) {
             _executionContexts = executionContexts;
             _modelLogic = modelLogic;
         }

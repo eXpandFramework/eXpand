@@ -24,9 +24,9 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState {
             get { return new ControllerStateRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication modelApplication) {
-            return ((IModelApplicationModelArtifactState) modelApplication).ModelArtifactState.ConditionalControllerState;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var controllerState = ((IModelApplicationModelArtifactState) applicationModel).ModelArtifactState.ConditionalControllerState;
+            return new ModelLogicWrapper(controllerState.Rules, controllerState);
         }
-
     }
 }

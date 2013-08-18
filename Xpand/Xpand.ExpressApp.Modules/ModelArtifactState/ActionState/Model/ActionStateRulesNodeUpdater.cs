@@ -13,8 +13,5 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Model {
             rule.Attribute = attribute;
         }
 
-        protected override Expression<Func<IModelApplication, IModelLogic>> ExecuteExpression() {
-            return state => ((IModelApplicationModelArtifactState) state).ModelArtifactState.ConditionalActionState;
-        }
     }
 }

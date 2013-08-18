@@ -8,8 +8,8 @@ using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Model {
-    [ModelInterfaceImplementor(typeof (IActionStateRule), "Attribute")]
-    public interface IModelActionStateRule : IActionStateRule, IModelConditionalLogicRule<IActionStateRule>,
+    [ModelInterfaceImplementor(typeof(IContextActionStateRule), "Attribute")]
+    public interface IModelActionStateRule : IContextActionStateRule, IModelConditionalLogicRule<IActionStateRule>,
                                                  IModelArtifactStateRule {
 
         [Browsable(false)]

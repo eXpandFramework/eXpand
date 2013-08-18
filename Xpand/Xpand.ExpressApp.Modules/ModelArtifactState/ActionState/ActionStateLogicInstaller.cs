@@ -7,7 +7,6 @@ using Xpand.ExpressApp.ModelArtifactState.ActionState.Model;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState {
     public class ActionStateLogicInstaller : LogicInstaller<IActionStateRule, IModelActionStateRule> {
@@ -24,8 +23,9 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState {
             get { return new ActionStateRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication modelApplication) {
-            return ((IModelApplicationModelArtifactState) modelApplication).ModelArtifactState.ConditionalActionState;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var conditionalActionState = ((IModelApplicationModelArtifactState) applicationModel).ModelArtifactState.ConditionalActionState;
+            return new ModelLogicWrapper(conditionalActionState.Rules, conditionalActionState);
         }
 
     }

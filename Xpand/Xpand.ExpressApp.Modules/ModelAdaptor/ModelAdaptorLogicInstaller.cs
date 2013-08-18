@@ -5,7 +5,6 @@ using Xpand.ExpressApp.Logic.NodeUpdaters;
 using Xpand.ExpressApp.ModelAdaptor.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 
 namespace Xpand.ExpressApp.ModelAdaptor {
@@ -21,8 +20,10 @@ namespace Xpand.ExpressApp.ModelAdaptor {
             get { return new ModelAdaptorRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication applicationModel) {
-            return ((IModelApplicationModelAdaptor) applicationModel).ModelAdaptor;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var modelModelAdaptorLogic = ((IModelApplicationModelAdaptor) applicationModel).ModelAdaptor;
+            return new ModelLogicWrapper(modelModelAdaptorLogic.Rules, modelModelAdaptorLogic);
         }
+
     }
 }

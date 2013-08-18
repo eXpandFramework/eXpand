@@ -1,22 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp.Model.Core;
 using Xpand.Persistent.Base.Logic.Model;
-using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
     public class ModelExecutionContextDomainLogic {
         public static List<string> Get_ExecutionContexts(IModelExecutionContext modelExecutionContext) {
             var modelLogic = modelExecutionContext.Parent;
-            while (!(modelLogic is IModelLogic)) {
+            while (!(modelLogic is IEnumerable<IModelExecutionContext>)) {
                 modelLogic = modelLogic.Parent;
             }
-            var typeInfo = ((ITypesInfoProvider) modelLogic.Application).TypesInfo.FindTypeInfo(modelLogic.GetType());
-            var modelLogicInterface = typeInfo.ImplementedInterfaces.First(info 
-                => typeof (IModelLogic) != info.Type && typeof (IModelLogic).IsAssignableFrom(info.Type));
-            return LogicInstallerManager.Instance.LogicInstallers.First(logicInstaller
-                => ReferenceEquals(logicInstaller.GetModelLogic().GetType(), modelLogicInterface)).ExecutionContexts.Select(context 
-                    => context.ToString()).ToList();
-
+            var first = LogicInstallerManager.Instance.LogicInstallers.First(installer 
+                =>Equals(((ModelNode) installer.GetModelLogic().ExecutionContextsGroup).Parent.Id,
+                         ((ModelNode) modelLogic.Parent.Parent).Id));
+            return first.ExecutionContexts.Select(context => context.ToString()).ToList();
         }
 
     }

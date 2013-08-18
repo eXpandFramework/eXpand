@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.ModelAdaptor.Logic {
                     var modelNodeEnableds = _ruleTypeActiveModels[modelAdaptorRule.RuleType];
                     var modelAdaptorLogicInstaller = LogicInstallerManager.Instance.LogicInstallers.OfType<ModelAdaptorLogicInstaller>().Single();
                     var modelLogicRules =modelAdaptorLogicInstaller.GetModelLogic().Rules;
-                    var modelLogicRule = modelLogicRules[modelAdaptorRule.Id];
+                    var modelLogicRule = modelLogicRules.First(rule => rule.Id == modelAdaptorRule.Id);
                     modelNodeEnableds.Add((IModelNodeEnabled) modelLogicRule);
                 }
             }            

@@ -8,8 +8,8 @@ using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
-    [ModelInterfaceImplementor(typeof(IMasterDetailRule), "Attribute")]
-    public interface IModelMasterDetailRule : IMasterDetailRule, IModelConditionalLogicRule<IMasterDetailRule> {
+    [ModelInterfaceImplementor(typeof(IContextMasterDetailRule), "Attribute")]
+    public interface IModelMasterDetailRule : IContextMasterDetailRule, IModelConditionalLogicRule<IMasterDetailRule> {
         [Browsable(false)]
         IModelList<IModelListView> ChildListViews { get; }
         [Browsable(false)]

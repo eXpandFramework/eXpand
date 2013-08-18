@@ -146,9 +146,6 @@
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -206,6 +203,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NodeGenerators\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,6 @@ using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.MasterDetail {
     public class MasterDetailLogicInstaller : LogicInstaller<IMasterDetailRule, IModelMasterDetailRule> {
@@ -21,8 +20,11 @@ namespace Xpand.ExpressApp.MasterDetail {
             get { return new MasterDetailRulesNodeUpdater(); }
         }
 
-        public override IModelLogic GetModelLogic(IModelApplication applicationModel) {
-            return ((IModelApplicationMasterDetail) applicationModel).MasterDetail;
+        protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
+            var modelLogicMasterDetail = ((IModelApplicationMasterDetail) applicationModel).MasterDetail;
+            return new ModelLogicWrapper(modelLogicMasterDetail.Rules, modelLogicMasterDetail.ExecutionContextsGroup,
+                                         modelLogicMasterDetail.ViewContextsGroup,
+                                         modelLogicMasterDetail.FrameTemplateContextsGroup);
         }
     }
 }

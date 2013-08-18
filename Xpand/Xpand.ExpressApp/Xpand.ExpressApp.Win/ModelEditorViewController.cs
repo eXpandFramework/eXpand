@@ -1,16 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.SystemModule;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.Helpers;
@@ -55,9 +52,6 @@ namespace Xpand.ExpressApp.Win {
                 if (CurrentModelNode != null) {
                     string name = CurrentModelNode.ModelNode.GetType().Name;
                     switch (name) {
-                        case "ModelLogicRules":
-                            FilterModelLogicRules(singleChoiceAction);
-                            break;
                         case "ModelBOModelClassMembers":
                             EnableBOModelClassMembersAddMenu();
                             break;
@@ -71,23 +65,6 @@ namespace Xpand.ExpressApp.Win {
             foreach (var childNodeType in childNodeTypes) {
                 AddNodeAction.Items.Add(new ChoiceActionItem(childNodeType.Key, childNodeType.Value));
             }
-        }
-
-        void FilterModelLogicRules(SingleChoiceAction singleChoiceAction) {
-            var ruleType = GetRuleType();
-            for (int i = singleChoiceAction.Items.Count - 1; i > -1; i--) {
-                var type = ((Type) singleChoiceAction.Items[i].Data);
-                if (!ruleType.IsAssignableFrom(type))
-                    singleChoiceAction.Items.RemoveAt(i);
-            }
-        }
-
-        Type GetRuleType() {
-            ITypesInfo typesInfo = CurrentModelNode.ModelNode.Application.GetTypesInfo();
-            var parentNode = CurrentModelNode.Parent;
-            var interfaces = typesInfo.FindTypeInfo(parentNode.ModelNode.GetType()).ImplementedInterfaces;
-            var ruleAttributes = interfaces.Select(info=>info.FindAttribute<ModelLogicValidRuleAttribute>()).Where(attribute => attribute != null);
-            return ruleAttributes.Select(attribute => attribute.RuleType).Single();
         }
 
         public static Form CreateModelEditorForm(WinApplication winApplication) {

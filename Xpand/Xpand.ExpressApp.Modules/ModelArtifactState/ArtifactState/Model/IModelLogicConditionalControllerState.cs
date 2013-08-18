@@ -1,9 +1,14 @@
-﻿using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
-using Xpand.Persistent.Base.General;
+﻿using DevExpress.ExpressApp.Model;
+using Xpand.ExpressApp.ModelArtifactState.ControllerState.Model;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model {
-    [ModelLogicValidRule(typeof (IControllerStateRule))]
-    public interface IModelLogicConditionalControllerState : IModelLogic {
+    public interface IModelLogicConditionalControllerState : IModelLogicContexts {
+        IModelControllerStateLogicRules Rules { get; }
     }
+    [ModelNodesGenerator(typeof(LogicRulesNodesGenerator))]
+    public interface IModelControllerStateLogicRules : IModelNode, IModelList<IModelControllerStateRule> {
+    }
+
 }

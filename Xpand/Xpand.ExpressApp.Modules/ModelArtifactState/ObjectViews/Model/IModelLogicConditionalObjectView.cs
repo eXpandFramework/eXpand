@@ -1,10 +1,13 @@
-﻿using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
-using Xpand.Persistent.Base.General;
+﻿using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
-
-    [ModelLogicValidRuleAttribute(typeof(IObjectViewRule))]
-    public interface IModelLogicConditionalObjectView : IModelLogic {
+    public interface IModelLogicConditionalObjectView : IModelLogicContexts {
+        IModelObjectViewLogicRules Rules { get; }
     }
+    [ModelNodesGenerator(typeof(LogicRulesNodesGenerator))]
+    public interface IModelObjectViewLogicRules : IModelNode, IModelList<IModelObjectViewRule> {
+    }
+
 }
