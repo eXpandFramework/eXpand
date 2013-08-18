@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="AuditTrailTester" Logo="ExpressAppLogo">
+  <AudiTrail>
+    <AuditTrailMembersContextGroup>
+      <AuditTrailMembersContexts Id="Customer_LastName_Age_Group" IsNewNode="True">
+        <AuditTrailMembersContext ClassName="AuditTrailTester.Module.BusinessObjects.Customer" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="Age" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+        <AuditTrailMembersContext ClassName="DevExpress.Persistent.BaseImpl.Person" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="LastName" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+      </AuditTrailMembersContexts>
+    </AuditTrailMembersContextGroup>
+    <Rules>
+      <AuditTrailRule Id="Lightweight_mode_For_all_objects" AuditingMode="Lightweight" TypeInfo="AuditTrailTester.Module.BusinessObjects.Customer" IsNewNode="True" />
+    </Rules>
+  </AudiTrail>
+</Application>
