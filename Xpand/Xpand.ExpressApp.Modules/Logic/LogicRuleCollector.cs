@@ -23,14 +23,14 @@ namespace Xpand.ExpressApp.Logic {
             if (handler != null) handler(this, e);
         }
 
-        readonly Dictionary<IModelLogic, Type> _modelLogics = new Dictionary<IModelLogic, Type>(); 
+        readonly HashSet<IModelLogicWrapper> _modelLogics = new HashSet<IModelLogicWrapper>(); 
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             _module.Application.SetupComplete -= ApplicationOnSetupComplete;
             CollectRules((XafApplication)sender);
         }
 
-        protected virtual IEnumerable<ILogicRule> CollectRulesFromPermissions(IModelLogic modelLogic, ITypeInfo typeInfo) {
+        protected virtual IEnumerable<ILogicRule> CollectRulesFromPermissions(IModelLogicWrapper modelLogic, ITypeInfo typeInfo) {
             return  GetPermissions().Where(permission =>permission.TypeInfo != null && permission.TypeInfo.Type == typeInfo.Type)
                 .OrderBy(rule => rule.Index);
         }
@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.Logic {
                 }
         }
 
-        protected virtual ILogicRuleObject CreateRuleObject(IContextLogicRule contextLogicRule, IModelLogic modelLogic) {
+        protected virtual ILogicRuleObject CreateRuleObject(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var logicRuleObjectType = LogicRuleObjectType(contextLogicRule);
             var logicRuleObject = ((ILogicRuleObject)ReflectionHelper.CreateObject(logicRuleObjectType, contextLogicRule));
             logicRuleObject.TypeInfo = contextLogicRule.TypeInfo;
@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Logic {
             return logicRuleObject;
         }
 
-        void AddViews(HashSet<string> views, IModelLogic modelLogic, IContextLogicRule contextLogicRule) {
+        void AddViews(HashSet<string> views, IModelLogicWrapper modelLogic, IContextLogicRule contextLogicRule) {
             var modelViewContexts = modelLogic.ViewContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.Id);
             if (modelViewContexts != null)
                 foreach (var modelViewContext in modelViewContexts) {
@@ -71,19 +71,19 @@ namespace Xpand.ExpressApp.Logic {
                 }
         }
 
-        FrameTemplateContext GetFrameTemplateContext(IContextLogicRule contextLogicRule, IModelLogic modelLogic) {
+        FrameTemplateContext GetFrameTemplateContext(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var templateContexts = modelLogic.FrameTemplateContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.FrameTemplateContextGroup);
             return templateContexts != null ? templateContexts.FrameTemplateContext : FrameTemplateContext.All;
         }
 
-        ExecutionContext GetExecutionContext(IContextLogicRule contextLogicRule, IModelLogic modelLogic) {
+        ExecutionContext GetExecutionContext(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var modelExecutionContexts = modelLogic.ExecutionContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.ExecutionContextGroup);
             return modelExecutionContexts != null ? modelExecutionContexts.ExecutionContext : ExecutionContext.None;
         }
 
         Type LogicRuleObjectType(ILogicRule logicRule) {
             var typesInfo = _module.Application.TypesInfo;
-            var type = _modelLogics.First(pair => pair.Value.IsInstanceOfType(logicRule)).Value;
+            var type = _modelLogics.Where(logicWrapper => logicWrapper.RuleType.IsInstanceOfType(logicRule)).Select(wrapper => wrapper.RuleType).First();
             return typesInfo.FindTypeInfo<LogicRule>().Descendants.Single(info => !info.Type.IsAbstract&&type.IsAssignableFrom(info.Type)).Type;
         }
 
@@ -97,7 +97,7 @@ namespace Xpand.ExpressApp.Logic {
             lock (LogicRuleManager.Instance) {
                 ReloadPermissions();
                 LogicRuleManager.Instance.ClearAllRules();
-                foreach (var modelLogic in _modelLogics.Select(pair => pair.Key)) {
+                foreach (var modelLogic in _modelLogics) {
                     CollectRules(modelLogic.Rules,modelLogic);
                 }
                 var groupings = GetPermissions().Select(rule => new{rule,Type=rule.GetType()}).
@@ -110,7 +110,7 @@ namespace Xpand.ExpressApp.Logic {
             OnRulesCollected(EventArgs.Empty);
         }
 
-        protected virtual void CollectRules(IEnumerable<IContextLogicRule> logicRules, IModelLogic modelLogic) {
+        protected virtual void CollectRules(IEnumerable<IContextLogicRule> logicRules, IModelLogicWrapper modelLogic) {
             var ruleObjects = logicRules.Select(rule => CreateRuleObject(rule, modelLogic));
             var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(grouping => new { grouping.Key, Rules = grouping }).ToList();
             foreach (var grouping in groupings) {
@@ -121,20 +121,16 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
-        IModelLogic GetModelLogic(Type type) {
-            return _modelLogics.First(pair => pair.Value.IsAssignableFrom(type)).Key;
+        IModelLogicWrapper GetModelLogic(Type type) {
+            return _modelLogics.First(logicWrapper => logicWrapper.RuleType.IsAssignableFrom(type));
         }
 
         void AddModelLogics() {
             var collectModelLogicsArgs = new CollectModelLogicsArgs();
             OnCollectModelLogics(collectModelLogicsArgs);
-            var modelLogics = collectModelLogicsArgs.ModelLogics.Where(modelLogic => !_modelLogics.ContainsKey(modelLogic));
-            var typesInfo = _module.Application.TypesInfo;
+            var modelLogics = collectModelLogicsArgs.ModelLogics.Where(modelLogic => !_modelLogics.Contains(modelLogic));
             foreach (var modelLogic in modelLogics) {
-                var ruleType = typesInfo.FindTypeInfo(modelLogic.GetType()).ImplementedInterfaces.Where(info 
-                    => typeof (IModelLogic).IsAssignableFrom(info.Type)).Select(info 
-                        => info.FindAttribute<ModelLogicValidRuleAttribute>()).First().RuleType;
-                _modelLogics.Add(modelLogic, ruleType);
+                _modelLogics.Add(modelLogic);
             }
         }
 
@@ -148,8 +144,8 @@ namespace Xpand.ExpressApp.Logic {
     }
 
     public class CollectModelLogicsArgs : EventArgs {
-        readonly List<IModelLogic> _modelLogics=new List<IModelLogic>();
-        public List<IModelLogic> ModelLogics {
+        readonly List<IModelLogicWrapper> _modelLogics = new List<IModelLogicWrapper>();
+        public List<IModelLogicWrapper> ModelLogics {
             get { return _modelLogics; }
         }
     }

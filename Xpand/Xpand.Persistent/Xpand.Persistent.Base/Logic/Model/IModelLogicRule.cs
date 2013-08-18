@@ -23,5 +23,8 @@ namespace Xpand.Persistent.Base.Logic.Model {
         IEnumerable<string> FrameTemplateContexts { get; }
         [Browsable(false)]
         IEnumerable<string> ViewContexts { get; }
+        [Browsable(false)]
+        IModelLogicWrapper ModelLogicWrapper { get; set; }
     }
+
 }

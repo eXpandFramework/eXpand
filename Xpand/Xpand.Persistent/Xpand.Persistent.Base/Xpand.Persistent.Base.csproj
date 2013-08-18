@@ -259,7 +259,6 @@
     <Compile Include="ModelDifference\ResourceModelCollector.cs" />
     <Compile Include="ModelDifference\ResourcesModelStore.cs" />
     <Compile Include="ModuleUpdaterHelper.cs" />
-    <Compile Include="Logic\Model\IModelApplicationLogic.cs" />
     <Compile Include="Logic\Model\IModelExecutionContext.cs" />
     <Compile Include="Logic\Model\IModelExecutionContexts.cs" />
     <Compile Include="Logic\Model\IModelExecutionContextsGroup.cs" />

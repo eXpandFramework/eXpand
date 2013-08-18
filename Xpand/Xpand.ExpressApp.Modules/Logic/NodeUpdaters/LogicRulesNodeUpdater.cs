@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq.Expressions;
+using System.Diagnostics;
 using System.Reflection;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -10,7 +10,6 @@ using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 using Xpand.Utils;
-using Xpand.Utils.Helpers;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Logic.NodeUpdaters {
@@ -52,8 +51,10 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
         protected abstract void SetAttribute(TModelLogicRule rule, TLogicRule attribute);
 
         public override void UpdateNode(ModelNode node) {
-            var propertyName = ReflectionExtensions.GetPropertyName(ExecuteExpression());
-            if (node.Parent.Id == propertyName) {
+            var baseType = node.GetType().BaseType;
+            Debug.Assert(baseType != null, "baseType != null");
+            var genericArgument = baseType.GetGenericArguments()[0];
+            if (genericArgument==typeof(TModelLogicRule)) {
                 foreach (IModelClass modelClass in node.Application.BOModel) {
                     var findAttributes = LogicRuleManager.FindAttributes(modelClass.TypeInfo);
                     AddRules(node, findAttributes.OfType<TLogicRule>(), modelClass);
@@ -61,6 +62,5 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
             }
         }
 
-        protected abstract Expression<Func<IModelApplication, IModelLogic>> ExecuteExpression();
     }
 }

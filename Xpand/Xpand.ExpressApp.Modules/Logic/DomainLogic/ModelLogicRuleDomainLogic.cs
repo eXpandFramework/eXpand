@@ -2,13 +2,18 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic.DomainLogic {
-    public class ModelLogicRuleDomainLogic {
+    public static class ModelLogicRuleDomainLogic {
+        public static IModelLogicWrapper Get_ModelLogicWrapper(IModelLogicRule modelLogicRule) {
+            return LogicInstallerManager.Instance[modelLogicRule].GetModelLogic(modelLogicRule.Application);
+        }
+
         public static List<string> Get_ActionExecutionContexts(IModelLogicRule modelLogicRule) {
-            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ActionExecutionContextGroup;
-            return contexts.Select(groupContext => groupContext.Id).ToList();
+            var actionExecutionContextGroup = modelLogicRule.ModelLogicWrapper.ActionExecutionContextGroup;
+            return actionExecutionContextGroup != null ? actionExecutionContextGroup.Select(groupContext => groupContext.Id).ToList() : new List<string>();
         }
 
         public static bool Get_GroupContext(IModelLogicRule modelLogicRule) {
@@ -17,23 +22,20 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
         }
 
         public static List<string> Get_ExecutionContexts(IModelLogicRule modelLogicRule) {
-            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ExecutionContextsGroup;
-            return contexts.Select(groupContext => groupContext.Id).ToList();
+            return modelLogicRule.ModelLogicWrapper.ExecutionContextsGroup.Select(groupContext => groupContext.Id).ToList();
         }
         public static List<string> Get_ViewContexts(IModelLogicRule modelLogicRule) {
-            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).ViewContextsGroup;
-            return contexts.Select(groupContext => groupContext.Id).ToList();
+            return modelLogicRule.ModelLogicWrapper.ViewContextsGroup.Select(groupContext => groupContext.Id).ToList();
         }
         public static List<string> Get_FrameTemplateContexts(IModelLogicRule modelLogicRule) {
-            var contexts = ((IModelLogic)modelLogicRule.Parent.Parent).FrameTemplateContextsGroup;
-            return contexts.Select(groupContext => groupContext.Id).ToList();
+            return modelLogicRule.ModelLogicWrapper.FrameTemplateContextsGroup.Select(templateContexts => templateContexts.Id).ToList();
         }
 
         public static IModelList<IModelView> Get_Views(IModelLogicRule modelLogicRule) {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelView>();
             if (modelLogicRule.ModelClass == null)
                 return calculatedModelNodeList;
-            IEnumerable<IModelObjectView> modelViews = modelLogicRule.Application.Views.OfType<IModelObjectView>().Where(view => view.ModelClass == modelLogicRule.ModelClass);
+            var modelViews = modelLogicRule.Application.Views.OfType<IModelObjectView>().Where(view => view.ModelClass == modelLogicRule.ModelClass);
 
             if (modelLogicRule.ViewType != ViewType.Any)
                 modelViews =
@@ -44,4 +46,5 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             return calculatedModelNodeList;
         }
     }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;

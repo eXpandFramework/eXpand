@@ -29,8 +29,13 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
 
 namespace Xpand.Persistent.Base.General {
+    public interface IXpandModuleBase {
+        event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters;
+        event EventHandler ApplicationModulesManagerSetup;
+    }
+
     [ToolboxItem(false)]
-    public abstract class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter {
+    public abstract class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
         static List<object> _storeManagers;
         readonly static MultiValueDictionary<string,object> _callMonitor=new MultiValueDictionary<string, object>();
         public static string ManifestModuleName;
