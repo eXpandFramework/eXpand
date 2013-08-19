@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.Persistent.Base.Logic {
     public interface ILogicRuleObject:ILogicRule {
@@ -14,7 +15,7 @@ namespace Xpand.Persistent.Base.Logic {
     public abstract class LogicRule : ILogicRuleObject {
         readonly HashSet<string> _views=new HashSet<string>();
 
-        protected LogicRule(ILogicRule logicRule) {
+        protected LogicRule(IContextLogicRule logicRule) {
             Description = logicRule.Description;
             ID = logicRule.Id;
             Index = logicRule.Index;
