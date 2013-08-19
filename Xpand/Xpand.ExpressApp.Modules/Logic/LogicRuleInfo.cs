@@ -1,6 +1,5 @@
 using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
@@ -28,8 +27,6 @@ namespace Xpand.ExpressApp.Logic {
         public View View { get; set; }
 
         public ExecutionContext ExecutionContext { get; set; }
-
-        public ActionBaseEventArgs ActionBaseEventArgs { get; set; }
 
         public EventArgs EventArgs { get; set; }
 

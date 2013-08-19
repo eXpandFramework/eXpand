@@ -5,7 +5,7 @@ using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
     public class ControllerStateRule : ArtifactStateRule,IControllerStateRule{
-        public ControllerStateRule(IControllerStateRule controllerStateRule): base(controllerStateRule){
+        public ControllerStateRule(IContextControllerStateRule controllerStateRule): base(controllerStateRule){
             ControllerType = controllerStateRule.ControllerType;    
             ControllerState=controllerStateRule.ControllerState;    
         }

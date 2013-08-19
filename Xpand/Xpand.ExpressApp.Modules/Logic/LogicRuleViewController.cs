@@ -9,91 +9,6 @@ using DevExpress.ExpressApp.Templates;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleExecutor {
-        readonly LogicRuleEvaluator _evaluator = new LogicRuleEvaluator();
-        public event EventHandler<LogicRuleExecuteEventArgs> LogicRuleExecuted;
-        public event EventHandler<LogicRuleExecutingEventArgs> LogicRuleExecuting;
-        public event EventHandler<LogicRuleExecuteEventArgs> LogicRuleExecute;
-
-        public LogicRuleEvaluator Evaluator {
-            get { return _evaluator; }
-        }
-
-        public virtual void Execute(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject, ActionBaseEventArgs args,EventArgs eventArgs) {
-            var validRules = _evaluator.GetValidRules(view, executionContext);
-            var logicRuleInfos = validRules.Select(o => new LogicRuleInfo{
-                Active = _evaluator.Fit(currentObject, o),
-                Object = currentObject,
-                Rule = o,
-                ExecutionContext = executionContext,
-                View = view,
-                ActionBaseEventArgs = args,
-                EventArgs=eventArgs,
-                InvertCustomization=invertCustomization
-            });
-            foreach (var logicRuleInfo in logicRuleInfos) {
-                logicRuleInfo.ActionBaseEventArgs=args;
-                ExecuteCore(logicRuleInfo, executionContext);
-            }
-        }
-
-        public virtual void Execute(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject,EventArgs eventArgs) {
-            Execute(view, invertCustomization, executionContext, currentObject, null,eventArgs);
-        }
-
-        void ExecuteCore(LogicRuleInfo logicRuleInfo, ExecutionContext executionContext) {
-            var args = new LogicRuleExecutingEventArgs(logicRuleInfo, false, executionContext);
-            OnLogicRuleExecuting(args);
-            if (!args.Cancel) {
-                OnLogicRuleExecute(new LogicRuleExecuteEventArgs(logicRuleInfo, executionContext));
-            }
-            OnLogicRuleExecuted(new LogicRuleExecuteEventArgs(logicRuleInfo, executionContext));
-        }
-
-        protected virtual void OnLogicRuleExecute(LogicRuleExecuteEventArgs e) {
-            EventHandler<LogicRuleExecuteEventArgs> handler = LogicRuleExecute;
-            if (handler != null) handler(this, e);
-        }
-
-        public void InvertExecution(View view, ExecutionContext executionContext, object currentObject,EventArgs eventArgs) {
-            Execute(view, true, executionContext, currentObject,eventArgs);
-        }
-
-        protected void InvertExecution(View view, ExecutionContext executionContext, EventArgs args, View oldView) {
-            InvertExecution(view, executionContext, oldView.CurrentObject,args);
-        }
-
-//        public View View { get; set; }
-
-        public void InvertAndExecute(View view, ExecutionContext executionContext, EventArgs eventArgs,View oldView) {
-            if (oldView != null) InvertExecution(oldView, executionContext, eventArgs,oldView);
-            Execute(executionContext, view, eventArgs);
-        }
-
-        public void Execute(ActionBaseEventArgs args) {
-            Execute(args.ShowViewParameters.CreatedView, false, ExecutionContext.None, args.ShowViewParameters.CreatedView.CurrentObject, args,EventArgs.Empty);
-        }
-
-        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs args) {
-            if (LogicRuleExecuting != null) {
-                LogicRuleExecuting(this, args);
-            }
-        }
-
-        protected virtual void OnLogicRuleExecuted(LogicRuleExecuteEventArgs args) {
-            if (LogicRuleExecuted != null) {
-                LogicRuleExecuted(this, args);
-            }
-        }
-
-        public void Execute(ExecutionContext executionContext, View view, EventArgs eventArgs) {
-            Execute(view, false, executionContext,view!=null? view.CurrentObject:null, eventArgs);
-        }
-
-        public void Execute(ExecutionContext executionContext,EventArgs eventArgs,View view) {
-            Execute(executionContext, view, eventArgs);
-        }
-    }
     public class LogicRuleViewController : ViewController {
         readonly LogicRuleExecutor _logicRuleExecutor=new LogicRuleExecutor();
         private bool isRefreshing;
@@ -208,7 +123,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            _logicRuleExecutor.Execute(actionBaseEventArgs);
+            _logicRuleExecutor.Execute(ExecutionContext.None, actionBaseEventArgs,View);
         }
 
         void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {

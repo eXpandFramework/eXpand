@@ -5,13 +5,13 @@ using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security.Improved;
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
     public class ActionStateRulePermission : ArtifactStateRulePermission, IContextActionStateRule {
         public const string OperationName = "ActionState";
-        public ActionStateRulePermission(IContextActionStateRule logicRule)
+        public ActionStateRulePermission(ActionStateOperationPermissionData logicRule)
             : base(OperationName, logicRule) {
             ActionId = logicRule.ActionId;
             ActionState = logicRule.ActionState;
         }
 
-        protected ActionStateRulePermission(string operation, IContextActionStateRule logicRule)
+        protected ActionStateRulePermission(string operation, ActionStateOperationPermissionData logicRule)
             : base(operation, logicRule) {
         }
 

@@ -3,7 +3,7 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRule : LogicRule, IMasterDetailRule {
-        public MasterDetailRule(IMasterDetailRule masterDetailRule)
+        public MasterDetailRule(IContextMasterDetailRule masterDetailRule)
             : base(masterDetailRule) {
             ChildListView = masterDetailRule.ChildListView;
             CollectionMember = masterDetailRule.CollectionMember;

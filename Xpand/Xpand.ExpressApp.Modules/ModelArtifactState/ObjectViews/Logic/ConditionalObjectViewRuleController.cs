@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Logic;
@@ -70,7 +71,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
         }
         
         void ProcessActions(LogicRuleInfo info, IObjectViewRule objectViewRule) {
-            var createdView = info.ActionBaseEventArgs.ShowViewParameters.CreatedView;
+            var createdView = ((ActionBaseEventArgs)info.EventArgs).ShowViewParameters.CreatedView;
             if (createdView.Model.GetType() == objectViewRule.ObjectView.GetType())
                 createdView.SetModel(objectViewRule.ObjectView);
         }

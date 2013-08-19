@@ -142,6 +142,7 @@
     <Compile Include="LogicRuleExecutingEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LogicRuleExecutor.cs" />
     <Compile Include="LogicRuleInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -216,7 +217,6 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

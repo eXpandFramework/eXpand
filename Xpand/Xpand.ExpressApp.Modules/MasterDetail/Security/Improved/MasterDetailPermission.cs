@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     public class MasterDetailPermission : LogicRulePermission, IContextMasterDetailRule {
         public const string OperationName = "MasterDetail";
 
-        public MasterDetailPermission(IContextMasterDetailRule logicRule)
+        public MasterDetailPermission(MasterDetailOperationPermissionData logicRule)
             : base(OperationName, logicRule) {
 
         }

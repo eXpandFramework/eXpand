@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Logic.Security.Improved;
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     public class AdditionalViewControlsPermission : LogicRulePermission, IContextAdditionalViewControlsRule {
         public const string OperationName = "AdditionalViewControls";
-        public AdditionalViewControlsPermission(IContextAdditionalViewControlsRule logicRule)
+        public AdditionalViewControlsPermission(AdditionalViewControlsOperationPermissionData logicRule)
             : base(OperationName, logicRule) {
             ControlType=logicRule.ControlType;
             DecoratorType = logicRule.DecoratorType;

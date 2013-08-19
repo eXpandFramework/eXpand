@@ -6,13 +6,13 @@ using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Security.Improved {
     public class ControllerStateRulePermission : ArtifactStateRulePermission, IContextControllerStateRule {
         public const string OperationName = "ControllerState";
-        public ControllerStateRulePermission(IContextControllerStateRule logicRule)
+        public ControllerStateRulePermission(ControllerStateOperationPermissionData logicRule)
             : base(OperationName, logicRule) {
             ControllerState = logicRule.ControllerState;
             ControllerType = logicRule.ControllerType;
         }
 
-        protected ControllerStateRulePermission(string operation, IContextControllerStateRule logicRule)
+        protected ControllerStateRulePermission(string operation, ControllerStateOperationPermissionData logicRule)
             : base(operation, logicRule) {
         }
         #region IControllerStateRule Members

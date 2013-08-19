@@ -4,7 +4,7 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public class AdditionalViewControlsRule : LogicRule, IAdditionalViewControlsRule {
-        public AdditionalViewControlsRule(IAdditionalViewControlsRule additionalViewControlsRule)
+        public AdditionalViewControlsRule(IContextAdditionalViewControlsRule additionalViewControlsRule)
             : base(additionalViewControlsRule) {
                 Message = additionalViewControlsRule.Message;
                 ControlType = additionalViewControlsRule.ControlType;

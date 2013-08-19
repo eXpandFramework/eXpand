@@ -3,7 +3,7 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ObjectViewRule : LogicRule, IObjectViewRule {
-        public ObjectViewRule(IObjectViewRule objectViewRule)
+        public ObjectViewRule(IContextObjectViewRule objectViewRule)
             : base(objectViewRule) {
             ObjectView = objectViewRule.ObjectView;
         }
