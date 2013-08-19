@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AuditTrail</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AuditTrail</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -60,6 +62,7 @@
     <Reference Include="DevExpress.ExpressApp.AuditTrail.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -102,7 +105,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Member\AuditTrailCollectionMemberInfo.cs" />
     <Compile Include="AuditTrailLogicInstaller.cs" />
+    <Compile Include="Model\Member\IModelMemberAuditTrail.cs" />
     <Compile Include="Logic\AuditTrailRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -117,6 +122,9 @@
     <Compile Include="Logic\IAuditTrailRule.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Security\AuditTrailRulePermission.cs" />
+    <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandAuditTrailModule.cs">
       <SubType>Component</SubType>
     </Compile>

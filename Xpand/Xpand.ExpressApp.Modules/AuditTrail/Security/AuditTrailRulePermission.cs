@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.AuditTrail.Security {
     public class AuditTrailRulePermission:LogicRulePermission,IContextAuditTrailRule {
         public const string OperationName = "AuditTrail";
 
-        public AuditTrailRulePermission(IContextAuditTrailRule contextLogicRule)
+        public AuditTrailRulePermission(AuditTrailOperationPermissionData contextLogicRule)
             : base(OperationName, contextLogicRule) {
             IncludeRelatedTypes=contextLogicRule.IncludeRelatedTypes;
             AuditingMode=contextLogicRule.AuditingMode;
