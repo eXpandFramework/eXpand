@@ -14,6 +14,13 @@
           </Members>
         </AuditTrailMembersContext>
       </AuditTrailMembersContexts>
+      <AuditTrailMembersContexts Id="Employee_Members" IsNewNode="True">
+        <AuditTrailMembersContext ClassName="DevExpress.Persistent.BaseImpl.Person" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="LastName" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+      </AuditTrailMembersContexts>
     </AuditTrailMembersContextGroup>
     <Rules>
       <AuditTrailRule Id="Lightweight_mode_For_all_objects" AuditingMode="Lightweight" TypeInfo="AuditTrailTester.Module.BusinessObjects.Customer" IsNewNode="True" />
@@ -21,6 +28,11 @@
   </AudiTrail>
   <BOModel>
     <Class Name="AuditTrailTester.Module.BusinessObjects.Customer">
+      <OwnMembers>
+        <MemberAuditTrail Name="AuditTrail" IsCustom="False" Tag="" CreatedAtDesignTime="True" IsNewNode="True" />
+      </OwnMembers>
+    </Class>
+    <Class Name="AuditTrailTester.Module.BusinessObjects.Employee">
       <OwnMembers>
         <MemberAuditTrail Name="AuditTrail" IsCustom="True" Tag="" CreatedAtDesignTime="True" IsNewNode="True" />
       </OwnMembers>
@@ -70,6 +82,39 @@
             </LayoutGroup>
           </TabbedGroup>
           <LayoutGroup Id="PhoneNumbers_Group" Removed="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="Employee_DetailView">
+      <Items>
+        <PropertyEditor Id="AuditTrail" PropertyName="AuditTrail" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
+            <LayoutGroup Id="Person" Index="0" RelativeSize="20" ImageName="">
+              <LayoutGroup Id="Person_col1" RelativeSize="47" ImageName="">
+                <LayoutItem Id="FirstName" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="LastName" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="MiddleName" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+              <LayoutGroup Id="Person_col2" RelativeSize="48" ImageName="">
+                <LayoutItem Id="Birthday" SizeConstraintsType="Default" RelativeSize="36" />
+                <LayoutItem Id="FullName" SizeConstraintsType="Default" RelativeSize="27" />
+                <LayoutItem Id="Email" SizeConstraintsType="Default" RelativeSize="36" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Party" Index="1" RelativeSize="79" ImageName="">
+              <LayoutItem Id="Photo" SizeConstraintsType="Default" RelativeSize="6" />
+              <LayoutItem Id="Address1" SizeConstraintsType="Default" RelativeSize="4" />
+              <LayoutItem Id="Address2" SizeConstraintsType="Default" RelativeSize="4" />
+              <LayoutItem Id="DisplayName" SizeConstraintsType="Default" RelativeSize="4" />
+              <LayoutItem Id="AuditTrail" ViewItem="AuditTrail" SizeConstraintsType="Default" Index="4" RelativeSize="78" IsNewNode="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="PhoneNumbers_Group" RelativeSize="61" Caption="Phone Numbers" ImageName="" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="PhoneNumbers" Removed="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

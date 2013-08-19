@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         [Category("AuditTrail")]
         ObjectAuditingMode? AuditingMode { get; set; }
         [Category("AuditTrail")]
-        bool AuditAllMembers { get; set; }
+        AuditMemberStrategy AuditMemberStrategy { get; set; }
         
     }
 

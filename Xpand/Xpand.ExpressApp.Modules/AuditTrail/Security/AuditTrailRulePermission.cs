@@ -11,6 +11,9 @@ namespace Xpand.ExpressApp.AuditTrail.Security {
             : base(OperationName, contextLogicRule) {
             IncludeRelatedTypes=contextLogicRule.IncludeRelatedTypes;
             AuditingMode=contextLogicRule.AuditingMode;
+            AuditMemberStrategy = contextLogicRule.AuditMemberStrategy;
+            AuditTrailMembersContext = contextLogicRule.AuditTrailMembersContext;
+
         }
 
         public override IList<string> GetSupportedOperations() {
@@ -21,7 +24,7 @@ namespace Xpand.ExpressApp.AuditTrail.Security {
 
         public ObjectAuditingMode? AuditingMode { get; set; }
 
-        public bool AuditAllMembers { get; set; }
+        public AuditMemberStrategy AuditMemberStrategy { get; set; }
 
         public string AuditTrailMembersContext { get; set; }
     }

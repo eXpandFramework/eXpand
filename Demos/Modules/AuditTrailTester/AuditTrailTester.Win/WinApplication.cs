@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Win;
 using System.Collections.Generic;
@@ -13,6 +14,13 @@ namespace AuditTrailTester.Win {
         public AuditTrailTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersRead+=OnLastLogonParametersRead;
+        }
+
+        void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs lastLogonParametersReadEventArgs) {
+            var parameters = ((AuthenticationStandardLogonParameters) lastLogonParametersReadEventArgs.LogonObject);
+            if (string.IsNullOrEmpty(parameters.UserName))
+                parameters.UserName = "User";
         }
 
         // Override to execute custom code after a logon has been performed, the SecuritySystem object is initialized, logon parameters have been saved and user model differences are loaded.

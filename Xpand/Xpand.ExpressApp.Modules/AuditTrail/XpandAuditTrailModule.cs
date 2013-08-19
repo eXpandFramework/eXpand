@@ -24,13 +24,17 @@ namespace Xpand.ExpressApp.AuditTrail {
             base.Setup(moduleManager);
             RuntimeMemberBuilder.CustomCreateMember+=RuntimeMemberBuilderOnCustomCreateMember;
         }
-
+        protected override void Dispose(bool disposing) {
+            RuntimeMemberBuilder.CustomCreateMember -= RuntimeMemberBuilderOnCustomCreateMember;
+            base.Dispose(disposing);
+        }
         void RuntimeMemberBuilderOnCustomCreateMember(object sender, CustomCreateMemberArgs customCreateMemberArgs) {
             var modelMemberAuditTrail = customCreateMemberArgs.ModelMemberEx as IModelMemberAuditTrail;
             if (modelMemberAuditTrail != null) {
-                RuntimeMemberBuilder.CustomCreateMember-=RuntimeMemberBuilderOnCustomCreateMember;
                 XPClassInfo owner = Dictiorary.GetClassInfo(modelMemberAuditTrail.ModelClass.TypeInfo.Type);
-                new AuditTrailCollectionMemberInfo(owner, modelMemberAuditTrail.Name, modelMemberAuditTrail.CollectionType.TypeInfo.Type);
+                if (owner.FindMember(modelMemberAuditTrail.Name)==null) {
+                    new AuditTrailCollectionMemberInfo(owner, modelMemberAuditTrail.Name,modelMemberAuditTrail.CollectionType.TypeInfo.Type);
+                }
                 customCreateMemberArgs.Handled = true;
             }
         }

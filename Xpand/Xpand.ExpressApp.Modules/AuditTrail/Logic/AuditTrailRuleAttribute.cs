@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         public ObjectAuditingMode? AuditingMode { get; set; }
 
-        public bool AuditAllMembers { get; set; }
+        public AuditMemberStrategy AuditMemberStrategy { get; set; }
 
         public string AuditTrailMembersContext { get; set; }
     }
