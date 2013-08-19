@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Win;
 using Xpand.Persistent.Base.General;
@@ -20,7 +21,7 @@ namespace FeatureCenter.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 if (this.DropDatabaseOnVersionMissmatch() > 0)
                     Application.ExitThread();
                 e.Updater.Update();

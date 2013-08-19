@@ -9,7 +9,8 @@ namespace AuditTrailTester.Module.BusinessObjects {
     public class Customer : Person {
         int _age;
 
-        public Customer(Session session) : base(session) {
+        public Customer(Session session)
+            : base(session) {
         }
 
         public int Age {

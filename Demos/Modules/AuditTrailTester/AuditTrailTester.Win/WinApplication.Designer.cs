@@ -1,3 +1,5 @@
+using Xpand.ExpressApp.Security.Core;
+
 namespace AuditTrailTester.Win {
     partial class AuditTrailTesterWindowsFormsApplication {
         /// <summary> 
@@ -25,16 +27,40 @@ namespace AuditTrailTester.Win {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
+            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.auditTrailModule1 = new DevExpress.ExpressApp.AuditTrail.AuditTrailModule();
+            this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
+            this.xpandAuditTrailModule1 = new Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
+            this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             this.module3 = new AuditTrailTester.Module.AuditTrailTesterModule();
             this.module4 = new AuditTrailTester.Module.Win.AuditTrailTesterWindowsFormsModule();
-
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.logicModule2 = new Xpand.ExpressApp.Logic.LogicModule();
+            this.xpandAuditTrailModule2 = new Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=AuditTrailTester";
+            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=A" +
+    "uditTrailTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // auditTrailModule1
+            // 
+            this.auditTrailModule1.AuditDataItemPersistentType = typeof(DevExpress.Persistent.BaseImpl.AuditDataItemPersistent);
+            // 
+            // securityStrategyComplex1
+            // 
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // AuditTrailTesterWindowsFormsApplication
             // 
@@ -42,11 +68,17 @@ namespace AuditTrailTester.Win {
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
+            this.Modules.Add(this.auditTrailModule1);
+            this.Modules.Add(this.logicModule1);
+            this.Modules.Add(this.xpandAuditTrailModule1);
             this.Modules.Add(this.module3);
+            this.Modules.Add(this.securityModule1);
+            this.Modules.Add(this.xpandSystemModule1);
+            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.module4);
+            this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.AuditTrailTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.AuditTrailTesterWindowsFormsApplication_CustomizeLanguagesList);
-
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -58,5 +90,15 @@ namespace AuditTrailTester.Win {
         private AuditTrailTester.Module.AuditTrailTesterModule module3;
         private AuditTrailTester.Module.Win.AuditTrailTesterWindowsFormsModule module4;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private DevExpress.ExpressApp.AuditTrail.AuditTrailModule auditTrailModule1;
+        private Xpand.ExpressApp.Logic.LogicModule logicModule1;
+        private Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule xpandAuditTrailModule1;
+        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
+        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
+        private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
+        private Xpand.ExpressApp.Logic.LogicModule logicModule2;
+        private Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule xpandAuditTrailModule2;
     }
 }
