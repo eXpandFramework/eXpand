@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
@@ -15,6 +16,10 @@ using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler {
+    public interface IModelOptionsJobScheduler:IModelOptions {
+        [Category("eXpand.JobScheduler")]
+        bool JobScheduler { get; set; }
+    }
     [ToolboxBitmap(typeof(JobSchedulerModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
@@ -25,6 +30,11 @@ namespace Xpand.ExpressApp.JobScheduler {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsProvider.AdditionalViewControlsModule));
             XafTypesInfo.Instance.LoadTypes(typeof(AnnualCalendar).Assembly);
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelOptionsJobScheduler>();
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -38,7 +48,15 @@ namespace Xpand.ExpressApp.JobScheduler {
 
         }
 
+        bool Enabled() {
+            var modelOptionsJobScheduler = Application.Model.Options as IModelOptionsJobScheduler;
+            return modelOptionsJobScheduler != null && modelOptionsJobScheduler.JobScheduler;
+        }
+
         void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
+            Application.LoggedOn-=ApplicationOnLoggedOn;
+            if (!Enabled())
+                return;
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
             try {
                 IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
