@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -19,6 +20,13 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.RuntimeMembers {
     public class RuntimeMemberBuilder {
+        public static event EventHandler<CustomCreateMemberArgs> CustomCreateMember;
+
+        static void OnCustomCreateMember(CustomCreateMemberArgs e) {
+            EventHandler<CustomCreateMemberArgs> handler = CustomCreateMember;
+            if (handler != null) handler(null, e);
+        }
+
         static readonly XPDictionary _dictionary = XpandModuleBase.Dictiorary;
         private static IEnumerable<IModelMemberEx> GetMembersEx(IModelApplication model) {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberEx>().Distinct();
@@ -31,12 +39,16 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 var xpObjectSpace = objectSpace as XPObjectSpace;
                 var modelMemberExs = GetMembersEx(model);
                 foreach (var memberEx in modelMemberExs) {
-                    var modelMemberOneToManyCollection = memberEx as IModelMemberOneToManyCollection;
-                    if (modelMemberOneToManyCollection==null) {
-                        CreateXpandCustomMemberInfo(memberEx, xpObjectSpace);
-                    }
-                    else {
-                        modelMemberOneToManyCollections.Add(modelMemberOneToManyCollection);
+                    var customCreateMemberArgs = new CustomCreateMemberArgs(memberEx);
+                    OnCustomCreateMember(customCreateMemberArgs);
+                    if (!customCreateMemberArgs.Handled) {
+                        var modelMemberOneToManyCollection = memberEx as IModelMemberOneToManyCollection;
+                        if (modelMemberOneToManyCollection == null) {
+                            CreateXpandCustomMemberInfo(memberEx, xpObjectSpace);
+                        }
+                        else {
+                            modelMemberOneToManyCollections.Add(modelMemberOneToManyCollection);
+                        }
                     }
                 }
                 RefreshTypes(model.GetTypesInfo(), modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
@@ -156,6 +168,18 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 return xpandCollectionMemberInfo;
             }
             return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type, modelMemberEx is IModelMemberNonPersistent);
+        }
+    }
+
+    public class CustomCreateMemberArgs : HandledEventArgs {
+        readonly IModelMemberEx _modelMemberEx;
+
+        public CustomCreateMemberArgs(IModelMemberEx modelMemberEx) {
+            _modelMemberEx = modelMemberEx;
+        }
+
+        public IModelMemberEx ModelMemberEx {
+            get { return _modelMemberEx; }
         }
     }
 }

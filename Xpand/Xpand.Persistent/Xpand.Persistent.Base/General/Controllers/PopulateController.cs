@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,8 +16,10 @@ namespace Xpand.Persistent.Base.General.Controllers {
         protected PopulateController() {
             TargetObjectType = typeof(T);
         }
+
         protected override void OnActivated() {
             base.OnActivated();
+            View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
             Populate(member => {
                 _oldPredefinedValues = member.PredefinedValues;
                 return GetPredefinedValues(member);
@@ -24,8 +27,25 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
+            View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
             Populate(member => _oldPredefinedValues);
         }
+
+        void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
+            if (RefreshingProperties().Contains(objectChangedEventArgs.PropertyName) ) {
+                var currentPropertyEditor = GetPropertyEditor(GetPropertyName());
+                var propertyEditor = Application.EditorFactory.CreatePropertyEditorByType(currentPropertyEditor.GetType(), currentPropertyEditor.Model, currentPropertyEditor.ObjectType, Application, ObjectSpace);
+                Populate(GetPredefinedValues);
+                propertyEditor.CreateControl();
+                propertyEditor.CurrentObject = View.CurrentObject;
+                View.LayoutManager.ReplaceControl(currentPropertyEditor.Id, propertyEditor.Control);
+            }
+        }
+
+        protected virtual IEnumerable<string> RefreshingProperties() {
+            return Enumerable.Empty<string>();
+        }
+
         protected virtual void Populate(Func<IModelMember, string> collect) {
             var name = PropertyName;
             if (name != null) {
@@ -58,7 +78,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected PropertyEditor GetPropertyEditor(Expression<Func<T, object>> expression) {
             var propertyName = GetPropertyName(expression);
-            return View.GetItems<PropertyEditor>().Where(editor => editor.PropertyName == propertyName).SingleOrDefault();
+            return View.GetItems<PropertyEditor>().SingleOrDefault(editor => editor.PropertyName == propertyName);
         }
 
         protected abstract string GetPredefinedValues(IModelMember wrapper);

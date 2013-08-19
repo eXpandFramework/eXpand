@@ -194,7 +194,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         IEnumerable<IModelLogicWrapper> ModelLogics {
-            get { return LogicInstallerManager.Instance.LogicInstallers.Select(installer => installer.GetModelLogic()); }
+            get { return LogicInstallerManager.Instance.LogicInstallers.Select(installer => installer.GetModelLogic(Application.Model)); }
         }
 
         IEnumerable<ActionBase> GetActions() {

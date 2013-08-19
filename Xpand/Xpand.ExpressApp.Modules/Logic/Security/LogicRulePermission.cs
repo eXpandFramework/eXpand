@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -6,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.DomainLogic;
+using Xpand.ExpressApp.Logic.TypeConverters;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
@@ -16,8 +18,8 @@ namespace Xpand.ExpressApp.Logic.Security {
         protected LogicRulePermission() {
             ExecutionContextGroup = ContextLogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
-
-        public string ViewId { get; set; }
+        [TypeConverter(typeof(StringToModelViewConverter))]
+        public string View { get; set; }
 
 
         [RuleRequiredField]

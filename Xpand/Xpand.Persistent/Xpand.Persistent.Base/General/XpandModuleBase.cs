@@ -412,6 +412,7 @@ namespace Xpand.Persistent.Base.General {
             base.CustomizeTypesInfo(typesInfo);
             if (Executed("CustomizeTypesInfo"))
                 return;
+            
             AssignSecurityEntities();
             ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
             var type = (BaseInfo) findTypeInfo.FindMember("Type");

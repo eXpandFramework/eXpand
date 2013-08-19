@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -10,10 +11,14 @@ namespace Xpand.Persistent.Base.Logic {
     public interface ILogicRule :IRule {
         [Category("ConditionalLogic.Behavior")]
         [Description("Specifies the criteria string which is used when determining whether logic should be executed.")]
+        [CriteriaOptions("TypeInfo")]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, typeof(UITypeEditor))]
         string NormalCriteria { get; set; }
 
         [Category("ConditionalLogic.Behavior")]
         [Description("Specifies the criteria string which is used when determining whether logic should be executed only used for listviews with no records.")]
+        [CriteriaOptions("TypeInfo")]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + AssemblyInfo.VSuffix, typeof(UITypeEditor))]
         string EmptyCriteria { get; set; }
 
         [Category("Logic.Behavior")]

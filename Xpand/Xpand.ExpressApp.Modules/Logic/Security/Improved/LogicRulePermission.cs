@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.Logic;
@@ -12,26 +13,29 @@ using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     public abstract class LogicRulePermission : OperationPermissionBase, IContextLogicRule {
-        protected LogicRulePermission(string operation, IContextLogicRule contextLogicRule)
+        protected LogicRulePermission(string operation, LogicRuleOperationPermissionData contextLogicRule)
             : base(operation) {
             ExecutionContextGroup = contextLogicRule.ExecutionContextGroup;
             FrameTemplateContextGroup = contextLogicRule.FrameTemplateContextGroup;
             ViewContextGroup = contextLogicRule.ViewContextGroup;
             ActionExecutionContextGroup=contextLogicRule.ActionExecutionContextGroup;
-
+            View = CaptionHelper.ApplicationModel.Views[contextLogicRule.View];
             Description = contextLogicRule.Description;
-            ID = contextLogicRule.Id;
+            ID = contextLogicRule.ID;
             Index = contextLogicRule.Index;
             IsRootView = contextLogicRule.IsRootView;
             Nesting = contextLogicRule.Nesting;
-            ((ILogicRule)this).View = contextLogicRule.View;
+            if (!string.IsNullOrEmpty(contextLogicRule.View))
+                ((ILogicRule)this).View = CaptionHelper.ApplicationModel.Views[contextLogicRule.View];
             ViewEditMode = contextLogicRule.ViewEditMode;
             ViewType = contextLogicRule.ViewType;
-            ObjectType = contextLogicRule.TypeInfo.Type;
+            if (contextLogicRule.ObjectTypeData!=null)
+                ObjectType = contextLogicRule.ObjectTypeData;
             NormalCriteria=contextLogicRule.NormalCriteria;
             EmptyCriteria=contextLogicRule.EmptyCriteria;
         }
-        public string ViewId { get; set; }
+        
+        
 
 
         [RuleRequiredField]
@@ -59,7 +63,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public ViewType ViewType { get; set; }
         public ViewEditMode? ViewEditMode { get; set; }
 
-        IModelView ILogicRule.View { get; set; }
+        public IModelView View { get; set; }
 
         public Nesting Nesting { get; set; }
 

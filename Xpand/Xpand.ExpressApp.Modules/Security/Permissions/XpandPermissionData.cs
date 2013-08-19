@@ -34,7 +34,14 @@ namespace Xpand.ExpressApp.Security.Permissions {
         }
         protected virtual string GetPermissionInfoCaption() {
             return _propertyInfos.Aggregate<XPMemberInfo, string>(null, (current, propertyInfo)
-                => current + (string.Format("{0}: {1}", propertyInfo.Name, propertyInfo.GetValue(this)) + ", ")).TrimEnd(", ".ToCharArray());
+                => current + GetCaption(propertyInfo)).TrimEnd(", ".ToCharArray());
+        }
+
+        string GetCaption(XPMemberInfo propertyInfo) {
+            var value = propertyInfo.GetValue(this);
+            return value != null && !string.IsNullOrEmpty(value.ToString())
+                       ? string.Format("{0}: {1}", propertyInfo.Name, value) + ", "
+                       : null;
         }
 
         void EnumerateProperties() {

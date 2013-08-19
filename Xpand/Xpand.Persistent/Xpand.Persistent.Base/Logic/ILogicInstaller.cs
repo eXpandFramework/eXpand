@@ -30,18 +30,22 @@ namespace Xpand.Persistent.Base.Logic {
                    logicContexts.ViewContextsGroup, logicContexts.FrameTemplateContextsGroup) {
         }
 
-        public ModelLogicWrapper(IEnumerable<IModelLogicRule> rules, IEnumerable<IModelExecutionContexts> executionContextsGroup, IEnumerable<IModelViewContexts> viewContextsGroup, IEnumerable<IModelFrameTemplateContexts> frameTemplateContextsGroup) {
-            Rules = rules;
-            ExecutionContextsGroup = executionContextsGroup;
-            ViewContextsGroup = viewContextsGroup;
-            FrameTemplateContextsGroup = frameTemplateContextsGroup;
+        public ModelLogicWrapper(IEnumerable<IModelLogicRule> rules,
+                                 IEnumerable<IModelExecutionContexts> executionContextsGroup,
+                                 IEnumerable<IModelViewContexts> viewContextsGroup,
+                                 IEnumerable<IModelFrameTemplateContexts> frameTemplateContextsGroup)
+            : this(rules, executionContextsGroup, null, viewContextsGroup, frameTemplateContextsGroup) {
         }
 
         public ModelLogicWrapper(IEnumerable<IModelLogicRule> rules, IEnumerable<IModelExecutionContexts> executionContextsGroup)
             : this(rules, executionContextsGroup, null, null, null) {
         }
 
-        public ModelLogicWrapper(IEnumerable<IModelLogicRule> rules, IEnumerable<IModelExecutionContexts> executionContextsGroup, IEnumerable<IModelActionExecutionContexts> actionExecutionContextGroup, IEnumerable<IModelViewContexts> viewContextsGroup, IEnumerable<IModelFrameTemplateContexts> frameTemplateContextsGroup) {
+        public ModelLogicWrapper(IEnumerable<IModelLogicRule> rules,
+                                 IEnumerable<IModelExecutionContexts> executionContextsGroup,
+                                 IEnumerable<IModelActionExecutionContexts> actionExecutionContextGroup,
+                                 IEnumerable<IModelViewContexts> viewContextsGroup,
+                                 IEnumerable<IModelFrameTemplateContexts> frameTemplateContextsGroup) {
             Guard.ArgumentNotNull(rules,"rules");
             Rules = rules;
             ExecutionContextsGroup = executionContextsGroup??Enumerable.Empty<IModelExecutionContexts>();

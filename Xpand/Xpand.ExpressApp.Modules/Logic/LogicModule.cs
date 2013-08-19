@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Logic.DomainLogic;
@@ -16,6 +18,12 @@ namespace Xpand.ExpressApp.Logic {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public class LogicModule : XpandModuleBase, IModelXmlConverter {
         readonly LogicRuleCollector _logicRuleCollector = new LogicRuleCollector();
+
+        public LogicModule() {
+            RequiredModuleTypes.Add(typeof(SecurityModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+        }
 
         public LogicRuleCollector LogicRuleCollector {
             get { return _logicRuleCollector; }

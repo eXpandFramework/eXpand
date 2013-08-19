@@ -74,12 +74,18 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
     public interface IModelMemberColection : IModelMemberNonPersistent {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Required]
-        [DataSourceProperty("Application.BOModel")]
+        [DataSourceProperty("CollectionTypes")]
         [RefreshProperties(RefreshProperties.All)]
         IModelClass CollectionType { get; set; }
+        [Browsable(false)]
+        IModelList<IModelClass> CollectionTypes { get; }
     }
     [DomainLogic(typeof(IModelMemberColection))]
     public class ModelMemberCollectionDomainLogic {
+        public static IModelList<IModelClass> Get_CollectionTypes(IModelMemberColection orphanedColection) {
+            return new CalculatedModelNodeList<IModelClass>(orphanedColection.Application.BOModel);
+        }
+
         public static Type Get_Type(IModelMemberColection orphanedColection) {
             return orphanedColection.CollectionType != null ? typeof(XPCollection<>).MakeGenericType(new[] { orphanedColection.CollectionType.TypeInfo.Type }) : null;
         }
