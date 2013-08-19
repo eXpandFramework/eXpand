@@ -39,6 +39,16 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
+        public ILogicInstaller this[IContextLogicRule contextLogicRule] {
+            get {
+                var xafApplication = ApplicationHelper.Instance.Application;
+                var typeInfos = xafApplication.TypesInfo.FindTypeInfo(typeof(IContextLogicRule)).Descendants;
+                var typeInfo = typeInfos.SelectMany(info => info.ImplementedInterfaces).First(info
+                    => info.Type != typeof(IContextLogicRule) && typeof(ILogicRule).IsAssignableFrom(info.Type) && info.Type.IsInstanceOfType(contextLogicRule));
+                return this[typeInfo.Type];
+            }
+        }
+
         ILogicInstaller this[Type ruleType,IModelApplication application ] {
             get {
                 if (!_logicInstallerTypes.ContainsKey(ruleType)) {
