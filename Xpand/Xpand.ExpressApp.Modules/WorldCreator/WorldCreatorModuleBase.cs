@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
-            if (Application == null || GetPath() == null)
+            if (Application == null || GetPath() == null||!RuntimeMode)
                 return;
             if (ConnectionString != null) {
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
