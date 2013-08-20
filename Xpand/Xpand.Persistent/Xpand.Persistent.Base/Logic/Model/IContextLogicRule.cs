@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -28,19 +29,19 @@ namespace Xpand.Persistent.Base.Logic.Model {
 
     public class FrameTemplateContextGroupVisibilityCalculator:IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return ((IModelLogicRule)node).ModelLogicWrapper.FrameTemplateContextsGroup != null;
+            return !Equals(((IModelLogicRule) node).ModelLogicWrapper.FrameTemplateContextsGroup,Enumerable.Empty<IModelFrameTemplateContexts>());
         }
     }
 
     public class ViewContextGroupVisibilityCalculator:IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return ((IModelLogicRule) node).ModelLogicWrapper.ViewContextsGroup != null;
+            return !Equals(((IModelLogicRule) node).ModelLogicWrapper.ViewContextsGroup,Enumerable.Empty<IModelViewContexts>());
         }
     }
 
     public class ActionExecutionContextGroupVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return ((IModelLogicRule)node).ModelLogicWrapper.ActionExecutionContextGroup != null;
+            return !Equals(((IModelLogicRule) node).ModelLogicWrapper.ActionExecutionContextGroup,Enumerable.Empty<IModelActionExecutionContexts>());
         }
     }
 
