@@ -23,7 +23,7 @@
       </AuditTrailMembersContexts>
     </AuditTrailMembersContextGroup>
     <Rules>
-      <AuditTrailRule Id="Lightweight_mode_For_all_objects" AuditingMode="Lightweight" TypeInfo="AuditTrailTester.Module.BusinessObjects.Customer" IsNewNode="True" />
+      <AuditTrailRule Id="Lightweight_mode_For_all_objects" AuditingMode="Lightweight" TypeInfo="DevExpress.Xpo.PersistentBase" IsNewNode="True" />
     </Rules>
   </AudiTrail>
   <BOModel>
@@ -34,7 +34,7 @@
     </Class>
     <Class Name="AuditTrailTester.Module.BusinessObjects.Employee">
       <OwnMembers>
-        <MemberAuditTrail Name="AuditTrail" IsCustom="True" Tag="" CreatedAtDesignTime="True" IsNewNode="True" />
+        <MemberAuditTrail Name="AuditTrail" IsCustom="False" Tag="" CreatedAtDesignTime="True" IsNewNode="True" />
       </OwnMembers>
     </Class>
   </BOModel>
