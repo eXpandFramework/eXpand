@@ -11,10 +11,10 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.Logic {
     public abstract class LogicInstaller<TLogicRule,  TModelLogicRule> : ILogicInstaller where TModelLogicRule : IModelLogicRule
         where TLogicRule : ILogicRule {
-        readonly XpandModuleBase _module;
+        readonly IXpandModuleBase _module;
         XafApplication _application;
 
-        protected LogicInstaller(XpandModuleBase xpandModuleBase) {
+        protected LogicInstaller(IXpandModuleBase xpandModuleBase) {
             _module = xpandModuleBase;
             _module.CustomAddGeneratorUpdaters += ModuleOnCustomAddGeneratorUpdaters;
             _module.ApplicationModulesManagerSetup+=ModuleOnApplicationModulesManagerSetup;

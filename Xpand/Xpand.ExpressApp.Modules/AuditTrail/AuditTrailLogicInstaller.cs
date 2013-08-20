@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AuditTrail {
     public class AuditTrailLogicInstaller : LogicInstaller<IAuditTrailRule, IModelAuditTrailRule> {
-        public AuditTrailLogicInstaller(XpandModuleBase xpandModuleBase)
+        public AuditTrailLogicInstaller(IXpandModuleBase xpandModuleBase)
             : base(xpandModuleBase) {
         }
 

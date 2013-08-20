@@ -32,6 +32,8 @@ namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
         event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters;
         event EventHandler ApplicationModulesManagerSetup;
+        ModuleTypeList RequiredModuleTypes { get; }
+        XafApplication Application { get; }
     }
 
     [ToolboxItem(false)]
