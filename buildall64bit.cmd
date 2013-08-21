@@ -1,7 +1,6 @@
 @echo on
 set ProgramFiles=%ProgramFiles(x86)%
 call defines.bat
-del /q Xpand.dll
 
 if exist Xpand.Key\Xpand.snk goto build
 echo Generating strong key

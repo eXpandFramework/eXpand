@@ -1,3 +1,4 @@
+call clear.bat
 call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
 echo FixReferences
 %msbuild% /nologo /t:FixReferences /verbosity:quiet /p:Configuration=%configuration% Xpand.build
