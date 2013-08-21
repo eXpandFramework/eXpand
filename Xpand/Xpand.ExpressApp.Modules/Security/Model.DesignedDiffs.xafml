@@ -13,7 +13,7 @@
     <SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="Xpand.ExpressApp.Security.AuthenticationProviders.XpandLogonParameters_DetailView" >
+    <DetailView Id="XpandLogonParameters_DetailView" >
       <Items>
         <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
         <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
