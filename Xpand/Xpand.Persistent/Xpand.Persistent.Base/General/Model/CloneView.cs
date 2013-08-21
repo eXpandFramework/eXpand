@@ -12,15 +12,18 @@ namespace Xpand.Persistent.Base.General.Model {
             foreach (var modelClass in modelClasses) {
                 var cloneViewAttributes = modelClass.TypeInfo.FindAttributes<CloneViewAttribute>(false).OrderBy(viewAttribute => viewAttribute.ViewType);
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
-                    var modelView = GetModelView(modelClass, cloneViewAttribute);
-                    var cloneNodeFrom = ((ModelNode)modelView).Clone(cloneViewAttribute.ViewId);
-                    AssignAsDefaultView(cloneViewAttribute, (IModelObjectView)cloneNodeFrom);
-                    if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
-                        CloneViewAttribute attribute = cloneViewAttribute;
-                        var modelDetailView = node.Application.Views.OfType<IModelDetailView>().FirstOrDefault(view => view.Id == attribute.DetailView);
-                        if (modelDetailView == null)
-                            throw new NullReferenceException(attribute.DetailView);
-                        ((IModelListView)cloneNodeFrom).DetailView = modelDetailView;
+                    if (node.Application.Views[cloneViewAttribute.ViewId]==null) {
+                        var modelView = GetModelView(modelClass, cloneViewAttribute);
+                        var cloneNodeFrom = ((ModelNode) modelView).Clone(cloneViewAttribute.ViewId);
+                        AssignAsDefaultView(cloneViewAttribute, (IModelObjectView) cloneNodeFrom);
+                        if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
+                            CloneViewAttribute attribute = cloneViewAttribute;
+                            var modelDetailView =node.Application.Views.OfType<IModelDetailView>().FirstOrDefault(view 
+                                => view.Id == attribute.DetailView);
+                            if (modelDetailView == null)
+                                throw new NullReferenceException(attribute.DetailView);
+                            ((IModelListView) cloneNodeFrom).DetailView = modelDetailView;
+                        }
                     }
                 }
             }
