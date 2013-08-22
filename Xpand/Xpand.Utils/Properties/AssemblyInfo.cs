@@ -37,7 +37,7 @@ using System.Security;
 [assembly: AllowPartiallyTrustedCallers]
 
 public class XpandAssemblyInfo {
-    public const string Version = "13.1.6.4";
+    public const string Version = "13.1.6.5";
     public const string FileVersion = Version;
     public const string Token = "c52ffed5d5ff0958";
     public const string TabAspNetModules = "eXpand: Web Modules";

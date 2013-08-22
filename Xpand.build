@@ -146,7 +146,7 @@
     </CreateItem>
     <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;**\*typemock*">
+    <CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
