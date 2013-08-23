@@ -63,11 +63,6 @@ namespace Xpand.Persistent.Base.General {
     public interface ILayoutManager {
     }
 
-    public interface IAfterViewShown {
-        event EventHandler<ViewShownEventArgs> AfterViewShown;
-        void OnAfterViewShown(Frame frame, Frame sourceFrame);
-    }
-
     public interface IAutoCreateOption {
         AutoCreateOption AutoCreateOption { get; }
     }
@@ -76,7 +71,7 @@ namespace Xpand.Persistent.Base.General {
         event EventHandler<WindowCreatingEventArgs> WindowCreating;
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded, IAfterViewShown, IAutoCreateOption, IWindowCreating {
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded,  IAutoCreateOption, IWindowCreating {
         string ModelAssemblyFilePath { get; }
         ApplicationModulesManager ApplicationModulesManager { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);

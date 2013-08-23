@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
 using Xpand.Utils.Linq;
 using Xpand.Utils.Helpers;
 
@@ -89,7 +88,7 @@ namespace Xpand.ExpressApp {
                 else {
                     obj = objectSpace.FindObject(type, (CriteriaOperator)objectKey) ?? objectSpace.CreateObject(type);
                     if (!(objectSpace.IsNewObject(obj))) {
-                        ((IAfterViewShown)_application).AfterViewShown += OnAfterViewShown;
+                        _application.ViewShown +=ApplicationOnViewShown;
                     }
                 }
             } else {
@@ -98,14 +97,14 @@ namespace Xpand.ExpressApp {
             return obj;
         }
 
-        void OnAfterViewShown(object sender, ViewShownEventArgs e) {
+        void ApplicationOnViewShown(object sender, ViewShownEventArgs e) {
             if (_detailView == null) return;
             IObjectSpace objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
             IList objects = objectSpace.GetObjects(_detailView.ObjectTypeInfo.Type);
             var standaloneOrderProvider = new StandaloneOrderProvider(objectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };
             e.TargetFrame.GetController<RecordsNavigationController>().OrderProviderSource = orderProviderSource;
-            ((IXafApplication)_application).AfterViewShown -= OnAfterViewShown;
+            _application.ViewShown -= ApplicationOnViewShown;
             _detailView = null;
         }
 

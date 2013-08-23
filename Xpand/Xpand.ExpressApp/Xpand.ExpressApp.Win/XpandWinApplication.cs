@@ -72,8 +72,6 @@ namespace Xpand.ExpressApp.Win {
             base.Start();
         }
 
-        public event EventHandler<ViewShownEventArgs> AfterViewShown;
-
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
 
@@ -88,12 +86,6 @@ namespace Xpand.ExpressApp.Win {
             CancelEventHandler handler = ConfirmationRequired;
             if (handler != null) handler(this, e);
 
-        }
-
-        public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
-            if (AfterViewShown != null) {
-                AfterViewShown(this, new ViewShownEventArgs(frame, sourceFrame));
-            }
         }
 
         string IXafApplication.ModelAssemblyFilePath {

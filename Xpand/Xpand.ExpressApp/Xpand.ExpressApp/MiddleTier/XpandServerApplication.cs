@@ -73,15 +73,6 @@ namespace Xpand.ExpressApp.MiddleTier {
             remove { throw new NotImplementedException(); }
         }
 
-        event EventHandler<ViewShownEventArgs> IAfterViewShown.AfterViewShown {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
-        }
-
-        public void OnAfterViewShown(Frame frame, Frame sourceFrame) {
-            throw new NotImplementedException();
-        }
-
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
         }

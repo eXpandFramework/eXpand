@@ -70,14 +70,6 @@ namespace Xpand.ExpressApp.Web {
             return _applicationModulesManager;
         }
       
-        public event EventHandler<ViewShownEventArgs> AfterViewShown;
-
-        public virtual void OnAfterViewShown(Frame frame, Frame sourceFrame) {
-            if (AfterViewShown != null) {
-                AfterViewShown(this, new ViewShownEventArgs(frame, sourceFrame));
-            }
-        }
-
         public event CancelEventHandler ConfirmationRequired;
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
