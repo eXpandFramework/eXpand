@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -15,7 +14,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 HandleCustomAttribute(memberInfo, typesInfo);
             }
         }
-        [DebuggerStepThrough]
+
         void HandleCustomAttribute(IMemberInfo memberInfo, ITypesInfo typesInfo) {
             var customAttributes = memberInfo.FindAttributes<Attribute>().OfType<ICustomAttribute>().ToList();
             foreach (var customAttribute in customAttributes) {
@@ -24,12 +23,15 @@ namespace Xpand.ExpressApp.SystemModule {
                     var theValue = customAttribute.Value.Split(';')[index];
                     var typeInfo = typesInfo.FindTypeInfo(theValue);
                     if (customAttribute is PropertyEditorAttribute && typeInfo.IsInterface) {
-                        try {
-                            theValue = typeInfo.Implementors.Single().FullName;
-                        } catch (InvalidOperationException) {
+                        if (!typeInfo.Implementors.Any()) {
                             if (Application != null)
                                 throw new InvalidOperationException(typeInfo.FullName + " has no implementors");
                         }
+                        else {
+                            var single = typeInfo.Implementors.Single(info => !info.FindAttribute<DevExpress.ExpressApp.Editors.PropertyEditorAttribute>().IsDefaultEditor);
+                            theValue = single.Type.FullName;
+                        }
+                        
                     }
                     memberInfo.AddAttribute(new ModelDefaultAttribute(s, theValue));
                 }
