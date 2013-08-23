@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace FixReferences {
     class ProjectReferencesUpdater : Updater {
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
-        readonly string[] _copyLocalReferences = new[] { "Xpand.ExpressApp.FilterDataStore", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl" };
+
+        readonly string[] _copyLocalReferences = new[]{
+            "Xpand.ExpressApp.FilterDataStore", "Xpand.ExpressApp.FilterDataStore.Win",
+            "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl"
+        };
 
         readonly Dictionary<string, string> _requiredApplicationProjectReferences =
             new Dictionary<string, string>{
