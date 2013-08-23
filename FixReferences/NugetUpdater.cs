@@ -21,14 +21,22 @@ namespace FixReferences {
                 var xpandReferences = document.Descendants().Where(element => element.Name.LocalName == "Reference").Select(element
                     => element.Attribute("Include").Value).Where(s => s.StartsWith("Xpand"));
                 foreach (var xpandReference in xpandReferences) {
-                    var xElement = new XElement(_xNamespace + "file");
-                    xElement.Add(new XAttribute("src", @"\Build\Temp\" + xpandReference + ".dll"));
-                    xElement.Add(new XAttribute("target", @"lib\" + xpandReference + ".dll"));
-                    files.Add(xElement);
+                    files.Add(CreateElement(xpandReference));
                 }
+                var value = document.Descendants().First(element => element.Name.LocalName == "AssemblyName").Value;
+                files.Add(CreateElement(value));
                 DocumentHelper.Save(files.Document, fileInfo.Item2);
             }
         }
+
+        XElement CreateElement(string name) {
+            var xElement = new XElement(_xNamespace + "file");
+            xElement.Add(new XAttribute("src", @"\Build\Temp\" + name + ".dll"));
+            xElement.Add(new XAttribute("target", @"lib\" + name + ".dll"));
+            return xElement;
+            
+        }
+
         Tuple<XElement, string> GetNugetSpecInfo(string value) {
             foreach (var file in Directory.GetFiles(Path.Combine(RootDir, @"Resource\Nuget"), "*.nuspec")) {
                 var xDocument = DocumentHelper.GetXDocument(file);

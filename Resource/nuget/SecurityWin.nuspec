@@ -18,5 +18,6 @@
     <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\Xpand.ExpressApp.Security.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Security.Win.dll" target="lib\Xpand.ExpressApp.Security.Win.dll" />
   </files>
 </package>

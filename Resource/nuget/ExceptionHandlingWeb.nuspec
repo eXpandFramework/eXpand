@@ -18,5 +18,6 @@
     <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
   </files>
 </package>

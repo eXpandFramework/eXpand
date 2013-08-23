@@ -19,5 +19,6 @@
     <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\Xpand.ExpressApp.TreeListEditors.Win.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.IO.Win.dll" target="lib\Xpand.ExpressApp.IO.Win.dll" />
   </files>
 </package>

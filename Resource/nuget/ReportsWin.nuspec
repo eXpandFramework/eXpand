@@ -19,5 +19,6 @@
     <file src="\Build\Temp\Xpand.ExpressApp.Reports.dll" target="lib\Xpand.ExpressApp.Reports.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Reports.Win.dll" target="lib\Xpand.ExpressApp.Reports.Win.dll" />
   </files>
 </package>

@@ -17,5 +17,6 @@
   <files>
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Thumbnail.Web.dll" target="lib\Xpand.ExpressApp.Thumbnail.Web.dll" />
   </files>
 </package>
