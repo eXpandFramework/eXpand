@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -31,7 +32,28 @@ namespace FixReferences {
                 AddRequiredReferences(document, file);
             }
             UpdateReferences(document, directoryName, file);
+            var config =Path.Combine(Path.GetDirectoryName(file)+"","app.config");
+            if (File.Exists(config)) {
+                ReplaceToken(config);
+            }
+            else {
+                config = Path.Combine(Path.GetDirectoryName(file) + "", "web.config");
+                if (File.Exists(config)) {
+                    ReplaceToken(config);
+                }    
+            }    
         }
+
+        void ReplaceToken(string config) {     
+            string readToEnd;
+            using (var streamReader = new StreamReader(config)) {
+                readToEnd = streamReader.ReadToEnd().Replace("c52ffed5d5ff0958", "b88d1754d700e49a");
+            }
+            using (var streamWriter = new StreamWriter(config)) {
+                streamWriter.Write(readToEnd);
+            }
+        }
+
         void AddRequiredReferences(XDocument document, string file) {
             var referencesItemGroup = document.Descendants().First(element => element.Name.LocalName == "Reference").Parent;
             if (referencesItemGroup == null) throw new NullReferenceException("referencesItemGroup");
