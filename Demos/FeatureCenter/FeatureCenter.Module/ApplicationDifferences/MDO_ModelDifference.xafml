@@ -15,7 +15,7 @@
     <Items>
       <Item Id="Application Differences" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject_ListView" />
+          <Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="MDO_ListView" />
         </Items>
       </Item>
     </Items>

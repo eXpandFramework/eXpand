@@ -64,11 +64,14 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void AddViews(HashSet<string> views, IModelLogicWrapper modelLogic, IContextLogicRule contextLogicRule) {
-            var modelViewContexts = modelLogic.ViewContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.Id);
-            if (modelViewContexts != null)
-                foreach (var modelViewContext in modelViewContexts) {
-                    views.Add(modelViewContext.Name);
-                }
+            if (!string.IsNullOrEmpty(contextLogicRule.ViewContextGroup)) {
+                var modelViewContexts =modelLogic.ViewContextsGroup.FirstOrDefault(
+                        contexts => contexts.Id == contextLogicRule.ViewContextGroup);
+                if (modelViewContexts != null)
+                    foreach (var modelViewContext in modelViewContexts) {
+                        views.Add(modelViewContext.Name);
+                    }
+            }
         }
 
         FrameTemplateContext GetFrameTemplateContext(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {

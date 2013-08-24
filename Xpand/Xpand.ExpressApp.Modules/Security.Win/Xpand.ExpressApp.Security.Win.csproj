@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{50DF1466-D5B2-40FC-B91E-B212E4A7F4A9}</ProjectGuid>
+    <ProjectGuid>{BAD55FD1-7A64-4A38-894D-5C18895EB76B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Security.Win</RootNamespace>

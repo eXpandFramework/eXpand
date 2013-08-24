@@ -45,7 +45,7 @@ namespace XVideoRental.Win {
             this.chartWindowsFormsModule1 = new DevExpress.ExpressApp.Chart.Win.ChartWindowsFormsModule();
             this.schedulerModuleBase1 = new DevExpress.ExpressApp.Scheduler.SchedulerModuleBase();
             this.schedulerWindowsFormsModule1 = new DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule();
-            this.module4 = new XVideoRentalWindowsFormsModule();
+            this.module4 = new XVideoRental.Module.Win.XVideoRentalWindowsFormsModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
             this.reportsWindowsFormsModule1 = new DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
@@ -61,10 +61,12 @@ namespace XVideoRental.Win {
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
             this._xpandReportsWindowsFormsModule2 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
-            
+            this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
+            this.xpandReportsModule1 = new Xpand.ExpressApp.Reports.XpandReportsModule();
+            this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule();
+            this.modelAdaptorModule1 = new Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -95,7 +97,7 @@ namespace XVideoRental.Win {
             // reportsModule1
             // 
             this.reportsModule1.EnableInplaceReports = true;
-            this.reportsModule1.ReportDataType = typeof(ReportData);
+            this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportData);
             // 
             // validationModule1
             // 
@@ -122,8 +124,10 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
+            this.Modules.Add(this.dashboardModule1);
             this.Modules.Add(this.xpandPivotGridWinModule1);
             this.Modules.Add(this.xpandChartWinModule1);
+            this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.masterDetailModule1);
             this.Modules.Add(this.masterDetailWindowsModule1);
@@ -131,11 +135,12 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.xpandSecurityWinModule1);
             this.Modules.Add(this.treeListEditorsModuleBase1);
-            this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.xpandValidationModule1);
-            
             this.Modules.Add(this.modelArtifactStateModule1);
+            this.Modules.Add(this.xpandReportsModule1);
             this.Modules.Add(this._xpandReportsWindowsFormsModule2);
+            this.Modules.Add(this.dashboardWindowsFormsModule1);
+            this.Modules.Add(this.modelAdaptorModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch);
@@ -182,6 +187,10 @@ namespace XVideoRental.Win {
 
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule _xpandReportsWindowsFormsModule2;
+        private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
+        private Xpand.ExpressApp.Reports.XpandReportsModule xpandReportsModule1;
+        private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
+        private Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule modelAdaptorModule1;
         
     }
 }

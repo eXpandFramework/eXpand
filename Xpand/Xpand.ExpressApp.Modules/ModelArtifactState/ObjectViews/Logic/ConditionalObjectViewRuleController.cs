@@ -61,8 +61,10 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
                         }
                         break;
                     case ExecutionContext.CurrentObjectChanged:
-                        if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView) {
-                            View.SetModel(info.Active ? objectViewRule.ObjectView : GetDefaultObjectView(),true);
+                        if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView&&View.ObjectTypeInfo!=null) {
+                            var modelView = info.Active ? objectViewRule.ObjectView : GetDefaultObjectView();
+                            if (modelView!=null)
+                                View.SetModel(modelView,true);
                         }
                         break;
                 }

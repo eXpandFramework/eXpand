@@ -1,13 +1,14 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using FeatureCenter.Base;
 using Xpand.ExpressApp.Validation;
 
 namespace FeatureCenter.Module.Validation {
 
     [RuleCombinationOfPropertiesIsUnique("aaa", DefaultContexts.Save, "WarningProperty,Information")]
     [RuleErrorType("aaa", RuleType.Warning)]
-    public class RuleTypeCustomer : Customer {
+    public class RuleTypeCustomer : CustomerBase {
         public RuleTypeCustomer(Session session)
             : base(session) {
         }

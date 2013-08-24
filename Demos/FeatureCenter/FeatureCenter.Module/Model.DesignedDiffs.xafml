@@ -1,20 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Logo="ExpressAppLogo">
   <BOModel>
-
+    <Class Name="FeatureCenter.Module.Customer">
+      <OwnMembers>
+        <RuntimeCalculatedMember Name="MaxOfOrderTotals" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+        <RuntimeOrphanedColection Name="OrderLines" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+        <RuntimeMember Name="RuntimeMember" Tag="" IsCustom="False" />
+      </OwnMembers>
+    </Class>
   </BOModel>
   <NavigationItems DefaultChildItemsDisplayStyle="List" NavigationStyle="TreeList">
     <Items>
-      <Item Id="Whats New" Index="0">
-        <Items>
-          <Item Id="@9f7696bb-bd05-496d-9ad2-f24465132b69" ViewId="@fffb4128-5bef-4f0c-8e9a-131bfc4d50fb" IsNewNode="True" />
-        </Items>
-      </Item>
-      <Item Id="Application Differences">
-        <Items>
-          <Item Id="ModelDifferenceObject_ListView" ImageName="MenuBar_EditModel" />
-        </Items>
-      </Item>
+      <Item Id="Whats New" Index="0" />
     </Items>
   </NavigationItems>
   <Options HighlightFocusedLayoutItem="False" />

@@ -11,8 +11,15 @@
   </BOModel>
   <ConditionalObjectView>
     <Rules>
-      <ObjectViewRule Id="Paris_DetailViews" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" View="" IsNewNode="True" />
+      <ObjectViewRule Id="Paris_DetailViews" TypeInfo="FeatureCenter.Module.Customer" NormalCriteria="City='Paris'" ObjectView="ConditionalDetailViews_DetailView" View="" ViewContextGroup="paris_views" IsNewNode="True" />
     </Rules>
+    <ViewContextsGroup>
+      <ViewContexts Id="paris_views" IsNewNode="True">
+        <ViewContext Name="ConditionalDetailViews_DetailView" IsNewNode="True" />
+        <ViewContext Name="ConditionalDetailViews_ListView" IsNewNode="True" />
+        <ViewContext Name="ConditionalDetailViewsDefault_DetailView" IsNewNode="True" />
+      </ViewContexts>
+    </ViewContextsGroup>
   </ConditionalObjectView>
   <Views>
     <DetailView Id="ConditionalDetailViews_DetailView">

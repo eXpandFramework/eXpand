@@ -21,7 +21,7 @@ namespace FeatureCenter.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (Debugger.IsAttached) {
+            if (true) {
                 if (this.DropDatabaseOnVersionMissmatch() > 0)
                     Application.ExitThread();
                 e.Updater.Update();
