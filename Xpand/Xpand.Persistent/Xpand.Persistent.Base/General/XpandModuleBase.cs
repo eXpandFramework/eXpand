@@ -5,6 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
@@ -21,6 +22,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -38,6 +40,8 @@ namespace Xpand.Persistent.Base.General {
 
     [ToolboxItem(false)]
     public abstract class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
+        private static string _xpandPathInRegistry;
+        private static string _dxPathInRegistry;
         static List<object> _storeManagers;
         readonly static MultiValueDictionary<string,object> _callMonitor=new MultiValueDictionary<string, object>();
         public static string ManifestModuleName;
@@ -49,6 +53,7 @@ namespace Xpand.Persistent.Base.General {
         static string _connectionString;
         protected Type DefaultXafAppType = typeof (XafApplication);
         static readonly bool _isHosted;
+        static string _assemblyString;
         public event EventHandler ApplicationModulesManagerSetup;
 
         protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
@@ -228,21 +233,75 @@ namespace Xpand.Persistent.Base.General {
             internal set { _connectionString = value; }
         }
 
-
+        [SecuritySafeCritical]
         void LoadBaseImplAssembly() {
-            string assemblyString = String.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo.FileVersion, XpandAssemblyInfo.Token);
+            _assemblyString = String.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo.FileVersion, XpandAssemblyInfo.Token);
             string baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {
-                assemblyString = baseImplName;
+                _assemblyString = baseImplName;
             }
             try {
-                _baseImplAssembly = Assembly.Load(assemblyString);
+                AppDomain.CurrentDomain.AssemblyResolve += XpandAssemblyResolve;
+                _baseImplAssembly = Assembly.Load(_assemblyString);
             }
             catch (FileNotFoundException) {
             }
+            finally {
+                AppDomain.CurrentDomain.AssemblyResolve -= XpandAssemblyResolve;
+            }
             if (_baseImplAssembly == null)
-                throw new NullReferenceException(
-                    "BaseImpl not found please reference it in your front end project and set its Copy Local=true");
+                throw new FileNotFoundException(
+                    "Xpand.ExpressApp.BaseImpl not found please reference it in your front end project and set its Copy Local=true");
+        }
+
+        public static string XpandPathInRegistry {
+            get {
+                if (_xpandPathInRegistry==null) {
+                    _xpandPathInRegistry = "";
+                    var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ??
+                                       Registry.LocalMachine.OpenSubKey("Software");
+                    if (softwareNode != null) {
+                        var xpandNode = softwareNode.OpenSubKey(@"Microsoft\.NetFramework\AssemblyFolders\Xpand");
+                        if (xpandNode != null)
+                            _xpandPathInRegistry = xpandNode.GetValue(null) + "";
+                    }
+                }
+                return _xpandPathInRegistry;
+            }
+        }        
+
+        public static string DXPathInRegistry {
+            get {
+                if (_dxPathInRegistry == null) {
+                    _dxPathInRegistry = "";
+                    var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ??
+                                       Registry.LocalMachine.OpenSubKey("Software");
+                    if (softwareNode != null) {
+                        var xpandNode = softwareNode.OpenSubKey(@"DevExpress\DXperience\v"+AssemblyInfo.VersionShort);
+                        if (xpandNode != null)
+                            _dxPathInRegistry = xpandNode.GetValue("RootDirectory") + "";
+                    }
+                }
+                return _dxPathInRegistry;
+            }
+        }
+
+        public static Assembly XpandAssemblyResolve(object sender, ResolveEventArgs args) {
+            if (!string.IsNullOrEmpty(XpandPathInRegistry)) {
+                var path = Path.Combine(XpandPathInRegistry,args.Name.Substring(0, args.Name.IndexOf(",", StringComparison.Ordinal)) +".dll");
+                if (File.Exists(path))
+                    return Assembly.LoadFile(path);
+            }
+            return null;
+        }
+
+        public static Assembly DXAssemblyResolve(object sender, ResolveEventArgs args) {
+            if (!string.IsNullOrEmpty(DXPathInRegistry)) {
+                var path = Path.Combine(DXPathInRegistry,@"bin\framework\"+ args.Name + ".dll");
+                if (File.Exists(path))
+                    return Assembly.LoadFile(path);
+            }
+            return null;
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {

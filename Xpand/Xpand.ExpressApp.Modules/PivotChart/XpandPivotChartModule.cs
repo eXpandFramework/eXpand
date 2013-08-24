@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
+using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -20,21 +21,28 @@ namespace Xpand.ExpressApp.PivotChart {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
         }
 
+        [SecuritySafeCritical]
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PivotChart");
             try {
                 if (RuntimeMode) {
+                    AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
                     Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
                     TypesInfo.LoadTypes(assembly);
                     Type typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
                     AdditionalExportedTypes.Add(typeInfo);
                 }
-            } catch (FileNotFoundException) {
-                throw new TypeLoadException(
+            }
+            catch (FileNotFoundException) {
+                throw new FileNotFoundException(
                     "Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
             }
+            finally {
+                AppDomain.CurrentDomain.AssemblyResolve-=DXAssemblyResolve;
+            }
         }
+
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
