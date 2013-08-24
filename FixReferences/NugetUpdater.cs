@@ -32,7 +32,7 @@ namespace FixReferences {
         XElement CreateElement(string name) {
             var xElement = new XElement(_xNamespace + "file");
             xElement.Add(new XAttribute("src", @"\Build\Temp\" + name + ".dll"));
-            xElement.Add(new XAttribute("target", @"lib\" + name + ".dll"));
+            xElement.Add(new XAttribute("target", @"lib\net40\" + name + ".dll"));
             return xElement;
             
         }

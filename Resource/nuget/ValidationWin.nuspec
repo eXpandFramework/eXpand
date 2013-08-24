@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\Xpand.ExpressApp.Validation.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Validation.Win.dll" target="lib\Xpand.ExpressApp.Validation.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\net40\Xpand.ExpressApp.Validation.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\net40\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Validation.Win.dll" target="lib\net40\Xpand.ExpressApp.Validation.Win.dll" />
   </files>
 </package>

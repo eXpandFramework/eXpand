@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\Xpand.ExpressApp.TreeListEditors.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Web.dll" target="lib\Xpand.ExpressApp.TreeListEditors.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Web.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Web.dll" />
   </files>
 </package>

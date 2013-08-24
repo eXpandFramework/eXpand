@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#Workflow</projectUrl>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
-    <file src="\Build\Temp\Xpand.Xpo.dll" target="lib\Xpand.Xpo.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Workflow.dll" target="lib\Xpand.ExpressApp.Workflow.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.Xpo.dll" target="lib\net40\Xpand.Xpo.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Workflow.dll" target="lib\net40\Xpand.ExpressApp.Workflow.dll" />
   </files>
 </package>

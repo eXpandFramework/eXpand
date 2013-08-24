@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\Xpand.ExpressApp.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\Xpand.Utils.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\Xpand.ExpressApp.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\net40\Xpand.ExpressApp.dll" />
+    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
+    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\net40\Xpand.ExpressApp.Win.dll" />
   </files>
 </package>

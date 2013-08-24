@@ -255,7 +255,7 @@
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorDbMapper.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\XtraDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
+    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\XtraDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" Condition="$(SkipDashboard)!='true')" />
   </Target>
   <Target Name="NuGet" DependsOnTargets="NuGetPackage">
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystemWeb.$(Version).nupkg $(NuGetApiKey)" />
@@ -301,6 +301,6 @@
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorDbMapper.$(Version).nupkg $(NuGetApiKey)" />
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWeb.$(Version).nupkg $(NuGetApiKey)" />
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandXtraDashboardWin.$(Version).nupkg $(NuGetApiKey)" />
+    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandXtraDashboardWin.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true')" />
   </Target>
 </Project>
