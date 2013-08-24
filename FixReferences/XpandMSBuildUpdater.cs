@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 namespace FixReferences {
     class XpandMSBuildUpdater:Updater {
-        readonly Dictionary<string, XAttribute> _dictionary = new Dictionary<string, XAttribute> { { "XtraDashboardWin", new XAttribute("Condition", "$(SkipDashboard)!='true')") } }; 
+        readonly Dictionary<string, XAttribute> _dictionary = new Dictionary<string, XAttribute> { { "XtraDashboardWin", new XAttribute("Condition", "$(SkipDashboard)!='true'") } }; 
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
         public XpandMSBuildUpdater(IDocumentHelper documentHelper, string rootDir) : base(documentHelper, rootDir) {
         }
