@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandPivotChart" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.Win.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.Win.dll" />
   </files>
 </package>
