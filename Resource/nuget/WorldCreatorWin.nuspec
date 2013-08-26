@@ -17,10 +17,10 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandWorldCreator" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.Win.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.Win.dll" />
   </files>
 </package>
