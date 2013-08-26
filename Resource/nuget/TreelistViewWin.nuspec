@@ -16,10 +16,8 @@
     <dependencies>
       <dependency id="eXpandLib" />
       <dependency id="eXpandSystemWin" />
+      <dependency id="eXpandTreelistView" />
     </dependencies>
   </metadata>
-  <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.dll" />
-  </files>
+  <files />
 </package>

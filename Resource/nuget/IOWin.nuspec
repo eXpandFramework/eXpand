@@ -15,11 +15,11 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandTreelistView" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.IO.dll" target="lib\net40\Xpand.ExpressApp.IO.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.IO.Win.dll" target="lib\net40\Xpand.ExpressApp.IO.Win.dll" />
   </files>
 </package>
