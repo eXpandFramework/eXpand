@@ -15,7 +15,7 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
-      <dependency id="eXpandTreelistView" />
+      <dependency id="eXpandTreelistViewWin" />
       <dependency id="eXpandIO" />
     </dependencies>
   </metadata>

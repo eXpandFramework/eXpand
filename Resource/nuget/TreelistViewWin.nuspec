@@ -19,5 +19,7 @@
       <dependency id="eXpandTreelistView" />
     </dependencies>
   </metadata>
-  <files />
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.dll" />
+  </files>
 </package>
