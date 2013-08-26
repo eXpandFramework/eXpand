@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandSecurity" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\net40\Xpand.ExpressApp.Security.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Dashboard.dll" target="lib\net40\Xpand.ExpressApp.Dashboard.dll" />
   </files>
 </package>

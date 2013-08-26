@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandSecurity" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\net40\Xpand.ExpressApp.Security.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Security.Win.dll" target="lib\net40\Xpand.ExpressApp.Security.Win.dll" />
   </files>
 </package>
