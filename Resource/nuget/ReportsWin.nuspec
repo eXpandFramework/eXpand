@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandDashboard" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Dashboard.dll" target="lib\net40\Xpand.ExpressApp.Dashboard.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Reports.dll" target="lib\net40\Xpand.ExpressApp.Reports.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Reports.Win.dll" target="lib\net40\Xpand.ExpressApp.Reports.Win.dll" />
   </files>
