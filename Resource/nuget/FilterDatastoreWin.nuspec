@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#filterdatastore</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandFilterDatastore" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.FilterDataStore.dll" target="lib\net40\Xpand.ExpressApp.FilterDataStore.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.FilterDataStore.Win.dll" target="lib\net40\Xpand.ExpressApp.FilterDataStore.Win.dll" />
   </files>
 </package>
