@@ -16,10 +16,10 @@
     <dependencies>
       <dependency id="eXpandLib" />
       <dependency id="eXpandSystemWin" />
+      <dependency id="eXpandLogic" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\net40\Xpand.ExpressApp.Logic.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.MasterDetail.dll" target="lib\net40\Xpand.ExpressApp.MasterDetail.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.MasterDetail.Win.dll" target="lib\net40\Xpand.ExpressApp.MasterDetail.Win.dll" />
   </files>

@@ -16,10 +16,10 @@
     <dependencies>
       <dependency id="eXpandLib" />
       <dependency id="eXpandSecurity" />
+      <dependency id="eXpandLogic" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\net40\Xpand.ExpressApp.Logic.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.dll" />
   </files>
 </package>

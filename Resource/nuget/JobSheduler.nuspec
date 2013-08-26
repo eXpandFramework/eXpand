@@ -15,11 +15,11 @@
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+      <dependency id="eXpandLogic" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\net40\Xpand.ExpressApp.Logic.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\net40\Xpand.ExpressApp.Validation.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.dll" />
   </files>
