@@ -25,10 +25,10 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
     <dependencies>
       <dependency id="eXpandLib" />
       <dependency id="eXpandSystemWin" />
+      <dependency id="eXpandModelDifference" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
   </files>
 </package>
