@@ -15,6 +15,7 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
   </metadata>
   <files>
+	<file src="\Build\Temp\Wintellect.Threading.dll" target="lib\net40\Wintellect.Threading.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
 	<file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
