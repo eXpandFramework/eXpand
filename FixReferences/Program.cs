@@ -23,8 +23,6 @@ namespace FixReferences {
                     nugetUpdater.Update(file);
                 }
             }
-            var xpandBuildUpdater = new XpandMSBuildUpdater(documentHelper, rootDir);
-            xpandBuildUpdater.Update(Path.Combine(rootDir, "Xpand.Build"));
             return true;
         }
     }
