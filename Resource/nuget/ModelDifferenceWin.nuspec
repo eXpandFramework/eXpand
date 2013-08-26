@@ -22,13 +22,13 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
     <summary>Model managment</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <dependencies>
+      <dependency id="eXpandLib" />
+    </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\net40\Xpand.ExpressApp.Win.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
-    <file src="\Build\Temp\Xpand.Xpo.dll" target="lib\net40\Xpand.Xpo.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
   </files>
 </package>

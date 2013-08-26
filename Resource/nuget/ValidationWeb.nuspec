@@ -13,11 +13,12 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
+    <dependencies>
+      <dependency id="eXpandLib" />
+    </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\net40\Xpand.ExpressApp.Validation.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.Web.dll" target="lib\net40\Xpand.ExpressApp.Validation.Web.dll" />
   </files>
 </package>
