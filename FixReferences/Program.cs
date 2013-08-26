@@ -19,8 +19,6 @@ namespace FixReferences {
                 if (!_excludedDirs.Contains(directoryName)) {
                     var projectReferencesUpdater = new ProjectReferencesUpdater(documentHelper,rootDir);
                     projectReferencesUpdater.Update(file);
-                    var nugetUpdater = new NugetUpdater(documentHelper, rootDir);
-                    nugetUpdater.Update(file);
                 }
             }
             return true;
