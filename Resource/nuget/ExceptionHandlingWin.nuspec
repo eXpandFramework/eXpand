@@ -18,5 +18,7 @@
       <dependency id="eXpandExceptionHandling" />
     </dependencies>
   </metadata>
-  <files />
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Win.dll" target="lib\net40\Xpand.ExpressApp.ExceptionHandling.Win.dll" />
+  </files>
 </package>

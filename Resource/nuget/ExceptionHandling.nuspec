@@ -19,6 +19,5 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\net40\Xpand.ExpressApp.ExceptionHandling.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Win.dll" target="lib\net40\Xpand.ExpressApp.ExceptionHandling.Win.dll" />
   </files>
 </package>
