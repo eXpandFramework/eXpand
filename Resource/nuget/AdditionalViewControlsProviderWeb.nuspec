@@ -19,10 +19,10 @@
       <dependency id="eXpandSystemWeb" />
       <dependency id="eXpandSecurity" />
       <dependency id="eXpandLogic" />
+      <dependency id="eXpandAdditionalViewControlsProvider" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
   </files>
 </package>
