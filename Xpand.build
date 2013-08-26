@@ -3,7 +3,7 @@
   <PropertyGroup>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
-	<NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
+    <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
@@ -211,59 +211,21 @@
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
   </Target>
+
   <ItemGroup>
-		<NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec" Condition="$(SkipDashboard)=='true'"/>
-		<NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+    <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec" Condition="$(SkipDashboard)=='true'"/>
+    <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
+
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
     <MakeDir Directories="$(BuildPath)\NuGet" />
-	<Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+    <Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+    <CreateItem Include="Build\NuGet\*.nupkg" >
+      <Output TaskParameter="Include" ItemName="NuGetFile"/>
+    </CreateItem>
   </Target>
-  
-  <Target Name="NuGet" DependsOnTargets="NuGetPackage">
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystemWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystemWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAdditionalViewControlsProviderWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandAuditTrail.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandChartWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandDashboard.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandExceptionHandlingWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandExceptionHandlingWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandFilterDatastoreWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandFilterDatastoreWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandImportWizardWin2.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandIOWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandIOWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandJobSheduler.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandJobShedulerJobs.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandLogic.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandMasterDetailWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandMemberLevelSecurityWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandModelAdaptor.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandModelArtifactState.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandModelDifferenceWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandModelDifferenceWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandNCarouselWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandPivotChartWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandPivotChartWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandPivotGridWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandReportsWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSchedulerWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSecurityWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSecurityWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandStateMachine.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandThumbnailWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandTreelistViewWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandTreelistViewWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandValidationWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandValidationWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandViewVariants.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWizardWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorkFlow.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorDbMapper.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWeb.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandWorldCreatorWin.$(Version).nupkg $(NuGetApiKey)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandXtraDashboardWin.$(Version).nupkg $(NuGetApiKey)" Condition="$(SkipDashboard)!='true'" />
+
+  <Target Name="NuGet"  Inputs="@(NuGetFile)" Outputs="NotUsedOutput" DependsOnTargets="NuGetPackage">
+    <Exec ContinueOnError="false" Command="$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey) " />
   </Target>
 </Project>
