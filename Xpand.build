@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
+	<NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
@@ -210,53 +211,15 @@
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
   </Target>
-  <Target Name="NuGetPackage">
+  <ItemGroup>
+		<NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec" Condition="$(SkipDashboard)=='true'"/>
+		<NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+  </ItemGroup>
+  <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
     <MakeDir Directories="$(BuildPath)\NuGet" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\SystemWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\SystemWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\AdditionalViewControlsProviderWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\AdditionalViewControlsProviderWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\AuditTrail.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ChartWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\Dashboard.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ExceptionHandlingWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ExceptionHandlingWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\FilterDatastoreWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\FilterDatastoreWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ImportWizardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\IOWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\IOWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\JobSheduler.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\JobShedulerJobs.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\Logic.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\MasterDetailWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\MemberLevelSecurityWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ModelAdaptor.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ModelArtifactState.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ModelDifferenceWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ModelDifferenceWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\NCarouselWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\PivotChartWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\PivotChartWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\PivotGridWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ReportsWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\SchedulerWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\SecurityWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\SecurityWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\StateMachine.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ThumbnailWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\TreelistViewWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\TreelistViewWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ValidationWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ValidationWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\ViewVariants.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WizardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorkFlow.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorDbMapper.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorWeb.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\WorldCreatorWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" />
-    <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe pack Resource\NuGet\XtraDashboardWin.nuspec -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)" Condition="$(SkipDashboard)!='true'" />
+	<Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
   </Target>
+  
   <Target Name="NuGet" DependsOnTargets="NuGetPackage">
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystemWeb.$(Version).nupkg $(NuGetApiKey)" />
     <Exec ContinueOnError="false" Command="Resource\Tool\NuGet.exe push Build\NuGet\eXpandSystemWin.$(Version).nupkg $(NuGetApiKey)" />
