@@ -177,7 +177,18 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string AssemblyFilePath() {
-            return Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location) + "", GetType().Name + "_" + ".dll");
+            var path = Path.GetDirectoryName(GetType().Assembly.Location) + "";
+            if (!RuntimeMode) {
+                path=GetTempDirectory();
+            }
+            return Path.Combine(path, GetType().Name + "_" + ".dll");
+        }
+
+        public static string GetTempDirectory() {
+            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp", EnvironmentVariableTarget.Machine) + "",XpandAssemblyInfo.Version);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+            return directory;
         }
 
         string GetCode(IEnumerable<InterfaceBuilderData> builderDatas) {

@@ -86,13 +86,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         public virtual string GetPath(string name) {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (appSetting==null) {
-                var folder = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+                var folder = InterfaceBuilder.RuntimeMode ? AppDomain.CurrentDomain.SetupInformation.ApplicationBase : InterfaceBuilder.GetTempDirectory();
                 var applicationFolder = Path.Combine(folder, "ModelAdaptor");
                 var path2 = "ModelAdaptor" + name + ".dll";
                 return Path.Combine(applicationFolder + "", path2);
             }
             return appSetting;
         }
+
     }
 
     public static class ModelAdapterExtension {
