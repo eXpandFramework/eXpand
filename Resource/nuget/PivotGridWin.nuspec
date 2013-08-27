@@ -13,12 +13,13 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#PivotGrid</projectUrl>
+    <dependencies>
+      <dependency id="eXpandLib" />
+      <dependency id="eXpandSystemWin" />
+      <dependency id="eXpandDashboard" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Dashboard.dll" target="lib\net40\Xpand.ExpressApp.Dashboard.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Win.dll" target="lib\net40\Xpand.ExpressApp.Win.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.PivotGrid.Win.dll" target="lib\net40\Xpand.ExpressApp.PivotGrid.Win.dll" />
   </files>
 </package>

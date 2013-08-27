@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>eXpandAdditionalViewControlsProviderWin</id>
+    <id>eXpandAdditionalViewControlsProvider</id>
     <version>11.1</version>
-    <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module (Win)</title>
+    <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
@@ -17,10 +17,9 @@
       <dependency id="eXpandLib" />
       <dependency id="eXpandSecurity" />
       <dependency id="eXpandLogic" />
-      <dependency id="eXpandAdditionalViewControlsProvider" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
   </files>
 </package>

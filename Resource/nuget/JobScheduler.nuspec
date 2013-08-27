@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>eXpandAdditionalViewControlsProviderWin</id>
+    <id>eXpandJobScheduler</id>
     <version>11.1</version>
-    <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module (Win)</title>
+    <title>DevExpress eXpandFramework JobScheduler Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>AdditionalViewControlsProvider Module (Win) / eXpandFramework</description>
-    <summary>AdditionalViewControlsProvider Module (Win) / eXpandFramework</summary>
+    <description>JobScheduler Module / eXpandFramework</description>
+    <summary>JobScheduler Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
-    <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
+    <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
-      <dependency id="eXpandSecurity" />
       <dependency id="eXpandLogic" />
       <dependency id="eXpandAdditionalViewControlsProvider" />
+      <dependency id="eXpandValidation" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.dll" />
   </files>
 </package>

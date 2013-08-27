@@ -1,24 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>eXpandPivotChartWeb</id>
+    <id>eXpandSecurity</id>
     <version>11.1</version>
-    <title>DevExpress eXpandFramework PivotChart Module (Web)</title>
+    <title>DevExpress eXpandFramework Security Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>PivotChart Module (Web) / eXpandFramework</description>
-    <summary>PivotChart Module (Web) / eXpandFramework</summary>
+    <description>Security Module (Win) / eXpandFramework</description>
+    <summary>Security Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
-    <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
+    <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
-      <dependency id="eXpandPivotChart" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.Web.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\net40\Xpand.ExpressApp.Security.dll" />
   </files>
 </package>

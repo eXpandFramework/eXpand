@@ -13,15 +13,16 @@
     <copyright>eXpandFramework.com</copyright>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <dependencies>
+      <dependency id="eXpandLib" />
+      <dependency id="eXpandSystem" />
+      <dependency id="eXpandSystemWeb" />
+      <dependency id="eXpandSecurity" />
+      <dependency id="eXpandLogic" />
+      <dependency id="eXpandAdditionalViewControlsProvider" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.dll" target="lib\net40\Xpand.ExpressApp.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Logic.dll" target="lib\net40\Xpand.ExpressApp.Logic.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\net40\Xpand.ExpressApp.Security.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\net40\Xpand.ExpressApp.Web.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
   </files>
 </package>

@@ -13,11 +13,12 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExceptionHandling</projectUrl>
+    <dependencies>
+      <dependency id="eXpandLib" />
+      <dependency id="eXpandExceptionHandling" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.dll" target="lib\net40\Xpand.ExpressApp.ExceptionHandling.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.ExceptionHandling.Web.dll" target="lib\net40\Xpand.ExpressApp.ExceptionHandling.Web.dll" />
   </files>
 </package>

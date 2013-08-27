@@ -15,11 +15,12 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <summary>Design runtime assemblies</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <dependencies>
+      <dependency id="eXpandLib" />
+      <dependency id="eXpandWorldCreator" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.dll" />
-    <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
-    <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.Win.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.Win.dll" />
   </files>
 </package>
