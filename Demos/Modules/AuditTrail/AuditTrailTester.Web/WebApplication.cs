@@ -17,6 +17,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using Xpand.ExpressApp.AuditTrail;
 using Xpand.ExpressApp.Logic;
+using Xpand.ExpressApp.Security.Core;
 
 //using DevExpress.ExpressApp.Security;
 
@@ -116,7 +117,7 @@ namespace AuditTrailTester.Web {
             // securityStrategyComplex1
             // 
             securityStrategyComplex1.Authentication = authenticationStandard1;
-            securityStrategyComplex1.RoleType = typeof (SecuritySystemRole);
+            securityStrategyComplex1.RoleType = typeof (XpandRole);
             securityStrategyComplex1.UserType = typeof (SecuritySystemUser);
             // 
             // authenticationStandard1
