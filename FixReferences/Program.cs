@@ -19,12 +19,8 @@ namespace FixReferences {
                 if (!_excludedDirs.Contains(directoryName)) {
                     var projectReferencesUpdater = new ProjectReferencesUpdater(documentHelper,rootDir);
                     projectReferencesUpdater.Update(file);
-                    var nugetUpdater = new NugetUpdater(documentHelper, rootDir);
-                    nugetUpdater.Update(file);
                 }
             }
-            var xpandBuildUpdater = new XpandMSBuildUpdater(documentHelper, rootDir);
-            xpandBuildUpdater.Update(Path.Combine(rootDir, "Xpand.Build"));
             return true;
         }
     }
