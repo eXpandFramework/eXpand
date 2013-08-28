@@ -51,7 +51,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
 
     public class InterfaceBuilder {
-        private static readonly object syncRoot = new object();
         readonly ModelInterfaceExtenders _extenders;
         private const string NamePrefix = "IModel";
         readonly List<Type> _usingTypes;
@@ -73,25 +72,14 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _referencesCollector = new ReferencesCollector();
         }
 
-        static volatile IValueManager<bool?> _runtimeMode ; 
+        static bool? _runtimeMode ; 
         public static bool RuntimeMode {
             get {
-
                 if (_runtimeMode == null) {
-                    lock (syncRoot) {
-                        if (_runtimeMode == null) {
-                            _runtimeMode = ValueManager.GetValueManager<bool?>("RuntimeMode");
-                        }
-                    }
+                    var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
+                    _runtimeMode = !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
                 }
-                
-                lock (syncRoot) {
-                    if (_runtimeMode.Value == null) {
-                        var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
-                        _runtimeMode.Value = !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
-                    }
-                }
-                return _runtimeMode.Value.Value;
+                return _runtimeMode.Value;
             }
         }
 
