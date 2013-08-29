@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Utils;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.Logic;
@@ -10,7 +11,8 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     [ToolboxBitmap(typeof(AdditionalViewControlsModule))]
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class AdditionalViewControlsModule : XpandModuleBase{
 
         public AdditionalViewControlsModule() {

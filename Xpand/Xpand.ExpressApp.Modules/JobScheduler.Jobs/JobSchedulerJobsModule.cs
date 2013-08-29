@@ -1,10 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.Utils;
 using Xpand.ExpressApp.JobScheduler.Jobs.SendEmail;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs {
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public class JobSchedulerJobsModule : XpandModuleBase {
         public JobSchedulerJobsModule() {
             RequiredModuleTypes.Add(typeof(JobSchedulerModule));

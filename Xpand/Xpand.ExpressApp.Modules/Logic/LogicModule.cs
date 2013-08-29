@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -16,6 +17,7 @@ using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Logic {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
+    [ToolboxItem(true)]
     public class LogicModule : XpandModuleBase, IModelXmlConverter {
         readonly LogicRuleCollector _logicRuleCollector = new LogicRuleCollector();
 

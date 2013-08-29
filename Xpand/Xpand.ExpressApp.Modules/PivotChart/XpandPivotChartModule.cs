@@ -8,13 +8,15 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using Xpand.ExpressApp.PivotChart.AnalysisControlVisibility;
 using Xpand.ExpressApp.PivotChart.Security;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.PivotChart {
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandPivotChartModule : XpandModuleBase {
         public XpandPivotChartModule() {
             RequiredModuleTypes.Add(typeof(PivotChartModuleBase));

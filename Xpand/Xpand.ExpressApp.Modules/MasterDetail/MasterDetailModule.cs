@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MasterDetail {
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public class MasterDetailModule : XpandModuleBase {
 
         public MasterDetailModule() {
