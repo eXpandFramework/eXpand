@@ -4,12 +4,13 @@ using DevExpress.ExpressApp;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win {
     [ToolboxBitmap(typeof(XpandReportsWindowsFormsModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class XpandReportsWindowsFormsModule : XpandModuleBase {
+    public sealed class XpandReportsWindowsFormsModule : XpandModuleBase, IDashboardUser {
         protected override ModuleTypeList GetRequiredModuleTypesCore() {
             ModuleTypeList requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
             requiredModuleTypesCore.Add(typeof(DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule));

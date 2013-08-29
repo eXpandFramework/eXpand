@@ -24,6 +24,7 @@ using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -52,7 +53,7 @@ namespace Xpand.Persistent.Base.General {
         static XPDictionary _dictiorary;
         static string _connectionString;
         protected Type DefaultXafAppType = typeof (XafApplication);
-        static readonly bool _isHosted;
+        static  bool? _isHosted;
         static string _assemblyString;
         public event EventHandler ApplicationModulesManagerSetup;
 
@@ -77,39 +78,32 @@ namespace Xpand.Persistent.Base.General {
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
-            _isHosted = GetIsHosted();
         }
 
         public static bool IsHosted {
-            get { return _isHosted; }
+            get {
+                var xafApplication = ApplicationHelper.Instance.Application;
+                if (!_isHosted.HasValue) {
+                    _isHosted = ((IModelSources) xafApplication.Model).Modules.Any(@base => {
+                        var attribute =xafApplication.TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+                        if (attribute != null)
+                            return attribute.FilterString != "Xaf.Platform.Win";
+                        return false;
+                    });
+                }
+                return _isHosted.Value;
+            }
         }
 
-        static bool GetIsHosted() {
-            try {
-                var webAssemblies = AppDomain.CurrentDomain.GetAssemblies()
-                  .Where(a => a.FullName.StartsWith("System.Web"));
-                foreach (var webAssembly in webAssemblies) {
-                    var hostingEnvironmentType = webAssembly.GetType("System.Web.Hosting.HostingEnvironment");
-                    if (hostingEnvironmentType != null) {
-                        var isHostedProperty = hostingEnvironmentType.GetProperty("IsHosted",
-                          BindingFlags.GetProperty | BindingFlags.Static | BindingFlags.Public);
-                        if (isHostedProperty != null) {
-                            object result = isHostedProperty.GetValue(null, null);
-                            if (result is bool) {
-                                return (bool)result;
-                            }
-                        }
-                    }
-                }
-            } catch (Exception) {
-                // Failed to find or execute HostingEnvironment.IsHosted; assume false
-            }
-            return false;
-        }
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             var declaredControllerTypes = base.GetDeclaredControllerTypes();
+            if (!Executed<IDashboardUser>("DashboardUser")) {
+                declaredControllerTypes =declaredControllerTypes.Concat(new[]
+                    {typeof (DashboardInteractionController), typeof (WebDashboardRefreshController)});
+            }
             if (!Executed("GetDeclaredControllerTypes"))
-                return declaredControllerTypes.Union(new[] { typeof(CreatableItemController),typeof(FilterByColumnController) });
+                declaredControllerTypes= declaredControllerTypes.Union(new[] { typeof(CreatableItemController), typeof(FilterByColumnController) });
+            
             return declaredControllerTypes;
         }
 
@@ -423,6 +417,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
 
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (RuntimeMode)
@@ -548,8 +543,7 @@ namespace Xpand.Persistent.Base.General {
                     _instanceModelApplicationCreatorManager =
                         ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");
                 if (_instanceModelApplicationCreatorManager.Value == null)
-                    _instanceModelApplicationCreatorManager.Value =
-                        ((ModelApplicationBase) Application.Model).CreatorInstance;
+                    _instanceModelApplicationCreatorManager.Value =((ModelApplicationBase) Application.Model).CreatorInstance;
             }
         }
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {

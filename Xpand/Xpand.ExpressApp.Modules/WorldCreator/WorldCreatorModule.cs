@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
@@ -7,7 +8,8 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WorldCreator {
 
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class WorldCreatorModule : XpandModuleBase {
         static ExistentTypesMemberCreator  _existentTypesMemberCreator;
 

@@ -6,13 +6,14 @@ using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     [ToolboxBitmap(typeof(PivotGridWindowsFormsModule), "Resources.Toolbox_Module_PivotGridEditor_Win.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class XpandPivotGridWinModule : XpandModuleBase {
+    public sealed class XpandPivotGridWinModule : XpandModuleBase, IDashboardUser {
         public XpandPivotGridWinModule() {
             RequiredModuleTypes.Add(typeof(PivotGridModule));
             RequiredModuleTypes.Add(typeof(PivotGridWindowsFormsModule));

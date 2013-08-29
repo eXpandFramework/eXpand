@@ -10,7 +10,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
-using Xpand.ExpressApp.Dashboard.Core.Dashboard;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     [ViewItem(typeof(IModelDashboardReportViewItem))]

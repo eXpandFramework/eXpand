@@ -2,12 +2,14 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 
 namespace Xpand.ExpressApp.Validation {
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandValidationModule : XpandModuleBase {
         public XpandValidationModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));

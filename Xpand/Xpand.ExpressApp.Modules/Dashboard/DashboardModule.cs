@@ -8,13 +8,14 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.Linq;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Dashboard {
 
     [ToolboxBitmap(typeof(DashboardModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class DashboardModule : XpandModuleBase {
+    public sealed class DashboardModule : XpandModuleBase,IDashboardUser {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {

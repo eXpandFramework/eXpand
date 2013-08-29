@@ -16,8 +16,7 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -63,6 +62,9 @@
     <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -73,6 +75,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
@@ -88,6 +93,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
@@ -102,6 +108,13 @@
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\Dashboard\DashboardInteraction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Dashboard\Model.cs" />
+    <Compile Include="General\Controllers\Dashboard\WebDashboardRefreshController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>

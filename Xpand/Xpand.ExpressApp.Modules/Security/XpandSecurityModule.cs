@@ -10,13 +10,15 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
-    [ToolboxItem(false)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandSecurityModule : XpandModuleBase {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));

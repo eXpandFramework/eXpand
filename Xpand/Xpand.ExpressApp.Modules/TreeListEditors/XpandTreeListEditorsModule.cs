@@ -3,8 +3,9 @@ using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.TreeListEditors {
-    [Description, ToolboxTabName("eXpressApp"), EditorBrowsable(EditorBrowsableState.Always), Browsable(true),
-     ToolboxItem(false)]
+    [Description, EditorBrowsable(EditorBrowsableState.Always)]
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandTreeListEditorsModule : XpandModuleBase {
     }
 }

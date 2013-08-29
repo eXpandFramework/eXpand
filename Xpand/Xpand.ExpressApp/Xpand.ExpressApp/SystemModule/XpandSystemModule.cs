@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
@@ -20,6 +21,7 @@ using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
@@ -27,10 +29,10 @@ using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.SystemModule {
 
-    [ToolboxItem(false)]
-    [Browsable(true)]
+    [ToolboxItem(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
-    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter {
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
+    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));

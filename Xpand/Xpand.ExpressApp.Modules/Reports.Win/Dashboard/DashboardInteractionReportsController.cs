@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Reports;
-using Xpand.ExpressApp.Dashboard.Core.Dashboard;
+using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     public interface IModelDashboardViewFilterReport : IModelDashboardViewFilter {
