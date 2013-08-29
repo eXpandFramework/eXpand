@@ -14,11 +14,13 @@
     </Class>
   </BOModel>
   <SchemaModules IsNewNode="True">
-    <SchemaModule Name="CloneObjectModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.6.0" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.4.0" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.2.4.0" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.2.4.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
+    <SchemaModule Name="ModelDifferenceModule" Version="13.1.6.7" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.1.6.7" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <DetailView Id="MDO_DetailView">
@@ -64,90 +66,50 @@
       </Columns>
     </ListView>
     <DetailView Id="RDO_DetailView">
-      <Items>
-        <PropertyEditor Id="PersistentApplication" Removed="True" />
-        <PropertyEditor Id="PersistentApplication.Name" PropertyName="PersistentApplication.Name" IsNewNode="True" />
-      </Items>
       <Layout>
-        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal">
-          <TabbedGroup Id="TabContainer" CaptionLocation="Top" Index="0" RelativeSize="99" IsNewNode="True">
-            <LayoutGroup Id="Xml Content" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" ImageName="ModelEditor_Action_Xml" IsNewNode="True">
-              <LayoutItem Id="XmlContent" ShowCaption="False" ViewItem="XmlContent" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer">
+            <LayoutGroup Id="General">
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="45" ImageName="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="54" ImageName="">
+                  <LayoutItem Id="NonPersistent" ViewItem="" />
+                </LayoutGroup>
+              </LayoutGroup>
             </LayoutGroup>
-            <LayoutGroup Id="Roles" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="Roles" ImageName="BO_Role" IsNewNode="True">
+            <LayoutGroup Id="Roles" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="Roles" ImageName="BO_Role" IsNewNode="True">
               <LayoutItem Id="Roles" ViewItem="Roles" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" ImageName="Action_AboutInfo" IsNewNode="True">
-              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-              <LayoutItem Id="PersistentApplication.Name" ViewItem="PersistentApplication.Name" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" ShowCaption="False" Caption="Auto09355baf-2d40-41e7-a368-f29de0afe90d(6)" Direction="Horizontal" Index="2" RelativeSize="92" IsNewNode="True">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" ShowCaption="False" Caption="Auto1f221998-367f-4858-819b-a3a0988b83bf(7)" Index="0" RelativeSize="45" IsNewNode="True">
-                  <LayoutItem Id="Disabled" ViewItem="Disabled" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                  <LayoutItem Id="DateCreated" ViewItem="DateCreated" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" ShowCaption="False" Caption="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b(10)" Index="1" RelativeSize="54" IsNewNode="True">
-                  <LayoutItem Id="CombineOrder" ViewItem="CombineOrder" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                  <LayoutItem Id="NonPersistent" SizeConstraintsType="Default" Index="1" RelativeSize="95" ShowCaption="False" ViewItem="" IsNewNode="True" />
-                </LayoutGroup>
-              </LayoutGroup>
-            </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" ShowCaption="False" SizeConstraintsType="Custom" MinSize="1, 300" MaxSize="1, 300" Index="1" RelativeSize="0" ViewItem="" IsNewNode="True" />
-          <LayoutGroup Id="Roles_Group" Direction="Horizontal" RelativeSize="25" ImageName="" Caption="Roles" Removed="True">
-            <LayoutItem Id="Roles" Removed="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal" Removed="True">
-            <LayoutGroup Id="ModelDifferenceObject" Removed="True" />
-            <LayoutGroup Id="UserModelDifferenceObject" Removed="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="83" ImageName="" Direction="Horizontal" Caption="Xml Content" Removed="True">
-            <LayoutItem Id="XmlContent" Removed="True" />
-          </LayoutGroup>
+          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" />
         </LayoutGroup>
       </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Everything MDO" View="MDO_DetailView" IsNewNode="True" />
+      </MergedDifferences>
     </DetailView>
     <DetailView Id="UDO_DetailView">
-      <Items>
-        <PropertyEditor Id="PersistentApplication" Removed="True" />
-        <PropertyEditor Id="PersistentApplication.Name" PropertyName="PersistentApplication.Name" IsNewNode="True" />
-      </Items>
       <Layout>
-        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal">
-          <TabbedGroup Id="TabContainer" CaptionLocation="Top" Index="0" RelativeSize="99" IsNewNode="True">
-            <LayoutGroup Id="Xml Content" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" ImageName="ModelEditor_Action_Xml" IsNewNode="True">
-              <LayoutItem Id="XmlContent" ShowCaption="False" ViewItem="XmlContent" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Users" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="Users" ImageName="BO_User" IsNewNode="True">
-              <LayoutItem Id="Users" ViewItem="Users" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" ImageName="Action_AboutInfo" IsNewNode="True">
-              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-              <LayoutItem Id="PersistentApplication.Name" ViewItem="PersistentApplication.Name" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" ShowCaption="False" Caption="Auto09355baf-2d40-41e7-a368-f29de0afe90d(6)" Direction="Horizontal" Index="2" RelativeSize="92" IsNewNode="True">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" ShowCaption="False" Caption="Auto1f221998-367f-4858-819b-a3a0988b83bf(7)" Index="0" RelativeSize="47" IsNewNode="True">
-                  <LayoutItem Id="Disabled" ViewItem="Disabled" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                  <LayoutItem Id="DateCreated" ViewItem="DateCreated" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" ShowCaption="False" Caption="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b(10)" Index="1" RelativeSize="52" IsNewNode="True">
-                  <LayoutItem Id="CombineOrder" ViewItem="CombineOrder" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                  <LayoutItem Id="NonPersistent" ViewItem="NonPersistent" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer">
+            <LayoutGroup Id="General">
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="45" ImageName="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="54" ImageName="">
+                  <LayoutItem Id="NonPersistent" ViewItem="NonPersistent" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
+            <LayoutGroup Id="Users" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="Users" ImageName="BO_User" IsNewNode="True">
+              <LayoutItem Id="Users" ViewItem="Users" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" ShowCaption="False" SizeConstraintsType="Custom" MinSize="1, 300" MaxSize="1, 300" Index="1" RelativeSize="0" ViewItem="" IsNewNode="True" />
-          <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal" Removed="True">
-            <LayoutGroup Id="ModelDifferenceObject" Removed="True" />
-            <LayoutGroup Id="UserModelDifferenceObject" Removed="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="83" ImageName="" Direction="Horizontal" Caption="Xml Content" Removed="True">
-            <LayoutItem Id="XmlContent" Removed="True" />
-          </LayoutGroup>
-          <LayoutGroup Id="Users_Group" Direction="Vertical" RelativeSize="79" ImageName="" Removed="True">
-            <LayoutItem Id="Users" ViewItem="Users" SizeConstraintsType="Default" RelativeSize="94" />
-          </LayoutGroup>
+          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" />
         </LayoutGroup>
       </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Everything MDO" View="MDO_DetailView" IsNewNode="True" />
+      </MergedDifferences>
     </DetailView>
   </Views>
 </Application>

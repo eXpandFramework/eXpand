@@ -140,8 +140,6 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public bool Executed<T>(string name) {
-            if (!RuntimeMode)
-                return false;
             if (typeof(T).IsAssignableFrom(GetType())) {
                 Type value = typeof (T);
                 if (_callMonitor.ContainsKey(name)) {
@@ -176,7 +174,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelApplication, ITypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
-
+            extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
             
         }
         public static Type UserType { get; set; }
@@ -189,6 +187,7 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("AddGeneratorUpdaters"))
                 return;
             updaters.Add(new ModelViewClonerUpdater());
+            updaters.Add(new MergedDifferencesUpdater());
         }
 
         protected internal bool RuntimeMode {
@@ -510,6 +509,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected override void Dispose(bool disposing) {
+            CallMonitor.Clear();
             base.Dispose(disposing);
             DisposeManagers();
         }

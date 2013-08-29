@@ -23,12 +23,16 @@ namespace Xpand.Persistent.Base.General.Model {
 
     public class ModuleNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            var findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(ModuleBase));
-            var findTypeDescendants = ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(ModulesFilterPredicate(node));
-            foreach (ITypeInfo typeInfo in findTypeDescendants){
-                var module = node.AddNode<IModelModule>();
-                module.Name = typeInfo.FullName;
+            foreach (var module in ((IModelSources) node.Application).Modules) {
+                var modelModule = node.AddNode<IModelModule>();
+                modelModule.Name = module.GetType().FullName;
             }
+//            var findTypeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(ModuleBase));
+//            var findTypeDescendants = ReflectionHelper.FindTypeDescendants(findTypeInfo).Where(ModulesFilterPredicate(node));
+//            foreach (ITypeInfo typeInfo in findTypeDescendants){
+//                var module = node.AddNode<IModelModule>();
+//                module.Name = typeInfo.FullName;
+//            }
         }
 
         Func<ITypeInfo, bool> ModulesFilterPredicate(ModelNode node) {

@@ -145,6 +145,7 @@
     <Compile Include="General\ISupportValueReading.cs" />
     <Compile Include="General\IXpandLogonParameters.cs" />
     <Compile Include="General\ModelExtensions.cs" />
+    <Compile Include="General\ModelMergedDifferences.cs" />
     <Compile Include="General\ModelXmlReaderExtensions.cs" />
     <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />

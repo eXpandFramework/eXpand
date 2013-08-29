@@ -66,7 +66,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombinePermissionRequest), modelCombineRequestProcessor);
             customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
         }
-
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new BOModelNodesUpdater());

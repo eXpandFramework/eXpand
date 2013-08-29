@@ -28,6 +28,8 @@ namespace Xpand.ExpressApp.Security {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (RuntimeMode) {
+
+
                 Application.SetupComplete += ApplicationOnSetupComplete;
                 Application.LogonFailed += (o, eventArgs) => {
                     var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
@@ -38,6 +40,7 @@ namespace Xpand.ExpressApp.Security {
                 };
             }
         }
+
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
@@ -50,7 +53,7 @@ namespace Xpand.ExpressApp.Security {
                 new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
             };
             foreach (var keyValuePair in keyValuePairs) {
-                customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);    
+                customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
             }
         }
 
@@ -90,4 +93,5 @@ namespace Xpand.ExpressApp.Security {
             return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
         }
     }
+
 }

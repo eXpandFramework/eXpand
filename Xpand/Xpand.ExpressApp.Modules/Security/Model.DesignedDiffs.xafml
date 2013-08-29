@@ -10,10 +10,11 @@
   <SchemaModules IsNewNode="True">
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.1.2.5458" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.1.2.5458" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.1.6.4" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="XpandLogonParameters_DetailView" >
+    <DetailView Id="XpandLogonParameters_DetailView" AllowDelete="False">
       <Items>
         <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
         <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
@@ -39,5 +40,15 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="XpandLogonParameters_ListView">
+      <Columns>
+        <ColumnInfo Id="UserName" AllowEdit="False" />
+        <ColumnInfo Id="@58a886b6-aca9-46aa-a5c3-64dfa3cd33be" PropertyName="Password" IsNewNode="True" />
+        <ColumnInfo Id="Password" Removed="True" />
+      </Columns>
+      <Filters>
+        <Filter Id="@e5fe7936-7f2b-450e-911d-6df538362943" IsNewNode="True" />
+      </Filters>
+    </ListView>
   </Views>
 </Application>

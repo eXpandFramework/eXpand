@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.1.6.7" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityWebModule" Version="13.1.6.7" IsNewNode="True" />
+  </SchemaModules>
   <Views>
-    <DetailView Id="Xpand.ExpressApp.Security.Web.AuthenticationProviders.AnonymousLogonParameters_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" ImageName="">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="100" ImageName="">
-            <LayoutGroup Id="XpandLogonParameters" Index="0" RelativeSize="100" ImageName="">
-              <LayoutItem Id="UserName" SizeConstraintsType="Default" Index="0" RelativeSize="4" ViewItem="UserName" />
-              <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" Index="1" ViewItem="Password" />
-              <LayoutItem Id="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="92" ViewItem="RememberMe" />
-            </LayoutGroup>
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
+    <DetailView Id="AnonymousLogonParameters_DetailView">
+      <MergedDifferences>
+        <MergedDifference Id="Everything XpandLogonParameters" View="XpandLogonParameters_DetailView" Strategy="Everything" IsNewNode="True" />
+      </MergedDifferences>
     </DetailView>
   </Views>
 </Application>
