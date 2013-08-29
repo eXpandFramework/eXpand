@@ -4,15 +4,13 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Scheduler;
-using DevExpress.ExpressApp.Scheduler.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraScheduler;
 using System.Linq;
 using Xpand.Persistent.Base.General.Model.Options;
-using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
-namespace Xpand.ExpressApp.Scheduler.Win.Model {
+namespace Xpand.ExpressApp.Scheduler.Model {
     public interface IModelAppoitmentLabel : IModelNodeEnabled {
 
     }
@@ -73,14 +71,6 @@ namespace Xpand.ExpressApp.Scheduler.Win.Model {
         public static IModelList<IModelListView> Get_ResourceListViews(IModelListViewOptionsScheduler listViewOptionsScheduler) {
             return new CalculatedModelNodeList<IModelListView>(listViewOptionsScheduler.Application.Views.OfType<IModelListView>().Where(view => listViewOptionsScheduler.ResourceClasses.Contains(view.ModelClass)));
         }
-    }
-    public class SchedulerEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            return typeof(SchedulerListEditor).IsAssignableFrom(EditorType(node));
-
-        }
-        #endregion
     }
 
 }
