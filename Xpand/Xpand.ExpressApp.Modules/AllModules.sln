@@ -276,6 +276,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scheduler", "Scheduler", "{CE441F2B-DA1A-40D9-85D5-2CABBA2DC91C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Scheduler.Win", "Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj", "{E0C71294-D0D1-4633-8EE5-630088DF81DD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7848472-FE27-41FD-941B-9C9EE26D9D5F} = {B7848472-FE27-41FD-941B-9C9EE26D9D5F}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StateMachine", "StateMachine", "{13311CEA-6FC1-443D-8E2B-9EBD0AE83C8F}"
 EndProject
@@ -392,6 +395,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.AuditTrail
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Scheduler.Web", "Scheduler.Web\Xpand.ExpressApp.Scheduler.Web.csproj", "{C1791E7B-A8F2-4FEE-9263-6BE0E3A73397}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7848472-FE27-41FD-941B-9C9EE26D9D5F} = {B7848472-FE27-41FD-941B-9C9EE26D9D5F}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Scheduler", "Scheduler\Xpand.ExpressApp.Scheduler.csproj", "{B7848472-FE27-41FD-941B-9C9EE26D9D5F}"
 EndProject

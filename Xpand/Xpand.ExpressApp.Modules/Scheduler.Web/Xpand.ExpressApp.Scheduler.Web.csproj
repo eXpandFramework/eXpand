@@ -92,10 +92,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard.Web">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Scheduler">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Scheduler.dll</HintPath>
