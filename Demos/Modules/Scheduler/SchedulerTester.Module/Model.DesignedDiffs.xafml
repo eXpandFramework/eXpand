@@ -1,3 +1,33 @@
-﻿<?xml version="1.0" ?>
-<Application Title="SchedulerTester" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SchedulerTester" Logo="ExpressAppLogo">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="@61f024c2-57a5-47fc-85b4-a145a4c60082" ViewId="calendar" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSchedulerModule" Version="13.1.6.7" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DashboardView Id="calendar" IsNewNode="True">
+      <Items IsNewNode="True">
+        <DashboardViewItem Id="Customer_ListView" ViewId="Customer_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="TestEvent_ListView" ViewId="TestEvent_ListView" IsNewNode="True">
+          <Filter FilteredColumn="Customer" DataSourceView="Customer_ListView" IsNewNode="True" />
+        </DashboardViewItem>
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutItem Id="Customer_ListView" ViewItem="Customer_ListView" Index="0" SizeConstraintsType="Default" RelativeSize="49" IsNewNode="True" />
+          <LayoutItem Id="TestEvent_ListView" ViewItem="TestEvent_ListView" Index="1" SizeConstraintsType="Default" RelativeSize="50" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DashboardView>
+  </Views>
+</Application>

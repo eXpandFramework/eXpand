@@ -9,14 +9,14 @@
 			CommunicationPort="4100"/>
 		<!-- Web -->
 		<Application
-			Name="[WebProjectName]"
+			Name="SchedulerTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
 		<!-- For IIS -->
 		<!--Application
-			Name="[WebProjectName]"
-			Url="http://localhost/[WebProjectName]/Default.aspx"
+			Name="SchedulerTester.Web"
+			Url="http://localhost/SchedulerTester.Web/Default.aspx"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
@@ -25,9 +25,10 @@
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SchedulerTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="Write path to the application here." />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\SchedulerTester.Web" />
 	</Aliases>
 </Options>
+

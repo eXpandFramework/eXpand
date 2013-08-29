@@ -1,5 +1,5 @@
-namespace SchedulerTester.Module {
-    partial class SchedulerTesterModule {
+namespace SchedulerTester.Module.Web {
+    partial class SchedulerTesterAspNetModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -24,10 +24,12 @@ namespace SchedulerTester.Module {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // SchedulerTesterModule
+            // SchedulerTesterAspNetModule
             // 
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.XpandSchedulerModule));
+            this.RequiredModuleTypes.Add(typeof(SchedulerTester.Module.SchedulerTesterModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Web.XpandSchedulerAspNetModule));
+
         }
 
         #endregion
