@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public class ModelArtifactStateModule : XpandModuleBase, IModelXmlConverter {
         public ModelArtifactStateModule() {
+            RequiredModuleTypes.Add(typeof(Validation.XpandValidationModule));
             LogicInstallerManager.RegisterInstallers(new ILogicInstaller[]{
                 new ActionStateLogicInstaller(this),
                 new ControllerStateLogicInstaller(this),
