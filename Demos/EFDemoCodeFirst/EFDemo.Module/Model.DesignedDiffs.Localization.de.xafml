@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Application Title="EFDemo - Outlook in 60 Minuten!" Subtitle="eXpressApp Framework Demo-Anwendung" ProtectedContentText="Geschützter Inhalt">
+  <ActionDesign>
+    <Actions>
+      <Action Id="Cancel" Caption="Abbrechen" ToolTip="Abbrechen" />
+      <Action Id="Delete" Caption="Löschen" ConfirmationMessage="Sind Sie sicher, dass Sie {0} Datensätze löschen wollen?" ToolTip="Löschen" />
+      <Action Id="FullTextSearch" Caption="Volltextsuche" />
+      <Action Id="Link" Caption="Verknüpfen" ToolTip="Verknüpfen" />
+      <Action Id="NavigateBack" Caption="Zurück" ToolTip="Zurück" />
+      <Action Id="NavigateForward" Caption="Weiter" ToolTip="Weiter" />
+      <Action Id="New" Caption="Neu" ToolTip="Neu" />
+      <Action Id="NextObject" Caption="Nächstes" ToolTip="Nächstes" />
+      <Action Id="PreviousObject" Caption="Vorheriges" ToolTip="Vorheriges" />
+      <Action Id="Refresh" Caption="Aktualisieren" />
+      <Action Id="Save" Caption="Speichern" ToolTip="Speichern" />
+      <Action Id="SaveAndClose" Caption="Speichern und schliessen" ToolTip="Speichern und schliessen" />
+      <Action Id="ShowAllContexts" Caption="Validieren" ToolTip="Validiert ausgewählte Objekte in allen Kontexten" />
+      <Action Id="ShowNavigationItem" Caption="Modul öffnen" />
+      <Action Id="ShowNotesAction" Caption="Notizen zeigen" />
+      <Action Id="Unlink" Caption="Verknüpfung entfernen" ToolTip="Verknüpfung entfernen" ConfirmationMessage="Die Verknüpfungen von {0} Datensätzen werden entfernt. Möchten Sie fortfahren?" />
+    </Actions>
+    <DisableReasons>
+      <Reason Id="ByContext_RequireMultipleObjects" Caption="Mindestens ein Objekt muss ausgewählt sein" />
+      <Reason Id="ByContext_RequireSingleObject" Caption="Ein Objekt muss ausgewählt sein" />
+      <Reason Id="Security" Caption="Zugriff nicht erlaubt" />
+    </DisableReasons>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.ContextValidationResult" Caption="Resultat der Validierung">
+      <OwnMembers>
+        <Member Name="BrokenRules" Caption="Gebrochene Regeln" />
+        <Member Name="Context" Caption="Kontext" />
+        <Member Name="State" Caption="Zustand" />
+      </OwnMembers>
+    </Class>
+    <Class Name="DevExpress.ExpressApp.Validation.AllContextsView.ValidationResults" Caption="Resultate der Validierung">
+      <OwnMembers>
+        <Member Name="HighlightErrors" Caption="Fehler anzeigen" />
+        <Member Name="Results" Caption="Resultate" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Address" Caption="Adresse">
+      <OwnMembers>
+        <Member Name="City" Caption="Stadt" />
+        <Member Name="Country" Caption="Land" />
+        <Member Name="FullAddress" Caption="Gesamte Adresse" />
+        <Member Name="StateProvince" Caption="Bundesland" />
+        <Member Name="Street" Caption="Straße" />
+        <Member Name="ZipPostal" Caption="Postleitzahl" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Country" Caption="Land">
+      <OwnMembers>
+        <Member Name="PhoneCode" Caption="Ländervorwahl" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Event" Caption="Ereignis">
+      <OwnMembers>
+        <Member Name="AllDay" Caption="Ganztägig" />
+        <Member Name="Description" Caption="Beschreibung" />
+        <Member Name="EndOn" Caption="Endet am" />
+        <Member Name="Location" Caption="Ort" />
+        <Member Name="StartOn" Caption="Beginnt am" />
+        <Member Name="Subject" Caption="Betreff" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.FileData" Caption="Dateidaten">
+      <OwnMembers>
+        <Member Name="FileName" Caption="Dateiname" />
+        <Member Name="Size" Caption="Grösse" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Note" Caption="Notizen">
+      <OwnMembers>
+        <Member Name="DateTime" Caption="Zeitpunkt" />
+        <Member Name="Text" Caption="Inhalt" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Organization" Caption="Organisation">
+      <OwnMembers>
+        <Member Name="Description" Caption="Beschreibung" />
+        <Member Name="FullName" Caption="Gesamter Name" />
+        <Member Name="Profile" Caption="Profil" />
+        <Member Name="WebSite" Caption="Webseite" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Party" Caption="Partei">
+      <OwnMembers>
+        <Member Name="Address1" Caption="Privatadresse" />
+        <Member Name="Address2" Caption="Geschäftsadresse" />
+        <Member Name="DisplayName" Caption="Anzeigename" />
+        <Member Name="PhoneNumbers" Caption="Telefonnummern" />
+        <Member Name="Photo" Caption="Foto" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Person">
+      <OwnMembers>
+        <Member Name="Birthday" Caption="Geburtstag" />
+        <Member Name="FirstName" Caption="Vorname" />
+        <Member Name="FullName" Caption="Gesamter Name" />
+        <Member Name="LastName" Caption="Nachname" />
+        <Member Name="MiddleName" Caption="Mittlerer Name" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.PhoneNumber" Caption="Telefonnummer">
+      <OwnMembers>
+        <Member Name="Number" Caption="Nummer" />
+        <Member Name="Party" Caption="Partei" />
+        <Member Name="PhoneType" Caption="Art der Rufnummer" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.PhoneType" Caption="Art der Rufnummer">
+      <OwnMembers>
+        <Member Name="TypeName" Caption="Typname" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.State" Caption="Staat">
+      <OwnMembers>
+        <Member Name="LongName" Caption="Langer Name" />
+        <Member Name="ShortName" Caption="Kurzer Name" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Task" Caption="Aufgabe">
+      <OwnMembers>
+        <Member Name="AssignedTo" Caption="Zugewiesen an" />
+        <Member Name="DateCompleted" Caption="Fertigstellungsdatum" />
+        <Member Name="Description" Caption="Beschreibung" />
+        <Member Name="DueDate" Caption="Fälligkeitsdatum" />
+        <Member Name="PercentCompleted" Caption="Prozent komplett" />
+        <Member Name="StartDate" Caption="Startdatum" />
+        <Member Name="Subject" Caption="Betreff" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.Contact" Caption="Kontakt">
+      <OwnMembers>
+        <Member Name="Anniversary" Caption="Jahrestag" />
+        <Member Name="Department" Caption="Abteilung" />
+        <Member Name="NickName" Caption="Spitzname" />
+        <Member Name="Notes" Caption="Notizen" />
+        <Member Name="SpouseName" Caption="Name des Partners" />
+        <Member Name="Tasks" Caption="Aufgaben" />
+        <Member Name="WebPageAddress" Caption="Webseite" />
+      </OwnMembers>
+    </Class>
+    <Class Name="EFDemo.Module.Data.DemoTask" Caption="Aufgabe">
+      <OwnMembers>
+        <Member Name="Contacts" Caption="Kontakte" />
+        <Member Name="Priority" Caption="Priorität" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Validation>
+    <Rules>
+      <RuleUniqueValue Id="User Name is unique" CustomMessageTemplate="Eine Kennung mit diesem Benutzernamen ist bereits registriert" />
+      <RuleRequiredField Id="User Name required" CustomMessageTemplate="Der Benutzername kann nicht leer sein" />
+    </Rules>
+  </Validation>
+</Application>
