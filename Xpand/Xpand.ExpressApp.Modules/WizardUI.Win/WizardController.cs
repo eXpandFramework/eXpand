@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <summary>
         /// Wizard DetailForm
         /// </summary>
-        private WizardDetailViewForm _WizardForm;
+        private WizardDetailViewForm _wizardForm;
 
         #endregion
 
@@ -59,17 +59,17 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             if (Frame.Template is WizardDetailViewForm) {
                 var modelWizard = (IModelDetailViewWizard)((DetailView)View).Model;
-                _WizardForm = Frame.Template as WizardDetailViewForm;
+                _wizardForm = Frame.Template as WizardDetailViewForm;
 
-                _WizardForm.WizardControl.CancelClick += WizardControl_CancelClick;
-                _WizardForm.WizardControl.FinishClick += WizardControl_FinishClick;
-                _WizardForm.WizardControl.NextClick += WizardControl_NextClick;
-                _WizardForm.WizardControl.SelectedPageChanged += WizardControl_SelectedPageChanged;
-                _WizardForm.WizardControl.SelectedPageChanging += WizardControl_SelectedPageChanging;
-                _WizardForm.WizardControl.BeginUpdate();
+                _wizardForm.WizardControl.CancelClick += WizardControl_CancelClick;
+                _wizardForm.WizardControl.FinishClick += WizardControl_FinishClick;
+                _wizardForm.WizardControl.NextClick += WizardControl_NextClick;
+                _wizardForm.WizardControl.SelectedPageChanged += WizardControl_SelectedPageChanged;
+                _wizardForm.WizardControl.SelectedPageChanging += WizardControl_SelectedPageChanging;
+                _wizardForm.WizardControl.BeginUpdate();
 
                 try {
-                    var finishPage = _WizardForm.WizardControl.Pages[0] as CompletionWizardPage;
+                    var finishPage = _wizardForm.WizardControl.Pages[0] as CompletionWizardPage;
                     foreach (IModelDetailViewWizardPage page in modelWizard.Wizard) {
                         OnWizardPageDetailViewCreating();
                         var detailView = Application.CreateDetailView(ObjectSpace, page.DetailView, false);
@@ -81,14 +81,14 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                             Text = page.Caption,
                             DescriptionText = page.Description
                         };
-                        _WizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
+                        _wizardForm.WizardControl.Pages.Insert(finishPage, wizardPage);
                     }
 
                     if (!modelWizard.Wizard.ShowCompletionWizardPage) {
-                        _WizardForm.WizardControl.Pages.Remove(finishPage);
+                        _wizardForm.WizardControl.Pages.Remove(finishPage);
                     }
                 } finally {
-                    _WizardForm.WizardControl.EndUpdate();
+                    _wizardForm.WizardControl.EndUpdate();
                 }
             }
         }
@@ -110,14 +110,14 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// </summary>
         /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing) {
-            if (disposing && _WizardForm != null) {
-                _WizardForm.WizardControl.CancelClick -= WizardControl_CancelClick;
-                _WizardForm.WizardControl.FinishClick -= WizardControl_FinishClick;
-                _WizardForm.WizardControl.NextClick -= WizardControl_NextClick;
-                _WizardForm.WizardControl.SelectedPageChanged -= WizardControl_SelectedPageChanged;
-                _WizardForm.WizardControl.SelectedPageChanging -= WizardControl_SelectedPageChanging;
+            if (disposing && _wizardForm != null) {
+                _wizardForm.WizardControl.CancelClick -= WizardControl_CancelClick;
+                _wizardForm.WizardControl.FinishClick -= WizardControl_FinishClick;
+                _wizardForm.WizardControl.NextClick -= WizardControl_NextClick;
+                _wizardForm.WizardControl.SelectedPageChanged -= WizardControl_SelectedPageChanged;
+                _wizardForm.WizardControl.SelectedPageChanging -= WizardControl_SelectedPageChanging;
 
-                foreach (BaseWizardPage page in _WizardForm.WizardControl.Pages) {
+                foreach (BaseWizardPage page in _wizardForm.WizardControl.Pages) {
                     var wizardPage = page as XafWizardPage;
                     if (wizardPage != null) {
                         wizardPage.View.SaveModel();
@@ -125,7 +125,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     }
                 }
 
-                _WizardForm.WizardControl.Dispose();
+                _wizardForm.WizardControl.Dispose();
             }
 
             base.Dispose(disposing);
@@ -137,7 +137,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <param name="sender">Wizard Control</param>
         /// <param name="e">WizardPageChanged EventArgs</param>
         private void WizardControl_SelectedPageChanged(object sender, WizardPageChangedEventArgs e) {
-            if (_WizardForm.WizardControl.Pages.IndexOf(e.Page) == 0 && e.Direction == Direction.Forward)
+            if (_wizardForm.WizardControl.Pages.IndexOf(e.Page) == 0 && e.Direction == Direction.Forward)
                 UpdateCurrentView(e.Page);
 
             FocusDefaultItem();
@@ -161,7 +161,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 var wizardPage = page as XafWizardPage;
                 if (wizardPage.View != null) {
                     wizardPage.View.SaveModel();
-                    wizardPage.View.Dispose();
+                    var detailView = wizardPage.View;
                     OnWizardPageDetailViewCreating();
                     wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
                     OnWizardPageDetailViewCreated();
@@ -171,7 +171,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
 
                     UpdateControllers(wizardPage.View);
-
+                    detailView.Dispose();
                     Frame.Template.SetView(wizardPage.View);
                     if (!View.ErrorMessages.IsEmpty)
                         wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
@@ -249,7 +249,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <param name="sender">Wizard Control</param>
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_FinishClick(object sender, CancelEventArgs e) {
-            if (!View.ObjectTypeInfo.IsPersistent && !Validate(_WizardForm.WizardControl.SelectedPage as XafWizardPage)) {
+            if (!View.ObjectTypeInfo.IsPersistent && !Validate(_wizardForm.WizardControl.SelectedPage as XafWizardPage)) {
                 e.Cancel = true;
                 return;
             }
@@ -263,7 +263,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
             }
 
-            if (_WizardForm.ShowRecordAfterCompletion) {
+            if (_wizardForm.ShowRecordAfterCompletion) {
                 var os = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
 
                 var showViewParameter = new ShowViewParameters {

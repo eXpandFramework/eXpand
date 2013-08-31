@@ -5,9 +5,7 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
-namespace Xpand.ExpressApp.WizardUI.Win.Templates
-{
-    using System.Windows.Forms;
+namespace Xpand.ExpressApp.WizardUI.Win.Templates {
     using DevExpress.ExpressApp.Model;
     using DevExpress.ExpressApp.Utils;
     using DevExpress.ExpressApp.Win.Templates;
@@ -22,8 +20,7 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         /// <summary>
         /// Initializes a new instance of the <see cref="WizardDetailViewForm"/> class.
         /// </summary>
-        public WizardDetailViewForm()
-        {
+        public WizardDetailViewForm() {
             InitializeComponent();
 
             showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
@@ -36,8 +33,7 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         /// <summary>
         /// Gets the WizardControl
         /// </summary>
-        public WizardControl WizardControl
-        {
+        public WizardControl WizardControl {
             get { return wizardControl; }
         }
 
@@ -47,10 +43,8 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         /// <value>
         /// <c>true</c> if [show record after completion]; otherwise, <c>false</c>.
         /// </value>
-        public bool ShowRecordAfterCompletion
-        {
-            get
-            {
+        public bool ShowRecordAfterCompletion {
+            get {
                 return showRecordAfterCompletion.Checked;
             }
         }
@@ -59,17 +53,12 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
 
         #region Methods
 
-        protected override IModelFormState GetFormStateNode()
-        {
-            if ((View == null) || (ModelTemplate == null))
-            {
-                return base.GetFormStateNode();
-            }
-
-            return ModelTemplate.FormStates[View.Id] ??
-                                    ModelTemplate.FormStates.AddNode<IModelFormState>(View.Id);
+        protected override IModelFormState GetFormStateNode() {
+            return (View == null) || (ModelTemplate == null)
+                       ? base.GetFormStateNode()
+                       : (ModelTemplate.FormStates[View.Id] ??
+                          ModelTemplate.FormStates.AddNode<IModelFormState>(View.Id));
         }
-
         #endregion
     }
 }

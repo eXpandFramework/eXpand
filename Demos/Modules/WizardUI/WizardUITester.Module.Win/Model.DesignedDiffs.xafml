@@ -1,2 +1,42 @@
-﻿<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="WizardUIWindowsFormsModule" Version="13.1.6.9" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Page1" ClassName="WizardUITester.Module.BusinessObjects.TestClass" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Page1" PropertyName="Page1" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" IsNewNode="True">
+          <LayoutItem Id="Page1" ViewItem="Page1" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+      <Wizard IsNewNode="True">
+        <WizardPage Id="Page1" ViewID="TestClass_DetailView" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+    <DetailView Id="Page2" ClassName="WizardUITester.Module.BusinessObjects.TestClass" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Page2" PropertyName="Page2" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" IsNewNode="True">
+          <LayoutItem Id="Page2" ViewItem="Page2" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+      <Wizard IsNewNode="True">
+        <WizardPage Id="Page1" ViewID="TestClass_DetailView" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+    <DetailView Id="TestClass_DetailView">
+      <Wizard ShowCompletionWizardPage="True" ShowInWizard="True">
+        <WizardPage Id="Page1" ViewID="Page1" Index="0" IsNewNode="True" />
+        <WizardPage Id="Page2" ViewID="Page2" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+  </Views>
+</Application>

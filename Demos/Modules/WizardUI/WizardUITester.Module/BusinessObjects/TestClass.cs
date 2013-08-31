@@ -7,5 +7,23 @@ namespace WizardUITester.Module.BusinessObjects {
     public class TestClass:BaseObject {
         public TestClass(Session session) : base(session) {
         }
+        // Fields...
+        private string _page2;
+        private string _page1;
+
+        public string Page1 {
+            get { return _page1; }
+            set {
+                _page1 = value;
+            }
+        }
+
+        public string Page2 {
+            get { return _page2; }
+            set {
+                _page2 = value;
+            }
+        }
+        
     }
 }
