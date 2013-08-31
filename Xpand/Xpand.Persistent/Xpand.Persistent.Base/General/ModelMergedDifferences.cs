@@ -137,7 +137,7 @@ namespace Xpand.Persistent.Base.General {
         MergingStrategy Strategy { get; set; }
     }
     [DomainLogic(typeof(IModelMergedDifference))]
-    public class ModelMergedDifferenceDomainLogic {
+    public class ModelMergedDViifferenceDomainLogic {
         static ModelApplicationBase _modelApplication;
 
         public static void Set_View(IModelMergedDifference differences,IModelObjectView modelObjectView) {

@@ -44,7 +44,6 @@ namespace Xpand.Persistent.Base.General {
         private static string _xpandPathInRegistry;
         private static string _dxPathInRegistry;
         static List<object> _storeManagers;
-        readonly static MultiValueDictionary<string,object> _callMonitor=new MultiValueDictionary<string, object>();
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
         static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
@@ -52,9 +51,11 @@ namespace Xpand.Persistent.Base.General {
         static Assembly _baseImplAssembly;
         static XPDictionary _dictiorary;
         static string _connectionString;
+        private static readonly object _syncRoot = new object();
         protected Type DefaultXafAppType = typeof (XafApplication);
         static  bool? _isHosted;
         static string _assemblyString;
+        private static volatile IValueManager<MultiValueDictionary<string, object>> _instanceValueManager;
         public event EventHandler ApplicationModulesManagerSetup;
 
         protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
@@ -78,6 +79,25 @@ namespace Xpand.Persistent.Base.General {
 
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
+        }
+        public static MultiValueDictionary<string, object> CallMonitor {
+            get {
+                if (_instanceValueManager == null) {
+                    lock (_syncRoot) {
+                        if (_instanceValueManager == null) {
+                            _instanceValueManager = ValueManager.GetValueManager<MultiValueDictionary<string, object>>("CallMonitor");
+                        }
+                    }
+                }
+                if (_instanceValueManager.Value == null) {
+                    lock (_syncRoot) {
+                        if (_instanceValueManager.Value == null) {
+                            _instanceValueManager.Value = new MultiValueDictionary<string, object>();
+                        }
+                    }
+                }
+                return _instanceValueManager.Value;
+            }
         }
 
         public static bool IsHosted {
@@ -117,10 +137,6 @@ namespace Xpand.Persistent.Base.General {
             updaterRegistrator.AddUpdater(this);
         }
 
-        public static MultiValueDictionary<string, object> CallMonitor {
-            get { return _callMonitor; }
-        }
-
         public static XPDictionary Dictiorary {
             get {
                 if (!InterfaceBuilder.RuntimeMode && _dictiorary == null)
@@ -142,14 +158,14 @@ namespace Xpand.Persistent.Base.General {
         public bool Executed<T>(string name) {
             if (typeof(T).IsAssignableFrom(GetType())) {
                 Type value = typeof (T);
-                if (_callMonitor.ContainsKey(name)) {
-                    if (!_callMonitor.GetValues(name, true).Contains(value)) {
-                        _callMonitor.Add(name,value);
+                if (CallMonitor.ContainsKey(name)) {
+                    if (!CallMonitor.GetValues(name, true).Contains(value)) {
+                        CallMonitor.Add(name, value);
                         return false;
                     }
                     return true;
                 }
-                _callMonitor.Add(name,value);
+                CallMonitor.Add(name, value);
                 return false;
             }
             return true;
