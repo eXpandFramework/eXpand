@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.AuditTrail.Model.Member {
     public interface IModelMemberAuditTrail:IModelMemberColection {
          
     }
-    [DomainLogic(typeof(IModelMemberAuditTrail))]
+    
     public class ModelMemberAuditTrailDomainLogic : ModelMemberExDomainLogicBase<IModelMemberAuditTrail> {
         public static IModelList<IModelClass> Get_CollectionTypes(IModelMemberAuditTrail orphanedColection) {
             return new CalculatedModelNodeList<IModelClass>(orphanedColection.Application.BOModel.Where(@class => typeof(IBaseAuditDataItemPersistent).IsAssignableFrom(@class.TypeInfo.Type)));

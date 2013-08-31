@@ -277,7 +277,7 @@ namespace Xpand.Persistent.Base.General {
 
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
             ((XafApplication) sender).LoggedOff-=ApplicationOnLoggedOff;
-            XpandModuleBase.CallMonitor.Remove(SequenceGeneratorHelperName);
+            XpandModuleBase.CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(SequenceGeneratorHelperName,_xpandModuleBase.ModuleManager));
         }
     }
 }

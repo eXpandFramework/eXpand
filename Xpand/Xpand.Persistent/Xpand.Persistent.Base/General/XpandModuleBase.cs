@@ -55,7 +55,8 @@ namespace Xpand.Persistent.Base.General {
         protected Type DefaultXafAppType = typeof (XafApplication);
         static  bool? _isHosted;
         static string _assemblyString;
-        private static volatile IValueManager<MultiValueDictionary<string, object>> _instanceValueManager;
+        private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _instanceValueManager;
+        
         public event EventHandler ApplicationModulesManagerSetup;
 
         protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
@@ -80,19 +81,19 @@ namespace Xpand.Persistent.Base.General {
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
         }
-        public static MultiValueDictionary<string, object> CallMonitor {
+        public static MultiValueDictionary<KeyValuePair<string,ApplicationModulesManager>, object> CallMonitor {
             get {
                 if (_instanceValueManager == null) {
                     lock (_syncRoot) {
                         if (_instanceValueManager == null) {
-                            _instanceValueManager = ValueManager.GetValueManager<MultiValueDictionary<string, object>>("CallMonitor");
+                            _instanceValueManager = ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>("CallMonitor");
                         }
                     }
                 }
                 if (_instanceValueManager.Value == null) {
                     lock (_syncRoot) {
                         if (_instanceValueManager.Value == null) {
-                            _instanceValueManager.Value = new MultiValueDictionary<string, object>();
+                            _instanceValueManager.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
                         }
                     }
                 }
@@ -139,9 +140,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static XPDictionary Dictiorary {
             get {
-                if (!InterfaceBuilder.RuntimeMode && _dictiorary == null)
-                    _dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
-                return _dictiorary;
+                return !InterfaceBuilder.RuntimeMode ? XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary : _dictiorary;
             }
             set { _dictiorary = value; }
         }
@@ -158,14 +157,15 @@ namespace Xpand.Persistent.Base.General {
         public bool Executed<T>(string name) {
             if (typeof(T).IsAssignableFrom(GetType())) {
                 Type value = typeof (T);
-                if (CallMonitor.ContainsKey(name)) {
-                    if (!CallMonitor.GetValues(name, true).Contains(value)) {
-                        CallMonitor.Add(name, value);
+                var keyValuePair = new KeyValuePair<string, ApplicationModulesManager>(name, ModuleManager);
+                if (CallMonitor.ContainsKey(keyValuePair)) {
+                    if (!CallMonitor.GetValues(keyValuePair, true).Contains(value)) {
+                        CallMonitor.Add(keyValuePair, value);
                         return false;
                     }
                     return true;
                 }
-                CallMonitor.Add(name, value);
+                CallMonitor.Add(keyValuePair, value);
                 return false;
             }
             return true;
@@ -185,6 +185,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (Executed("ExtendModelInterfaces"))
                 return;
+            
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, ITypesInfoProvider>();
@@ -525,7 +526,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected override void Dispose(bool disposing) {
-            CallMonitor.Clear();
+            var keyValuePairs = CallMonitor.Keys.Where(pair => pair.Value == ModuleManager).ToList();
+            foreach (var pair in keyValuePairs) {
+                CallMonitor[pair].Clear();
+            }
             base.Dispose(disposing);
             DisposeManagers();
         }
@@ -627,7 +631,7 @@ namespace Xpand.Persistent.Base.General {
             if (!XpandModuleBase.IsHosted)
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
             else
-                XpandModuleBase.CallMonitor.Remove(ConnectionStringHelperName);
+                XpandModuleBase.CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(ConnectionStringHelperName,_xpandModuleBase.ModuleManager));
         }
 
         void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
