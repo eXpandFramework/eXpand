@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DF8AD7F4-F21E-47F5-B4B3-49B32659C24B}</ProjectGuid>
+    <ProjectGuid>{82A6DBC9-B1B4-44E4-9718-55DF930CD349}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -198,10 +198,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AuditTrail\AuditTrailTester.Module.Web\AuditTrailTester.Module.Web.csproj">
-      <Project>{0C729AAD-7626-4668-A7F1-35F7D240489D}</Project>
-      <Name>AuditTrailTester.Module.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SchedulerTester.Module.Web\SchedulerTester.Module.Web.csproj">
       <Project>{cecebd10-54c0-482d-a903-5e5162a8d6fc}</Project>
       <Name>SchedulerTester.Module.Web</Name>

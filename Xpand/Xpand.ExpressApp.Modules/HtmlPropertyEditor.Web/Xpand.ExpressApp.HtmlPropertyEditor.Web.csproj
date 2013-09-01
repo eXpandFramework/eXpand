@@ -163,9 +163,7 @@
     <EmbeddedResource Include="DialogForms\OnOkButtonClick_InsertFileForm.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DialogForms\HtmlEditorCustomDialogTemlate.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\HtmlEditorCustomDialogTemlate.ascx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DialogForms\insertfile.png" />
