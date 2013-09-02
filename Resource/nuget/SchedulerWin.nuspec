@@ -15,6 +15,7 @@
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
+	  <dependency id="eXpandScheduler" />
     </dependencies>
   </metadata>
   <files>
