@@ -26,6 +26,15 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
                 }
         }
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            var detailView = (View) as DetailView;
+            if (detailView != null)
+                foreach (var htmlEditor in detailView.GetItems<ASPxHtmlPropertyEditor>()) {
+                    htmlEditor.ControlCreated -= HtmlEditorOnControlCreated;
+                }
+        }
+
         void HtmlEditorOnControlCreated(object sender, EventArgs e) {
             var htmlPropertyEditor = ((ASPxHtmlPropertyEditor)sender);
             var modelAdaptorRuleController = Frame.GetController<ModelAdaptorRuleController>();

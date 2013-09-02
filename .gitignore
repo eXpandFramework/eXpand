@@ -46,3 +46,5 @@ Demos/FeatureCenter/FeatureCenter.Web/Title Title*.jpg
 *ModelAdaptorASPxTreeList.dll
 *.Xpand
 */ModelAdaptor/ModelAdaptor*.dll
+*/ModelAdaptor/ModelAdaptor*.dll
+*ModelAdaptorASPxHtmlEditor.dll
