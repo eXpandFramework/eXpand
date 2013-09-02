@@ -1,5 +1,3 @@
-using System;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
@@ -10,30 +8,25 @@ using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
-    public class HtmlEditorModelSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<Frame, IModelDetailView> {
-        public HtmlEditorModelSynchronizer(Frame control)
-            : base(control, (IModelDetailView) control.View.Model) {
+    public class HtmlEditorModelSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<ASPxHtmlPropertyEditor, IModelPropertyEditor> {
+        readonly ModelAdaptorRuleController _adaptorRuleController;
+
+        public HtmlEditorModelSynchronizer(ASPxHtmlPropertyEditor htmlPropertyEditor,ModelAdaptorRuleController adaptorRuleController)
+            : base(htmlPropertyEditor, (IModelPropertyEditor) htmlPropertyEditor.Model) {
+            _adaptorRuleController = adaptorRuleController;
         }
 
         protected override void ApplyModelCore() {
-            foreach (var htmlEditor in ((DetailView) Control.View).GetItems<ASPxHtmlPropertyEditor>()) {
-                htmlEditor.ControlCreated+=HtmlEditorOnControlCreated;
-            }
-        }
-
-        void HtmlEditorOnControlCreated(object sender, EventArgs eventArgs) {
-            var htmlPropertyEditor = ((ASPxHtmlPropertyEditor) sender);
-            htmlPropertyEditor.ControlCreated -= HtmlEditorOnControlCreated;
-            var htmlEditor = htmlPropertyEditor.Editor;
-            var modelHtmlEditor = ((IModelPropertyHtmlEditor) htmlPropertyEditor.Model).HtmlEditor;
+            var htmlEditor = Control.Editor;
+            var modelHtmlEditor = ((IModelPropertyHtmlEditor)Model).HtmlEditor;
             if (htmlEditor != null) {
-                var modelAdaptorRuleController = Control.GetController<ModelAdaptorRuleController>();
-                if (modelAdaptorRuleController != null) {
-                    modelAdaptorRuleController.ExecuteLogic<IModelAdaptorHtmlEditorRule, IModelModelAdaptorHtmlEditorRule>(rule => ApplyModel(rule, htmlEditor));
+                if (_adaptorRuleController != null) {
+                    _adaptorRuleController.ExecuteLogic<IModelAdaptorHtmlEditorRule, IModelModelAdaptorHtmlEditorRule>(rule => ApplyModel(rule, htmlEditor));
                 }
                 ApplyModel(modelHtmlEditor, htmlEditor);
             }
         }
+
 
         void ApplyModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
             ApplyModel(modelHtmlEditor, htmlEditor, ApplyValues);

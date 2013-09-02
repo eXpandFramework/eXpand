@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxHtmlEditor;
+using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
 
@@ -15,9 +17,19 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
             TargetViewType=ViewType.DetailView;
         }
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            new HtmlEditorModelSynchronizer(Frame).ApplyModel();
+        protected override void OnActivated() {
+            base.OnActivated();
+            var detailView = (View) as DetailView;
+            if (detailView != null)
+                foreach (var htmlEditor in detailView.GetItems<ASPxHtmlPropertyEditor>()) {
+                    htmlEditor.ControlCreated += HtmlEditorOnControlCreated;
+                }
+        }
+
+        void HtmlEditorOnControlCreated(object sender, EventArgs e) {
+            var htmlPropertyEditor = ((ASPxHtmlPropertyEditor)sender);
+            var modelAdaptorRuleController = Frame.GetController<ModelAdaptorRuleController>();
+            new HtmlEditorModelSynchronizer(htmlPropertyEditor, modelAdaptorRuleController).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
