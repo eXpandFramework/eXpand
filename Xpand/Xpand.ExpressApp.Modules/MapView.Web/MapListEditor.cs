@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
-using Artem.Google.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -34,44 +33,7 @@ namespace Xpand.ExpressApp.MapView.Web
 
         protected override object CreateControlsCore()
         {
-            var control = new Artem.Google.UI.GoogleMap();
-            control.ID = "googleMap";
-            control.MapType = MapType.Hybrid;
-            control.Zoom = 8;
-            control.CssClass = "map";
-            control.Address = "Dortmund";
-
-            WebWindow.CurrentRequestWindow.PagePreRender += (s, e) =>
-                {
-                    var scriptManager = XpandWebWindow.FindControlByType<ScriptManager>(WebWindow.CurrentRequestPage);
-                    if (scriptManager != null)
-                    {
-                        var scriptManagerType = scriptManager.GetType();
-
-                        var scriptControlManagerProperty = scriptManagerType.GetProperty("ScriptControlManager",
-                                                                  BindingFlags.Instance | BindingFlags.NonPublic);
-
-                        if (scriptControlManagerProperty != null)
-                        {
-
-                            var scriptControlManager = scriptControlManagerProperty.GetValue(scriptManager, null);
-                            if (scriptControlManager != null)
-                            {
-                                var scriptControlManagerType = scriptControlManager.GetType();
-
-                                var pagePrerenderRaisedField = scriptControlManagerType.GetField("_pagePreRenderRaised",
-                                                                             BindingFlags.Instance |
-                                                                             BindingFlags.NonPublic);
-                                if (pagePrerenderRaisedField != null)
-                                    pagePrerenderRaisedField.SetValue(scriptControlManager, true);
-
-                                scriptManager.RegisterScriptControl(control);
-                            }
-                        }
-                    }
-                };
-
-            return control;
+            return new MapControl();
         }
 
 
