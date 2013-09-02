@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
+using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Web.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -76,7 +77,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                     var viewItem = detailViewItems[0] as ListEditorViewItem;
 
                     if (viewItem != null) {
-                        var listEditor = viewItem.ListEditor as XpandASPxGridListEditor;
+                        var listEditor = viewItem.ListEditor as IXpandListEditor;
                         if (listEditor != null) {
                             listEditor.ViewControlsCreated += (s, e) => SetSplitterInitClientEvent(splitter, e.IsRoot);
                         }

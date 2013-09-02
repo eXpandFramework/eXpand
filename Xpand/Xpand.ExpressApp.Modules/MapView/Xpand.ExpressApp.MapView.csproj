@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.MapView</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.MapView</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LibraryVersion>2.10.8.0</LibraryVersion>
     <TargetFrameworkProfile />
@@ -85,7 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IGeoCoded.cs" />
+    <Compile Include="IMapAddress.cs" />
+    <Compile Include="IMapCoordinates.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

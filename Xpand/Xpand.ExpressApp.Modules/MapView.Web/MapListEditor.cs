@@ -9,12 +9,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
+using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Web;
 
 namespace Xpand.ExpressApp.MapView.Web
 {
-    [ListEditor(typeof(IGeoCoded), true)]
-    public class MapListEditor : ListEditor
+    [ListEditor(typeof(IMapAddress), true)]
+    public class MapListEditor : ListEditor, IXpandListEditor
     {
         public MapListEditor(IModelListView model)
             : base(model)
@@ -22,8 +23,12 @@ namespace Xpand.ExpressApp.MapView.Web
 
         }
 
+        public event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
+
         protected override void AssignDataSourceToControl(object dataSource)
         {
+            if (Control!=null)
+                ((MapControl) Control).DataSource = dataSource;
         }
 
         public override DevExpress.ExpressApp.Templates.IContextMenuTemplate ContextMenuTemplate
@@ -45,12 +50,20 @@ namespace Xpand.ExpressApp.MapView.Web
 
         public override void Refresh()
         {
-           
+
         }
 
         public override DevExpress.ExpressApp.SelectionType SelectionType
         {
             get { return SelectionType.FocusedObject; }
         }
+
+        public void NotifyViewControlsCreated(XpandListView listView)
+        {
+            if (ViewControlsCreated != null)
+                ViewControlsCreated(this, new ViewControlCreatedEventArgs(listView.IsRoot));
+        }
+
+        
     }
 }

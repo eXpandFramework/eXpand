@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.MapView.Web
         }
         protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors)
         {
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasRegistration("MapListEditor", typeof(IGeoCoded), true)));
-            editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration("MapListEditor", typeof(IGeoCoded), typeof(MapListEditor), true)));
+            editorDescriptors.Add(new ListEditorDescriptor(new AliasRegistration("MapListEditor", typeof(IMapAddress), true)));
+            editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration("MapListEditor", typeof(IMapAddress), typeof(MapListEditor), true)));
         }
     }
 

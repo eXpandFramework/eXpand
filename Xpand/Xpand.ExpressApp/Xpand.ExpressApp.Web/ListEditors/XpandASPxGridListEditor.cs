@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         object _lastFiredFocusedObject;
         readonly MasterDetailProvider _masterDetailProvider = new MasterDetailProvider();
 
-        internal event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
+        public event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
         public event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
 
 
@@ -184,11 +184,5 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
     }
 
-    class ViewControlCreatedEventArgs : EventArgs {
-        public ViewControlCreatedEventArgs(bool isRoot) {
-            this.IsRoot = isRoot;
-        }
-
-        internal bool IsRoot { get; private set; }
-    }
+    
 }

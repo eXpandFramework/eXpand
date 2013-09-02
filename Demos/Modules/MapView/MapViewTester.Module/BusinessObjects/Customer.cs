@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using DevExpress.Persistent.Base;
@@ -10,7 +11,7 @@ using Xpand.ExpressApp.MapView;
 namespace MapViewTester.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class Customer : Person, IGeoCoded
+    public class Customer : Person, IMapAddress
     {
         public Customer(Session session)
             : base(session)
@@ -21,12 +22,13 @@ namespace MapViewTester.Module.BusinessObjects
         public XPCollection<SalesVolume> SalesVolumes { get { return GetCollection<SalesVolume>("SalesVolumes"); } }
 
 
-        string IGeoCoded.Address
+        string IMapAddress.Address
         {
             get
             {
                 if (Address1 != null)
-                    return Address1.FullAddress;
+                    return string.Format(CultureInfo.InvariantCulture, "{0}, {1} {2}", Address1.Street,
+                                         Address1.ZipPostal, Address1.City);
 
                 return string.Empty;
             }
