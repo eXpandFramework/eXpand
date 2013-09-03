@@ -66,6 +66,10 @@
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -118,6 +122,9 @@
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Registration\ManageUsersOnLogonController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\MyDetailsPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -143,12 +150,16 @@
     <Compile Include="Core\XpandRole.cs" />
     <Compile Include="Permissions\ModifierPermission.cs" />
     <Compile Include="Permissions\XpandPermissionData.cs" />
+    <Compile Include="Registration\Parameters.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="XpandSecurityModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

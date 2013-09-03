@@ -14,6 +14,43 @@
     <SchemaModule Name="XpandSecurityModule" Version="13.1.6.4" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="AuthenticationStandardLogonParameters_DetailView" ImageName="BO_Security">
+      <Items>
+        <ActionContainerViewItem Id="RegisterUserActionItem" ActionContainer="RegisterUserCategory" PaintStyle="Image" IsNewNode="True" />
+        <ActionContainerViewItem Id="RestorePasswordActionItem" ActionContainer="RestorePasswordCategory" PaintStyle="Image" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" Caption="Main" RelativeSize="100">
+          <LayoutGroup Id="RootGroup" Caption="RootGroup" RelativeSize="100">
+            <LayoutGroup Id="ImageGroup" Caption="ImageGroup(3)" RelativeSize="8">
+              <LayoutItem Id="LogonImage" RelativeSize="100" ViewItem="LogonImage" />
+            </LayoutGroup>
+            <LayoutGroup Id="EditorsGroup" Caption="EditorsGroup" RelativeSize="91">
+              <LayoutGroup Id="Text" Caption="Text(6)" RelativeSize="6">
+                <LayoutItem Id="LogonText" RelativeSize="100" ViewItem="LogonText" />
+              </LayoutGroup>
+              <LayoutGroup Id="Editors" Caption="Editors" RelativeSize="93">
+                <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" ShowCaption="False" Caption="4d5fc467-a437-4a79-b542-732e1cd37682(12)" Direction="Vertical" Index="0" RelativeSize="14" IsNewNode="True">
+                  <LayoutGroup Id="Item3" ShowCaption="False" Caption="Item3" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                    <LayoutGroup Id="Item2" ShowCaption="False" Caption="Item2" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="77" IsNewNode="True">
+                      <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="43" IsNewNode="True" />
+                      <LayoutItem Id="Password" ViewItem="Password" Index="1" RelativeSize="35" IsNewNode="True" />
+                      <LayoutItem Id="Item5" ShowCaption="False" ViewItem="" Index="2" RelativeSize="21" IsNewNode="True" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Item1" ShowCaption="False" Caption="Item1" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="22" IsNewNode="True">
+                      <LayoutItem Id="RegisterUserActionItem" ShowCaption="False" ViewItem="RegisterUserActionItem" Index="0" RelativeSize="50" IsNewNode="True" />
+                      <LayoutItem Id="RestorePasswordActionItem" ShowCaption="False" ViewItem="RestorePasswordActionItem" Index="1" RelativeSize="50" IsNewNode="True" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutItem Id="UserName" Index="0" RelativeSize="5" ViewItem="UserName" Removed="True" />
+                <LayoutItem Id="Password" Index="1" RelativeSize="5" ViewItem="Password" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="XpandLogonParameters_DetailView" AllowDelete="False">
       <Items>
         <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
@@ -39,16 +76,14 @@
           <LayoutGroup Id="SimpleEditors" Removed="True" />
         </LayoutGroup>
       </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Eveything " IsNewNode="True" />
+      </MergedDifferences>
     </DetailView>
     <ListView Id="XpandLogonParameters_ListView">
       <Columns>
         <ColumnInfo Id="UserName" AllowEdit="False" />
-        <ColumnInfo Id="@58a886b6-aca9-46aa-a5c3-64dfa3cd33be" PropertyName="Password" IsNewNode="True" />
-        <ColumnInfo Id="Password" Removed="True" />
       </Columns>
-      <Filters>
-        <Filter Id="@e5fe7936-7f2b-450e-911d-6df538362943" IsNewNode="True" />
-      </Filters>
     </ListView>
   </Views>
 </Application>

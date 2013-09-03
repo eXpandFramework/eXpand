@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Controllers {
-
     public abstract class AnonymousLogonWindowsController:WindowController {
         
         protected AnonymousLogonWindowsController() {

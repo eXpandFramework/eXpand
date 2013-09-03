@@ -5,13 +5,12 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.Security.Win.Permissions;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Win {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class XpandSecurityWinModule : XpandModuleBase {
+    public sealed class XpandSecurityWinModule : XpandSecurityModuleBase {
         public XpandSecurityWinModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
             PermissionProviderStorage.Instance.Add(new OverallCustomizationAllowedPermission());

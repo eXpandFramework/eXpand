@@ -7,6 +7,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -25,11 +26,14 @@ namespace Xpand.ExpressApp.Security {
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelOptionsRegistration>();
+        }
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (RuntimeMode) {
-
-
                 Application.SetupComplete += ApplicationOnSetupComplete;
                 Application.LogonFailed += (o, eventArgs) => {
                     var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
