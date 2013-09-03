@@ -161,7 +161,7 @@ namespace Xpand.ExpressApp.Web.Layout {
             return GetScript("AdjustSize");
         }
 
-        internal static string GetXpandHelperScript() {
+        public static string GetXpandHelperScript() {
             return GetScript("XpandHelper");
         }
 

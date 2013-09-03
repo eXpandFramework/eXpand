@@ -33,6 +33,12 @@ namespace MapViewTester.Module.BusinessObjects
                 return string.Empty;
             }
         }
+
+
+        object IMapObject.Key
+        {
+            get { return Oid; }
+        }
     }
 
     public class SalesVolume : BaseObject

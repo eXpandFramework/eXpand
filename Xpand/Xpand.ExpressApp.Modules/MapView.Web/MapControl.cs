@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using DevExpress.Web.ASPxClasses;
+using DevExpress.Web.ASPxClasses.Internal;
+using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.MapView.Web
 {
@@ -14,8 +17,8 @@ namespace Xpand.ExpressApp.MapView.Web
         private HtmlGenericControl div;
         protected override string GetStartupScript()
         {
-            StringBuilder sb =  new StringBuilder();
-            
+            StringBuilder sb = new StringBuilder();
+
             sb.AppendLine("var mapOptions = {");
             sb.AppendLine("zoom: 4,");
             sb.AppendLine("center: new google.maps.LatLng(45.363882,13.044922),");
@@ -25,20 +28,38 @@ namespace Xpand.ExpressApp.MapView.Web
                             div.ClientID);
 
             sb.AppendLine("geocoder = new google.maps.Geocoder();");
-            sb.AppendLine("var createMarkerWithGeocode = function(address) {");
+            sb.AppendLine(@"var addMarkerClickEvent = function(marker, objectId) {
+                                google.maps.event.addListener(marker, 'click', function() {");
+            sb.AppendLine(@"var markerCallback = function (s,e) {");
+            sb.AppendFormat(@"{0}
+                    var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
+                    var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
+                    if (up && up.GetMainElement()) {{ 
+                        up.PerformCallback(objectId);}}", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
+
+            sb.AppendLine("};");
+
+            sb.AppendLine("var arg = 'd1:' + objectId;");
+            sb.AppendLine(RenderUtils.GetCallbackEventReference(Page, this, "arg", "markerCallback", "'" + ClientID + "'", 
+                GetCallBackErrorHandlerName()) + ";");
+            
+            sb.AppendLine(" });};");
+            sb.AppendLine("var createMarkerWithGeocode = function(address, objectId) {");
             sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
                               var marker = new google.maps.Marker({
                                   map: map,
                                   position: results[0].geometry.location
+                              
                               });
+                              addMarkerClickEvent(marker, objectId);  
                             } else {
                               alert('Geocode was not successful for the following reason: ' + status);
                             }
                             });}");
 
 
-            
+
             if (DataSource != null)
             {
                 IEnumerable enumerable = DataSource as IEnumerable;
@@ -49,7 +70,8 @@ namespace Xpand.ExpressApp.MapView.Web
                         IMapAddress address = item as IMapAddress;
                         if (address != null && !string.IsNullOrEmpty(address.Address))
                         {
-                            sb.AppendFormat("createMarkerWithGeocode('{0}');\r\n", address.Address);
+                            sb.AppendFormat(CultureInfo.InvariantCulture,
+                                "createMarkerWithGeocode('{0}', '{1}');\r\n", address.Address, address.Key);
                         }
                     }
                 }
@@ -57,6 +79,11 @@ namespace Xpand.ExpressApp.MapView.Web
             return sb.ToString();
         }
 
+
+        protected override void OnCustomDataCallback(CustomDataCallbackEventArgs e)
+        {
+            base.OnCustomDataCallback(e);
+        }
 
         public object DataSource { get; set; }
 
@@ -69,7 +96,7 @@ namespace Xpand.ExpressApp.MapView.Web
         {
             div = new HtmlGenericControl("div");
             div.ID = "MapContent";
-            div.Style.Add("width","100%");
+            div.Style.Add("width", "100%");
             div.Style.Add("height", "100%");
             Controls.Add(div);
         }

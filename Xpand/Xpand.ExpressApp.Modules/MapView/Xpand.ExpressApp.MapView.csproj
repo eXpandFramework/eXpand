@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="IMapAddress.cs" />
     <Compile Include="IMapCoordinates.cs" />
+    <Compile Include="IMapObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
