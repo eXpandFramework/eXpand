@@ -38,10 +38,10 @@ namespace Xpand.ExpressApp.MapView.Web
 
         protected override object CreateControlsCore()
         {
-            return new MapControl();
+            var mapControl =  new MapControl();
+            mapControl.FocusedIndexChanged += (s, e) => OnFocusedObjectChanged();
+            return mapControl;
         }
-
-
 
         public override System.Collections.IList GetSelectedObjects()
         {
@@ -64,6 +64,23 @@ namespace Xpand.ExpressApp.MapView.Web
                 ViewControlsCreated(this, new ViewControlCreatedEventArgs(listView.IsRoot));
         }
 
-        
+
+        private  MapControl MapControl
+        {
+            get { return (MapControl) Control; }
+        }
+        public override object FocusedObject
+        {
+            get
+            {
+                if (MapControl != null)
+                    return MapControl.FocusedObject;
+                else
+                    return null;
+            }
+            set
+            {
+            }
+        }
     }
 }

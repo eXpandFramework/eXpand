@@ -35,10 +35,6 @@ namespace MapViewTester.Module.BusinessObjects
         }
 
 
-        object IMapObject.Key
-        {
-            get { return Oid; }
-        }
     }
 
     public class SalesVolume : BaseObject

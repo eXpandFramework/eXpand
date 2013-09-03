@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Xpand.ExpressApp.MapView
 {
-    public interface IMapAddress : IMapObject
+    public interface IMapAddress 
     {
         string Address { get; }
 

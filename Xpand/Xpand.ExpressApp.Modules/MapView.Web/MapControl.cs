@@ -15,6 +15,9 @@ namespace Xpand.ExpressApp.MapView.Web
     public class MapControl : ASPxWebControl
     {
         private HtmlGenericControl div;
+
+        public event EventHandler FocusedIndexChanged;
+
         protected override string GetStartupScript()
         {
             StringBuilder sb = new StringBuilder();
@@ -40,9 +43,9 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine("};");
 
             sb.AppendLine("var arg = 'd1:' + objectId;");
-            sb.AppendLine(RenderUtils.GetCallbackEventReference(Page, this, "arg", "markerCallback", "'" + ClientID + "'", 
+            sb.AppendLine(RenderUtils.GetCallbackEventReference(Page, this, "arg", "markerCallback", "'" + ClientID + "'",
                 GetCallBackErrorHandlerName()) + ";");
-            
+
             sb.AppendLine(" });};");
             sb.AppendLine("var createMarkerWithGeocode = function(address, objectId) {");
             sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
@@ -62,16 +65,16 @@ namespace Xpand.ExpressApp.MapView.Web
 
             if (DataSource != null)
             {
-                IEnumerable enumerable = DataSource as IEnumerable;
-                if (enumerable != null)
+                IList list = DataSource as IList;
+                if (list != null)
                 {
-                    foreach (var item in enumerable)
+                    for (int i = 0; i < list.Count; i++)
                     {
-                        IMapAddress address = item as IMapAddress;
+                        IMapAddress address = list[i] as IMapAddress;
                         if (address != null && !string.IsNullOrEmpty(address.Address))
                         {
                             sb.AppendFormat(CultureInfo.InvariantCulture,
-                                "createMarkerWithGeocode('{0}', '{1}');\r\n", address.Address, address.Key);
+                                "createMarkerWithGeocode('{0}', '{1}');\r\n", address.Address, i);
                         }
                     }
                 }
@@ -83,6 +86,9 @@ namespace Xpand.ExpressApp.MapView.Web
         protected override void OnCustomDataCallback(CustomDataCallbackEventArgs e)
         {
             base.OnCustomDataCallback(e);
+            int index;
+            if (int.TryParse(e.Parameter, NumberStyles.Integer, CultureInfo.InvariantCulture, out index))
+                FocusedIndex = index;
         }
 
         public object DataSource { get; set; }
@@ -99,6 +105,35 @@ namespace Xpand.ExpressApp.MapView.Web
             div.Style.Add("width", "100%");
             div.Style.Add("height", "100%");
             Controls.Add(div);
+        }
+
+
+        private int focusedIndex = -1;
+
+        public int FocusedIndex
+        {
+            get { return focusedIndex; }
+            set
+            {
+                if (focusedIndex != value)
+                {
+                    focusedIndex = value;
+                    if (FocusedIndexChanged != null)
+                        FocusedIndexChanged(this, EventArgs.Empty);
+                }
+            }
+        }
+
+        public object FocusedObject
+        {
+            get
+            {
+                IList list = DataSource as IList;
+                if (list != null && FocusedIndex >= 0 && FocusedIndex < list.Count)
+                    return list[FocusedIndex];
+                else
+                    return null;
+            }
         }
     }
 }
