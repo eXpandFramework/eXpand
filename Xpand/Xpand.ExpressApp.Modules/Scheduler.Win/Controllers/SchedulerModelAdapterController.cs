@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Scheduler.Win;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
+using DevExpress.XtraScheduler.UI;
 using Xpand.ExpressApp.Scheduler.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -60,11 +62,21 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
         }
 
         protected override AppointmentStatusBaseCollection Statuses() {
-            return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;
+            if (SchedulerListEditor != null) return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;
+            var schedulerStorage = SchedulerStorage();
+            return schedulerStorage != null ? schedulerStorage.Appointments.Statuses : new AppointmentStatusCollection();
         }
 
         protected override AppointmentLabelBaseCollection Labels() {
-            return SchedulerListEditor.SchedulerControl.Storage.Appointments.Labels;
+            if (SchedulerListEditor != null) 
+                return SchedulerListEditor.SchedulerControl.Storage.Appointments.Labels;
+            var schedulerStorage = SchedulerStorage();
+            return schedulerStorage != null ? schedulerStorage.Appointments.Labels : new AppointmentLabelCollection();
+        }
+
+        SchedulerStorage SchedulerStorage() {
+            var schedulerLabelPropertyEditor = ((DetailView) View).GetItems<SchedulerLabelPropertyEditor>().FirstOrDefault();
+            return schedulerLabelPropertyEditor != null ? ((AppointmentLabelEdit) schedulerLabelPropertyEditor.Control).Storage : null;
         }
 
         protected override IInnerSchedulerControlOwner SchedulerControl() {
