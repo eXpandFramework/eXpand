@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -61,10 +62,16 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         void AddDialogController(ShowViewParameters showViewParameters) {
             var dialogController = new DialogController();
-            dialogController.ViewClosing += (o, eventArgs) => Export(((View)o).CurrentObject);
+            dialogController.AcceptAction.Model.SetValue("IsPostBackRequired", true);
+            dialogController.CloseOnCurrentObjectProcessing = true;
+            dialogController.AcceptAction.Executed+=AcceptActionOnExecuteCompleted;
             showViewParameters.Controllers.Add(dialogController);
         }
 
+        void AcceptActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+            Export(((SimpleActionExecuteEventArgs)actionBaseEventArgs).CurrentObject);
+            ((ActionBase)sender).Model.SetValue("IsPostBackRequired", false);
+        }
 
         public virtual void Export(object selectedObject) {
             var exportEngine = new ExportEngine();
@@ -74,12 +81,12 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         protected abstract void Save(XDocument document);
 
-
-
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             var objectSpace = ((XPObjectSpace)Application.CreateObjectSpace(TypesInfo.Instance.XmlFileChooserType));
             object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, o);
+            var detailView = Application.CreateDetailView(objectSpace, o);
+            detailView.ViewEditMode=ViewEditMode.Edit;
+            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
             var dialogController = new DialogController { SaveOnAccept = false };
             dialogController.AcceptAction.Execute += (sender1, args) => {
                 var memoryStream = new MemoryStream();
