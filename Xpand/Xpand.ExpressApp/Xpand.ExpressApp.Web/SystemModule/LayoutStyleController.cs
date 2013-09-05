@@ -15,10 +15,10 @@ using System.Linq;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public interface ILayoutStyle:IModelNode {
-        IModelLayoutStyle ContainerPanel { get;  }
-        IModelLayoutStyle ContainerCell { get;  }
-        IModelLayoutStyle Control { get;  }
+    public interface ILayoutStyle : IModelNode {
+        IModelLayoutStyle ContainerPanel { get; }
+        IModelLayoutStyle ContainerCell { get; }
+        IModelLayoutStyle Control { get; }
         IModelLayoutStyle Caption { get; }
     }
 
@@ -39,22 +39,23 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         string Style { get; set; }
     }
 
-    public class LayoutStyleController:ViewController<ObjectView>,IModelExtender {
-        LayoutStyleProvider _layoutStyleProvider ;
+    public class LayoutStyleController : ViewController<ObjectView>, IModelExtender {
+        LayoutStyleProvider _layoutStyleProvider;
         protected override void OnActivated() {
             base.OnActivated();
             _layoutStyleProvider = new LayoutStyleProvider();
             View.LayoutManager.LayoutCreated += LayoutManager_LayoutCreated;
-            ((IWebLayoutManager)View.LayoutManager).Instantiated += OnInstantiated;
+            var layoutManager = View.LayoutManager as IWebLayoutManager;
+            if (layoutManager != null) { ((IWebLayoutManager)View.LayoutManager).Instantiated += OnInstantiated; }
             foreach (var item in View.GetItems<WebPropertyEditor>()) {
-                item.ControlCreated+=ItemOnControlCreated;
+                item.ControlCreated += ItemOnControlCreated;
             }
             var listView = View as ListView;
             if (listView != null) {
                 var asPxGridListEditor = listView.Editor as ASPxGridListEditor;
                 if (asPxGridListEditor != null) {
-                    asPxGridListEditor.CustomCreateCellControl+=AsPxGridListEditorOnCustomCreateCellControl;
-                }    
+                    asPxGridListEditor.CustomCreateCellControl += AsPxGridListEditorOnCustomCreateCellControl;
+                }
             }
         }
 
@@ -63,16 +64,16 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void LayoutManager_LayoutCreated(object sender, EventArgs e) {
-            View.LayoutManager.LayoutCreated-=LayoutManager_LayoutCreated;
+            View.LayoutManager.LayoutCreated -= LayoutManager_LayoutCreated;
             var modelLayoutStyle = ((IModelLayoutStyle)View.Model);
             if (modelLayoutStyle != null) {
-                _layoutStyleProvider.ApplyStyle(modelLayoutStyle, (WebControl) View.LayoutManager.Container);
+                _layoutStyleProvider.ApplyStyle(modelLayoutStyle, (WebControl)View.LayoutManager.Container);
             }
         }
 
         void ItemOnControlCreated(object sender, EventArgs eventArgs) {
-            var webPropertyEditor = ((WebPropertyEditor) sender);
-            webPropertyEditor.ControlCreated-=ItemOnControlCreated;
+            var webPropertyEditor = ((WebPropertyEditor)sender);
+            webPropertyEditor.ControlCreated -= ItemOnControlCreated;
             ApplyStyle(webPropertyEditor);
         }
 
@@ -85,13 +86,15 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         IModelLayoutViewItemStyle ModelLayoutViewItem(WebPropertyEditor webPropertyEditor) {
             var modelDetailView = View.Model as IModelDetailView;
-            return modelDetailView == null? (IModelLayoutViewItemStyle) webPropertyEditor.Model
+            return modelDetailView == null ? (IModelLayoutViewItemStyle)webPropertyEditor.Model
                        : modelDetailView.Layout.ViewItems(webPropertyEditor.Model).Cast<IModelLayoutViewItemStyle>().First();
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            ((IWebLayoutManager)View.LayoutManager).Instantiated -= OnInstantiated;
+            var layoutManager = View.LayoutManager as IWebLayoutManager;
+            if (layoutManager != null) 
+                ((IWebLayoutManager)View.LayoutManager).Instantiated -= OnInstantiated;
         }
 
         TableCell ContainerCell(WebPropertyEditor item) {
@@ -101,7 +104,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         void OnInstantiated(object sender, TemplateInstantiatedEventArgs templateInstantiatedEventArgs) {
             var layoutItemTemplateContainer = templateInstantiatedEventArgs.Container as LayoutItemTemplateContainer;
-            if (layoutItemTemplateContainer!=null) {
+            if (layoutItemTemplateContainer != null) {
                 _layoutStyleProvider.ApplyCaptionControlStyle(layoutItemTemplateContainer);
                 _layoutStyleProvider.ApplyContainerControlStyle(layoutItemTemplateContainer);
             }
@@ -199,13 +202,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             var containerControl = layoutGroupTemplateContainer.Controls.OfType<WebControl>().FirstOrDefault();
             if (containerControl != null) {
                 var groupTemplateContainer = LayoutGroupTemplateContainer(containerControl, 0);
-                if (groupTemplateContainer!=null) {
-                    ApplyStyle((IModelLayoutStyle)groupTemplateContainer.Model,(WebControl)groupTemplateContainer.Parent);
+                if (groupTemplateContainer != null) {
+                    ApplyStyle((IModelLayoutStyle)groupTemplateContainer.Model, (WebControl)groupTemplateContainer.Parent);
                     groupTemplateContainer = LayoutGroupTemplateContainer(containerControl, 1);
-                    if (groupTemplateContainer!=null)
+                    if (groupTemplateContainer != null)
                         ApplyStyle((IModelLayoutStyle)groupTemplateContainer.Model, (WebControl)groupTemplateContainer.Parent);
                 }
-                
+
                 ApplyStyle(layoutStyle, containerControl);
             }
         }
