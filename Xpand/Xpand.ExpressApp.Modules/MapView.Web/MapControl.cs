@@ -47,7 +47,8 @@ namespace Xpand.ExpressApp.MapView.Web
                 GetCallBackErrorHandlerName()) + ";");
 
             sb.AppendLine(" });};");
-            sb.AppendLine("var createMarkerWithGeocode = function(address, objectId) {");
+            sb.AppendLine("var bounds = new google.maps.LatLngBounds ();");
+            sb.AppendLine("var createMarkerWithGeocode = function(address, objectId, fitBounds) {");
             sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
                               var marker = new google.maps.Marker({
@@ -56,6 +57,9 @@ namespace Xpand.ExpressApp.MapView.Web
                               
                               });
                               addMarkerClickEvent(marker, objectId);  
+                              bounds.extend(results[0].geometry.location);  
+                              if (fitBounds) map.fitBounds(bounds);
+
                             } else {
                               alert('Geocode was not successful for the following reason: ' + status);
                             }
@@ -74,11 +78,12 @@ namespace Xpand.ExpressApp.MapView.Web
                         if (address != null && !string.IsNullOrEmpty(address.Address))
                         {
                             sb.AppendFormat(CultureInfo.InvariantCulture,
-                                "createMarkerWithGeocode('{0}', '{1}');\r\n", address.Address, i);
+                                "createMarkerWithGeocode('{0}', '{1}', {2});\r\n", address.Address, i, (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower());
                         }
                     }
                 }
             }
+
             return sb.ToString();
         }
 
