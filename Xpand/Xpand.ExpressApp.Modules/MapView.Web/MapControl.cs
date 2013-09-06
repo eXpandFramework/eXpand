@@ -22,9 +22,19 @@ namespace Xpand.ExpressApp.MapView.Web
         {
             StringBuilder sb = new StringBuilder();
 
+
+            sb.AppendLine("var initMap = function() { ");
+            sb.AppendFormat(@"{0}
+                var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
+                if (parentSplitter && !parentSplitter.xpandInitialized) {{
+                    window.setTimeout(initMap, 500);
+                    return;
+                }}
+            ", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
+
             sb.AppendLine("var mapOptions = {");
             sb.AppendLine("zoom: 4,");
-            sb.AppendLine("center: new google.maps.LatLng(45.363882,13.044922),");
+            //sb.AppendLine("center: new google.maps.LatLng(45.363882,13.044922),");
             sb.AppendLine("mapTypeId: google.maps.MapTypeId.ROADMAP }");
 
             sb.AppendFormat(" var map = new google.maps.Map(document.getElementById('{0}'), mapOptions);\r\n",
@@ -34,11 +44,10 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine(@"var addMarkerClickEvent = function(marker, objectId) {
                                 google.maps.event.addListener(marker, 'click', function() {");
             sb.AppendLine(@"var markerCallback = function (s,e) {");
-            sb.AppendFormat(@"{0}
-                    var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
+            sb.Append(@"
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
                     if (up && up.GetMainElement()) {{ 
-                        up.PerformCallback(objectId);}}", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
+                        up.PerformCallback(objectId);}}");
 
             sb.AppendLine("};");
 
@@ -84,6 +93,8 @@ namespace Xpand.ExpressApp.MapView.Web
                 }
             }
 
+            sb.AppendLine("google.maps.event.trigger(map, 'resize');};");
+            sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
         }
 

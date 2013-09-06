@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="MapViewTester" Logo="ExpressAppLogo">
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="MapViewTester.Module.BusinessObjects.Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <ListView Id="MapViewTester.Module.BusinessObjects.SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
   </Views>
 </Application>
