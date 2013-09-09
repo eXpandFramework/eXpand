@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -63,8 +64,10 @@ namespace Xpand.Persistent.Base.General {
         void UpdateRemovedNodes(IModelNode modelNode, IModelNode nodeToUpdate) {
             for (int i = modelNode.NodeCount - 1; i >= 0; i--) {
                 var node1 = (ModelNode)modelNode.GetNode(i);
+                var node = nodeToUpdate.GetNode(node1.Id);
+                UpdateRemovedNodes(node1,node);
                 if (node1.IsRemovedNode) {
-                    nodeToUpdate.GetNode(node1.Id).Remove();
+                    node.Remove();
                 }
             }
         }
