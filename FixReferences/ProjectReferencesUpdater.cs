@@ -35,7 +35,19 @@ namespace FixReferences {
                 AddRequiredReferences(document, file);
             }
             UpdateReferences(document, directoryName, file);
-            var config =Path.Combine(Path.GetDirectoryName(file)+"","app.config");
+            UpdateConfig(file);
+            var licElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName == "EmbeddedResource" && element.Attribute("Include").Value == @"Properties\licenses.licx");
+            if (licElement != null) {
+                licElement.Remove();
+                DocumentHelper.Save(document,file);
+            }
+            var combine = Path.Combine(Path.GetDirectoryName(file)+"", @"Properties\licenses.licx");
+            if  (File.Exists(combine))
+                File.Delete(combine);
+        }
+
+        void UpdateConfig(string file) {
+            var config = Path.Combine(Path.GetDirectoryName(file) + "", "app.config");
             if (File.Exists(config)) {
                 ReplaceToken(config);
             }
@@ -43,8 +55,8 @@ namespace FixReferences {
                 config = Path.Combine(Path.GetDirectoryName(file) + "", "web.config");
                 if (File.Exists(config)) {
                     ReplaceToken(config);
-                }    
-            }    
+                }
+            }
         }
 
         void ReplaceToken(string config) {     

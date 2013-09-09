@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -11,28 +10,26 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
-        static ModelApplicationBase _modelApplication;
-
         public override void UpdateNode(ModelNode node) {
             var modelViews = ((IModelViews)node);
             var objectViews = ObjectViews(modelViews);
             foreach (var modelView in objectViews) {
                 var modelNode = ((ModelNode)modelViews[modelView.Id]);
                 var layoutStrategy = modelView.MergedDifferences.Any(LayoutStrategy);
-                var objectView = (IModelObjectView) modelNode;
+                var objectView = (IModelObjectView)modelNode;
                 if (layoutStrategy)
                     ClearLayoutNodes(objectView);
-                
+
                 foreach (var mergedDifference in modelView.MergedDifferences) {
                     var modelObjectView = mergedDifference.View;
                     switch (mergedDifference.Strategy) {
                         case MergingStrategy.Everything:
-                            modelNode.Merge((ModelNode) modelObjectView);
+                            modelNode.Merge((ModelNode)modelObjectView);
                             break;
                         case MergingStrategy.OnlyLayout: {
-                            MergeOnlyLayout(modelObjectView, modelNode);
-                            break;
-                        }
+                                MergeOnlyLayout(modelObjectView, modelNode);
+                                break;
+                            }
                     }
                     if (layoutStrategy)
                         UpdateRemovedNodes(mergedDifference, objectView);
@@ -43,24 +40,22 @@ namespace Xpand.Persistent.Base.General {
         void MergeOnlyLayout(IModelObjectView modelObjectView, ModelNode modelNode) {
             var modelDetailView = modelObjectView as IModelDetailView;
             if (modelDetailView != null) {
-                var detailView = ((IModelDetailView) modelNode);
-                ((ModelNode) detailView.Items).Merge((ModelNode) modelDetailView.Items);
-                ((ModelNode) detailView.Layout).Merge((ModelNode) modelDetailView.Layout);
-            }
-            else {
-                ((ModelNode) ((IModelListView) modelNode).Columns).Merge((ModelNode) ((IModelListView) modelObjectView).Columns);
+                var detailView = ((IModelDetailView)modelNode);
+                ((ModelNode)detailView.Items).Merge((ModelNode)modelDetailView.Items);
+                ((ModelNode)detailView.Layout).Merge((ModelNode)modelDetailView.Layout);
+            } else {
+                ((ModelNode)((IModelListView)modelNode).Columns).Merge((ModelNode)((IModelListView)modelObjectView).Columns);
             }
         }
 
         void UpdateRemovedNodes(IModelMergedDifference mergedDifference, IModelObjectView modelObjectView) {
             var modelDetailView = (mergedDifference.View) as IModelDetailView;
             if (modelDetailView != null) {
-                var detailView = ((IModelDetailView) modelObjectView);
+                var detailView = ((IModelDetailView)modelObjectView);
                 UpdateRemovedNodes(modelDetailView.Layout.GetNode(0), detailView.Layout.GetNode(0));
                 UpdateRemovedNodes(modelDetailView.Items, detailView.Items);
-            }
-            else {
-                UpdateRemovedNodes(((IModelListView)mergedDifference.View).Columns,((IModelListView)modelObjectView).Columns);
+            } else {
+                UpdateRemovedNodes(((IModelListView)mergedDifference.View).Columns, ((IModelListView)modelObjectView).Columns);
             }
         }
 
@@ -91,28 +86,25 @@ namespace Xpand.Persistent.Base.General {
         IEnumerable<IModelObjectViewMergedDifferences> ObjectViews(IModelViews modelViews) {
             var application = ModelApplication(modelViews);
             return application.Application.Views.OfType<IModelObjectViewMergedDifferences>()
-                           .Where(view => view.MergedDifferences != null && view.MergedDifferences.Any(difference => IsValid(difference,modelViews.Application.Views)));
+                           .Where(view => view.MergedDifferences != null && view.MergedDifferences.Any(difference => IsValid(difference, modelViews.Application.Views)));
         }
 
         bool IsValid(IModelMergedDifference difference, IModelViews views) {
-            if (difference.View == null) 
+            if (difference.View == null)
                 return false;
             var modelView = views[difference.View.Id] as IModelObjectView;
-            return modelView!=null&&modelView.ModelClass!=null;
+            return modelView != null && modelView.ModelClass != null;
         }
 
         ModelApplicationBase ModelApplication(IModelNode modelNode) {
-            if (_modelApplication == null) {
-                var node = ((ModelNode) modelNode);
-                _modelApplication = node.CreatorInstance.CreateModelApplication();
-                foreach (var module in ((IModelSources)node.Application).Modules) {
-                    var resourcesModelStore = new ResourcesModelStore(module.GetType().Assembly);
-                    resourcesModelStore.Load(_modelApplication);
-                }
+            var node = ((ModelNode)modelNode);
+            var modelApplication = node.CreatorInstance.CreateModelApplication();
+            foreach (var module in ((IModelSources)node.Application).Modules) {
+                var resourcesModelStore = new ResourcesModelStore(module.GetType().Assembly);
+                resourcesModelStore.Load(modelApplication);
             }
-            return _modelApplication;
+            return modelApplication;
         }
-
     }
 
     public enum MergingStrategy {
@@ -138,12 +130,6 @@ namespace Xpand.Persistent.Base.General {
     }
     [DomainLogic(typeof(IModelMergedDifference))]
     public class ModelMergedDViifferenceDomainLogic {
-        static ModelApplicationBase _modelApplication;
-
-        public static void Set_View(IModelMergedDifference differences,IModelObjectView modelObjectView) {
-//            var modelNode = ((ModelNode) differences.Parent.Parent.Parent);
-//            modelNode.NodeInfo.AddUpdater();
-        }
 
         public static IModelList<IModelObjectView> Get_Views(IModelMergedDifference differences) {
             var modelObjectView = ((IModelObjectView)differences.Parent.Parent);
@@ -155,23 +141,5 @@ namespace Xpand.Persistent.Base.General {
             return new CalculatedModelNodeList<IModelObjectView>(modelObjectViews);
         }
 
-        public static IEnumerable<IModelMergedDifference> GetModelMergedDifferences(IModelNode node) {
-            var modelApplication = ModelApplication((ModelNode)node);
-            var detailView = node is IModelObjectView ? (IModelObjectView)node : ((IModelObjectView)node.Parent);
-            var modelView = (modelApplication.Application.Views[detailView.Id]) as IModelObjectViewMergedDifferences;
-            return modelView == null || modelView.MergedDifferences == null ? Enumerable.Empty<IModelMergedDifference>()
-                       : modelView.MergedDifferences;
-        }
-
-        static ModelApplicationBase ModelApplication(ModelNode node) {
-            if (_modelApplication == null) {
-                _modelApplication = node.CreatorInstance.CreateModelApplication();
-                foreach (var module in ((IModelSources)node.Application).Modules) {
-                    var resourcesModelStore = new ResourcesModelStore(module.GetType().Assembly);
-                    resourcesModelStore.Load(_modelApplication);
-                }
-            }
-            return _modelApplication;
-        }
     }
 }

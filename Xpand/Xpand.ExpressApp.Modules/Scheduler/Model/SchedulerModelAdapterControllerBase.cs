@@ -4,6 +4,8 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Scheduler;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.Persistent.Base.General;
 using DevExpress.Utils.Controls;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
@@ -11,6 +13,7 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
     public abstract class SchedulerModelAdapterControllerBase : ModelAdapterController, IModelExtender {
+        LinkToListViewController _linkToListViewController;
 
         public SchedulerListEditorBase SchedulerListEditor {
             get {
@@ -25,6 +28,29 @@ namespace Xpand.ExpressApp.Scheduler.Model {
                 ((ListView)View).CollectionSource.CriteriaApplied += CollectionSourceOnCriteriaApplied;
                 new SchedulerListEditorModelSynchronizer(SchedulerControl(), (IModelListViewOptionsScheduler)View.Model, Labels(), Statuses()).ApplyModel();
                 SchedulerListEditor.ResourceDataSourceCreating += SchedulerListEditorOnResourceDataSourceCreating;
+            }
+            var detailView = View as DetailView;
+            if (detailView != null && View.ObjectTypeInfo.Implements<IEvent>()) {
+                _linkToListViewController = Frame.GetController<LinkToListViewController>();
+                _linkToListViewController.LinkChanged+=LinkToListViewControllerOnLinkChanged;
+            }
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (SchedulerListEditor != null) {
+                ((ListView)View).CollectionSource.CriteriaApplied -= CollectionSourceOnCriteriaApplied;
+                SchedulerListEditor.ResourceDataSourceCreating -= SchedulerListEditorOnResourceDataSourceCreating;
+            }
+            if (_linkToListViewController!=null)
+                _linkToListViewController.LinkChanged-=LinkToListViewControllerOnLinkChanged;
+
+        }
+
+        void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
+            var link = ((LinkToListViewController) sender).Link;
+            if (link != null && link.ListView != null) {
+                new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
             }
         }
 

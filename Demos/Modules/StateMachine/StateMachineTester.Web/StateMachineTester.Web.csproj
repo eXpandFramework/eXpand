@@ -160,7 +160,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WebApplication.resx">
       <DependentUpon>WebApplication.cs</DependentUpon>
       <SubType>Designer</SubType>

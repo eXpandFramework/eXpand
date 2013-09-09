@@ -55,7 +55,7 @@ namespace Xpand.Persistent.Base.General {
         protected Type DefaultXafAppType = typeof (XafApplication);
         static  bool? _isHosted;
         static string _assemblyString;
-        private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _instanceValueManager;
+        private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
         
         public event EventHandler ApplicationModulesManagerSetup;
 
@@ -83,21 +83,21 @@ namespace Xpand.Persistent.Base.General {
         }
         public static MultiValueDictionary<KeyValuePair<string,ApplicationModulesManager>, object> CallMonitor {
             get {
-                if (_instanceValueManager == null) {
+                if (_callMonitor == null) {
                     lock (_syncRoot) {
-                        if (_instanceValueManager == null) {
-                            _instanceValueManager = ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>("CallMonitor");
+                        if (_callMonitor == null) {
+                            _callMonitor = ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>("CallMonitor");
                         }
                     }
                 }
-                if (_instanceValueManager.Value == null) {
+                if (_callMonitor.Value == null) {
                     lock (_syncRoot) {
-                        if (_instanceValueManager.Value == null) {
-                            _instanceValueManager.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
+                        if (_callMonitor.Value == null) {
+                            _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
                         }
                     }
                 }
-                return _instanceValueManager.Value;
+                return _callMonitor.Value;
             }
         }
 
