@@ -108,7 +108,7 @@ namespace Xpand.Persistent.Base.General {
                     _isHosted = ((IModelSources) xafApplication.Model).Modules.Any(@base => {
                         var attribute =xafApplication.TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
                         if (attribute != null)
-                            return attribute.FilterString != "Xaf.Platform.Win";
+                            return attribute.FilterString == "Xaf.Platform.Web";
                         return false;
                     });
                 }
