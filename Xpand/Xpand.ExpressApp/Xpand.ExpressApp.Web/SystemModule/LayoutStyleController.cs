@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.Layout;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.Utils.Helpers;
 using System.Linq;
@@ -85,6 +86,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         IModelLayoutViewItemStyle ModelLayoutViewItem(WebPropertyEditor webPropertyEditor) {
+            Guard.ArgumentNotNull(webPropertyEditor,"webPropertyEditor");
+            Guard.ArgumentNotNull(View, "View");
+
             var modelDetailView = View.Model as IModelDetailView;
             return modelDetailView == null ? (IModelLayoutViewItemStyle)webPropertyEditor.Model
                        : modelDetailView.Layout.ViewItems(webPropertyEditor.Model).Cast<IModelLayoutViewItemStyle>().First();
