@@ -36,7 +36,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             editor.ControlsCreated-=editor_ControlsCreated;
             editor.Grid.ClientSideEvents.Init = string.Format(
                 CultureInfo.InvariantCulture,
-                "function(s,e) {{s.SelectionChanged.AddHandler(function() {{{0}}}); }}", CallbackManager.GetScript(GetType().Name, "'RefreshCallback'"));
+                "function(s,e) {{s.selectedRowCount = s.GetSelectedKeysOnPage().length; s.SelectionChanged.AddHandler(function() {{if (s.selectedRowCount != s.GetSelectedKeysOnPage().length) {{s.selectedRowCount = s.GetSelectedKeysOnPage().length; {0} }}; s.firstSelectionChangedAfterInit = false;}}); }}", CallbackManager.GetScript(GetType().Name, "'RefreshCallback'"));
         }
 
 
