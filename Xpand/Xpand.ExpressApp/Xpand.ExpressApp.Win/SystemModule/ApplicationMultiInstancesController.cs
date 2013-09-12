@@ -9,6 +9,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsApplicationMultiInstances : IModelNode {
         [Category("eXpand")]
         [Description("If false only one application instance is allowed")]
+        [DefaultValue(true)]
         bool ApplicationMultiInstances { get; set; }
     }
     public class ApplicationMultiInstancesController : WindowController, IModelExtender {
@@ -21,7 +22,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 string processName = Process.GetCurrentProcess().ProcessName;
                 Process[] processes = Process.GetProcessesByName(processName);
                 if (processes.Length > 1) {
-                    if (processes.Where(process => !process.Equals(Process.GetCurrentProcess())).FirstOrDefault() != null) {
+                    if (processes.FirstOrDefault(process => !process.Equals(Process.GetCurrentProcess())) != null) {
                         System.Windows.Forms.MessageBox.Show("Application is already running");
                         Environment.Exit(0);
                     }

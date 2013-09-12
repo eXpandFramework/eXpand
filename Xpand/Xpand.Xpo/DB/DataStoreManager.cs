@@ -57,7 +57,7 @@ namespace Xpand.Xpo.DB {
         public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
             var dataStoreAttribute = _dataStoreAttributes.SingleOrDefault(attribute => nameSpace.StartsWith(attribute.NameSpace));
-            return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreNameSuffix ?? dataStoreAttribute.ConnectionString));
+            return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreName ?? dataStoreAttribute.ConnectionString));
         }
 
         KeyInfo GetKeyInfo(XPClassInfo xpClassInfo) {
@@ -140,14 +140,14 @@ namespace Xpand.Xpo.DB {
             return XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.DatabaseAndSchema);
         }
 
-        public static IEnumerable<DataStoreAttribute> GetDataStoreAttributes(string dataStoreNameSuffix) {
+        public static IEnumerable<DataStoreAttribute> GetDataStoreAttributes(string dataStoreName) {
             var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assmb => assmb.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
-            return dataStoreAttributes.Where(attribute => attribute.DataStoreNameSuffix.Equals(dataStoreNameSuffix, StringComparison.Ordinal));
+            return dataStoreAttributes.Where(attribute => attribute.DataStoreName.Equals(dataStoreName, StringComparison.Ordinal));
         }
 
         public IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
             var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
-            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreNameSuffix)] != null)).ToList();
+            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreName)] != null)).ToList();
         }
 
         public Dictionary<string, DataStoreManagerSimpleDataLayer> SimpleDataLayers {

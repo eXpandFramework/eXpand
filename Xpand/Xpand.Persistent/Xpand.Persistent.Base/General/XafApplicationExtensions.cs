@@ -116,12 +116,12 @@ namespace Xpand.Persistent.Base.General {
                        : DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema;
         }
 
-        public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreNameSuffix) {
-            if (dataStoreNameSuffix == null) {
+        public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreName) {
+            if (dataStoreName == null) {
                 var connectionString = ConnectionString(xafApplication, args);
                 var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DefaultAutoCreateOption(xafApplication));
                 args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
-            } else if (DataStoreManager.GetDataStoreAttributes(dataStoreNameSuffix).Any()) {
+            } else if (DataStoreManager.GetDataStoreAttributes(dataStoreName).Any()) {
                 var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
                 DisableObjectSpaceProderCreation = false;
                 xafApplication.CreateCustomObjectSpaceprovider(args);

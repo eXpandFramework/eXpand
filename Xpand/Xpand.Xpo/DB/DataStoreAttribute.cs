@@ -5,17 +5,17 @@ namespace Xpand.Xpo.DB {
     public class DataStoreAttribute : Attribute {
         protected string _connectionString;
         readonly Type _nameSpaceType;
-        readonly string _dataStoreNameSuffix;
+        readonly string _dataStoreName;
         readonly bool _isLegacy;
 
-        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix) {
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreName) {
             _nameSpaceType = nameSpaceType;
-            _dataStoreNameSuffix = dataStoreNameSuffix;
+            _dataStoreName = dataStoreName;
         }
 
-        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix, bool isLegacy) {
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreName, bool isLegacy) {
             _nameSpaceType = nameSpaceType;
-            _dataStoreNameSuffix = dataStoreNameSuffix;
+            _dataStoreName = dataStoreName;
             _isLegacy = isLegacy;
         }
 
@@ -30,8 +30,8 @@ namespace Xpand.Xpo.DB {
             get { return _nameSpaceType.Namespace; }
         }
 
-        public string DataStoreNameSuffix {
-            get { return _dataStoreNameSuffix; }
+        public string DataStoreName {
+            get { return _dataStoreName; }
         }
     }
 }

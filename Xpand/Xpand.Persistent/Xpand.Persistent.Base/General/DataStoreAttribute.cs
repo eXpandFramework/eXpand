@@ -4,12 +4,12 @@ using DevExpress.Persistent.Base;
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class DataStoreAttribute : Xpand.Xpo.DB.DataStoreAttribute {
-        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix)
-            : base(nameSpaceType, dataStoreNameSuffix) {
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreName)
+            : base(nameSpaceType, dataStoreName) {
         }
 
-        public DataStoreAttribute(Type nameSpaceType, string dataStoreNameSuffix, bool isLegacy)
-            : base(nameSpaceType, dataStoreNameSuffix, isLegacy) {
+        public DataStoreAttribute(Type nameSpaceType, string dataStoreName, bool isLegacy)
+            : base(nameSpaceType, dataStoreName, isLegacy) {
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType)
