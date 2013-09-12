@@ -1,6 +1,8 @@
 using System.Drawing;
 using System.Windows.Forms;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils.Frames;
 using View = DevExpress.ExpressApp.View;
 using System.Linq;
@@ -34,6 +36,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 Control.ControlCollection collection = controlCollection;
                 collection.Add(filterPanel);
             }
+        }
+
+        protected override void OnPropertyPathFilterParsed(CriteriaOperator criteriaOperator) {
+            new AsyncServerModeCriteriaProccessor(View.ObjectTypeInfo).Process(criteriaOperator);
         }
 
         protected override void SynchronizeInfo(View view) {

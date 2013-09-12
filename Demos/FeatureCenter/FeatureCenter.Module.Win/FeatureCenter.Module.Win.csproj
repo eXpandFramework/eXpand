@@ -11,7 +11,8 @@
     <RootNamespace>FeatureCenter.Module.Win</RootNamespace>
     <AssemblyName>FeatureCenter.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -218,6 +219,10 @@
     <Reference Include="Xpand.ExpressApp.Scheduler.Win">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Scheduler.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=13.1.6.18, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security.Win">
       <SpecificVersion>False</SpecificVersion>

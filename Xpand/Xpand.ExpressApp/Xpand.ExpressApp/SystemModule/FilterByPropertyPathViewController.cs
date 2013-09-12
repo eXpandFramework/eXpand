@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Filtering;
+using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo;
 using Xpand.Xpo.Parser;
 
@@ -55,7 +56,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected FilterByPropertyPathViewController() {
             _filterSingleChoiceAction = new SingleChoiceAction(this, "_filterSingleChoiceAction",
                                                                PredefinedCategory.Search) { Caption = "Search By" };
-            _filterSingleChoiceAction.Execute += createFilterSingleChoiceAction_Execute;
+            _filterSingleChoiceAction.Execute += CreateFilterSingleChoiceActionExecute;
             _filterSingleChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
             TargetViewNesting = Nesting.Root;
         }
@@ -163,21 +164,38 @@ namespace Xpand.ExpressApp.SystemModule {
             return null;
         }
 
+        bool IsAsyncServerMode() {
+            var source = View.CollectionSource as CollectionSource;
+            return ((source != null) && source.IsServerMode && source.IsAsyncServerMode);
+        }
+
         private CriteriaOperator SetCollectionSourceCriteria(FiltersByCollectionWrapper filtersByCollectionWrapper) {
-            CriteriaOperator criteriaOperator = CriteriaOperator.Parse(filtersByCollectionWrapper.PropertyPathFilter);
-            if (!(ReferenceEquals(criteriaOperator, null))) {
-                new FilterWithObjectsProcessor(View.ObjectSpace).Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-                var criterion = new PropertyPathParser(((XPObjectSpace)View.ObjectSpace).Session.GetClassInfo(View.ObjectTypeInfo.Type)).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
+            var session = ((XPObjectSpace) ObjectSpace).Session;
+            if (!string.IsNullOrEmpty(filtersByCollectionWrapper.PropertyPathFilter)) {
+                CriteriaOperator criteriaOperator = ObjectSpace.ParseCriteria(filtersByCollectionWrapper.PropertyPathFilter);
+                OnPropertyPathFilterParsed(criteriaOperator);
+                var criteriaProcessor = new FilterWithObjectsProcessor(ObjectSpace, View.ObjectTypeInfo,IsAsyncServerMode());
+                criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
+                var enumParametersProcessor = new EnumPropertyValueCriteriaProcessor(View.ObjectTypeInfo);
+                enumParametersProcessor.Process(criteriaOperator);
+                var patchXpoSpecificFieldNameForGridCriteriaProcessor = new PatchXpoSpecificFieldNameProcessor();
+                patchXpoSpecificFieldNameForGridCriteriaProcessor.Process(criteriaOperator);
+
+                var classInfo = session.GetClassInfo(View.ObjectTypeInfo.Type);
+                var criterion = new PropertyPathParser(classInfo,session).Parse(filtersByCollectionWrapper.PropertyPath, criteriaOperator.ToString());
                 View.CollectionSource.Criteria[filtersByCollectionWrapper.ID] = criterion;
                 return criteriaOperator;
             }
             return null;
         }
 
+        protected  virtual void OnPropertyPathFilterParsed(CriteriaOperator criteriaOperator) {
+            
+        }
+
         private void DialogControllerOnAccepting(object sender, DialogControllerAcceptingEventArgs args) {
             View view = ((DialogController)sender).Frame.View;
             SynchronizeInfo(view);
-
         }
 
         protected virtual void SynchronizeInfo(View view) {
@@ -202,7 +220,7 @@ namespace Xpand.ExpressApp.SystemModule {
             return nodeWrapper;
         }
 
-        private void createFilterSingleChoiceAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {
+        private void CreateFilterSingleChoiceActionExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             var filtersByCollectionWrapper = ((FiltersByCollectionWrapper)e.SelectedChoiceActionItem.Data);
 
             IModelListView memberSearchWrapper = GetNodeMemberSearchWrapper(filtersByCollectionWrapper);

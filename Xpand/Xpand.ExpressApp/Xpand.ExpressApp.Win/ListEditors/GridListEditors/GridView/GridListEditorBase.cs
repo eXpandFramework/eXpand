@@ -38,6 +38,7 @@ using DevExpress.XtraGrid.Views.Grid.Handler;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraPrinting;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
+using Xpand.Persistent.Base.Xpo;
 using NewItemRowPosition = DevExpress.ExpressApp.NewItemRowPosition;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
@@ -52,23 +53,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         public event EventHandler<CreateCustomRepositoryItemEventArgs> CreateCustomRepositoryItem;
     }
 
-    internal class PatchXpoSpecificFieldNameForGridCriteriaProcessor : CriteriaProcessorBase {
-        readonly List<string> existingLookupFieldNames;
-
-        public PatchXpoSpecificFieldNameForGridCriteriaProcessor(List<string> existingLookupFieldNames) {
-            this.existingLookupFieldNames = existingLookupFieldNames;
-        }
-
-        protected override void Process(OperandProperty theOperand) {
-            if (AggregateLevel == 0 && !theOperand.PropertyName.EndsWith("!")) {
-                string probeLookupFieldName = theOperand.PropertyName + '!';
-                if (existingLookupFieldNames.Contains(probeLookupFieldName)) {
-                    theOperand.PropertyName = probeLookupFieldName;
-                }
-            }
-            base.Process(theOperand);
-        }
-    }
 
     public abstract class GridListEditorBase : ColumnsListEditor, IControlOrderProvider, IDXPopupMenuHolder,
                                                IComplexListEditor, ILookupListEditor, IHtmlFormattingSupport,
@@ -728,7 +712,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
                 }
                 if (existingLookupFieldNames.Count > 0) {
                     result = CriteriaOperator.Clone(criteria);
-                    new PatchXpoSpecificFieldNameForGridCriteriaProcessor(existingLookupFieldNames).Process(result);
+                    new PatchXpoSpecificFieldNameProcessor(existingLookupFieldNames).Process(result);
                 }
             }
             return result;

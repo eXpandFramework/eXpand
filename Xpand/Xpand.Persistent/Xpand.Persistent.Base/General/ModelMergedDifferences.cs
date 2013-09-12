@@ -130,11 +130,15 @@ namespace Xpand.Persistent.Base.General {
         ModelApplicationBase ModelApplication(IModelNode modelNode) {
             var node = ((ModelNode)modelNode);
             var modelApplication = node.CreatorInstance.CreateModelApplication();
-            foreach (var module in ((IModelSources)node.Application).Modules) {
-                var resourcesModelStore = new ResourcesModelStore(module.GetType().Assembly);
+            foreach (var resourcesModelStore in Modules(node).Select(module => new ResourcesModelStore(module.GetType().Assembly))) {
                 resourcesModelStore.Load(modelApplication);
             }
             return modelApplication;
+        }
+
+        IEnumerable<ModuleBase> Modules(ModelNode node) {
+            var moduleBases = ((IModelSources) node.Application).Modules;
+            return moduleBases.Any()?moduleBases:ApplicationHelper.Instance.Application.Modules;
         }
     }
 

@@ -364,6 +364,7 @@
     <Compile Include="XpandBaseCustomObject.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
     <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
+    <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
