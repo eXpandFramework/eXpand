@@ -86,8 +86,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         IModelLayoutViewItemStyle ModelLayoutViewItem(WebPropertyEditor webPropertyEditor) {
-            Guard.ArgumentNotNull(webPropertyEditor,"webPropertyEditor");
-            Guard.ArgumentNotNull(View, "View");
+            Guard.ArgumentNotNull(webPropertyEditor, "webPropertyEditor");
+            
+            if (View == null) return (IModelLayoutViewItemStyle) webPropertyEditor.Model;
 
             var modelDetailView = View.Model as IModelDetailView;
             return modelDetailView == null ? (IModelLayoutViewItemStyle)webPropertyEditor.Model

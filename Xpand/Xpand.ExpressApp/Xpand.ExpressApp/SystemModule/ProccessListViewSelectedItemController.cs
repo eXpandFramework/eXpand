@@ -72,7 +72,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 var actionBase = allActions.SingleOrDefault(action => action.Id == model.Action.Id);
                 if (actionBase != null) actionBase.DoExecute();
             }
-            if (model.DetailView != null) {
+            if (model.DetailView != null && View != null) {
                 var objectSpace = Application.CreateObjectSpace(model.DetailView.ModelClass.TypeInfo.Type);
                 object currentObject = objectSpace.GetObject(View.CurrentObject);
                 e.InnerArgs.ShowViewParameters.CreatedView = Application.CreateDetailView(objectSpace, model.DetailView.Id, true, currentObject);

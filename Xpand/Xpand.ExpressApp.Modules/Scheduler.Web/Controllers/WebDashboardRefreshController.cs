@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
 
 
         private ListView GetViewById(string id) {
-            return View.Items.OfType<DashboardViewItem>().Select(vi => vi.InnerView).FirstOrDefault(v => v.Id == id) as ListView;
+            return View.Items.OfType<DashboardViewItem>().Select(vi => vi.InnerView).FirstOrDefault(v => v != null && v.Id == id) as ListView;
         }
 
     }
