@@ -277,8 +277,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Logic", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.ExpressApp", "..\..\..\..\DXperience 13.1\Sources\DevExpress.ExpressApp\DevExpress.ExpressApp\DevExpress.ExpressApp.csproj", "{39E0DE91-4458-44FA-9320-55F94BD812AB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTester.Module.Web", "Scheduler\SchedulerTester.Module.Web\SchedulerTester.Module.Web.csproj", "{CECEBD10-54C0-482D-A903-5E5162A8D6FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerTester.Web", "Scheduler\SchedulerTester.Web\SchedulerTester.Web.csproj", "{DF8AD7F4-F21E-47F5-B4B3-49B32659C24B}"
@@ -290,6 +288,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module.Web", "HtmlPropertyEditor\HtmlPropertyEditorTester.Module.Web\HtmlPropertyEditorTester.Module.Web.csproj", "{B7B555A1-EEAC-47B3-B948-7C65960A9885}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Web", "HtmlPropertyEditor\HtmlPropertyEditorTester.Web\HtmlPropertyEditorTester.Web.csproj", "{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0} = {A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885} = {B7B555A1-EEAC-47B3-B948-7C65960A9885}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -967,11 +969,6 @@ Global
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39E0DE91-4458-44FA-9320-55F94BD812AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39E0DE91-4458-44FA-9320-55F94BD812AB}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{39E0DE91-4458-44FA-9320-55F94BD812AB}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{39E0DE91-4458-44FA-9320-55F94BD812AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39E0DE91-4458-44FA-9320-55F94BD812AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CECEBD10-54C0-482D-A903-5E5162A8D6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CECEBD10-54C0-482D-A903-5E5162A8D6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECEBD10-54C0-482D-A903-5E5162A8D6FC}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
@@ -1121,7 +1118,6 @@ Global
 		{5C78FE41-2525-40AC-9096-5D18B9A1ED84} = {69EFA828-427F-4EF5-8DF8-55F3016DEB0C}
 		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E} = {69EFA828-427F-4EF5-8DF8-55F3016DEB0C}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {69EFA828-427F-4EF5-8DF8-55F3016DEB0C}
-		{39E0DE91-4458-44FA-9320-55F94BD812AB} = {69EFA828-427F-4EF5-8DF8-55F3016DEB0C}
 		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0} = {261C24F4-A673-4E95-9D51-CEDF19171F46}
 		{B7B555A1-EEAC-47B3-B948-7C65960A9885} = {261C24F4-A673-4E95-9D51-CEDF19171F46}
 		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799} = {261C24F4-A673-4E95-9D51-CEDF19171F46}

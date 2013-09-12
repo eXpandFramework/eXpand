@@ -20,7 +20,7 @@ namespace ReportsTester.Win {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            EditModelPermission.AlwaysGranted = true;
             ReportsTesterWindowsFormsApplication winApplication = new ReportsTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {

@@ -20,7 +20,7 @@ namespace WorldCreatorTester.Win {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            EditModelPermission.AlwaysGranted = true;
             WorldCreatorTesterWindowsFormsApplication winApplication = new WorldCreatorTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {

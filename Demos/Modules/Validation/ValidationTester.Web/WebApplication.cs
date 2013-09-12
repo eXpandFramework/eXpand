@@ -26,7 +26,7 @@ namespace ValidationTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (System.Diagnostics.Debugger.IsAttached) {
+            if (true) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

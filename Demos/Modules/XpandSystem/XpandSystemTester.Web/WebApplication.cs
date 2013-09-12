@@ -38,7 +38,7 @@ namespace XpandSystemTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (Debugger.IsAttached) {
+                                                                            if (true) {
                 e.Updater.Update();
                 e.Handled = true;
             }

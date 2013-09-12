@@ -20,7 +20,7 @@ namespace AdditionalViewControlProviderTester.Win {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            EditModelPermission.AlwaysGranted = true;
             AdditionalViewControlProviderTesterWindowsFormsApplication winApplication = new AdditionalViewControlProviderTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
