@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -158,6 +159,8 @@
     <Compile Include="General\Model\VisibilityCalculators\AlwaysEditableVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\NotVisibileCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\RuntimeOnlyCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\WebOnlyVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\WinOnlyVisibilityCalculator.cs" />
     <Compile Include="General\MultiDataStoreProvider.cs" />
     <Compile Include="General\MultiDataStoreProxy.cs" />
     <Compile Include="General\NewObjectCreateGroupAttribute.cs" />

@@ -7,9 +7,6 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp.Security.Registration {
-    public interface ILogonRegistrationParameters {
-        void Process(IObjectSpace objectSpace);
-    }
 
     public class ManageUsersOnLogonController : ViewController<DetailView> {
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";

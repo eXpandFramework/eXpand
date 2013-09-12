@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     public interface IModelAthentication : IModelNode {
@@ -12,13 +13,17 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         bool Enabled { get; set; }
         [DefaultValue(15)]
         [Description("The time in days after which the authentication ticket will expire. To ue the Session timeout set this value to zero")]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         int TicketExpiration { get; set; }
         [Description("Enable this to override XAF's default behaviour and create only the encrypted ticket")]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         bool UseOnlySecuredStorage { get; set; }
     }
 
     public interface IModelAnonymousAuthentication : IModelNode {
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         bool Enabled { get; set; }
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         [DefaultValue("Anonymous")]
         string AnonymousUser { get; set; }
     }

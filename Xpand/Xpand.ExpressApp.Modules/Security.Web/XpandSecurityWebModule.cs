@@ -2,10 +2,10 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Registration;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
@@ -17,12 +17,10 @@ namespace Xpand.ExpressApp.Security.Web {
         public XpandSecurityWebModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptions, IModelOptionsAuthentication>();
-        }
 
         protected override void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
-            if (!((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled)
+            if (!((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled&&
+                ((IModelOptionsRegistration) Application.Model.Options).Registration.Enabled)
                 base.AddRegistrationControllers(sender, e);
         }
 

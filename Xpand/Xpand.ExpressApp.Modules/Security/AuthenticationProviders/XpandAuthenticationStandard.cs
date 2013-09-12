@@ -14,9 +14,9 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
 
         public override bool AskLogonParametersViaUI {
             get {
-                return (!((XpandLogonParameters)LogonParameters).RememberMe || !(!(string.IsNullOrEmpty(
-                    ((XpandLogonParameters)LogonParameters).Password)) && !(string.IsNullOrEmpty(
-                  ((XpandLogonParameters)LogonParameters).UserName))));
+                var xpandLogonParameters = LogonParameters as XpandLogonParameters;
+                return xpandLogonParameters == null || (!xpandLogonParameters.RememberMe || !(!(string.IsNullOrEmpty(
+                    xpandLogonParameters.Password)) && !(string.IsNullOrEmpty(xpandLogonParameters.UserName))));
             }
         }
 

@@ -105,15 +105,20 @@ namespace Xpand.Persistent.Base.General {
             get {
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (!_isHosted.HasValue) {
-                    _isHosted = ((IModelSources) xafApplication.Model).Modules.Any(@base => {
-                        var attribute =xafApplication.TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-                        if (attribute != null)
-                            return attribute.FilterString == "Xaf.Platform.Web";
-                        return false;
-                    });
+                    _isHosted = GetIsHosted(xafApplication.Model);
                 }
                 return _isHosted.Value;
             }
+        }
+
+        public static bool GetIsHosted(IModelApplication application) {
+            var modelSources = ((IModelSources) application);
+            return modelSources.Modules.Any(@base => {
+                var attribute =((ITypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+                if (attribute != null)
+                    return attribute.FilterString == "Xaf.Platform.Web";
+                return false;
+            });
         }
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
@@ -203,6 +208,7 @@ namespace Xpand.Persistent.Base.General {
             OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
             if (Executed("AddGeneratorUpdaters"))
                 return;
+            
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
         }

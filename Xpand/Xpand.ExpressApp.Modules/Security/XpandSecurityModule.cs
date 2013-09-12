@@ -12,8 +12,10 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security {
@@ -29,6 +31,7 @@ namespace Xpand.ExpressApp.Security {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsRegistration>();
+            extenders.Add<IModelOptions, IModelOptionsAuthentication>();
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {

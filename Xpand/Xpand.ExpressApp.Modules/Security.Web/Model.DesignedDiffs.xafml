@@ -8,7 +8,7 @@
   <Views>
     <DetailView Id="AnonymousLogonParameters_DetailView">
       <MergedDifferences>
-        <MergedDifference Id="Everything XpandLogonParameters" View="XpandLogonParameters_DetailView" Strategy="Everything" IsNewNode="True" />
+        <MergedDifference Id="Everything XpandLogonParameters" Strategy="Everything" View="XpandLogonParameters_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
   </Views>

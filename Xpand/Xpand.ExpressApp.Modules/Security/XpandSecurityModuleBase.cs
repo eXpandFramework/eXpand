@@ -1,6 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
 
@@ -12,8 +12,7 @@ namespace Xpand.ExpressApp.Security {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            if (IsHosted)
-                ((XafApplication) sender).CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
+            ((XafApplication) sender).CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
         }
 
         private void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
@@ -23,17 +22,17 @@ namespace Xpand.ExpressApp.Security {
 
         protected virtual void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             var app = (XafApplication) sender;
+            e.Controllers.Add(app.CreateController<ActionAppearanceController>());
+            e.Controllers.Add(app.CreateController<AppearanceController>());
+            e.Controllers.Add(app.CreateController<DetailViewItemAppearanceController>());
+            e.Controllers.Add(app.CreateController<DetailViewLayoutItemAppearanceController>());
+            e.Controllers.Add(app.CreateController<RefreshAppearanceController>());
+            e.Controllers.Add(app.CreateController<AppearanceCustomizationListenerController>());
+
             e.Controllers.Add(app.CreateController<ManageUsersOnLogonController>());
             e.Controllers.Add(app.CreateController<DevExpress.ExpressApp.Validation.ActionValidationController>());
             e.Controllers.Add(app.CreateController<DevExpress.ExpressApp.SystemModule.DialogController>());
         }
     }
-    [ModelAbstractClass]
-    public interface IModelOptionsRegistration:IModelOptions {
-        IModelRegistration Registration { get;  }
-    }
-
-    public interface IModelRegistration:IModelNode {
-        bool Enabled { get; set; }
-    }
+    
 }

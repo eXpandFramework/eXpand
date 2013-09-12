@@ -14,6 +14,9 @@ namespace Xpand.ExpressApp.Security.Registration {
     public interface ILogonActionParameters {
         void Process(IObjectSpace objectSpace);
     }
+    public interface ILogonRegistrationParameters {
+        void Process(IObjectSpace objectSpace);
+    }
 
     [NonPersistent]
     [ModelDefault("Caption", "Register User")]

@@ -51,33 +51,43 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="XpandLogonParameters_DetailView" AllowDelete="False">
+    <DetailView Id="XpandLogonParameters_DetailView">
       <Items>
-        <StaticImage Id="LogonImage" ImageName="Security_Image" SizeMode="AutoSize" VerticalAlign="Middle" IsNewNode="True" />
-        <StaticText Id="LogonText" Text="Welcome! Please enter your user name and password below." IsNewNode="True" />
+        <ActionContainerViewItem Id="RegisterUserActionItem" Caption="RegisterUserActionItem(16)" />
+        <ActionContainerViewItem Id="RestorePasswordActionItem" Caption="RestorePasswordActionItem(17)" />
       </Items>
       <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="RootGroup" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-            <LayoutGroup Id="ImageGroup" ShowCaption="False" Caption="ImageGroup(3)" Index="0" RelativeSize="6" IsNewNode="True">
-              <LayoutItem Id="LogonImage" ShowCaption="False" ViewItem="LogonImage" Index="0" RelativeSize="100" IsNewNode="True" />
+        <LayoutGroup Id="Main" ImageName="">
+          <LayoutGroup Id="RootGroup" ImageName="">
+            <LayoutGroup Id="ImageGroup" RelativeSize="11" ImageName="">
+              <LayoutItem Id="LogonImage" SizeConstraintsType="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="EditorsGroup" ShowCaption="False" Index="1" RelativeSize="93" IsNewNode="True">
-              <LayoutGroup Id="Text" ShowCaption="False" Caption="Text(6)" Index="0" RelativeSize="4" IsNewNode="True">
-                <LayoutItem Id="LogonText" ShowCaption="False" ViewItem="LogonText" Index="0" RelativeSize="100" IsNewNode="True" />
+            <LayoutGroup Id="EditorsGroup" RelativeSize="88" ImageName="">
+              <LayoutGroup Id="Text" RelativeSize="4" ImageName="">
+                <LayoutItem Id="LogonText" SizeConstraintsType="Default" />
               </LayoutGroup>
-              <LayoutGroup Id="Editors" ShowCaption="False" Index="1" RelativeSize="95" IsNewNode="True">
-                <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="3" IsNewNode="True" />
-                <LayoutItem Id="Password" ViewItem="Password" Index="1" RelativeSize="3" IsNewNode="True" />
-                <LayoutItem Id="RememberMe" ViewItem="RememberMe" Index="2" RelativeSize="92" IsNewNode="True" />
+              <LayoutGroup Id="Editors" RelativeSize="95" ImageName="">
+                <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" RelativeSize="100" ImageName="">
+                  <LayoutGroup Id="Item3" ImageName="">
+                    <LayoutGroup Id="Item2" RelativeSize="67" ImageName="">
+                      <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="4" />
+                      <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" />
+                      <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
+                      <LayoutItem Id="Item5" ViewItem="" SizeConstraintsType="Default" Index="3" RelativeSize="88" />
+                    </LayoutGroup>
+                    <LayoutGroup Id="Item1" RelativeSize="32" ImageName="">
+                      <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4" />
+                      <LayoutItem Id="RestorePasswordActionItem" SizeConstraintsType="Default" RelativeSize="95" />
+                    </LayoutGroup>
+                  </LayoutGroup>
+                </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SimpleEditors" Removed="True" />
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="Eveything " IsNewNode="True" />
+        <MergedDifference Id="@2c63a643-39fc-42d8-8d32-c0e0f0f87348" View="AuthenticationStandardLogonParameters_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
     <ListView Id="XpandLogonParameters_ListView">
