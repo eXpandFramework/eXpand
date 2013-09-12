@@ -139,7 +139,8 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
-            
+            extenders.Add<IModelClass, IModelClassPersistModelModifications>();
+            extenders.Add<IModelObjectView, IModelObjectViewPersistModelModifications>();
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {

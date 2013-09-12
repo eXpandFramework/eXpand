@@ -4,7 +4,8 @@
     <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="XpandSystemTester.Module.BusinessObjects.Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <ListView Id="XpandSystemTester.Module.BusinessObjects.SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <DetailView Id="Customer_DetailView" UndoModificationsOnSaving="True" />
+    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
   </Views>
 </Application>

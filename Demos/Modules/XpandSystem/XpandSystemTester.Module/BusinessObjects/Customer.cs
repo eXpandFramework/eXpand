@@ -1,6 +1,5 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
-using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace XpandSystemTester.Module.BusinessObjects {
@@ -13,6 +12,7 @@ namespace XpandSystemTester.Module.BusinessObjects {
         [Association, Aggregated]
         public XPCollection<SalesVolume> SalesVolumes { get { return GetCollection<SalesVolume>("SalesVolumes"); } }
     }
+    [DefaultClassOptions]
     public class SalesVolume : BaseObject {
         public SalesVolume(Session session)
             : base(session) {

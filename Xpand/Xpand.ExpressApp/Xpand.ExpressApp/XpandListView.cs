@@ -1,7 +1,9 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ListEditors;
+using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {
@@ -31,6 +33,11 @@ namespace Xpand.ExpressApp {
             var xpandEditor = Editor as IXpandListEditor;
             if (xpandEditor != null)
                 xpandEditor.NotifyViewControlsCreated(this);
+        }
+        protected override void OnCustomModelSaving(HandledEventArgs args) {
+            base.OnCustomModelSaving(args);
+            if (Model != null)
+                args.Handled = !((IModelObjectViewPersistModelModifications)Model).PersistModelModifications;
         }
     }
 }

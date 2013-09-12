@@ -1,13 +1,20 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MemberLevelSecurity;
 
 namespace Xpand.ExpressApp {
     public class XpandDetailView : DetailView {
+        protected override void OnCustomModelSaving(HandledEventArgs args) {
+            base.OnCustomModelSaving(args);
+            if (Model != null)
+                args.Handled = !((IModelObjectViewPersistModelModifications) Model).PersistModelModifications;
+        }
 
         public override object CurrentObject {
             get {
