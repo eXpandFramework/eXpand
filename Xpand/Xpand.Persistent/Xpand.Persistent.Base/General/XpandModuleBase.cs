@@ -40,7 +40,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     [ToolboxItem(false)]
-    public abstract class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
+    public class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
         private static string _xpandPathInRegistry;
         private static string _dxPathInRegistry;
         static List<object> _storeManagers;
