@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
@@ -13,11 +16,20 @@ namespace Xpand.ExpressApp.ViewVariants {
     [ToolboxBitmap(typeof(ViewVariantsModule), "Resources.Toolbox_Module_ViewVariants.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandViewVariantsModule : XpandModuleBase {
+    public sealed class XpandViewVariantsModule :XpandModuleBase, IModelXmlConverter {
         public const string XpandViewVariants = "eXpand.ViewVariants";
         public XpandViewVariantsModule() {
             RequiredModuleTypes.Add(typeof(ViewVariantsModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+        }
+
+        void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
+            ConvertXml(parameters);
+            if (typeof(IModelListView).IsAssignableFrom(parameters.NodeType)&&parameters.ContainsKey("IsClonable")) {
+                var value = parameters.Values["IsClonable"];
+                parameters.Values.Remove("IsClonable");
+                parameters.Values.Add(new KeyValuePair<string, string>("IsViewClonable",value));
+            }
         }
     }
 }
