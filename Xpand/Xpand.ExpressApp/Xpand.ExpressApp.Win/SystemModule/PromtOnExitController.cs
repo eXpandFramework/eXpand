@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -17,6 +18,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class PromtOnExitController : WindowController, IModelExtender {
         static bool enableEventHandling = true;
         volatile bool _editing;
+
+        public PromtOnExitController() {
+            TargetWindowType=WindowType.Main;
+        }
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -40,7 +45,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
             if (!enableEventHandling) return;
             var ea = (FormClosingEventArgs)e;
-            if ((ea.CloseReason == CloseReason.UserClosing && Window.IsMain)) {
+            if ((ea.CloseReason == CloseReason.UserClosing && Window.IsMain&&CanPrompt())) {
                 var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
                 var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
                 bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
@@ -51,6 +56,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 }
             }
             
+        }
+
+        bool CanPrompt() {
+            var modelOptionsWin = ((IModelOptionsWin) Application.Model.Options);
+            return modelOptionsWin.FormStyle != RibbonFormStyle.Ribbon || modelOptionsWin.UIType != UIType.TabbedMDI ||
+                   ((WinShowViewStrategyBase) Application.ShowViewStrategy).Explorers.Count == 1;
         }
 
         void OnWindowClosed(object sender, EventArgs e) {
