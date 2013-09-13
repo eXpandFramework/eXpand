@@ -9,5 +9,6 @@ namespace Xpand.ExpressApp.MapView
     {
         double Longtitude { get; }
         double Latitude { get; }
+        bool HasCoordinates { get; }
     }
 }

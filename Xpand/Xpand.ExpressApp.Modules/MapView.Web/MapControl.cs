@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -14,8 +15,9 @@ namespace Xpand.ExpressApp.MapView.Web
 {
     public class MapControl : ASPxWebControl
     {
+        private const int infoWidthDefaultValue = 300;
         private HtmlGenericControl div;
-
+        private int infoWindowWidth = infoWidthDefaultValue;
         public event EventHandler FocusedIndexChanged;
 
         protected override string GetStartupScript()
@@ -43,6 +45,8 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine("geocoder = new google.maps.Geocoder();");
             sb.AppendLine(@"var addMarkerClickEvent = function(marker, objectId) {
                                 google.maps.event.addListener(marker, 'click', function() {");
+            sb.AppendLine(@"if (marker.infoWindow) marker.infoWindow.open(map, marker);");
+
             sb.AppendLine(@"var markerCallback = function (s,e) {");
             sb.Append(@"
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
@@ -57,7 +61,7 @@ namespace Xpand.ExpressApp.MapView.Web
 
             sb.AppendLine(" });};");
             sb.AppendLine("var bounds = new google.maps.LatLngBounds ();");
-            sb.AppendLine("var createMarkerWithGeocode = function(address, objectId, fitBounds) {");
+            sb.AppendLine("var createMarkerWithGeocode = function(address, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth) {");
             sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
                               var marker = new google.maps.Marker({
@@ -65,10 +69,16 @@ namespace Xpand.ExpressApp.MapView.Web
                                   position: results[0].geometry.location
                               
                               });
+                              if (infoWindowContent) {
+                                marker.infoWindow = new google.maps.InfoWindow({
+                                    content: infoWindowContent,
+                                    maxWidth: infoWindowMaxWidth
+                                });
+                              }
+        
                               addMarkerClickEvent(marker, objectId);  
                               bounds.extend(results[0].geometry.location);  
                               if (fitBounds) map.fitBounds(bounds);
-
                             } else {
                               alert('Geocode was not successful for the following reason: ' + status);
                             }
@@ -81,14 +91,27 @@ namespace Xpand.ExpressApp.MapView.Web
                 IList list = DataSource as IList;
                 if (list != null)
                 {
+                    sb.AppendLine("var marker, infoWindow;");
                     for (int i = 0; i < list.Count; i++)
                     {
                         IMapAddress address = list[i] as IMapAddress;
                         if (address != null && !string.IsNullOrEmpty(address.Address))
                         {
+
+                            string infoWindowText = "undefined";
+
+                            IMapInfoWindow infoWindow = address as IMapInfoWindow;
+                            if (infoWindow != null && !string.IsNullOrEmpty(infoWindow.InfoWindowText))
+                            {
+                                infoWindowText = System.Web.HttpUtility.HtmlEncode(infoWindow.InfoWindowText).Replace("'","''");
+                            }
                             sb.AppendFormat(CultureInfo.InvariantCulture,
-                                "createMarkerWithGeocode('{0}', '{1}', {2});\r\n", address.Address, i, (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower());
+                                "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n", address.Address, i, (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(), infoWindowText, InfoWindowWidth);
+                            
+
                         }
+                        
+
                     }
                 }
             }
@@ -150,6 +173,13 @@ namespace Xpand.ExpressApp.MapView.Web
                 else
                     return null;
             }
+        }
+
+        [DefaultValue(infoWidthDefaultValue)]
+        public int InfoWindowWidth
+        {
+            get { return infoWindowWidth; }
+            set { infoWindowWidth = value; }
         }
     }
 }

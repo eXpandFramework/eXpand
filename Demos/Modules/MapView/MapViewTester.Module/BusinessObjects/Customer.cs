@@ -11,7 +11,7 @@ using Xpand.ExpressApp.MapView;
 namespace MapViewTester.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    public class Customer : Person, IMapAddress
+    public class Customer : Person, IMapAddress, IMapInfoWindow
     {
         public Customer(Session session)
             : base(session)
@@ -35,6 +35,13 @@ namespace MapViewTester.Module.BusinessObjects
         }
 
 
+
+        [NonPersistent]
+        [VisibleInDetailView(false)]
+        public string InfoWindowText
+        {
+            get { return FullName; }
+        }
     }
 
     public class SalesVolume : BaseObject
