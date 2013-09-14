@@ -77,7 +77,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (ModelApplicationCreator == null) {
+            if (RuntimeMode) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
                 }

@@ -299,7 +299,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         }
 
         ModelApplicationBase GetMasterModelCore(bool rebuild) {
-            XpandModuleBase.DisposeManagers();
             ModelApplicationBase modelApplicationBase;
             try {
                 _modelBuilder = !rebuild ? ModelBuilder.Create() : _modelBuilder;
@@ -314,7 +313,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 Tracing.Tracer.LogValue("Source Code", e.SourceCode);
                 throw;
             }
-            XpandModuleBase.ReStoreManagers();
             return modelApplicationBase;
         }
 

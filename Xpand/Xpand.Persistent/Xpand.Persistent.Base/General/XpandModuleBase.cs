@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -45,10 +46,8 @@ namespace Xpand.Persistent.Base.General {
     public class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
         private static string _xpandPathInRegistry;
         private static string _dxPathInRegistry;
-        static List<object> _storeManagers;
         public static string ManifestModuleName;
         static readonly object _lockObject = new object();
-        static IValueManager<ModelApplicationCreator> _instanceModelApplicationCreatorManager;
         public static object Control;
         static Assembly _baseImplAssembly;
         static XPDictionary _dictiorary;
@@ -83,6 +82,7 @@ namespace Xpand.Persistent.Base.General {
         static XpandModuleBase() {
             TypesInfo = XafTypesInfo.Instance;
         }
+
         public static MultiValueDictionary<KeyValuePair<string,ApplicationModulesManager>, object> CallMonitor {
             get {
                 if (_callMonitor == null) {
@@ -95,7 +95,14 @@ namespace Xpand.Persistent.Base.General {
                 if (_callMonitor.Value == null) {
                     lock (_syncRoot) {
                         if (_callMonitor.Value == null) {
-                            _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
+                            try {
+                                _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
+                            }
+#pragma warning disable 168
+                            catch (Exception exception) {
+#pragma warning restore 168
+                                Debugger.Break();
+                            }
                         }
                     }
                 }
@@ -105,8 +112,8 @@ namespace Xpand.Persistent.Base.General {
 
         public static bool IsHosted {
             get {
-                var xafApplication = ApplicationHelper.Instance.Application;
                 if (!_isHosted.HasValue) {
+                    var xafApplication = ApplicationHelper.Instance.Application;
                     _isHosted = GetIsHosted(xafApplication.Model);
                 }
                 return _isHosted.Value;
@@ -224,18 +231,6 @@ namespace Xpand.Persistent.Base.General {
                 if (_baseImplAssembly == null)
                     LoadBaseImplAssembly();
                 return _baseImplAssembly;
-            }
-        }
-
-        public static ModelApplicationCreator ModelApplicationCreator {
-            get {
-                return _instanceModelApplicationCreatorManager != null
-                           ? _instanceModelApplicationCreatorManager.Value
-                           : null;
-            }
-            set {
-                if (_instanceModelApplicationCreatorManager != null)
-                    _instanceModelApplicationCreatorManager.Value = value;
             }
         }
 
@@ -440,8 +435,6 @@ namespace Xpand.Persistent.Base.General {
             TypesInfo.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
-
-
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (RuntimeMode)
@@ -451,12 +444,11 @@ namespace Xpand.Persistent.Base.General {
             helper.Attach(this);
             var generatorHelper = new SequenceGeneratorHelper();
             generatorHelper.Attach(this,helper);
+            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
 
             if (Executed("Setup"))
                 return;
 
-            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
-            
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             
@@ -498,6 +490,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+
             if (Executed("CustomizeTypesInfo"))
                 return;
             
@@ -542,24 +535,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected override void Dispose(bool disposing) {
-            var keyValuePairs = CallMonitor.Keys.Where(pair => pair.Value == ModuleManager).ToList();
-            foreach (var pair in keyValuePairs) {
-                CallMonitor[pair].Clear();
+            if (!RuntimeMode) {
+                var keyValuePairs = CallMonitor.Keys.ToList();
+                foreach (var pair in keyValuePairs) {
+                    CallMonitor[pair].Clear();
+                }
             }
             base.Dispose(disposing);
-            DisposeManagers();
-        }
-
-        public static void ReStoreManagers() {
-            _instanceModelApplicationCreatorManager.Value = (ModelApplicationCreator) _storeManagers[0];
-        }
-
-        public static void DisposeManagers() {
-            _storeManagers = new List<object>();
-            if (_instanceModelApplicationCreatorManager != null) {
-                _storeManagers.Add(_instanceModelApplicationCreatorManager.Value);
-                _instanceModelApplicationCreatorManager.Value = null;
-            }
         }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
@@ -575,15 +557,16 @@ namespace Xpand.Persistent.Base.General {
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             lock (_lockObject) {
                 ModifySequenceObjectWhenMySqlDatalayer(TypesInfo);
-                if (_instanceModelApplicationCreatorManager == null)
-                    _instanceModelApplicationCreatorManager =
-                        ValueManager.GetValueManager<ModelApplicationCreator>("instanceModelApplicationCreatorManager");
-                if (_instanceModelApplicationCreatorManager.Value == null)
-                    _instanceModelApplicationCreatorManager.Value =((ModelApplicationBase) Application.Model).CreatorInstance;
             }
         }
+
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.IsCustom = false;
+        }
+
+        public static void RemoveCall(string name, ApplicationModulesManager applicationModulesManager) {
+            if (CallMonitor != null)
+                CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(name, applicationModulesManager));
         }
     }
 
@@ -630,7 +613,8 @@ namespace Xpand.Persistent.Base.General {
         }
  
     }
-    class ConnectionStringHelper {
+
+    public class ConnectionStringHelper {
         const string ConnectionStringHelperName = "ConnectionStringHelper";
         static string _currentConnectionString;
         XpandModuleBase _xpandModuleBase;
@@ -647,11 +631,10 @@ namespace Xpand.Persistent.Base.General {
             if (!XpandModuleBase.IsHosted)
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
             else
-                XpandModuleBase.CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(ConnectionStringHelperName,_xpandModuleBase.ModuleManager));
+                XpandModuleBase.RemoveCall(ConnectionStringHelperName,_xpandModuleBase.ModuleManager);
         }
 
         void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
-            Application.LoggedOff += ApplicationOnLoggedOff;
             XpandModuleBase.ObjectSpaceCreated = true;
             ((XafApplication)sender).ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
             if (String.CompareOrdinal(_currentConnectionString, Application.ConnectionString) != 0) {
@@ -673,6 +656,7 @@ namespace Xpand.Persistent.Base.General {
             _xpandModuleBase=moduleBase;
             if (RuntimeMode&&!Executed(ConnectionStringHelperName)) {
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+                Application.LoggedOff += ApplicationOnLoggedOff;
                 Application.DatabaseVersionMismatch+=ApplicationOnDatabaseVersionMismatch;
             }
         }

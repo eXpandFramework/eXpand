@@ -137,11 +137,13 @@
     <Compile Include="Controllers\ReloadApplicationModelController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\ApplicationModulesManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Core\ModelApplicationLoader.cs" />
     <Compile Include="Core\ModelLoader.cs" />
     <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="Core\ModelApplicationFromStreamStoreBase.cs" />
-    <Compile Include="Core\ModelApplicationBuilder.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
     <Compile Include="DataStore\BaseObjects\AspectObject.cs" />
     <Compile Include="DataStore\BaseObjects\ModelDifferenceObject.cs" />
