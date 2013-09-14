@@ -58,6 +58,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1, Version=13.1.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -110,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\IModelViewOpenView.cs" />
+    <Compile Include="SystemModule\UnsavedObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>

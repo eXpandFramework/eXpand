@@ -32,7 +32,6 @@ using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
 using Xpand.Utils.Helpers;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {

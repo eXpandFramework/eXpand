@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
@@ -22,10 +23,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
+        public const string XpandWeb = "eXpand.Web";
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            RequiredModuleTypes.Add(typeof(CloneObjectModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
