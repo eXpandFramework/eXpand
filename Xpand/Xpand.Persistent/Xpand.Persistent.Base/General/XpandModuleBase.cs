@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -30,6 +31,8 @@ using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
+using Xpand.Utils.Helpers;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -460,7 +463,15 @@ namespace Xpand.Persistent.Base.General {
             
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-            
+            application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
+        }
+
+        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
+            var xpObjectSpace = objectSpaceCreatedEventArgs.ObjectSpace as XPObjectSpace;
+            if (xpObjectSpace!=null) {
+                var setter = xpObjectSpace.GenerateReferenceTypeMemberSetter<ArrayList>("objectsToSave");
+                setter(xpObjectSpace,new HashedArrayList());
+            }
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }

@@ -13,13 +13,13 @@ using System.Linq;
 
 namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
     public class SchedulerModelAdapterController : SchedulerModelAdapterControllerBase {
-        protected override void OnActivated() {
-            base.OnActivated();
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
             if (SchedulerListEditor != null) {
                 SchedulerListEditor.SchedulerControl.PopupMenuShowing += SchedulerControlOnPopupMenuShowing;
             }
-        }
 
+        }
         public new ASPxSchedulerListEditor SchedulerListEditor {
             get {
                 return base.SchedulerListEditor as ASPxSchedulerListEditor;
@@ -93,10 +93,8 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (SchedulerListEditor != null) {
+            if (SchedulerListEditor != null && SchedulerListEditor.SchedulerControl != null)
                 SchedulerListEditor.SchedulerControl.PopupMenuShowing -= SchedulerControlOnPopupMenuShowing;
-            }
         }
-
     }
 }
