@@ -83,6 +83,7 @@ namespace Xpand.Utils.Helpers {
             }
             return (ReferenceTypeMemberSetterDelegate<object, V>) Delegates[keyValuePair];
         }
+        
     };
 
 }

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
@@ -92,21 +92,17 @@ namespace Xpand.Persistent.Base.General {
                         }
                     }
                 }
-                if (_callMonitor.Value == null) {
-                    lock (_syncRoot) {
-                        if (_callMonitor.Value == null) {
-                            try {
-                                _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
-                            }
-#pragma warning disable 168
-                            catch (Exception exception) {
-#pragma warning restore 168
-                                Debugger.Break();
+                if (_callMonitor.CanManageValue) {
+                    if (_callMonitor.Value == null) {
+                        lock (_syncRoot) {
+                            if (_callMonitor.Value == null) {
+                                _callMonitor.Value =new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
                             }
                         }
                     }
+                    return _callMonitor.Value;
                 }
-                return _callMonitor.Value;
+                return new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
             }
         }
 
