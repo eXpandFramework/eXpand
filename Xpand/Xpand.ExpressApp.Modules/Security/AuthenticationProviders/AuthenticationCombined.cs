@@ -8,9 +8,9 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.ExpressApp.Design;
-using DevExpress.Persistent.Base;
 using System.Security.Principal;
 using DevExpress.Data.Filtering;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
@@ -81,8 +81,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
                             user.UserName = userName;
                             if (Security != null) {
                                 //Security.InitializeNewUser(objectSpace, user);
-                                System.Reflection.MethodInfo mi = typeof(SecurityBase).GetMethod("InitializeNewUser", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
-                                mi.Invoke(Security, new object[] { objectSpace, user });
+                                Security.CallMethod("InitializeNewUser", new object[]{objectSpace, user});
                             }
                         }
                         objectSpace.CommitChanges();
@@ -163,7 +162,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
                     if (!typeof(AuthenticationCombinedLogonParameters).IsAssignableFrom(_logonParametersType)) {
                         throw new ArgumentException("LogonParametersType");
                     }
-                    logonParameters = (AuthenticationCombinedLogonParameters)ReflectionHelper.CreateObject(_logonParametersType, new object[0]);
+                    logonParameters = (AuthenticationCombinedLogonParameters)_logonParametersType.CreateInstance(new object[0]);
                 }
             }
         }

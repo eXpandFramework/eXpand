@@ -17,6 +17,7 @@ using DevExpress.Xpo;
 ﻿using Xpand.Persistent.Base.General;
 ﻿using Xpand.Utils.Helpers;
 ﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
+﻿using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
@@ -87,7 +88,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var user2 = (ISecurityUserWithRoles)objectSpace.CreateObject(SecuritySystem.UserType);
             var typeInfo = objectSpace.TypesInfo.FindTypeInfo(user2.GetType());
             typeInfo.FindMember("UserName").SetValue(user2, userName);
-            typeInfo.Type.GetMethod("SetPassword").Invoke(user2, new object[] { passWord });
+            user2.CallMethod("SetPassword", new object[]{passWord});
             var roleCollection = (XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user2);
             foreach (var role in roles) {
                 roleCollection.BaseAdd(role);

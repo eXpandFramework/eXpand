@@ -9,6 +9,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator {
@@ -98,7 +99,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public void CreateAttributes(IExtendedMemberInfo extendedMemberInfo, XPCustomMemberInfo memberInfo) {
             foreach (AttributeInfoAttribute attributeInfo in extendedMemberInfo.TypeAttributes.Select(typeAttribute => typeAttribute.Create())) {
-                memberInfo.AddAttribute((Attribute)ReflectionHelper.CreateObject(attributeInfo.Constructor.DeclaringType, attributeInfo.InitializedArgumentValues));
+                memberInfo.AddAttribute((Attribute)attributeInfo.Constructor.DeclaringType.CreateInstance(attributeInfo.InitializedArgumentValues));
             }
         }
     }

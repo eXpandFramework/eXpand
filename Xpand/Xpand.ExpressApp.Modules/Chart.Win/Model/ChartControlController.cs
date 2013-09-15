@@ -7,6 +7,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraCharts;
 using System.Linq;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Chart.Win.Model {
     public class ChartControlController : ViewController<ListView> {
@@ -47,12 +48,9 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
                 foreach (var propertyInfo in typeof(IModelChartHitInfo).GetProperties()) {
                     var value = propertyInfo.GetValue(modelChartHitInfo, null);
                     if (value != null) {
-                        var property = chartHitInfo.GetType().GetProperty(propertyInfo.Name);
-                        if (property != null) {
-                            var hitInfoValue = (bool)property.GetValue(chartHitInfo, null);
-                            if (hitInfoValue) {
-                                hotTrackEventArgs.Cancel = !(bool)value;
-                            }
+                        var hitInfoValue = (bool)chartHitInfo.GetPropertyValue(propertyInfo.Name);
+                        if (hitInfoValue) {
+                            hotTrackEventArgs.Cancel = !(bool) value;
                         }
                     }
                 }

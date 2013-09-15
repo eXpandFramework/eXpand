@@ -9,12 +9,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.ExceptionHandling;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.ExceptionHandling {
     public static class ExceptionObjectBuilder {
         public static IExceptionObject Create(Session session, Exception exception, XafApplication application) {
             var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<IExceptionObject>();
-            var exceptionObject = (IExceptionObject)ReflectionHelper.CreateObject(findBussinessObjectType, new[] { session });
+            var exceptionObject = (IExceptionObject)findBussinessObjectType.CreateInstance(new[] { session });
             if (application != null)
                 exceptionObject.Application = application.ApplicationName;
             exceptionObject.ComputerName = Environment.MachineName;

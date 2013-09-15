@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.PersistentTypesHelpers;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class SerializeClassInfoGraphNodesCalculator {
@@ -25,7 +26,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 configuration = (ISerializationConfiguration)findObject;
             else {
                 configuration =
-                    (ISerializationConfiguration)ReflectionHelper.CreateObject(serializationConfigurationType, session);
+                    (ISerializationConfiguration)serializationConfigurationType.CreateInstance(session);
                 configuration.SerializationConfigurationGroup = _serializationConfigurationGroup;
                 configuration.TypeToSerialize = type;
                 new ClassInfoGraphNodeBuilder().Generate(configuration);

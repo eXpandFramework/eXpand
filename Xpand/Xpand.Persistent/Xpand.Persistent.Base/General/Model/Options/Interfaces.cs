@@ -1,9 +1,9 @@
-﻿using System;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General.Model.Options {
     [ModelAbstractClass]
@@ -21,7 +21,7 @@ namespace Xpand.Persistent.Base.General.Model.Options {
             var typesInfo = node.Application.GetTypesInfo();
             var typeToTypeInfo = typesInfo.FindTypeInfo(typeof(GridListEditorVisibilityCalculatorHelper));
             var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).Single();
-            var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)Activator.CreateInstance(typeInfo.Type);
+            var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
             return calculatorHelper.IsVisible(node, propertyName);
         }
 

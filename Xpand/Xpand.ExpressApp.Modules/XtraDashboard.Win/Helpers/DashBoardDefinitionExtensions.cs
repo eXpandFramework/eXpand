@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using DevExpress.DashboardCommon.Native;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
     public static class DashBoardDefinitionExtensions {
@@ -69,10 +69,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
         public static T GetPrivatePropertyValue<T>(this object obj, string propName) {
             if (obj == null)
                 throw new ArgumentNullException("obj");
-            PropertyInfo pi = obj.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            if (pi == null)
-                throw new ArgumentOutOfRangeException("propName", string.Format("Property {0} was not found in Type {1}", propName, obj.GetType().FullName));
-            return (T)pi.GetValue(obj, null);
+            return (T) obj.GetPropertyValue(propName);
         }
 
     }

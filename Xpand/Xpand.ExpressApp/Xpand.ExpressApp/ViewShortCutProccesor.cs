@@ -13,6 +13,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
 using Xpand.Utils.Linq;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 
 namespace Xpand.ExpressApp {
@@ -92,7 +93,7 @@ namespace Xpand.ExpressApp {
                     }
                 }
             } else {
-                obj = (type.GetConstructor(new[] { typeof(Session) }) != null) ? objectSpace.CreateObject(type) : Activator.CreateInstance(type);
+                obj = (type.GetConstructor(new[] { typeof(Session) }) != null) ? objectSpace.CreateObject(type) : type.CreateInstance();
             }
             return obj;
         }

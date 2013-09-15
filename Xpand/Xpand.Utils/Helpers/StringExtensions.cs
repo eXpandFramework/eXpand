@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using Fasterflect;
 
 namespace Xpand.Utils.Helpers {
     /// <summary>
@@ -24,7 +25,7 @@ namespace Xpand.Utils.Helpers {
         }
         public static String RemoveDiacritics(this String s) {
             String normalizedString = s.Normalize(NormalizationForm.FormD);
-            var stringBuilder = new System.Text.StringBuilder();
+            var stringBuilder = new StringBuilder();
 
             foreach (char c in normalizedString) {
                 if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
@@ -66,7 +67,7 @@ namespace Xpand.Utils.Helpers {
 
 
         public static string Inject(this string injectToString, int positionToInject, string stringToInject) {
-            var builder = new System.Text.StringBuilder();
+            var builder = new StringBuilder();
             builder.Append(injectToString.Substring(0, positionToInject));
             builder.Append(stringToInject);
             builder.Append(injectToString.Substring(positionToInject));
@@ -96,7 +97,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static object GetDefaultValue(this Type type) {
-            return type.IsValueType ? Activator.CreateInstance(type) : null;
+            return type.IsValueType ? type.CreateInstance() : null;
         }
 
         public static bool IsGeneric(this Type type) {

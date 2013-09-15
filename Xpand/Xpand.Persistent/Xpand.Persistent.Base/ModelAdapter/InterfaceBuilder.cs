@@ -19,6 +19,7 @@ using DevExpress.Utils.Controls;
 using DevExpress.Utils.Serializing;
 using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public class InterfaceBuilderData {
@@ -441,7 +442,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         bool AttributeMatch(Type extenderType, Attribute attribute) {
             Type type = attribute.GetType();
             if (type.Name == typeof(ClassNameAttribute).Name) {
-                var value = type.GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public).GetValue(attribute, null) + "";
+                var value = attribute.GetPropertyValue("TypeName") + "";
                 value = value.Substring(1 + value.LastIndexOf(".", StringComparison.Ordinal));
                 return extenderType.Name == value;
             }

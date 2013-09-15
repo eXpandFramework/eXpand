@@ -5,9 +5,10 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Registration {
-
+//    [SecurityCritical]
     public class ManageUsersOnLogonController : ViewController<DetailView> {
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";
         public const string EmailPattern = @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
@@ -55,6 +56,8 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
         
         private void CreateParametersView(object sender, SimpleActionExecuteEventArgs e) {
+
+            Application.CallMethod("EnsureShowViewStrategy",Flags.InstancePrivate);
             CreateParametersViewCore(e);
         }
         
@@ -62,7 +65,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             var parametersType = e.Action.Tag as Type;
             Guard.ArgumentNotNull(parametersType, "parametersType");
             if (parametersType != null) {
-                DetailView dv = Application.CreateDetailView(ObjectSpaceInMemory.CreateNew(), Activator.CreateInstance(parametersType));
+                DetailView dv = Application.CreateDetailView(ObjectSpaceInMemory.CreateNew(), parametersType.CreateInstance());
                 dv.ViewEditMode = ViewEditMode.Edit;
                 e.ShowViewParameters.CreatedView = dv;
             }

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     [SecuritySafeCritical]
@@ -11,7 +12,7 @@ namespace Xpand.Persistent.Base.General {
         public static ILayoutManager LayoutManager {
             get {
                 var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).FirstOrDefault();
-                return typeInfo != null ? (ILayoutManager) ReflectionHelper.CreateObject(typeInfo.Type) : null;
+                return typeInfo != null ? (ILayoutManager) typeInfo.Type.CreateInstance() : null;
             }
         }
 

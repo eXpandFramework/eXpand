@@ -19,6 +19,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.IO.Core {
 
@@ -150,7 +151,7 @@ namespace Xpand.ExpressApp.IO.Core {
             }
             if (_errorHandling == ErrorHandling.CreateErrorObjects) {
                 var errorInfoObject =
-                    (IIOError)Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<IIOError>(), new object[] { _unitOfWork });
+                    (IIOError)XafTypesInfo.Instance.FindBussinessObjectType<IIOError>().CreateInstance(new object[] { _unitOfWork });
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;
@@ -212,7 +213,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 var xpBaseObject = _unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, _unitOfWork.GetClassInfo(typeInfo.Type),
                                                          criteriaOperator, true) as XPBaseObject ??
                                    _unitOfWork.FindObject(_unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
-                return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type, _unitOfWork);
+                return xpBaseObject ?? (XPBaseObject)typeInfo.Type.CreateInstance(_unitOfWork);
             }
             return null;
         }

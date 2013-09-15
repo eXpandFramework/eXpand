@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Xpand.Utils.BackingFieldResolver;
+using Fasterflect;
 
 namespace Xpand.Utils.ExpressionBuilder {
     public abstract class Builder<T> : IBuilder<T> {
@@ -20,7 +21,7 @@ namespace Xpand.Utils.ExpressionBuilder {
                 throw new InvalidOperationException(
                     "No parameterless constructor.");
 
-            var instance = (T) Activator.CreateInstance(typeToBuild, true);
+            var instance = (T)typeToBuild.CreateInstance(true);
             foreach (var entry in PropertiesAndValues) {
                 PropertyInfo property = entry.Key;
                 if (IsCollection(property))

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -8,6 +7,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using System.Linq;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
@@ -80,10 +80,7 @@ namespace Xpand.ExpressApp.Security.Core {
                 if (value == null || ReferenceEquals(value, ""))
                     return null;
                 var securityOperations = (SecurityOperationsEnum)value;
-                var fieldInfo = typeof(SecurityOperations).GetField(securityOperations.ToString(), BindingFlags.Public | BindingFlags.Static);
-                if (fieldInfo != null)
-                    return fieldInfo.GetValue(null).ToString();
-                throw new NotImplementedException(value.ToString());
+                return typeof (SecurityOperations).GetFieldValue(securityOperations.ToString()).ToString();
             }
             return null;
         }

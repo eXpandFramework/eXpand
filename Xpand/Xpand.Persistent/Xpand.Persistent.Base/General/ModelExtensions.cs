@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model.Core;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Linq;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class CustomModelSynchronizerHelper {
@@ -108,8 +109,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static List<ModelNodeWrapper> GetLayers(this ModelApplicationBase modelApplicationBase) {
-            var propertyInfo = typeof(ModelNode).GetProperty("Layers", BindingFlags.Instance | BindingFlags.NonPublic);
-            return ((List<ModelNode>)propertyInfo.GetValue(modelApplicationBase, null)).Select(node => new ModelNodeWrapper(node)).ToList();
+            return ((List<ModelNode>)modelApplicationBase.GetPropertyValue("Layers")).Select(node => new ModelNodeWrapper(node)).ToList();
         }
 
         public static void ReInitLayers(this ModelApplicationBase modelApplicationBase) {

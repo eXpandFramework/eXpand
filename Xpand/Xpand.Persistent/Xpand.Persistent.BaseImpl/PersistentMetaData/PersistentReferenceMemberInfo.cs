@@ -67,7 +67,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
                 if (classInfo != null)
                     _referenceClassInfo = (PersistentClassInfo)classInfo;
                 else
-                    _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".") + 1));
+                    _referenceType = ReflectionHelper.GetType(value.Substring(value.LastIndexOf(".", StringComparison.Ordinal) + 1));
             }
         }
         public PersistentClassInfo ReferenceClassInfo
@@ -95,7 +95,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         RelationType IPersistentAssociatedMemberInfo.RelationType {
             get { return _autoGenerateOtherPartMember ? RelationType.OneToMany : RelationType.Undefined; }
-            set { _autoGenerateOtherPartMember = value == RelationType.OneToMany ? true : false; }
+            set { _autoGenerateOtherPartMember = value == RelationType.OneToMany; }
         }
         #endregion
     }

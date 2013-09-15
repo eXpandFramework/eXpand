@@ -7,6 +7,7 @@ using Microsoft.SqlServer.Management.Smo;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class DbMapper {
@@ -33,7 +34,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
                     columnMapper.Create(column, persistentClassInfo);
                 }
             }
-            _dataStoreLogonObject = (IDataStoreLogonObject)ReflectionHelper.CreateObject(XafTypesInfo.Instance.FindBussinessObjectType<IDataStoreLogonObject>(), new object[] { _persistentAssemblyInfo.Session, _dataStoreLogonObject });
+            _dataStoreLogonObject = (IDataStoreLogonObject)XafTypesInfo.Instance.FindBussinessObjectType<IDataStoreLogonObject>().CreateInstance(new object[] { _persistentAssemblyInfo.Session, _dataStoreLogonObject });
             attributeMapper.Create(_persistentAssemblyInfo, _dataStoreLogonObject);
             Func<ITemplateInfo, bool> templateInfoPredicate = info => info.Name == ExtraInfoBuilder.SupportPersistentObjectsAsAPartOfACompositeKey;
             CodeEngine.SupportCompositeKeyPersistentObjects(_persistentAssemblyInfo, templateInfoPredicate);

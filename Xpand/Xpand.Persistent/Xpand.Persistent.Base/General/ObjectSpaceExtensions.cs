@@ -11,6 +11,7 @@ using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
 using Xpand.Xpo.DB;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
@@ -108,11 +109,8 @@ namespace Xpand.Persistent.Base.General {
         static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, XPObjectSpace objectSpace) {
             Expression transform = new ExpressionConverter().Convert(objectType, expression);
             var genericType = typeof(XPQuery<>).MakeGenericType(new[] { objectType });
-            var xpquery = Activator.CreateInstance(genericType, new object[] { objectSpace.Session });
-            var innderType = typeof(Func<,>).MakeGenericType(new[] { objectType, typeof(bool) });
-            var type = typeof(Expression<>).MakeGenericType(new[] { innderType });
-            var methodInfo = genericType.GetMethod("TransformExpression", new[] { type });
-            return (CriteriaOperator)methodInfo.Invoke(xpquery, new object[] { transform });
+            var xpquery = genericType.CreateInstance(new object[] { objectSpace.Session });
+            return (CriteriaOperator) xpquery.CallMethod("TransformExpression", new object[]{transform});
         }
 
         public static T CreateObjectFromInterface<T>(this IObjectSpace objectSpace) {

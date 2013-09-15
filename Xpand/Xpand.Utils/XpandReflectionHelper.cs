@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Fasterflect;
 
 namespace Xpand.Utils {
     public class XpandReflectionHelper {
@@ -53,7 +54,7 @@ namespace Xpand.Utils {
             var type = Type.GetType(t);
             if (type != null) {
                 Type generic = type.MakeGenericType(types);
-                return Activator.CreateInstance(generic);
+                return generic.CreateInstance();
             }
             return null;
         }

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Web.Razor;
 using Microsoft.CSharp;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.EmailTemplateEngine {
     public class EmailTemplateEngine : IEmailTemplateEngine {
@@ -182,7 +183,7 @@ namespace Xpand.EmailTemplateEngine {
         }
 
         private IEnumerable<KeyValuePair<string, IEmailTemplate>> CreateTemplateInstances(string templateName) {
-            return GetTemplateTypes(templateName).Select(pair => new KeyValuePair<string, IEmailTemplate>(pair.Key, (IEmailTemplate)Activator.CreateInstance(pair.Value)))
+            return GetTemplateTypes(templateName).Select(pair => new KeyValuePair<string, IEmailTemplate>(pair.Key, (IEmailTemplate)pair.Value.CreateInstance()))
                                                  .ToList();
         }
 

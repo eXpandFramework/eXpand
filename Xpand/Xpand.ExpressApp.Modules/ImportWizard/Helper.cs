@@ -5,10 +5,10 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Properties;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.ImportWizard {
     public static class Helper {
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.ImportWizard {
                 return item;
 
             //var nestedUow = uow.BeginNestedUnitOfWork();
-            item = (XPBaseObject)ReflectionHelper.CreateObject(type, uow);
+            item = (XPBaseObject)type.CreateInstance(uow);
             var firstOrDefault = item.ClassInfo
                                     .PersistentProperties
                                     .OfType<XPMemberInfo>()

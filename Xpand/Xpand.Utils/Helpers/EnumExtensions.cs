@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Fasterflect;
 
 namespace Xpand.Utils.Helpers {
     public static class EnumExtensions {
@@ -95,19 +96,19 @@ namespace Xpand.Utils.Helpers {
                 throw new ArgumentException(null, "type");
 
             if (input == null) {
-                value = Activator.CreateInstance(type);
+                value = type.CreateInstance();
                 return false;
             }
 
             input = input.Trim();
             if (input.Length == 0) {
-                value = Activator.CreateInstance(type);
+                value = type.CreateInstance();
                 return false;
             }
 
             string[] names = Enum.GetNames(type);
             if (names.Length == 0) {
-                value = Activator.CreateInstance(type);
+                value = type.CreateInstance();
                 return false;
             }
 
@@ -120,7 +121,7 @@ namespace Xpand.Utils.Helpers {
             // multi value enum
             string[] tokens = input.Split(_enumSeperators, StringSplitOptions.RemoveEmptyEntries);
             if (tokens.Length == 0) {
-                value = Activator.CreateInstance(type);
+                value = type.CreateInstance();
                 return false;
             }
 
@@ -132,7 +133,7 @@ namespace Xpand.Utils.Helpers {
 
                 object tokenValue;
                 if (!EnumToObject(type, underlyingType, names, values, token, out tokenValue)) {
-                    value = Activator.CreateInstance(type);
+                    value = type.CreateInstance();
                     return false;
                 }
 
@@ -225,14 +226,14 @@ namespace Xpand.Utils.Helpers {
             if ((char.IsDigit(input[0]) || (input[0] == '-')) || (input[0] == '+')) {
                 object obj = EnumToObject(underlyingType, input);
                 if (obj == null) {
-                    value = Activator.CreateInstance(type);
+                    value = type.CreateInstance();
                     return false;
                 }
                 value = obj;
                 return true;
             }
 
-            value = Activator.CreateInstance(type);
+            value = type.CreateInstance();
             return false;
         }
     }

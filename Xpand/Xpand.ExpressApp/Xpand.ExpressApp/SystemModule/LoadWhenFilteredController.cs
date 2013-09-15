@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassLoadWhenFiltered : IModelNode {
@@ -46,7 +47,7 @@ namespace Xpand.ExpressApp.SystemModule {
         protected BinaryOperator GetDoNotLoadWhenFilterExistsCriteria() {
             IMemberInfo memberInfo = View.ObjectTypeInfo.KeyMember;
             Type memberType = memberInfo.MemberType;
-            object o = memberType.IsValueType ? Activator.CreateInstance(memberType) : null;
+            object o = memberType.IsValueType ? memberType.CreateInstance() : null;
             return new BinaryOperator(memberInfo.Name, o);
         }
 

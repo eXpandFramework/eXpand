@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
 using DevExpress.Web.ASPxGridView;
 using DevExpress.Web.ASPxSplitter;
-using System.Reflection;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using System.Collections.Generic;
@@ -19,9 +18,9 @@ using DevExpress.Web.ASPxClasses.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Web.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
@@ -120,7 +119,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 throw new ArgumentException(
                     string.Format(CultureInfo.InvariantCulture, "No IListControlAdapter found for controlType {0}", control.GetType()));
 
-            var adapter = (IListControlAdapter)Activator.CreateInstance(t);
+            var adapter = (IListControlAdapter)t.CreateInstance();
             adapter.Control = control;
             return adapter;
         }
@@ -274,12 +273,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         internal void UpdateItemsVisibility() {
             var baseType = GetType().BaseType;
             if (baseType != null) {
-                MethodInfo method = baseType.GetMethod("UpdateItemsVisibility", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (method != null)
-                    method.Invoke(this, null);
-                else
-                    throw new InvalidOperationException(
-                        string.Format(CultureInfo.InvariantCulture, "Method 'UpdateItemsVisibility' not found in '{0}'", baseType));
+                this.CallMethod("UpdateItemsVisibility");
             }
         }
     }

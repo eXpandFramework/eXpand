@@ -17,6 +17,7 @@ using Xpand.ExpressApp.PivotGrid.Win.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using ListView = DevExpress.ExpressApp.ListView;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     public abstract class PivotGridControllerBase : ViewController<ListView> {
@@ -74,7 +75,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         protected override void AttachToControlEvents() {
             var pivotGridControl = PivotGridListEditor.PivotGridControl;
             foreach (var toolTipRule in _ruleCollector.ToolTipRules()) {
-                var objectToolTipController = (IObjectToolTipController)Activator.CreateInstance(toolTipRule.ToolTipController, new object[] { pivotGridControl });
+                var objectToolTipController = (IObjectToolTipController)toolTipRule.ToolTipController.CreateInstance(new object[] { pivotGridControl });
                 _toolTipControllers.Add(toolTipRule.GetValue<string>("Id"), objectToolTipController);
             }
             pivotGridControl.CustomSummary += PivotGridControlOnCustomSummary;
@@ -367,7 +368,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         public IEnumerable<IPivotGroupIntervalEvent> GroupIntervalRules(PivotGridField field, Frame frame) {
-            var modelPivotGroupIntervalRules = FieldRules<IModelPivotGroupIntervalRule>(field).Where(rule => rule.GroupIntervalType != null).OfType<IModelPivotFieldRule>();
+            var modelPivotGroupIntervalRules = FieldRules<IModelPivotGroupIntervalRule>(field).Where(rule => rule.GroupIntervalType != null);
             return PivotEvents<IPivotGroupIntervalEvent, IModelPivotGroupIntervalRule>(frame, modelPivotGroupIntervalRules, rule => rule.GroupIntervalType);
         }
 
@@ -378,7 +379,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         public T CreateInstance<T>(Frame frame, Type type) where T : IPivotEvent {
-            return typeof(Controller).IsAssignableFrom(type) ? frame.Controllers.Values.OfType<T>().First() : (T)Activator.CreateInstance(type);
+            return typeof(Controller).IsAssignableFrom(type) ? frame.Controllers.Values.OfType<T>().First() : (T)type.CreateInstance();
         }
 
         IEnumerable<T> FieldRules<T>(PivotGridField field) where T : IModelPivotFieldRule {
@@ -386,7 +387,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         public IEnumerable<IPivotFieldSortEvent> FieldSortRules(PivotGridField field, Frame frame) {
-            var modelPivotFieldSortRules = FieldRules<IModelPivotFieldSortRule>(field).Where(rule => rule.CustomSortType != null).OfType<IModelPivotFieldRule>();
+            var modelPivotFieldSortRules = FieldRules<IModelPivotFieldSortRule>(field).Where(rule => rule.CustomSortType != null);
             return PivotEvents<IPivotFieldSortEvent, IModelPivotFieldSortRule>(frame, modelPivotFieldSortRules, rule => rule.CustomSortType);
         }
         public IEnumerable<IModelPivotFieldToolTipRule> ToolTipRules() {

@@ -21,6 +21,7 @@ using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraPivotGrid;
 using System.Linq;
 using Xpand.ExpressApp.PivotGrid.Win.Model;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
     public class CurrentMonthFieldSort : IPivotFieldSortEvent {
@@ -197,7 +198,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
             var modelGauge = Model.NetIncome.Gauge;
             if (modelGauge.GaugeProviderType != null) {
                 var layoutControl = (LayoutControl)PivotGridListEditor.Control;
-                _pivotGaugeTemplate = (IPivotGaugeTemplate)Activator.CreateInstance(modelGauge.GaugeProviderType, Model.NetIncome);
+                _pivotGaugeTemplate = (IPivotGaugeTemplate)modelGauge.GaugeProviderType.CreateInstance(Model.NetIncome);
                 var gaugeControl = _pivotGaugeTemplate.GaugeControl;
                 var gaugeControlLayoutItem = PivotLayoutControlItem.Parent.Items.FindByName("GaugeControlLayout");
                 if (gaugeControlLayoutItem == null && modelGauge.Enabled) {

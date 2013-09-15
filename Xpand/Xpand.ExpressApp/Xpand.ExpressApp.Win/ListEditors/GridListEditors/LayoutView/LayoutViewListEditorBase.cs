@@ -40,6 +40,7 @@ using DevExpress.XtraGrid.Views.Layout.Customization;
 using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.XtraLayout;
 using DevExpress.XtraPrinting;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     public class XafLayoutView : DevExpress.XtraGrid.Views.Layout.LayoutView {
@@ -1682,13 +1683,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         protected LayoutViewCustomizationForm CustomizationForm {
             get {
-                return customizationFormCore ??
-                       (customizationFormCore =
-                        typeof(DevExpress.XtraGrid.Views.Layout.LayoutView).GetProperty("CustomizationForm",
-                                                       System.Reflection.BindingFlags.Instance |
-                                                       System.Reflection.BindingFlags.NonPublic).GetValue(layoutView,
-                                                                                                          null) as
-                        LayoutViewCustomizationForm);
+                return customizationFormCore ?? (customizationFormCore =layoutView.GetPropertyValue("CustomizationForm") as LayoutViewCustomizationForm);
             }
         }
         protected override Control ActiveListBox {

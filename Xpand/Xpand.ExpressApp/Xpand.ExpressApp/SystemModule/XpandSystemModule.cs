@@ -26,6 +26,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
 
@@ -117,7 +118,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)ReflectionHelper.CreateObject(typeInfo.Type)).SelectMany(registrator => registrator.GetAttributes(type));
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)typeInfo.Type.CreateInstance()).SelectMany(registrator => registrator.GetAttributes(type));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

@@ -5,6 +5,8 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
+using Fasterflect;
+
 namespace Xpand.ExpressApp.WizardUI.Win {
     using System;
     using System.Collections.Generic;
@@ -180,8 +182,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         }
 
         private void FocusDefaultItem() {
-            var focusController = Frame.GetController<FocusDefaultDetailViewItemController>();
-            focusController.GetType().GetMethod("FocusDefaultItemControl", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(focusController, null);
+            Frame.GetController<FocusDefaultDetailViewItemController>().CallMethod("FocusDefaultItemControl");
         }
 
         /// <summary>

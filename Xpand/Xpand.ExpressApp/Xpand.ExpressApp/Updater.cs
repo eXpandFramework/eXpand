@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Fasterflect;
 
 namespace Xpand.ExpressApp {
     public class Updater : ModuleUpdater {
@@ -40,11 +40,10 @@ namespace Xpand.ExpressApp {
 
                     Type baseType = typeof(SimpleDataLayer).BaseType;
                     if (baseType != null) {
-                        var method = baseType.GetMethod("ClearStaticData", BindingFlags.Instance | BindingFlags.NonPublic);
                         var datalayer = ((XPObjectSpace)ObjectSpace).Session.DataLayer;
-                        method.Invoke(datalayer, null);
+                        datalayer.CallMethod("ClearStaticData");
                         var session = ((XPObjectSpace)ObjectSpace).Session;
-                        method.Invoke(session.DataLayer, null);
+                        session.DataLayer.CallMethod("ClearStaticData");
                         session.DropIdentityMap();
                     }
                 } catch (Exception) {

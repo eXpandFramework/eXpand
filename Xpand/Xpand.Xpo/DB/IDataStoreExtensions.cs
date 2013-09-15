@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Reflection;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Metadata;
+using Fasterflect;
 
 namespace Xpand.Xpo.DB {
     public static class IDataStoreExtensions {
@@ -44,9 +44,7 @@ namespace Xpand.Xpo.DB {
 
         static void CallSchemaUpdateMethod(ConnectionProviderSql connectionProviderSql, Action<ConnectionProviderSql> action, bool throwUnableToCreateDBObjectException ) {
             var autoCreateOption = connectionProviderSql.AutoCreateOption;
-            var fieldInfo = typeof (DataStoreBase).GetField("_AutoCreateOption", BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fieldInfo == null) throw new NullReferenceException("fieldInfo");
-            fieldInfo.SetValue(connectionProviderSql, AutoCreateOption.SchemaOnly);
+            connectionProviderSql.SetFieldValue("_AutoCreateOption", AutoCreateOption.SchemaOnly);
             try {
                 action.Invoke(connectionProviderSql);
             }
@@ -55,7 +53,7 @@ namespace Xpand.Xpo.DB {
                     throw;
             }
             finally {
-                fieldInfo.SetValue(connectionProviderSql, autoCreateOption);
+                connectionProviderSql.SetFieldValue("_AutoCreateOption", autoCreateOption);
             }
         }
 

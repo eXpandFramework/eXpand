@@ -5,6 +5,7 @@ using Common.Logging;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.Quartz.Server {
     /// <summary>
@@ -23,7 +24,7 @@ namespace Xpand.Quartz.Server {
             Type t = Type.GetType(typeName, true);
 
             logger.Debug("Creating new instance of server type '" + typeName + "'");
-            var retValue = (IQuartzServer)Activator.CreateInstance(t);
+            var retValue = (IQuartzServer)t.CreateInstance();
             logger.Debug("Instance successfully created");
             return retValue;
         }

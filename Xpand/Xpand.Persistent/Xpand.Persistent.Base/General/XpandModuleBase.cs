@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -7,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
-using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
@@ -32,7 +30,7 @@ using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
-using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -456,8 +454,8 @@ namespace Xpand.Persistent.Base.General {
         void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
             var xpObjectSpace = objectSpaceCreatedEventArgs.ObjectSpace as XPObjectSpace;
             if (xpObjectSpace!=null) {
-                var setter = xpObjectSpace.GenerateReferenceTypeMemberSetter<ArrayList>("objectsToSave");
-                setter(xpObjectSpace,new HashedArrayList());
+                xpObjectSpace.SetFieldValue("objectsToSave", new HashedArrayList());
+                
             }
         }
 
@@ -600,10 +598,7 @@ namespace Xpand.Persistent.Base.General {
                 return provider.DataStoreProvider.ConnectionString;
             }
             if (moduleBase.Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
-                var fieldInfo = typeof(XPObjectSpaceProvider).GetField("dataStoreProvider", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (fieldInfo == null) throw new NullReferenceException("dataStoreProvider fieldInfo");
-                var xpoDataStoreProvider = ((IXpoDataStoreProvider)fieldInfo.GetValue(moduleBase.Application.ObjectSpaceProvider));
-                return xpoDataStoreProvider.ConnectionString;
+                return ((IXpoDataStoreProvider)typeof(XPObjectSpaceProvider).GetFieldValue("dataStoreProvider")).ConnectionString;
             }
             return moduleBase.Application.ConnectionString;
         }

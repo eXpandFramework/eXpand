@@ -3,6 +3,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Xpo.MetaData;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.Xpo.MetaData {
     public class XpandCollectionMemberInfo : XpandCustomMemberInfo {
@@ -20,7 +21,7 @@ namespace Xpand.Persistent.Base.Xpo.MetaData {
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
             return base.GetStore(theObject).GetCustomPropertyValue(this) == null
-                       ? Activator.CreateInstance(MemberType, GetArguments(xpBaseObject))
+                       ? MemberType.CreateInstance(GetArguments(xpBaseObject))
                        : base.GetValue(theObject);
         }
 

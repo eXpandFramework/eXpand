@@ -16,6 +16,7 @@ using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 using Xpand.Xpo.MetaData;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class InitDataImporter {
@@ -582,7 +583,7 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         public IImportValueConverter ValueConverter {
-            get { return (IImportValueConverter) Activator.CreateInstance(ValueConverterType); }
+            get { return (IImportValueConverter)ValueConverterType.CreateInstance(); }
         }
     }
 

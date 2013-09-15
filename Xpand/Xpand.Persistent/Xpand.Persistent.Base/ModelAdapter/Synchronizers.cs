@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
@@ -84,7 +85,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var defaultValueAttribute = propertyDescriptor.Attributes.OfType<DefaultValueAttribute>().FirstOrDefault();
             if (defaultValueAttribute == null) {
                 if (propertyDescriptor.PropertyType.IsStruct())
-                    return Activator.CreateInstance(propertyDescriptor.PropertyType);
+                    return propertyDescriptor.PropertyType.CreateInstance();
             } else if (defaultValueAttribute.Value.Equals(propertyDescriptor.GetValue(component))) {
                 return null;
             }
@@ -95,9 +96,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var nodeValue = GetNodeValueCore(node, valueInfo);
             if (nodeValue == null && !valueInfo.IsReadOnly && valueInfo.PropertyType != typeof(string)) {
                 if (valueInfo.PropertyType.IsStruct())
-                    return Activator.CreateInstance(valueInfo.PropertyType);
+                    return valueInfo.PropertyType.CreateInstance();
                 if (valueInfo.PropertyType.IsNullableType())
-                    return Activator.CreateInstance(valueInfo.PropertyType.GetGenericArguments()[0]);
+                    return valueInfo.PropertyType.GetGenericArguments()[0].CreateInstance();
                 throw new NotImplementedException(valueInfo.PropertyType.ToString());
             }
             return nodeValue;
@@ -107,7 +108,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (valueInfo.IsReadOnly)
                 return null;
             var nodeValue = node.GetValue(valueInfo.Name);
-            return valueInfo.PropertyType.IsStruct() && nodeValue.Equals(Activator.CreateInstance(valueInfo.PropertyType))
+            return valueInfo.PropertyType.IsStruct() && nodeValue.Equals(valueInfo.PropertyType.CreateInstance())
                        ? null
                        : nodeValue;
         }
@@ -130,7 +131,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return true;
             if (value is string)
                 return ReferenceEquals(value, "");
-            return propertyType.IsValueType && Activator.CreateInstance(propertyType).Equals(value);
+            return propertyType.IsValueType && propertyType.CreateInstance().Equals(value);
         }
     }
     public abstract class ModelListSynchronizer : ModelSynchronizer {

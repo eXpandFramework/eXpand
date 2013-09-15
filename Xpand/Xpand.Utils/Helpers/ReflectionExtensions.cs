@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Xpand.Utils.BackingFieldResolver;
+using Fasterflect;
 
 namespace Xpand.Utils.Helpers {
     public static class ReflectionExtensions {
@@ -14,9 +15,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static object Invoke(this Type type, object target, string methodName) {
-            MethodInfo methodInfo = type.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance, null, Type.EmptyTypes, new ParameterModifier[0]);
-            if (methodInfo == null) throw new NullReferenceException("methodInfo");
-            return methodInfo.Invoke(target, new object[0]);
+            return target.CallMethod(methodName);
         }
 
         public static IEnumerable<Type> GetTypes(this AppDomain appdomain, string typeToFind) {
@@ -164,7 +163,7 @@ namespace Xpand.Utils.Helpers {
 
         public static object CreateGeneric(this Type generic, Type innerType, params object[] args) {
             Type specificType = generic.MakeGenericType(new[] { innerType });
-            return Activator.CreateInstance(specificType, args);
+            return specificType.CreateInstance(args);
         }
 
         public static bool IsNullableType(this Type theType) {

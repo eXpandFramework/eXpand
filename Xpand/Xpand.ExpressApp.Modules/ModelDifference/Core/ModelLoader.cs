@@ -18,6 +18,7 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.ModelDifference.Core {
     public class ApplicationBuilder {
@@ -321,7 +322,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
             masterModel.AddLayerBeforeLast(layer);
-            var storeBase = (ModelApplicationFromStreamStoreBase)ReflectionHelper.CreateObject(modelApplicationFromStreamStoreBaseType);
+            var storeBase = (ModelApplicationFromStreamStoreBase)modelApplicationFromStreamStoreBaseType.CreateInstance(modelApplicationFromStreamStoreBaseType);
             storeBase.Load(layer);
             return layer;
         }

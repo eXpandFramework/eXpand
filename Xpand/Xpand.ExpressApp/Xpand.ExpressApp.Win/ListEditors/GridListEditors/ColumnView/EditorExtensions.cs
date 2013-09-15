@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Reflection;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Columns;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
     public static class EditorExtensions {
@@ -26,8 +26,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         public static GridColumn Column(this ColumnWrapper columnWrapper) {
-            PropertyInfo propertyInfo = columnWrapper.GetType().GetProperty("Column");
-            return propertyInfo.GetValue(columnWrapper, null) as GridColumn;
+            return columnWrapper.GetPropertyValue("Column") as GridColumn;
         }
 
         public static RepositoryEditorsFactory RepositoryFactory(this ColumnsListEditor columnsListEditor) {

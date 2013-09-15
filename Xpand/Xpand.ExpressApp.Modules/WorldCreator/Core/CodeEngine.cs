@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class CodeEngine {
@@ -162,7 +162,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator) {
             AttributeInfoAttribute attributeInfoAttribute = persistentAttributeCreator.Create();
-            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfoAttribute.Constructor.DeclaringType, attributeInfoAttribute.InitializedArgumentValues);
+            var attribute = (Attribute)attributeInfoAttribute.Constructor.DeclaringType.CreateInstance(attributeInfoAttribute.InitializedArgumentValues);
             Func<object, object> argSelector = GetArgumentCode;
             string args = attributeInfoAttribute.InitializedArgumentValues.Length > 0
                               ? attributeInfoAttribute.InitializedArgumentValues.Select(argSelector).Aggregate
@@ -257,7 +257,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             string ret = null;
             foreach (var referenceMemberInfo in referenceMemberInfos) {
                 string refPropertyName = CleanName(key.Name) + "." + CleanName(referenceMemberInfo.Name);
-                var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.SingleOrDefault(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Count() > 0);
+                var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.SingleOrDefault(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Any());
                 if (persistentMemberInfo != null) {
                     var refKeyName = CleanName(persistentMemberInfo.Name);
                     ret += @"if(" + refPropertyName + ".Session != Session){" +

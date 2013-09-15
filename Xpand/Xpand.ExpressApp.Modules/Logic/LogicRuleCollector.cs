@@ -4,12 +4,12 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleCollector {
@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual ILogicRuleObject CreateRuleObject(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var logicRuleObjectType = LogicRuleObjectType(contextLogicRule);
-            var logicRuleObject = ((ILogicRuleObject)ReflectionHelper.CreateObject(logicRuleObjectType, contextLogicRule));
+            var logicRuleObject = ((ILogicRuleObject)logicRuleObjectType.CreateInstance(contextLogicRule));
             logicRuleObject.TypeInfo = contextLogicRule.TypeInfo;
             logicRuleObject.ExecutionContext = GetExecutionContext(contextLogicRule, modelLogic);
             logicRuleObject.FrameTemplateContext = GetFrameTemplateContext(contextLogicRule, modelLogic);

@@ -17,7 +17,8 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <OutputPath>..\..\Xpand.Dll\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Xpo/</PublishUrl>
@@ -63,6 +64,10 @@
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
+    </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
@@ -106,7 +111,8 @@
     <Compile Include="DB\XpoServerId.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\XPBaseCollectionExtensions.cs"></Compile>
+    <Compile Include="Collections\XPBaseCollectionExtensions.cs">
+    </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescConverter.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescTypeConverter.cs" />

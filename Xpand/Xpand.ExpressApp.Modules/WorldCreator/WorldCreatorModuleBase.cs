@@ -5,7 +5,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
@@ -13,6 +12,7 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Fasterflect;
 
 
 namespace Xpand.ExpressApp.WorldCreator {
@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         IEnumerable<WorldCreatorUpdater> GetWorldCreatorUpdaters(Session session) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(typeInfo => (WorldCreatorUpdater)ReflectionHelper.CreateObject(typeInfo.Type, session));
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorUpdater)).Descendants.Select(typeInfo => (WorldCreatorUpdater)typeInfo.Type.CreateInstance(session));
         }
 
         public static ReflectionDictionary GetReflectionDictionary(XpandModuleBase moduleBase) {

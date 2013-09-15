@@ -12,6 +12,7 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public interface ISequenceObject {
@@ -160,7 +161,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ISequenceObject CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
-            var sequenceObject = (ISequenceObject)Activator.CreateInstance(_sequenceObjectType, new object[] { unitOfWork });
+            var sequenceObject = (ISequenceObject)_sequenceObjectType.CreateInstance(new object[] { unitOfWork });
             sequenceObject.TypeName = fullName;
             sequenceObject.NextSequence = 0;
             return sequenceObject;

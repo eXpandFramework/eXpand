@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using System.Linq;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
     [ModelAbstractClass]
@@ -28,7 +29,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
 
         protected virtual Type TreeListEditorType() {
             var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper))).Single();
-            var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)Activator.CreateInstance(typeInfo.Type);
+            var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
             return visibilityCalculatorHelper.TreelistEditorType();
         }
         #endregion

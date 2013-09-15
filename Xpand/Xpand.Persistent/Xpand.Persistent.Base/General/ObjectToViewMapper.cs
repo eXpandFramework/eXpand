@@ -18,6 +18,7 @@ using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
 using Microsoft.CSharp;
 using Xpand.Utils.Linq;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public class ObjectToViewMapper {
@@ -47,7 +48,7 @@ namespace Xpand.Persistent.Base.General {
             var classType = FindMappedTypeInfo(typeInfo.Name).Type;
             dataSetDataStore.ObjectClassInfo = unitOfWork.Dictionary.GetClassInfo(classType);
             dataSetDataStore.DynamicTypeInfo = typeInfo;
-            Activator.CreateInstance(classType, unitOfWork);
+            classType.CreateInstance(unitOfWork);
             unitOfWork.CommitChanges();
             unitOfWork.GetObjects(dataSetDataStore.ObjectClassInfo, null, new SortingCollection(), 0, 0, false, true);
         }

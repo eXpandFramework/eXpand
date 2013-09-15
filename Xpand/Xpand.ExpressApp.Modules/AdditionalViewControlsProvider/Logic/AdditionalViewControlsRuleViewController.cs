@@ -6,10 +6,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.Logic;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public abstract class AdditionalViewControlsRuleViewController:ViewController {
@@ -49,13 +49,13 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
                         var control = GetControl(controlType, additionalViewControl, additionalViewControlsRule);
                         control.Rule = additionalViewControlsRule;
-                        ReflectionHelper.CreateObject(calculator.ControlsRule.DecoratorType, new[] { info.View, (object)control, additionalViewControlsRule });
+                        calculator.ControlsRule.DecoratorType.CreateInstance(new[] { info.View, (object)control, additionalViewControlsRule });
                         if (additionalViewControl == null) {
                             InitializeControl(control, additionalViewControlsRule, calculator, logicRuleExecuteEventArgs.ExecutionContext);
                             AddControl(control, controls, info);
                         }
                     } else if (additionalViewControl != null) {
-                        controls.GetType().GetMethod("Remove").Invoke(controls, new object[] { additionalViewControl });
+                        controls.CallMethod("Remove", new object[]{additionalViewControl});
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
         
         protected virtual IAdditionalViewControl GetControl(Type controlType, IAdditionalViewControl additionalViewControl, IAdditionalViewControlsRule rule) {
-            var control = additionalViewControl ?? Activator.CreateInstance(controlType) as IAdditionalViewControl;
+            var control = additionalViewControl ?? controlType.CreateInstance() as IAdditionalViewControl;
             var manager = control as ISupportLayoutManager;
             if (manager != null) {
                 if (rule.Position != Position.DetailViewItem)
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
         
         ICollection GetControls(object viewSiteControl) {
-            return (ICollection)(viewSiteControl.GetType().GetProperty("Controls").GetValue(viewSiteControl, null));
+            return (ICollection)(viewSiteControl.GetPropertyValue("Controls"));
         }
         
         IAdditionalViewControl FindControl(IAdditionalViewControlsRule rule, ICollection controls) {
@@ -118,7 +118,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
         
         protected virtual void AddControl(object control, object controls, LogicRuleInfo info) {
-            controls.GetType().GetMethod("Add").Invoke(controls, new[] { control });
+            controls.CallMethod("Add", new[]{control});
         }
         
         protected virtual void InitializeControl(object control, IAdditionalViewControlsRule additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {

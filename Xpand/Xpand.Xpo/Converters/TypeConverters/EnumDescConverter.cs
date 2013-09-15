@@ -16,17 +16,15 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 
-namespace Xpand.Xpo.Converters.TypeConverters
-{
+namespace Xpand.Xpo.Converters.TypeConverters {
     /// <summary>
     /// EnumConverter supporting System.ComponentModel.DescriptionAttribute
     /// </summary>
-    public class EnumDescConverter : EnumConverter
-    {
+    public class EnumDescConverter : EnumConverter {
         protected Type myVal;
 
-        public EnumDescConverter(Type type) : base(type.GetType())
-        {
+        public EnumDescConverter(Type type)
+            : base(type.GetType()) {
             myVal = type;
         }
 
@@ -35,12 +33,11 @@ namespace Xpand.Xpo.Converters.TypeConverters
         /// </summary>
         /// <param name="value">The value you want the description attribute for</param>
         /// <returns>The description, if any, else it's .ToString()</returns>
-        public static string GetEnumDescription(Enum value)
-        {
+        public static string GetEnumDescription(Enum value) {
             FieldInfo fi = value.GetType().GetField(value.ToString());
             var attributes =
-                (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                             typeof (DescriptionAttribute), false);
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                                             typeof(DescriptionAttribute), false);
             return (attributes.Length > 0) ? attributes[0].Description : value.ToString();
         }
 
@@ -50,12 +47,11 @@ namespace Xpand.Xpo.Converters.TypeConverters
         /// <param name="value">The type of the Enumeration</param>
         /// <param name="name">The name of the Enumeration value</param>
         /// <returns>The description, if any, else the passed name</returns>
-        public static string GetEnumDescription(Type value, string name)
-        {
+        public static string GetEnumDescription(Type value, string name) {
             FieldInfo fi = value.GetField(name);
             var attributes =
-                (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                             typeof (DescriptionAttribute), false);
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                                             typeof(DescriptionAttribute), false);
             return (attributes.Length > 0) ? attributes[0].Description : name;
         }
 
@@ -65,23 +61,18 @@ namespace Xpand.Xpo.Converters.TypeConverters
         /// <param name="value">The Enum type</param>
         /// <param name="description">The description or name of the element</param>
         /// <returns>The value, or the passed in description, if it was not found</returns>
-        public static object GetEnumValue(Type value, string description)
-        {
+        public static object GetEnumValue(Type value, string description) {
             FieldInfo[] fis = value.GetFields();
-            foreach (FieldInfo fi in fis)
-            {
+            foreach (FieldInfo fi in fis) {
                 var attributes =
-                    (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                                 typeof (DescriptionAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    if (attributes[0].Description == description)
-                    {
+                    (DescriptionAttribute[])fi.GetCustomAttributes(
+                                                 typeof(DescriptionAttribute), false);
+                if (attributes.Length > 0) {
+                    if (attributes[0].Description == description) {
                         return fi.GetValue(fi.Name);
                     }
                 }
-                if (fi.Name == description)
-                {
+                if (fi.Name == description) {
                     return fi.GetValue(fi.Name);
                 }
             }
@@ -89,28 +80,24 @@ namespace Xpand.Xpo.Converters.TypeConverters
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
-                                         Type destinationType)
-        {
-            if (value is Enum && destinationType == typeof (string))
-            {
-                return GetEnumDescription((Enum) value);
+                                         Type destinationType) {
+            if (value is Enum && destinationType == typeof(string)) {
+                return GetEnumDescription((Enum)value);
             }
-            if (value is string && destinationType == typeof (string))
-            {
-                return GetEnumDescription(myVal, (string) value);
+            if (value is string && destinationType == typeof(string)) {
+                return GetEnumDescription(myVal, (string)value);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
-        {
-            if (value is string)
-            {
-                return GetEnumValue(myVal, (string) value);
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
+            var s = value as string;
+            if (s != null) {
+                return GetEnumValue(myVal, s);
             }
-            if (value is Enum)
-            {
-                return GetEnumDescription((Enum) value);
+            var @enum = value as Enum;
+            if (@enum != null) {
+                return GetEnumDescription(@enum);
             }
             return base.ConvertFrom(context, culture, value);
         }

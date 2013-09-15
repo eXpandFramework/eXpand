@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class PersistentClassInfoExtensions {
@@ -37,19 +37,22 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
             Type memberInfoType = GetMemberInfoType(propertyInfo.PropertyType);
             var persistentMemberInfo =
-                ((IPersistentMemberInfo)ReflectionHelper.CreateObject(memberInfoType, classInfo.Session));
+                ((IPersistentMemberInfo)memberInfoType.CreateInstance(classInfo.Session));
             classInfo.OwnMembers.Add(persistentMemberInfo);
             persistentMemberInfo.SetDefaultTemplate(TemplateType.InterfaceReadWriteMember);
             persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode =
                 persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode.Replace("$INTERFACENAME$", interfaceInfo.Name);
 
             persistentMemberInfo.Name = propertyInfo.Name;
-            if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
-                ((IPersistentCoreTypeMemberInfo)persistentMemberInfo).DataType =
+            var info = persistentMemberInfo as IPersistentCoreTypeMemberInfo;
+            if (info != null)
+                info.DataType =
                     (DBColumnType)Enum.Parse(typeof(DBColumnType), propertyInfo.PropertyType.Name);
-            else if (persistentMemberInfo is IPersistentReferenceMemberInfo)
-                ((IPersistentReferenceMemberInfo)persistentMemberInfo).SetReferenceTypeFullName(propertyInfo.PropertyType.FullName);
-
+            else {
+                var memberInfo = persistentMemberInfo as IPersistentReferenceMemberInfo;
+                if (memberInfo != null)
+                    memberInfo.SetReferenceTypeFullName(propertyInfo.PropertyType.FullName);
+            }
         }
 
 

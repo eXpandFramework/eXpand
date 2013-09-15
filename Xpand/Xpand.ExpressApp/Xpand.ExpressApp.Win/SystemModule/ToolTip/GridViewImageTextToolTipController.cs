@@ -16,6 +16,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using ListView = DevExpress.ExpressApp.ListView;
 using Xpand.Utils.Helpers;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     [ModelAbstractClass]
@@ -157,7 +158,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
         ObjectToolTipController ObjectToolTipController(IModelColumnTooltipData modelColumnTooltipData) {
             var objects = new[] { View.Editor.Control };
-            return (ObjectToolTipController)Activator.CreateInstance(modelColumnTooltipData.TooltipData.ToolTipController, objects);
+            return (ObjectToolTipController) modelColumnTooltipData.TooltipData.ToolTipController.CreateInstance(new object[]{objects});
         }
 
         void GridControl_MouseMove(object sender, MouseEventArgs e) {
