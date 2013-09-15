@@ -35,7 +35,7 @@ using System.Web.UI;
 // [dataStoreNameSuffix: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]
+
 [assembly: WebResource(ResourceNames.CommonStyles, "text/css")]
 class ResourceNames {
     public const string CommonStyles = "Xpand.ExpressApp.Web.Styles.CommonStyle.css";

@@ -31,4 +31,4 @@ using System.Security;
 
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]
+

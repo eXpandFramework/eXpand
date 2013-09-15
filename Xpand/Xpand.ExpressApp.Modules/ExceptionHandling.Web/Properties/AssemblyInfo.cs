@@ -30,4 +30,3 @@ using System.Security;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]

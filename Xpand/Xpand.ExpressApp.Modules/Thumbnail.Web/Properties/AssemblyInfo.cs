@@ -32,4 +32,3 @@ using System.Security;
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 [assembly: System.Web.UI.WebResource("Xpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg", "image/jpg")]
-[assembly: AllowPartiallyTrustedCallers]

@@ -44,4 +44,3 @@ using System.Web.Configuration;
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.next-vertical.png", "image/png")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.prev-horizontal.png", "image/png")]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.Skins.prev-vertical.png", "image/png")]
-[assembly: AllowPartiallyTrustedCallers]

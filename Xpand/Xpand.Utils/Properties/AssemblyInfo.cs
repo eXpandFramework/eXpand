@@ -34,7 +34,7 @@ using System.Security;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]
+
 
 public class XpandAssemblyInfo {
     public const string Version = "13.1.6.19";

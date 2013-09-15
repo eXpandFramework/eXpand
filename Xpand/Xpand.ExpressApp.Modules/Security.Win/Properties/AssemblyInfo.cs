@@ -32,4 +32,4 @@ using System.Security;
 //[assembly: AssemblyVersion(Xpand.AssemblyInfo.Version)]
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
-[assembly: AllowPartiallyTrustedCallers]
+
