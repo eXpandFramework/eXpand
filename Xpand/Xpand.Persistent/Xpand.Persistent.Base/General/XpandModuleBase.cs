@@ -63,7 +63,7 @@ namespace Xpand.Persistent.Base.General {
             if (handler != null) handler(null, e);
         }
 
-        public static event CancelEventHandler InitSeqGenerator;
+        public event CancelEventHandler InitSeqGenerator;
         public event EventHandler<ExtendingModelInterfacesArgs> ExtendingModelInterfaces ;
         public event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters ;
 
@@ -460,6 +460,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Type SequenceObjectType { get; set; }
 
         void CheckApplicationTypes() {
             if (RuntimeMode) {
