@@ -598,7 +598,7 @@ namespace Xpand.Persistent.Base.General {
                 return provider.DataStoreProvider.ConnectionString;
             }
             if (moduleBase.Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
-                return ((IXpoDataStoreProvider)typeof(XPObjectSpaceProvider).GetFieldValue("dataStoreProvider")).ConnectionString;
+                return ((IXpoDataStoreProvider)moduleBase.Application.ObjectSpaceProvider.GetFieldValue("dataStoreProvider")).ConnectionString;
             }
             return moduleBase.Application.ConnectionString;
         }

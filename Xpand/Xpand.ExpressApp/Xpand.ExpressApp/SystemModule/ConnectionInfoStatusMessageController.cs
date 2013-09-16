@@ -4,11 +4,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.SystemModule {
-    public interface IConnectionInfoStatusMessage {
+    public interface IModelOptionsConnectionInfoStatusMessage {
         [Category("eXpand")]
         [Description("Display connection info (server/database) at status bar")]
+        [ModelBrowsable(typeof(WinOnlyVisibilityCalculator))]
         bool ConnectionInfoMessage { get; set; }
 
     }
@@ -20,18 +22,18 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             var controller = Frame.GetController<WindowTemplateController>();
-            if (((IConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
+            if (((IModelOptionsConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
                 controller.CustomizeWindowStatusMessages += controller_CustomizeWindowStatusMessages;
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptions, IConnectionInfoStatusMessage>();
+            extenders.Add<IModelOptions, IModelOptionsConnectionInfoStatusMessage>();
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var controller = Frame.GetController<WindowTemplateController>();
-            if (((IConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
+            if (((IModelOptionsConnectionInfoStatusMessage)Application.Model.Options).ConnectionInfoMessage)
                 controller.CustomizeWindowStatusMessages -= controller_CustomizeWindowStatusMessages;
         }
 

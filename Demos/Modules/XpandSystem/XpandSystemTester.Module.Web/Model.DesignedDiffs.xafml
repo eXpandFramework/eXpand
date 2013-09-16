@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Options ConnectionInfoMessage="True" />
   <SchemaModules>
-    <SchemaModule Name="SystemAspNetModule" Version="13.1.5.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.5.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.5.24" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="13.1.5.24" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.6.19" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.1.6.19" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="XpandSystemTester.Module.BusinessObjects.Customer_ListView" OpenDetailViewAsPopup="True" />
+    <ListView Id="Customer_ListView" OpenDetailViewAsPopup="True" />
   </Views>
 </Application>
