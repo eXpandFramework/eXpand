@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Utils;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Registration {
-//    [SecurityCritical]
     public class ManageUsersOnLogonController : ViewController<DetailView> {
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";
         public const string EmailPattern = @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";

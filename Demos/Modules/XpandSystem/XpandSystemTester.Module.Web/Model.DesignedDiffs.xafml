@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <Options ConnectionInfoMessage="True" />
+  <Options ConnectionInfoMessage="True" EnableFriendlyUrl="True" />
   <SchemaModules>
     <SchemaModule Name="CloneObjectModule" Version="13.1.6.0" IsNewNode="True" />
     <SchemaModule Name="SystemAspNetModule" Version="13.1.6.0" IsNewNode="True" />
@@ -9,6 +9,6 @@
     <SchemaModule Name="XpandSystemModule" Version="13.1.6.19" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="Customer_ListView" OpenDetailViewAsPopup="True" />
+    <ListView Id="Customer_ListView" OpenDetailViewAsPopup="True" FriendlyUrl="Customer_ListView111" />
   </Views>
 </Application>
