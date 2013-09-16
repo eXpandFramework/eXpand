@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             }
         }
         private static EditClientSideEvents FindClientSideEvents(object control) {
-            return control.GetPropertyValue("ClientSideEvents") as EditClientSideEvents;
+            return control != null ? control.GetPropertyValue("ClientSideEvents",Flags.InstanceAnyDeclaredOnly) as EditClientSideEvents : null;
         }
     }
 }
