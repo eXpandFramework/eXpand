@@ -1,4 +1,5 @@
-﻿using LinqToTwitter;
+﻿using System.Security.Authentication;
+using LinqToTwitter;
 
 namespace XTwitter {
     class Program {
@@ -12,7 +13,9 @@ namespace XTwitter {
                     TwitterAccessTokenSecret = args[3]
                 }
             };
-
+            auth.Authorize();
+            if (!auth.IsAuthorized)
+                throw new AuthenticationException();
             var twitterCtx = new TwitterContext(auth);
             twitterCtx.UpdateStatus(args[4]);
         }
