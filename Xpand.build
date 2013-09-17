@@ -4,6 +4,7 @@
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
+	<TwitterTool>_third_party_assemblies\XTwitter.exe</TwitterTool>
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
@@ -203,7 +204,7 @@
     <CallTarget Targets="DeployUpdate" />
   </Target>
   <Target Name="Twitter">
-    <Mash2.MSBuild.Tasks.Twitter Message="new @expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework" ConsumerKey="$(TwitterConsumerKey)" ConsumerSecret="$(TwitterConsumerSecret)" AccessToken="$(TwitterAccessToken)" AccessTokenSecret="$(TwitterAccessTokenSecret)" />
+	<Exec ContinueOnError="false" Command="$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;"/>
   </Target>
   <Target Name="_Version">
     <FileUpdate Files="Xpand\Xpand.Utils\Properties\AssemblyInfo.cs" Regex="(\d+\.\d+\.\d+\.\d+)" ReplacementText="$(Version)" />
