@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
+using Xpand.Persistent.Base.Validation;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security {
@@ -29,14 +30,9 @@ namespace Xpand.ExpressApp.Security {
 
         protected virtual void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             var app = (XafApplication) sender;
-//            ((ControllersManager) app.GetPropertyValue("ControllersManager")).CreateController<>()
-            var types = new[]{
-                ReflectionHelper.FindTypeDescendants(Application.TypesInfo.FindTypeInfo<ModificationsController>(),false).First().Type
-            };
-            var xafApplication = ((XafApplication)sender);
-            foreach (var type in types) {
-                e.Controllers.Add(xafApplication.CreateController(type));
-            }
+            var typeInfo = app.TypesInfo.FindTypeInfo(typeof (IPasswordScoreController)).Implementors.FirstOrDefault();
+            if (typeInfo!=null)
+                e.Controllers.Add(app.CreateController(typeInfo.Type));
 
             e.Controllers.Add(app.CreateController<ActionAppearanceController>());
             e.Controllers.Add(app.CreateController<AppearanceController>());

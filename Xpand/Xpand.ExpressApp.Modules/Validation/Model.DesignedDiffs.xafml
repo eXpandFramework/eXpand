@@ -8,9 +8,13 @@
         <LocalizationItem Name="Warning" Value="Warning" Index="2" IsNewNode="True" />
       </LocalizationGroup>
     </LocalizationGroup>
+    <LocalizationGroup Name="eXpand.Validation" IsNewNode="True">
+      <LocalizationItem Name="PasswordScoreFailed" Value="{0} is {1} {2} is required" IsNewNode="True" />
+    </LocalizationGroup>
   </Localization>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="11.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
     <SchemaModule Name="XpandSystemModule" Version="11.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="13.1.6.22" IsNewNode="True" />
   </SchemaModules>
 </Application>

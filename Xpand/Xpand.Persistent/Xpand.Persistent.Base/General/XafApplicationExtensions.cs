@@ -19,8 +19,8 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
 
-        public static Controller CreateController(this XafApplication application,Type controllerType) {
-            var methodInfo = typeof (XafApplication).Method(new[]{controllerType}, "CreateController", Flags.InstancePublicDeclaredOnly);
+        public static Controller CreateController(this XafApplication application,Type type) {
+            var methodInfo = typeof (XafApplication).Method(new[]{type}, "CreateController", Flags.InstancePublicDeclaredOnly);
             return (Controller) methodInfo.Call(application);
         }
 

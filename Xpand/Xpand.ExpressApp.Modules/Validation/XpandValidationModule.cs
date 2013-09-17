@@ -12,6 +12,7 @@ namespace Xpand.ExpressApp.Validation {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandValidationModule : XpandModuleBase {
+        public const string XpandValidation = "eXpand.Validation";
         public XpandValidationModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));
         }

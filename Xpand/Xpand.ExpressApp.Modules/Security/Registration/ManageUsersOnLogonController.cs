@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -68,9 +69,7 @@ namespace Xpand.ExpressApp.Security.Registration {
                 detailView.ViewEditMode = ViewEditMode.Edit;
                 e.ShowViewParameters.CreatedView = detailView;
             }
-            //Dennis: TODO
-            //A possible issue in the framework - Controllers from ShowViewParameters are not added to the current Frame on the Web. 
-            //e.ShowViewParameters.Controllers.Add(CreateDialogController());
+
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
             e.ShowViewParameters.TargetWindow = TargetWindow.Current;
         }
@@ -78,12 +77,18 @@ namespace Xpand.ExpressApp.Security.Registration {
         protected virtual void ConfigureDialogController(DialogController dialogController) {
             dialogController.AcceptAction.Execute -= AcceptAction_Execute;
             dialogController.CancelAction.Execute -= CancelAction_Execute;
+            dialogController.AcceptAction.Executing -= AcceptActionOnExecuting;
+            dialogController.AcceptAction.Executing += AcceptActionOnExecuting;
             dialogController.AcceptAction.Execute += AcceptAction_Execute;
             dialogController.CancelAction.Execute += CancelAction_Execute;
             dialogController.SaveOnAccept = true;
             dialogController.Tag = typeof(ILogonRegistrationParameters);
         }
-        
+
+        void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
+            ((DialogController) ((ActionBase) sender).Controller).Window.View.ObjectSpace.CommitChanges();
+        }
+
         protected DialogController CreateDialogController() {
             var dialogController = Application.CreateController<DialogController>();
             ConfigureDialogController(dialogController);

@@ -97,6 +97,7 @@
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\ImageExtensions.cs" />
+    <Compile Include="Helpers\PasswordAdvisor.cs" />
     <Compile Include="Helpers\StreamExtensions.cs" />
     <Compile Include="Linq\Extensions.cs" />
     <Compile Include="Helpers\XpandConvert.cs" />

@@ -9,6 +9,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Controllers;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security.Registration {
     public interface ILogonActionParameters {

@@ -298,6 +298,7 @@
     <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
     <Compile Include="RuntimeMembers\Model\Members.cs" />
     <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
+    <Compile Include="Validation\IPasswordScoreController.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
