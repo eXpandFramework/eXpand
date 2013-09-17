@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
 
-namespace Xpand.ExpressApp.Validation {
+namespace Xpand.ExpressApp.Validation.Controllers {
     public class ActionExecuteValidationController : ObjectViewController {
         bool _otherValidationContextFailed;
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;

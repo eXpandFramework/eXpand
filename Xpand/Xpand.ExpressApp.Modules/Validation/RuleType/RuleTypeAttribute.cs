@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Xpand.ExpressApp.Validation {
+namespace Xpand.ExpressApp.Validation.RuleType {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = true)]
-    public class RuleErrorTypeAttribute : Attribute {
+    public class RuleTypeAttribute : Attribute {
         readonly string _id;
         readonly RuleType _ruleType;
 
-        public RuleErrorTypeAttribute(string id, RuleType ruleType) {
+        public RuleTypeAttribute(string id, RuleType ruleType) {
             _id = id;
             _ruleType = ruleType;
         }

@@ -95,12 +95,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OnErrorAutoScrollPageToTopController.cs">
+    <Compile Include="Controllers\OnErrorAutoScrollPageToTopController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuleType\RuleTypeController.cs" />
     <Compile Include="XpandValidationWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

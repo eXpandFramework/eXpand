@@ -11,9 +11,11 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Xpand.ExpressApp.Validation</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Validation</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -83,17 +85,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionExecuteValidationController.cs">
+    <Compile Include="Controllers\ActionExecuteValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PermissionValidationController.cs">
+    <Compile Include="Controllers\PermissionValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleErrorTypeAttribute.cs" />
-    <Compile Include="RuleTypeController.cs">
+    <Compile Include="RuleType\RuleTypeAttribute.cs" />
+    <Compile Include="RuleType\RuleTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeGeneratorUpdater.cs" />
+    <Compile Include="RuleType\RuleTypeGeneratorUpdater.cs" />
     <Compile Include="XpandValidationModule.cs">
       <SubType>Component</SubType>
     </Compile>

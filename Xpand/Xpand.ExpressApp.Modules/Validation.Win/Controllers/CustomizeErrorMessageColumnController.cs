@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 
-namespace Xpand.ExpressApp.Validation.Win {
+namespace Xpand.ExpressApp.Validation.Win.Controllers {
     public class CustomizeErrorMessageColumnController : DevExpress.ExpressApp.Validation.Win.CustomizeErrorMessageColumnController {
 
         void SetupGridView(GridListEditorBase columnViewEditor) {

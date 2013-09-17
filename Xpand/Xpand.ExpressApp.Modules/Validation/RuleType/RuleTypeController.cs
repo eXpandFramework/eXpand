@@ -12,7 +12,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
 
-namespace Xpand.ExpressApp.Validation {
+namespace Xpand.ExpressApp.Validation.RuleType {
     public interface IModelRuleBaseRuleType : IModelNode {
         [Category("eXpand")]
         RuleType RuleType { get; set; }

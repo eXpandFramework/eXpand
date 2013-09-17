@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 
-namespace Xpand.ExpressApp.Validation {
+namespace Xpand.ExpressApp.Validation.RuleType {
     public enum RuleType {
         Critical,
         [ImageName("Warning")]
@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Validation {
         }
 
         RuleType GetRuleType(IModelClass modelClass, IRuleBaseProperties validationRule) {
-            var ruleErrorTypeAttribute = modelClass.TypeInfo.FindAttributes<RuleErrorTypeAttribute>().FirstOrDefault(attribute => attribute.Id == validationRule.Id);
+            var ruleErrorTypeAttribute = modelClass.TypeInfo.FindAttributes<RuleTypeAttribute>().FirstOrDefault(attribute => attribute.Id == validationRule.Id);
             return ruleErrorTypeAttribute != null ? ruleErrorTypeAttribute.RuleType : RuleType.Critical;
         }
 
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Validation {
             if (validationRule != null) {
                 var modelMember = modelClass.FindMember(validationRule.TargetPropertyName);
                 if (modelMember != null) {
-                    var ruleErrorTypeAttribute = modelMember.MemberInfo.FindAttributes<RuleErrorTypeAttribute>().FirstOrDefault(attribute => attribute.Id == validationRule.Id);
+                    var ruleErrorTypeAttribute = modelMember.MemberInfo.FindAttributes<RuleTypeAttribute>().FirstOrDefault(attribute => attribute.Id == validationRule.Id);
                     if (ruleErrorTypeAttribute != null) {
                         return ruleErrorTypeAttribute.RuleType;
                     }

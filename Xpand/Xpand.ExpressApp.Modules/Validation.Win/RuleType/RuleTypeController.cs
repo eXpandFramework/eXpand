@@ -13,13 +13,11 @@ using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Xpand.ExpressApp.Validation.RuleType;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
-namespace Xpand.ExpressApp.Validation.Win {
-
-    public class RuleTypeController : Validation.RuleTypeController {
-
-
+namespace Xpand.ExpressApp.Validation.Win.RuleType {
+    public class RuleTypeController : Validation.RuleType.RuleTypeController {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (ListEditor != null) {
@@ -41,7 +39,7 @@ namespace Xpand.ExpressApp.Validation.Win {
             } else if (Columns.Any()) {
                 var keyValuePairs = Columns.SelectMany(types => types);
                 var propertyName = e.Column.PropertyName();
-                Func<KeyValuePair<ColumnWrapper, RuleType>, bool> predicate = pair => propertyName == pair.Key.PropertyName;
+                Func<KeyValuePair<ColumnWrapper, Validation.RuleType.RuleType>, bool> predicate = pair => propertyName == pair.Key.PropertyName;
                 if (keyValuePairs.Any(predicate)) {
                     var caption = keyValuePairs.Last(predicate).Value.ToString();
                     errorIcon = DXErrorProvider.GetErrorIconInternal((ErrorType)enumDescriptor.ParseCaption(caption));
@@ -66,7 +64,7 @@ namespace Xpand.ExpressApp.Validation.Win {
             return null;
         }
 
-        protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {
+        protected override Dictionary<PropertyEditor, Validation.RuleType.RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, Validation.RuleType.RuleType ruleType) {
             var propertyEditors = base.CollectPropertyEditors(result, ruleType);
             foreach (var keyValuePair in propertyEditors) {
                 var baseEdit = keyValuePair.Key.Control as BaseEdit;
@@ -76,7 +74,7 @@ namespace Xpand.ExpressApp.Validation.Win {
             return propertyEditors;
         }
 
-        Image CreateImageFromResources(RuleType ruleType) {
+        Image CreateImageFromResources(Validation.RuleType.RuleType ruleType) {
             return ImageLoader.Instance.GetEnumValueImageInfo(ruleType).Image;
         }
 

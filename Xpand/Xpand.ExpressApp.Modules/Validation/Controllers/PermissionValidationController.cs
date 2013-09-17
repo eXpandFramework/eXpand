@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base.Security;
 
-namespace Xpand.ExpressApp.Validation {
+namespace Xpand.ExpressApp.Validation.Controllers {
     public class PermissionValidationController : ViewController {
         private PersistenceValidationController persistenceValidationController;
 

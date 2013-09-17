@@ -9,9 +9,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Validation;
 using System.Linq;
 
-namespace Xpand.ExpressApp.Validation.Web {
-
-
+namespace Xpand.ExpressApp.Validation.Web.Controllers {
     public interface IModelActionsOnErrorAutoScrollPageToTop : IModelNode {
         [Category("eXpand")]
         [DefaultValue(true)]

@@ -6,11 +6,11 @@ using DevExpress.ExpressApp.Web;
 using System.Linq;
 using DevExpress.Persistent.Validation;
 
-namespace Xpand.ExpressApp.Validation.Web {
-    public class RuleTypeController : Validation.RuleTypeController {
-        protected override Dictionary<PropertyEditor, RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, RuleType ruleType) {
+namespace Xpand.ExpressApp.Validation.Web.RuleType {
+    public class RuleTypeController : Validation.RuleType.RuleTypeController {
+        protected override Dictionary<PropertyEditor, Validation.RuleType.RuleType> CollectPropertyEditors(IEnumerable<RuleSetValidationResultItem> result, Validation.RuleType.RuleType ruleType) {
             var dictionary = base.CollectPropertyEditors(result, ruleType);
-            foreach (var keyValuePair in dictionary.Where(pair => pair.Value!=RuleType.Critical)) {
+            foreach (var keyValuePair in dictionary.Where(pair => pair.Value != Validation.RuleType.RuleType.Critical)) {
                 var ex = keyValuePair.Key.Control as TableEx;
                 if (ex != null) {
                     EventHandler[] eventHandler = { null };
@@ -32,14 +32,14 @@ namespace Xpand.ExpressApp.Validation.Web {
             if (!validationCompletedEventArgs.Handled) {
                 validationCompletedEventArgs.Handled = true;
                 var ruleSetValidationResult = new RuleSetValidationResult();
-                foreach (var result in validationCompletedEventArgs.Exception.Result.Results.Where(item => GetRuleType(item.Rule)==RuleType.Critical)) {
+                foreach (var result in validationCompletedEventArgs.Exception.Result.Results.Where(item => GetRuleType(item.Rule) == Validation.RuleType.RuleType.Critical)) {
                     ruleSetValidationResult.AddResult(result);
                 }
                 throw new ValidationException(ruleSetValidationResult.GetFormattedErrorMessage(), ruleSetValidationResult);
             }
         }
 
-        void CreateRuleImage(KeyValuePair<PropertyEditor, RuleType> keyValuePair, TableEx tableEx) {
+        void CreateRuleImage(KeyValuePair<PropertyEditor, Validation.RuleType.RuleType> keyValuePair, TableEx tableEx) {
             var tableCell = tableEx.Rows[0].Cells[0];
             var image = new System.Web.UI.WebControls.Image();
             var imageName = keyValuePair.Value.ToString();

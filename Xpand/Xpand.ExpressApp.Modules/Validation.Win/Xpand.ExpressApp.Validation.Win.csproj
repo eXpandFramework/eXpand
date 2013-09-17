@@ -114,10 +114,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomizeErrorMessageColumnController.cs">
+    <Compile Include="Controllers\CustomizeErrorMessageColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs">
+    <Compile Include="RuleType\RuleTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandValidationWinModule.cs">
