@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
             foreach (PropertyInfo explicitProperty in _explicitProperties) {
                 object[] customAttributes = explicitProperty.GetCustomAttributes(typeof(TypeConverterAttribute), false);
                 if (customAttributes.Length > 0) {
-                    var converter = (TypeConverter)Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName).CreateInstance();
+                    var converter = (TypeConverter)Type.GetType(((TypeConverterAttribute)customAttributes[0]).ConverterTypeName).CreateInstance(new object[] { rule.Application });
                     string name = explicitProperty.Name.Substring(explicitProperty.Name.LastIndexOf(".", StringComparison.Ordinal) + 1);
                     object value = attribute.GetPropertyValue(name);
                     if (value != null) {

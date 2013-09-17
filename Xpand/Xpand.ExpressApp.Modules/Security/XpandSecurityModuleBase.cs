@@ -1,8 +1,15 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Core;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
+using Fasterflect;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security {
     public abstract class XpandSecurityModuleBase:XpandModuleBase {
@@ -22,6 +29,15 @@ namespace Xpand.ExpressApp.Security {
 
         protected virtual void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             var app = (XafApplication) sender;
+//            ((ControllersManager) app.GetPropertyValue("ControllersManager")).CreateController<>()
+            var types = new[]{
+                ReflectionHelper.FindTypeDescendants(Application.TypesInfo.FindTypeInfo<ModificationsController>(),false).First().Type
+            };
+            var xafApplication = ((XafApplication)sender);
+            foreach (var type in types) {
+                e.Controllers.Add(xafApplication.CreateController(type));
+            }
+
             e.Controllers.Add(app.CreateController<ActionAppearanceController>());
             e.Controllers.Add(app.CreateController<AppearanceController>());
             e.Controllers.Add(app.CreateController<DetailViewItemAppearanceController>());
@@ -30,8 +46,14 @@ namespace Xpand.ExpressApp.Security {
             e.Controllers.Add(app.CreateController<AppearanceCustomizationListenerController>());
 
             e.Controllers.Add(app.CreateController<ManageUsersOnLogonController>());
-            e.Controllers.Add(app.CreateController<DevExpress.ExpressApp.Validation.ActionValidationController>());
-            e.Controllers.Add(app.CreateController<DevExpress.ExpressApp.SystemModule.DialogController>());
+            
+            e.Controllers.Add(app.CreateController<ActionValidationController>());
+            e.Controllers.Add(app.CreateController<PersistenceValidationController>());
+            e.Controllers.Add(app.CreateController<ResultsHighlightController>());
+            e.Controllers.Add(app.CreateController<RuleSetInitializationController>());
+
+            e.Controllers.Add(app.CreateController<DialogController>());
+
         }
     }
     

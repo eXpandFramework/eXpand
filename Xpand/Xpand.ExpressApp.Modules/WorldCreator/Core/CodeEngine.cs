@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -162,7 +163,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator) {
             AttributeInfoAttribute attributeInfoAttribute = persistentAttributeCreator.Create();
-            var attribute = (Attribute)attributeInfoAttribute.Constructor.DeclaringType.CreateInstance(attributeInfoAttribute.InitializedArgumentValues);
+            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfoAttribute.Constructor.DeclaringType, attributeInfoAttribute.InitializedArgumentValues);
             Func<object, object> argSelector = GetArgumentCode;
             string args = attributeInfoAttribute.InitializedArgumentValues.Length > 0
                               ? attributeInfoAttribute.InitializedArgumentValues.Select(argSelector).Aggregate

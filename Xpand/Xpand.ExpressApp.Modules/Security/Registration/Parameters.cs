@@ -22,15 +22,15 @@ namespace Xpand.ExpressApp.Security.Registration {
     [ModelDefault("Caption", "Register User")]
     [ImageName("BO_User")]
     public class RegisterUserParameters : ILogonRegistrationParameters {
-        public const string ValidationContext = "RegisterUserContext";
-        [RuleRequiredField(null, ValidationContext)]
+        
+        [RuleRequiredField(null, DefaultContexts.Save)]
         public string UserName { get; set; }
         public string Password { get; set; }
-        [RuleRequiredField(null, ValidationContext)]
-        [RuleRegularExpression(null, ValidationContext, ManageUsersOnLogonController.EmailPattern)]
+        [RuleRequiredField(null, DefaultContexts.Save)]
+        [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
         public string Email { get; set; }
         public void Process(IObjectSpace objectSpace) {
-            var user = objectSpace.FindObject(XpandModuleBase.UserType, new BinaryOperator("UserName", UserName)) as IAuthenticationStandardUser;
+            var user = objectSpace.FindObject(XpandModuleBase.UserType, new GroupOperator(GroupOperatorType.Or,new BinaryOperator("UserName", UserName),new BinaryOperator("Email",Email))) as IAuthenticationStandardUser;
             if (user != null)
                 throw new ArgumentException("The login with the entered UserName or Email was already registered within the system");
             else

@@ -64,9 +64,9 @@ namespace Xpand.ExpressApp.Security.Registration {
             var parametersType = e.Action.Tag as Type;
             Guard.ArgumentNotNull(parametersType, "parametersType");
             if (parametersType != null) {
-                DetailView dv = Application.CreateDetailView(ObjectSpaceInMemory.CreateNew(), parametersType.CreateInstance());
-                dv.ViewEditMode = ViewEditMode.Edit;
-                e.ShowViewParameters.CreatedView = dv;
+                var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), parametersType.CreateInstance());
+                detailView.ViewEditMode = ViewEditMode.Edit;
+                e.ShowViewParameters.CreatedView = detailView;
             }
             //Dennis: TODO
             //A possible issue in the framework - Controllers from ShowViewParameters are not added to the current Frame on the Web. 
@@ -80,6 +80,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.CancelAction.Execute -= CancelAction_Execute;
             dialogController.AcceptAction.Execute += AcceptAction_Execute;
             dialogController.CancelAction.Execute += CancelAction_Execute;
+            dialogController.SaveOnAccept = true;
             dialogController.Tag = typeof(ILogonRegistrationParameters);
         }
         
