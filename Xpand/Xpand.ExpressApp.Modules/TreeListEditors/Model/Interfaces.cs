@@ -24,13 +24,17 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
     public class TreeListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
-            return TreeListEditorType().IsAssignableFrom(EditorType(node));
+            var treeListEditorType = TreeListEditorType();
+            return treeListEditorType != null && treeListEditorType.IsAssignableFrom(EditorType(node));
         }
 
         protected virtual Type TreeListEditorType() {
-            var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper))).Single();
-            var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
-            return visibilityCalculatorHelper.TreelistEditorType();
+            var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper))).SingleOrDefault();
+            if (typeInfo != null) {
+                var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
+                return visibilityCalculatorHelper.TreelistEditorType();
+            }
+            return null;
         }
         #endregion
     }

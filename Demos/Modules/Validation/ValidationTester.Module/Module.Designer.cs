@@ -1,3 +1,5 @@
+using Xpand.ExpressApp.Validation;
+
 namespace ValidationTester.Module {
     partial class ValidationTesterModule {
         /// <summary> 
@@ -27,6 +29,7 @@ namespace ValidationTester.Module {
             // ValidationTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(XpandValidationModule));
         }
 
         #endregion

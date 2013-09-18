@@ -20,9 +20,12 @@ namespace Xpand.Persistent.Base.General.Model.Options {
         public override bool IsVisible(IModelNode node, string propertyName) {
             var typesInfo = node.Application.GetTypesInfo();
             var typeToTypeInfo = typesInfo.FindTypeInfo(typeof(GridListEditorVisibilityCalculatorHelper));
-            var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).Single();
-            var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
-            return calculatorHelper.IsVisible(node, propertyName);
+            var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).SingleOrDefault();
+            if (typeInfo != null) {
+                var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
+                return calculatorHelper.IsVisible(node, propertyName);
+            }
+            return false;
         }
 
         #endregion
