@@ -7,11 +7,16 @@
       </AppearanceRules>
     </Class>
   </BOModel>
+  <Localization>
+    <LocalizationGroup Name="eXpand.Security" IsNewNode="True">
+      <LocalizationItem Name="AlreadyRegistered" Value="The login with the entered UserName or Email was already registered within the system" IsNewNode="True" />
+    </LocalizationGroup>
+  </Localization>
   <SchemaModules IsNewNode="True">
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="9.1.2.5458" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="9.1.2.5458" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSecurityModule" Version="13.1.6.4" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.1.6.25" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <DetailView Id="AuthenticationStandardLogonParameters_DetailView" ImageName="BO_Security">
@@ -73,7 +78,7 @@
                       <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="4" />
                       <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" />
                       <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
-                      <LayoutItem Id="Item5" ViewItem="" SizeConstraintsType="Default" Index="3" RelativeSize="88" />
+                      <LayoutItem Id="Item5" SizeConstraintsType="Default" Index="3" RelativeSize="88" ViewItem="" />
                     </LayoutGroup>
                     <LayoutGroup Id="Item1" RelativeSize="32" ImageName="">
                       <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4" />

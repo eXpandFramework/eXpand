@@ -157,6 +157,7 @@ namespace Xpand.Persistent.Base.General {
             base.CustomizeLogics(customLogics);
             if (Executed("CustomizeLogics"))
                 return;
+            customLogics.RegisterLogic(typeof(IModelClassEx), typeof(ModelClassExDomainLogic));
             customLogics.RegisterLogic(typeof(ITypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
             customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
             customLogics.RegisterLogic(typeof(IModelApplicationListViews), typeof(ModelApplicationListViewsDomainLogic));
@@ -174,6 +175,7 @@ namespace Xpand.Persistent.Base.General {
                     return true;
                 }
                 CallMonitor.Add(keyValuePair, value);
+                
                 return false;
             }
             return true;
@@ -194,6 +196,7 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("ExtendModelInterfaces"))
                 return;
             
+            extenders.Add<IModelClass, IModelClassEx>();
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, ITypesInfoProvider>();

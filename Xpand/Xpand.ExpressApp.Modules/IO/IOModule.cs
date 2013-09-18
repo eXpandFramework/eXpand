@@ -11,6 +11,12 @@ namespace Xpand.ExpressApp.IO {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class IOModule : XpandModuleBase {
+        public IOModule() {
+            var types = new[]{typeof (TreeListEditorsModuleBase), typeof (ModelArtifactStateModule)};
+            foreach (var type in types) {
+                RequiredModuleTypes.Add(type);    
+            }
+        }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -20,11 +26,11 @@ namespace Xpand.ExpressApp.IO {
             }
         }
 
-        protected override ModuleTypeList GetRequiredModuleTypesCore() {
-            var requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
-            requiredModuleTypesCore.AddRange(new[] { typeof(TreeListEditorsModuleBase), typeof(ModelArtifactStateModule) });
-            return requiredModuleTypesCore;
-        }
+//        protected override ModuleTypeList GetRequiredModuleTypesCore() {
+//            var requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
+//            requiredModuleTypesCore.AddRange(new[] { typeof(TreeListEditorsModuleBase), typeof(ModelArtifactStateModule) });
+//            return requiredModuleTypesCore;
+//        }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

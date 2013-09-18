@@ -14,7 +14,12 @@ using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.Persistent.Base.RuntimeMembers.Model {
-    [DomainLogic((typeof(IModelClass)))]
+    [ModelAbstractClass]
+    public interface IModelClassEx:IModelClass {
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        new ITypeInfo TypeInfo { get; }
+    }
     public class ModelClassExDomainLogic {
         public static ITypeInfo  Get_TypeInfo(IModelClass modelClass) {
             var typesInfo = ((ITypesInfoProvider) modelClass.Application).TypesInfo;

@@ -3,13 +3,21 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Registration {
-    public class ManageUsersOnLogonController : ViewController<DetailView> {
+    public class ManageUsersOnLogonController : ViewController<DetailView>,IModelExtender {
+        public event HandledEventHandler CustomProccessLogonParameter;
+
+        protected virtual void OnCustomProccessLogonParameter(HandledEventArgs e) {
+            var handler = CustomProccessLogonParameter;
+            if (handler != null) handler(this, e);
+        }
+
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";
         public const string EmailPattern = @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
         private readonly SimpleAction _restorePassword;
@@ -81,44 +89,56 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.AcceptAction.Executing += AcceptActionOnExecuting;
             dialogController.AcceptAction.Execute += AcceptAction_Execute;
             dialogController.CancelAction.Execute += CancelAction_Execute;
-            dialogController.SaveOnAccept = true;
-            dialogController.Tag = typeof(ILogonRegistrationParameters);
         }
 
         void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
             ((DialogController) ((ActionBase) sender).Controller).Window.View.ObjectSpace.CommitChanges();
         }
-
-        protected DialogController CreateDialogController() {
-            var dialogController = Application.CreateController<DialogController>();
-            ConfigureDialogController(dialogController);
-            return dialogController;
-        }
         
         private void AcceptAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            AcceptParameters(e.CurrentObject as ILogonRegistrationParameters);
+            AcceptParameters(e.CurrentObject as ILogonParameters);
         }
         
         private void CancelAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            CancelParameters(e.CurrentObject as ILogonRegistrationParameters);
+            CancelParameters(e.CurrentObject as ILogonParameters);
         }
-        protected virtual void AcceptParameters(ILogonRegistrationParameters parameters) {
-            if (parameters != null)
-                parameters.Process(Application.CreateObjectSpace());
+        protected virtual void AcceptParameters(ILogonParameters parameters) {
+            if (parameters != null) {
+                var eventArgs = new CustomProcesssLogonParamaterEventArgs(parameters);
+                OnCustomProccessLogonParameter(eventArgs);
+                if (!eventArgs.Handled)
+                    parameters.Process(Application);
+            }
             Application.LogOff();
         }
-        protected virtual void CancelParameters(ILogonRegistrationParameters parameters) {
+        protected virtual void CancelParameters(ILogonParameters parameters) {
             Application.LogOff();
         }
         
         protected virtual bool GetLogonParametersActiveState() {
-            return View != null && View.ObjectTypeInfo != null && View.ObjectTypeInfo.Implements<ILogonRegistrationParameters>();
+            return View != null && View.ObjectTypeInfo != null && View.ObjectTypeInfo.Implements<ILogonParameters>();
         }
         public SimpleAction RestorePasswordAction {
             get { return _restorePassword; }
         }
         public SimpleAction RegisterUserAction {
             get { return _registerUser; }
+        }
+
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            extenders.Add<IModelOptions, IModelOptionsRegistration>();
+        }
+    }
+
+    public class CustomProcesssLogonParamaterEventArgs:HandledEventArgs {
+        readonly ILogonParameters _parameters;
+
+        public CustomProcesssLogonParamaterEventArgs(ILogonParameters parameters) {
+            _parameters = parameters;
+        }
+
+        public ILogonParameters Parameters {
+            get { return _parameters; }
         }
     }
 }
