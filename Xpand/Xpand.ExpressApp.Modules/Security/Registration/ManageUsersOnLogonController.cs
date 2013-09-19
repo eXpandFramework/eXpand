@@ -12,6 +12,13 @@ using Fasterflect;
 namespace Xpand.ExpressApp.Security.Registration {
     public class ManageUsersOnLogonController : ViewController<DetailView>,IModelExtender {
         public event HandledEventHandler CustomProccessLogonParameter;
+        public event EventHandler<CustomActiveKeyArgs> CustomActiveKey;
+
+        protected virtual void OnCustomActiveKey(CustomActiveKeyArgs e) {
+            var handler = CustomActiveKey;
+            if (handler != null) handler(this, e);
+        }
+
 
         protected virtual void OnCustomProccessLogonParameter(HandledEventArgs e) {
             var handler = CustomProccessLogonParameter;
@@ -29,7 +36,10 @@ namespace Xpand.ExpressApp.Security.Registration {
         
         protected override void OnViewChanging(View view) {
             base.OnViewChanging(view);
-            Active[ControllerActiveKey] = !SecuritySystem.IsAuthenticated;
+            var customActiveKeyArgs = new CustomActiveKeyArgs(view);
+            OnCustomActiveKey(customActiveKeyArgs);
+            if (!customActiveKeyArgs.Handled)
+                Active[ControllerActiveKey] = !SecuritySystem.IsAuthenticated;
         }
         
         protected override void OnViewControlsCreated() {
@@ -41,7 +51,7 @@ namespace Xpand.ExpressApp.Security.Registration {
                     logonController.AcceptAction.Active[LogonActionParametersActiveKey] = !flag;
                     logonController.CancelAction.Active[LogonActionParametersActiveKey] = !flag;
                 } else {
-                    var dialogController = item as DialogController;
+                    var dialogController = item as RegistrationDialogController;
                     if (dialogController != null) {
                         dialogController.AcceptAction.Active[LogonActionParametersActiveKey] = flag;
                         dialogController.CancelAction.Active[LogonActionParametersActiveKey] = flag;
@@ -127,6 +137,19 @@ namespace Xpand.ExpressApp.Security.Registration {
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsRegistration>();
+        }
+    }
+
+    public class CustomActiveKeyArgs:HandledEventArgs {
+        readonly View _view;
+
+        public CustomActiveKeyArgs(View view) {
+            _view = view;
+            Handled = false;
+        }
+
+        public View View {
+            get { return _view; }
         }
     }
 

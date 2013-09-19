@@ -1,16 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
-using Fasterflect;
 using Xpand.Persistent.Base.Validation;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Security {
     public abstract class XpandSecurityModuleBase:XpandModuleBase {
@@ -30,27 +27,31 @@ namespace Xpand.ExpressApp.Security {
 
         protected virtual void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             var app = (XafApplication) sender;
-            var typeInfo = app.TypesInfo.FindTypeInfo(typeof (IPasswordScoreController)).Implementors.FirstOrDefault();
-            if (typeInfo!=null)
-                e.Controllers.Add(app.CreateController(typeInfo.Type));
+            e.Controllers.AddRange(CreateRegistrationControllers(app));
+            e.Controllers.Add(app.CreateController<RegistrationDialogController>());
+        }
 
-            e.Controllers.Add(app.CreateController<ActionAppearanceController>());
-            e.Controllers.Add(app.CreateController<AppearanceController>());
-            e.Controllers.Add(app.CreateController<DetailViewItemAppearanceController>());
-            e.Controllers.Add(app.CreateController<DetailViewLayoutItemAppearanceController>());
-            e.Controllers.Add(app.CreateController<RefreshAppearanceController>());
-            e.Controllers.Add(app.CreateController<AppearanceCustomizationListenerController>());
+        public static IEnumerable<Controller> CreateRegistrationControllers(XafApplication app) {
+            var typeInfo = app.TypesInfo.FindTypeInfo(typeof(IPasswordScoreController)).Implementors.FirstOrDefault();
+            if (typeInfo != null)
+                yield return app.CreateController(typeInfo.Type);
 
-            e.Controllers.Add(app.CreateController<ManageUsersOnLogonController>());
-            
-            e.Controllers.Add(app.CreateController<ActionValidationController>());
-            e.Controllers.Add(app.CreateController<PersistenceValidationController>());
-            e.Controllers.Add(app.CreateController<ResultsHighlightController>());
-            e.Controllers.Add(app.CreateController<RuleSetInitializationController>());
+            yield return app.CreateController<ActionAppearanceController>();
+            yield return app.CreateController<AppearanceController>();
+            yield return app.CreateController<DetailViewItemAppearanceController>();
+            yield return app.CreateController<DetailViewLayoutItemAppearanceController>();
+            yield return app.CreateController<RefreshAppearanceController>();
+            yield return app.CreateController<AppearanceCustomizationListenerController>();
 
-            e.Controllers.Add(app.CreateController<DialogController>());
+            yield return app.CreateController<ManageUsersOnLogonController>();
 
+            yield return app.CreateController<ActionValidationController>();
+            yield return app.CreateController<PersistenceValidationController>();
+            yield return app.CreateController<ResultsHighlightController>();
+            yield return app.CreateController<RuleSetInitializationController>();
         }
     }
-    
+
+    public class RegistrationDialogController : DialogController {
+    }
 }

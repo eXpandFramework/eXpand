@@ -273,7 +273,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         internal void UpdateItemsVisibility() {
             var baseType = GetType().BaseType;
             if (baseType != null) {
-                this.CallMethod("UpdateItemsVisibility");
+                baseType.Method("UpdateItemsVisibility").Call(this);
             }
         }
     }

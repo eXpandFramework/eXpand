@@ -120,7 +120,8 @@ namespace Xpand.ExpressApp.Validation.RuleType {
         }
 
         bool CriticalErrorsNotExist(Dictionary<RuleType, List<RuleSetValidationResultItem>> items) {
-            return items.FirstOrDefault(pair => pair.Key == RuleType.Critical).Value.Count == 0;
+            var value = items.FirstOrDefault(pair => pair.Key == RuleType.Critical).Value;
+            return value != null && value.Count == 0;
         }
 
         void Collect(IEnumerable<RuleSetValidationResultItem> resultItems, RuleType ruleType) {
