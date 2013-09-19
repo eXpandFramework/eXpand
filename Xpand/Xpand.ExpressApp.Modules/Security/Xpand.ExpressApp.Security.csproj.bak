@@ -13,10 +13,12 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <TargetFrameworkProfile />
@@ -55,52 +57,45 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v12.2.Core">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
     <Reference Include="System">
@@ -110,11 +105,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -122,11 +112,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationProviders\Authentication.cs" />
     <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AuthenticationProviders\AuthenticationCombined.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="AuthenticationProviders\XpandLogonParameters.cs" />
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Registration\ManageUsersOnLogonController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\MyDetailsPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\FilterCustomPermissionsController.cs">
@@ -141,17 +144,27 @@
     <Compile Include="Controllers\RememberMeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\IsAllowedToRoleOperator.cs" />
     <Compile Include="Core\SecuritySystemExtensions.cs" />
+    <Compile Include="Permissions\IsAdministratorPermission.cs" />
+    <Compile Include="Permissions\LogoffPermission.cs" />
+    <Compile Include="Permissions\MyDetailsPermission.cs" />
     <Compile Include="Permissions\PermissionProviderStorage.cs" />
     <Compile Include="Core\SecuritySystemRoleExtensions.cs" />
     <Compile Include="Core\XpandRole.cs" />
+    <Compile Include="Permissions\ModifierPermission.cs" />
     <Compile Include="Permissions\XpandPermissionData.cs" />
+    <Compile Include="Registration\Model.cs" />
+    <Compile Include="Registration\Parameters.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="XpandSecurityModuleBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

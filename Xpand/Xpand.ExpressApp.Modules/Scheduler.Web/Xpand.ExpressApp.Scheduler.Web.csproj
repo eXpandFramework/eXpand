@@ -66,7 +66,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.Scheduler.Web.v13.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
@@ -78,6 +78,12 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxScheduler.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.v13.1">
