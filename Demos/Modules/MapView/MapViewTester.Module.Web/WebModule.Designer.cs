@@ -29,7 +29,7 @@ namespace MapViewTester.Module.Web {
             this.RequiredModuleTypes.Add(typeof(MapViewTester.Module.MapViewTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MapView.Web.XpandMapViewWebModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MapView.Web.MapViewWebModule));
 
         }
 

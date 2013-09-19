@@ -1,6 +1,6 @@
 namespace Xpand.ExpressApp.MapView.Web
 {
-    partial class XpandMapViewWebModule
+    partial class MapViewWebModule
     {
         /// <summary> 
         /// Required designer variable.

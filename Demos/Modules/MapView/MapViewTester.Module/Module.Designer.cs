@@ -27,6 +27,7 @@ namespace MapViewTester.Module {
             // MapViewTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MapView.MapViewModule));
         }
 
         #endregion

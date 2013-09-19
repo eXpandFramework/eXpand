@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Web;
@@ -11,7 +12,7 @@ using MapViewTester.Module;
 using MapViewTester.Module.Web;
 
 namespace MapViewTester.Web {
-    public class MapViewTesterAspNetApplication : XpandWebApplication {
+    public class MapViewTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         MapViewTesterModule module3;
@@ -20,13 +21,16 @@ namespace MapViewTester.Web {
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
-        private Xpand.ExpressApp.MapView.Web.XpandMapViewWebModule xpandMapViewWebModule1;
+        private Xpand.ExpressApp.MapView.Web.MapViewWebModule _mapViewWebModule1;
         SqlConnection sqlConnection1;
 
         public MapViewTesterAspNetApplication() {
             InitializeComponent();
         }
 
+        protected override bool SupportMasterDetailMode {
+            get { return true; }
+        }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
         }
@@ -71,7 +75,7 @@ namespace MapViewTester.Web {
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
-            this.xpandMapViewWebModule1 = new Xpand.ExpressApp.MapView.Web.XpandMapViewWebModule();
+            this._mapViewWebModule1 = new Xpand.ExpressApp.MapView.Web.MapViewWebModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -95,7 +99,7 @@ namespace MapViewTester.Web {
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.xpandSystemAspNetModule1);
-            this.Modules.Add(this.xpandMapViewWebModule1);
+            this.Modules.Add(this._mapViewWebModule1);
             this.Modules.Add(this.module4);
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.MapViewTesterAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

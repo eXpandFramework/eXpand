@@ -1,2 +1,13 @@
-<?xml version="1.0"?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.7.1" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.1.7.1" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="Customer_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" />
+  </Views>
+</Application>

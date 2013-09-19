@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="MapViewTester" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="MapViewTester.Module.BusinessObjects.Customer">
+      <MapView AddressMember="Address1" InfoWindowText="FullName" />
+    </Class>
+  </BOModel>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />

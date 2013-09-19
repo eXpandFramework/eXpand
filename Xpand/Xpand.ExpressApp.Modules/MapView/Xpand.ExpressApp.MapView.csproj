@@ -77,6 +77,7 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>
@@ -87,9 +88,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMapAddress.cs" />
     <Compile Include="IMapCoordinates.cs" />
-    <Compile Include="IMapInfoWindow.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

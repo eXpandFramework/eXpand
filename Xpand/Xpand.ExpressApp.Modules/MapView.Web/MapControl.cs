@@ -3,28 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxClasses.Internal;
 using Xpand.ExpressApp.Web.Layout;
+using System.Linq;
 
-namespace Xpand.ExpressApp.MapView.Web
-{
-    public class MapControl : ASPxWebControl
-    {
+namespace Xpand.ExpressApp.MapView.Web {
+    public class MapControl : ASPxWebControl {
         private const int infoWidthDefaultValue = 300;
         private HtmlGenericControl div;
         private int infoWindowWidth = infoWidthDefaultValue;
         public event EventHandler FocusedIndexChanged;
+        public event EventHandler<MapViewInfoEventArgs> MapViewInfoNeeded;
 
-        protected override string GetStartupScript()
-        {
-            StringBuilder sb = new StringBuilder();
+        protected virtual void OnMapViewInfoNeeded(MapViewInfoEventArgs e) {
+            var handler = MapViewInfoNeeded;
+            if (handler != null) handler(this, e);
+        }
 
 
+        protected override string GetStartupScript() {
+            var sb = new StringBuilder();
             sb.AppendLine("var initMap = function() { ");
             sb.AppendFormat(@"{0}
                 var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
@@ -86,32 +87,25 @@ namespace Xpand.ExpressApp.MapView.Web
 
 
 
-            if (DataSource != null)
-            {
-                IList list = DataSource as IList;
-                if (list != null)
-                {
+            if (DataSource != null) {
+                var list = DataSource as IList;
+                if (list != null) {
                     sb.AppendLine("var marker, infoWindow;");
-                    for (int i = 0; i < list.Count; i++)
-                    {
-                        IMapAddress address = list[i] as IMapAddress;
-                        if (address != null && !string.IsNullOrEmpty(address.Address))
-                        {
-
+                    var mapViewInfoEventArgs = new MapViewInfoEventArgs();
+                    OnMapViewInfoNeeded(mapViewInfoEventArgs);
+                    for (int i = 0; i < mapViewInfoEventArgs.MapViewInfos.Count(); i++) {
+                        var mapViewInfo = mapViewInfoEventArgs.MapViewInfos.ToList()[i];
+                        if (!string.IsNullOrEmpty(mapViewInfo.Address)) {
                             string infoWindowText = "undefined";
-
-                            IMapInfoWindow infoWindow = address as IMapInfoWindow;
-                            if (infoWindow != null && !string.IsNullOrEmpty(infoWindow.InfoWindowText))
-                            {
-                                infoWindowText = System.Web.HttpUtility.HtmlEncode(infoWindow.InfoWindowText).Replace("'","''");
+                            if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText)) {
+                                infoWindowText = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText).Replace("'", "''");
                             }
                             sb.AppendFormat(CultureInfo.InvariantCulture,
-                                "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n", address.Address, i, (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(), infoWindowText, InfoWindowWidth);
-                            
-
+                                            "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
+                                            mapViewInfo.Address, i,
+                                            (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
+                                            infoWindowText, InfoWindowWidth);
                         }
-                        
-
                     }
                 }
             }
@@ -122,8 +116,7 @@ namespace Xpand.ExpressApp.MapView.Web
         }
 
 
-        protected override void OnCustomDataCallback(CustomDataCallbackEventArgs e)
-        {
+        protected override void OnCustomDataCallback(CustomDataCallbackEventArgs e) {
             base.OnCustomDataCallback(e);
             int index;
             if (int.TryParse(e.Parameter, NumberStyles.Integer, CultureInfo.InvariantCulture, out index))
@@ -132,15 +125,12 @@ namespace Xpand.ExpressApp.MapView.Web
 
         public object DataSource { get; set; }
 
-        protected override bool HasFunctionalityScripts()
-        {
+        protected override bool HasFunctionalityScripts() {
             return true;
         }
 
-        protected override void CreateChildControls()
-        {
-            div = new HtmlGenericControl("div");
-            div.ID = "MapContent";
+        protected override void CreateChildControls() {
+            div = new HtmlGenericControl("div"){ID = "MapContent"};
             div.Style.Add("width", "100%");
             div.Style.Add("height", "100%");
             Controls.Add(div);
@@ -149,13 +139,10 @@ namespace Xpand.ExpressApp.MapView.Web
 
         private int focusedIndex = -1;
 
-        public int FocusedIndex
-        {
+        public int FocusedIndex {
             get { return focusedIndex; }
-            set
-            {
-                if (focusedIndex != value)
-                {
+            set {
+                if (focusedIndex != value) {
                     focusedIndex = value;
                     if (FocusedIndexChanged != null)
                         FocusedIndexChanged(this, EventArgs.Empty);
@@ -163,23 +150,30 @@ namespace Xpand.ExpressApp.MapView.Web
             }
         }
 
-        public object FocusedObject
-        {
-            get
-            {
-                IList list = DataSource as IList;
-                if (list != null && FocusedIndex >= 0 && FocusedIndex < list.Count)
-                    return list[FocusedIndex];
-                else
-                    return null;
+        public object FocusedObject {
+            get {
+                var list = DataSource as IList;
+                return list != null && FocusedIndex >= 0 && FocusedIndex < list.Count ? list[FocusedIndex] : null;
             }
         }
 
         [DefaultValue(infoWidthDefaultValue)]
-        public int InfoWindowWidth
-        {
+        public int InfoWindowWidth {
             get { return infoWindowWidth; }
             set { infoWindowWidth = value; }
         }
+    }
+
+    public interface IMapViewInfo {
+        string Address { get; set; }
+        string InfoWindowText { get; set; }
+    }
+
+    public class MapViewInfo:IMapViewInfo {
+        public string Address { get; set; }
+        public string InfoWindowText { get; set; }
+    }
+    public class MapViewInfoEventArgs : EventArgs {
+        public IEnumerable<MapViewInfo> MapViewInfos { get; set; }
     }
 }
