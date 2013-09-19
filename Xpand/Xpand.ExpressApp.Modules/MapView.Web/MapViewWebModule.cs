@@ -3,11 +3,12 @@ using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using Xpand.ExpressApp.Web.Layout;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MapView.Web {
-    public sealed partial class MapViewWebModule : ModuleBase {
+    public sealed class MapViewWebModule : XpandModuleBase {
         public MapViewWebModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(MapViewModule));
             XpandLayoutManager.RegisterListControlAdapter(typeof(MapControl), typeof(GoogleMapListControlAdapter));
         }
 

@@ -93,6 +93,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.MapView.Web, Version=1.0.5010.40206, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
@@ -119,14 +123,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\MapView.Web\Xpand.ExpressApp.MapView.Web.csproj">
-      <Project>{b9ef03ff-d05b-4fd4-a8e9-f90d819cb1dc}</Project>
-      <Name>Xpand.ExpressApp.MapView.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\MapView\Xpand.ExpressApp.MapView.csproj">
-      <Project>{a334ac3a-c12b-484d-ae4e-da24038f443d}</Project>
-      <Name>Xpand.ExpressApp.MapView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MapViewTester.Module\MapViewTester.Module.csproj">
       <Project>{EF04B36B-E62F-40CB-8BC6-C1B740489383}</Project>
       <Name>MapViewTester.Module</Name>
