@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Xpo;
@@ -38,7 +39,9 @@ namespace SchedulerTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            e.Updater.Update();
+            e.Handled = true;
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

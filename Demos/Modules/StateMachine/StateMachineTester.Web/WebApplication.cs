@@ -43,7 +43,9 @@ namespace StateMachineTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-                                                                             if (true) {
+            e.Updater.Update();
+            e.Handled = true;
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {
