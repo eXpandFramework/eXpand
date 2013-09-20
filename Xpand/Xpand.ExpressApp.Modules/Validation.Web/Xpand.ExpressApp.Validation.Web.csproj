@@ -98,7 +98,9 @@
     <Compile Include="Controllers\OnErrorAutoScrollPageToTopController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleType\RuleTypeController.cs" />
+    <Compile Include="RuleType\RuleTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandValidationWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

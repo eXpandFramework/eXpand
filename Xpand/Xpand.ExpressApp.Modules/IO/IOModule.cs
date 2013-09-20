@@ -26,12 +26,6 @@ namespace Xpand.ExpressApp.IO {
             }
         }
 
-//        protected override ModuleTypeList GetRequiredModuleTypesCore() {
-//            var requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
-//            requiredModuleTypesCore.AddRange(new[] { typeof(TreeListEditorsModuleBase), typeof(ModelArtifactStateModule) });
-//            return requiredModuleTypesCore;
-//        }
-
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new AllowEditForClassInfoNodeListViewsUpdater());
