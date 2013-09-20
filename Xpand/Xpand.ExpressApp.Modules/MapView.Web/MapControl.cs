@@ -26,13 +26,20 @@ namespace Xpand.ExpressApp.MapView.Web {
 
         protected override string GetStartupScript() {
             var sb = new StringBuilder();
+
+            sb.AppendLine("var adjustSizeOverride = " + XpandLayoutManager.GetAdjustSizeScript());
+            sb.AppendLine("adjustSizeOverride();");
+            sb.AppendFormat("var div = document.getElementById('{0}');", div.ClientID);
+            sb.AppendLine("window.ElementToResize = div;");
             sb.AppendLine("var initMap = function() { ");
             sb.AppendFormat(@"{0}
-                var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
+                var parentSplitter = XpandHelper.GetElementParentControl(div);
                 if (parentSplitter && !parentSplitter.xpandInitialized) {{
                     window.setTimeout(initMap, 500);
                     return;
                 }}
+            
+
             ", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
 
             sb.AppendLine("var mapOptions = {");
@@ -110,7 +117,7 @@ namespace Xpand.ExpressApp.MapView.Web {
                     }
                 }
             }
-
+            sb.AppendLine("window.AdjustSize();");
             sb.AppendLine("google.maps.event.trigger(map, 'resize');};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
@@ -131,7 +138,9 @@ namespace Xpand.ExpressApp.MapView.Web {
         }
 
         protected override void CreateChildControls() {
+            
             div = new HtmlGenericControl("div"){ID = "MapContent"};
+            div.Style.Add("display", "block");
             div.Style.Add("width", "100%");
             div.Style.Add("height", "100%");
             Controls.Add(div);
