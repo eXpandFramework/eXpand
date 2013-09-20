@@ -1,7 +1,7 @@
 ﻿var XpandHelper = {
 
     GetParentControl: function (childControl) {
-        return GetElementParentControl(childControl.GetMainElement());
+        return this.GetElementParentControl(childControl.GetMainElement());
     },
 
     GetElementParentControl: function (element) {
@@ -12,6 +12,7 @@
             }
         }
     },
+    
     GetFirstChildControl: function (element) {
         for (var i = 0; i < element.childNodes.length; i++) {
             var control = ASPxClientControl.GetControlCollection().GetByName(element.childNodes[i].id);
