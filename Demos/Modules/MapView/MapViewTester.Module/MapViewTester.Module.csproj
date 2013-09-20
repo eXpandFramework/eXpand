@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EF04B36B-E62F-40CB-8BC6-C1B740489383}</ProjectGuid>
+    <ProjectGuid>{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MapViewTester.Module</RootNamespace>
@@ -75,6 +75,10 @@
     <Reference Include="Xpand.ExpressApp.MapView, Version=1.0.5010.40205, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=13.1.7.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

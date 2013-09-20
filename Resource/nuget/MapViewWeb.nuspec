@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>11.1</version>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <projectUrl>http://www.expandframework.com/#mapview</projectUrl>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <id>eXpandMapView</id>
+    <title>DevExpress eXpandFramework MapView Module</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description></description>
+    <summary>Google Maps</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <dependencies>
+      <dependency id="eXpandLib" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.MapView.Web.dll" target="lib\net40\Xpand.ExpressApp.MapView.Web.dll" />
+  </files>
+</package>

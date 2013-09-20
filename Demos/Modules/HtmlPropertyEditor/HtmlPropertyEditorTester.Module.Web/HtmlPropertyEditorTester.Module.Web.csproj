@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlPropertyEditorTester.Module\HtmlPropertyEditorTester.Module.csproj">
-      <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
+      <Project>{a3889038-bb0e-4b28-8eca-6cb3e6896ba0}</Project>
       <Name>HtmlPropertyEditorTester.Module</Name>
     </ProjectReference>
   </ItemGroup>

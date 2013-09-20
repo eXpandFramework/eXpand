@@ -199,11 +199,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HtmlPropertyEditorTester.Module.Web\HtmlPropertyEditorTester.Module.Web.csproj">
-      <Project>{0C729AAD-7626-4668-A7F1-35F7D240489D}</Project>
+      <Project>{b7b555a1-eeac-47b3-b948-7c65960a9885}</Project>
       <Name>HtmlPropertyEditorTester.Module.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\HtmlPropertyEditorTester.Module\HtmlPropertyEditorTester.Module.csproj">
-      <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
+      <Project>{a3889038-bb0e-4b28-8eca-6cb3e6896ba0}</Project>
       <Name>HtmlPropertyEditorTester.Module</Name>
     </ProjectReference>
   </ItemGroup>

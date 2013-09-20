@@ -286,12 +286,23 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module", "HtmlPropertyEditor\HtmlPropertyEditorTester.Module\HtmlPropertyEditorTester.Module.csproj", "{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module.Web", "HtmlPropertyEditor\HtmlPropertyEditorTester.Module.Web\HtmlPropertyEditorTester.Module.Web.csproj", "{B7B555A1-EEAC-47B3-B948-7C65960A9885}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0} = {A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Web", "HtmlPropertyEditor\HtmlPropertyEditorTester.Web\HtmlPropertyEditorTester.Web.csproj", "{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0} = {A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}
 		{B7B555A1-EEAC-47B3-B948-7C65960A9885} = {B7B555A1-EEAC-47B3-B948-7C65960A9885}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MapView", "MapView", "{D77F9914-216F-42A4-BC75-033D1441AEA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module", "MapView\MapViewTester.Module\MapViewTester.Module.csproj", "{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module.Web", "MapView\MapViewTester.Module.Web\MapViewTester.Module.Web.csproj", "{2F63F546-5833-4087-8735-FFCEB294C26C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Web", "MapView\MapViewTester.Web\MapViewTester.Web.csproj", "{0093BEE4-6D18-420B-929E-6BACC6056031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -999,6 +1010,24 @@ Global
 		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0093BEE4-6D18-420B-929E-6BACC6056031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1121,5 +1150,8 @@ Global
 		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0} = {261C24F4-A673-4E95-9D51-CEDF19171F46}
 		{B7B555A1-EEAC-47B3-B948-7C65960A9885} = {261C24F4-A673-4E95-9D51-CEDF19171F46}
 		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799} = {261C24F4-A673-4E95-9D51-CEDF19171F46}
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE} = {D77F9914-216F-42A4-BC75-033D1441AEA1}
+		{2F63F546-5833-4087-8735-FFCEB294C26C} = {D77F9914-216F-42A4-BC75-033D1441AEA1}
+		{0093BEE4-6D18-420B-929E-6BACC6056031} = {D77F9914-216F-42A4-BC75-033D1441AEA1}
 	EndGlobalSection
 EndGlobal
