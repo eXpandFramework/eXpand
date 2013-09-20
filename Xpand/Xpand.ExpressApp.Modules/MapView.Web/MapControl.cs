@@ -24,6 +24,7 @@ namespace Xpand.ExpressApp.MapView.Web {
         }
 
 
+        internal bool PerformCallbackOnMarker { get; set; }
         protected override string GetStartupScript() {
             var sb = new StringBuilder();
 
@@ -55,12 +56,14 @@ namespace Xpand.ExpressApp.MapView.Web {
                                 google.maps.event.addListener(marker, 'click', function() {");
             sb.AppendLine(@"if (marker.infoWindow) marker.infoWindow.open(map, marker);");
 
+            
             sb.AppendLine(@"var markerCallback = function (s,e) {");
-            sb.Append(@"
+            if (PerformCallbackOnMarker) {
+                sb.Append(@"
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
                     if (up && up.GetMainElement()) {{ 
                         up.PerformCallback(objectId);}}");
-
+            }
             sb.AppendLine("};");
 
             sb.AppendLine("var arg = 'd1:' + objectId;");
