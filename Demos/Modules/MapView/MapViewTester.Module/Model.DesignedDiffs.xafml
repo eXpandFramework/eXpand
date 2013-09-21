@@ -8,8 +8,5 @@
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
-  <Views>
-    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
-    <ListView Id="SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
-  </Views>
+
 </Application>
