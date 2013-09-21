@@ -1,11 +1,15 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.Utils;
 using Xpand.ExpressApp.Web.Layout;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MapView.Web {
+    [ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class MapViewWebModule : XpandModuleBase {
         public MapViewWebModule() {
             RequiredModuleTypes.Add(typeof(MapViewModule));
