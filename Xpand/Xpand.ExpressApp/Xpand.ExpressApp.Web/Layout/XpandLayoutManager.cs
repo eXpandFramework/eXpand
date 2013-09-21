@@ -156,7 +156,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 t.Assembly.GetManifestResourceStream(string.Format(CultureInfo.InvariantCulture, "{0}.{1}.js", t.Namespace, scriptName)).ReadToEndAsString();
         }
 
-        private static string GetAdjustSizeScript() {
+        public static string GetAdjustSizeScript() {
             return GetScript("AdjustSize");
         }
 

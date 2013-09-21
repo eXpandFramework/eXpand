@@ -29,7 +29,12 @@ namespace Xpand.ExpressApp.MapView.Web {
             var mapControl = new MapControl();
             mapControl.FocusedIndexChanged += (s, e) => OnFocusedObjectChanged();
             mapControl.MapViewInfoNeeded+=MapControlOnMapViewInfoNeeded;
+            mapControl.PerformCallbackOnMarker = IsMasterDetail;
             return mapControl;
+        }
+
+        private bool IsMasterDetail {
+            get { return Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
         }
 
         void MapControlOnMapViewInfoNeeded(object sender, MapViewInfoEventArgs mapViewInfoEventArgs) {

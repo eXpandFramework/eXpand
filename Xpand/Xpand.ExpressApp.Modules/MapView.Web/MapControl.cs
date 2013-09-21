@@ -24,15 +24,23 @@ namespace Xpand.ExpressApp.MapView.Web {
         }
 
 
+        internal bool PerformCallbackOnMarker { get; set; }
         protected override string GetStartupScript() {
             var sb = new StringBuilder();
+
+            sb.AppendLine("var adjustSizeOverride = " + XpandLayoutManager.GetAdjustSizeScript());
+            sb.AppendLine("adjustSizeOverride();");
+            sb.AppendFormat("var div = document.getElementById('{0}');", div.ClientID);
+            sb.AppendLine("window.ElementToResize = div;");
             sb.AppendLine("var initMap = function() { ");
             sb.AppendFormat(@"{0}
-                var parentSplitter = XpandHelper.GetElementParentControl(document.getElementById('{1}'));
+                var parentSplitter = XpandHelper.GetElementParentControl(div);
                 if (parentSplitter && !parentSplitter.xpandInitialized) {{
                     window.setTimeout(initMap, 500);
                     return;
                 }}
+            
+
             ", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
 
             sb.AppendLine("var mapOptions = {");
@@ -48,12 +56,14 @@ namespace Xpand.ExpressApp.MapView.Web {
                                 google.maps.event.addListener(marker, 'click', function() {");
             sb.AppendLine(@"if (marker.infoWindow) marker.infoWindow.open(map, marker);");
 
+            
             sb.AppendLine(@"var markerCallback = function (s,e) {");
-            sb.Append(@"
+            if (PerformCallbackOnMarker) {
+                sb.Append(@"
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
                     if (up && up.GetMainElement()) {{ 
                         up.PerformCallback(objectId);}}");
-
+            }
             sb.AppendLine("};");
 
             sb.AppendLine("var arg = 'd1:' + objectId;");
@@ -93,8 +103,8 @@ namespace Xpand.ExpressApp.MapView.Web {
                     sb.AppendLine("var marker, infoWindow;");
                     var mapViewInfoEventArgs = new MapViewInfoEventArgs();
                     OnMapViewInfoNeeded(mapViewInfoEventArgs);
-                    for (int i = 0; i < mapViewInfoEventArgs.MapViewInfos.Count(); i++) {
-                        var mapViewInfo = mapViewInfoEventArgs.MapViewInfos.ToList()[i];
+                    int index = 0;
+                    foreach (var  mapViewInfo in  mapViewInfoEventArgs.MapViewInfos) {
                         if (!string.IsNullOrEmpty(mapViewInfo.Address)) {
                             string infoWindowText = "undefined";
                             if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText)) {
@@ -102,14 +112,15 @@ namespace Xpand.ExpressApp.MapView.Web {
                             }
                             sb.AppendFormat(CultureInfo.InvariantCulture,
                                             "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
-                                            mapViewInfo.Address, i,
-                                            (i == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
+                                            mapViewInfo.Address, index,
+                                            (index == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
                                             infoWindowText, InfoWindowWidth);
                         }
+                        index++;
                     }
                 }
             }
-
+            sb.AppendLine("window.AdjustSize();");
             sb.AppendLine("google.maps.event.trigger(map, 'resize');};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
@@ -130,7 +141,9 @@ namespace Xpand.ExpressApp.MapView.Web {
         }
 
         protected override void CreateChildControls() {
+            
             div = new HtmlGenericControl("div"){ID = "MapContent"};
+            div.Style.Add("display", "block");
             div.Style.Add("width", "100%");
             div.Style.Add("height", "100%");
             Controls.Add(div);

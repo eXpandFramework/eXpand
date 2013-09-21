@@ -1,5 +1,4 @@
 ﻿function (s, e) {
-    window.DetailUpdatePanelControl = s; s.GetMainElement().ClientControl = s;
     if (!window.AdjustSizeOverriden) {
         window.AdjustSizeCore = function () {
             var middleRowContent = document.getElementById("CP");
@@ -74,11 +73,15 @@
                     middleRowContent.style.overflow = "auto";
                 }
 				
-            }
+            }			
+			else if (window.ElementToResize) {
+				window.ElementToResize.style.height = middleRowHeight + "px";
+			}
             else {
                 middleRowContent.style.overflow = "auto";
                 if (windowHeight > mainTable.offsetHeight) {
                     middleRowContent.style.height = middleRowHeight + "px";
+							
                 }
                 else {
                     middleRowContent.style.height = "100%";
