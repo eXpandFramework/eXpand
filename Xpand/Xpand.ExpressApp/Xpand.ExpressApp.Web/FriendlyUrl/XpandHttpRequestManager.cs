@@ -48,13 +48,9 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
             var viewId = strings[0];
             var split = viewId.Split('-');
             var id = split.Length > 1 ? split[1] : viewId;
-            return GetViewIdFromFrindlyUrl(strings, id);
+            return WebApplication.Instance.Model.Views.OfType<IModelViewFriendlyUrl>().First(url => url.FriendlyUrl == id).Id;
         }
 
-        string GetViewIdFromFrindlyUrl(string[] strings, string id) {
-            var modelViewFriendlyUrls = WebApplication.Instance.Model.Views.OfType<IModelViewFriendlyUrl>().Where(url => url.FriendlyUrl == id);
-            return strings.Length == 2 ? modelViewFriendlyUrls.OfType<IModelDetailView>().Single().Id : id;
-        }
         #endregion
 
         public override void WriteShortcutTo(ViewShortcut currentShortcut, NameValueCollection queryString) {
