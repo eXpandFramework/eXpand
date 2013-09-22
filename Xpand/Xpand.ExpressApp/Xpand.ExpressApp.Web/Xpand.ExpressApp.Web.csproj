@@ -191,6 +191,9 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\WebShortcuts\WebShortcutsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WebToolTipsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -264,6 +267,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Styles\CommonStyle.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SystemModule\WebShortcuts\jwerty.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

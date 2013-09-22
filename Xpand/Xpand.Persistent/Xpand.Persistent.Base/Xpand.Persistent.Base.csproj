@@ -118,6 +118,7 @@
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
+    <Compile Include="General\ActionExtenions.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
     <Compile Include="General\Controllers\Dashboard\DashboardInteraction.cs">
       <SubType>Component</SubType>

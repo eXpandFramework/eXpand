@@ -91,6 +91,7 @@
     <Compile Include="Dynamic\DynamicElement.cs" />
     <Compile Include="GeneralDataStructures\HashedArrayList.cs" />
     <Compile Include="GeneralDataStructures\MultiKeyDictionary.cs" />
+    <Compile Include="Helpers\Keys.cs" />
     <Compile Include="Helpers\LinqExpressionAccessors.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
     <Compile Include="Helpers\DateTimeUtils.cs" />
