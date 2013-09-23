@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class PromtOnExitController : WindowController, IModelExtender {
         static bool enableEventHandling = true;
         volatile bool _editing;
+        bool _isLoggingOff;
 
         public PromtOnExitController() {
             TargetWindowType=WindowType.Main;
@@ -25,9 +26,21 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override void OnActivated() {
             base.OnActivated();
+            Application.LoggingOff+=ApplicationOnLoggingOff;
+            Application.LoggedOff+=ApplicationOnLoggedOff;
             var editModelAction = Frame.GetController<EditModelController>().EditModelAction;
             editModelAction.Executing += EditModelActionOnExecuting;
             editModelAction.ExecuteCompleted += EditModelActionOnExecuteCompleted;
+        }
+
+        void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
+            var xafApplication = ((XafApplication) sender);
+            xafApplication.LoggingOff-=ApplicationOnLoggingOff;
+            xafApplication.LoggedOff-=ApplicationOnLoggedOff;
+        }
+
+        void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
+            _isLoggingOff = true;
         }
 
         void EditModelActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
@@ -38,9 +51,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             _editing = true;
         }
 
-
         void OnWindowClosing(Object sender, CancelEventArgs e) {
-            if (_editing) {
+            if (_editing || _isLoggingOff) {
                 return;
             }
             if (!enableEventHandling) return;
