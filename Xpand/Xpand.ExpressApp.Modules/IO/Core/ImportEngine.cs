@@ -213,7 +213,8 @@ namespace Xpand.ExpressApp.IO.Core {
                 var xpBaseObject = _unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, _unitOfWork.GetClassInfo(typeInfo.Type),
                                                          criteriaOperator, true) as XPBaseObject ??
                                    _unitOfWork.FindObject(_unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
-                return xpBaseObject ?? (XPBaseObject)typeInfo.Type.CreateInstance(_unitOfWork);
+
+                return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type,_unitOfWork);
             }
             return null;
         }
