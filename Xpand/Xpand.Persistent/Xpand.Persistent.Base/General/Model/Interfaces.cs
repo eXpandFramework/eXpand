@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.General.Model {
     }
     [DomainLogic(typeof(IModelApplicationListViews))]
     public class ModelApplicationListViewsDomainLogic {
-        public const string ListViews = "ListViews";
+        public const string ListViews = "Application.ListViews";
 
         public static IModelList<IModelListView> Get_ListViews(IModelApplicationListViews modelClassFullTextSearch) {
             return new CalculatedModelNodeList<IModelListView>(modelClassFullTextSearch.Application.Views.OfType<IModelListView>());

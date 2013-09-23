@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         AllSearchableMembers, VisibleColumns,IncludedColumns
     }
 
-    public interface IModelFullTextSearch:IModelApplicationListViews {
+    public interface IModelFullTextSearch:IModelNode {
         [Category(AttributeCategoryNameProvider.Search)]
         [DataSourceProperty(ModelApplicationListViewsDomainLogic.ListViews)]
         IModelListView FullTextListView { get; set; }
