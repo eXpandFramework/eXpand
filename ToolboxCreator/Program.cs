@@ -75,7 +75,7 @@ namespace Xpand.ToolboxCreator {
             return registryKey.GetSubKeyNames().First(s => s.StartsWith("v4"));
         }
 
-        static void DeleteXpandEntries(IEnumerable<RegistryKey> keys, string wow) {
+        static void DeleteXpandEntries(IList<RegistryKey> keys, string wow) {
             foreach (var registryKey in keys) {
                 var names = registryKey.GetSubKeyNames().Where(s => s.StartsWith("Xpand"));
                 foreach (var name in names) {
@@ -84,6 +84,10 @@ namespace Xpand.ToolboxCreator {
             }
             RegistryKey assemblyFolderExKey = GetAssemblyFolderExKey(wow);
             assemblyFolderExKey.DeleteSubKeyTree("Xpand",false);
+
+            assemblyFolderExKey.Close();
+            for (int i = keys.Count - 1; i >= 0; i--)
+                keys[i].Close();
         }
 
         static List<RegistryKey> RegistryKeys(string wow) {
