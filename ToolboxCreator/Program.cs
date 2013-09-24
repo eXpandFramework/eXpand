@@ -16,19 +16,27 @@ namespace Xpand.ToolboxCreator {
             var isWow64 = InternalCheckIsWow64();
             string wow = isWow64 ? @"Wow6432Node\" : null;
             var registryKeys = RegistryKeys(wow);
-            DeleteXpandEntries(registryKeys,wow);
+            
             if (args.Length == 1 && args[0] == "u") {
+                DeleteXpandEntries(registryKeys);
+                var assemblyFolderExKey = GetAssemblyFolderExKey(wow);
+                assemblyFolderExKey.DeleteSubKeyTree("Xpand", false);
+                assemblyFolderExKey.Close();
                 Console.WriteLine("Unistalled");
                 return;
             }
-            AssemblyFoldersKey(wow);
+            CreateAssemblyFoldersKey(wow);
 
+            var version = new Version();
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
                 try {
                     var assembly = Assembly.LoadFrom(file);
+                    if (version==new Version()) {
+                        version = new Version(FileVersionInfo.GetVersionInfo(assembly.Location).FileVersion);
+                    }
                     foreach (var type in assembly.GetTypes()) {
                         var toolboxItemAttribute = type.GetCustomAttributes(typeof(ToolboxItemAttribute), true).OfType<ToolboxItemAttribute>().FirstOrDefault();
-                        if (toolboxItemAttribute != null && !string.IsNullOrEmpty(toolboxItemAttribute.ToolboxItemTypeName)) {
+                        if (toolboxItemAttribute != null && !String.IsNullOrEmpty(toolboxItemAttribute.ToolboxItemTypeName)) {
                             Register(type, file, registryKeys);
                             Console.WriteLine("Toolbox-->" + type.FullName);
                         }
@@ -38,12 +46,15 @@ namespace Xpand.ToolboxCreator {
                     throw reflectionTypeLoadException.LoaderExceptions[0];
                 }
             }
+
+            DeleteXpandEntries(registryKeys,s => !s.Contains(version.ToString()) );
+
             var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\", true);
             Debug.Assert(openSubKey != null, "openSubKey != null");
             openSubKey.SetValue("ConfigurationChanged", DateTime.Now.ToFileTime(), RegistryValueKind.QWord);
         }
 
-        static void AssemblyFoldersKey(string wow) {
+        static void CreateAssemblyFoldersKey(string wow) {
             var registryKeys = new[]{GetAssemblyFolderExKey(wow), Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\.NETFramework\AssemblyFolders", true)};
             foreach (var registryKey in registryKeys) {
                 CreateXpandKey(registryKey);    
@@ -75,19 +86,13 @@ namespace Xpand.ToolboxCreator {
             return registryKey.GetSubKeyNames().First(s => s.StartsWith("v4"));
         }
 
-        static void DeleteXpandEntries(IList<RegistryKey> keys, string wow) {
+        static void DeleteXpandEntries(IEnumerable<RegistryKey> keys,Func<string,bool> func=null) {
             foreach (var registryKey in keys) {
-                var names = registryKey.GetSubKeyNames().Where(s => s.StartsWith("Xpand"));
+                var names = registryKey.GetSubKeyNames().Where(s => s.StartsWith("Xpand") && ((func == null) || func(s)));
                 foreach (var name in names) {
                     registryKey.DeleteSubKeyTree(name);
                 }
             }
-            RegistryKey assemblyFolderExKey = GetAssemblyFolderExKey(wow);
-            assemblyFolderExKey.DeleteSubKeyTree("Xpand",false);
-
-            assemblyFolderExKey.Close();
-            for (int i = keys.Count - 1; i >= 0; i--)
-                keys[i].Close();
         }
 
         static List<RegistryKey> RegistryKeys(string wow) {
@@ -101,10 +106,10 @@ namespace Xpand.ToolboxCreator {
 
         static void Register(Type type, string file, IEnumerable<RegistryKey> registryKeys) {
             foreach (var registryKey in registryKeys) {
-                var subKey = registryKey.CreateSubKey(type.Assembly.FullName);
+                var subKey = registryKey.OpenSubKey(type.Assembly.FullName,true) ?? registryKey.CreateSubKey(type.Assembly.FullName);
                 Debug.Assert(subKey != null, "subKey != null");
                 subKey.SetValue("CodeBase", file);
-                subKey = subKey.CreateSubKey("ItemCategories");
+                subKey =subKey.OpenSubKey("ItemCategories",true)?? subKey.CreateSubKey("ItemCategories");
                 Debug.Assert(subKey != null, "subKey2 != null");
                 var toolboxTabNameAttribute = type.GetCustomAttributes(typeof(ToolboxTabNameAttribute), false).OfType<ToolboxTabNameAttribute>().FirstOrDefault();
                 if (toolboxTabNameAttribute != null)
