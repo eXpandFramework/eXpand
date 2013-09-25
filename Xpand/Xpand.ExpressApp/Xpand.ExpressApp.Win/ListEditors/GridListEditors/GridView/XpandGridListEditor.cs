@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
@@ -17,7 +20,7 @@ using Xpand.Persistent.Base.General.Model.Options;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     [ListEditor(typeof(object), false)]
-    public class XpandGridListEditor : GridListEditorBase, IColumnViewEditor {
+    public class XpandGridListEditor : GridListEditorBase, IColumnViewEditor, IDXPopupMenuHolder {
         public XpandGridListEditor(IModelListView model)
             : base(model) {
         }
@@ -147,7 +150,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         }
 
         #endregion
-
+        bool IDXPopupMenuHolder.CanShowPopupMenu(Point position) {
+            GridHitTest hitTest = GridView.CalcHitInfo(Grid.PointToClient(position)).HitTest;
+            return hitTest == GridHitTest.RowDetail || CanShowPopupMenu(position);
+        }
     }
     public class ErrorTypeEventArgs : EventArgs {
         readonly int _rowHandle;
