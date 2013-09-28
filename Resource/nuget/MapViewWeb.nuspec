@@ -9,7 +9,7 @@
     <id>eXpandMapViewWeb</id>
     <title>DevExpress eXpandFramework MapView Module</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description></description>
+    <description>Google Maps integration</description>
     <summary>Google Maps</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
