@@ -33,10 +33,18 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
     public interface IModelFullTextSearch:IModelNode {
         [Category(AttributeCategoryNameProvider.Search)]
-        [DataSourceProperty(ModelApplicationListViewsDomainLogic.ListViews)]
+        [DataSourceProperty("FullTextListViews")]
         IModelListView FullTextListView { get; set; }
+        [Browsable(false)]
+        IModelList<IModelListView> FullTextListViews { get; }
     }
 
+    [DomainLogic(typeof(IModelFullTextSearch))]
+    public class ModelFullTextSearchDomainLogic {
+        public static IModelList<IModelListView> Get_FullTextListViews(IModelFullTextSearch modelFullTextSearch) {
+            return new CalculatedModelNodeList<IModelListView>(modelFullTextSearch.Application.Views.OfType<IModelListView>());
+        }
+    }
     public interface IModelClassFullTextSearch: IModelFullTextSearch {
         [Category(AttributeCategoryNameProvider.Search)]
         FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }
