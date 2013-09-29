@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var instance = SecuritySystem.Instance;
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
                 SecuritySystem.SetInstance(instance);
-                SetConnectionString(xafApplication);
+//                SetConnectionString(xafApplication);
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);
