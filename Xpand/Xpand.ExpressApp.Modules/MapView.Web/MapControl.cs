@@ -108,7 +108,7 @@ namespace Xpand.ExpressApp.MapView.Web {
                         if (!string.IsNullOrEmpty(mapViewInfo.Address)) {
                             string infoWindowText = "undefined";
                             if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText)) {
-                                infoWindowText = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText).Replace("'", "''");
+                                infoWindowText = GetInfoWindowText(mapViewInfo);
                             }
                             sb.AppendFormat(CultureInfo.InvariantCulture,
                                             "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
@@ -124,6 +124,19 @@ namespace Xpand.ExpressApp.MapView.Web {
             sb.AppendLine("google.maps.event.trigger(map, 'resize');};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
+        }
+
+        [DefaultValue(false)]
+        public bool AllowHtmlInInfoText { get; set; }
+
+        private string GetInfoWindowText(MapViewInfo mapViewInfo)
+        {
+            string html = mapViewInfo.InfoWindowText;
+            if (string.IsNullOrEmpty(html)) return string.Empty;
+
+            if (!AllowHtmlInInfoText)
+                html = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText);
+            return html.Replace("'", "''");
         }
 
 

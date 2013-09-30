@@ -28,8 +28,9 @@ namespace Xpand.ExpressApp.MapView.Web {
         protected override object CreateControlsCore() {
             var mapControl = new MapControl();
             mapControl.FocusedIndexChanged += (s, e) => OnFocusedObjectChanged();
-            mapControl.MapViewInfoNeeded+=MapControlOnMapViewInfoNeeded;
+            mapControl.MapViewInfoNeeded += MapControlOnMapViewInfoNeeded;
             mapControl.PerformCallbackOnMarker = IsMasterDetail;
+            mapControl.AllowHtmlInInfoText = ModelMapView.AllowHtmlInInfoWindowText;
             return mapControl;
         }
 
@@ -37,17 +38,23 @@ namespace Xpand.ExpressApp.MapView.Web {
             get { return Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
         }
 
-        void MapControlOnMapViewInfoNeeded(object sender, MapViewInfoEventArgs mapViewInfoEventArgs) {
-            var mapView = ((IModelListViewMapView) Model).MapView;
-            if (mapView.AddressMember!=null) {
+        private IModelMapView ModelMapView
+        {
+            get { return ((IModelListViewMapView)Model).MapView; }
+        }
+        
+        void MapControlOnMapViewInfoNeeded(object sender, MapViewInfoEventArgs mapViewInfoEventArgs)
+        {
+            var mapView = ModelMapView;
+            if (mapView.AddressMember != null) {
                 var mapViewInfos = new List<MapViewInfo>();
                 foreach (var obj in ((IList)MapControl.DataSource)) {
                     var mapViewInfo = new MapViewInfo();
                     var value = mapView.AddressMember.MemberInfo.GetValue(obj);
                     if (value != null) {
                         mapViewInfo.Address = value.ToString();
-                        if (mapView.InfoWindowText != null) {
-                            value = mapView.InfoWindowText.MemberInfo.GetValue(obj);
+                        if (mapView.InfoWindowTextMember != null) {
+                            value = mapView.InfoWindowTextMember.MemberInfo.GetValue(obj);
                             if (value != null) mapViewInfo.InfoWindowText = value.ToString();
                         }
                         mapViewInfos.Add(mapViewInfo);

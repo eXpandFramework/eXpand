@@ -16,9 +16,11 @@
   </metadata>
   <files>
 	<file src="\Build\Temp\Wintellect.Threading.dll" target="lib\net40\Wintellect.Threading.dll" />
+	<file src="\Build\Temp\Fasterflect.dll" target="lib\net40\Fasterflect.dll" />
     <file src="\Build\Temp\Xpand.Persistent.Base.dll" target="lib\net40\Xpand.Persistent.Base.dll" />
 	<file src="\Build\Temp\Xpand.Persistent.BaseImpl.dll" target="lib\net40\Xpand.Persistent.BaseImpl.dll" />
     <file src="\Build\Temp\Xpand.Utils.dll" target="lib\net40\Xpand.Utils.dll" />
+	<file src="\Build\Temp\Xpand.Xpo.dll" target="lib\net40\Xpand.Xpo.dll" />
 	<file src="\Build\Temp\Xpand.Xpo.dll" target="lib\net40\Xpand.Xpo.dll" />
   </files>
 </package>
