@@ -31,12 +31,20 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         AllSearchableMembers, VisibleColumns,IncludedColumns
     }
 
-    public interface IModelFullTextSearch:IModelApplicationListViews {
+    public interface IModelFullTextSearch:IModelNode {
         [Category(AttributeCategoryNameProvider.Search)]
-        [DataSourceProperty(ModelApplicationListViewsDomainLogic.ListViews)]
+        [DataSourceProperty("FullTextListViews")]
         IModelListView FullTextListView { get; set; }
+        [Browsable(false)]
+        IModelList<IModelListView> FullTextListViews { get; }
     }
 
+    [DomainLogic(typeof(IModelFullTextSearch))]
+    public class ModelFullTextSearchDomainLogic {
+        public static IModelList<IModelListView> Get_FullTextListViews(IModelFullTextSearch modelFullTextSearch) {
+            return new CalculatedModelNodeList<IModelListView>(modelFullTextSearch.Application.Views.OfType<IModelListView>());
+        }
+    }
     public interface IModelClassFullTextSearch: IModelFullTextSearch {
         [Category(AttributeCategoryNameProvider.Search)]
         FullTextSearchTargetPropertiesMode? FullTextSearchTargetPropertiesMode { get; set; }

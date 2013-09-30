@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class MergeDifferencesController : ViewController<ListView> {
@@ -43,7 +44,9 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             var selectedObjects = View.SelectedObjects.OfType<ModelDifferenceObject>().ToList();
             CheckIfMixingApplications(selectedObjects);
             foreach (var differenceObject in selectedModelAspectObjects) {
+                InterfaceBuilder.SkipAssemblyCleanup = true;
                 var masterModel = new ModelLoader(differenceObject.PersistentApplication.ExecutableName).GetMasterModel(true);
+                InterfaceBuilder.SkipAssemblyCleanup = false;
                 var model = differenceObject.GetModel(masterModel);
                 foreach (var selectedModelAspectObject in selectedObjects) {
                     foreach (var aspectObject in selectedModelAspectObject.AspectObjects) {

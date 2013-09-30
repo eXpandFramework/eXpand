@@ -6,131 +6,125 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraGrid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
     public abstract class MasterDetailActionsController : ViewController<ListView> {
         readonly Dictionary<string, BoolList> _enabledBoolLists = new Dictionary<string, BoolList>();
         readonly Dictionary<string, BoolList> _activeBoolLists = new Dictionary<string, BoolList>();
-        readonly Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> _activeChildBoolLists
-            = new Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>>();
-        readonly Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> _enableChildBoolLists
-            = new Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>>();
 
-        void SynchronizesActionStates() {
-            bool _disposing = false;
-            Frame.Disposing += (sender, args) => _disposing = true;
-            foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
-                foreach (var action in controller.Actions) {
-                    if (!IsExcluded(action)) {
-                        ActionBase action1 = action;
-                        action.Enabled.Changed += (sender, args) => {
-                            if (!(_disposing))
-                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Enabled, _enableChildBoolLists);
-                        };
-                        action.Active.Changed += (sender, args) => {
-                            if (!_disposing)
-                                SyncState(action1, (BoolList)sender, simpleAction => simpleAction.Active, _activeChildBoolLists);
-                        };
-                    }
-                }
+
+        bool _disposing;
+
+        protected override void OnFrameAssigned() {
+            base.OnFrameAssigned();
+            Frame.Disposing += FrameOnDisposing;
+        }
+
+        void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing -= FrameOnDisposing;
+            _disposing = true;
+        }
+
+        void SubscribeToActionStateResultChange() {
+            foreach (var action in GetActions(Frame).Where(@base => !IsExcluded(@base))) {
+                ActionBase action1 = action;
+                action.Enabled.ResultValueChanged += (sender, args) => {
+                    if (!(_disposing && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null))
+                        CloneBoolList(action1.Id, action1.Enabled, _enabledBoolLists);
+                };
+                action.Active.ResultValueChanged += (sender, args) => {
+                    if (!_disposing && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null)
+                        CloneBoolList(action1.Id, action1.Active, _activeBoolLists);
+                };
             }
+        }
+
+        IEnumerable<ActionBase> GetActions(Frame frame) {
+            var actionBases = frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
+            return actionBases.Where(@base => @base.Id == "Delete" || @base.Id == "receipt" || @base.Id == "rent");
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            _activeBoolLists.Clear();
+            _enabledBoolLists.Clear();
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (GridListEditor != null && GridListEditor.ColumnView is IMasterDetailColumnView) {
                 var gridView = ((IMasterDetailColumnView)GridListEditor.ColumnView);
-                var synchronizeActions = SynchronizeActions();
-                if (gridView.MasterFrame == null && HasRules) {
-                    if (synchronizeActions) {
-                        SynchronizesActionStates();
-                        PushExecutionToNestedFrame();
-                        if (HasRules && gridView.MasterFrame == null) {
-                            StoreStates();
-                            GridListEditor.Grid.FocusedViewChanged += MasterGridOnFocusedViewChanged;
-                        }
+                if (gridView.MasterFrame == null &&  HasRules&&SynchronizeActions()) {                    
+                    SubscribeToActionStateResultChange();
+                    PushExecutionToNestedFrame();
+                    if (HasRules&&gridView.MasterFrame == null) {
+                        CloneActionState(Frame, _activeBoolLists, _enabledBoolLists);
+                        gridView.GridControl.FocusedViewChanged += OnFocusedViewChanged;
                     }
-                } else if (gridView.MasterFrame != null && synchronizeActions)
-                    gridView.GridControl.FocusedViewChanged += ChildGridControlOnFocusedViewChanged;
+                }
             }
-
         }
 
         protected virtual bool SynchronizeActions() {
             return Frame.GetController<MasterDetailViewController>().SynchronizeActions();
         }
 
+        void OnFocusedViewChanged(object sender, ViewFocusEventArgs e) {
+            if (GridListEditor != null) {
+                Frame frame = Frame;
+                var activeBoolLists = new Dictionary<string, BoolList>();
+                var enableBoolLists = new Dictionary<string, BoolList>();
+                if (GridListEditor.Grid.MainView != e.View) {
+                    frame = ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window;
+                }
+                CloneActionState(frame, activeBoolLists, enableBoolLists);
+                if (GridListEditor.Grid.MainView == e.View) {
+                    activeBoolLists = _activeBoolLists;
+                    enableBoolLists = _enabledBoolLists;
+                }
+                foreach (var action in GetActions(Frame)) {
+                    SyncStates(action.Id, action.Active, activeBoolLists);
+                    SyncStates(action.Id, action.Enabled, enableBoolLists);
+                }
+            }
+        }
+
+
+        void SyncStates(string id, BoolList boolList, Dictionary<string, BoolList> boolLists) {
+            var list = boolLists[id];
+            if (list.GetKeys().FirstOrDefault() != null) {
+                boolList.BeginUpdate();
+                boolList.Clear();
+                foreach (var key in list.GetKeys()) {
+                    boolList.SetItemValue(key, list[key]);
+                }
+                boolList.EndUpdate();
+            }
+        }
+
+        void CloneActionState(Frame frame, Dictionary<string, BoolList> active, Dictionary<string, BoolList> enable) {
+            foreach (var action in GetActions(frame)) {
+                CloneBoolList(action.Id, action.Active, active);
+                CloneBoolList(action.Id, action.Enabled, enable);
+            }
+        }
+
+        void CloneBoolList(string id, BoolList boolList, Dictionary<string, BoolList> boolLists) {
+            boolLists[id] = new BoolList();
+            boolLists[id].BeginUpdate();
+            foreach (var key in boolList.GetKeys()) {
+                boolLists[id].SetItemValue(key, boolList[key]);
+            }
+            boolLists[id].EndUpdate();
+        }
+
         void PushExecutionToNestedFrame() {
-            foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
-                foreach (var action in controller.Actions) {
-                    if (action is SimpleAction) {
-                        Controller controller1 = controller;
-                        action.Executing +=
-                            (sender, args) =>
-                            PushExecutionToNestedFrameCore(controller1, (ActionBase)sender, () => args.Cancel = true);
-                    }
-                }
-            }
-        }
+            foreach (var action in GetActions(Frame)) {
+                action.Executing +=
+                    (sender, args) =>
+                    PushExecutionToNestedFrameCore((ActionBase)sender, () => args.Cancel = true);
 
-        public Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> ActiveChildBoolLists {
-            get { return _activeChildBoolLists; }
-        }
-
-        public Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> EnableChildBoolLists {
-            get { return _enableChildBoolLists; }
-        }
-
-        void ChildGridControlOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs) {
-            if (Frame != null) {
-                foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
-                    foreach (var action in controller.Actions) {
-                        if (viewFocusEventArgs.View != GridListEditor.ColumnView.GridControl.MainView && _activeChildBoolLists.Any()) {
-                            var gridView = (DevExpress.XtraGrid.Views.Base.ColumnView)viewFocusEventArgs.View;
-                            RestoreStates(action, action.Active, GetChildBoolList(_activeChildBoolLists, gridView));
-                            RestoreStates(action, action.Enabled, GetChildBoolList(_enableChildBoolLists, gridView));
-                        }
-                    }
-                }
-            }
-
-        }
-
-        Dictionary<string, BoolList> GetChildBoolList(Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> dictionary, DevExpress.XtraGrid.Views.Base.ColumnView gridView) {
-            if (!dictionary.ContainsKey(gridView))
-                dictionary[gridView] = new Dictionary<string, BoolList>();
-            return dictionary[gridView];
-        }
-
-        void StoreStates() {
-            foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
-                foreach (var action in controller.Actions) {
-                    StoreStatesCore(action, _activeBoolLists, action.Active);
-                    StoreStatesCore(action, _enabledBoolLists, action.Enabled);
-                }
-            }
-        }
-
-        void MasterGridOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs) {
-            if (GridListEditor != null && GridListEditor.Grid.MainView == viewFocusEventArgs.View) {
-                foreach (var controller in Frame.Controllers.Values.OfType<ViewController>()) {
-                    foreach (ActionBase action in controller.Actions) {
-                        RestoreStates(action, action.Active, _activeBoolLists);
-                        RestoreStates(action, action.Enabled, _enabledBoolLists);
-                    }
-                }
-            }
-        }
-
-        void RestoreStates(ActionBase action, BoolList boolList, Dictionary<string, BoolList> boolLists) {
-            if (boolLists.ContainsKey(action.Id)) {
-                BoolList enabledBoolList = boolLists[action.Id];
-                if (enabledBoolList.GetKeys().FirstOrDefault() != null) {
-                    boolList.Clear();
-                    foreach (var key in enabledBoolList.GetKeys()) {
-                        boolList.SetItemValue(key, enabledBoolList[key]);
-                    }
-                }
             }
         }
 
@@ -147,13 +141,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             get { return View != null ? (View).Editor as IColumnViewEditor : null; }
         }
 
-        void PushExecutionToNestedFrameCore(Controller sender, ActionBase actionBase, Action cancelAction) {
+        void PushExecutionToNestedFrameCore(ActionBase action, Action cancelAction) {
             var xpandXafGridView = GridListEditor != null ? (IMasterDetailColumnView)GridListEditor.Grid.FocusedView : null;
             if (xpandXafGridView != null && xpandXafGridView.MasterFrame != null) {
-                var controller = Controller(sender, xpandXafGridView);
-                if (controller != sender) {
+                var controller = Controller(action.Controller, xpandXafGridView);
+                if (controller != action.Controller) {
                     cancelAction.Invoke();
-                    ((SimpleAction)controller.Actions[actionBase.Id]).DoExecute();
+                    (controller.Actions[action.Id]).DoExecute();
                 }
             }
         }
@@ -164,50 +158,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         protected virtual bool IsExcluded(ActionBase action) {
             return false;
-        }
-
-        void SyncState(ActionBase actionBase, BoolList sender, Func<ActionBase, BoolList> func, Dictionary<DevExpress.XtraGrid.Views.Base.ColumnView, Dictionary<string, BoolList>> childBoolLists) {
-            if (View != null) {
-                var gridControl = (View.Editor.Control as GridControl);
-                if (gridControl == null)
-                    return;
-                var xpandXafGridView = gridControl.MainView as IMasterDetailColumnView;
-                if (xpandXafGridView == null)
-                    return;
-
-                Frame masterFrame = xpandXafGridView.MasterFrame;
-                if (masterFrame != null) {
-                    BoolList boolList = GetBoolList(masterFrame, actionBase, func);
-                    if (sender.GetKeys().FirstOrDefault() != null) {
-                        var activeChildBool = new BoolList();
-                        var focusedView = (DevExpress.XtraGrid.Views.Base.ColumnView)GridListEditor.Grid.FocusedView;
-                        var childBoolList = GetChildBoolList(childBoolLists, focusedView);
-                        childBoolList[actionBase.Id] = activeChildBool;
-                        boolList.Clear();
-                        foreach (var key in sender.GetKeys()) {
-                            boolList.SetItemValue(key, sender[key]);
-                            activeChildBool.SetItemValue(key, sender[key]);
-                        }
-                    }
-                }
-            }
-        }
-
-        void StoreStatesCore(ActionBase actionBase, Dictionary<string, BoolList> boolLists, BoolList boolList) {
-            boolLists[actionBase.Id] = new BoolList();
-            foreach (var key in boolList.GetKeys()) {
-                boolLists[actionBase.Id].SetItemValue(key, boolList[key]);
-            }
-        }
-
-        BoolList GetBoolList(Frame masterFrame, ActionBase sender, Func<ActionBase, BoolList> func) {
-            foreach (var controller in masterFrame.Controllers.Values.OfType<ViewController>()) {
-                foreach (var action in controller.Actions) {
-                    if (action.Id == sender.Id)
-                        return func.Invoke(action);
-                }
-            }
-            throw new NotImplementedException();
         }
     }
 }

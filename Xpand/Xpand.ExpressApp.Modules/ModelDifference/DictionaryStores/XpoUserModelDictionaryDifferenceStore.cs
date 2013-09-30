@@ -15,6 +15,7 @@ using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers;
 using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
 
@@ -77,7 +78,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 var space = Application.CreateObjectSpace(typeof(ModelDifferenceObject));
                 ModelDifferenceObject difference = GetDifferenceFromPermission((XPObjectSpace)space);
                 if (difference != null) {
+                    InterfaceBuilder.SkipAssemblyCleanup = true;
                     var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
+                    InterfaceBuilder.SkipAssemblyCleanup = false;
                     var diffsModel = difference.GetModel(master);
                     new ModelXmlReader().ReadFromModel(diffsModel, model);
                     difference.CreateAspectsCore(diffsModel);

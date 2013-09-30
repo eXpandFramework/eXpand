@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             
         }
 
-        void WebWindowOnPagePreRender(object sender, EventArgs eventArgs) {
+        protected virtual void WebWindowOnPagePreRender(object sender, EventArgs eventArgs) {
             var page = WebWindow.CurrentRequestPage;
             var clientScriptManager = page.ClientScript;
             var url = clientScriptManager.GetWebResourceUrl(GetType(), ResourceNames.CommonStyles);

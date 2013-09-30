@@ -139,9 +139,9 @@ namespace Xpand.ExpressApp {
         }
 
         bool CannotConvertCriteriaValueToObjectKeyType(IModelNavigationItem modelNavigationItem) {
-            return !string.IsNullOrEmpty(modelNavigationItem.ObjectKey) && modelNavigationItem.View != null &&
-                   modelNavigationItem.View.AsObjectView != null &&!modelNavigationItem.ObjectKey.CanChange(
-                       modelNavigationItem.View.AsObjectView.ModelClass.TypeInfo.KeyMember.MemberType);
+            return !string.IsNullOrEmpty(modelNavigationItem.ObjectKey) && (((modelNavigationItem.View != null &&
+                   modelNavigationItem.View.AsObjectView != null && !modelNavigationItem.ObjectKey.CanChange(
+                       modelNavigationItem.View.AsObjectView.ModelClass.TypeInfo.KeyMember.MemberType)))&&!modelNavigationItem.ObjectKey.StartsWith("@"));
         }
 
         void ShowNavigationItemControllerOnItemsInitialized(object sender, EventArgs eventArgs) {

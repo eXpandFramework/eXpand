@@ -322,7 +322,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
             masterModel.AddLayerBeforeLast(layer);
-            var storeBase = (ModelApplicationFromStreamStoreBase)modelApplicationFromStreamStoreBaseType.CreateInstance(modelApplicationFromStreamStoreBaseType);
+            var storeBase = (ModelApplicationFromStreamStoreBase)modelApplicationFromStreamStoreBaseType.CreateInstance();
             storeBase.Load(layer);
             return layer;
         }
