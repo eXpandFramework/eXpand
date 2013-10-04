@@ -312,9 +312,7 @@
     <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PropertyPathFiltersNodeUpdater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PPCustomer.cs" />
-    <Compile Include="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Module.cs" />
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>

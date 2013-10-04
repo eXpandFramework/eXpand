@@ -257,9 +257,7 @@
     <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\XpandSystemModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\XpandSystemModule.cs" />
     <Compile Include="SystemModule\MemberInfoEventArgs.cs" />
     <Compile Include="Filtering\FilterWithObjectsUserFrendlyStringProcessor.cs" />
     <Compile Include="RuntimeMembersTypeDescriptionProvider.cs" />
