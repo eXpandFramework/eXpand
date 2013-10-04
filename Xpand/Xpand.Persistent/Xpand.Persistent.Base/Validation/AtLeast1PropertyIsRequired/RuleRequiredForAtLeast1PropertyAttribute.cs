@@ -2,7 +2,7 @@
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Interface, AllowMultiple = true, Inherited = true)]
     public class RuleRequiredForAtLeast1PropertyAttribute : RuleBaseAttribute,
                                                             IRuleRequiredForAtLeast1PropertyProperties {
         public RuleRequiredForAtLeast1PropertyAttribute(string id, string targetContextIDs, string targetProperties)
