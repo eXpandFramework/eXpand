@@ -15,7 +15,6 @@
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" />
-      <dependency id="eXpandSystemWin" />
       <dependency id="eXpandDashboard" />
     </dependencies>
   </metadata>
