@@ -28,7 +28,7 @@ namespace XtraDashboardTester.Module.Web {
             // 
             // XtraDashboardTesterAspNetModule
             // 
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Web.XpandDashboardWebModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
 
         }

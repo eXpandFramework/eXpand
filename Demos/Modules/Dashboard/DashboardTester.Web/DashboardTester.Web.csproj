@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{82A6DBC9-B1B4-44E4-9718-55DF930CD349}</ProjectGuid>
+    <ProjectGuid>{65D8DBD2-1F41-492B-9245-9C7FC8DC87D3}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -190,7 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DashboardTester.Module.Web\DashboardTester.Module.Web.csproj">
-      <Project>{0C729AAD-7626-4668-A7F1-35F7D240489D}</Project>
+      <Project>{d9dc902f-2988-4268-9452-2c1d187e0aa9}</Project>
       <Name>DashboardTester.Module.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\DashboardTester.Module\DashboardTester.Module.csproj">
