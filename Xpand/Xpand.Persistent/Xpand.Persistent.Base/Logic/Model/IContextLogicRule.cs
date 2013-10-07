@@ -6,6 +6,7 @@ using DevExpress.Persistent.Validation;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     [RuleCriteria("IContextLogicRule", DefaultContexts.Save, "(Not IsNullOrEmpty(ExecutionContextGroup)) OR (Not IsNullOrEmpty(ActionExecutionContextGroup))", SkipNullOrEmptyValues = false, CustomMessageTemplate = "At least one of ExecutionContextGroup, ActionExecutionContextGroup should not be null")]
+    [ModelAbstractClass]
     public interface IContextLogicRule : ILogicRule {
         [DataSourceProperty("FrameTemplateContexts")]
         [Category("Logic.Data")]
