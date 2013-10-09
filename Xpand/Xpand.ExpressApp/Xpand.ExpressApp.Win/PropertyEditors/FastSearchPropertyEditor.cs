@@ -31,37 +31,43 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         Contains
     }
 
-
-    public interface IModelColumnFastSearchItem {
-        // Properties
-        [DefaultValue(3), Category("Behavior"),
+    public interface IFastSearchMemberViewItem : IModelNode {
+        [DefaultValue(3),
          Description("Cantidad Minima de caracteres antes de realizar la busqueda")]
         int FilterMinLength { get; set; }
 
-        [DefaultValue(false), Category("LookupGrid"),
+        [DefaultValue(false),
          Description("If set, a popup appears when the user enters the first character")]
         bool ImmediatePopup { get; set; }
 
-        [DefaultValue(0x3e8), Category("Behavior")]
+        [DefaultValue(0x3e8)]
         int IncrementalFilteringDelay { get; set; }
 
-        [Category("Behavior"), DefaultValue(0)]
+        [DefaultValue(0)]
         SearchModeType IncrementalFilteringMode { get; set; }
 
-        [Description("If set, a filter row appears at the top of the popup"), Category("LookupGrid")]
+        [Description("If set, a filter row appears at the top of the popup")]
         bool ShowAutoFilterRow { get; set; }
     }
 
+    public interface IModelMemberViewItemFastSearch {
+        [ModelBrowsable(typeof(WinLookUpPropertyEditorVisibilityCalculator))]
+        IFastSearchMemberViewItem FastSearchMemberViewItem { get; }
+    }
+
+    public class WinLookUpPropertyEditorVisibilityCalculator:IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName) {
+            return typeof (FastSearchPropertyEditor).IsAssignableFrom(((IModelMemberViewItem) node).PropertyEditorType);
+        }
+    }
 
     [PropertyEditor(typeof(IXPObject), false)]
-    public class WinLookUpPropertyEditor : DXPropertyEditor, IComplexViewItem {
-        // Fields
+    public class FastSearchPropertyEditor : DXPropertyEditor, IComplexViewItem, IDependentPropertyEditor, ISupportViewShowing {
         LookupEditorHelper _helper;
         LookUpGridEditEx _lookup;
-        View lookupObjectView;
+        View _lookupObjectView;
 
-        // Methods
-        public WinLookUpPropertyEditor(Type objectType, IModelMemberViewItem item)
+        public FastSearchPropertyEditor(Type objectType, IModelMemberViewItem item)
             : base(objectType, item) {
         }
 
@@ -82,11 +88,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected virtual void AddNewObject() {
             var svp = new ShowViewParameters();
             IObjectSpace newObjectViewObjectSpace = _helper.Application.CreateObjectSpace(_helper.LookupObjectTypeInfo.Type);
-            object newObject =
-                RuntimeHelpers.GetObjectValue(newObjectViewObjectSpace.CreateObject(_helper.LookupObjectTypeInfo.Type));
-            lookupObjectView = _helper.Application.CreateDetailView(newObjectViewObjectSpace,
-                                                                    RuntimeHelpers.GetObjectValue(newObject), true);
-            svp.CreatedView = lookupObjectView;
+            object newObject =newObjectViewObjectSpace.CreateObject(_helper.LookupObjectTypeInfo.Type);
+            _lookupObjectView = _helper.Application.CreateDetailView(newObjectViewObjectSpace,newObject, true);
+            svp.CreatedView = _lookupObjectView;
             newObjectViewObjectSpace.Committed += newObjectViewObjectSpace_Committed;
             newObjectViewObjectSpace.Disposed += newObjectViewObjectSpace_Disposed;
             svp.TargetWindow = TargetWindow.NewModalWindow;
@@ -101,7 +105,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override object CreateControlCore() {
             _lookup = new LookUpGridEditEx();
+            _lookup.QueryPopUp += Editor_QueryPopUp;
             return _lookup;
+        }
+
+        public new LookUpGridEditEx Control {
+            get { return (LookUpGridEditEx)base.Control; }
         }
 
         protected override RepositoryItem CreateRepositoryItem() {
@@ -125,18 +134,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected virtual void InitializeDataSource() {
             if (((_lookup != null) && (_lookup.Properties != null)) && (_lookup.Properties.Helper != null)) {
-                _lookup.Properties.DataSource =
-                    _lookup.Properties.Helper.CreateCollectionSource(
-                        RuntimeHelpers.GetObjectValue(_lookup.FindEditingObject())).List;
+                _lookup.Properties.DataSource =_lookup.Properties.Helper.CreateCollectionSource(_lookup.FindEditingObject()).List;
             }
         }
 
         void newObjectViewObjectSpace_Committed(object sender, EventArgs e) {
-            _lookup.EditValue =
-                RuntimeHelpers.GetObjectValue(
-                    _helper.ObjectSpace.GetObject(RuntimeHelpers.GetObjectValue(lookupObjectView.CurrentObject)));
+            _lookup.EditValue =_helper.ObjectSpace.GetObject(_lookupObjectView.CurrentObject);
             if (_lookup.Properties.DataSource != null) {
-                ((IList)_lookup.Properties.DataSource).Add(RuntimeHelpers.GetObjectValue(_lookup.EditValue));
+                ((IList)_lookup.Properties.DataSource).Add(_lookup.EditValue);
             }
         }
 
@@ -151,28 +156,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         protected virtual void OpenCurrentObject() {
-            var svp = new ShowViewParameters();
+            if (_lookup.EditValue==null)
+                return;
+            var showViewParameters = new ShowViewParameters();
             IObjectSpace openObjectViewObjectSpace = _helper.Application.CreateObjectSpace(_lookup.EditValue.GetType());
-            object targetObject =
-                RuntimeHelpers.GetObjectValue(
-                    openObjectViewObjectSpace.GetObject(RuntimeHelpers.GetObjectValue(_lookup.EditValue)));
+            object targetObject =openObjectViewObjectSpace.GetObject(_lookup.EditValue);
             if (targetObject != null) {
                 openObjectViewObjectSpace.Committed += openObjectViewObjectSpace_Committed;
                 openObjectViewObjectSpace.Disposed += openObjectViewObjectSpace_Disposed;
-                lookupObjectView = _helper.Application.CreateDetailView(openObjectViewObjectSpace,
-                                                                        RuntimeHelpers.GetObjectValue(targetObject),
-                                                                        true);
-                svp.CreatedView = lookupObjectView;
-                svp.TargetWindow = TargetWindow.NewModalWindow;
-                _helper.Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
+                _lookupObjectView = _helper.Application.CreateDetailView(openObjectViewObjectSpace,targetObject,true);
+                showViewParameters.CreatedView = _lookupObjectView;
+                showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                _helper.Application.ShowViewStrategy.ShowView(showViewParameters, new ShowViewSource(null, null));
             }
         }
 
         void openObjectViewObjectSpace_Committed(object sender, EventArgs e) {
-            if (lookupObjectView != null) {
-                _lookup.EditValue =
-                    RuntimeHelpers.GetObjectValue(
-                        _helper.ObjectSpace.GetObject(RuntimeHelpers.GetObjectValue(lookupObjectView.CurrentObject)));
+            if (_lookupObjectView != null) {
+                _lookup.EditValue =_helper.ObjectSpace.GetObject(_lookupObjectView.CurrentObject);
             }
         }
 
@@ -183,7 +184,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         void properties_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            switch (Convert.ToString(RuntimeHelpers.GetObjectValue(e.Button.Tag))) {
+            switch (Convert.ToString(e.Button.Tag)) {
                 case "MinusButtonTag":
                     ClearCurrentObject();
                     break;
@@ -210,66 +211,97 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             }
         }
 
+        private void OnViewShowingNotification() {
+            if (viewShowingNotification != null) {
+                viewShowingNotification(this, EventArgs.Empty);
+            }
+        }
+        public event CancelEventHandler QueryPopUp;
+
+        private void Editor_QueryPopUp(object sender, CancelEventArgs e) {
+            if (QueryPopUp != null) {
+                QueryPopUp(this, e);
+            }
+            OnViewShowingNotification();
+        }
+
+        private event EventHandler<EventArgs> viewShowingNotification;
+        event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification {
+            add { viewShowingNotification += value; }
+            remove { viewShowingNotification -= value; }
+        }
+
+        IList<string> IDependentPropertyEditor.MasterProperties {
+            get { return _helper.MasterProperties; }
+        }
+
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
             var properties = (RepositoryItemGridLookUpEditEx)item;
             properties.Init(DisplayFormat, _helper);
-            var settings = Model as IModelColumnFastSearchItem;
-            if (settings != null) {
-                if (settings.IncrementalFilteringMode == SearchModeType.Contains) {
-                    properties.PopupFilterMode = PopupFilterMode.Contains;
-                }
-                properties.ImmediatePopup = settings.ImmediatePopup;
-                properties.View.OptionsView.ShowAutoFilterRow = settings.ShowAutoFilterRow;
-                properties.EditValueChangedDelay = settings.IncrementalFilteringDelay;
+            var settings = ((IModelMemberViewItemFastSearch)Model);
+            
+            if (settings.FastSearchMemberViewItem.IncrementalFilteringMode == SearchModeType.Contains) {
+                properties.PopupFilterMode = PopupFilterMode.Contains;
             }
+            properties.ImmediatePopup = settings.FastSearchMemberViewItem.ImmediatePopup;
+            properties.View.OptionsView.ShowAutoFilterRow = settings.FastSearchMemberViewItem.ShowAutoFilterRow;
+            properties.EditValueChangedDelay = settings.FastSearchMemberViewItem.IncrementalFilteringDelay;
+            
             properties.ReadOnly = !AllowEdit.ResultValue;
             properties.Enter += properties_Enter;
             properties.ButtonClick += properties_ButtonClick;
-            properties.ButtonsStyle = BorderStyles.HotFlat;
-            var detailButton = new EditorButton {
-                ImageLocation = ImageLocation.MiddleCenter,
-                Kind = ButtonPredefines.Glyph,
-                Image = ImageLoader.Instance.GetImageInfo("Action_Edit").Image,
-                ToolTip = CaptionHelper.GetLocalizedText("Texts", "tooltipDetail"),
-                Tag = "DetailButtonTag",
-                Enabled = AllowEdit.ResultValue
-            };
-            properties.Buttons.Add(detailButton);
-            var newButton = new EditorButton {
-                ImageLocation = ImageLocation.MiddleCenter,
-                Kind = ButtonPredefines.Glyph,
-                Image = ImageLoader.Instance.GetImageInfo("MenuBar_New").Image,
-                ToolTip = CaptionHelper.GetLocalizedText("Texts", "tooltipNew"),
-                Tag = "AddButtonTag",
-                Enabled = AllowEdit.ResultValue
-            };
-            properties.Buttons.Add(newButton);
-            var clearButton = new EditorButton {
-                ImageLocation = ImageLocation.MiddleCenter,
-                Kind = ButtonPredefines.Glyph,
-                Image = ImageLoader.Instance.GetImageInfo("Action_Clear").Image,
-                ToolTip = CaptionHelper.GetLocalizedText("Texts", "tooltipClear"),
-                Tag = "MinusButtonTag",
-                Enabled = AllowEdit.ResultValue
-            };
-            properties.Buttons.Add(clearButton);
+            CreateButtons(properties);
         }
 
-        // Properties
+        void CreateButtons(RepositoryItemGridLookUpEditEx properties) {
+            properties.ButtonsStyle = BorderStyles.HotFlat;
+            var editButton = CreatelButton("Action_Edit", "tooltipDetail", "DetailButtonTag");
+            editButton.Enabled = _lookup.EditValue != null;
+
+
+            string info;
+            editButton.Visible = DataManipulationRight.CanEdit(MemberInfo.MemberType, null, null,null,null)&&DataManipulationRight.CanEdit(ObjectType, propertyName, CurrentObject,null,_helper.ObjectSpace);
+            properties.Buttons.Add(editButton);
+            var newButton = CreatelButton("MenuBar_New", "tooltipNew", "AddButtonTag");
+            newButton.Visible = DataManipulationRight.CanCreate(null, MemberInfo.MemberType, null, out info);
+            properties.Buttons.Add(newButton);
+            var clearButton = CreatelButton("Action_Clear", "tooltipClear", "MinusButtonTag");
+            clearButton.Enabled = editButton.Enabled;
+            if (!editButton.Visible) {
+                properties.ReadOnly = true;
+                clearButton.Visible = false;
+                newButton.Visible = false;
+            }
+            properties.Buttons.Add(clearButton);
+            _lookup.EditValueChanged += (sender, args) => {
+                editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
+                clearButton.Enabled = editButton.Enabled;
+            };
+        }
+
+        EditorButton CreatelButton(string imageName, string tooltip, string tag) {
+            var detailButton = new EditorButton{
+                ImageLocation = ImageLocation.MiddleCenter,
+                Kind = ButtonPredefines.Glyph,
+                Image = ImageLoader.Instance.GetImageInfo(imageName).Image,
+                ToolTip = CaptionHelper.GetLocalizedText("Texts", tooltip),
+                Tag = tag,
+                Enabled = AllowEdit.ResultValue
+            };
+            return detailButton;
+        }
     }
 
 
     [ToolboxItem(false)]
     public class LookUpGridEditEx : GridLookUpEdit, IGridInplaceEdit {
-        // Fields
         static readonly List<WeakReference> __ENCList = new List<WeakReference>();
 
         [AccessedThroughProperty("fPropertiesView")]
         GridView _fPropertiesView;
-        object gridEditingObject;
+        object _gridEditingObject;
 
-        // Methods
         static LookUpGridEditEx() {
             RepositoryItemGridLookUpEditEx.Register();
         }
@@ -287,10 +319,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             get { return base.EditValue; }
             set {
                 if (((value != DBNull.Value) && (value != null)) &&
-                    !Properties.Helper.LookupObjectType.IsInstanceOfType(RuntimeHelpers.GetObjectValue(value))) {
+                    !Properties.Helper.LookupObjectType.IsInstanceOfType(value)) {
                     base.EditValue = null;
                 } else {
-                    base.EditValue = RuntimeHelpers.GetObjectValue(value);
+                    base.EditValue = value;
                 }
             }
         }
@@ -313,10 +345,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         object IGridInplaceEdit.GridEditingObject {
-            get { return gridEditingObject; }
+            get { return _gridEditingObject; }
             set {
-                if (gridEditingObject != value) {
-                    gridEditingObject = RuntimeHelpers.GetObjectValue(value);
+                if (_gridEditingObject != value) {
+                    _gridEditingObject = value;
                     OnEditingObjectChanged();
                 }
             }
@@ -341,7 +373,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                     __ENCList.RemoveRange(index, __ENCList.Count - index);
                     __ENCList.Capacity = __ENCList.Count;
                 }
-                __ENCList.Add(new WeakReference(RuntimeHelpers.GetObjectValue(value)));
+                __ENCList.Add(new WeakReference(value));
             }
         }
 
@@ -416,9 +448,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         public override string GetDisplayText(FormatInfo format, object editValue) {
-            string result = base.GetDisplayText(format, RuntimeHelpers.GetObjectValue(editValue));
+            string result = base.GetDisplayText(format, editValue);
             if ((string.IsNullOrEmpty(result) && (editValue != null)) && (m_helper != null)) {
-                result = m_helper.GetDisplayText(RuntimeHelpers.GetObjectValue(editValue), NullText, format.FormatString);
+                result = m_helper.GetDisplayText(editValue, NullText, format.FormatString);
             }
             return result;
         }
