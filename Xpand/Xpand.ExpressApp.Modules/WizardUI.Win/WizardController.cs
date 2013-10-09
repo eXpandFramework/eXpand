@@ -1,11 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="WizardController.cs" created="02.06.2009" company="VenDoc Software GmbH">
-//     Copyright (c) VenDoc Software GmbH. All rights reserved.
-// </copyright>
-// <author>Martin Praxmarer</author>
-//-----------------------------------------------------------------------
-
-using Fasterflect;
+﻿using Fasterflect;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
     using System;
@@ -241,7 +234,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 }
             }
 
-            return validationResults.State == ValidationState.Valid;
+            return validationResults.State != ValidationState.Invalid;
         }
 
         /// <summary>
