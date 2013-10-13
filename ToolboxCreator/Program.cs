@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
+using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Microsoft.Win32;
 
@@ -26,8 +28,10 @@ namespace Xpand.ToolboxCreator {
                 return;
             }
             CreateAssemblyFoldersKey(wow);
-
+            Trace.Listeners.Add(new TextWriterTraceListener("toolboxcreator.log"));
             var version = new Version();
+            var error = false;
+            Tracing.Initialize(@"c:\", "4");
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
                 try {
                     var assembly = Assembly.LoadFrom(file);
@@ -42,11 +46,15 @@ namespace Xpand.ToolboxCreator {
                         }
                     }
                 }
-                catch (ReflectionTypeLoadException reflectionTypeLoadException) {
-                    throw reflectionTypeLoadException.LoaderExceptions[0];
+                catch (Exception exception) {
+                    error = true;
+                    var reflectionTypeLoadException = exception as ReflectionTypeLoadException;
+                    Trace.TraceError(reflectionTypeLoadException!=null?reflectionTypeLoadException.LoaderExceptions[0].Message: exception.ToString());   
                 }
             }
-
+            if (error) {
+                MessageBox.Show("ToolboxCreator error");
+            }
             DeleteXpandEntries(registryKeys,s => !s.Contains(version.ToString()) );
 
             var openSubKey = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\", true);
