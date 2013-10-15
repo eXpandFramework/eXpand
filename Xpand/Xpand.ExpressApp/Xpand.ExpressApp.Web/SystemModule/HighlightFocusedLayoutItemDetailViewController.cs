@@ -1,37 +1,66 @@
-﻿using DevExpress.ExpressApp.Editors;
+﻿using System;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web.ASPxClasses;
 using Xpand.ExpressApp.SystemModule;
-using Fasterflect;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public class HighlightFocusedLayoutItemDetailViewController : HighlightFocusedLayoutItemDetailViewControllerBase {
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            if (View.ViewEditMode == ViewEditMode.Edit)
-                foreach (ASPxPropertyEditor pe in View.GetItems<ASPxPropertyEditor>())
-                    AssignStyle(pe.Editor);
-        }
-        protected override void AssignStyle(object control) {
-            EditClientSideEvents clientSideEvents = FindClientSideEvents(control);
-            if (clientSideEvents != null) {
-                const string functionGotFocus = @"
-                function (s, e){
-                    var el = document.getElementById(s.name);
-                    el.style.backgroundColor = ""yellow"";
-                }";
-                const string functionLostFocus = @"
-                function (s, e){
-                    //debugger;
-                    var el = document.getElementById(s.name);
-                    el.style.backgroundColor = """";
-                }";
-                clientSideEvents.GotFocus = functionGotFocus;
-                clientSideEvents.LostFocus = functionLostFocus;
+     public class HighlightFocusedLayoutItemDetailViewController : HighlightFocusedLayoutItemDetailViewControllerBase {
+        private const string ClientSideEventHandlerFunctionFormat = @"function(s,e){{{0}}}";
+        protected override void OnActivated() {
+            base.OnActivated();
+            if(View.ViewEditMode == ViewEditMode.Edit) {
+                foreach(WebPropertyEditor item in View.GetItems<WebPropertyEditor>()) {
+                    if(item.Editor != null) {
+                        ApplyFocusedStyle(item);
+                    }
+                    else {
+                        item.ControlCreated += (s, e) => ApplyFocusedStyle(s);
+                    }
+                }
             }
         }
-        private static EditClientSideEvents FindClientSideEvents(object control) {
-            return control != null ? control.GetPropertyValue("ClientSideEvents",Flags.InstanceAnyDeclaredOnly) as EditClientSideEvents : null;
+        protected override void ApplyFocusedStyle(object element) {
+            var editor = element as ASPxLookupPropertyEditor;
+            if(editor != null) {
+                ApplyFocusedStyleCore(editor.DropDownEdit.DropDown);
+                ApplyFocusedStyleCore(editor.FindEdit.TextBox);
+            }
+            else {
+                var propertyEditor = element as WebPropertyEditor;
+                if(propertyEditor != null) {
+                    ApplyFocusedStyleCore(propertyEditor.Editor as ASPxWebControl);
+                }
+            }
+        }
+
+         private void ApplyFocusedStyleCore(ASPxWebControl dxControl) {
+            if(dxControl != null) {
+                EventHandler loadEventHandler = (s, e) => {
+                    var control = (ASPxWebControl)s;
+                    AddEventHandlerSafe(control, "Init", "window.initEditor(s,e);");
+                    AddEventHandlerSafe(control, "GotFocus", "window.gotFocusEditor(s,e);");
+                };
+                EventHandler disposedEventHandler = null;
+                disposedEventHandler = (s, e) => {
+                    var control = (ASPxWebControl)s;
+                    control.Disposed -= disposedEventHandler;
+                    control.Load -= loadEventHandler;
+                };
+                dxControl.Disposed += disposedEventHandler;
+                dxControl.Load += loadEventHandler;
+            }
+        }
+        private static void AddEventHandlerSafe(ASPxWebControl control, string eventName, string handler) {
+            string existingHandler = control.GetClientSideEventHandler(eventName);
+            if(string.IsNullOrEmpty(existingHandler)) {
+                control.SetClientSideEventHandler(eventName, string.Format(ClientSideEventHandlerFunctionFormat, handler));
+            }
+            else {
+                existingHandler = String.Format("{0}{1}\r\n}}", existingHandler.Substring(0, existingHandler.LastIndexOf('}')), handler);
+                control.SetClientSideEventHandler(eventName, existingHandler);
+            }
         }
     }
 }
