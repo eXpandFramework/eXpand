@@ -32,12 +32,6 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
             if (((IModelOptionsWebShortcut) Application.Model.Options).WebShortcut.Enabled) {
                 var webWindow = ((WebWindow)Frame);
                 webWindow.PagePreRender += WebWindowOnPagePreRender;
-                if (Frame.Template != null) {
-                    Frame.TemplateChanging += Frame_TemplateChanging;
-                    ((Page)Frame.Template).Load += OnLoad;
-                } else {
-                    Frame.TemplateChanged += Frame_TemplateChanged;
-                }
             }
         }
 
@@ -46,34 +40,17 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
             if (((IModelOptionsWebShortcut)Application.Model.Options).WebShortcut.Enabled) {
                 var webWindow = ((WebWindow) Frame);
                 webWindow.PagePreRender -= WebWindowOnPagePreRender;
-                Frame.TemplateChanging -= Frame_TemplateChanging;
-                Frame.TemplateChanged -= Frame_TemplateChanged;
             }
         }
 
         void WebWindowOnPagePreRender(object sender, EventArgs e) {
+            var page = WebWindow.CurrentRequestPage;
+            var clientScriptManager = page.ClientScript;
+            var url = clientScriptManager.GetWebResourceUrl(GetType(), ResourceNames.jwerty);
+            page.Header.Controls.Add(new LiteralControl(@"<script language=""javascript"" src=""" + url + @"""></script>"));
             var script = GetScript();
             if (!string.IsNullOrEmpty(script))
                 ((WebWindow)Frame).RegisterStartupScript("ActionKeybShortCuts", script, true);
-        }
-
-        void OnLoad(object sender, EventArgs eventArgs) {
-            ((ICallbackManagerHolder)Frame.Template).CallbackManager.RegisterHandler(KeybShortCutsScriptName, this);
-            var webWindow = ((WebWindow)Frame);
-            var jwerty = GetType().GetResourceString("jwerty.js");
-            webWindow.RegisterClientScript("jwerty", jwerty, true);
-        }
-
-        private void Frame_TemplateChanging(object sender, EventArgs e) {
-            if (Frame.Template != null) {
-                ((Page)Frame.Template).Load -= OnLoad;
-            }
-        }
-        private void Frame_TemplateChanged(object sender, EventArgs e) {
-            if (Frame.Template != null) {
-                Frame.TemplateChanging += Frame_TemplateChanging;
-                ((Page)Frame.Template).Load += OnLoad;
-            }
         }
 
         string GetScript() {

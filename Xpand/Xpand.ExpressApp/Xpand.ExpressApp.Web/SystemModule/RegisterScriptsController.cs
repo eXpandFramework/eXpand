@@ -19,8 +19,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             var clientScriptManager = page.ClientScript;
             var url = clientScriptManager.GetWebResourceUrl(GetType(), ResourceNames.CommonStyles);
             page.Header.Controls.Add(new LiteralControl("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + url + "\" />"));
-            
-            
         }
     }
 }

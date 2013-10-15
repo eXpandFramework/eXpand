@@ -8,9 +8,7 @@ namespace Xpand.ExpressApp.Web.ViewStrategies {
             : base(application) {
         }
         protected override void ShowViewFromNestedView(ShowViewParameters parameters, ShowViewSource showViewSource) {
-            IModelListViewOpenViewWhenNested model =
-                showViewSource.SourceFrame.View.Model as IModelListViewOpenViewWhenNested;
-
+            var model =showViewSource.SourceFrame.View.Model as IModelListViewOpenViewWhenNested;
             if (model != null) {
                 if (model.OpenViewWhenNestedStrategy == OpenViewWhenNestedStrategy.InMainWindow)
                     Application.MainWindow.SetView(parameters.CreatedView, showViewSource.SourceFrame);
@@ -20,9 +18,7 @@ namespace Xpand.ExpressApp.Web.ViewStrategies {
         }
 
         protected override void ShowViewFromCommonView(ShowViewParameters parameters, ShowViewSource showViewSource) {
-            IModelListViewOpenViewWhenNested model =
-                showViewSource.SourceView.Model as IModelListViewOpenViewWhenNested;
-
+            var model =showViewSource.SourceView.Model as IModelListViewOpenViewWhenNested;
             if (model != null && model.OpenDetailViewAsPopup) {
                 base.ShowViewInModalWindow(parameters, showViewSource);
             }
