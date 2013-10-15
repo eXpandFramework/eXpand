@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Validation;
@@ -35,11 +36,15 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             var hideIfCriteriaDoNotFit = xpoTransition.TargetState.GetMemberValue(HideIfCriteriaDoNotFit) as bool?;
             if (hideIfCriteriaDoNotFit.HasValue&&hideIfCriteriaDoNotFit.Value) {
                 var stateMachineLogic = new StateMachineLogic(ObjectSpace);
-                var ruleSetValidationResult =
-                    (RuleSetValidationResult)stateMachineLogic.CallMethod("ValidateTransition", new[] { xpoTransition.TargetState,View.CurrentObject });
+                var ruleSetValidationResult = RuleSetValidationResult(xpoTransition, stateMachineLogic);
                 return ruleSetValidationResult.State != ValidationState.Invalid;
             }
             return true;
+        }
+
+        [Obsolete("In 13.2 the ValidateTransition is public")]
+        RuleSetValidationResult RuleSetValidationResult(XpoTransition xpoTransition, StateMachineLogic stateMachineLogic) {
+            return (RuleSetValidationResult) stateMachineLogic.CallMethod("ValidateTransition", new[]{xpoTransition.TargetState, View.CurrentObject});
         }
     }
 }
