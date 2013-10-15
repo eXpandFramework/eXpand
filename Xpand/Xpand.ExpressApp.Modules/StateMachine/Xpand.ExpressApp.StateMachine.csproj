@@ -12,13 +12,19 @@
     <RootNamespace>Xpand.ExpressApp.StateMachine</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.StateMachine</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <SccProjectName></SccProjectName>
-    <SccLocalPath></SccLocalPath>
-    <SccAuxPath></SccAuxPath>
-    <SccProvider></SccProvider>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -72,8 +78,17 @@
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\New folder\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
@@ -101,7 +116,13 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\StateMachineController.cs">
+    <Compile Include="Controllers\CriteriaActionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PermissionTransitionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChangeStateActionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\StateMachineCacheController.cs">
@@ -171,7 +192,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
