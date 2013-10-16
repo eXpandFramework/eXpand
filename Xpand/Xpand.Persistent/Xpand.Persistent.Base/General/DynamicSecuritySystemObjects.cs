@@ -70,7 +70,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void HideMemberInDetailView(XPMemberInfo xpMemberInfo) {
-            xpMemberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+            if (!xpMemberInfo.HasAttribute(typeof(VisibleInDetailViewAttribute)))
+                xpMemberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
         }
 
         public void HideRoleInDetailView(List<XPMemberInfo> xpMemberInfos) {
