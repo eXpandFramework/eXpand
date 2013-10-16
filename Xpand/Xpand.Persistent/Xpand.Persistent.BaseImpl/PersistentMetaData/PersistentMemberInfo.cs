@@ -2,6 +2,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 
@@ -23,6 +24,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [VisibleInListView(false)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
+        [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
         }

@@ -32,7 +32,10 @@ namespace Xpand.ExpressApp.PivotChart {
                     AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
                     Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
                     TypesInfo.LoadTypes(assembly);
-                    Type typeInfo = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis").Type;
+                    var info = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis");
+                    if (info==null)
+                        throw new FileNotFoundException();
+                    Type typeInfo = info.Type;
                     AdditionalExportedTypes.Add(typeInfo);
                 }
             }

@@ -58,6 +58,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeParser.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\IModelViewOpenView.cs" />
+    <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="SystemModule\UnsavedObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -273,6 +275,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PropertyEditors\CSCodePropertyEditor\CodeFormatter.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
