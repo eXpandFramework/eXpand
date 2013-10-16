@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -29,7 +30,7 @@ namespace Xpand.ExpressApp {
         public void Proccess(CustomProcessShortcutEventArgs shortcutEventArgs) {
             if (shortcutEventArgs.Handled) return;
             var shortcut = shortcutEventArgs.Shortcut;
-            IModelDetailView modelDetailView = GetModelDetailView(shortcut);
+            var modelDetailView = GetModelDetailView(shortcut);
             if ((modelDetailView != null && IsEnable(modelDetailView))) {
                 if (CanCreate(modelDetailView.ModelClass.TypeInfo)) {
                     shortcutEventArgs.Handled = true;
@@ -59,22 +60,29 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObjectKey(ViewShortcut shortcut, Type type, IObjectSpace objectSpace) {
-            var objectKey = GetObjectKey(objectSpace, type, shortcut);
-            if (objectKey != null)
-                return objectKey;
-            return shortcut.ObjectKey.StartsWith("@")
+            if (!string.IsNullOrEmpty(shortcut.ObjectKey))
+                return shortcut.ObjectKey.StartsWith("@")
                             ? ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue
                             : CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey, type);
+            return GetObjectKey(objectSpace, type, shortcut);
         }
 
         object GetObjectKey(IObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
-            object objectKey = null;
-            if (string.IsNullOrEmpty(shortcut.ObjectKey))
-                return null;
+            var objectKeyString = shortcut.ObjectKey ;
+            if (shortcut.ContainsKey("Criteria"))
+                objectKeyString = shortcut["Criteria"];
+            return string.IsNullOrEmpty(objectKeyString) ? null : GetObjectKeyCore(objectSpace, type, objectKeyString);
+        }
 
+        object GetObjectKeyCore(IObjectSpace objectSpace, Type type, string objectKeyString) {
+            object objectKey = null;
+            var criteriaOperator = CriteriaOperator.TryParse(objectKeyString);
+            if (criteriaOperator != null)
+                return criteriaOperator;
             try {
-                objectKey = objectSpace.GetObjectKey(type, shortcut.ObjectKey);
-            } catch {
+                objectKey = objectSpace.GetObjectKey(type, objectKeyString);
+            }
+            catch {
             }
             return objectKey;
         }
@@ -126,7 +134,10 @@ namespace Xpand.ExpressApp {
             var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
             showNavigationItemController.CustomInitializeItems += ShowNavigationItemControllerOnCustomInitializeItems;
             showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+//            showNavigationItemController.Activated+=ShowNavigationItemControllerOnActivated;
         }
+
+
 
         void ShowNavigationItemControllerOnCustomInitializeItems(object sender, HandledEventArgs handledEventArgs) {
             ((ShowNavigationItemController)sender).CustomInitializeItems-= ShowNavigationItemControllerOnCustomInitializeItems;
@@ -145,10 +156,30 @@ namespace Xpand.ExpressApp {
         }
 
         void ShowNavigationItemControllerOnItemsInitialized(object sender, EventArgs eventArgs) {
-            ((ShowNavigationItemController)sender).ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
+            var showNavigationItemController = ((ShowNavigationItemController) sender);
+            var choiceActionItems = showNavigationItemController.ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items).Where(item => _items.ContainsKey((IModelNavigationItem) item.Model));
+            showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
             foreach (var item in _items) {
                 item.Key.ObjectKey = item.Value;
+                var choiceActionItem = choiceActionItems.First(actionItem => actionItem.Model == item.Key);
+                var viewShortcut = ((ViewShortcut) choiceActionItem.Data);
+                viewShortcut.Add("Criteria",item.Value);
+//                choiceActionItem.Data = new ViewShortcut(viewShortcut.ObjectClass, viewShortcut.ObjectKey, viewShortcut.ViewId, viewShortcut.ScrollPosition, item.Value);
+//                viewShortcut.ObjectKey = item.Value;
             }
         }
+
     }
+
+//    public class ViewShortcut : DevExpress.ExpressApp.ViewShortcut {
+//        readonly string _objectKeyEx;
+//
+//        public ViewShortcut(Type objectClass, string objectKey, string viewId, Point scrollPosition,string objectKeyEx) : base(objectClass, objectKey, viewId, scrollPosition) {
+//            _objectKeyEx = objectKeyEx;
+//        }
+//
+//        public string ObjectKeyEx {
+//            get { return _objectKeyEx; }
+//        }
+//    }
 }
