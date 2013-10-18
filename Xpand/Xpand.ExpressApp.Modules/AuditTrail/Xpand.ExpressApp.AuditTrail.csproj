@@ -123,7 +123,6 @@
     <Compile Include="Logic\AuditTrailRule.cs" />
     <Compile Include="Logic\AuditTrailRuleAttribute.cs" />
     <Compile Include="Logic\IAuditTrailRule.cs" />
-    <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Security\AuditTrailRulePermission.cs" />
     <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs">
       <SubType>Component</SubType>

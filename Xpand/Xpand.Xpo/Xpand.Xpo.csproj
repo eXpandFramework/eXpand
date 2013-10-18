@@ -95,7 +95,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Collections\XPCollectionExtensions.cs" />
-    <Compile Include="ConnectionProviders\DBColumbTypeExtensions.cs" />
+    <Compile Include="ConnectionProviders\DBColumnTypeExtensions.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
     <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandXtraDashboardWeb</id>
+    <version>11.1</version>
+    <title>DevExpress eXpandFramework XtraDashboard Module (Web)</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>XtraDashboard Module (Web) / eXpandFramework</description>
+    <summary>XtraDashboard Module (Web) / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
+    <dependencies>
+      <dependency id="eXpandLib" />
+      <dependency id="eXpandDashboard" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.XtraDashboard.Web.dll" target="lib\net40\Xpand.ExpressApp.XtraDashboard.Web.dll" />
+  </files>
+</package>

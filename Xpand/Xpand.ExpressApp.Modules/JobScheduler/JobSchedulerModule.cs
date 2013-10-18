@@ -43,18 +43,13 @@ namespace Xpand.ExpressApp.JobScheduler {
 
             if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.JobScheduler");
-                Application.LoggedOn += ApplicationOnLoggedOn;
+                Application.SetupComplete +=ApplicationOnSetupComplete;
             }
 
         }
 
-        bool Enabled() {
-            var modelOptionsJobScheduler = Application.Model.Options as IModelOptionsJobScheduler;
-            return modelOptionsJobScheduler != null && modelOptionsJobScheduler.JobScheduler;
-        }
-
-        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
-            Application.LoggedOn-=ApplicationOnLoggedOn;
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+            Application.SetupComplete -= ApplicationOnSetupComplete;
             if (!Enabled())
                 return;
             ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
@@ -65,7 +60,14 @@ namespace Xpand.ExpressApp.JobScheduler {
                 if (!Debugger.IsAttached)
                     Tracing.Tracer.LogError(e);
             }
+
         }
+
+        bool Enabled() {
+            var modelOptionsJobScheduler = Application.Model.Options as IModelOptionsJobScheduler;
+            return modelOptionsJobScheduler != null && modelOptionsJobScheduler.JobScheduler;
+        }
+
 
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);

@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
             var smtpClient = new SmtpClient {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Host = ConfigurationManager.AppSettings["ThresholdEmailJobHost"].Split(':')[0],
-                Port = ConfigurationManager.AppSettings["ThresholdEmailJobHost"].Split(':').Count() > 0 ? (Convert.ToInt32(ConfigurationManager.AppSettings["ThresholdEmailJobHost"].Split(':')[1])) : 25,
+                Port = ConfigurationManager.AppSettings["ThresholdEmailJobHost"].Split(':').Any() ? (Convert.ToInt32(ConfigurationManager.AppSettings["ThresholdEmailJobHost"].Split(':')[1])) : 25,
                 EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["ThresholdEmailJobEnableSsl"]),
                 UseDefaultCredentials = true
             };

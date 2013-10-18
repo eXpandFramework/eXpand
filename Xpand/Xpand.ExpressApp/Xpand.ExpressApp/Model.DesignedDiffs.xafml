@@ -1,2 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Logo="XpandProgress"/>
+<Application Logo="XpandProgress">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ChooseFormattingCulture" Active="False" />
+      <Action Id="ChooseLanguage" Active="False" />
+    </Actions>
+  </ActionDesign>
+</Application>

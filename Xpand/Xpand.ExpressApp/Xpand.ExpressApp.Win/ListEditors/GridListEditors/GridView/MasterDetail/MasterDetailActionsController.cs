@@ -41,8 +41,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         IEnumerable<ActionBase> GetActions(Frame frame) {
-            var actionBases = frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
-            return actionBases.Where(@base => @base.Id == "Delete" || @base.Id == "receipt" || @base.Id == "rent");
+            return frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
         }
 
         protected override void OnDeactivated() {
@@ -55,15 +54,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             base.OnViewControlsCreated();
             if (GridListEditor != null && GridListEditor.ColumnView is IMasterDetailColumnView) {
                 var gridView = ((IMasterDetailColumnView)GridListEditor.ColumnView);
-                if (gridView.MasterFrame == null &&  HasRules&&SynchronizeActions()) {                    
+                if (gridView.MasterFrame == null && HasRules && SynchronizeActions()) {                    
                     SubscribeToActionStateResultChange();
                     PushExecutionToNestedFrame();
-                    if (HasRules&&gridView.MasterFrame == null) {
+                    if (HasRules && gridView.MasterFrame == null) {
                         CloneActionState(Frame, _activeBoolLists, _enabledBoolLists);
                         gridView.GridControl.FocusedViewChanged += OnFocusedViewChanged;
                     }
                 }
             }
+
         }
 
         protected virtual bool SynchronizeActions() {

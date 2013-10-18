@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Security.Registration {
 
             userTypeInfo.FindMember("UserName").SetValue(securityUserWithRoles,UserName);
             modelRegistration.EmailMember.MemberInfo.SetValue(securityUserWithRoles,Email);
-            userTypeInfo.CallMethod("SetPassword", Password);
+            securityUserWithRoles.CallMethod("SetPassword", Password);
 
             objectSpace.CommitChanges();
         }

@@ -2,8 +2,8 @@
 <Application>
   <AdditionalViewControls>
     <Rules>
-      <AdditionalViewControlsRule Id="Header HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Pivot" NormalCriteria="Name='HidePivot'" Position="Top" ViewType="DetailView" />
-      <AdditionalViewControlsRule Id="ViewMessage HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the pivot control" NormalCriteria="Name='HidePivot'" Position="Bottom" ViewType="DetailView" />
+      <AdditionalViewControlsRule Id="Header HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="Hide Pivot" NormalCriteria="Name='HidePivot'" Position="Top" ViewType="DetailView" View="HidePivot_DetailView" />
+      <AdditionalViewControlsRule Id="ViewMessage HidePivot" IsNewNode="True" TypeInfo="DevExpress.Persistent.BaseImpl.Analysis" Message="In this view you can see how you can hide the pivot control" NormalCriteria="Name='HidePivot'" Position="Bottom" ViewType="DetailView" View="HidePivot_DetailView" />
     </Rules>
   </AdditionalViewControls>
   <Views>

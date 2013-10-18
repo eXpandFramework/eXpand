@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="LayoutViewGridListEditor_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.LayoutViewListEditor" />
+    <ListView Id="LayoutViewGridListEditor_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.LayoutViewListEditor" />
   </Views>
 </Application>

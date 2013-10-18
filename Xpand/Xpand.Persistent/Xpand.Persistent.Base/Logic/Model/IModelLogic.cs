@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Model;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     public interface IModelLogicContexts : IModelNode {
@@ -7,9 +6,5 @@ namespace Xpand.Persistent.Base.Logic.Model {
         IModelActionExecutionContextGroup ActionExecutionContextGroup { get; }
         IModelViewContextsGroup ViewContextsGroup { get; }
         IModelFrameTemplateContextsGroup FrameTemplateContextsGroup { get; }
-    }
-    [Obsolete]
-    public interface IModelLogic : IModelLogicContexts {
-        IModelLogicRules Rules { get; }
     }
 }

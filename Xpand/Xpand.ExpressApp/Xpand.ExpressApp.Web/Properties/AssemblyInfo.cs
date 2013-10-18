@@ -37,7 +37,11 @@ using System.Web.UI;
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 
 [assembly: WebResource(ResourceNames.CommonStyles, "text/css")]
+[assembly: WebResource(ResourceNames.jwerty, "text/javascript")]
+[assembly: WebResource(ResourceNames.HighlightFocusedLayoutItem, "text/javascript")]
 class ResourceNames {
     public const string CommonStyles = "Xpand.ExpressApp.Web.Styles.CommonStyle.css";
+    public const string jwerty = "Xpand.ExpressApp.Web.SystemModule.WebShortcuts.jwerty.js";
+    public const string HighlightFocusedLayoutItem = "Xpand.ExpressApp.Web.SystemModule.HighlightFocusedLayoutItemDetailViewController.js";
 }
 

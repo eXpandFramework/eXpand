@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
@@ -43,10 +44,16 @@ namespace Xpand.ExpressApp.Logic {
             get {
                 var xafApplication = ApplicationHelper.Instance.Application;
                 var typeInfos = xafApplication.TypesInfo.FindTypeInfo(typeof(IContextLogicRule)).Descendants;
-                var typeInfo = typeInfos.SelectMany(info => info.ImplementedInterfaces).First(info
-                    => info.Type != typeof(IContextLogicRule) && typeof(ILogicRule).IsAssignableFrom(info.Type) && info.Type.IsInstanceOfType(contextLogicRule));
+                var infos = typeInfos.SelectMany(info => info.ImplementedInterfaces);
+                var typeInfo = infos.First(info
+                    => B(contextLogicRule, info));
                 return this[typeInfo.Type];
             }
+        }
+
+        static bool B(IContextLogicRule contextLogicRule, ITypeInfo info) {
+            return  typeof(ILogicRule).IsAssignableFrom(info.Type) 
+                && info.Type.IsInstanceOfType(contextLogicRule)&& info.FindAttribute<ModelAbstractClassAttribute>(false)==null;
         }
 
         ILogicInstaller this[Type ruleType,IModelApplication application ] {

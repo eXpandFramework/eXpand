@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public class ModelDetailViewFullTextSearchDomainLogic {
         public static IModelList<IModelListView> Get_ListViews(IModelDetailViewFullTextSearch modelDetailViewFullTextSearch) {
             var memberViewItems = modelDetailViewFullTextSearch.Items.OfType<IModelMemberViewItem>().Where(item => item.ModelMember.MemberInfo.IsList);
-            return new CalculatedModelNodeList<IModelListView>(memberViewItems.Select(item => ((IModelListView)item.View)));
+            return new CalculatedModelNodeList<IModelListView>(memberViewItems.Select(item => item.View).OfType<IModelListView>());
         }
     }
     public class DetailViewFullTextSearchController:ViewController<DetailView>,IModelExtender {

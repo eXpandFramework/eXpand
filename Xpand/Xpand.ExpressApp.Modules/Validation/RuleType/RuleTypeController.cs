@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
@@ -108,9 +107,7 @@ namespace Xpand.ExpressApp.Validation.RuleType {
 
         protected virtual void OnValidationFail(ValidationCompletedEventArgs validationCompletedEventArgs) {
             var items = new Dictionary<RuleType, List<RuleSetValidationResultItem>>();
-            var ruleTypes =CaptionHelper.GetLocalizedItems("Enums/" + typeof (RuleType).FullName)
-                             .Select(pair => (RuleType) Enum.Parse(typeof (RuleType), pair.Key))
-                             .OrderByDescending(type => type);
+            var ruleTypes = Enum.GetValues(typeof(RuleType)).Cast<RuleType>();
             foreach (var ruleType in ruleTypes) {
                 var resultsPerType = GetResultsPerType(validationCompletedEventArgs, ruleType);
                 items.Add(ruleType, resultsPerType);

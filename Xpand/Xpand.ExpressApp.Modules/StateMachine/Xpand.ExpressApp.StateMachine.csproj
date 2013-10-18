@@ -72,8 +72,19 @@
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\New folder\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
@@ -101,7 +112,13 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\StateMachineController.cs">
+    <Compile Include="Controllers\CriteriaActionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PermissionTransitionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChangeStateActionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\StateMachineCacheController.cs">

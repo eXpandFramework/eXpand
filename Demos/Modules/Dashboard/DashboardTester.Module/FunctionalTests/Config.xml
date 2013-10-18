@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
 	<Applications>
 		<!-- Win -->
@@ -9,14 +9,14 @@
 			CommunicationPort="4100"/>
 		<!-- Web -->
 		<Application
-			Name="[WebProjectName]"
+			Name="DashboardTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
 		<!-- For IIS -->
 		<!--Application
-			Name="[WebProjectName]"
-			Url="http://localhost/[WebProjectName]/Default.aspx"
+			Name="DashboardTester.Web"
+			Url="http://localhost/DashboardTester.Web/Default.aspx"
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
@@ -28,6 +28,7 @@
 		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\DashboardTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="Write path to the application here." />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\DashboardTester.Web" />
 	</Aliases>
 </Options>
+

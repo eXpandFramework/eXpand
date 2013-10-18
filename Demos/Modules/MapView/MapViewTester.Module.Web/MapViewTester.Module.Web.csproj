@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7F35AA45-1714-44F7-813B-CD7104541ACA}</ProjectGuid>
+    <ProjectGuid>{2F63F546-5833-4087-8735-FFCEB294C26C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MapViewTester.Module.Web</RootNamespace>
@@ -125,12 +125,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MapViewTester.Module\MapViewTester.Module.csproj">
-      <Project>{EF04B36B-E62F-40CB-8BC6-C1B740489383}</Project>
-      <Name>MapViewTester.Module</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +133,12 @@
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MapViewTester.Module\MapViewTester.Module.csproj">
+      <Project>{32d7a0ed-3dd8-4164-aca0-071c264a15ae}</Project>
+      <Name>MapViewTester.Module</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

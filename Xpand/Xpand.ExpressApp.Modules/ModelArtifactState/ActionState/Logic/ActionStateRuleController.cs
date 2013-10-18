@@ -37,11 +37,17 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         void ActivateDeActivateAction(LogicRuleInfo info, ActionBase actionBase) {
-            actionBase.Active[ActiveObjectTypeHasActionRules] = !info.Active;
+            if (info.InvertCustomization)
+                actionBase.Active[ActiveObjectTypeHasActionRules] = true;
+            else
+                actionBase.Active[ActiveObjectTypeHasActionRules] = !info.Active;
         }
 
         void EnableDisableAction(LogicRuleInfo info, ActionBase actionBase) {
-            actionBase.Enabled[ActiveObjectTypeHasActionRules] = !info.Active;
+            if (info.InvertCustomization)
+                actionBase.Enabled[ActiveObjectTypeHasActionRules] = true;
+            else
+                actionBase.Enabled[ActiveObjectTypeHasActionRules] = !info.Active&&!info.InvertCustomization;
         }
 
         void ExecuteAction(ActionBase actionBase) {

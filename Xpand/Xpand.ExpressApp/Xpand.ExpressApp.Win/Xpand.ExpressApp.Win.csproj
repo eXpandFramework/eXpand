@@ -322,7 +322,7 @@
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\WinLookUpPropertyEditor.cs">
+    <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />

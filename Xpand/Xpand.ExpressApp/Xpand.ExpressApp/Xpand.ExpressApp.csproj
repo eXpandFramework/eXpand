@@ -136,7 +136,13 @@
     <Compile Include="SystemModule\Actions\ActionDefaultValueController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\Actions\GlobalActionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ChangeLanguageController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\CloneMemberValueViewController.cs">

@@ -65,6 +65,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
 
         private void ChangeFormVisibility(XtraForm form) {
+            if (form.IsDisposed)
+                return;
             if (form.Visible)
                 form.Hide();
             else

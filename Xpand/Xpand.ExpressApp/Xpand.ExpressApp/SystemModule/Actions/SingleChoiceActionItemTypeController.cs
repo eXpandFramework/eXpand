@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.Model;
 namespace Xpand.ExpressApp.SystemModule.Actions {
     [ModelAbstractClass]
     public interface IModelActionSingleChoiceActionItemType : IModelAction {
-        [Category("Appearance")]
+        [Category("eXpand")]
         SingleChoiceActionItemType? ItemType { get; set; }
     }
 

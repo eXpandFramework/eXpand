@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
-            extenders.Add<IModelColumn, IModelColumnFastSearchItem>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemFastSearch>();
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             ConvertXml(parameters);
             if (parameters.XmlNodeName == "GridColumnOptions")
                 parameters.NodeType = typeof (IModelOptionsColumnGridView);
+            
         }
 
     }
