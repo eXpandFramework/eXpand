@@ -206,6 +206,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelApplication, ITypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
+            extenders.Add<IModelApplication, IModelApplicationResourceDifferences>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
             
         }
@@ -221,6 +222,7 @@ namespace Xpand.Persistent.Base.General {
             
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
+            updaters.Add(new ApplicationDifferencesUpdater());
         }
 
         protected internal bool RuntimeMode {

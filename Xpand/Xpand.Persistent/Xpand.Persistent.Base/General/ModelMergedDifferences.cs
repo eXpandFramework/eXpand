@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -115,7 +114,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         IEnumerable<IModelObjectViewMergedDifferences> ObjectViews(IModelViews modelViews) {
-            var application = ModelApplication(modelViews);
+            var application = ((IModelApplicationResourceDifferences) modelViews.Application).ResourceDifferencesApplication;
             return application.Application.Views.OfType<IModelObjectViewMergedDifferences>()
                            .Where(view => view.MergedDifferences != null && view.MergedDifferences.Any(difference => IsValid(difference, modelViews.Application.Views))).ToList();
         }
@@ -125,20 +124,6 @@ namespace Xpand.Persistent.Base.General {
                 return false;
             var modelView = views[difference.View.Id] as IModelObjectView;
             return modelView != null && modelView.ModelClass != null;
-        }
-
-        ModelApplicationBase ModelApplication(IModelNode modelNode) {
-            var node = ((ModelNode)modelNode);
-            var modelApplication = node.CreatorInstance.CreateModelApplication();
-            foreach (var resourcesModelStore in Modules(node).Select(module => new ResourcesModelStore(module.GetType().Assembly))) {
-                resourcesModelStore.Load(modelApplication);
-            }
-            return modelApplication;
-        }
-
-        IEnumerable<ModuleBase> Modules(ModelNode node) {
-            var moduleBases = ((IModelSources) node.Application).Modules;
-            return moduleBases.Any()?moduleBases:ApplicationHelper.Instance.Application.Modules;
         }
     }
 
