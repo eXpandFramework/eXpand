@@ -47,13 +47,17 @@ namespace Xpand.EmailTemplateEngine {
 
         protected string TextTemplateSuffix { get; private set; }
 
+        public virtual Email Execute(dynamic model ,string templateName) {
+            return Execute(templateName, model);
+        }
+
         public virtual Email Execute(string templateName, object model = null) {
             Invariant.IsNotBlank(templateName, "templateName");
 
             var templates = CreateTemplateInstances(templateName);
 
             foreach (var pair in templates) {
-                pair.Value.SetModel(WrapModel(model));
+                pair.Value.SetModel(model);
                 pair.Value.Execute();
             }
 

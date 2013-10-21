@@ -16,7 +16,8 @@ namespace Xpand.EmailTemplateEngine {
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result) {
-            return propertyMap.TryGetValue(binder.Name, out result);
+            var tryGetMember = propertyMap.TryGetValue(binder.Name, out result);
+            return tryGetMember;
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value) {
