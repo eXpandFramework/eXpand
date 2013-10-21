@@ -12,6 +12,5 @@ namespace Xpand.ExpressApp.Scheduler.Web {
             RequiredModuleTypes.Add(typeof (XpandSchedulerModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Scheduler.Web.SchedulerAspNetModule));
         }
-
     }
 }

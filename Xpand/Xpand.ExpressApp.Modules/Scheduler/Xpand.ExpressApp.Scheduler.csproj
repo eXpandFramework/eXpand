@@ -56,6 +56,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -69,6 +72,15 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
@@ -91,6 +103,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Interfaces.cs" />
@@ -98,6 +114,17 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Synchronizers.cs" />
+    <Compile Include="Reminders\IModelMemberReminderInfo.cs" />
+    <Compile Include="Reminders\ReminderAlertController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reminders\ReminderInfo.cs" />
+    <Compile Include="Reminders\ModelUpdaters.cs" />
+    <Compile Include="Reminders\ReminderInfoRefreshController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reminders\Extensions.cs" />
+    <Compile Include="Reminders\SupportsReminderController.cs" />
     <Compile Include="XpandSchedulerModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -135,6 +162,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,183 @@
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.Persistent.Base.General;
+using DevExpress.XtraScheduler;
+using DevExpress.XtraScheduler.Xml;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Timers;
+
+namespace Xpand.ExpressApp.Scheduler.Reminders {
+    public abstract class ReminderAlertController : WindowController {
+        public const string BoTypeCustomField = "BOType";
+        SchedulerStorage _schedulerStorage;
+        Timer _dataSourceRefreshTimer;
+        AppointmentStorage _appointmentStorage;
+
+        protected ReminderAlertController() {
+            TargetWindowType = WindowType.Main;
+        }
+
+        protected override void OnFrameAssigned() {
+            Frame.TemplateChanged += Frame_TemplateChanged;
+            base.OnFrameAssigned();
+        }
+
+        void Frame_TemplateChanged(object sender, EventArgs e) {
+            ((Frame)sender).TemplateChanged -= Frame_TemplateChanged;
+            if (Frame.Context == TemplateContext.ApplicationWindow) {
+                Frame.ViewChanged += Frame_ViewChanged;
+            }
+        }
+
+        void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {
+            Frame.ViewChanged -= Frame_ViewChanged;
+            _dataSourceRefreshTimer.Start();
+            RefreshReminders();
+        }
+
+        protected override void OnActivated() {
+            base.OnActivated();
+            InitScheduler();
+            InitDataSourceRefreshTimer();
+        }
+
+        protected override void OnDeactivated() {
+            _dataSourceRefreshTimer.Stop();
+            _dataSourceRefreshTimer.Elapsed -= RefreshTimerElapsed;
+            _schedulerStorage.AppointmentChanging -= SchedulerStorageAppointmentChanging;
+            _schedulerStorage.ReminderAlert -= ShowReminderAlerts;
+            _dataSourceRefreshTimer = null;
+            _schedulerStorage = null;
+            base.OnDeactivated();
+        }
+
+
+        private void InitDataSourceRefreshTimer() {
+            _dataSourceRefreshTimer = new Timer { Interval = 5000 };
+            _dataSourceRefreshTimer.Elapsed += RefreshTimerElapsed;
+        }
+
+        protected virtual void InitScheduler() {
+            _schedulerStorage = new SchedulerStorage();
+            _schedulerStorage.BeginInit();
+            _schedulerStorage.EnableReminders = true;
+            _schedulerStorage.RemindersCheckInterval =( ((IModelApplicationScheduler) Application.Model).Scheduler).RemindersCheckInterval;
+            _appointmentStorage = (_schedulerStorage).Appointments;
+            _appointmentStorage.AutoReload = false;
+            var mappingCollection = _appointmentStorage.CustomFieldMappings;
+            mappingCollection.Add(new AppointmentCustomFieldMapping(BoTypeCustomField, BoTypeCustomField));
+            _schedulerStorage.AppointmentChanging += SchedulerStorageAppointmentChanging;
+            _schedulerStorage.ReminderAlert += ShowReminderAlerts;
+            _schedulerStorage.EndInit();
+        }
+
+        protected virtual void ShowReminderAlerts(object sender, ReminderEventArgs e) { }
+
+        void RefreshTimerElapsed(object sender, ElapsedEventArgs e) {
+            RefreshReminders();
+        }
+
+        private void StopRefreshingStorage() {
+            _dataSourceRefreshTimer.Stop();
+            _dataSourceRefreshTimer.Elapsed -= RefreshTimerElapsed;
+        }
+
+        private void StartRefreshingStorage() {
+            _dataSourceRefreshTimer.Elapsed += RefreshTimerElapsed;
+            _dataSourceRefreshTimer.Start();
+        }
+
+        private void BeginAppointmentsUpdating() {
+            _schedulerStorage.AppointmentChanging -= SchedulerStorageAppointmentChanging;
+            _appointmentStorage.BeginUpdate();
+        }
+
+        private void EndAppointmentsUpdating() {
+            _appointmentStorage.EndUpdate();
+            _schedulerStorage.TriggerAlerts();
+            _schedulerStorage.AppointmentChanging += SchedulerStorageAppointmentChanging;
+        }
+
+        void SchedulerStorageAppointmentChanging(object sender, PersistentObjectCancelEventArgs e) {
+            StopRefreshingStorage();
+            var appointment = e.Object as Appointment;
+            if (appointment == null) throw new NullReferenceException("appointment");
+            using (var objectSpace = Application.CreateObjectSpace()) {
+                var type = (Type) appointment.CustomFields[BoTypeCustomField];
+                var eventBO = ((IEvent)objectSpace.GetObjectByKey(type, appointment.Id));
+                var reminderInfo = eventBO.GetReminderInfoMemberValue();
+                reminderInfo.HasReminder = appointment.HasReminder;
+                reminderInfo.Info = !reminderInfo.HasReminder ? null : new ReminderXmlPersistenceHelper(appointment.Reminder, DateSavingType.LocalTime).ToXml();
+                objectSpace.CommitChanges();
+            }
+            StartRefreshingStorage();
+        }
+
+        private void RefreshReminders() {
+            StopRefreshingStorage();
+            BeginAppointmentsUpdating();
+
+            var currentAppointmentKeys = new List<Guid>();
+            using (var objectSpace = Application.CreateObjectSpace()) {
+                foreach (var modelMemberReminderInfo in Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info!=null)) {
+                    var criteriaOperator = ExtractCriteria(modelMemberReminderInfo);
+                    var reminderEvents = objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
+                    foreach (IEvent evt in reminderEvents) {
+                        UpdateAppointmentInStorage(modelMemberReminderInfo.ModelClass.TypeInfo, evt);
+                        currentAppointmentKeys.Add((Guid) evt.AppointmentId);
+                    }    
+                }
+            }
+            RemoveRedundantAppointments(currentAppointmentKeys);
+            EndAppointmentsUpdating();
+            StartRefreshingStorage();
+        }
+
+        IModelMemberReminderInfo ReminderMembers(ITypeInfo info) {
+            return info.Implements<IEvent>() ? info.ModelMemberReminderInfo(Application.Model.BOModel) : null;
+        }
+
+        private void RemoveRedundantAppointments(IList<Guid> refreshedReminderOid) {
+            for (var i = _appointmentStorage.Count - 1; i >= 0; i--) {
+                if (!refreshedReminderOid.Contains((Guid)_appointmentStorage[i].Id))
+                    _appointmentStorage.Remove(_appointmentStorage[i]);
+            }
+        }
+
+        private void UpdateAppointmentInStorage(ITypeInfo typeInfo, IEvent iEvent) {
+            _schedulerStorage.EnableReminders = false;
+            var appointment = _appointmentStorage.GetAppointmentById(iEvent.AppointmentId);
+            if (appointment == null) {
+                appointment = new Appointment(AppointmentType.Normal, iEvent.StartOn, iEvent.EndOn - iEvent.StartOn, iEvent.Subject, iEvent.AppointmentId);
+                _appointmentStorage.Add(appointment);
+            }
+            appointment.Subject = iEvent.Subject;
+            appointment.StatusId = iEvent.Status;
+            appointment.Start = iEvent.StartOn;
+            appointment.End = iEvent.EndOn;
+            var reminderInfo = iEvent.GetReminderInfoMemberValue();
+            appointment.HasReminder = reminderInfo.HasReminder;
+            appointment.CustomFields[BoTypeCustomField] = typeInfo.Type;
+
+            var reminder = appointment.CreateNewReminder();
+            var reminderHelper = new ReminderXmlPersistenceHelper(reminder, DateSavingType.LocalTime);
+            reminderHelper.FromXml(reminderInfo.Info);
+            _schedulerStorage.EnableReminders = true;
+        }
+
+        private CriteriaOperator ExtractCriteria(IModelMemberReminderInfo modelMemberReminderInfo) {
+            var modelCriteria = CriteriaOperator.Parse(modelMemberReminderInfo.ReminderCriteria);
+            var reminderCriteria = CriteriaOperator.And(
+                        new BinaryOperator(modelMemberReminderInfo.Name+ ".HasReminder", true),
+                        new UnaryOperator(UnaryOperatorType.Not, new NullOperator(modelMemberReminderInfo.Name + ".Info")));
+            return CriteriaOperator.And(modelCriteria, reminderCriteria);
+        }
+
+        public SchedulerStorageBase Storage {
+            get { return _schedulerStorage; }
+        }
+    }
+}

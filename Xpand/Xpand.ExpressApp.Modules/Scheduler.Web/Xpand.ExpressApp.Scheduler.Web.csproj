@@ -12,11 +12,9 @@
     <RootNamespace>Xpand.ExpressApp.Scheduler.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Scheduler.Web</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -66,7 +64,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
@@ -125,6 +122,14 @@
     <Compile Include="Controllers\WebDashboardRefreshController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reminders\DashboardReminderAlertViewItem.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reminders\DurationPropertyEditor.cs" />
+    <Compile Include="Reminders\ReminderAlertController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reminders\ReminderFormViewItem.cs" />
     <Compile Include="XpandSchedulerAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -162,6 +167,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
