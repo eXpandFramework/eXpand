@@ -1,3 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Views>
+    <DashboardView Id="ReminderFormView" IsNewNode="True">
+      <Items IsNewNode="True">
+        <DashboardReminderAlertViewItem Id="@598091f5-fa83-42d2-9fe0-6795b5dcc11c" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
+          <LayoutItem Id="@e0ca66e5-22df-4d44-807d-d872edab5771" ViewItem="@e0ca66e5-22df-4d44-807d-d872edab5771" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DashboardView>
+  </Views>
 </Application>

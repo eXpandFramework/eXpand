@@ -26,5 +26,6 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
         public int? FontSize { get; set; }
+        public string ImageName { get; set; }
     }
 }

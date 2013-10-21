@@ -25,6 +25,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         int? Height { get; set; }
         [Category("Appearance")]
         int? FontSize { get; set; }
+
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ImageGalleryModelEditorControl, DevExpress.ExpressApp.Win.v13.1", typeof(System.Drawing.Design.UITypeEditor))]
+        [Category("Appearance")]
+        string ImageName { get; set; }
     }
 
     public interface IContextAdditionalViewControlsRule:IContextLogicRule,IAdditionalViewControlsRule {

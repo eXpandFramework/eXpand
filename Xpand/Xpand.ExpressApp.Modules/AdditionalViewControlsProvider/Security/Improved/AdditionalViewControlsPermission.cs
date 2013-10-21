@@ -18,7 +18,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
             FontStyle=logicRule.FontStyle;
             Height=logicRule.Height;
             FontSize=logicRule.FontSize;
-        }
+            ImageName=logicRule.ImageName;
+            }
         public Type ControlType { get; set; }
         public Type DecoratorType { get; set; }
 
@@ -32,6 +33,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
         public FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
         public int? FontSize { get; set; }
+        public string ImageName { get; set; }
         #endregion
         public override IList<string> GetSupportedOperations() {
             return new[] { OperationName };
