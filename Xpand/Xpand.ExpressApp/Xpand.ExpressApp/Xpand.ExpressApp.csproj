@@ -200,9 +200,6 @@
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ModelDifferenceObjectsRuntimeMembersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
