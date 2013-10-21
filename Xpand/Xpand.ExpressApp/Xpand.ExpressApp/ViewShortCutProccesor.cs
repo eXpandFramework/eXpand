@@ -60,11 +60,9 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObjectKey(ViewShortcut shortcut, Type type, IObjectSpace objectSpace) {
-            if (!string.IsNullOrEmpty(shortcut.ObjectKey))
-                return shortcut.ObjectKey.StartsWith("@")
-                            ? ParametersFactory.CreateParameter(shortcut.ObjectKey.Substring(1)).CurrentValue
-                            : CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey, type);
-            return GetObjectKey(objectSpace, type, shortcut);
+            return !string.IsNullOrEmpty(shortcut.ObjectKey) && shortcut.ObjectKey.StartsWith("@")
+                       ? CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey, type)
+                       : GetObjectKey(objectSpace, type, shortcut);
         }
 
         object GetObjectKey(IObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
