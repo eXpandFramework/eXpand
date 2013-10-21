@@ -130,8 +130,10 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[]
                     {typeof (DashboardInteractionController), typeof (WebDashboardRefreshController)});
             }
-            if (!Executed("GetDeclaredControllerTypes"))
-                declaredControllerTypes= declaredControllerTypes.Union(new[] { typeof(CreatableItemController), typeof(FilterByColumnController) });
+            if (!Executed("GetDeclaredControllerTypes")) {
+                declaredControllerTypes= declaredControllerTypes.Union(new[]
+                {typeof (CreatableItemController), typeof (FilterByColumnController),typeof(CreateExpandAbleMembersViewController)});
+            }
             
             return declaredControllerTypes;
         }
