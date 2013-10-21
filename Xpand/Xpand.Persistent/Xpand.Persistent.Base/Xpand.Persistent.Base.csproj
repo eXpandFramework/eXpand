@@ -164,6 +164,7 @@
     <Compile Include="General\Model\Interfaces.cs" />
     <Compile Include="General\Model\CloneView.cs" />
     <Compile Include="General\Model\ModuleController.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="General\Model\Options\Interfaces.cs" />
     <Compile Include="General\Model\Options\Synchronizers.cs" />
