@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Security.Cryptography;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.Security.Registration {
     }
 
     public interface ILogonParameters {
-        void Process(XafApplication objectSpace);
+        void Process(XafApplication application,IObjectSpace objectSpace);
     }
 
     public interface ILogonRegistrationParameters : ILogonParameters {
@@ -35,16 +36,19 @@ namespace Xpand.ExpressApp.Security.Registration {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [ModelDefault("IsPassword", "true")]
         public string Password { get; set; }
-        [RuleRequiredField(null, DefaultContexts.Save)]
-        [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
+//        [RuleRequiredField(null, DefaultContexts.Save)]
+//        [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
         public string Email { get; set; }
-        public void Process(XafApplication application) {
-            var objectSpace = application.CreateObjectSpace();
+        
+//        [Browsable(false)]
+        public string RegisteredUser { get; set; }
+
+        public void Process(XafApplication application,IObjectSpace objectSpace) {
             var user = objectSpace.FindObject(XpandModuleBase.UserType, new GroupOperator(GroupOperatorType.Or,new BinaryOperator("UserName", UserName),new BinaryOperator("Email",Email))) as IAuthenticationStandardUser;
-            if (user != null)
+            if (user != null&&!objectSpace.IsNewObject(user))
                 throw new ArgumentException(CaptionHelper.GetLocalizedText(XpandSecurityModule.XpandSecurity, "AlreadyRegistered"));
 
-            var securityUserWithRoles = (ISecurityUserWithRoles)objectSpace.CreateObject(XpandModuleBase.UserType);
+            var securityUserWithRoles =objectSpace.IsNewObject(user)?(ISecurityUserWithRoles) user:(ISecurityUserWithRoles)objectSpace.CreateObject(XpandModuleBase.UserType);
             var userTypeInfo = application.TypesInfo.FindTypeInfo(XpandModuleBase.UserType);
             var modelRegistration = ((IModelOptionsRegistration)application.Model.Options).Registration;
             AddRoles(modelRegistration, userTypeInfo, securityUserWithRoles, objectSpace);
@@ -52,7 +56,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             userTypeInfo.FindMember("UserName").SetValue(securityUserWithRoles,UserName);
             modelRegistration.EmailMember.MemberInfo.SetValue(securityUserWithRoles,Email);
             securityUserWithRoles.CallMethod("SetPassword", Password);
-
+            RegisteredUser = ((IAuthenticationStandardUser)securityUserWithRoles).UserName;
             objectSpace.CommitChanges();
         }
 
@@ -60,7 +64,9 @@ namespace Xpand.ExpressApp.Security.Registration {
                              IObjectSpace objectSpace) {
             var roles = (XPBaseCollection) userTypeInfo.FindMember("Roles").GetValue(securityUserWithRoles);
             var roleType = modelRegistration.RoleModelClass.TypeInfo.Type;
-            roles.BaseAddRange(objectSpace.GetObjects(roleType, modelRegistration.RoleCriteria));
+            var criteria = CriteriaOperator.Parse(modelRegistration.RoleCriteria);
+            var objects = objectSpace.GetObjects(roleType, criteria);
+            roles.BaseAddRange(objects);
         }
     }
     [NonPersistent]
@@ -71,10 +77,9 @@ namespace Xpand.ExpressApp.Security.Registration {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
         public string Email { get; set; }
-        public void Process(XafApplication application) {
+        public void Process(XafApplication application,IObjectSpace objectSpace) {
             if (string.IsNullOrEmpty(Email))
                 throw new ArgumentException("Email address is not specified!");
-            var objectSpace = application.CreateObjectSpace();
             var user = objectSpace.FindObject(XpandModuleBase.UserType, CriteriaOperator.Parse("Email = ?", Email)) as IAuthenticationStandardUser;
             if (user == null)
                 throw new ArgumentException("Cannot find registered users by the provided email address!");

@@ -74,7 +74,6 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
         
         private void CreateParametersView(object sender, SimpleActionExecuteEventArgs e) {
-
             Application.CallMethod("EnsureShowViewStrategy",Flags.InstancePrivate);
             CreateParametersViewCore(e);
         }
@@ -102,7 +101,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
         void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-            ((DialogController) ((ActionBase) sender).Controller).Window.View.ObjectSpace.CommitChanges();
+//            ((DialogController) ((ActionBase) sender).Controller).Window.View.ObjectSpace.CommitChanges();
         }
         
         private void AcceptAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
@@ -117,7 +116,7 @@ namespace Xpand.ExpressApp.Security.Registration {
                 var eventArgs = new CustomProcesssLogonParamaterEventArgs(parameters);
                 OnCustomProccessLogonParameter(eventArgs);
                 if (!eventArgs.Handled)
-                    parameters.Process(Application);
+                    parameters.Process(Application,ObjectSpace);
             }
             Application.LogOff();
         }
