@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
         public FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
         public int? FontSize { get; set; }
+        public string ImageName { get; set; }
         #endregion
         [RuleRequiredField]
         [ValueConverter(typeof(TypeValueConverter))]

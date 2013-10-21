@@ -24,6 +24,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
         public FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
         public int? FontSize { get; set; }
+        public string ImageName { get; set; }
         #endregion
         public override IPermission Copy() {
             return new AdditionalViewControlsPermission();

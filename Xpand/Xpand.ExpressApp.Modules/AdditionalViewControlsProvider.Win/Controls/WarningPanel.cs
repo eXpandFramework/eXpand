@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using System;
+using DevExpress.ExpressApp.Utils;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance, IAdditionalViewControl {
@@ -57,6 +59,19 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
                 if (value.HasValue) {
                     Font = new Font(Font.FontFamily, value.Value, Font.Style);
                 }
+            }
+        }
+
+        string ISupportAppeareance.ImageName
+        {
+            get { return null; }
+            set
+            {
+                Image image = null;
+                if (!String.IsNullOrEmpty(value))
+                    image = ImageLoader.Instance.GetImageInfo(value).Image;
+                if (image != null)
+                    ArrowImage = image;
             }
         }
 

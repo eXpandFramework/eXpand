@@ -130,6 +130,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 supportAppeareance.ForeColor = additionalViewControlsRule.ForeColor;
                 supportAppeareance.FontStyle = additionalViewControlsRule.FontStyle;
                 supportAppeareance.FontSize = additionalViewControlsRule.FontSize;
+                supportAppeareance.ImageName = additionalViewControlsRule.ImageName;
             }
         }
     }
