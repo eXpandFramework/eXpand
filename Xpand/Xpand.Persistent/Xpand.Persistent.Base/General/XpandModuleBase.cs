@@ -116,6 +116,8 @@ namespace Xpand.Persistent.Base.General {
 
         public static bool GetIsHosted(IModelApplication application) {
             var modelSources = ((IModelSources) application);
+            if (modelSources == null)
+                return Assembly.GetEntryAssembly() == null;
             return modelSources.Modules.Any(@base => {
                 var attribute =((ITypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
                 if (attribute != null)
