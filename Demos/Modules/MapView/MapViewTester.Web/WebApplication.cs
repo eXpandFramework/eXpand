@@ -22,6 +22,8 @@ namespace MapViewTester.Web {
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
         private Xpand.ExpressApp.MapView.Web.MapViewWebModule _mapViewWebModule1;
+        private Xpand.ExpressApp.MapView.MapViewModule mapViewModule1;
+        private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
         SqlConnection sqlConnection1;
 
         public MapViewTesterAspNetApplication() {
@@ -76,6 +78,8 @@ namespace MapViewTester.Web {
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
             this._mapViewWebModule1 = new Xpand.ExpressApp.MapView.Web.MapViewWebModule();
+            this.mapViewModule1 = new Xpand.ExpressApp.MapView.MapViewModule();
+            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -83,6 +87,10 @@ namespace MapViewTester.Web {
             this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
     "apViewTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // securityModule1
+            // 
+            this.securityModule1.UserType = null;
             // 
             // validationModule1
             // 
@@ -94,10 +102,12 @@ namespace MapViewTester.Web {
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
+            this.Modules.Add(this.mapViewModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.cloneObjectModule1);
             this.Modules.Add(this.xpandSystemAspNetModule1);
             this.Modules.Add(this._mapViewWebModule1);
             this.Modules.Add(this.module4);

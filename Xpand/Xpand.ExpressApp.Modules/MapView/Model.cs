@@ -20,7 +20,6 @@ namespace Xpand.ExpressApp.MapView {
         [DataSourceProperty("AllMembers")]
         IModelMember AddressMember { get; set; }
 
-        [Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [DataSourceProperty("AllMembers")]
         IModelMember InfoWindowTextMember { get; set; }
 
@@ -40,12 +39,14 @@ namespace Xpand.ExpressApp.MapView {
         public static IModelMember Get_AddressMember(IModelMapView modelMapView) {
             return modelMapView.GetFromListView(mv => mv.AddressMember);
         }
-        public static IModelMember Get_InfoWindowText(IModelMapView modelMapView) {
+        public static IModelMember Get_InfoWindowTextMember(IModelMapView modelMapView) {
             return modelMapView.GetFromListView(mv => mv.InfoWindowTextMember);
         }
 
         public static IModelList<IModelMember> Get_AllMembers(IModelMapView modelMapView) {
-            return modelMapView.GetFromListView(mv => mv.AllMembers);
+            var modelListView = modelMapView.Parent as IModelListView;
+            return modelListView != null ? new CalculatedModelNodeList<IModelMember>(modelListView.Columns.Select(column => column.ModelMember))
+                       : ((IModelClass)modelMapView.Parent).AllMembers;
         }
 
         public static bool Get_AllowHtmlInInfoWindowText(IModelMapView modelMapView) {

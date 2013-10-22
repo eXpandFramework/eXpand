@@ -2,11 +2,11 @@
 <Application Title="MapViewTester" Logo="ExpressAppLogo">
   <BOModel>
     <Class Name="MapViewTester.Module.BusinessObjects.Customer">
-      <MapView AddressMember="Address1" InfoWindowText="FullName" />
+      <MapView AddressMember="Address1" InfoWindowTextMember="FullName" AllowHtmlInInfoWindowText="True" />
     </Class>
   </BOModel>
   <SchemaModules>
+    <SchemaModule Name="MapViewModule" Version="13.1.7.11" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
   </SchemaModules>
-
 </Application>

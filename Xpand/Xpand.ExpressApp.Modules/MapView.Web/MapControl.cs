@@ -16,9 +16,9 @@ namespace Xpand.ExpressApp.MapView.Web {
         private HtmlGenericControl div;
         private int infoWindowWidth = infoWidthDefaultValue;
         public event EventHandler FocusedIndexChanged;
-        public event EventHandler<MapViewInfoEventArgs> MapViewInfoNeeded;
+        internal event EventHandler<MapViewInfoEventArgs> MapViewInfoNeeded;
 
-        protected virtual void OnMapViewInfoNeeded(MapViewInfoEventArgs e) {
+        private void OnMapViewInfoNeeded(MapViewInfoEventArgs e) {
             var handler = MapViewInfoNeeded;
             if (handler != null) handler(this, e);
         }
@@ -104,19 +104,25 @@ namespace Xpand.ExpressApp.MapView.Web {
                     var mapViewInfoEventArgs = new MapViewInfoEventArgs();
                     OnMapViewInfoNeeded(mapViewInfoEventArgs);
                     int index = 0;
-                    foreach (var  mapViewInfo in  mapViewInfoEventArgs.MapViewInfos) {
-                        if (!string.IsNullOrEmpty(mapViewInfo.Address)) {
-                            string infoWindowText = "undefined";
-                            if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText)) {
-                                infoWindowText = GetInfoWindowText(mapViewInfo);
+                    if (mapViewInfoEventArgs.MapViewInfos != null)
+                    {
+                        foreach (var mapViewInfo in mapViewInfoEventArgs.MapViewInfos)
+                        {
+                            if (!string.IsNullOrEmpty(mapViewInfo.Address))
+                            {
+                                string infoWindowText = "undefined";
+                                if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText))
+                                {
+                                    infoWindowText = GetInfoWindowText(mapViewInfo);
+                                }
+                                sb.AppendFormat(CultureInfo.InvariantCulture,
+                                                "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
+                                                mapViewInfo.Address, index,
+                                                (index == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
+                                                infoWindowText, InfoWindowWidth);
                             }
-                            sb.AppendFormat(CultureInfo.InvariantCulture,
-                                            "marker = createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
-                                            mapViewInfo.Address, index,
-                                            (index == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
-                                            infoWindowText, InfoWindowWidth);
+                            index++;
                         }
-                        index++;
                     }
                 }
             }
@@ -199,7 +205,7 @@ namespace Xpand.ExpressApp.MapView.Web {
         public string Address { get; set; }
         public string InfoWindowText { get; set; }
     }
-    public class MapViewInfoEventArgs : EventArgs {
+    class MapViewInfoEventArgs : EventArgs {
         public IEnumerable<MapViewInfo> MapViewInfos { get; set; }
     }
 }

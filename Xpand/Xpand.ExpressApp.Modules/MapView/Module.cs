@@ -23,10 +23,10 @@ namespace Xpand.ExpressApp.MapView
         {
             if (typeof(IModelMapView).IsAssignableFrom(parameters.NodeType))
             {
-                const string oldPropertyName = "InfoMessageText";
+                const string oldPropertyName = "InfoWindowText";
                 if (parameters.ContainsKey(oldPropertyName))
                 {
-                    parameters.Values["InfoMessageTextMember"] = parameters.Values[oldPropertyName];
+                    parameters.Values["InfoWindowTextMember"] = parameters.Values[oldPropertyName];
                     parameters.Values.Remove(oldPropertyName);
                 }
             }
