@@ -22,14 +22,16 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         }
 
         bool AddRule(ModelNode node, IModelClass modelClass) {
-            var modelMemberReminderInfo = modelClass.OwnMembers.OfType<IModelMemberReminderInfo>().FirstOrDefault();
-            if (modelMemberReminderInfo != null) {
-                var modelAppearanceRule =((IModelAppearanceRules) node).AddNode<IModelAppearanceRule>("ReminderInfo.TimeBeforeStart");
-                modelAppearanceRule.AppearanceItemType = AppearanceItemType.ViewItem.ToString();
-                modelAppearanceRule.Criteria = "!" + modelMemberReminderInfo.Name + ".HasReminder";
-                modelAppearanceRule.Enabled = false;
-                modelAppearanceRule.TargetItems = modelMemberReminderInfo.Name;
-                return true;
+            if (modelClass.OwnMembers != null) {
+                var modelMemberReminderInfo = modelClass.OwnMembers.OfType<IModelMemberReminderInfo>().FirstOrDefault();
+                if (modelMemberReminderInfo != null) {
+                    var modelAppearanceRule =((IModelAppearanceRules) node).AddNode<IModelAppearanceRule>("ReminderInfo.TimeBeforeStart");
+                    modelAppearanceRule.AppearanceItemType = AppearanceItemType.ViewItem.ToString();
+                    modelAppearanceRule.Criteria = "!" + modelMemberReminderInfo.Name + ".HasReminder";
+                    modelAppearanceRule.Enabled = false;
+                    modelAppearanceRule.TargetItems = modelMemberReminderInfo.Name;
+                    return true;
+                }
             }
             return false;
         }
