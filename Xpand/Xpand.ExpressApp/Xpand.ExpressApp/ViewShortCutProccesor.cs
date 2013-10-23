@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Linq;
 using Xpand.Utils.Helpers;
 using Fasterflect;
@@ -73,16 +74,17 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObjectKeyCore(IObjectSpace objectSpace, Type type, string objectKeyString) {
-            object objectKey = null;
+            if (objectKeyString.CanChange(((XpandObjectSpace) objectSpace).GetObjectKeyType(type))) {
+                try {
+                    return objectSpace.GetObjectKey(type, objectKeyString);
+                } catch {
+                }    
+            }
             var criteriaOperator = CriteriaOperator.TryParse(objectKeyString);
             if (criteriaOperator != null)
                 return criteriaOperator;
-            try {
-                objectKey = objectSpace.GetObjectKey(type, objectKeyString);
-            }
-            catch {
-            }
-            return objectKey;
+
+            throw new ArgumentException(objectKeyString, "objectKeyString");
         }
 
         protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, IObjectSpace objectSpace) {
@@ -132,10 +134,7 @@ namespace Xpand.ExpressApp {
             var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
             showNavigationItemController.CustomInitializeItems += ShowNavigationItemControllerOnCustomInitializeItems;
             showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
-//            showNavigationItemController.Activated+=ShowNavigationItemControllerOnActivated;
         }
-
-
 
         void ShowNavigationItemControllerOnCustomInitializeItems(object sender, HandledEventArgs handledEventArgs) {
             ((ShowNavigationItemController)sender).CustomInitializeItems-= ShowNavigationItemControllerOnCustomInitializeItems;
@@ -162,22 +161,9 @@ namespace Xpand.ExpressApp {
                 var choiceActionItem = choiceActionItems.First(actionItem => actionItem.Model == item.Key);
                 var viewShortcut = ((ViewShortcut) choiceActionItem.Data);
                 viewShortcut.Add("Criteria",item.Value);
-//                choiceActionItem.Data = new ViewShortcut(viewShortcut.ObjectClass, viewShortcut.ObjectKey, viewShortcut.ViewId, viewShortcut.ScrollPosition, item.Value);
-//                viewShortcut.ObjectKey = item.Value;
             }
         }
 
     }
 
-//    public class ViewShortcut : DevExpress.ExpressApp.ViewShortcut {
-//        readonly string _objectKeyEx;
-//
-//        public ViewShortcut(Type objectClass, string objectKey, string viewId, Point scrollPosition,string objectKeyEx) : base(objectClass, objectKey, viewId, scrollPosition) {
-//            _objectKeyEx = objectKeyEx;
-//        }
-//
-//        public string ObjectKeyEx {
-//            get { return _objectKeyEx; }
-//        }
-//    }
 }

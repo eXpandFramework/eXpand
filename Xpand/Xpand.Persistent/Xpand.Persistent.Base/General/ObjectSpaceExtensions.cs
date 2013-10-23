@@ -4,6 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -15,6 +17,42 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
+        public static XPClassInfo FindXPClassInfo(this XPObjectSpace objectSpace,Type type) {
+            ITypeInfo typeInfo = objectSpace.TypesInfo.FindTypeInfo(type);
+            var xpoTypeInfoSource = ((XpoTypeInfoSource) objectSpace.GetFieldValue("xpoTypeInfoSource"));
+            if (xpoTypeInfoSource.TypeIsKnown(typeInfo.Type)) {
+                return xpoTypeInfoSource.GetEntityClassInfo(typeInfo.Type);
+            }
+            return null;
+        }
+
+        public static Type GetObjectKeyType(this XPObjectSpace objectSpace, 
+                                            Type objectType) {
+            
+            Type result = null;
+            var xpClassInfo = objectSpace.FindXPClassInfo(objectType);
+            if (xpClassInfo != null) {
+                Type queryableType = xpClassInfo.ClassType;
+                if (queryableType.IsInterface) {
+                    queryableType = PersistentInterfaceHelper.GetPersistentInterfaceDataType(queryableType);
+                    xpClassInfo = objectSpace.Session.GetClassInfo(queryableType);
+                }
+                XPMemberInfo keyMember = xpClassInfo.KeyProperty;
+                if (keyMember != null) {
+                    if (!keyMember.IsStruct) {
+                        if (keyMember.ReferenceType != null) {
+                            result = objectSpace.GetObjectKeyType(keyMember.ReferenceType.ClassType);
+                        } else {
+                            return keyMember.MemberType;
+                        }
+                    } else {
+                        throw new NotImplementedException();
+                    }
+                }
+            }
+            return result;
+        }
+
         public static void CreateForeignKey(this IObjectSpace objectSpace, XPCustomMemberInfo customMemberInfo,bool throwUnableToCreateDBObjectException = false) {
             CreateDbObject(objectSpace,store => store.CreateForeignKey(customMemberInfo, throwUnableToCreateDBObjectException));
         }
