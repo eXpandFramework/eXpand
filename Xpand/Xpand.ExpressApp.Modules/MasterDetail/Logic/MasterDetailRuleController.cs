@@ -28,6 +28,12 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
         }
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (_masterDetailRules!=null)
+                _masterDetailRules.Clear();
+        }
+
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
             var info = logicRuleExecuteEventArgs.LogicRuleInfo;
             var masterDetailRule = info.Rule as IMasterDetailRule;
