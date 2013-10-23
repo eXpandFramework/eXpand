@@ -108,11 +108,13 @@ namespace Xpand.ExpressApp {
 
         void ApplicationOnViewShown(object sender, ViewShownEventArgs e) {
             if (_detailView == null) return;
-            IObjectSpace objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
+            var recordsNavigationController = e.TargetFrame.GetController<RecordsNavigationController>();
+            if (recordsNavigationController==null)return;
+            var objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
             IList objects = objectSpace.GetObjects(_detailView.ObjectTypeInfo.Type);
             var standaloneOrderProvider = new StandaloneOrderProvider(objectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };
-            e.TargetFrame.GetController<RecordsNavigationController>().OrderProviderSource = orderProviderSource;
+            recordsNavigationController.OrderProviderSource = orderProviderSource;
             _application.ViewShown -= ApplicationOnViewShown;
             _detailView = null;
         }
