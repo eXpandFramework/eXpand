@@ -1,0 +1,38 @@
+using System;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security.Strategy;
+using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Utils;
+using Xpand.ExpressApp.Email.BusinessObjects;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Registration;
+using Xpand.Persistent.Base.Security;
+
+namespace EmailTester.Module.DatabaseUpdate {
+    public class Updater : ModuleUpdater {
+        public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
+        public override void UpdateDatabaseAfterUpdateSchema() {
+            base.UpdateDatabaseAfterUpdateSchema();
+            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            if (ObjectSpace.IsNewObject(defaultRole)) {
+                var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Subject = "User activation";
+                emailTemplate.Body = string.Format("A new user @Model.User.UserName has been created. To activate the account please click the following link {0}@Model.User.Activation",
+                                                   ((IModelRegistration)
+                                                    ((IModelOptionsRegistration) CaptionHelper.ApplicationModel.Options).Registration).ActivationHost+"?ua=");
+                
+                emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Subject = "pass forgotten";
+                emailTemplate.Body = "We created a temporary password (@Model.Password) for the UserName (@Model.User.UserName). Please login to reset it";
+            }
+            var adminRole = ObjectSpace.GetAdminRole("Admin");
+            adminRole.GetUser("Admin");
+
+            var userRole = ObjectSpace.GetRole("User");
+            var user = (SecuritySystemUser)userRole.GetUser("user");
+            user.Roles.Add(defaultRole);
+
+            ObjectSpace.CommitChanges();
+        }
+    }
+}

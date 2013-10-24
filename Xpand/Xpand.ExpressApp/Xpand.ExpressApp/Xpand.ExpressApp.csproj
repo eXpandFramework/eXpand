@@ -107,7 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
-    <Compile Include="Attributes\InVisibleInAllViewsAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
@@ -181,7 +180,6 @@
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Editors\EditorAliases.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />

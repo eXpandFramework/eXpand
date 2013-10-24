@@ -25,6 +25,7 @@ using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -197,6 +198,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelMember, IModelMemberCellFilter>();
                 extenders.Add<IModelColumn, IModelColumnCellFilter>();   
             }
+
             if (Executed("ExtendModelInterfaces"))
                 return;
             
@@ -499,7 +501,12 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("CustomizeTypesInfo"))
                 return;
-            
+            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null)) {
+                memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
+            }
+
             AssignSecurityEntities();
             ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
             var type = (BaseInfo) findTypeInfo.FindMember("Type");

@@ -7,7 +7,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Validation;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
     public class ManageUsersOnLogonController : ViewController<DetailView>,IModelExtender {
@@ -44,17 +46,17 @@ namespace Xpand.ExpressApp.Security.Registration {
         
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            bool flag = GetLogonParametersActiveState();
+            bool logonParametersActiveState = GetLogonParametersActiveState();
             foreach (Controller item in Frame.Controllers) {
                 var logonController = item as LogonController;
                 if (logonController != null) {
-                    logonController.AcceptAction.Active[LogonActionParametersActiveKey] = !flag;
-                    logonController.CancelAction.Active[LogonActionParametersActiveKey] = !flag;
+                    logonController.AcceptAction.Active[LogonActionParametersActiveKey] = !logonParametersActiveState;
+                    logonController.CancelAction.Active[LogonActionParametersActiveKey] = !logonParametersActiveState;
                 } else {
                     var dialogController = item as RegistrationDialogController;
                     if (dialogController != null) {
-                        dialogController.AcceptAction.Active[LogonActionParametersActiveKey] = flag;
-                        dialogController.CancelAction.Active[LogonActionParametersActiveKey] = flag;
+                        dialogController.AcceptAction.Active[LogonActionParametersActiveKey] = logonParametersActiveState;
+                        dialogController.CancelAction.Active[LogonActionParametersActiveKey] = logonParametersActiveState;
                         ConfigureDialogController(dialogController);
                     }
                 }
@@ -101,7 +103,9 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
         void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-//            ((DialogController) ((ActionBase) sender).Controller).Window.View.ObjectSpace.CommitChanges();
+            var view = ((DialogController) ((ActionBase) sender).Controller).Window.View;
+            var currentObject = view.CurrentObject;
+            Validator.RuleSet.Validate(view.ObjectSpace,currentObject,ContextIdentifier.Save);
         }
         
         private void AcceptAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
@@ -111,6 +115,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         private void CancelAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
             CancelParameters(e.CurrentObject as ILogonParameters);
         }
+
         protected virtual void AcceptParameters(ILogonParameters parameters) {
             if (parameters != null) {
                 var eventArgs = new CustomProcesssLogonParamaterEventArgs(parameters);
@@ -133,9 +138,11 @@ namespace Xpand.ExpressApp.Security.Registration {
         public SimpleAction RegisterUserAction {
             get { return _registerUser; }
         }
-
+        
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsRegistration>();
+            extenders.Add<IModelRegistrationEnabled, IModelRegistration>();
+            extenders.Add<IModelRegistrationEnabled, IModelRegistrationActivation>();
         }
     }
 

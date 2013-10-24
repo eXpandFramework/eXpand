@@ -151,9 +151,11 @@
     </Compile>
     <Compile Include="General\Controllers\XpandReferenceConverter.cs" />
     <Compile Include="General\CriteriaOperatorExtensions.cs" />
+    <Compile Include="General\CustomAttributes\InVisibleInAllViewsAttribute.cs" />
     <Compile Include="General\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="General\DataStoreProvider.cs" />
     <Compile Include="General\DynamicSecuritySystemObjects.cs" />
+    <Compile Include="General\EditorAliases.cs" />
     <Compile Include="General\FrameExtensions.cs" />
     <Compile Include="General\HideFromNewMenuAttribute.cs" />
     <Compile Include="General\IChooseFromListCollectionEditor.cs" />
@@ -310,6 +312,9 @@
     <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
     <Compile Include="RuntimeMembers\Model\Members.cs" />
     <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
+    <Compile Include="Security\IModelOptionsRegistration.cs" />
+    <Compile Include="Security\IModelRegistrationActivation.cs" />
+    <Compile Include="Security\IModelRegistrationEnabled.cs" />
     <Compile Include="Validation\IPasswordScoreController.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />

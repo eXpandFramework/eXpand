@@ -119,6 +119,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
     <Compile Include="Model\IModelViewOpenView.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
@@ -141,7 +143,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
-    <Compile Include="FriendlyUrl\XpandHttpRequestManager.cs" />
+    <Compile Include="XpandHttpRequestManager.cs" />
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>

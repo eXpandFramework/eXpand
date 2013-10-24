@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xpand.ExpressApp.Attributes {
+namespace Xpand.Persistent.Base.General.CustomAttributes {
     [AttributeUsage(AttributeTargets.Property,AllowMultiple = false,Inherited = false)]
     public class InvisibleInAllViewsAttribute:Attribute {
     }

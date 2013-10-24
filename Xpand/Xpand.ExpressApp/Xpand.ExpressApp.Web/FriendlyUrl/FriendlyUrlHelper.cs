@@ -1,24 +1,18 @@
 ﻿using System.Collections.Specialized;
 using System.Globalization;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
-using System.Linq;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Web.FriendlyUrl {
+    class FriendlyUrlHelper {
+        readonly XpandHttpRequestManager _xpandHttpRequestManager;
 
-    public sealed class XpandHttpRequestManager : DefaultHttpRequestManager, IHttpRequestManager {
-        #region Implementation of IHttpRequestManager
-        ViewShortcut IHttpRequestManager.GetViewShortcut(string shortcutString) {
-            if (shortcutString.Contains("=")) {
-                var strings = shortcutString.Split('=');
-                var viewId = GetViewId(strings);
-                var friendlyObjectKey = GetFriendlyObjectKey(strings, viewId);
-                return GetViewShortcut(strings, viewId, friendlyObjectKey);
-            }
-            return GetViewShortcut(shortcutString);
+        public FriendlyUrlHelper(XpandHttpRequestManager xpandHttpRequestManager) {
+            _xpandHttpRequestManager = xpandHttpRequestManager;
         }
 
         string GetFriendlyObjectKey(string[] strings, string viewId) {
@@ -28,8 +22,8 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
 
         ViewShortcut GetViewShortcut(string[] strings, string viewId, string friendlyObjectKey) {
             var viewShortcut = WebApplication.Instance.Model.Views[viewId] is IModelListView
-                                            ? new ViewShortcut(WebApplication.Instance.Model.Views[viewId].AsObjectView.ModelClass.TypeInfo.Type, null, viewId)
-                                            : new ViewShortcut(viewId, friendlyObjectKey);
+                                   ? new ViewShortcut(WebApplication.Instance.Model.Views[viewId].AsObjectView.ModelClass.TypeInfo.Type, null, viewId)
+                                   : new ViewShortcut(viewId, friendlyObjectKey);
             if (strings[0].Contains("-")) {
                 viewShortcut.Keys.Add("mode");
                 viewShortcut.Values.Add("Edit");
@@ -51,16 +45,25 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
             return WebApplication.Instance.Model.Views.OfType<IModelViewFriendlyUrl>().First(url => url.FriendlyUrl == id).Id;
         }
 
-        #endregion
+        public ViewShortcut GetViewShortCut(string shortcutString) {
+            if (WebApplication.Instance.SupportsFriendlyUrl() && shortcutString.Contains("=")) {
+                var strings = shortcutString.Split('=');
+                var viewId = GetViewId(strings);
+                var friendlyObjectKey = GetFriendlyObjectKey(strings, viewId);
+                return GetViewShortcut(strings, viewId, friendlyObjectKey);
+            }
+            return _xpandHttpRequestManager.GetViewShortcut(shortcutString);
+        }
 
-        public override void WriteShortcutTo(ViewShortcut currentShortcut, NameValueCollection queryString) {
-            base.WriteShortcutTo(currentShortcut, queryString);
-            if (!IsNewObjectView(currentShortcut)) {
-                queryString.Clear();
-                var modelView = (IModelViewFriendlyUrl)WebApplication.Instance.Model.Views[currentShortcut.ViewId];
-                var objectKey = ObjectKey(currentShortcut, modelView);
-                var friendlyUrl = EditModeFriendlyUrl(currentShortcut, modelView.FriendlyUrl, modelView as IModelDetailViewFriendlyUrl);
-                queryString.Add(friendlyUrl, objectKey);
+        public void WriteShortcutTo(ViewShortcut currentShortcut, NameValueCollection queryString) {
+            if (WebApplication.Instance.SupportsFriendlyUrl()) {
+                if (!IsNewObjectView(currentShortcut)) {
+                    queryString.Clear();
+                    var modelView = (IModelViewFriendlyUrl)WebApplication.Instance.Model.Views[currentShortcut.ViewId];
+                    var objectKey = ObjectKey(currentShortcut, modelView);
+                    var friendlyUrl = EditModeFriendlyUrl(currentShortcut, modelView.FriendlyUrl, modelView as IModelDetailViewFriendlyUrl);
+                    queryString.Add(friendlyUrl, objectKey);
+                }
             }
         }
 
@@ -88,7 +91,7 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
         }
 
         string EditModeFriendlyUrl(ViewShortcut currentShortcut, string friendlyUrl,
-                                      IModelDetailViewFriendlyUrl modelDetailViewFriendlyUrl) {
+                                   IModelDetailViewFriendlyUrl modelDetailViewFriendlyUrl) {
             return modelDetailViewFriendlyUrl != null && !string.IsNullOrEmpty(modelDetailViewFriendlyUrl.Url.EditMode)
                        ? currentShortcut.Keys.ToList().Where(
                            (key, i) => key == "mode" && currentShortcut.Values.ToList()[i] == "Edit").Aggregate(

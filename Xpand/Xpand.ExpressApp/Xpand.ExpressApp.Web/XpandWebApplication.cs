@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
@@ -9,7 +10,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
-using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.ViewStrategies;
 using Xpand.Persistent.Base.General;
 
@@ -47,12 +47,9 @@ namespace Xpand.ExpressApp.Web {
         }
 
         protected override IHttpRequestManager CreateHttpRequestManager() {
-            if (Model != null) {
-                var modelOptionsFriendlyUrl = Model.Options as IModelOptionsFriendlyUrl;
-                return modelOptionsFriendlyUrl != null && modelOptionsFriendlyUrl.EnableFriendlyUrl ? new XpandHttpRequestManager() : base.CreateHttpRequestManager();
-            }
-            return base.CreateHttpRequestManager();
+            return this.NewHttpRequestManager();
         }
+
 
         protected override void LoadUserDifferences() {
             base.LoadUserDifferences();

@@ -15,7 +15,7 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo.DB;
 using DevExpress.ExpressApp.Model;
-using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {

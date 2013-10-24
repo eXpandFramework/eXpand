@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Security.Cryptography;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -12,6 +13,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
     public interface ILogonActionParameters : ILogonParameters {
@@ -38,6 +40,8 @@ namespace Xpand.ExpressApp.Security.Registration {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
         public string Email { get; set; }
+        [Browsable(false)]
+        public object User { get; set; }
 
         public void Process(XafApplication application,IObjectSpace objectSpace) {
             var user = objectSpace.FindObject(XpandModuleBase.UserType, new GroupOperator(GroupOperatorType.Or,new BinaryOperator("UserName", UserName),new BinaryOperator("Email",Email)),true) as IAuthenticationStandardUser;
@@ -46,12 +50,20 @@ namespace Xpand.ExpressApp.Security.Registration {
 
             var securityUserWithRoles = objectSpace.IsNewObject(user)? (ISecurityUserWithRoles) user
                                                                : (ISecurityUserWithRoles)objectSpace.CreateObject(XpandModuleBase.UserType);
+            User = securityUserWithRoles;
             var userTypeInfo = application.TypesInfo.FindTypeInfo(XpandModuleBase.UserType);
-            var modelRegistration = ((IModelOptionsRegistration)application.Model.Options).Registration;
+            var modelRegistration = (IModelRegistration)((IModelOptionsRegistration)application.Model.Options).Registration;
             AddRoles(modelRegistration, userTypeInfo, securityUserWithRoles, objectSpace);
 
             userTypeInfo.FindMember("UserName").SetValue(securityUserWithRoles,UserName);
+            userTypeInfo.FindMember("IsActive").SetValue(securityUserWithRoles,modelRegistration.ActivateUser);
+
             modelRegistration.EmailMember.MemberInfo.SetValue(securityUserWithRoles,Email);
+            var activationLinkMember = modelRegistration.ActivationIdMember;
+            if (activationLinkMember!=null) {
+                activationLinkMember.MemberInfo.SetValue(securityUserWithRoles, Guid.NewGuid().ToString());
+            }
+
             securityUserWithRoles.CallMethod("SetPassword", Password);
             objectSpace.CommitChanges();
         }
@@ -73,17 +85,21 @@ namespace Xpand.ExpressApp.Security.Registration {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleRegularExpression(null, DefaultContexts.Save, ManageUsersOnLogonController.EmailPattern)]
         public string Email { get; set; }
+        [Browsable(false)]
+        public object User { get; set; }
+        [Browsable(false)]
+        public string Password { get; set; }
+
         public void Process(XafApplication application,IObjectSpace objectSpace) {
-            if (string.IsNullOrEmpty(Email))
-                throw new ArgumentException("Email address is not specified!");
             var user = objectSpace.FindObject(XpandModuleBase.UserType, CriteriaOperator.Parse("Email = ?", Email)) as IAuthenticationStandardUser;
             if (user == null)
                 throw new ArgumentException("Cannot find registered users by the provided email address!");
+            User = user;
             var randomBytes = new byte[6];
             new RNGCryptoServiceProvider().GetBytes(randomBytes);
-            string password = Convert.ToBase64String(randomBytes);
-            
-            user.SetPassword(password);
+            Password = Convert.ToBase64String(randomBytes);
+
+            user.SetPassword(Password);
             user.ChangePasswordOnFirstLogon = true;
             objectSpace.CommitChanges();
         }

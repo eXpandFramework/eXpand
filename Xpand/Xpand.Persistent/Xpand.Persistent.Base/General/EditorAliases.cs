@@ -1,4 +1,4 @@
-﻿namespace Xpand.ExpressApp.Editors {
+﻿namespace Xpand.Persistent.Base.General {
     public struct EditorAliases {
         public const string NullAbleBooleanPropertyEditor = "NullAbleBooleanPropertyEditor";
         public const string StringPropertyEditor = "eXpandStringPropertyEditor";

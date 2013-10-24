@@ -11,7 +11,8 @@ using DevExpress.Utils;
 using DevExpress.XtraRichEdit;
 using DevExpress.XtraRichEdit.API.Native;
 using DevExpress.XtraRichEdit.Services;
-using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof (string), EditorAliases.CSCodePropertyEditor, false)]

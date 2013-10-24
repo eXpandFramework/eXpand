@@ -1,0 +1,694 @@
+17.12.12 00:32:12.320	mxeqr155bdmcbpyyo3qnetje	================================================================================
+17.12.12 00:32:12.322	mxeqr155bdmcbpyyo3qnetje	Trace Log for 82c46899-1-130001707233833650 is started
+17.12.12 00:32:12.322	mxeqr155bdmcbpyyo3qnetje	================================================================================
+17.12.12 00:32:12.325	mxeqr155bdmcbpyyo3qnetje	System Environment
+	OS Version: Microsoft Windows NT 6.1.7601 Service Pack 1
+	.Net Framework Versions: v2.0.50727, v4.0.30319
+
+	CLR Version: 2.0.50727.5466
+	eXpressApp Version: 12.2.4.0
+Application config
+	Modules=
+	ErrorReportEmail=
+	ErrorReportEmailServer=
+	SimpleErrorReportPage=
+	RichErrorReportPage=Error.aspx
+	EnableDiagnosticActions=False
+17.12.12 00:32:12.404	mxeqr155bdmcbpyyo3qnetje	Cannot send alert email to admin
+17.12.12 00:32:12.404	mxeqr155bdmcbpyyo3qnetje	Error ID: 005e481a-50e7-41a2-a758-93a36fbb21d5
+Date: 12/17/2012 12:32:12 AM
+Request details:
+  Url: http://localhost:2064/Login.aspx?ReturnUrl=/default.aspx
+  Url referrer: 
+  SessionID: mxeqr155bdmcbpyyo3qnetje
+  Request type: GET
+  User agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11
+  User IP: ::1
+  User: 
+================================================================================
+The error occurred:
+
+	Type:       CannotLoadInvalidTypeException
+	Message:    Cannot load invalid type 'ModelDifferenceTester.Web.ModelDifferenceTesterAspNetApplication must implement/derive from Xpand.ExpressApp.ISettingsStorage'.
+	Data:       1 entries
+			'ASPIMPERSONATING'		''
+	Stack trace:
+
+   at Xpand.ExpressApp.XpandModuleBase.Setup(XafApplication application) in C:\eXpandFrameWork\eXpand\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\XpandModuleBase.cs:line 187
+   at DevExpress.ExpressApp.ModuleList.SetupModule(ModuleBase module)
+   at DevExpress.ExpressApp.ModuleList.OnInsert(Int32 index, Object value)
+   at System.Collections.CollectionBase.System.Collections.IList.Add(Object value)
+   at DevExpress.ExpressApp.Utils.BindingListBase`1.Add(T item)
+   at DevExpress.ExpressApp.ApplicationModulesManager.AddModuleIntoList(ModuleBase module, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.EnsureModuleInList(Type moduleType, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.AddModuleIntoList(ModuleBase module, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.EnsureModuleInList(Type moduleType, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.AddModuleIntoList(ModuleBase module, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.EnsureModuleInList(Type moduleType, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.AddModuleIntoList(ModuleBase module, IList`1 moduleList, List`1 requiredModules)
+   at DevExpress.ExpressApp.ApplicationModulesManager.AddModuleIntoList(ModuleBase module, IList`1 moduleList)
+   at DevExpress.ExpressApp.ModuleList.RefreshRequiredModules()
+   at DevExpress.ExpressApp.ModuleList.OnInitializeComplete()
+   at DevExpress.ExpressApp.Utils.BindingListBase`1.EndInit()
+   at DevExpress.ExpressApp.XafApplication.EndInit()
+   at ModelDifferenceTester.Web.ModelDifferenceTesterAspNetApplication.InitializeComponent() in C:\eXpandFrameWork\eXpand\Demos\Modules\ModelDifferenceTester\ModelDifferenceTester.Web\WebApplication.cs:line 74
+   at ModelDifferenceTester.Web.ModelDifferenceTesterAspNetApplication..ctor() in C:\eXpandFrameWork\eXpand\Demos\Modules\ModelDifferenceTester\ModelDifferenceTester.Web\WebApplication.cs:line 17
+   at ModelDifferenceTester.Web.Global.Session_Start(Object sender, EventArgs e) in C:\eXpandFrameWork\eXpand\Demos\Modules\ModelDifferenceTester\ModelDifferenceTester.Web\Global.asax.cs:line 27
+   at System.Web.SessionState.SessionStateModule.RaiseOnStart(EventArgs e)
+   at System.Web.SessionState.SessionStateModule.CompleteAcquireState()
+   at System.Web.SessionState.SessionStateModule.BeginAcquireState(Object source, EventArgs e, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.AsyncEventExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+	InnerException is null
+
+--------------------------------------------------------------------------------
+Loaded assemblies
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.crcpazv8, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.crcpazv8.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.960, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\8359222a_dddbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\f2e33b2b_dddbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\9332f5df_8fdbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\1d08ae36_3dd6cd01\Xpand.Xpo.DLL
+================================================================================
+
+17.12.12 00:32:12.521	mxeqr155bdmcbpyyo3qnetje	Cannot send alert email to admin
+17.12.12 00:32:12.521	mxeqr155bdmcbpyyo3qnetje	Error ID: dc53fcdb-f687-4dd4-b5e9-0fec03847e37
+Date: 12/17/2012 12:32:12 AM
+Request details:
+  Url: http://localhost:2064/Login.aspx?ReturnUrl=/favicon.ico
+  Url referrer: 
+  SessionID: mxeqr155bdmcbpyyo3qnetje
+  Request type: GET
+  User agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11
+  User IP: ::1
+  User: 
+================================================================================
+The error occurred:
+
+	Type:       NullReferenceException
+	Message:    Object reference not set to an instance of an object.
+	Data:       1 entries
+			'ASPIMPERSONATING'		''
+	Stack trace:
+
+   at DevExpress.ExpressApp.Web.WebWindowTemplateHttpHandler.ProcessRequest(HttpContext context)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+	InnerException is null
+
+--------------------------------------------------------------------------------
+Loaded assemblies
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.crcpazv8, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.crcpazv8.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.960, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\8359222a_dddbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\f2e33b2b_dddbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\9332f5df_8fdbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\1d08ae36_3dd6cd01\Xpand.Xpo.DLL
+================================================================================
+
+17.12.12 00:32:12.535	mxeqr155bdmcbpyyo3qnetje	Cannot send alert email to admin
+17.12.12 00:32:12.535	mxeqr155bdmcbpyyo3qnetje	Error ID: 4f784d28-6d90-4ee1-b290-7f2f653b711b
+Date: 12/17/2012 12:32:12 AM
+Request details:
+  Url: http://localhost:2064/Error.aspx
+  Url referrer: 
+  SessionID: mxeqr155bdmcbpyyo3qnetje
+  Request type: GET
+  User agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11
+  User IP: ::1
+  User: 
+================================================================================
+The error occurred:
+
+	Type:       NullReferenceException
+	Message:    Object reference not set to an instance of an object.
+	Data:       1 entries
+			'ASPIMPERSONATING'		''
+	Stack trace:
+
+   at DevExpress.ExpressApp.Web.WebWindowTemplateHttpHandler.ProcessRequest(HttpContext context)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+	InnerException is null
+
+--------------------------------------------------------------------------------
+Loaded assemblies
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.crcpazv8, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.crcpazv8.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.960, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\8359222a_dddbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\f2e33b2b_dddbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\9332f5df_8fdbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\1d08ae36_3dd6cd01\Xpand.Xpo.DLL
+================================================================================
+
+17.12.12 00:34:07.656	mxeqr155bdmcbpyyo3qnetje	Dispose application
+17.12.12 00:34:07.656	mxeqr155bdmcbpyyo3qnetje	====================
+17.12.12 00:39:42.834	mxeqr155bdmcbpyyo3qnetje	================================================================================
+17.12.12 00:39:42.834	mxeqr155bdmcbpyyo3qnetje	Trace Log for 82c46899-2-130001711816635771 is started
+17.12.12 00:39:42.835	mxeqr155bdmcbpyyo3qnetje	================================================================================
+17.12.12 00:39:42.835	mxeqr155bdmcbpyyo3qnetje	System Environment
+	OS Version: Microsoft Windows NT 6.1.7601 Service Pack 1
+	.Net Framework Versions: v2.0.50727, v4.0.30319
+
+	CLR Version: 2.0.50727.5466
+	eXpressApp Version: 12.2.4.0
+Application config
+	Modules=
+	ErrorReportEmail=
+	ErrorReportEmailServer=
+	SimpleErrorReportPage=
+	RichErrorReportPage=Error.aspx
+	EnableDiagnosticActions=False
+17.12.12 00:39:42.836	mxeqr155bdmcbpyyo3qnetje		session.Timeout: 20
+17.12.12 00:39:42.836	mxeqr155bdmcbpyyo3qnetje		SessionID: mxeqr155bdmcbpyyo3qnetje
+17.12.12 00:39:42.903	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:42.903	mxeqr155bdmcbpyyo3qnetje	Initialize Modules Manager
+17.12.12 00:39:42.905	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:42.905	mxeqr155bdmcbpyyo3qnetje	
+17.12.12 00:39:42.970	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+Loaded assemblies
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.nyygasql, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.nyygasql.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.960, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\8359222a_dddbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\f398dd75_dddbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Transactions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Transactions\2.0.0.0__b77a5c561934e089\System.Transactions.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\9332f5df_8fdbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\6b190110_dedbcd01\Xpand.Xpo.DLL
+17.12.12 00:39:43.514	mxeqr155bdmcbpyyo3qnetje	SetupModules
+17.12.12 00:39:43.628	mxeqr155bdmcbpyyo3qnetje	Customize TypesInfo
+17.12.12 00:39:44.304	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:44.306	mxeqr155bdmcbpyyo3qnetje	Start logon process
+17.12.12 00:39:44.307	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:44.308	mxeqr155bdmcbpyyo3qnetje	Checking Compatibility
+17.12.12 00:39:44.309	mxeqr155bdmcbpyyo3qnetje		ConnectionString: Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=ModelDifferenceTester;
+17.12.12 00:39:44.493	mxeqr155bdmcbpyyo3qnetje	Check App Name Compatibility
+17.12.12 00:39:44.495	mxeqr155bdmcbpyyo3qnetje	Check stored module versions against the versions of the loaded modules
+17.12.12 00:39:44.496	mxeqr155bdmcbpyyo3qnetje	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.496	mxeqr155bdmcbpyyo3qnetje	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 0.0.0.0
+17.12.12 00:39:44.496	mxeqr155bdmcbpyyo3qnetje	DatabaseIsOld
+17.12.12 00:39:44.531	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:44.532	mxeqr155bdmcbpyyo3qnetje	UpdateDB
+17.12.12 00:39:44.532	mxeqr155bdmcbpyyo3qnetje		ConnectionString: Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=ModelDifferenceTester
+17.12.12 00:39:44.533	mxeqr155bdmcbpyyo3qnetje	Check App Name Compatibility
+17.12.12 00:39:44.533	mxeqr155bdmcbpyyo3qnetje	Check stored module versions against the versions of the loaded modules
+17.12.12 00:39:44.533	mxeqr155bdmcbpyyo3qnetje	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.533	mxeqr155bdmcbpyyo3qnetje	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 0.0.0.0
+17.12.12 00:39:44.533	mxeqr155bdmcbpyyo3qnetje	DatabaseIsOld
+17.12.12 00:39:44.613	mxeqr155bdmcbpyyo3qnetje	Module: SystemModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: SystemAspNetModule. Old version: 0.0.0.0. New version: 12.2.4.0
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: ModelDifferenceTesterModule. Old version: 1.0.4734.607. New version: 1.0.4734.607
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: CloneObjectModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: SecurityModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: XpandSecurityModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:39:44.685	mxeqr155bdmcbpyyo3qnetje	Module: ModelDifferenceModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:39:44.686	mxeqr155bdmcbpyyo3qnetje	Module: ModelDifferenceAspNetModule. Old version: 0.0.0.0. New version: 12.2.4.0
+17.12.12 00:39:44.686	mxeqr155bdmcbpyyo3qnetje	Module: ModelDifferenceTesterAspNetModule. Old version: 0.0.0.0. New version: 1.0.4734.960
+17.12.12 00:39:44.699	mxeqr155bdmcbpyyo3qnetje	Check App Name Compatibility
+17.12.12 00:39:44.700	mxeqr155bdmcbpyyo3qnetje	Check stored module versions against the versions of the loaded modules
+17.12.12 00:39:44.700	mxeqr155bdmcbpyyo3qnetje	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.700	mxeqr155bdmcbpyyo3qnetje	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.700	mxeqr155bdmcbpyyo3qnetje	module 'ModelDifferenceTesterModule' (ModelDifferenceTester.Module). Local version: 1.0.4734.607, Version on DB: 1.0.4734.607
+17.12.12 00:39:44.701	mxeqr155bdmcbpyyo3qnetje	module 'CloneObjectModule' (DevExpress.ExpressApp.CloneObject.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.701	mxeqr155bdmcbpyyo3qnetje	module 'SecurityModule' (DevExpress.ExpressApp.Security.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.701	mxeqr155bdmcbpyyo3qnetje	module 'XpandSecurityModule' (Xpand.ExpressApp.Security). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.702	mxeqr155bdmcbpyyo3qnetje	module 'ModelDifferenceModule' (Xpand.ExpressApp.ModelDifference). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.702	mxeqr155bdmcbpyyo3qnetje	module 'ModelDifferenceAspNetModule' (Xpand.ExpressApp.ModelDifference.Web). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:39:44.702	mxeqr155bdmcbpyyo3qnetje	module 'ModelDifferenceTesterAspNetModule' (ModelDifferenceTester.Module.Web). Local version: 1.0.4734.960, Version on DB: 1.0.4734.960
+17.12.12 00:39:44.704	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:44.704	mxeqr155bdmcbpyyo3qnetje	Logon successful
+17.12.12 00:39:44.837	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:44.837	mxeqr155bdmcbpyyo3qnetje	Logon failed
+17.12.12 00:39:44.920	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:44.940	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:44.944	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:44.948	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:44.973	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:44.979	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:39:45.282	mxeqr155bdmcbpyyo3qnetje	Resolve the 'DevExpress.Web.ASPxThemes.v12.2' assembly
+17.12.12 00:39:45.615	mxeqr155bdmcbpyyo3qnetje		TotalApplications: 1
+17.12.12 00:39:45.616	mxeqr155bdmcbpyyo3qnetje		DisposedApplications: 0
+17.12.12 00:39:45.617	mxeqr155bdmcbpyyo3qnetje		FinalizedApplications: 0
+17.12.12 00:39:45.617	mxeqr155bdmcbpyyo3qnetje		GC.GetTotalMemory(False) (Mb): 20
+17.12.12 00:39:45.617	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.618	mxeqr155bdmcbpyyo3qnetje	Start logon process
+17.12.12 00:39:45.618	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.618	mxeqr155bdmcbpyyo3qnetje	Logon successful
+17.12.12 00:39:45.648	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.649	mxeqr155bdmcbpyyo3qnetje	Logon failed
+17.12.12 00:39:45.931	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.932	mxeqr155bdmcbpyyo3qnetje	Start logon process
+17.12.12 00:39:45.932	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.933	mxeqr155bdmcbpyyo3qnetje	Logon successful
+17.12.12 00:39:45.946	mxeqr155bdmcbpyyo3qnetje	--------------------------------------------------------------------------------
+17.12.12 00:39:45.946	mxeqr155bdmcbpyyo3qnetje	Logon failed
+17.12.12 00:40:34.221	no context	--------------------------------------------------------------------------------
+17.12.12 00:40:34.221	no context	Logoff completed
+17.12.12 00:40:34.221	mxeqr155bdmcbpyyo3qnetje	Dispose application
+17.12.12 00:40:34.221	mxeqr155bdmcbpyyo3qnetje	====================
+17.12.12 00:40:34.238	mxeqr155bdmcbpyyo3qnetje	Application is disposed
+17.12.12 00:40:34.238	mxeqr155bdmcbpyyo3qnetje	========================
+17.12.12 00:40:42.165	qti3ii55ghk5v545xddaaxyj	================================================================================
+17.12.12 00:40:42.166	qti3ii55ghk5v545xddaaxyj	Trace Log for 82c46899-1-130001712400839186 is started
+17.12.12 00:40:42.166	qti3ii55ghk5v545xddaaxyj	================================================================================
+17.12.12 00:40:42.169	qti3ii55ghk5v545xddaaxyj	System Environment
+	OS Version: Microsoft Windows NT 6.1.7601 Service Pack 1
+	.Net Framework Versions: v2.0.50727, v4.0.30319
+
+	CLR Version: 2.0.50727.5466
+	eXpressApp Version: 12.2.4.0
+Application config
+	Modules=
+	ErrorReportEmail=
+	ErrorReportEmailServer=
+	SimpleErrorReportPage=
+	RichErrorReportPage=Error.aspx
+	EnableDiagnosticActions=False
+17.12.12 00:40:42.170	qti3ii55ghk5v545xddaaxyj		session.Timeout: 20
+17.12.12 00:40:42.171	qti3ii55ghk5v545xddaaxyj		SessionID: qti3ii55ghk5v545xddaaxyj
+17.12.12 00:40:42.201	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:42.202	qti3ii55ghk5v545xddaaxyj	Initialize Modules Manager
+17.12.12 00:40:42.203	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:42.204	qti3ii55ghk5v545xddaaxyj	
+17.12.12 00:40:42.282	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+Loaded assemblies
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.l-occati, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.l-occati.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.1218, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\df22135e_dedbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\85cfc75e_dedbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\90c95e50_dedbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\6b190110_dedbcd01\Xpand.Xpo.DLL
+17.12.12 00:40:42.772	qti3ii55ghk5v545xddaaxyj	SetupModules
+17.12.12 00:40:42.891	qti3ii55ghk5v545xddaaxyj	Customize TypesInfo
+17.12.12 00:40:43.526	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:43.527	qti3ii55ghk5v545xddaaxyj	Start logon process
+17.12.12 00:40:43.528	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:43.529	qti3ii55ghk5v545xddaaxyj	Checking Compatibility
+17.12.12 00:40:43.530	qti3ii55ghk5v545xddaaxyj		ConnectionString: Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=ModelDifferenceTester;
+17.12.12 00:40:43.915	qti3ii55ghk5v545xddaaxyj	Check App Name Compatibility
+17.12.12 00:40:43.917	qti3ii55ghk5v545xddaaxyj	Check stored module versions against the versions of the loaded modules
+17.12.12 00:40:43.918	qti3ii55ghk5v545xddaaxyj	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.918	qti3ii55ghk5v545xddaaxyj	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.919	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterModule' (ModelDifferenceTester.Module). Local version: 1.0.4734.607, Version on DB: 1.0.4734.607
+17.12.12 00:40:43.919	qti3ii55ghk5v545xddaaxyj	module 'CloneObjectModule' (DevExpress.ExpressApp.CloneObject.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.920	qti3ii55ghk5v545xddaaxyj	module 'SecurityModule' (DevExpress.ExpressApp.Security.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.920	qti3ii55ghk5v545xddaaxyj	module 'XpandSecurityModule' (Xpand.ExpressApp.Security). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.920	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceModule' (Xpand.ExpressApp.ModelDifference). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.920	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceAspNetModule' (Xpand.ExpressApp.ModelDifference.Web). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.921	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterAspNetModule' (ModelDifferenceTester.Module.Web). Local version: 1.0.4734.1218, Version on DB: 1.0.4734.960
+17.12.12 00:40:43.921	qti3ii55ghk5v545xddaaxyj	DatabaseIsOld
+17.12.12 00:40:43.957	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:43.958	qti3ii55ghk5v545xddaaxyj	UpdateDB
+17.12.12 00:40:43.959	qti3ii55ghk5v545xddaaxyj		ConnectionString: Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=ModelDifferenceTester;
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	Check App Name Compatibility
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	Check stored module versions against the versions of the loaded modules
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterModule' (ModelDifferenceTester.Module). Local version: 1.0.4734.607, Version on DB: 1.0.4734.607
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'CloneObjectModule' (DevExpress.ExpressApp.CloneObject.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'SecurityModule' (DevExpress.ExpressApp.Security.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'XpandSecurityModule' (Xpand.ExpressApp.Security). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceModule' (Xpand.ExpressApp.ModelDifference). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceAspNetModule' (Xpand.ExpressApp.ModelDifference.Web). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterAspNetModule' (ModelDifferenceTester.Module.Web). Local version: 1.0.4734.1218, Version on DB: 1.0.4734.960
+17.12.12 00:40:43.979	qti3ii55ghk5v545xddaaxyj	DatabaseIsOld
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: SystemModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: SystemAspNetModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: ModelDifferenceTesterModule. Old version: 1.0.4734.607. New version: 1.0.4734.607
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: CloneObjectModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: SecurityModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: XpandSecurityModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: ModelDifferenceModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.022	qti3ii55ghk5v545xddaaxyj	Module: ModelDifferenceAspNetModule. Old version: 12.2.4.0. New version: 12.2.4.0
+17.12.12 00:40:44.094	qti3ii55ghk5v545xddaaxyj	Module: ModelDifferenceTesterAspNetModule. Old version: 1.0.4734.960. New version: 1.0.4734.1218
+17.12.12 00:40:44.099	qti3ii55ghk5v545xddaaxyj	Check App Name Compatibility
+17.12.12 00:40:44.099	qti3ii55ghk5v545xddaaxyj	Check stored module versions against the versions of the loaded modules
+17.12.12 00:40:44.099	qti3ii55ghk5v545xddaaxyj	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.099	qti3ii55ghk5v545xddaaxyj	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.100	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterModule' (ModelDifferenceTester.Module). Local version: 1.0.4734.607, Version on DB: 1.0.4734.607
+17.12.12 00:40:44.100	qti3ii55ghk5v545xddaaxyj	module 'CloneObjectModule' (DevExpress.ExpressApp.CloneObject.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.100	qti3ii55ghk5v545xddaaxyj	module 'SecurityModule' (DevExpress.ExpressApp.Security.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.100	qti3ii55ghk5v545xddaaxyj	module 'XpandSecurityModule' (Xpand.ExpressApp.Security). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.101	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceModule' (Xpand.ExpressApp.ModelDifference). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.101	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceAspNetModule' (Xpand.ExpressApp.ModelDifference.Web). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 00:40:44.101	qti3ii55ghk5v545xddaaxyj	module 'ModelDifferenceTesterAspNetModule' (ModelDifferenceTester.Module.Web). Local version: 1.0.4734.1218, Version on DB: 1.0.4734.1218
+17.12.12 00:40:44.113	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:44.114	qti3ii55ghk5v545xddaaxyj	Logon successful
+17.12.12 00:40:44.225	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:44.226	qti3ii55ghk5v545xddaaxyj	Logon failed
+17.12.12 00:40:44.355	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.360	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.364	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.369	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.379	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.384	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.ExpressApp.Web.v12.2' assembly
+17.12.12 00:40:44.665	qti3ii55ghk5v545xddaaxyj	Resolve the 'DevExpress.Web.ASPxThemes.v12.2' assembly
+17.12.12 00:40:44.985	qti3ii55ghk5v545xddaaxyj		TotalApplications: 1
+17.12.12 00:40:44.986	qti3ii55ghk5v545xddaaxyj		DisposedApplications: 0
+17.12.12 00:40:44.987	qti3ii55ghk5v545xddaaxyj		FinalizedApplications: 0
+17.12.12 00:40:44.987	qti3ii55ghk5v545xddaaxyj		GC.GetTotalMemory(False) (Mb): 18
+17.12.12 00:40:44.987	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:44.987	qti3ii55ghk5v545xddaaxyj	Start logon process
+17.12.12 00:40:44.988	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:44.988	qti3ii55ghk5v545xddaaxyj	Logon successful
+17.12.12 00:40:45.001	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:45.002	qti3ii55ghk5v545xddaaxyj	Logon failed
+17.12.12 00:40:45.284	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:45.285	qti3ii55ghk5v545xddaaxyj	Start logon process
+17.12.12 00:40:45.285	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:45.286	qti3ii55ghk5v545xddaaxyj	Logon successful
+17.12.12 00:40:45.298	qti3ii55ghk5v545xddaaxyj	--------------------------------------------------------------------------------
+17.12.12 00:40:45.299	qti3ii55ghk5v545xddaaxyj	Logon failed
+17.12.12 01:01:00.708	no context	--------------------------------------------------------------------------------
+17.12.12 01:01:00.709	no context	Logoff completed
+17.12.12 01:01:00.710	qti3ii55ghk5v545xddaaxyj	Dispose application
+17.12.12 01:01:00.710	qti3ii55ghk5v545xddaaxyj	====================
+17.12.12 01:01:00.730	qti3ii55ghk5v545xddaaxyj	Application is disposed
+17.12.12 01:01:00.731	qti3ii55ghk5v545xddaaxyj	========================
+17.12.12 01:12:12.950	thbsr2qh0ha5lper44mcneyz	================================================================================
+17.12.12 01:12:13.016	thbsr2qh0ha5lper44mcneyz	Trace Log for 82c46899-1-130001712400839186 is started
+17.12.12 01:12:13.017	thbsr2qh0ha5lper44mcneyz	================================================================================
+17.12.12 01:12:13.018	thbsr2qh0ha5lper44mcneyz	System Environment
+	OS Version: Microsoft Windows NT 6.1.7601 Service Pack 1
+	.Net Framework Versions: v2.0.50727, v4.0.30319
+
+	CLR Version: 2.0.50727.5466
+	eXpressApp Version: 12.2.4.0
+Application config
+	Modules=
+	ErrorReportEmail=
+	ErrorReportEmailServer=
+	SimpleErrorReportPage=
+	RichErrorReportPage=Error.aspx
+	EnableDiagnosticActions=False
+17.12.12 01:12:13.018	thbsr2qh0ha5lper44mcneyz		session.Timeout: 20
+17.12.12 01:12:13.050	thbsr2qh0ha5lper44mcneyz		SessionID: thbsr2qh0ha5lper44mcneyz
+17.12.12 01:12:13.106	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.111	thbsr2qh0ha5lper44mcneyz	Initialize Modules Manager
+17.12.12 01:12:13.113	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.119	thbsr2qh0ha5lper44mcneyz	
+17.12.12 01:12:13.141	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+Loaded assemblies
+	A_072d735d_cc3c_42c7_ab1c_cedb582c5d4f, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	Anonymously Hosted DynamicMethods Assembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=InMemory Module
+	App_global.asax.l-occati, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_global.asax.l-occati.dll
+	App_Web_zbpettfv, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\App_Web_zbpettfv.dll
+	DevExpress.Data.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Data.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Data.v12.2.dll
+	DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.CloneObject.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.CloneObject.v12.2.dll
+	DevExpress.ExpressApp.Images.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Images.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Images.v12.2.dll
+	DevExpress.ExpressApp.Security.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Security.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Security.v12.2.dll
+	DevExpress.ExpressApp.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.v12.2.dll
+	DevExpress.ExpressApp.Validation.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Validation.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Validation.v12.2.dll
+	DevExpress.ExpressApp.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Web.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Web.v12.2.dll
+	DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.ExpressApp.Xpo.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.ExpressApp.Xpo.v12.2.dll
+	DevExpress.Persistent.Base.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Persistent.Base.v12.2\12.2.4.0__c52ffed5d5ff0958\DevExpress.Persistent.Base.v12.2.dll
+	DevExpress.Persistent.BaseImpl.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\9b6d9a62\3039b75e_7cd4cd01\DevExpress.Persistent.BaseImpl.v12.2.DLL
+	DevExpress.Printing.v12.2.Core, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Printing.v12.2.Core\12.2.4.0__b88d1754d700e49a\DevExpress.Printing.v12.2.Core.dll
+	DevExpress.Utils.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Utils.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Utils.v12.2.dll
+	DevExpress.Web.ASPxThemes.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxThemes.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxThemes.v12.2.dll
+	DevExpress.Web.ASPxTreeList.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.ASPxTreeList.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.ASPxTreeList.v12.2.dll
+	DevExpress.Web.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Web.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Web.v12.2.dll
+	DevExpress.Xpo.v12.2, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.dll
+	DevExpress.Xpo.v12.2.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, Location=C:\Windows\assembly\GAC_MSIL\DevExpress.Xpo.v12.2.Web\12.2.4.0__b88d1754d700e49a\DevExpress.Xpo.v12.2.Web.dll
+	Microsoft.JScript, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\Microsoft.JScript\8.0.0.0__b03f5f7f11d50a3a\Microsoft.JScript.dll
+	ModelDifferenceTester.Module, Version=1.0.4734.607, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\2e87bd81\52160f86_dbdbcd01\ModelDifferenceTester.Module.DLL
+	ModelDifferenceTester.Module.Web, Version=1.0.4734.1218, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\089499cd\df22135e_dedbcd01\ModelDifferenceTester.Module.Web.DLL
+	ModelDifferenceTester.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\ceb1d98a\85cfc75e_dedbcd01\ModelDifferenceTester.Web.DLL
+	mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\Microsoft.NET\Framework\v2.0.50727\mscorlib.dll
+	SMDiagnostics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\SMDiagnostics\3.0.0.0__b77a5c561934e089\SMDiagnostics.dll
+	System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System\2.0.0.0__b77a5c561934e089\System.dll
+	System.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Configuration\2.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll
+	System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Core\3.5.0.0__b77a5c561934e089\System.Core.dll
+	System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Data\2.0.0.0__b77a5c561934e089\System.Data.dll
+	System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Design\2.0.0.0__b03f5f7f11d50a3a\System.Design.dll
+	System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Drawing\2.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll
+	System.EnterpriseServices, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.EnterpriseServices\2.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll
+	System.IdentityModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.IdentityModel\3.0.0.0__b77a5c561934e089\System.IdentityModel.dll
+	System.Runtime.Serialization, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Runtime.Serialization\3.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll
+	System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel\3.0.0.0__b77a5c561934e089\System.ServiceModel.dll
+	System.ServiceModel.Web, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.ServiceModel.Web\3.5.0.0__31bf3856ad364e35\System.ServiceModel.Web.dll
+	System.Transactions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_32\System.Transactions\2.0.0.0__b77a5c561934e089\System.Transactions.dll
+	System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\System.Web\2.0.0.0__b03f5f7f11d50a3a\System.Web.dll
+	System.Web.Mobile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Mobile\2.0.0.0__b03f5f7f11d50a3a\System.Web.Mobile.dll
+	System.Web.RegularExpressions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.RegularExpressions\2.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll
+	System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll
+	System.WorkflowServices, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, Location=C:\Windows\assembly\GAC_MSIL\System.WorkflowServices\3.5.0.0__31bf3856ad364e35\System.WorkflowServices.dll
+	System.Xml, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, Location=C:\Windows\assembly\GAC_MSIL\System.Xml\2.0.0.0__b77a5c561934e089\System.Xml.dll
+	WebDev.WebHost20, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, Location=C:\Windows\assembly\GAC_32\WebDev.WebHost20\10.0.0.0__b03f5f7f11d50a3a\WebDev.WebHost20.dll
+	Wintellect.Threading, Version=4.2.3323.23897, Culture=neutral, PublicKeyToken=167f00fdf109b063, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\fa5a515e\635cff56_8853cb01\Wintellect.Threading.DLL
+	Xpand.ExpressApp, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\6aba1425\90c95e50_dedbcd01\Xpand.ExpressApp.DLL
+	Xpand.ExpressApp.ModelDifference, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\b5fe34a7\f8533b75_efd7cd01\Xpand.ExpressApp.ModelDifference.DLL
+	Xpand.ExpressApp.ModelDifference.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\3db4f03b\daee05a2_efd7cd01\Xpand.ExpressApp.ModelDifference.Web.DLL
+	Xpand.ExpressApp.Security, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\a96e9433\857ea36c_efd7cd01\Xpand.ExpressApp.Security.DLL
+	Xpand.ExpressApp.Web, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\58b4acb5\c667d921_8fdbcd01\Xpand.ExpressApp.Web.DLL
+	Xpand.Persistent.Base, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\41917357\e711d4e2_22dacd01\Xpand.Persistent.Base.DLL
+	Xpand.Utils, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\699c3b68\666a0e36_3dd6cd01\Xpand.Utils.DLL
+	Xpand.Xpo, Version=12.2.4.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, Location=C:\Users\tolis\AppData\Local\Temp\Temporary ASP.NET Files\root\6d671c7c\d565d540\assembly\dl3\57f87058\6b190110_dedbcd01\Xpand.Xpo.DLL
+	ygkg4c1_, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null, Location=
+17.12.12 01:12:13.150	thbsr2qh0ha5lper44mcneyz	SetupModules
+17.12.12 01:12:13.160	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.160	thbsr2qh0ha5lper44mcneyz	Start logon process
+17.12.12 01:12:13.161	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.161	thbsr2qh0ha5lper44mcneyz	Checking Compatibility
+17.12.12 01:12:13.162	thbsr2qh0ha5lper44mcneyz		ConnectionString: Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=ModelDifferenceTester;
+17.12.12 01:12:13.165	thbsr2qh0ha5lper44mcneyz	Check App Name Compatibility
+17.12.12 01:12:13.166	thbsr2qh0ha5lper44mcneyz	Check stored module versions against the versions of the loaded modules
+17.12.12 01:12:13.167	thbsr2qh0ha5lper44mcneyz	module 'SystemModule' (DevExpress.ExpressApp.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.167	thbsr2qh0ha5lper44mcneyz	module 'SystemAspNetModule' (DevExpress.ExpressApp.Web.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.168	thbsr2qh0ha5lper44mcneyz	module 'ModelDifferenceTesterModule' (ModelDifferenceTester.Module). Local version: 1.0.4734.607, Version on DB: 1.0.4734.607
+17.12.12 01:12:13.168	thbsr2qh0ha5lper44mcneyz	module 'CloneObjectModule' (DevExpress.ExpressApp.CloneObject.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.169	thbsr2qh0ha5lper44mcneyz	module 'SecurityModule' (DevExpress.ExpressApp.Security.v12.2). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.169	thbsr2qh0ha5lper44mcneyz	module 'XpandSecurityModule' (Xpand.ExpressApp.Security). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.170	thbsr2qh0ha5lper44mcneyz	module 'ModelDifferenceModule' (Xpand.ExpressApp.ModelDifference). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.171	thbsr2qh0ha5lper44mcneyz	module 'ModelDifferenceAspNetModule' (Xpand.ExpressApp.ModelDifference.Web). Local version: 12.2.4.0, Version on DB: 12.2.4.0
+17.12.12 01:12:13.171	thbsr2qh0ha5lper44mcneyz	module 'ModelDifferenceTesterAspNetModule' (ModelDifferenceTester.Module.Web). Local version: 1.0.4734.1218, Version on DB: 1.0.4734.1218
+17.12.12 01:12:13.174	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.175	thbsr2qh0ha5lper44mcneyz	Logon successful
+17.12.12 01:12:13.196	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.197	thbsr2qh0ha5lper44mcneyz	Logon failed
+17.12.12 01:12:13.223	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.224	thbsr2qh0ha5lper44mcneyz	Start logon process
+17.12.12 01:12:13.224	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.231	thbsr2qh0ha5lper44mcneyz	Logon successful
+17.12.12 01:12:13.254	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.255	thbsr2qh0ha5lper44mcneyz	Logon failed
+17.12.12 01:12:13.416	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.417	thbsr2qh0ha5lper44mcneyz	Start logon process
+17.12.12 01:12:13.417	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.418	thbsr2qh0ha5lper44mcneyz	Logon successful
+17.12.12 01:12:13.431	thbsr2qh0ha5lper44mcneyz	--------------------------------------------------------------------------------
+17.12.12 01:12:13.432	thbsr2qh0ha5lper44mcneyz	Logon failed

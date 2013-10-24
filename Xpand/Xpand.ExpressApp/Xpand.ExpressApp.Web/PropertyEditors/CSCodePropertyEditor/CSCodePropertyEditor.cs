@@ -12,7 +12,8 @@ using DevExpress.CodeParser.VB;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxEditors.Internal;
-using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+
 
 namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
     [PropertyEditor(typeof(string), EditorAliases.CSCodePropertyEditor, false)]
