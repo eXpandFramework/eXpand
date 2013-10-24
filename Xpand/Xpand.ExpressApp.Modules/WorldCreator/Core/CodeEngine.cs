@@ -11,7 +11,7 @@ using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.Base.General;
-using Fasterflect;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public static class CodeEngine {
@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         static string GetMemberName(IPersistentMemberInfo persistentMemberInfo) {
-            string memberName = CleanName(persistentMemberInfo.Name);
+            string memberName = persistentMemberInfo.Name.CleanCodeName();
             if (persistentMemberInfo.Owner.Name == persistentMemberInfo.Name)
                 memberName += "Member";
             return memberName;
@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 if (code != null) {
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
-                    code = code.Replace("$CLASSNAME$", CleanName(persistentClassInfo.Name));
+                    code = code.Replace("$CLASSNAME$", persistentClassInfo.Name.CleanCodeName());
                     code = code.Replace("$BASECLASSNAME$", persistentClassInfo.BaseTypeFullName + GetInterfacesCode(persistentClassInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentClassInfo));
                     code = GetAllMembersCode(persistentClassInfo, code);
@@ -53,14 +53,6 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 }
             }
             return null;
-        }
-
-        public static string CleanName(string name) {
-            var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
-            string ret = regex.Replace(name + "", "");
-            if (!(string.IsNullOrEmpty(ret)) && !char.IsLetter(ret, 0) && !System.CodeDom.Compiler.CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))
-                ret = string.Concat("_", ret);
-            return ret;
         }
 
         static string GetInjectCode(IPersistentTypeInfo persistentTypeInfo) {
@@ -112,7 +104,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var list = (fullName + "").Split('.').ToList();
             var name = list.Last();
             list.Remove(name);
-            name = CleanName(name);
+            name = name.CleanCodeName();
             list.Add(name);
             return list.Aggregate<string, string>(null, (current, l) => current + (l + ".")).TrimEnd('.');
         }
@@ -257,12 +249,12 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var referenceMemberInfos = key.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>();
             string ret = null;
             foreach (var referenceMemberInfo in referenceMemberInfos) {
-                string refPropertyName = CleanName(key.Name) + "." + CleanName(referenceMemberInfo.Name);
+                string refPropertyName = key.Name.CleanCodeName() + "." + referenceMemberInfo.Name.CleanCodeName();
                 var persistentMemberInfo = referenceMemberInfo.ReferenceClassInfo.OwnMembers.SingleOrDefault(info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Any());
                 if (persistentMemberInfo != null) {
-                    var refKeyName = CleanName(persistentMemberInfo.Name);
+                    var refKeyName = persistentMemberInfo.Name.CleanCodeName();
                     ret += @"if(" + refPropertyName + ".Session != Session){" +
-                          refPropertyName + "=Session.GetObjectByKey<" + CleanName(referenceMemberInfo.ReferenceClassInfo.Name) + ">(" + refPropertyName + "." + refKeyName + ");"
+                          refPropertyName + "=Session.GetObjectByKey<" + referenceMemberInfo.ReferenceClassInfo.Name.CleanCodeName() + ">(" + refPropertyName + "." + refKeyName + ");"
                           + "}";
                 }
             }
