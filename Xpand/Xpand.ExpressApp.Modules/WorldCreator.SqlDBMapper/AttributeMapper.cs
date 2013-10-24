@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
@@ -9,6 +8,7 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using System.Linq;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
     public class AttributeMapper {
@@ -99,7 +99,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
                 persistentAttributeInfos.Add(GetPersistentPersistentAttribute(table.Name));
             if (!(string.IsNullOrEmpty(mapperInfo.NavigationPath)) && owner.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null) {
                 var persistentNavigationItemAttribute = ObjectSpace.CreateWCObject<IPersistentNavigationItemAttribute>();
-                var cleanName = CodeEngine.CleanName(owner.Name);
+                var cleanName = owner.Name.CleanCodeName();
                 persistentNavigationItemAttribute.Path = mapperInfo.NavigationPath + "/" + cleanName;
                 persistentNavigationItemAttribute.ViewId = cleanName + "_ListView";
                 persistentAttributeInfos.Add(persistentNavigationItemAttribute);
@@ -114,7 +114,7 @@ namespace Xpand.ExpressApp.WorldCreator.SqlDBMapper {
         }
 
         public void Create(IPersistentAssemblyInfo persistentAssemblyInfo, IDataStoreLogonObject dataStoreLogonObject) {
-            if (persistentAssemblyInfo.PersistentClassInfos.Count() > 0) {
+            if (persistentAssemblyInfo.PersistentClassInfos.Any()) {
                 var persistentAssemblyDataStoreAttributeInfo = _objectSpace.CreateWCObject<IPersistentAssemblyDataStoreAttributeInfo>();
                 persistentAssemblyDataStoreAttributeInfo.DataStoreLogon = dataStoreLogonObject;
                 persistentAssemblyDataStoreAttributeInfo.PersistentClassInfo = persistentAssemblyInfo.PersistentClassInfos[0];

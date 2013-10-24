@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public struct ClassGeneratorInfo {
@@ -52,7 +53,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             var indexOf = name.IndexOf(".", System.StringComparison.Ordinal);
             if (indexOf > -1)
                 name = name.Substring(indexOf + 1);
-            return CodeEngine.CleanName(name);
+            return name.CleanCodeName();
         }
 
         public IPersistentClassInfo CreateClassInfo(string name, TemplateType templateType = TemplateType.Class) {
