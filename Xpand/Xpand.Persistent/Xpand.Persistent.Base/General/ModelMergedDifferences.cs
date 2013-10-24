@@ -65,10 +65,10 @@ namespace Xpand.Persistent.Base.General {
             var modelDetailView = (mergedDifference.View) as IModelDetailView;
             if (modelDetailView != null) {
                 var detailView = ((IModelDetailView)modelObjectView);
-                if (modelDetailView.Layout != null) {
+                if (modelDetailView.Layout != null)
                     UpdateRemovedNodes(modelDetailView.Layout, detailView.Layout);
+                if (modelDetailView.Items != null) 
                     UpdateRemovedNodes(modelDetailView.Items, detailView.Items);
-                }
             } else {
                 UpdateRemovedNodes(((IModelListView)mergedDifference.View).Columns, ((IModelListView)modelObjectView).Columns);
             }
