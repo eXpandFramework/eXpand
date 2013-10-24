@@ -31,7 +31,8 @@ namespace Xpand.Persistent.Base.General {
                 var modelObjectView = mergedDifference.View;
                 switch (mergedDifference.Strategy) {
                     case MergingStrategy.Everything: {
-                        new ModelXmlReader().ReadFromString(modelNode, "", PrepareXml(modelNode, modelObjectView));
+                        var xml = PrepareXml(modelNode, modelObjectView);
+                        new ModelXmlReader().ReadFromString(modelNode, "", xml);
                         break;
                     }
                     case MergingStrategy.OnlyLayout: {
@@ -58,6 +59,7 @@ namespace Xpand.Persistent.Base.General {
         string PrepareXml(IModelNode modelNode, IModelObjectView modelObjectView) {
             var xml = ((ModelNode) modelObjectView).Xml;
             xml= Regex.Replace(xml, "(<DetailView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            xml= Regex.Replace(xml, "(<ListView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             return Regex.Replace(xml, "<MergedDifferences[^>]*>(.*?)</MergedDifferences>", "",RegexOptions.Singleline | RegexOptions.IgnoreCase);
         }
 
