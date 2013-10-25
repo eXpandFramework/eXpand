@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
@@ -74,7 +75,7 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObjectKeyCore(IObjectSpace objectSpace, Type type, string objectKeyString) {
-            if (objectKeyString.CanChange(((XpandObjectSpace) objectSpace).GetObjectKeyType(type))) {
+            if (objectKeyString.CanChange(((XPObjectSpace) objectSpace).GetObjectKeyType(type))) {
                 try {
                     return objectSpace.GetObjectKey(type, objectKeyString);
                 } catch {
