@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
+using EmailTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Registration;
@@ -24,9 +25,14 @@ namespace EmailTester.Module.DatabaseUpdate {
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Subject = "pass forgotten";
                 emailTemplate.Body = "We created a temporary password (@Model.Password) for the UserName (@Model.User.UserName). Please login to reset it";
+                
+                emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Subject = "New Customer";
+                emailTemplate.Body = "A new customer created with fullname @Model.FullName";
             }
             var adminRole = ObjectSpace.GetAdminRole("Admin");
-            adminRole.GetUser("Admin");
+            var adminUser = (User) adminRole.GetUser("Admin");
+            adminUser.Email = "apostolis.bekiaris@gmail.com";
 
             var userRole = ObjectSpace.GetRole("User");
             var user = (SecuritySystemUser)userRole.GetUser("user");

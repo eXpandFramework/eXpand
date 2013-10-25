@@ -9,6 +9,7 @@ namespace Xpand.ExpressApp.Email.Security {
         public const string OperationName = "Email";
 
         public EmailRulePermission(EmailOperationPermissionData contextLogicRule) : base(OperationName, contextLogicRule) {
+            EmailReceipientsContext = contextLogicRule.EmailReceipientsContext;
             TemplateContext = contextLogicRule.TemplateContext;
             SmtpClientContext = contextLogicRule.SmtpClientContext;
             CurrentObjectEmailMember =CaptionHelper.ApplicationModel.BOModel.GetClass(ObjectType)
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.Email.Security {
         public string SmtpClientContext { get; set; }
 
         public string TemplateContext { get; set; }
+        public string EmailReceipientsContext { get; set; }
 
         public override IList<string> GetSupportedOperations() {
             return new[]{OperationName};

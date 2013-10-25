@@ -7,7 +7,10 @@ namespace Xpand.ExpressApp.Email.Logic {
             SmtpClientContext = emailRule.SmtpClientContext;
             TemplateContext = emailRule.TemplateContext;
             CurrentObjectEmailMember=emailRule.CurrentObjectEmailMember;
+            EmailReceipientsContext = emailRule.EmailReceipientsContext;
         }
+
+        public string EmailReceipientsContext { get; set; }
 
         public string SmtpClientContext { get; set; }
 

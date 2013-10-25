@@ -7,6 +7,7 @@ using Xpand.ExpressApp.Email.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
 
 namespace Xpand.ExpressApp.Email.Security {
+    
     public class EmailOperationPermissionData : LogicRuleOperationPermissionData, IContextEmailRule{
         public EmailOperationPermissionData(Session session) : base(session) {
         }
@@ -16,6 +17,8 @@ namespace Xpand.ExpressApp.Email.Security {
 
         [RuleRequiredField]
         public string TemplateContext { get; set; }
+
+        public string EmailReceipientsContext { get; set; }
 
         public override IList<IOperationPermission> GetPermissions() {
             return new IOperationPermission[]{new EmailRulePermission(this)};

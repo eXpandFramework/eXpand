@@ -11,7 +11,8 @@ namespace Xpand.ExpressApp.Email.Logic {
         public string SmtpClientContext { get; set; }
 
         public string TemplateContext { get; set; }
-        
+        public string EmailReceipientsContext { get; set; }
+
         [TypeConverter(typeof(StringToModelMemberConverter))]
         public string CurrentObjectEmailMember { get; set; }
 

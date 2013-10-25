@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using DevExpress.Data.Filtering;
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.Email.Logic {
                 var templateEngine =new EmailTemplateEngine.EmailTemplateEngine(
                         new StreamEmailTemplateContentReader(emailTemplateObject.Body));
                 var modelSmtpClientContext = modelApplicationEmail.Email.SmtpClientContexts.First(emailTemplate => emailTemplate.GetValue<string>("Id") == emailRule.SmtpClientContext);
-                var email = CreateEmail(templateEngine, logicRuleInfo, emailRule, modelSmtpClientContext,emailTemplateObject);
+                var email = CreateEmail(templateEngine, logicRuleInfo, emailRule, modelSmtpClientContext,emailTemplateObject,modelApplicationEmail);
                 var emailSender = new EmailSender{CreateClientFactory =
                         () => new SmtpClientWrapper(CreateSmtpClient(modelSmtpClientContext))
                 };
@@ -43,16 +44,40 @@ namespace Xpand.ExpressApp.Email.Logic {
             }
         }
 
-        EmailTemplateEngine.Email CreateEmail(EmailTemplateEngine.EmailTemplateEngine templateEngine, LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject) {
+        EmailTemplateEngine.Email CreateEmail(EmailTemplateEngine.EmailTemplateEngine templateEngine, LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail) {
             var email = templateEngine.Execute(logicRuleInfo.Object, emailRule.ID);
             if (emailRule.CurrentObjectEmailMember != null) {
                 var toEmail = emailRule.CurrentObjectEmailMember.MemberInfo.GetValue(logicRuleInfo.Object) as string;
                 email.To.Add(toEmail);
             }
+            if (!string.IsNullOrEmpty(emailRule.EmailReceipientsContext)) {
+                AddReceipients(emailRule, modelApplicationEmail, email);
+            }
             email.From = modelSmtpClientContext.SenderEmail;
             email.Subject = emailTemplateObject.Subject;
             modelSmtpClientContext.ReplyToEmails.Split(';').Each(s => email.ReplyTo.Add(s));
             return email;
+        }
+
+        void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, EmailTemplateEngine.Email email) {
+            var emailReceipientGroup =modelApplicationEmail.Email.EmailReceipients.First(
+                    @group => @group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
+            foreach (var modelEmailReceipient in emailReceipientGroup) {
+                var criteriaOperator = CriteriaOperator.Parse(modelEmailReceipient.Criteria);
+                var objects = ObjectSpace.GetObjects(modelEmailReceipient.EmailReceipient.TypeInfo.Type,                                                     criteriaOperator);
+                var sendToCollection = GetSendToCollection(email, modelEmailReceipient);
+                foreach (var obj in objects) {
+                    var item = modelEmailReceipient.EmailMember.MemberInfo.GetValue(obj) as string;
+                    sendToCollection.Add(item);
+                }
+            }
+        }
+
+        static ICollection<string> GetSendToCollection(EmailTemplateEngine.Email email, IModelEmailReceipient modelEmailReceipient) {
+            var collection = email.To;
+            if (modelEmailReceipient.EmailType != EmailType.Normal)
+                collection = modelEmailReceipient.EmailType == EmailType.BCC ? email.Bcc : email.CC;
+            return collection;
         }
 
         private  SmtpClient CreateSmtpClient(IModelSmtpClientContext modelSmtpClientContext) {

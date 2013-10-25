@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Email.BusinessObjects;
@@ -31,10 +32,23 @@ namespace Xpand.ExpressApp.Email.Model {
 
         [Browsable(false)]
         IEnumerable<string> TemplateContexts { get; }
+        
+        [Browsable(false)]
+        IEnumerable<string> EmailReceipientsContexts { get; }
+    }
+
+    public class ModelEmailRuleValidator : IModelNodeValidator<IModelEmailRule> {
+        public bool IsValid(IModelEmailRule node, IModelApplication application) {
+            return !string.IsNullOrEmpty(node.EmailReceipientsContext)||node.CurrentObjectEmailMember!=null;
+        }
     }
 
     [DomainLogic(typeof(IModelEmailRule))]
     public class ModelEmailRuleDomainLogic {
+        public static IEnumerable<string> Get_EmailReceipientsContexts(IModelEmailRule emailRule) {
+            return (((IModelApplicationEmail) emailRule.Application).Email.EmailReceipients.Select(
+                template => template.GetValue<string>("Id")));
+        }
         public static IEnumerable<string> Get_SmtpClientContexts(IModelEmailRule emailRule) {
             return (((IModelApplicationEmail) emailRule.Application).Email.SmtpClientContexts.Select(
                 template => template.GetValue<string>("Id")));
@@ -91,8 +105,14 @@ namespace Xpand.ExpressApp.Email.Model {
         IModelList<IModelMember> EmailMembers { get; }
         [DataSourceProperty("Application.BOModel"), Required]
         IModelClass EmailReceipient { get; set; }
+        EmailType EmailType { get; set; }
     }
 
+    public enum EmailType {
+        Normal,
+        CC,
+        BCC
+    }
     [DomainLogic(typeof(IModelEmailReceipient))]
     public class ModelEmailReceipientDomainLogic {
         public static IModelList<IModelMember> Get_EmailMembers(IModelEmailReceipient emailReceipient) {
