@@ -52,8 +52,6 @@ namespace Xpand.ExpressApp.Logic {
             InvertExecution(view, executionContext, oldView.CurrentObject,args);
         }
 
-//        public View View { get; set; }
-
         public void InvertAndExecute(View view, ExecutionContext executionContext, EventArgs eventArgs,View oldView) {
             if (oldView != null) InvertExecution(oldView, executionContext, eventArgs,oldView);
             Execute(executionContext, view, eventArgs);
@@ -67,6 +65,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual void OnLogicRuleExecuted(LogicRuleExecuteEventArgs args) {
+            if (args.LogicRuleInfo.Rule.IsNew.HasValue)
+                Evaluator.IsNew = false;
             if (LogicRuleExecuted != null) {
                 LogicRuleExecuted(this, args);
             }

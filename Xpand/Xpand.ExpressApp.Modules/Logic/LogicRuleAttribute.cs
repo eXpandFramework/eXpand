@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.Logic {
         public string NormalCriteria { get; set; }
 
         public string EmptyCriteria { get; set; }
+        public bool? IsNew { get; set; }
 
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
