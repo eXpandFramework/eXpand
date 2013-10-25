@@ -16,9 +16,10 @@ using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
+using Xpand.Persistent.Base.General;
 
 namespace EmailTester.Web {
-    public class EmailTesterAspNetApplication : WebApplication {
+    public class EmailTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule cloneObjectModule1;
@@ -124,6 +125,13 @@ namespace EmailTester.Web {
             Security = _securityStrategyComplex;
             ((ISupportInitialize) (this)).EndInit();
         }
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
         
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
+        }
     }
 }
