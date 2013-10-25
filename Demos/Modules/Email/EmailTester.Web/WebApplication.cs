@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using EmailTester.Module;
@@ -17,7 +18,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
 
 namespace EmailTester.Web {
-    public class EmailTesterAspNetApplication : XpandWebApplication {
+    public class EmailTesterAspNetApplication : WebApplication {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule cloneObjectModule1;
@@ -37,6 +38,9 @@ namespace EmailTester.Web {
             DatabaseVersionMismatch += EmailTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
+        protected override IHttpRequestManager CreateHttpRequestManager() {
+            return this.NewHttpRequestManager();
+        }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
         }
