@@ -124,7 +124,9 @@
     <Compile Include="Core\BaseDomainLogic.cs" />
     <Compile Include="Model\ListView.cs" />
     <Compile Include="Model\ResetViewModelOnSaving.cs" />
-    <Compile Include="Model\UnboundColumn.cs" />
+    <Compile Include="Model\UnboundColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
