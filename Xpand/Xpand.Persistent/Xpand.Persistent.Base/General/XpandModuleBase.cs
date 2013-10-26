@@ -207,6 +207,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, ITypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
+            extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
             extenders.Add<IModelApplication, IModelApplicationResourceDifferences>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
