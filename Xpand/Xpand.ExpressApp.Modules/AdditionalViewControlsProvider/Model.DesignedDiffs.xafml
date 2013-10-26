@@ -1,2 +1,55 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="AdditionalViewControlsOperationPermissionData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col1" RelativeSize="47" />
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="52" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1">
+            <TabbedGroup Id="Item4">
+              <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="100" Caption="AdditionalViewControls" IsNewNode="True">
+                <LayoutGroup Id="Autoc51415e5-ca78-4dc0-979c-15fbc44e80f9" ShowCaption="False" Caption="" Index="0" RelativeSize="46" IsNewNode="True">
+                  <LayoutGroup Id="Item7" ShowCaption="True" Caption="Control" CaptionLocation="Top" Index="0" RelativeSize="22" IsNewNode="True">
+                    <LayoutItem Id="Position" ViewItem="Position" SizeConstraintsType="Default" Index="0" RelativeSize="22" IsNewNode="True" />
+                    <LayoutItem Id="ControlType" ViewItem="ControlType" SizeConstraintsType="Default" Index="1" RelativeSize="16" IsNewNode="True" />
+                    <LayoutItem Id="DecoratorType" ViewItem="DecoratorType" SizeConstraintsType="Default" Index="2" RelativeSize="16" IsNewNode="True" />
+                    <LayoutItem Id="Height" ViewItem="Height" SizeConstraintsType="Default" Index="3" RelativeSize="22" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Item8" ShowCaption="True" Caption="Message" CaptionLocation="Top" Index="1" RelativeSize="77" IsNewNode="True">
+                    <LayoutItem Id="Message" ViewItem="Message" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
+                    <LayoutItem Id="MessageProperty" ViewItem="MessageProperty" SizeConstraintsType="Default" Index="1" RelativeSize="86" IsNewNode="True" />
+                  </LayoutGroup>
+                </LayoutGroup>
+                <LayoutGroup Id="Auto716f47b0-ce4d-4b96-ba6d-6a1804c1b3b2" ShowCaption="False" Caption="" Index="1" RelativeSize="53" IsNewNode="True">
+                  <LayoutGroup Id="Item6" ShowCaption="True" Caption="Font" CaptionLocation="Top" Index="0" RelativeSize="22" IsNewNode="True">
+                    <LayoutItem Id="ForeColor" ViewItem="ForeColor" SizeConstraintsType="Default" Index="0" RelativeSize="22" IsNewNode="True" />
+                    <LayoutItem Id="FontStyle" ViewItem="FontStyle" SizeConstraintsType="Default" Index="1" RelativeSize="16" IsNewNode="True" />
+                    <LayoutItem Id="FontSize" ViewItem="FontSize" SizeConstraintsType="Default" Index="2" RelativeSize="16" IsNewNode="True" />
+                    <LayoutItem Id="BackColor" ViewItem="BackColor" SizeConstraintsType="Default" Index="3" RelativeSize="22" IsNewNode="True" />
+                  </LayoutGroup>
+                  <LayoutItem Id="ImageName" ViewItem="ImageName" SizeConstraintsType="Default" Index="1" RelativeSize="77" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" Index="1">
+                <LayoutItem Id="IsNew" RelativeSize="5" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item5" Index="2">
+                <LayoutItem Id="View" RelativeSize="5" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item1" Index="3">
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Logic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+  </Views>
+</Application>
