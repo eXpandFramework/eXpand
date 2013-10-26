@@ -12,8 +12,9 @@ namespace Xpand.ExpressApp.Email.Security {
             EmailReceipientsContext = contextLogicRule.EmailReceipientsContext;
             TemplateContext = contextLogicRule.TemplateContext;
             SmtpClientContext = contextLogicRule.SmtpClientContext;
-            CurrentObjectEmailMember =CaptionHelper.ApplicationModel.BOModel.GetClass(ObjectType)
-                             .FindMember(contextLogicRule.CurrentObjectEmailMember);
+            if (contextLogicRule.ObjectTypeData != null)
+                CurrentObjectEmailMember =CaptionHelper.ApplicationModel.BOModel.GetClass(contextLogicRule.ObjectTypeData)
+                                                       .FindMember(contextLogicRule.CurrentObjectEmailMember);
         }
 
         public string SelectedObjectEmailMember { get; set; }

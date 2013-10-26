@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{175DE829-3659-47B5-9D37-54238CB694B7}</ProjectGuid>
+    <ProjectGuid>{D3346898-E61A-470E-B38D-D38BF584271B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Email</RootNamespace>
@@ -136,6 +136,9 @@
     <Compile Include="Security\EmailOperationPermissionData.cs" />
     <Compile Include="Security\EmailRulePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\PopulateControllers.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

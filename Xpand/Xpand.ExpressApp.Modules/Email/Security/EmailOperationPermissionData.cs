@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Email.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
 
 namespace Xpand.ExpressApp.Email.Security {
-    
+    [System.ComponentModel.DisplayName("Email")]
     public class EmailOperationPermissionData : LogicRuleOperationPermissionData, IContextEmailRule{
         public EmailOperationPermissionData(Session session) : base(session) {
         }
