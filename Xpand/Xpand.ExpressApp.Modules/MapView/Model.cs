@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Xpand.ExpressApp.MapView {
 
@@ -22,6 +23,12 @@ namespace Xpand.ExpressApp.MapView {
 
         [DataSourceProperty("AllMembers")]
         IModelMember InfoWindowTextMember { get; set; }
+
+        [DataSourceProperty("NumericMembers")]
+        IModelMember LatitudeMember { get; set; }
+
+        [DataSourceProperty("NumericMembers")]
+        IModelMember LongitudeMember { get; set; }
 
         [Browsable(false)]
         IModelList<IModelMember> AllMembers { get; }
@@ -43,12 +50,24 @@ namespace Xpand.ExpressApp.MapView {
             return modelMapView.GetFromListView(mv => mv.InfoWindowTextMember);
         }
 
-        public static IModelList<IModelMember> Get_AllMembers(IModelMapView modelMapView) {
+
+        private static IModelList<IModelMember> GetMembers(IModelMapView modelMapView,  Func<IModelMember, bool> predicate)  {
             var modelListView = modelMapView.Parent as IModelListView;
-            return modelListView != null ? new CalculatedModelNodeList<IModelMember>(modelListView.Columns.Select(column => column.ModelMember))
-                       : ((IModelClass)modelMapView.Parent).AllMembers;
+            IEnumerable<IModelMember> members =
+                modelListView != null ? modelListView.Columns.Select(column => column.ModelMember) : ((IModelClass)modelMapView.Parent).AllMembers;
+
+            return new CalculatedModelNodeList<IModelMember>(members.Where(predicate));
         }
 
+        public static IModelList<IModelMember> Get_AllMembers(IModelMapView modelMapView) {
+
+            return GetMembers(modelMapView, m => true);
+        }
+
+        public static IModelList<IModelMember> Get_NumericMembers(IModelMapView modelMapView)   {
+
+            return GetMembers(modelMapView, m => m.Type == typeof(float) || m.Type == typeof(double) || m.Type==typeof(decimal));
+        }
         public static bool Get_AllowHtmlInInfoWindowText(IModelMapView modelMapView) {
             return modelMapView.GetFromListView(mv => mv.AllowHtmlInInfoWindowText);
         }
