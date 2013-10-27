@@ -5,9 +5,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
-using Xpand.ExpressApp.Security.Registration;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Web {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]

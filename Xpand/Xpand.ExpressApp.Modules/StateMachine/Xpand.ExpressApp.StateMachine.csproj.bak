@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <NugetPkg>eXpandStateMachine</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -18,7 +19,7 @@
     <SccAuxPath></SccAuxPath>
     <SccProvider></SccProvider>
     <UpgradeBackupLocation></UpgradeBackupLocation>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
@@ -59,56 +60,46 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\New folder\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
     <Reference Include="System">
@@ -118,22 +109,19 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs">
+    <Compile Include="Controllers\CriteriaActionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PermissionTransitionStateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChangeStateActionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\StateMachineCacheController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />

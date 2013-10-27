@@ -120,6 +120,10 @@
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\ActionExtenions.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\ApplicationResourceDifferences.cs" />
+    <Compile Include="General\Controllers\CreateExpandAbleMembersViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\Dashboard\DashboardInteraction.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -147,9 +151,11 @@
     </Compile>
     <Compile Include="General\Controllers\XpandReferenceConverter.cs" />
     <Compile Include="General\CriteriaOperatorExtensions.cs" />
+    <Compile Include="General\CustomAttributes\InVisibleInAllViewsAttribute.cs" />
     <Compile Include="General\CustomShowNavigationItemEventArgsExtensions.cs" />
     <Compile Include="General\DataStoreProvider.cs" />
     <Compile Include="General\DynamicSecuritySystemObjects.cs" />
+    <Compile Include="General\EditorAliases.cs" />
     <Compile Include="General\FrameExtensions.cs" />
     <Compile Include="General\HideFromNewMenuAttribute.cs" />
     <Compile Include="General\IChooseFromListCollectionEditor.cs" />
@@ -163,7 +169,9 @@
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="General\Model\Interfaces.cs" />
     <Compile Include="General\Model\CloneView.cs" />
-    <Compile Include="General\Model\ModuleController.cs" />
+    <Compile Include="General\Model\ModulesNode.cs" />
+    <Compile Include="General\Model\ReadOnlyParametersNode.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\EditorTypeVisibilityCalculator.cs" />
     <Compile Include="General\Model\Options\Interfaces.cs" />
     <Compile Include="General\Model\Options\Synchronizers.cs" />
@@ -305,6 +313,9 @@
     <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
     <Compile Include="RuntimeMembers\Model\Members.cs" />
     <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
+    <Compile Include="Security\IModelOptionsRegistration.cs" />
+    <Compile Include="Security\IModelRegistrationActivation.cs" />
+    <Compile Include="Security\IModelRegistrationEnabled.cs" />
     <Compile Include="Validation\IPasswordScoreController.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />

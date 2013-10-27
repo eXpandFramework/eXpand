@@ -1,0 +1,55 @@
+﻿.cr-text { color: Black; }
+.cr-text-html { color: Black; }
+
+.cr-keyword { color: Blue; }
+.cr-keyword-html { color: #2B91AF; }
+.cr-keyword-css { color: #A31515; }
+
+.cr-operator { color: Black; }
+
+.cr-preproc { color: #2B91AF; }
+.cr-preproc-html { background-color: #FFEE62; color: Black; }
+
+.cr-string { color: #A31515; }
+.cr-string-html { color: Black; }
+.cr-string-css { color: Blue; }
+
+.cr-number { color: Black; }
+
+.cr-identifier { color: Black; }
+
+.cr-htmlserverscript { background-color: #FFEE62; }
+
+.cr-htmlstring { background-color: Blue; }
+
+.cr-unknown { color: Black; }
+
+.cr-comment { color: Green; }
+
+.cr-xmlcomment { color: Green; }
+
+.cr-csscomment { color: Green; }
+
+.cr-csskeyword { color: #A31515; }
+
+.cr-csspropertyname { color: #FF0000; }
+
+.cr-csspropertyvalue { color: Blue; }
+
+.cr-cssselector { color: #800000; }
+
+.cr-cssstringvalue { color: Blue; }
+
+.cr-htmlelementname { color: #A31515; }
+
+.cr-htmlentity { color: #FF0000; }
+
+.cr-htmloperator { color: Blue; }
+
+.cr-htmlcomment { color: Green; }
+
+.cr-htmlattributename { color: #FF0000; }
+
+.cr-htmlattributevalue { color: Blue; }
+
+.cr-htmltagdelimiter { color: Blue; }

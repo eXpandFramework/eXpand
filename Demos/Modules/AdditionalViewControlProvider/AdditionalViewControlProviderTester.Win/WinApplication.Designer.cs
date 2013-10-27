@@ -33,7 +33,7 @@ namespace AdditionalViewControlProviderTester.Win {
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=AdditionalViewControlProviderTester";
+            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=AdditionalViewControlProviderTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // AdditionalViewControlProviderTesterWindowsFormsApplication

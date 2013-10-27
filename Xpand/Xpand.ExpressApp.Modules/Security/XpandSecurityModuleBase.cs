@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.Security {

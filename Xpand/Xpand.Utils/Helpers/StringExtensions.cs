@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -43,10 +44,6 @@ namespace Xpand.Utils.Helpers {
             return null;
         }
 
-
-
-
-
         public static string MakeFirstCharUpper(this string s) {
             if ((s + "").Length > 0) {
                 string substring1 = s.Substring(0, 1).ToUpper();
@@ -55,6 +52,7 @@ namespace Xpand.Utils.Helpers {
             }
             return s;
         }
+
         public static string MakeFirstCharLower(this string s) {
             if ((s + "").Length > 0) {
                 string substring1 = s.Substring(0, 1).ToLower();
@@ -63,8 +61,6 @@ namespace Xpand.Utils.Helpers {
             }
             return s;
         }
-
-
 
         public static string Inject(this string injectToString, int positionToInject, string stringToInject) {
             var builder = new StringBuilder();
@@ -76,13 +72,11 @@ namespace Xpand.Utils.Helpers {
 
         public static long Val(this string value) {
             string returnVal = String.Empty;
-
             MatchCollection collection = Regex.Matches(value, "\\d+");
-
             returnVal = collection.Cast<Match>().Aggregate(returnVal, (current, match) => current + match.ToString());
-
             return Convert.ToInt64(returnVal);
         }
+
         public static bool IsGuid(this string candidate) {
             if (candidate != null) {
                 if (isGuid.IsMatch(candidate)) {
@@ -111,6 +105,14 @@ namespace Xpand.Utils.Helpers {
 
         public static bool IsWhiteSpace(this string value) {
             return value.All(Char.IsWhiteSpace);
+        }
+
+        public static string CleanCodeName(this string name) {
+            var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
+            string ret = regex.Replace(name + "", "");
+            if (!(String.IsNullOrEmpty(ret)) && !Char.IsLetter(ret, 0) && !CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))
+                ret = String.Concat("_", ret);
+            return ret;
         }
     }
 }

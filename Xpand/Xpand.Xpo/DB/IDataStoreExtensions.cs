@@ -31,8 +31,19 @@ namespace Xpand.Xpo.DB {
         public static void CreateColumn(this ConnectionProviderSql connectionProviderSql, XPMemberInfo xpMemberInfo, bool throwUnableToCreateDBObjectException = false) {
             var dbColumnType = GetDbColumnType(xpMemberInfo);
             var column = new DBColumn(xpMemberInfo.Name, false, null, xpMemberInfo.MappingFieldSize, dbColumnType);
-            CallSchemaUpdateMethod(connectionProviderSql,  sql => sql.CreateColumn(xpMemberInfo.Owner.Table, column),throwUnableToCreateDBObjectException);
+            CallSchemaUpdateMethod(connectionProviderSql,  sql => CreateColumnCore(xpMemberInfo, throwUnableToCreateDBObjectException, sql, column),throwUnableToCreateDBObjectException);
             connectionProviderSql.CreateForeignKey(xpMemberInfo,throwUnableToCreateDBObjectException);
+        }
+
+        static void CreateColumnCore(XPMemberInfo xpMemberInfo, bool throwUnableToCreateDBObjectException, ConnectionProviderSql sql,
+                                 DBColumn column) {
+            try {
+                sql.CreateColumn(xpMemberInfo.Owner.Table, column);
+            }
+            catch (UnableToCreateDBObjectException) {
+                if (throwUnableToCreateDBObjectException)
+                    throw;
+            }
         }
 
         static Action<ConnectionProviderSql> CreateForeighKey(XPMemberInfo xpMemberInfo) {

@@ -54,6 +54,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public string NormalCriteria { get; set; }
 
         public string EmptyCriteria { get; set; }
+        public bool? IsNew { get; set; }
 
         public bool? IsRootView { get; set; }
 

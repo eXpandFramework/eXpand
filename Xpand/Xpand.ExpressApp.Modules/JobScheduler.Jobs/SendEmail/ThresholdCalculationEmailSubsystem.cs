@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
                                 DataType = CaptionHelper.GetClassCaption(type.FullName),
                                 Severity = severity
                             };
-            var mail = TemplateEngine.Execute(_name, model);
+            Email mail = TemplateEngine.Execute(_name, model);
             to.Split(';').Each(s => mail.To.Add(s));
             mail.From = ConfigurationManager.AppSettings["ThresholdEmailJobFrom"];
             mail.Subject = subjectTemplate;

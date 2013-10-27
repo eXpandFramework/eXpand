@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="EmailTester" Logo="ExpressAppLogo">
+  <Email>
+    <EmailReceipients>
+      <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
+        <EmailReceipient Id="Admins" EmailReceipient="EmailTester.Module.BusinessObjects.User" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
+      </EmailReceipientGroup>
+    </EmailReceipients>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="New Cuctomer" Criteria="[Name] = 'New Customer'" IsNewNode="True" />
+      <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
+      <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="New Customer created" TypeInfo="EmailTester.Module.BusinessObjects.Customer" View="Customer_DetailView" TemplateContext="New Cuctomer" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to Admins" IsNew="True" IsNewNode="True" />
+      <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" IsNewNode="True" />
+    </Rules>
+    <SmtpClientContexts>
+      <SmtpClientContext Id="GlobalSmtpClientContext" UserName="apostolis.bekiaris@gmail.com" Password="111111" SenderEmail="apostolis.bekiaris@gmail.com" Host="smtp.gmail.com" EnableSsl="True" Port="587" IsNewNode="True" />
+    </SmtpClientContexts>
+  </Email>
+  <Options>
+    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" UserModelClass="EmailTester.Module.BusinessObjects.User" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" ActivationIdMember="Activation" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="EmailModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="13.1.8.1" IsNewNode="True" />
+  </SchemaModules>
+</Application>

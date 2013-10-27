@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <SchemaModules IsNewNode="True">
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="8.3.4.5247" IsNewNode="True" />
+    <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="8.3.4.5247" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="MasterDetailModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="MasterDetailOperationPermissionData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="10">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="51" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1" RelativeSize="89">
+            <TabbedGroup Id="Item4">
+              <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="MasterDetail" IsNewNode="True">
+                <LayoutItem Id="ChildListView" ViewItem="ChildListView" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
+                <LayoutItem Id="CollectionMember" ViewItem="CollectionMember" SizeConstraintsType="Default" Index="1" RelativeSize="93" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" Index="1">
+                <LayoutItem Id="IsNew" RelativeSize="6" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="93">
+                  <LayoutItem Id="NormalCriteria" RelativeSize="47" />
+                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item5" Index="2">
+                <LayoutItem Id="View" RelativeSize="6" />
+                <LayoutItem Id="ViewType" RelativeSize="4" />
+                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="7">
+                  <LayoutItem Id="Nesting" RelativeSize="49" />
+                  <LayoutItem Id="IsRootView" RelativeSize="50" />
+                </LayoutGroup>
+                <LayoutItem Id="ViewEditMode" RelativeSize="81" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item1" Index="3">
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="6" />
+                <LayoutItem Id="ExecutionContextGroup" RelativeSize="4" />
+                <LayoutItem Id="ViewContextGroup" RelativeSize="4" />
+                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="4" />
+                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="79" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Logic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+  </Views>
+</Application>

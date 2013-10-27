@@ -68,7 +68,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>

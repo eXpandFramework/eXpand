@@ -13,7 +13,7 @@ using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.Persistent.Base.General;
-using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     [ToolboxItem(true)]
@@ -53,6 +53,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
+            extenders.Add<IModelOptions, IModelOptionsQueryStringParameter>();
             extenders.Add<IModelListView, IModelListViewOpenViewWhenNested>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
         }

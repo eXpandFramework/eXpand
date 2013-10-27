@@ -107,7 +107,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
-    <Compile Include="Attributes\InVisibleInAllViewsAttribute.cs" />
     <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
@@ -125,7 +124,9 @@
     <Compile Include="Core\BaseDomainLogic.cs" />
     <Compile Include="Model\ListView.cs" />
     <Compile Include="Model\ResetViewModelOnSaving.cs" />
-    <Compile Include="Model\UnboundColumn.cs" />
+    <Compile Include="Model\UnboundColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
@@ -169,9 +170,6 @@
     <Compile Include="SystemModule\ParentObjectSpaceCommitChangesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CreateExpandAbleMembersViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\AssignMasterDetailToNestedViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -184,7 +182,6 @@
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Editors\EditorAliases.cs" />
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
@@ -198,9 +195,6 @@
     <Compile Include="Core\LinqCollectionSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ModelDifferenceObjectsRuntimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\AllowEditDetailViewController.cs">

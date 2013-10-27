@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="EmailTester.Win"
+			FileName="[WinAppBin]\EmailTester.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="EmailTester.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+		<!-- For IIS -->
+		<!--Application
+			Name="EmailTester.Web"
+			Url="http://localhost/EmailTester.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+	</Applications>
+	<TestDatabases>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="EmailTesterEasyTest" />
+	</TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\EmailTester.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\EmailTester.Web" />
+	</Aliases>
+</Options>

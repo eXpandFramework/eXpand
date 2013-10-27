@@ -138,6 +138,9 @@
     <Compile Include="Controllers\CombineActiveUserDiffsWithLastLayerController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ModelDifferenceObjectsRuntimeMembersController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\ReloadApplicationModelController.cs">
       <SubType>Component</SubType>
     </Compile>

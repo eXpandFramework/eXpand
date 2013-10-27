@@ -25,6 +25,7 @@ using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -116,6 +117,8 @@ namespace Xpand.Persistent.Base.General {
 
         public static bool GetIsHosted(IModelApplication application) {
             var modelSources = ((IModelSources) application);
+            if (modelSources == null)
+                return Assembly.GetEntryAssembly() == null;
             return modelSources.Modules.Any(@base => {
                 var attribute =((ITypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
                 if (attribute != null)
@@ -130,8 +133,10 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[]
                     {typeof (DashboardInteractionController), typeof (WebDashboardRefreshController)});
             }
-            if (!Executed("GetDeclaredControllerTypes"))
-                declaredControllerTypes= declaredControllerTypes.Union(new[] { typeof(CreatableItemController), typeof(FilterByColumnController) });
+            if (!Executed("GetDeclaredControllerTypes")) {
+                declaredControllerTypes= declaredControllerTypes.Union(new[]
+                {typeof (CreatableItemController), typeof (FilterByColumnController),typeof(CreateExpandAbleMembersViewController)});
+            }
             
             return declaredControllerTypes;
         }
@@ -193,6 +198,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelMember, IModelMemberCellFilter>();
                 extenders.Add<IModelColumn, IModelColumnCellFilter>();   
             }
+
             if (Executed("ExtendModelInterfaces"))
                 return;
             
@@ -201,7 +207,9 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, ITypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
+            extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
+            extenders.Add<IModelApplication, IModelApplicationResourceDifferences>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
             
         }
@@ -217,6 +225,7 @@ namespace Xpand.Persistent.Base.General {
             
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
+            updaters.Add(new ApplicationDifferencesUpdater());
         }
 
         protected internal bool RuntimeMode {
@@ -493,7 +502,12 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("CustomizeTypesInfo"))
                 return;
-            
+            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null)) {
+                memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
+                memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
+            }
+
             AssignSecurityEntities();
             ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
             var type = (BaseInfo) findTypeInfo.FindMember("Type");

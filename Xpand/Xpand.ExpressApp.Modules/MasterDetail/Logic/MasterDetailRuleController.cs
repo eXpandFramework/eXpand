@@ -17,15 +17,22 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             Frame.Disposing+=FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
-            var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().Single();
-            masterDetailViewControllerBase.RequestRules = frame1 => {
-                var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
-                return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
-            };
+            var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().SingleOrDefault();
+            if (masterDetailViewControllerBase != null)
+                masterDetailViewControllerBase.RequestRules = frame1 => {
+                    var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
+                    return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
+                };
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (_masterDetailRules!=null)
+                _masterDetailRules.Clear();
         }
 
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

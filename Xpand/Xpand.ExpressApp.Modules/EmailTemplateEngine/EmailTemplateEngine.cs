@@ -17,13 +17,13 @@ namespace Xpand.EmailTemplateEngine {
         public const string DefaultHtmlTemplateSuffix = "html";
         public const string DefaultTextTemplateSuffix = "text";
 
-        private const string NamespaceName = "EmailModule";
+        private const string NamespaceName = "EmailTemplateEngineModule";
 
-        private static readonly Dictionary<string, IEnumerable<KeyValuePair<string, Type>>> typeMapping = new Dictionary<string, IEnumerable<KeyValuePair<string, Type>>>(StringComparer.OrdinalIgnoreCase);
-        private static readonly ReaderWriterLockSlim syncLock = new ReaderWriterLockSlim();
+        private static readonly Dictionary<string, IEnumerable<KeyValuePair<string, Type>>> TypeMapping = new Dictionary<string, IEnumerable<KeyValuePair<string, Type>>>(StringComparer.OrdinalIgnoreCase);
+        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
 
-        private static readonly string[] referencedAssemblies = BuildReferenceList().ToArray();
-        private static readonly RazorTemplateEngine razorEngine = CreateRazorEngine();
+        private static readonly string[] ReferencedAssemblies = BuildReferenceList().ToArray();
+        private static readonly RazorTemplateEngine RazorEngine = CreateRazorEngine();
 
         public EmailTemplateEngine(IEmailTemplateContentReader contentReader)
             : this(contentReader, DefaultHtmlTemplateSuffix, DefaultTextTemplateSuffix, DefaultSharedTemplateSuffix) {
@@ -47,13 +47,17 @@ namespace Xpand.EmailTemplateEngine {
 
         protected string TextTemplateSuffix { get; private set; }
 
+        public virtual Email Execute(dynamic model, string templateName) {
+            return Execute(templateName, model);
+        }
+
         public virtual Email Execute(string templateName, object model = null) {
             Invariant.IsNotBlank(templateName, "templateName");
-
+            templateName = templateName.CleanCodeName();
             var templates = CreateTemplateInstances(templateName);
 
             foreach (var pair in templates) {
-                pair.Value.SetModel(WrapModel(model));
+                pair.Value.SetModel(model);
                 pair.Value.Execute();
             }
 
@@ -61,19 +65,19 @@ namespace Xpand.EmailTemplateEngine {
 
             templates.SelectMany(x => x.Value.To)
                      .Distinct(StringComparer.OrdinalIgnoreCase)
-                     .Each(email => mail.To.Add(email));
+                     .Each(AddMails(mail));
 
             templates.SelectMany(x => x.Value.ReplyTo)
                      .Distinct(StringComparer.OrdinalIgnoreCase)
-                     .Each(email => mail.ReplyTo.Add(email));
+                     .Each(AddReplyToMails(mail));
 
             templates.SelectMany(x => x.Value.Bcc)
                      .Distinct(StringComparer.OrdinalIgnoreCase)
-                     .Each(email => mail.Bcc.Add(email));
+                     .Each(AddBccMails(mail));
 
             templates.SelectMany(x => x.Value.CC)
                      .Distinct(StringComparer.OrdinalIgnoreCase)
-                     .Each(email => mail.CC.Add(email));
+                     .Each(AddCCMails(mail));
 
             Action<string, Action<string>> set = (contentType, action) => {
                 var item = templates.SingleOrDefault(x => x.Key.Equals(contentType));
@@ -101,40 +105,60 @@ namespace Xpand.EmailTemplateEngine {
                 }
             };
 
-            set(ContentTypes.Text, body => { mail.TextBody = body; });
-            set(ContentTypes.Html, body => { mail.HtmlBody = body; });
+            set(ContentTypes.Text, AssignTextBody(mail));
+            set(ContentTypes.Html, AssignHtmlBody(mail));
             set(string.Empty, null);
 
             return mail;
         }
 
+        Action<string> AssignHtmlBody(Email mail) {
+            return body => mail.HtmlBody = body;
+        }
+
+        Action<string> AssignTextBody(Email mail) {
+            return body => mail.TextBody = body;
+        }
+
+        Action<string> AddCCMails(Email mail) {
+            return email => mail.CC.Add(email);
+        }
+
+        Action<string> AddBccMails(Email mail) {
+            return email => mail.Bcc.Add(email);
+        }
+
+        Action<string> AddReplyToMails(Email mail) {
+            return email => mail.ReplyTo.Add(email);
+        }
+
+        Action<string> AddMails(Email mail) {
+            return email => mail.To.Add(email);
+        }
+
         protected virtual Assembly GenerateAssembly(params KeyValuePair<string, string>[] templates) {
             var assemblyName = NamespaceName + "." + Guid.NewGuid().ToString("N") + ".dll";
-
-            var templateResults = templates.Select(pair => razorEngine.GenerateCode(new StringReader(pair.Value), pair.Key, NamespaceName, pair.Key + ".cs")).ToList();
-
+            var templateResults = templates.Select(GenerateCode).ToList();
             if (templateResults.Any(result => result.ParserErrors.Any())) {
                 var parseExceptionMessage = string.Join(Environment.NewLine + Environment.NewLine, templateResults.SelectMany(r => r.ParserErrors).Select(e => e.Location + ":" + Environment.NewLine + e.Message).ToArray());
-
                 throw new InvalidOperationException(parseExceptionMessage);
             }
-
             using (var codeProvider = new CSharpCodeProvider()) {
-                var compilerParameter = new CompilerParameters(referencedAssemblies, assemblyName, false) {
+                var compilerParameter = new CompilerParameters(ReferencedAssemblies, assemblyName, false) {
                     GenerateInMemory = true,
                     CompilerOptions = "/optimize",
                 };
-
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());
-
                 if (compilerResults.Errors.HasErrors) {
                     var compileExceptionMessage = string.Join(Environment.NewLine + Environment.NewLine, compilerResults.Errors.OfType<CompilerError>().Where(ce => !ce.IsWarning).Select(e => e.FileName + ":" + Environment.NewLine + e.ErrorText).ToArray());
-
                     throw new InvalidOperationException(compileExceptionMessage);
                 }
-
                 return compilerResults.CompiledAssembly;
             }
+        }
+
+        GeneratorResults GenerateCode(KeyValuePair<string, string> pair) {
+            return RazorEngine.GenerateCode(new StringReader(pair.Value), pair.Key, NamespaceName, pair.Key + ".cs");
         }
 
         protected virtual dynamic WrapModel(object model) {
@@ -190,21 +214,21 @@ namespace Xpand.EmailTemplateEngine {
         private IEnumerable<KeyValuePair<string, Type>> GetTemplateTypes(string templateName) {
             IEnumerable<KeyValuePair<string, Type>> templateTypes;
 
-            syncLock.EnterUpgradeableReadLock();
+            SyncLock.EnterUpgradeableReadLock();
 
             try {
-                if (!typeMapping.TryGetValue(templateName, out templateTypes)) {
-                    syncLock.EnterWriteLock();
+                if (!TypeMapping.TryGetValue(templateName, out templateTypes)) {
+                    SyncLock.EnterWriteLock();
 
                     try {
                         templateTypes = GenerateTemplateTypes(templateName);
-                        typeMapping.Add(templateName, templateTypes);
+                        TypeMapping.Add(templateName, templateTypes);
                     } finally {
-                        syncLock.ExitWriteLock();
+                        SyncLock.ExitWriteLock();
                     }
                 }
             } finally {
-                syncLock.ExitUpgradeableReadLock();
+                SyncLock.ExitUpgradeableReadLock();
             }
 
             return templateTypes;

@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
                 modelLogic = modelLogic.Parent;
             }
             var first = LogicInstallerManager.Instance.LogicInstallers.First(installer 
-                =>Equals(((ModelNode) installer.GetModelLogic().ExecutionContextsGroup).Parent.Id,
+                =>Equals(((ModelNode) installer.GetModelLogic(modelExecutionContext.Application).ExecutionContextsGroup).Parent.Id,
                          ((ModelNode) modelLogic.Parent.Parent).Id));
             return first.ExecutionContexts.Select(context => context.ToString()).ToList();
         }

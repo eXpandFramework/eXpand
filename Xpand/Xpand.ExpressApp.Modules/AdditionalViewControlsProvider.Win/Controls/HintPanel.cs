@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Utils.Frames;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
@@ -56,6 +58,20 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
                 }
             }
         }
+
+        string ISupportAppeareance.ImageName
+        {
+            get { return null; }
+            set
+            {
+                Image image = null;
+                if (!String.IsNullOrEmpty(value))
+                    image = ImageLoader.Instance.GetImageInfo(value).Image;
+                if (image != null)
+                    ArrowImage = image;
+            }
+        }
+
         #endregion
 
         public IAdditionalViewControlsRule Rule { get; set; }

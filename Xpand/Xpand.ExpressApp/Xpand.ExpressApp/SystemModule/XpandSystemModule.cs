@@ -12,7 +12,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
@@ -25,7 +24,7 @@ using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
-using EditorAliases = Xpand.ExpressApp.Editors.EditorAliases;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -82,11 +81,6 @@ namespace Xpand.ExpressApp.SystemModule {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
                 }
-            }
-            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>()!=null)) {
-                memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
-                memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
-                memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
             }
             if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);

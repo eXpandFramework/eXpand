@@ -85,6 +85,9 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         [EditorAlias(EditorAliases.ExtendedCriteriaPropertyEditor)]
         [ModelDefault("RowCount", "3")]
         public string EmptyCriteria { get; set; }
+
+        public bool? IsNew { get; set; }
+
         [Index(7)]
         public FrameTemplateContext FrameTemplateContext { get; set; }
         [Index(8)]

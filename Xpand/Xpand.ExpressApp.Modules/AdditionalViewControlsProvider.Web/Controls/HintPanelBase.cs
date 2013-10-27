@@ -80,6 +80,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
             }
         }
 
+        string ISupportAppeareance.ImageName
+        {
+            get; set; 
+        }
 
     }
 }

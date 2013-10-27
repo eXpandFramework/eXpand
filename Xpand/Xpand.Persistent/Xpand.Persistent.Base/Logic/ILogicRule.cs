@@ -21,6 +21,9 @@ namespace Xpand.Persistent.Base.Logic {
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + AssemblyInfo.VSuffix, typeof(UITypeEditor))]
         string EmptyCriteria { get; set; }
 
+        [Category("ConditionalLogic.Behavior")]
+        bool? IsNew { get; set; }
+
         [Category("Logic.Behavior")]
         bool? IsRootView { get; set; }
 
@@ -43,6 +46,8 @@ namespace Xpand.Persistent.Base.Logic {
 
         [Browsable(false)]
         ITypeInfo TypeInfo { get; set; }
+
+        
     }
 
 }

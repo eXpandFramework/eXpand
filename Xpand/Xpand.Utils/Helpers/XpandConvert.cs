@@ -292,7 +292,18 @@ namespace Xpand.Utils.Helpers {
             if (destinationType == typeof(UInt64)) {
                 return TryParseUInt64(value, ref result);
             }
+            if (destinationType == typeof(Guid)) {
+                return TryParseUGuid(value, ref result);
+            }
             return false;
+        }
+
+        static bool TryParseUGuid(string valueString, ref object result) {
+            Guid guid;
+            var tryParse = Guid.TryParse(valueString, out guid);
+            if (tryParse)
+                result = guid;
+            return tryParse;
         }
 
         static bool TryParseUInt64(string valueString, ref object result) {

@@ -10,7 +10,11 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
-    public class LogicRuleEvaluator  {
+    public class LogicRuleEvaluator {
+        Frame _frame;
+
+        internal bool IsNew { get; set; }
+
         public class ViewInfo {
             public ViewInfo(string viewId, bool isDetailView, bool isRoot, ITypeInfo objectTypeInfo, ViewEditMode? viewEditMode) {
                 ViewId = viewId;
@@ -27,7 +31,27 @@ namespace Xpand.ExpressApp.Logic {
             public ViewEditMode? ViewEditMode { get; set; }
         }
 
-        public Frame Frame { get; set; }
+        public Frame Frame {
+            get { return _frame; }
+            set {
+                if (value!=null)
+                    value.ViewChanging +=ValueOnViewChanging;
+                else {
+                    _frame.ViewChanging -= ValueOnViewChanging;
+                }
+                _frame = value;
+            }
+        }
+
+        void ValueOnViewChanging(object sender, ViewChangingEventArgs viewChangingEventArgs) {
+            IsNew = viewChangingEventArgs.View.ObjectSpace.IsNewObject(viewChangingEventArgs.View.CurrentObject);
+            viewChangingEventArgs.View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
+            viewChangingEventArgs.View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
+        }
+
+        void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {
+            IsNew = _frame.View.ObjectSpace.IsNewObject(_frame.View.CurrentObject);
+        }
 
         protected virtual bool ViewIsRoot(ILogicRuleObject ruleObject) {
             return !(ruleObject.IsRootView.HasValue) || ruleObject.IsRootView == Frame.View.IsRoot;
@@ -42,9 +66,13 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual bool IsValidRule(ILogicRuleObject rule, ViewInfo viewInfo) {
-            return (IsValidViewId(viewInfo.ViewId, rule)) &&
+            return (IsValidViewId(viewInfo.ViewId, rule)) &&IsValidNewObject(rule)&&
                    IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule)
                    && IsValidViewEditMode(viewInfo, rule) && TemplateContextGroupIsValid(rule) && ViewIsRoot(rule);
+        }
+
+        bool IsValidNewObject(ILogicRuleObject rule) {
+            return !rule.IsNew.HasValue || (rule.IsNew.Value ? IsNew : !IsNew);
         }
 
         protected virtual bool IsValidViewEditMode(ViewInfo viewInfo, ILogicRuleObject rule) {
@@ -98,8 +126,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public virtual bool Fit(object targetObject, ILogicRuleObject logicRule) {
             var criteria = CriteriaOperator.Parse(logicRule.NormalCriteria);
-            return targetObject != null? criteria.Fit(targetObject): string.IsNullOrEmpty(logicRule.EmptyCriteria) 
-                || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object());
+            return targetObject != null ? criteria.Fit(targetObject) : string.IsNullOrEmpty(logicRule.EmptyCriteria) || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object());
         }
 
     }

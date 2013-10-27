@@ -4,4 +4,74 @@
     <SchemaModule Name="LogicModule" Version="13.1.6.2" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="LogicRuleOperationPermissionData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8" Direction="Horizontal">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col1" ShowCaption="False" Index="0" RelativeSize="48" IsNewNode="True">
+              <LayoutItem Id="ObjectTypeData" ViewItem="ObjectTypeData" SizeConstraintsType="Default" Index="0" RelativeSize="51" IsNewNode="True" />
+              <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="1" RelativeSize="48" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" ShowCaption="False" Index="1" RelativeSize="51" IsNewNode="True">
+              <LayoutItem Id="ID" ViewItem="ID" SizeConstraintsType="Default" Index="0" RelativeSize="51" IsNewNode="True" />
+              <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="48" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogicRuleOperationPermissionData" RelativeSize="100" Removed="True">
+              <LayoutGroup Id="LogicRuleOperationPermissionData_col1" RelativeSize="47">
+                <LayoutItem Id="ObjectTypeData" SizeConstraintsType="Default" Index="0" RelativeSize="50" />
+                <LayoutItem Id="Index" SizeConstraintsType="Default" Index="1" RelativeSize="50" />
+                <LayoutItem Id="ViewEditMode" SizeConstraintsType="Default" RelativeSize="14" Index="4" Removed="True" />
+                <LayoutItem Id="ID" SizeConstraintsType="Default" RelativeSize="36" Removed="True" />
+                <LayoutItem Id="Nesting" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
+                <LayoutItem Id="View" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
+                <LayoutItem Id="ViewType" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="48" Caption="LogicRuleOperationPermissionData_col2">
+                <LayoutItem Id="ID" ViewItem="ID" SizeConstraintsType="Default" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="IsNew" SizeConstraintsType="Default" RelativeSize="36" Index="0" Removed="True" />
+                <LayoutItem Id="Description" ViewItem="Description" SizeConstraintsType="Default" Index="1" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="ExecutionContextGroup" SizeConstraintsType="Default" RelativeSize="15" Index="1" Removed="True" />
+                <LayoutItem Id="ViewContextGroup" SizeConstraintsType="Default" RelativeSize="15" Index="2" Removed="True" />
+                <LayoutItem Id="FrameTemplateContextGroup" SizeConstraintsType="Default" RelativeSize="15" Index="3" Removed="True" />
+                <LayoutItem Id="ActionExecutionContextGroup" SizeConstraintsType="Default" RelativeSize="15" Index="4" Removed="True" />
+                <LayoutItem Id="FrameTemplateContext" SizeConstraintsType="Default" RelativeSize="20" Removed="True" />
+                <LayoutItem Id="IsRootView" SizeConstraintsType="Default" RelativeSize="13" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91">
+            <TabbedGroup Id="Item4" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Item3" ShowCaption="True" Caption="Criteria" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="IsNew" ViewItem="IsNew" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" ShowCaption="False" Caption="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2(13)" Direction="Horizontal" Index="1" RelativeSize="95" IsNewNode="True">
+                  <LayoutItem Id="NormalCriteria" ViewItem="NormalCriteria" SizeConstraintsType="Default" Index="0" RelativeSize="48" CaptionLocation="Top" IsNewNode="True" />
+                  <LayoutItem Id="EmptyCriteria" ViewItem="EmptyCriteria" SizeConstraintsType="Default" Index="1" RelativeSize="51" CaptionLocation="Top" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="View" IsNewNode="True">
+                <LayoutItem Id="View" ViewItem="View" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutItem Id="ViewType" ViewItem="ViewType" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
+                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" ShowCaption="False" Caption="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2(19)" Direction="Horizontal" Index="2" RelativeSize="5" IsNewNode="True">
+                  <LayoutItem Id="Nesting" ViewItem="Nesting" SizeConstraintsType="Default" Index="0" RelativeSize="48" IsNewNode="True" />
+                  <LayoutItem Id="IsRootView" ViewItem="IsRootView" SizeConstraintsType="Default" Index="1" RelativeSize="51" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="ViewEditMode" ViewItem="ViewEditMode" SizeConstraintsType="Default" Index="3" RelativeSize="85" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="Contexts" IsNewNode="True">
+                <LayoutItem Id="FrameTemplateContext" ViewItem="FrameTemplateContext" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
+                <LayoutItem Id="ExecutionContextGroup" ViewItem="ExecutionContextGroup" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ViewContextGroup" ViewItem="ViewContextGroup" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="FrameTemplateContextGroup" ViewItem="FrameTemplateContextGroup" SizeConstraintsType="Default" Index="3" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="ActionExecutionContextGroup" ViewItem="ActionExecutionContextGroup" SizeConstraintsType="Default" Index="4" RelativeSize="83" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutItem Id="Description" SizeConstraintsType="Default" RelativeSize="83" Removed="True" />
+            <LayoutItem Id="EmptyCriteria" SizeConstraintsType="Default" RelativeSize="7" Removed="True" />
+            <LayoutItem Id="NormalCriteria" SizeConstraintsType="Default" RelativeSize="8" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

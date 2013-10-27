@@ -16,7 +16,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                 FontStyle = additionalViewControlsRule.FontStyle;
                 Height = additionalViewControlsRule.Height;
                 FontSize=additionalViewControlsRule.FontSize;
-        }
+                ImageName = additionalViewControlsRule.ImageName;
+            }
         #region IAdditionalViewControlsRule Members
         public string Message { get; set; }
 
@@ -37,6 +38,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         public int? Height { get; set; }
 
         public int? FontSize { get; set; }
+
+        public string ImageName { get; set; }
 
         #endregion
     }

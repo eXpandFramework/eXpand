@@ -15,6 +15,7 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Xpo.DB;
 using DevExpress.ExpressApp.Model;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 [assembly: DataStore(typeof(PersistentAssemblyInfo), "WorldCreator")]
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
@@ -56,6 +57,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(6)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
+        [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode {
             get {
                 return CodeEngine.GenerateCode(this);

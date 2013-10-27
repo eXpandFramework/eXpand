@@ -27,6 +27,7 @@ namespace Xpand.Persistent.Base.Logic {
             ViewEditMode = logicRule.ViewEditMode;
             NormalCriteria=logicRule.NormalCriteria;
             EmptyCriteria=logicRule.EmptyCriteria;
+            IsNew = logicRule.IsNew;
         }
 
         public string ID { get; set; }
@@ -37,6 +38,7 @@ namespace Xpand.Persistent.Base.Logic {
         public string NormalCriteria { get; set; }
 
         public string EmptyCriteria { get; set; }
+        public bool? IsNew { get; set; }
 
         public bool? IsRootView { get; set; }
 

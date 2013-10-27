@@ -6,6 +6,7 @@ using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public class ClassAtrributeGenerator {
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
                 persistentAttributeInfos.Add(GetPersistentPersistentAttribute(_dbTable.Name));
             if (!(string.IsNullOrEmpty(_navigationPath)) && _persistentClassInfo.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null) {
                 var persistentNavigationItemAttribute = _objectSpace.CreateWCObject<IPersistentNavigationItemAttribute>();
-                var cleanName = CodeEngine.CleanName(_persistentClassInfo.Name);
+                var cleanName = _persistentClassInfo.Name.CleanCodeName();
                 persistentNavigationItemAttribute.Path = _navigationPath + "/" + cleanName;
                 persistentNavigationItemAttribute.ViewId = cleanName + "_ListView";
                 persistentAttributeInfos.Add(persistentNavigationItemAttribute);
