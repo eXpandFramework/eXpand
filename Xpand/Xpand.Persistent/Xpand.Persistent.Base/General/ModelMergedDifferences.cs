@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,8 +13,7 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelViews = ((IModelViews)node);
-            IEnumerable<IModelObjectViewMergedDifferences> objectViews = ObjectViews(modelViews);
-
+            var objectViews = ObjectViews(modelViews);
             foreach (var modelView in objectViews) {
                 Merge(modelViews, modelView);
             }
@@ -41,7 +41,7 @@ namespace Xpand.Persistent.Base.General {
                     }
                 }
                 if (layoutStrategy)
-                    UpdateRemovedNodes(mergedDifference, objectView);
+                    UpdateRemovedNodes(objectView);
             }
         }
 
@@ -63,30 +63,41 @@ namespace Xpand.Persistent.Base.General {
             return Regex.Replace(xml, "<MergedDifferences[^>]*>(.*?)</MergedDifferences>", "",RegexOptions.Singleline | RegexOptions.IgnoreCase);
         }
 
-        void UpdateRemovedNodes(IModelMergedDifference mergedDifference, IModelObjectView modelObjectView) {
-            var modelDetailView = (mergedDifference.View) as IModelDetailView;
+        void UpdateRemovedNodes(IModelObjectView modelObjectView) {
+            var modelDetailView = modelObjectView as IModelDetailView;
             if (modelDetailView != null) {
                 var detailView = ((IModelDetailView)modelObjectView);
                 if (modelDetailView.Layout != null)
-                    UpdateRemovedNodes(modelDetailView.Layout, detailView.Layout);
-                if (modelDetailView.Items != null) 
-                    UpdateRemovedNodes(modelDetailView.Items, detailView.Items);
+                    UpdateRemovedNodes(detailView.Layout);
             } else {
-                UpdateRemovedNodes(((IModelListView)mergedDifference.View).Columns, ((IModelListView)modelObjectView).Columns);
+                UpdateRemovedNodes(((IModelListView)modelObjectView).Columns);
             }
         }
 
-        void UpdateRemovedNodes(IModelNode modelNode, IModelNode nodeToUpdate) {
+        void UpdateRemovedNodes(IModelNode modelNode) {
             for (int i = modelNode.NodeCount - 1; i >= 0; i--) {
                 var node = modelNode.GetNode(i);
-                var modelNode1 = nodeToUpdate.GetNode(i);
-                if (modelNode1!=null) {
-                    if (((ModelNode) node).IsRemovedNode) {
-                        modelNode1.Remove();
-                    }
-                    UpdateRemovedNodes(node, modelNode1);
-                }
+                var modelNode1 = ((ModelNode) node);
+                if (CanBeRemoved(modelNode1))
+                    node.Remove();
+                UpdateRemovedNodes(node);
             }
+        }
+
+        bool CanBeRemoved(ModelNode modelNode1) {
+            if (modelNode1.IsRemovedNode) {
+                if (modelNode1 is IModelLayoutItem)
+                    return true;
+                if (modelNode1 is IModelLayoutGroup) {
+                    for (int i = modelNode1.NodeCount - 1; i >= 0; i--) {
+                        if (!CanBeRemoved(modelNode1.GetNode(i)))
+                            return false;
+                    }
+                    return true;
+                }
+                throw new NotImplementedException(modelNode1.GetType().FullName);
+            }
+            return modelNode1.IsRemovedNode && !modelNode1.IsNewNode;
         }
 
         void MergeOnlyLayout(IModelObjectView modelObjectView, ModelNode modelNode) {

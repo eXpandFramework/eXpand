@@ -6,6 +6,7 @@ using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
 
 namespace Xpand.ExpressApp.AuditTrail.Security {
+    [System.ComponentModel.DisplayName("AuditTrail")]
     public class AuditTrailOperationPermissionData : LogicRuleOperationPermissionData,IContextAuditTrailRule {
         public AuditTrailOperationPermissionData(Session session) : base(session) {
         }

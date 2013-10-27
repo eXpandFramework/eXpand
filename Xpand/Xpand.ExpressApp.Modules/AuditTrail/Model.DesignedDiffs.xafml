@@ -1,2 +1,43 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="AuditTrailOperationPermissionData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col1" RelativeSize="47" />
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="52" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1">
+            <TabbedGroup Id="Item4">
+              <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="AuditTrail" IsNewNode="True">
+                <LayoutItem Id="AuditingMode" ViewItem="AuditingMode" SizeConstraintsType="Default" Index="0" RelativeSize="5" IsNewNode="True" />
+                <LayoutItem Id="AuditMemberStrategy" ViewItem="AuditMemberStrategy" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="AuditTrailMembersContext" ViewItem="AuditTrailMembersContext" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
+                <LayoutItem Id="IncludeRelatedTypes" ViewItem="IncludeRelatedTypes" SizeConstraintsType="Default" Index="3" RelativeSize="87" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" Index="1">
+                <LayoutItem Id="IsNew" RelativeSize="5" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94">
+                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item5" Index="2">
+                <LayoutItem Id="View" RelativeSize="5" />
+                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2">
+                  <LayoutItem Id="IsRootView" RelativeSize="52" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item1" Index="3">
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Logic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+  </Views>
+</Application>
