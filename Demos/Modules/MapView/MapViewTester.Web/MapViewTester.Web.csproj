@@ -53,7 +53,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1, Version=13.1.7.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1" />
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -139,7 +139,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.MapView, Version=13.1.7.11, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.MapView" />
     <Reference Include="Xpand.ExpressApp.MapView.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.Web.dll</HintPath>
@@ -248,11 +248,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MapViewTester.Module.Web\MapViewTester.Module.Web.csproj">
-      <Project>{2f63f546-5833-4087-8735-ffceb294c26c}</Project>
+      <Project>{7f35aa45-1714-44f7-813b-cd7104541aca}</Project>
       <Name>MapViewTester.Module.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\MapViewTester.Module\MapViewTester.Module.csproj">
-      <Project>{32d7a0ed-3dd8-4164-aca0-071c264a15ae}</Project>
+      <Project>{ef04b36b-e62f-40cb-8bc6-c1b740489383}</Project>
       <Name>MapViewTester.Module</Name>
     </ProjectReference>
   </ItemGroup>

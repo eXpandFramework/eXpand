@@ -50,11 +50,10 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine("var mapOptions = {");
             sb.AppendLine("zoom: 4,");
             sb.AppendLine("mapTypeId: google.maps.MapTypeId.ROADMAP }");
-
             sb.AppendFormat(" var map = new google.maps.Map(document.getElementById('{0}'), mapOptions);\r\n",
                             div.ClientID);
 
-            sb.AppendLine("geocoder = new google.maps.Geocoder();");
+            sb.AppendLine("var geocoder = new google.maps.Geocoder();");
             sb.AppendLine(@"var addMarkerClickEvent = function(marker, objectId) {
                                 google.maps.event.addListener(marker, 'click', function() {");
             sb.AppendLine(@"if (marker.infoWindow) marker.infoWindow.open(map, marker);");
@@ -92,14 +91,13 @@ namespace Xpand.ExpressApp.MapView.Web
                               }
         
                               addMarkerClickEvent(marker, objectId);  
-                              bounds.extend(results[0].geometry.location);  
+                              bounds.extend(location);  
                               if (fitBounds) map.fitBounds(bounds);
-                                                       }
-                           };");
+                         }");
             sb.AppendLine("var createMarkerWithGeocode = function(address, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth) {");
             sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
                             if (status == google.maps.GeocoderStatus.OK) {
-                              createMarker(results[0].geometry.location);  
+                              createMarker(results[0].geometry.location, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth);  
                             } else {
                               alert('Geocode was not successful for the following reason: ' + status);
                             }
@@ -154,7 +152,8 @@ namespace Xpand.ExpressApp.MapView.Web
                 }
             }
             sb.AppendLine("window.AdjustSize();");
-            sb.AppendLine("google.maps.event.trigger(map, 'resize');};");
+            sb.AppendLine("google.maps.event.trigger(map, 'resize');");
+            sb.AppendLine("};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
         }

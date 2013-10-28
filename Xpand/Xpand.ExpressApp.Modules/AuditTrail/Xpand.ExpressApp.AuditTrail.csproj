@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C78FE41-2525-40AC-9096-5D18B9A1ED84}</ProjectGuid>
+    <ProjectGuid>{007CDBAE-9DBD-431C-BB70-CF3596748B06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AuditTrail</RootNamespace>

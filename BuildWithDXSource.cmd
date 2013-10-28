@@ -1,1 +1,1 @@
-msbuild xpand.build /t:Copy;NuGetPackage /p:Version=13.1.7.100;SkipFixReferences=true;SkipDashboard=true
+msbuild xpand.build /t:Copy;NuGetPackage /p:Version=13.1.8.100;SkipFixReferences=true;SkipDashboard=true
