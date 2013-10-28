@@ -17,7 +17,7 @@
       <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
-      <SmtpClientContext Id="GlobalSmtpClientContext" UserName="apostolis.bekiaris@gmail.com" Password="111111" SenderEmail="apostolis.bekiaris@gmail.com" Host="smtp.gmail.com" EnableSsl="True" Port="587" IsNewNode="True" />
+      <SmtpClientContext Id="GlobalSmtpClientContext" UserName="apostolis.bekiaris" Password="111111" SenderEmail="apo.bekiaris@gmail.com" Host="smtp.gmail.com" EnableSsl="True" Port="587" IsNewNode="True" />
     </SmtpClientContexts>
   </Email>
   <Options>
