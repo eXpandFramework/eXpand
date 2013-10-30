@@ -23,25 +23,44 @@ namespace Xpand.Persistent.Base.General {
             var modelNode = ((IModelNode) modelViews[modelView.Id]);
             var layoutStrategy = modelView.MergedDifferences.Any(LayoutStrategy);
             var objectView = (IModelObjectView) modelNode;
+            
             if (layoutStrategy) {
                 ClearLayoutNodes(objectView);
             }
 
             foreach (var mergedDifference in MergedDifferences(modelView)) {
                 var modelObjectView = mergedDifference.View;
-                switch (mergedDifference.Strategy) {
-                    case MergingStrategy.Everything: {
-                        var xml = PrepareXml(modelNode, modelObjectView);
-                        new ModelXmlReader().ReadFromString(modelNode, "", xml);
-                        break;
-                    }
-                    case MergingStrategy.OnlyLayout: {
-                            MergeOnlyLayout(modelObjectView, (ModelNode) modelNode);
-                        break;
-                    }
-                }
+                MergeCore(mergedDifference, modelNode, modelObjectView);
                 if (layoutStrategy)
                     UpdateRemovedNodes(objectView);
+            }
+        }
+
+        void MergeCore(IModelMergedDifference mergedDifference, IModelNode modelNode, IModelObjectView modelObjectView) {
+            switch (mergedDifference.Strategy) {
+                case MergingStrategy.Everything: {
+                    var xml = PrepareXml(modelNode, modelObjectView);
+                    new ModelXmlReader().ReadFromString(modelNode, "", xml);
+                    UpdateMissingGeneratedIndexes(modelNode,modelObjectView as IModelListView);
+                    break;
+                }
+                case MergingStrategy.OnlyLayout: {
+                    MergeOnlyLayout(modelObjectView, (ModelNode) modelNode);
+                    break;
+                }
+            }
+        }
+
+        void UpdateMissingGeneratedIndexes(IModelNode modelNode, IModelListView listView) {
+            var modelListView = modelNode as IModelListView;
+            if (modelListView != null) {
+                var modelView = (IModelListView)modelListView.Application.Views[listView.Id];
+                foreach (IModelColumn modelColumn in (listView).Columns) {
+                    if (modelColumn.GetValue<string>("GeneratedIndex") == null) {
+                        var generatedIndex = modelView.Columns[modelColumn.Id].GetValue<int?>("GeneratedIndex");
+                        modelListView.Columns[modelColumn.Id].SetValue("GeneratedIndex", generatedIndex);
+                    }
+                }
             }
         }
 
@@ -58,8 +77,12 @@ namespace Xpand.Persistent.Base.General {
 
         string PrepareXml(IModelNode modelNode, IModelObjectView modelObjectView) {
             var xml = ((ModelNode) modelObjectView).Xml;
-            xml= Regex.Replace(xml, "(<DetailView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-            xml= Regex.Replace(xml, "(<ListView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            if (modelObjectView is IModelDetailView)
+                xml= Regex.Replace(xml, "(<DetailView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            else if (modelObjectView is IModelListView) {                
+                xml = xml.Replace(" Index=", " GeneratedIndex=");
+                xml = Regex.Replace(xml, "(<ListView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            }
             return Regex.Replace(xml, "<MergedDifferences[^>]*>(.*?)</MergedDifferences>", "",RegexOptions.Singleline | RegexOptions.IgnoreCase);
         }
 
