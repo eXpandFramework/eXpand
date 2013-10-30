@@ -80,7 +80,6 @@ namespace Xpand.Persistent.Base.General {
             if (modelObjectView is IModelDetailView)
                 xml= Regex.Replace(xml, "(<DetailView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             else if (modelObjectView is IModelListView) {                
-                xml = xml.Replace(" Index=", " GeneratedIndex=");
                 xml = Regex.Replace(xml, "(<ListView Id=\")([^\"]*)\"", "$1" + modelNode.GetValue<string>("Id") + "\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             }
             return Regex.Replace(xml, "<MergedDifferences[^>]*>(.*?)</MergedDifferences>", "",RegexOptions.Singleline | RegexOptions.IgnoreCase);
