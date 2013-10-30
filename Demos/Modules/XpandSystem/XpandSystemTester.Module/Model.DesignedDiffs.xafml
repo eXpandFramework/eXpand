@@ -4,8 +4,8 @@
     <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="Customer_DetailView" UndoModificationsOnSaving="True" />
     <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <ListView Id="SalesVolume_ListView" EnanbleUnboundColumnCreation="True" />
     <ListView Id="SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
   </Views>
 </Application>
