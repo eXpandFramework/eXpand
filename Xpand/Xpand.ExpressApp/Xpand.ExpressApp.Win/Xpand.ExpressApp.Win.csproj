@@ -115,15 +115,6 @@
     <Reference Include="DevExpress.XtraRichEdit.v13.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Reporting.Extensions">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
@@ -350,7 +341,6 @@
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\TimeSpan.cs" />
-    <Compile Include="PropertyEditors\TimeZonePropertyEditor.cs" />
     <Compile Include="SystemModule\ApplicationMultiInstancesController.cs">
       <SubType>Component</SubType>
     </Compile>

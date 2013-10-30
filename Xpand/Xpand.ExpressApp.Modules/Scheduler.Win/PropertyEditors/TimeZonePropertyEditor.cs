@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.UI;
 
-namespace Xpand.ExpressApp.Win.PropertyEditors {
+namespace Xpand.ExpressApp.Scheduler.Win.PropertyEditors {
     [PropertyEditor(typeof(TimeZoneId),true)]
     public class TimeZoneEditPropertyEditor : WinPropertyEditor {
         public TimeZoneEditPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
