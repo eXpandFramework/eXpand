@@ -119,8 +119,6 @@ namespace Xpand.ExpressApp.MapView.Web
                     {
                         foreach (var mapViewInfo in mapViewInfoEventArgs.MapViewInfos)
                         {
-                            if (!string.IsNullOrEmpty(mapViewInfo.Address))
-                            {
                                 string infoWindowText = "undefined";
                                 if (!string.IsNullOrEmpty(mapViewInfo.InfoWindowText))
                                 {
@@ -143,11 +141,8 @@ namespace Xpand.ExpressApp.MapView.Web
                                                     (index == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
                                                     infoWindowText, InfoWindowWidth);
                                 }
-
-
                             }
                             index++;
-                        }
                     }
                 }
             }

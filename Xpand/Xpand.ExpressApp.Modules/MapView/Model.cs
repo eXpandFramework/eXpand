@@ -33,6 +33,9 @@ namespace Xpand.ExpressApp.MapView {
         [Browsable(false)]
         IModelList<IModelMember> AllMembers { get; }
 
+        [Browsable(false)]
+        IModelList<IModelMember> NumericMembers { get; }
+
         bool AllowHtmlInInfoWindowText { get; set; }
     }
     [DomainLogic(typeof(IModelMapView))]

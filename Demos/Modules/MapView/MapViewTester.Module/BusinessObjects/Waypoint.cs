@@ -16,7 +16,6 @@ namespace MapViewTester.Module.BusinessObjects
         public Waypoint(Session session)
             : base(session)
         {
-            
         }
 
         private string name;

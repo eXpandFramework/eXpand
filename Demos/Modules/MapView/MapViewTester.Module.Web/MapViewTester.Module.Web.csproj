@@ -119,6 +119,7 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WebModule.resx">
       <DependentUpon>WebModule.cs</DependentUpon>
       <SubType>Designer</SubType>

@@ -38,30 +38,41 @@ namespace Xpand.ExpressApp.MapView.Web {
             get { return Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
         }
 
-        private IModelMapView ModelMapView
-        {
+        private IModelMapView ModelMapView {
             get { return ((IModelListViewMapView)Model).MapView; }
         }
+
+        private T GetMemberValue<T>(object obj, IModelMember modelMember) {
+            if (modelMember == null) return default(T);
+            var value = modelMember.MemberInfo.GetValue(obj);
+            if (value != null)
+                return (T)value;
+            else
+                return default(T);
+        }
+
+        private string GetMemberValueToString(object obj, IModelMember modelMember) {
+            object value = GetMemberValue<object>(obj, modelMember);
+            return value != null ? value.ToString() : null;
+        }
         
-        void MapControlOnMapViewInfoNeeded(object sender, MapViewInfoEventArgs mapViewInfoEventArgs)
-        {
+        void MapControlOnMapViewInfoNeeded(object sender, MapViewInfoEventArgs mapViewInfoEventArgs) {
             var mapView = ModelMapView;
-            if (mapView.AddressMember != null) {
-                var mapViewInfos = new List<MapViewInfo>();
-                foreach (var obj in ((IList)MapControl.DataSource)) {
-                    var mapViewInfo = new MapViewInfo();
-                    var value = mapView.AddressMember.MemberInfo.GetValue(obj);
-                    if (value != null) {
-                        mapViewInfo.Address = value.ToString();
-                        if (mapView.InfoWindowTextMember != null) {
-                            value = mapView.InfoWindowTextMember.MemberInfo.GetValue(obj);
-                            if (value != null) mapViewInfo.InfoWindowText = value.ToString();
-                        }
-                        mapViewInfos.Add(mapViewInfo);
-                    }
+            var mapViewInfos = new List<MapViewInfo>();
+            foreach (var obj in ((IList)MapControl.DataSource)) {
+                var mapViewInfo = new MapViewInfo();
+                string address = GetMemberValueToString(obj, mapView.AddressMember);
+                if (!string.IsNullOrEmpty(address)) {
+                    mapViewInfo.Address = address;
+                    mapViewInfo.InfoWindowText  = GetMemberValueToString(obj, mapView.InfoWindowTextMember);
+                
                 }
-                mapViewInfoEventArgs.MapViewInfos = mapViewInfos;
+
+                mapViewInfo.Latitude = GetMemberValue<decimal?>(obj, mapView.LatitudeMember);
+                mapViewInfo.Longitude = GetMemberValue<decimal?>(obj, mapView.LongitudeMember);
+                mapViewInfos.Add(mapViewInfo);
             }
+            mapViewInfoEventArgs.MapViewInfos = mapViewInfos;
         }
 
         public override IList GetSelectedObjects() {
