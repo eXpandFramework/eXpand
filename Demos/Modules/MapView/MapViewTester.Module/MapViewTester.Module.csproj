@@ -72,6 +72,7 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xpand.ExpressApp.MapView">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.dll</HintPath>
@@ -83,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="BusinessObjects\Waypoint.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -91,6 +93,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="WaypointImporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

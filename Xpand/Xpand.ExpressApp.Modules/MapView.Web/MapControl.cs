@@ -130,7 +130,7 @@ namespace Xpand.ExpressApp.MapView.Web
                                 if (mapViewInfo.Longitude != null && mapViewInfo.Latitude != null)
                                 {
                                     sb.AppendFormat(CultureInfo.InvariantCulture,
-                                        "createMarker(new google.maps.LatLng({0},{1}), '{2}', {3}, '{4}', {5});\r\n",
+                                               "createMarker(new google.maps.LatLng({0},{1}), '{2}', {3}, '{4}', {5});\r\n",
                                         mapViewInfo.Latitude, mapViewInfo.Longitude, index,
                                         (index == list.Count - 1).ToString(CultureInfo.InvariantCulture).ToLower(),
                                         infoWindowText, InfoWindowWidth);
