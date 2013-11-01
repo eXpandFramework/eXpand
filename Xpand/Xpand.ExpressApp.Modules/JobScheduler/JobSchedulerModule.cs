@@ -1,17 +1,14 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
-using System.Linq;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 
@@ -52,15 +49,9 @@ namespace Xpand.ExpressApp.JobScheduler {
             Application.SetupComplete -= ApplicationOnSetupComplete;
             if (!Enabled())
                 return;
-            ISchedulerFactory stdSchedulerFactory = new XpandSchedulerFactory(Application);
-            try {
-                IScheduler scheduler = stdSchedulerFactory.AllSchedulers.SingleOrDefault();
-                _scheduler = scheduler ?? stdSchedulerFactory.GetScheduler();
-            } catch (Exception e) {
-                if (!Debugger.IsAttached)
-                    Tracing.Tracer.LogError(e);
-            }
-
+            var stdSchedulerFactory = new XpandSchedulerFactory(Application);
+            stdSchedulerFactory.Initialize();
+            _scheduler = stdSchedulerFactory.GetScheduler();
         }
 
         bool Enabled() {
