@@ -21,18 +21,20 @@ namespace Xpand.Persistent.Base.General {
 
         void Merge(IModelViews modelViews, IModelObjectViewMergedDifferences modelView) {
             var modelNode = ((IModelNode) modelViews[modelView.Id]);
-            var layoutStrategy = modelView.MergedDifferences.Any(LayoutStrategy);
-            var objectView = (IModelObjectView) modelNode;
-            
-            if (layoutStrategy) {
-                ClearLayoutNodes(objectView);
-            }
+            if (modelNode!=null) {
+                var layoutStrategy = modelView.MergedDifferences.Any(LayoutStrategy);
+                var objectView = (IModelObjectView) modelNode;
 
-            foreach (var mergedDifference in MergedDifferences(modelView)) {
-                var modelObjectView = mergedDifference.View;
-                MergeCore(mergedDifference, modelNode, modelObjectView);
-                if (layoutStrategy)
-                    UpdateRemovedNodes(objectView);
+                if (layoutStrategy) {
+                    ClearLayoutNodes(objectView);
+                }
+
+                foreach (var mergedDifference in MergedDifferences(modelView)) {
+                    var modelObjectView = mergedDifference.View;
+                    MergeCore(mergedDifference, modelNode, modelObjectView);
+                    if (layoutStrategy)
+                        UpdateRemovedNodes(objectView);
+                }
             }
         }
 
