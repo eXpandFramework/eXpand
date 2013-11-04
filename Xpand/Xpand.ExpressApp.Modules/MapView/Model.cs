@@ -74,5 +74,13 @@ namespace Xpand.ExpressApp.MapView {
         public static bool Get_AllowHtmlInInfoWindowText(IModelMapView modelMapView) {
             return modelMapView.GetFromListView(mv => mv.AllowHtmlInInfoWindowText);
         }
+
+        public static IModelMember Get_LatitudeMember(IModelMapView modelMapView)  {
+            return modelMapView.GetFromListView(mv => mv.LatitudeMember);
+        }
+
+        public static IModelMember Get_LongitudeMember(IModelMapView modelMapView)  {
+            return modelMapView.GetFromListView(mv => mv.LongitudeMember);
+        }
     }
 }
