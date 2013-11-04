@@ -202,6 +202,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="Quartz">
+      <HintPath>..\..\..\_third_party_assemblies\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />

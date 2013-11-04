@@ -161,6 +161,7 @@ namespace Xpand.ExpressApp.Model {
             modelColumnUnbound.UnboundExpression = " ";
             modelColumnUnbound.ShowUnboundExpressionMenu = true;
             modelColumnUnbound.Index = 0;
+            modelColumnUnbound.UnboundType=unboundColumnParemeter.UnboundType;
             AddColumn(modelColumnUnbound);
         }
 

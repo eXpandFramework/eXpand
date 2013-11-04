@@ -6,16 +6,18 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5B5CD7F9-59CA-47BD-9D80-CA9EC7A7A351}</ProjectGuid>
+    <ProjectGuid>{FE246EBB-2964-4BC5-B313-796F7897378A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmailTester.Web</RootNamespace>
     <AssemblyName>EmailTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -196,11 +198,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmailTester.Module.Web\EmailTester.Module.Web.csproj">
-      <Project>{B976B441-7264-451B-A7E0-518BCD91D6A6}</Project>
+      <Project>{f3e82b39-05ad-48fa-966e-b1c09774c7cf}</Project>
       <Name>EmailTester.Module.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\EmailTester.Module\EmailTester.Module.csproj">
-      <Project>{C7BC3285-7F52-461A-B9B2-F99EF12068BF}</Project>
+      <Project>{5f114bd0-1edd-44cc-a6fe-057e3808bb3f}</Project>
       <Name>EmailTester.Module</Name>
     </ProjectReference>
   </ItemGroup>
@@ -226,10 +228,12 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl></IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

@@ -36,8 +36,8 @@ namespace Xpand.ExpressApp.PivotChart.Core {
 
         IModelMember GetPropertyModel(IMemberInfo memberInfo) {
             IModelMember result = null;
-            if (_modelApplication != null) {
-                IModelClass modelClass = _modelApplication.BOModel.GetClass(memberInfo.Owner.Type);
+            if (_modelApplication != null && memberInfo != null) {
+                var modelClass = _modelApplication.BOModel.GetClass(memberInfo.Owner.Type);
                 if (modelClass != null) {
                     result = modelClass.FindOwnMember(memberInfo.Name);
                 }

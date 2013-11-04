@@ -29,12 +29,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             extenders.Add<IModelPropertyEditor, IModelPropertyEditorFocusControlByShortcut>();
         }
 
-        readonly Dictionary<Keys, ViewItem> _shortCuts = new Dictionary<Keys, ViewItem>();
-
-
+        Dictionary<Keys, ViewItem> _shortCuts;
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
+            _shortCuts = new Dictionary<Keys, ViewItem>();
             var barManagerHolder = Frame.Template as IBarManagerHolder;
             if (barManagerHolder != null && barManagerHolder.BarManager != null && barManagerHolder.BarManager.MainMenu != null) {
                 var barManager = barManagerHolder.BarManager;

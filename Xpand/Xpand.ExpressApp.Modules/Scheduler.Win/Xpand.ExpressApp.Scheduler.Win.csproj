@@ -120,6 +120,7 @@
     <Compile Include="Controllers\SchedulerModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PropertyEditors\TimeZonePropertyEditor.cs" />
     <Compile Include="Reminders\ReminderAlertController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -198,12 +198,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XtraDashboardTester.Module.Web\XtraDashboardTester.Module.Web.csproj">
-      <Project>{0C729AAD-7626-4668-A7F1-35F7D240489D}</Project>
-      <Name>XtraDashboardTester.Module.Web</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="ReadMe.txt" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -214,6 +208,12 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XtraDashboardTester.Module.Web\XtraDashboardTester.Module.Web.csproj">
+      <Project>{ca92af75-2b4d-413f-90b2-79821f59576a}</Project>
+      <Name>XtraDashboardTester.Module.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
