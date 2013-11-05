@@ -23,9 +23,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
         protected override void ApplyFocusedStyle(object element) {
             var editor = element as ASPxLookupPropertyEditor;
-            if(editor != null) {
-                ApplyFocusedStyleCore(editor.DropDownEdit.DropDown);
-                ApplyFocusedStyleCore(editor.FindEdit.TextBox);
+            if (editor != null) {
+                if (editor.DropDownEdit != null)
+                    ApplyFocusedStyleCore(editor.DropDownEdit.DropDown);
+
+                if (editor.FindEdit != null)
+                    ApplyFocusedStyleCore(editor.FindEdit.TextBox);
             }
             else {
                 var propertyEditor = element as WebPropertyEditor;
