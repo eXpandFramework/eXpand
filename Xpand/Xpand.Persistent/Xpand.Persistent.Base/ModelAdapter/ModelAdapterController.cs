@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -105,7 +106,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (Directory.Exists(appSetting))
                 return appSetting;
-            if (!XpandModuleBase.IsHosted) {
+            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
                     var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
