@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules>
-    <SchemaModule Name="DashboardModule" Version="13.1.6.7" IsNewNode="True" />
-    <SchemaModule Name="SystemAspNetModule" Version="13.1.6.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="DashboardModule" Version="13.1.8.5" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="XtraDashboardWebModule" Version="13.1.8.5" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
       <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.Dashboard.Web.PropertyEditors.DashboardViewEditorWeb" IsNewNode="True" />
+        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardViewEditorWeb" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">

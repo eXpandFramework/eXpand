@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
-using Xpand.ExpressApp.Web.ListEditors.Model.ModelAfaptor;
+using Xpand.ExpressApp.Web.ListEditors.Model.ModelAdaptor;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;

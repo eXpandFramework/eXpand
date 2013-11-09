@@ -51,6 +51,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         IEnumerable<GridColumn> GetXafGridColumns() {
             var gridView = Control.GridView();
+            if (gridView==null)
+                return Enumerable.Empty<GridColumn>();
             var modelColumnUnbounds = Model.Columns.OfType<IModelColumnUnbound>();
             return gridView.Columns.OfType<GridColumn>()
                         .Select(column => new{column, columnView = column.GetModel()})

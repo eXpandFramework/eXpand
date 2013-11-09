@@ -159,8 +159,8 @@
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\Model\ModelAfaptor\IModelAdaptorGridViewOptionsRule.cs" />
-    <Compile Include="ListEditors\Model\ModelAfaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAdaptor\IModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAdaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>

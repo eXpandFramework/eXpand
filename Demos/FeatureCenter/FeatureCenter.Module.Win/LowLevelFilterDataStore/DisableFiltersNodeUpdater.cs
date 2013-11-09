@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.Win.LowLevelFilterDataStore {
         public override void UpdateNode(ModelNode node) {
             if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSSCustomer)) {
                 IModelNode modelNode = node.GetNode("SkinFilterProvider");
-                modelNode.Remove();
+                if (modelNode != null) modelNode.Remove();
             }
         }
     }

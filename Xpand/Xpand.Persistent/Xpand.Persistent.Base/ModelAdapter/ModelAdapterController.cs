@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
@@ -70,7 +74,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return false;
         }
     }
-
+    public enum FileLocation { None, ApplicationFolder, CurrentUserApplicationDataFolder }
     public abstract class ModelAdapterController : ViewController {
         protected IEnumerable<string> GetProperties(ModelInterfaceExtenders extenders, Type targetInterface) {
             var types = extenders.GetInterfaceExtenders(targetInterface).Where(
@@ -84,16 +88,43 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public virtual string GetPath(string name) {
-            string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
-            if (appSetting==null) {
-                var folder = InterfaceBuilder.RuntimeMode ? AppDomain.CurrentDomain.SetupInformation.ApplicationBase : InterfaceBuilder.GetTempDirectory();
-                var applicationFolder = Path.Combine(folder, "ModelAdaptor");
-                var path2 = "ModelAdaptor" + name + ".dll";
-                return Path.Combine(applicationFolder + "", path2);
-            }
-            return appSetting;
+            var modelAdaptorFolder = GetModelAdaptorFolder();
+            var path2 = "ModelAdaptor" + name + ".dll";
+            return Path.Combine(modelAdaptorFolder + "", path2);
         }
 
+        protected T GetFileLocation<T>(T defaultValue, string keyName) {
+            T result = defaultValue;
+            string value = ConfigurationManager.AppSettings[keyName];
+            if (!string.IsNullOrEmpty(value)) {
+                result = (T)Enum.Parse(typeof(T), value, true);
+            }
+            return result;
+        }
+
+        string GetModelAdaptorFolder() {
+            string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
+            if (Directory.Exists(appSetting))
+                return appSetting;
+            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
+                var xafApplication = ApplicationHelper.Instance.Application;
+                if (xafApplication != null) {
+                    var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
+                    var typeInfo = XpandModuleBase.TypesInfo.FindTypeInfo("DevExpress.ExpressApp.Win.FileLocation");
+                    methodInfo = methodInfo.MakeGenericMethod(typeInfo.Type);
+                    var values = Enum.GetValues(typeInfo.Type);
+                    var value = values.GetValue(1);
+                    var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
+                    return (int) invoke == (int) value
+                               ? System.Windows.Forms.Application.LocalUserAppDataPath
+                               : PathHelper.GetApplicationFolder();
+                }
+            }
+            var folder = InterfaceBuilder.RuntimeMode
+                                ? AppDomain.CurrentDomain.SetupInformation.ApplicationBase
+                                : InterfaceBuilder.GetTempDirectory();
+            return Path.Combine(folder, "ModelAdaptor");
+        }
     }
 
     public static class ModelAdapterExtension {

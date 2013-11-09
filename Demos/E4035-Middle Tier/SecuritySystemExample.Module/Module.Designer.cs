@@ -8,6 +8,8 @@
 // You can find sample updates and versions for different programming languages here:
 // http://www.devexpress.com/example=E4035
 
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win;
 using Xpand.ExpressApp.Chart.Win;
 using Xpand.ExpressApp.ImportWizard.Win;
@@ -52,22 +54,26 @@ namespace SecuritySystemExample.Module {
             // SecuritySystemExampleModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(SecurityModule));
+
             RequiredModuleTypes.Add(typeof(AdditionalViewControlsProviderWindowsFormsModule));
-            RequiredModuleTypes.Add(typeof(XpandChartWinModule));
             RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
-            RequiredModuleTypes.Add(typeof(MasterDetailWindowsModule));
-            RequiredModuleTypes.Add(typeof(XpandPivotGridWinModule));
             RequiredModuleTypes.Add(typeof(XpandReportsWindowsFormsModule));
-            RequiredModuleTypes.Add(typeof(XpandSchedulerWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityWinModule));
             RequiredModuleTypes.Add(typeof(XpandStateMachineModule));
-            RequiredModuleTypes.Add(typeof(XpandTreeListEditorsWinModule));
             RequiredModuleTypes.Add(typeof(XpandValidationWinModule));
             RequiredModuleTypes.Add(typeof(XpandViewVariantsModule));
             RequiredModuleTypes.Add(typeof(WizardUIWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelDifferenceWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(XpandChartWinModule));
+            RequiredModuleTypes.Add(typeof(XpandSchedulerWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(XpandTreeListEditorsWinModule));
+            RequiredModuleTypes.Add(typeof(MasterDetailWindowsModule));
+            RequiredModuleTypes.Add(typeof(XpandPivotGridWinModule));
             RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
+
         }
 
         #endregion

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model;
@@ -94,18 +95,20 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         Dictionary<string, ModelDifferenceObjectInfo> CreateNew(ModelApplicationBase model) {
             var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
             var application = CreateModelApplication(model, DifferenceType);
-            
-            
             model.AddLayerBeforeLast(application);
             var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
-            if (Application is ServerApplication) {
-                var xpObjectType = ObjectSpace.CreateObject<XPObjectType>();
-                xpObjectType.TypeName = typeof(UserModelDifferenceObject).FullName;
-                xpObjectType.AssemblyName = typeof(UserModelDifferenceObject).Assembly.GetName().Name;
-            }
+            CreateUserModelDifferenceXPObjectType();
             var modelDifferenceObjectInfo = new ModelDifferenceObjectInfo(modelDifferenceObject, application);
             modelDifferenceObjectInfos.Add(application.Id, modelDifferenceObjectInfo);
             return modelDifferenceObjectInfos;
+        }
+
+        void CreateUserModelDifferenceXPObjectType() {
+            if (Application is ServerApplication &&ObjectSpace.FindObject<XPObjectType>(CriteriaOperator.Parse("TypeName=?",typeof (UserModelDifferenceObject).FullName)) ==null) {
+                var xpObjectType = ObjectSpace.CreateObject<XPObjectType>();
+                xpObjectType.TypeName = typeof (UserModelDifferenceObject).FullName;
+                xpObjectType.AssemblyName = typeof (UserModelDifferenceObject).Assembly.GetName().Name;
+            }
         }
 
         protected ModelApplicationBase CreateModelApplication(ModelApplicationBase model, DifferenceType differenceType) {
