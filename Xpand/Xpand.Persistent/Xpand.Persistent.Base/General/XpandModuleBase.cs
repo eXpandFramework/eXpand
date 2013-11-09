@@ -191,6 +191,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ITypesInfo TypesInfo { get; set; }
+
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             OnExtendingModelInterfaces(new ExtendingModelInterfacesArgs(extenders));
