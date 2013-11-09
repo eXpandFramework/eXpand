@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
         void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
             var link = ((LinkToListViewController) sender).Link;
-            if (link != null && link.ListView != null) {
+            if (SchedulerListEditor!=null && link != null && link.ListView != null) {
                 new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
             }
         }
