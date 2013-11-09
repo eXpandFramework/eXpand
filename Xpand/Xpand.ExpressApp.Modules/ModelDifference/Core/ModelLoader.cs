@@ -182,9 +182,12 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             XpandModuleBase.CallMonitor.Clear();
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
+            var typesInfo = XafTypesInfo.Instance;
+            typeof (XafTypesInfo).SetFieldValue("instance",applicationModulesManager.TypesInfo);
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
-            ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo; 
+            ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
+            ((IModelApplicationInitialTypesInfo) modelApplication).InitialTypesInfo = typesInfo;
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
