@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -13,7 +14,9 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase), true)]
@@ -72,14 +75,29 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             base.OnCurrentObjectChanged();
         }
 
-
-
         protected override object CreateControlCore() {
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing += ObjectSpaceOnCommitting;
             var modelEditorControl = new ModelEditorControl(new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
             modelEditorControl.OnDisposing += modelEditorControl_OnDisposing;
+            modelEditorControl.GotFocus+=ModelEditorControlOnGotFocus;
             return modelEditorControl;
+        }
+
+        void ModelEditorControlOnGotFocus(object sender, EventArgs eventArgs) {
+            ((ModelEditorControl)sender).GotFocus-=ModelEditorControlOnGotFocus;
+            var form = ((ModelEditorControl)sender).FindForm();
+            Debug.Assert(form != null, "form != null");
+            form.Deactivate += FormOnDeactivate;
+            form.Activated += FormOnActivated;
+        }
+
+        void FormOnActivated(object sender, EventArgs eventArgs) {
+            typeof (XafTypesInfo).SetFieldValue("instance", ((ITypesInfoProvider) _masterModel).TypesInfo);
+        }
+
+        void FormOnDeactivate(object sender, EventArgs eventArgs) {
+            typeof(XafTypesInfo).SetFieldValue("instance", ((IModelApplicationInitialTypesInfo)_masterModel).InitialTypesInfo);
         }
 
         private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
