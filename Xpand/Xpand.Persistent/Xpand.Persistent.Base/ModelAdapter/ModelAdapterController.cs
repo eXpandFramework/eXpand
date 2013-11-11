@@ -107,6 +107,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (Directory.Exists(appSetting))
                 return appSetting;
             if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
+                var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
                     var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -115,8 +116,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     var values = Enum.GetValues(typeInfo.Type);
                     var value = values.GetValue(1);
                     var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
-                    return (int) invoke == (int) value
-                               ? System.Windows.Forms.Application.LocalUserAppDataPath
+                    return (int) invoke != (int) value
+                               ? userAppDataPath
                                : PathHelper.GetApplicationFolder();
                 }
             }
