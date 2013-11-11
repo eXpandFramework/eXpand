@@ -48,7 +48,7 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.WorldCreatorModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.IO.IOModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.XpandValidationModule));
-
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FileAttachment.XpandFileAttachmentsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.XpandPivotChartModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
