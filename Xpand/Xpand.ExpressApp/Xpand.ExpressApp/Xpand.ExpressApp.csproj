@@ -149,6 +149,9 @@
     <Compile Include="SystemModule\CloneMemberValueViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ListViewShowViewStrategyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>

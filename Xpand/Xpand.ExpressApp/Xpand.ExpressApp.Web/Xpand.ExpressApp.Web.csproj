@@ -121,7 +121,6 @@
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
-    <Compile Include="Model\IModelViewOpenView.cs" />
     <Compile Include="Model\QueryStringParameter.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
@@ -223,7 +222,6 @@
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewStrategies\XpandShowViewStrategy.cs" />
     <Compile Include="XpandPopupWindow.cs" />
     <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>

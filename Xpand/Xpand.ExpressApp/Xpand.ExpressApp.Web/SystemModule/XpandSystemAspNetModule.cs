@@ -54,7 +54,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
             extenders.Add<IModelOptions, IModelOptionsQueryStringParameter>();
-            extenders.Add<IModelListView, IModelListViewOpenViewWhenNested>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
         }
     }
