@@ -37,6 +37,7 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendFormat("var div = document.getElementById('{0}');", div.ClientID);
             sb.AppendLine("window.ElementToResize = div;");
             sb.AppendLine("var initMap = function() { ");
+            
             sb.AppendFormat(@"{0}
                 var parentSplitter = XpandHelper.GetElementParentControl(div);
                 if (parentSplitter && !parentSplitter.xpandInitialized) {{
@@ -74,6 +75,7 @@ namespace Xpand.ExpressApp.MapView.Web
                 GetCallBackErrorHandlerName()) + ";");
 
             sb.AppendLine(" });};");
+            
             sb.AppendLine("var bounds = new google.maps.LatLngBounds ();");
             sb.AppendLine("var createMarker = function(location, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth) {");
             sb.AppendLine(@" 
@@ -93,19 +95,50 @@ namespace Xpand.ExpressApp.MapView.Web
                               addMarkerClickEvent(marker, objectId);  
                               bounds.extend(location);  
                               if (fitBounds) map.fitBounds(bounds);
+                              
                          }");
+
+            sb.AppendLine(@"
+                        var geoCodeQueue = new Array();
+                        var createMarkersWithGeoCode = function() {
+                                if (geoCodeQueue.length == 0) {
+                                    console.log('resizing...');
+                                    google.maps.event.trigger(map, 'resize');
+                                    window.AdjustSize();
+                                    map.fitBounds(bounds);
+                                    return;
+                                }
+
+                                var info = geoCodeQueue.pop();
+                                console.log(info.address);
+                                geocoder.geocode( { 'address': info.address}, function(results, status) {
+                                    if (status == google.maps.GeocoderStatus.OK) {
+                                        console.log('geocode: success');
+                                        info.onSuccess(results);
+                                    } 
+                                    else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                                        geoCodeQueue.push(info);
+                                        window.setTimeout(function () { createMarkersWithGeoCode(); }, 1000);
+                                        return;
+                                    }
+                                    else {
+                                        console.error('Geocode was not successful for the following reason: ' + status);
+                                    }
+                                    createMarkersWithGeoCode();   
+                                 });
+                                
+                                
+                            }");
+
             sb.AppendLine("var createMarkerWithGeocode = function(address, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth) {");
-            sb.AppendLine(@" geocoder.geocode( { 'address': address}, function(results, status) {
-                            if (status == google.maps.GeocoderStatus.OK) {
+            sb.AppendLine(@"geoCodeQueue.push( {'address': address, 'onSuccess': function(results) {
+                              console.log('Success ' + address);
                               createMarker(results[0].geometry.location, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth);  
-                            } else {
-                              alert('Geocode was not successful for the following reason: ' + status);
-                            }
-                            });}");
+                            }});}");
 
 
-
-
+            bool useGeoCode = false;
+            
             if (DataSource != null)
             {
                 var list = DataSource as IList;
@@ -127,6 +160,7 @@ namespace Xpand.ExpressApp.MapView.Web
 
                             if (mapViewInfo.Longitude != null && mapViewInfo.Latitude != null)
                             {
+
                                 sb.AppendFormat(CultureInfo.InvariantCulture,
                                            "createMarker(new google.maps.LatLng({0},{1}), '{2}', {3}, '{4}', {5});\r\n",
                                     mapViewInfo.Latitude, mapViewInfo.Longitude, index,
@@ -135,6 +169,7 @@ namespace Xpand.ExpressApp.MapView.Web
                             }
                             else if (!string.IsNullOrWhiteSpace(mapViewInfo.Address))
                             {
+                                useGeoCode = true;
                                 sb.AppendFormat(CultureInfo.InvariantCulture,
                                                 "createMarkerWithGeocode('{0}', '{1}', {2}, '{3}', {4});\r\n",
                                                 mapViewInfo.Address, index,
@@ -143,12 +178,23 @@ namespace Xpand.ExpressApp.MapView.Web
                             }
                             index++;
                         }
-                        
+
                     }
                 }
             }
-            sb.AppendLine("window.AdjustSize();");
-            sb.AppendLine("google.maps.event.trigger(map, 'resize');");
+
+
+            if (useGeoCode)
+            {
+
+                sb.AppendLine("createMarkersWithGeoCode();");
+            }
+            else
+            {
+                sb.AppendLine("window.AdjustSize();");
+                sb.AppendLine("google.maps.event.trigger(map, 'resize');");
+            }
+            
             sb.AppendLine("};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();

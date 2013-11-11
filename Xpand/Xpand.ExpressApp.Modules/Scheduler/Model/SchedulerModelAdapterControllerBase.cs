@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             var link = ((LinkToListViewController) sender).Link;
             if (SchedulerListEditor!=null && link != null && link.ListView != null) {
                 new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
-            }
+            }	
         }
 
         protected abstract AppointmentStatusBaseCollection Statuses();

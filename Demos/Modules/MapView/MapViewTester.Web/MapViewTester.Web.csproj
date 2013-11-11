@@ -187,7 +187,6 @@
     <Content Include="Images\UnSelectedLeft.gif" />
     <Content Include="Images\UnSelectedRight.gif" />
     <Content Include="Login.aspx" />
-    <Content Include="MapControlTest.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -204,13 +203,6 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapControlTest.aspx.cs">
-      <DependentUpon>MapControlTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapControlTest.aspx.designer.cs">
-      <DependentUpon>MapControlTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebApplication.cs">
       <SubType>Component</SubType>
