@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0093BEE4-6D18-420B-929E-6BACC6056031}</ProjectGuid>
+    <ProjectGuid>{EF27B268-6029-49DA-9956-EE3E303BC5A5}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -53,6 +53,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1" />
     <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -138,6 +139,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.MapView" />
     <Reference Include="Xpand.ExpressApp.MapView.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.Web.dll</HintPath>
@@ -185,7 +187,6 @@
     <Content Include="Images\UnSelectedLeft.gif" />
     <Content Include="Images\UnSelectedRight.gif" />
     <Content Include="Login.aspx" />
-    <Content Include="MapControlTest.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -202,13 +203,6 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MapControlTest.aspx.cs">
-      <DependentUpon>MapControlTest.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MapControlTest.aspx.designer.cs">
-      <DependentUpon>MapControlTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebApplication.cs">
       <SubType>Component</SubType>
@@ -228,6 +222,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WebApplication.resx">
       <DependentUpon>WebApplication.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -245,11 +240,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MapViewTester.Module.Web\MapViewTester.Module.Web.csproj">
-      <Project>{2f63f546-5833-4087-8735-ffceb294c26c}</Project>
+      <Project>{7f35aa45-1714-44f7-813b-cd7104541aca}</Project>
       <Name>MapViewTester.Module.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\MapViewTester.Module\MapViewTester.Module.csproj">
-      <Project>{32d7a0ed-3dd8-4164-aca0-071c264a15ae}</Project>
+      <Project>{ef04b36b-e62f-40cb-8bc6-c1b740489383}</Project>
       <Name>MapViewTester.Module</Name>
     </ProjectReference>
   </ItemGroup>

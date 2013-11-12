@@ -10,9 +10,14 @@ using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Web;
 using MapViewTester.Module;
 using MapViewTester.Module.Web;
+using MapViewTester.Module.BusinessObjects;
+using DevExpress.Data.Filtering;
+using System.IO;
 
-namespace MapViewTester.Web {
-    public class MapViewTesterAspNetApplication : WebApplication {
+namespace MapViewTester.Web
+{
+    public class MapViewTesterAspNetApplication : WebApplication
+    {
         SystemModule module1;
         SystemAspNetModule module2;
         MapViewTesterModule module3;
@@ -22,30 +27,55 @@ namespace MapViewTester.Web {
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule xpandSystemAspNetModule1;
         private Xpand.ExpressApp.MapView.Web.MapViewWebModule _mapViewWebModule1;
+        private Xpand.ExpressApp.MapView.MapViewModule mapViewModule1;
+        private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
         SqlConnection sqlConnection1;
 
-        public MapViewTesterAspNetApplication() {
+        public MapViewTesterAspNetApplication()
+        {
             InitializeComponent();
         }
 
-        protected override bool SupportMasterDetailMode {
+
+        protected override void OnLoggedOn(LogonEventArgs args)
+        {
+            base.OnLoggedOn(args);
+            using (var objectSpace = CreateObjectSpace())
+            {
+                if (objectSpace.GetObjectsCount(typeof(Waypoint), null) == 0)
+                {
+                    const string importFileName = "Waypoints.xml";
+                    if (File.Exists(importFileName))
+                    {
+                        WaypointImporter importer = new WaypointImporter(objectSpace);
+                        importer.ImportFile(@"Waypoints.xml");
+                    }
+                }
+            }
+        }
+        protected override bool SupportMasterDetailMode
+        {
             get { return true; }
         }
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args)
+        {
             args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
         }
 
         void MapViewTesterAspNetApplication_DatabaseVersionMismatch(object sender,
-                                                                        DatabaseVersionMismatchEventArgs e) {
+                                                                        DatabaseVersionMismatchEventArgs e)
+        {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (Debugger.IsAttached) {
+            if (Debugger.IsAttached)
+            {
                 e.Updater.Update();
                 e.Handled = true;
             }
-            else {
+            else
+            {
                 string message =
                     "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
@@ -57,7 +87,8 @@ namespace MapViewTester.Web {
                     "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
                     "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
 
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null)
+                {
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);
@@ -65,7 +96,8 @@ namespace MapViewTester.Web {
 #endif
         }
 
-        void InitializeComponent() {
+        void InitializeComponent()
+        {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new MapViewTester.Module.MapViewTesterModule();
@@ -76,6 +108,8 @@ namespace MapViewTester.Web {
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandSystemAspNetModule1 = new Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule();
             this._mapViewWebModule1 = new Xpand.ExpressApp.MapView.Web.MapViewWebModule();
+            this.mapViewModule1 = new Xpand.ExpressApp.MapView.MapViewModule();
+            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -83,6 +117,10 @@ namespace MapViewTester.Web {
             this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
     "apViewTester";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // securityModule1
+            // 
+            this.securityModule1.UserType = null;
             // 
             // validationModule1
             // 
@@ -94,10 +132,12 @@ namespace MapViewTester.Web {
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
+            this.Modules.Add(this.mapViewModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.cloneObjectModule1);
             this.Modules.Add(this.xpandSystemAspNetModule1);
             this.Modules.Add(this._mapViewWebModule1);
             this.Modules.Add(this.module4);

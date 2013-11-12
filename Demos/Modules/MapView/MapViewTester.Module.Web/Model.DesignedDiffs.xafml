@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemAspNetModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.7.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.7.1" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="13.1.7.1" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="MapViewModule" Version="13.1.8.7" IsNewNode="True" />
+    <SchemaModule Name="MapViewWebModule" Version="1.0.5061.35199" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.8.7" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.1.8.7" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="Customer_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" />
+    <ListView Id="Waypoint_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" TopReturnedObjects="0" />
   </Views>
 </Application>
