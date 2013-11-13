@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="ZeitProjekt.Win"
+			FileName="[WinAppBin]\ZeitProjekt.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="ZeitProjekt.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+		<!-- For IIS -->
+		<!--Application
+			Name="ZeitProjekt.Web"
+			Url="http://localhost/ZeitProjekt.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+	</Applications>
+	<TestDatabases>
+    <Database xsi:type="TestDatabase" Type="cosyEasyTest.ASADatabaseOperations" Server="Zeit" DBName="ZeitTest" DBSourceLocation="C:\Temp\ZeitTest" Backupfilename="[ConfigPath]\ZeitTest.bak"/>
+    <Database xsi:type="TestDatabase" Type="cosyEasyTest.SQLiteDatabaseOperations" DBName="SchulungsTestEasyTest" DBSourceLocation="C:\Temp\Test.db" Backupfilename="[ConfigPath]\Test.db"/>
+		<Database xsi:type="TestDatabase" Type="cosyEasyTest.LocalDBDatabaseOperations" Server="(LocalDB)\v11.0" DBName="SchulungEasyTest" Backupfilename="[ConfigPath]\SchulungEasyTest.bak"/>
+  </TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+    <Alias Name="WinAdapterAssemblyName" Value="cosyEasyTestWin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=400bc991d63c0a54" />
+    <Alias Name="WebAdapterAssemblyName" Value="cosyEasyTestWeb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=400bc991d63c0a54" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ZeitProjekt.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ZeitProjekt.Web" />
+	</Aliases>
+</Options>

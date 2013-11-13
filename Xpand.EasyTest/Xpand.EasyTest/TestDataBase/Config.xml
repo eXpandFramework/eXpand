@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="ZeitProjekt.Win"
+			FileName="[WinAppBin]\XAFProject.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="ZeitProjekt.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+		<!-- For IIS -->
+		<!--Application
+			Name="ZeitProjekt.Web"
+			Url="http://localhost/ZeitProjekt.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+	</Applications>
+	<TestDatabases>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.ASADatabaseOperations" Server="Zeit" DBName="ZeitTest" DBSourceLocation="C:\Temp\ZeitTest" Backupfilename="[ConfigPath]\XAFprojectTest.bak "/>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.SQLiteDatabaseOperations" DBName="SchulungsTestEasyTest" DBSourceLocation="C:\Temp\Test.db" Backupfilename="[ConfigPath]\XAFProjectTest.db"/>
+		<Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.LocalDBDatabaseOperations" Server="(LocalDB)\v11.0" DBName="SchulungEasyTest" Backupfilename="[ConfigPath]\XAFProjectTest.bak"/>
+  </TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+    <Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=13.1.8.9, Culture=neutral, PublicKeyToken=null" />
+    <Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=13.1.8.9, Culture=neutral, PublicKeyToken=null" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\XAFProject.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\XAFproject.Web" />
+	</Aliases>
+</Options>
