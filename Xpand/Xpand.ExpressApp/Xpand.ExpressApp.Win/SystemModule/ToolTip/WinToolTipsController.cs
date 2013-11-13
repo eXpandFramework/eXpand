@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
-using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.SystemModule.ToolTips;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
@@ -20,17 +20,17 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
         protected override void SetDetailViewToolTips() {
             foreach (PropertyEditor editor in ((DetailView)View).GetItems<PropertyEditor>()) {
-                if (editor.Control != null && (editor.Control is BaseEdit)) {
+                var edit = editor.Control as BaseEdit;
+                if (edit != null) {
                     IModelMemberViewItem modelMemberViewItem = editor.Model;
-                    var baseEdit = ((BaseEdit)(editor.Control));
                     if (modelMemberViewItem.ModelMember.MemberInfo.MemberType.IsEnum) {
-                        baseEdit.EditValueChanged += (sender, args) => {
+                        edit.EditValueChanged += (sender, args) => {
                             if (TooltipCalculator.HasToolTip(modelMemberViewItem))
-                                baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem, baseEdit.EditValue);
+                                edit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem, edit.EditValue);
                         };
                     }
                     if (TooltipCalculator.HasToolTip(modelMemberViewItem))
-                        baseEdit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem);
+                        edit.ToolTip = TooltipCalculator.GetToolTip(modelMemberViewItem);
                 }
             }
         }
