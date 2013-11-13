@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.FileAttachment {
         [ModelBrowsableAttribute(typeof(FileTypeFiltersVisibilityCalculator))]
         new IModelFileTypeFilters FileTypeFilters { get; }
     }
-
+    [Obsolete("to be removed in 13.1.9")]
     public class FileTypeFiltersVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, String propertyName) {
             var modelClass = node as IModelClass;
@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.FileAttachment {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions,IModelOptionsFileSystemStoreLocation>();
-            if (IsHosted&&RuntimeMode)
+            if (RuntimeMode&&IsHosted)
                 return;
             extenders.Add<IModelCommonFileTypeFilters, IModelCommonFileTypeFiltersEx>();
         }
