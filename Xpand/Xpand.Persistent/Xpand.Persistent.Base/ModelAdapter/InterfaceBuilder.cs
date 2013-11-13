@@ -122,7 +122,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         bool VersionMatch(string assemblyFilePath) {
             return FileVersionInfo.GetVersionInfo(assemblyFilePath).FileVersion ==
-                   typeof (XafApplication).Assembly.GetName().Version.ToString();
+                   GetType().Assembly.GetName().Version.ToString();
         }
 
         protected Assembly LoadFromDomain(string assemblyFilePath) {
@@ -172,7 +172,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string GetAssemblyVersionCode() {
-            var assemblyVersion = ReflectionHelper.GetAssemblyVersion(typeof (XafApplication).Assembly);
+            var assemblyVersion = ReflectionHelper.GetAssemblyVersion(GetType().Assembly);
             return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion, TypeToString(typeof(AssemblyVersionAttribute)));
         }
 
