@@ -44,9 +44,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ValueOnViewChanging(object sender, ViewChangingEventArgs viewChangingEventArgs) {
-            IsNew = viewChangingEventArgs.View.ObjectSpace.IsNewObject(viewChangingEventArgs.View.CurrentObject);
-            viewChangingEventArgs.View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
-            viewChangingEventArgs.View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
+            var view = viewChangingEventArgs.View;
+            if (view!=null) {
+                IsNew = view.ObjectSpace.IsNewObject(view.CurrentObject);
+                view.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
+                view.CurrentObjectChanged += ViewOnCurrentObjectChanged;
+            }
         }
 
         void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {

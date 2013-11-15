@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
-using Xpand.ExpressApp.SystemModule.ToolTips;
+using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {

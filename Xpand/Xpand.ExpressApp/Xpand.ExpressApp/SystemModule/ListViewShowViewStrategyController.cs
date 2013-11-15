@@ -48,13 +48,16 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
             var showViewParameters = actionBaseEventArgs.ShowViewParameters;
-            if (_listViewShowViewStrategy.OpenViewWhenNestedStrategy==OpenViewWhenNestedStrategy.InMainWindow&&!View.IsRoot) {
-                var createdView = showViewParameters.CreatedView;
-                showViewParameters.CreatedView = null;
-                Application.CallMethod("ShowViewInMainWindow", createdView, Frame);
-            }
-            else if (_listViewShowViewStrategy.OpenDetailViewAsPopup) {
-                showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
+            var createdView = showViewParameters.CreatedView;
+            if (createdView!=null) {
+                if (_listViewShowViewStrategy.OpenViewWhenNestedStrategy == OpenViewWhenNestedStrategy.InMainWindow &&
+                    !View.IsRoot) {
+                    showViewParameters.CreatedView = null;
+                    Application.CallMethod("ShowViewInMainWindow", createdView, Frame);
+                }
+                else if (_listViewShowViewStrategy.OpenDetailViewAsPopup) {
+                    showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                }
             }
         }
 

@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            if (View.ObjectTypeInfo.Type != typeof(ValidationResults)) {
+            if (View != null && View.ObjectTypeInfo.Type != typeof(ValidationResults)) {
                 ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
                 SubscribeSelectorEvents(deleteSelector);
                 var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
