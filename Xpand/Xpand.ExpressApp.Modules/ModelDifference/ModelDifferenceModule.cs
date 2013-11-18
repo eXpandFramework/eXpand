@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
@@ -14,11 +13,6 @@ using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
-    public interface IModelApplicationInitialTypesInfo {
-        [Browsable(false)]
-        ITypesInfo InitialTypesInfo { get; set; }
-    }
-
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser {
@@ -35,11 +29,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             } else if ((Application.Security!=null&&Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
                 BuildSecuritySystemObjects();
             }
-        }
-
-        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelApplication, IModelApplicationInitialTypesInfo>();
         }
 
         protected override Type[] ApplicationTypes() {

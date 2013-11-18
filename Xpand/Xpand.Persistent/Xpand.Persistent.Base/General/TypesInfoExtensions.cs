@@ -5,12 +5,24 @@ using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Fasterflect;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General {
+
     public static class TypesInfoExtensions {
+        public static void AssignAsInstance(this ITypesInfo typesInfo) {
+            Guard.ArgumentNotNull(typesInfo, "typesInfo");
+            typeof (XafTypesInfo).SetFieldValue("instance", typesInfo);
+            var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
+            typeof(XafTypesInfo).SetFieldValue("persistentEntityStore", xpoTypeInfoSource);
+        }
+
+
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
                 throw new ArgumentException(typeof(T).FullName + " should be an interface");

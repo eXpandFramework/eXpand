@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -14,13 +15,18 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.ModelAdapter;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
-using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
     [PropertyEditor(typeof(ModelApplicationBase), true)]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem {
+        static readonly LightDictionary<ModelApplicationBase, ITypesInfo> _modelApplicationBases;
+        static readonly ITypesInfo _typeInfo  ;
+        static ModelEditorPropertyEditor () {
+            _typeInfo = XafTypesInfo.Instance;
+            _modelApplicationBases=new LightDictionary<ModelApplicationBase, ITypesInfo>();
+        }
         #region Members
         private ModelEditorViewController _modelEditorViewController;
         ModelLoader _modelLoader;
@@ -70,11 +76,18 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         protected override void OnCurrentObjectChanged() {
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            _masterModel = _modelLoader.GetMasterModel(false);
+            _masterModel = GetMasterModel();
             InterfaceBuilder.SkipAssemblyCleanup = false;
             base.OnCurrentObjectChanged();
         }
 
+        ModelApplicationBase GetMasterModel() {
+            var modelApplicationBase = _modelLoader.GetMasterModel(false);
+            _modelApplicationBases.Add(modelApplicationBase, XafTypesInfo.Instance);
+            _typeInfo.AssignAsInstance();
+            return modelApplicationBase;
+        }
+        
         protected override object CreateControlCore() {
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing += ObjectSpaceOnCommitting;
@@ -93,14 +106,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         void FormOnActivated(object sender, EventArgs eventArgs) {
-            typeof (XafTypesInfo).SetFieldValue("instance", ((ITypesInfoProvider) _masterModel).TypesInfo);
+            _modelApplicationBases[_masterModel].AssignAsInstance();
         }
 
         void FormOnDeactivate(object sender, EventArgs eventArgs) {
-            typeof(XafTypesInfo).SetFieldValue("instance", ((IModelApplicationInitialTypesInfo)_masterModel).InitialTypesInfo);
+            _typeInfo.AssignAsInstance();
         }
 
         private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
+            _modelApplicationBases.Remove(_masterModel);
             Control.OnDisposing -= modelEditorControl_OnDisposing;
             DisposeController();
         }
@@ -141,7 +155,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
                 InterfaceBuilder.SkipAssemblyCleanup = true;
-                _masterModel = _modelLoader.GetMasterModel(false);
+                _masterModel = GetMasterModel();
                 InterfaceBuilder.SkipAssemblyCleanup = false;
                 CreateModelEditorController(aspect);
             }
@@ -171,7 +185,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            _masterModel = _modelLoader.ReCreate();
+//            _masterModel = _modelLoader.ReCreate(XafTypesInfo.Instance);
             InterfaceBuilder.SkipAssemblyCleanup = false;
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);

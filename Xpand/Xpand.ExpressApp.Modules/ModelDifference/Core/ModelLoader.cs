@@ -16,7 +16,6 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
 using Fasterflect;
 
@@ -67,6 +66,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
                 SecuritySystem.SetInstance(instance);
                 SetConnectionString(xafApplication);
+                var objectSpaceProviders = ((IList<IObjectSpaceProvider>) xafApplication.GetFieldValue("objectSpaceProviders"));
+                objectSpaceProviders.Add(new XPObjectSpaceProvider(xafApplication.ConnectionString, null));
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);
@@ -113,7 +114,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             var xpoSource = new XpoTypeInfoSource(typesInfo);
             typesInfo.Source = xpoSource;
             typesInfo.AddEntityStore(xpoSource);
-            XpandModuleBase.Dictiorary = xpoSource.XPDictionary;
             return typesInfo;
         }
 
@@ -182,12 +182,10 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             XpandModuleBase.CallMonitor.Clear();
             var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
-            var typesInfo = XafTypesInfo.Instance;
-            typeof (XafTypesInfo).SetFieldValue("instance",applicationModulesManager.TypesInfo);
+            applicationModulesManager.TypesInfo.AssignAsInstance();
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
-            ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
-            ((IModelApplicationInitialTypesInfo) modelApplication).InitialTypesInfo = typesInfo;
+//            ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
@@ -228,6 +226,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 }
             }
             ReflectionHelper.AddResolvePath(assembliesPath);
+            ITypesInfo synchronizeTypesInfo = null;
             try {
                 var applicationModulesManager = new ApplicationModulesManager(new ControllersManager(), assembliesPath);
                 if (application != null) {
@@ -239,15 +238,14 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 if (!string.IsNullOrEmpty(configFileName)) {
                     applicationModulesManager.AddModuleFromAssemblies(GetModulesFromConfig(application));
                 }
-                var info = typesInfo as TypesInfoBuilder.TypesInfo;
-                if (info != null) XpandModuleBase.Dictiorary = (info).Source.XPDictionary;
-                XpandModuleBase.TypesInfo = typesInfo;
+                var loadTypesInfo = typesInfo != XafTypesInfo.Instance;
+                synchronizeTypesInfo = XafTypesInfo.Instance;
+                typesInfo.AssignAsInstance();
                 applicationModulesManager.TypesInfo = typesInfo;
-                applicationModulesManager.Load(typesInfo, typesInfo != XafTypesInfo.Instance);
+                applicationModulesManager.Load(typesInfo, loadTypesInfo);
                 return applicationModulesManager;
             } finally {
-                XpandModuleBase.Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
-                XpandModuleBase.TypesInfo = XafTypesInfo.Instance;
+                synchronizeTypesInfo.AssignAsInstance();
                 ReflectionHelper.RemoveResolvePath(assembliesPath);
             }
 
@@ -257,7 +255,6 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             _application = xafApplication;
             return this;
         }
-
 
         public ModelApplicationBase Build(bool rebuild) {
             string config = GetConfigPath();
