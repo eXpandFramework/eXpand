@@ -1,48 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <Views>
-    <DetailView Id="EmailOperationPermissionData_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" />
-          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1">
-            <TabbedGroup Id="Item4" Index="0" RelativeSize="100">
-              <LayoutGroup Id="Item6" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Email" IsNewNode="True">
-                <LayoutItem Id="SmtpClientContext" ViewItem="SmtpClientContext" SizeConstraintsType="Default" Index="0" RelativeSize="5" IsNewNode="True" />
-                <LayoutItem Id="TemplateContext" ViewItem="TemplateContext" SizeConstraintsType="Default" Index="1" RelativeSize="3" IsNewNode="True" />
-                <LayoutItem Id="CurrentObjectEmailMember" ViewItem="CurrentObjectEmailMember" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
-                <LayoutItem Id="EmailReceipientsContext" ViewItem="EmailReceipientsContext" SizeConstraintsType="Default" Index="3" RelativeSize="87" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Item3" Index="1">
-                <LayoutItem Id="IsNew" RelativeSize="5" />
-                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94">
-                  <LayoutItem Id="NormalCriteria" RelativeSize="47" />
-                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutGroup Id="Item5" Index="2">
-                <LayoutItem Id="View" RelativeSize="5" />
-                <LayoutItem Id="ViewType" RelativeSize="3" />
-                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="5">
-                  <LayoutItem Id="Nesting" RelativeSize="47" />
-                  <LayoutItem Id="IsRootView" RelativeSize="52" />
-                </LayoutGroup>
-                <LayoutItem Id="ViewEditMode" RelativeSize="85" />
-              </LayoutGroup>
-              <LayoutGroup Id="Item1" Index="3">
-                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" />
-                <LayoutItem Id="ExecutionContextGroup" RelativeSize="3" />
-                <LayoutItem Id="ViewContextGroup" RelativeSize="3" />
-                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="3" />
-                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="83" />
-              </LayoutGroup>
-            </TabbedGroup>
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-      <MergedDifferences>
-        <MergedDifference Id="LogicRule" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
-      </MergedDifferences>
-    </DetailView>
-  </Views>
+  
 </Application>

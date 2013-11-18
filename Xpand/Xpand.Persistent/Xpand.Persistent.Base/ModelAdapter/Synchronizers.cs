@@ -8,7 +8,7 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
-        static readonly HashSet<string> _excludedNodeMembers =
+        public static readonly HashSet<string> ExcludedNodeMembers =
             new HashSet<string>(new[] { "Id", "Index", "Removed", "IsNewNode", "IsRemovedNode" });
         protected ModelSynchronizer(TComponent component, TModelNode modelNode)
             : base(component, modelNode) {
@@ -118,12 +118,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return IsDisabled(modelNode) ? Enumerable.Empty<ModelValueInfo>() : ((ModelNode)modelNode).NodeInfo.ValuesInfo.Where(IsNotExcluded);
         }
 
-        static bool IsDisabled(IModelNode modelNode) {
+        bool IsDisabled(IModelNode modelNode) {
             return modelNode is IModelNodeEnabled && !((IModelNodeEnabled)modelNode).NodeEnabled;
         }
 
-        static bool IsNotExcluded(ModelValueInfo info) {
-            return !_excludedNodeMembers.Contains(info.Name);
+        bool IsNotExcluded(ModelValueInfo info) {
+            return !ExcludedNodeMembers.Contains(info.Name);
         }
 
         protected virtual bool IsDefaultCoreValue(object value, Type propertyType) {

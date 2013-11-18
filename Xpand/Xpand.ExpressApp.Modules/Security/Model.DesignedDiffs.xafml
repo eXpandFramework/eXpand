@@ -62,25 +62,25 @@
         <ActionContainerViewItem Id="RestorePasswordActionItem" Caption="RestorePasswordActionItem(17)" />
       </Items>
       <Layout>
-        <LayoutGroup Id="Main" ImageName="">
-          <LayoutGroup Id="RootGroup" ImageName="">
-            <LayoutGroup Id="ImageGroup" RelativeSize="11" ImageName="">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="RootGroup">
+            <LayoutGroup Id="ImageGroup" RelativeSize="15">
               <LayoutItem Id="LogonImage" SizeConstraintsType="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="EditorsGroup" RelativeSize="88" ImageName="">
-              <LayoutGroup Id="Text" RelativeSize="4" ImageName="">
+            <LayoutGroup Id="EditorsGroup" RelativeSize="84">
+              <LayoutGroup Id="Text" RelativeSize="4">
                 <LayoutItem Id="LogonText" SizeConstraintsType="Default" />
               </LayoutGroup>
-              <LayoutGroup Id="Editors" RelativeSize="95" ImageName="">
-                <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" RelativeSize="100" ImageName="">
-                  <LayoutGroup Id="Item3" ImageName="">
-                    <LayoutGroup Id="Item2" RelativeSize="67" ImageName="">
+              <LayoutGroup Id="Editors" RelativeSize="95">
+                <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" RelativeSize="100">
+                  <LayoutGroup Id="Item3">
+                    <LayoutGroup Id="Item2" RelativeSize="54">
                       <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="4" />
                       <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" />
                       <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
-                      <LayoutItem Id="Item5" SizeConstraintsType="Default" Index="3" RelativeSize="88" ViewItem="" />
+                      <LayoutItem Id="Item5" ViewItem="" SizeConstraintsType="Default" Index="3" RelativeSize="88" />
                     </LayoutGroup>
-                    <LayoutGroup Id="Item1" RelativeSize="32" ImageName="">
+                    <LayoutGroup Id="Item1" RelativeSize="45">
                       <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4" />
                       <LayoutItem Id="RestorePasswordActionItem" SizeConstraintsType="Default" RelativeSize="95" />
                     </LayoutGroup>
@@ -92,7 +92,7 @@
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="@2c63a643-39fc-42d8-8d32-c0e0f0f87348" View="AuthenticationStandardLogonParameters_DetailView" IsNewNode="True" />
+        <MergedDifference Id="XpandLogonAuthenticationStd" View="AuthenticationStandardLogonParameters_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
     <ListView Id="XpandLogonParameters_ListView">

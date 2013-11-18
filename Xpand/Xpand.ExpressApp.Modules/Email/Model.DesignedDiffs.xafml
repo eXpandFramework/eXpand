@@ -14,34 +14,34 @@
                 <LayoutItem Id="EmailReceipientsContext" ViewItem="EmailReceipientsContext" SizeConstraintsType="Default" Index="3" RelativeSize="87" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="Item3" Index="1">
-                <LayoutItem Id="IsNew" RelativeSize="5" />
+                <LayoutItem Id="IsNew" RelativeSize="5" ViewItem="IsNew" />
                 <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94">
-                  <LayoutItem Id="NormalCriteria" RelativeSize="47" />
-                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" />
+                  <LayoutItem Id="NormalCriteria" RelativeSize="47" ViewItem="NormalCriteria" />
+                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" ViewItem="EmptyCriteria" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Item5" Index="2">
-                <LayoutItem Id="View" RelativeSize="5" />
-                <LayoutItem Id="ViewType" RelativeSize="3" />
+                <LayoutItem Id="View" RelativeSize="5" ViewItem="View" />
+                <LayoutItem Id="ViewType" RelativeSize="3" ViewItem="ViewType" />
                 <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="5">
-                  <LayoutItem Id="Nesting" RelativeSize="47" />
-                  <LayoutItem Id="IsRootView" RelativeSize="52" />
+                  <LayoutItem Id="Nesting" RelativeSize="47" ViewItem="Nesting" />
+                  <LayoutItem Id="IsRootView" RelativeSize="52" ViewItem="IsRootView" />
                 </LayoutGroup>
-                <LayoutItem Id="ViewEditMode" RelativeSize="85" />
+                <LayoutItem Id="ViewEditMode" RelativeSize="85" ViewItem="ViewEditMode" />
               </LayoutGroup>
               <LayoutGroup Id="Item1" Index="3">
-                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" />
-                <LayoutItem Id="ExecutionContextGroup" RelativeSize="3" />
-                <LayoutItem Id="ViewContextGroup" RelativeSize="3" />
-                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="3" />
-                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="83" />
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" ViewItem="FrameTemplateContext" />
+                <LayoutItem Id="ExecutionContextGroup" RelativeSize="3" ViewItem="ExecutionContextGroup" />
+                <LayoutItem Id="ViewContextGroup" RelativeSize="3" ViewItem="ViewContextGroup" />
+                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="3" ViewItem="FrameTemplateContextGroup" />
+                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="83" ViewItem="ActionExecutionContextGroup" />
               </LayoutGroup>
             </TabbedGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="LogicRule" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+        <MergedDifference Id="EmailLogic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
   </Views>

@@ -102,10 +102,14 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
                 var formatTestAction = EasyTestTagHelper.FormatTestAction(_newObjectAction.Caption + '.' + choiceActionItem.GetItemPath());
                 if (formatTestAction==item.Item.Tag as string) {
                     var data = choiceActionItem.Data;
-                    var newObjectActionTooltip = ((IModelClassNewObjectActionTooltip) _newObjectAction.Application.Model.BOModel.GetClass((Type) data)).NewObjectActionTooltip;
-                    if (!string.IsNullOrEmpty(newObjectActionTooltip)) {
-                        args.SuperTip.Items.Add(newObjectActionTooltip);
-                        ToolTipController.DefaultController.ShowHint(args);
+                    if (data!=null) {
+                        var newObjectActionTooltip =
+                            ((IModelClassNewObjectActionTooltip)
+                             _newObjectAction.Application.Model.BOModel.GetClass((Type) data)).NewObjectActionTooltip;
+                        if (!string.IsNullOrEmpty(newObjectActionTooltip)) {
+                            args.SuperTip.Items.Add(newObjectActionTooltip);
+                            ToolTipController.DefaultController.ShowHint(args);
+                        }
                     }
                 }
             }

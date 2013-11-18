@@ -202,7 +202,8 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("ExtendModelInterfaces"))
                 return;
-            
+
+            extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
             extenders.Add<IModelClass, IModelClassEx>();
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
@@ -210,7 +211,6 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
-            extenders.Add<IModelApplication, IModelApplicationResourceDifferences>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
             
         }
@@ -226,7 +226,6 @@ namespace Xpand.Persistent.Base.General {
             
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
-            updaters.Add(new ApplicationDifferencesUpdater());
         }
 
         protected internal bool RuntimeMode {

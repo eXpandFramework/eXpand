@@ -85,7 +85,7 @@
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="Everything MDO" View="MDO_DetailView" IsNewNode="True" />
+        <MergedDifference Id="RDOEverythingMDO" View="MDO_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
     <DetailView Id="UDO_DetailView">
@@ -108,7 +108,7 @@
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="Everything MDO" View="MDO_DetailView" IsNewNode="True" />
+        <MergedDifference Id="UDOEverythingMDO" View="MDO_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
   </Views>

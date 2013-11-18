@@ -48,7 +48,7 @@
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="Logic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+        <MergedDifference Id="MasterDetailLogic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
   </Views>

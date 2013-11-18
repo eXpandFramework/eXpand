@@ -34,21 +34,21 @@
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Item3" Index="1">
-                <LayoutItem Id="IsNew" RelativeSize="5" />
+                <LayoutItem Id="IsNew" RelativeSize="5" ViewItem="IsNew" />
                 <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94" />
               </LayoutGroup>
               <LayoutGroup Id="Item5" Index="2">
-                <LayoutItem Id="View" RelativeSize="5" />
+                <LayoutItem Id="View" RelativeSize="5" ViewItem="View" />
               </LayoutGroup>
               <LayoutGroup Id="Item1" Index="3">
-                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" />
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="5" ViewItem="FrameTemplateContext" />
               </LayoutGroup>
             </TabbedGroup>
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
-        <MergedDifference Id="Logic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
+        <MergedDifference Id="AVCLogic" View="LogicRuleOperationPermissionData_DetailView" IsNewNode="True" />
       </MergedDifferences>
     </DetailView>
   </Views>

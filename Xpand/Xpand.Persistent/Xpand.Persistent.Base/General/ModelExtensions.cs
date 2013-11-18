@@ -99,6 +99,14 @@ namespace Xpand.Persistent.Base.General {
             ModelApplicationHelper.AddLayer(application, lastLayer);
         }
 
+        public static void AddLayer(this ModelApplicationBase application, ModelNode layer) {
+            ModelApplicationHelper.AddLayer(application, (ModelApplicationBase) layer);
+        }
+
+        public static void InsertLayer(this ModelApplicationBase application, int index,ModelApplicationBase layer) {
+            application.CallMethod("InsertLayerAtInternal", layer, index);
+        }
+
         public static void AddLayerBeforeLast(this ModelApplicationBase application, ModelApplicationBase layer) {
             ModelApplicationBase lastLayer = application.LastLayer;
             if (lastLayer.Id != "After Setup" && lastLayer.Id != "UserDiff")
@@ -106,6 +114,10 @@ namespace Xpand.Persistent.Base.General {
             ModelApplicationHelper.RemoveLayer(application);
             ModelApplicationHelper.AddLayer(application, layer);
             ModelApplicationHelper.AddLayer(application, lastLayer);
+        }
+
+        public static ModelApplicationBase GetLayer(this ModelApplicationBase modelApplicationBase, int index) {
+            return (ModelApplicationBase) ((List<ModelNode>)modelApplicationBase.GetPropertyValue("Layers"))[index];
         }
 
         public static List<ModelNodeWrapper> GetLayers(this ModelApplicationBase modelApplicationBase) {
