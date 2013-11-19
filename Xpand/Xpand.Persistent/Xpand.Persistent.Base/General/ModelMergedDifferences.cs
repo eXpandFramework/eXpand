@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
@@ -14,6 +15,7 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
+
         public override void UpdateNode(ModelNode node) {
             var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
             var modelViews = ((IModelViews)node);
@@ -29,7 +31,7 @@ namespace Xpand.Persistent.Base.General {
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var objectViews = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
                 application.Views.OfType<IModelObjectView>()).Where(view => view.IsNewNode());
-            foreach (IModelObjectView objectView in objectViews) {
+            foreach (IModelObjectView objectView in objectViews.Where(view => modelViews[view.Id]==null)) {
                 ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
                 yield return objectView;
             }
@@ -223,11 +225,15 @@ namespace Xpand.Persistent.Base.General {
     }
     
     static class ModuleDifferencesHelper {
+
         public static List<ModelApplicationBase> GetModuleDifferences(ModelNode node) {
+            var modelSources = ((IModelSources) node.Application);
             var modelApplicationBases = new List<ModelApplicationBase>();
-            foreach (var moduleBase in ((IModelSources)node.Application).Modules) {
-                var modelApplicationBase = node.CreatorInstance.CreateModelApplication();
+            foreach (var moduleBase in modelSources.Modules) {
+                ModelApplicationCreator modelApplicationCreator = node.CreatorInstance;
+                var modelApplicationBase = modelApplicationCreator.CreateModelApplication();
                 modelApplicationBase.Id = moduleBase.Name;
+                InitializeModelSources(modelApplicationBase, node);
                 var resourcesModelStore = new ResourcesModelStore(moduleBase.GetType().Assembly);
                 resourcesModelStore.Load(modelApplicationBase);
                 var modelViews = ((IModelApplication)modelApplicationBase).Views;
@@ -238,6 +244,16 @@ namespace Xpand.Persistent.Base.General {
 
             ReadFromOtherLayers(modelApplicationBases, node);
             return modelApplicationBases;
+        }
+
+        static void InitializeModelSources(ModelApplicationBase modelApplicationBase, ModelNode node) {
+            var sources = ((IModelSources) node.Application);
+            var targetSources = ((IModelSources) modelApplicationBase.Application);
+            targetSources.BOModelTypes = sources.BOModelTypes;
+            targetSources.Modules = sources.Modules;
+            targetSources.Controllers = sources.Controllers;
+            targetSources.Localizers = sources.Localizers;
+            targetSources.EditorDescriptors = new EditorDescriptors(sources.EditorDescriptors);
         }
 
         static void ReadViewsFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifference modelMergedDifference, ModelApplicationBase modelApplicationBase) {
@@ -272,17 +288,22 @@ namespace Xpand.Persistent.Base.General {
                 var xml = string.Format("<Application><Options>{0}</Options></Application>", ((ModelNode)strategies).Xml);
                 var modelApplicationBase = node.CreatorInstance.CreateModelApplication();
                 new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                foreach (var applicationBase in modelApplicationBases) {
-                    xml = Regex.Match(applicationBase.Xml, "(<MergedDifferenceStrategies[^>]*>(.*?)</MergedDifferenceStrategies>)", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
-                    if (!string.IsNullOrEmpty(xml)) {
-                        xml = string.Format("<Application><Options>{0}</Options></Application>", xml);
-                        new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                    }
-                }
+                ReadFromOtherLayers(modelApplicationBases, strategies, modelApplicationBase);
                 UpdateRemovedNodes(modelApplicationBase);
                 _strategiesModel=modelApplicationBase;
             }
             return _strategiesModel;
+        }
+
+        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifferenceStrategies strategies,
+                                        ModelApplicationBase modelApplicationBase) {
+            var xmls = modelApplicationBases.Cast<IModelApplication>().Select(application =>
+                application.Options).Cast<IModelOptionsMergedDifferenceStrategy>().Where(strategy =>
+                    strategy != null).Select(strategy => strategies.Xml()).Where(s => s != null);
+            foreach (var x in xmls) {
+                string xml = string.Format("<Application><Options>{0}</Options></Application>", x);
+                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
+            }
         }
 
         static void UpdateRemovedNodes(IModelNode modelNode) {

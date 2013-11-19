@@ -34,6 +34,10 @@ namespace Xpand.Persistent.Base.General {
     }
     public static class ModelNodeExtensions {
 
+        public static string Xml(this IModelNode modelNode) {
+            return ((ModelNode) modelNode).Xml;
+        }
+
         public static object GetValue(this IModelNode modelNode,string propertyName,Type propertyType) {
             return modelNode.CallMethod(new[]{propertyType}, "GetValue", propertyName);
         }
