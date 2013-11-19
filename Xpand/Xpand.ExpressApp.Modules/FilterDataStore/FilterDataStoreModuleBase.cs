@@ -26,7 +26,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
         protected static Dictionary<string, Type> _tablesDictionary;
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            if (!IsLoadingExternalModel())
+                application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
@@ -36,7 +37,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
+            if (!IsLoadingExternalModel()&&FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
                 SubscribeToDataStoreProxyEvents();
             }
         }

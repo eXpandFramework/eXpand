@@ -13,7 +13,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -67,7 +66,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 SecuritySystem.SetInstance(instance);
                 SetConnectionString(xafApplication);
                 var objectSpaceProviders = ((IList<IObjectSpaceProvider>) xafApplication.GetFieldValue("objectSpaceProviders"));
-                objectSpaceProviders.Add(new XPObjectSpaceProvider(xafApplication.ConnectionString, null));
+                objectSpaceProviders.Add(new XpandObjectSpaceProvider(new DataStoreProvider(xafApplication.ConnectionString), null));
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);

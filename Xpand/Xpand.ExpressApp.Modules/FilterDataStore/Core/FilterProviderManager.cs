@@ -5,6 +5,7 @@ using System.Configuration.Provider;
 using System.Linq;
 using System.Web.Configuration;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.FilterDataStore.Core {
     public static class FilterProviderManager {
@@ -28,7 +29,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
         }
 
         public static bool IsRegistered {
-            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null; }
+            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null&&!XpandModuleBase.IsLoadingExternalModel(); }
 
         }
 
