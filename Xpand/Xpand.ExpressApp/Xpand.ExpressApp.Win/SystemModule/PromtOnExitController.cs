@@ -35,6 +35,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
             var xafApplication = ((XafApplication) sender);
+            _isLoggingOff = false;
             xafApplication.LoggingOff-=ApplicationOnLoggingOff;
             xafApplication.LoggedOff-=ApplicationOnLoggedOff;
         }

@@ -15,10 +15,17 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     public class MinimizeOnCloseController : WindowController, IModelExtender {
         private static bool _editing;
+        bool _isLoggingOff;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.TemplateChanged += FrameOnTemplateChanged;
+            Frame.Disposing+=FrameOnDisposing;
+        }
+
+        void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
+            Frame.TemplateChanged-=FrameOnTemplateChanged;
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
@@ -26,6 +33,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose) {
                 var form = Frame.Template as XtraForm;
                 if (form != null) {
+                    Application.LoggingOff+=ApplicationOnLoggingOff;
+                    Application.LoggedOff+=ApplicationOnLoggedOff;
                     form.FormClosing += FormOnFormClosing;
                     form.Closing += FormOnClosing;
                     SimpleAction action =
@@ -36,13 +45,21 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
 
+        void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
+            _isLoggingOff = false;
+        }
+
+        void ApplicationOnLoggingOff(object sender, LoggingOffEventArgs loggingOffEventArgs) {
+            _isLoggingOff = !loggingOffEventArgs.Cancel;
+        }
+
         void FormOnClosing(object sender, CancelEventArgs cancelEventArgs) {
-            if (!_editing)
+            if (!_editing&&!_isLoggingOff)
                 cancelEventArgs.Cancel = true;
         }
 
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
-            if (!_editing) {
+            if (!_editing && !_isLoggingOff) {
                 if (Application != null)
                     e.Cancel = ((IModelOptionsMinimizeOnCloseOptions)Application.Model.Options).MinimizeOnClose && e.CloseReason == CloseReason.UserClosing;
 

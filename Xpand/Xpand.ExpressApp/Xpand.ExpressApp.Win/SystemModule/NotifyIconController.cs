@@ -7,10 +7,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsNotifyIconOptions : IModelNode {
@@ -20,41 +20,56 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
 
     public class NotifyIconController : WindowController, IModelExtender {
+        Container _container;
+        NotifyIcon _notifyIcon1;
 
-        static bool iconVisible;
         public NotifyIconController() {
             TargetWindowType = WindowType.Main;
         }
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            if (!iconVisible)
+            if (Frame.Context == TemplateContext.ApplicationWindow) {
                 Frame.TemplateChanged += FrameOnTemplateChanged;
+                Frame.Disposing+=FrameOnDisposing;
+            }
+        }
+
+        void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
+            Frame.TemplateChanged-=FrameOnTemplateChanged;
+            _notifyIcon1.Icon = null;
+            _notifyIcon1.Dispose();
+            _container.Dispose();
+
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
             if (NotifyEnabled() && Frame.Context == TemplateContext.ApplicationWindow) {
                 var form = Frame.Template as XtraForm;
                 if (form != null) {
-                    IContainer container = new Container();
-                    var strip = new ContextMenuStrip(container);
+                    _container = new Container();
+                    var strip = new ContextMenuStrip(_container);
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Maximize"), (o, eventArgs) => ChangeFormVisibility(form)));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Minimize"), (o, eventArgs) => ChangeFormVisibility(form)));
                     var logoffAction = Frame.GetController<LogoffController>().LogoffAction;
                     if (logoffAction.Active)
-                        strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => ((IWinApplication)Application).LogOff()));
+                        strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => Application.LogOff()));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => Application.Exit()));
 
-                    var notifyIcon1 = new NotifyIcon(container) { Visible = true, ContextMenuStrip = strip };
-                    SetIcon(notifyIcon1);
-                    notifyIcon1.DoubleClick += (o, eventArgs) => ChangeFormVisibility(form);
-                    iconVisible = true;
+                    _notifyIcon1 = new NotifyIcon(_container) { Visible = true, ContextMenuStrip = strip };
+                    SetIcon(_notifyIcon1);
+                    _notifyIcon1.DoubleClick += (o, eventArgs) => ChangeFormVisibility(form);
                 }
             }
         }
 
+        new WinApplication Application {
+            get { return (WinApplication) ApplicationHelper.Instance.Application; }
+        }
+
         bool NotifyEnabled() {
-            return Application != null && Application.Model != null && ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon;
+            return ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon;
         }
 
         private ToolStripMenuItem GetMenuItem(string text, EventHandler clickHandler) {
