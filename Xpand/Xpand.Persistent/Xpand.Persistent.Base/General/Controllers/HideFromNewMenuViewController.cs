@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Attributes;
-using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.Persistent.Base.General.Controllers {
     public class HideFromNewMenuViewController : ViewController<ObjectView> {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -17,8 +14,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 if (attribute != null) {
                     var controller = Frame.GetController<NewObjectViewController>();
                     Type typeInfo = type.Type;
-                    ChoiceActionItem choiceActionItem =
-                        controller.NewObjectAction.Items.FirstOrDefault(item => ReferenceEquals(item.Data, typeInfo));
+                    var choiceActionItem =controller.NewObjectAction.Items.FirstOrDefault(item => ReferenceEquals(item.Data, typeInfo));
                     controller.NewObjectAction.Items.Remove(choiceActionItem);
                 }
             }

@@ -136,6 +136,9 @@
     <Compile Include="General\Controllers\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\HideFromNewMenuViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>

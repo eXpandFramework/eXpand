@@ -224,9 +224,6 @@
     <Compile Include="SystemModule\FKViolationViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\HideFromNewMenuViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>
