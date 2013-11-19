@@ -125,7 +125,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance));
             }
 
-            XpandModuleBase.Dictiorary = ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).XPDictionary;
+//            XpandModuleBase.Dictiorary = ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore).XPDictionary;
             foreach (var type in typeof(User).Assembly.GetTypes()) {
                 XafTypesInfo.Instance.RegisterEntity(type);
             }
