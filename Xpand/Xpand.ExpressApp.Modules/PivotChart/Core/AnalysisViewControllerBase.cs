@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.PivotChart.Core {
         }
 
         protected bool IsDataSourceReady {
-            get { return analysisEditors.Where(@base => !@base.IsDataSourceReady).Count() == 0; }
+            get { return analysisEditors.All(@base => @base.IsDataSourceReady); }
         }
 
         void analysisEditor_IsDataSourceReadyChanged(object sender, EventArgs e) {
@@ -44,6 +44,9 @@ namespace Xpand.ExpressApp.PivotChart.Core {
                 analysisEditor.IsDataSourceReadyChanged -= analysisEditor_IsDataSourceReadyChanged;
             }
             View.ControlsCreated -= View_ControlsCreated;
+            foreach (AnalysisEditorBase analysisEditor in analysisEditors) {
+                analysisEditor.ControlCreated += AnalysisEditorOnControlCreated;
+            }
             analysisEditors = null;
             base.OnDeactivated();
         }
@@ -55,14 +58,20 @@ namespace Xpand.ExpressApp.PivotChart.Core {
         protected virtual void OnAnalysisControlCreated() {
             UpdateActionState();
             foreach (AnalysisEditorBase analysisEditor in analysisEditors) {
-                IAnalysisControl analysisControl = analysisEditor.Control;
-                if (!(((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder is PivotGridFieldBuilder)) {
-                    var pivotGridFieldBuilder = new PivotGridFieldBuilder(analysisControl);
-                    pivotGridFieldBuilder.SetModel(Application.Model);
-                    ((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder = pivotGridFieldBuilder;
-                }
-                analysisEditor.IsDataSourceReadyChanged += analysisEditor_IsDataSourceReadyChanged;
+                analysisEditor.ControlCreated+=AnalysisEditorOnControlCreated;
             }
+        }
+
+        void AnalysisEditorOnControlCreated(object sender, EventArgs eventArgs) {
+            var analysisEditor = ((AnalysisEditorBase) sender);
+            analysisEditor.ControlCreated-=AnalysisEditorOnControlCreated;
+            IAnalysisControl analysisControl = analysisEditor.Control;
+            if (!(((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder is PivotGridFieldBuilder)) {
+                var pivotGridFieldBuilder = new PivotGridFieldBuilder(analysisControl);
+                pivotGridFieldBuilder.SetModel(Application.Model);
+                ((ISupportPivotGridFieldBuilder)analysisControl).FieldBuilder = pivotGridFieldBuilder;
+            }
+            analysisEditor.IsDataSourceReadyChanged += analysisEditor_IsDataSourceReadyChanged;
         }
 
         protected virtual void UpdateActionState() {

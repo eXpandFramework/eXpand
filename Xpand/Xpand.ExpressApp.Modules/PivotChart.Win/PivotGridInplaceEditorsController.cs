@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraPivotGrid;
-using System.Linq;
 using Xpand.ExpressApp.PivotChart.InPlaceEdit;
 using Xpand.ExpressApp.PivotChart.Win.Editors;
 using Xpand.ExpressApp.PivotChart.Win.PropertyEditors;
@@ -11,27 +11,40 @@ using Xpand.ExpressApp.PivotChart.Win.PropertyEditors;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.PivotChart.Win {
-    public class PivotGridInplaceEditorsController : PivotGridInplaceEditorsControllerBase
-    {
-        readonly Dictionary<PivotGridControl, RepositoryItemSpinEdit>  _repositoryItemSpinEdits = new Dictionary<PivotGridControl, RepositoryItemSpinEdit>();
+    public class PivotGridInplaceEditorsController : PivotGridInplaceEditorsControllerBase {
+        readonly Dictionary<PivotGridControl, RepositoryItemSpinEdit> _repositoryItemSpinEdits = new Dictionary<PivotGridControl, RepositoryItemSpinEdit>();
 
 
-        protected override void OnViewControlsCreated()
-        {
+        protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            foreach (var pivotGridControl in GetPivotGridControl())
-            {
-                var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
-                _repositoryItemSpinEdits.Add(pivotGridControl, repositoryItemSpinEdit);
-                pivotGridControl.RepositoryItems.Add(repositoryItemSpinEdit);
-                pivotGridControl.FieldAreaChanged += _pivotGridControl_FieldAreaChanged;
-                pivotGridControl.ShowingEditor += _pivotGridControl_ShowingEditor;
-                pivotGridControl.EditValueChanged += _pivotGridControl_EditValueChanged;
+            var editorWins = View.GetItems<AnalysisEditorWin>();
+            foreach (var editorWin in editorWins) {
+                editorWin.ControlCreated+=AnalysisEditorWinOnControlCreated;
             }
         }
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            var editorWins = View.GetItems<AnalysisEditorWin>();
+            foreach (var editorWin in editorWins) {
+                editorWin.ControlCreated -= AnalysisEditorWinOnControlCreated;
+            }
+        }
+
+        void AnalysisEditorWinOnControlCreated(object sender, EventArgs eventArgs) {
+            var analysisEditorBase = ((AnalysisEditorWin) sender);
+            analysisEditorBase.ControlCreated -= AnalysisEditorWinOnControlCreated;
+            var pivotGridControl = analysisEditorBase.Control.PivotGrid;
+            var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
+            _repositoryItemSpinEdits.Add(pivotGridControl, repositoryItemSpinEdit);
+            pivotGridControl.RepositoryItems.Add(repositoryItemSpinEdit);
+            pivotGridControl.FieldAreaChanged += _pivotGridControl_FieldAreaChanged;
+            pivotGridControl.ShowingEditor += _pivotGridControl_ShowingEditor;
+            pivotGridControl.EditValueChanged += _pivotGridControl_EditValueChanged;
+        }
+
         void _pivotGridControl_FieldAreaChanged(object sender, PivotFieldEventArgs e) {
-            SetEditor(e.Field,(PivotGridControl) sender);
+            SetEditor(e.Field, (PivotGridControl)sender);
         }
 
         void SetEditor(PivotGridField field, PivotGridControl sender) {
@@ -52,10 +65,6 @@ namespace Xpand.ExpressApp.PivotChart.Win {
             return pivot.Cells.GetCellInfo(focused.X, focused.Y);
         }
 
-        IEnumerable<PivotGridControl> GetPivotGridControl() {
-            return View.GetItems<AnalysisEditorWin>().Select(win => win.Control.PivotGrid).ToArray();
-        }
-
         void _pivotGridControl_EditValueChanged(object sender, EditValueChangedEventArgs e) {
             PivotDrillDownDataSource ds = e.CreateDrillDownDataSource();
             for (int j = 0; j < ds.RowCount; j++) {
@@ -64,7 +73,7 @@ namespace Xpand.ExpressApp.PivotChart.Win {
         }
 
         protected override void CreateEditors(AnalysisEditorBase analysisEditorBase) {
-            var pivotGridControl = (((AnalysisControlWin) analysisEditorBase.Control)).PivotGrid;
+            var pivotGridControl = (((AnalysisControlWin)analysisEditorBase.Control)).PivotGrid;
             foreach (PivotGridField field in pivotGridControl.Fields) {
                 SetEditor(field, pivotGridControl);
             }

@@ -35,7 +35,6 @@ namespace Xpand.ExpressApp.PivotChart.AnalysisControlVisibility {
             }
         }
 
-
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var modelPropertyEditorAnalysisControlVisibilitys =

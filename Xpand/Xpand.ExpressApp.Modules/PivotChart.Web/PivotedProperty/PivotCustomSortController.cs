@@ -10,12 +10,11 @@ namespace Xpand.ExpressApp.PivotChart.Web.PivotedProperty {
         protected override void CustomSort(IAnalysisControl analysisControl, IMemberInfo memberInfo){
             ASPxPivotGrid pivotGridControl = ((AnalysisControlWeb)analysisControl).PivotGrid;
             pivotGridControl.CustomFieldSort += (sender, args) =>{
-                PivotedSortAttribute pivotedSortAttribute = memberInfo.FindAttributes<PivotedSortAttribute>().Where(attribute 
-                    => attribute.PropertyName == args.Field.FieldName).SingleOrDefault();
+                var pivotedSortAttribute = memberInfo.FindAttributes<PivotedSortAttribute>().SingleOrDefault(attribute => attribute.PropertyName == args.Field.FieldName);
                 if (pivotedSortAttribute != null){
-                    int compareResult = GetCompareResult(pivotedSortAttribute.SortDirection,
-                                                         args.GetListSourceColumnValue(args.ListSourceRowIndex1, pivotedSortAttribute.SortPropertyName),
-                                                         args.GetListSourceColumnValue(args.ListSourceRowIndex2, pivotedSortAttribute.SortPropertyName));
+                    var compareResult = GetCompareResult(pivotedSortAttribute.SortDirection,
+                        args.GetListSourceColumnValue(args.ListSourceRowIndex1, pivotedSortAttribute.SortPropertyName),
+                        args.GetListSourceColumnValue(args.ListSourceRowIndex2, pivotedSortAttribute.SortPropertyName));
                     args.Result = compareResult;
                     args.Handled = true;
                 }
