@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, reflectionDictionary);
                 var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
                 var session = new Session(simpleDataLayer);
-                _existentTypesMemberCreator.CreateMembers(session);
+                _existentTypesMemberCreator.CreateMembers(session,typesInfo);
             }
         }
     }

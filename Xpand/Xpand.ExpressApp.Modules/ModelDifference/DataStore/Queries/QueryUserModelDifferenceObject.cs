@@ -5,7 +5,6 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
     public class QueryUserModelDifferenceObject : QueryDifferenceObject<UserModelDifferenceObject> {
@@ -16,7 +15,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
         private static ContainsOperator UsersContainsOperator {
             get {
                 var xpBaseObject = (SecuritySystem.CurrentUser) as XPBaseObject;
-                if (xpBaseObject != null && XpandModuleBase.TypesInfo.FindTypeInfo(typeof(UserModelDifferenceObject)).FindMember("Users")!=null) {
+                if (xpBaseObject != null && XafTypesInfo.Instance.FindTypeInfo(typeof(UserModelDifferenceObject)).FindMember("Users")!=null) {
                     XPMemberInfo mi = xpBaseObject.ClassInfo.KeyProperty;
                     return new ContainsOperator("Users", new BinaryOperator(mi.Name, mi.GetValue(SecuritySystem.CurrentUser)));
                 }

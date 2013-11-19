@@ -49,7 +49,6 @@ namespace Xpand.Persistent.Base.General {
         static readonly object _lockObject = new object();
         public static object Control;
         static Assembly _baseImplAssembly;
-        static XPDictionary _dictiorary;
         static string _connectionString;
         private static readonly object _syncRoot = new object();
         protected Type DefaultXafAppType = typeof (XafApplication);
@@ -76,10 +75,6 @@ namespace Xpand.Persistent.Base.General {
         protected virtual void OnExtendingModelInterfaces(ExtendingModelInterfacesArgs e) {
             EventHandler<ExtendingModelInterfacesArgs> handler = ExtendingModelInterfaces;
             if (handler != null) handler(this, e);
-        }
-
-        static XpandModuleBase() {
-            TypesInfo = XafTypesInfo.Instance;
         }
 
         public static MultiValueDictionary<KeyValuePair<string,ApplicationModulesManager>, object> CallMonitor {
@@ -153,9 +148,8 @@ namespace Xpand.Persistent.Base.General {
 
         public static XPDictionary Dictiorary {
             get {
-                return !InterfaceBuilder.RuntimeMode ? XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary : _dictiorary;
+                return XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary ;
             }
-            set { _dictiorary = value; }
         }
 
         public override void CustomizeLogics(CustomLogics customLogics) {
@@ -189,8 +183,6 @@ namespace Xpand.Persistent.Base.General {
         public bool Executed(string name) {
             return Executed<object>(name);
         }
-
-        public static ITypesInfo TypesInfo { get; set; }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
@@ -329,7 +321,7 @@ namespace Xpand.Persistent.Base.General {
                 IEnumerable<Type> collectExportedTypesFromAssembly =
                     CollectExportedTypesFromAssembly(GetType().Assembly).Where(IsExportedType);
                 foreach (Type type in collectExportedTypesFromAssembly) {
-                    ITypeInfo typeInfo = TypesInfo.FindTypeInfo(type);
+                    ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
                     declaredExportedTypes.Add(type);
                     foreach (Type type1 in CollectRequiredTypes(typeInfo)) {
                         if (!declaredExportedTypes.Contains(type1))
@@ -365,13 +357,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool IsLoadingExternalModel() {
-            return TypesInfo != XafTypesInfo.Instance;
+            return XafTypesInfo.Instance.GetType()!=typeof(TypesInfo);
         }
 
         public static IEnumerable<Type> CollectExportedTypesFromAssembly(Assembly assembly) {
             var typesList = new ExportedTypeCollection();
             try {
-                TypesInfo.LoadTypes(assembly);
+                XafTypesInfo.Instance.LoadTypes(assembly);
                 if (Equals(assembly, typeof (XPObject).Assembly)) {
                     typesList.AddRange(XpoTypeInfoSource.XpoBaseClasses);
                 }
@@ -389,7 +381,7 @@ namespace Xpand.Persistent.Base.General {
 
         public Type LoadFromBaseImpl(string typeName) {
             if (BaseImplAssembly != null) {
-                ITypeInfo typeInfo = TypesInfo.FindTypeInfo(typeName);
+                ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(typeName);
                 return typeInfo != null ? typeInfo.Type : null;
             }
             return null;
@@ -438,7 +430,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             if (RuntimeMode)
                 ConnectionString = this.GetConnectionString();
-            TypesInfo.LoadTypes(typeof(XpandModuleBase).Assembly);
+            XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
         public override void Setup(XafApplication application) {
@@ -450,7 +442,6 @@ namespace Xpand.Persistent.Base.General {
             helper.Attach(this);
             var generatorHelper = new SequenceGeneratorHelper();
             generatorHelper.Attach(this,helper);
-            Dictiorary = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
 
             if (Executed("Setup"))
                 return;
@@ -570,7 +561,7 @@ namespace Xpand.Persistent.Base.General {
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             lock (_lockObject) {
-                ModifySequenceObjectWhenMySqlDatalayer(TypesInfo);
+                ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
             }
         }
 

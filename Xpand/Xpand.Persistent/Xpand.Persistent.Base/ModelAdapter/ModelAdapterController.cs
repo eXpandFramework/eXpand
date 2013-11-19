@@ -111,7 +111,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
                     var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var typeInfo = XpandModuleBase.TypesInfo.FindTypeInfo("DevExpress.ExpressApp.Win.FileLocation");
+                    var typeInfo = XafTypesInfo.Instance.FindTypeInfo("DevExpress.ExpressApp.Win.FileLocation");
                     methodInfo = methodInfo.MakeGenericMethod(typeInfo.Type);
                     var values = Enum.GetValues(typeInfo.Type);
                     var value = values.GetValue(1);

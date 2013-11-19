@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -34,14 +33,24 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public static class ModelNodeExtensions {
-        static readonly MethodInfo _methodInfo;
 
-        static ModelNodeExtensions() {
-            _methodInfo = typeof(ModelNode).GetMethod("AddNode", new[] { typeof(string) });
+        public static object GetValue(this IModelNode modelNode,string propertyName,Type propertyType) {
+            return modelNode.CallMethod(new[]{propertyType}, "GetValue", propertyName);
+        }
+        public static void SetValue(this IModelNode modelNode,string propertyName,Type propertyType,object value) {
+            modelNode.CallMethod(new[] { propertyType }, "SetValue", propertyName, value);
         }
 
-        public static IModelNode AddNode(this IModelNode modelNode, Type type, string id) {
-            return (IModelNode)_methodInfo.MakeGenericMethod(new[] { type }).Invoke(modelNode, new object[] { id });
+        public static bool IsRemovedNode(this IModelNode modelNode) {
+            return ((ModelNode) modelNode).IsRemovedNode;
+        }
+
+        public static bool IsNewNode(this IModelNode modelNode) {
+            return ((ModelNode) modelNode).IsNewNode;
+        }
+
+        public static string Id(this IModelNode modelNode) {
+            return ((ModelNode) modelNode).Id;
         }
 
         public static IEnumerable<IModelLayoutViewItem> ViewItems(this IEnumerable<IModelViewLayoutElement> modelViewLayout,IModelMemberViewItem memberViewItem) {

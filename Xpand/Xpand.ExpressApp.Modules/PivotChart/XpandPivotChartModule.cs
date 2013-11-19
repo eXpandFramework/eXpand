@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.PivotChart {
                 if (RuntimeMode) {
                     AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
                     Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
-                    TypesInfo.LoadTypes(assembly);
-                    var info = TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis");
+                    Application.TypesInfo.LoadTypes(assembly);
+                    var info = Application.TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis");
                     if (info==null)
                         throw new FileNotFoundException();
                     Type typeInfo = info.Type;

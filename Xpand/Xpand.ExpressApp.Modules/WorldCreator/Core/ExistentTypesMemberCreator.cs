@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -13,13 +14,16 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class ExistentTypesMemberCreator {
-        public void CreateMembers(Session session) {
+        ITypesInfo _typesInfo;
+
+        public void CreateMembers(Session session, ITypesInfo typesInfo) {
+            _typesInfo = typesInfo;
             var types = CreateCollectionMembers(session);
             types.AddRange(CreateReferenceMembers(session));
             types.AddRange(CreateCoreMembers(session));
 
             foreach (var type in types) {
-                XpandModuleBase.TypesInfo.RefreshInfo(type);
+                typesInfo.RefreshInfo(type);
             }
         }
 
@@ -29,7 +33,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
         private bool MemberExists(IExtendedMemberInfo info) {
-            var typeInfo = XpandModuleBase.TypesInfo.FindTypeInfo(info.Owner);
+            var typeInfo = _typesInfo.FindTypeInfo(info.Owner);
             return typeInfo != null && typeInfo.FindMember(info.Name) != null;
         }
 

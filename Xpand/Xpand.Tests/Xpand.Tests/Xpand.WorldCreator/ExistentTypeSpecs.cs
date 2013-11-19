@@ -26,7 +26,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             UnitOfWork.CommitChanges();
         };
 
-        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork);
+        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork, TODO);
 
 
         It should_not_throw_any_exceptions = () => XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(typeof(User)).FindMember("UserName");
@@ -48,7 +48,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             UnitOfWork.CommitChanges();
         };
 
-        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork);
+        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork, TODO);
 
         It should_find_that_member_through_xpdictionary =
             () => {
@@ -75,7 +75,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             UnitOfWork.CommitChanges();
         };
 
-        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork);
+        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork, TODO);
 
         It should_find_that_member_through_xpdictionary =
             () => {
@@ -100,7 +100,7 @@ namespace Xpand.Tests.Xpand.WorldCreator {
             UnitOfWork.CommitChanges();
         };
 
-        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork);
+        Because of = () => new ExistentTypesMemberCreator().CreateMembers(UnitOfWork, TODO);
 
         It should_find_that_member_through_xpdictionary =
             () => {
