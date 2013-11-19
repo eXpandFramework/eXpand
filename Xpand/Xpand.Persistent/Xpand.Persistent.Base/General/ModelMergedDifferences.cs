@@ -17,9 +17,22 @@ namespace Xpand.Persistent.Base.General {
         public override void UpdateNode(ModelNode node) {
             var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
             var modelViews = ((IModelViews)node);
+            var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
             var mergedDifferenceInfos = MergeDifferencesHelper.GetMergedDifferenceInfos(modelViews, modulesDifferences );
             CloneMergedView(mergedDifferenceInfos, modelViews, modulesDifferences);
+            foreach (var newView in newViews) {
+                newView.Remove();
+            }
             AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
+        }
+
+        IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
+            var objectViews = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
+                application.Views.OfType<IModelObjectView>()).Where(view => view.IsNewNode());
+            foreach (IModelObjectView objectView in objectViews) {
+                ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
+                yield return objectView;
+            }
         }
 
         void AddDifferenceLayers(ModelNode node, IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, List<ModelApplicationBase> modulesDifferences) {
@@ -43,7 +56,7 @@ namespace Xpand.Persistent.Base.General {
                         var strategiesModel = ModuleDifferencesHelper.StrategiesModel((ModelNode)modelViews, modulesDifferences);
                         var optionsMergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy)((IModelApplication)strategiesModel).Options);
                         var modelMergedDifference = modelMergedDifferenceInfo.ModelMergedDifference;
-                        var id = modelMergedDifference.Strategy.GetValue<string>("Id");
+                        var id = modelMergedDifference.Strategy.Id();
                         var differenceStrategy = optionsMergedDifferenceStrategy.MergedDifferenceStrategies[id];
                         MergeViewAttributes(differenceStrategy, sourceObjectView, targetObjectView);
                         CloneNodes(modelMergedDifference, targetObjectView, sourceObjectView);
@@ -87,10 +100,10 @@ namespace Xpand.Persistent.Base.General {
             var mergeViewAttributes = differenceStrategy.IncludedNodePaths.MergeViewAttributes;
             if (mergeViewAttributes) {
                 foreach (var valueInfo in GetValuesInfo(sourceObjectView)) {
-                    var sourceValue = sourceObjectView.CallMethod(new[] { valueInfo.PropertyType }, "GetValue", valueInfo.Name);
-                    var targetValue = targetObjectView.CallMethod(new[] { valueInfo.PropertyType }, "GetValue", valueInfo.Name);
+                    var sourceValue = sourceObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
+                    var targetValue = targetObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
                     if (sourceValue!=targetValue)
-                        targetObjectView.CallMethod(new[] { valueInfo.PropertyType }, "SetValue",  valueInfo.Name, sourceValue);
+                        targetObjectView.SetValue(valueInfo.Name, valueInfo.PropertyType, sourceValue);
                 }
             }
         }
@@ -103,7 +116,7 @@ namespace Xpand.Persistent.Base.General {
         void CloneNodes(IModelView modelView, IModelMergedDifferenceStrategyIncludedNodePath nodePath,IModelObjectView modelObjectView) {
             for (int i = 0; i < modelView.NodeCount; i++) {
                 var modelNode = modelView.GetNode(i);
-                var id = modelNode.GetValue<string>("Id");
+                var id = modelNode.Id();
                 if (id == nodePath.NodePath) {
                     ModelEditorHelper.AddCloneNode((ModelNode) modelObjectView, (ModelNode) modelNode, id);
                     break;
@@ -114,7 +127,7 @@ namespace Xpand.Persistent.Base.General {
         void RemoveUnrelatedNodes(IModelObjectView modelObjectView,IModelMergedDifferenceStrategyIncludedNodePath nodePath) {
             for (int i = modelObjectView.NodeCount - 1; i >= 0; i--) {
                 var modelNode = modelObjectView.GetNode(i);
-                if (modelNode.GetValue<string>("Id") == nodePath.NodePath) {
+                if (modelNode.Id() == nodePath.NodePath) {
                     modelNode.Remove();
                     break;
                 }
@@ -126,7 +139,7 @@ namespace Xpand.Persistent.Base.General {
             if (detailView!=null) {
                 for (int index = items.Count - 1; index >= 0; index--) {
                     var modelViewItem = items[index];
-                    var id = modelViewItem.GetValue<string>("Id");
+                    var id = modelViewItem.Id();
                     var viewItem = detailView.Items[id];
                     if (viewItem == null) {
                         ModelEditorHelper.AddCloneNode((ModelNode) detailView.Items, (ModelNode) modelViewItem, id);
@@ -140,7 +153,7 @@ namespace Xpand.Persistent.Base.General {
             if (modelListView!=null) {
                 for (int index = columns.Count - 1; index >= 0; index--) {
                     var column = columns[index];
-                    var id = column.GetValue<string>("Id");
+                    var id = column.Id();
                     var viewItem = modelListView.Columns[id];
                     if (viewItem == null) {
                         var source = (ModelNode) column;
@@ -185,7 +198,7 @@ namespace Xpand.Persistent.Base.General {
             var nodePaths = new HashSet<string>(GetIncludedNodePaths(modelObjectView, strategy).Select(path => path.NodePath));
             for (int i = modelObjectView.NodeCount - 1; i >= 0; i--) {
                 var modelNode = modelObjectView.GetNode(i);
-                var id = modelNode.GetValue<string>("Id");
+                var id = modelNode.Id();
                 if (!nodePaths.Contains(id)) {
                     modelNode.Remove();
                 }
@@ -208,7 +221,6 @@ namespace Xpand.Persistent.Base.General {
             }
         }
     }
-
     
     static class ModuleDifferencesHelper {
         public static List<ModelApplicationBase> GetModuleDifferences(ModelNode node) {
@@ -239,7 +251,7 @@ namespace Xpand.Persistent.Base.General {
         public static string GetViewId(this IModelMergedDifference modelMergedDifference, IEnumerable<ModelApplicationBase> modelApplicationBases) {
             var viewId = GetViewIdCore(modelMergedDifference);
             if (string.IsNullOrEmpty(viewId)) {
-                var id = modelMergedDifference.Parent.Parent.GetValue<string>("Id");
+                var id = modelMergedDifference.Parent.Parent.Id();
                 var mergeDifferences = modelApplicationBases.Cast<IModelApplication>().Select(application =>
                     application.Views[id]).OfType<IModelObjectViewMergedDifferences>().Where(view =>
                         view != null && view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
@@ -320,7 +332,7 @@ namespace Xpand.Persistent.Base.General {
     class MergeDifferencesHelper {
         static bool IsDifferenceValid(ModelMergedDifferenceInfo difference, IModelViews views) {
             var modelView = views[difference.MergedViewId] as IModelObjectView;
-            return modelView != null && modelView.ModelClass != null;
+            return modelView != null && modelView.ModelClass != null;//&&difference.ModelMergedDifference.Parent.Parent.Id().StartsWith("UDO");
         }
 
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -334,7 +346,7 @@ namespace Xpand.Persistent.Base.General {
             var modelMergedDifferenceInfos = modulesDifferences.Cast<IModelApplication>().SelectMany(modelApplication 
                 => GetModelObjectViewMergedDifferenceses(modelViews, modelApplication, modulesDifferences));
             return modelMergedDifferenceInfos.GroupBy(info =>
-                    new { Id = info.ModelMergedDifference.GetValue<string>("Id") ,info.TargetView}).Select(infos => infos.Last());
+                    new { Id = info.ModelMergedDifference.Id() ,info.TargetView}).Select(infos => infos.Last());
         }
 
         static Func<IModelMergedDifference, ModelMergedDifferenceInfo> MergedDifferenceInfo(IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -363,7 +375,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override string ToString() {
             return _modelMergedDifference != null
-                       ? String.Format("{0}-{1}-{2}", _targetView.GetValue<string>("Id"), _modelMergedDifference.GetValue<string>("Id"), MergedViewId)
+                       ? String.Format("{0}-{1}-{2}", _targetView.Id(), _modelMergedDifference.Id(), MergedViewId)
                        : base.ToString();
         }
 
@@ -433,7 +445,7 @@ namespace Xpand.Persistent.Base.General {
         protected override void GenerateNodesCore(ModelNode node) {
             var modelMergedDifferenceStrategyNodePaths = ((IModelMergedDifferenceStrategyIncludedNodePaths) node);
             var modelMergedDifferenceStrategies = ((IModelMergedDifferenceStrategy) modelMergedDifferenceStrategyNodePaths.Parent);
-            var id = modelMergedDifferenceStrategies.GetValue<string>("Id");
+            var id = modelMergedDifferenceStrategies.Id();
 
             GenerateAll(node, modelMergedDifferenceStrategyNodePaths);
             Func<HashSet<string>, string, bool> func = null;
@@ -447,7 +459,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (func!=null)
                 RemoveNodes(modelMergedDifferenceStrategyNodePaths, func);
-            var mergedDifferencesPath = modelMergedDifferenceStrategyNodePaths.FirstOrDefault(path => path.GetValue<string>("Id") == "MergedDifferences");
+            var mergedDifferencesPath = modelMergedDifferenceStrategyNodePaths.FirstOrDefault(path => path.Id() == "MergedDifferences");
             if (mergedDifferencesPath!=null)
                 mergedDifferencesPath.Remove();
         }
@@ -455,7 +467,7 @@ namespace Xpand.Persistent.Base.General {
         void RemoveNodes(IModelMergedDifferenceStrategyIncludedNodePaths nodePaths,Func<HashSet<string>,string,bool> func) {
             for (int i = nodePaths.NodeCount - 1; i >= 0; i--) {
                 var modelNode = nodePaths.GetNode(i);
-                var value = modelNode.GetValue<string>("Id");
+                var value = modelNode.Id();
                 if (func.Invoke(LayoutNodeNames, value))
                     modelNode.Remove();
             }
@@ -534,7 +546,7 @@ namespace Xpand.Persistent.Base.General {
     public class ModelMergedDViifferenceDomainLogic {
 
         public static IModelMergedDifferenceStrategy Get_Strategy(IModelMergedDifference differences) {
-            return Get_Strategies(differences).FirstOrDefault(strategy => strategy.GetValue<string>("Id") == MergedDifferencesStrategiesGenerator.Everything);
+            return Get_Strategies(differences).FirstOrDefault(strategy => strategy.Id() == MergedDifferencesStrategiesGenerator.Everything);
         }
 
         public static IModelList<IModelMergedDifferenceStrategy> Get_Strategies(IModelMergedDifference differences) {
@@ -546,8 +558,7 @@ namespace Xpand.Persistent.Base.General {
             if (modelObjectView.ModelClass == null)
                 return new CalculatedModelNodeList<IModelObjectView>(differences.Application.Views.OfType<IModelObjectView>());
             var modelObjectViews = differences.Application.Views.OfType<IModelObjectView>().Where(view
-                => view.ModelClass != null && (view.ModelClass.TypeInfo.Type.IsAssignableFrom(modelObjectView.ModelClass.TypeInfo.Type)
-                && (modelObjectView is IModelListView ? view is IModelListView : view is IModelDetailView)));
+                => view.ModelClass != null && (view.ModelClass.TypeInfo.Type.IsAssignableFrom(modelObjectView.ModelClass.TypeInfo.Type)));
             return new CalculatedModelNodeList<IModelObjectView>(modelObjectViews);
         }
     }
