@@ -38,10 +38,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
             Frame.TemplateChanged-=FrameOnTemplateChanged;
-            _notifyIcon1.Icon = null;
-            _notifyIcon1.Dispose();
-            _container.Dispose();
-
+            if (_notifyIcon1 != null) {
+                _notifyIcon1.Icon = null;
+                _notifyIcon1.Dispose();
+                _container.Dispose();
+            }
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
