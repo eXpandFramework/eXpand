@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.MapView.Web {
         void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
             var page = e.Template as Page;
             if (page != null)
-                page.ClientScript.RegisterClientScriptInclude("GoogleMaps", "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false");
+                page.ClientScript.RegisterClientScriptInclude("GoogleMaps", "https://maps.googleapis.com/maps/api/js?v=3.13&sensor=false");
             //page.Header.Controls.Add(new LiteralControl("<script "));
         }
         protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
