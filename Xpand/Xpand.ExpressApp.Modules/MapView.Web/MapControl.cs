@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendFormat("var div = document.getElementById('{0}');", div.ClientID);
             sb.AppendLine("window.ElementToResize = div;");
             sb.AppendLine("var initMap = function() { ");
-            
+
             sb.AppendFormat(@"{0}
                 var parentSplitter = XpandHelper.GetElementParentControl(div);
                 if (parentSplitter && !parentSplitter.xpandInitialized) {{
@@ -75,7 +75,7 @@ namespace Xpand.ExpressApp.MapView.Web
                 GetCallBackErrorHandlerName()) + ";");
 
             sb.AppendLine(" });};");
-            
+
             sb.AppendLine("var bounds = new google.maps.LatLngBounds ();");
             sb.AppendLine("var createMarker = function(location, objectId, fitBounds, infoWindowContent, infoWindowMaxWidth) {");
             sb.AppendLine(@" 
@@ -138,7 +138,7 @@ namespace Xpand.ExpressApp.MapView.Web
 
 
             bool useGeoCode = false;
-            
+
             if (DataSource != null)
             {
                 var list = DataSource as IList;
@@ -194,7 +194,7 @@ namespace Xpand.ExpressApp.MapView.Web
                 sb.AppendLine("window.AdjustSize();");
                 sb.AppendLine("google.maps.event.trigger(map, 'resize');");
             }
-            
+
             sb.AppendLine("};");
             sb.AppendLine("window.setTimeout(initMap, 500);");
             return sb.ToString();
@@ -208,8 +208,15 @@ namespace Xpand.ExpressApp.MapView.Web
             string html = mapViewInfo.InfoWindowText;
             if (string.IsNullOrEmpty(html)) return string.Empty;
 
-            if (!AllowHtmlInInfoText)
-                html = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText);
+            
+            if (!AllowHtmlInInfoText) {
+                const string lineBreak = "<br/>";
+                html = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText)
+                    .Replace("\r\n", lineBreak)
+                    .Replace("\n\r",lineBreak)
+                    .Replace("\n", lineBreak)
+                    .Replace("\r", lineBreak);
+            }
             return html.Replace("'", "''");
         }
 
