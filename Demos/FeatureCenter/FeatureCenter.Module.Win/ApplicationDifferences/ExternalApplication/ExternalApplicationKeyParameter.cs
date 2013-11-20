@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Xpo;
 
@@ -11,7 +11,7 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
 
         public override object CurrentValue {
             get {
-                return ((User)SecuritySystem.CurrentUser).Session.FindObject<ModelDifferenceObject>(
+                return ((XPBaseObject)SecuritySystem.CurrentUser).Session.FindObject<ModelDifferenceObject>(
                         o => o.Name == "ExternalApplication" && o.PersistentApplication.Name == "ExternalApplication.Win").Oid;
             }
         }

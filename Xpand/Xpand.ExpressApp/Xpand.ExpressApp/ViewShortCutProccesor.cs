@@ -14,6 +14,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Linq;
 using Xpand.Utils.Helpers;
 using Fasterflect;
@@ -57,20 +58,20 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObject(ViewShortcut shortcut, IModelDetailView modelDetailView, IObjectSpace objectSpace) {
-            object objectKey = GetObjectKey(shortcut, modelDetailView.ModelClass.TypeInfo.Type, objectSpace);
+            object objectKey = GetObjectKey(shortcut, modelDetailView, objectSpace);
             return GetObjectCore(modelDetailView, objectKey, objectSpace);
         }
 
-        object GetObjectKey(ViewShortcut shortcut, Type type, IObjectSpace objectSpace) {
-            return !string.IsNullOrEmpty(shortcut.ObjectKey) && shortcut.ObjectKey.StartsWith("@")
-                       ? CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(shortcut.ObjectKey, type)
-                       : GetObjectKey(objectSpace, type, shortcut);
-        }
-
-        object GetObjectKey(IObjectSpace objectSpace, Type type, ViewShortcut shortcut) {
-            var objectKeyString = shortcut.ObjectKey ;
+        object GetObjectKey(ViewShortcut shortcut, IModelDetailView modelDetailView, IObjectSpace objectSpace) {
+            var type = modelDetailView.ModelClass.TypeInfo.Type;
+            var objectKeyString = shortcut.ObjectKey;
             if (shortcut.ContainsKey("Criteria"))
                 objectKeyString = shortcut["Criteria"];
+            if (objectKeyString.StartsWith("@")) {
+                var modelReadOnlyParameter = ((IModelApplicationReadonlyParameters)modelDetailView.Application).ReadOnlyParameters[objectKeyString.Substring(1)];
+                var readOnlyParameter = (ReadOnlyParameter) modelReadOnlyParameter.Type.CreateInstance();
+                objectKeyString = readOnlyParameter.CurrentValue.ToString();
+            }
             return string.IsNullOrEmpty(objectKeyString) ? null : GetObjectKeyCore(objectSpace, type, objectKeyString);
         }
 
