@@ -44,7 +44,9 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             }
             if (barManagerHolder != null) {
                 var newObjectAction = Frame.GetController<NewObjectViewController>().NewObjectAction;
-                _helper = new ToolTipHelper(barManagerHolder.BarManager, newObjectAction) { ShowToolTipInMenuItems = true };
+                var barManager = barManagerHolder.BarManager;
+                if (barManager!=null)
+                    _helper = new ToolTipHelper(barManager, newObjectAction) { ShowToolTipInMenuItems = true };
             }
         }
 

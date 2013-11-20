@@ -26,12 +26,6 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
             }
         }
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            foreach (AnalysisEditorBase analysisEditor in AnalysisEditors) {
-                analysisEditor.ControlCreated -= AnalysisEditorOnControlCreated;
-            }
-        }
         void AnalysisEditorOnControlCreated(object sender, EventArgs eventArgs) {
             var editor = ((AnalysisEditorBase)sender);
             editor.ControlCreated -= AnalysisEditorOnControlCreated;

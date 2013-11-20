@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
@@ -33,6 +34,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         ModelApplicationBase _masterModel;
         ModelApplicationBase _currentObjectModel;
         IObjectSpace _objectSpace;
+        Form _form;
         #endregion
 
         #region Constructor
@@ -99,10 +101,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         void ModelEditorControlOnGotFocus(object sender, EventArgs eventArgs) {
             ((ModelEditorControl)sender).GotFocus-=ModelEditorControlOnGotFocus;
-            var form = ((ModelEditorControl)sender).FindForm();
-            Debug.Assert(form != null, "form != null");
-            form.Deactivate += FormOnDeactivate;
-            form.Activated += FormOnActivated;
+            _form = ((ModelEditorControl)sender).FindForm();
+            Debug.Assert(_form != null, "form != null");
+            _form.Deactivate += FormOnDeactivate;
+            _form.Activated += FormOnActivated;
         }
 
         void FormOnActivated(object sender, EventArgs eventArgs) {
@@ -114,8 +116,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
+            _form.Deactivate-=FormOnDeactivate;
+            _form.Activated-=FormOnActivated;
             _modelApplicationBases.Remove(_masterModel);
             Control.OnDisposing -= modelEditorControl_OnDisposing;
+
             DisposeController();
         }
 

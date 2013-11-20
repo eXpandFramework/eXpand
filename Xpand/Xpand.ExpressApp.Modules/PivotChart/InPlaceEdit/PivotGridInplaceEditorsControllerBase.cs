@@ -18,41 +18,45 @@ namespace Xpand.ExpressApp.PivotChart.InPlaceEdit {
         
     }
     public class PivotGridInplaceEditorsControllerBase : ViewController<DetailView>,IModelExtender{
-        public event EventHandler<EditorCreatedArgs> EditorCreated;
-
-        protected virtual void OnEditorCreated(EditorCreatedArgs e) {
-            EventHandler<EditorCreatedArgs> handler = EditorCreated;
-            if (handler != null) handler(this, e);
-        }
 
         public PivotGridInplaceEditorsControllerBase() {
             TargetObjectType = typeof (IAnalysisInfo);
         }
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
+        protected override void OnActivated() {
+            base.OnActivated();
             foreach (var analysisEditor in GetAnalysisEditors()) {
-                AnalysisEditorBase @base = analysisEditor;
-                analysisEditor.ValueRead += (sender, args) =>{
-                    CreateEditors(@base);
-                    OnEditorCreated(new EditorCreatedArgs(@base));
-                };
+                analysisEditor.ControlCreated += AnalysisEditorOnControlCreated;
             }
         }
 
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            foreach (var analysisEditor in GetAnalysisEditors()) {
+                analysisEditor.ControlCreated += AnalysisEditorOnControlCreated;
+            }
+        }
+        
+        void AnalysisEditorOnControlCreated(object sender, EventArgs eventArgs) {
+            var analysisEditorBase = (AnalysisEditorBase) sender;
+            analysisEditorBase.ControlCreated-=AnalysisEditorOnControlCreated;
+            CreateEditors(analysisEditorBase);
+            OnAnalysisEditorCreated(analysisEditorBase);
+        }
+
+        protected virtual void OnAnalysisEditorCreated(AnalysisEditorBase analysisEditorBase) {
+            
+        }
+
         IEnumerable<AnalysisEditorBase> GetAnalysisEditors() {
-            IEnumerable<IModelPropertyEditorPivotGridInPlaceEdit> modelPropertyEditors = View.Model.Items.OfType<IModelPropertyEditorPivotGridInPlaceEdit>().Where(
+            var modelPropertyEditors = View.Model.Items.OfType<IModelPropertyEditorPivotGridInPlaceEdit>().Where(
                         editor => editor.InPlaceEdit && typeof(IAnalysisInfo).IsAssignableFrom(
                             ((IModelPropertyEditor)editor).ModelMember.MemberInfo.MemberType));
 
             var analysisEditors = View.GetItems<AnalysisEditorBase>();
             IEnumerable<IMemberInfo> memberInfos = modelPropertyEditors.OfType<IModelPropertyEditor>().Select(modelPropertyEditor => View.ObjectTypeInfo.FindMember(modelPropertyEditor.PropertyName));
-            return memberInfos.Select(memberInfo => analysisEditors.Where(@base => @base.MemberInfo == memberInfo).FirstOrDefault()).Where(analysisEditorBase => analysisEditorBase != null);
+            return memberInfos.Select(memberInfo => analysisEditors.FirstOrDefault(@base => @base.MemberInfo == memberInfo)).Where(analysisEditorBase => analysisEditorBase != null);
         }
-
-
-
-
 
         protected virtual void CreateEditors(AnalysisEditorBase analysisEditorBase) {
             throw new NotImplementedException();
