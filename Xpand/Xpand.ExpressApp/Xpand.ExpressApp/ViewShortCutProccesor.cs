@@ -158,7 +158,7 @@ namespace Xpand.ExpressApp {
 
         void ShowNavigationItemControllerOnItemsInitialized(object sender, EventArgs eventArgs) {
             var showNavigationItemController = ((ShowNavigationItemController) sender);
-            var choiceActionItems = showNavigationItemController.ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items).Where(item => _items.ContainsKey((IModelNavigationItem) item.Model));
+            var choiceActionItems = showNavigationItemController.ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items).Where(ItemMatches);
             showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
             foreach (var item in _items) {
                 item.Key.ObjectKey = item.Value;
@@ -168,6 +168,10 @@ namespace Xpand.ExpressApp {
             }
         }
 
+        bool ItemMatches(ChoiceActionItem item) {
+            var modelNavigationItem = item.Model as IModelNavigationItem;
+            return modelNavigationItem != null && _items.ContainsKey(modelNavigationItem);
+        }
     }
 
 }
