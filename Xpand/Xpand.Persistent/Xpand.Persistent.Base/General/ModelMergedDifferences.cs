@@ -15,8 +15,8 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
-
         public override void UpdateNode(ModelNode node) {
+
             var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
             var modelViews = ((IModelViews)node);
             var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
@@ -33,7 +33,7 @@ namespace Xpand.Persistent.Base.General {
                 application.Views.OfType<IModelObjectView>()).Where(view => view.IsNewNode());
             foreach (IModelObjectView objectView in objectViews.Where(view => modelViews[view.Id]==null)) {
                 ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
-                yield return objectView;
+                yield return modelViews[objectView.Id].AsObjectView;
             }
         }
 
@@ -353,8 +353,9 @@ namespace Xpand.Persistent.Base.General {
     class MergeDifferencesHelper {
         static bool IsDifferenceValid(ModelMergedDifferenceInfo difference, IModelViews views) {
             var modelView = views[difference.MergedViewId] as IModelObjectView;
-            return modelView != null && modelView.ModelClass != null;//&&difference.ModelMergedDifference.Parent.Parent.Id().StartsWith("UDO");
+            return modelView != null && modelView.ModelClass != null;
         }
+
 
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var modelMergedDifferences = modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(differences 
