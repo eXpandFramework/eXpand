@@ -75,17 +75,15 @@ namespace Xpand.ExpressApp.FileAttachment {
             }
         }
         public static string FileSystemStoreLocation {
-            get { return String.Format("{0}{1}", PathHelper.GetApplicationFolder(), GetFileSystemStoreLocation()); }
+            get { return GetFileSystemStoreLocation(); }
         }
 
-        static string GetFileSystemStoreLocation() {
-            if (CaptionHelper.ApplicationModel != null) {
-                var modelOptionsFileSystemStoreLocation =
-                    ((IModelOptionsFileSystemStoreLocation) CaptionHelper.ApplicationModel.Options);
-                return modelOptionsFileSystemStoreLocation.FileSystemStoreLocation;
-            }
+        static string GetFileSystemStoreLocation() {        
+            var modelOptionsFileSystemStoreLocation =((IModelOptionsFileSystemStoreLocation) CaptionHelper.ApplicationModel.Options);
             var appSetting = ConfigurationManager.AppSettings["FileSystemStoreLocation"];
-            return appSetting ?? FileDataFolderName;
+            var path = appSetting ?? modelOptionsFileSystemStoreLocation.FileSystemStoreLocation;
+            return modelOptionsFileSystemStoreLocation.FileSystemStoreLocation.IndexOf(":")>-1? path
+                       : String.Format("{0}{1}", PathHelper.GetApplicationFolder(), path);
         }
     }
 
