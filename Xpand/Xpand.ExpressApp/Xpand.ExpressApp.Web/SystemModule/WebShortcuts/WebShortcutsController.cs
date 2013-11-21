@@ -32,7 +32,13 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
             base.OnFrameAssigned();
             if (((IModelOptionsWebShortcut)Application.Model.Options).WebShortcut.Enabled) {
                 Frame.TemplateChanged += FrameOnTemplateChanged;
+                Frame.Disposing+=FrameOnDisposing;
             }
+        }
+
+        void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
+            Frame.TemplateChanged-=FrameOnTemplateChanged;
         }
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
