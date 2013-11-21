@@ -37,13 +37,13 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (!IsLoadingExternalModel()&&FilterProviderManager.IsRegistered && ProxyEventsSubscribed.HasValue && ProxyEventsSubscribed.Value) {
+            if (FilterProviderManager.IsRegistered  ) {
                 SubscribeToDataStoreProxyEvents();
             }
         }
 
         void SubscribeToDataStoreProxyEvents() {
-            if (Application != null && Application.ObjectSpaceProvider != null) {
+            if (Application != null && Application.ObjectSpaceProvider != null && !ProxyEventsSubscribed.HasValue) {
                 var objectSpaceProvider = (Application.ObjectSpaceProvider);
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)) {
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
@@ -216,7 +216,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
             }
 
             var fullName = _tablesDictionary[statement.TableName].FullName;
-            if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.FirstOrDefault(member => member.Name == filterMemberName) == null) {
+            if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.FirstOrDefault(member => member.Name == filterMemberName) == null && statement.SubNodes.Any()) {
                 return statement.SubNodes[0].Alias;
             }
             return statement.Alias;

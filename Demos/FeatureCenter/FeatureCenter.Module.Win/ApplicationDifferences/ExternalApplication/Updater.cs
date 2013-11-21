@@ -5,6 +5,7 @@ using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
     public class Updater : FCUpdater {
@@ -20,9 +21,9 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(uniqueName, "ExternalApplication") == null) {
                 var modelDifferenceObject = new ModelDifferenceObject(session).InitializeMembers("ExternalApplication", "ExternalApplication.Win", uniqueName);
                 modelDifferenceObject.PersistentApplication.ExecutableName = "ExternalApplication.Win.exe";
-                var modelApplicationBuilder = new ModelLoader(modelDifferenceObject.PersistentApplication.ExecutableName);
+                var modelApplicationBuilder = new ModelLoader(modelDifferenceObject.PersistentApplication.ExecutableName,XafTypesInfo.Instance);
                 InterfaceBuilder.SkipAssemblyCleanup = true;
-                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore), false);
+                var model = modelApplicationBuilder.GetLayer(typeof(ExternalApplicationModelStore), false,info => info.AssignAsInstance());
                 InterfaceBuilder.SkipAssemblyCleanup = false;
                 modelDifferenceObject.CreateAspects(model);
                 ObjectSpace.CommitChanges();

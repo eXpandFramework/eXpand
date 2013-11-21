@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         #region Overrides
 
         protected override void OnCurrentObjectChanged() {
-            _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName);
+            _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName, XafTypesInfo.Instance);
             InterfaceBuilder.SkipAssemblyCleanup = true;
             _masterModel = GetMasterModel();
             InterfaceBuilder.SkipAssemblyCleanup = false;

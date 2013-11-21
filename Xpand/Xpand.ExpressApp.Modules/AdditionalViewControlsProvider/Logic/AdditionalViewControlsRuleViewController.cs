@@ -48,11 +48,13 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                     if (info.Active && ViewContextIsCorrect(additionalViewControlsRule)) {
 
                         var control = GetControl(controlType, additionalViewControl, additionalViewControlsRule);
-                        control.Rule = additionalViewControlsRule;
-                        calculator.ControlsRule.DecoratorType.CreateInstance(new[] { info.View, (object)control, additionalViewControlsRule });
-                        if (additionalViewControl == null) {
-                            InitializeControl(control, additionalViewControlsRule, calculator, logicRuleExecuteEventArgs.ExecutionContext);
-                            AddControl(control, controls, info);
+                        if (control != null) {
+                            control.Rule = additionalViewControlsRule;
+                            calculator.ControlsRule.DecoratorType.CreateInstance(new[] { info.View, (object)control, additionalViewControlsRule });
+                            if (additionalViewControl == null) {
+                                InitializeControl(control, additionalViewControlsRule, calculator, logicRuleExecuteEventArgs.ExecutionContext);
+                                AddControl(control, controls, info);
+                            }
                         }
                     } else if (additionalViewControl != null) {
                         controls.CallMethod("Remove", new object[]{additionalViewControl});

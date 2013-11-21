@@ -276,18 +276,20 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
         public static bool IsDebug { get; set; }
 
         readonly string _moduleName;
+        readonly ITypesInfo _instance;
         ITypesInfo _typesInfo;
         XafApplication _xafApplication;
         ModelBuilder _modelBuilder;
 
-        public ModelLoader(string moduleName) {
+        public ModelLoader(string moduleName, ITypesInfo instance) {
             _moduleName = moduleName;
+            _instance = instance;
         }
 
         public ModelApplicationBase ReCreate() {
             return GetMasterModelCore(true);
         }
-        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo) {
+        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo,Action<ITypesInfo> action=null) {
             _typesInfo = TypesInfoBuilder.Create()
                 .FromModule(_moduleName)
                 .Build(tryToUseCurrentTypesInfo);
@@ -295,7 +297,9 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
                 UsingTypesInfo(s => _typesInfo).
                 FromModule(_moduleName).
                 Build();
-            return GetMasterModelCore(false);
+            var modelApplicationBase = GetMasterModelCore(false);
+            if (action != null) action.Invoke(_instance);
+            return modelApplicationBase;
         }
 
         ModelApplicationBase GetMasterModelCore(bool rebuild) {
@@ -316,8 +320,8 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             return modelApplicationBase;
         }
 
-        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo) {
-            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo);
+        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo, Action<ITypesInfo> action ) {
+            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo,action);
             var layer = masterModel.CreatorInstance.CreateModelApplication();
 
             masterModel.AddLayerBeforeLast(layer);

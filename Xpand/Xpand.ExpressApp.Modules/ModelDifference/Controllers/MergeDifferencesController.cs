@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             CheckIfMixingApplications(selectedObjects);
             foreach (var differenceObject in selectedModelAspectObjects) {
                 InterfaceBuilder.SkipAssemblyCleanup = true;
-                var masterModel = new ModelLoader(differenceObject.PersistentApplication.ExecutableName).GetMasterModel(true);
+                var masterModel = new ModelLoader(differenceObject.PersistentApplication.ExecutableName, XafTypesInfo.Instance).GetMasterModel(true,info => info.AssignAsInstance());
                 InterfaceBuilder.SkipAssemblyCleanup = false;
                 var model = differenceObject.GetModel(masterModel);
                 foreach (var selectedModelAspectObject in selectedObjects) {

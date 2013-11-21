@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 ModelDifferenceObject difference = GetDifferenceFromPermission((XPObjectSpace)space);
                 if (difference != null) {
                     InterfaceBuilder.SkipAssemblyCleanup = true;
-                    var master = new ModelLoader(difference.PersistentApplication.ExecutableName).GetMasterModel(true);
+                    var master = new ModelLoader(difference.PersistentApplication.ExecutableName, XafTypesInfo.Instance).GetMasterModel(true,info => info.AssignAsInstance());
                     InterfaceBuilder.SkipAssemblyCleanup = false;
                     var diffsModel = difference.GetModel(master);
                     new ModelXmlReader().ReadFromModel(diffsModel, model);
