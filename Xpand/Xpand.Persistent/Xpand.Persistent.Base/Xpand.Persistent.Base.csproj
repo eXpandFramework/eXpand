@@ -123,6 +123,7 @@
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
     <Compile Include="General\ActionExtenions.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\CollectionSourceExtensions.cs" />
     <Compile Include="General\Controllers\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>

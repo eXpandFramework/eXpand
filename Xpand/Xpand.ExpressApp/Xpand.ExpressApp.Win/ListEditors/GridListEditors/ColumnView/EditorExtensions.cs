@@ -37,6 +37,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             throw new NotImplementedException(columnsListEditor.GetType().ToString());
         }
 
+        public static DevExpress.XtraGrid.Views.Grid.GridView GridView(this IColumnViewEditor columnsListEditor) {
+            return ((ColumnsListEditor) columnsListEditor).GridView();
+        }
+
         public static DevExpress.XtraGrid.Views.Grid.GridView GridView(this ColumnsListEditor columnsListEditor) {
             var gridListEditor = columnsListEditor as GridListEditor;
             if (gridListEditor != null) return (gridListEditor).GridView;
