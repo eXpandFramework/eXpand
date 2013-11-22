@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,7 +30,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             if (editor.Grid != null) {
                 editor.Grid.ViewRegistered -= Grid_ViewRegistered;
                 editor.Grid.ViewRemoved -= Grid_ViewRemoved;
-                if (columnView == editor.Grid.MainView) {
+                if (!columnView.IsDetailView(editor)) {
                     var gridViews = editor.Grid.Views.OfType<IMasterDetailColumnView>().ToList();
                     for (int i = gridViews.Count() - 1; i > -1; i--) {
                         var xpandXafGridView = gridViews[i];
@@ -45,26 +46,52 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 columnView.MasterRowGetChildList -= ViewOnMasterRowGetChildList;
                 columnView.MasterRowEmpty -= ViewOnMasterRowEmpty;
                 columnView.MasterRowGetLevelDefaultView -= ViewOnMasterRowGetLevelDefaultView;
+                if (columnView.IsDetailView(editor)) {
+                    View.CollectionSource.CriteriaApplied -= CollectionSourceOnCriteriaApplied;
+                }
             }
         }
+
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var columnViewEditor = View.Editor as IColumnViewEditor;
-            if (columnViewEditor != null && IsMasterDetail()) {
-                Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=
+            if (columnViewEditor != null ) {
+                SyncronizeDataSourceWithCriteria(columnViewEditor);
+                if (IsMasterDetail()) {
+                    var masterDetailColumnView = (IMasterDetailColumnView) (columnViewEditor).ColumnView;
+                    Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=
                     ShowNavigationItemActionOnExecuting;
-                var view = (IMasterDetailColumnView)(columnViewEditor).ColumnView;
-                var grid = (columnViewEditor).Grid;
-                grid.ViewRegistered += Grid_ViewRegistered;
-                grid.ViewRemoved += Grid_ViewRemoved;
-                view.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
-                view.MasterRowGetRelationName += ViewOnMasterRowGetRelationName;
-                view.MasterRowGetRelationDisplayCaption += MasterRowGetRelationDisplayCaption;
-                view.MasterRowGetChildList += ViewOnMasterRowGetChildList;
-                view.MasterRowEmpty += ViewOnMasterRowEmpty;
-                view.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+                    var grid = columnViewEditor.Grid;
+                    grid.ViewRegistered += Grid_ViewRegistered;
+                    grid.ViewRemoved += Grid_ViewRemoved;
+                    masterDetailColumnView.MasterRowGetRelationCount += ViewOnMasterRowGetRelationCount;
+                    masterDetailColumnView.MasterRowGetRelationName += ViewOnMasterRowGetRelationName;
+                    masterDetailColumnView.MasterRowGetRelationDisplayCaption += MasterRowGetRelationDisplayCaption;
+                    masterDetailColumnView.MasterRowGetChildList += ViewOnMasterRowGetChildList;
+                    masterDetailColumnView.MasterRowEmpty += ViewOnMasterRowEmpty;
+                    masterDetailColumnView.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+                }
             }
+        }
+
+        void SyncronizeDataSourceWithCriteria(IColumnViewEditor columnViewEditor) {
+            var detailColumnView = (IMasterDetailColumnView) (columnViewEditor).ColumnView.GridControl.FocusedView;
+            if (detailColumnView.IsDetailView(columnViewEditor)) {
+                EventHandler[] eventHandlers = {null};
+                eventHandlers[0] = (sender, args) => {
+                    var dataSource = ((IColumnViewEditor) View.Editor).ColumnView.DataSource;
+                    ObjectSpace.ApplyCriteria(dataSource, View.CollectionSource.GetCriteria());
+                    ((IColumnViewEditor)View.Editor).ColumnView.DataSourceChanged -= eventHandlers[0];
+                };
+                ((IColumnViewEditor)View.Editor).ColumnView.DataSourceChanged+= eventHandlers[0];
+                View.CollectionSource.CriteriaApplied += CollectionSourceOnCriteriaApplied;
+            }
+        }
+
+        void CollectionSourceOnCriteriaApplied(object sender, EventArgs eventArgs) {
+            var dataSource = ((IColumnViewEditor) View.Editor).ColumnView.DataSource;
+            ObjectSpace.ApplyCriteria(dataSource, View.CollectionSource.GetCriteria());
         }
 
         public abstract bool IsMasterDetail();

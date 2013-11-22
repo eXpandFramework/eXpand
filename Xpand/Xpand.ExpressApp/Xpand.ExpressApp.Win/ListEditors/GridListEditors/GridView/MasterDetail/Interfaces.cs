@@ -19,8 +19,14 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
+    public static class MasterDetailColumnViewExtensions {
+        public static bool IsDetailView(this IMasterDetailColumnView columnView, IColumnViewEditor editor) {
+            return columnView != editor.Grid.MainView;
+        } 
+    }
     public interface IMasterDetailColumnView {
         Window Window { get; set; }
         Frame MasterFrame { get; set; }
