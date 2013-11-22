@@ -33,8 +33,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                     var gridViews = editor.Grid.Views.OfType<IMasterDetailColumnView>().ToList();
                     for (int i = gridViews.Count() - 1; i > -1; i--) {
                         var xpandXafGridView = gridViews[i];
-                        if (xpandXafGridView.Window != null)
-                            ((WinWindow)xpandXafGridView.Window).Form.Close();
+                        CloseNestedWindow(xpandXafGridView);
                     }
                 }
             }
@@ -162,8 +161,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         void CloseNestedWindow(IMasterDetailColumnView baseView) {
             var window = baseView.Window as WinWindow;
-            if (window != null && window.Form != null)
+            if (window != null && window.Form != null) {
+                baseView.Window.View.SaveModel();
                 window.Form.Close();
+            }
         }
 
         public bool SynchronizeActions() {
