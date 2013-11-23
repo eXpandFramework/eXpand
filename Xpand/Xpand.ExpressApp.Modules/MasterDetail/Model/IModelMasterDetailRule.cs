@@ -17,9 +17,6 @@ namespace Xpand.ExpressApp.MasterDetail.Model {
     }
     [DomainLogic(typeof(IModelMasterDetailRule))]
     public class MasterDetailRuleDomainLogic {
-        public static bool Get_SynchronizeActions(IModelMasterDetailRule masterDetailRule) {
-            return true;
-        }
 
         public static IModelList<IModelMember> Get_CollectionMembers(IModelMasterDetailRule masterDetailRule) {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelMember>();

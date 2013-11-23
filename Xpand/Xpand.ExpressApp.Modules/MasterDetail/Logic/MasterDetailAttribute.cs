@@ -17,10 +17,9 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
         IModelListView IMasterDetailRule.ChildListView { get; set; }
         public string CollectionMember { get; set; }
 
-        public bool SynchronizeActions { get; set; }
-
         [TypeConverter(typeof(StringToModelMemberConverter))]
         IModelMember IMasterDetailRule.CollectionMember { get; set; }
+
     }
 
 }

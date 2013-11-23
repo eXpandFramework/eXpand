@@ -12,8 +12,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
     public abstract class MasterDetailActionsController : ViewController<ListView> {
         readonly Dictionary<string, BoolList> _enabledBoolLists = new Dictionary<string, BoolList>();
         readonly Dictionary<string, BoolList> _activeBoolLists = new Dictionary<string, BoolList>();
-
-
         bool _disposing;
 
         protected override void OnFrameAssigned() {
@@ -26,21 +24,24 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             _disposing = true;
         }
 
-        void SubscribeToActionStateResultChange() {
-            foreach (var action in GetActions(Frame).Where(@base => !IsExcluded(@base))) {
-                ActionBase action1 = action;
-                action.Enabled.ResultValueChanged += (sender, args) => {
-                    if (!(_disposing && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null))
-                        CloneBoolList(action1.Id, action1.Enabled, _enabledBoolLists);
+        void SubscribeToActionStateResultChange(ActionBase actionBase) {
+            if (!IsExcluded(actionBase)) {
+                actionBase.Enabled.ResultValueChanged += (sender, args) => {
+                    if (CanClone())
+                        CloneBoolList(actionBase.Id, actionBase.Enabled, _enabledBoolLists);
                 };
-                action.Active.ResultValueChanged += (sender, args) => {
-                    if (!_disposing && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null)
-                        CloneBoolList(action1.Id, action1.Active, _activeBoolLists);
-                };
+                actionBase.Active.ResultValueChanged += (sender, args) => {
+                    if (CanClone())
+                        CloneBoolList(actionBase.Id, actionBase.Active, _activeBoolLists);
+                };                
             }
         }
 
-        IEnumerable<ActionBase> GetActions(Frame frame) {
+        bool CanClone() {
+            return !_disposing && GridListEditor != null && GridListEditor.Grid!=null && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null;
+        }
+
+        protected virtual IEnumerable<ActionBase> GetActions(Frame frame) {
             return frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
         }
 
@@ -54,9 +55,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             base.OnViewControlsCreated();
             if (GridListEditor != null && GridListEditor.ColumnView is IMasterDetailColumnView) {
                 var gridView = ((IMasterDetailColumnView)GridListEditor.ColumnView);
-                if (gridView.MasterFrame == null && HasRules && SynchronizeActions()) {                    
-                    SubscribeToActionStateResultChange();
-                    PushExecutionToNestedFrame();
+                if (gridView.MasterFrame == null && HasRules && SynchronizeActions()) {
+                    foreach (var action in GetActions(Frame)) {
+                        SubscribeToActionStateResultChange(action);
+                        PushExecutionToNestedFrame(action);
+                    }
                     if (HasRules && gridView.MasterFrame == null) {
                         CloneActionState(Frame, _activeBoolLists, _enabledBoolLists);
                         gridView.GridControl.FocusedViewChanged += OnFocusedViewChanged;
@@ -67,7 +70,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         protected virtual bool SynchronizeActions() {
-            return Frame.GetController<MasterDetailViewController>().SynchronizeActions();
+            return Frame.GetController<MasterDetailViewController>().FilterRules(View.CurrentObject, Frame).Any();
+                //.Any(info => info.SynchronizeActions);
         }
 
         void OnFocusedViewChanged(object sender, ViewFocusEventArgs e) {
@@ -92,14 +96,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
 
         void SyncStates(string id, BoolList boolList, Dictionary<string, BoolList> boolLists) {
-            var list = boolLists[id];
-            if (list.GetKeys().FirstOrDefault() != null) {
-                boolList.BeginUpdate();
-                boolList.Clear();
-                foreach (var key in list.GetKeys()) {
-                    boolList.SetItemValue(key, list[key]);
+            if (boolList.Contains(id)) {
+                var list = boolLists[id];
+                if (list.GetKeys().FirstOrDefault() != null) {
+                    boolList.BeginUpdate();
+                    boolList.Clear();
+                    foreach (var key in list.GetKeys()) {
+                        boolList.SetItemValue(key, list[key]);
+                    }
+                    boolList.EndUpdate();
                 }
-                boolList.EndUpdate();
             }
         }
 
@@ -119,13 +125,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             boolLists[id].EndUpdate();
         }
 
-        void PushExecutionToNestedFrame() {
-            foreach (var action in GetActions(Frame)) {
-                action.Executing +=
-                    (sender, args) =>
-                    PushExecutionToNestedFrameCore((ActionBase)sender, () => args.Cancel = true);
-
-            }
+        void PushExecutionToNestedFrame(ActionBase actionBase) {
+            actionBase.Executing +=(sender, args) =>PushExecutionToNestedFrameCore((ActionBase)sender, () => args.Cancel = true);
         }
 
         public virtual bool HasRules {

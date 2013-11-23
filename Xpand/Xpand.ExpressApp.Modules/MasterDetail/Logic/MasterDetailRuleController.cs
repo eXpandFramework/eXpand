@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             if (masterDetailViewControllerBase != null)
                 masterDetailViewControllerBase.RequestRules = frame1 => {
                     var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
-                    return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null, rule.SynchronizeActions)).ToList();
+                    return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null)).ToList();
                 };
         }
 

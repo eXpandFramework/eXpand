@@ -7,12 +7,11 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             : base(masterDetailRule) {
             ChildListView = masterDetailRule.ChildListView;
             CollectionMember = masterDetailRule.CollectionMember;
-            SynchronizeActions = masterDetailRule.SynchronizeActions;
         }
 
         public IModelListView ChildListView { get; set; }
 
         public IModelMember CollectionMember { get; set; }
-        public bool SynchronizeActions { get; set; }
+        
     }
 }

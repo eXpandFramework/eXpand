@@ -121,7 +121,7 @@
   <ItemGroup>
     <Compile Include="DifferenceType.cs" />
     <Compile Include="ExceptionHandling\IExceptionObject.cs" />
-    <Compile Include="General\ActionExtenions.cs" />
+    <Compile Include="General\ActionExtensions.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
     <Compile Include="General\CollectionSourceExtensions.cs" />
     <Compile Include="General\Controllers\CreateExpandAbleMembersViewController.cs">
@@ -203,6 +203,7 @@
     <Compile Include="Logic\ILogicInstaller.cs" />
     <Compile Include="Logic\LogicRule.cs" />
     <Compile Include="Logic\Model\IContextLogicRule.cs" />
+    <Compile Include="Logic\Model\IModelActionExecutionContextGroup.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />

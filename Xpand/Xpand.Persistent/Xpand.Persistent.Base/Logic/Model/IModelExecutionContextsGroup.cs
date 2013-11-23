@@ -6,11 +6,4 @@ namespace Xpand.Persistent.Base.Logic.Model {
     public interface IModelExecutionContextsGroup : IModelNode, IModelList<IModelExecutionContexts> {
         
     }
-
-    [ModelNodesGenerator(typeof(ActionExecutionContextsGroupNodeGenerator))]
-    public interface IModelActionExecutionContextGroup : IModelNode, IModelList<IModelActionExecutionContexts> {
-    }
-    
-
-
 }
