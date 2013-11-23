@@ -28,7 +28,14 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [SecurityOperations("DashboardDefinitions", "DashboardOperation")]
     [NavigationItem("Reports")]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition {
-
+        public string List1Currencies {
+            get {
+                return _List1Currencies;
+            }
+            set {
+                SetPropertyValue("List1Currencies", ref _List1Currencies, value);
+            }
+        }
         bool _active;
         BindingList<ITypeWrapper> _dashboardTypes;
         int _index;
@@ -38,6 +45,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [Persistent("TargetObjectTypes")]
         string _targetObjectTypes;
         IList<TypeWrapper> _types;
+        string _List1Currencies;
 
         public DashboardDefinition(Session session)
             : base(session) {
@@ -45,11 +53,11 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         }
 
         [Browsable(false)]
-        internal IList<TypeWrapper> Types {
+        internal IEnumerable<TypeWrapper> Types {
             get {
                 return _types ?? (_types = XafTypesInfo.Instance.PersistentTypes
                                                        .Where(info => (info.IsVisible && info.IsPersistent) && (info.Type != null))
-                                                       .Select(info => new TypeWrapper(Session, info.Type))
+                                                       .Select(info => new TypeWrapper(info.Type))
                                                        .OrderBy(info => info.Caption)
                                                        .ToList());
             }
@@ -110,7 +118,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         void UpdateTargetObjectTypes() {
             _targetObjectTypes = "<Types>\r\n";
-            foreach (TypeWrapper resource in DashboardTypes)
+            foreach (TypeWrapper resource in DashboardTypes.Distinct())
                 _targetObjectTypes += string.Format("<Value Type=\"{0}\"/>\r\n", resource.Type.FullName);
             _targetObjectTypes += "</Types>";
         }
@@ -140,7 +148,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         }
 
         void DashboardDefinition_ListChanged(object sender, ListChangedEventArgs e) {
-            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted) {
+            if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.Reset) {
                 UpdateTargetObjectTypes();
                 OnChanged("TargetObjectTypes");
             }

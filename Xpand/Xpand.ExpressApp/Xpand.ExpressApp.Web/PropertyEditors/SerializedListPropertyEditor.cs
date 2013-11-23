@@ -14,9 +14,16 @@ using DevExpress.Web.ASPxEditors;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class SerializedListBoxTemplate : ASPxListBox, ITemplate {
+        bool _postValue=true;
+
         public SerializedListBoxTemplate() {
             SelectionMode = ListEditSelectionMode.CheckColumn;
             EnableClientSideAPI = true;
+        }
+
+        public bool PostValue {
+            get { return _postValue; }
+            set { _postValue = value; }
         }
 
         public override Unit Width {
@@ -29,9 +36,12 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             set {  }
         }
 
-        private string _DropDownId;
-        private char _SeparatorChar = ',';
+        private string _dropDownId;
+        private char _separatorChar = ',';
 
+        public char SeparatorChar {
+            get { return _separatorChar; }
+        }
 
         public void InstantiateIn(Control container) {
             InitClientSideEvents();
@@ -48,24 +58,39 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             ClientSideEvents.SelectedIndexChanged =
                 @"function (s, args) {
                     var listBox = ASPxClientControl.Cast(s);
-                    var checkComboBox = ASPxClientControl.Cast(" + _DropDownId + @");
+                    var checkComboBox = ASPxClientControl.Cast(" + _dropDownId + @");
 
                     var selectedItems = listBox.GetSelectedItems();
-
-                    var values = [];
-                    for(var i = 0; i < selectedItems.length; i++)
-                        values.push(selectedItems[i].value);
-
-                    checkComboBox.SetText(values.join('" + _SeparatorChar + @"'));
+                    " + SetPostData()+ @"
                 }";
         }
 
+        string SetPostData() {
+            return _postValue? GetPostValueJs(): GetPostTextJs();
+        }
+
+        string GetPostTextJs() {
+            return @"var values = [];
+                    for(var i = 0; i < selectedItems.length; i++)
+                        values.push(selectedItems[i].text);
+
+                    checkComboBox.SetText(values.join('" + _separatorChar + @"'));";
+        }
+
+        string GetPostValueJs() {
+            return @"var values = [];
+                    for(var i = 0; i < selectedItems.length; i++)
+                        values.push(selectedItems[i].value);
+
+                    checkComboBox.SetValue(values.join('" + _separatorChar + @"'));";
+        }
+
         public void SetDropDownId(string id) {
-            _DropDownId = id;
+            _dropDownId = id;
         }
 
         public void SetSeparatorChar(char separatorChar) {
-            _SeparatorChar = separatorChar;
+            _separatorChar = separatorChar;
         }
 
         public void SetValue(string value) {
@@ -78,7 +103,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
     public abstract class SerializedListPropertyEditor<T> : ASPxPropertyEditor, IComplexViewItem {
         public class ListBoxItem {
             public string DisplayText { get; set; }
-            public string Value { get; set; }
+            public object Value { get; set; }
         }
 
         protected SerializedListPropertyEditor(Type objectType, IModelMemberViewItem info)
@@ -105,15 +130,15 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected abstract string GetDisplayText(T item);
-        protected abstract string GetValue(T item);
+        protected abstract object GetValue(T item);
 
         public IObjectSpace ObjectSpace { get; private set; }
-        public ASPxDropDownEdit DropDownControl { get; private set; }
+        public new ASPxDropDownEdit Control { get; private set; }
         public LookupEditorHelper Helper { get; private set; }
 
-        private SerializedListBoxTemplate _ListBoxTemplate;
+        private SerializedListBoxTemplate _listBoxTemplate;
         public SerializedListBoxTemplate ListBoxTemplate {
-            get { return _ListBoxTemplate ?? (_ListBoxTemplate = new SerializedListBoxTemplate()); }
+            get { return _listBoxTemplate ?? (_listBoxTemplate = new SerializedListBoxTemplate()); }
         }
 
         private void PopulateListBoxItems() {
@@ -124,36 +149,36 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateEditModeControlCore() {
-            DropDownControl = new ASPxDropDownEdit();
-            DropDownControl.ValueChanged += ExtendedEditValueChangedHandler;
-            DropDownControl.EnableClientSideAPI = true;
-            DropDownControl.DropDownWindowTemplate = ListBoxTemplate;
-            DropDownControl.ClientInstanceName = "ListPropertyEditor_" + PropertyName;
-            DropDownControl.ReadOnly = true;
+            Control = new ASPxDropDownEdit();
+            Control.ValueChanged += ExtendedEditValueChangedHandler;
+            Control.EnableClientSideAPI = true;
+            Control.DropDownWindowTemplate = ListBoxTemplate;
+            Control.ClientInstanceName = "ListPropertyEditor_" + PropertyName;
+            Control.ReadOnly = true;
 
-            ListBoxTemplate.SetDropDownId(DropDownControl.ClientInstanceName);
+            ListBoxTemplate.SetDropDownId(Control.ClientInstanceName);
             PopulateListBoxItems();
 
             if (PropertyValue != null)
                 ListBoxTemplate.SetValue(PropertyValue.ToString());
 
-            return DropDownControl;
+            return Control;
         }
 
         protected override void ApplyReadOnly() {
-            if (DropDownControl != null) {
-                DropDownControl.Enabled = AllowEdit;
+            if (Control != null) {
+                Control.Enabled = AllowEdit;
             }
         }
 
         public override void BreakLinksToControl(bool unwireEventsOnly) {
-            if (DropDownControl != null) {
-                DropDownControl.ValueChanged -= ExtendedEditValueChangedHandler;
+            if (Control != null) {
+                Control.ValueChanged -= ExtendedEditValueChangedHandler;
             }
 
-            if (_ListBoxTemplate != null) {
-                _ListBoxTemplate.Dispose();
-                _ListBoxTemplate = null;
+            if (_listBoxTemplate != null) {
+                _listBoxTemplate.Dispose();
+                _listBoxTemplate = null;
             }
 
             base.BreakLinksToControl(unwireEventsOnly);
@@ -167,13 +192,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         protected override void Dispose(bool disposing) {
             try {
                 if (disposing) {
-                    if (_ListBoxTemplate != null) {
-                        _ListBoxTemplate.Dispose();
-                        _ListBoxTemplate = null;
+                    if (_listBoxTemplate != null) {
+                        _listBoxTemplate.Dispose();
+                        _listBoxTemplate = null;
                     }
-                    if (DropDownControl != null) {
-                        DropDownControl.Dispose();
-                        DropDownControl = null;
+                    if (Control != null) {
+                        Control.Dispose();
+                        Control = null;
                     }
                 }
             } finally {

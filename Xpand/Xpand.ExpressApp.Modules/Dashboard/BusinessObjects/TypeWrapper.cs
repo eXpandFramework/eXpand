@@ -11,11 +11,8 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
     [DefaultProperty("Caption")]
     [NonPersistent]
-    public class TypeWrapper : XPBaseObject, ITypeWrapper {
-        public static CaptionHelper ClassCaptionProvider = new CaptionHelper();
-
-        public TypeWrapper(Session session, Type type)
-            : base(session) {
+    public class TypeWrapper :  ITypeWrapper {
+        public TypeWrapper( Type type){
             Type = type;
         }
 
@@ -27,10 +24,6 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         public override string ToString() {
             return Caption;
-        }
-
-        protected override void OnSaving() {
-            throw new Exception("Cannot save DashboardTargetType");
         }
     }
 }
