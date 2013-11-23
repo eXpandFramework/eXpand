@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <NugetPkg>eXpandWorldCreatorWeb</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -10,13 +11,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WorldCreator.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WorldCreator.Web</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -55,69 +58,36 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms">
-      <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Xml">
-      <Name>System.XML</Name>
-      <Private>False</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WorldCreatorWebModule.cs">

@@ -59,61 +59,61 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
+    <Reference Include="DevExpress.Printing.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.AuditTrail.v13.1">
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
+    <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Docs.v13.1">
+    <Reference Include="DevExpress.Docs.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.1">
+    <Reference Include="DevExpress.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.1">
+    <Reference Include="DevExpress.XtraGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -278,9 +278,7 @@
     </Compile>
     <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
-    <Compile Include="Xpand.ExpressApp\Contexts.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Xpand.ExpressApp\Contexts.cs" />
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
     <Compile Include="Xpand.IO\ClassInfoGraphNodeSpecs.cs" />
     <Compile Include="Xpand.IO\InitData\ClassMapperSpecs.cs" />

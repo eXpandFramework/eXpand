@@ -5,7 +5,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxEditors;
 using DevExpress.Web.ASPxHtmlEditor;
 using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -60,7 +59,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             var interfaceBuilderData = new InterfaceBuilderData(typeof (ASPxHtmlEditor)){
                 Act = info => {
-                    if (new[]{typeof (ValidationSettings), typeof (DevExpress.Web.ASPxUploadControl.ValidationSettings)}
+                    if (new[] { typeof(DevExpress.Web.ASPxUploadControl.ValidationSettings), typeof(DevExpress.Web.ASPxUploadControl.ValidationSettings) }
                             .Any(type => type.IsAssignableFrom(info.PropertyType))) {
                         return true;
                     }
@@ -68,7 +67,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
                     return info.DXFilter(BaseHtmlEditorControlTypes(), typeof (object));
                 }
             };
-            interfaceBuilderData.ReferenceTypes.Add(typeof(CursorConverter));
+//            interfaceBuilderData.ReferenceTypes.Add(typeof(CursorConverter));
             yield return interfaceBuilderData;
             yield return new InterfaceBuilderData(typeof(HtmlEditorToolbar)){
                 Act = info => info.DXFilter()

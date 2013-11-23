@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <NugetPkg>eXpandSystemWeb</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -57,6 +58,12 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeParser.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -75,11 +82,21 @@
     <Reference Include="DevExpress.ExpressApp.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Web.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System" />
@@ -102,7 +119,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\IModelViewOpenView.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
+    <Compile Include="Model\QueryStringParameter.cs" />
+    <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
+    <Compile Include="SystemModule\UnsavedObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,7 +143,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
-    <Compile Include="FriendlyUrl\XpandHttpRequestManager.cs" />
+    <Compile Include="XpandHttpRequestManager.cs" />
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -134,8 +158,8 @@
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\Model\ModelAfaptor\IModelAdaptorGridViewOptionsRule.cs" />
-    <Compile Include="ListEditors\Model\ModelAfaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAdaptor\IModelAdaptorGridViewOptionsRule.cs" />
+    <Compile Include="ListEditors\Model\ModelAdaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -174,6 +198,9 @@
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\WebShortcuts\WebShortcutsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\WebToolTipsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -195,7 +222,6 @@
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ViewStrategies\XpandShowViewStrategy.cs" />
     <Compile Include="XpandPopupWindow.cs" />
     <Compile Include="XpandWebApplication.cs">
       <SubType>Component</SubType>
@@ -247,6 +273,15 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Styles\CommonStyle.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SystemModule\WebShortcuts\jwerty.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PropertyEditors\CSCodePropertyEditor\CodeFormatter.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

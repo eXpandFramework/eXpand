@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D3346898-E61A-470E-B38D-D38BF584271B}</ProjectGuid>
+    <ProjectGuid>{BE493AC7-4B27-4EAF-B2A9-8ADD2C7CE4BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.FileAttachment</RootNamespace>
@@ -57,20 +57,19 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v13.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.FileAttachment.Win.v13.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Configuration" />
@@ -98,9 +97,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\FileSystemLinkObject.cs" />
     <Compile Include="BusinessObjects\FileSystemStoreObject.cs" />
-    <Compile Include="XpandFileAttachmentsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandFileAttachmentsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

@@ -57,55 +57,55 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
+    <Reference Include="DevExpress.Printing.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.1.Core">
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxPivotGrid.v13.1">
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
+    <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.1">
+    <Reference Include="DevExpress.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

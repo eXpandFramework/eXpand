@@ -9,6 +9,7 @@ using System.Linq;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.General;
+using ITypesInfoProvider = Xpand.Persistent.Base.ModelDifference.ITypesInfoProvider;
 
 namespace Xpand.ExpressApp.Logic {
     public class LogicInstallerManager {

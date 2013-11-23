@@ -58,61 +58,61 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeParser.v13.1">
+    <Reference Include="DevExpress.CodeParser.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
+    <Reference Include="DevExpress.Printing.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
+    <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.1">
+    <Reference Include="DevExpress.XtraBars.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1">
+    <Reference Include="DevExpress.XtraEditors.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.1">
+    <Reference Include="DevExpress.XtraGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v13.1">
+    <Reference Include="DevExpress.XtraLayout.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v13.1">
+    <Reference Include="DevExpress.XtraNavBar.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.1">
+    <Reference Include="DevExpress.XtraRichEdit.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.1.Extensions">
+    <Reference Include="DevExpress.XtraRichEdit.v13.2.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -164,9 +164,7 @@
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -197,9 +195,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\GridViewKeyboardController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -218,9 +214,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -251,9 +245,7 @@
     <Compile Include="ListEditors\GridListEditors\GridView\MasterDetail\ModelDetailRelationCalculator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -283,9 +275,7 @@
     <Compile Include="ListEditors\GridListEditors\LayoutView\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -347,9 +337,7 @@
     <Compile Include="SystemModule\AutoCommitListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AutoExpandNewRowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\AutoExpandNewRowController.cs" />
     <Compile Include="SystemModule\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -372,9 +360,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ToolTip\ObjectToolTipViewController.cs" />
-    <Compile Include="SystemModule\UnboundColumnController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\UnboundColumnController.cs" />
     <Compile Include="SystemModule\CursorPositionController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -382,51 +368,33 @@
     <Compile Include="SystemModule\FilterControlController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs" />
     <Compile Include="SystemModule\NewObjectCollectCreatableItemTypesDataSource.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs" />
     <Compile Include="SystemModule\PromtOnExitController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ViewEditModeController.cs" />
     <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ToolTip\WinToolTipsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ToolTip\WinToolTipsController.cs" />
+    <Compile Include="SystemModule\XpandSystemWindowsFormsModule.cs" />
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
     <Compile Include="SystemModule\FilterControlListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FocusControlByShortcutController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs" />
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\HideToolBarController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\HideToolBarController.cs" />
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs" />
     <Compile Include="SystemModule\LoadWithWindowsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -445,15 +413,11 @@
     <Compile Include="SystemModule\XpandWinDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\SearchFromDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\SearchFromDetailViewController.cs" />
     <Compile Include="SystemModule\SupressConfirmationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditValueChangedFiringModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ViewEditValueChangedFiringModeController.cs" />
     <Compile Include="SystemModule\WindowHintController.cs">
       <SubType>Component</SubType>
     </Compile>

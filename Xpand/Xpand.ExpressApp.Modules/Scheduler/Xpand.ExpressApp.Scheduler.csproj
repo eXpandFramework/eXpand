@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.Scheduler</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Scheduler</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -56,40 +58,40 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1">
+    <Reference Include="DevExpress.XtraEditors.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Reporting.Extensions">
+    <Reference Include="DevExpress.XtraScheduler.v13.2.Reporting.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1">
+    <Reference Include="DevExpress.XtraScheduler.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
+    <Reference Include="DevExpress.XtraScheduler.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -116,9 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\SchedulerModelAdapterControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\SchedulerModelAdapterControllerBase.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="Reminders\IModelMemberReminderInfo.cs" />
     <Compile Include="Reminders\ReminderAlertController.cs">
@@ -131,9 +131,7 @@
     </Compile>
     <Compile Include="Reminders\Extensions.cs" />
     <Compile Include="Reminders\SupportsReminderController.cs" />
-    <Compile Include="XpandSchedulerModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSchedulerModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

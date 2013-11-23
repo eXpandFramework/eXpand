@@ -25,8 +25,8 @@
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.1, Version=13.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1, Version=13.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ValidationTester.Win\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ValidationTester.Web" />
 	</Aliases>

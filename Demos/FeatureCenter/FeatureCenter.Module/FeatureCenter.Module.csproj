@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -61,46 +62,46 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Kpi.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Kpi.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.1">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.1">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
@@ -241,7 +242,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs"></Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
+    </Compile>
     <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
     <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
       <SubType>Component</SubType>
@@ -314,9 +316,7 @@
     <Compile Include="ImportExport\AnalysisObjects\Updater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PropertyPathFiltersNodeUpdater.cs" />
     <Compile Include="ListViewControl\PropertyPathFilters\PPCustomer.cs" />
-    <Compile Include="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Module.cs" />
     <Compile Include="Module.Designer.cs">
       <DependentUpon>Module.cs</DependentUpon>
     </Compile>
@@ -327,7 +327,8 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
+    </Compile>
     <Compile Include="DisplayUpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -39,10 +39,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

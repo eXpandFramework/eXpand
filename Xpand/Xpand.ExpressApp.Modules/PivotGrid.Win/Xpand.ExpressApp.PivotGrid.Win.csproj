@@ -57,67 +57,67 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v13.1.Core">
+    <Reference Include="DevExpress.Charts.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.1">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
+    <Reference Include="DevExpress.Printing.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.1.Core">
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.Wizard">
+    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1">
+    <Reference Include="DevExpress.XtraCharts.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.UI">
+    <Reference Include="DevExpress.XtraCharts.v13.2.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1">
+    <Reference Include="DevExpress.XtraEditors.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v13.1.Core">
+    <Reference Include="DevExpress.XtraGauges.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v13.1.Win">
+    <Reference Include="DevExpress.XtraGauges.v13.2.Win">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.1">
+    <Reference Include="DevExpress.XtraGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v13.1">
+    <Reference Include="DevExpress.XtraLayout.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v13.1">
+    <Reference Include="DevExpress.XtraPivotGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -155,9 +155,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\PivotGridModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\PivotGridModelAdapterController.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="NetIncome\NetIncomeController.cs">
       <SubType>Component</SubType>
@@ -174,9 +172,7 @@
     <Compile Include="TopObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="XpandPivotGridWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandPivotGridWinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

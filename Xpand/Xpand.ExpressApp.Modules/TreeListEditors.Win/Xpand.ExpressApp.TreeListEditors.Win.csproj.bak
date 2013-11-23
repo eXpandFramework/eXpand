@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <NugetPkg>eXpandTreelistViewWin</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -84,6 +85,9 @@
     <Reference Include="DevExpress.XtraEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -144,8 +148,12 @@
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="Model\TreeListModelAdapterController.cs" />
-    <Compile Include="Model\TreeNavigationOptionsController.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\TreeNavigationOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

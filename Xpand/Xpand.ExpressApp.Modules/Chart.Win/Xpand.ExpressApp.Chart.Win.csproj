@@ -57,55 +57,55 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v13.1.Core">
+    <Reference Include="DevExpress.Charts.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Chart.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Chart.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.1.Core">
+    <Reference Include="DevExpress.Printing.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.1.Core">
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.Wizard">
+    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1">
+    <Reference Include="DevExpress.XtraCharts.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.1.UI">
+    <Reference Include="DevExpress.XtraCharts.v13.2.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1">
+    <Reference Include="DevExpress.XtraEditors.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v13.1">
+    <Reference Include="DevExpress.XtraPivotGrid.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -134,15 +134,11 @@
     <Compile Include="Model\ChartControlController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\ChartModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\ChartModelAdapterController.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="XpandChartListEditor.cs" />
-    <Compile Include="XpandChartWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandChartWinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

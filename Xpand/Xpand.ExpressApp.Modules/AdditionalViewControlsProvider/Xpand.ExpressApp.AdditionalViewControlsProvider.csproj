@@ -56,19 +56,19 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.1">
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -110,9 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionalViewControlsLogicInstaller.cs" />
-    <Compile Include="AdditionalViewControlsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="AdditionalViewControlsModule.cs" />
     <Compile Include="IAdditionalViewControl.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
@@ -133,18 +131,10 @@
     <Compile Include="Security\AdditionalViewControlsPermission.cs" />
     <Compile Include="Security\Improved\AdditionalViewControlsOperationPermissionData.cs" />
     <Compile Include="Security\Improved\AdditionalViewControlsPermission.cs" />
-    <Compile Include="Security\Improved\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\Improved\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Include="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs" />
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs" />
     <Compile Include="TypeDecorator.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

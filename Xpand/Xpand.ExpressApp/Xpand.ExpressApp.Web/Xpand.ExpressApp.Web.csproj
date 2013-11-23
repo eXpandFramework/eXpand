@@ -58,40 +58,40 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeParser.v13.1">
+    <Reference Include="DevExpress.CodeParser.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.1">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
+    <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.1">
+    <Reference Include="DevExpress.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -152,9 +152,7 @@
     <Compile Include="Layout\ListControlAdapterBase.cs" />
     <Compile Include="Layout\MasterDetailLayoutEventArgs.cs" />
     <Compile Include="Layout\XpandLayoutManager.cs" />
-    <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\Model\GridViewModelAdapterController.cs" />
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -189,36 +187,18 @@
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CollectionsEditModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ViewEditModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\CollectionsEditModeController.cs" />
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs" />
+    <Compile Include="SystemModule\ViewEditModeController.cs" />
     <Compile Include="SystemModule\WebShortcuts\WebShortcutsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\WebToolTipsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\XpandSystemAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HideToolBarController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\WebToolTipsController.cs" />
+    <Compile Include="SystemModule\XpandSystemAspNetModule.cs" />
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
+    <Compile Include="SystemModule\HideToolBarController.cs" />
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs" />
+    <Compile Include="SystemModule\LoadWhenFilteredController.cs" />
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

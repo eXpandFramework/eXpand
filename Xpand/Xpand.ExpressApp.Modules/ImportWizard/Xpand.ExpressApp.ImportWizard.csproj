@@ -56,19 +56,19 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Demos.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Demos.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.1">
+    <Reference Include="DevExpress.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -117,9 +117,7 @@
     <Compile Include="Core\OpenXMLExtentions.cs" />
     <Compile Include="Core\TransposeEnumerableExtension.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="ImportWizardModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ImportWizardModule.cs" />
     <Compile Include="LongOperation\LongOperationController.cs">
       <SubType>Component</SubType>
     </Compile>

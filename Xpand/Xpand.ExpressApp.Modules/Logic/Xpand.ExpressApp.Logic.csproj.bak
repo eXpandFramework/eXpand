@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <NugetPkg>eXpandLogic</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -10,12 +11,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Logic</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Logic</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <TargetFrameworkProfile />
@@ -54,67 +57,52 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v12.2.Core">
+    <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v12.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v12.2, Version=12.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v12.2">
+    <Reference Include="DevExpress.ExpressApp.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v12.2">
+    <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v12.2">
+    <Reference Include="DevExpress.Xpo.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v12.2">
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v12.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data">
-      <Name>System.Data</Name>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -122,56 +110,44 @@
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainLogic\LogicRuleExecutionContextGroupDomainLogic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DomainLogic\ModelExecutionContextsGroupDefaultContextDomainLogic.cs">
+    <Compile Include="DomainLogic\LogicRuleDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelActionExecutionContextDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelExecutionContextsDomainLogic.cs" />
+    <Compile Include="DomainLogic\ModelExecutionContextsGroupDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DomainLogic\ModelFrameTemplateContextDomainLogic.cs" />
     <Compile Include="DomainLogic\ModelLogicRuleDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DomainLogic\ModelExecutionContextDomainLogic.cs" />
     <Compile Include="DomainLogic\ModelViewContextDomainLogic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ExecutionContext.cs" />
     <Compile Include="FillRulesFromPermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ILogicModelClassRule.cs" />
-    <Compile Include="ILogicRule.cs" />
     <Compile Include="ILogicRuleInfo.cs" />
-    <Compile Include="ILogicRuleManager.cs" />
-    <Compile Include="IRule.cs"></Compile>
-    <Compile Include="IRuleCollector.cs" />
-    <Compile Include="IRuleHolder.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="LogicInstaller.cs" />
+    <Compile Include="LogicInstallerManager.cs" />
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LogicModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LogicRule.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="LogicRuleAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LogicRuleExecutedEventArgs.cs">
+    <Compile Include="LogicRuleEvaluator.cs" />
+    <Compile Include="LogicRuleExecuteEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LogicRuleExecutingEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LogicRuleExecutor.cs" />
     <Compile Include="LogicRuleInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -180,35 +156,6 @@
     </Compile>
     <Compile Include="LogicRuleViewController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Model\IModelFrameTemplateContext.cs" />
-    <Compile Include="Model\IModelFrameTemplateContexts.cs" />
-    <Compile Include="Model\IModelFrameTemplateContextsGroup.cs" />
-    <Compile Include="Model\IModelViewContextsGroup.cs" />
-    <Compile Include="NodeGenerators\FrameTemplateContextNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\FrameTemplateContextsGroupNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\ViewContextsGroupNodeGenerator.cs" />
-    <Compile Include="Model\IModelApplicationLogic.cs" />
-    <Compile Include="Model\IModelExecutionContext.cs" />
-    <Compile Include="Model\IModelExecutionContextsGroup.cs" />
-    <Compile Include="Model\IModelExecutionContexts.cs" />
-    <Compile Include="Model\IModelLogic.cs" />
-    <Compile Include="Model\IModelLogicRule.cs" />
-    <Compile Include="Model\IModelLogicRules.cs" />
-    <Compile Include="Model\IModelViewContext.cs" />
-    <Compile Include="Model\IModelViewContexts.cs" />
-    <Compile Include="NodeGenerators\ViewContextNodeGenerator.cs" />
-    <Compile Include="NodeGenerators\ExecutionContextNodeGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\ExecutionContextsGroupNodeGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\LogicRulesNodesGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NodeGenerators\ModelLogicRulesNodesGenerator.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="NodeUpdaters\LogicDefaultContextNodeUpdater.cs">
       <SubType>Code</SubType>
@@ -220,15 +167,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LogicRuleCollector.cs" />
     <Compile Include="Security\Improved\LogicRuleOperationPermissionData.cs" />
     <Compile Include="Security\Improved\LogicRulePermission.cs" />
     <Compile Include="Security\LogicRulePermission.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Security\PopulateViewsController.cs">
+    <Compile Include="Security\PopulateControllers.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FrameTemplateContext.cs" />
     <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -267,6 +214,14 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NodeGenerators\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -56,28 +56,28 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v13.1">
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.1.Core">
+    <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.1.Core">
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.1">
+    <Reference Include="DevExpress.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -109,18 +109,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\HtmlEditorModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\HtmlEditorModelAdapterController.cs" />
     <Compile Include="Model\ModelAdaptor\IModelAdaptorHtmlEditorRule.cs" />
     <Compile Include="Model\ModelAdaptor\IModelModelAdaptorHtmlEditorRule.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="XpandHtmlPropertyEditorAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandHtmlPropertyEditorAspNetModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
