@@ -70,7 +70,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 dashboard.Index = index;
                 dashboard.Active = true;
                 foreach (var type in types)
-                    dashboard.DashboardTypes.Add(new TypeWrapper(((XPObjectSpace)ObjectSpace).Session, type));
+                    dashboard.DashboardTypes.Add(new TypeWrapper(type));
             }
             var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
             var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
