@@ -12,11 +12,11 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Fasterflect;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
-
             var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
             var modelViews = ((IModelViews)node);
             var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
@@ -60,7 +60,7 @@ namespace Xpand.Persistent.Base.General {
                         var modelMergedDifference = modelMergedDifferenceInfo.ModelMergedDifference;
                         var id = modelMergedDifference.Strategy.Id();
                         var differenceStrategy = optionsMergedDifferenceStrategy.MergedDifferenceStrategies[id];
-                        MergeViewAttributes(differenceStrategy, sourceObjectView, targetObjectView);
+                        MergeObjectViewValueInfos(differenceStrategy, sourceObjectView, targetObjectView);
                         CloneNodes(modelMergedDifference, targetObjectView, sourceObjectView);
                     }
                 }
@@ -98,21 +98,21 @@ namespace Xpand.Persistent.Base.General {
             return GetIncludedNodePaths((IModelObjectView) mergedDifference.Parent.Parent,mergedDifference.Strategy);
         }
 
-        void MergeViewAttributes(IModelMergedDifferenceStrategy differenceStrategy, IModelView sourceObjectView, IModelObjectView targetObjectView) {
-            var mergeViewAttributes = differenceStrategy.IncludedNodePaths.MergeViewAttributes;
-            if (mergeViewAttributes) {
-                foreach (var valueInfo in GetValuesInfo(sourceObjectView)) {
-                    var sourceValue = sourceObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
-                    var targetValue = targetObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
-                    if (sourceValue!=targetValue)
-                        targetObjectView.SetValue(valueInfo.Name, valueInfo.PropertyType, sourceValue);
-                }
+        void MergeObjectViewValueInfos(IModelMergedDifferenceStrategy differenceStrategy, IModelView sourceObjectView, IModelObjectView targetObjectView) {
+            foreach (var valueInfo in GetValuesInfos(sourceObjectView,differenceStrategy.MergedViewValueInfos)) {
+                var sourceValue = sourceObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
+                var targetValue = targetObjectView.GetValue(valueInfo.Name, valueInfo.PropertyType);
+                if (sourceValue!=targetValue)
+                    targetObjectView.SetValue(valueInfo.Name, valueInfo.PropertyType, sourceValue);
             }
         }
 
-        IEnumerable<ModelValueInfo> GetValuesInfo(IModelView sourceObjectView) {
-            var modelValueInfos = ((ModelNode) sourceObjectView).NodeInfo.ValuesInfo.Where(info => !ModelAdapter.ModelSynchronizer<object, IModelNode>.ExcludedNodeMembers.Contains(info.Name));
-            return modelValueInfos.Where(info => info.Name!="ModelClass"&&!info.IsReadOnly);
+        IEnumerable<ModelValueInfo> GetValuesInfos(IModelView sourceObjectView, IModelMergedViewValueInfos mergedViewValueInfos) {
+            var modelViewValueInfos = mergedViewValueInfos.ListViewValueInfos;
+            if (sourceObjectView is IModelDetailView) {
+                modelViewValueInfos = mergedViewValueInfos.DetailViewValueInfos;
+            }
+            return modelViewValueInfos.Where(info => info.NodeEnabled).Select(info => info.ModelValueInfo);
         }
 
         void CloneNodes(IModelView modelView, IModelMergedDifferenceStrategyIncludedNodePath nodePath,IModelObjectView modelObjectView) {
@@ -189,10 +189,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void ClearViewAttributes(IModelMergedDifferenceStrategy strategy, IModelObjectView modelObjectView) {
-            if (!strategy.IncludedNodePaths.MergeViewAttributes) {
-                foreach (var valueInfo in GetValuesInfo(modelObjectView)) {
-                    modelObjectView.ClearValue(valueInfo.Name);
-                }
+            foreach (var valueInfo in GetValuesInfos(modelObjectView, strategy.MergedViewValueInfos)) {
+                modelObjectView.ClearValue(valueInfo.Name);
             }
         }
 
@@ -356,7 +354,6 @@ namespace Xpand.Persistent.Base.General {
             return modelView != null && modelView.ModelClass != null;
         }
 
-
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var modelMergedDifferences = modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(differences 
                 => differences.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
@@ -443,13 +440,14 @@ namespace Xpand.Persistent.Base.General {
 
     public interface IModelMergedDifferenceStrategy:IModelNode {
         IModelMergedDifferenceStrategyIncludedNodePaths IncludedNodePaths { get; }
+        [Browsable(false)]
         IModelMergedDifferenceStrategyExcludedNodePaths ExcludedNodePaths { get; }
+        IModelMergedViewValueInfos MergedViewValueInfos { get; }
     }
 
     [ModelNodesGenerator(typeof(MergedDifferenceStrategyIncludedNodePathsGenerator))]
     public interface IModelMergedDifferenceStrategyIncludedNodePaths : IModelNode, IModelList<IModelMergedDifferenceStrategyIncludedNodePath> {
-        [DefaultValue(true)]
-        bool MergeViewAttributes { get; set; }
+//TODO:        Ilya+defaultvalue+check old masterdetail
     }
 
     [ModelNodesGenerator(typeof(MergedDifferenceStrategyExcludedNodePathsGenerator))]
@@ -498,12 +496,12 @@ namespace Xpand.Persistent.Base.General {
         void GenerateAll(ModelNode node, IModelMergedDifferenceStrategyIncludedNodePaths modelMergedDifferenceStrategyNodePaths) {
             var modelApplicationCreator = ((ModelNode) node.Application.Views).CreatorInstance;
             var modelNodeInfo = modelApplicationCreator.GetNodeInfo(typeof (IModelDetailView));
-            Generate(modelNodeInfo, modelMergedDifferenceStrategyNodePaths, ViewType.DetailView);
+            GenerateNodePath(modelNodeInfo, modelMergedDifferenceStrategyNodePaths, ViewType.DetailView);
             modelNodeInfo = modelApplicationCreator.GetNodeInfo(typeof (IModelListView));
-            Generate(modelNodeInfo, modelMergedDifferenceStrategyNodePaths, ViewType.ListView);
+            GenerateNodePath(modelNodeInfo, modelMergedDifferenceStrategyNodePaths, ViewType.ListView);
         }
 
-        void Generate(ModelNodeInfo modelNodeInfo,IModelMergedDifferenceStrategyIncludedNodePaths modelMergedDifferenceStrategyNodePaths,ViewType viewType) {
+        void GenerateNodePath(ModelNodeInfo modelNodeInfo,IModelMergedDifferenceStrategyIncludedNodePaths modelMergedDifferenceStrategyNodePaths,ViewType viewType) {
             var names = ((IEnumerable<object>) modelNodeInfo.GetPropertyValue("ChildrenInfo")).Select(o => o.GetPropertyValue("Name")).Cast<string>();
             foreach (var name in names) {
                 var path = modelMergedDifferenceStrategyNodePaths[name];
@@ -530,6 +528,95 @@ namespace Xpand.Persistent.Base.General {
         string NodePath { get; set; }
         [RuleValueComparison(DefaultContexts.Save, ValueComparisonType.NotEquals, ViewType.DashboardView)]
         ViewType ViewType { get; set; }
+    }
+
+    public interface IModelMergedViewValueInfos : IModelNode {
+        IModelViewValueInfos ListViewValueInfos { get; }
+        IModelViewValueInfos DetailViewValueInfos { get; }
+    }
+
+    [KeyProperty("Name")]
+    public interface IModelMergedViewValueInfo:IModelNodeEnabled {
+        [Required]
+        [DataSourceProperty("Names")]
+        string Name { get; set; }
+        [Browsable(false)]
+        IEnumerable<string> Names { get; }
+        [Browsable(false)]
+        ModelValueInfo ModelValueInfo { get; }
+    }
+
+    [DomainLogic(typeof(IModelMergedViewValueInfo))]
+    public class IModelMergedViewValueInfoLogic {
+        public static ModelValueInfo Get_ModelValueInfo(IModelMergedViewValueInfo mergedViewValueInfo) {
+            return string.IsNullOrEmpty(mergedViewValueInfo.Name)? null
+                       : ModelMergedViewValueInfosNodeGenerator.GetModelValueInfos(mergedViewValueInfo, info => true)
+                                                               .First(info => info.Name == mergedViewValueInfo.Name);
+        }
+
+        public static IEnumerable<string> Get_Names(IModelMergedViewValueInfo mergedViewValueInfo) {
+            var modelViewValueInfos = (IModelViewValueInfos) mergedViewValueInfo.Parent;
+            var modelValueInfos = ModelMergedViewValueInfosNodeGenerator.GetModelValueInfos(modelViewValueInfos, info => true);
+            return modelValueInfos.Select(info => info.Name).Where(s => modelViewValueInfos[s]==null);
+        }
+
+        public static bool Get_NodeEnabled(IModelMergedViewValueInfo mergedViewValueInfo) {
+            return ((IModelNodeEnabled) mergedViewValueInfo.Parent).NodeEnabled;
+        }
+    }
+
+    [ModelNodesGenerator(typeof(ModelMergedViewValueInfosNodeGenerator))]
+    public interface IModelViewValueInfos : IModelList<IModelMergedViewValueInfo>, IModelNodeEnabled {
+        
+    }
+
+    [DomainLogic(typeof(IModelViewValueInfos))]
+    public class IModelViewValueInfosLogic {
+        public static bool Get_NodeEnabled(IModelViewValueInfos viewValueInfos) {
+            return false;
+        }        
+    }
+
+    public  class ModelMergedViewValueInfosNodeGenerator : ModelNodesGeneratorBase  {
+        static readonly HashSet<string> _invalidValueInfoNames = new HashSet<string> { "AsObjectView",  "Id", "Index", "IsNewNode",  "Removed" };
+
+        static ModelMergedViewValueInfosNodeGenerator() {
+            foreach (var excludedNodeMember in ModelAdapter.ModelSynchronizer<object, IModelNode>.ExcludedNodeMembers) {
+                InvalidValueInfoNames.Add(excludedNodeMember);
+            }
+        }
+
+        public static HashSet<string> InvalidValueInfoNames {
+            get { return _invalidValueInfoNames; }
+        }
+        protected override void GenerateNodesCore(ModelNode node) {
+            var modelViewValueInfos = ((IModelViewValueInfos) node);
+            var modelValueInfos = GetModelValueInfos(modelViewValueInfos,IsValid);
+            foreach (var valueInfo in modelValueInfos) {
+                modelViewValueInfos.AddNode<IModelMergedViewValueInfo>(valueInfo.Name);
+            }
+        }
+
+        public static IEnumerable<ModelValueInfo> GetModelValueInfos(IModelMergedViewValueInfo mergedViewValueInfo, Func<ModelValueInfo, bool> isValid) {
+            var modelViewValueInfos = (IModelViewValueInfos)mergedViewValueInfo.Parent;
+            return GetModelValueInfos(modelViewValueInfos, isValid);
+        }
+
+        public static IEnumerable<ModelValueInfo> GetModelValueInfos(IModelViewValueInfos modelViewValueInfos, Func<ModelValueInfo, bool> isValid) {
+            var nodeType = GetNodeType(modelViewValueInfos);
+            var modelNodeInfo = ((ModelNode) modelViewValueInfos).CreatorInstance.GetNodeInfo(nodeType);
+            return modelNodeInfo.ValuesInfo.Where(info => !info.IsReadOnly).Where(isValid);
+        }
+
+        static Type GetNodeType(IModelViewValueInfos node) {
+            return node.Id().StartsWith("ListView") ? typeof (IModelListView) : typeof (IModelDetailView);
+        }
+
+        static bool IsValid(ModelValueInfo modelValueInfo) {
+            return !_invalidValueInfoNames.Contains(modelValueInfo.Name) &&
+                   !typeof (IModelNode).IsAssignableFrom(modelValueInfo.PropertyType) && 
+                   modelValueInfo.PropertyType != typeof (Type);
+        }
     }
 
     [ModelDisplayName("IncludedNode")]
