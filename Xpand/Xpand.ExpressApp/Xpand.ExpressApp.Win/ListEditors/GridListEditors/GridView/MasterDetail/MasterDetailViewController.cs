@@ -193,10 +193,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 window.Form.Close();
             }
         }
-
-        public bool SynchronizeActions() {
-            return FilterRules(View.CurrentObject, Frame).Any(info => info.SynchronizeActions);
-        }
     }
 
 }

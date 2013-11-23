@@ -8,20 +8,16 @@ namespace Xpand.Persistent.Base.General {
         IModelMember CollectionMember { get; set; }
         ITypeInfo TypeInfo { get; set; }
         CriteriaOperator Criteria { get; }
-        bool SynchronizeActions { get; }
     }
 
     public class MasterDetailRuleInfo : IMasterDetailRuleInfo {
         readonly CriteriaOperator _criteria;
-        readonly bool _synchronizeActions;
 
-
-        public MasterDetailRuleInfo(IModelListView childListView, IModelMember collectionMember, ITypeInfo typeInfo, CriteriaOperator criteria, bool synchronizeActions) {
+        public MasterDetailRuleInfo(IModelListView childListView, IModelMember collectionMember, ITypeInfo typeInfo, CriteriaOperator criteria) {
             ChildListView = childListView;
             CollectionMember = collectionMember;
             TypeInfo = typeInfo;
             _criteria = criteria;
-            _synchronizeActions = synchronizeActions;
         }
 
         public IModelListView ChildListView { get; set; }
@@ -31,12 +27,6 @@ namespace Xpand.Persistent.Base.General {
         public CriteriaOperator Criteria {
             get {
                 return _criteria;
-            }
-        }
-
-        public bool SynchronizeActions {
-            get {
-                return _synchronizeActions;
             }
         }
     }

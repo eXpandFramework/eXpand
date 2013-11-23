@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     public class MasterDetailPermission : LogicRulePermission, IContextMasterDetailRule {
@@ -10,25 +11,16 @@ namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
 
         public MasterDetailPermission(MasterDetailOperationPermissionData logicRule)
             : base(OperationName, logicRule) {
-
+            var modelApplication = ApplicationHelper.Instance.Application.Model;
+            ChildListView = (IModelListView) modelApplication.Views[logicRule.ChildListView];
+            var modelClass = modelApplication.BOModel.GetClass(((ILogicRule) logicRule).TypeInfo.Type);
+            CollectionMember = modelClass.FindMember(logicRule.CollectionMember);
         }
-        public string ChildListView { get; set; }
-
-        public string CollectionMember { get; set; }
-
-        public bool SynchronizeActions { get; set; }
-
-        IModelListView IMasterDetailRule.ChildListView {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        IModelMember IMasterDetailRule.CollectionMember {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
+        
         public override IList<string> GetSupportedOperations() {
             return new[] { OperationName };
         }
+        public IModelListView ChildListView { get; set; }
+        public IModelMember CollectionMember { get; set; }
     }
 }

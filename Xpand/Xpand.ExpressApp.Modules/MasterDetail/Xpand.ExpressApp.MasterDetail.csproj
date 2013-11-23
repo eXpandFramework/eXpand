@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\IContextMasterDetailRule.cs" />
     <Compile Include="Logic\MasterDetailViewControllerBase.cs" />
     <Compile Include="MasterDetailLogicInstaller.cs" />
     <Compile Include="MasterDetailModule.cs">

@@ -16,8 +16,6 @@ namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
 
         public string CollectionMember { get; set; }
 
-        public bool SynchronizeActions { get; set; }
-
         IModelListView IMasterDetailRule.ChildListView {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
