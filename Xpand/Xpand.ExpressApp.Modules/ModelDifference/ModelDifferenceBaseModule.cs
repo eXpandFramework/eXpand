@@ -21,8 +21,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
-                var userDifferencesLoaded = Application as IUserDifferencesLoaded;
-                if (userDifferencesLoaded != null) userDifferencesLoaded.UserDifferencesLoaded += OnUserDifferencesLoaded;
+                Application.UserDifferencesLoaded += OnUserDifferencesLoaded;
                 Application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             }
         }

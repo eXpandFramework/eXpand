@@ -184,7 +184,7 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
             applicationModulesManager.TypesInfo.AssignAsInstance();
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
-//            ((ITypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
+//            ((IModelTypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);

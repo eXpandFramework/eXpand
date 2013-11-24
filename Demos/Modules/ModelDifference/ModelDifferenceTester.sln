@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelDifferenceTester.Modul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelDifferenceTester.Win", "ModelDifferenceTester.Win\ModelDifferenceTester.Win.csproj", "{B19ABBFB-BCD2-4833-8250-57E66A007F83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ModelDifference", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ModelDifference\Xpand.ExpressApp.ModelDifference.csproj", "{8D97AC44-202D-4659-8CB0-6D8DCC796156}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,11 +48,6 @@ Global
 		{B19ABBFB-BCD2-4833-8250-57E66A007F83}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{B19ABBFB-BCD2-4833-8250-57E66A007F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B19ABBFB-BCD2-4833-8250-57E66A007F83}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D97AC44-202D-4659-8CB0-6D8DCC796156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D97AC44-202D-4659-8CB0-6D8DCC796156}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{8D97AC44-202D-4659-8CB0-6D8DCC796156}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{8D97AC44-202D-4659-8CB0-6D8DCC796156}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D97AC44-202D-4659-8CB0-6D8DCC796156}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,10 +31,6 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
-        protected override Type[] ApplicationTypes() {
-            return new[] { typeof (IUserDifferencesLoaded) };
-        }
-
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
