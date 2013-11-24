@@ -28,10 +28,6 @@ namespace Xpand.ExpressApp.Web {
             get { return this.AutoCreateOption(); }
         }
 
-        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, e);
-        }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             this.CreateCustomObjectSpaceprovider(args, null);
         }
@@ -43,15 +39,6 @@ namespace Xpand.ExpressApp.Web {
         protected override IHttpRequestManager CreateHttpRequestManager() {
             return this.NewHttpRequestManager();
         }
-
-
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded(EventArgs.Empty);
-        }
-
-
-        public event EventHandler UserDifferencesLoaded;
 
       
         public event CancelEventHandler ConfirmationRequired;
