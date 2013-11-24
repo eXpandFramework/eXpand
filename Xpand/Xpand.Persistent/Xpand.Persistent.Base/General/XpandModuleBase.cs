@@ -115,7 +115,7 @@ namespace Xpand.Persistent.Base.General {
             if (modelSources == null)
                 return Assembly.GetEntryAssembly() == null;
             return modelSources.Modules.Any(@base => {
-                var attribute =((ITypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+                var attribute =((IModelTypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
                 if (attribute != null)
                     return attribute.FilterString == "Xaf.Platform.Web";
                 return false;
@@ -159,7 +159,7 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("CustomizeLogics"))
                 return;
             customLogics.RegisterLogic(typeof(IModelClassEx), typeof(ModelClassExDomainLogic));
-            customLogics.RegisterLogic(typeof(ITypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelTypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
             customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
             customLogics.RegisterLogic(typeof(IModelApplicationListViews), typeof(ModelApplicationListViewsDomainLogic));
         }
@@ -201,7 +201,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelClass, IModelClassEx>();
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
-            extenders.Add<IModelApplication, ITypesInfoProvider>();
+            extenders.Add<IModelApplication, IModelTypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
             extenders.Add<IModelApplication, IModelApplicationListViews>();
@@ -453,15 +453,6 @@ namespace Xpand.Persistent.Base.General {
             
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-            application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
-        }
-
-        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
-            var xpObjectSpace = objectSpaceCreatedEventArgs.ObjectSpace as XPObjectSpace;
-            if (xpObjectSpace!=null) {
-                xpObjectSpace.SetFieldValue("objectsToSave", new HashedArrayList());
-                
-            }
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }
@@ -666,13 +657,14 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void ApplicationOnDatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs databaseVersionMismatchEventArgs) {
-            ((XafApplication) sender).DatabaseVersionMismatch-=ApplicationOnDatabaseVersionMismatch;
-            ApplicationStatusUpdater.UpdateStatus+=ApplicationStatusUpdaterOnUpdateStatus;
+            var xafApplication = ((XafApplication) sender);
+            xafApplication.DatabaseVersionMismatch-=ApplicationOnDatabaseVersionMismatch;
+            xafApplication.StatusUpdating+=XafApplicationOnStatusUpdating;
         }
 
-        void ApplicationStatusUpdaterOnUpdateStatus(object sender, UpdateStatusEventArgs updateStatusEventArgs) {
-            if (updateStatusEventArgs.Context == ApplicationStatusMesssageId.UpdateDatabaseData.ToString()) {
-                ApplicationStatusUpdater.UpdateStatus -= ApplicationStatusUpdaterOnUpdateStatus;
+        void XafApplicationOnStatusUpdating(object sender, StatusUpdatingEventArgs statusUpdatingEventArgs) {
+            if (statusUpdatingEventArgs.Context == ApplicationStatusMesssageId.UpdateDatabaseData.ToString()) {
+                Application.StatusUpdating -= XafApplicationOnStatusUpdating;
                 ApplicationOnObjectSpaceCreated(Application, null);
             }
         }

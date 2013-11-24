@@ -6,6 +6,10 @@ namespace Xpand.Persistent.Base.General.Model.VisibilityCalculators {
             return false;
         }
 
+        public bool IsReadOnly(IModelNode node, IModelNode childNode) {
+            return false;
+        }
+
         public bool IsReadOnly(IModelNode node) {
             return false;
         }

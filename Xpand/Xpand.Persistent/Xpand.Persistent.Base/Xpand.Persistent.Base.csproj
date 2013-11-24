@@ -294,6 +294,7 @@
     <Compile Include="ModelAdapter\ModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ModelAdapter\ModelSynchronizerList.cs" />
     <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
     <Compile Include="ModelDifference\ITypesInfoProvider.cs" />

@@ -82,7 +82,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                     var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
                     if (customMemberInfo == null) {
                         customMemberInfo= CreateMemberInfo(modelMemberEx, xpClassInfo);
-                        ((ITypesInfoProvider) modelMemberEx.Application).TypesInfo.RefreshInfo(classType);
+                        ((IModelTypesInfoProvider) modelMemberEx.Application).TypesInfo.RefreshInfo(classType);
                         AddAttributes(modelMemberEx, customMemberInfo);
                     }
                     var xpandCustomMemberInfo = customMemberInfo as XpandCustomMemberInfo;
