@@ -43,18 +43,6 @@ namespace Xpand.ExpressApp.Win {
             get { return this.AutoCreateOption(); }
         }
 
-        public event EventHandler UserDifferencesLoaded;
-
-        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, e);
-        }
-
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded(EventArgs.Empty);
-        }
-
         protected override Form CreateModelEditorForm() {
             return ModelEditorViewController.CreateModelEditorForm(this);
         }

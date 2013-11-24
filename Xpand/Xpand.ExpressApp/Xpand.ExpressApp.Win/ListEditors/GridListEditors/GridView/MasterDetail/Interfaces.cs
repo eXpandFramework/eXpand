@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.Data;
+using DevExpress.Data.Filtering;
 using DevExpress.Data.Summary;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
@@ -129,6 +130,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         GridViewAppearances Appearance { get; }
         bool IsLoading { get; }
         int RowCount { get; }
+        bool ActiveFilterEnabled { get; set; }
+        CriteriaOperator ActiveFilterCriteria { get; set; }
+        string ActiveFilterString { get; set; }
         string GetFocusedDisplayText();
         bool PostEditor();
         GridColumn GetVisibleColumn(int i);

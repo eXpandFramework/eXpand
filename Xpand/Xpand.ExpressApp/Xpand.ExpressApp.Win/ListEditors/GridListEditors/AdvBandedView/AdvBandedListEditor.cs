@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -44,8 +45,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             return new AdvBandedGridColumnWrapper((AdvBandedGridColumn)xafGridColumn);
         }
 
-        protected override IModelSynchronizable CreateModelSynchronizer() {
-            return new AdvBandedViewLstEditorDynamicModelSynchronizer(this);
+        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
+            return new AdvBandedViewLstEditorDynamicModelSynchronizer(this).ModelSynchronizerList;
         }
 
         protected override IXafGridColumn CreateGridColumn() {
@@ -53,7 +54,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
         }
     }
     public class AdvBandedGridView : DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView, IColumnView {
-        private ErrorMessages _errorMessages;
         readonly AdvBandedListEditor _gridListEditor;
         bool _isNewItemRowCancelling;
         object _newItemRowObject;
@@ -128,16 +128,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             base.Assign(v, copyEvents);
         }
 
+        private ErrorMessage GetErrorMessage(int rowHandle, GridColumn column) {
+            object listItem = GetRow(rowHandle);
+            return column == null ? ErrorMessages.GetMessages(listItem) : ErrorMessages.GetMessage(column.FieldName, listItem);
+        }
         protected override string GetColumnError(int rowHandle, GridColumn column) {
-            string result;
-            if (_errorMessages != null) {
-                object listItem = GetRow(rowHandle);
-                result = column == null ? _errorMessages.GetMessages(listItem) : _errorMessages.GetMessage(column.FieldName, listItem);
+            string result = null;
+            if (ErrorMessages != null) {
+                ErrorMessage errorMessage = GetErrorMessage(rowHandle, column);
+                if (errorMessage != null) {
+                    result = errorMessage.Message;
+                }
             } else {
                 result = base.GetColumnError(rowHandle, column);
             }
             return result;
         }
+
         protected override ErrorType GetColumnErrorType(int rowHandle, GridColumn column) {
             return ErrorType.Critical;
         }
@@ -236,10 +243,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             }
         }
 
-        public ErrorMessages ErrorMessages {
-            get { return _errorMessages; }
-            set { _errorMessages = value; }
-        }
+        public ErrorMessages ErrorMessages { get; set; }
+
         protected override void MakeRowVisibleCore(int rowHandle, bool invalidate) {
             if (!SkipMakeRowVisible) {
                 base.MakeRowVisibleCore(rowHandle, invalidate);

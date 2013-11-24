@@ -41,11 +41,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             return IsAsyncServerMode();
         }
 
-        protected override IModelSynchronizable CreateModelSynchronizer() {
+        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
             var dynamicModelSynchronizer = new GridViewLstEditorDynamicModelSynchronizer(this);
             dynamicModelSynchronizer.ModelSynchronizerList.Insert(0, listEditorSynchronizer);
-            return dynamicModelSynchronizer;
+            return dynamicModelSynchronizer.ModelSynchronizerList;
         }
 
         protected override ColumnWrapper CreateGridColumnWrapper(IXafGridColumn column) {
