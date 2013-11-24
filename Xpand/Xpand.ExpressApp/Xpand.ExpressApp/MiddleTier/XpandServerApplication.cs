@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
@@ -11,8 +10,6 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
-        ApplicationModulesManager _applicationModulesManager;
-        
 
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
@@ -20,11 +17,6 @@ namespace Xpand.ExpressApp.MiddleTier {
 
         public XpandServerApplication(ISecurityStrategyBase securityStrategy) {
             Security = securityStrategy;
-        }
-
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded(EventArgs.Empty);
         }
 
         protected override void OnSetupComplete() {
@@ -36,7 +28,7 @@ namespace Xpand.ExpressApp.MiddleTier {
             var userDiff = modelApplicationBase.CreatorInstance.CreateModelApplication();
             userDiff.Id = "UserDiff";
             ModelApplicationHelper.AddLayer(modelApplicationBase, userDiff);
-            OnUserDifferencesLoaded(EventArgs.Empty);
+            base.LoadUserDifferences();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -48,21 +40,9 @@ namespace Xpand.ExpressApp.MiddleTier {
             args.Handled = true;
         }
 
-        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
-            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
-            return _applicationModulesManager;
-        }
-
-        ApplicationModulesManager IXafApplication.ApplicationModulesManager {
-            get { return _applicationModulesManager; }
-        }
-
         public AutoCreateOption AutoCreateOption {
             get { return AutoCreateOption.DatabaseAndSchema; }
-
         }
-
-        public event EventHandler UserDifferencesLoaded;
 
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {
             throw new NotImplementedException();
@@ -75,12 +55,6 @@ namespace Xpand.ExpressApp.MiddleTier {
 
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
-        }
-
-
-        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, e);
         }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
