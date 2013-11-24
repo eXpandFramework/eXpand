@@ -50,16 +50,9 @@ namespace Xpand.ExpressApp.Web {
             OnUserDifferencesLoaded(EventArgs.Empty);
         }
 
-        ApplicationModulesManager IXafApplication.ApplicationModulesManager {
-            get { return _applicationModulesManager; }
-        }
 
         public event EventHandler UserDifferencesLoaded;
 
-        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
-            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
-            return _applicationModulesManager;
-        }
       
         public event CancelEventHandler ConfirmationRequired;
 

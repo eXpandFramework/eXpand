@@ -68,7 +68,6 @@ namespace Xpand.Persistent.Base.General {
 
     public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IAutoCreateOption, IWindowCreating {
         string ModelAssemblyFilePath { get; }
-        ApplicationModulesManager ApplicationModulesManager { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 

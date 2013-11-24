@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -21,7 +20,6 @@ namespace Xpand.ExpressApp.Win {
 
     public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport, IXafApplicationDirectory {
         DataCacheNode _cacheNode;
-        ApplicationModulesManager _applicationModulesManager;
 
         public XpandWinApplication() {
         }
@@ -33,10 +31,6 @@ namespace Xpand.ExpressApp.Win {
         protected override void OnSetupComplete() {
             this.SetClientSideSecurity();
             base.OnSetupComplete();
-        }
-
-        ApplicationModulesManager IXafApplication.ApplicationModulesManager {
-            get { return _applicationModulesManager; }
         }
 
         public virtual AutoCreateOption AutoCreateOption {
@@ -62,11 +56,6 @@ namespace Xpand.ExpressApp.Win {
 
         public event EventHandler<CreatingListEditorEventArgs> CustomCreateListEditor;
 
-
-        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
-            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
-            return _applicationModulesManager;
-        }
         public event CancelEventHandler ConfirmationRequired;
 
 
