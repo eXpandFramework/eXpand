@@ -53,17 +53,17 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
                                                        .ToList());
             }
         }
-
+        [Index(1)]
         public int Index {
             get { return _index; }
             set { SetPropertyValue("Index", ref _index, value); }
         }
-
+        [Index(0)]
         public string Name {
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
         }
-
+        [Index(2)]
         public bool Active {
             get { return _active; }
             set { SetPropertyValue("Active", ref _active, value); }
@@ -81,6 +81,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
          ModelDefault("ListViewImageEditorCustomHeight", "32")]
         [ImmediatePostData, ValueConverter(typeof(ImageValueConverter))]
         [Size(SizeAttribute.Unlimited), Delayed(true)]
+        [Index(3)]
         public Image Icon {
             get { return GetDelayedPropertyValue<Image>("Icon"); }
             set { SetDelayedPropertyValue("Icon", value); }

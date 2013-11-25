@@ -1,4 +1,5 @@
-﻿using DevExpress.DashboardWeb;
+﻿using System.Web.UI.WebControls;
+using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -21,12 +22,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             _application = application;
         }
 
-        protected override System.Web.UI.WebControls.WebControl CreateViewModeControlCore() {
+        protected override WebControl CreateViewModeControlCore() {
             _asPxDashboardViewer = CreateDashboardViewer();
             return _asPxDashboardViewer;
         }
 
-        protected override System.Web.UI.WebControls.WebControl CreateEditModeControlCore() {
+        protected override WebControl CreateEditModeControlCore() {
             _asPxDashboardViewer = CreateDashboardViewer();
             return _asPxDashboardViewer;
         }
@@ -38,7 +39,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         private ASPxDashboardViewer CreateDashboardViewer() {
-            var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, RegisterJQuery = true };
+            var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, RegisterJQuery = true,Width = Unit.Percentage(100)};
             control.DashboardLoading += DashboardLoading;
             control.DataLoading += DataLoading;
             return control;
