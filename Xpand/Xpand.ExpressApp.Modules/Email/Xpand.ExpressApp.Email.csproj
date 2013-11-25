@@ -117,7 +117,9 @@
     <Compile Include="BusinessObjects\EmailTemplate.cs" />
     <Compile Include="BusinessObjects\IEmailTemplate.cs" />
     <Compile Include="EmailLogicInstaller.cs" />
-    <Compile Include="EmailModule.cs" />
+    <Compile Include="EmailModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Logic\EmailRule.cs" />
     <Compile Include="Logic\EmailRuleAttribute.cs" />
     <Compile Include="Logic\EmailRuleViewController.cs">
@@ -131,7 +133,9 @@
     <Compile Include="Security\EmailOperationPermissionData.cs" />
     <Compile Include="Security\EmailRulePermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\PopulateControllers.cs" />
+    <Compile Include="Security\PopulateControllers.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

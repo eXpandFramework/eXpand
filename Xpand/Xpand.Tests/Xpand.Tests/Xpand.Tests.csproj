@@ -278,7 +278,9 @@
     </Compile>
     <Compile Include="Xpand.ExpressApp\PessimisticLockingSpecs.cs" />
     <Compile Include="Xpand.ExpressApp\RuleRequiredForAtLeast1PropertyFixture.cs" />
-    <Compile Include="Xpand.ExpressApp\Contexts.cs" />
+    <Compile Include="Xpand.ExpressApp\Contexts.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Xpand.ExpressApp\TypesInfoFixture.cs" />
     <Compile Include="Xpand.IO\ClassInfoGraphNodeSpecs.cs" />
     <Compile Include="Xpand.IO\InitData\ClassMapperSpecs.cs" />

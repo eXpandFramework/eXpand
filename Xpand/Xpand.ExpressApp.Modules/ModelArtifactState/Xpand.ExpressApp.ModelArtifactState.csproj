@@ -119,8 +119,12 @@
     <Compile Include="ActionState\Security\ActionStateRulePermission.cs" />
     <Compile Include="ActionState\Security\Improved\ActionStateOperationPermissionData.cs" />
     <Compile Include="ActionState\Security\Improved\ActionStateRulePermission.cs" />
-    <Compile Include="ActionState\Security\Improved\PopulateActionsController.cs" />
-    <Compile Include="ActionState\Security\PopulateActionsController.cs" />
+    <Compile Include="ActionState\Security\Improved\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActionState\Security\PopulateActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ActionState\ActionStateLogicInstaller.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactStateRule.cs" />
     <Compile Include="ArtifactState\Logic\ArtifactStateRuleAttribute.cs" />
@@ -149,9 +153,15 @@
     <Compile Include="ControllerState\Security\ControllerTypeConverter.cs" />
     <Compile Include="ControllerState\Security\Improved\ControllerStateOperationPermissionData.cs" />
     <Compile Include="ControllerState\Security\Improved\ControllerStateRulePermission.cs" />
-    <Compile Include="ControllerState\Security\Improved\UpdateTypeConverterController.cs" />
-    <Compile Include="ControllerState\Security\UpdateTypeConverterController.cs" />
-    <Compile Include="ModelArtifactStateModule.cs" />
+    <Compile Include="ControllerState\Security\Improved\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControllerState\Security\UpdateTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModelArtifactStateModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ObjectViews\Model\ObjectViewActionExecutionContextsGroupNodeUpdater.cs" />
     <Compile Include="ObjectViews\ObjectViewsLogicInstaller.cs" />
     <Compile Include="ObjectViews\Logic\ObjectViewRule.cs" />

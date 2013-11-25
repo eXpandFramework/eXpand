@@ -100,7 +100,9 @@
     <Compile Include="Logic\IContextMasterDetailRule.cs" />
     <Compile Include="Logic\MasterDetailViewControllerBase.cs" />
     <Compile Include="MasterDetailLogicInstaller.cs" />
-    <Compile Include="MasterDetailModule.cs" />
+    <Compile Include="MasterDetailModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Logic\IMasterDetailRule.cs" />
     <Compile Include="Logic\MasterDetailAttribute.cs" />
     <Compile Include="Logic\MasterDetailRule.cs" />

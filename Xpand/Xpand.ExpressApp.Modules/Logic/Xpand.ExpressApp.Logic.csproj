@@ -134,7 +134,9 @@
     <Compile Include="ILogicRuleInfo.cs" />
     <Compile Include="LogicInstaller.cs" />
     <Compile Include="LogicInstallerManager.cs" />
-    <Compile Include="LogicModule.cs" />
+    <Compile Include="LogicModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="LogicRuleAttribute.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -171,7 +173,9 @@
     <Compile Include="Security\LogicRulePermission.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Security\PopulateControllers.cs" />
+    <Compile Include="Security\PopulateControllers.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
       <SubType>Code</SubType>
     </Compile>

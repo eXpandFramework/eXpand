@@ -110,7 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdditionalViewControlsLogicInstaller.cs" />
-    <Compile Include="AdditionalViewControlsModule.cs" />
+    <Compile Include="AdditionalViewControlsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IAdditionalViewControl.cs" />
     <Compile Include="AdditionalViewControlsProviderCalculator.cs" />
     <Compile Include="AdditionalViewControlsProviderDecorator.cs" />
@@ -131,10 +133,18 @@
     <Compile Include="Security\AdditionalViewControlsPermission.cs" />
     <Compile Include="Security\Improved\AdditionalViewControlsOperationPermissionData.cs" />
     <Compile Include="Security\Improved\AdditionalViewControlsPermission.cs" />
-    <Compile Include="Security\Improved\UpdateControlTypeTypeConverterController.cs" />
-    <Compile Include="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs" />
-    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs" />
-    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs" />
+    <Compile Include="Security\Improved\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TypeDecorator.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

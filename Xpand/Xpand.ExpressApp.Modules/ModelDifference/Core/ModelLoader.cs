@@ -179,28 +179,27 @@ namespace Xpand.ExpressApp.ModelDifference.Core {
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, ApplicationModulesManager applicationModulesManager) {
             XpandModuleBase.CallMonitor.Clear();
-            var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
+//            var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
             applicationModulesManager.TypesInfo.AssignAsInstance();
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
-//            ((IModelTypesInfoProvider)modelApplication).TypesInfo = applicationModulesManager.TypesInfo;
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
-            AddRuntimeTypesToIModelRuleBaseDescenants(ruleBaseDescantans);
+//            AddRuntimeTypesToIModelRuleBaseDescenants(ruleBaseDescantans);
             return modelApplication;
         }
 
-        void AddRuntimeTypesToIModelRuleBaseDescenants(List<KeyValuePair<TypeInfo, TypeInfo>> ruleBaseDescantans) {
-            ModifyIModelRuleBaseDescantans((infos, pair) => infos.Add(pair.Key, pair.Value), ruleBaseDescantans);
-        }
+//        void AddRuntimeTypesToIModelRuleBaseDescenants(List<KeyValuePair<TypeInfo, TypeInfo>> ruleBaseDescantans) {
+//            ModifyIModelRuleBaseDescantans((infos, pair) => infos.Add(pair.Key, pair.Value), ruleBaseDescantans);
+//        }
 
-        List<KeyValuePair<TypeInfo, TypeInfo>> RemoveRuntimeTypeFromIModelRuleBaseDescantans() {
-            return ModifyIModelRuleBaseDescantans((infos, pair) => infos.Remove(pair.Key));
-        }
+//        List<KeyValuePair<TypeInfo, TypeInfo>> RemoveRuntimeTypeFromIModelRuleBaseDescantans() {
+//            return ModifyIModelRuleBaseDescantans((infos, pair) => infos.Remove(pair.Key));
+//        }
 
-        List<KeyValuePair<TypeInfo, TypeInfo>> ModifyIModelRuleBaseDescantans(Action<Dictionary<TypeInfo, TypeInfo>, KeyValuePair<TypeInfo, TypeInfo>> action, List<KeyValuePair<TypeInfo, TypeInfo>> keyValuePairs = null) {
+        protected List<KeyValuePair<TypeInfo, TypeInfo>> ModifyIModelRuleBaseDescantans(Action<Dictionary<TypeInfo, TypeInfo>, KeyValuePair<TypeInfo, TypeInfo>> action, List<KeyValuePair<TypeInfo, TypeInfo>> keyValuePairs = null) {
             var typeInfo = (TypeInfo)XafTypesInfo.Instance.FindTypeInfo(typeof(IModelRuleBase));
             FieldInfo fieldInfo = typeInfo.GetType().GetField("descendants", BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo != null) {

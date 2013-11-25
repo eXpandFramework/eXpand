@@ -118,7 +118,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SchedulerModelAdapterController.cs" />
+    <Compile Include="Controllers\SchedulerModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\WebDashboardRefreshController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -126,9 +128,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Reminders\DurationPropertyEditor.cs" />
-    <Compile Include="Reminders\ReminderAlertController.cs" />
+    <Compile Include="Reminders\ReminderAlertController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reminders\ReminderFormViewItem.cs" />
-    <Compile Include="XpandSchedulerAspNetModule.cs" />
+    <Compile Include="XpandSchedulerAspNetModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

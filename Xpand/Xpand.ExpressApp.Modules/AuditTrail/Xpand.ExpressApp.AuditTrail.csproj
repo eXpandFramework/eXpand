@@ -124,8 +124,12 @@
     <Compile Include="Logic\AuditTrailRuleAttribute.cs" />
     <Compile Include="Logic\IAuditTrailRule.cs" />
     <Compile Include="Security\AuditTrailRulePermission.cs" />
-    <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs" />
-    <Compile Include="XpandAuditTrailModule.cs" />
+    <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XpandAuditTrailModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

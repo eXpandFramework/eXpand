@@ -117,7 +117,9 @@
     <Compile Include="Controllers\RefreshNavigationController.designer.cs">
       <DependentUpon>RefreshNavigationController.cs</DependentUpon>
     </Compile>
-    <Compile Include="DashboardModule.cs" />
+    <Compile Include="DashboardModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

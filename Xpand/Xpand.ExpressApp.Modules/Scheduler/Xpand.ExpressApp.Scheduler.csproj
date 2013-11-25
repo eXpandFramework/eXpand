@@ -118,7 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\SchedulerModelAdapterControllerBase.cs" />
+    <Compile Include="Model\SchedulerModelAdapterControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="Reminders\IModelMemberReminderInfo.cs" />
     <Compile Include="Reminders\ReminderAlertController.cs">
@@ -131,7 +133,9 @@
     </Compile>
     <Compile Include="Reminders\Extensions.cs" />
     <Compile Include="Reminders\SupportsReminderController.cs" />
-    <Compile Include="XpandSchedulerModule.cs" />
+    <Compile Include="XpandSchedulerModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

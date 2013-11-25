@@ -97,7 +97,9 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\FileSystemLinkObject.cs" />
     <Compile Include="BusinessObjects\FileSystemStoreObject.cs" />
-    <Compile Include="XpandFileAttachmentsModule.cs" />
+    <Compile Include="XpandFileAttachmentsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
