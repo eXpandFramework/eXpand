@@ -10,6 +10,7 @@ using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class MergeDifferencesController : ViewController<ListView> {
