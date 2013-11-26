@@ -3,7 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 
-namespace Xpand.Persistent.Base.ModelDifference {
+namespace Xpand.Persistent.Base.General {
     [ModelAbstractClass]
     public interface ITypesInfoProvider:IModelApplication {
         [Browsable(false)]
