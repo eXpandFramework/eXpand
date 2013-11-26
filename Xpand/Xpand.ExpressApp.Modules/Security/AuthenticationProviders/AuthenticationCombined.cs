@@ -11,10 +11,12 @@ using DevExpress.ExpressApp.Design;
 using System.Security.Principal;
 using DevExpress.Data.Filtering;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
-    public class AuthenticationCombinedLogonParameters : INotifyPropertyChanged {
+    [Serializable]
+    public class AuthenticationCombinedLogonParameters : INotifyPropertyChanged, ICustomLogonParameter {
         private bool useActiveDirectory;
         private string userName;
         private string password;

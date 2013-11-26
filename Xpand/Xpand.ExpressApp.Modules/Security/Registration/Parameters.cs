@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         
     }
 
-    public interface ILogonParameters {
+    public interface ILogonParameters:ICustomLogonParameter {
         void Process(XafApplication application,IObjectSpace objectSpace);
     }
 

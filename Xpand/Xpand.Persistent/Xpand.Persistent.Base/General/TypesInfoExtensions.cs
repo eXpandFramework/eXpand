@@ -18,7 +18,7 @@ namespace Xpand.Persistent.Base.General {
         public static void AssignAsInstance(this ITypesInfo typesInfo) {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
             typeof (XafTypesInfo).SetFieldValue("instance", typesInfo);
-            var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
+            var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().FirstOrDefault();
             typeof(XafTypesInfo).SetFieldValue("persistentEntityStore", xpoTypeInfoSource);
         }
 
