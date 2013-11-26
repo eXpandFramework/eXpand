@@ -1,37 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.ClientServer.Wcf;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
-using System.Linq;
 
 namespace Xpand.Persistent.Base.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
-        readonly bool _wfc;
-        ApplicationModulesManager _applicationModulesManager;
-        public XpandServerApplication(ISecurityStrategyBase securityStrategy, bool wfc) {
-            _wfc = wfc;
-            Security = securityStrategy;
-        }
-
-        public bool Wfc {
-            get { return _wfc; }
-        }
 
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
         }
 
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded(EventArgs.Empty);
+        public XpandServerApplication(ISecurityStrategyBase securityStrategy) {
+            Security = securityStrategy;
         }
 
         protected override void OnSetupComplete() {
@@ -43,13 +28,7 @@ namespace Xpand.Persistent.Base.MiddleTier {
             var userDiff = modelApplicationBase.CreatorInstance.CreateModelApplication();
             userDiff.Id = "UserDiff";
             ModelApplicationHelper.AddLayer(modelApplicationBase, userDiff);
-            OnUserDifferencesLoaded(EventArgs.Empty);
-            if (Wfc) {
-                var descendants = ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo<IPermissionRequest>(),false);
-                foreach (var type in descendants.Select(info => info.Type).Where(type => type.IsSerializable)) {
-                    WcfDataServerHelper.AddKnownType(type);    
-                }
-            }
+            base.LoadUserDifferences();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -61,21 +40,9 @@ namespace Xpand.Persistent.Base.MiddleTier {
             args.Handled = true;
         }
 
-        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
-            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
-            return _applicationModulesManager;
-        }
-
-        ApplicationModulesManager IXafApplication.ApplicationModulesManager {
-            get { return _applicationModulesManager; }
-        }
-
         public AutoCreateOption AutoCreateOption {
             get { return AutoCreateOption.DatabaseAndSchema; }
-
         }
-
-        public event EventHandler UserDifferencesLoaded;
 
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {
             throw new NotImplementedException();
@@ -88,12 +55,6 @@ namespace Xpand.Persistent.Base.MiddleTier {
 
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
-        }
-
-
-        protected virtual void OnUserDifferencesLoaded(EventArgs e) {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, e);
         }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
