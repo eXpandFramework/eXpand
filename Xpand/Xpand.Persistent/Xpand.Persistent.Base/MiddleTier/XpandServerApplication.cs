@@ -10,7 +10,6 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.MiddleTier {
     public class XpandServerApplication : ServerApplication, IXafApplication {
-
         IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
             return null;
         }
