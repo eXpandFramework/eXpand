@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D3346898-E61A-470E-B38D-D38BF584271B}</ProjectGuid>
+    <ProjectGuid>{BE493AC7-4B27-4EAF-B2A9-8ADD2C7CE4BE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.FileAttachment</RootNamespace>
