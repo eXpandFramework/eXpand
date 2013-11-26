@@ -13,9 +13,9 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.General;
 

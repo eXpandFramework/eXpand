@@ -140,20 +140,20 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
