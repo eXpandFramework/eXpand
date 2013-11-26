@@ -5,7 +5,9 @@ namespace Xpand.ExpressApp.Security.Permissions {
     [Serializable]
     public class IsAdministratorPermissionRequest : IPermissionRequest {
         public object GetHashObject() {
-            return GetType().FullName;
+            return OperationPermissionRequestBase.UseStringHashCodeObject
+                       ? (object) typeof (IsAdministratorPermissionRequest).FullName
+                       : typeof (IsAdministratorPermissionRequest).GetHashCode();
         }
     }
 

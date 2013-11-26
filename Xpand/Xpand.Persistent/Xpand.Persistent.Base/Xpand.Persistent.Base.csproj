@@ -210,6 +210,7 @@
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MiddleTier\XpandWcfDataServerHelper.cs" />
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />
     <Compile Include="General\MasterDetailRuleInfo.cs" />
@@ -329,6 +330,7 @@
     <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
     <Compile Include="RuntimeMembers\Model\Members.cs" />
     <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
+    <Compile Include="Security\ICustomLogonParameter.cs" />
     <Compile Include="Security\IModelOptionsRegistration.cs" />
     <Compile Include="Security\IModelRegistrationActivation.cs" />
     <Compile Include="Security\IModelRegistrationEnabled.cs" />

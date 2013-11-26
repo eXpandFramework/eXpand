@@ -1,7 +1,7 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using DevExpress.ExpressApp;
 using Topshelf;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Quartz.Server {
     /// <summary>
@@ -13,14 +13,13 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args) {
-            var cfg = HostFactory.New(x =>
-            {
-                x.Service<QuartzServer>(configurator =>
-                {
+            var cfg = HostFactory.New(x => {
+                x.Service<QuartzServer>(configurator => {
                     configurator.ConstructUsing(builder => new QuartzServer());
-                    configurator.WhenStarted(server =>
-                    {
-                        XafApplication xafApplication = XafApplicationFactory.GetApplication(ConfigurationManager.AppSettings["xafApplicationPath"]);
+                    configurator.WhenStarted(server => {
+                        var modulePath = ConfigurationManager.AppSettings["xafApplicationPath"];
+                        var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                        XafApplication xafApplication = XafApplicationFactory.GetApplication(modulePath, connectionString);
                         server.Initialize(xafApplication);
                         server.Start();
                     });

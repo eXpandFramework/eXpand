@@ -1,13 +1,16 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
-    public class XpandLogonParameters : AuthenticationStandardLogonParameters, IXpandLogonParameters {
+    [Serializable]
+    public class XpandLogonParameters : AuthenticationStandardLogonParameters, IXpandLogonParameters, ICustomLogonParameter {
         SettingsStorage _storage;
 
         [Index(2)]
