@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.5">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,7 +12,8 @@
     <AssemblyName>SecuritySystemExample.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -217,8 +218,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecuritySystemExample.Module\SecuritySystemExample.Module.csproj">
-      <Project>{46D3A775-7395-4B9B-8B1D-77A2E152339A}</Project>
-      <Name>SecuritySystemExample.Module</Name>
+      <Project>{46d3a775-7395-4b9b-8b1d-77a2e152339a}</Project>
+      <Name>SecuritySystemExample.Module %28Middle-Tier\E4035-Remoting\SecuritySystemExample.Module%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

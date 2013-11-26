@@ -4,8 +4,8 @@ using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
     public class ConsoleApplicationServerServerApplication : XpandServerApplication {
-        public ConsoleApplicationServerServerApplication(ISecurityStrategyBase securityStrategyBase,bool wfc)
-            : base(securityStrategyBase,wfc) {
+        public ConsoleApplicationServerServerApplication(ISecurityStrategyBase securityStrategyBase)
+            : base(securityStrategyBase) {
             ApplicationName = "SecuritySystemExample";
             Modules.Add(new SecuritySystemExampleModule());
         }

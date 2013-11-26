@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecuritySystemExample.Module;
-using Xpand.ExpressApp.MiddleTier;
+using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
     public class ConsoleApplicationServerServerApplication : XpandServerApplication {

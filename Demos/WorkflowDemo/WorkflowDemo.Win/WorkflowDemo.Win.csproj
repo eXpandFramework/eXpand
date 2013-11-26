@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{39A29045-06AC-44CD-9C46-E4E8A3C6173C}</ProjectGuid>
+    <ProjectGuid>{15E8F337-21C1-40B0-BCC8-6DD947AAF046}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WorkflowDemo.Win</RootNamespace>

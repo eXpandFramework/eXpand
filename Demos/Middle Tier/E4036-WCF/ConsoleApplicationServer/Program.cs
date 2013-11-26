@@ -7,21 +7,18 @@ using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Xpo;
 using System.ServiceModel;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
-using Xpand.ExpressApp.Security.Permissions;
 
 namespace ConsoleApplicationServer {
     class Program {
         static void Main() {
             try {
-//                WcfDataServerHelper.AddKnownType(typeof(MyDetailsOperationRequest));
-//                WcfDataServerHelper.AddKnownType(typeof(IsAdministratorPermissionRequest));
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
 
                 Console.WriteLine("Starting...");
                 var securityStrategyComplex = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
-                var serverApplication = new ConsoleApplicationServerServerApplication(securityStrategyComplex,true) {
+                var serverApplication = new ConsoleApplicationServerServerApplication(securityStrategyComplex) {
                     ConnectionString = connectionString
                 };
                 Console.WriteLine("Setup...");
@@ -36,7 +33,7 @@ namespace ConsoleApplicationServer {
                 var dataServer =new SecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
 
                 var serviceHost = new ServiceHost(new WcfSecuredDataServer(dataServer));
-                WSHttpBinding defaultBinding = (WSHttpBinding)WcfDataServerHelper.CreateDefaultBinding();
+                var defaultBinding = (WSHttpBinding)WcfDataServerHelper.CreateDefaultBinding();
                 defaultBinding.ReaderQuotas.MaxStringContentLength = 2147483647;
                 serviceHost.AddServiceEndpoint(typeof(IWcfSecuredDataServer), defaultBinding, "http://localhost:1451/DataServer");
                 serviceHost.Open();

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>11.0.50727.1</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C85FE9E6-4674-4278-8326-11C36281E077}</ProjectGuid>
+    <ProjectGuid>{179B45A7-2513-4E0E-A4D6-70DF8F354CDB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecuritySystemExample.Win</RootNamespace>
@@ -222,8 +222,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecuritySystemExample.Module\SecuritySystemExample.Module.csproj">
-      <Project>{46D3A775-7395-4B9B-8B1D-77A2E152339A}</Project>
-      <Name>SecuritySystemExample.Module</Name>
+      <Project>{24c1781f-74a7-4d76-9243-c400bd0340b9}</Project>
+      <Name>SecuritySystemExample.Module %28Middle-Tier\E4036-WCF\SecuritySystemExample.Module%29</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
