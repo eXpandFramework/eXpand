@@ -190,7 +190,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
             InterfaceBuilder.SkipAssemblyCleanup = true;
-//            _masterModel = _modelLoader.ReCreate(XafTypesInfo.Instance);
+            _masterModel = _modelLoader.ReCreate();
             InterfaceBuilder.SkipAssemblyCleanup = false;
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
