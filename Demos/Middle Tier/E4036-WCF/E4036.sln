@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemExample.Modul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemExample.Win", "SecuritySystemExample.Win\SecuritySystemExample.Win.csproj", "{C85FE9E6-4674-4278-8326-11C36281E077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,11 +32,6 @@ Global
 		{C85FE9E6-4674-4278-8326-11C36281E077}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
