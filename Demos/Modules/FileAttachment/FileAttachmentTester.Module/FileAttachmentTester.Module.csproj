@@ -92,7 +92,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Class2.cs" />
     <Compile Include="BusinessObjects\StandardFileDataDemo.cs" />
     <Compile Include="BusinessObjects\FileSystemStoreObjectDemo.cs" />
     <Compile Include="BusinessObjects\FileSystemLinkObjectDemo.cs" />
