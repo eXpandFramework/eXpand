@@ -28,7 +28,6 @@ using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
@@ -128,13 +127,15 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[]
                     {typeof (DashboardInteractionController), typeof (WebDashboardRefreshController)});
             }
+            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
+                declaredControllerTypes =declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
+            }
             if (!Executed("GetDeclaredControllerTypes")) {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
                     typeof (CreatableItemController), typeof (FilterByColumnController),
                     typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController)
                 });
             }
-            
             return declaredControllerTypes;
         }
 
