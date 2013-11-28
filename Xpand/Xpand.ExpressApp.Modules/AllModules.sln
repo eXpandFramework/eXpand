@@ -430,6 +430,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileAttachment", "FileAttac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.FileAttachment", "FileAttachment\Xpand.ExpressApp.FileAttachment.csproj", "{D3346898-E61A-470E-B38D-D38BF584271B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.FileAttachment.Web", "FileAttachment.Web\Xpand.ExpressApp.FileAttachment.Web.csproj", "{07269BB3-0504-41C6-94D4-089356EB39B1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D3346898-E61A-470E-B38D-D38BF584271B} = {D3346898-E61A-470E-B38D-D38BF584271B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -851,6 +856,12 @@ Global
 		{D3346898-E61A-470E-B38D-D38BF584271B}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
 		{D3346898-E61A-470E-B38D-D38BF584271B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3346898-E61A-470E-B38D-D38BF584271B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07269BB3-0504-41C6-94D4-089356EB39B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -925,5 +936,6 @@ Global
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC} = {0D5DFB81-3B70-4FA9-8F71-B02D25F05BB6}
 		{175DE829-3659-47B5-9D37-54238CB694B7} = {3A34ABAF-D18D-49BF-8B6D-EA0C17914EB4}
 		{D3346898-E61A-470E-B38D-D38BF584271B} = {1865FFED-4812-44FE-8A5C-0A8CEC4C7751}
+		{07269BB3-0504-41C6-94D4-089356EB39B1} = {1865FFED-4812-44FE-8A5C-0A8CEC4C7751}
 	EndGlobalSection
 EndGlobal

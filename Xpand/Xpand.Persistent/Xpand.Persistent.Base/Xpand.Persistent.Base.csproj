@@ -124,6 +124,9 @@
     <Compile Include="General\ActionExtensions.cs" />
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\TypesInfoBuilder.cs" />
     <Compile Include="General\CollectionSourceExtensions.cs" />
     <Compile Include="General\Controllers\CreateExpandAbleMembersViewController.cs">

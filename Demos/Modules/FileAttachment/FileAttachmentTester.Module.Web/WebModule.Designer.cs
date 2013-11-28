@@ -29,6 +29,7 @@ namespace FileAttachmentTester.Module.Web {
             this.RequiredModuleTypes.Add(typeof(FileAttachmentTester.Module.FileAttachmentTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Web.FileAttachmentsAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FileAttachment.Web.XpandFileAttachmentsWebModule));
 
         }
 
