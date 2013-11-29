@@ -77,19 +77,24 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         protected override void OnCurrentObjectChanged() {
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName, XafTypesInfo.Instance);
-            InterfaceBuilder.SkipAssemblyCleanup = true;
-            _masterModel = GetMasterModel();
-            InterfaceBuilder.SkipAssemblyCleanup = false;
+            _masterModel = GetMasterModel(false);
             base.OnCurrentObjectChanged();
         }
 
-        ModelApplicationBase GetMasterModel() {
-            var modelApplicationBase = _modelLoader.GetMasterModel(false);
+        ModelApplicationBase GetMasterModel(bool recreate) {
+            var modelApplicationBase = GetMasterModelCore(recreate);
             _modelApplicationBases.Add(modelApplicationBase, XafTypesInfo.Instance);
             _typeInfo.AssignAsInstance();
             return modelApplicationBase;
         }
-        
+
+        ModelApplicationBase GetMasterModelCore(bool recreate) {
+            InterfaceBuilder.SkipAssemblyCleanup = true;
+            var masterModel = !recreate ? _modelLoader.GetMasterModel(false) : _modelLoader.ReCreate();
+            InterfaceBuilder.SkipAssemblyCleanup = false;
+            return masterModel;
+        }
+
         protected override object CreateControlCore() {
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing += ObjectSpaceOnCommitting;
@@ -108,7 +113,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
         void FormOnActivated(object sender, EventArgs eventArgs) {
-            _modelApplicationBases[_masterModel].AssignAsInstance();
+            ITypesInfo typesInfo = _modelApplicationBases[_masterModel];
+            typesInfo.AssignAsInstance();
         }
 
         void FormOnDeactivate(object sender, EventArgs eventArgs) {
@@ -160,7 +166,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             if (objectChangeEventArgs.PropertyName == "XmlContent") {
                 var aspect = _masterModel.CurrentAspect;
                 InterfaceBuilder.SkipAssemblyCleanup = true;
-                _masterModel = GetMasterModel();
+                _masterModel = GetMasterModel(false);
                 InterfaceBuilder.SkipAssemblyCleanup = false;
                 CreateModelEditorController(aspect);
             }
@@ -189,9 +195,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         private void CreateModelEditorController(string aspect) {
             var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
-            InterfaceBuilder.SkipAssemblyCleanup = true;
-            _masterModel = _modelLoader.ReCreate();
-            InterfaceBuilder.SkipAssemblyCleanup = false;
+            _masterModel = GetMasterModel(true);
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
             }
