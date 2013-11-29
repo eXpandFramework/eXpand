@@ -42,6 +42,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         object GetRow(int rowIndex);
         int GetRelationIndex(int sourceRowHandle, string levelName);
         BaseView GetDetailView(int rowHandle, int relationIndex);
+        event MasterRowCanExpandEventHandler MasterRowCollapsing;
     }
     public interface IColumnView : IGridDesignTime, IDataControllerRelationSupport,
                                                IDataControllerValidationSupport, IGridLookUp,
