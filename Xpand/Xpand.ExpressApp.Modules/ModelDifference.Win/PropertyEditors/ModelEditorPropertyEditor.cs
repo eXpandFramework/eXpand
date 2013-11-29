@@ -199,8 +199,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             foreach (var layer in allLayers) {
                 ModelApplicationHelper.AddLayer(_masterModel, layer);
             }
-
+            _modelApplicationBases[_masterModel].AssignAsInstance();
             RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication)_masterModel);
+            _typeInfo.AssignAsInstance();
 
             DisposeController();
 
