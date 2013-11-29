@@ -40,6 +40,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
 
             if (columnView != null) {
+                columnView.MasterRowCollapsing -= GridViewOnMasterRowCollapsing;
                 columnView.MasterRowGetRelationCount -= ViewOnMasterRowGetRelationCount;
                 columnView.MasterRowGetRelationName -= ViewOnMasterRowGetRelationName;
                 columnView.MasterRowGetRelationDisplayCaption -= MasterRowGetRelationDisplayCaption;
@@ -52,6 +53,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
+        void GridViewOnMasterRowCollapsing(object sender, MasterRowCanExpandEventArgs masterRowCanExpandEventArgs) {
+            var detailView = (IMasterDetailColumnView)((IMasterDetailColumnView) sender).GetDetailView(masterRowCanExpandEventArgs.RowHandle, masterRowCanExpandEventArgs.RelationIndex);
+            detailView.Window.View.SaveModel();
+        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -71,6 +76,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                     masterDetailColumnView.MasterRowGetChildList += ViewOnMasterRowGetChildList;
                     masterDetailColumnView.MasterRowEmpty += ViewOnMasterRowEmpty;
                     masterDetailColumnView.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
+                    masterDetailColumnView.MasterRowCollapsing += GridViewOnMasterRowCollapsing;
                 }
             }
         }
@@ -189,7 +195,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         void CloseNestedWindow(IMasterDetailColumnView baseView) {
             var window = baseView.Window as WinWindow;
             if (window != null && window.Form != null) {
-                baseView.Window.View.SaveModel();
                 window.Form.Close();
             }
         }

@@ -108,6 +108,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             throw new NotImplementedException();
         }
 
+        event MasterRowCanExpandEventHandler IMasterDetailColumnView.MasterRowCollapsing {
+            add { throw new NotImplementedException(); }
+            remove {  }
+        }
+
         string IMasterDetailColumnView.GetRelationName(int rowHandle, int relationIndex) {
             throw new NotImplementedException();
         }
