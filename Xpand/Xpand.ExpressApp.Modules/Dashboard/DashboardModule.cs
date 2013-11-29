@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Dashboard {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(DashboardDefinition), "Roles");
-            } else if (Application != null && (Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+            } else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();
             }
         }

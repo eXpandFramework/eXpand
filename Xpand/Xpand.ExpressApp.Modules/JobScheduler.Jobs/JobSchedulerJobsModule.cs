@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Users");
                 CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Roles");
-            } else if ((Application.Security.UserType != null && !Application.Security.UserType.IsInterface)) {
+            } else if ((Application.CanBuildSecurityObjects())) {
                 BuildSecuritySystemObjects();
             }
         }
