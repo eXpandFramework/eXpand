@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
 using Xpand.Persistent.Base.Xpo;
@@ -27,7 +26,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
             if (handler != null) handler(null, e);
         }
 
-        static readonly XPDictionary _dictionary = XpandModuleBase.Dictiorary;
+        
         private static IEnumerable<IModelMemberEx> GetMembersEx(IModelApplication model) {
             return model.BOModel.SelectMany(modelClass => modelClass.AllMembers).OfType<IModelMemberEx>().Distinct();
         }
@@ -77,7 +76,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         static void CreateXpandCustomMemberInfo(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
             try {
                 Type classType = modelMemberEx.ModelClass.TypeInfo.Type;
-                XPClassInfo xpClassInfo = _dictionary.GetClassInfo(classType);
+                XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(classType);
                 lock (xpClassInfo) {
                     var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
                     if (customMemberInfo == null) {
