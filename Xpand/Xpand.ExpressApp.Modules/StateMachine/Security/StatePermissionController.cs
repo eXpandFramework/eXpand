@@ -1,4 +1,3 @@
-using System;
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -13,12 +12,6 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         bool PermissionsForActionState { get; set; }
     }
 
-    public class StateMachineController : DevExpress.ExpressApp.StateMachine.StateMachineController {
-        protected override void UpdateActionState() {
-            base.UpdateActionState();
-
-        }
-    }
     public class StatePermissionController : ViewController, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsStateMachine>();
@@ -26,12 +19,22 @@ namespace Xpand.ExpressApp.StateMachine.Security {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var stateMachineController = Frame.GetController<StateMachineController>();
+            var stateMachineController = Frame.GetController<StateMachineAdminRolesController>();
             if (((IModelOptionsStateMachine)Application.Model.Options).PermissionsForActionState) {
                 var singleChoiceAction = stateMachineController.ChangeStateAction;
                 singleChoiceAction.ItemsChanged += OnItemsChanged;
             }
             stateMachineController.TransitionExecuting += OnTransitionExecuting;
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            var stateMachineController = Frame.GetController<StateMachineAdminRolesController>();
+            if (((IModelOptionsStateMachine)Application.Model.Options).PermissionsForActionState) {
+                var singleChoiceAction = stateMachineController.ChangeStateAction;
+                singleChoiceAction.ItemsChanged -= OnItemsChanged;
+            }
+            stateMachineController.TransitionExecuting -= OnTransitionExecuting;
         }
 
         void OnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
@@ -48,7 +51,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
 
         void OnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
             var targetState = executeTransitionEventArgs.Transition.TargetState;
-            if (!IsGranted(targetState))
+            if (!executeTransitionEventArgs.Cancel&&!IsGranted(targetState))
                 throw new UserFriendlyException("Permissions are not granted for transitioning to the " + targetState.Caption);
         }
 

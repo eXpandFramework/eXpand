@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
+using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
@@ -17,6 +19,7 @@ namespace Xpand.ExpressApp.StateMachine {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandStateMachineModule : XpandModuleBase {
+        public const string AdminRoles = "AdminRoles";
         public XpandStateMachineModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(StateMachineModule));
@@ -26,6 +29,32 @@ namespace Xpand.ExpressApp.StateMachine {
             base.Setup(moduleManager);
             if (RuntimeMode)
                 Application.SetupComplete += ApplicationOnSetupComplete;
+        }
+
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            if (application != null && !DesignMode) {
+                application.SettingUp += ApplicationOnSettingUp;
+            }
+        }
+
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+            base.CustomizeTypesInfo(typesInfo);
+            if (!RuntimeMode) {
+                CreateDesignTimeCollection(typesInfo, typeof(XpoStateMachine), AdminRoles);
+            } else if (Application.CanBuildSecurityObjects()) {
+                BuildSecuritySystemObjects();
+            }
+        }
+
+        void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {
+            BuildSecuritySystemObjects();
+        }
+
+        void BuildSecuritySystemObjects() {
+            var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
+            var xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(typeof(XpoStateMachine), "StateMachineRoles", "XpoStateMachines", AdminRoles);
+            dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "XpoStateMachines");
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

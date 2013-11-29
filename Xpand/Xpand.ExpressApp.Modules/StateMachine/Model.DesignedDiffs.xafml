@@ -4,4 +4,31 @@
     <SchemaModule Name="SystemModule" Version="12.1.5.0" IsNewNode="True" />
     <SchemaModule Name="XpandSystemModule" Version="12.1.5.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="XpoStateMachine_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="15">
+            <LayoutGroup Id="XpoStateMachine">
+              <LayoutGroup Id="XpoStateMachine_col2">
+                <LayoutItem Id="Active" RelativeSize="37" />
+                <LayoutItem Id="ExpandActionsInDetailView" RelativeSize="34" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="84">
+            <LayoutGroup Id="States" RelativeSize="100">
+              <LayoutItem Id="States" ShowCaption="False" ViewItem="States" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="AdminRoles" RelativeSize="100" ImageName="BO_Role">
+              <LayoutItem Id="AdminRoles" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="States_Group" ShowCaption="False" Direction="Horizontal" RelativeSize="71" Removed="True">
+            <LayoutItem Id="States" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>
