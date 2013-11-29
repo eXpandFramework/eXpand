@@ -20,6 +20,10 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
 
+        public static bool CanBuildSecurityObjects(this XafApplication xafApplication) {
+            return (xafApplication.Security != null && xafApplication.Security.UserType != null && !xafApplication.Security.UserType.IsInterface);
+        }
+
         public static View CreateView(this XafApplication application, IModelView viewModel) {
             return (View) application.CallMethod("CreateView", viewModel);
         }
