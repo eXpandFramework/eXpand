@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
@@ -20,10 +21,12 @@ namespace Xpand.ExpressApp.StateMachine {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandStateMachineModule : XpandModuleBase {
         public const string AdminRoles = "AdminRoles";
+        public const string EnableFilteredPropety = "EnableFilteredPropety";
         public XpandStateMachineModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(StateMachineModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -40,6 +43,8 @@ namespace Xpand.ExpressApp.StateMachine {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            var typeInfo = typesInfo.FindTypeInfo<XpoStateMachine>();
+            typeInfo.CreateMember(EnableFilteredPropety, typeof (bool));
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(XpoStateMachine), AdminRoles);
             } else if (Application.CanBuildSecurityObjects()) {

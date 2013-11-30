@@ -16,15 +16,16 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         Dictionary<string, object> _infoToLayoutMapCore;
         LogicRuleViewController _logicRuleViewController;
 
-        protected override void OnActivated() {
-            base.OnActivated();
+        protected override void OnFrameAssigned() {
+            base.OnFrameAssigned();
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=OnLogicRuleExecute;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += OnLogicRuleExecute;
+            Frame.Disposing+=FrameOnDisposing;
         }
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=OnLogicRuleExecute;
+        void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.Disposing-=FrameOnDisposing;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute;
         }
 
         protected bool HasRules {
