@@ -5,9 +5,11 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.StateMachine.Security;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
+using StateMachineTransitionPermission = Xpand.ExpressApp.StateMachine.Security.StateMachineTransitionPermission;
 
-namespace Xpand.ExpressApp.StateMachine.Security {
+namespace Xpand.ExpressApp.StateMachine.Controllers {
     public interface IModelOptionsStateMachine {
         bool PermissionsForActionState { get; set; }
     }
@@ -58,7 +60,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         bool IsGranted(IState state) {
             if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return IsGranted(new StateMachineTransitionPermission(StateMachineTransitionModifier.Allow, state.Caption, state.StateMachine.Name));
-            var stateMachineTransitionPermission = new Improved.StateMachineTransitionPermission {
+            var stateMachineTransitionPermission = new Security.Improved.StateMachineTransitionPermission {
                 Modifier = StateMachineTransitionModifier.Allow,
                 StateCaption = state.Caption,
                 StateMachineName = state.StateMachine.Name

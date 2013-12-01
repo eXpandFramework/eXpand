@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.StateMachine;
 using System.Linq;
 using DevExpress.ExpressApp.StateMachine.Xpo;
-using Xpand.ExpressApp.StateMachine.Security;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
 
@@ -83,7 +82,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             base.OnDeactivated();
             AppearanceController.AppearanceApplied -= AppearanceController_AppearanceApplied;
             var enabledStateMachines = GetEnabledStateMachines();
-            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.CanExecuteTransition((XpoStateMachine)machine)))
+            if (enabledStateMachines.All(machine => ((XpoStateMachine)machine).CanExecuteTransition()))
                 return;
             _stateMachineController.TransitionExecuted -= OnTransitionExecuted;
             ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
@@ -93,7 +92,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             base.OnActivated();
             AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
             var enabledStateMachines = GetEnabledStateMachines();
-            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.CanExecuteTransition((XpoStateMachine) machine)))
+            if (enabledStateMachines.All(machine => ((XpoStateMachine)machine).CanExecuteTransition()))
                 return;
             var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
             

@@ -1,13 +1,9 @@
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
-using DevExpress.Xpo;
-using System.Linq;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
 
-namespace Xpand.ExpressApp.StateMachine.Security {
+namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class StateMachineAdminRolesController : StateMachineController {
         StateMachineAdminRolesController _stateMachineController;
 
@@ -26,7 +22,8 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            executeTransitionEventArgs.Cancel = !CanExecuteTransition((XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine);
+            var xpoStateMachine = (XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine;
+            executeTransitionEventArgs.Cancel = !xpoStateMachine.CanExecuteTransition();
             if (executeTransitionEventArgs.Cancel)
                 new StateMachineLogic(ObjectSpace).CallMethod("ProcessTransition", View.CurrentObject,
                     executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
@@ -34,13 +31,6 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             
         }
 
-        public static bool CanExecuteTransition(XpoStateMachine stateMachine) {
-            var collection = (XPBaseCollection) stateMachine.GetMemberValue(XpandStateMachineModule.AdminRoles);
-            return collection.OfType<ISecurityRole>().Any(IsInRole);
-        }
 
-        static bool IsInRole(ISecurityRole securityRole) {
-            return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.Select(role => role.Name).Contains(securityRole.Name);
-        }
     }
 }
