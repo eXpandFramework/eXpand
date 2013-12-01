@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            executeTransitionEventArgs.Cancel = !ExecuteTransition((XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine);
+            executeTransitionEventArgs.Cancel = !CanExecuteTransition((XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine);
             if (executeTransitionEventArgs.Cancel)
                 new StateMachineLogic(ObjectSpace).CallMethod("ProcessTransition", View.CurrentObject,
                     executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             
         }
 
-        public static bool ExecuteTransition(XpoStateMachine stateMachine) {
+        public static bool CanExecuteTransition(XpoStateMachine stateMachine) {
             var collection = (XPBaseCollection) stateMachine.GetMemberValue(XpandStateMachineModule.AdminRoles);
             return collection.OfType<ISecurityRole>().Any(IsInRole);
         }

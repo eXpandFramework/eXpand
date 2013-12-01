@@ -81,18 +81,19 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var enabledStateMachines = GetEnabledStateMachines();
-            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.ExecuteTransition((XpoStateMachine)machine)))
-                return;
             AppearanceController.AppearanceApplied -= AppearanceController_AppearanceApplied;
+            var enabledStateMachines = GetEnabledStateMachines();
+            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.CanExecuteTransition((XpoStateMachine)machine)))
+                return;
             _stateMachineController.TransitionExecuted -= OnTransitionExecuted;
             ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
         }
 
         protected override void OnActivated() {
             base.OnActivated();
+            AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
             var enabledStateMachines = GetEnabledStateMachines();
-            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.ExecuteTransition((XpoStateMachine) machine)))
+            if (enabledStateMachines.All(machine => StateMachineAdminRolesController.CanExecuteTransition((XpoStateMachine) machine)))
                 return;
             var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
             
@@ -102,7 +103,6 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
                 item.ControlCreated+=ItemOnControlCreated;
             }
             ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
-            AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
             _stateMachineController.TransitionExecuted += OnTransitionExecuted;
         }
 
