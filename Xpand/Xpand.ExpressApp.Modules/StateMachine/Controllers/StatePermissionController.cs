@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var stateMachineController = Frame.GetController<StateMachineAdminRolesController>();
+            var stateMachineController = Frame.GetController<StateMachineController>();
             if (((IModelOptionsStateMachine)Application.Model.Options).PermissionsForActionState) {
                 var singleChoiceAction = stateMachineController.ChangeStateAction;
                 singleChoiceAction.ItemsChanged += OnItemsChanged;
@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var stateMachineController = Frame.GetController<StateMachineAdminRolesController>();
+            var stateMachineController = Frame.GetController<StateMachineController>();
             if (((IModelOptionsStateMachine)Application.Model.Options).PermissionsForActionState) {
                 var singleChoiceAction = stateMachineController.ChangeStateAction;
                 singleChoiceAction.ItemsChanged -= OnItemsChanged;
