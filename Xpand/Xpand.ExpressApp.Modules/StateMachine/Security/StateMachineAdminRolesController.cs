@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            var stateMachine = ((XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine);
+            executeTransitionEventArgs.Cancel = !CanExecuteTransition((XpoStateMachine) executeTransitionEventArgs.Transition.TargetState.StateMachine);
             var collection=(XPBaseCollection) stateMachine.GetMemberValue(XpandStateMachineModule.AdminRoles);
             executeTransitionEventArgs.Cancel = collection.OfType<ISecurityRole>().Any(IsInRole);
             if (executeTransitionEventArgs.Cancel)
@@ -36,7 +36,8 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             
         }
 
-        bool IsInRole(ISecurityRole securityRole) {
+        public static bool CanExecuteTransition(XpoStateMachine stateMachine) {
+	    var collection = (XPBaseCollection) stateMachine.GetMemberValue(XpandStateMachineModule.AdminRoles);
             return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.Select(role => role.Name).Contains(securityRole.Name);
         }
     }
