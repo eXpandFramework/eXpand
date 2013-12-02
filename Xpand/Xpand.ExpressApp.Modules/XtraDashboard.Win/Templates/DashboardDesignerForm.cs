@@ -1,20 +1,27 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
-using DevExpress.XtraBars;
-using DevExpress.XtraBars.Ribbon;
 using DevExpress.DashboardWin;
 using DevExpress.DashboardWin.Native;
+using DevExpress.ExpressApp;
+using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
+using DevExpress.XtraBars.Ribbon;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
     public partial class DashboardDesignerForm : RibbonForm, IXPObjectSpaceAwareControl {
+        bool saveDashboard;
         History _editHistory;
         IObjectSpace _objectSpace;
         IDashboardDefinition _template;
+
+        public DevExpress.DashboardCommon.Dashboard Dashboard { get { return dashboardDesigner.Dashboard; } }
+        public bool SaveDashboard { get { return saveDashboard; } }
 
         public DashboardDesignerForm() {
             InitializeComponent();
@@ -52,7 +59,6 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             base.OnClosed(e);
         }
 
-
         void Save(object sender, ItemClickEventArgs e) {
             UpdateTemplateXml();
             UpdateActionState();
@@ -73,7 +79,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
         void UpdateActionState() {
-            fileSaveBarItem.Enabled = _editHistory.IsModified;
+            barButtonItemSave.Enabled = _editHistory.IsModified;
+            barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
         }
 
         void SaveAndClose(object sender, ItemClickEventArgs e) {
@@ -81,23 +88,43 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             DialogResult = DialogResult.OK;
         }
 
-        void Close(object sender, ItemClickEventArgs e) {
-            if (dashboardDesigner.IsDashboardModified) {
-                var result = XtraMessageBox.Show("Do you want to save changes?", "Dashboard Designer", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes) {
-                    Save(null, null);
-                    DialogResult = DialogResult.Yes;
-                } else if (result == DialogResult.No)
-                    DialogResult = DialogResult.Cancel;
-            } else {
-                DialogResult = DialogResult.Yes;
-            }
-        }
-
         public void LoadTemplate(IDashboardDefinition DashboardDefinition) {
             _template = DashboardDefinition;
             Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, true);
             _editHistory.Changed += _EditHistory_Changed;
+        }
+
+        protected override void OnClosing(CancelEventArgs e) {
+            base.OnClosing(e);
+            if(dashboardDesigner.IsDashboardModified) {
+                DialogResult result = XtraMessageBox.Show(LookAndFeel, this, "Do you want to save changes ?", "Dashboard Designer", 
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if(result == DialogResult.Cancel)
+                    e.Cancel = true;
+                else
+                    saveDashboard = result == DialogResult.Yes;
+            }
+        }
+
+        void DashboardDesignerForm_Load(object sender, EventArgs e) {
+            fileNewBarItem1.Visibility =BarItemVisibility.Never;
+            fileOpenBarItem1.Visibility=BarItemVisibility.Never;
+            fileSaveBarItem1.Visibility=BarItemVisibility.Never;
+            fileSaveAsBarItem1.Visibility=BarItemVisibility.Never;
+
+            ribbonControl1.Toolbar.ItemLinks.Remove(fileSaveBarItem1);
+            barButtonItemSave.Enabled = false;
+            barButtonItemSave.Glyph = GetImage("MenuBar_Save_32x32.png");
+            barButtonItemSave.ItemClick+=Save;
+            barButtonItemSaveAndClose.ItemClick+=SaveAndClose;
+            barButtonItemSaveAndClose.Enabled = false;
+            barButtonItemSave.Glyph = GetImage("MenuBar_SaveAndClose_32x32.png");
+        }
+
+        Image GetImage(string name) {
+            var stream = GetType().Assembly.GetManifestResourceStream(GetType(), name);
+            Debug.Assert(stream != null, "stream != null");
+            return Image.FromStream(stream);
         }
     }
 }

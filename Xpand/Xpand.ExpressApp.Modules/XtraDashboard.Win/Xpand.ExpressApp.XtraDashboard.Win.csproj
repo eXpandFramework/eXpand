@@ -228,6 +228,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseUpdate\ReadMe.txt" />
+    <EmbeddedResource Include="Templates\MenuBar_SaveAndClose_32x32.png" />
+    <EmbeddedResource Include="Templates\MenuBar_Save_32x32.png" />
     <EmbeddedResource Include="Images\BO_DashboardDefinition_Export.png" />
     <EmbeddedResource Include="Images\BO_DashboardDefinition_Export_32x32.png" />
     <EmbeddedResource Include="Images\BO_DashboardDefinition_Import.png" />
