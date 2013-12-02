@@ -60,7 +60,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DXperience 13.2\Bin\Framework\DevExpress.ExpressApp.FileAttachment.Web.v13.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
@@ -69,6 +69,12 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.v13.2">
