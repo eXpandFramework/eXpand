@@ -30,13 +30,17 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         
         IEnumerable<object> GetMarkers(IStateMachine stateMachine) {
             var choiceActionItem = GetStateMachineChoiceActionItem(stateMachine);
-            var markers =choiceActionItem.Items.Select(actionItem => ((XpoTransition) actionItem.Data).TargetState.Marker.Marker);
-            return markers.Concat(choiceActionItem.Items.Where(IsValid).Select(actionItem 
-                => ((XpoTransition)actionItem.Data).SourceState.Marker.Marker));
+            if (choiceActionItem != null) {
+                var markers =choiceActionItem.Items.Select(actionItem => ((XpoTransition) actionItem.Data).TargetState.Marker.Marker);
+                return markers.Concat(choiceActionItem.Items.Where(IsValid).Select(actionItem 
+                    => ((XpoTransition)actionItem.Data).SourceState.Marker.Marker));
+            }
+            var xpoState = (XpoState) stateMachine.FindCurrentState(View.CurrentObject);
+            return new []{xpoState.Marker.Marker};
         }
 
         ChoiceActionItem GetStateMachineChoiceActionItem(IStateMachine stateMachine) {
-            return _stateMachineController.ChangeStateAction.Items.First(
+            return _stateMachineController.ChangeStateAction.Items.FirstOrDefault(
                     item => IsValid(item) && item.Data == stateMachine);
         }
 

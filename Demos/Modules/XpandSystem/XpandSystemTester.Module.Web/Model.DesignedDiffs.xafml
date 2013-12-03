@@ -9,6 +9,6 @@
     <SchemaModule Name="XpandSystemModule" Version="13.1.6.19" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="Customer_ListView" OpenDetailViewAsPopup="True" FriendlyUrl="Customer_ListView111" />
+    <ListView Id="Customer_ListView" FriendlyUrl="Customer_ListView111" />
   </Views>
 </Application>
