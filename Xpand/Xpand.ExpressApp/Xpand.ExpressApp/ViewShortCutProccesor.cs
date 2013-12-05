@@ -83,7 +83,7 @@ namespace Xpand.ExpressApp {
                 }    
             }
             var criteriaOperator = CriteriaOperator.TryParse(objectKeyString);
-            if (criteriaOperator != null)
+            if (!ReferenceEquals(criteriaOperator , null))
                 return criteriaOperator;
 
             throw new ArgumentException(objectKeyString, "objectKeyString");

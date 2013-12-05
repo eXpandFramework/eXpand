@@ -31,7 +31,7 @@ namespace EFDemo.Web {
 			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
 #endif
 
-			RenderHelper.RenderMode = DevExpress.Web.ASPxClasses.ControlRenderMode.Lightweight;
+
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
 #if DEBUG
 			TestScriptsManager.EasyTestEnabled = true;

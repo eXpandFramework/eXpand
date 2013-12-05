@@ -2,9 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -16,36 +14,6 @@ using System.Linq;
 using AggregatedAttribute = DevExpress.Xpo.AggregatedAttribute;
 
 namespace Xpand.ExpressApp.FileAttachment {
-    public interface IModelCommonFileTypeFiltersEx : IModelCommonFileTypeFilters {
-        [ModelBrowsableAttribute(typeof(FileTypeFiltersVisibilityCalculator))]
-        new IModelFileTypeFilters FileTypeFilters { get; }
-    }
-    [Obsolete("to be removed in 13.1.9")]
-    public class FileTypeFiltersVisibilityCalculator : IModelIsVisible {
-        public bool IsVisible(IModelNode node, String propertyName) {
-            var modelClass = node as IModelClass;
-            if (modelClass != null) {
-                ITypeInfo classTypeInfo = modelClass.TypeInfo;
-                if (classTypeInfo != null) {
-                    if (classTypeInfo.IsListType) {
-                        Type[] genericArguments = classTypeInfo.Type.GetGenericArguments();
-                        if (genericArguments.Length == 1) {
-                            classTypeInfo = XafTypesInfo.Instance.FindTypeInfo(genericArguments[0].FullName);
-                        }
-                    }
-                    if (classTypeInfo != null && (classTypeInfo.Implements<IFileData>() || classTypeInfo.FindAttribute<FileAttachmentAttribute>() != null)) {
-                        return true;
-                    }
-                }
-            }
-            var member = node as IModelMember;
-            if (member != null) {
-                return member.MemberInfo != null && typeof(IFileData).IsAssignableFrom(member.MemberInfo.MemberType);
-            }
-            return false;
-        }
-    }
-
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules), ToolboxBitmap(typeof (XpandFileAttachmentsModule)), ToolboxItem(true)]
     public sealed class XpandFileAttachmentsModule : XpandModuleBase {
         public const string FileDataFolderName = "FileData";
@@ -54,9 +22,6 @@ namespace Xpand.ExpressApp.FileAttachment {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions,IModelOptionsFileSystemStoreLocation>();
-            if (RuntimeMode&&IsHosted)
-                return;
-            extenders.Add<IModelCommonFileTypeFilters, IModelCommonFileTypeFiltersEx>();
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -82,7 +47,7 @@ namespace Xpand.ExpressApp.FileAttachment {
             var modelOptionsFileSystemStoreLocation =((IModelOptionsFileSystemStoreLocation) CaptionHelper.ApplicationModel.Options);
             var appSetting = ConfigurationManager.AppSettings["FileSystemStoreLocation"];
             var path = appSetting ?? modelOptionsFileSystemStoreLocation.FileSystemStoreLocation;
-            return modelOptionsFileSystemStoreLocation.FileSystemStoreLocation.IndexOf(":")>-1? path
+            return modelOptionsFileSystemStoreLocation.FileSystemStoreLocation.IndexOf(":", StringComparison.Ordinal)>-1? path
                        : String.Format("{0}{1}", PathHelper.GetApplicationFolder(), path);
         }
     }

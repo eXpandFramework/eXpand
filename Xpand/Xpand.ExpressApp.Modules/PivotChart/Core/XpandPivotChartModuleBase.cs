@@ -25,8 +25,7 @@ namespace Xpand.ExpressApp.PivotChart.Core {
             if (RuntimeMode)
                 TypesInfo.AddTypes(GetAdditionalClasses(moduleManager));
         }
-        public new abstract TypesInfo TypesInfo { get; }
-
+        public abstract TypesInfo TypesInfo { get; }
 
         void CreateMembers(ITypesInfo typesInfo, Type optionsType, Type persistentType) {
             ITypeInfo typeInfo = typesInfo.FindTypeInfo(ReflectionHelper.GetType(persistentType.Name));

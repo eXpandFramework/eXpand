@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
@@ -15,7 +14,6 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.Web {
 
     public class XpandWebApplication : WebApplication, IWebApplication, IXafApplicationDirectory {
-        ApplicationModulesManager _applicationModulesManager;
 
         public XpandWebApplication() {
         }

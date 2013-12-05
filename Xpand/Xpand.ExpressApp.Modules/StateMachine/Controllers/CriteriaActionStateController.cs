@@ -1,9 +1,7 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Validation;
-using Fasterflect;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class CriteriaActionStateController:ViewController<ObjectView> {
@@ -42,9 +40,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             return true;
         }
 
-        [Obsolete("In 13.2 the ValidateTransition is public")]
         RuleSetValidationResult RuleSetValidationResult(XpoTransition xpoTransition, StateMachineLogic stateMachineLogic) {
-            return (RuleSetValidationResult) stateMachineLogic.CallMethod("ValidateTransition", new[]{xpoTransition.TargetState, View.CurrentObject});
+            return stateMachineLogic.ValidateTransition( xpoTransition.TargetState, View.CurrentObject);
         }
     }
 }
