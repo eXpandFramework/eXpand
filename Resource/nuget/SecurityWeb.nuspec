@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandSecurityWeb</id>
-    <version>13.2.4.2</version>
+    <version>13.2.5.1</version>
     <title>DevExpress eXpandFramework Security Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.4.2" />
-      <dependency id="eXpandSystem" version="13.2.4.2" />
-      <dependency id="eXpandSecurity" version="13.2.4.2" />
+      <dependency id="eXpandLib" version="13.2.5.1" />
+      <dependency id="eXpandSystem" version="13.2.5.1" />
+      <dependency id="eXpandSecurity" version="13.2.5.1" />
     </dependencies>
   </metadata>
   <files>
