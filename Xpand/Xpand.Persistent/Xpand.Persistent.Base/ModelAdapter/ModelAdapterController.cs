@@ -41,6 +41,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return helper.IsPropertyModelBrowsableVisible(parent, propertyName);
         }
 
+        public bool IsReadOnly(IModelNode node, IModelNode childNode) {
+            throw new NotImplementedException();
+        }
+
         public bool IsReadOnly(IModelNode node) {
             throw new NotImplementedException();
         }

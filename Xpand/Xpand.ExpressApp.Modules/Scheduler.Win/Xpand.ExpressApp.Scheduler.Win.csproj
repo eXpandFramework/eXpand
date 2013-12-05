@@ -58,37 +58,37 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.1">
+    <Reference Include="DevExpress.Utils.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.1">
+    <Reference Include="DevExpress.XtraEditors.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Reporting.Extensions">
+    <Reference Include="DevExpress.XtraScheduler.v13.2.Reporting.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.1">
+    <Reference Include="DevExpress.XtraPrinting.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1">
+    <Reference Include="DevExpress.XtraScheduler.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.1.Core">
+    <Reference Include="DevExpress.XtraScheduler.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -117,20 +117,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SchedulerModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\SchedulerModelAdapterController.cs" />
     <Compile Include="PropertyEditors\TimeZonePropertyEditor.cs" />
-    <Compile Include="Reminders\ReminderAlertController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Reminders\ReminderAlertController.cs" />
     <Compile Include="Reminders\DurationPropertyEditor.cs" />
     <Compile Include="Reminders\RemindersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="XpandSchedulerWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSchedulerWindowsFormsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

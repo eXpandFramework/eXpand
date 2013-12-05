@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -11,6 +10,8 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
+using Xpand.Persistent.Base.General;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.ViewVariants {
     public interface IModelClassViewClonable {
@@ -30,13 +31,11 @@ namespace Xpand.ExpressApp.ViewVariants {
         public const string Delete = "Delete";
         
         readonly SingleChoiceAction _viewVariantsChoiceAction;
-        ChangeVariantMainWindowController _changeVariantMainWindowController;
         ChangeVariantController _changeVariantController;
         IModelListView _rootListView;
         VariantInfo _currentVariantInfo;
         bool _isViewClonable;
-        
-
+        ViewVariantsModule _viewVariantsModule;
 
         public ModifyVariantsController() {
             _viewVariantsChoiceAction = new SingleChoiceAction(this, "ModifyViewVariants", PredefinedCategory.View){Caption = "View Variant"};
@@ -84,13 +83,16 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         void DeleteViewVariantCore(ViewVariant viewVariant) {
+            var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
             var rootModelVariant = ((IModelViewVariants)_rootListView).Variants[_currentVariantInfo.Id];
             rootModelVariant.Remove();
             if (viewVariant.DeleteView)
                 Application.Model.Views[_currentVariantInfo.ViewID].Remove();
-            _changeVariantController.RefreshVariantsAction();
-            _changeVariantMainWindowController.ChangeCurrentViewToVariant(Frame, _rootListView.Id);
-
+            var variantInfos = variantsInfo.Items.Where(info => info.Id != _currentVariantInfo.Id).ToArray();
+            VariantsInfo infos=null;
+            if (variantInfos.Length>1)
+                infos = new VariantsInfo(variantsInfo.RootViewId, DefaultVariantId, variantInfos);
+            ChangeToVariant(infos);
         }
 
 
@@ -106,7 +108,6 @@ namespace Xpand.ExpressApp.ViewVariants {
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }
 
-
         string GetCaption() {
             var selectedItem = _changeVariantController.ChangeVariantAction.SelectedItem;
             if (selectedItem != null)
@@ -119,12 +120,14 @@ namespace Xpand.ExpressApp.ViewVariants {
             var modelVariants = ((IModelViewVariants)_rootListView).Variants;
             if (_currentVariantInfo.Id == DefaultVariantId) {
                 modelVariants[DefaultVariantId].Caption = viewVariant.Caption;
+                ChangeToVariant();
             } else if (_currentVariantInfo.Id==null) {
                 var modelVariant = modelVariants[DefaultVariantId];
                 if (modelVariant==null)
                     CreateVariantNode(DefaultVariantId, modelVariants, _rootListView, viewVariant.Caption);
                 else {
                     modelVariant.Caption = viewVariant.Caption;
+                    ChangeToVariant();
                 }
             }
             else {
@@ -133,11 +136,11 @@ namespace Xpand.ExpressApp.ViewVariants {
                 if (viewVariant.DeleteView) {
                     DeleteViewVariantCore(viewVariant);
                     CreateViewVariantCore(viewVariant);
+                } else {
+                    ChangeToVariant();
                 }
             }
-            _changeVariantController.RefreshVariantsAction();
         }
-
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
@@ -170,17 +173,28 @@ namespace Xpand.ExpressApp.ViewVariants {
             if (modelVariants.Count == 0) {
                 CreateVariantNode(DefaultVariantId, modelVariants,_rootListView,_rootListView.Caption);
             }
-            var modelVariant = CreateVariantNode(viewVariant.Caption, modelVariants);
-            _changeVariantController.RefreshVariantsAction();
-            _changeVariantMainWindowController.ChangeCurrentViewToVariant(Frame, modelVariant.View.Id);
+            CreateVariantNode(viewVariant.Caption, modelVariants);
+            ChangeToVariant();
+        }
+
+        void ChangeToVariant() {
+            ChangeToVariant(_viewVariantsModule.FrameVariantsEngine.GetVariants(View));
+        }
+
+        void ChangeToVariant(VariantsInfo variantsInfo) {
+            var currentFrameViewVariantsManager = _changeVariantController.CurrentFrameViewVariantsManager;
+            currentFrameViewVariantsManager.SetFieldValue("viewVariants", variantsInfo);
+            _changeVariantController.RefreshChangeVariantAction();
+            if (variantsInfo!=null)
+                _changeVariantController.CurrentFrameViewVariantsManager.ChangeToVariant(_currentVariantInfo);
         }
 
         protected override void OnViewControllersActivated() {
             base.OnViewControllersActivated();
+            _viewVariantsModule = Application.FindModule<ViewVariantsModule>();
             _isViewClonable = ((IModelListViewViewClonable) View.Model).IsViewClonable;
             _viewVariantsChoiceAction.Active[IsClonable] = _isViewClonable ;
             if (_isViewClonable) {
-                _changeVariantMainWindowController = Frame.GetController<ChangeVariantMainWindowController>();
                 _changeVariantController = Frame.GetController<ChangeVariantController>();
                 _rootListView = FindRootListView();
                 _changeVariantController.ChangeVariantAction.SelectedItemChanged += ChangeVariantActionOnSelectedItemChanged;
@@ -193,31 +207,23 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         IModelListView FindRootListView() {
-            EventHandler<CustomGetVariantsEventArgs>[] handlers = { null };
-            IModelListView modelListView = null;
-            handlers[0] = (sender, args) => {
-                modelListView = (IModelListView) Application.Model.Views[args.ViewId];
-                _changeVariantMainWindowController.CustomGetVariants -= handlers[0];
-            };
-            _changeVariantMainWindowController.CustomGetVariants += handlers[0];
-            _changeVariantMainWindowController.GetVariants(View);
-            Debug.Assert(modelListView != null, "modelView != null");
-            return modelListView;
+            var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
+            return variantsInfo == null ? View.Model : (IModelListView) Application.Model.Views[variantsInfo.RootViewId];
         }
 
-        IModelVariant CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption) {
+        void CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption) {
             var newVariantNode = modelVariants.AddNode<IModelVariant>();
             modelVariants.Current = newVariantNode;
             newVariantNode.Caption = caption;
             newVariantNode.Id = id;
             newVariantNode.View = modelListView;
-            return newVariantNode;
         }
 
-        IModelVariant CreateVariantNode(string caption, IModelVariants modelVariants) {
-            var modelListView = ((IModelListView) ((ModelNode) View.Model).Clone(caption));
+        void CreateVariantNode(string caption, IModelVariants modelVariants) {
+            var modelView = ((IModelListView) Application.Model.Views[caption]);
+            var modelListView = modelView??((IModelListView)((ModelNode)View.Model).Clone(caption));
             modelListView.Caption = caption;
-            return CreateVariantNode(caption, modelVariants, modelListView, caption);
+            CreateVariantNode(caption, modelVariants, modelListView, caption);
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

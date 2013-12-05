@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using DevExpress.DashboardCommon.Native;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
@@ -15,7 +14,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
         }
 
         public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, IObjectSpace objectSpace, bool filter) {
-            var dashboard = DashboardAccessor.CreateDashboardInstance();
+            var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
                 LoadFromXml(template.Xml, dashboard);
                 foreach (ITypeWrapper typeWrapper in template.DashboardTypes) {

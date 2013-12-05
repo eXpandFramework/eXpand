@@ -5,13 +5,13 @@ using DevExpress.ExpressApp.Model;
 
 namespace Xpand.Persistent.Base.General {
     [ModelAbstractClass]
-    public interface ITypesInfoProvider:IModelApplication {
+    public interface IModelTypesInfoProvider:IModelApplication {
         [Browsable(false)]
         ITypesInfo TypesInfo { get; set; }
     }
-    [DomainLogic((typeof(ITypesInfoProvider)))]
+    [DomainLogic((typeof(IModelTypesInfoProvider)))]
     public class TypesInfoProviderDomainLogic {
-        public static ITypesInfo Get_TypesInfo(ITypesInfoProvider typesInfoProvider) {
+        public static ITypesInfo Get_TypesInfo(IModelTypesInfoProvider typesInfoProvider) {
             return XafTypesInfo.Instance;
         }
     }

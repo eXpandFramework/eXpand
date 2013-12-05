@@ -15,10 +15,9 @@ using ModelDifferenceTester.Module.Web;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Web;
 using Xpand.ExpressApp.Security;
-using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : WebApplication,IUserDifferencesLoaded {
+    public class ModelDifferenceTesterAspNetApplication : WebApplication {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule cloneObjectModule1;
@@ -39,7 +38,7 @@ namespace ModelDifferenceTester.Web {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProviderThreadSafe(args.ConnectionString, args.Connection);
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection,true);
         }
 
         void ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch(object sender,
@@ -124,15 +123,6 @@ namespace ModelDifferenceTester.Web {
             ((ISupportInitialize) (this)).EndInit();
         }
 
-        public event EventHandler UserDifferencesLoaded;
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded();
-        }
-
-        protected virtual void OnUserDifferencesLoaded() {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
+        
     }
 }

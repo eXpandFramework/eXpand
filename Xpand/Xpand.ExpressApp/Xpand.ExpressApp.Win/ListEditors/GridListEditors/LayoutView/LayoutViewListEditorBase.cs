@@ -41,10 +41,10 @@ using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.XtraLayout;
 using DevExpress.XtraPrinting;
 using Fasterflect;
+using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     public class XafLayoutView : DevExpress.XtraGrid.Views.Layout.LayoutView {
-        private ErrorMessages errorMessages;
         private BaseGridController gridController;
         private Boolean skipMakeRowVisible;
         public XafLayoutView() { }
@@ -52,15 +52,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             : base(ownerGrid) { }
         internal void SuppressInvalidCastException() {
             foreach (GridColumn column in Columns) {
-                if (column.ColumnEdit != null && column.ColumnEdit is RepositoryItemLookupEdit) {
-                    //((RepositoryItemLookupEdit)column.ColumnEdit).ThrowInvalidCastException = false;
+                if (column.ColumnEdit is RepositoryItemLookupEdit) {
+                    column.ColumnEdit.SetPropertyValue("ThrowInvalidCastException", false);
                 }
             }
         }
         internal void CancelSuppressInvalidCastException() {
             foreach (GridColumn column in Columns) {
-                if (column.ColumnEdit != null && column.ColumnEdit is RepositoryItemLookupEdit) {
-                    //((RepositoryItemLookupEdit)column.ColumnEdit).ThrowInvalidCastException = true;
+                if (column.ColumnEdit is RepositoryItemLookupEdit) {
+                    column.ColumnEdit.SetPropertyValue("ThrowInvalidCastException", true); 
                 }
             }
         }
@@ -81,16 +81,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             }
             base.RaiseShownEditor();
         }
+        private ErrorMessage GetErrorMessage(int rowHandle, GridColumn column) {
+            object listItem = GetRow(rowHandle);
+            return column == null ? ErrorMessages.GetMessages(listItem) : ErrorMessages.GetMessage(column.FieldName, listItem);
+        }
         protected override string GetColumnError(int rowHandle, GridColumn column) {
-            string result;
-            if (errorMessages != null) {
-                object listItem = GetRow(rowHandle);
-                result = column == null ? errorMessages.GetMessages(listItem) : errorMessages.GetMessage(column.FieldName, listItem);
+            string result = null;
+            if (ErrorMessages != null) {
+                ErrorMessage errorMessage = GetErrorMessage(rowHandle, column);
+                if (errorMessage != null) {
+                    result = errorMessage.Message;
+                }
             } else {
                 result = base.GetColumnError(rowHandle, column);
             }
             return result;
         }
+
         protected override ErrorType GetColumnErrorType(int rowHandle, GridColumn column) {
             return ErrorType.Critical;
         }
@@ -185,10 +192,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 return (FocusedColumn == GetVisibleColumn(VisibleColumns.Count - 1));
             }
         }
-        public ErrorMessages ErrorMessages {
-            get { return errorMessages; }
-            set { errorMessages = value; }
-        }
+
+        public ErrorMessages ErrorMessages { get; set; }
+
         public event EventHandler FilterEditorPopup;
         public event EventHandler FilterEditorClosed;
         public event EventHandler<CustomCreateFilterColumnCollectionEventArgs> CustomCreateFilterColumnCollection;
@@ -1176,8 +1182,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             return grid;
         }
 
-        protected override IModelSynchronizable CreateModelSynchronizer() {
-            return new LayoutViewListEditorSynchronizer(this, Model);
+        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
+            return new LayoutViewListEditorSynchronizer(this, Model).ModelSynchronizerList;
         }
         public override void ApplyModel() {
             Grid.BeginUpdate();
@@ -1463,7 +1469,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             get {
                 var result = new List<ColumnWrapper>();
                 if (LayoutView != null) {
-                    var layoutViewColumnWrappers = LayoutView.Columns.OfType<XafLayoutViewColumn>().Select(column => new LayoutViewColumnWrapper(column)).OfType<ColumnWrapper>();
+                    var layoutViewColumnWrappers = LayoutView.Columns.OfType<XafLayoutViewColumn>().Select(column => new LayoutViewColumnWrapper(column));
                     result.AddRange(layoutViewColumnWrappers);
                 }
                 return result;

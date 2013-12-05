@@ -229,7 +229,6 @@ namespace Xpand.Persistent.Base.General {
     class SequenceGeneratorHelper {
         private const string SequenceGeneratorHelperName = "SequenceGeneratorHelper";
         XpandModuleBase _xpandModuleBase;
-        static Type _sequenceObjectType;
 
         public XafApplication Application {
             get { return _xpandModuleBase.Application; }

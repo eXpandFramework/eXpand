@@ -41,7 +41,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             SequenceBaseObject.Updating = true;
             var employersRole = CreateUserData();
             if (employersRole != null) {
-                var importHelper = new ImportHelper(ObjectSpace);
+                var importHelper = new ImportHelper(ObjectSpace,this);
                 importHelper.Import();
                 SetPermissions(employersRole);
             }
@@ -60,7 +60,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         private void CreateDashboards(string dashboardName, int index, IEnumerable<Type> types, Image icon) {
-            ApplicationStatusUpdater.Notify("CreateDashboard", string.Format("Creating dashboard: {0}", dashboardName));
+            UpdateStatus("CreateDashboard", "", string.Format("Creating dashboard: {0}", dashboardName));
             var dashboard = ObjectSpace.FindObject<DashboardDefinition>(new BinaryOperator("Name", dashboardName));
             if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
@@ -103,7 +103,8 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         private void CreateReport(string reportName, Type type) {
-            ApplicationStatusUpdater.Notify("CreateReport", string.Format("Creating reports: {0}", reportName));
+            UpdateStatus("CreateReport", "",string.Format("Creating reports: {0}", reportName));
+            UpdateStatus("CreateReport","", string.Format("Creating reports: {0}", reportName));
             var reportdata = ObjectSpace.FindObject<ReportData>(new BinaryOperator("Name", reportName));
             if (reportdata == null) {
                 reportdata = ObjectSpace.CreateObject<ReportData>();
@@ -153,9 +154,11 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
     class ImportHelper {
         readonly UnitOfWork _unitOfWork;
         readonly IObjectSpace _objectSpace;
+        readonly ModuleUpdater _updater;
 
-        public ImportHelper(IObjectSpace objectSpace) {
+        public ImportHelper(IObjectSpace objectSpace,ModuleUpdater updater) {
             _objectSpace = objectSpace;
+            _updater = updater;
             _unitOfWork = ConnectToLegacyVideoRentDB();
             CreateViews();
         }
@@ -235,7 +238,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         void CreateViews() {
             if (_unitOfWork != null && _unitOfWork.Connection != null) {
                 var dbCommand = _unitOfWork.Connection.CreateCommand();
-                ApplicationStatusUpdater.Notify("CreateSqlViews", "Creating SQL views...");
+                _updater.UpdateStatus("CreateSqlViews", "", "Creating SQL views...");
                 CreatePersonView(dbCommand, "Artist", "vArtist");
                 CreatePersonView(dbCommand, "Customer", "vCustomer");
                 CreatePictureView(dbCommand, "ArtistPicture", "vArtistPicture");
@@ -270,15 +273,15 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         public void Import() {
-            ApplicationStatusUpdater.Notify("Import", "");
+            _updater.UpdateStatus("Import", "","Import");
             DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show("This operation may take a few minutes, please wait. Press OK to continue.", "Importing and transforming  initial data...", MessageBoxButtons.OKCancel);
             if (dialogResult == DialogResult.Cancel) {
                 Environment.Exit(Environment.ExitCode);
             }
             var initDataImporter = new InitDataImporter();
-            initDataImporter.CreatingDynamicDictionary += (sender, args) => ApplicationStatusUpdater.Notify("Import", "Creating a dynamic dictionary...");
+            initDataImporter.CreatingDynamicDictionary += (sender, args) => _updater.UpdateStatus("Import","", "Creating a dynamic dictionary...");
             initDataImporter.TransformingRecords += (sender, args) => NotifyWhenTransform(args.InputClassName, args.Position);
-            initDataImporter.CommitingData += (sender, args) => ApplicationStatusUpdater.Notify("Import", "Commiting data...");
+            initDataImporter.CommitingData += (sender, args) => _updater.UpdateStatus("Import","", "Commiting data...");
 
             initDataImporter.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
 
@@ -287,7 +290,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             var statusMessage = position > -1
                                        ? string.Format("Transforming records from {0}: {1}", inputClassName, position)
                                        : string.Format("Transforming records from {0} ...", inputClassName);
-            ApplicationStatusUpdater.Notify("Import", statusMessage);
+            _updater.UpdateStatus("Import","", statusMessage);
         }
     }
 }

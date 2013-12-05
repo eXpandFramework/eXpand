@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace EmailTester.Win {
-    public partial class EmailTesterWindowsFormsApplication : WinApplication, IUserDifferencesLoaded {
+    public partial class EmailTesterWindowsFormsApplication : WinApplication {
         public EmailTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
@@ -48,16 +48,7 @@ namespace EmailTester.Win {
             }
         }
 
-        protected override void LoadUserDifferences() {
-            base.LoadUserDifferences();
-            OnUserDifferencesLoaded();
-        }
 
-        public event EventHandler UserDifferencesLoaded;
-
-        protected virtual void OnUserDifferencesLoaded() {
-            EventHandler handler = UserDifferencesLoaded;
-            if (handler != null) handler(this, EventArgs.Empty);
-        }
+        
     }
 }

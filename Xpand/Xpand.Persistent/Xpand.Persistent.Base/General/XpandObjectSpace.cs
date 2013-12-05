@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General.Controllers;
-using Xpand.Utils.GeneralDataStructures;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base.General {
@@ -17,7 +16,6 @@ namespace Xpand.Persistent.Base.General {
 
         public XpandObjectSpace(ITypesInfo typesInfo, XpoTypeInfoSource xpoTypeInfoSource, CreateUnitOfWorkHandler createUnitOfWorkDelegate)
             : base(typesInfo, xpoTypeInfoSource, createUnitOfWorkDelegate.Invoke) {
-            objectsToSave = new HashedArrayList();
         }
 
         public override object GetObject(object objectFromDifferentObjectSpace) {

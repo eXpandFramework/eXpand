@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
+    <NugetPkg>eXpandValidationWin</NugetPkg>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -80,6 +81,9 @@
     <Reference Include="DevExpress.XtraEditors.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v13.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -110,10 +114,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomizeErrorMessageColumnController.cs">
+    <Compile Include="Controllers\CustomizeErrorMessageColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleTypeController.cs" />
+    <Compile Include="RuleType\RuleTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandValidationWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

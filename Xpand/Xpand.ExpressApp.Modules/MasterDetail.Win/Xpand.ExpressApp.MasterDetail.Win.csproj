@@ -58,10 +58,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.1">
+    <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.1">
+    <Reference Include="DevExpress.ExpressApp.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
@@ -94,15 +94,9 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MasterDetailActionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MasterDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MasterDetailWindowsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="MasterDetailActionsController.cs" />
+    <Compile Include="MasterDetailViewController.cs" />
+    <Compile Include="MasterDetailWindowsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>

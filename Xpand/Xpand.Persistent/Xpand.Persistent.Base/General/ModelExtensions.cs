@@ -10,6 +10,7 @@ using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Linq;
 using Fasterflect;
+using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
 
 namespace Xpand.Persistent.Base.General {
     public static class CustomModelSynchronizerHelper {
@@ -84,7 +85,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ITypesInfo GetTypesInfo(this IModelApplication application) {
-            return ((ITypesInfoProvider) application).TypesInfo;
+            return ((IModelTypesInfoProvider) application).TypesInfo;
         }
 
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {

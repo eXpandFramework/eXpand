@@ -30,13 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v13.1">
+    <Reference Include="DevExpress.EasyTest.v13.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.EasyTest.v13.1.dll</HintPath>
+      
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1">
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DXperience 13.1\Bin\Framework\DevExpress.ExpressApp.EasyTest.WebAdapter.v13.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

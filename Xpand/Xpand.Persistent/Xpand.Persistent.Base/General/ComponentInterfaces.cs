@@ -52,11 +52,6 @@ namespace Xpand.Persistent.Base.General {
         IDataStore GetDataStore(IDataStore dataStore);
     }
 
-    [Obsolete("In 13.2 there will be a XAF event for this and can be removed")]
-    public interface IUserDifferencesLoaded {
-        event EventHandler UserDifferencesLoaded;
-    }
-
     public interface IXafApplicationDirectory {
         string BinDirectory { get;  }
     }
@@ -71,9 +66,8 @@ namespace Xpand.Persistent.Base.General {
         event EventHandler<WindowCreatingEventArgs> WindowCreating;
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore,  IUserDifferencesLoaded,  IAutoCreateOption, IWindowCreating {
+    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IAutoCreateOption, IWindowCreating {
         string ModelAssemblyFilePath { get; }
-        ApplicationModulesManager ApplicationModulesManager { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }
 

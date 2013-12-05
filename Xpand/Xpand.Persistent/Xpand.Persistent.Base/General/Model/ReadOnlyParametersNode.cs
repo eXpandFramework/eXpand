@@ -25,7 +25,7 @@ namespace Xpand.Persistent.Base.General.Model {
 
     public class ModelReadOnlyParametersNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            var typesInfo = ((ITypesInfoProvider) node.Application).TypesInfo;
+            var typesInfo = ((IModelTypesInfoProvider) node.Application).TypesInfo;
             var typeInfo = typesInfo.FindTypeInfo<ReadOnlyParameter>();
             foreach (var descendant in typeInfo.Descendants.Where(info => !info.IsAbstract)) {
                 var readOnlyParameter = (ReadOnlyParameter) descendant.Type.CreateInstance();

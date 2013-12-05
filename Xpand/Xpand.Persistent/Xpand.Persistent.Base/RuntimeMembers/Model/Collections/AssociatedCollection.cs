@@ -29,6 +29,10 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
             return ((IModelMemberOneToManyCollection)node).DataStoreForeignKeyCreated;
         }
 
+        public bool IsReadOnly(IModelNode node, IModelNode childNode) {
+            throw new NotImplementedException();
+        }
+
         public bool IsReadOnly(IModelNode node) {
             throw new NotImplementedException();
         }

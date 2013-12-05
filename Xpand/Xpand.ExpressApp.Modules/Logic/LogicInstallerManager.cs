@@ -10,6 +10,7 @@ using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.General;
 
+
 namespace Xpand.ExpressApp.Logic {
     public class LogicInstallerManager {
         readonly List<ILogicInstaller> _logicInstallers = new List<ILogicInstaller>();
@@ -34,7 +35,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public ILogicInstaller this[IModelLogicRule logicRule] {
             get {
-                var typeInfo = ((ITypesInfoProvider) logicRule.Application).TypesInfo.FindTypeInfo(logicRule.GetType());
+                var typeInfo = ((IModelTypesInfoProvider) logicRule.Application).TypesInfo.FindTypeInfo(logicRule.GetType());
                 var memberType = typeInfo.FindMember<IModelConditionalLogicRule<ILogicRule>>(rule => rule.Attribute).MemberType;
                 return this[memberType,logicRule.Application];
             }

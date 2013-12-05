@@ -74,7 +74,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v13.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DXperience 13.1\Bin\Framework\New folder\DevExpress.ExpressApp.Validation.v13.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.1">
       <SpecificVersion>False</SpecificVersion>

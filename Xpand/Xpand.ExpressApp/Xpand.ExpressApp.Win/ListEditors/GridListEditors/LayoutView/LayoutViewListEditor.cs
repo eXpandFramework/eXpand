@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -52,11 +53,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             return new XpandXafLayoutColumn(ObjectTypeInfo, this);
         }
 
-        protected override IModelSynchronizable CreateModelSynchronizer() {
-            var modelSynchronizable = base.CreateModelSynchronizer();
+        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
+            var modelSynchronizers = base.CreateModelSynchronizers();
             var synchronizer = new LayoutViewLstEditorDynamicModelSynchronizer(this);
-            synchronizer.ModelSynchronizerList.Insert(0, modelSynchronizable);
-            return synchronizer;
+            for (int index = 0; index < modelSynchronizers.Count; index++) {
+                var item = modelSynchronizers[index];
+                synchronizer.ModelSynchronizerList.Insert(index, item);
+            }
+            return synchronizer.ModelSynchronizerList;
         }
 
         [Browsable(false)]
