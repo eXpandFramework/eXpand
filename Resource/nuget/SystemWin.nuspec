@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>11.1</version>
+    <version>13.2.4.2</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" />
-      <dependency id="eXpandSystem" />
+      <dependency id="eXpandLib" version="13.2.4.2" />
+      <dependency id="eXpandSystem" version="13.2.4.2" />
     </dependencies>
   </metadata>
   <files>

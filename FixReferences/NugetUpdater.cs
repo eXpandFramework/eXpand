@@ -1,53 +1,26 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 
 namespace FixReferences {
     class NugetUpdater:Updater {
-        readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd");
+        readonly string _version;
+        internal readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd");
 
-        public NugetUpdater(IDocumentHelper documentHelper,string rootDir) : base(documentHelper, rootDir) {
-
+        public NugetUpdater(IDocumentHelper documentHelper, string rootDir, string version) : base(documentHelper, rootDir) {
+            _version = version;
         }
 
         public override void Update(string file) {
             var document = DocumentHelper.GetXDocument(file);
-            var nugetPkgElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName == "NugetPkg");
-            if (nugetPkgElement != null) {
-                var fileInfo = GetNugetSpecInfo(nugetPkgElement.Value);
-                var files = fileInfo.Item1;
-                files.RemoveNodes();
-                var xpandReferences = document.Descendants().Where(element => element.Name.LocalName == "Reference").Select(element
-                    => element.Attribute("Include").Value).Where(s => s.StartsWith("Xpand"));
-                foreach (var xpandReference in xpandReferences) {
-                    files.Add(CreateElement(xpandReference));
+            var versionElement = document.Descendants().First(element => element.Name.LocalName == "version");
+            versionElement.Value = _version;
+            var dependenciesElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName.ToLower() == "dependencies");
+            if (dependenciesElement != null)
+                foreach (var element in dependenciesElement.Elements()) {
+                    element.SetAttributeValue("version",_version);
                 }
-                var value = document.Descendants().First(element => element.Name.LocalName == "AssemblyName").Value;
-                files.Add(CreateElement(value));
-                DocumentHelper.Save(files.Document, fileInfo.Item2);
-            }
+            DocumentHelper.Save(document, file);
         }
-
-        XElement CreateElement(string name) {
-            var xElement = new XElement(_xNamespace + "file");
-            xElement.Add(new XAttribute("src", @"\Build\Temp\" + name + ".dll"));
-            xElement.Add(new XAttribute("target", @"lib\net40\" + name + ".dll"));
-            return xElement;
-            
-        }
-
-        Tuple<XElement, string> GetNugetSpecInfo(string value) {
-            foreach (var file in Directory.GetFiles(Path.Combine(RootDir, @"Resource\Nuget"), "*.nuspec")) {
-                var xDocument = DocumentHelper.GetXDocument(file);
-                if (xDocument.Descendants().Any(element => element.Name.LocalName.ToLower() == "id" && element.Value == value)) {
-                    var xElement = xDocument.Descendants().First(element => element.Name.LocalName == "files");
-                    return new Tuple<XElement, string>(xElement, file);
-                }
-            }
-            throw new FileNotFoundException(value);
-        }
-
     }
 
 }
