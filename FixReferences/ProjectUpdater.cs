@@ -56,7 +56,9 @@ namespace FixReferences {
 
 
             elements=document.Descendants().Where(element 
-                => element.Name.LocalName == "Import" && element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath)"));
+                => element.Name.LocalName == "Import" &&
+                (element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath)")||
+                element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath32)")));
             if (!save)
                 save = elements.Any();
             elements.Remove();
