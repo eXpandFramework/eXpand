@@ -17,7 +17,7 @@ namespace FixReferences {
                 var name = Path.GetDirectoryName(file)+"";
                 var directoryName = name.Substring(name.LastIndexOf(@"\", StringComparison.Ordinal)+1);
                 if (!_excludedDirs.Contains(directoryName)) {
-                    var projectReferencesUpdater = new ProjectReferencesUpdater(documentHelper,rootDir);
+                    var projectReferencesUpdater = new ProjectUpdater(documentHelper,rootDir);
                     projectReferencesUpdater.Update(file);
                 }
             }

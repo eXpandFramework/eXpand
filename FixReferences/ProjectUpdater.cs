@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace FixReferences {
-    class ProjectReferencesUpdater : Updater {
+    class ProjectUpdater : Updater {
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 
         readonly string[] _copyLocalReferences = new[]{
@@ -24,7 +24,7 @@ namespace FixReferences {
                 {"Xpand.ExpressApp.PivotChart.Win", "Xpand.Persistent.BaseImpl"}
             };
 
-        public ProjectReferencesUpdater(IDocumentHelper documentHelper, string rootDir) : base(documentHelper, rootDir) {
+        public ProjectUpdater(IDocumentHelper documentHelper, string rootDir) : base(documentHelper, rootDir) {
             
         }
 
@@ -44,6 +44,21 @@ namespace FixReferences {
             var combine = Path.Combine(Path.GetDirectoryName(file)+"", @"Properties\licenses.licx");
             if  (File.Exists(combine))
                 File.Delete(combine);
+
+            UpdateVs2010Compatibility(document, file);
+        }
+
+        void UpdateVs2010Compatibility(XDocument document, string file) {
+            var elements = document.Descendants().Where(element 
+                => element.Name.LocalName == "VSToolsPath" || element.Name.LocalName == "VisualStudioVersion" );
+            elements.Remove();
+
+
+            elements=document.Descendants().Where(element 
+                => element.Name.LocalName == "Import" && element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath)"));
+            elements.Remove();
+
+            DocumentHelper.Save(document, file);
         }
 
         void UpdateConfig(string file) {
