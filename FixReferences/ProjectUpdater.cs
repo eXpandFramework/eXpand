@@ -51,14 +51,18 @@ namespace FixReferences {
         void UpdateVs2010Compatibility(XDocument document, string file) {
             var elements = document.Descendants().Where(element 
                 => element.Name.LocalName == "VSToolsPath" || element.Name.LocalName == "VisualStudioVersion" );
+            bool save=elements.Any();
             elements.Remove();
 
 
             elements=document.Descendants().Where(element 
                 => element.Name.LocalName == "Import" && element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath)"));
+            if (!save)
+                save = elements.Any();
             elements.Remove();
 
-            DocumentHelper.Save(document, file);
+            if (save)
+                DocumentHelper.Save(document, file);
         }
 
         void UpdateConfig(string file) {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace FixReferences {
     class Program {
@@ -15,9 +16,7 @@ namespace FixReferences {
             var documentHelper = new DocumentHelper();
             var files = Directory.GetFiles(rootDir, "*.csproj", SearchOption.AllDirectories);
             foreach (var file in files) {
-                var name = Path.GetDirectoryName(file)+"";
-                var directoryName = name.Substring(name.LastIndexOf(@"\", StringComparison.Ordinal)+1);
-                if (!_excludedDirs.Contains(directoryName)) {
+                if (!_excludedDirs.Any(s => file.IndexOf(s, StringComparison.Ordinal)>-1)) {
                     var projectReferencesUpdater = new ProjectUpdater(documentHelper,rootDir);
                     projectReferencesUpdater.Update(file);
                 }
