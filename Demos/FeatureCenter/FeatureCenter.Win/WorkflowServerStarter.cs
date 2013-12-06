@@ -24,9 +24,6 @@ namespace FeatureCenter.Win {
     }
 
     public class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XpandWorkflowApplication {
-
-        }
         private static WorkflowServerStarter starter;
         private XpandWorkflowServer server;
         private AppDomain domain;
@@ -56,14 +53,15 @@ namespace FeatureCenter.Win {
             }
         }
         private void Start_(string connectionString, string applicationName) {
-            var serverApplication = new ServerApplication();
+            var securityComplex = new SecurityComplex<User, Role>(new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
+            var serverApplication = new XpandWorkflowApplication(securityComplex);
             serverApplication.Modules.Add(new XpandWorkFlowModule());
             serverApplication.ApplicationName = applicationName;
             serverApplication.ConnectionString = connectionString;
 
 
-            serverApplication.Security = new SecurityComplex<User, Role>(
-                new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
+            
+            serverApplication.Security = securityComplex;
             serverApplication.Setup();
             serverApplication.Logon();
 
