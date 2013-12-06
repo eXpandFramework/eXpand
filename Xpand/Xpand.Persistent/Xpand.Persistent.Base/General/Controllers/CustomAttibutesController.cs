@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.Persistent.Base.General.Controllers {
     public class CustomAttibutesController : WindowController {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

@@ -133,7 +133,8 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredControllerTypes")) {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
                     typeof (CreatableItemController), typeof (FilterByColumnController),
-                    typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController)
+                    typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController),
+                    typeof (CustomAttibutesController)
                 });
             }
             return declaredControllerTypes;

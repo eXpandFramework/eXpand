@@ -71,7 +71,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             }
         }
 
-        string GetPropertyName(Expression<Func<T, object>> lambdaExpression) {
+        protected string GetPropertyName(Expression<Func<T, object>> lambdaExpression) {
             var propertyInfo = ReflectionExtensions.GetExpression(lambdaExpression) as PropertyInfo;
             return propertyInfo != null ? propertyInfo.Name : null;
         }
