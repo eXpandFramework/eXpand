@@ -41,10 +41,11 @@ namespace Xpand.Persistent.Base.General {
             var master = (ModelApplicationBase) ((ModelApplicationBase) node.Application).Master;
             foreach (var mergedDifferenceInfo in mergedDifferenceses) {
                 foreach (ModelApplicationBase modulesDifference in GetModulesDifferences(modulesDifferences, mergedDifferenceInfo.MergedViewId)) {
-                    var modelApplicationBase = CreateInheritanceLayer(node, modulesDifference, mergedDifferenceInfo);
+                    var modelApplicationBase = CreateInheritanceLayer(node, modulesDifference, mergedDifferenceInfo,master);
                     master.InsertLayer(master.LayersCount - 1, modelApplicationBase);
                 }
             }
+            master.CallMethod("EnsureNodes");
         }
 
         void CloneMergedView(IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, IModelViews modelViews, List<ModelApplicationBase> modulesDifferences) {
@@ -167,7 +168,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        ModelApplicationBase CreateInheritanceLayer(ModelNode node, ModelApplicationBase applicationBase, ModelMergedDifferenceInfo mergedDifference) {
+        ModelApplicationBase CreateInheritanceLayer(ModelNode node, ModelApplicationBase applicationBase, ModelMergedDifferenceInfo mergedDifference, ModelApplicationBase master) {
             var modelApplication = node.CreatorInstance.CreateModelApplication();
             var targetViewId= ((ModelNode) mergedDifference.TargetView).Id;
             modelApplication.Id = string.Format("{0}_" + applicationBase.Id, targetViewId);
@@ -175,6 +176,14 @@ namespace Xpand.Persistent.Base.General {
             var application = ((IModelApplication) modelApplication);
             RemoveUnrelatedNodes(mergedDifference, application);
             application.Views[mergedDifference.MergedViewId].Id=targetViewId;
+
+
+            var modelSources = ((IModelSources) application);
+            modelSources.BOModelTypes = ((IModelSources) master).BOModelTypes;
+            modelSources.Modules = ((IModelSources)master).Modules;
+            modelSources.Controllers = ((IModelSources)master).Controllers;
+            modelSources.Localizers = ((IModelSources)master).Localizers;
+            modelSources.EditorDescriptors = new EditorDescriptors(((IModelSources)master).EditorDescriptors);
             return modelApplication;
         }
 
