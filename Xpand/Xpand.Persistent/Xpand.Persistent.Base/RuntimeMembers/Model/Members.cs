@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -7,9 +8,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.RequiredCalculators;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
 using Xpand.Xpo.MetaData;
 
@@ -42,6 +43,14 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         object Tag { get; set; }
         [Browsable(false)]
         bool? CreatedAtDesignTime { get; set; }
+
+        [ModelBrowsable(typeof(NotVisibileCalculator))]
+        [Required(typeof(NotRequiredCalculator))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a", typeof(UITypeEditor))]
+        new string Expression { get; set; }
+        
+        [DefaultValue(false)]
+        new bool IsCalculated { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
@@ -131,6 +140,11 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
     [DomainLogic(typeof(IModelMemberEx))]
     public class ModelMemberExDomainLogic {
         public const string AttributesCategory = "eXpand.RuntimeMembers";
+
+        public static void Set_IsCalculated(IModelMemberEx modelRuntimeMember,bool value) {
+            
+        }
+
         public static string Get_Caption(IModelMemberEx modelRuntimeMember) {
             return modelRuntimeMember.MemberInfo != null ? GetMemberCaption(modelRuntimeMember.MemberInfo) : string.Empty;
         }

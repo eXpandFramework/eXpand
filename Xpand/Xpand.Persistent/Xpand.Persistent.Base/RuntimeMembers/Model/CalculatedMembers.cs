@@ -15,7 +15,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         [CriteriaOptions("ModelClass.TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
         string AliasExpression { get; set; }
-
     }
 
     [DomainLogic(typeof(IModelMemberCalculated))]

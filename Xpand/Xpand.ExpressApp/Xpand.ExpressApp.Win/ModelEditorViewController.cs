@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
-using System.Linq;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
@@ -22,13 +21,11 @@ namespace Xpand.ExpressApp.Win {
 
         protected override void SubscribeEvents() {
             base.SubscribeEvents();
-            AddNodeAction.ItemsChanged += AddNodeActionOnItemsChanged;
             SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
         }
 
         protected override void UnSubscribeEvents() {
             base.UnSubscribeEvents();
-            AddNodeAction.ItemsChanged -= AddNodeActionOnItemsChanged;
             SaveAction.ExecuteCompleted -= SaveActionOnExecuteCompleted;
         }
         void SaveActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
@@ -43,27 +40,6 @@ namespace Xpand.ExpressApp.Win {
                 if (modelRuntimeMember != null) {
                     DeleteAction.Enabled.SetItemValue("CanDeleteNode", true);
                 }
-            }
-        }
-
-        void AddNodeActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
-            var singleChoiceAction = (sender) as SingleChoiceAction;
-            if ((singleChoiceAction != null && singleChoiceAction.Id == "Add") && (itemsChangedEventArgs.ChangedItemsInfo.Values.Contains(ChoiceActionItemChangesType.ItemsAdd | ChoiceActionItemChangesType.ItemsRemove))) {
-                if (CurrentModelNode != null) {
-                    string name = CurrentModelNode.ModelNode.GetType().Name;
-                    switch (name) {
-                        case "ModelBOModelClassMembers":
-                            EnableBOModelClassMembersAddMenu();
-                            break;
-                    }
-                }
-            }
-        }
-
-        void EnableBOModelClassMembersAddMenu() {
-            var childNodeTypes = Adapter.fastModelEditorHelper.GetListChildNodeTypes(CurrentModelNode.ModelNode.NodeInfo).Where(pair => pair.Key!="Member");
-            foreach (var childNodeType in childNodeTypes) {
-                AddNodeAction.Items.Add(new ChoiceActionItem(childNodeType.Key, childNodeType.Value));
             }
         }
 

@@ -561,6 +561,7 @@ namespace Xpand.Persistent.Base.General {
 
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.IsCustom = false;
+            node.IsCalculated = false;
         }
 
         public static void RemoveCall(string name, ApplicationModulesManager applicationModulesManager) {
