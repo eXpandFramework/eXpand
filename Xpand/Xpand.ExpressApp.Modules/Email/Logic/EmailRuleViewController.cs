@@ -13,6 +13,7 @@ using IEmailTemplate = Xpand.ExpressApp.Email.BusinessObjects.IEmailTemplate;
 
 namespace Xpand.ExpressApp.Email.Logic {
     public class EmailRuleViewController : ViewController {
+        public const string RuleObjectKeyValue = "RuleObjectKeyValue";
         LogicRuleViewController _logicRuleViewController;
 
         protected override void OnFrameAssigned() {
@@ -37,10 +38,13 @@ namespace Xpand.ExpressApp.Email.Logic {
                         new StreamEmailTemplateContentReader(emailTemplateObject.Body));
                 var modelSmtpClientContext = modelApplicationEmail.Email.SmtpClientContexts.First(emailTemplate => emailTemplate.GetValue<string>("Id") == emailRule.SmtpClientContext);
                 var email = CreateEmail(templateEngine, logicRuleInfo, emailRule, modelSmtpClientContext,emailTemplateObject,modelApplicationEmail);
-                var emailSender = new EmailSender{CreateClientFactory =
-                        () => new SmtpClientWrapper(CreateSmtpClient(modelSmtpClientContext))
-                };
-                emailSender.Send(email);
+                if (email!=null) {
+                    var emailSender = new EmailSender{
+                        CreateClientFactory =
+                            () => new SmtpClientWrapper(CreateSmtpClient(modelSmtpClientContext))
+                    };
+                    emailSender.Send(email);
+                }
             }
         }
 
@@ -51,19 +55,19 @@ namespace Xpand.ExpressApp.Email.Logic {
                 email.To.Add(toEmail);
             }
             if (!string.IsNullOrEmpty(emailRule.EmailReceipientsContext)) {
-                AddReceipients(emailRule, modelApplicationEmail, email);
+                AddReceipients(emailRule, modelApplicationEmail, email,logicRuleInfo.Object);
             }
             email.From = modelSmtpClientContext.SenderEmail;
             email.Subject = emailTemplateObject.Subject;
             modelSmtpClientContext.ReplyToEmails.Split(';').Each(s => email.ReplyTo.Add(s));
-            return email;
+            return email.To.Count == 0 ? null : email;
         }
 
-        void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, EmailTemplateEngine.Email email) {
+        void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, EmailTemplateEngine.Email email, object o) {
             var emailReceipientGroup =modelApplicationEmail.Email.EmailReceipients.First(
                     @group => @group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
             foreach (var modelEmailReceipient in emailReceipientGroup) {
-                var criteriaOperator = CriteriaOperator.Parse(modelEmailReceipient.Criteria);
+                var criteriaOperator = GetCriteriaOperator(modelEmailReceipient,o);
                 var objects = ObjectSpace.GetObjects(modelEmailReceipient.EmailReceipient.TypeInfo.Type,                                                     criteriaOperator);
                 var sendToCollection = GetSendToCollection(email, modelEmailReceipient);
                 foreach (var obj in objects) {
@@ -71,6 +75,13 @@ namespace Xpand.ExpressApp.Email.Logic {
                     sendToCollection.Add(item);
                 }
             }
+        }
+
+        CriteriaOperator GetCriteriaOperator(IModelEmailReceipient modelEmailReceipient, object o) {
+            var keyValue = ObjectSpace.GetKeyValue(o);
+            modelEmailReceipient.Criteria = modelEmailReceipient.Criteria.Replace(RuleObjectKeyValue, keyValue.ToString());
+            var criteriaOperator = CriteriaOperator.Parse(modelEmailReceipient.Criteria);
+            return criteriaOperator;
         }
 
         static ICollection<string> GetSendToCollection(EmailTemplateEngine.Email email, IModelEmailReceipient modelEmailReceipient) {

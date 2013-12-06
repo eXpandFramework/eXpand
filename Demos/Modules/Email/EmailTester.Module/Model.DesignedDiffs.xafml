@@ -5,15 +5,20 @@
       <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
         <EmailReceipient Id="Admins" EmailReceipient="EmailTester.Module.BusinessObjects.User" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
       </EmailReceipientGroup>
+      <EmailReceipientGroup Id="Send to project members" IsNewNode="True">
+        <EmailReceipient Id="All project Members" EmailReceipient="EmailTester.Module.BusinessObjects.Member" EmailMember="Email" Criteria="[Project.Oid] = 'RuleObjectKeyValue'" IsNewNode="True" />
+      </EmailReceipientGroup>
     </EmailReceipients>
     <EmailTemplateContexts>
       <EmailTemplate Id="New Cuctomer" Criteria="[Name] = 'New Customer'" IsNewNode="True" />
       <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
+      <EmailTemplate Id="Project created" Criteria="[Name] = 'Project created'" IsNewNode="True" />
       <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
     </EmailTemplateContexts>
     <Rules>
       <EmailRule Id="New Customer created" TypeInfo="EmailTester.Module.BusinessObjects.Customer" View="Customer_DetailView" TemplateContext="New Cuctomer" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to Admins" IsNew="True" IsNewNode="True" />
       <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="Project created" TypeInfo="EmailTester.Module.BusinessObjects.Project" TemplateContext="Project created" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to project members" IsNewNode="True" />
       <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
@@ -24,10 +29,10 @@
     <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" UserModelClass="EmailTester.Module.BusinessObjects.User" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" ActivationIdMember="Activation" />
   </Options>
   <SchemaModules>
-    <SchemaModule Name="EmailModule" Version="13.1.8.1" IsNewNode="True" />
-    <SchemaModule Name="LogicModule" Version="13.1.8.1" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSecurityModule" Version="13.1.8.1" IsNewNode="True" />
-    <SchemaModule Name="XpandValidationModule" Version="13.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="EmailModule" Version="13.2.5.1" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.2.5.1" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.2.5.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.2.5.1" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="13.2.5.1" IsNewNode="True" />
   </SchemaModules>
 </Application>

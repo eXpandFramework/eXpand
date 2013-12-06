@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="BusinessObjects\Project.cs" />
     <Compile Include="BusinessObjects\User.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
