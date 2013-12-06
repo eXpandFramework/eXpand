@@ -48,3 +48,4 @@ Demos/FeatureCenter/FeatureCenter.Web/Title Title*.jpg
 *.log
 */ModelAdaptor/ModelAdaptor*.dll
 *ModelAdaptorASPxHtmlEditor.dll
+*UpgradeLog*.htm
