@@ -69,6 +69,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.ServiceModel">
       <Private>False</Private>
     </Reference>
@@ -122,6 +123,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Updater.cs" />
+    <Compile Include="XpandUpdater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Module.resx">

@@ -15,11 +15,8 @@ using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
 namespace WorkflowDemo.Win {
     public class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XpandWorkflowApplication {
-
-        }
         private static WorkflowServerStarter starter;
-        private XpandWorkflowServer server;
+        private XpandWorkflowServer _xpandWorkflowServer;
         private AppDomain domain;
         void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e) {
             if(OnCustomHandleException != null) {
@@ -27,19 +24,20 @@ namespace WorkflowDemo.Win {
             }
         }
         private void Start_(string connectionString, string applicationName) {
-            var serverApplication = new ServerApplication();
+            var securityComplex = new SecurityComplex<User, Role>(new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
+            var serverApplication = new XpandWorkflowApplication(securityComplex);
             serverApplication.Modules.Add(new WorkflowDemoWindowsFormsModule());
             serverApplication.ApplicationName = applicationName;
             serverApplication.ConnectionString = connectionString;
-            serverApplication.Security = new SecurityComplex<User, Role>(
-                new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
+            
+            serverApplication.Security = securityComplex;
             serverApplication.Setup();
             serverApplication.Logon();
 
             IObjectSpaceProvider objectSpaceProvider = serverApplication.ObjectSpaceProvider;
 
-            server = new XpandWorkflowServer("http://localhost:46232", objectSpaceProvider, objectSpaceProvider);
-            server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
+            _xpandWorkflowServer = new XpandWorkflowServer("http://localhost:46232", objectSpaceProvider, objectSpaceProvider);
+            _xpandWorkflowServer.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
                 //
                 // SqlWorkflowInstanceStoreBehavior
                 //
@@ -50,22 +48,22 @@ namespace WorkflowDemo.Win {
                 //e.WorkflowIdleBehavior.TimeToPersist = TimeSpan.FromSeconds(1);
                 e.WorkflowInstanceStoreBehavior.WorkflowInstanceStore.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
             };
-            server.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
-            server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
-            server.StartWorkflowByRequestService.DelayPeriod = TimeSpan.FromSeconds(5);
-            server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(60);
+            _xpandWorkflowServer.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
+            _xpandWorkflowServer.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
+            _xpandWorkflowServer.StartWorkflowByRequestService.DelayPeriod = TimeSpan.FromSeconds(5);
+            _xpandWorkflowServer.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(60);
 
-            server.CustomHandleException += delegate(object sender, CustomHandleServiceExceptionEventArgs e) {
+            _xpandWorkflowServer.CustomHandleException += delegate(object sender, CustomHandleServiceExceptionEventArgs e) {
                 Tracing.Tracer.LogError(e.Exception);
                 if(OnCustomHandleException_ != null) {
                     OnCustomHandleException_(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
                 }
                 e.Handled = true;
             };
-            server.Start();
+            _xpandWorkflowServer.Start();
         }
         private void Stop_() {
-            server.Stop();
+            _xpandWorkflowServer.Stop();
         }
         public void Start(string connectionString, string applicationName) {
             try {

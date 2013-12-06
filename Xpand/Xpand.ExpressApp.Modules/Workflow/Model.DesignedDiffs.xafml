@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
+<Application Title="">
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="13.2.5.0" IsNewNode="True" />
+    <SchemaModule Name="XpandWorkFlowModule" Version="13.2.5.1" IsNewNode="True" />
+  </SchemaModules>
   <Views>
     <DetailView Id="ObjectChangedWorkflow_DetailView">
       <Layout>
@@ -29,7 +33,7 @@
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" RelativeSize="82" ImageName="" Direction="Horizontal" Removed="True">
-            <LayoutItem Id="Xaml" Removed="True" />
+            <LayoutItem Id="Xaml" ViewItem="Xaml" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -41,16 +45,16 @@
             <LayoutGroup Id="LaunchScheduleItems" Caption="Definition" Direction="Horizontal" RelativeSize="100">
               <LayoutGroup Id="Autoa17c2e4a-a4bd-41f3-85c9-e757955958ff" ShowCaption="False" Caption="Autoa17c2e4a-a4bd-41f3-85c9-e757955958ff(4)" Index="0" RelativeSize="30" IsNewNode="True">
                 <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                <LayoutItem Id="LaunchScheduleItems" ShowCaption="False" TextAlignMode="AutoSize" ViewItem="LaunchScheduleItems" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
+                <LayoutItem Id="LaunchScheduleItems" ShowCaption="False" ViewItem="LaunchScheduleItems" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Auto3e59b96d-4210-47a5-bd27-a8adc2eea1e3" ShowCaption="False" Caption="Auto3e59b96d-4210-47a5-bd27-a8adc2eea1e3(7)" Index="1" RelativeSize="31" TextAlignMode="AlignLocal" IsNewNode="True">
+              <LayoutGroup Id="Auto3e59b96d-4210-47a5-bd27-a8adc2eea1e3" ShowCaption="False" Caption="Auto3e59b96d-4210-47a5-bd27-a8adc2eea1e3(7)" Index="1" RelativeSize="31" IsNewNode="True">
                 <LayoutItem Id="IsActive" ViewItem="IsActive" SizeConstraintsType="Default" Index="0" RelativeSize="4" IsNewNode="True" />
-                <LayoutItem Id="LaunchHistoryItems" ShowCaption="False" TextAlignMode="AutoSize" ViewItem="LaunchHistoryItems" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
+                <LayoutItem Id="LaunchHistoryItems" ShowCaption="False" ViewItem="LaunchHistoryItems" SizeConstraintsType="Default" Index="1" RelativeSize="95" IsNewNode="True" />
               </LayoutGroup>
               <LayoutItem Id="LaunchScheduleItems" ViewItem="LaunchScheduleItems" Removed="True" />
             </LayoutGroup>
             <LayoutGroup Id="Item1" ShowCaption="True" Caption="Designer" CaptionLocation="Top" Index="1" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="Xaml" ViewItem="Xaml" SizeConstraintsType="Default" Index="0" RelativeSize="100" TextAlignMode="AutoSize" IsNewNode="True" />
+              <LayoutItem Id="Xaml" ViewItem="Xaml" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="LaunchHistoryItems" Caption="History Items" Direction="Horizontal" RelativeSize="0" Removed="True">
               <LayoutItem Id="LaunchHistoryItems" ViewItem="LaunchHistoryItems" Removed="True" />
@@ -74,7 +78,7 @@
                 <LayoutItem Id="RecurEveryWeeks" SizeConstraintsType="Default" RelativeSize="76" ViewItem="RecurEveryWeeks" />
                 <LayoutItem Id="Monday" ViewItem="Monday" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="ScheduledWorkflowLaunchSchedule_col2" TextAlignMode="AlignLocal" RelativeSize="48">
+              <LayoutGroup Id="ScheduledWorkflowLaunchSchedule_col2" RelativeSize="48">
                 <LayoutItem Id="Monday" ViewItem="Monday" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
                 <LayoutItem Id="Tuesday" SizeConstraintsType="Default" Index="1" RelativeSize="5" ViewItem="Tuesday" />
                 <LayoutItem Id="Wednesday" SizeConstraintsType="Default" Index="2" RelativeSize="5" ViewItem="Wednesday" />
@@ -89,6 +93,5 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-
   </Views>
 </Application>

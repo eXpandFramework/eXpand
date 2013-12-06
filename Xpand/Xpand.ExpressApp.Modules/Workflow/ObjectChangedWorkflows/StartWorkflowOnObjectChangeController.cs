@@ -13,8 +13,9 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
     public class StartWorkflowOnObjectChangeController : ViewController<ObjectView> {
+        readonly List<ObjectChangedEventArgs> _objectChangedEventArgses = new List<ObjectChangedEventArgs>();
         void CreateServerRequest(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey, ITypeInfo typeInfo) {
-            var request = GetObjectSpace().CreateObject<ObjectChangedXpoStartWorkflowRequest>();
+            var request = ObjectSpace.CreateObject<ObjectChangedXpoStartWorkflowRequest>();
             request.TargetWorkflowUniqueId = objectChangedWorkflow.GetUniqueId();
             request.TargetObjectType = typeInfo.Type;
             request.TargetObjectKey = targetObjectKey;
@@ -31,8 +32,8 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         protected override void OnActivated() {
             base.OnActivated();
             if (TypeHasWorkflows()) {
-                GetObjectSpace().ObjectChanged += PopulateObjectChangedEventArgs;
-                GetObjectSpace().Committing += StartWorkFlows;
+                ObjectSpace.ObjectChanged += PopulateObjectChangedEventArgs;
+                ObjectSpace.Committing += StartWorkFlows;
             }
         }
 
@@ -47,15 +48,12 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             }
         }
 
-
-
-
         void StartWorkFlows(object sender, CancelEventArgs cancelEventArgs) {
-            foreach (ObjectChangedWorkflow objectChangedWorkflow in GetObjectChangedWorkflows()) {
-                var objectChangedEventArgs = GetObjectChangedEventArgs(objectChangedWorkflow);
-                if (objectChangedEventArgs != null) StartWorkFlow(objectChangedEventArgs, objectChangedWorkflow);
-            }
+            var objectChangedWorkflows = GetObjectChangedWorkflows().Select(workflow => new{workflow, Args = GetObjectChangedEventArgs(workflow)}).Where(arg => arg.Args!=null).ToList();
             _objectChangedEventArgses.Clear();
+            foreach (var objectChangedWorkflow in objectChangedWorkflows) {
+                StartWorkFlow(objectChangedWorkflow.Args, objectChangedWorkflow.workflow);
+            }   
         }
 
         ObjectChangedEventArgs GetObjectChangedEventArgs(ObjectChangedWorkflow objectChangedWorkflow) {
@@ -65,24 +63,18 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            GetObjectSpace().ObjectChanged -= PopulateObjectChangedEventArgs;
-            GetObjectSpace().Committing -= StartWorkFlows;
-        }
-
-        protected IObjectSpace GetObjectSpace() {
-            return Application.CreateObjectSpace(typeof(ObjectChangedWorkflow));
+            ObjectSpace.ObjectChanged -= PopulateObjectChangedEventArgs;
+            ObjectSpace.Committing -= StartWorkFlows;
         }
 
         bool TypeHasWorkflows() {
             try {
-                return GetObjectSpace().GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
+                return ObjectSpace.GetObjectsCount(typeof(ObjectChangedWorkflow), CriteriaOperator.Parse("TargetObjectType=?", View.ObjectTypeInfo.Type)) > 0;
             } catch (Exception e) {
                 Tracing.Tracer.LogError(e);
                 return false;
             }
         }
-
-        readonly List<ObjectChangedEventArgs> _objectChangedEventArgses = new List<ObjectChangedEventArgs>();
 
         void PopulateObjectChangedEventArgs(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
             if (!string.IsNullOrEmpty(objectChangedEventArgs.PropertyName)) {
@@ -95,7 +87,6 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             }
         }
 
-
         object GetOldValue(ObjectChangedEventArgs objectChangedEventArgs) {
             if (objectChangedEventArgs.OldValue == null)
                 return null;
@@ -103,13 +94,12 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             return memberInfo.MemberTypeInfo.IsPersistent ? memberInfo.MemberTypeInfo.KeyMember.GetValue(objectChangedEventArgs.OldValue) : objectChangedEventArgs.OldValue;
         }
 
-
         IEnumerable<ObjectChangedWorkflow> GetObjectChangedWorkflows() {
             var groupOperator = new GroupOperator(GroupOperatorType.Or);
             foreach (var objectChangedEventArgs in _objectChangedEventArgses) {
                 groupOperator.Operands.Add(CriteriaOperator.Parse("TargetObjectType=?", objectChangedEventArgs.Object.GetType(), objectChangedEventArgs.PropertyName));
             }
-            return GetObjectSpace().GetObjects<ObjectChangedWorkflow>(groupOperator);
+            return ObjectSpace.GetObjects<ObjectChangedWorkflow>(groupOperator);
         }
 
     }

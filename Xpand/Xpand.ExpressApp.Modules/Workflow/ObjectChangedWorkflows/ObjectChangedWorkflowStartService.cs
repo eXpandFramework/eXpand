@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
         public ObjectChangedWorkflowStartService(TimeSpan requestsDetectionPeriod) : base(requestsDetectionPeriod) { }
         protected override bool NeedToStartWorkflow(IObjectSpace objectSpace, ObjectChangedWorkflow workflow) {
-            return true;
+            return workflow.ExecutionDomain==ExecutionDomain.Server;
         }
 
         protected override void AfterWorkFlowStarted(IObjectSpace objectSpace, ObjectChangedWorkflow workflow, Guid startWorkflow) {

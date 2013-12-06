@@ -79,17 +79,9 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             set { SetPropertyValue("TargetObjectType", ref _targetObjectType, value); }
         }
 
-
-        [PropertyEditor(typeof(IStringLookupPropertyEditor))]
-        [DataSourceProperty("PropertyNames")]
         public string PropertyName {
             get { return _propertyName; }
             set { SetPropertyValue("PropertyName", ref _propertyName, value); }
-        }
-
-        [Browsable(false)]
-        public IList<string> PropertyNames {
-            get { return TargetObjectType == null ? new List<string>() : XafTypesInfo.CastTypeToTypeInfo(TargetObjectType).OwnMembers.Select(info => info.Name).ToList(); }
         }
 
         public ExecutionDomain ExecutionDomain {
