@@ -266,7 +266,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (_baseImplAssembly == null)
                 throw new FileNotFoundException(
-                    "Xpand.ExpressApp.BaseImpl not found please reference it in your front end project and set its Copy Local=true");
+                    "Xpand.Persistent.BaseImpl assembly not found. Please reference it in your front end project and set its Copy Local=true");
         }
 
         public static string XpandPathInRegistry {
