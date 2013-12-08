@@ -1,7 +1,5 @@
-using Xpand.ExpressApp.XtraDashboard.Web;
-
-namespace XtraDashboardTester.Module.Web {
-    partial class XtraDashboardTesterAspNetModule {
+namespace XtraDashboardTester.Module {
+    partial class ModuleModule {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -25,13 +23,6 @@ namespace XtraDashboardTester.Module.Web {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            // 
-            // XtraDashboardTesterAspNetModule
-            // 
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(XtraDashboardTester.Module.ModuleModule));
-
         }
 
         #endregion

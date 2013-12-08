@@ -2,29 +2,23 @@
 using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
     public static class DashBoardDefinitionExtensions {
-        static Type DashBoardObjectType(IDashboardDefinition template, DevExpress.DashboardCommon.Dashboard dashboard, ITypeWrapper typeWrapper) {
-            var wrapper = template.DashboardTypes.FirstOrDefault(type => type.Caption.Equals(dashboard.DataSources.First(ds => ds.Name.Equals(typeWrapper.Caption)).Name));
-            return wrapper != null ? wrapper.Type : null;
-        }
-
         public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, IObjectSpace objectSpace, bool filter) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
                 LoadFromXml(template.Xml, dashboard);
-                foreach (ITypeWrapper typeWrapper in template.DashboardTypes) {
-                    ITypeWrapper wrapper = typeWrapper;
-                    if (dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption))) {
-                        Type dashBoardObjectType = DashBoardObjectType(template, dashboard, typeWrapper);
-                        if (dashBoardObjectType != null) {
-                            var dataSource = dashboard.DataSources.First(ds => ds.Name.Equals(typeWrapper.Caption));
-                            dataSource.Data = objectSpace.GetObjects(dashBoardObjectType);
-                        }
+                foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new{wrapper.Type,Caption=GetCaption(wrapper)})) {
+                    var wrapper = typeWrapper;
+                    var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
+                    if (dsource!=null) {
+                        dsource.Data = objectSpace.GetObjects(wrapper.Type);
                     } else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption)))
                         dashboard.AddDataSource(typeWrapper.Caption, objectSpace.GetObjects(typeWrapper.Type));
                 }
@@ -37,8 +31,17 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
             return dashboard;
         }
 
+        static string GetCaption(ITypeWrapper typeWrapper) {
+            var modelApplicationBase = ((ModelApplicationBase) CaptionHelper.ApplicationModel);
+            var currentAspect = modelApplicationBase.CurrentAspect;
+            modelApplicationBase.SetCurrentAspect("");
+            var caption = typeWrapper.Caption;
+            modelApplicationBase.SetCurrentAspect(currentAspect);
+            return caption;
+        }
+
         static void Filter(IDashboardDefinition template, DevExpress.DashboardCommon.Dashboard dashboard) {
-            var types = template.DashboardTypes.Select(tw => tw.Caption);
+            var types = template.DashboardTypes.Select(GetCaption);
             for (int i = dashboard.DataSources.Count - 1; i >= 0; i--)
                 if (!types.Contains(dashboard.DataSources[i].Name))
                     dashboard.DataSources.RemoveAt(i);

@@ -5,6 +5,33 @@
     <SchemaModule Name="SystemWindowsFormsModule" Version="12.2.5.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="DashboardDefinition_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20.29520295202952">
+            <LayoutGroup Id="DashboardDefinition" RelativeSize="100">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="29.09090909090909" ViewItem="Name" />
+              <LayoutItem Id="Index" SizeConstraintsType="Default" RelativeSize="21.818181818181817" ViewItem="Index" />
+              <LayoutItem Id="Active" SizeConstraintsType="Default" RelativeSize="21.818181818181817" ViewItem="Active" />
+              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="27.272727272727273" ViewItem="Icon" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutItem Id="DashboardTypes" ShowCaption="True" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="4.4280442804428048" IsNewNode="True" />
+          <LayoutGroup Id="DashboardTypes_Group" Removed="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="75.276752767527668" Index="2">
+            <LayoutGroup Id="Xml" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Xml" IsNewNode="True">
+              <LayoutItem Id="Xml" ViewItem="Xml" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="DashboardTypes" RelativeSize="0" Direction="Horizontal" Caption="Dashboard Types" Index="1" Removed="True">
+              <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Roles" RelativeSize="100" Index="1">
+              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Roles" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
@@ -12,27 +39,6 @@
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
           <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
-    <DetailView Id="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100" ImageName="" Caption="Main" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="5" ImageName="" Caption="SimpleEditors" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="DashboardDefinition" RelativeSize="100" ImageName="" Direction="Horizontal" Caption="DashboardDefinition" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="38" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Active" ViewItem="Active" SizeConstraintsType="Default" Index="1" RelativeSize="20" IsNewNode="True" Removed="True" />
-              <LayoutItem Id="Icon" SizeConstraintsType="Default" RelativeSize="20" Index="2" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="Icon" />
-              <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="3" RelativeSize="21" IsNewNode="True" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="5" CaptionLocation="Top" IsNewNode="True" />
-          <TabbedGroup Id="Tabs" RelativeSize="89">
-            <LayoutGroup Id="Roles" Index="0" RelativeSize="100" ImageName="">
-              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Roles" />
-            </LayoutGroup>
-            <LayoutGroup Id="DashboardTypes" Removed="True" />
-          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
