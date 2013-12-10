@@ -50,7 +50,8 @@ namespace Xpand.Persistent.Base.General {
                         seq.Save();
                     _explicitUnitOfWork.FlushChanges();
                     break;
-                } catch (LockingException) {
+                }
+                catch (LockingException) {
                     Close();
                     count--;
                     if (count <= 0)
@@ -72,7 +73,7 @@ namespace Xpand.Persistent.Base.General {
             SetNextSequence(typeInfo, null, nextId);
         }
 
-        public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
+        internal static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             var objectByKey = _sequenceGenerator._explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, prefix + typeInfo.FullName, true);
@@ -95,12 +96,35 @@ namespace Xpand.Persistent.Base.General {
         long GetNextSequence(XPClassInfo classInfo, string preFix) {
             if (classInfo == null)
                 throw new ArgumentNullException("classInfo");
-            var objectByKey = _explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, preFix + classInfo.FullName, true);
-            _sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(preFix + classInfo.FullName, _explicitUnitOfWork);
+            _sequence=GetNowSequence(classInfo, preFix,_explicitUnitOfWork);
             long nextId = _sequence.NextSequence;
             _sequence.NextSequence++;
             _explicitUnitOfWork.FlushChanges();
             return nextId;
+        }
+
+        private static ISequenceObject GetNowSequence(XPClassInfo classInfo, string preFix,UnitOfWork unitOfWork){
+            var objectByKey = unitOfWork.GetObjectByKey(_sequenceObjectType, preFix + classInfo.FullName, true);
+            return objectByKey != null
+                ? (ISequenceObject) objectByKey
+                : CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
+        }
+
+        public static long GetNowSequence(XPClassInfo classInfo, string prefix){
+            long nextSequence;
+            using (var unitOfWork = new UnitOfWork(_defaultDataLayer)){
+                nextSequence = GetNowSequence(classInfo, prefix, unitOfWork).NextSequence;
+            }
+            return nextSequence;
+        }
+
+        public static long GetNowSequence(ITypeInfo typeInfo){
+            var xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
+            return GetNowSequence(xpClassInfo,null);
+        }
+
+        public static long GetNowSequence(XPClassInfo xpClassInfo) {
+            return GetNowSequence(xpClassInfo,null);
         }
 
         public long GetNextSequence(XPClassInfo classInfo) {
@@ -126,7 +150,8 @@ namespace Xpand.Persistent.Base.General {
                             CreateSequenceObject(typeInfo.FullName, unitOfWork);
                             try {
                                 uow.CommitChanges();
-                            } catch (ConstraintViolationException) {
+                            }
+                            catch (ConstraintViolationException) {
                             }
                         }
                     }
@@ -143,7 +168,8 @@ namespace Xpand.Persistent.Base.General {
                             CreateSequenceObject(classInfo.FullName, unitOfWork);
                             try {
                                 uow.CommitChanges();
-                            } catch (ConstraintViolationException) {
+                            }
+                            catch (ConstraintViolationException) {
                             }
                         }
                     }
@@ -183,7 +209,8 @@ namespace Xpand.Persistent.Base.General {
                     if (_sequenceGenerator != null) {
                         try {
                             _sequenceGenerator.Accept();
-                        } finally {
+                        }
+                        finally {
                             session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
                             _sequenceGenerator.Dispose();
                             _sequenceGenerator = null;
@@ -237,7 +264,7 @@ namespace Xpand.Persistent.Base.General {
         void XpandModuleBaseOnConnectionStringUpdated(object sender, EventArgs eventArgs) {
             InitializeSequenceGenerator();
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType {
@@ -257,7 +284,8 @@ namespace Xpand.Persistent.Base.General {
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
                     SequenceGenerator.Initialize(XpandModuleBase.ConnectionString, SequenceObjectType);
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 if (e.InnerException != null)
                     throw e.InnerException;
                 throw;
@@ -270,10 +298,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public void Attach(XpandModuleBase xpandModuleBase, ConnectionStringHelper helper) {
-            _xpandModuleBase=xpandModuleBase;
+            _xpandModuleBase = xpandModuleBase;
             if (!_xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
                 if (_xpandModuleBase.RuntimeMode) {
-                    Application.LoggedOff+=ApplicationOnLoggedOff;
+                    Application.LoggedOff += ApplicationOnLoggedOff;
                     AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
                     helper.ConnectionStringUpdated += XpandModuleBaseOnConnectionStringUpdated;
                 }
@@ -281,8 +309,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
-            ((XafApplication) sender).LoggedOff-=ApplicationOnLoggedOff;
-            XpandModuleBase.CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(SequenceGeneratorHelperName,_xpandModuleBase.ModuleManager));
+            ((XafApplication)sender).LoggedOff -= ApplicationOnLoggedOff;
+            XpandModuleBase.CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(SequenceGeneratorHelperName, _xpandModuleBase.ModuleManager));
         }
     }
 }
