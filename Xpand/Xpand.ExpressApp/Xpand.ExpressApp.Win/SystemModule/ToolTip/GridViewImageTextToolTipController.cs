@@ -7,16 +7,15 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
-using ListView = DevExpress.ExpressApp.ListView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
-using Fasterflect;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     [ModelAbstractClass]
@@ -82,27 +81,19 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
                     return;
                 _hotTrackInfo = value;
 
-                var modelColumn = GetModelColumn();
-                var columnTooltipData = ((IModelColumnTooltipData)modelColumn);
-                if (TooltipEnabled(columnTooltipData)) {
+                var modelColumn = _hotTrackInfo.Column.GetModel();
+                if (TooltipEnabled(modelColumn)) {
                     if (!HotTrackInfo.InRowCell || IsEditing) {
                         _toolTipController.HideHint();
                     } else
-                        ShowToolTip(columnTooltipData);
+                        ShowToolTip((IModelColumnTooltipData)modelColumn);
                 }
             }
         }
 
-        bool TooltipEnabled(IModelColumnTooltipData columnTooltipData) {
-            return columnTooltipData.TooltipData.DataOnToolTip || !string.IsNullOrEmpty(columnTooltipData.TooltipData.ToolTipText) || columnTooltipData.TooltipData.ToolTipController != null;
-        }
-
-        IModelColumn GetModelColumn() {
-            var xafGridColumn = _hotTrackInfo.Column as XafGridColumn;
-            if (xafGridColumn != null) return xafGridColumn.Model;
-            var gridColumn = _hotTrackInfo.Column as IXafGridColumn;
-            if (gridColumn != null) return gridColumn.Model;
-            throw new NotImplementedException(_hotTrackInfo.Column.GetType().FullName);
+        bool TooltipEnabled(IModelColumnOptionsColumnView modelColumnOptionsColumnView) {
+            var columnTooltipData = (IModelColumnTooltipData)modelColumnOptionsColumnView;
+            return columnTooltipData != null && (columnTooltipData.TooltipData.DataOnToolTip || !string.IsNullOrEmpty(columnTooltipData.TooltipData.ToolTipText) || columnTooltipData.TooltipData.ToolTipController != null);
         }
 
         bool IsEditing {
@@ -158,7 +149,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
         ObjectToolTipController ObjectToolTipController(IModelColumnTooltipData modelColumnTooltipData) {
             var objects = new[] { View.Editor.Control };
-            return (ObjectToolTipController) modelColumnTooltipData.TooltipData.ToolTipController.CreateInstance(objects);
+            return (ObjectToolTipController)Activator.CreateInstance(modelColumnTooltipData.TooltipData.ToolTipController, objects);
         }
 
         void GridControl_MouseMove(object sender, MouseEventArgs e) {

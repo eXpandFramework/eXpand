@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         [Category("Appearance")]
         int? FontSize { get; set; }
 
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ImageGalleryModelEditorControl, DevExpress.ExpressApp.Win.v13.1", typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ImageGalleryModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, typeof(System.Drawing.Design.UITypeEditor))]
         [Category("Appearance")]
         string ImageName { get; set; }
     }
