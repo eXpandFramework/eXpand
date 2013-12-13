@@ -1,4 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -8,24 +13,29 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {
     public class XpandListView : ListView {
-        
-        public XpandListView(CollectionSourceBase collectionSource, XafApplication application, bool isRoot) : base(collectionSource, application, isRoot) {
+
+        public XpandListView(CollectionSourceBase collectionSource, XafApplication application, bool isRoot)
+            : base(collectionSource, application, isRoot) {
             this.UpdateLayoutManager();
         }
 
-        public XpandListView(IModelListView modelListView, CollectionSourceBase collectionSource, XafApplication application, bool isRoot) : base(modelListView, collectionSource, application, isRoot) {
+        public XpandListView(IModelListView modelListView, CollectionSourceBase collectionSource, XafApplication application, bool isRoot)
+            : base(modelListView, collectionSource, application, isRoot) {
             this.UpdateLayoutManager();
         }
 
-        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor, bool isRoot, XafApplication application) : base(collectionSource, listEditor, isRoot, application) {
+        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor, bool isRoot, XafApplication application)
+            : base(collectionSource, listEditor, isRoot, application) {
             this.UpdateLayoutManager();
         }
 
-        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor, bool isRoot) : base(collectionSource, listEditor, isRoot) {
+        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor, bool isRoot)
+            : base(collectionSource, listEditor, isRoot) {
             this.UpdateLayoutManager();
         }
 
-        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor) : base(collectionSource, listEditor) {
+        public XpandListView(CollectionSourceBase collectionSource, ListEditor listEditor)
+            : base(collectionSource, listEditor) {
             this.UpdateLayoutManager();
         }
         protected override void OnControlsCreated() {
@@ -38,6 +48,14 @@ namespace Xpand.ExpressApp {
             base.OnCustomModelSaving(args);
             if (Model != null)
                 args.Handled = !((IModelObjectViewPersistModelModifications)Model).PersistModelModifications;
+        }
+        public override IList SelectedObjects {
+            get{
+                if (Editor != null) {
+                    return new List<Object>(Editor.GetSelectedObjects().OfType<object>()).Where(t => ObjectTypeInfo.Type.IsInstanceOfType(t)).ToArray();
+                }
+                return new ReadOnlyCollection<object>(new object[] { });
+            }
         }
     }
 }
