@@ -13,7 +13,6 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     [PropertyEditor(typeof(string), false)]
     public class StringLookupPropertyEditor : StringPropertyEditorBase, IStringLookupPropertyEditor {
-        private List<ComboBoxItem> comboBoxItems;
         public event EventHandler<HandledEventArgs> ItemsCalculating;
 
         protected virtual void OnItemsCalculating(HandledEventArgs e) {
@@ -23,27 +22,25 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         public StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
-
+        
         protected override List<ComboBoxItem> ComboBoxItems {
             get {
-                if (comboBoxItems == null) {
-                    comboBoxItems = new List<ComboBoxItem>();
-                    ComboBoxItemsBuilder.Create()
-                        .WithPropertyEditor(this)
-                        .Build((enumerable, b) => {
-                            if (enumerable != null) {
-                                if (b)
-                                    CreateItems(enumerable, ((ComboBoxEdit)Control).Properties.Items);
-                                else {
-                                    CreateItems(enumerable, comboBoxItems);
-                                }
+                var comboBoxItems = new List<ComboBoxItem>();
+                ComboBoxItemsBuilder.Create()
+                    .WithPropertyEditor(this)
+                    .Build((enumerable, b) => {
+                        if (enumerable != null) {
+                            if (b)
+                                CreateItems(enumerable, ((ComboBoxEdit)Control).Properties.Items);
+                            else {
+                                CreateItems(enumerable, comboBoxItems);
                             }
-                        }, () => {
-                            var handledEventArgs = new HandledEventArgs();
-                            OnItemsCalculating(handledEventArgs);
-                            return handledEventArgs.Handled;
-                        });
-                }
+                        }
+                    }, () => {
+                        var handledEventArgs = new HandledEventArgs();
+                        OnItemsCalculating(handledEventArgs);
+                        return handledEventArgs.Handled;
+                    });
                 return comboBoxItems;
             }
         }
@@ -59,7 +56,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         }
         #region Implementation of IObjectSpaceHolder
         public IObjectSpace ObjectSpace {
-            get { return helper.ObjectSpace; }
+            get { return Helper.ObjectSpace; }
         }
         #endregion
     }

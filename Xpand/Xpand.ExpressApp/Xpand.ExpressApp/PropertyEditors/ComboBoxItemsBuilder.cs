@@ -33,9 +33,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void GroupBuild(Action<IEnumerable<string>, bool> itemsCalculated) {
-            if (_propertyEditor.View == null)
-                return;
-            var xpView = new XPView(((XPObjectSpace)_propertyEditor.View.ObjectSpace).Session, _propertyEditor.MemberInfo.GetOwnerInstance(_propertyEditor.CurrentObject).GetType());
+            var xpView = new XPView(((XPObjectSpace) ((IObjectSpaceHolder) _propertyEditor).ObjectSpace).Session, _propertyEditor.ObjectTypeInfo.Type);
             xpView.AddProperty(_propertyEditor.PropertyName, _propertyEditor.PropertyName, true);
             itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(), false);
         }

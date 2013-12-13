@@ -10,7 +10,8 @@ using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     public abstract class StringPropertyEditorBase : DXPropertyEditor, IComplexViewItem {
-        protected LookupEditorHelper helper;
+        protected LookupEditorHelper Helper;
+        protected RepositoryItemComboBox RepositoryItemComboBox;
 
         protected StringPropertyEditorBase(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -18,7 +19,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
-            ((RepositoryItemComboBox)item).Items.AddRange(ComboBoxItems);
+            RepositoryItemComboBox = ((RepositoryItemComboBox)item);
+            RepositoryItemComboBox.Items.Clear();
+            RepositoryItemComboBox.Items.AddRange(ComboBoxItems);
             base.SetupRepositoryItem(item);
         }
 
@@ -30,14 +33,15 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
         protected override RepositoryItem CreateRepositoryItem() {
             var repositoryItemComboBox = new RepositoryItemComboBox();
+            repositoryItemComboBox.Items.Clear();
             repositoryItemComboBox.Items.AddRange(ComboBoxItems);
             return repositoryItemComboBox;
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
-            if (helper == null)
-                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
-            helper.SetObjectSpace(objectSpace);
+            if (Helper == null)
+                Helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
+            Helper.SetObjectSpace(objectSpace);
         }
     }
 }
