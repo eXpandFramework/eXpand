@@ -12,7 +12,7 @@ namespace XpandAddIns.ModelEditor {
     [ToolboxItem(false)]
     public partial class METoolWindow : ToolWindowPlugIn {
         string _buildingProject;
-        bool? atLeastOneFail;
+        bool? _atLeastOneFail;
 
         // DXCore-generated code...
         #region InitializePlugIn
@@ -24,13 +24,13 @@ namespace XpandAddIns.ModelEditor {
         }
 
         void EventsOnProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
-            if (!(atLeastOneFail.HasValue) && !succeeded)
-                atLeastOneFail = true;
+            if (!(_atLeastOneFail.HasValue) && !succeeded)
+                _atLeastOneFail = true;
             if (_buildingProject == project) {
                 _buildingProject = null;
-                DialogResult dialogResult = DialogResult.Yes;
-                if (atLeastOneFail.HasValue && atLeastOneFail.Value) {
-                    atLeastOneFail = null;
+                var dialogResult = DialogResult.Yes;
+                if (_atLeastOneFail.HasValue && _atLeastOneFail.Value) {
+                    _atLeastOneFail = null;
                     dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the ME?", null, MessageBoxButtons.YesNo);
                 }
                 if (dialogResult == DialogResult.Yes) {

@@ -36,7 +36,7 @@ namespace XpandAddIns {
             gridControl1.DataSource = GetConnectionStrings();
             gridControl2.DataSource = GetSourceCodeInfos();
             gridView1.KeyDown += GridView1OnKeyDown;
-            gridView2.KeyDown+=GridView1OnKeyDown;
+            gridView2.KeyDown += GridView1OnKeyDown;
 
         }
 
@@ -52,7 +52,7 @@ namespace XpandAddIns {
             return s => {
                 string[] strings = s.Split('|');
                 var strings1 = strings[1].Split('+');
-                return new SourceCodeInfo { RootPath = strings[0],ProjectRegex = strings1[0], Count = Convert.ToInt32(strings1[1])};
+                return new SourceCodeInfo { RootPath = strings[0], ProjectRegex = strings1[0], Count = Convert.ToInt32(strings1[1]) };
             };
         }
 
@@ -67,8 +67,8 @@ namespace XpandAddIns {
 
         private void GridView1OnKeyDown(object sender, KeyEventArgs args) {
             if (args.KeyCode == Keys.Delete) {
-                var gridView = ((GridView) sender);
-                ((IList) gridView.DataSource).Remove(gridView.GetRow(gridView.FocusedRowHandle));
+                var gridView = ((GridView)sender);
+                ((IList)gridView.DataSource).Remove(gridView.GetRow(gridView.FocusedRowHandle));
             }
         }
 
@@ -77,7 +77,7 @@ namespace XpandAddIns {
             public string ProjectRegex { get; set; }
             public int Count { get; set; }
             public override string ToString() {
-                return "RootPath:"+RootPath+" ProjectRegex="+ProjectRegex+" Count="+Count;
+                return "RootPath:" + RootPath + " ProjectRegex=" + ProjectRegex + " Count=" + Count;
             }
         }
         public class ConnectionString {
@@ -116,17 +116,17 @@ namespace XpandAddIns {
             decoupledStorage.WriteString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
-            decoupledStorage.WriteString(PageName, "SourceCodeInfos","");
+            decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
             SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
             SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", decoupledStorage, (BindingList<SourceCodeInfo>)gridControl2.DataSource);
         }
 
         string SerializeSourceCodeInfo(SourceCodeInfo sourceCodeInfo) {
-            return sourceCodeInfo.RootPath + "|" + sourceCodeInfo.ProjectRegex +  "+" +sourceCodeInfo.Count +";";
+            return sourceCodeInfo.RootPath + "|" + sourceCodeInfo.ProjectRegex + "+" + sourceCodeInfo.Count + ";";
         }
 
         string SerializeConnectionString(ConnectionString arg) {
-            return arg.Name+";";
+            return arg.Name + ";";
         }
 
 
@@ -137,18 +137,22 @@ namespace XpandAddIns {
 
 
         private void button1_Click(object sender, EventArgs e) {
-            var gridView = ((GridView) gridControl2.MainView);
+            button1.Enabled = false;
+            var gridView = ((GridView)gridControl2.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
-                var codeInfo = (SourceCodeInfo) gridView.GetRow(i);
-                StoreProjectPaths(codeInfo,i);
+                var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
+                StoreProjectPaths(codeInfo, i);
             }
             gridControl2.RefreshDataSource();
+            button1.Enabled = true;
         }
-        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo,int index) {
-            var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(Path.GetFileName(s)+"", sourceCodeInfo.ProjectRegex));
-            IEnumerable<string> paths = projectPaths.Select(s1 => s1+"|"+GetOutPutPath(s1));
-            sourceCodeInfo.Count = paths.Count();
-            Storage.WriteStrings(ProjectPaths, index+"_"+sourceCodeInfo.ProjectRegex, paths.ToArray());
+
+        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo, int index) {
+            var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
+            IEnumerable<string> paths = projectPaths.Select(s1 => s1 + "|" + GetOutPutPath(s1));
+            var enumerable = paths as string[] ?? paths.ToArray();
+            sourceCodeInfo.Count = enumerable.Count();
+            Storage.WriteStrings(ProjectPaths, index + "_" + sourceCodeInfo.ProjectRegex, enumerable.ToArray());
         }
 
         string GetOutPutPath(string projectPath) {
@@ -158,7 +162,7 @@ namespace XpandAddIns {
                 Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
                 var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
                 var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
-                return Path.Combine(outPutPath,assemblyName+".dll");
+                return Path.Combine(outPutPath, assemblyName + ".dll");
             }
         }
 
