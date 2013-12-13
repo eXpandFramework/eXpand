@@ -61,7 +61,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         string _assemblyName;
         static bool _loadFromPath;
         static bool _fileExistInPath;
-        static readonly Dictionary<string, Assembly> _assemblies = new Dictionary<string, Assembly>();
+        static readonly Dictionary<string, Assembly> Assemblies = new Dictionary<string, Assembly>();
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this() {
             _extenders = extenders;
@@ -73,19 +73,20 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _referencesCollector = new ReferencesCollector();
         }
 
-        static bool? _runtimeMode ; 
+        static bool? _runtimeMode ;
         public static bool RuntimeMode {
             get {
                 if (_runtimeMode == null) {
-                    var devProcceses = new[] { "Xpand.ExpressApp.ModelEditor", "devenv" };
-                    _runtimeMode = !devProcceses.Contains(Process.GetCurrentProcess().ProcessName) && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                    var devProcceses = new[] { ".ExpressApp.ModelEditor", "devenv" };
+                    var processName = Process.GetCurrentProcess().ProcessName;
+                    var isInProccess = devProcceses.Any(s => processName.IndexOf(s, StringComparison.Ordinal) > -1);
+                    _runtimeMode = !isInProccess && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
                 }
                 return _runtimeMode.Value;
             }
         }
-
-        public static bool XpandModelEditor {
-            get { return Process.GetCurrentProcess().ProcessName == "Xpand.ExpressApp.ModelEditor"; }
+        public static bool ExternalModelEditor {
+            get { return Process.GetCurrentProcess().ProcessName.IndexOf(".ExpressApp.ModelEditor", StringComparison.Ordinal)>-1; }
         }
 
         public static bool LoadFromPath {
@@ -99,15 +100,15 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
             var isAttached = Debugger.IsAttached;
-            if (!SkipAssemblyCleanup && ((isAttached || XpandModelEditor) && File.Exists(assemblyFilePath)))
+            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)))
                 File.Delete(assemblyFilePath);
             _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
             }
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
-            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
-                return _assemblies[_assemblyName];
+            if (!RuntimeMode && Assemblies.ContainsKey(_assemblyName + "")) {
+                return Assemblies[_assemblyName];
             }
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
@@ -116,7 +117,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string[] references = _referencesCollector.References.ToArray();
             
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
+            Assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
         }
 
@@ -573,8 +574,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         static bool FilterCore(DynamicModelPropertyInfo info, Type componentBaseType, IEnumerable<Type> filteredPropertyBaseTypes) {
             var behaveLikeValueType = info.PropertyType.BehaveLikeValueType();
             var isBaseViewProperty = componentBaseType.IsAssignableFrom(info.DeclaringType);
-            var filterCore = filteredPropertyBaseTypes.Any(type => type.IsAssignableFrom(info.PropertyType)) || behaveLikeValueType;
-            var core = filteredPropertyBaseTypes.Any(type => type.IsAssignableFrom(info.DeclaringType)) && behaveLikeValueType;
+            var propertyBaseTypes = filteredPropertyBaseTypes as Type[] ?? filteredPropertyBaseTypes.ToArray();
+            var filterCore = propertyBaseTypes.Any(type => type.IsAssignableFrom(info.PropertyType)) || behaveLikeValueType;
+            var core = propertyBaseTypes.Any(type => type.IsAssignableFrom(info.DeclaringType)) && behaveLikeValueType;
             return isBaseViewProperty ? filterCore : core;
         }
 
