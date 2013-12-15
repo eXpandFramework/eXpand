@@ -12,7 +12,8 @@ namespace FixReferences {
             Execute(Path.GetFullPath(@"..\..\.."));
         }
 
-        public static bool Execute(string rootDir) {
+        public static bool Execute(string rootDir){
+            DeleteBackupFolders(rootDir);
             var documentHelper = new DocumentHelper();
             var files = Directory.GetFiles(rootDir, "*.csproj", SearchOption.AllDirectories);
             foreach (var file in files) {
@@ -30,6 +31,13 @@ namespace FixReferences {
             }
 
             return true;
+        }
+
+        private static void DeleteBackupFolders(string rootDir){
+            var directories = Directory.EnumerateDirectories(rootDir,"Backup*",SearchOption.AllDirectories).ToList();
+            foreach (var directory in directories){
+                Directory.Delete(directory,true);
+            }
         }
 
         static string GetVersion(string rootDir) {
