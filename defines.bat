@@ -1,6 +1,6 @@
 @echo off
 set configuration=Debug
-set vsver=vs2012
+set vsver=vs2013
 rem uncomment the line bellow if you not use vs2010
 rem set vsver=vs2008
 rem uncomment the line bellow if you not use vs2012
