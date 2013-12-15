@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Core {
+    [Obsolete("Use IsCurrentUserInRole",true)]
     public class IsAllowedToRoleOperator : ICustomFunctionOperator {
         public const string OperatorName = "IsAllowedToRole";
         #region ICustomFunctionOperator Members

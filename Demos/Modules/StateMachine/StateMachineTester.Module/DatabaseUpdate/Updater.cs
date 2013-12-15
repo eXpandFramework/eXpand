@@ -52,7 +52,7 @@ namespace StateMachineTester.Module.DatabaseUpdate {
             }
             CreateTransition(TaskStatus.NotStarted, TaskStatus.InProgress);
             CreateTransition(TaskStatus.InProgress, TaskStatus.Completed);
-            ObjectSpace.FindObject<XpoState>(CriteriaOperator.Parse("Caption=?", TaskStatus.Completed.ToString())).TargetObjectCriteria = IsAllowedToRoleOperator.OperatorName + "('Admin')";
+            ObjectSpace.FindObject<XpoState>(CriteriaOperator.Parse("Caption=?", TaskStatus.Completed.ToString())).TargetObjectCriteria = IsCurrentUserInRoleOperator.OperatorName + "('Admin')";
             ObjectSpace.CommitChanges();
         }
 
