@@ -25,6 +25,14 @@ namespace XpandAddIns {
         protected override void Initialize() {
             base.Initialize();
 
+            
+            PreparePage+=OnPreparePage;
+            gridView1.KeyDown += GridView1OnKeyDown;
+            gridView2.KeyDown += GridView1OnKeyDown;
+
+        }
+
+        private void OnPreparePage(object sender, OptionsPageStorageEventArgs ea){
             DecoupledStorage storage = GetStorage();
             modelEditorPathButtonEdit.Text = storage.ReadString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             projectConverterPathButtonEdit.Text = storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
@@ -35,9 +43,6 @@ namespace XpandAddIns {
 
             gridControl1.DataSource = GetConnectionStrings();
             gridControl2.DataSource = GetSourceCodeInfos();
-            gridView1.KeyDown += GridView1OnKeyDown;
-            gridView2.KeyDown += GridView1OnKeyDown;
-
         }
 
         public static BindingList<SourceCodeInfo> GetSourceCodeInfos() {
