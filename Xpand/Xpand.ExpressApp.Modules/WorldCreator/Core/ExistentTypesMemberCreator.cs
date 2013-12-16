@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             types.AddRange(CreateReferenceMembers(session));
             types.AddRange(CreateCoreMembers(session));
 
-            foreach (var type in types) {
+            foreach (var type in types.Distinct()) {
                 typesInfo.RefreshInfo(type);
             }
         }
@@ -72,6 +72,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 if (member != null) {
                     CreateAttributes(info, member);
                     types.Add(referenceType);
+	                types.Add(info.Owner);
                 }
             }
             return types;
