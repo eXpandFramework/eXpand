@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -9,7 +10,7 @@ namespace FixReferences {
     class ProjectUpdater : Updater {
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 
-        readonly string[] _copyLocalReferences = new[]{
+        readonly string[] _copyLocalReferences ={
             "Xpand.ExpressApp.FilterDataStore", "Xpand.ExpressApp.FilterDataStore.Win",
             "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl"
         };
@@ -51,17 +52,31 @@ namespace FixReferences {
         void UpdateVs2010Compatibility(XDocument document, string file) {
             var elements = document.Descendants().Where(element 
                 => element.Name.LocalName == "VSToolsPath" || element.Name.LocalName == "VisualStudioVersion" );
-            bool save=elements.Any();
-            elements.Remove();
+            var xElements = elements as XElement[] ?? elements.ToArray();
+            bool save=xElements.Any();
+            xElements.Remove();
 
 
             elements=document.Descendants().Where(element 
                 => element.Name.LocalName == "Import" &&
                 (element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath)")||
                 element.Attribute("Project").Value.StartsWith("$(MSBuildExtensionsPath32)")));
+            var enumerable = elements as XElement[] ?? elements.ToArray();
             if (!save)
-                save = elements.Any();
-            elements.Remove();
+                save = enumerable.Any();
+
+            if (IsWeb(document, GetOutputType(document))&& !document.Descendants().Any(element =>
+                element.Name.LocalName == "Import" && element.Attribute("Project").Value.StartsWith("$(VSToolsPath)")&&
+                element.Attribute("Condition").Value.StartsWith("'$(VSToolsPath)' != ''"))) {
+                var element = new XElement(_xNamespace+"Import");
+                element.SetAttributeValue("Project",@"$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets");
+                element.SetAttributeValue("Condition", @"'$(VSToolsPath)' != ''");
+                Debug.Assert(document.Root != null, "document.Root != null");
+                document.Root.Add(element);
+                save = true;
+            }
+            
+            enumerable.Remove();
 
             if (save)
                 DocumentHelper.Save(document, file);
@@ -123,9 +138,22 @@ namespace FixReferences {
             return document.Descendants().Any(element => element.Name.LocalName == "Reference" && element.Attribute("Include").Value == reference);
         }
 
-        bool IsApplicationProject(XDocument document) {
+        bool IsApplicationProject(XDocument document){
+            var outputType = GetOutputType(document);
+            return outputType != null && (IsExe(outputType) || (IsWeb(document, outputType)));
+        }
+
+        private bool IsWeb(XDocument document, XElement outputType){
+            return outputType.Value == "Library" && CheckWebGuid(document);
+        }
+
+        private static bool IsExe(XElement outputType){
+            return (outputType.Value == "WinExe" || outputType.Value == "Exe");
+        }
+
+        private static XElement GetOutputType(XDocument document){
             var outputType = document.Descendants().First(element => element.Name.LocalName == "OutputType");
-            return outputType != null && ((outputType.Value == "WinExe" || outputType.Value == "Exe") || (outputType.Value == "Library" && CheckWebGuid(document)));
+            return outputType;
         }
 
         bool CheckWebGuid(XDocument document) {

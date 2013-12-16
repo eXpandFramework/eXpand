@@ -142,7 +142,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if exist C:\DxCore\Plugins copy $(TargetPath) C:\DxCore\Plugins\$(TargetFileName)</PostBuildEvent>
+    <PostBuildEvent>if exist C:\DxCore\Plugins\$(TargetFileName) del C:\DxCore\Plugins\$(TargetFileName)
+if exist C:\DxCore\Plugins copy $(TargetPath) C:\DxCore\Plugins\$(TargetFileName)</PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
