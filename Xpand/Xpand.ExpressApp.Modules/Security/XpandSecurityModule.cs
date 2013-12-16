@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -70,9 +69,6 @@ namespace Xpand.ExpressApp.Security {
                 if (roleTypeProvider != null) {
                     foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
                         CreateMember(typesInfo, roleTypeProvider, attribute);
-                    }
-                    if (CriteriaOperator.GetCustomFunction(IsAllowedToRoleOperator.OperatorName) == null) {
-                        CriteriaOperator.RegisterCustomFunction(new IsAllowedToRoleOperator());
                     }
                 }
                 AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });

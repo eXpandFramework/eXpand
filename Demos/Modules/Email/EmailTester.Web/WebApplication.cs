@@ -22,17 +22,17 @@ namespace EmailTester.Web {
     public class EmailTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
-        CloneObjectModule cloneObjectModule1;
-        EmailTesterAspNetModule EmailAspNetModule1;
-        EmailTesterModule EmailModule1;
-        SystemModule module1;
-        SystemAspNetModule module2;
+        CloneObjectModule _cloneObjectModule1;
+        EmailTesterAspNetModule _emailAspNetModule1;
+        EmailTesterModule _emailModule1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
         
         
-        SecurityModule securityModule1;
+        SecurityModule _securityModule1;
 
-        SqlConnection sqlConnection1;
-        XpandSecurityModule xpandSecurityModule1;
+        SqlConnection _sqlConnection1;
+        XpandSecurityModule _xpandSecurityModule1;
 
         public EmailTesterAspNetApplication() {
             InitializeComponent();
@@ -79,26 +79,26 @@ namespace EmailTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
             
             
-            sqlConnection1 = new SqlConnection();
-            cloneObjectModule1 = new CloneObjectModule();
-            securityModule1 = new SecurityModule();
+            _sqlConnection1 = new SqlConnection();
+            _cloneObjectModule1 = new CloneObjectModule();
+            _securityModule1 = new SecurityModule();
             _securityStrategyComplex = new SecurityStrategyComplex();
             _authenticationStandard = new AuthenticationStandard();
-            xpandSecurityModule1 = new XpandSecurityModule();
-            EmailModule1 = new EmailTesterModule();
-            EmailAspNetModule1 = new EmailTesterAspNetModule();
+            _xpandSecurityModule1 = new XpandSecurityModule();
+            _emailModule1 = new EmailTesterModule();
+            _emailAspNetModule1 = new EmailTesterAspNetModule();
             ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
                 "odelDifferenceTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // _securityStrategyComplex
             // 
@@ -114,14 +114,14 @@ namespace EmailTester.Web {
             // EmailTesterAspNetApplication
             // 
             ApplicationName = "EmailTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(cloneObjectModule1);
-            Modules.Add(securityModule1);
-            Modules.Add(xpandSecurityModule1);
-            Modules.Add(EmailModule1);
-            Modules.Add(EmailAspNetModule1);
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_cloneObjectModule1);
+            Modules.Add(_securityModule1);
+            Modules.Add(_xpandSecurityModule1);
+            Modules.Add(_emailModule1);
+            Modules.Add(_emailAspNetModule1);
             Security = _securityStrategyComplex;
             ((ISupportInitialize) (this)).EndInit();
         }

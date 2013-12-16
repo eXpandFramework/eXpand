@@ -13,6 +13,7 @@ using Fasterflect;
 
 namespace Xpand.ExpressApp.Web {
     public sealed class XpandHttpRequestManager : DefaultHttpRequestManager, IHttpRequestManager {
+        public const string Ua = "ua";
         readonly FriendlyUrlHelper _friendlyUrlHelper;
         public XpandHttpRequestManager() {
             _friendlyUrlHelper=new FriendlyUrlHelper(this);
@@ -46,15 +47,20 @@ namespace Xpand.ExpressApp.Web {
 
         public override ViewShortcut GetViewShortcut() {
             if (WebApplication.Instance.SupportsUserActivation()) {
-                var ua = Request.QueryString["ua"];
+                var ua = Request.QueryString[Ua];
                 if (!string.IsNullOrEmpty(ua)) {
                     using (var objectSpace = WebApplication.Instance.CreateObjectSpace()) {
-                        var name = ((IModelRegistrationActivation) ((IModelOptionsRegistration) WebApplication.Instance.Model.Options).Registration).ActivationIdMember.Name;
+                        var registrationActivation = ((IModelRegistrationActivation) ((IModelOptionsRegistration) WebApplication.Instance.Model.Options).Registration);
+                        var name = registrationActivation.ActivationIdMember.Name;
                         var findObject = objectSpace.FindObject(XpandModuleBase.UserType, CriteriaOperator.Parse(name + "='" + ua+"'"));
                         objectSpace.TypesInfo.FindTypeInfo(XpandModuleBase.UserType).FindMember("IsActive").SetValue(findObject,true);
                         objectSpace.CommitChanges();
-                        HttpContext.Current.Response.Write("Activation successful!");
-                        HttpContext.Current.Response.End();
+                        HttpContext.Current.Response.Write(registrationActivation.SuccessFulActivationOutput);
+                        if (!string.IsNullOrEmpty(registrationActivation.SuccessFulActivationReturnUrl)){
+                            HttpContext.Current.Response.RedirectLocation = registrationActivation.SuccessFulActivationReturnUrl;
+                        }
+                        else
+                            HttpContext.Current.Response.End();
                     }
                 }
             }
