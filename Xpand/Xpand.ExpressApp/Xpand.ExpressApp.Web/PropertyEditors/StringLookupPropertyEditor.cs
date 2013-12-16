@@ -12,7 +12,7 @@ using System.Linq;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [PropertyEditor(typeof(string), false)]
+    [PropertyEditor(typeof(string), Persistent.Base.General.EditorAliases.StringLookupPropertyEditor, false)]
     public class StringLookupPropertyEditor : ASPxPropertyEditor, IComplexViewItem, IStringLookupPropertyEditor {
         public event EventHandler<HandledEventArgs> ItemsCalculating;
 
@@ -22,10 +22,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         public IObjectSpace ObjectSpace {
-            get { return helper.ObjectSpace; }
+            get { return Helper.ObjectSpace; }
         }
         
-        protected LookupEditorHelper helper;
+        protected LookupEditorHelper Helper;
         Label _viewModeLabelControl;
 
         public StringLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
@@ -72,9 +72,9 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
-            if (helper == null)
-                helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
-            helper.SetObjectSpace(objectSpace);
+            if (Helper == null)
+                Helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
+            Helper.SetObjectSpace(objectSpace);
         }
     }
 

@@ -11,7 +11,7 @@ using System.Linq;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
-    [PropertyEditor(typeof(string), false)]
+    [PropertyEditor(typeof(string), Persistent.Base.General.EditorAliases.StringLookupPropertyEditor, false)]
     public class StringLookupPropertyEditor : StringPropertyEditorBase, IStringLookupPropertyEditor {
         public event EventHandler<HandledEventArgs> ItemsCalculating;
 
