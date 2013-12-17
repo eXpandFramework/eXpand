@@ -44,6 +44,10 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
         #endregion
 
+        public WizardDetailViewForm WizardForm{
+            get { return _wizardForm; }
+        }
+
         #region Methods
 
         /// <summary>
