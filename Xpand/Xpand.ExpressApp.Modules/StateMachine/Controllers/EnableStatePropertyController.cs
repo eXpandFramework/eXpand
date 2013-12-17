@@ -48,7 +48,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             var comboBoxItemCollection = GetEditorItems(propertyEditor);
             for (int index = comboBoxItemCollection.Count - 1; index >= 0; index--) {
                 var item = comboBoxItemCollection[index];
-                if (!markers.Contains(item.GetPropertyValue("Value")))
+                var enumerable = markers as object[] ?? markers.ToArray();
+                if (!enumerable.Contains(item.GetPropertyValue("Value")))
                     comboBoxItemCollection.RemoveAt(index);
             }
         }
@@ -92,9 +93,10 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             base.OnActivated();
             AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
             var enabledStateMachines = GetEnabledStateMachines();
-            if (enabledStateMachines.All(machine => machine.CanExecuteTransition()))
+            var stateMachines = enabledStateMachines as IStateMachine[] ?? enabledStateMachines.ToArray();
+            if (stateMachines.All(machine => machine.CanExecuteTransition()))
                 return;
-            var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
+            var stateProperties = stateMachines.Select(machine => machine.StatePropertyName);
             
             _stateMachineController = Frame.GetController<StateMachineController>();
             _propertyEditors = View.GetItems<PropertyEditor>().Where(editor => stateProperties.Contains(editor.PropertyName)).ToArray();

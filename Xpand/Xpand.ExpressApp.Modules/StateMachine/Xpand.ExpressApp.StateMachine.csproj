@@ -123,6 +123,9 @@
     <Compile Include="Controllers\CriteriaActionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\EnableStatePropertyController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PermissionTransitionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -141,6 +144,7 @@
     <Compile Include="Controllers\StateMachineAdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Security\StateMachinePopulateController.cs" />
     <Compile Include="Security\StateMachineTransitionPermission.cs" />
     <Compile Include="Controllers\StatePermissionController.cs">
       <SubType>Component</SubType>
