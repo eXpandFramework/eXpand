@@ -1,9 +1,11 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Xml;
 using System.Xml.Linq;
 using Fasterflect;
 
@@ -21,8 +23,36 @@ namespace Xpand.Utils.Helpers {
             return value.TrimEnd((char)1).Replace("&", "&amp;").Replace("'", "&apos;").Replace("\"", "&quot;").Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
-        public static string XMLDecode(this string Value) {
-            return Value.Replace("&amp;", "&").Replace("&apos;", "'").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">");
+        public static String XMLPrint(this String xml){
+            String result = "";
+
+            var mStream = new MemoryStream();
+            var writer = new XmlTextWriter(mStream, Encoding.Unicode);
+            var document = new XmlDocument();
+
+            try{
+                document.LoadXml(xml);
+                writer.Formatting = Formatting.Indented;
+                document.WriteContentTo(writer);
+                writer.Flush();
+                mStream.Flush();
+                mStream.Position = 0;
+                var sReader = new StreamReader(mStream);
+                String formattedXML = sReader.ReadToEnd();
+
+                result = formattedXML;
+            }
+            catch (XmlException){
+            }
+
+            mStream.Close();
+            writer.Close();
+
+            return result;
+        }
+
+        public static string XMLDecode(this string value) {
+            return value.Replace("&amp;", "&").Replace("&apos;", "'").Replace("&quot;", "\"").Replace("&lt;", "<").Replace("&gt;", ">");
         }
         public static String RemoveDiacritics(this String s) {
             String normalizedString = s.Normalize(NormalizationForm.FormD);

@@ -32,6 +32,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemFastSearch>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
