@@ -1,12 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
-using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Reports;
@@ -17,7 +12,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using DevExpress.Xpo.DB.Exceptions;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using DevExpress.ExpressApp.Utils;
@@ -25,7 +19,6 @@ using XVideoRental.Module.Win.BusinessObjects.Rent;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.Utils.Automation;
 using System.Drawing;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
@@ -109,16 +102,16 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (reportdata == null) {
                 reportdata = ObjectSpace.CreateObject<ReportData>();
                 var rep = new XafReport { ObjectSpace = ObjectSpace };
-                rep.LoadLayout(GetReportStream(reportName));
+                rep.LoadLayout(GetResourceStream(reportName));
                 rep.DataType = type;
                 rep.ReportName = reportName;
                 reportdata.SaveReport(rep);
             }
         }
 
-        Stream GetReportStream(string reportName) {
+        Stream GetResourceStream(string resource) {
             var moduleType = typeof(XVideoRentalWindowsFormsModule);
-            return moduleType.Assembly.GetManifestResourceStream(string.Format(moduleType.Namespace + ".Resources.{0}.repx", reportName));
+            return moduleType.Assembly.GetManifestResourceStream(string.Format(moduleType.Namespace + ".Resources.{0}", resource));
         }
 
         XpandRole CreateUserData() {
@@ -149,139 +142,58 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             var securitySystemRole = ObjectSpace.GetAdminRole("Administrator");
             securitySystemRole.GetUser("Admin");
         }
+
+
+        public void CopyStream(Stream input, Stream output) {
+            var buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = input.Read(buffer, 0, buffer.Length)) > 0) {
+                output.Write(buffer, 0, bytesRead);
+            }
+        }
+
+        public void SaveResource(string resource) {
+            var resourceStream = GetResourceStream(resource);
+            var path = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, resource);
+            if (File.Exists(path))
+                File.Delete(path);
+            using (Stream output = File.Create(path)) {
+                CopyStream(resourceStream, output);
+            }
+        }
     }
 
     class ImportHelper {
         readonly UnitOfWork _unitOfWork;
         readonly IObjectSpace _objectSpace;
-        readonly ModuleUpdater _updater;
+        private readonly Updater _updater;
 
-        public ImportHelper(IObjectSpace objectSpace,ModuleUpdater updater) {
+        public ImportHelper(IObjectSpace objectSpace, Updater updater) {
             _objectSpace = objectSpace;
             _updater = updater;
             _unitOfWork = ConnectToLegacyVideoRentDB();
-            CreateViews();
         }
+
         UnitOfWork ConnectToLegacyVideoRentDB() {
+            _updater.SaveResource("LegacyVideoRent.mdb");
             var unitOfWork = new UnitOfWork {
                 ConnectionString = ConfigurationManager.ConnectionStrings["VideoRentLegacy"].ConnectionString,
                 AutoCreateOption = AutoCreateOption.None
             };
-            try {
-                unitOfWork.Connect();
-            } catch (UnableToOpenDatabaseException) {
-                if (StartVideoRent(unitOfWork))
-                    unitOfWork.Connect();
-                else
-                    Application.ExitThread();
-            }
+            unitOfWork.Connect();
             return unitOfWork;
         }
-
-        bool StartVideoRent(UnitOfWork unitOfWork) {
-            string videoRentalPath = Environment.ExpandEnvironmentVariables(string.Format(ConfigurationManager.AppSettings["VideoRentLegacyPath"], AssemblyInfo.VersionShort));
-            var dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show(string.Format("XVideoRental uses the initial data from the database created by the original VideoRental application that is installed with our WinForms components at \r\n{0}.\r\n\r\nChoose 'Yes' to automatically run the WinForms VideRental application and create the required SQL Express database by default (application restart is required).\r\nChoose 'No' to do this manually later and exit this application for now.", videoRentalPath),
-                    "Initial data was not found...", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (dialogResult == DialogResult.Yes) {
-                if (!File.Exists(videoRentalPath)) {
-                    throw new FileNotFoundException(string.Format("Cannot run the WinForms VideoRental application by the following path: {0}", videoRentalPath));
-                }
-                DeleteLegacyFiles();
-                Process videoRental = Process.Start(videoRentalPath);
-                if (videoRental != null) {
-                    WaitAutomation.WaitForWindowToOpen("Create Database");
-                    WaitAutomation.WaitForWindowToClose("Create Database");
-                    var legacyDbExists = LegacyDbExists(unitOfWork);
-                    WaitAutomation.WaitForWindowToOpen("About - Video Rental Demo (C#)");
-                    videoRental.Kill();
-                    return legacyDbExists;
-                }
-                throw new ApplicationException("The legacy VideoRent application failed to start");
-            }
-            return false;
-        }
-
-        void DeleteLegacyFiles() {
-            var directoryName = Path.GetDirectoryName(Application.ExecutablePath);
-            var ini = Path.Combine(directoryName + "", "VideoRent.ini");
-            if (File.Exists(ini)) {
-                File.Delete(ini);
-            }
-            using (var fileStream = File.Open(ini, FileMode.OpenOrCreate)) {
-                var bytes = Encoding.UTF8.GetBytes(@"DBFormat = ""Sql""");
-                fileStream.Write(bytes, 0, bytes.Length);
-            }
-            string[] files = Directory.GetFiles(directoryName + "", "*.mdb");
-            foreach (var file in files) {
-                File.Delete(file);
-            }
-        }
-
-        bool LegacyDbExists(UnitOfWork unitOfWork) {
-            try {
-                unitOfWork.Connect();
-                return true;
-            } catch (UnableToOpenDatabaseException) {
-                DevExpress.XtraEditors.XtraMessageBox.Show(
-                    "Application will now exit because you have not created the legacy database- Use setting from VideoRentLegacy in app.config!!!", "Exit", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                Application.ExitThread();
-            }
-            return false;
-        }
-
 
         public UnitOfWork UnitOfWork {
             get { return _unitOfWork; }
         }
 
-        void CreateViews() {
-            if (_unitOfWork != null && _unitOfWork.Connection != null) {
-                var dbCommand = _unitOfWork.Connection.CreateCommand();
-                _updater.UpdateStatus("CreateSqlViews", "", "Creating SQL views...");
-                CreatePersonView(dbCommand, "Artist", "vArtist");
-                CreatePersonView(dbCommand, "Customer", "vCustomer");
-                CreatePictureView(dbCommand, "ArtistPicture", "vArtistPicture");
-                CreatePictureView(dbCommand, "MoviePicture", "vMoviePicture");
-            }
-        }
-
-        void CreatePictureView(IDbCommand dbCommand, string tableName, string viewName) {
-            DropView(dbCommand, viewName);
-            dbCommand.CommandText = string.Format("CREATE VIEW [dbo].[{0}] AS " +
-                    "SELECT dbo.Picture.Image, dbo.Picture.Description, dbo.{1}.* " +
-                    "FROM dbo.{1} INNER JOIN dbo.Picture ON dbo.{1}.Oid = dbo.Picture.Oid",
-                    viewName, tableName);
-            dbCommand.ExecuteNonQuery();
-        }
-
-        void CreatePersonView(IDbCommand dbCommand, string tableName, string viewName) {
-            DropView(dbCommand, viewName);
-            dbCommand.CommandText = string.Format("CREATE VIEW [dbo].[{0}] AS " +
-                    "SELECT dbo.Person.FirstName, dbo.Person.LastName, dbo.Person.Gender, dbo.Person.BirthDate, dbo.{1}.* " +
-                    "FROM dbo.{1} INNER JOIN dbo.Person ON dbo.{1}.Oid = dbo.Person.Oid",
-                    viewName, tableName);
-            dbCommand.ExecuteNonQuery();
-        }
-
-        void DropView(IDbCommand dbCommand, string viewName) {
-            try {
-                dbCommand.CommandText = string.Format("DROP VIEW [dbo].[{0}]", viewName);
-                dbCommand.ExecuteNonQuery();
-            } catch (SqlException) {
-            }
-        }
-
         public void Import() {
-            _updater.UpdateStatus("Import", "","Import");
-            DialogResult dialogResult = DevExpress.XtraEditors.XtraMessageBox.Show("This operation may take a few minutes, please wait. Press OK to continue.", "Importing and transforming  initial data...", MessageBoxButtons.OKCancel);
-            if (dialogResult == DialogResult.Cancel) {
-                Environment.Exit(Environment.ExitCode);
-            }
+            _updater.UpdateStatus("Import", "", "");
             var initDataImporter = new InitDataImporter();
-            initDataImporter.CreatingDynamicDictionary += (sender, args) => _updater.UpdateStatus("Import","", "Creating a dynamic dictionary...");
+            initDataImporter.CreatingDynamicDictionary += (sender, args) => _updater.UpdateStatus("Import", "", "Creating a dynamic dictionary...");
             initDataImporter.TransformingRecords += (sender, args) => NotifyWhenTransform(args.InputClassName, args.Position);
-            initDataImporter.CommitingData += (sender, args) => _updater.UpdateStatus("Import","", "Commiting data...");
+            initDataImporter.CommitingData += (sender, args) => _updater.UpdateStatus("Import", "", "Commiting data...");
 
             initDataImporter.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
 
@@ -290,7 +202,8 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             var statusMessage = position > -1
                                        ? string.Format("Transforming records from {0}: {1}", inputClassName, position)
                                        : string.Format("Transforming records from {0} ...", inputClassName);
-            _updater.UpdateStatus("Import","", statusMessage);
+            _updater.UpdateStatus("Import", "", statusMessage);
         }
+
     }
 }
