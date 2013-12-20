@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.Utils.Helpers;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using DevExpress.ExpressApp.Utils;
@@ -58,7 +59,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboard.Name = dashboardName;
-                dashboard.Xml = GetDashboardLayout(dashboardName);
+                dashboard.Xml = GetDashboardLayout(dashboardName).XMLPrint();
                 dashboard.Icon = icon;
                 dashboard.Index = index;
                 dashboard.Active = true;

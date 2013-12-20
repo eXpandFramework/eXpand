@@ -834,11 +834,6 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="DashboardDefinition_DetailView">
-      <Items>
-        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor" />
-      </Items>
-    </DetailView>
     <DashboardView Id="MediaPerformance_Dashboard" Caption="Performance by Media Type" IsNewNode="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="MovieItem_Chart" ViewId="MovieItem_ListView_MediaPerformance" Caption="MovieItem_Chart" ActionsToolbarVisibility="Hide" IsNewNode="True" />

@@ -24,6 +24,8 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static String XMLPrint(this String xml){
+            if (string.IsNullOrEmpty(xml))
+                return xml;
             String result = "";
 
             var mStream = new MemoryStream();

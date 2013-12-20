@@ -134,7 +134,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            Control.Text = Control.Text.XMLPrint();
+            if ((((IModelMemberViewItemRichEdit) Model).RichEdit.PrintXML&&!string.IsNullOrEmpty((string) PropertyValue)))
+                PropertyValue = PropertyValue.ToString().XMLPrint();
         }
     }
 
