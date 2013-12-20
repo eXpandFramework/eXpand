@@ -102,7 +102,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (reportdata == null) {
                 reportdata = ObjectSpace.CreateObject<ReportData>();
                 var rep = new XafReport { ObjectSpace = ObjectSpace };
-                rep.LoadLayout(GetResourceStream(reportName));
+                rep.LoadLayout(GetResourceStream(reportName+".repx"));
                 rep.DataType = type;
                 rep.ReportName = reportName;
                 reportdata.SaveReport(rep);

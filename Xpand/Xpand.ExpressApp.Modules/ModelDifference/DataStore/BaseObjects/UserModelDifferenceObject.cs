@@ -19,15 +19,15 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [CloneView(CloneViewType.DetailView, "UDO_DetailView",true)]
     [CreatableItem(false)]
     public class UserModelDifferenceObject : ModelDifferenceObject {
-        private bool nonPersistent;
+        private bool _nonPersistent;
 
         public UserModelDifferenceObject(Session session)
             : base(session) {
         }
 
         public bool NonPersistent {
-            get { return nonPersistent; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref nonPersistent, value); }
+            get { return _nonPersistent; }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
         }
 
         public override void AfterConstruction() {

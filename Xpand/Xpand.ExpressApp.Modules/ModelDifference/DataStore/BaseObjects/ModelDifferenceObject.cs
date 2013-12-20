@@ -28,10 +28,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public const string Caption = "Application Difference";
         DifferenceType _differenceType;
         bool _disabled;
-        int combineOrder;
-        DateTime dateCreated;
+        int _combineOrder;
+        DateTime _dateCreated;
         string _name;
-        PersistentApplication persistentApplication;
+        PersistentApplication _persistentApplication;
         ModelApplicationBase _currentModel;
         string _preferredAspect;
 
@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             : base(session) {
         }
         public override string ToString() {
-            return persistentApplication != null ? persistentApplication.Name + " " + Name : base.ToString();
+            return _persistentApplication != null ? _persistentApplication.Name + " " + Name : base.ToString();
         }
 
         [Association("ModelDifferenceObject-AspectObjects")]
@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
-            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != Oid), master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(_persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != Oid), master);
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
@@ -109,17 +109,17 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
 
         public int CombineOrder {
-            get { return combineOrder; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref combineOrder, value); }
+            get { return _combineOrder; }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _combineOrder, value); }
         }
         [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
         public PersistentApplication PersistentApplication {
-            get { return persistentApplication; }
+            get { return _persistentApplication; }
             set {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref persistentApplication, value);
+                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _persistentApplication, value);
             }
         }
 
@@ -147,8 +147,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         [ModelDefault("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
         public DateTime DateCreated {
-            get { return dateCreated; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref dateCreated, value); }
+            get { return _dateCreated; }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _dateCreated, value); }
         }
         [Size(SizeAttribute.Unlimited)]
         [NonCloneable]
@@ -255,8 +255,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         long ISupportSequenceObject.Sequence {
-            get { return combineOrder; }
-            set { combineOrder = (int)value; }
+            get { return _combineOrder; }
+            set { _combineOrder = (int)value; }
         }
 
         string ISupportSequenceObject.Prefix {
