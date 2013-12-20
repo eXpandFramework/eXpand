@@ -21,11 +21,12 @@ namespace Xpand.Persistent.Base.General {
             var modelViews = ((IModelViews)node);
             var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
             var mergedDifferenceInfos = MergeDifferencesHelper.GetMergedDifferenceInfos(modelViews, modulesDifferences );
-            CloneMergedView(mergedDifferenceInfos, modelViews, modulesDifferences);
+            var differenceInfos = mergedDifferenceInfos as ModelMergedDifferenceInfo[] ?? mergedDifferenceInfos.ToArray();
+            CloneMergedView(differenceInfos, modelViews, modulesDifferences);
             foreach (var newView in newViews) {
                 newView.Remove();
             }
-            AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
+            AddDifferenceLayers(node, differenceInfos, modulesDifferences);
         }
 
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -264,8 +265,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static void ReadViewsFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifference modelMergedDifference, ModelApplicationBase modelApplicationBase) {
-            var viewId = GetViewId(modelMergedDifference, modelApplicationBases);
-            var mergedView = (IModelObjectView)modelApplicationBases.Cast<IModelApplication>().Select(application
+            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
+            var viewId = GetViewId(modelMergedDifference, applicationBases);
+            var mergedView = (IModelObjectView)applicationBases.Cast<IModelApplication>().Select(application
                                                                                                       => application.Views[viewId]).First(view => view != null);
             var xml = "<Application><Views>" + ((ModelNode)mergedView).Xml + "</Views></Application>";
             new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
@@ -335,12 +337,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node) {
-            var strategiesModel = StrategiesModel(node, modelApplicationBases);
-            foreach (var modelApplicationBase in modelApplicationBases) {
+            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
+            var strategiesModel = StrategiesModel(node, applicationBases);
+            foreach (var modelApplicationBase in applicationBases) {
                 var modelMergedDifferences = ModelMergedDifferences(modelApplicationBase);
                 foreach (var modelMergedDifference in modelMergedDifferences) {
                     if (modelMergedDifference.View == null) {
-                        ReadViewsFromOtherLayers(modelApplicationBases, modelMergedDifference, modelApplicationBase);
+                        ReadViewsFromOtherLayers(applicationBases, modelMergedDifference, modelApplicationBase);
                     }
                     if (!modelMergedDifference.HasValue("Strategy")) {
                         new ModelXmlReader().ReadFromModel(modelApplicationBase, strategiesModel);
@@ -371,8 +374,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IEnumerable<ModelMergedDifferenceInfo> GetMergedDifferenceInfos(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
-            var modelMergedDifferenceInfos = modulesDifferences.Cast<IModelApplication>().SelectMany(modelApplication 
-                => GetModelObjectViewMergedDifferenceses(modelViews, modelApplication, modulesDifferences));
+            var modelApplicationBases = modulesDifferences as ModelApplicationBase[] ?? modulesDifferences.ToArray();
+            var modelMergedDifferenceInfos = modelApplicationBases.Cast<IModelApplication>().SelectMany(modelApplication 
+                => GetModelObjectViewMergedDifferenceses(modelViews, modelApplication, modelApplicationBases));
             return modelMergedDifferenceInfos.GroupBy(info =>
                     new { Id = info.ModelMergedDifference.Id() ,info.TargetView}).Select(infos => infos.Last());
         }
@@ -556,7 +560,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     [DomainLogic(typeof(IModelMergedViewValueInfo))]
-    public class IModelMergedViewValueInfoLogic {
+    public class ModelMergedViewValueInfoLogic {
         public static ModelValueInfo Get_ModelValueInfo(IModelMergedViewValueInfo mergedViewValueInfo) {
             return string.IsNullOrEmpty(mergedViewValueInfo.Name)? null
                        : ModelMergedViewValueInfosNodeGenerator.GetModelValueInfos(mergedViewValueInfo, info => true)
@@ -580,7 +584,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     [DomainLogic(typeof(IModelViewValueInfos))]
-    public class IModelViewValueInfosLogic {
+    public class ModelViewValueInfosLogic {
         public static bool Get_NodeEnabled(IModelViewValueInfos viewValueInfos) {
             return false;
         }        
