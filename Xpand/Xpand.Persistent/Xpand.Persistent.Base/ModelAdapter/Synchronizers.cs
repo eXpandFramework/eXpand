@@ -61,8 +61,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         protected void ApplyValues(ModelNode node, object component, PropertyDescriptorCollection properties) {
-            foreach (var valueInfo in GetModelValueInfos(node)) {
-                var propertyDescriptor = properties.Find(valueInfo.Name, false);
+            foreach (var valueInfo in GetModelValueInfos(node)){
+                var propertyDescriptor = GetPropertyDescriptor(properties, valueInfo,component,node);
                 if (propertyDescriptor != null) {
                     var nodeValue = GetApplyModelNodeValue(node, valueInfo);
                     if (nodeValue != null) {
@@ -75,6 +75,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     }
                 }
             }
+        }
+
+        protected virtual PropertyDescriptor GetPropertyDescriptor(PropertyDescriptorCollection properties, ModelValueInfo valueInfo, object component, ModelNode node){
+            return properties.Find(valueInfo.Name, false);
         }
 
         protected virtual object GetApplyModelNodeValue(ModelNode node, ModelValueInfo valueInfo) {
@@ -108,11 +112,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (valueInfo.IsReadOnly)
                 return null;
             var nodeValue = node.GetValue(valueInfo.Name);
-            return valueInfo.PropertyType.IsStruct() && nodeValue.Equals(valueInfo.PropertyType.CreateInstance())
-                       ? null
-                       : nodeValue;
+            return nodeValue != null && (valueInfo.PropertyType.IsStruct() && nodeValue.Equals(valueInfo.PropertyType.CreateInstance()))? null: nodeValue;
         }
-
 
         protected virtual IEnumerable<ModelValueInfo> GetModelValueInfos(IModelNode modelNode) {
             return IsDisabled(modelNode) ? Enumerable.Empty<ModelValueInfo>() : ((ModelNode)modelNode).NodeInfo.ValuesInfo.Where(IsNotExcluded);

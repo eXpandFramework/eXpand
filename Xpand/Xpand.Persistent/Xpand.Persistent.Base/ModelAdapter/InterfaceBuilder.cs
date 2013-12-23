@@ -61,7 +61,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         string _assemblyName;
         static bool _loadFromPath;
         static bool _fileExistInPath;
-        static readonly Dictionary<string, Assembly> Assemblies = new Dictionary<string, Assembly>();
+        static readonly Dictionary<string, Assembly> _assemblies = new Dictionary<string, Assembly>();
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this() {
             _extenders = extenders;
@@ -107,8 +107,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return Assembly.LoadFile(assemblyFilePath);
             }
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
-            if (!RuntimeMode && Assemblies.ContainsKey(_assemblyName + "")) {
-                return Assemblies[_assemblyName];
+            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
+                return _assemblies[_assemblyName];
             }
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
@@ -117,7 +117,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string[] references = _referencesCollector.References.ToArray();
             
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            Assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
+            _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
         }
 
@@ -422,12 +422,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public void ExtendInteface(Type targetType, Type extenderType, Assembly assembly) {
-            extenderType = GalcType(extenderType, assembly);
-            targetType = GalcType(targetType, assembly);
+            extenderType = CalcType(extenderType, assembly);
+            targetType = CalcType(targetType, assembly);
             _extenders.Add(targetType, extenderType);
         }
 
-        Type GalcType(Type extenderType, Assembly assembly) {
+        public Type CalcType(Type extenderType, Assembly assembly) {
             if (!extenderType.IsInterface) {
                 var type = assembly.GetTypes().SingleOrDefault(type1 => AttributeLocatorMatches(extenderType, type1));
                 if (type == null) {
