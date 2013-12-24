@@ -18,6 +18,8 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
+            if (!MergingEnabled(modulesDifferences))
+                return;
             var modelViews = ((IModelViews)node);
             var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
             var mergedDifferenceInfos = MergeDifferencesHelper.GetMergedDifferenceInfos(modelViews, modulesDifferences );
@@ -27,6 +29,13 @@ namespace Xpand.Persistent.Base.General {
                 newView.Remove();
             }
             AddDifferenceLayers(node, differenceInfos, modulesDifferences);
+        }
+
+        private bool MergingEnabled(IEnumerable<ModelApplicationBase> modulesDifferences){
+            var viewMergedDifferenceses = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
+                application.Views).Where(view => view!=null).OfType<IModelObjectView>().Cast<IModelObjectViewMergedDifferences>();
+            return viewMergedDifferenceses.Any(
+                    differences => differences.MergedDifferences != null && differences.MergedDifferences.Any());
         }
 
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
