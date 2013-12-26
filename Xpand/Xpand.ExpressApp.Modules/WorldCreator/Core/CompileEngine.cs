@@ -18,16 +18,16 @@ using CodeDomProvider = Xpand.Persistent.Base.PersistentMetaData.CodeDomProvider
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
     public class CompileEngine {
-        private const string STR_StrongKeys = "StrongKeys";
+        private const string StrongKeys = "StrongKeys";
         public const string XpandExtension = ".Xpand";
-        readonly List<Assembly> CompiledAssemblies = new List<Assembly>();
+        readonly List<Assembly> _compiledAssemblies = new List<Assembly>();
 
         public Type CompileModule(IPersistentAssemblyInfo persistentAssemblyInfo, Action<CompilerParameters> action, string path) {
             Assembly loadedAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => new AssemblyName(assembly.FullName + "").Name == persistentAssemblyInfo.Name);
             if (loadedAssembly != null)
                 return loadedAssembly.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type));
             var generateCode = CodeEngine.GenerateCode(persistentAssemblyInfo);
-            var codeProvider = getCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
+            var codeProvider = GetCodeDomProvider(persistentAssemblyInfo.CodeDomProvider);
             var compilerParams = new CompilerParameters {
                 CompilerOptions = @"/target:library /lib:" + GetReferenceLocations() + GetStorngKeyParams(persistentAssemblyInfo),
                 GenerateExecutable = false,
@@ -66,8 +66,8 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         string GetStorngKeyParams(IPersistentAssemblyInfo persistentAssemblyInfo) {
             if (persistentAssemblyInfo.FileData != null) {
-                if (!Directory.Exists(STR_StrongKeys))
-                    Directory.CreateDirectory(STR_StrongKeys);
+                if (!Directory.Exists(StrongKeys))
+                    Directory.CreateDirectory(StrongKeys);
                 var newGuid = Guid.NewGuid();
                 using (var fileStream = new FileStream(@"StrongKeys\" + newGuid + ".snk", FileMode.Create)) {
                     persistentAssemblyInfo.FileData.SaveToStream(fileStream);
@@ -77,10 +77,10 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return null;
         }
 
-        static System.CodeDom.Compiler.CodeDomProvider getCodeDomProvider(CodeDomProvider codeDomProvider) {
-            if (codeDomProvider == CodeDomProvider.CSharp)
-                return new CSharpCodeProvider();
-            return new VBCodeProvider();
+        System.CodeDom.Compiler.CodeDomProvider GetCodeDomProvider(CodeDomProvider codeDomProvider){
+            return codeDomProvider == CodeDomProvider.CSharp
+                ? (System.CodeDom.Compiler.CodeDomProvider) new CSharpCodeProvider()
+                : new VBCodeProvider();
         }
 
         Type CompileCore(IPersistentAssemblyInfo persistentAssemblyInfo, string generateCode, CompilerParameters compilerParams, System.CodeDom.Compiler.CodeDomProvider codeProvider) {
@@ -90,7 +90,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 compileAssemblyFromSource = codeProvider.CompileAssemblyFromSource(compilerParams, generateCode);
                 if (compilerParams.GenerateInMemory) {
                     Assembly compiledAssembly = compileAssemblyFromSource.CompiledAssembly;
-                    CompiledAssemblies.Add(compiledAssembly);
+                    _compiledAssemblies.Add(compiledAssembly);
                     compileCore = compiledAssembly.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type));
                 }
             } catch (Exception e) {
@@ -103,8 +103,8 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                     if (!ValidateBOModel(persistentAssemblyInfo, compileCore))
                         compileCore = null;
                 }
-                if (Directory.Exists(STR_StrongKeys))
-                    Directory.Delete(STR_StrongKeys, true);
+                if (Directory.Exists(StrongKeys))
+                    Directory.Delete(StrongKeys, true);
             }
             return compileCore;
         }
@@ -126,24 +126,31 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         bool ValidateBOModel(IPersistentAssemblyInfo persistentAssemblyInfo, Type compileCore) {
             if (persistentAssemblyInfo.ValidateModelOnCompile) {
-                try {
-                    var typesInfo = new TypesInfo();
+                var instance = XafTypesInfo.Instance;
+                try{
+                    var typesInfo = new TypesInfoBuilder.TypesInfo();
                     typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
                     typesInfo.AddEntityStore(new XpoTypeInfoSource(typesInfo));
+
+                    typesInfo.AssignAsInstance();
                     typesInfo.LoadTypes(compileCore.Assembly);
                     var applicationModulesManager = new ApplicationModulesManager();
                     applicationModulesManager.AddModule(compileCore);
                     applicationModulesManager.Load(typesInfo, true);
-                } catch (Exception exception) {
+                }
+                catch (Exception exception){
                     persistentAssemblyInfo.CompileErrors = exception.ToString();
                     return false;
+                }
+                finally{
+                    instance.AssignAsInstance();
                 }
             }
             return true;
         }
 
         void AddReferences(CompilerParameters compilerParams, string path) {
-            Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !CompiledAssemblies.Contains(assembly1) &&
+            Func<Assembly, bool> isNotDynamic = assembly1 => !(assembly1 is AssemblyBuilder) && !_compiledAssemblies.Contains(assembly1) &&
                 assembly1.EntryPoint == null && !IsCodeDomCompiled(assembly1) && assembly1.ManifestModule.Name.ToLower().IndexOf("mscorlib.resources", StringComparison.Ordinal) == -1 && !string.IsNullOrEmpty(GetAssemblyLocation(assembly1));
             Func<Assembly, string> assemblyNameSelector = assembly => new AssemblyName(assembly.FullName + "").Name + ".dll";
             compilerParams.ReferencedAssemblies.AddRange(
