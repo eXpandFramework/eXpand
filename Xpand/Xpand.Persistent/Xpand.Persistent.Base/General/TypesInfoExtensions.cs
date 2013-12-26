@@ -56,7 +56,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary, string propertyName, bool refreshTypesInfo) {
             XPMemberInfo member = null;
-            if (typeIsRegister(typesInfo, typeToCreateOn)) {
+            if (TypeIsRegister(typesInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
                 member = xpClassInfo.FindMember(propertyName);
                 if (member == null) {
@@ -96,7 +96,7 @@ namespace Xpand.Persistent.Base.General {
         static XPMemberInfo CreateCollection(this ITypesInfo typeInfo, Type typeToCreateOn, Type typeOfCollection, string associationName, XPDictionary dictionary, string collectionName, bool refreshTypesInfo,
                                                           bool isManyToMany) {
             XPMemberInfo member = null;
-            if (typeIsRegister(typeInfo, typeToCreateOn)) {
+            if (TypeIsRegister(typeInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
                 member = xpClassInfo.FindMember(collectionName);
                 if (member == null) {
@@ -187,7 +187,7 @@ namespace Xpand.Persistent.Base.General {
             return typesInfo.FindMember(memberInfo.Name);
         }
 
-        private static bool typeIsRegister(ITypesInfo typeInfo, Type typeToCreateOn) {
+        private static bool TypeIsRegister(ITypesInfo typeInfo, Type typeToCreateOn) {
             return XafTypesInfo.Instance.FindTypeInfo(typeToCreateOn).IsDomainComponent ||
                    typeInfo.PersistentTypes.FirstOrDefault(info => info.Type == typeToCreateOn) != null;
         }
