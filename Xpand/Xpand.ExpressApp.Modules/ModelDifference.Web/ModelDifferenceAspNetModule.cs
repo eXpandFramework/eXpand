@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class ModelDifferenceAspNetModule : ModelDifferenceBaseModule {
-        private bool? persistentApplicationModelUpdated;
+        private bool? _persistentApplicationModelUpdated;
 
         public ModelDifferenceAspNetModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
@@ -20,9 +20,9 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
                 if (HttpContext.Current != null) {
                     bool result;
                     bool.TryParse(HttpContext.Current.Application["ModelsLoaded"] + "", out result);
-                    persistentApplicationModelUpdated = result;
+                    _persistentApplicationModelUpdated = result;
                 }
-                return persistentApplicationModelUpdated;
+                return _persistentApplicationModelUpdated;
             }
             set { HttpContext.Current.Application["ModelsLoaded"] = value; }
         }

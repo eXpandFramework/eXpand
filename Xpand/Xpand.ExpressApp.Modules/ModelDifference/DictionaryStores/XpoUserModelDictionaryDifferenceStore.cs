@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
-using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security;
@@ -120,18 +119,25 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             foreach (var roleModel in GetActiveRoleDifferenceObjects())
                 roleModel.GetModel(model);
             ModelApplicationHelper.AddLayer(model, userDiff);
+            LoadCore(userDiff);
+            RuntimeMemberBuilder.CreateRuntimeMembers(userDiff.Application);
+        }
 
+        private void LoadCore(ModelApplicationBase userDiff){
             var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
-            if (!modelDifferenceObjects.Any()) {
+            if (!modelDifferenceObjects.Any()){
                 SaveDifference(userDiff);
                 return;
             }
-
-            CombineWithActiveDifferenceObjects(model.LastLayer, modelDifferenceObjects);
-            RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication)model);
+            CombineWithActiveDifferenceObjects(userDiff, modelDifferenceObjects);
         }
-        public override void Load(ModelApplicationBase model) {
 
+        private bool _load=false;
+        public override void Load(ModelApplicationBase model) {
+            if (!XpandModuleBase.IsHosted&&_load){
+                LoadCore(model);
+            }
+            _load = true;
         }
 
     }
