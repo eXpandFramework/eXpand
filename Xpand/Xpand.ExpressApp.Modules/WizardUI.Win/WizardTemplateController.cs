@@ -1,5 +1,4 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 
@@ -34,7 +33,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         private void Action_Executed(object sender, ActionBaseEventArgs e) {
             var newObject = _newObject;
             var sourceView = View;
-            e.CreateWizardView(_objectSpace, newObject, sourceView);
+            e.CreateWizardViewInternal(_objectSpace, newObject, sourceView);
 
             _objectSpace = null;
             _newObject = null;

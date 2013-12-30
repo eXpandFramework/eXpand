@@ -20,18 +20,14 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         }
 
         private static IModelDetailViewWizard GetModelDetailViewWizard(ActionBaseEventArgs e) {
-            IModelDetailViewWizard modelWizard;
             if (e.ShowViewParameters.CreatedView != null) {
-                modelWizard = e.ShowViewParameters.CreatedView.Model as IModelDetailViewWizard;
+                return e.ShowViewParameters.CreatedView.Model as IModelDetailViewWizard;
             }
-            else if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController) {
+            if (e.ShowViewParameters.CreatedView == null && e.Action.Controller is NewObjectViewController) {
                 var viewID = e.Action.Application.GetDetailViewId(((SingleChoiceActionExecuteEventArgs)e).SelectedChoiceActionItem.Data as Type);
-                modelWizard = e.Action.Application.Model.Views[viewID] as IModelDetailViewWizard;
+                return e.Action.Application.Model.Views[viewID] as IModelDetailViewWizard;
             }
-            else {
-                throw new NullReferenceException("CreatedView");
-            }
-            return modelWizard;
+            return null;
         }
 
         static bool CanCreateView(ActionBaseEventArgs e) {
