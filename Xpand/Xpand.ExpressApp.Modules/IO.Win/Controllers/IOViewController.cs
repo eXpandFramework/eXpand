@@ -5,7 +5,6 @@ using System.Xml;
 using System.Xml.Linq;
 using Xpand.ExpressApp.IO.Controllers;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.IO.Win.Controllers {
     public partial class IOViewController : IOViewControllerBase {

@@ -42,8 +42,6 @@ namespace Xpand.ExpressApp.IO.Controllers {
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
             
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-            showViewParameters.Context = TemplateContext.View;
-            showViewParameters.CreateAllControllers = true;
             View view;
             if (ObjectSpace.FindObject(groupObjectType, null) == null) {
                 IObjectSpace objectSpace = Application.CreateObjectSpace(XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>()) ;                
