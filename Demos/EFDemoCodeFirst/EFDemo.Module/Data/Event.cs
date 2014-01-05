@@ -2,10 +2,11 @@
 using System.Xml;
 using System.Data;
 using System.Linq;
-using System.Data.Objects;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 using System.ComponentModel;
 using System.Collections.Generic;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

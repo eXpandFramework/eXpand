@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity.Core.Objects.DataClasses;
+using System.ComponentModel.DataAnnotations.Schema;
 
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EFDemo.Module.Data {
 	[DefaultProperty("FullAddress")]

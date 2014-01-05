@@ -3,15 +3,15 @@ using System.Data.Common;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.EF;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Security;
 
 using EFDemo.Module;
 using EFDemo.Module.Data;
-using Xpand.ExpressApp.Web;
 
 namespace EFDemo.Web {
-	public class EFDemoWebApplication : XpandWebApplication {
+	public class EFDemoWebApplication : WebApplication {
 		private DevExpress.ExpressApp.SystemModule.SystemModule systemModule1;
 		private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule webSystemModule1;
 		private SecurityModule securityModule1;
@@ -30,14 +30,12 @@ namespace EFDemo.Web {
 		private DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule pivotChartAspNetModule1;
 		private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
 		private DevExpress.ExpressApp.HtmlPropertyEditor.Web.HtmlPropertyEditorAspNetModule htmlPropertyEditorAspNetModule1;
-		private System.Data.SqlClient.SqlConnection sqlConnection1;
 		private DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule scriptRecorderAspNetModule1;
 		private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
 		private void InitializeComponent() {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EFDemoWebApplication));
 			this.systemModule1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
 			this.webSystemModule1 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-			this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
 			this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
 			this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
 			this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
@@ -58,11 +56,6 @@ namespace EFDemo.Web {
 			this.scriptRecorderAspNetModule1 = new DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule();
 			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
 			// 
-			// sqlConnection1
-			// 
-			this.sqlConnection1.ConnectionString = @"Integrated Security=True;Pooling=false;MultipleActiveResultSets=True;Data Source=.\SQLExpress;Initial Catalog=EFDemo_v12.2";
-			this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
-			// 
 			// securityComplex1
 			// 
 			this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
@@ -77,7 +70,7 @@ namespace EFDemo.Web {
 			// reportsModule1
 			// 
 			this.reportsModule1.EnableInplaceReports = true;
-			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData_EF);
+			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData);
 			this.reportsModule1.ShowAdditionalNavigation = false;
 			// 
 			// validationModule1
@@ -96,7 +89,6 @@ namespace EFDemo.Web {
 			// EFDemoWebApplication
 			// 
 			this.ApplicationName = "EFDemo";
-			this.Connection = this.sqlConnection1;
 			this.Modules.Add(this.systemModule1);
 			this.Modules.Add(this.webSystemModule1);
 			this.Modules.Add(this.securityModule1);
@@ -124,19 +116,21 @@ namespace EFDemo.Web {
 			e.Updater.Update();
 			e.Handled = true;
 		}
-
-        protected override void OnCreateCustomObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomProvider(args.ConnectionString, (TypesInfo)TypesInfo, args.ObjectSpaceProviders, () => base.OnCreateCustomObjectSpaceProvider(args));
-        }
-
 		protected override void OnLoggedOn(LogonEventArgs args) {
 			base.OnLoggedOn(args);
 			((ShowViewStrategy)base.ShowViewStrategy).CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
 		}
+		protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+			if(args.Connection != null) {
+				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, (DbConnection)args.Connection);
+			}
+			else {
+				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, args.ConnectionString);
+			}
+		}
 
 		public EFDemoWebApplication() {
 			InitializeComponent();
-			DelayedViewItemsInitialization = true;
 		}
 	}
 }

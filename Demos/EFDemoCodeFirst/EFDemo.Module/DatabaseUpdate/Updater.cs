@@ -12,9 +12,9 @@ using DevExpress.Persistent.Base.General;
 namespace EFDemo.Module.DatabaseUpdate {
 	public class Updater : ModuleUpdater {
 		private void CreateReport(String reportName, Type dataType) {
-			ReportData_EF reportdata = ObjectSpace.FindObject<ReportData_EF>(new BinaryOperator("ReportName", reportName));
+			ReportData reportdata = ObjectSpace.FindObject<ReportData>(new BinaryOperator("ReportName", reportName));
 			if(reportdata == null) {
-				reportdata = ObjectSpace.CreateObject<ReportData_EF>();
+				reportdata = ObjectSpace.CreateObject<ReportData>();
 				XafReport rep = new XafReport();
 				rep.ObjectSpace = ObjectSpace;
 				rep.LoadLayout(GetType().Assembly.GetManifestResourceStream("EFDemo.Module.EmbeddedReports." + reportName + ".repx"));
@@ -40,17 +40,17 @@ namespace EFDemo.Module.DatabaseUpdate {
 			return defaultRole;
 		}
 		private void CreateDataToBeAnalysed() {
-			Analysis_EF taskAnalysis1 = ObjectSpace.FindObject<Analysis_EF>(CriteriaOperator.Parse("Name='Completed tasks'"));
+			Analysis taskAnalysis1 = ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Completed tasks'"));
 			if(taskAnalysis1 == null) {
-				taskAnalysis1 = ObjectSpace.CreateObject<Analysis_EF>();
+				taskAnalysis1 = ObjectSpace.CreateObject<Analysis>();
 				taskAnalysis1.Name = "Completed tasks";
 				taskAnalysis1.ObjectTypeName = typeof(DemoTask).FullName;
 				/*taskAnalysis1.Criteria = "[Status] = 'Completed'";*/
 				taskAnalysis1.Criteria = "[Status_Int] = " + ((Int32)TaskStatus.Completed).ToString();
 			}
-			Analysis_EF taskAnalysis2 = ObjectSpace.FindObject<Analysis_EF>(CriteriaOperator.Parse("Name='Estimated and actual work comparison'"));
+			Analysis taskAnalysis2 = ObjectSpace.FindObject<Analysis>(CriteriaOperator.Parse("Name='Estimated and actual work comparison'"));
 			if(taskAnalysis2 == null) {
-				taskAnalysis2 = ObjectSpace.CreateObject<Analysis_EF>();
+				taskAnalysis2 = ObjectSpace.CreateObject<Analysis>();
 				taskAnalysis2.Name = "Estimated and actual work comparison";
 				taskAnalysis2.ObjectTypeName = typeof(DemoTask).FullName;
 			}
@@ -59,23 +59,20 @@ namespace EFDemo.Module.DatabaseUpdate {
 		public override void UpdateDatabaseAfterUpdateSchema() {
 			base.UpdateDatabaseAfterUpdateSchema();
 
-		    if (ObjectSpace.FindObject<Role>(new BinaryOperator("Name", "Default")) != null) {
-		        return;
-		    }
-		    Role defaultRole = CreateDefaultRole();
+			Role defaultRole = CreateDefaultRole();
 
 			// Create reports
 			CreateReport("ContactsGroupedByPosition", typeof(Contact));
 			CreateReport("TasksStateReport", typeof(DemoTask));
 
-			Position_EF developerPosition = ObjectSpace.FindObject<Position_EF>(CriteriaOperator.Parse("Title == 'Developer'"));
+			Position developerPosition = ObjectSpace.FindObject<Position>(CriteriaOperator.Parse("Title == 'Developer'"));
 			if(developerPosition == null) {
-				developerPosition = ObjectSpace.CreateObject<Position_EF>();
+				developerPosition = ObjectSpace.CreateObject<Position>();
 				developerPosition.Title = "Developer";
 			}
-			Position_EF managerPosition = ObjectSpace.FindObject<Position_EF>(CriteriaOperator.Parse("Title == 'Manager'"));
+			Position managerPosition = ObjectSpace.FindObject<Position>(CriteriaOperator.Parse("Title == 'Manager'"));
 			if(managerPosition == null) {
-				managerPosition = ObjectSpace.CreateObject<Position_EF>();
+				managerPosition = ObjectSpace.CreateObject<Position>();
 				managerPosition.Title = "Manager";
 			}
 
@@ -208,14 +205,14 @@ namespace EFDemo.Module.DatabaseUpdate {
 		public TaskAnalysis1LayoutUpdaterBase(IObjectSpace objectSpace) {
 			this.objectSpace = objectSpace;
 		}
-		public void Update(Analysis_EF analysisEf) {
-			if(analysisEf != null && !PivotGridSettingsHelper.HasPivotGridSettings(analysisEf)) {
+		public void Update(Analysis analysis) {
+			if(analysis != null && !PivotGridSettingsHelper.HasPivotGridSettings(analysis)) {
 				IAnalysisControl control = CreateAnalysisControl();
-				control.DataSource = new AnalysisDataSource(analysisEf, objectSpace.GetObjects(typeof(DemoTask)));
+				control.DataSource = new AnalysisDataSource(analysis, objectSpace.GetObjects(typeof(DemoTask)));
 				control.Fields["Priority"].Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
 				control.Fields["Subject"].Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
 				control.Fields["AssignedTo.DisplayName"].Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-				PivotGridSettingsHelper.SavePivotGridSettings(CreatePivotGridSettingsStore(control), analysisEf);
+				PivotGridSettingsHelper.SavePivotGridSettings(CreatePivotGridSettingsStore(control), analysis);
 			}
 		}
 	}
@@ -227,16 +224,16 @@ namespace EFDemo.Module.DatabaseUpdate {
 		public TaskAnalysis2LayoutUpdaterBase(IObjectSpace objectSpace) {
 			this.objectSpace = objectSpace;
 		}
-		public void Update(Analysis_EF analysisEf) {
-			if(analysisEf != null && !PivotGridSettingsHelper.HasPivotGridSettings(analysisEf)) {
+		public void Update(Analysis analysis) {
+			if(analysis != null && !PivotGridSettingsHelper.HasPivotGridSettings(analysis)) {
 				IAnalysisControl control = CreateAnalysisControl();
-				control.DataSource = new AnalysisDataSource(analysisEf, objectSpace.GetObjects(typeof(DemoTask)));
+				control.DataSource = new AnalysisDataSource(analysis, objectSpace.GetObjects(typeof(DemoTask)));
 				control.Fields["Status"].Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
 				control.Fields["Priority"].Area = DevExpress.XtraPivotGrid.PivotArea.ColumnArea;
 				control.Fields["EstimatedWork"].Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
 				control.Fields["ActualWork"].Area = DevExpress.XtraPivotGrid.PivotArea.DataArea;
 				control.Fields["AssignedTo.DisplayName"].Area = DevExpress.XtraPivotGrid.PivotArea.RowArea;
-				PivotGridSettingsHelper.SavePivotGridSettings(CreatePivotGridSettingsStore(control), analysisEf);
+				PivotGridSettingsHelper.SavePivotGridSettings(CreatePivotGridSettingsStore(control), analysis);
 			}
 		}
 	}

@@ -20,7 +20,7 @@ namespace EFDemo.Module.Data {
 		[FieldSize(255)]
 		public String Email { get; set; }
 
-		[NotMapped, ObjectValidatorIgnoreIssue(typeof(ObjectValidatorDefaultPropertyIsNonPersistentNorAliased)), SearchMemberOptions(SearchMemberMode.Include)]
+		[NotMapped, ObjectValidatorIgnoreIssue(typeof(ObjectValidatorDefaultPropertyIsNonPersistentNorAliased)), SearchMemberOptions(SearchMemberMode.Exclude)]
 		public String FullName {
 			get { return ObjectFormatter.Format(FullNameFormat, this, EmptyEntriesMode.RemoveDelimeterWhenEntryIsEmpty); }
 		}

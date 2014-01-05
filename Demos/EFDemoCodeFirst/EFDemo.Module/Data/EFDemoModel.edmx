@@ -1,0 +1,1862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+	<!-- EF Runtime content -->
+	<edmx:Runtime>
+		<!-- SSDL content -->
+		<edmx:StorageModels>
+			<Schema Namespace="EFDemoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+				<EntityContainer Name="EFDemoModelStoreContainer">
+					<EntitySet Name="Departments" EntityType="EFDemoModel.Store.Departments" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Positions" EntityType="EFDemoModel.Store.Positions" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Parties" EntityType="EFDemoModel.Store.Parties" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Tasks" EntityType="EFDemoModel.Store.Tasks" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Notes" EntityType="EFDemoModel.Store.Notes" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="PhoneNumbers" EntityType="EFDemoModel.Store.PhoneNumbers" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="States" EntityType="EFDemoModel.Store.States" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Payments" EntityType="EFDemoModel.Store.Payments" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Countries" EntityType="EFDemoModel.Store.Countries" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="HCategories" EntityType="EFDemoModel.Store.HCategories" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Addresses" EntityType="EFDemoModel.Store.Addresses" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Resumes" EntityType="EFDemoModel.Store.Resumes" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Events" EntityType="EFDemoModel.Store.Events" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Resources" EntityType="EFDemoModel.Store.Resources" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="FileData" EntityType="EFDemoModel.Store.FileData" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="FileAttachments" EntityType="EFDemoModel.Store.FileAttachments" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="ReportData" EntityType="EFDemoModel.Store.ReportData" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Roles" EntityType="EFDemoModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Users" EntityType="EFDemoModel.Store.Users" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="TypePermissionObjects" EntityType="EFDemoModel.Store.TypePermissionObjects" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="ModulesInfo" EntityType="EFDemoModel.Store.ModulesInfo" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Analysis" EntityType="EFDemoModel.Store.Analysis" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Parties_Person" EntityType="EFDemoModel.Store.Parties_Person" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Parties_Contact" EntityType="EFDemoModel.Store.Parties_Contact" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="FileAttachments_PortfolioFileData" EntityType="EFDemoModel.Store.FileAttachments_PortfolioFileData" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Tasks_DemoTask" EntityType="EFDemoModel.Store.Tasks_DemoTask" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Parties_Organization" EntityType="EFDemoModel.Store.Parties_Organization" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Departments_Positions" EntityType="EFDemoModel.Store.Departments_Positions" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Events_Resources" EntityType="EFDemoModel.Store.Events_Resources" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Users_Roles" EntityType="EFDemoModel.Store.Users_Roles" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="Roles_Roles" EntityType="EFDemoModel.Store.Roles_Roles" store:Type="Tables" Schema="dbo" />
+					<EntitySet Name="DemoTasks_Contacts" EntityType="EFDemoModel.Store.DemoTasks_Contacts" store:Type="Tables" Schema="dbo" />
+					<AssociationSet Name="FK_Departments_Positions_Department" Association="EFDemoModel.Store.FK_Departments_Positions_Department">
+						<End Role="Department" EntitySet="Departments" />
+						<End Role="Departments_Positions" EntitySet="Departments_Positions" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Departments_Positions_Position" Association="EFDemoModel.Store.FK_Departments_Positions_Position">
+						<End Role="Position" EntitySet="Positions" />
+						<End Role="Departments_Positions" EntitySet="Departments_Positions" />
+					</AssociationSet>
+					<AssociationSet Name="Contact_Department" Association="EFDemoModel.Store.Contact_Department">
+						<End Role="Department" EntitySet="Departments" />
+						<End Role="Contact" EntitySet="Parties_Contact" />
+					</AssociationSet>
+					<AssociationSet Name="Contact_Position" Association="EFDemoModel.Store.Contact_Position">
+						<End Role="Position" EntitySet="Positions" />
+						<End Role="Contact" EntitySet="Parties_Contact" />
+					</AssociationSet>
+					<AssociationSet Name="PhoneNumber_Party" Association="EFDemoModel.Store.PhoneNumber_Party">
+						<End Role="PhoneNumber" EntitySet="PhoneNumbers" />
+						<End Role="Party" EntitySet="Parties" />
+					</AssociationSet>
+					<AssociationSet Name="HCategory_HCategory" Association="EFDemoModel.Store.HCategory_HCategory">
+						<End Role="HCategory" EntitySet="HCategories" />
+						<End Role="HCategory1" EntitySet="HCategories" />
+					</AssociationSet>
+					<AssociationSet Name="Address_Country" Association="EFDemoModel.Store.Address_Country">
+						<End Role="Address" EntitySet="Addresses" />
+						<End Role="Country" EntitySet="Countries" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Events_Resources_Event" Association="EFDemoModel.Store.FK_Events_Resources_Event">
+						<End Role="Event" EntitySet="Events" />
+						<End Role="Events_Resources" EntitySet="Events_Resources" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Events_Resources_Resource" Association="EFDemoModel.Store.FK_Events_Resources_Resource">
+						<End Role="Resource" EntitySet="Resources" />
+						<End Role="Events_Resources" EntitySet="Events_Resources" />
+					</AssociationSet>
+					<AssociationSet Name="FileAttachment_FileData" Association="EFDemoModel.Store.FileAttachment_FileData">
+						<End Role="FileAttachment" EntitySet="FileAttachments" />
+						<End Role="FileData" EntitySet="FileData" />
+					</AssociationSet>
+					<AssociationSet Name="PortfolioFileData_Resume" Association="EFDemoModel.Store.PortfolioFileData_Resume">
+						<End Role="PortfolioFileData" EntitySet="FileAttachments_PortfolioFileData" />
+						<End Role="Resume" EntitySet="Resumes" />
+					</AssociationSet>
+					<AssociationSet Name="Resume_Contact" Association="EFDemoModel.Store.Resume_Contact">
+						<End Role="Resume" EntitySet="Resumes" />
+						<End Role="Contact" EntitySet="Parties_Contact" />
+					</AssociationSet>
+					<AssociationSet Name="Party_Address1" Association="EFDemoModel.Store.Party_Address1">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Address" EntitySet="Addresses" />
+					</AssociationSet>
+					<AssociationSet Name="Party_Address2" Association="EFDemoModel.Store.Party_Address2">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Address" EntitySet="Addresses" />
+					</AssociationSet>
+					<AssociationSet Name="Contact_Contact" Association="EFDemoModel.Store.Contact_Contact">
+						<End Role="Contact" EntitySet="Parties_Contact" />
+						<End Role="Contact1" EntitySet="Parties_Contact" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Users_Roles_User" Association="EFDemoModel.Store.FK_Users_Roles_User">
+						<End Role="User" EntitySet="Users" />
+						<End Role="Users_Roles" EntitySet="Users_Roles" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Users_Roles_Role" Association="EFDemoModel.Store.FK_Users_Roles_Role">
+						<End Role="Role" EntitySet="Roles" />
+						<End Role="Users_Roles" EntitySet="Users_Roles" />
+					</AssociationSet>
+					<AssociationSet Name="Role_TypePermissionObject" Association="EFDemoModel.Store.Role_TypePermissionObject">
+						<End Role="Role" EntitySet="Roles" />
+						<End Role="TypePermissionObject" EntitySet="TypePermissionObjects" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Roles_Roles_Role1" Association="EFDemoModel.Store.FK_Roles_Roles_Role1">
+						<End Role="Role1" EntitySet="Roles" />
+						<End Role="Roles_Roles" EntitySet="Roles_Roles" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Roles_Roles_Role2" Association="EFDemoModel.Store.FK_Roles_Roles_Role2">
+						<End Role="Role2" EntitySet="Roles" />
+						<End Role="Roles_Roles" EntitySet="Roles_Roles" />
+					</AssociationSet>
+					<AssociationSet Name="Task_Party" Association="EFDemoModel.Store.Task_Party">
+						<End Role="Task" EntitySet="Tasks" />
+						<End Role="Party" EntitySet="Parties" />
+					</AssociationSet>
+					<AssociationSet Name="FK_DemoTasks_Contacts_DemoTask" Association="EFDemoModel.Store.FK_DemoTasks_Contacts_DemoTask">
+						<End Role="DemoTask" EntitySet="Tasks_DemoTask" />
+						<End Role="DemoTasks_Contacts" EntitySet="DemoTasks_Contacts" />
+					</AssociationSet>
+					<AssociationSet Name="FK_DemoTasks_Contacts_Contact" Association="EFDemoModel.Store.FK_DemoTasks_Contacts_Contact">
+						<End Role="Contact" EntitySet="Parties_Contact" />
+						<End Role="DemoTasks_Contacts" EntitySet="DemoTasks_Contacts" />
+					</AssociationSet>
+					<AssociationSet Name="Event_Event" Association="EFDemoModel.Store.Event_Event">
+						<End Role="Event" EntitySet="Events" />
+						<End Role="Event1" EntitySet="Events" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Person_inherits_Party" Association="EFDemoModel.Store.FK_Person_inherits_Party">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Person" EntitySet="Parties_Person" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Contact_inherits_Person" Association="EFDemoModel.Store.FK_Contact_inherits_Person">
+						<End Role="Person" EntitySet="Parties_Person" />
+						<End Role="Contact" EntitySet="Parties_Contact" />
+					</AssociationSet>
+					<AssociationSet Name="FK_PortfolioFileData_inherits_FileAttachment" Association="EFDemoModel.Store.FK_PortfolioFileData_inherits_FileAttachment">
+						<End Role="FileAttachment" EntitySet="FileAttachments" />
+						<End Role="PortfolioFileData" EntitySet="FileAttachments_PortfolioFileData" />
+					</AssociationSet>
+					<AssociationSet Name="FK_DemoTask_inherits_Task" Association="EFDemoModel.Store.FK_DemoTask_inherits_Task">
+						<End Role="Task" EntitySet="Tasks" />
+						<End Role="DemoTask" EntitySet="Tasks_DemoTask" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Organization_inherits_Party" Association="EFDemoModel.Store.FK_Organization_inherits_Party">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Organization" EntitySet="Parties_Organization" />
+					</AssociationSet>
+				</EntityContainer>
+				<EntityType Name="Departments">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Title" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Office" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Positions">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Title" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Parties">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Photo_Binary" Type="varbinary(max)" Nullable="true" />
+					<Property Name="Address1_ID" Type="int" Nullable="true" />
+					<Property Name="Address2_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Tasks">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="DateCompleted" Type="datetime" Nullable="true" />
+					<Property Name="Subject" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="DueDate" Type="datetime" Nullable="true" />
+					<Property Name="StartDate" Type="datetime" Nullable="true" />
+					<Property Name="Status_Int" Type="int" Nullable="false" />
+					<Property Name="PercentCompleted" Type="int" Nullable="false" />
+					<Property Name="AssignedTo_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Notes">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Author" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="DateTime" Type="datetime" Nullable="true" />
+					<Property Name="Text" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="PhoneNumbers">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Number" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="PhoneType" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Party_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="States">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="ShortName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="LongName" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Payments">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Rate" Type="decimal" Nullable="false" />
+					<Property Name="Hours" Type="decimal" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Countries">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="PhoneCode" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="HCategories">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Parent_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Addresses">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Street" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="City" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="StateProvince" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="ZipPostal" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Country_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Resumes">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Contact_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Events">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Subject" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="StartOn" Type="datetime" Nullable="true" />
+					<Property Name="EndOn" Type="datetime" Nullable="true" />
+					<Property Name="AllDay" Type="bit" Nullable="false" />
+					<Property Name="Location" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Label" Type="int" Nullable="false" />
+					<Property Name="Status" Type="int" Nullable="false" />
+					<Property Name="Type" Type="int" Nullable="false" />
+					<Property Name="RecurrenceInfoXml" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="RecurrencePattern_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Resources">
+					<Key>
+						<PropertyRef Name="Key" />
+					</Key>
+					<Property Name="Key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Caption" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Color_Int" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="FileData">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Size" Type="int" Nullable="false" />
+					<Property Name="FileName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Content" Type="varbinary(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="FileAttachments">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="File_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="ReportData">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Content" Type="varbinary(max)" Nullable="true" />
+					<Property Name="DataTypeName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="IsInplaceReport" Type="bit" Nullable="false" />
+					<Property Name="ReportName" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Roles">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="IsAdministrative" Type="bit" Nullable="false" />
+					<Property Name="CanEditModel" Type="bit" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Users">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="UserName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="IsActive" Type="bit" Nullable="false" DefaultValue="true" />
+					<Property Name="ChangePasswordOnFirstLogon" Type="bit" Nullable="false" />
+					<Property Name="StoredPassword" Type="nvarchar(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="TypePermissionObjects">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="AllowRead" Type="bit" Nullable="false" />
+					<Property Name="AllowWrite" Type="bit" Nullable="false" />
+					<Property Name="AllowCreate" Type="bit" Nullable="false" />
+					<Property Name="AllowDelete" Type="bit" Nullable="false" />
+					<Property Name="AllowNavigate" Type="bit" Nullable="false" />
+					<Property Name="TargetTypeFullName" Type="nvarchar(max)" Nullable="false" />
+					<Property Name="Role_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="ModulesInfo">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Version" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="AssemblyFileName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="IsMain" Type="bit" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Analysis">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Criteria" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="ObjectTypeName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="DimensionPropertiesString" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="PivotGridSettingsContent" Type="varbinary(max)" Nullable="true" />
+					<Property Name="ChartSettingsContent" Type="varbinary(max)" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Parties_Person">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="FirstName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="MiddleName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Birthday" Type="datetime" Nullable="true" />
+					<Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Parties_Contact">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="WebPageAddress" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="NickName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="SpouseName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="TitleOfCourtesy_Int" Type="int" Nullable="false" />
+					<Property Name="Anniversary" Type="datetime" Nullable="true" />
+					<Property Name="Notes" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="ID" Type="int" Nullable="false" />
+					<Property Name="Department_ID" Type="int" Nullable="true" />
+					<Property Name="Position_ID" Type="int" Nullable="true" />
+					<Property Name="Manager_ID" Type="int" Nullable="true" />
+				</EntityType>
+				<EntityType Name="FileAttachments_PortfolioFileData">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="DocumentType_Int" Type="int" Nullable="false" />
+					<Property Name="ID" Type="int" Nullable="false" />
+					<Property Name="Resume_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Tasks_DemoTask">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="Priority_Int" Type="int" Nullable="false" />
+					<Property Name="EstimatedWork" Type="int" Nullable="true" />
+					<Property Name="ActualWork" Type="int" Nullable="true" />
+					<Property Name="ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Parties_Organization">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="FullName" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Profile" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="WebSite" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+					<Property Name="ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Departments_Positions">
+					<Key>
+						<PropertyRef Name="Departments_ID" />
+						<PropertyRef Name="Positions_ID" />
+					</Key>
+					<Property Name="Departments_ID" Type="int" Nullable="false" />
+					<Property Name="Positions_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Events_Resources">
+					<Key>
+						<PropertyRef Name="Events_ID" />
+						<PropertyRef Name="Resources_Key" />
+					</Key>
+					<Property Name="Events_ID" Type="int" Nullable="false" />
+					<Property Name="Resources_Key" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Users_Roles">
+					<Key>
+						<PropertyRef Name="Users_ID" />
+						<PropertyRef Name="Roles_ID" />
+					</Key>
+					<Property Name="Users_ID" Type="int" Nullable="false" />
+					<Property Name="Roles_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Roles_Roles">
+					<Key>
+						<PropertyRef Name="ParentRoles_ID" />
+						<PropertyRef Name="ChildRoles_ID" />
+					</Key>
+					<Property Name="ParentRoles_ID" Type="int" Nullable="false" />
+					<Property Name="ChildRoles_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="DemoTasks_Contacts">
+					<Key>
+						<PropertyRef Name="Tasks_ID" />
+						<PropertyRef Name="Contacts_ID" />
+					</Key>
+					<Property Name="Tasks_ID" Type="int" Nullable="false" />
+					<Property Name="Contacts_ID" Type="int" Nullable="false" />
+				</EntityType>
+				<Association Name="Contact_Department">
+					<End Role="Department" Type="EFDemoModel.Store.Departments" Multiplicity="0..1" />
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Department">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Contact">
+							<PropertyRef Name="Department_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Contact_Position">
+					<End Role="Position" Type="EFDemoModel.Store.Positions" Multiplicity="0..1" />
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Position">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Contact">
+							<PropertyRef Name="Position_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="PhoneNumber_Party">
+					<End Role="PhoneNumber" Type="EFDemoModel.Store.PhoneNumbers" Multiplicity="*" />
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Party">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="PhoneNumber">
+							<PropertyRef Name="Party_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="HCategory_HCategory">
+					<End Role="HCategory" Type="EFDemoModel.Store.HCategories" Multiplicity="*" />
+					<End Role="HCategory1" Type="EFDemoModel.Store.HCategories" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="HCategory1">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="HCategory">
+							<PropertyRef Name="Parent_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Address_Country">
+					<End Role="Address" Type="EFDemoModel.Store.Addresses" Multiplicity="*" />
+					<End Role="Country" Type="EFDemoModel.Store.Countries" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Country">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Address">
+							<PropertyRef Name="Country_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FileAttachment_FileData">
+					<End Role="FileAttachment" Type="EFDemoModel.Store.FileAttachments" Multiplicity="*" />
+					<End Role="FileData" Type="EFDemoModel.Store.FileData" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="FileData">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="FileAttachment">
+							<PropertyRef Name="File_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="PortfolioFileData_Resume">
+					<End Role="PortfolioFileData" Type="EFDemoModel.Store.FileAttachments_PortfolioFileData" Multiplicity="*" />
+					<End Role="Resume" Type="EFDemoModel.Store.Resumes" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Resume">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="PortfolioFileData">
+							<PropertyRef Name="Resume_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Resume_Contact">
+					<End Role="Resume" Type="EFDemoModel.Store.Resumes" Multiplicity="*" />
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Contact">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Resume">
+							<PropertyRef Name="Contact_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Party_Address1">
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="*" />
+					<End Role="Address" Type="EFDemoModel.Store.Addresses" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Address">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Party">
+							<PropertyRef Name="Address1_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Party_Address2">
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="*" />
+					<End Role="Address" Type="EFDemoModel.Store.Addresses" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Address">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Party">
+							<PropertyRef Name="Address2_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Contact_Contact">
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="*" />
+					<End Role="Contact1" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Contact1">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Contact">
+							<PropertyRef Name="Manager_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Role_TypePermissionObject">
+					<End Role="Role" Type="EFDemoModel.Store.Roles" Multiplicity="0..1" />
+					<End Role="TypePermissionObject" Type="EFDemoModel.Store.TypePermissionObjects" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Role">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="TypePermissionObject">
+							<PropertyRef Name="Role_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Task_Party">
+					<End Role="Task" Type="EFDemoModel.Store.Tasks" Multiplicity="*" />
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Party">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Task">
+							<PropertyRef Name="AssignedTo_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="Event_Event">
+					<End Role="Event" Type="EFDemoModel.Store.Events" Multiplicity="*" />
+					<End Role="Event1" Type="EFDemoModel.Store.Events" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Event1">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Event">
+							<PropertyRef Name="RecurrencePattern_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Departments_Positions_Department">
+					<End Role="Department" Type="EFDemoModel.Store.Departments" Multiplicity="1" />
+					<End Role="Departments_Positions" Type="EFDemoModel.Store.Departments_Positions" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Department">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Departments_Positions">
+							<PropertyRef Name="Departments_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Departments_Positions_Position">
+					<End Role="Departments_Positions" Type="EFDemoModel.Store.Departments_Positions" Multiplicity="*" />
+					<End Role="Position" Type="EFDemoModel.Store.Positions" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Position">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Departments_Positions">
+							<PropertyRef Name="Positions_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Events_Resources_Event">
+					<End Role="Event" Type="EFDemoModel.Store.Events" Multiplicity="1" />
+					<End Role="Events_Resources" Type="EFDemoModel.Store.Events_Resources" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Event">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Events_Resources">
+							<PropertyRef Name="Events_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Events_Resources_Resource">
+					<End Role="Events_Resources" Type="EFDemoModel.Store.Events_Resources" Multiplicity="*" />
+					<End Role="Resource" Type="EFDemoModel.Store.Resources" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Resource">
+							<PropertyRef Name="Key" />
+						</Principal>
+						<Dependent Role="Events_Resources">
+							<PropertyRef Name="Resources_Key" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Users_Roles_User">
+					<End Role="User" Type="EFDemoModel.Store.Users" Multiplicity="1" />
+					<End Role="Users_Roles" Type="EFDemoModel.Store.Users_Roles" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="User">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Users_Roles">
+							<PropertyRef Name="Users_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Users_Roles_Role">
+					<End Role="Users_Roles" Type="EFDemoModel.Store.Users_Roles" Multiplicity="*" />
+					<End Role="Role" Type="EFDemoModel.Store.Roles" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Role">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Users_Roles">
+							<PropertyRef Name="Roles_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Roles_Roles_Role1">
+					<End Role="Role1" Type="EFDemoModel.Store.Roles" Multiplicity="1" />
+					<End Role="Roles_Roles" Type="EFDemoModel.Store.Roles_Roles" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Role1">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Roles_Roles">
+							<PropertyRef Name="ParentRoles_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Roles_Roles_Role2">
+					<End Role="Roles_Roles" Type="EFDemoModel.Store.Roles_Roles" Multiplicity="*" />
+					<End Role="Role2" Type="EFDemoModel.Store.Roles" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Role2">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Roles_Roles">
+							<PropertyRef Name="ChildRoles_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_DemoTasks_Contacts_DemoTask">
+					<End Role="DemoTask" Type="EFDemoModel.Store.Tasks_DemoTask" Multiplicity="1" />
+					<End Role="DemoTasks_Contacts" Type="EFDemoModel.Store.DemoTasks_Contacts" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="DemoTask">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="DemoTasks_Contacts">
+							<PropertyRef Name="Tasks_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_DemoTasks_Contacts_Contact">
+					<End Role="DemoTasks_Contacts" Type="EFDemoModel.Store.DemoTasks_Contacts" Multiplicity="*" />
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="1" />
+					<ReferentialConstraint>
+						<Principal Role="Contact">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="DemoTasks_Contacts">
+							<PropertyRef Name="Contacts_ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Person_inherits_Party">
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="1" />
+					<End Role="Person" Type="EFDemoModel.Store.Parties_Person" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Party">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Person">
+							<PropertyRef Name="ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Contact_inherits_Person">
+					<End Role="Person" Type="EFDemoModel.Store.Parties_Person" Multiplicity="1" />
+					<End Role="Contact" Type="EFDemoModel.Store.Parties_Contact" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Person">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Contact">
+							<PropertyRef Name="ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_PortfolioFileData_inherits_FileAttachment">
+					<End Role="FileAttachment" Type="EFDemoModel.Store.FileAttachments" Multiplicity="1" />
+					<End Role="PortfolioFileData" Type="EFDemoModel.Store.FileAttachments_PortfolioFileData" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="FileAttachment">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="PortfolioFileData">
+							<PropertyRef Name="ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_DemoTask_inherits_Task">
+					<End Role="Task" Type="EFDemoModel.Store.Tasks" Multiplicity="1" />
+					<End Role="DemoTask" Type="EFDemoModel.Store.Tasks_DemoTask" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Task">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="DemoTask">
+							<PropertyRef Name="ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Organization_inherits_Party">
+					<End Role="Party" Type="EFDemoModel.Store.Parties" Multiplicity="1" />
+					<End Role="Organization" Type="EFDemoModel.Store.Parties_Organization" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Party">
+							<PropertyRef Name="ID" />
+						</Principal>
+						<Dependent Role="Organization">
+							<PropertyRef Name="ID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+			</Schema>
+		</edmx:StorageModels>
+		<!-- CSDL content -->
+		<edmx:ConceptualModels>
+			<Schema Namespace="EFDemoModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+				<EntityContainer Name="EFDemoObjectContext" a:LazyLoadingEnabled="true" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+					<EntitySet Name="Departments" EntityType="EFDemoModel.Department" />
+					<EntitySet Name="Positions" EntityType="EFDemoModel.Position" />
+					<AssociationSet Name="Departments_Positions" Association="EFDemoModel.Departments_Positions">
+						<End Role="Department" EntitySet="Departments" />
+						<End Role="Position" EntitySet="Positions" />
+					</AssociationSet>
+					<EntitySet Name="Parties" EntityType="EFDemoModel.Party" />
+					<AssociationSet Name="Contact_Department" Association="EFDemoModel.Contact_Department">
+						<End Role="Department" EntitySet="Departments" />
+						<End Role="Contact" EntitySet="Parties" />
+					</AssociationSet>
+					<EntitySet Name="Tasks" EntityType="EFDemoModel.Task" />
+					<AssociationSet Name="Contact_Position" Association="EFDemoModel.Contact_Position">
+						<End Role="Position" EntitySet="Positions" />
+						<End Role="Contact" EntitySet="Parties" />
+					</AssociationSet>
+					<EntitySet Name="Notes" EntityType="EFDemoModel.Note" />
+					<EntitySet Name="PhoneNumbers" EntityType="EFDemoModel.PhoneNumber" />
+					<AssociationSet Name="PhoneNumber_Party" Association="EFDemoModel.PhoneNumber_Party">
+						<End Role="PhoneNumber" EntitySet="PhoneNumbers" />
+						<End Role="Party" EntitySet="Parties" />
+					</AssociationSet>
+					<EntitySet Name="States" EntityType="EFDemoModel.State" />
+					<EntitySet Name="Payments" EntityType="EFDemoModel.Payment" />
+					<EntitySet Name="Countries" EntityType="EFDemoModel.Country" />
+					<EntitySet Name="HCategories" EntityType="EFDemoModel.HCategory" />
+					<AssociationSet Name="HCategory_HCategory" Association="EFDemoModel.HCategory_HCategory">
+						<End Role="HCategory" EntitySet="HCategories" />
+						<End Role="HCategory1" EntitySet="HCategories" />
+					</AssociationSet>
+					<EntitySet Name="Addresses" EntityType="EFDemoModel.Address" />
+					<AssociationSet Name="Address_Country" Association="EFDemoModel.Address_Country">
+						<End Role="Address" EntitySet="Addresses" />
+						<End Role="Country" EntitySet="Countries" />
+					</AssociationSet>
+					<EntitySet Name="Resumes" EntityType="EFDemoModel.Resume" />
+					<EntitySet Name="Events" EntityType="EFDemoModel.Event" />
+					<EntitySet Name="Resources" EntityType="EFDemoModel.Resource" />
+					<AssociationSet Name="Events_Resources" Association="EFDemoModel.Events_Resources">
+						<End Role="Event" EntitySet="Events" />
+						<End Role="Resource" EntitySet="Resources" />
+					</AssociationSet>
+					<EntitySet Name="FileData" EntityType="EFDemoModel.FileData" />
+					<EntitySet Name="FileAttachments" EntityType="EFDemoModel.FileAttachment" />
+					<AssociationSet Name="FileAttachment_FileData" Association="EFDemoModel.FileAttachment_FileData">
+						<End Role="FileAttachment" EntitySet="FileAttachments" />
+						<End Role="FileData" EntitySet="FileData" />
+					</AssociationSet>
+					<AssociationSet Name="PortfolioFileData_Resume" Association="EFDemoModel.PortfolioFileData_Resume">
+						<End Role="PortfolioFileData" EntitySet="FileAttachments" />
+						<End Role="Resume" EntitySet="Resumes" />
+					</AssociationSet>
+					<AssociationSet Name="Resume_Contact" Association="EFDemoModel.Resume_Contact">
+						<End Role="Resume" EntitySet="Resumes" />
+						<End Role="Contact" EntitySet="Parties" />
+					</AssociationSet>
+					<AssociationSet Name="Party_Address1" Association="EFDemoModel.Party_Address1">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Address" EntitySet="Addresses" />
+					</AssociationSet>
+					<AssociationSet Name="Party_Address2" Association="EFDemoModel.Party_Address2">
+						<End Role="Party" EntitySet="Parties" />
+						<End Role="Address" EntitySet="Addresses" />
+					</AssociationSet>
+					<AssociationSet Name="Contact_Contact" Association="EFDemoModel.Contact_Contact">
+						<End Role="Contact" EntitySet="Parties" />
+						<End Role="Contact1" EntitySet="Parties" />
+					</AssociationSet>
+					<EntitySet Name="ReportData" EntityType="EFDemoModel.ReportData" />
+					<EntitySet Name="Roles" EntityType="EFDemoModel.Role" />
+					<EntitySet Name="Users" EntityType="EFDemoModel.User" />
+					<AssociationSet Name="Users_Roles" Association="EFDemoModel.Users_Roles">
+						<End Role="User" EntitySet="Users" />
+						<End Role="Role" EntitySet="Roles" />
+					</AssociationSet>
+					<EntitySet Name="TypePermissionObjects" EntityType="EFDemoModel.TypePermissionObject" />
+					<AssociationSet Name="Role_TypePermissionObject" Association="EFDemoModel.Role_TypePermissionObject">
+						<End Role="Role" EntitySet="Roles" />
+						<End Role="TypePermissionObject" EntitySet="TypePermissionObjects" />
+					</AssociationSet>
+					<AssociationSet Name="Roles_Roles" Association="EFDemoModel.Roles_Roles">
+						<End Role="Role1" EntitySet="Roles" />
+						<End Role="Role2" EntitySet="Roles" />
+					</AssociationSet>
+					<EntitySet Name="ModulesInfo" EntityType="EFDemoModel.ModuleInfo" />
+					<EntitySet Name="Analysis" EntityType="EFDemoModel.Analysis" />
+					<AssociationSet Name="Task_Party" Association="EFDemoModel.Task_Party">
+						<End Role="Task" EntitySet="Tasks" />
+						<End Role="Party" EntitySet="Parties" />
+					</AssociationSet>
+					<AssociationSet Name="DemoTasks_Contacts" Association="EFDemoModel.DemoTasks_Contacts">
+						<End Role="DemoTask" EntitySet="Tasks" />
+						<End Role="Contact" EntitySet="Parties" />
+					</AssociationSet>
+					<AssociationSet Name="Event_Event" Association="EFDemoModel.Event_Event">
+						<End Role="Event" EntitySet="Events" />
+						<End Role="Event1" EntitySet="Events" />
+					</AssociationSet>
+				</EntityContainer>
+				<EntityType Name="Department">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Title" Type="String" Nullable="true" />
+					<Property Name="Office" Type="String" Nullable="true" />
+					<NavigationProperty Name="Positions" Relationship="EFDemoModel.Departments_Positions" FromRole="Department" ToRole="Position" />
+					<NavigationProperty Name="Contacts" Relationship="EFDemoModel.Contact_Department" FromRole="Department" ToRole="Contact" />
+				</EntityType>
+				<EntityType Name="Position">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Title" Type="String" Nullable="true" />
+					<NavigationProperty Name="Departments" Relationship="EFDemoModel.Departments_Positions" FromRole="Position" ToRole="Department" />
+					<NavigationProperty Name="Contacts" Relationship="EFDemoModel.Contact_Position" FromRole="Position" ToRole="Contact" />
+				</EntityType>
+				<Association Name="Departments_Positions">
+					<End Type="EFDemoModel.Department" Role="Department" Multiplicity="*" />
+					<End Type="EFDemoModel.Position" Role="Position" Multiplicity="*" />
+				</Association>
+				<EntityType Name="Contact" BaseType="EFDemoModel.Person">
+					<Property Name="WebPageAddress" Type="String" Nullable="true" />
+					<Property Name="NickName" Type="String" Nullable="true" />
+					<Property Name="SpouseName" Type="String" Nullable="true" />
+					<Property Name="TitleOfCourtesy_Int" Type="Int32" Nullable="false" a:GetterAccess="Protected" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Anniversary" Type="DateTime" Nullable="true" />
+					<Property Name="Notes" Type="String" Nullable="true" />
+					<NavigationProperty Name="Department" Relationship="EFDemoModel.Contact_Department" FromRole="Contact" ToRole="Department" />
+					<NavigationProperty Name="Position" Relationship="EFDemoModel.Contact_Position" FromRole="Contact" ToRole="Position" />
+					<NavigationProperty Name="Resumes" Relationship="EFDemoModel.Resume_Contact" FromRole="Contact" ToRole="Resume" />
+					<NavigationProperty Name="Manager" Relationship="EFDemoModel.Contact_Contact" FromRole="Contact" ToRole="Contact1" />
+					<NavigationProperty Name="Contacts" Relationship="EFDemoModel.Contact_Contact" FromRole="Contact1" ToRole="Contact" />
+					<NavigationProperty Name="Tasks" Relationship="EFDemoModel.DemoTasks_Contacts" FromRole="Contact" ToRole="DemoTask" />
+				</EntityType>
+				<EntityType Name="Party" Abstract="true">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Photo_Binary" Type="Binary" Nullable="true" a:GetterAccess="Protected" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="PhoneNumbers" Relationship="EFDemoModel.PhoneNumber_Party" FromRole="Party" ToRole="PhoneNumber" />
+					<NavigationProperty Name="Address1" Relationship="EFDemoModel.Party_Address1" FromRole="Party" ToRole="Address" />
+					<NavigationProperty Name="Address2" Relationship="EFDemoModel.Party_Address2" FromRole="Party" ToRole="Address" />
+					<NavigationProperty Name="AssignedTasks" Relationship="EFDemoModel.Task_Party" FromRole="Party" ToRole="Task" />
+				</EntityType>
+				<EntityType Name="Person" BaseType="EFDemoModel.Party">
+					<Property Name="FirstName" Type="String" Nullable="true" />
+					<Property Name="LastName" Type="String" Nullable="true" />
+					<Property Name="MiddleName" Type="String" Nullable="true" />
+					<Property Name="Birthday" Type="DateTime" Nullable="true" />
+					<Property Name="Email" Type="String" Nullable="true" />
+				</EntityType>
+				<Association Name="Contact_Department">
+					<End Type="EFDemoModel.Department" Role="Department" Multiplicity="0..1" />
+					<End Type="EFDemoModel.Contact" Role="Contact" Multiplicity="*" />
+				</Association>
+				<EntityType Name="DemoTask" BaseType="EFDemoModel.Task">
+					<Property Name="Priority_Int" Type="Int32" Nullable="false" a:SetterAccess="Protected" a:GetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="EstimatedWork" Type="Int32" Nullable="true" />
+					<Property Name="ActualWork" Type="Int32" Nullable="true" />
+					<NavigationProperty Name="Contacts" Relationship="EFDemoModel.DemoTasks_Contacts" FromRole="DemoTask" ToRole="Contact" />
+				</EntityType>
+				<EntityType Name="Task">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="DateCompleted" Type="DateTime" Nullable="true" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Subject" Type="String" Nullable="true" />
+					<Property Name="Description" Type="String" Nullable="true" />
+					<Property Name="DueDate" Type="DateTime" Nullable="true" />
+					<Property Name="StartDate" Type="DateTime" Nullable="true" />
+					<Property Name="Status_Int" Type="Int32" Nullable="false" a:SetterAccess="Public" a:GetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="PercentCompleted" Type="Int32" Nullable="false" />
+					<NavigationProperty Name="AssignedTo" Relationship="EFDemoModel.Task_Party" FromRole="Task" ToRole="Party" />
+				</EntityType>
+				<Association Name="Contact_Position">
+					<End Type="EFDemoModel.Position" Role="Position" Multiplicity="0..1" />
+					<End Type="EFDemoModel.Contact" Role="Contact" Multiplicity="*" />
+				</Association>
+				<EntityType Name="Note">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Author" Type="String" Nullable="true" />
+					<Property Name="DateTime" Type="DateTime" Nullable="true" />
+					<Property Name="Text" Type="String" Nullable="true" />
+				</EntityType>
+				<EntityType Name="PhoneNumber">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Number" Type="String" Nullable="true" />
+					<Property Name="PhoneType" Type="String" Nullable="true" />
+					<NavigationProperty Name="Party" Relationship="EFDemoModel.PhoneNumber_Party" FromRole="PhoneNumber" ToRole="Party" />
+				</EntityType>
+				<Association Name="PhoneNumber_Party">
+					<End Type="EFDemoModel.PhoneNumber" Role="PhoneNumber" Multiplicity="*" />
+					<End Type="EFDemoModel.Party" Role="Party" Multiplicity="0..1" />
+				</Association>
+				<EntityType Name="State">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="ShortName" Type="String" Nullable="true" />
+					<Property Name="LongName" Type="String" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Payment">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Rate" Type="Decimal" Nullable="false" />
+					<Property Name="Hours" Type="Decimal" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Organization" BaseType="EFDemoModel.Party">
+					<Property Name="FullName" Type="String" Nullable="true" />
+					<Property Name="Profile" Type="String" Nullable="true" />
+					<Property Name="Email" Type="String" Nullable="true" />
+					<Property Name="WebSite" Type="String" Nullable="true" />
+					<Property Name="Description" Type="String" Nullable="true" />
+					<Property Name="Name" Type="String" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Country">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Name" Type="String" Nullable="true" />
+					<Property Name="PhoneCode" Type="String" Nullable="true" />
+					<NavigationProperty Name="Addresses" Relationship="EFDemoModel.Address_Country" FromRole="Country" ToRole="Address" />
+				</EntityType>
+				<EntityType Name="HCategory">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Parent" Relationship="EFDemoModel.HCategory_HCategory" FromRole="HCategory" ToRole="HCategory1" />
+					<NavigationProperty Name="Children" Relationship="EFDemoModel.HCategory_HCategory" FromRole="HCategory1" ToRole="HCategory" />
+					<Property Name="Name" Type="String" Nullable="true" />
+				</EntityType>
+				<Association Name="HCategory_HCategory">
+					<End Type="EFDemoModel.HCategory" Role="HCategory" Multiplicity="*" />
+					<End Type="EFDemoModel.HCategory" Role="HCategory1" Multiplicity="0..1" />
+				</Association>
+				<EntityType Name="Address">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Street" Type="String" Nullable="true" />
+					<Property Name="City" Type="String" Nullable="true" />
+					<Property Name="StateProvince" Type="String" Nullable="true" />
+					<Property Name="ZipPostal" Type="String" Nullable="true" />
+					<NavigationProperty Name="Country" Relationship="EFDemoModel.Address_Country" FromRole="Address" ToRole="Country" />
+					<NavigationProperty Name="Parties1" Relationship="EFDemoModel.Party_Address1" FromRole="Address" ToRole="Party" />
+					<NavigationProperty Name="Parties2" Relationship="EFDemoModel.Party_Address2" FromRole="Address" ToRole="Party" />
+				</EntityType>
+				<Association Name="Address_Country">
+					<End Type="EFDemoModel.Address" Role="Address" Multiplicity="*" />
+					<End Type="EFDemoModel.Country" Role="Country" Multiplicity="0..1" />
+				</Association>
+				<EntityType Name="Resume">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Portfolio" Relationship="EFDemoModel.PortfolioFileData_Resume" FromRole="Resume" ToRole="PortfolioFileData" />
+					<NavigationProperty Name="Contact" Relationship="EFDemoModel.Resume_Contact" FromRole="Resume" ToRole="Contact" />
+				</EntityType>
+				<EntityType Name="Event">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Subject" Type="String" Nullable="true" />
+					<Property Name="Description" Type="String" Nullable="true" />
+					<Property Name="StartOn" Type="DateTime" Nullable="true" />
+					<Property Name="EndOn" Type="DateTime" Nullable="true" />
+					<Property Name="AllDay" Type="Boolean" Nullable="false" />
+					<Property Name="Location" Type="String" Nullable="true" />
+					<Property Name="Label" Type="Int32" Nullable="false" />
+					<Property Name="Status" Type="Int32" Nullable="false" />
+					<Property Name="Type" Type="Int32" Nullable="false" />
+					<NavigationProperty Name="Resources" Relationship="EFDemoModel.Events_Resources" FromRole="Event" ToRole="Resource" />
+					<Property Name="RecurrenceInfoXml" Type="String" Nullable="true" />
+					<NavigationProperty Name="RecurrencePattern" Relationship="EFDemoModel.Event_Event" FromRole="Event" ToRole="Event1" />
+					<NavigationProperty Name="RecurrenceEvents" Relationship="EFDemoModel.Event_Event" FromRole="Event1" ToRole="Event" />
+				</EntityType>
+				<EntityType Name="Resource">
+					<Key>
+						<PropertyRef Name="Key" />
+					</Key>
+					<Property Name="Key" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Caption" Type="String" Nullable="true" />
+					<Property Name="Color_Int" Type="Int32" Nullable="false" a:GetterAccess="Protected" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Events" Relationship="EFDemoModel.Events_Resources" FromRole="Resource" ToRole="Event" />
+				</EntityType>
+				<Association Name="Events_Resources">
+					<End Type="EFDemoModel.Event" Role="Event" Multiplicity="*" />
+					<End Type="EFDemoModel.Resource" Role="Resource" Multiplicity="*" />
+				</Association>
+				<EntityType Name="FileData">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Name="Size" Type="Int32" Nullable="false" />
+					<Property Name="FileName" Type="String" Nullable="true" />
+					<Property Name="Content" Type="Binary" Nullable="true" />
+					<NavigationProperty Name="FileAttachment" Relationship="EFDemoModel.FileAttachment_FileData" FromRole="FileData" ToRole="FileAttachment" />
+				</EntityType>
+				<EntityType Name="FileAttachment" Abstract="true">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Name="ID" Type="Int32" Nullable="false" a:StoreGeneratedPattern="Identity" b:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="File" Relationship="EFDemoModel.FileAttachment_FileData" FromRole="FileAttachment" ToRole="FileData" />
+				</EntityType>
+				<Association Name="FileAttachment_FileData">
+					<End Type="EFDemoModel.FileAttachment" Role="FileAttachment" Multiplicity="1">
+					</End>
+					<End Type="EFDemoModel.FileData" Role="FileData" Multiplicity="1" />
+				</Association>
+				<EntityType Name="PortfolioFileData" BaseType="EFDemoModel.FileAttachment">
+					<Property Name="DocumentType_Int" Type="Int32" Nullable="false" a:GetterAccess="Protected" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Resume" Relationship="EFDemoModel.PortfolioFileData_Resume" FromRole="PortfolioFileData" ToRole="Resume" />
+				</EntityType>
+				<Association Name="PortfolioFileData_Resume">
+					<End Type="EFDemoModel.PortfolioFileData" Role="PortfolioFileData" Multiplicity="*" />
+					<End Type="EFDemoModel.Resume" Role="Resume" Multiplicity="1" />
+				</Association>
+				<Association Name="Resume_Contact">
+					<End Type="EFDemoModel.Resume" Role="Resume" Multiplicity="*" />
+					<End Type="EFDemoModel.Contact" Role="Contact" Multiplicity="0..1" />
+				</Association>
+				<Association Name="Party_Address1">
+					<End Type="EFDemoModel.Party" Role="Party" Multiplicity="*" />
+					<End Type="EFDemoModel.Address" Role="Address" Multiplicity="0..1" />
+				</Association>
+				<Association Name="Party_Address2">
+					<End Type="EFDemoModel.Party" Role="Party" Multiplicity="*" />
+					<End Type="EFDemoModel.Address" Role="Address" Multiplicity="0..1" />
+				</Association>
+				<Association Name="Contact_Contact">
+					<End Type="EFDemoModel.Contact" Role="Contact" Multiplicity="*" />
+					<End Type="EFDemoModel.Contact" Role="Contact1" Multiplicity="0..1" />
+				</Association>
+				<EntityType Name="ReportData">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Type="Binary" Name="Content" Nullable="true" />
+					<Property Type="String" Name="DataTypeName" Nullable="true" />
+					<Property Type="Boolean" Name="IsInplaceReport" Nullable="false" />
+					<Property Type="String" Name="ReportName" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" Nullable="true" />
+				</EntityType>
+				<EntityType Name="Role">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Type="String" Name="Name" Nullable="true" />
+					<NavigationProperty Name="Users" Relationship="EFDemoModel.Users_Roles" FromRole="Role" ToRole="User" />
+					<Property Type="Boolean" Name="IsAdministrative" Nullable="false" />
+					<Property Type="Boolean" Name="CanEditModel" Nullable="false" />
+					<NavigationProperty Name="TypePermissions" Relationship="EFDemoModel.Role_TypePermissionObject" FromRole="Role" ToRole="TypePermissionObject" />
+					<NavigationProperty Name="ChildRoles" Relationship="EFDemoModel.Roles_Roles" FromRole="Role1" ToRole="Role2" />
+					<NavigationProperty Name="ParentRoles" Relationship="EFDemoModel.Roles_Roles" FromRole="Role2" ToRole="Role1" />
+				</EntityType>
+				<EntityType Name="User">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Roles" Relationship="EFDemoModel.Users_Roles" FromRole="User" ToRole="Role" />
+					<Property Type="String" Name="UserName" Nullable="true" />
+					<Property Type="Boolean" Name="IsActive" Nullable="false" DefaultValue="True" />
+					<Property Type="Boolean" Name="ChangePasswordOnFirstLogon" Nullable="false" />
+					<Property Type="String" Name="StoredPassword" Nullable="true" a:GetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:SetterAccess="Protected" />
+				</EntityType>
+				<Association Name="Users_Roles">
+					<End Type="EFDemoModel.User" Role="User" Multiplicity="*" />
+					<End Type="EFDemoModel.Role" Role="Role" Multiplicity="*" />
+				</Association>
+				<EntityType Name="TypePermissionObject">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<NavigationProperty Name="Role" Relationship="EFDemoModel.Role_TypePermissionObject" FromRole="TypePermissionObject" ToRole="Role" />
+					<Property Type="Boolean" Name="AllowRead" Nullable="false" />
+					<Property Type="Boolean" Name="AllowWrite" Nullable="false" />
+					<Property Type="Boolean" Name="AllowCreate" Nullable="false" />
+					<Property Type="Boolean" Name="AllowDelete" Nullable="false" />
+					<Property Type="Boolean" Name="AllowNavigate" Nullable="false" />
+					<Property Type="String" Name="TargetTypeFullName" Nullable="false" a:SetterAccess="Protected" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" a:GetterAccess="Protected" />
+				</EntityType>
+				<Association Name="Role_TypePermissionObject">
+					<End Type="EFDemoModel.Role" Role="Role" Multiplicity="0..1" />
+					<End Type="EFDemoModel.TypePermissionObject" Role="TypePermissionObject" Multiplicity="*" />
+				</Association>
+				<Association Name="Roles_Roles">
+					<End Type="EFDemoModel.Role" Role="Role1" Multiplicity="*" />
+					<End Type="EFDemoModel.Role" Role="Role2" Multiplicity="*" />
+				</Association>
+				<EntityType Name="ModuleInfo">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Type="String" Name="Name" Nullable="true" />
+					<Property Type="String" Name="Version" Nullable="true" />
+					<Property Type="String" Name="AssemblyFileName" Nullable="true" />
+					<Property Type="Boolean" Name="IsMain" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Analysis">
+					<Key>
+						<PropertyRef Name="ID" />
+					</Key>
+					<Property Type="Int32" Name="ID" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" b:SetterAccess="Protected" xmlns:b="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+					<Property Type="String" Name="Name" Nullable="true" />
+					<Property Type="String" Name="Criteria" Nullable="true" />
+					<Property Type="String" Name="ObjectTypeName" Nullable="true" />
+					<Property Type="String" Name="DimensionPropertiesString" Nullable="true" />
+					<Property Type="Binary" Name="PivotGridSettingsContent" Nullable="true" />
+					<Property Type="Binary" Name="ChartSettingsContent" Nullable="true" />
+				</EntityType>
+				<Association Name="Task_Party">
+					<End Type="EFDemoModel.Task" Role="Task" Multiplicity="*" />
+					<End Type="EFDemoModel.Party" Role="Party" Multiplicity="0..1" />
+				</Association>
+				<Association Name="DemoTasks_Contacts">
+					<End Type="EFDemoModel.DemoTask" Role="DemoTask" Multiplicity="*" />
+					<End Type="EFDemoModel.Contact" Role="Contact" Multiplicity="*" />
+				</Association>
+				<Association Name="Event_Event">
+					<End Type="EFDemoModel.Event" Role="Event" Multiplicity="*" />
+					<End Type="EFDemoModel.Event" Role="Event1" Multiplicity="0..1" />
+				</Association>
+			</Schema>
+		</edmx:ConceptualModels>
+		<!-- C-S mapping content -->
+		<edmx:Mappings>
+			<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+				<EntityContainerMapping StorageEntityContainer="EFDemoModelStoreContainer" CdmEntityContainer="EFDemoObjectContext">
+					<EntitySetMapping Name="Departments">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Department)">
+							<MappingFragment StoreEntitySet="Departments">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Title" ColumnName="Title" />
+								<ScalarProperty Name="Office" ColumnName="Office" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Positions">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Position)">
+							<MappingFragment StoreEntitySet="Positions">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Title" ColumnName="Title" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Parties">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Party)">
+							<MappingFragment StoreEntitySet="Parties">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Photo_Binary" ColumnName="Photo_Binary" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Person)">
+							<MappingFragment StoreEntitySet="Parties_Person">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="FirstName" ColumnName="FirstName" />
+								<ScalarProperty Name="LastName" ColumnName="LastName" />
+								<ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+								<ScalarProperty Name="Birthday" ColumnName="Birthday" />
+								<ScalarProperty Name="Email" ColumnName="Email" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Contact)">
+							<MappingFragment StoreEntitySet="Parties_Contact">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="WebPageAddress" ColumnName="WebPageAddress" />
+								<ScalarProperty Name="NickName" ColumnName="NickName" />
+								<ScalarProperty Name="SpouseName" ColumnName="SpouseName" />
+								<ScalarProperty Name="TitleOfCourtesy_Int" ColumnName="TitleOfCourtesy_Int" />
+								<ScalarProperty Name="Anniversary" ColumnName="Anniversary" />
+								<ScalarProperty Name="Notes" ColumnName="Notes" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Organization)">
+							<MappingFragment StoreEntitySet="Parties_Organization">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="FullName" ColumnName="FullName" />
+								<ScalarProperty Name="Profile" ColumnName="Profile" />
+								<ScalarProperty Name="Email" ColumnName="Email" />
+								<ScalarProperty Name="WebSite" ColumnName="WebSite" />
+								<ScalarProperty Name="Description" ColumnName="Description" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Tasks">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Task)">
+							<MappingFragment StoreEntitySet="Tasks">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+								<ScalarProperty Name="Subject" ColumnName="Subject" />
+								<ScalarProperty Name="Description" ColumnName="Description" />
+								<ScalarProperty Name="DueDate" ColumnName="DueDate" />
+								<ScalarProperty Name="StartDate" ColumnName="StartDate" />
+								<ScalarProperty Name="Status_Int" ColumnName="Status_Int" />
+								<ScalarProperty Name="PercentCompleted" ColumnName="PercentCompleted" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.DemoTask)">
+							<MappingFragment StoreEntitySet="Tasks_DemoTask">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Priority_Int" ColumnName="Priority_Int" />
+								<ScalarProperty Name="EstimatedWork" ColumnName="EstimatedWork" />
+								<ScalarProperty Name="ActualWork" ColumnName="ActualWork" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Notes">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Note)">
+							<MappingFragment StoreEntitySet="Notes">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Author" ColumnName="Author" />
+								<ScalarProperty Name="DateTime" ColumnName="DateTime" />
+								<ScalarProperty Name="Text" ColumnName="Text" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="PhoneNumbers">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.PhoneNumber)">
+							<MappingFragment StoreEntitySet="PhoneNumbers">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Number" ColumnName="Number" />
+								<ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="States">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.State)">
+							<MappingFragment StoreEntitySet="States">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="ShortName" ColumnName="ShortName" />
+								<ScalarProperty Name="LongName" ColumnName="LongName" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Payments">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Payment)">
+							<MappingFragment StoreEntitySet="Payments">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Rate" ColumnName="Rate" />
+								<ScalarProperty Name="Hours" ColumnName="Hours" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Countries">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Country)">
+							<MappingFragment StoreEntitySet="Countries">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="HCategories">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.HCategory)">
+							<MappingFragment StoreEntitySet="HCategories">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Addresses">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Address)">
+							<MappingFragment StoreEntitySet="Addresses">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Street" ColumnName="Street" />
+								<ScalarProperty Name="City" ColumnName="City" />
+								<ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+								<ScalarProperty Name="ZipPostal" ColumnName="ZipPostal" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Resumes">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Resume)">
+							<MappingFragment StoreEntitySet="Resumes">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Events">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Event)">
+							<MappingFragment StoreEntitySet="Events">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Subject" ColumnName="Subject" />
+								<ScalarProperty Name="Description" ColumnName="Description" />
+								<ScalarProperty Name="StartOn" ColumnName="StartOn" />
+								<ScalarProperty Name="EndOn" ColumnName="EndOn" />
+								<ScalarProperty Name="AllDay" ColumnName="AllDay" />
+								<ScalarProperty Name="Location" ColumnName="Location" />
+								<ScalarProperty Name="Label" ColumnName="Label" />
+								<ScalarProperty Name="Status" ColumnName="Status" />
+								<ScalarProperty Name="Type" ColumnName="Type" />
+								<ScalarProperty Name="RecurrenceInfoXml" ColumnName="RecurrenceInfoXml" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Resources">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Resource)">
+							<MappingFragment StoreEntitySet="Resources">
+								<ScalarProperty Name="Key" ColumnName="Key" />
+								<ScalarProperty Name="Caption" ColumnName="Caption" />
+								<ScalarProperty Name="Color_Int" ColumnName="Color_Int" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="FileData">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.FileData)">
+							<MappingFragment StoreEntitySet="FileData">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Size" ColumnName="Size" />
+								<ScalarProperty Name="FileName" ColumnName="FileName" />
+								<ScalarProperty Name="Content" ColumnName="Content" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="FileAttachments">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.FileAttachment)">
+							<MappingFragment StoreEntitySet="FileAttachments">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.PortfolioFileData)">
+							<MappingFragment StoreEntitySet="FileAttachments_PortfolioFileData">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="DocumentType_Int" ColumnName="DocumentType_Int" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="ReportData">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.ReportData)">
+							<MappingFragment StoreEntitySet="ReportData">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Content" ColumnName="Content" />
+								<ScalarProperty Name="DataTypeName" ColumnName="DataTypeName" />
+								<ScalarProperty Name="IsInplaceReport" ColumnName="IsInplaceReport" />
+								<ScalarProperty Name="ReportName" ColumnName="ReportName" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Roles">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Role)">
+							<MappingFragment StoreEntitySet="Roles">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="IsAdministrative" ColumnName="IsAdministrative" />
+								<ScalarProperty Name="CanEditModel" ColumnName="CanEditModel" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Users">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.User)">
+							<MappingFragment StoreEntitySet="Users">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="UserName" ColumnName="UserName" />
+								<ScalarProperty Name="IsActive" ColumnName="IsActive" />
+								<ScalarProperty Name="ChangePasswordOnFirstLogon" ColumnName="ChangePasswordOnFirstLogon" />
+								<ScalarProperty Name="StoredPassword" ColumnName="StoredPassword" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="TypePermissionObjects">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.TypePermissionObject)">
+							<MappingFragment StoreEntitySet="TypePermissionObjects">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="AllowRead" ColumnName="AllowRead" />
+								<ScalarProperty Name="AllowWrite" ColumnName="AllowWrite" />
+								<ScalarProperty Name="AllowCreate" ColumnName="AllowCreate" />
+								<ScalarProperty Name="AllowDelete" ColumnName="AllowDelete" />
+								<ScalarProperty Name="AllowNavigate" ColumnName="AllowNavigate" />
+								<ScalarProperty Name="TargetTypeFullName" ColumnName="TargetTypeFullName" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="ModulesInfo">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.ModuleInfo)">
+							<MappingFragment StoreEntitySet="ModulesInfo">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="Version" ColumnName="Version" />
+								<ScalarProperty Name="AssemblyFileName" ColumnName="AssemblyFileName" />
+								<ScalarProperty Name="IsMain" ColumnName="IsMain" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Analysis">
+						<EntityTypeMapping TypeName="IsTypeOf(EFDemoModel.Analysis)">
+							<MappingFragment StoreEntitySet="Analysis">
+								<ScalarProperty Name="ID" ColumnName="ID" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="Criteria" ColumnName="Criteria" />
+								<ScalarProperty Name="ObjectTypeName" ColumnName="ObjectTypeName" />
+								<ScalarProperty Name="DimensionPropertiesString" ColumnName="DimensionPropertiesString" />
+								<ScalarProperty Name="PivotGridSettingsContent" ColumnName="PivotGridSettingsContent" />
+								<ScalarProperty Name="ChartSettingsContent" ColumnName="ChartSettingsContent" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<AssociationSetMapping Name="Departments_Positions" TypeName="EFDemoModel.Departments_Positions" StoreEntitySet="Departments_Positions">
+						<EndProperty Name="Department">
+							<ScalarProperty Name="ID" ColumnName="Departments_ID" />
+						</EndProperty>
+						<EndProperty Name="Position">
+							<ScalarProperty Name="ID" ColumnName="Positions_ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Contact_Department" TypeName="EFDemoModel.Contact_Department" StoreEntitySet="Parties_Contact">
+						<EndProperty Name="Department">
+							<ScalarProperty Name="ID" ColumnName="Department_ID" />
+						</EndProperty>
+						<EndProperty Name="Contact">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Department_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Contact_Position" TypeName="EFDemoModel.Contact_Position" StoreEntitySet="Parties_Contact">
+						<EndProperty Name="Position">
+							<ScalarProperty Name="ID" ColumnName="Position_ID" />
+						</EndProperty>
+						<EndProperty Name="Contact">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Position_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="PhoneNumber_Party" TypeName="EFDemoModel.PhoneNumber_Party" StoreEntitySet="PhoneNumbers">
+						<EndProperty Name="Party">
+							<ScalarProperty Name="ID" ColumnName="Party_ID" />
+						</EndProperty>
+						<EndProperty Name="PhoneNumber">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Party_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="HCategory_HCategory" TypeName="EFDemoModel.HCategory_HCategory" StoreEntitySet="HCategories">
+						<EndProperty Name="HCategory1">
+							<ScalarProperty Name="ID" ColumnName="Parent_ID" />
+						</EndProperty>
+						<EndProperty Name="HCategory">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Parent_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Address_Country" TypeName="EFDemoModel.Address_Country" StoreEntitySet="Addresses">
+						<EndProperty Name="Country">
+							<ScalarProperty Name="ID" ColumnName="Country_ID" />
+						</EndProperty>
+						<EndProperty Name="Address">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Country_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Events_Resources" TypeName="EFDemoModel.Events_Resources" StoreEntitySet="Events_Resources">
+						<EndProperty Name="Event">
+							<ScalarProperty Name="ID" ColumnName="Events_ID" />
+						</EndProperty>
+						<EndProperty Name="Resource">
+							<ScalarProperty Name="Key" ColumnName="Resources_Key" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="FileAttachment_FileData" TypeName="EFDemoModel.FileAttachment_FileData" StoreEntitySet="FileAttachments">
+						<EndProperty Name="FileData">
+							<ScalarProperty Name="ID" ColumnName="File_ID" />
+						</EndProperty>
+						<EndProperty Name="FileAttachment">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="PortfolioFileData_Resume" TypeName="EFDemoModel.PortfolioFileData_Resume" StoreEntitySet="FileAttachments_PortfolioFileData">
+						<EndProperty Name="Resume">
+							<ScalarProperty Name="ID" ColumnName="Resume_ID" />
+						</EndProperty>
+						<EndProperty Name="PortfolioFileData">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Resume_Contact" TypeName="EFDemoModel.Resume_Contact" StoreEntitySet="Resumes">
+						<EndProperty Name="Contact">
+							<ScalarProperty Name="ID" ColumnName="Contact_ID" />
+						</EndProperty>
+						<EndProperty Name="Resume">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Contact_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Party_Address1" TypeName="EFDemoModel.Party_Address1" StoreEntitySet="Parties">
+						<EndProperty Name="Address">
+							<ScalarProperty Name="ID" ColumnName="Address1_ID" />
+						</EndProperty>
+						<EndProperty Name="Party">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Address1_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Party_Address2" TypeName="EFDemoModel.Party_Address2" StoreEntitySet="Parties">
+						<EndProperty Name="Address">
+							<ScalarProperty Name="ID" ColumnName="Address2_ID" />
+						</EndProperty>
+						<EndProperty Name="Party">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Address2_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Contact_Contact" TypeName="EFDemoModel.Contact_Contact" StoreEntitySet="Parties_Contact">
+						<EndProperty Name="Contact1">
+							<ScalarProperty Name="ID" ColumnName="Manager_ID" />
+						</EndProperty>
+						<EndProperty Name="Contact">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Manager_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Users_Roles" TypeName="EFDemoModel.Users_Roles" StoreEntitySet="Users_Roles">
+						<EndProperty Name="User">
+							<ScalarProperty Name="ID" ColumnName="Users_ID" />
+						</EndProperty>
+						<EndProperty Name="Role">
+							<ScalarProperty Name="ID" ColumnName="Roles_ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Role_TypePermissionObject" TypeName="EFDemoModel.Role_TypePermissionObject" StoreEntitySet="TypePermissionObjects">
+						<EndProperty Name="Role">
+							<ScalarProperty Name="ID" ColumnName="Role_ID" />
+						</EndProperty>
+						<EndProperty Name="TypePermissionObject">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="Role_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Roles_Roles" TypeName="EFDemoModel.Roles_Roles" StoreEntitySet="Roles_Roles">
+						<EndProperty Name="Role1">
+							<ScalarProperty Name="ID" ColumnName="ParentRoles_ID" />
+						</EndProperty>
+						<EndProperty Name="Role2">
+							<ScalarProperty Name="ID" ColumnName="ChildRoles_ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Task_Party" TypeName="EFDemoModel.Task_Party" StoreEntitySet="Tasks">
+						<EndProperty Name="Party">
+							<ScalarProperty Name="ID" ColumnName="AssignedTo_ID" />
+						</EndProperty>
+						<EndProperty Name="Task">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="AssignedTo_ID" IsNull="false" />
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="DemoTasks_Contacts" TypeName="EFDemoModel.DemoTasks_Contacts" StoreEntitySet="DemoTasks_Contacts">
+						<EndProperty Name="DemoTask">
+							<ScalarProperty Name="ID" ColumnName="Tasks_ID" />
+						</EndProperty>
+						<EndProperty Name="Contact">
+							<ScalarProperty Name="ID" ColumnName="Contacts_ID" />
+						</EndProperty>
+					</AssociationSetMapping>
+					<AssociationSetMapping Name="Event_Event" TypeName="EFDemoModel.Event_Event" StoreEntitySet="Events">
+						<EndProperty Name="Event1">
+							<ScalarProperty Name="ID" ColumnName="RecurrencePattern_ID" />
+						</EndProperty>
+						<EndProperty Name="Event">
+							<ScalarProperty Name="ID" ColumnName="ID" />
+						</EndProperty>
+						<Condition ColumnName="RecurrencePattern_ID" IsNull="false" />
+					</AssociationSetMapping>
+				</EntityContainerMapping>
+			</Mapping>
+		</edmx:Mappings>
+	</edmx:Runtime>
+	<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+	<edmx:Designer>
+		<edmx:Connection>
+			<DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+				<DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+			</DesignerInfoPropertySet>
+		</edmx:Connection>
+		<edmx:Options>
+			<DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+				<DesignerProperty Name="ValidateOnBuild" Value="False" />
+				<DesignerProperty Name="EnablePluralization" Value="False" />
+				<DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+			</DesignerInfoPropertySet>
+		</edmx:Options>
+		<!-- Diagram content (shape and connector positions) -->
+		<edmx:Diagrams>
+			<Diagram Name="EFDemoObjectContext" ZoomLevel="80" DisplayType="true" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+				<EntityTypeShape EntityType="EFDemoModel.Department" Width="1.5" PointX="6.5" PointY="0.5" Height="1.9802864583333335" />
+				<EntityTypeShape EntityType="EFDemoModel.Position" Width="1.5" PointX="8.5" PointY="0.5" Height="1.7879850260416657" />
+				<AssociationConnector Association="EFDemoModel.Departments_Positions">
+					<ConnectorPoint PointX="8" PointY="1.3939925130208328" />
+					<ConnectorPoint PointX="8.5" PointY="1.3939925130208328" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.Contact" Width="1.5" PointX="8.5" PointY="3" Height="3.1340950520833331" />
+				<EntityTypeShape EntityType="EFDemoModel.Party" Width="1.5" PointX="4.5" PointY="3.125" Height="2.172587890625" />
+				<EntityTypeShape EntityType="EFDemoModel.Person" Width="1.5" PointX="6.5" PointY="3.125" Height="1.9802864583333331" />
+				<AssociationConnector Association="EFDemoModel.FK_Contact_Department">
+					<ConnectorPoint PointX="6.375" PointY="1.4901432291666668" />
+					<ConnectorPoint PointX="5.875" PointY="1.4901432291666668" />
+				</AssociationConnector>
+				<InheritanceConnector EntityType="EFDemoModel.Person" ManuallyRouted="false">
+					<ConnectorPoint PointX="6" PointY="4.1151432291666667" />
+					<ConnectorPoint PointX="6.5" PointY="4.1151432291666667" />
+				</InheritanceConnector>
+				<InheritanceConnector EntityType="EFDemoModel.Contact" ManuallyRouted="false">
+					<ConnectorPoint PointX="8" PointY="4.1151432291666667" />
+					<ConnectorPoint PointX="8.5" PointY="4.1151432291666667" />
+				</InheritanceConnector>
+				<EntityTypeShape EntityType="EFDemoModel.DemoTask" Width="1.5" PointX="6.5" PointY="6.875" Height="1.7879850260416657" />
+				<EntityTypeShape EntityType="EFDemoModel.Task" Width="1.5" PointX="4.5" PointY="5.875" Height="2.7494921874999996" />
+				<AssociationConnector Association="EFDemoModel.Contact_Position" ManuallyRouted="false">
+					<ConnectorPoint PointX="9.2187475" PointY="2.2879850260416656" />
+					<ConnectorPoint PointX="9.2187475" PointY="3" />
+				</AssociationConnector>
+				<InheritanceConnector EntityType="EFDemoModel.DemoTask" ManuallyRouted="false">
+					<ConnectorPoint PointX="6" PointY="7.74974609375" />
+					<ConnectorPoint PointX="6.5" PointY="7.74974609375" />
+				</InheritanceConnector>
+				<EntityTypeShape EntityType="EFDemoModel.Note" Width="1.5" PointX="16.5" PointY="3.625" Height="1.7879850260416665" />
+				<AssociationConnector Association="EFDemoModel.Contact_Department" ManuallyRouted="false">
+					<ConnectorPoint PointX="8" PointY="2.4802864583333335" />
+					<ConnectorPoint PointX="8.5" PointY="3" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.PhoneNumber" Width="1.5" PointX="2.5" PointY="3.5" Height="1.7879850260416665" />
+				<AssociationConnector Association="EFDemoModel.PhoneNumber_Party" ManuallyRouted="false">
+					<ConnectorPoint PointX="4" PointY="4.3939925130208337" />
+					<ConnectorPoint PointX="4.5" PointY="4.3939925130208337" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.State" Width="1.5" PointX="0.5" PointY="2.625" Height="1.5956835937499996" />
+				<EntityTypeShape EntityType="EFDemoModel.Payment" Width="1.5" PointX="0.5" PointY="7" Height="1.5956835937499996" />
+				<EntityTypeShape EntityType="EFDemoModel.Organization" Width="1.5" PointX="4.5" PointY="0.5" Height="2.1725878906249996" />
+				<InheritanceConnector EntityType="EFDemoModel.Organization" ManuallyRouted="false">
+					<ConnectorPoint PointX="5.25" PointY="3.125" />
+					<ConnectorPoint PointX="5.25" PointY="2.6725878906249996" />
+				</InheritanceConnector>
+				<EntityTypeShape EntityType="EFDemoModel.Country" Width="1.5" PointX="0.5" PointY="0.5" Height="1.7879850260416665" />
+				<EntityTypeShape EntityType="EFDemoModel.HCategory" Width="1.5" PointX="0.5" PointY="4.5" Height="1.7879850260416674" />
+				<AssociationConnector Association="EFDemoModel.HCategory_HCategory">
+					<ConnectorPoint PointX="1.0319230769230769" PointY="6.2879850260416674" />
+					<ConnectorPoint PointX="1.0319230769230769" PointY="6.5379850260416674" />
+					<ConnectorPoint PointX="1.4784615384615383" PointY="6.5379850260416674" />
+					<ConnectorPoint PointX="1.4784615384615383" PointY="6.2879850260416674" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.Address" Width="1.5" PointX="2.5" PointY="0.5" Height="2.5571907552083331" />
+				<AssociationConnector Association="EFDemoModel.Address_Country">
+					<ConnectorPoint PointX="2.5" PointY="1.3939925130208333" />
+					<ConnectorPoint PointX="2" PointY="1.3939925130208333" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.Resume" Width="1.5" PointX="8.5" PointY="7" Height="1.5956835937499996" />
+				<EntityTypeShape EntityType="EFDemoModel.Event" Width="1.5" PointX="10.5" PointY="0.5" Height="3.7109993489583326" />
+				<EntityTypeShape EntityType="EFDemoModel.Resource" Width="1.5" PointX="10.5" PointY="5" Height="1.7879850260416665" />
+				<AssociationConnector Association="EFDemoModel.Events_Resources">
+					<ConnectorPoint PointX="11.25" PointY="4.2109993489583326" />
+					<ConnectorPoint PointX="11.25" PointY="5" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.FileData" Width="1.5" PointX="14.5" PointY="6.625" Height="1.9802864583333317" />
+				<EntityTypeShape EntityType="EFDemoModel.FileAttachment" Width="1.5" PointX="12.5" PointY="7.25" Height="1.4033821614583335" />
+				<AssociationConnector Association="EFDemoModel.FileAttachment_FileData">
+					<ConnectorPoint PointX="14" PointY="7.9276432291666659" />
+					<ConnectorPoint PointX="14.5" PointY="7.9276432291666659" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.PortfolioFileData" Width="1.5" PointX="10.5" PointY="7.25" Height="1.4033821614583317" />
+				<InheritanceConnector EntityType="EFDemoModel.PortfolioFileData" ManuallyRouted="false">
+					<ConnectorPoint PointX="12.5" PointY="7.9516910807291659" />
+					<ConnectorPoint PointX="12" PointY="7.9516910807291659" />
+				</InheritanceConnector>
+				<AssociationConnector Association="EFDemoModel.PortfolioFileData_Resume">
+					<ConnectorPoint PointX="10.5" PointY="7.922841796875" />
+					<ConnectorPoint PointX="10" PointY="7.922841796875" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Resume_Contact" ManuallyRouted="false">
+					<ConnectorPoint PointX="9.25" PointY="7" />
+					<ConnectorPoint PointX="9.25" PointY="6.326396484375" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Party_Address1">
+					<ConnectorPoint PointX="4.5" PointY="3.125" />
+					<ConnectorPoint PointX="4.0000000000000027" PointY="3.0571907552083331" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Party_Address2">
+					<ConnectorPoint PointX="4.5" PointY="3.125" />
+					<ConnectorPoint PointX="4.0000000000000036" PointY="3.0571907552083331" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Contact_Contact">
+					<ConnectorPoint PointX="10" PointY="4.1500880408653842" />
+					<ConnectorPoint PointX="10.25" PointY="4.1500880408653842" />
+					<ConnectorPoint PointX="10.25" PointY="5.2007422626201922" />
+					<ConnectorPoint PointX="10" PointY="5.2007422626201922" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.ReportData" Width="1.5" PointX="12.5" PointY="3.25" Height="1.9802864583333335" />
+				<EntityTypeShape EntityType="EFDemoModel.Role" Width="1.5" PointX="14.5" PointY="3.375" Height="2.5571907552083326" />
+				<EntityTypeShape EntityType="EFDemoModel.User" Width="1.5" PointX="14.5" PointY="0.5" Height="2.172587890625" />
+				<AssociationConnector Association="EFDemoModel.Users_Roles">
+					<ConnectorPoint PointX="15.25" PointY="2.672587890625" />
+					<ConnectorPoint PointX="15.25" PointY="3.375" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.TypePermissionObject" Width="1.5" PointX="16.5" PointY="0.5" Height="2.5571907552083317" />
+				<AssociationConnector Association="EFDemoModel.Role_TypePermissionObject">
+					<ConnectorPoint PointX="16" PointY="3.375" />
+					<ConnectorPoint PointX="16.5" PointY="3.0571907552083317" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Roles_Roles">
+					<ConnectorPoint PointX="15.031923076923077" PointY="5.9321907552083326" />
+					<ConnectorPoint PointX="15.031923076923077" PointY="6.1821907552083317" />
+					<ConnectorPoint PointX="15.478461538461538" PointY="6.1821907552083317" />
+					<ConnectorPoint PointX="15.478461538461538" PointY="5.9321907552083326" />
+				</AssociationConnector>
+				<EntityTypeShape EntityType="EFDemoModel.ModuleInfo" Width="1.5" PointX="16.5" PointY="6.625" Height="1.9802864583333335" />
+				<EntityTypeShape EntityType="EFDemoModel.Analysis" Width="1.5" PointX="12.5" PointY="0.5" Height="2.3648893229166656" />
+				<AssociationConnector Association="EFDemoModel.Task_Party">
+					<ConnectorPoint PointX="5.25" PointY="5.875" />
+					<ConnectorPoint PointX="5.25" PointY="5.297587890625" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.DemoTasks_Contacts">
+					<ConnectorPoint PointX="8" PointY="6.875" />
+					<ConnectorPoint PointX="8.5" PointY="6.326396484375" />
+				</AssociationConnector>
+				<AssociationConnector Association="EFDemoModel.Event_Event">
+					<ConnectorPoint PointX="11.031923076923077" PointY="0.5" />
+					<ConnectorPoint PointX="11.031923076923077" PointY="0.25000000000000022" />
+					<ConnectorPoint PointX="11.478461538461538" PointY="0.25000000000000022" />
+					<ConnectorPoint PointX="11.478461538461538" PointY="0.5" />
+				</AssociationConnector>
+			</Diagram>
+		</edmx:Diagrams>
+	</edmx:Designer>
+</edmx:Edmx>

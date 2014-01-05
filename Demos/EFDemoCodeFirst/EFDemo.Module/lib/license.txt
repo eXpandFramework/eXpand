@@ -1,0 +1,4 @@
+The license agreement for EntityFramework from Microsoft is available at http://msdn.microsoft.com/en-us/data/dn467385.
+Check the package for additional dependencies, which may come with their own license agreement(s). 
+Your use of the package and dependencies constitutes your acceptance of their license agreements. 
+If you do not accept the license agreement(s), then delete the relevant components from your device.

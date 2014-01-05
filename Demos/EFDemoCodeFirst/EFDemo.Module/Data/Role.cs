@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
-using System.Data.Objects.DataClasses;
+using System.Data.Entity.Core.Objects.DataClasses;
 using System.ComponentModel.DataAnnotations;
 
 using DevExpress.ExpressApp.Security;

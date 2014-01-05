@@ -1,9 +1,9 @@
 using System;
 using System.Configuration;
 using System.Globalization;
-using System.Web;
 using System.Reflection;
-
+using System.Web;
+using DevExpress.DemoData.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.TestScripts;
@@ -14,42 +14,36 @@ using EFDemo.Module.Data;
 
 namespace EFDemo.Web {
     public class Global : System.Web.HttpApplication {
-#if CodeFirst
-		private static Assembly CurrentDomain_AssemblyResolve(Object sender, ResolveEventArgs args) {
-			if(args.Name.Contains(Consts.EntityFrameworkAssemblyName + ",")) {
-				String text = String.Format(@"Could not load assembly ""{0}"".", args.Name) + "\r\n\r\n" + Consts.CodeFirstMessageText + "\r\n";
-				throw new Exception(text);
-			}
-			return null;
-		}
-#endif
-		public Global() {
+        public Global() {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
-#if CodeFirst
-			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
-#endif
-
-
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
 #if DEBUG
-			TestScriptsManager.EasyTestEnabled = true;
+            TestScriptsManager.EasyTestEnabled = true;
 #endif
-		}
+        }
         protected void Session_Start(Object sender, EventArgs e) {
             WebApplication.SetInstance(Session, new EFDemoWebApplication());
             AuditTrailService.Instance.CustomizeAuditTrailSettings += new CustomizeAuditSettingsEventHandler(Instance_CustomizeAuditTrailSettings);
             AuditTrailService.Instance.QueryCurrentUserName += new QueryCurrentUserNameEventHandler(Instance_QueryCurrentUserName);
-            WebApplication.Instance.LastLogonParametersReading += new EventHandler<LastLogonParametersReadingEventArgs>(Instance_LastLogonParametersReading);
-            WebApplication.Instance.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(Instance_CustomizeFormattingCulture);
-            if(ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            WebApplication webApplication = WebApplication.Instance;
+            webApplication.LastLogonParametersReading += new EventHandler<LastLogonParametersReadingEventArgs>(Instance_LastLogonParametersReading);
+            webApplication.CustomizeFormattingCulture += new EventHandler<CustomizeFormattingCultureEventArgs>(Instance_CustomizeFormattingCulture);
+            ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["ConnectionString"];
+            if(connectionStringSettings != null) {
+                webApplication.ConnectionString = connectionStringSettings.ConnectionString;
+            }
+            else if(string.IsNullOrEmpty(webApplication.ConnectionString) && webApplication.Connection == null) {
+                connectionStringSettings = ConfigurationManager.ConnectionStrings["SqlExpressConnectionString"];
+                if(connectionStringSettings != null) {
+                    webApplication.ConnectionString = DbEngineDetector.PatchConnectionString(connectionStringSettings.ConnectionString);
+                }
             }
             DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderControllerBase.ScriptRecorderEnabled = true;
 
-            WebApplication.Instance.Setup();
-            WebApplication.Instance.Start();
+            webApplication.Setup();
+            webApplication.Start();
         }
 
         private void Instance_CustomizeFormattingCulture(Object sender, CustomizeFormattingCultureEventArgs e) {

@@ -1,23 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-	<ActionDesign>
-		<Actions>
-			<Action Id="FindBySubjectAction" PaintStyle="Image" />
-		</Actions>
-	</ActionDesign>
-	<BOModel>
-		<Class Name="EFDemo.Module.Data.Note">
-			<OwnMembers>
-				<Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Web.ASPxHtmlPropertyEditor" />
-			</OwnMembers>
-		</Class>
-	</BOModel>
-	<SchemaModules>
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.HideActionsViewController" Version="7.3.4.4025" IsNewNode="True" />
-		<SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="7.3.4.4025" />
-		<SchemaModule Name="SystemAspNetModule" Version="11.2.1.0" IsNewNode="True" />
-		<SchemaModule Name="SystemModule" Version="11.2.1.0" />
-		<SchemaModule Name="ValidationModule" Version="11.2.1.0" />
-		<SchemaModule Name="ViewVariantsModule" Version="11.2.1.0" />
-	</SchemaModules>
+  <ActionDesign>
+    <Actions>
+      <Action Id="FindBySubjectAction" PaintStyle="Image" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="EFDemo.Module.Data.Note">
+      <OwnMembers>
+        <Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Web.ASPxHtmlPropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerAspNetModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" />
+    <SchemaModule Name="ValidationModule" Version="13.1.1.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.1.1.0" />
+  </SchemaModules>
 </Application>
