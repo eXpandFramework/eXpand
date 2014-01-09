@@ -9,7 +9,7 @@ using DevExpress.Persistent.Validation;
 namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
     public class RuleRequiredForAtLeast1Property : RuleBase {
 
-        private readonly List<string> properties = new List<string>();
+        private readonly List<string> _properties = new List<string>();
 
         public RuleRequiredForAtLeast1Property() {
         }
@@ -47,10 +47,10 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
         }
 
         private Dictionary<string, object> GetValues(object target) {
-            properties.Clear();
-            properties.AddRange(Properties.TargetProperties.Split(Properties.Delimiters.ToCharArray()));
+            _properties.Clear();
+            _properties.AddRange(Properties.TargetProperties.Split(Properties.Delimiters.ToCharArray()));
             ITypeInfo targetTypeInfo = XafTypesInfo.Instance.FindTypeInfo(Properties.TargetType);
-            return properties.ToDictionary(property => property, property => targetTypeInfo.FindMember(property).GetValue(target));
+            return _properties.ToDictionary(property => property, property => targetTypeInfo.FindMember(property).GetValue(target));
         }
     }
 }
