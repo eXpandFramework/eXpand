@@ -348,6 +348,9 @@
     <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ImmediatePostDataListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\RibbonFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
