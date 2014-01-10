@@ -19,8 +19,8 @@ namespace Xpand.Persistent.Base.General {
 
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISelectDataSecurityProvider selectDataSecurityProvider)
-            : base(provider) {
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISelectDataSecurityProvider selectDataSecurityProvider,bool threadSafe=false)
+            : base(provider, threadSafe) {
             _selectDataSecurityProvider = selectDataSecurityProvider;
             DataStoreProvider = provider;
             Tracing.Tracer.LogVerboseValue(GetType().FullName,Environment.StackTrace);
