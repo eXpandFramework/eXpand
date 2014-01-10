@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
         }
     }
 
-    public class AutoExpandAllTreeNodesController : ObjectViewController<ListView, ITreeNode>{
+    public class AutoExpandAllTreeNodesController : ObjectViewController<ListView, ITreeNode>,IModelExtender{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var treeListEditor = View.Editor as TreeListEditor;
@@ -44,6 +44,10 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
                 treeList.VisibleChanged -= TreeList_VisibleChanged;
                 treeList.HandleCreated -= TreeList_HandleCreated;
             }
+        }
+
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            extenders.Add<IModelListView,IModelListViewAutoExpandAllTreeNodes>();
         }
     }
 }
