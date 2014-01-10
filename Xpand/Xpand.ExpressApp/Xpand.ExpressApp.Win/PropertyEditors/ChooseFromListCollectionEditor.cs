@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// </summary>
     [PropertyEditor(typeof(IList<>), false)]
     public class ChooseFromListCollectionEditor : WinPropertyEditor, IChooseFromListCollectionEditor {
-        private CheckedComboBoxEdit comboControl;
+        private CheckedComboBoxEdit _comboControl;
 
 
 
@@ -38,9 +38,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected override void ReadValueCore() {
             var destinationList = PropertyValue as IEnumerable;
             if (destinationList != null) {
-                comboControl.EditValueChanged -= ComboControlEditValueChanged;
+                _comboControl.EditValueChanged -= ComboControlEditValueChanged;
                 SetCheckedItems(destinationList);
-                comboControl.EditValueChanged += ComboControlEditValueChanged;
+                _comboControl.EditValueChanged += ComboControlEditValueChanged;
             }
         }
 
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                     new Exception("ChooseFromListCollectionEditor.WriteValueCore: Cannot get the destination list as an XPCollection."));
             }
 
-            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
+            foreach (CheckedListBoxItemWrapper item in _comboControl.Properties.Items) {
                 switch (item.CheckState) {
                     case CheckState.Checked:
                         if (!destinationList.Contains(item.O)) {
@@ -81,8 +81,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         /// <returns></returns>
         protected override object CreateControlCore() {
-            comboControl = new CheckedComboBoxEdit();
-            return comboControl;
+            _comboControl = new CheckedComboBoxEdit();
+            return _comboControl;
         }
 
         #endregion
@@ -93,7 +93,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         protected override void OnControlCreated() {
             base.OnControlCreated();
-            comboControl.CustomDisplayText += ComboControlCustomDisplayText;
+            _comboControl.CustomDisplayText += ComboControlCustomDisplayText;
             PopulateCheckComboBox();
         }
         #endregion
@@ -119,7 +119,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// <param name="e"></param>
         void ComboControlCustomDisplayText(object sender, CustomDisplayTextEventArgs e) {
             string captionText = string.Empty;
-            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
+            foreach (CheckedListBoxItemWrapper item in _comboControl.Properties.Items) {
                 if (item.CheckState == CheckState.Checked) {
                     if (captionText.Length > 0) captionText += ", ";
                     captionText += string.Format("{0}", item);
@@ -136,14 +136,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// <param name="destinationList"></param>
         private void SetCheckedItems(IEnumerable destinationList) {
             ClearCheckMarks();
-            comboControl.Properties.Items.BeginUpdate();
+            _comboControl.Properties.Items.BeginUpdate();
             foreach (var o in destinationList) {
                 CheckedListBoxItemWrapper found = FindComboItem(o);
                 if (found != null) {
                     found.CheckState = CheckState.Checked;
                 }
             }
-            comboControl.Properties.Items.EndUpdate();
+            _comboControl.Properties.Items.EndUpdate();
         }
 
         #endregion
@@ -153,11 +153,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// Clear checked items in drop down.
         /// </summary>
         private void ClearCheckMarks() {
-            comboControl.Properties.Items.BeginUpdate();
-            foreach (CheckedListBoxItemWrapper item in comboControl.Properties.Items) {
+            _comboControl.Properties.Items.BeginUpdate();
+            foreach (CheckedListBoxItemWrapper item in _comboControl.Properties.Items) {
                 item.CheckState = CheckState.Unchecked;
             }
-            comboControl.Properties.Items.EndUpdate();
+            _comboControl.Properties.Items.EndUpdate();
         }
 
         #endregion
@@ -169,7 +169,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// <param name="containingThisObject"></param>
         /// <returns></returns>
         private CheckedListBoxItemWrapper FindComboItem(object containingThisObject) {
-            return comboControl.Properties.Items.OfType<CheckedListBoxItemWrapper>().FirstOrDefault(item => Equals(item.O, containingThisObject));
+            return _comboControl.Properties.Items.OfType<CheckedListBoxItemWrapper>().FirstOrDefault(item => Equals(item.O, containingThisObject));
         }
 
         #endregion
@@ -179,9 +179,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// load combo box with available items to select.
         /// </summary>
         private void PopulateCheckComboBox() {
-            comboControl.Properties.Items.BeginUpdate();
-            CheckedItems().ForEach(item => comboControl.Properties.Items.Add(item));
-            comboControl.Properties.Items.EndUpdate();
+            _comboControl.Properties.Items.BeginUpdate();
+            CheckedItems().ForEach(item => _comboControl.Properties.Items.Add(item));
+            _comboControl.Properties.Items.EndUpdate();
         }
 
         List<CheckedListBoxItemWrapper> CheckedItems() {

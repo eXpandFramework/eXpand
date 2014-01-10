@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -9,7 +10,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
-using Xpand.ExpressApp.Core;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     public interface IModelToolTipController : IModelNode {
@@ -21,9 +21,11 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         IEnumerable<Type> ToolTipControllers { get; }
     }
     [DomainLogic(typeof(IModelToolTipController))]
-    public class IModelToolTipControllerDomainLogic : BaseDomainLogic {
-        public static IEnumerable<Type> Get_ToolTipControllers(IModelToolTipController modelToolTipController) {
-            return FindTypeDescenants(typeof(ObjectToolTipController));
+    public class ModelToolTipControllerDomainLogic  {
+        public static IEnumerable<Type> Get_ToolTipControllers(IModelToolTipController modelToolTipController){
+            return ReflectionHelper.FindTypeDescendants(XafTypesInfo.Instance.FindTypeInfo(typeof (ObjectToolTipController)))
+                    .Where(info => !info.IsAbstract)
+                    .Select(info => info.Type);
         }
     }
     public interface IObjectToolTipController {
@@ -34,14 +36,14 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
     public abstract class ObjectToolTipController : IDisposable, IObjectToolTipController {
         readonly ToolTipController _toolTipController;
-        readonly Control parent;
+        readonly Control _parent;
         object _editObject;
         bool _hintIsShown;
         IObjectSpace _objectSpace;
 
         protected ObjectToolTipController(Control parent) {
-            this.parent = parent;
-            this.parent.Disposed += delegate { Dispose(); };
+            _parent = parent;
+            _parent.Disposed += delegate { Dispose(); };
             _toolTipController = new ToolTipController();
             _toolTipController.ReshowDelay = _toolTipController.InitialDelay;
             _toolTipController.AllowHtmlText = true;
@@ -76,7 +78,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             info.Object = DateTime.Now.Ticks;
             info.SuperTip = new SuperToolTip();
             info.SuperTip.Items.Add(item);
-            info.ToolTipPosition = parent.PointToScreen(location);
+            info.ToolTipPosition = _parent.PointToScreen(location);
             toolTipController.ShowHint(info);
             _hintIsShown = true;
         }
