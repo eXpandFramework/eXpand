@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DevExpress.Persistent.Base;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp;
@@ -144,10 +141,4 @@ namespace Xpand.ExpressApp.Core {
         }
     }
 
-    public abstract class BaseDomainLogic {
-        protected static IEnumerable<Type> FindTypeDescenants(Type type) {
-            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(type);
-            return ReflectionHelper.FindTypeDescendants(typeInfo).Where(info => !info.IsAbstract).Select(info => info.Type);
-        }
-    }
 }

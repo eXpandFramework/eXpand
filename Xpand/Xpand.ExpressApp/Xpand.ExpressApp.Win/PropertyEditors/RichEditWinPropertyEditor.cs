@@ -21,8 +21,8 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
 
-    public interface IModelMemberViewItemRichEdit {
-        [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
+    public interface IModelMemberViewItemRichEdit:IModelNode {
+//        [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
         IModelRichEdit RichEdit { get; }
     }
 

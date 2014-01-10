@@ -13,7 +13,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
         public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, IObjectSpace objectSpace, bool filter) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
-                LoadFromXml(template.Xml, dashboard);
+                if (!string.IsNullOrEmpty(template.Xml))
+                    LoadFromXml(template.Xml, dashboard);
                 foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new{wrapper.Type,Caption=GetCaption(wrapper)})) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));

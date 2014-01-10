@@ -30,7 +30,7 @@
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs" RelativeSize="90.6318082788671">
-            <LayoutGroup Id="DashboardTypes" RelativeSize="100" Direction="Vertical" Caption="Dashboard Types">
+            <LayoutGroup Id="DashboardTypes" RelativeSize="100" Direction="Vertical" Caption="Xml">
               <LayoutItem Id="Xml" ViewItem="Xml" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
               <LayoutItem Id="DashboardTypes" Removed="True" />
             </LayoutGroup>

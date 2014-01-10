@@ -15,13 +15,13 @@ using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
     public partial class DashboardDesignerForm : RibbonForm, IXPObjectSpaceAwareControl {
-        bool saveDashboard;
+        bool _saveDashboard;
         History _editHistory;
         IObjectSpace _objectSpace;
         IDashboardDefinition _template;
 
         public DevExpress.DashboardCommon.Dashboard Dashboard { get { return dashboardDesigner.Dashboard; } }
-        public bool SaveDashboard { get { return saveDashboard; } }
+        public bool SaveDashboard { get { return _saveDashboard; } }
 
         public DashboardDesignerForm() {
             InitializeComponent();
@@ -88,9 +88,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             DialogResult = DialogResult.OK;
         }
 
-        public void LoadTemplate(IDashboardDefinition DashboardDefinition) {
-            _template = DashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, true);
+        public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
+            _template = dashboardDefinition;
+            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, false);
             _editHistory.Changed += _EditHistory_Changed;
         }
 
@@ -102,7 +102,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
                 if(result == DialogResult.Cancel)
                     e.Cancel = true;
                 else
-                    saveDashboard = result == DialogResult.Yes;
+                    _saveDashboard = result == DialogResult.Yes;
             }
         }
 
