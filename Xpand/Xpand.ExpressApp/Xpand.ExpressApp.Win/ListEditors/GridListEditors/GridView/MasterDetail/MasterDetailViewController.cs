@@ -9,8 +9,11 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraRichEdit.API.Word;
+using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.Persistent.Base.General;
+using Frame = DevExpress.ExpressApp.Frame;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
     public abstract class MasterDetailViewController : ViewController<ListView> {
@@ -65,8 +68,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 SyncronizeDataSourceWithCriteria(columnViewEditor);
                 if (IsMasterDetail()) {
                     var masterDetailColumnView = (IMasterDetailColumnView) (columnViewEditor).ColumnView;
-                    Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=
-                    ShowNavigationItemActionOnExecuting;
+                    Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing +=ShowNavigationItemActionOnExecuting;
                     var grid = columnViewEditor.Grid;
                     grid.ViewRegistered += Grid_ViewRegistered;
                     grid.ViewRemoved += Grid_ViewRemoved;
@@ -77,7 +79,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                     masterDetailColumnView.MasterRowEmpty += ViewOnMasterRowEmpty;
                     masterDetailColumnView.MasterRowGetLevelDefaultView += ViewOnMasterRowGetLevelDefaultView;
                     masterDetailColumnView.MasterRowCollapsing += GridViewOnMasterRowCollapsing;
+                    grid.FocusedViewChanged+=GridOnFocusedViewChanged;
                 }
+            }
+        }
+
+        private void GridOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs){
+            var columnView = ((IMasterDetailColumnView) viewFocusEventArgs.View);
+            if (columnView!=columnView.GridControl.MainView&& columnView != null && columnView.Window != null){
+                ((ListView)columnView.Window.View).Editor.CallMethod("OnFocusedObjectChanged");
             }
         }
 

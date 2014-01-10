@@ -15,6 +15,14 @@ namespace MasterDetailTester.Module.DatabaseUpdate {
                 var order = ObjectSpace.CreateObject<Order>();
                 order.Quantity = 2;
                 customer.Orders.Add(order);
+                
+                order = ObjectSpace.CreateObject<Order>();
+                order.Quantity = 3;
+                customer.Orders.Add(order);
+                
+                order = ObjectSpace.CreateObject<Order>();
+                order.Quantity = 4;
+                customer.Orders.Add(order);
                 ObjectSpace.CommitChanges();
             }
         }
