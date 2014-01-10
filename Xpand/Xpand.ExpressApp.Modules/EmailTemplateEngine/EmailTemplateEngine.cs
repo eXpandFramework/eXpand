@@ -19,11 +19,11 @@ namespace Xpand.EmailTemplateEngine {
 
         private const string NamespaceName = "EmailTemplateEngineModule";
 
-        private static readonly Dictionary<string, IEnumerable<KeyValuePair<string, Type>>> TypeMapping = new Dictionary<string, IEnumerable<KeyValuePair<string, Type>>>(StringComparer.OrdinalIgnoreCase);
-        private static readonly ReaderWriterLockSlim SyncLock = new ReaderWriterLockSlim();
+        private static readonly Dictionary<string, IEnumerable<KeyValuePair<string, Type>>> _typeMapping = new Dictionary<string, IEnumerable<KeyValuePair<string, Type>>>(StringComparer.OrdinalIgnoreCase);
+        private static readonly ReaderWriterLockSlim _syncLock = new ReaderWriterLockSlim();
 
-        private static readonly string[] ReferencedAssemblies = BuildReferenceList().ToArray();
-        private static readonly RazorTemplateEngine RazorEngine = CreateRazorEngine();
+        private static readonly string[] _referencedAssemblies = BuildReferenceList().ToArray();
+        private static readonly RazorTemplateEngine _razorEngine = CreateRazorEngine();
 
         public EmailTemplateEngine(IEmailTemplateContentReader contentReader)
             : this(contentReader, DefaultHtmlTemplateSuffix, DefaultTextTemplateSuffix, DefaultSharedTemplateSuffix) {
@@ -144,10 +144,11 @@ namespace Xpand.EmailTemplateEngine {
                 throw new InvalidOperationException(parseExceptionMessage);
             }
             using (var codeProvider = new CSharpCodeProvider()) {
-                var compilerParameter = new CompilerParameters(ReferencedAssemblies, assemblyName, false) {
+                var compilerParameter = new CompilerParameters(_referencedAssemblies, assemblyName, false) {
                     GenerateInMemory = true,
                     CompilerOptions = "/optimize",
                 };
+                compilerParameter.TempFiles = new TempFileCollection(Path.GetTempPath());
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());
                 if (compilerResults.Errors.HasErrors) {
                     var compileExceptionMessage = string.Join(Environment.NewLine + Environment.NewLine, compilerResults.Errors.OfType<CompilerError>().Where(ce => !ce.IsWarning).Select(e => e.FileName + ":" + Environment.NewLine + e.ErrorText).ToArray());
@@ -158,7 +159,7 @@ namespace Xpand.EmailTemplateEngine {
         }
 
         GeneratorResults GenerateCode(KeyValuePair<string, string> pair) {
-            return RazorEngine.GenerateCode(new StringReader(pair.Value), pair.Key, NamespaceName, pair.Key + ".cs");
+            return _razorEngine.GenerateCode(new StringReader(pair.Value), pair.Key, NamespaceName, pair.Key + ".cs");
         }
 
         protected virtual dynamic WrapModel(object model) {
@@ -214,21 +215,21 @@ namespace Xpand.EmailTemplateEngine {
         private IEnumerable<KeyValuePair<string, Type>> GetTemplateTypes(string templateName) {
             IEnumerable<KeyValuePair<string, Type>> templateTypes;
 
-            SyncLock.EnterUpgradeableReadLock();
+            _syncLock.EnterUpgradeableReadLock();
 
             try {
-                if (!TypeMapping.TryGetValue(templateName, out templateTypes)) {
-                    SyncLock.EnterWriteLock();
+                if (!_typeMapping.TryGetValue(templateName, out templateTypes)) {
+                    _syncLock.EnterWriteLock();
 
                     try {
                         templateTypes = GenerateTemplateTypes(templateName);
-                        TypeMapping.Add(templateName, templateTypes);
+                        _typeMapping.Add(templateName, templateTypes);
                     } finally {
-                        SyncLock.ExitWriteLock();
+                        _syncLock.ExitWriteLock();
                     }
                 }
             } finally {
-                SyncLock.ExitUpgradeableReadLock();
+                _syncLock.ExitUpgradeableReadLock();
             }
 
             return templateTypes;
