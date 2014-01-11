@@ -14,9 +14,12 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             var gridControl = (GridControl) View.Editor.Control;
             _gridViewCore = (GridView) gridControl.FocusedView;
             foreach (GridColumn column in _gridViewCore.Columns){
-                var attr = View.ObjectTypeInfo.FindMember(column.FieldName).FindAttribute<ImmediatePostDataAttribute>();
-                if (attr != null){
-                    column.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
+                var member = View.ObjectTypeInfo.FindMember(column.FieldName);
+                if (member != null){
+                    var attr = member.FindAttribute<ImmediatePostDataAttribute>();
+                    if (attr != null){
+                        column.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
+                    }
                 }
             }
         }
