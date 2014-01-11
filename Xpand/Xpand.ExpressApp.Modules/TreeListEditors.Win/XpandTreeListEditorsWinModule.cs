@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
+using Xpand.ExpressApp.TreeListEditors.Win.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
@@ -18,6 +19,11 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         public XpandTreeListEditorsWinModule() {
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelListView, IModelListViewTreeUseServerMode>();
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {

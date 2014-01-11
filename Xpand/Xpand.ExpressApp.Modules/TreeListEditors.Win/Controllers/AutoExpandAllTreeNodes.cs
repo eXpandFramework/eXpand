@@ -9,9 +9,12 @@ using DevExpress.XtraTreeList;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
-    public interface IModelListViewAutoExpandAllTreeNodes {
+    [ModelAbstractClass]
+    public interface IModelListViewAutoExpandAllTreeNodes:IModelListView {
         [Category("eXpand.TreeList")]
         bool AutoExpandAllTreeNodes { get; set; }
+        [Browsable(false)]
+        new bool AutoExpandAllGroups { get; set; }
     }
 
     public class AutoExpandAllTreeNodesVisibilityCalculator:IModelIsVisible{
