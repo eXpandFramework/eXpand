@@ -103,10 +103,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         IModelRibbonActionLink FindRibbonActionLink(ActionBase actionBase) {
             var link = _mapping.SelectMany(actionContainer => actionContainer).Cast<IModelActionLinkRibbon>().FirstOrDefault(actionLink => actionLink.ActionId == actionBase.Id);
-            if (link != null) {
-                return link.Ribbon;
-            }
-            return null;
+            return link != null ? link.Ribbon : null;
         }
 
         protected override void OnActivated() {

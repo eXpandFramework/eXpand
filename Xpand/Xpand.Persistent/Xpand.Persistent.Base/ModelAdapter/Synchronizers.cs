@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
@@ -84,7 +83,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         protected virtual PropertyDescriptor GetPropertyDescriptor(PropertyDescriptorCollection properties, ModelValueInfo valueInfo, object component, ModelNode node) {
             if (component is AppearanceObject)
                 if (typeof(IModelAppearanceFont).Properties().Select(info => info.Name).Contains(valueInfo.Name))
-                    return new FontPropertyDescriptor(valueInfo.Name, new Attribute[0], GetApplyModelNodeValue, GetModelValueInfos(node), node);
+                    return new FontPropertyDescriptor(valueInfo.Name, new Attribute[0], GetApplyModelNodeValue,  node);
             return properties.Find(valueInfo.Name, false);
         }
 
@@ -168,42 +167,76 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
     }
-    public interface IModelAppearanceFont {
-        [DataSourceProperty("FontNames")]
-        [Category("Font")]
-        string FontName { get; set; }
-        [Category("Font")]
-        float? Size { get; set; }
-        [Category("Font")]
-        bool? Bold { get; set; }
-        [Category("Font")]
-        GraphicsUnit? Unit { get; set; }
-        [Category("Font")]
-        bool? Underline { get; set; }
-        [Category("Font")]
-        bool? Strikeout { get; set; }
-        [Category("Font")]
-        bool? Italic { get; set; }
-        [Browsable(false)]
-        IEnumerable<string> FontNames { get; }
-    }
 
-    [DomainLogic(typeof(IModelAppearanceFont))]
-    public class ModelAppearanceFontLogic {
-        public static IEnumerable<string> Get_FontNames(IModelAppearanceFont appearanceFont) {
-            return FontFamily.Families.Select(family => family.Name);
+    public class FontBuilder {
+
+        private readonly IModelAppearanceFont _modelAppearanceFont;
+        private readonly Font _font;
+
+        public FontBuilder(IModelAppearanceFont modelAppearanceFont, Font font) {
+            _modelAppearanceFont = modelAppearanceFont;
+            _font = font;
+        }
+
+        public IModelNode ModelAppearanceFont {
+            get { return _modelAppearanceFont; }
+        }
+
+        public Font GetFont() {
+            var name = GetNodeValue("FontName", "Name");
+            var size = GetNodeValue("Size", "Size");
+            var fontStyle = GetFontStyle();
+            var unit = GetNodeValue("Unit", "Unit");
+            return new Font(name.ToString(), (float)size, fontStyle, (GraphicsUnit)unit);
+        }
+
+        private FontStyle GetFontStyle() {
+            var bold = (bool)GetNodeValue("Bold", "Bold");
+            var italic = (bool)GetNodeValue("Italic", "Italic");
+            var strikeout = (bool)GetNodeValue("Strikeout", "Strikeout");
+            var underline = (bool)GetNodeValue("Underline", "Underline");
+            var fontStyle = FontStyle.Regular;
+            if (bold) {
+                fontStyle = FontStyle.Bold;
+            }
+            if (italic)
+                fontStyle |= FontStyle.Italic;
+            if (strikeout)
+                fontStyle |= FontStyle.Strikeout;
+            if (underline)
+                fontStyle |= FontStyle.Underline;
+            return fontStyle;
+        }
+
+        object GetNodeValue(string name, string propertyName) {
+            return GetNodeValueCore(_modelAppearanceFont, name) ?? _font.GetPropertyValue(propertyName);
+        }
+
+        protected virtual object GetNodeValueCore(IModelNode modelNode, string name) {
+            return modelNode.HasValue(name) ? modelNode.GetValue(name) : null;
         }
     }
 
+    class FontBuilderSynch:FontBuilder{
+        private readonly Func<ModelNode, ModelValueInfo, object> _getApplyModelNodeValue;
+
+        public FontBuilderSynch(IModelAppearanceFont modelAppearanceFont, Font font, Func<ModelNode, ModelValueInfo, object> getApplyModelNodeValue) : base(modelAppearanceFont, font){
+            _getApplyModelNodeValue = getApplyModelNodeValue;
+        }
+
+        protected override object GetNodeValueCore(IModelNode modelNode, string name){
+            var node = ((ModelNode) modelNode);
+            var modelValueInfo = node.GetValueInfo(name);
+            return _getApplyModelNodeValue(node, modelValueInfo);
+        }
+    }
     public class FontPropertyDescriptor : PropertyDescriptor {
         private readonly Func<ModelNode, ModelValueInfo, object> _getApplyModelNodeValue;
-        private readonly IEnumerable<ModelValueInfo> _modelValueInfos;
         private readonly ModelNode _modelNode;
 
-        public FontPropertyDescriptor(string name, Attribute[] attrs, Func<ModelNode, ModelValueInfo, object> getApplyModelNodeValue, IEnumerable<ModelValueInfo> modelValueInfos, ModelNode modelNode)
+        public FontPropertyDescriptor(string name, Attribute[] attrs, Func<ModelNode, ModelValueInfo, object> getApplyModelNodeValue,  ModelNode modelNode)
             : base(name, attrs) {
             _getApplyModelNodeValue = getApplyModelNodeValue;
-            _modelValueInfos = modelValueInfos;
             _modelNode = modelNode;
         }
 
@@ -221,36 +254,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public override void SetValue(object component, object value) {
-            var font = ((AppearanceObject)component).Font;
-            var name = GetNodeValue("FontName", font, "Name");
-            var size = GetNodeValue("Size", font, "Size");
-            var fontStyle = GetFontStyle(font);
-            var unit = GetNodeValue("Unit", font, "Unit");
-            ((AppearanceObject)component).Font = new Font(name.ToString(), (float)size, fontStyle, (GraphicsUnit)unit);
-        }
-
-        private FontStyle GetFontStyle(Font font) {
-            var bold = (bool)GetNodeValue("Bold", font, "Bold");
-            var italic = (bool)GetNodeValue("Italic", font, "Italic");
-            var strikeout = (bool)GetNodeValue("Strikeout", font, "Strikeout");
-            var underline = (bool)GetNodeValue("Underline", font, "Underline");
-            var fontStyle = FontStyle.Regular;
-            if (bold) {
-                fontStyle = FontStyle.Bold;
-            }
-            if (italic)
-                fontStyle |= FontStyle.Italic;
-            if (strikeout)
-                fontStyle |= FontStyle.Strikeout;
-            if (underline)
-                fontStyle |= FontStyle.Underline;
-            return fontStyle;
-        }
-
-        private object GetNodeValue(string name, Font font, string propertyName) {
-            var modelValueInfo = _modelValueInfos.First(info => info.Name == name);
-            return _getApplyModelNodeValue(_modelNode, modelValueInfo) ??
-                            font.GetPropertyValue(propertyName);
+            var appearanceObject = ((AppearanceObject)component);
+            var font = appearanceObject.Font;
+            var fontBuilderSynch = new FontBuilderSynch((IModelAppearanceFont)_modelNode,font, _getApplyModelNodeValue);
+            var font1 = fontBuilderSynch.GetFont();
+            appearanceObject.Options.UseFont = !Equals(font1, font);
+            appearanceObject.Font = font1;
         }
 
         public override bool ShouldSerializeValue(object component) {
