@@ -1,12 +1,13 @@
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.Utils;
 using Xpand.ExpressApp.TreeListEditors.Win.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using DevExpress.ExpressApp.Updating;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -17,6 +18,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter, IColumnCellFilterUser {
         public XpandTreeListEditorsWinModule() {
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
         }

@@ -61,6 +61,7 @@
     <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2, Version=13.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
