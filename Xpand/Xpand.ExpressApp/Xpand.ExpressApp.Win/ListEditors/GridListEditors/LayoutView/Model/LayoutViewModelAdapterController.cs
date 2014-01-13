@@ -16,6 +16,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
 
             builder.ExtendInteface<IModelOptionsLayoutView, XafLayoutView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnLayoutView, XafLayoutViewColumn>(assembly);
+
+            ExtendWithFont(extenders, builder, assembly);
         }
 
     }

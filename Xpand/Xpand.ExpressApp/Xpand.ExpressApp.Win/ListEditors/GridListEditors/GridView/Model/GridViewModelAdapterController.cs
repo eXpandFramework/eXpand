@@ -42,6 +42,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 
             builder.ExtendInteface<IModelOptionsGridView, XafGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnGridView, XafGridColumn>(assembly);
+
+            ExtendWithFont(extenders, builder, assembly);
         }
 
     }

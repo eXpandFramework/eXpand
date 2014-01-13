@@ -3,8 +3,7 @@ using System.ComponentModel.Design;
 using System.Drawing.Design;
 using Xpand.Persistent.Base.ModelAdapter;
 
-namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
-
+namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {    
 
     public interface IModelLayoutDesignStore : IModelNodeEnabled {
         [Browsable(false)]

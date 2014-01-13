@@ -9,11 +9,11 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public class AdvBandedViewModelAdapterController : GridViewModelAdapterControllerBase {
         public AdvBandedViewModelAdapterController() {
-            _defaultValues.Add("AutoFillDown", true);
-            _defaultValues.Add("ColVIndex", 0);
-            _defaultValues.Add("RowIndex", 0);
-            _nonNullableObjects.Add("RowIndex");
-            _nonNullableObjects.Add("ColVIndex");
+            DefaultValues.Add("AutoFillDown", true);
+            DefaultValues.Add("ColVIndex", 0);
+            DefaultValues.Add("RowIndex", 0);
+            NonNullableObjects.Add("RowIndex");
+            NonNullableObjects.Add("ColVIndex");
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {
@@ -30,7 +30,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
             builder.ExtendInteface<IModelOptionsAdvBandedView, AdvBandedGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnAdvBandedView, AdvBandedGridColumn>(assembly);
             builder.ExtendInteface<IModelGridBand, GridBand>(assembly);
+
+            ExtendWithFont(extenders, builder, assembly);
         }
+
         protected override bool ModifyPropertyInfo(Type typeForDynamicProperties, DynamicModelPropertyInfo info) {
             if (typeForDynamicProperties == typeof(GridBand)) {
                 if (info.Name == "Width")

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -9,35 +7,10 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 using System.Linq;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
-    public interface IModelAppearanceFont {
-        [DataSourceProperty("FontNames")]
-        [Category("Font")]
-        string FontName { get; set; }
-        [Category("Font")]
-        float? Size { get; set; }
-        [Category("Font")]
-        bool? Bold { get; set; }
-        [Category("Font")]
-        GraphicsUnit? Unit { get; set; }
-        [Category("Font")]
-        bool? Underline { get; set; }
-        [Category("Font")]
-        bool? Strikeout { get; set; }
-        [Category("Font")]
-        bool? Italic { get; set; }
-        [Browsable(false)]
-        IEnumerable<string> FontNames { get; }
-    }
-    [DomainLogic(typeof(IModelAppearanceFont))]
-    public class ModelAppearanceFontLogic{
-        public static IEnumerable<string> Get_FontNames(IModelAppearanceFont appearanceFont){
-            return FontFamily.Families.Select(family => family.Name);
-        }
-    }
-
     public class RepositoryItemModelAdapterController : ModelAdapterController, IModelExtender {
         public static readonly HashSet<Type> ModelInterfaceTypes = new HashSet<Type>{
             typeof (IModelRepositoryItemTextEdit),
@@ -103,6 +76,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
                 var type = Type.GetType(typeof(IModelRepositoryItem).Namespace + ".IModel" + name, true);
                 builder.ExtendInteface(type, typeInfo.Type, assembly);
             }
+
             var calcType = builder.CalcType(typeof(AppearanceObject), assembly);
             extenders.Add(calcType, typeof(IModelAppearanceFont));
         }

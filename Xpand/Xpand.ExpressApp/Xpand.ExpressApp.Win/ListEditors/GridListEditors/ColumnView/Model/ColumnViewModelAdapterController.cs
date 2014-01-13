@@ -12,16 +12,16 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     public abstract class GridViewModelAdapterControllerBase : ColumnViewModelAdapterController {
         protected GridViewModelAdapterControllerBase() {
-            _defaultValues.Add("EnableMasterViewMode", false);
-            _defaultValues.Add("MultiSelect", true);
-            _defaultValues.Add("ColumnAutoWidth", true);
-            _gridViewMappings.Add("ShowFooter", "IsFooterVisible");
-            _gridViewMappings.Add("ShowGroupPanel", "IsGroupPanelVisible");
+            DefaultValues.Add("EnableMasterViewMode", false);
+            DefaultValues.Add("MultiSelect", true);
+            DefaultValues.Add("ColumnAutoWidth", true);
+            GridViewMappings.Add("ShowFooter", "IsFooterVisible");
+            GridViewMappings.Add("ShowGroupPanel", "IsGroupPanelVisible");
         }
     }
 
     public abstract class ColumnViewModelAdapterController : ModelAdapterController, IModelExtender {
-        protected readonly HashSet<string> _columnPropertiesToExclude = new HashSet<string>{
+        protected readonly HashSet<string> ColumnPropertiesToExclude = new HashSet<string>{
             "VisibleIndex",
             "Visible",
             "DisplayFormat",
@@ -29,19 +29,19 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             "PropertyName"
         };
 
-        protected static readonly Dictionary<string, string> _columnMappings = new Dictionary<string, string>();
+        protected static readonly Dictionary<string, string> ColumnMappings = new Dictionary<string, string>();
 
-        protected readonly Dictionary<string, object> _defaultValues = new Dictionary<string, object>();
-        protected readonly HashSet<string> _nonNullableObjects = new HashSet<string>();
-        protected readonly Dictionary<string, string> _gridViewMappings = new Dictionary<string, string>{
+        protected readonly Dictionary<string, object> DefaultValues = new Dictionary<string, object>();
+        protected readonly HashSet<string> NonNullableObjects = new HashSet<string>();
+        protected readonly Dictionary<string, string> GridViewMappings = new Dictionary<string, string>{
             {"Editable", "AllowEdit"}
         };
 
-        protected HashSet<string> _modelColumnProperties = new HashSet<string>();
-        protected HashSet<string> _modelListViewProperties = new HashSet<string>();
+        protected HashSet<string> ModelColumnProperties = new HashSet<string>();
+        protected HashSet<string> ModelListViewProperties = new HashSet<string>();
 
         void SetDetaultValues(DynamicModelPropertyInfo info) {
-            info.SetDefaultValues(_defaultValues);
+            info.SetDefaultValues(DefaultValues);
         }
 
         public virtual InterfaceBuilderData GetData(Type typeForDynamicProperties, Type controlBaseType) {
@@ -59,27 +59,27 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         protected virtual bool ModifyPropertyInfo(Type typeForDynamicProperties, DynamicModelPropertyInfo info) {
             SetDetaultValues(info);
             MapPropertiesToModel(typeForDynamicProperties, info);
-            if (_nonNullableObjects.Contains(info.Name)) {
+            if (NonNullableObjects.Contains(info.Name)) {
                 info.AddAttribute(new NullValueAttribute(false));
             }
             if (typeof(BaseView).IsAssignableFrom(typeForDynamicProperties)) {
-                if (_gridViewMappings.ContainsKey(info.Name))
+                if (GridViewMappings.ContainsKey(info.Name))
                     info.AddAttribute(new BrowsableAttribute(false));
 //                    info.CreateValueCalculator("((IModelListView)this.Parent.Parent)." + _gridViewMappings[info.Name]);
             } else if (typeof(GridColumn).IsAssignableFrom(typeForDynamicProperties)) {
-                if (_columnMappings.ContainsKey(info.Name)) {
-                    var expressionPath = "((IModelColumn)this.Parent)." + _columnMappings[info.Name];
+                if (ColumnMappings.ContainsKey(info.Name)) {
+                    var expressionPath = "((IModelColumn)this.Parent)." + ColumnMappings[info.Name];
                     info.CreateValueCalculator(expressionPath);
-                } else if (_columnPropertiesToExclude.Contains(info.Name))
+                } else if (ColumnPropertiesToExclude.Contains(info.Name))
                     return false;
             }
             return true;
         }
 
         protected virtual void MapPropertiesToModel(Type typeForDynamicProperties, DynamicModelPropertyInfo info) {
-            var parentProperties = _modelColumnProperties;
+            var parentProperties = ModelColumnProperties;
             if (typeof(BaseView).IsAssignableFrom(typeForDynamicProperties))
-                parentProperties = _modelListViewProperties;
+                parentProperties = ModelListViewProperties;
 
             if (parentProperties.Contains(info.Name)) {
                 info.CreateValueCalculator();
@@ -98,8 +98,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
         protected abstract void ExtendInterfaces(ModelInterfaceExtenders extenders);
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            _modelListViewProperties = new HashSet<string>(GetProperties(extenders, typeof(IModelListView)));
-            _modelColumnProperties = new HashSet<string>(GetProperties(extenders, typeof(IModelColumn)));
+            ModelListViewProperties = new HashSet<string>(GetProperties(extenders, typeof(IModelListView)));
+            ModelColumnProperties = new HashSet<string>(GetProperties(extenders, typeof(IModelColumn)));
             ExtendInterfaces(extenders);
         }
 

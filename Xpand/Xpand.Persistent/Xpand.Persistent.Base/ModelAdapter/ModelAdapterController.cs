@@ -10,10 +10,11 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
+using Guard = DevExpress.ExpressApp.Utils.Guard;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
@@ -80,6 +81,13 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
     public enum FileLocation { None, ApplicationFolder, CurrentUserApplicationDataFolder }
     public abstract class ModelAdapterController : ViewController {
+        protected void ExtendWithFont(ModelInterfaceExtenders extenders, InterfaceBuilder builder, Assembly assembly) {
+            var calcType = builder.CalcType(typeof(AppearanceObject), assembly);
+            extenders.Add(calcType, typeof(IModelAppearanceFont));
+            calcType = builder.CalcType(typeof(AppearanceObjectEx), assembly);
+            extenders.Add(calcType, typeof(IModelAppearanceFont));
+        }
+
         protected IEnumerable<string> GetProperties(ModelInterfaceExtenders extenders, Type targetInterface) {
             var types = extenders.GetInterfaceExtenders(targetInterface).Where(
                     type => (type.Namespace + "").StartsWith("DevExpress"));
@@ -144,12 +152,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static ModelNode GetNodeByPath(this IModelNode node, string path) {
-            const string PathSeparator = "/";
-            const string RootNodeName = "Application";
+            const string pathSeparator = "/";
+            const string rootNodeName = "Application";
             Guard.ArgumentNotNull(node, "node");
             Guard.ArgumentNotNullOrEmpty(path, "path");
-            string[] items = path.Split(new[] { PathSeparator }, StringSplitOptions.RemoveEmptyEntries);
-            IModelNode sourceNode = items[0] == RootNodeName ? node.Root : node.GetNode(items[0]);
+            string[] items = path.Split(new[] { pathSeparator }, StringSplitOptions.RemoveEmptyEntries);
+            IModelNode sourceNode = items[0] == rootNodeName ? node.Root : node.GetNode(items[0]);
             for (int i = 1; i < items.Length; ++i) {
                 if (sourceNode == null) {
                     return null;
