@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -9,6 +11,10 @@ using Fasterflect;
 
 namespace Xpand.Utils.Helpers {
     public static class ReflectionExtensions {
+        public static string GetTempPath() {
+            var setting = ConfigurationManager.AppSettings["TempPath"];
+            return !string.IsNullOrEmpty(setting) ? setting : Path.GetTempPath();
+        }
 
         public static bool IsDynamic(this Assembly assembly) {
             return assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit";
