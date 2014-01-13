@@ -21,7 +21,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
 
         protected override void ApplyModelCore(){
             base.ApplyModelCore();
-            if (((IModelListViewShowAutoFilterRow) Model.Parent).ShowAutoFilterRow) {
+            var modelListViewShowAutoFilterRow = (Model.Parent as IModelListViewShowAutoFilterRow);
+            if (modelListViewShowAutoFilterRow != null && modelListViewShowAutoFilterRow.ShowAutoFilterRow) {
                 Control.OptionsBehavior.EnableFiltering = true;
                 Control.OptionsFilter.FilterMode=FilterMode.Smart;
                 var optionsMenu = Control.OptionsMenu;
@@ -29,7 +30,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
                 optionsMenu.ShowAutoFilterRowItem = true;
                 Control.OptionsView.ShowAutoFilterRow = true;
             }
-            if (((IModelListViewShowFindPanel) Model.Parent).ShowFindPanel){
+            var modelListViewShowFindPanel = (Model.Parent as IModelListViewShowFindPanel);
+            if (modelListViewShowFindPanel != null && modelListViewShowFindPanel.ShowFindPanel){
                 Control.OptionsFind.AllowFindPanel = true;
             }
         }
