@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WizardUI.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WizardUI.Win</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -119,7 +121,9 @@
     <Compile Include="WizardTemplateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WizardUIWindowsFormsModule.cs" />
+    <Compile Include="WizardUIWindowsFormsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WizardController.cs">
       <SubType>Component</SubType>

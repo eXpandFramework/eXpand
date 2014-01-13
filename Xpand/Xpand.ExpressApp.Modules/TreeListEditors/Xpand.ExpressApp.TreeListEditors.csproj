@@ -11,9 +11,11 @@
     <RootNamespace>Xpand.ExpressApp.TreeListEditors</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.TreeListEditors</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -85,12 +87,16 @@
     <Compile Include="ITreeListEditor.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="Model\TreeListModelAdapterController.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\TreeNavigationOptionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandTreeListEditorServerModeUpdater.cs" />
-    <Compile Include="XpandTreeListEditorsModule.cs" />
+    <Compile Include="XpandTreeListEditorsModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
@@ -134,7 +140,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>

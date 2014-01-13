@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
     public class TreeListModelAdapterController : TreeListModelAdapterController<ASPxTreeListEditor> {
 
         protected override ModelSynchronizer ModelSynchronizer() {
-            return new TreeListEditorDynamicModelSynchronizer(_treeListEditor);
+            return new TreeListEditorDynamicModelSynchronizer(TreeListEditor);
         }
 
         protected override Type TreeListColumnType() {
