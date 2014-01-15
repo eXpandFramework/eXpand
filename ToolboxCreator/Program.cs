@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Microsoft.Win32;
 
@@ -31,7 +30,6 @@ namespace Xpand.ToolboxCreator {
             Trace.Listeners.Add(new TextWriterTraceListener("toolboxcreator.log"));
             var version = new Version();
             var error = false;
-            Tracing.Initialize(@"c:\", "4");
             foreach (var file in Directory.EnumerateFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Xpand.ExpressApp*.dll")) {
                 try {
                     var assembly = Assembly.LoadFrom(file);
@@ -104,12 +102,15 @@ namespace Xpand.ToolboxCreator {
         }
 
         static List<RegistryKey> RegistryKeys(string wow) {
-            return new List<RegistryKey>{
-                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\11.0\ToolboxControlsInstaller\", true),
-                Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\11.0_Config\ToolboxControlsInstaller\", true),
-                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\10.0\ToolboxControlsInstaller\", true),
-                Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\10.0_Config\ToolboxControlsInstaller\", true)
-            }.Where(key => key != null).ToList();
+            var registryKeys = new List<RegistryKey>();
+            var versions = new []{10,11,12};
+            foreach (var version in versions){
+                registryKeys.AddRange(new[]{
+                   Registry.LocalMachine.OpenSubKey(@"SOFTWARE\" + wow + @"Microsoft\VisualStudio\"+version + @".0\ToolboxControlsInstaller\", true), 
+                   Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\VisualStudio\" +version+ @".0_Config\ToolboxControlsInstaller\", true)
+                });
+            }
+            return registryKeys.Where(key => key != null).ToList();
         }
 
         static void Register(Type type, string file, IEnumerable<RegistryKey> registryKeys) {
