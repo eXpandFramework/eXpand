@@ -85,6 +85,11 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 return _runtimeMode.Value;
             }
         }
+
+        public ModelInterfaceExtenders Extenders{
+            get { return _extenders; }
+        }
+
         public static bool ExternalModelEditor {
             get { return Process.GetCurrentProcess().ProcessName.IndexOf(".ExpressApp.ModelEditor", StringComparison.Ordinal)>-1; }
         }

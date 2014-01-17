@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -43,6 +44,12 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
 
             builder.ExtendInteface(typeof(IModelOptionsTreeList), TreeListType(), assembly);
             builder.ExtendInteface(typeof(IModelOptionsColumnTreeListView), TreeListColumnType(), assembly);
+
+            ExtendModelInterfaces(builder,assembly);
+        }
+
+        protected virtual void ExtendModelInterfaces(InterfaceBuilder builder, Assembly assembly){
+            
         }
 
         protected abstract Type TreeListColumnType();
