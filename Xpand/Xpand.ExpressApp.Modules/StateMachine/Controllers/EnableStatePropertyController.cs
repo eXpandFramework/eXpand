@@ -75,8 +75,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         IEnumerable<IStateMachine> GetEnabledStateMachines() {
-            return GetStateMachines().OfType<XpoStateMachine>().Where(machine 
-                => (bool) machine.GetMemberValue(XpandStateMachineModule.EnableFilteredPropety));
+            return GetStateMachines().OfType<XpoStateMachine>().Where(machine
+                => true.Equals(machine.GetMemberValue(XpandStateMachineModule.EnableFilteredPropety)));
         }
 
         protected override void OnDeactivated() {

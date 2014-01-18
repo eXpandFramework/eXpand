@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Utils;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class ChangeStateActionController:ViewController<ObjectView> {
@@ -41,7 +43,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<StateMachineController>().ChangeStateAction.ItemsChanged+=ChangeStateActionOnItemsChanged;
+            Frame.GetController<StateMachineController>().ChangeStateAction.ItemsChanged += ChangeStateActionOnItemsChanged;
         }
 
         protected override void OnDeactivated() {
@@ -51,8 +53,22 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         void ChangeStateActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
             foreach (ChoiceActionItem item in GetItems(itemsChangedEventArgs.ChangedItemsInfo)) {
-                item.Active[typeof(ChangeStateActionController).Name] = IsActive(item);
+                var isActive = IsActive(item);
+                item.Active[typeof(ChangeStateActionController).Name] = isActive;
+                var stateMachineController = Frame.GetController<StateMachineController>();
+                var detailView = View as DetailView;
+                if (detailView != null) {
+                    var panelActions = (Dictionary<object, List<SimpleAction>>)stateMachineController.GetFieldValue("panelActions");
+                    foreach (string key in panelActions.Keys) {
+                        var actionContainer = detailView.FindItem(key) as ActionContainerViewItem;
+                        if (actionContainer!=null){
+                            var action = actionContainer.Actions.FirstOrDefault(@base => @base.Caption==item.Id);
+                            if (action != null) action.Active[typeof (ChangeStateActionController).Name] = isActive;
+                        }
+                    }
+                }
             }
+
         }
 
         IEnumerable<ChoiceActionItem> GetItems(Dictionary<object, ChoiceActionItemChangesType> changedItemsInfo) {
