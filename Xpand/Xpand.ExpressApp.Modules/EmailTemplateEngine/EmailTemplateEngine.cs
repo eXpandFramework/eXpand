@@ -148,6 +148,7 @@ namespace Xpand.EmailTemplateEngine {
                     GenerateInMemory = true,
                     CompilerOptions = "/optimize",
                 };
+                compilerParameter.OutputAssembly = Path.Combine(ReflectionExtensions.GetTempPath(), assemblyName);
                 compilerParameter.TempFiles = new TempFileCollection(ReflectionExtensions.GetTempPath());
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());
                 if (compilerResults.Errors.HasErrors) {
