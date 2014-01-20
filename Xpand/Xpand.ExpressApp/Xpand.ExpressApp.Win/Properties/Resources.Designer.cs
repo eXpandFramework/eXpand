@@ -59,5 +59,15 @@ namespace Xpand.ExpressApp.Win.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fit_to_size {
+            get {
+                object obj = ResourceManager.GetObject("fit_to_size", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

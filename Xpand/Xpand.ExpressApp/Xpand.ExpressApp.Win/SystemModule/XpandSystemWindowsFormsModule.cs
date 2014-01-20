@@ -11,6 +11,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.PropertyEditors;
+using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;

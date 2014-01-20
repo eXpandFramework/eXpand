@@ -308,7 +308,6 @@
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\FolderBrowseEditor.cs" />
-    <Compile Include="PropertyEditors\RichEditWinPropertyEditor.cs" />
     <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -325,6 +324,21 @@
     <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
     <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\FullWinRichtEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\FullWinRichtEdit.Designer.cs">
+      <DependentUpon>FullWinRichtEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
+      <DependentUpon>RichEditContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
@@ -470,6 +484,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyEditors\RichEdit\FullWinRichtEdit.resx">
+      <DependentUpon>FullWinRichtEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyEditors\RichEdit\RichEditContainer.resx">
+      <DependentUpon>RichEditContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SystemModule\EMailHighlightingController.resx">
       <DependentUpon>EMailHighlightingController.cs</DependentUpon>
     </EmbeddedResource>
@@ -506,7 +526,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="PropertyEditors\RichEdit\Resources\fit_to_size.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
