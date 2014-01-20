@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
     [ModelAbstractClass]
@@ -19,6 +19,8 @@ namespace Xpand.ExpressApp.SystemModule {
         NewWindowTarget? NewWindowTarget { get; set; }
         TargetWindow? TargetWindow { get; set; }
         bool? Handled { get; set; }
+        [DefaultValue(true)]
+        bool HandledOnActionNonExecution { get; set; }
         [DataSourceProperty("Application.ActionDesign.Actions")]
         IModelAction Action { get; set; }
         [DataSourceProperty("DetailViews")]
@@ -68,9 +70,14 @@ namespace Xpand.ExpressApp.SystemModule {
             if (model.Handled.HasValue)
                 e.Handled = model.Handled.Value;
             if (model.Action != null) {
-                var allActions = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).OfType<SimpleAction>();
+                var allActions = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
                 var actionBase = allActions.SingleOrDefault(action => action.Id == model.Action.Id);
-                if (actionBase != null) actionBase.DoExecute();
+                if (actionBase != null){
+                    var doExecute = actionBase.DoExecute();
+                    if (!doExecute){
+                        e.Handled = model.HandledOnActionNonExecution;
+                    }
+                }
             }
             if (model.DetailView != null && View != null) {
                 var objectSpace = Application.CreateObjectSpace(model.DetailView.ModelClass.TypeInfo.Type);
