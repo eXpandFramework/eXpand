@@ -28,18 +28,18 @@ namespace Xpand.ExpressApp.FilterDataStore {
             base.Setup(application);
             if (!IsLoadingExternalModel())
                 application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
+            application.SetupComplete+=ApplicationOnSetupComplete;
+        }
+
+        private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
+            if (FilterProviderManager.IsRegistered) {
+                SubscribeToDataStoreProxyEvents();
+            }
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
             if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().Any()))
                 Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
-        }
-
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            if (FilterProviderManager.IsRegistered  ) {
-                SubscribeToDataStoreProxyEvents();
-            }
         }
 
         void SubscribeToDataStoreProxyEvents() {

@@ -17,7 +17,8 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <OutputPath>..\..\Xpand.Dll\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Xpo/</PublishUrl>
@@ -110,7 +111,8 @@
     <Compile Include="DB\XpoServerId.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\XPBaseCollectionExtensions.cs"></Compile>
+    <Compile Include="Collections\XPBaseCollectionExtensions.cs">
+    </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescConverter.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescTypeConverter.cs" />
@@ -125,9 +127,6 @@
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
     <Compile Include="DB\IDataStoreProxy.cs" />
-    <Compile Include="DB\MultiDataStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="IXPSimpleObjectExtensions.cs" />
     <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
     <Compile Include="MetaData\XpandCodeMemberInfo.cs" />
