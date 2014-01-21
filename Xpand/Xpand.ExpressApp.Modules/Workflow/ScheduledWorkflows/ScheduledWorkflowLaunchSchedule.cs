@@ -44,6 +44,12 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
             set { SetPropertyValue("RecurEveryDays", value); }
         }
 
+        [Appearance("RecurEveryMin", "StartMode <> 'Min'", Visibility = ViewItemVisibility.Hide)]
+        public int RecurEveryMin {
+            get { return GetPropertyValue<int>("RecurEveryMin"); }
+            set { SetPropertyValue("RecurEveryMin", value); }
+        }
+
         public int RecurEveryWeeks {
             get { return GetPropertyValue<int>("RecurEveryWeeks"); }
             set { SetPropertyValue("RecurEveryWeeks", value); }

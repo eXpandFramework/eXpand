@@ -9,17 +9,15 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
             foreach (var schedule in workflow.LaunchScheduleItems) {
                 switch (schedule.StartMode) {
                     case StartMode.OneTime:
-                        if (NeedToStartOneTime(workflow, schedule)) return true;
-                        break;
+                        return NeedToStartOneTime(workflow, schedule);
+                    case StartMode.Min:
+                        return NeedToStartMin(workflow, schedule);
                     case StartMode.Daily: {
-                            if (NeedToStartDaily(workflow, schedule)) return true;
+                            return NeedToStartDaily(workflow, schedule);
                         }
-                        break;
                     case StartMode.Weekly:
-                        if (WeeklyDayMatch(schedule)) {
-                            if (workflow.LaunchScheduleItems.Count == 0)
-                                return false;
-                            if (NeedToStartWeekly(workflow, schedule)) return true;
+                        if (WeeklyDayMatch(schedule)){
+                            return workflow.LaunchScheduleItems.Count > 0 && NeedToStartWeekly(workflow, schedule);
                         }
                         break;
                 }
@@ -38,7 +36,10 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         }
 
         bool NeedToStartWeekly(ScheduledWorkflow workflow, ScheduledWorkflowLaunchSchedule schedule) {
-            var lastLaunch = LastLaunch(workflow);
+            var lastLaunch = workflow.LaunchHistoryItems.OrderByDescending(l => l.LaunchedOn)
+                                     .Where(l => l.LaunchedOn.Date == DateTime.Today)
+                                     .Select(l => l.LaunchedOn.TimeOfDay)
+                                     .FirstOrDefault();
             var currentTime = DateTime.Now.TimeOfDay;
 
             var nextLaunch = NextLaunch(workflow, lastLaunch, currentTime);
@@ -59,14 +60,6 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
                    schedule.RecurEveryWeeks;
         }
 
-        TimeSpan LastLaunch(ScheduledWorkflow workflow) {
-            var lastLaunch = workflow.LaunchHistoryItems.OrderByDescending(l => l.LaunchedOn)
-                                     .Where(l => l.LaunchedOn.Date == DateTime.Today)
-                                     .Select(l => l.LaunchedOn.TimeOfDay)
-                                     .FirstOrDefault();
-            return lastLaunch;
-        }
-
         bool NeedToStartDaily(ScheduledWorkflow workflow, ScheduledWorkflowLaunchSchedule schedule) {
             var historyItem = workflow.LaunchHistoryItems.FirstOrDefault(l => l.LaunchedOn.Date == DateTime.Today);
             if (historyItem == null && DateTime.Now.TimeOfDay >= schedule.StartTime) {
@@ -74,6 +67,16 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
                 if (schedule.RecurEveryDays <= 1 || lastStartedWorkflow == null ||
                     DateTime.Now >= lastStartedWorkflow.LaunchedOn.Date.AddDays(schedule.RecurEveryDays).Add(schedule.StartTime))
                     return true;
+            }
+            return false;
+        }
+
+        bool NeedToStartMin(ScheduledWorkflow workflow, ScheduledWorkflowLaunchSchedule schedule) {
+            if ( DateTime.Now.TimeOfDay >= schedule.StartTime && schedule.RecurEveryMin > 0) {
+                var lastStartedWorkflow = workflow.LaunchHistoryItems.OrderByDescending(l => l.LaunchedOn).FirstOrDefault();
+                if (lastStartedWorkflow == null)
+                    return schedule.StartTime.Add(TimeSpan.FromMinutes(schedule.RecurEveryMin))<=DateTime.Now.TimeOfDay;
+                return lastStartedWorkflow.LaunchedOn.AddMinutes(schedule.RecurEveryMin) <= DateTime.Now;
             }
             return false;
         }

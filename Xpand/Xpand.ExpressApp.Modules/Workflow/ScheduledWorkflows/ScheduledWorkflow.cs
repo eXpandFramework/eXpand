@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public enum StartMode {
-        OneTime, Daily, Weekly
+        OneTime, Daily, Weekly, Min
     }
 
     [DefaultClassOptions]
