@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             var modelClasses = modelApplicationBases.Cast<IModelApplication>().SelectMany(modelApplication 
                 => modelApplication.BOModel.Where(HasReminderMember));
             foreach (var modelClass in modelClasses) {
-                AddRule(node, modelClass);
+                AddRule(node.Application, modelClass);
             }
         }
 
@@ -37,16 +37,16 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             return @class.OwnMembers != null && @class.OwnMembers.OfType<IModelMemberReminderInfo>().Any();
         }
 
-        void AddRule(ModelNode node, IModelClass modelClass) {
+        public static void AddRule(IModelApplication modelApplication, IModelClass modelClass) {
             if (modelClass.OwnMembers != null) {
                 var modelMemberReminderInfo = modelClass.OwnMembers.OfType<IModelMemberReminderInfo>().FirstOrDefault();
                 if (modelMemberReminderInfo != null) {
-                    var conditionalAppearance = (IModelConditionalAppearance)node.Application.BOModel.GetClass(modelClass.TypeInfo.Type);
+                    var conditionalAppearance = (IModelConditionalAppearance)modelApplication.BOModel.GetClass(modelClass.TypeInfo.Type);
                     var modelAppearanceRule = conditionalAppearance.AppearanceRules.AddNode<IModelAppearanceRule>("ReminderInfo.TimeBeforeStart");
                     modelAppearanceRule.AppearanceItemType = AppearanceItemType.ViewItem.ToString();
                     modelAppearanceRule.Criteria = "!" + modelMemberReminderInfo.Name + ".HasReminder";
                     modelAppearanceRule.Enabled = false;
-                    modelAppearanceRule.TargetItems = modelMemberReminderInfo.Name;
+                    modelAppearanceRule.TargetItems = modelMemberReminderInfo.Name+".TimeBeforeStart";
                 }
             }
         }
@@ -64,6 +64,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(modelMemberReminderInfo.MemberInfo.Owner.Type);
                 XPMemberInfo xpMemberInfo = classInfo.FindMember(modelMemberReminderInfo.Name);
                 ModelMemberReminderInfoDomainLogic.ModifyModel(modelMemberReminderInfo, xpMemberInfo);
+                ReminderInfoAppearenceRuleUpdater.AddRule(modelClass.Application,modelClass);
             }
         }
     }

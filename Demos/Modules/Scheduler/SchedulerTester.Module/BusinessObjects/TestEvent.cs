@@ -1,5 +1,7 @@
-﻿using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Scheduler.Reminders;
 
 namespace SchedulerTester.Module.BusinessObjects {
     
@@ -13,7 +15,9 @@ namespace SchedulerTester.Module.BusinessObjects {
             }
         }
     }
-    
+
+    [SupportsReminder(Criteria = "Customer is not null")]
+    [DefaultClassOptions]
     public class TestEvent:Event {
         public TestEvent(Session session) : base(session) {
         }

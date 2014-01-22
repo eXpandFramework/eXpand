@@ -1,13 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="SchedulerTester" Logo="ExpressAppLogo">
   <NavigationItems>
-    <Items>
-      <Item Id="Default">
-        <Items>
-          <Item Id="@61f024c2-57a5-47fc-85b4-a145a4c60082" ViewId="calendar" IsNewNode="True" />
-        </Items>
-      </Item>
-    </Items>
+    
   </NavigationItems>
   <SchemaModules>
     <SchemaModule Name="SchedulerModuleBase" Version="13.1.6.0" IsNewNode="True" />
