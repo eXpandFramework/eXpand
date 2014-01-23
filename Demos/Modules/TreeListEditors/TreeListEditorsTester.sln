@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module", "TreeListEditorsTester.Module\TreeListEditorsTester.Module.csproj", "{6CA1178A-48DF-40E2-A96B-2C182EB984C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Web", "TreeListEditorsTester.Module.Web\TreeListEditorsTester.Module.Web.csproj", "{B2B863BE-B17A-485E-81F0-A113CA9A56FB}"
@@ -10,6 +12,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Module.Win", "TreeListEditorsTester.Module.Win\TreeListEditorsTester.Module.Win.csproj", "{FBA1749A-94B8-4BE5-980D-3AA8A7652441}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeListEditorsTester.Win", "TreeListEditorsTester.Win\TreeListEditorsTester.Win.csproj", "{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.TreeListEditors.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Web\Xpand.ExpressApp.TreeListEditors.Web.csproj", "{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.TreeListEditors.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Win\Xpand.ExpressApp.TreeListEditors.Win.csproj", "{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +58,28 @@ Global
 		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E7AC07C-8B13-4B6D-9CE6-347129D4F4F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
+		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
 	EndGlobalSection
 EndGlobal

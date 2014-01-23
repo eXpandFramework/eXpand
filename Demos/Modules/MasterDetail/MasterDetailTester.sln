@@ -1,11 +1,27 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetailTester.Module", "MasterDetailTester.Module\MasterDetailTester.Module.csproj", "{94BB3B36-8545-4446-BBAA-A6BEA3AF053C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetailTester.Module.Win", "MasterDetailTester.Module.Win\MasterDetailTester.Module.Win.csproj", "{C87E8318-DB3A-49C2-B61A-DB7D9FBB1EBA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterDetailTester.Win", "MasterDetailTester.Win\MasterDetailTester.Win.csproj", "{A19E4BE9-0FDB-4B84-8D91-FF883D34DF6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.MasterDetail.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\MasterDetail.Win\Xpand.ExpressApp.MasterDetail.Win.csproj", "{B329592B-9530-4DA7-88F2-846BBA1C8F93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj", "{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Logic", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj", "{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.MasterDetail", "..\..\..\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj", "{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,8 +48,46 @@ Global
 		{A19E4BE9-0FDB-4B84-8D91-FF883D34DF6C}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{A19E4BE9-0FDB-4B84-8D91-FF883D34DF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A19E4BE9-0FDB-4B84-8D91-FF883D34DF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
+		{FE3FD1A4-E5B5-44D4-8B9E-3BF29AD4CB96} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
+		{B329592B-9530-4DA7-88F2-846BBA1C8F93} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {8D96AE1F-2916-40BA-8B0C-A8F85E392D7B}
 	EndGlobalSection
 EndGlobal
