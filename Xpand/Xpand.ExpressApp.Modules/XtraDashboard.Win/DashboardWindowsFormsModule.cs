@@ -3,7 +3,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Win.PropertyEditors;
+using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors;
 using Xpand.Persistent.Base.General;
 

@@ -146,10 +146,10 @@
     <Compile Include="EditModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editors\EnumEdit.cs">
+    <Compile Include="Editors\XpandFilterControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editors\XpandFilterControl.cs">
+    <Compile Include="Editors\EnumEdit.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\AdvBandedListEditor.cs">

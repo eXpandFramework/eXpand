@@ -42,8 +42,6 @@ namespace Xpand.ExpressApp.Model {
         [Browsable(false)]
         IEnumerable<Type> UnboundPropertyEditorTypes { get; }
 
-        [Browsable(false)]
-        IEnumerable<Type> PropertyEditorTypes { get; }
         [Category("eXpand.Unbound")]
         bool ShowUnboundExpressionMenu { get; set; }
         [Category("eXpand.Unbound")]
@@ -117,7 +115,7 @@ namespace Xpand.ExpressApp.Model {
         }
     }
     [DomainLogic(typeof(IModelColumnUnbound))]
-    public class IModelColumnUnboundLogic {
+    public class ModelColumnUnboundLogic {
         static readonly UnboundColumnInfoCalculator _unboundColumnInfoCalculator=new UnboundColumnInfoCalculator();
         public static Type Get_UnboundPropertyEditorType(IModelColumnUnbound columnUnbound) {
             return _unboundColumnInfoCalculator.GetEditorType(columnUnbound);

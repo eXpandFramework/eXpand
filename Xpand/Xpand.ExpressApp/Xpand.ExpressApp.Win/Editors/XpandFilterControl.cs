@@ -33,4 +33,10 @@ namespace Xpand.ExpressApp.Win.Editors {
 
         }
     }
+
+    public class FilterEditorControl : DevExpress.XtraFilterEditor.FilterEditorControl {
+        protected override FilterControl CreateTreeControl(){
+            return new XpandFilterControl();
+        }
+    }
 }

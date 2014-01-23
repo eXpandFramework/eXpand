@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void OnRowFilterChanged(object sender, EventArgs eventArgs) {
-            var criteriaOperator = Frame.GetController<FilterControlListViewController>().XpandFilterControl.FilterCriteria;
+            var criteriaOperator = Frame.GetController<FilterControlListViewController>().FilterControl.FilterCriteria;
             if (ReferenceEquals(criteriaOperator, null)) {
                 View.CollectionSource.Criteria[LoadWhenFiltered] = GetDoNotLoadWhenFilterExistsCriteria();
             } else {

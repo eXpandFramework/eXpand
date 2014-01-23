@@ -9,7 +9,10 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid;
+using Xpand.ExpressApp.Win.Editors;
+using FilterEditorControl = DevExpress.XtraFilterEditor.FilterEditorControl;
 using Forms = System.Windows.Forms;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -38,10 +41,10 @@ Forms.DockStyle.None) {
             }
         }
 
-        private Editors.XpandFilterControl _xpandFilterControl;
+        private XpandFilterControl _filterControl;
 
-        public Editors.XpandFilterControl XpandFilterControl {
-            get { return _xpandFilterControl; }
+        public XpandFilterControl FilterControl {
+            get { return _filterControl; }
         }
 
         public event EventHandler FilterControlCreated;
@@ -58,33 +61,44 @@ Forms.DockStyle.None) {
             if (activated != null) activated(this, e);
         }
 
+        private void AssignControlDatasource(FilterEditorControl filterEditorControl) {
+            filterEditorControl.SourceControl = CriteriaPropertyEditorHelper.CreateFilterControlDataSource(View.ObjectTypeInfo.Type, Application.ObjectSpaceProvider);
+            if (View.ObjectTypeInfo.DefaultMember != null) {
+                foreach (FilterColumn filterColumn in filterEditorControl.FilterColumns) {
+                    if (View.ObjectTypeInfo.DefaultMember.Name == filterColumn.FieldName) {
+                        filterEditorControl.SetDefaultColumn(filterColumn);
+                    }
+                }
+            }
+        }
+
+
         private void gridControl_HandleCreated(object sender, EventArgs e) {
-            var gridControl = sender as GridControl;
-            _xpandFilterControl = new Editors.XpandFilterControl {
-                Height = 150,
-                Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition,
-                SourceControl = gridControl,
-                UseMenuForOperandsAndOperators = false,
-                AllowAggregateEditing = FilterControlAllowAggregateEditing.AggregateWithCondition
-            };
-            var helper = new FilterColumnCollectionHelper(Application, ObjectSpace, View.ObjectTypeInfo);
-            _xpandFilterControl.SetFilterColumnsCollection(new MemberInfoFilterColumnCollection(helper));
+            var filterEditorControl = new Editors.FilterEditorControl();
+            var helper = new FilterEditorControlHelper(Application,ObjectSpace);
+            helper.Attach(filterEditorControl);
+            _filterControl = (XpandFilterControl) filterEditorControl.FilterControl;
+            _filterControl.Height = 150;
+            _filterControl.Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition;
+            _filterControl.UseMenuForOperandsAndOperators = false;
+            AssignControlDatasource(filterEditorControl);
+
             OnCustomAssignFilterControlSourceControl(e);
-            gridControl = (GridControl)_xpandFilterControl.SourceControl;
+            var gridControl = (GridControl) sender;
             if (!gridControl.FormsUseDefaultLookAndFeel)
-                _xpandFilterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
-            _xpandFilterControl.FilterCriteria = GetCriteriaFromView();
+                _filterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
+            _filterControl.FilterCriteria = GetCriteriaFromView();
 
             var accept = new SimpleButton {
                 Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
-            accept.Click += ((o, args) => _xpandFilterControl.ApplyFilter());
+            accept.Click += ((o, args) => _filterControl.ApplyFilter());
             accept.Dock = Forms.DockStyle.Bottom;
-            _xpandFilterControl.Controls.Add(accept);
+            _filterControl.Controls.Add(accept);
 
             if (gridControl.Parent != null) {
-                gridControl.Parent.Controls.Add(_xpandFilterControl);
+                gridControl.Parent.Controls.Add(_filterControl);
             } else {
                 gridControl.ParentChanged += gridControl_ParentChanged;
             }
@@ -94,7 +108,7 @@ Forms.DockStyle.None) {
             var gridControl = (GridControl)sender;
             gridControl.ParentChanged -= gridControl_ParentChanged;
             if (gridControl.Parent != null) {
-                gridControl.Parent.Controls.Add(_xpandFilterControl);
+                gridControl.Parent.Controls.Add(_filterControl);
             }
         }
         void Frame_ViewChanged(object sender, ViewChangedEventArgs e) {

@@ -11,14 +11,15 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
+using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.SystemModule;
 using FilterControl = DevExpress.XtraEditors.FilterControl;
 using LookupEdit = DevExpress.ExpressApp.Win.Editors.LookupEdit;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
     public partial class ResursiveFilteringViewController : ViewController {
-        private static bool recursive;
-        private static bool lookUpQueryPopUp;
+        private static bool _recursive;
+        private static bool _lookUpQueryPopUp;
         public ResursiveFilteringViewController() {
             InitializeComponent();
             RegisterActions(components);
@@ -27,9 +28,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         protected override void OnActivated() {
             RecursiveFilterPopLookUpTreeSelectionSimpleAction.Active["is " + typeof(ITreeNode).Name] = typeof(ITreeNode).IsAssignableFrom(View.ObjectTypeInfo.Type);
-            if (!lookUpQueryPopUp)
+            if (!_lookUpQueryPopUp)
                 RecursiveFilterPopLookUpTreeSelectionSimpleAction.Active["Default"] = false;
-            lookUpQueryPopUp = false;
+            _lookUpQueryPopUp = false;
 
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
             if (filterControlListViewController != null)
@@ -38,10 +39,10 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         private void CustomAssignFilterControlSourceControlListViewControllerOnCustomAssignFilterControlSourceControl(object sender, EventArgs args) {
             var filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            UpdateActionState(filterControlListViewController.XpandFilterControl);
+            UpdateActionState(filterControlListViewController.FilterControl);
             var categorizedListEditor = ((ListView)View).Editor as CategorizedListEditor;
-            if (categorizedListEditor != null) filterControlListViewController.XpandFilterControl.SourceControl = (categorizedListEditor).Grid;
-            filterControlListViewController.XpandFilterControl.FilterChanged += FilterOnFilterChanged;
+            if (categorizedListEditor != null) filterControlListViewController.FilterControl.SourceControl = (categorizedListEditor).Grid;
+            filterControlListViewController.FilterControl.FilterChanged += FilterOnFilterChanged;
 
         }
 
@@ -63,8 +64,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         private void FilterOnFilterChanged(object sender, FilterChangedEventArgs args) {
             var clauseNode = (args.CurrentNode) as ClauseNode;
-            if (clauseNode != null && recursive && clauseNode.Operation == ClauseType.AnyOf && args.Action == FilterChangedAction.ValueChanged) {
-                recursive = false;
+            if (clauseNode != null && _recursive && clauseNode.Operation == ClauseType.AnyOf && args.Action == FilterChangedAction.ValueChanged) {
+                _recursive = false;
                 string propertyName = ((ClauseNode)args.CurrentNode).FirstOperand.PropertyName;
                 var inOperator = (InOperator)FilterControlHelpers.ToCriteria(args.CurrentNode);
                 List<ITreeNode> allChildTreeNodes = GetAllChildTreeNodes(inOperator, propertyName);
@@ -74,7 +75,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             }
         }
 
-        private void UpdateActionState(ExpressApp.Win.Editors.XpandFilterControl xpandFilter) {
+        private void UpdateActionState(XpandFilterControl xpandFilter) {
             xpandFilter.EditorActivated +=
                 edit => {
                     var lookupEdit = edit as LookupEdit;
@@ -83,13 +84,13 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
                             (o, args) => {
                                 RecursiveFilterPopLookUpTreeSelectionSimpleAction.Active["Default"] =
                                     true;
-                                lookUpQueryPopUp = true;
+                                _lookUpQueryPopUp = true;
                             };
                 };
         }
 
         private void RecursiveFilterPopLookUpTreeSelectionSimpleAction_Execute(object sender, DevExpress.ExpressApp.Actions.SimpleActionExecuteEventArgs e) {
-            recursive = true;
+            _recursive = true;
             Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.DoExecute();
         }
 

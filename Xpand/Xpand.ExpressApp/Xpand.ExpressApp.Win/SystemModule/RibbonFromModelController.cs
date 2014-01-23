@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     }
                     RibbonPageGroup pageGroup = e.Group;
                     if (!string.IsNullOrEmpty(findRibbonActionLink.TargetRibbonGroup)) {
-                        pageGroup = transformer.FindGroupByName(page, findRibbonActionLink.TargetRibbonGroup) ??
+                        pageGroup = page.GetGroupByName(findRibbonActionLink.TargetRibbonGroup) ??
                                     AddPageGroup(page, findRibbonActionLink.TargetRibbonGroup);
                     }
                     e.Group = pageGroup;
