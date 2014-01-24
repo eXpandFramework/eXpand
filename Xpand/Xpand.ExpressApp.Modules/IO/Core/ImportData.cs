@@ -56,13 +56,13 @@ namespace Xpand.ExpressApp.IO.Core {
         }
         int _currentImportGeneration;
         readonly Dictionary<Type, Dictionary<object, ObjectValue>> _importedObjecs = new Dictionary<Type, Dictionary<object, ObjectValue>>();
-        readonly Dictionary<Type, Func<UnitOfWork, object>> objectsCreatorDictionary = new Dictionary<Type, Func<UnitOfWork, object>>();
+        readonly Dictionary<Type, Func<UnitOfWork, object>> _objectsCreatorDictionary = new Dictionary<Type, Func<UnitOfWork, object>>();
         readonly ParameterExpression _uowParameter = Expression.Parameter(typeof(Session), "session");
         readonly Dictionary<InputMemberInfo, FillRefList> _fillRefsDictionary = new Dictionary<InputMemberInfo, FillRefList>();
         readonly Dictionary<InputMemberInfo, FillRefList> _fillRefsAndImportDictionary = new Dictionary<InputMemberInfo, FillRefList>();
         object CreateInstance(Type type, UnitOfWork uow) {
             Func<UnitOfWork, object> creator;
-            if (!objectsCreatorDictionary.TryGetValue(type, out creator)) {
+            if (!_objectsCreatorDictionary.TryGetValue(type, out creator)) {
                 ConstructorInfo ci = type.GetConstructor(new[] { typeof(Session) });
                 if (ci == null) {
                     ci = type.GetConstructor(new[] { typeof(UnitOfWork) });
@@ -71,7 +71,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 } else {
                     creator = Expression.Lambda<Func<UnitOfWork, object>>(Expression.Convert(Expression.New(ci, Expression.Convert(_uowParameter, typeof(Session))), typeof(object)), _uowParameter).Compile();
                 }
-                objectsCreatorDictionary.Add(type, creator);
+                _objectsCreatorDictionary.Add(type, creator);
             }
             return creator(uow);
         }
@@ -183,15 +183,7 @@ namespace Xpand.ExpressApp.IO.Core {
                         OnTransformingRecords(new TransformingRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName, position));
                     }
                 }
-
-// ReSharper disable RedundantCatchClause
-#pragma warning disable 168
-            } catch (Exception e) {
-#pragma warning restore 168
-                throw;
-
-            } finally {
-// ReSharper restore RedundantCatchClause
+            }  finally {
                 outputUow.CommitChanges();
                 OnTransformRecords(new TransformRecordsArgs(inputObjectClassInfo.FullName, inputObjectClassInfo.OutputClassInfo.FullName));
                 GenerationNext(outputUow);
@@ -483,7 +475,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public bool ThrowIfColumnNotFound { get; set; }
 
-        public Type inputKeyPropertyType { get; set; }
+        public Type InputKeyPropertyType { get; set; }
 
         public string InputKeyPropertyName { get; set; }
 
@@ -667,9 +659,9 @@ namespace Xpand.ExpressApp.IO.Core {
                     var attributeInfo = (InitialDataAttribute)referenceType.FindAttributeInfo(typeof(InitialDataAttribute));
                     if (attributeInfo != null) {
                         var classInfo = inputClassInfo.Dictionary.QueryClassInfo(null, attributeInfo.Name ?? referenceType.ClassType.Name);
-                        new InputMemberInfo(inputClassInfo, propertyName, classInfo, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
+                        new InputMemberInfo(inputClassInfo, propertyName, classInfo, false, xpMemberInfo, xpMemberInfo.Attributes);
                     } else {
-                        new InputMemberInfo(inputClassInfo, propertyName, dbColumnType, xpMemberInfo.ReferenceType.KeyProperty.MemberType, !xpMemberInfo.IsPersistent, xpMemberInfo, xpMemberInfo.Attributes);
+                        new InputMemberInfo(inputClassInfo, propertyName, dbColumnType, xpMemberInfo.ReferenceType.KeyProperty.MemberType, false, xpMemberInfo, xpMemberInfo.Attributes);
                     }
                 }
             }
@@ -695,7 +687,7 @@ namespace Xpand.ExpressApp.IO.Core {
             if (!String.IsNullOrEmpty(inputKeyPropertyName) ) {
                 var member = classInfo.FindMember(inputKeyPropertyName);
                 if (member == null)
-                    classInfo.CreateMember(inputKeyPropertyName, initialDataAttribute.inputKeyPropertyType).AddAttribute(new KeyAttribute(true));
+                    classInfo.CreateMember(inputKeyPropertyName, initialDataAttribute.InputKeyPropertyType).AddAttribute(new KeyAttribute(true));
                 else {
                     member.AddAttribute(new KeyAttribute(true));
                 }
