@@ -59,6 +59,15 @@ namespace Xpand.Persistent.Base.General {
             return ((ModelNode) modelNode).IsNewNode;
         }
 
+        public static bool HasValue(this IModelNode modelNode,params Type[] interfacesToSearch  ){
+            var valueInfos = ((ModelNode) modelNode).NodeInfo.ValuesInfo;
+            string[] namesToSearch=valueInfos.Select(info => info.Name).ToArray();
+            if (interfacesToSearch != null){
+                namesToSearch = interfacesToSearch.SelectMany(type => type.Properties()).Select(info => info.Name).ToArray();
+            }
+            return valueInfos.Where(info => namesToSearch.Contains(info.Name)).Select(info => modelNode.HasValue(info.Name)).Any();
+        }
+
         public static string Id(this IModelNode modelNode) {
             return ((ModelNode) modelNode).Id;
         }

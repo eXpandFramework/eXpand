@@ -58,6 +58,7 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2, Version=13.2.6.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -138,6 +139,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\AppearanceController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ChangeLanguageController.cs">

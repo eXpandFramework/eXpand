@@ -277,9 +277,12 @@ namespace Xpand.Persistent.Base.General {
             var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
             var viewId = GetViewId(modelMergedDifference, applicationBases);
             var mergedView = (IModelObjectView)applicationBases.Cast<IModelApplication>().Select(application
-                                                                                                      => application.Views[viewId]).First(view => view != null);
-            var xml = "<Application><Views>" + ((ModelNode)mergedView).Xml + "</Views></Application>";
-            new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
+                                                                                                      => application.Views[viewId]).FirstOrDefault(view => view != null);
+            var modelNode = (ModelNode)mergedView;
+            if (modelNode != null){
+                var xml = "<Application><Views>" + modelNode.Xml + "</Views></Application>";
+                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
+            }
         }
 
         public static string GetViewId(this IModelMergedDifference modelMergedDifference, IEnumerable<ModelApplicationBase> modelApplicationBases) {
@@ -340,9 +343,9 @@ namespace Xpand.Persistent.Base.General {
                     if (!CanBeRemoved(modelNode1.GetNode(i)))
                         return false;
                 }
-                return true;
+                return !modelNode1.IsNewNode;
             }
-            return modelNode1.IsRemovedNode && !modelNode1.IsNewNode;
+            return false;
         }
 
         static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node) {
