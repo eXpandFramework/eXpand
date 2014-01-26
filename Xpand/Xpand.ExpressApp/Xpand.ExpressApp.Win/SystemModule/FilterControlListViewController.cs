@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.LookAndFeel;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
@@ -84,9 +85,7 @@ Forms.DockStyle.None) {
             AssignControlDatasource(filterEditorControl);
 
             OnCustomAssignFilterControlSourceControl(e);
-            var gridControl = (GridControl) sender;
-            if (!gridControl.FormsUseDefaultLookAndFeel)
-                _filterControl.LookAndFeel.Assign(gridControl.LookAndFeel);
+            var gridControl = AssignLookAndFeel(sender);
             _filterControl.FilterCriteria = GetCriteriaFromView();
 
             var accept = new SimpleButton {
@@ -104,6 +103,20 @@ Forms.DockStyle.None) {
             }
             OnFilterControlCreated(EventArgs.Empty);
         }
+
+        private Forms.Control AssignLookAndFeel(object sender){
+            var gridControl = sender as GridControl;
+            var userLookAndFeel = _filterControl.LookAndFeel;
+            if (gridControl != null && !gridControl.FormsUseDefaultLookAndFeel){
+                userLookAndFeel.Assign(gridControl.LookAndFeel);
+                return gridControl;
+            }
+            var supportLookAndFeel = sender as ISupportLookAndFeel;
+            if (supportLookAndFeel != null) 
+                userLookAndFeel.Assign(supportLookAndFeel.LookAndFeel);
+            return (Forms.Control) supportLookAndFeel;
+        }
+
         void gridControl_ParentChanged(object sender, EventArgs e) {
             var gridControl = (GridControl)sender;
             gridControl.ParentChanged -= gridControl_ParentChanged;
