@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandModelArtifactState</id>
-    <version>13.2.6.5</version>
+    <version>13.2.6.6</version>
     <title>DevExpress eXpandFramework ModelArtifactState Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#modelartifact</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.6.5" />
-      <dependency id="eXpandSecurity" version="13.2.6.5" />
-      <dependency id="eXpandLogic" version="13.2.6.5" />
+      <dependency id="eXpandLib" version="13.2.6.6" />
+      <dependency id="eXpandSecurity" version="13.2.6.6" />
+      <dependency id="eXpandLogic" version="13.2.6.6" />
     </dependencies>
   </metadata>
   <files>
