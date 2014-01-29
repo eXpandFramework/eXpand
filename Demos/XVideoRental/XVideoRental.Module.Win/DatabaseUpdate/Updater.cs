@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Reports;
@@ -12,6 +15,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
@@ -21,6 +25,7 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using System.Drawing;
+using Country = XVideoRental.Module.Win.BusinessObjects.Movie.Country;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
     public enum PermissionBehavior {
@@ -175,8 +180,21 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             _unitOfWork = ConnectToLegacyVideoRentDB();
         }
 
+        void Decompress(FileInfo fileInfo) {
+            using (FileStream inFile = fileInfo.OpenRead()) {
+                string curFile = fileInfo.FullName;
+                string origName = curFile.Remove(curFile.Length - fileInfo.Extension.Length) + ".mdb";
+                using (FileStream outFile = File.Create(origName)) {
+                    using (var decompress = new GZipStream(inFile, CompressionMode.Decompress)) {
+                        decompress.CopyTo(outFile);
+                    }
+                }
+            }
+        }
+
         UnitOfWork ConnectToLegacyVideoRentDB() {
-            _updater.SaveResource("LegacyVideoRent.mdb");
+            _updater.SaveResource("LegacyVideoRent.zip");
+            Decompress(new FileInfo("LegacyVideoRent.zip"));
             var unitOfWork = new UnitOfWork {
                 ConnectionString = ConfigurationManager.ConnectionStrings["VideoRentLegacy"].ConnectionString,
                 AutoCreateOption = AutoCreateOption.None
@@ -197,8 +215,58 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             initDataImporter.CommitingData += (sender, args) => _updater.UpdateStatus("Import", "", "Commiting data...");
 
             initDataImporter.Import(() => new UnitOfWork(((XPObjectSpace)_objectSpace).Session.ObjectLayer), () => new UnitOfWork(_unitOfWork.ObjectLayer));
-
+            UpdatePhotosFromReusableStorage();
         }
+
+        private UnitOfWork GetXmlUnitOfWork() {
+            var reflectionDictionary = new ReflectionDictionary();
+            var appSetting = string.Format(ConfigurationManager.AppSettings["VideoRentLegacyPath"], AssemblyInfo.VersionShort);
+            var fullPath = Environment.ExpandEnvironmentVariables(appSetting);
+
+            var legacyAssembly = Assembly.LoadFrom(Path.Combine(fullPath + @"\bin", @"DevExpress.VideoRent.dll"));
+            reflectionDictionary.CollectClassInfos(legacyAssembly);
+            var inMemoryDataStore = new InMemoryDataStore();
+            inMemoryDataStore.ReadXml(Path.Combine(fullPath + @"\CS\DevExpress.VideoRent\Data", @"VideoRent.xml"));
+            var simpleDataLayer = new SimpleDataLayer(reflectionDictionary, inMemoryDataStore);
+            return new UnitOfWork(simpleDataLayer);
+        }
+
+        private void UpdatePhotosFromReusableStorage() {
+            var xmlUnitOfWork = GetXmlUnitOfWork();
+            _objectSpace.CommitChanges();
+            foreach (var type in new[] { typeof(Customer), typeof(Movie), typeof(Country), typeof(MoviePicture), typeof(ArtistPicture) }) {
+                string memberName = type.Name + "Id";
+                Func<VideoRentalBaseObject, object> parameters = o => o.GetMemberValue("Id");
+                if (type == typeof(Country)) {
+                    memberName = "Name";
+                    parameters = o => o.GetMemberValue(memberName);
+                }
+                else if (type == typeof(MoviePicture)) {
+                    memberName = "Movie.MovieId";
+                    parameters = o => ((XPBaseObject)o.GetMemberValue("Movie")).GetMemberValue("Id");
+                }
+                else if (type == typeof(ArtistPicture)) {
+                    memberName = "Artist.ArtistId";
+                    parameters = o => ((XPBaseObject)o.GetMemberValue("Artist")).GetMemberValue("Id");
+                }
+                UpdateImage(type, xmlUnitOfWork, memberName, parameters);
+            }
+            _objectSpace.CommitChanges();
+        }
+
+        private void UpdateImage(Type type, UnitOfWork xmlUnitOfWork, string memberName, Func<VideoRentalBaseObject, object> parameters) {
+            foreach (var rentalBaseObject in _objectSpace.GetObjects(type, null, true).Cast<VideoRentalBaseObject>()) {
+                var classInfo = xmlUnitOfWork.Dictionary.Classes.OfType<XPClassInfo>().First(info => info.TableName == type.Name);
+                var baseObject = (XPBaseObject)xmlUnitOfWork.FindObject(classInfo, CriteriaOperator.Parse(memberName + "=?", parameters(rentalBaseObject)));
+                var memberInfos = rentalBaseObject.ClassInfo.Members.Where(info => info.MemberType == typeof(Image) && info.IsPublic);
+                foreach (var memberInfo in memberInfos) {
+                    _updater.UpdateStatus("Import", "Import", "Updating " + type.Name + " " + memberInfo.Name + "s");
+                    memberInfo.SetValue(rentalBaseObject, baseObject.GetMemberValue(memberInfo.Name));
+                }
+            }
+        }
+
+
         void NotifyWhenTransform(string inputClassName, int position) {
             var statusMessage = position > -1
                                        ? string.Format("Transforming records from {0}: {1}", inputClassName, position)

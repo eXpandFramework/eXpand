@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         bool CanClone() {
-            return !_disposing && GridListEditor != null && GridListEditor.Grid!=null && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null;
+            return !_disposing && GridListEditor != null && GridListEditor.Grid != null && GridListEditor.Grid.FocusedView!=null && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null;
         }
 
         protected virtual IEnumerable<ActionBase> GetActions(Frame frame) {
@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                         SubscribeToActionStateResultChange(action);
                         PushExecutionToNestedFrame(action);
                     }
-                    if (HasRules && gridView.MasterFrame == null) {
+                    if (gridView.MasterFrame == null) {
                         CloneActionState(Frame, _activeBoolLists, _enabledBoolLists);
                         gridView.GridControl.FocusedViewChanged += OnFocusedViewChanged;
                     }
@@ -71,7 +71,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         protected virtual bool SynchronizeActions() {
             return Frame.GetController<MasterDetailViewController>().FilterRules(View.CurrentObject, Frame).Any();
-                //.Any(info => info.SynchronizeActions);
         }
 
         void OnFocusedViewChanged(object sender, ViewFocusEventArgs e) {

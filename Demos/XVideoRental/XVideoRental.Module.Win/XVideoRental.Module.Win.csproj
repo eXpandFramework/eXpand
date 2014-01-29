@@ -294,6 +294,7 @@
     <EmbeddedResource Include="Resources\Top Movie Rentals.repx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LegacyVideoRent.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Editors\ReadMe.txt" />
@@ -423,11 +424,6 @@
       <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
       <Name>Xpand.ExpressApp.Logic</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\LegacyVideoRent.mdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
