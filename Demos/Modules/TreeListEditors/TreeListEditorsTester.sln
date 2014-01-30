@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.TreeListEd
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.TreeListEditors", "..\..\..\Xpand\Xpand.ExpressApp.Modules\TreeListEditors\Xpand.ExpressApp.TreeListEditors.csproj", "{A4B6B731-8A03-4A91-93DB-B22535F8CD99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,13 +75,19 @@ Global
 		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
-		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
 		{7FC6A30C-7375-4EB2-A6E9-A597B941B45F} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
+		{A4B6B731-8A03-4A91-93DB-B22535F8CD99} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934} = {5BEA29C8-F9DF-4BEF-BE78-FD2E744AF3E7}
 	EndGlobalSection
 EndGlobal

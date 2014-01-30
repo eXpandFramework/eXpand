@@ -1,5 +1,5 @@
-﻿using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.TreeListEditors.Win;
+﻿using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraTreeList;
 using Xpand.ExpressApp.TreeListEditors.Model;
@@ -7,10 +7,10 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
     public class TreeListEditorDynamicModelSynchronizer : ModelListSynchronizer {
-        public TreeListEditorDynamicModelSynchronizer(TreeListEditor editor)
-            : base(editor.Control, editor.Model) {
-            ModelSynchronizerList.Add(new TreeListViewOptionsSynchronizer(editor.TreeList, ((IModelListViewOptionsTreeList)Model).TreeListOptions));
-            ModelSynchronizerList.Add(new TreeListColumnOptionsSynchronizer(editor.TreeList, (IModelListViewOptionsTreeList)Model));
+        public TreeListEditorDynamicModelSynchronizer(TreeList treeList,IModelListView modelListView)
+            : base(treeList, modelListView) {
+            ModelSynchronizerList.Add(new TreeListViewOptionsSynchronizer(treeList, ((IModelListViewOptionsTreeList)Model).TreeListOptions));
+            ModelSynchronizerList.Add(new TreeListColumnOptionsSynchronizer(treeList, (IModelListViewOptionsTreeList)Model));
         }
 
     }

@@ -37,8 +37,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
     }
 
     public class TreeListEditorVisibilityCalculatorHelper : TreeListEditors.Model.TreeListEditorVisibilityCalculatorHelper {
-        public override Type TreelistEditorType() {
-            return typeof(TreeListEditor);
+        public override Type[] TreelistEditorType(){
+            return new []{typeof(TreeListEditor),typeof(CategorizedListEditor)};
         }
     }
 }

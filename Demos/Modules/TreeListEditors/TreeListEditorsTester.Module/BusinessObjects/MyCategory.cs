@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.Persistent.Base;
+﻿using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
@@ -17,8 +14,21 @@ namespace TreeListEditorsTester.Module.BusinessObjects {
 
     }
     [DefaultClassOptions]
-    public class Customer:Person{
+    public class Customer:Person,ICategorizedItem{
         public Customer(Session session) : base(session){
+        }
+
+        ITreeNode ICategorizedItem.Category { get; set; }
+        // Fields...
+        private MyCategory _category;
+
+        public MyCategory Category {
+            get {
+                return _category;
+            }
+            set {
+                SetPropertyValue("Category", ref _category, value);
+            }
         }
     }
 }

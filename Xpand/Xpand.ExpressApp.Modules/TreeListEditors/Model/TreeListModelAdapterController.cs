@@ -9,17 +9,19 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
-    public abstract class TreeListModelAdapterController<TReeListEditor> : ModelAdapterController, IModelExtender where TReeListEditor : ListEditor {
-        protected TReeListEditor TreeListEditor;
+    public abstract class TreeListModelAdapterController : ModelAdapterController, IModelExtender{
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (TreeListEditor != null)
-                TreeListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
+            var listView = View as ListView;
+            if (listView != null)
+                listView.Editor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
         }
 
-        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CustomModelSynchronizerHelper.Assign(e, ModelSynchronizer());
+        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e){
+            var modelSynchronizer = ModelSynchronizer();
+            if (modelSynchronizer!=null)
+                CustomModelSynchronizerHelper.Assign(e, modelSynchronizer);
         }
 
         protected abstract ModelSynchronizer ModelSynchronizer();
@@ -27,11 +29,13 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
-            if (listView != null && listView.Editor != null && listView.Editor is TReeListEditor) {
-                TreeListEditor = (TReeListEditor)listView.Editor;
-                TreeListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
+            if (listView != null && listView.Editor != null && GetValidEditor()) {
+                listView.Editor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
             }
         }
+
+        protected abstract bool GetValidEditor();
+
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelListView, IModelListViewOptionsTreeList>();
             extenders.Add<IModelRootNavigationItems, IModelListViewOptionsTreeListNavigation>();
