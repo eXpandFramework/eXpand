@@ -1,15 +1,24 @@
 ﻿using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using Xpand.ExpressApp.TreeListEditors.Win.Core;
+using DevExpress.Persistent.Base;
+using Fasterflect;
+using Xpand.ExpressApp.TreeListEditors.Model;
 
 namespace Xpand.ExpressApp.TreeListEditors {
     public class XpandTreeListEditorServerModeUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelViews = (IModelViews)node;
-            foreach (IModelListView modelView in modelViews.OfType<IModelListView>()) {
-                modelView.UseServerMode = typeof (ITreeListEditor).IsAssignableFrom(modelView.EditorType);
+            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper));
+            var type = ReflectionHelper.FindTypeDescendants(typeInfo).First(info
+                => !info.IsAbstract).Type;
+            var helper=(TreeListEditorVisibilityCalculatorHelper) type.CreateInstance();
+            var modelListViews = modelViews.OfType<IModelListView>().Where(view => helper.TreelistEditorType().Any(type1 
+                => type1.IsAssignableFrom(view.EditorType)));
+            foreach (var modelListView in modelListViews) {
+                modelListView.UseServerMode = false;
             }
         }
     }

@@ -84,7 +84,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITreeListEditor.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="Model\TreeListModelAdapterController.cs">
