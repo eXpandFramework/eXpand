@@ -150,6 +150,14 @@ namespace Xpand.ExpressApp.SystemModule {
                 }
                 parameters.Values.Add("PropertyName",name);
             }
+            if (typeof(IModelListViewLoadWhenFiltered).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("LoadWhenFiltered")) {
+                if (parameters.Values["LoadWhenFiltered"] == "True"){
+                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.FilterAndCriteria.ToString();
+                }
+                else if (parameters.Values["LoadWhenFiltered"] == "False"){
+                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.No.ToString();
+                }
+            }
         }
     }
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Fasterflect;
@@ -12,8 +10,18 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassLoadWhenFiltered : IModelNode {
         [Category("eXpand")]
         [Description("Only loads listview records when a filter is present")]
-        bool LoadWhenFiltered { get; set; }
+        [DefaultValue(LoadWhenFiltered.FilterAndCriteria)]
+        LoadWhenFiltered LoadWhenFiltered { get; set; }
     }
+
+    public enum LoadWhenFiltered{
+        No,
+        FilterAndCriteria,
+        Always,
+        Filter,
+        Criteria
+    }
+
     [ModelInterfaceImplementor(typeof(IModelClassLoadWhenFiltered), "ModelClass")]
     public interface IModelListViewLoadWhenFiltered : IModelClassLoadWhenFiltered {
     }
@@ -32,7 +40,15 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected bool IsReady() {
             var modelListViewGridViewOptions = ((IModelListViewLoadWhenFiltered)View.Model);
-            return modelListViewGridViewOptions.LoadWhenFiltered && (string.IsNullOrEmpty(View.Model.Filter)&&string.IsNullOrEmpty(View.Model.Criteria));
+            if (modelListViewGridViewOptions.LoadWhenFiltered==SystemModule.LoadWhenFiltered.FilterAndCriteria)
+                return  (string.IsNullOrEmpty(View.Model.Filter)&&string.IsNullOrEmpty(View.Model.Criteria));
+            if (modelListViewGridViewOptions.LoadWhenFiltered==SystemModule.LoadWhenFiltered.Filter)
+                return  (string.IsNullOrEmpty(View.Model.Filter));
+            if (modelListViewGridViewOptions.LoadWhenFiltered==SystemModule.LoadWhenFiltered.Criteria)
+                return  (string.IsNullOrEmpty(View.Model.Criteria));
+            if (modelListViewGridViewOptions.LoadWhenFiltered==SystemModule.LoadWhenFiltered.Always)
+                return  true;
+            return false;
         }
 
         void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
