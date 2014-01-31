@@ -22,6 +22,8 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (_existentTypesMemberCreator == null && RuntimeMode) {
+                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
+                WCTypesInfo.Instance.Register(GetAdditionalClasses(ModuleManager));
                 _existentTypesMemberCreator = new ExistentTypesMemberCreator();
                 var reflectionDictionary = WorldCreatorModuleBase.GetReflectionDictionary(this);
                 var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, reflectionDictionary);

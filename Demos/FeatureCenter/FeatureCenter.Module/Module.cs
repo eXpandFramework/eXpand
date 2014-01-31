@@ -17,7 +17,7 @@ using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifferen
 
 
 namespace FeatureCenter.Module {
-    public sealed partial class FeatureCenterModule : XpandModuleBase {
+    public sealed partial class FeatureCenterModule : ModuleBase {
         public FeatureCenterModule() {
             InitializeComponent();
         }

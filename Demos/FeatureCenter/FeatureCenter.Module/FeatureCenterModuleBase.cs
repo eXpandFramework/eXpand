@@ -7,7 +7,8 @@ namespace FeatureCenter.Module {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             var logicModule = moduleManager.Modules.FindModule<LogicModule>();
-            logicModule.LogicRuleCollector.RulesCollected += AdditionalViewControlsModuleOnRulesCollected;
+            if (logicModule != null)
+                logicModule.LogicRuleCollector.RulesCollected += AdditionalViewControlsModuleOnRulesCollected;
         }
 
         protected abstract void AdditionalViewControlsModuleOnRulesCollected(object sender, EventArgs e);

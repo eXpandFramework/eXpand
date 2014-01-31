@@ -292,7 +292,7 @@ namespace Xpand.Persistent.Base.General {
                     var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ??
                                        Registry.LocalMachine.OpenSubKey("Software");
                     if (softwareNode != null) {
-                        var xpandNode = softwareNode.OpenSubKey(@"DevExpress\DXperience\v"+AssemblyInfo.VersionShort);
+                        var xpandNode = softwareNode.OpenSubKey(@"DevExpress\Components\v"+AssemblyInfo.VersionShort);
                         if (xpandNode != null)
                             _dxPathInRegistry = xpandNode.GetValue("RootDirectory") + "";
                     }

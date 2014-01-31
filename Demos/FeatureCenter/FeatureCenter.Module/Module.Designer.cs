@@ -38,6 +38,8 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
+            this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
+            this.RequiredModuleTypes.Add(typeof(StateMachineModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Kpi.KpiModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
@@ -52,14 +54,11 @@ namespace FeatureCenter.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.XpandPivotChartModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule));
-            this.RequiredModuleTypes.Add(typeof(ScriptRecorderModuleBase));
             this.RequiredModuleTypes.Add(typeof(WorldCreatorDBMapperModule));
-            
 
-            
+
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule));
             this.RequiredModuleTypes.Add(typeof(ImportWizardModule));
-            this.RequiredModuleTypes.Add(typeof(StateMachineModule));
             this.RequiredModuleTypes.Add(typeof(XpandWorkFlowModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.StateMachine.XpandStateMachineModule));
 

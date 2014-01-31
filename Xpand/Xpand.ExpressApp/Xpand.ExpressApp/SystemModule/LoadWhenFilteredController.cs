@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassLoadWhenFiltered : IModelNode {
         [Category("eXpand")]
         [Description("Only loads listview records when a filter is present")]
-        [DefaultValue(LoadWhenFiltered.FilterAndCriteria)]
+        [DefaultValue(LoadWhenFiltered.No)]
         LoadWhenFiltered LoadWhenFiltered { get; set; }
     }
 

@@ -55,7 +55,7 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
             this.RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(MemberLevelSecurityModuleWin));
+            
             this.RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
