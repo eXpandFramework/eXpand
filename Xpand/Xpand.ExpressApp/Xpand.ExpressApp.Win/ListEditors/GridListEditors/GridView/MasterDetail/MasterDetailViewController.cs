@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraRichEdit.API.Word;
 using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.Persistent.Base.General;
@@ -86,7 +85,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         private void GridOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs){
             var columnView = ((IMasterDetailColumnView) viewFocusEventArgs.View);
-            if (columnView!=columnView.GridControl.MainView&& columnView != null && columnView.Window != null){
+            if (columnView != null && (columnView!=columnView.GridControl.MainView && columnView.Window != null)){
                 ((ListView)columnView.Window.View).Editor.CallMethod("OnFocusedObjectChanged");
             }
         }
