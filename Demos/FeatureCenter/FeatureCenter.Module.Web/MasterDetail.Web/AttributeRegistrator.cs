@@ -7,11 +7,11 @@ using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Web.MasterDetail.Web {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
-        private const string MasterDetailMode_ListView = "MasterDetailMode_ListView";
+        private const string MasterDetailModeListView = "MasterDetailMode_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type == typeof(EAMCustomer)) {
-                yield return new CloneViewAttribute(CloneViewType.ListView, MasterDetailMode_ListView);
-                var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("MasterDetail/MasterDetailMode", MasterDetailMode_ListView);
+                yield return new CloneViewAttribute(CloneViewType.ListView, MasterDetailModeListView);
+                var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("MasterDetail/MasterDetailMode", MasterDetailModeListView);
                 yield return xpandNavigationItemAttribute;
                 yield return new WhatsNewAttribute(new DateTime(2012, 8, 16), xpandNavigationItemAttribute);
             }
