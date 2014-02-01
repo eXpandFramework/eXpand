@@ -10,11 +10,12 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public interface IModelOptionsApplicationModelDiffs : IModelOptions {
         [DefaultValue(true)]
-        [Description("When an active user model difference is saved then it will be combined with application model difference")]
+        [Description("When an active user model difference is saved then it will be combined with the application user model difference")]
         [Category("eXpand.ModelDifference")]
         bool CombineActiveUserDiffsWithLastLayerOnSave { get; set; }
         [Category("eXpand.ModelDifference")]
         [DefaultValue(true)]
+        [Description("When a user model difference is loaded will be compiled with the application user model difference")]
         bool CombineLastLayerWithActiveUserDiffsOnLoad { get; set; }
     }
     public class CombineActiveUserDiffsWithLastLayerController : ViewController<DetailView>, IModelExtender {
