@@ -323,6 +323,18 @@ Function InstallProjectTemplates
     call InstallProjectTemplatesFiles
     WriteRegStr HKLM "${REGKEY}" "VS10Path" $0
 	
+	ReadRegStr $0 HKLM "Software\Microsoft\VisualStudio\11.0" "InstallDir"
+    StrCmp $0 "" +4 0
+    Push $0
+    call InstallProjectTemplatesFiles
+    WriteRegStr HKLM "${REGKEY}" "VS11Path" $0
+	
+	ReadRegStr $0 HKLM "Software\Microsoft\VisualStudio\12.0" "InstallDir"
+    StrCmp $0 "" +4 0
+    Push $0
+    call InstallProjectTemplatesFiles
+    WriteRegStr HKLM "${REGKEY}" "VS12Path" $0
+	
 	Exec  "$0devenv.exe /InstallVSTemplates"
     
 	Pop $0
