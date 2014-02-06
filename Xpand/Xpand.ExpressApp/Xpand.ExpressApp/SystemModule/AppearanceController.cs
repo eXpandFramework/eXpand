@@ -40,13 +40,15 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private void AppearanceControllerOnCustomGetIsRulePropertiesEmpty(object sender, CustomGetIsRulePropertiesEmptyEventArgs e) {
-            var appearanceRuleProperties = (CachedAppearanceRuleProperties)e.RuleProperties;
-            e.IsEmpty = !appearanceRuleProperties.Properties.HasValue(new[] { typeof(IModelAppearanceFont) });
+        private void AppearanceControllerOnCustomGetIsRulePropertiesEmpty(object sender, CustomGetIsRulePropertiesEmptyEventArgs e){
+            var appearanceRuleProperties = e.RuleProperties as CachedAppearanceRuleProperties;
+            if (appearanceRuleProperties != null)
+                e.IsEmpty = !appearanceRuleProperties.Properties.HasValue(new[] { typeof(IModelAppearanceFont) });
         }
 
-        private void AppearanceControllerOnCustomCreateAppearanceRule(object sender, CustomCreateAppearanceRuleEventArgs e) {
-            e.Rule = new AppearanceRule(new CachedAppearanceRuleProperties((IXpandAppearanceRuleProperties)e.RuleProperties), View.ObjectSpace);
+        private void AppearanceControllerOnCustomCreateAppearanceRule(object sender, CustomCreateAppearanceRuleEventArgs e){
+            if (e.RuleProperties.GetPropertyValue("Attribute")==null)
+                e.Rule = new AppearanceRule(new CachedAppearanceRuleProperties((IXpandAppearanceRuleProperties) e.RuleProperties), View.ObjectSpace);
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
