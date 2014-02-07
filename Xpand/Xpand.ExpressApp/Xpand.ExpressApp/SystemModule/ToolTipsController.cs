@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Fasterflect;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -40,7 +42,8 @@ namespace Xpand.ExpressApp.SystemModule {
         string GetToolTipCore(IModelMemberViewItem model, object editValue) {
             string name = Enum.GetName(model.ModelMember.Type, editValue);
             if (!(string.IsNullOrEmpty(name))) {
-                var tooltipAttribute = XafTypesInfo.Instance.FindTypeInfo(model.ModelMember.Type).FindMember(name).FindAttribute<TooltipAttribute>();
+                var memInfo = model.ModelMember.Type.GetMember(name);
+                var tooltipAttribute = memInfo[0].GetCustomAttributes(typeof(TooltipAttribute), false).OfType<TooltipAttribute>().FirstOrDefault();
                 return tooltipAttribute != null ? Environment.NewLine + tooltipAttribute.Value : null;
             }
             return null;
