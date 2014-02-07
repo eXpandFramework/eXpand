@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module", "WorkflowTester.Module\WorkflowTester.Module.csproj", "{23D2F6B6-BCA3-42FB-94C8-C2B4C57F1AA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module.Web", "WorkflowTester.Module.Web\WorkflowTester.Module.Web.csproj", "{0D2BF22B-ED7A-4EE0-86E4-553E254783EB}"
@@ -10,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Module.Win", "WorkflowTester.Module.Win\WorkflowTester.Module.Win.csproj", "{346E9BB4-D720-4BAA-9629-730FFED0C6D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTester.Win", "WorkflowTester.Win\WorkflowTester.Win.csproj", "{6064447B-B634-47E5-B47F-C40E7A7AB489}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{D4311946-0147-4D79-97D7-CA209091C66E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Workflow", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj", "{DA7200E2-BE28-4B34-99F2-FF9490A720DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +56,22 @@ Global
 		{6064447B-B634-47E5-B47F-C40E7A7AB489}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{6064447B-B634-47E5-B47F-C40E7A7AB489}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6064447B-B634-47E5-B47F-C40E7A7AB489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DA7200E2-BE28-4B34-99F2-FF9490A720DC} = {D4311946-0147-4D79-97D7-CA209091C66E}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {D4311946-0147-4D79-97D7-CA209091C66E}
 	EndGlobalSection
 EndGlobal
