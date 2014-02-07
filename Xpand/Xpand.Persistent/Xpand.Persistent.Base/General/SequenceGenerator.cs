@@ -73,7 +73,7 @@ namespace Xpand.Persistent.Base.General {
             SetNextSequence(typeInfo, null, nextId);
         }
 
-        internal static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
+        public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             var objectByKey = _sequenceGenerator._explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, prefix + typeInfo.FullName, true);
