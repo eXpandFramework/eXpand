@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandMemberLevelSecurityWin</id>
-    <version>13.2.6.7</version>
+    <version>13.2.6.8</version>
     <title>DevExpress eXpandFramework MemberLevelSecurity Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#memberlevelsecuirty</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.6.7" />
-      <dependency id="eXpandSystemWin" version="13.2.6.7" />
-      <dependency id="eXpandSecurity" version="13.2.6.7" />
+      <dependency id="eXpandLib" version="13.2.6.8" />
+      <dependency id="eXpandSystemWin" version="13.2.6.8" />
+      <dependency id="eXpandSecurity" version="13.2.6.8" />
     </dependencies>
   </metadata>
   <files>
