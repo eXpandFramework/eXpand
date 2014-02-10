@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -123,6 +124,9 @@
     <Compile Include="Model\QueryStringParameter.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
+    <Compile Include="SystemModule\MasterDetail\MasterDetailKeyFieldController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\UnsavedObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
