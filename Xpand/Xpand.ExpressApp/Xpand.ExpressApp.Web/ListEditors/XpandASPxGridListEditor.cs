@@ -10,7 +10,6 @@ using System.Globalization;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Web.Editors;
 using Xpand.ExpressApp.ListEditors;
-using DevExpress.Web.ASPxSplitter;
 using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.Web.ListEditors {
@@ -36,10 +35,10 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
         }
 
-        public void SetupGridView(ASPxGridView gridView, Action OnFocusedObjectChanged) {
+        public void SetupGridView(ASPxGridView gridView, Action onFocusedObjectChanged) {
             _gridView = gridView;
             gridView.SettingsBehavior.AllowFocusedRow = true;
-            gridView.Load += (s, e) => OnFocusedObjectChanged();
+            gridView.Load += (s, e) => onFocusedObjectChanged();
 
             gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
             gridView.ClientSideEvents.FocusedRowChanged = string.Format(
@@ -109,8 +108,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             IList selectedObjects = base.GetSelectedObjects();
             if (!MasterDetail || (selectedObjects != null && selectedObjects.Count > 0))
                 return selectedObjects;
-            else
-                return _masterDetailProvider.GetSelectedObjects(FocusedObject);
+            return _masterDetailProvider.GetSelectedObjects(FocusedObject);
         }
 
         public bool MasterDetail {

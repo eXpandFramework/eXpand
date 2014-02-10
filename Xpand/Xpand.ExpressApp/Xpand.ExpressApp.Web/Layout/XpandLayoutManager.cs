@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
-        private static readonly List<Tuple<Type, Type>> listControlAdapters = new List<Tuple<Type, Type>>();
+        private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
         protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
@@ -53,14 +53,14 @@ namespace Xpand.ExpressApp.Web.Layout {
             if (!typeof(IListControlAdapter).IsAssignableFrom(adapterType))
                 throw new ArgumentException("Class must implement the IListControlAdapter interface", "adapterType");
 
-            for (int i = 0; i < listControlAdapters.Count; i++) {
-                if (listControlAdapters[i].Item1.IsAssignableFrom(controlType)) {
-                    listControlAdapters[i] = new Tuple<Type, Type>(controlType, adapterType);
+            for (int i = 0; i < _listControlAdapters.Count; i++) {
+                if (_listControlAdapters[i].Item1.IsAssignableFrom(controlType)) {
+                    _listControlAdapters[i] = new Tuple<Type, Type>(controlType, adapterType);
                     return;
                 }
             }
 
-            listControlAdapters.Add(new Tuple<Type, Type>(controlType, adapterType));
+            _listControlAdapters.Add(new Tuple<Type, Type>(controlType, adapterType));
         }
 
 
@@ -114,7 +114,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         private static IListControlAdapter GetListControlAdapter(Control control) {
             Guard.ArgumentNotNull(control, "control");
 
-            Type t = listControlAdapters.Where(at => at.Item1.IsInstanceOfType(control)).Select(at => at.Item2).FirstOrDefault();
+            Type t = _listControlAdapters.Where(at => at.Item1.IsInstanceOfType(control)).Select(at => at.Item2).FirstOrDefault();
             if (t == null)
                 throw new ArgumentException(
                     string.Format(CultureInfo.InvariantCulture, "No IListControlAdapter found for controlType {0}", control.GetType()));
