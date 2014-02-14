@@ -38,12 +38,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
         }
 
         protected override void ApplyModelCore() {
-            foreach (var viewItem in ViewItems()) {
+            foreach (var viewItem in ViewItems()){
                 var dxPropertyEditor = Control.GetItems<DXPropertyEditor>().FirstOrDefault(editor => editor.Model == viewItem);
-                if (dxPropertyEditor != null) {
+                if (dxPropertyEditor != null && dxPropertyEditor.Control != null){
                     var repositoryItem = dxPropertyEditor.Control.Properties;
                     var modelRepositoryItems = GetRepositoryItems(repositoryItem, viewItem);
-                    foreach (var modelRepositoryItem in modelRepositoryItems) {
+                    foreach (var modelRepositoryItem in modelRepositoryItems){
                         ApplyModel(modelRepositoryItem, repositoryItem, ApplyValues);
                     }
                 }
