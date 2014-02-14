@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.XtraGrid.Columns;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
@@ -26,7 +25,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
         public LayoutViewLayoutStoreSynchronizer(LayoutViewListEditor control)
             : base(control, control.Model.OptionsLayoutView.DesignLayoutView) {
         }
+
+        protected override bool SynchronizeModelCore(){
+            return true;
+        }
     }
+
     public class LayoutViewOptionsSynchronizer : ComponentSynchronizer<XafLayoutView, IModelOptionsLayoutView> {
         public LayoutViewOptionsSynchronizer(LayoutViewListEditor layoutViewListEditor)
             : base(layoutViewListEditor.GridView, layoutViewListEditor.Model.OptionsLayoutView, ((IColumnViewEditor)layoutViewListEditor).OverrideViewDesignMode) {

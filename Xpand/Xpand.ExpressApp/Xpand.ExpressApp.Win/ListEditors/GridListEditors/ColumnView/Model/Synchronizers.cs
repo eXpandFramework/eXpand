@@ -31,8 +31,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         }
 
         public override void SynchronizeModel() {
-            if (Control.OverrideViewDesignMode)
+            if (Control.OverrideViewDesignMode||SynchronizeModelCore())
                 SaveToLayoutStore(Control.Grid.MainView);
+        }
+
+        protected virtual bool SynchronizeModelCore(){
+            return false;
         }
 
         OptionsLayoutGrid GetOptionsLayoutGrid() {

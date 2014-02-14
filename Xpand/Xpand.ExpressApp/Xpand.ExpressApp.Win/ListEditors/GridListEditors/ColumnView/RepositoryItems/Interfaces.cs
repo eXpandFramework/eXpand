@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
@@ -10,6 +11,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
     public interface IModelRepositoryItems : IModelNode, IModelList<IModelRepositoryItem> {
     }
 
+    [DomainLogic(typeof(IModelRepositoryItemCheckEdit))]
+    public class ModelRepositoryItemDomainLogic{
+        public static string Get_Id(IModelRepositoryItemCheckEdit modelRepositoryItem) {
+            return new FastModelEditorHelper().GetNodeDisplayName(modelRepositoryItem.GetType());
+        }
+    }
     [ModelDisplayName("Item")]
     [ModelAbstractClass]
     public interface IModelRepositoryItem : IModelNodeEnabled {
