@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandFilterDatastoreWin</id>
-    <version>13.2.7.8</version>
+    <version>13.2.7.2</version>
     <title>DevExpress eXpandFramework FilterDatastore Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#filterdatastore</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.8" />
-      <dependency id="eXpandFilterDatastore" version="13.2.7.8" />
+      <dependency id="eXpandLib" version="13.2.7.2" />
+      <dependency id="eXpandFilterDatastore" version="13.2.7.2" />
     </dependencies>
   </metadata>
   <files>
