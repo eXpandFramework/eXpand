@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -13,7 +14,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Description("Using an expression here it will force the creation of a calculated property insted of a normal one")]
         [CriteriaOptions("ModelClass.TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win" +XafApplication.CurrentVersion+AssemblyInfo.FullAssemblyVersionExtension , typeof(UITypeEditor))]
         string AliasExpression { get; set; }
     }
 
