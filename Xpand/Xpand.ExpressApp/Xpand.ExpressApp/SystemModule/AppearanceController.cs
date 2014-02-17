@@ -125,7 +125,8 @@ namespace Xpand.ExpressApp.SystemModule {
             var type = appearanceFormat.GetType();
             object obj = appearanceFormat;
             while (propertyName.Contains(".")) {
-                var propertyInfo = type.Property(propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal)));
+                var name = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
+                var propertyInfo = GetPropertyInfo(type, name);
                 if (propertyInfo == null)
                     return null;
                 propertyName = propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1);
@@ -134,6 +135,18 @@ namespace Xpand.ExpressApp.SystemModule {
             }
             var property = type.Property(propertyName);
             return new Tuple<PropertyInfo, object, Font>(property, obj, (Font)property.Get(obj));
+        }
+
+        private static PropertyInfo GetPropertyInfo(Type type, string name){
+
+            while (type!=typeof(object)){
+                var propertyInfo = type.Property(name, Flags.InstancePublicDeclaredOnly);
+                if (propertyInfo!=null)
+                    return propertyInfo;
+                if (type != null) type = type.BaseType;
+            }
+            
+            return null;
         }
     }
 
