@@ -32,10 +32,10 @@ namespace Xpand.ExpressApp.Web {
             return modelOptionsFriendlyUrl != null && modelOptionsFriendlyUrl.EnableFriendlyUrl;
         }
 
-        public static CType FindControlByType<CType>(this Control parent) where CType : Control {
-            var result = parent as CType;
+        public static TCType FindControlByType<TCType>(this Control parent) where TCType : Control {
+            var result = parent as TCType;
             if (result != null) return result;
-            return parent.Controls.Cast<Control>().Select(FindControlByType<CType>).FirstOrDefault(c => c != null);
+            return parent.Controls.Cast<Control>().Select(FindControlByType<TCType>).FirstOrDefault(c => c != null);
         }
 
     }
