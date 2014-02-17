@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
+using Xpand.ExpressApp.Security.Core;
 
 namespace ModelDifferenceTester.Win {
     partial class ModelDifferenceTesterWindowsFormsApplication {
@@ -48,7 +49,7 @@ namespace ModelDifferenceTester.Win {
             // 
             this._securityStrategyComplex.Authentication = this._authenticationStandard;
             this._securityStrategyComplex.UserType = typeof(SecuritySystemUser);
-            this._securityStrategyComplex.RoleType = typeof(SecuritySystemRole);
+            this._securityStrategyComplex.RoleType = typeof(XpandRole);
             // 
             // _authenticationStandard
             // 
