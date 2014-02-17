@@ -85,6 +85,10 @@
     <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\DevExpress.Persistent.Base.v13.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -121,6 +125,22 @@
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
+    <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditor.cs" />
+    <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\EditableTabEnabledListEditor\Model.cs" />
+    <Compile Include="ListEditors\TwoDimensionListEditor\Model.cs" />
+    <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.designer.cs">
+      <DependentUpon>TwoDimensionEditorViewItemController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionListEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ListEditors\WebControlAppearanceAdapter.cs" />
     <Compile Include="Model\QueryStringParameter.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
@@ -232,6 +252,9 @@
     <Compile Include="XpandWebWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.resx">
+      <DependentUpon>TwoDimensionEditorViewItemController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -285,6 +308,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditors\CSCodePropertyEditor\CodeFormatter.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Images\Eye-icon.png" />
+    <EmbeddedResource Include="Images\Eye-icon_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

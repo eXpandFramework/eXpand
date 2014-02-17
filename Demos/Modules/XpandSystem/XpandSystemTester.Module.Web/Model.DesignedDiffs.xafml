@@ -10,5 +10,9 @@
   </SchemaModules>
   <Views>
     <ListView Id="Customer_ListView" FriendlyUrl="Customer_ListView111" />
+    <ListView Id="Master_Details_ListView" AllowEdit="True" EditorTypeName="Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor.EditableTabEnabledListEditor" />
+    <ListView Id="TwoDimensionItem_ListView" >
+      <TwoDimensionListEditor ShowCheckboxes="True" />
+    </ListView>
   </Views>
 </Application>

@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.Persistent.Base.General;
@@ -55,6 +56,8 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
             extenders.Add<IModelOptions, IModelOptionsQueryStringParameter>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
+            extenders.Add<IModelListView, IModelListViewTwoDimensionListEditor>();
+            extenders.Add<IModelColumnSummaryItem, IModelColumnSummaryItemTwoDimensionListEditor>();
         }
     }
 }
