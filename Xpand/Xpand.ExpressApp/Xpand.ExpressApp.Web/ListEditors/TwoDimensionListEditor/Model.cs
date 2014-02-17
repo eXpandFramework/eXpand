@@ -1,11 +1,20 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor{
     [ModelAbstractClass]
     public interface IModelColumnSummaryItemTwoDimensionListEditor:IModelColumnSummaryItem{
+        [ModelBrowsable(typeof(TwoDimensionListEditorVisibilityCalculator))]
         IModelTwoDimensionListEditorSummaryItem TwoDimensionListEditor { get; }
     }
+
+    public class TwoDimensionListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+        public override bool IsVisible(IModelNode node, string propertyName){
+            return typeof (TwoDimensionListEditor).IsAssignableFrom(EditorType(node));
+        }
+    }
+
     public interface IModelTwoDimensionListEditorSummaryItem : IModelNode {
         [Description("Specifies where the summary appears."), DefaultValue(DimensionsEnum.Both)]
         [Category("Appearance")]
@@ -20,6 +29,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor{
 
     [ModelAbstractClass]
     public interface IModelListViewTwoDimensionListEditor:IModelListView{
+        [ModelBrowsable(typeof(TwoDimensionListEditorVisibilityCalculator))]
         IModelTwoDimensionListEditor TwoDimensionListEditor { get; }
     }
 

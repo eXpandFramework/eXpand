@@ -19,19 +19,8 @@ using Guard = DevExpress.ExpressApp.Utils.Guard;
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
         public static ModelNode GetParent(IModelNode node) {
-            return GetParent<IModelColumn>(node) ?? GetParent<IModelListView>(node);
+            return (ModelNode) (node.GetParent<IModelColumn>() ?? node.GetParent<IModelListView>());
         }
-
-        static ModelNode GetParent<TNode>(IModelNode node) where TNode : IModelNode {
-            var modelNode = node;
-            while (!(modelNode is TNode)) {
-                if (modelNode.Parent == null)
-                    return null;
-                modelNode = modelNode.Parent;
-            }
-            return (ModelNode)modelNode;
-        }
-
     }
     public class MapModelReadOnlyCalculator : IModelIsReadOnly {
 

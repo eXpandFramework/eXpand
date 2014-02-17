@@ -7,13 +7,7 @@ namespace Xpand.Persistent.Base.General.Model.VisibilityCalculators {
         #region Implementation of IModelIsVisible
 
         protected Type EditorType(IModelNode node) {
-            var modelListView = node as IModelListView;
-            if (modelListView != null)
-                return modelListView.EditorType;
-            var modelColumn = node as IModelColumn;
-            if (modelColumn != null)
-                return ((IModelListView)modelColumn.ParentView).EditorType;
-            throw new NotImplementedException(node.GetType().ToString());
+            return ((IModelListView) node.GetParent<IModelListView>()).EditorType;
         }
         #endregion
         #region Implementation of IModelIsVisible

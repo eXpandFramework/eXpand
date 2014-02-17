@@ -1,10 +1,18 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
     [ModelAbstractClass]
     public interface IModelColumnSummaryItemEditabledTabEnabled:IModelColumnSummaryItem{
+        [ModelBrowsable(typeof(EditableTabEnabledListEditorVisibilityCalculator))]
         IModelEditableTabEnabledEditorSummaryItem EditableTabEnabledEditorSummaryItem { get; }
+    }
+
+    public class EditableTabEnabledListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+        public override bool IsVisible(IModelNode node, string propertyName){
+            return typeof (EditableTabEnabledListEditor).IsAssignableFrom(EditorType(node));
+        }
     }
 
     public interface IModelEditableTabEnabledEditorSummaryItem : IModelNode {

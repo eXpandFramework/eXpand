@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Linq;
 using Fasterflect;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
@@ -34,6 +33,15 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public static class ModelNodeExtensions {
+        public static IModelNode GetParent<TNode>(this IModelNode node) where TNode : IModelNode {
+            var modelNode = node;
+            while (!(modelNode is TNode)) {
+                if (modelNode.Parent == null)
+                    return null;
+                modelNode = modelNode.Parent;
+            }
+            return modelNode;
+        }
 
         public static string Xml(this IModelNode modelNode) {
             return ((ModelNode) modelNode).Xml;
