@@ -1,7 +1,7 @@
-#DropDB AuditTrailTesterEasyTest
+;#DropDB AuditTrailTesterEasyTest
 
 #Application AuditTrailTester.Win
-#Application AuditTrailTester.Web
+;#Application AuditTrailTester.Web
 
 *FillForm
  User Name = Admin

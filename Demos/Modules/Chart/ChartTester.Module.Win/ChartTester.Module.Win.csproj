@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BussinessObjects\Customer.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -80,8 +81,14 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\Sample.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
