@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module", "ExceptionHandingTester.Module\ExceptionHandingTester.Module.csproj", "{3CD21FAF-5B95-412A-B23D-5C84A48103F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module.Web", "ExceptionHandingTester.Module.Web\ExceptionHandingTester.Module.Web.csproj", "{838A29A7-6956-4048-B650-EC5CC477F5EA}"
@@ -10,6 +12,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Module.Win", "ExceptionHandingTester.Module.Win\ExceptionHandingTester.Module.Win.csproj", "{578B8B24-38D0-4333-965A-3DAEA5C76106}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandingTester.Win", "ExceptionHandingTester.Win\ExceptionHandingTester.Win.csproj", "{A42E5F35-7E5E-45D5-A60C-9A70520F955D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ExceptionHandling", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling\Xpand.ExpressApp.ExceptionHandling.csproj", "{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ExceptionHandling.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Web\Xpand.ExpressApp.ExceptionHandling.Web.csproj", "{8A6673F8-89FF-447E-8C33-55BE1FAA1245}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{C725C62C-B179-4D5A-9493-C4BEF951E82E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +58,28 @@ Global
 		{A42E5F35-7E5E-45D5-A60C-9A70520F955D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{A42E5F35-7E5E-45D5-A60C-9A70520F955D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A42E5F35-7E5E-45D5-A60C-9A70520F955D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
+		{8A6673F8-89FF-447E-8C33-55BE1FAA1245} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
+		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
 	EndGlobalSection
 EndGlobal
