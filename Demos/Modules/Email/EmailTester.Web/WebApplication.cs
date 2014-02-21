@@ -15,7 +15,6 @@ using EmailTester.Module.Web;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.Web;
 using Xpand.Persistent.Base.General;
 
 namespace EmailTester.Web {
@@ -39,9 +38,6 @@ namespace EmailTester.Web {
             DatabaseVersionMismatch += EmailTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
-        protected override IHttpRequestManager CreateHttpRequestManager() {
-            return this.NewHttpRequestManager();
-        }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }

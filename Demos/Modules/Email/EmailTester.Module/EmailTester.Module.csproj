@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5F114BD0-1EDD-44CC-A6FE-057E3808BB3F}</ProjectGuid>
+    <ProjectGuid>{C7BC3285-7F52-461A-B9B2-F99EF12068BF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EmailTester.Module</RootNamespace>
@@ -109,6 +109,7 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -117,7 +118,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
