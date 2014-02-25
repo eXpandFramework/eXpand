@@ -144,7 +144,9 @@
     <Compile Include="Controllers\StateMachineAdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Security\StateMachinePopulateController.cs" />
+    <Compile Include="Security\StateMachinePopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\StateMachineTransitionPermission.cs" />
     <Compile Include="Controllers\StatePermissionController.cs">
       <SubType>Component</SubType>

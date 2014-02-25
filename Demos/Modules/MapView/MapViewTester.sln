@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module", "MapViewTester.Module\MapViewTester.Module.csproj", "{EF04B36B-E62F-40CB-8BC6-C1B740489383}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module", "MapViewTester.Module\MapViewTester.Module.csproj", "{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module.Web", "MapViewTester.Module.Web\MapViewTester.Module.Web.csproj", "{7F35AA45-1714-44F7-813B-CD7104541ACA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Module.Web", "MapViewTester.Module.Web\MapViewTester.Module.Web.csproj", "{2F63F546-5833-4087-8735-FFCEB294C26C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapViewTester.Web", "MapViewTester.Web\MapViewTester.Web.csproj", "{EF27B268-6029-49DA-9956-EE3E303BC5A5}"
 EndProject
@@ -14,18 +16,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF04B36B-E62F-40CB-8BC6-C1B740489383}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F35AA45-1714-44F7-813B-CD7104541ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D7A0ED-3DD8-4164-ACA0-071C264A15AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F63F546-5833-4087-8735-FFCEB294C26C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF27B268-6029-49DA-9956-EE3E303BC5A5}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU

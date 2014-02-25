@@ -1,3 +1,4 @@
+using DevExpress.ExpressApp.Security.Strategy;
 using Xpand.ExpressApp.Security.Core;
 
 namespace ModelArtifactStateTester.Win {
@@ -51,7 +52,7 @@ namespace ModelArtifactStateTester.Win {
             // 
             // securityModule1
             // 
-            this.securityModule1.UserType = typeof(XpandRole);
+            this.securityModule1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // securityStrategyComplex1
             // 

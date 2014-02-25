@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module", "IOTester.Module\IOTester.Module.csproj", "{7794EC1D-F5E0-4A1D-9013-AD91F680A691}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module.Web", "IOTester.Module.Web\IOTester.Module.Web.csproj", "{23A63369-AF23-4209-A6F0-B9F824869426}"
@@ -10,6 +12,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module.Win", "IOTester.Module.Win\IOTester.Module.Win.csproj", "{D485AAEA-3571-45A4-8B43-95178434E4C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Win", "IOTester.Win\IOTester.Win.csproj", "{22D63D56-3484-419B-A9BF-0D7AE9102240}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.IO.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj", "{EC481968-1696-43E4-837F-BCF08F393323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.IO.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj", "{67045B46-0875-497F-BF4E-4E74CEF4FF27}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{50BD1C79-0957-4303-870B-6A37351336B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +58,25 @@ Global
 		{22D63D56-3484-419B-A9BF-0D7AE9102240}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{22D63D56-3484-419B-A9BF-0D7AE9102240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22D63D56-3484-419B-A9BF-0D7AE9102240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC481968-1696-43E4-837F-BCF08F393323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC481968-1696-43E4-837F-BCF08F393323}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{EC481968-1696-43E4-837F-BCF08F393323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC481968-1696-43E4-837F-BCF08F393323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67045B46-0875-497F-BF4E-4E74CEF4FF27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67045B46-0875-497F-BF4E-4E74CEF4FF27}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{67045B46-0875-497F-BF4E-4E74CEF4FF27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67045B46-0875-497F-BF4E-4E74CEF4FF27}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67045B46-0875-497F-BF4E-4E74CEF4FF27} = {50BD1C79-0957-4303-870B-6A37351336B0}
+		{EC481968-1696-43E4-837F-BCF08F393323} = {50BD1C79-0957-4303-870B-6A37351336B0}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {50BD1C79-0957-4303-870B-6A37351336B0}
 	EndGlobalSection
 EndGlobal

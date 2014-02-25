@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{C725C62C-B179-4D5A-9493-C4BEF951E82E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ExceptionHandling.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Win\Xpand.ExpressApp.ExceptionHandling.Win.csproj", "{1188D863-60C0-4061-82D5-5A1FE46942AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,26 +62,28 @@ Global
 		{A42E5F35-7E5E-45D5-A60C-9A70520F955D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A6673F8-89FF-447E-8C33-55BE1FAA1245}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1188D863-60C0-4061-82D5-5A1FE46942AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1188D863-60C0-4061-82D5-5A1FE46942AA}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{1188D863-60C0-4061-82D5-5A1FE46942AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1188D863-60C0-4061-82D5-5A1FE46942AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
 		{8A6673F8-89FF-447E-8C33-55BE1FAA1245} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
 		{CC5D7F34-65F4-4F50-BEF1-CF9251F73044} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
+		{1188D863-60C0-4061-82D5-5A1FE46942AA} = {C725C62C-B179-4D5A-9493-C4BEF951E82E}
 	EndGlobalSection
 EndGlobal

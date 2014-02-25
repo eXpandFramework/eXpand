@@ -121,9 +121,7 @@
     <Compile Include="WizardTemplateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WizardUIWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WizardUIWindowsFormsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WizardController.cs">
       <SubType>Component</SubType>
