@@ -20,13 +20,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             TargetWindowType = WindowType.Main;
         }
 
-        protected override void OnFrameAssigned() {
-            Frame.TemplateChanged += Frame_TemplateChanged;
-            base.OnFrameAssigned();
-        }
-
         void Frame_TemplateChanged(object sender, EventArgs e) {
-            ((Frame)sender).TemplateChanged -= Frame_TemplateChanged;
             if (Frame.Context == TemplateContext.ApplicationWindow) {
                 Frame.ViewChanged += Frame_ViewChanged;
             }
@@ -40,6 +34,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
 
         protected override void OnActivated() {
             base.OnActivated();
+            Frame.TemplateChanged += Frame_TemplateChanged;
             InitScheduler();
             InitDataSourceRefreshTimer();
         }
