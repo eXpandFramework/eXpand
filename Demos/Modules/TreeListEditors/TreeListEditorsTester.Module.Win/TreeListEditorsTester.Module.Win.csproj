@@ -58,9 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinModule.Designer.cs">
       <DependentUpon>WinModule.cs</DependentUpon>

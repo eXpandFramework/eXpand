@@ -1,15 +1,23 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Module", "ViewVariantsTester.Module\ViewVariantsTester.Module.csproj", "{F3ED759E-EE79-45D9-9FDC-F8DE09BECA11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Module.Web", "ViewVariantsTester.Module.Web\ViewVariantsTester.Module.Web.csproj", "{3D5CB50A-43F3-4D8F-A816-E0B5923EA2DE}"
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "ViewVariantsTester.Web", "ViewVariantsTester.Web\ViewVariantsTester.Web.csproj", "{F8C9D72A-8C45-4747-AEFB-90657AEDD498}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Web", "ViewVariantsTester.Web\ViewVariantsTester.Web.csproj", "{F8C9D72A-8C45-4747-AEFB-90657AEDD498}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Module.Win", "ViewVariantsTester.Module.Win\ViewVariantsTester.Module.Win.csproj", "{5DFC5441-0176-4CB3-8794-3AB8B3F0BD67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Win", "ViewVariantsTester.Win\ViewVariantsTester.Win.csproj", "{252E35B3-7FAD-43FE-92DB-33B9DD0C66E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ViewVariants", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ViewVariants\Xpand.ExpressApp.ViewVariants.csproj", "{3D13CAAC-A265-4A02-97CB-6C9121D7514D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{BB77958E-5C36-4324-893B-79503612A116}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +56,20 @@ Global
 		{252E35B3-7FAD-43FE-92DB-33B9DD0C66E5}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{252E35B3-7FAD-43FE-92DB-33B9DD0C66E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252E35B3-7FAD-43FE-92DB-33B9DD0C66E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D13CAAC-A265-4A02-97CB-6C9121D7514D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D13CAAC-A265-4A02-97CB-6C9121D7514D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3D13CAAC-A265-4A02-97CB-6C9121D7514D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D13CAAC-A265-4A02-97CB-6C9121D7514D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {BB77958E-5C36-4324-893B-79503612A116}
+		{3D13CAAC-A265-4A02-97CB-6C9121D7514D} = {BB77958E-5C36-4324-893B-79503612A116}
 	EndGlobalSection
 EndGlobal

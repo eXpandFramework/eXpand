@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
@@ -21,7 +22,7 @@ namespace AdditionalViewControlProviderTester.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

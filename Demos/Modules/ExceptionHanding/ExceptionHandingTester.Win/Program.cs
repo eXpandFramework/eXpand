@@ -27,7 +27,7 @@ namespace ExceptionHandingTester.Win {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null && string.IsNullOrEmpty(winApplication.ConnectionString)) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             try {

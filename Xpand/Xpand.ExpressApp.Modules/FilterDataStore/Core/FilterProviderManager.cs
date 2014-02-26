@@ -29,7 +29,15 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
         }
 
         public static bool IsRegistered {
-            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null&&!XpandModuleBase.IsLoadingExternalModel(); }
+            get{
+                try{
+                    return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null&&!XpandModuleBase.IsLoadingExternalModel();
+                }
+                catch (Exception e){
+                    Tracing.Tracer.LogError(e);
+                    return false;
+                }
+            }
 
         }
 

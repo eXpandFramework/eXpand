@@ -1,4 +1,4 @@
-;#DropDB MasterDetailTesterEasyTest
+#DropDB MasterDetailTesterEasyTest
 
 #Application MasterDetailTester.Win
 
