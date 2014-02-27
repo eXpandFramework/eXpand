@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<TestExecutorDir>C:\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest</TestExecutorDir>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
 	<TwitterTool>_third_party_assemblies\XTwitter.exe</TwitterTool>
   </PropertyGroup>
-  <Import Project="$(ExtensionTasksPath)\MSBuild.ExtensionPack.tasks"/>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
   <!--
@@ -67,10 +65,7 @@
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build" />
-    <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" >
-      <Output TaskParameter="Outputs" PropertyName="FixRefError" />
-    </Exec>
-    <Message Text="@(FixRefError)"/>
+    <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
@@ -112,7 +107,6 @@
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
     <TypeMockStop />
-  <CallTarget Targets="EasyTest"></CallTarget>
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />
@@ -146,31 +140,6 @@
   <Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
   <!--For Continuous integration and automated releases-->
   <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
-  <ItemGroup>
-<!--  <EasyTests Include="C:\eXpandFrameWork\eXpand\Demos\Modules\AuditTrail\AuditTrailTester.Module\FunctionalTests\AutoTest.ets"/>-->
-<!--  <EasyTestLogs Include="C:\eXpandFrameWork\eXpand\Demos\Modules\AuditTrail\AuditTrailTester.Module\FunctionalTests\TestsLog.xml"/>-->
-	
-	<DemoProjects Include="$(MSBuildProjectDirectory)\Demos\Modules\AllModuleTesters.sln"/>
-  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\Modules\**\AutoTest.ets"/>	
-  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\Modules\**\TestsLog.xml"/>	
-  </ItemGroup>
-  <Target Name="PrintEasyTestLogs" >
-    <MSBuild.ExtensionPack.Xml.XmlFile 
-      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" 
-      XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
-      <Output TaskParameter="Elements" ItemName="Test"/>
-    </MSBuild.ExtensionPack.Xml.XmlFile>
-    <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="ErrorAndContinue"></Error>
-  </Target>
-  <Target Name="EasyTest">
-      <Delete Files="@EasyTestLogs"/>
-	  <MSBuild Projects="@(DemoProjects)" Targets="Build" Properties="Configuration=EasyTest" />
-  	  <Exec ContinueOnError="true" 
-          WorkingDirectory="$(TestExecutorDir)" 
-          Command='TestExecutor.v13.2.exe %(EasyTests.FullPath)'/>
-    <CallTarget Targets='PrintEasyTestLogs'></CallTarget>
-  </Target>
-  
   <Target Name="Installer">
     <MakeDir Directories="$(InstallerFolder);" />
     <CreateItem Include="$(XpandPath)\*.dll;$(XpandPath)\*.exe;$(XpandPath)\*.config;">
