@@ -112,7 +112,7 @@
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
     <TypeMockStop />
-    <CallTarget Targets="EasyTest"></CallTarget>
+    
   </Target>
   
       <ItemGroup>

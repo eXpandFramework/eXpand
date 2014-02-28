@@ -93,6 +93,13 @@ namespace FixReferences {
                     ReplaceToken(config);
                 }
             }
+            var functionalTestsPath = Path.GetDirectoryName(file)+@"\FunctionalTests";
+            if (Directory.Exists(functionalTestsPath)){
+                config = Path.Combine(functionalTestsPath,"Config.xml");
+                if (File.Exists(config)){
+                    ReplaceToken(config);
+                }
+            }
         }
 
         void ReplaceToken(string config) {     
