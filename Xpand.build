@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    	<TestExecutorDir>C:\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest</TestExecutorDir>
+    	<TestExecutorDir>C:\Program Files (x86)\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest</TestExecutorDir>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
@@ -108,11 +108,11 @@
 		<Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TestPath)" />
 		-->
   </Target>
-  <Target Name="Test" DependsOnTargets="Clean;Build;Copy">
+  <Target Name="Test" >
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
     <TypeMockStop />
-    
+    <CallTarget Targets="RunEasyTests"></CallTarget>
   </Target>
   
       <ItemGroup>
@@ -131,7 +131,7 @@
     </MSBuild.ExtensionPack.Xml.XmlFile>
     <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="ErrorAndContinue"></Error>
   </Target>
-  <Target Name="EasyTest">
+  <Target Name="RunEasyTests">
       <Delete Files="@EasyTestLogs"/>
 	  <MSBuild Projects="@(DemoProjects)" Targets="Build" Properties="Configuration=EasyTest" />
   	  <Exec ContinueOnError="true" 
