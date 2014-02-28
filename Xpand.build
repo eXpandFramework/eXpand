@@ -8,6 +8,7 @@
 	<TwitterTool>_third_party_assemblies\XTwitter.exe</TwitterTool>
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
+  <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
   <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
   <!--
 	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
