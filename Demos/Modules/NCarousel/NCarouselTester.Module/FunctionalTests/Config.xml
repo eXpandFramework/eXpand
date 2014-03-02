@@ -12,7 +12,7 @@
 			Name="NCarouselTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" DontRestartIIS="true"/>
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
 		<!-- For IIS -->
 		<!--Application
 			Name="NCarouselTester.Web"
