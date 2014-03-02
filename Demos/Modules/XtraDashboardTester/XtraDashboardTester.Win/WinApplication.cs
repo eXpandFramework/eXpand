@@ -14,7 +14,11 @@ namespace XtraDashboardTester.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         // Override to execute custom code after a logon has been performed, the SecuritySystem object is initialized, logon parameters have been saved and user model differences are loaded.
         protected override void OnLoggedOn(LogonEventArgs args) { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppXafApplication_LoggedOntopic
             base.OnLoggedOn(args);

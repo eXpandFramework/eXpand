@@ -28,7 +28,11 @@ namespace StateMachineTester.Web {
             InitializeComponent();
             DatabaseVersionMismatch+=StateMachineTesterAspNetApplication_DatabaseVersionMismatch;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }

@@ -23,7 +23,11 @@ namespace SecurityTester.Web {
         public SecurityTesterAspNetApplication() {
             InitializeComponent();
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }

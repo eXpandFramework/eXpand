@@ -38,7 +38,11 @@ namespace AuditTrailTester.Web {
         SqlConnection sqlConnection1;
         ValidationModule validationModule1;
         XpandAuditTrailModule xpandAuditTrailModule1;
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public AuditTrailTesterAspNetApplication() {
             InitializeComponent();
             LastLogonParametersRead += OnLastLogonParametersRead;

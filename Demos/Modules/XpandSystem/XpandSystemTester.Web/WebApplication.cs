@@ -12,7 +12,7 @@ using XpandSystemTester.Module;
 using XpandSystemTester.Module.Web;
 
 namespace XpandSystemTester.Web {
-    public class XpandSystemTesterAspNetApplication : XpandWebApplication {
+    public class XpandSystemTesterAspNetApplication : WebApplication {
         SystemModule module1;
         SystemAspNetModule module2;
         XpandSystemTesterModule module3;
@@ -23,7 +23,11 @@ namespace XpandSystemTester.Web {
         public XpandSystemTesterAspNetApplication() {
             InitializeComponent();
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override bool SupportMasterDetailMode {
             get { return true; }
         }

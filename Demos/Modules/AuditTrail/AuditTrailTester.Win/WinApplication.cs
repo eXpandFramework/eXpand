@@ -16,7 +16,11 @@ namespace AuditTrailTester.Win {
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead+=OnLastLogonParametersRead;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs lastLogonParametersReadEventArgs) {
             var parameters = ((AuthenticationStandardLogonParameters) lastLogonParametersReadEventArgs.LogonObject);
             if (string.IsNullOrEmpty(parameters.UserName))

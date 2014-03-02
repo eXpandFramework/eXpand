@@ -13,7 +13,11 @@ namespace StateMachineTester.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public new SettingsStorage CreateLogonParameterStoreCore() {
             return base.CreateLogonParameterStoreCore();
         }

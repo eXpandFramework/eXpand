@@ -14,7 +14,11 @@ namespace DashboardTester.Web {
         private DashboardTester.Module.DashboardTesterModule module3;
         private DashboardTester.Module.Web.DashboardTesterAspNetModule module4;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public DashboardTesterAspNetApplication() {
             InitializeComponent();
         }

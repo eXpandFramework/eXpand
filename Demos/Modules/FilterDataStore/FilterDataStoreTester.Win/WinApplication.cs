@@ -14,7 +14,11 @@ namespace FilterDataStoreTester.Win {
         }
 
 
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             this.CreateCustomObjectSpaceprovider(args,null);
         }

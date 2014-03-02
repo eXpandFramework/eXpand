@@ -10,9 +10,13 @@ namespace WorldCreatorTester.Win {
         public WorldCreatorTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
-        }      
+        }
 
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         void WorldCreatorTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                                DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
