@@ -30,7 +30,7 @@ namespace MapViewTester.Web {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null && string.IsNullOrEmpty(WebApplication.Instance.ConnectionString)) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             WebApplication.Instance.Setup();
