@@ -1,6 +1,6 @@
 #DropDB AdditionalViewControlProviderTesterEasyTest
 
 #Application AdditionalViewControlProviderTester.Win
-;#Application AdditionalViewControlProviderTester.Web
+#Application AdditionalViewControlProviderTester.Web
 
 *AutoTest

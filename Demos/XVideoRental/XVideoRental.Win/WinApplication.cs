@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -30,13 +31,14 @@ namespace XVideoRental.Win {
 
         void XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                          DatabaseVersionMismatchEventArgs e) {
-            if (this.DropDatabaseOnVersionMissmatch() > 0)
-                Application.ExitThread();
-#if DEBUG
+            
+#if EASYTEST
             e.Updater.Update();
             e.Handled = true;
 #else
-            if (true) {
+            if (this.DropDatabaseOnVersionMissmatch() > 0)
+                Application.ExitThread();
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             }

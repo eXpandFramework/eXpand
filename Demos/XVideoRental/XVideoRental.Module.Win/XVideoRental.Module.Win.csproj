@@ -300,6 +300,8 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\Sample.ets" />
     <None Include="Images\ReadMe.txt" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.de.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
@@ -424,6 +426,10 @@
       <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
       <Name>Xpand.ExpressApp.Logic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
