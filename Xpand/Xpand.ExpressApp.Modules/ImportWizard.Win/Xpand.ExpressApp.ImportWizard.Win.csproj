@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ImportWizard.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ImportWizard.Win</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -140,6 +142,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Updater.cs" />
+    <Compile Include="Wizard\ExcelImportWizard_StringToPropertyMap.cs" />
+    <Compile Include="Wizard\ImportUtils.cs" />
+    <Compile Include="Wizard\ExcelImportWizardBackground.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizard\ExcelImportWizardProcessing.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Wizard\ResourceManagerSetter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -149,6 +159,7 @@
     <Compile Include="Wizard\ExcelImportWizard.designer.cs">
       <DependentUpon>ExcelImportWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wizard\StringValueMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controllers\ImportWizViewController.resx">
@@ -157,6 +168,7 @@
     <EmbeddedResource Include="Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

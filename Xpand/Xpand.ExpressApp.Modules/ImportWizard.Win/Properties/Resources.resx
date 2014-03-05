@@ -125,10 +125,16 @@
   <data name="ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_completed__Results__">
     <value xml:space="preserve">The task has been completed. Results: </value>
   </data>
-  <data name="ExcelImportWizard_ProccesExcellRows_Error_processing_record__0____1_">
+  <data name="ErrorProcessingRecord">
     <value xml:space="preserve">Error processing record {0}. {1}</value>
   </data>
-  <data name="ExcelImportWizard_ProccesExcellRows_Importing_record__0__succesfull_">
+  <data name="SuccessProcessingRecord">
     <value xml:space="preserve">Importing record {0} succesfull.</value>
+  </data>
+  <data name="newObjectError" xml:space="preserve">
+    <value>Error creating or firnding object for row {0}</value>
+  </data>
+  <data name="RefTypeConversionError" xml:space="preserve">
+    <value>Could not convert value {0} to object of Type {1}. Err : {2} </value>
   </data>
 </root>
