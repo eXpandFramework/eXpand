@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 if (modelView == null) {
                     modelView = navigationItems.Application.Views[viewIds[1]];
                     if (modelView==null)
-                        throw new NullReferenceException(viewIds + " not found in Application.Views");
+                        throw new NullReferenceException(string.Join("/",viewIds) + " not found in Application.Views");
                 }
                 ((IModelNavigationItem)navigationItems.Parent).View = modelView;
                 return;

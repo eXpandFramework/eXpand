@@ -80,9 +80,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         void ApplyStyle(WebPropertyEditor webPropertyEditor) {
             var modelLayoutViewItem = ModelLayoutViewItem(webPropertyEditor);
-            var containerCell = ContainerCell(webPropertyEditor);
-            _layoutStyleProvider.ApplyContainerCellStyle(containerCell, modelLayoutViewItem.LayoutStyle);
-            _layoutStyleProvider.ApplyControlStyle((WebControl)containerCell.Controls[0], modelLayoutViewItem.LayoutStyle);
+            if (modelLayoutViewItem != null){
+                var containerCell = ContainerCell(webPropertyEditor);
+                _layoutStyleProvider.ApplyContainerCellStyle(containerCell, modelLayoutViewItem.LayoutStyle);
+                _layoutStyleProvider.ApplyControlStyle((WebControl)containerCell.Controls[0], modelLayoutViewItem.LayoutStyle);
+            }
         }
 
         IModelLayoutViewItemStyle ModelLayoutViewItem(WebPropertyEditor webPropertyEditor) {
@@ -92,7 +94,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
             var modelDetailView = View.Model as IModelDetailView;
             return modelDetailView == null ? (IModelLayoutViewItemStyle)webPropertyEditor.Model
-                       : modelDetailView.Layout.ViewItems(webPropertyEditor.Model).Cast<IModelLayoutViewItemStyle>().First();
+                       : modelDetailView.Layout.ViewItems(webPropertyEditor.Model).Cast<IModelLayoutViewItemStyle>().FirstOrDefault();
         }
 
         protected override void OnDeactivated() {

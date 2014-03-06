@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
@@ -10,6 +11,10 @@ namespace FeatureCenter.Module.Win.Wizard {
         public static readonly string WizardCustomerDetailView = "WizardCustomer_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
+#if EASYTEST
+            yield break;
+#endif
+
             if (typesInfo.Type != typeof(WizardCustomer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderWizard, "1=1", "1=1", Captions.HeaderWizard, Position.Top) { View = WizardCustomerDetailView + 1 };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderWizard, "1=1", "1=1",

@@ -52,7 +52,11 @@ namespace FeatureCenter.Web.ApplicationCode {
         public FeatureCenterAspNetApplication() {
             InitializeComponent();
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         private void AspNetApplicationDatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();

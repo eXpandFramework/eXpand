@@ -18,9 +18,5 @@
       </Layout>
     </DetailView>
   </Views>
-  <Validation>
-    <Rules>
-      <RuleRequiredField Id="@c0de00e5-9929-4e43-a238-53a19a492849" TargetType="NorthWind.Customers" TargetPropertyName="CustomerID" TargetContextIDs="Save" IsNewNode="True" />
-    </Rules>
-  </Validation>
+  
 </Application>

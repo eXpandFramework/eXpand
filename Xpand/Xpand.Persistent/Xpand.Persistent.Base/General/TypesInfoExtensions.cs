@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
@@ -32,7 +33,7 @@ namespace Xpand.Persistent.Base.General {
                 throw new ArgumentException("Add a business object that implements " +
                                                 typeof(T).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
             if (implementors.Count() > 1) {
-                var typeInfos = implementors.Where(implementor => !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
+                var typeInfos = implementors.Where(implementor =>implementor.Base!=null&& !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
                 foreach (ITypeInfo implementor in typeInfos) {
                     return implementor.Type;
                 }

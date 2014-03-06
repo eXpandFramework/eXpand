@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="FeatureCenter.Win"
+			FileName="[WinAppBin]\FeatureCenter.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="FeatureCenter.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]" />
+		<!-- For IIS -->
+		<!--Application
+			Name="ExternalApplicationWeb"
+			Url="http://localhost/ExternalApplicationWeb/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+	</Applications>
+	<TestDatabases>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterEasyTest"/>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="NorthWind"/>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterExceptionHandling"/>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterMultipleDataStore"/>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterWorldCreator"/>
+	</TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\FeatureCenter.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\FeatureCenter.Web" />
+	</Aliases>
+</Options>

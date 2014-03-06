@@ -6,15 +6,6 @@
       <AdditionalViewControlsRule Id="ViewMessage External Application Difference" IsNewNode="True" Index="0" TypeInfo="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject" Message="In this view you can see the application model difference of an external application (this could be a web application as well). Use the start external application action on the main tool bar and note that diffs that have been applied. You are free to change the diffs as you wish to test the behaviour" NormalCriteria="1=1" Position="Bottom" View="ExternalApplication_DetailView" UseSameType="False" />
     </Rules>
   </AdditionalViewControls>
-  <NavigationItems>
-    <Items>
-      <Item Id="Application Differences" IsNewNode="True">
-        <Items IsNewNode="True">
-          <Item Id="External Application" IsNewNode="True" Caption="External Application" ViewId="ExternalApplication_DetailView" ObjectKey="@ExternalApplicationKey" />
-        </Items>
-      </Item>
-    </Items>
-  </NavigationItems>
   <Views>
     <DetailView Id="ExternalApplication_DetailView" IsNewNode="True" ClassName="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.ModelDifferenceObject">
       <Items IsNewNode="True">

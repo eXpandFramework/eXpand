@@ -100,7 +100,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool IsHosted {
-            get {
+            get{
+                if (!InterfaceBuilder.RuntimeMode)
+                    return false;
                 if (!_isHosted.HasValue) {
                     var xafApplication = ApplicationHelper.Instance.Application;
                     _isHosted = GetIsHosted(xafApplication.Model);

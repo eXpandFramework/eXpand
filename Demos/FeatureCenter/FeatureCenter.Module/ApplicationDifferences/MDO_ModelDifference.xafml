@@ -15,7 +15,13 @@
     <Items>
       <Item Id="Application Differences" IsNewNode="True">
         <Items IsNewNode="True">
-          <Item Id="ModelDifferenceObject_ListView" IsNewNode="True" Caption="Application Difference" ViewId="MDO_ListView" />
+          <Item Id="ModelDifferenceObject_ListView" Caption="Application Difference" ViewId="MDO_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Event_ListView" Removed="True" />
+          <Item Id="MDO_ListView" Removed="True" />
         </Items>
       </Item>
     </Items>

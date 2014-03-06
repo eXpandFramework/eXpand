@@ -194,16 +194,6 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 return argumentValue.ToString().ToLower();
             return argumentValue;
         }
-        /*
-            static string CalculateVersion(string args) {
-                args = args.Replace(@"""", "").Replace("@","");
-                var version = new Version(args+".0.0");
-                var totalMinutes = (int)(DateTime.Now-DateTime.Today).TotalMinutes;
-                version = new Version(version.Major, version.Minor, DateTime.Today.DayOfYear, totalMinutes);
-                args = version.ToString();
-                return @""""+args+@"""";
-            }
-    */
 
         static object GetArgumentCode(object argumentValue) {
             return argumentValue != null ? GetArgumentCodeCore(argumentValue.GetType(), argumentValue) : null;
@@ -214,8 +204,9 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return code.TrimEnd(Environment.NewLine.ToCharArray());
         }
 
-        public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-
+        public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo){
+            if (persistentAssemblyInfo.Session.IsObjectMarkedDeleted(persistentAssemblyInfo))
+                return null;
             var usingsDictionary = new Dictionary<string, string>();
             string generateAssemblyCode = GetAssemblyAttributesCode(persistentAssemblyInfo) + Environment.NewLine +
                                   GetModuleCode(persistentAssemblyInfo.Name) + Environment.NewLine;

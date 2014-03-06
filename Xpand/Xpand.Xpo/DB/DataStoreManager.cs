@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -146,19 +145,13 @@ namespace Xpand.Xpo.DB {
             return dataStoreAttributes.Where(attribute => attribute.DataStoreName.Equals(dataStoreName, StringComparison.Ordinal));
         }
 
-        public IEnumerable<DataStoreAttribute> GetDataStoreAttributes() {
-            Debug.Print("");
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()){
-                if (assembly.FullName.Contains("North"))
-                    Debug.Print("");
-                var storeAttributes = assembly.GetCustomAttributes(typeof(DataStoreAttribute), false).Cast<DataStoreAttribute>();
-                foreach (var dataStoreAttribute in storeAttributes){
-                    if (dataStoreAttribute.ConnectionString!=null||ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", dataStoreAttribute.DataStoreName)] != null)
-                        yield return dataStoreAttribute;
-                }
-            }
-//            var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>()).ToList();
-//            return dataStoreAttributes.Where(attribute => (attribute.ConnectionString != null || ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", attribute.DataStoreName)] != null)).ToList();
+        public IEnumerable<DataStoreAttribute> GetDataStoreAttributes(){
+            var selectMany = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly =>
+                assembly.GetCustomAttributes(typeof (DataStoreAttribute), false).Cast<DataStoreAttribute>(),
+                (assembly, dataStoreAttribute) => new{assembly, dataStoreAttribute});
+            return selectMany.Where(@t =>@t.dataStoreAttribute.ConnectionString != null ||
+                            ConfigurationManager.ConnectionStrings[String.Format("{0}ConnectionString",@t.dataStoreAttribute.DataStoreName)] != null)
+                    .Select(@t => @t.dataStoreAttribute);
         }
 
         public Dictionary<string, DataStoreManagerSimpleDataLayer> SimpleDataLayers {

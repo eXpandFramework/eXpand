@@ -10,8 +10,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
 
-        void OnCustomAssignFilterControlSourceControl(object sender, EventArgs eventArgs) {
-            ((IFilteredComponentBase)View.Control).RowFilterChanged += OnRowFilterChanged;
+        void OnCustomAssignFilterControlSourceControl(object sender, EventArgs eventArgs){
+            var filteredComponentBase = View.Control as IFilteredComponentBase;
+            if (filteredComponentBase != null) filteredComponentBase.RowFilterChanged += OnRowFilterChanged;
         }
 
         void OnRowFilterChanged(object sender, EventArgs eventArgs) {

@@ -1,3 +1,6 @@
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
+
 namespace ExternalApplication.Win {
     partial class ExternalApplicationWindowsFormsApplication {
         /// <summary> 
@@ -41,7 +44,7 @@ namespace ExternalApplication.Win {
             
             this.fileAttachmentsWindowsFormsModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
 
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.securityComplex1 = new SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -62,8 +65,8 @@ namespace ExternalApplication.Win {
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.Role);
-            this.securityComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.User);
+            this.securityComplex1.RoleType = typeof(SecuritySystemRole);
+            this.securityComplex1.UserType = typeof(SecuritySystemUser);
             // 
             // authenticationStandard1
             // 
@@ -116,7 +119,7 @@ namespace ExternalApplication.Win {
         
         private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWindowsFormsModule1;
 
-        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
     }
 }

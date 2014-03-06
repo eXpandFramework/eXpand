@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -336,6 +337,7 @@
     <Compile Include="Logic\Model\IModelViewContexts.cs" />
     <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
     <Compile Include="General\ComponentInterfaces.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentVisibleInDetailViewAttribute.cs" />
     <Compile Include="RuntimeMembers\RuntimeMemberBuilder.cs" />
     <Compile Include="RuntimeMembers\Model\CalculatedMembers.cs" />
     <Compile Include="RuntimeMembers\Model\Collections\AssociatedCollection.cs" />

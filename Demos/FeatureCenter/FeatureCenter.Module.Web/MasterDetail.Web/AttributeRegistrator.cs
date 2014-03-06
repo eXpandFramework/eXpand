@@ -9,6 +9,9 @@ namespace FeatureCenter.Module.Web.MasterDetail.Web {
     public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
         private const string MasterDetailModeListView = "MasterDetailMode_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
+#if EASYTEST
+            yield break;
+#endif 
             if (typesInfo.Type == typeof(EAMCustomer)) {
                 yield return new CloneViewAttribute(CloneViewType.ListView, MasterDetailModeListView);
                 var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("MasterDetail/MasterDetailMode", MasterDetailModeListView);
