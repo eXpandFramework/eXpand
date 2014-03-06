@@ -1,32 +1,41 @@
 using System;
 using System.Configuration;
 using System.Web;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Web.ASPxClasses;
 
-namespace DCSecurityDemo.Web {
+namespace DCSecurityDemo.UiLevel.Web {
 	public class Global : System.Web.HttpApplication {
 		public Global() {
             InitializeComponent();
 		}
 		protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
-		}
+#if EASYTEST
+            DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
+#endif
+        }
 		protected void Session_Start(Object sender, EventArgs e) {
 			WebApplication.SetInstance(Session, new DCSecurityDemoAspNetApplication());
 
 
-            if(ConfigurationManager.AppSettings["SiteMode"] != null && ConfigurationManager.AppSettings["SiteMode"].ToLower() == "true") {
+#if EASYTEST
+			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+			}
+#else
+
+            if (ConfigurationManager.AppSettings["SiteMode"] != null && ConfigurationManager.AppSettings["SiteMode"].ToLower() == "true") {
                 InMemoryDataStoreProvider.Register();
                 WebApplication.Instance.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             }
             else {
-                if(ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                     WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
             }
+#endif
 
 			WebApplication.Instance.Setup();
 			WebApplication.Instance.Start();

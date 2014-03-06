@@ -18,7 +18,9 @@ namespace WorkflowDemo.Win
 		[STAThread]
         static void Main()
         {
-            
+#if EASYTEST
+            DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
+#endif
             Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
@@ -30,12 +32,16 @@ namespace WorkflowDemo.Win
             //WorkflowModule workflowModule = xafApplication.Modules.FindModule<WorkflowModule>();
             //workflowModule.WorkflowInstanceType = null;
             //workflowModule.WorkflowInstanceKeyType = null;
-#if DEBUG
-            DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
-#endif	
+#if EASYTEST
+            if (ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+                xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+            }
+#else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-				xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-			}
+                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
+#endif
+
             xafApplication.Modules.FindModule<WorkflowWindowsFormsModule>().QueryAvailableActivities +=
                 (sender, e) =>
                 e.ActivitiesInformation.Add(new ActivityInformation(typeof (CreateTask), "Code Activities",

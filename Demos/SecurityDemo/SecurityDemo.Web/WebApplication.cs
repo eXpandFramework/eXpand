@@ -1,6 +1,3 @@
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Web;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Web;
 
 namespace SecurityDemo.Web {

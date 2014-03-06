@@ -2,11 +2,9 @@ using DCSecurityDemo.Module;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Demos;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Web;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Web;
 
-namespace DCSecurityDemo.Web {
+namespace DCSecurityDemo.UiLevel.Web {
     public partial class DCSecurityDemoAspNetApplication : XpandWebApplication {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;

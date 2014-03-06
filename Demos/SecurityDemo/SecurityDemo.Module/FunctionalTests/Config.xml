@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="SecurityDemo.Win"
+			FileName="[WinAppBin]\SecurityDemo.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+    <Application
+			Name="SecurityDemo.UiLevel.Win"
+			FileName="[WinAppUiBin]\SecurityDemo.UiLevel.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="SecurityDemo.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+    <Application
+			Name="SecurityDemo.UiLevel.Web"
+			Url="http://localhost:62551"
+			PhysicalPath="[WebAppUiBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+		<!-- For IIS -->
+		<!--Application
+			Name="SecurityDemo.Web"
+			Url="http://localhost/SecurityDemo.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+	</Applications>
+	<TestDatabases>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandSecurityDemoEasyTest"/>
+	</TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAppUiBin" Value="[ConfigPath]\..\..\SecurityDemo.UiLevel.Win\Bin\EasyTest" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SecurityDemo.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\SecurityDemo.Web" />
+		<Alias Name="WebAppUiBin" Value="[ConfigPath]\..\..\SecurityDemo.UiLevel.Web" />
+	</Aliases>
+</Options>

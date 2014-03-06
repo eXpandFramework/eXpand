@@ -25,12 +25,21 @@ namespace SecurityDemo.Web {
 		}
 		protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
+#if EASYTEST
+            DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
+#endif
+
 		}
 		protected void Session_Start(Object sender, EventArgs e) {
 			WebApplication.SetInstance(Session, new SecurityDemoAspNetApplication());
             WebApplication.Instance.CreateCustomLogonWindowObjectSpace += new EventHandler<CreateCustomLogonWindowObjectSpaceEventArgs>(Instance_CreateCustomLogonWindowObjectSpace);
             WebApplication.Instance.CreateCustomLogonWindowControllers += new EventHandler<CreateCustomLogonWindowControllersEventArgs>(Instance_CreateCustomLogonWindowControllers);
 
+#if EASYTEST
+			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+			}
+#else
 
             if(ConfigurationManager.AppSettings["SiteMode"] != null && ConfigurationManager.AppSettings["SiteMode"].ToLower() == "true") {
                 InMemoryDataStoreProvider.Register();
@@ -41,6 +50,7 @@ namespace SecurityDemo.Web {
                     WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
             }
+#endif
             SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
             WebApplication.Instance.Security = security;
             WebApplication.Instance.DatabaseVersionMismatch += delegate(object sender2, DatabaseVersionMismatchEventArgs e2) {
