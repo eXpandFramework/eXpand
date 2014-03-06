@@ -364,7 +364,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WorldCreator\NorthWind\_NorthWind.xml" />
     <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
