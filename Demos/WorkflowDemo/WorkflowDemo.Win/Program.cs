@@ -38,7 +38,7 @@ namespace WorkflowDemo.Win
             }
 #else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                xafApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 #endif
 

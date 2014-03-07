@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
 	<Applications>
 		<!-- Win -->
@@ -35,8 +35,8 @@
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
 		<Alias Name="WinAppUiBin" Value="[ConfigPath]\..\..\DCSecurityDemo.UiLevel.Win\Bin\EasyTest" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Win\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Web" />
