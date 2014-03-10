@@ -134,7 +134,7 @@
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <MSBuild.ExtensionPack.Xml.XmlFile 
-      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" Condition="'@(EasyTestLogs->Count())'!='0'
+      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" Condition="'@(EasyTestLogs->Count())'!='0'"
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
       <Output TaskParameter="Elements" ItemName="Test"/>
     </MSBuild.ExtensionPack.Xml.XmlFile>
