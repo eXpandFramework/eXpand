@@ -134,7 +134,7 @@
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <MSBuild.ExtensionPack.Xml.XmlFile 
-      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" 
+      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" Condition="'@(EasyTestLogs->Count())'!='0'
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
       <Output TaskParameter="Elements" ItemName="Test"/>
     </MSBuild.ExtensionPack.Xml.XmlFile>
@@ -147,7 +147,7 @@
   	  <Exec ContinueOnError="true" 
           WorkingDirectory="$(TestExecutorDir)" 
           Command='TestExecutor.v13.2.exe %(EasyTests.FullPath)'/>
-    <CallTarget Targets='PrintEasyTestLogs'></CallTarget>
+    <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />

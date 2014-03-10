@@ -46,7 +46,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         protected override void ReadValueCore() {
-            base.ReadValueCore();
             Control.EditValue = DecodeTimeSpan((TimeSpan) PropertyValue);
         }
 
