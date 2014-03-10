@@ -23,6 +23,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using View = DevExpress.ExpressApp.View;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
@@ -61,7 +62,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
     }
 
-    [PropertyEditor(typeof(IXPObject), false)]
+    [PropertyEditor(typeof(IXPObject), EditorAliases.FastSearchPropertyEditor,false)]
     public class FastSearchPropertyEditor : DXPropertyEditor, IComplexViewItem, IDependentPropertyEditor, ISupportViewShowing {
         LookupEditorHelper _helper;
         LookUpGridEditEx _lookup;
