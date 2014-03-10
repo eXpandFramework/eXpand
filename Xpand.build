@@ -129,8 +129,8 @@
   
       <ItemGroup>
 	
-  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\Modules\**\AutoTest.ets"/>	
-  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\Modules\**\TestsLog.xml"/>	
+  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\**\AutoTest.ets"/>	
+  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\**\TestsLog.xml"/>	
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <MSBuild.ExtensionPack.Xml.XmlFile 

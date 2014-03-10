@@ -561,7 +561,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return info.DXFilter(info.DeclaringType, attributes);
         }
 
-        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions) };
+        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions), typeof(BaseAppearanceCollection) };
         public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null) {
             return DXFilter(info, BaseTypes, componentBaseType, attributes);
         }
