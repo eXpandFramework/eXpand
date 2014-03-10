@@ -6,9 +6,13 @@ namespace Xpand.Persistent.Base.General.Model.VisibilityCalculators {
 
         #region Implementation of IModelIsVisible
 
-        protected Type EditorType(IModelNode node) {
-            return ((IModelListView) node.GetParent<IModelListView>()).EditorType;
+        protected Type EditorType(IModelNode node){
+            var modelNode = node.GetParent<IModelListView>();
+            if (modelNode != null) return ((IModelListView) modelNode).EditorType;
+            modelNode= node.GetParent<IModelPropertyEditor>();
+            return ((IModelPropertyEditor) modelNode).PropertyEditorType;
         }
+
         #endregion
         #region Implementation of IModelIsVisible
         public abstract bool IsVisible(IModelNode node, string propertyName);
