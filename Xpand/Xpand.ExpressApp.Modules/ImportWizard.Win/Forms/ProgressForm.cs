@@ -1,4 +1,6 @@
 using System;
+using System.Net.Mime;
+using System.Windows.Forms;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
     public partial class ProgressForm : DevExpress.XtraEditors.XtraForm {
@@ -47,7 +49,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
         }
 
         public void DoProgress() {
+            Application.DoEvents();
             DoProgress(1);
+            Application.DoEvents();
         }
 
         public void DoProgress(int i) {
