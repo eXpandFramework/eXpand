@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             if (xafGridColumn != null) return (xafGridColumn).PropertyName;
             var xpandGridColumnWrapper = gridColumn as IXafGridColumn;
             if (xpandGridColumnWrapper != null) return xpandGridColumnWrapper.PropertyName;
-            throw new NotImplementedException(gridColumn.GetType().ToString());
+            return null;
         }
 
         public static IModelMemberViewItem Model(this GridColumn gridColumn) {
@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             if (xafGridColumn != null) return (xafGridColumn).Model;
             var xpandGridColumnWrapper = gridColumn as IXafGridColumn;
             if (xpandGridColumnWrapper != null) return xpandGridColumnWrapper.Model;
-            throw new NotImplementedException(gridColumn.GetType().ToString());
+            return null;
         }
 
         public static GridColumn Column(this ColumnWrapper columnWrapper) {
