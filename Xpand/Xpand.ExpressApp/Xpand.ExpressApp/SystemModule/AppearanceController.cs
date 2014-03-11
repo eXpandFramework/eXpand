@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.SystemModule {
             object obj = appearanceFormat;
             while (propertyName.Contains(".")) {
                 var name = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
-                var propertyInfo = GetPropertyInfo(type, name);
+                var propertyInfo = type.Property(name, Flags.ExcludeHiddenMembers|Flags.InstancePublic);
                 if (propertyInfo == null)
                     return null;
                 propertyName = propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1);
@@ -137,17 +137,6 @@ namespace Xpand.ExpressApp.SystemModule {
             return new Tuple<PropertyInfo, object, Font>(property, obj, (Font)property.Get(obj));
         }
 
-        private static PropertyInfo GetPropertyInfo(Type type, string name){
-
-            while (type!=typeof(object)){
-                var propertyInfo = type.Property(name, Flags.InstancePublicDeclaredOnly);
-                if (propertyInfo!=null)
-                    return propertyInfo;
-                if (type != null) type = type.BaseType;
-            }
-            
-            return null;
-        }
     }
 
     public class CachedAppearanceRuleProperties : DevExpress.ExpressApp.ConditionalAppearance.CachedAppearanceRuleProperties {
