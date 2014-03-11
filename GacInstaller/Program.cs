@@ -23,7 +23,7 @@ namespace GacInstaller {
             bool error=false;
             foreach (var file in GetFiles()) {
                 try {
-                    if (Regex.IsMatch(file, pattern)) {
+                    if (Regex.IsMatch(Path.GetFileNameWithoutExtension(file)+"", pattern)) {
                         if (flag) {
                             publish.GacInstall(file);
                             Console.WriteLine("Installed: " + file);
