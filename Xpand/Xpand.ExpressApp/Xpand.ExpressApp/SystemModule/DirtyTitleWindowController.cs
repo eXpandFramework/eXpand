@@ -26,11 +26,14 @@ namespace Xpand.ExpressApp.SystemModule {
         }
         private void ObjectSpace_ModifiedChanged(object sender, EventArgs e) {
             if (_windowTemplateController != null) {
-                _windowTemplateController.UpdateWindowCaption();
+                if (Enabled()) {
+                    _windowTemplateController.UpdateWindowCaption();
+                }
             }
         }
+
         private void windowTemplateController_CustomizeWindowCaption(object sender, CustomizeWindowCaptionEventArgs e) {
-            if (Enabled()) {
+            if (Enabled()){
                 e.WindowCaption.FirstPart = e.WindowCaption.FirstPart.TrimStart(DirtyMark);
                 if (Window.View.ObjectSpace.IsModified) {
                     e.WindowCaption.FirstPart = String.Format("{0} {1}", DirtyMark, e.WindowCaption.FirstPart);
