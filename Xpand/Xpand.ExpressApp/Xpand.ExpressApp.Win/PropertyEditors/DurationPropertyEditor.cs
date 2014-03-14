@@ -5,10 +5,13 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
+using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-    [PropertyEditor(typeof (TimeSpan), false)]
-    public class DurationPropertyEditor : DXPropertyEditor {
+    [PropertyEditor(typeof (TimeSpan), true)]
+    public class DurationPropertyEditor : DXPropertyEditor,ISupportNotifiedMembers {
+        
+
         public DurationPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
@@ -37,8 +40,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         void Control_EditValueChanged(object sender, EventArgs e) {
-            WriteValue();
-            OnControlValueChanged();
+            if (AllowEdit){
+                WriteValue();
+                OnControlValueChanged();
+            }
         }
 
         protected override object GetControlValueCore() {
@@ -48,7 +53,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected override void ReadValueCore() {
             Control.EditValue = DecodeTimeSpan((TimeSpan) PropertyValue);
         }
-
 
         public static TimeSpan ParseTimeSpan(string s) {
             const string quantity = "quantity";
@@ -103,5 +107,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
             return time;
         }
+
     }
 }

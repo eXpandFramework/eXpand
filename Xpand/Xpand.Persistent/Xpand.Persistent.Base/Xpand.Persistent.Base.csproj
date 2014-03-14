@@ -142,6 +142,9 @@
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\NotifyMembersController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -136,7 +136,7 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
                     typeof (CreatableItemController), typeof (FilterByColumnController),
                     typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController),
-                    typeof (CustomAttibutesController)
+                    typeof (CustomAttibutesController),typeof(NotifyMembersController)
                 });
             }
             return declaredControllerTypes;
@@ -221,7 +221,7 @@ namespace Xpand.Persistent.Base.General {
             OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
             if (Executed("AddGeneratorUpdaters"))
                 return;
-            
+
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
         }
