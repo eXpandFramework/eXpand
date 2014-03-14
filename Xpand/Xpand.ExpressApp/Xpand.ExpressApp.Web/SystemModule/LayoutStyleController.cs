@@ -80,17 +80,19 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         void ApplyStyle(WebPropertyEditor webPropertyEditor) {
             var modelLayoutViewItem = ModelLayoutViewItem(webPropertyEditor);
-            if (modelLayoutViewItem != null){
+            if (modelLayoutViewItem != null) {
                 var containerCell = ContainerCell(webPropertyEditor);
-                _layoutStyleProvider.ApplyContainerCellStyle(containerCell, modelLayoutViewItem.LayoutStyle);
-                _layoutStyleProvider.ApplyControlStyle((WebControl)containerCell.Controls[0], modelLayoutViewItem.LayoutStyle);
+                if (containerCell != null) {
+                    _layoutStyleProvider.ApplyContainerCellStyle(containerCell, modelLayoutViewItem.LayoutStyle);
+                    _layoutStyleProvider.ApplyControlStyle((WebControl)containerCell.Controls[0], modelLayoutViewItem.LayoutStyle);
+                }
             }
         }
 
         IModelLayoutViewItemStyle ModelLayoutViewItem(WebPropertyEditor webPropertyEditor) {
             Guard.ArgumentNotNull(webPropertyEditor, "webPropertyEditor");
-            
-            if (View == null) return (IModelLayoutViewItemStyle) webPropertyEditor.Model;
+
+            if (View == null) return (IModelLayoutViewItemStyle)webPropertyEditor.Model;
 
             var modelDetailView = View.Model as IModelDetailView;
             return modelDetailView == null ? (IModelLayoutViewItemStyle)webPropertyEditor.Model
@@ -100,12 +102,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var layoutManager = View.LayoutManager as IWebLayoutManager;
-            if (layoutManager != null) 
+            if (layoutManager != null)
                 ((IWebLayoutManager)View.LayoutManager).Instantiated -= OnInstantiated;
         }
 
         TableCell ContainerCell(WebPropertyEditor item) {
             var tableEx = ((TableEx)item.Control);
+            if (tableEx == null) return null;
             return ((TableRow)tableEx.Controls[0]).Cells[1];
         }
 
