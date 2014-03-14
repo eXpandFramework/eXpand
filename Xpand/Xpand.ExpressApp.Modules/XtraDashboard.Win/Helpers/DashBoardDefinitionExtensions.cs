@@ -18,10 +18,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Helpers {
                 foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new{wrapper.Type,Caption=GetCaption(wrapper)})) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
+                    var objects = objectSpace.CreateServerCollection(wrapper.Type, null);
                     if (dsource!=null) {
-                        dsource.Data = objectSpace.GetObjects(wrapper.Type);
+                        dsource.Data = objects;
                     } else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption)))
-                        dashboard.AddDataSource(typeWrapper.Caption, objectSpace.GetObjects(typeWrapper.Type));
+                        dashboard.AddDataSource(typeWrapper.Caption, objects);
                 }
                 if (filter)
                     Filter(template, dashboard);
