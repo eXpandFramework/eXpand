@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    	<TestExecutorDir>C:\Program Files (x86)\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest</TestExecutorDir>
+    	<TestExecutorPath>C:\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest\TestExecutor.v13.2.exe</TestExecutorPath>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
@@ -129,8 +129,8 @@
   
       <ItemGroup>
 	
-  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\**\AutoTest.ets"/>	
-  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\**\TestsLog.xml"/>	
+  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\c**\AutoTest.ets"/>	
+  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\AuditTrail\**\TestsLog.xml"/>	
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <MSBuild.ExtensionPack.Xml.XmlFile 
@@ -142,11 +142,11 @@
   </Target>
   <Target Name="RunEasyTests">
       <Delete Files="@EasyTestLogs"/>
-	  <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=EasyTest" />
-	  <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=EasyTest" />
+<!--	  <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=EasyTest" />-->
+<!--	  <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=EasyTest" />-->
   	  <Exec ContinueOnError="true" 
-          WorkingDirectory="$(TestExecutorDir)" 
-          Command='TestExecutor.v13.2.exe %(EasyTests.FullPath)'/>
+          WorkingDirectory="$(_third_party_assemblies)" 
+          Command='ProcessAsUser.exe Tolis 4450@p0m "$(TestExecutorPath)" %(EasyTests.FullPath)'/>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="Config">
