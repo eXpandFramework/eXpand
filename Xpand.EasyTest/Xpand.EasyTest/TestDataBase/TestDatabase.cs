@@ -1,7 +1,7 @@
 ﻿using DevExpress.EasyTest.Framework;
 using Xpand.EasyTest.ASA;
-using Xpand.EasyTest.LocalDB;
 using Xpand.EasyTest.SQLite;
+using Xpand.EasyTest.TestDataBase.Operations;
 
 namespace Xpand.EasyTest.TestDataBase {
     public class TestSQLiteDatabase : TestDatabase {
