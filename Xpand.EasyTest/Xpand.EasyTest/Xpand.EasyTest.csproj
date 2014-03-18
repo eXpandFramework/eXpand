@@ -36,9 +36,9 @@
     <Reference Include="DevExpress.Data.v13.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.EasyTest.v13.2, Version=13.2.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.EasyTest.v13.2, Version=13.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DevExpress 13.2\Components\Bin\Framework\DevExpress.EasyTest.v13.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -87,7 +87,7 @@
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.Persistent.Base.v13.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
