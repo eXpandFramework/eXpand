@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 namespace FixReferences {
     class ProjectUpdater : Updater {
+        private readonly string _version;
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 
         readonly string[] _copyLocalReferences ={
@@ -25,8 +26,8 @@ namespace FixReferences {
                 {"Xpand.ExpressApp.PivotChart.Win", "Xpand.Persistent.BaseImpl"}
             };
 
-        public ProjectUpdater(IDocumentHelper documentHelper, string rootDir) : base(documentHelper, rootDir) {
-            
+        public ProjectUpdater(IDocumentHelper documentHelper, string rootDir,string version) : base(documentHelper, rootDir){
+            _version = version;
         }
 
         public override void Update(string file) {
@@ -98,7 +99,18 @@ namespace FixReferences {
                 config = Path.Combine(functionalTestsPath,"Config.xml");
                 if (File.Exists(config)){
                     ReplaceToken(config);
+                    UpdateAdapterVersion(config);
                 }
+            }
+        }
+
+        private void UpdateAdapterVersion(string config){
+            string readToEnd;
+            using (var streamReader = new StreamReader(config)){
+                readToEnd = Regex.Replace(streamReader.ReadToEnd(), @"(<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=)([.\d]*)", "${1}" + _version);
+            }
+            using (var streamWriter = new StreamWriter(config)) {
+                streamWriter.Write(readToEnd);
             }
         }
 
