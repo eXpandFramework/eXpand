@@ -1,37 +1,38 @@
 ﻿using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.ImportWizard.Core {
+namespace Xpand.ExpressApp.ImportWizard.Core{
     [Persistent]
-    public class Mapping : XPObject {
+    public class Mapping : XPObject{
+        private string _column;
+        private ImportMap _map;
 
-        private ImportMap _Map;
-        [Association("Sheet-Mappings")]
-        [DisplayName("Map")]
-        public ImportMap Map {
-            get { return _Map; }
-            set { SetPropertyValue("Map", ref _Map, value); }
-        }
-
-        private string _Column;
-        [DisplayName("Column")]
-        public string Column {
-            get { return _Column; }
-            set { SetPropertyValue("Column", ref _Column, value); }
-        }
-
-        private string _MapedTo;
-        [DisplayName("MapedTo")]
-        public string MapedTo {
-            get { return _MapedTo; }
-            set { SetPropertyValue("MapedTo", ref _MapedTo, value); }
-        }
+        private string _mapedTo;
 
 
         public Mapping(Session session)
-            : base(session) {
+            : base(session){
         }
 
-        public Mapping() {
+        public Mapping(){
+        }
+
+        [Association(@"Sheet-Mappings")]
+        [DisplayName(@"Map")]
+        public ImportMap Map{
+            get { return _map; }
+            set { SetPropertyValue(@"Map", ref _map, value); }
+        }
+
+        [DisplayName(@"Column")]
+        public string Column{
+            get { return _column; }
+            set { SetPropertyValue(@"Column", ref _column, value); }
+        }
+
+        [DisplayName(@"MapedTo")]
+        public string MapedTo{
+            get { return _mapedTo; }
+            set { SetPropertyValue(@"MapedTo", ref _mapedTo, value); }
         }
     }
 }

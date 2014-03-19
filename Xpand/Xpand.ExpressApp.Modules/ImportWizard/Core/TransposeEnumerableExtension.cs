@@ -8,12 +8,12 @@ using System.Reflection;
 namespace Xpand.ExpressApp.ImportWizard.Core {
 
     public static class EnumerableExtension {
-        private static readonly MethodInfo GetValueMethod =
+        private static readonly MethodInfo _getValueMethod =
             (from m in typeof(PropertyInfo).GetMethods()
              where m.Name == "GetValue" && !m.IsAbstract
              select m).First();
 
-        private static readonly ConstantExpression NullObjectArrayExpression =
+        private static readonly ConstantExpression _nullObjectArrayExpression =
             Expression.Constant(null, typeof(object[]));
 
         public static IEnumerable Transpose<T>(this IEnumerable<T> source) {
@@ -28,16 +28,16 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 list.Select(i => new DynamicProperty(i.ToString(), typeof(object))).ToArray();
 
             Type transposedType = ClassFactory.Instance.GetDynamicClass(dynamicProperties);
-            ParameterExpression propParam = Expression.Parameter(typeof(PropertyInfo), "prop");
+            ParameterExpression propParam = Expression.Parameter(typeof(PropertyInfo), @"prop");
 
             var bindings = new MemberBinding[list.Length];
             for (int i = 0; i < list.Length; i++) {
                 MethodCallExpression getter =
                     Expression.Call(
                         propParam,
-                        GetValueMethod,
+                        _getValueMethod,
                         Expression.Constant(list[i]),
-                        NullObjectArrayExpression
+                        _nullObjectArrayExpression
                         );
 
                 bindings[i] = Expression.Bind(transposedType.GetProperty(dynamicProperties[i].Name), getter);

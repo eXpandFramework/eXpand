@@ -1,5 +1,4 @@
 using System;
-using System.Net.Mime;
 using System.Windows.Forms;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
@@ -19,21 +18,21 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
             InitializeComponent();
             Text = caption;
             progress.Properties.Maximum = recordCount;
-            _TotalRecords = recordCount;
-            _MessageTemplate = message;
+            _totalRecords = recordCount;
+            _messageTemplate = message;
 
         }
 
 
-        private readonly string _MessageTemplate = string.Empty;
-        private readonly int _TotalRecords;
-        private int _Current;
+        private readonly string _messageTemplate = string.Empty;
+        private readonly int _totalRecords;
+        private int _current;
 
 
         private void SetLabelText() {
-            labelControl1.Text = string.IsNullOrEmpty(_MessageTemplate) ?
+            labelControl1.Text = string.IsNullOrEmpty(_messageTemplate) ?
                                     "" :
-                                    string.Format(_MessageTemplate, _Current, _TotalRecords);
+                                    string.Format(_messageTemplate, _current, _totalRecords);
         }
 
         public override sealed string Text {
@@ -55,7 +54,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
         }
 
         public void DoProgress(int i) {
-            _Current += i;
+            _current += i;
             progress.Increment(i);
             SetLabelText();
         }

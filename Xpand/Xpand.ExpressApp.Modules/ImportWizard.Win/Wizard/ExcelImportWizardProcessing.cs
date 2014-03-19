@@ -11,74 +11,67 @@ using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
-{
-    public partial class ExcelImportWizard
-    {
-        public void ProccesExcellRows(IEnumerable<Row> records, XPObjectSpace objectSpace, DoWorkEventArgs e, Type type)
-        {
-            var i = 0;
-            var props = objectSpace.FindXPClassInfo(type).PersistentProperties
-                        .OfType<XPMemberInfo>().ToList();
+namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
+    public partial class ExcelImportWizard{
+        public void ProccesExcellRows(IEnumerable<Row> records, XPObjectSpace objectSpace, DoWorkEventArgs e, Type type){
+            int i = 0;
+            List<XPMemberInfo> props = objectSpace.FindXPClassInfo(type).PersistentProperties
+                .OfType<XPMemberInfo>().ToList();
 
             //get key property name of the object type being imported
-            var keyPropertyName = objectSpace.GetKeyPropertyName(type);
+            string keyPropertyName = objectSpace.GetKeyPropertyName(type);
 
             //for every row in excel sheet
-            foreach (var excelRow in records)
-            {
+            foreach (Row excelRow in records){
                 ++i;
                 if (i == 1) continue;
-                if (_BgWorker.CancellationPending) { e.Cancel = true; break; }
+                if (_bgWorker.CancellationPending){
+                    e.Cancel = true;
+                    break;
+                }
 
 
                 string message;
 
                 ProcessSingleRow(objectSpace, e, type, keyPropertyName, excelRow, props, i, out message);
 
-                if (i % 50 == 0)
+                if (i%50 == 0)
                     objectSpace.CommitChanges();
 
-                _BgWorker.ReportProgress(1, message);
+                _bgWorker.ReportProgress(1, message);
                 Application.DoEvents();
             }
             objectSpace.CommitChanges();
         }
 
         private void ProcessSingleRow(XPObjectSpace objectSpace, DoWorkEventArgs e, Type type, string keyPropertyName,
-            Row excelRow, List<XPMemberInfo> props, int i, out string message)
-        {
-            var newObj = GetExistingOrCreateNewObject(objectSpace, keyPropertyName, excelRow, type);
+            Row excelRow, List<XPMemberInfo> props, int i, out string message){
+            IXPSimpleObject newObj = GetExistingOrCreateNewObject(objectSpace, keyPropertyName, excelRow, type);
 
-            if (newObj == null)
-            {
+            if (newObj == null){
                 message = string.Format(Resources.newObjectError, i);
                 return;
             }
-            foreach (var mapping in ImportMap.Mappings)
-            {
-                if (_BgWorker.CancellationPending)
-                {
+            foreach (Mapping mapping in ImportMap.Mappings){
+                if (_bgWorker.CancellationPending){
                     e.Cancel = true;
                     break;
                 }
                 Application.DoEvents();
 
-                var prop = props.Single(p => p.Name == mapping.MapedTo);
+                XPMemberInfo prop = props.Single(p => p.Name == mapping.MapedTo);
 
-                try
-                {
-                    var val = excelRow[mapping.Column];
+                try{
+                    Cell val = excelRow[mapping.Column];
 
                     if (val != null)
                         _propertyValueMapper(objectSpace, prop, val.Value, ref newObj);
                 }
 
-                catch (Exception ee)
-                {
+                catch (Exception ee){
                     message = string.Format(Resources.ErrorProcessingRecord,
                         i - 1, ee);
-                    _BgWorker.ReportProgress(0, message);
+                    _bgWorker.ReportProgress(0, message);
                 }
 
                 if (CurrentCollectionSource != null)
@@ -89,21 +82,19 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
             message = string.Format(Resources.SuccessProcessingRecord, i - 1);
         }
 
-        private IXPSimpleObject GetExistingOrCreateNewObject(XPObjectSpace objectSpace, string keyPropertyName, Row excelRow, Type type)
-        {
-            var idMapping = ImportMap.Mappings.SingleOrDefault(p => p.MapedTo == keyPropertyName);
+        private IXPSimpleObject GetExistingOrCreateNewObject(XPObjectSpace objectSpace, string keyPropertyName,
+            Row excelRow, Type type){
+            Mapping idMapping = ImportMap.Mappings.SingleOrDefault(p => p.MapedTo == keyPropertyName);
             IXPSimpleObject newObj = null;
-            if (idMapping != null && ImportUtils.GetQString(excelRow[idMapping.Column].Value) != string.Empty)
-            {
-                try
-                {
+            if (idMapping != null && ImportUtils.GetQString(excelRow[idMapping.Column].Value) != string.Empty){
+                try{
                     //find existing object
-                    var val = excelRow[idMapping.Column];
+                    Cell val = excelRow[idMapping.Column];
                     var gwid = new Guid(ImportUtils.GetQString(val.Value));
-                    newObj = objectSpace.FindObject(type, new BinaryOperator(keyPropertyName, gwid), true) as IXPSimpleObject;
+                    newObj =
+                        objectSpace.FindObject(type, new BinaryOperator(keyPropertyName, gwid), true) as IXPSimpleObject;
                 }
-                catch
-                {
+                catch{
                 }
             }
             return newObj ?? (objectSpace.CreateObject(type) as IXPSimpleObject);

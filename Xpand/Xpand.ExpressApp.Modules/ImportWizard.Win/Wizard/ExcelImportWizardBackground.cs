@@ -6,47 +6,41 @@ using DevExpress.XtraEditors;
 using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
-namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
-{
-    public partial class ExcelImportWizard
-    {
-        private void BgWorkerDoWork(object sender, DoWorkEventArgs e)
-        {
-            ProccesExcellRows((IEnumerable<Row>)e.Argument, ObjectSpace, e, Type);
+namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
+    public partial class ExcelImportWizard{
+        private void BgWorkerDoWork(object sender, DoWorkEventArgs e){
+            ProccesExcellRows((IEnumerable<Row>) e.Argument, ObjectSpace, e, Type);
         }
-        
-        private void BgWorkerProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
 
+        private void BgWorkerProgressChanged(object sender, ProgressChangedEventArgs e){
             Application.DoEvents();
-            if (_FrmProgress != null)
-                _FrmProgress.DoProgress(e.ProgressPercentage);
+            if (_frmProgress != null)
+                _frmProgress.DoProgress(e.ProgressPercentage);
 
             SetMemoText(e.UserState.ToString());
             Application.DoEvents();
-
         }
 
-        private void BgWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
+        private void BgWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e){
+            _frmProgress.Close();
 
-            _FrmProgress.Close();
-
-            if (e.Cancelled)
-            {
+            if (e.Cancelled){
                 ObjectSpace.Rollback();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_cancelled, Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Work_Canceled, MessageBoxButtons.OK,
+                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_cancelled,
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Work_Canceled, MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
             }
-            else if (e.Error != null)
-            {
+            else if (e.Error != null){
                 ObjectSpace.Rollback();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error__Details__ + e.Error, Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error__Details__ + e.Error,
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
-            else
-            {
+            else{
                 ObjectSpace.CommitChanges();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_completed__Results__ + e.Result);
+                XtraMessageBox.Show(
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_completed__Results__ +
+                    e.Result);
             }
 
             WizardControl.SelectedPage = completionWizardPage1;
@@ -54,34 +48,29 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
 
         #region Progress Events
 
-        private delegate void SetMemoTextDelegate(string text);
-
-        public void SetMemoText(string text)
-        {
+        public void SetMemoText(string text){
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
             // If these threads are different, it returns true.
-            if (ResultsMemoEdit.InvokeRequired)
-            {
+            if (ResultsMemoEdit.InvokeRequired){
                 var d = new SetMemoTextDelegate(SetMemoText);
-                Invoke(d, new object[] { text });
+                Invoke(d, new object[]{text});
             }
-            else
-            {
+            else{
                 ResultsMemoEdit.Text += Environment.NewLine + text;
                 ResultsMemoEdit.Select(ResultsMemoEdit.Text.Length,
-                                       ResultsMemoEdit.Text.Length);
+                    ResultsMemoEdit.Text.Length);
                 ResultsMemoEdit.ScrollToCaret();
             }
             Application.DoEvents();
         }
 
-        private void FrmProgressCancelClick(object sender, EventArgs e)
-        {
-            _BgWorker.CancelAsync();
+        private void FrmProgressCancelClick(object sender, EventArgs e){
+            _bgWorker.CancelAsync();
         }
 
+        private delegate void SetMemoTextDelegate(string text);
+
         #endregion
-        
     }
 }

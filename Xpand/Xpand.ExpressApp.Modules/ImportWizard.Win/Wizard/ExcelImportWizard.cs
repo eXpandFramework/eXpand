@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
@@ -28,11 +25,11 @@ using Xpand.ExpressApp.ImportWizard.Win.Forms;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
-
+    public delegate void ExcelImportWizardStringToPropertyMap(XPObjectSpace objectSpace, XPMemberInfo prop, string value, ref IXPSimpleObject newObj);
     public partial class ExcelImportWizard : XtraForm {
 
         readonly XafApplication _application;
-        readonly ExcelImportWizard_StringToPropertyMap _propertyValueMapper;
+        readonly ExcelImportWizardStringToPropertyMap _propertyValueMapper;
 
         #region Initialization
 
@@ -45,7 +42,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
 
         public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase, XafApplication application,
-            ExcelImportWizard_StringToPropertyMap propertyValueMapper = null) {
+            ExcelImportWizardStringToPropertyMap propertyValueMapper = null) {
             _application = application;
             _propertyValueMapper = propertyValueMapper ?? new StringValueMapper().MapValueToObjectProperty;
             //set local variable values
@@ -79,7 +76,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
                 column.Caption = mappablePropertyClassInfo
                                     .GetMember(column.FieldName).DisplayName;
-                if (column.FieldName == "Mapped")
+                if (column.FieldName == @"Mapped")
                     column.Visible = false;
             }
         }
@@ -89,23 +86,23 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Fill MRU item list with values
         /// </summary>
         private void ExcelImportWizard_Load(object sender, EventArgs e) {
-            _Mus = new MyUserSettings();
-            if (_Mus.MRUItems != null)
-                FileSelectEdit.Properties.Items.AddRange(_Mus.MRUItems);
+            _mus = new MyUserSettings();
+            if (_mus.MRUItems != null)
+                FileSelectEdit.Properties.Items.AddRange(_mus.MRUItems);
         }
         /// <summary>
         /// Save MRU item list with values
         /// </summary>
         private void ExcelImportWizard_FormClosing(object sender, FormClosingEventArgs e) {
-            if (_Mus.MRUItems == null)
-                _Mus.MRUItems = new List<string>();
+            if (_mus.MRUItems == null)
+                _mus.MRUItems = new List<string>();
             else
-                _Mus.MRUItems.Clear();
+                _mus.MRUItems.Clear();
             foreach (var item in FileSelectEdit.Properties.Items) {
-                _Mus.MRUItems.Add(item.ToString());
+                _mus.MRUItems.Add(item.ToString());
             }
 
-            _Mus.Save();
+            _mus.Save();
 
             if (ObjectSpace.Session.InTransaction)
                 ObjectSpace.Session.RollbackTransaction();
@@ -116,38 +113,38 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #endregion
 
-        private MyUserSettings _Mus;
+        private MyUserSettings _mus;
         public XPObjectSpace ObjectSpace { get; private set; }
         public CollectionSourceBase CurrentCollectionSource { get; private set; }
 
         private SpreadsheetDocument ExcelDocument { get; set; }
-        private Sheet _Sheet;
+        private Sheet _sheet;
         public Sheet Sheet {
-            get { return _Sheet; }
+            get { return _sheet; }
             private set {
-                _Sheet = value;
+                _sheet = value;
                 AssignDataSource();
 
             }
         }
 
-        private ImportMap _ImportMap;
+        private ImportMap _importMap;
         public ImportMap ImportMap {
-            get { return _ImportMap; }
+            get { return _importMap; }
             set {
-                _ImportMap = value;
+                _importMap = value;
                 AssingMapping(value);
             }
         }
 
-        private Type _Type;
+        private Type _type;
         public Type Type {
-            get { return _Type; }
+            get { return _type; }
             private set {
-                _Type = value;
+                _type = value;
 
-                if (_Type == null) return;
-                var props = ObjectSpace.Session.GetClassInfo(_Type)
+                if (_type == null) return;
+                var props = ObjectSpace.Session.GetClassInfo(_type)
                                 .PersistentProperties as IEnumerable<XPMemberInfo>;
                 if (props != null)
                     //todo: allow to use only properties that user can modify
@@ -173,7 +170,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         private void AssignDataSource() {
             ((GridView)ExcelSheetPreviewGrid.MainView).Columns.Clear();
-            ExcelSheetPreviewGrid.DataSource = _Sheet == null ? null : _Sheet.DataPreviewTable();
+            ExcelSheetPreviewGrid.DataSource = _sheet == null ? null : _sheet.DataPreviewTable();
         }
 
         #region Page commit
@@ -224,8 +221,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private void InitWizPage1() {
 
             repositoryItemGridLookUpEdit.DataSource = MappableColumns;
-            repositoryItemGridLookUpEdit.DisplayMember = "Name";
-            repositoryItemGridLookUpEdit.ValueMember = "Name";
+            repositoryItemGridLookUpEdit.DisplayMember = @"Name";
+            repositoryItemGridLookUpEdit.ValueMember = @"Name";
 
             ImportMapLookUp.Properties.DataSource = ImportMapsCollection.ToList();
             ImportMapLookUp.EditValue = null;
@@ -237,7 +234,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 throw new InvalidDataException(Resources.ExcelImportWizard_InitWizPage1_Duplicate_column_names_found__please_fix_excel_column_names);
 
             //Assign data for Mapping Grid
-            var dt = _Sheet.DataPreviewTable().Transpose();
+            var dt = _sheet.DataPreviewTable().Transpose();
 
             dt.RowChanged -= MappingGrid_RowChanged;
             var mappingGirdView = ((BandedGridView)MappingGrid.MainView);
@@ -266,7 +263,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         void MappingGrid_RowChanged(object sender, DataRowChangeEventArgs e) {
             //when saved map is selected and something changes in the grid
             //changes radio selection to a custom map
-            if (!_IgnoreDtChanges && MappingRadioGroup.SelectedIndex != 1)
+            if (!_ignoreDtChanges && MappingRadioGroup.SelectedIndex != 1)
                 MappingRadioGroup.SelectedIndex = 1;
 
             var allowNext = false;
@@ -331,11 +328,11 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             foreach (BandedGridColumn col in cols) {
                 if (col.AbsoluteIndex != 0 && col.AbsoluteIndex != cols.Count - 1) {
                     //move value columns to Values band
-                    col.OwnerBand = bands["Values"];
+                    col.OwnerBand = bands[@"Values"];
                 }
                 if (col.AbsoluteIndex == cols.Count - 1) {
                     //Moves the LAST !!! column to Mapping band
-                    col.OwnerBand = bands["MapTo"];
+                    col.OwnerBand = bands[@"MapTo"];
                     col.ColumnEdit = repositoryItemGridLookUpEdit;
                     col.Width = 100;
                 }
@@ -407,11 +404,11 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private void HeaderRowCheck_CheckedChanged(object sender, EventArgs e) {
             HeaderRowSpinEdit.Enabled = ((CheckEdit)sender).Checked;
             PrieviewRowCountSpinEdit.Enabled = ((CheckEdit)sender).Checked;
-            _Sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
+            _sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
                                          ?
                                             decimal.ToInt32(HeaderRowSpinEdit.Value)
                                          : (int?)null;
-            _Sheet.PreviewRowCount = ((CheckEdit)sender).Checked
+            _sheet.PreviewRowCount = ((CheckEdit)sender).Checked
                                          ?
                                              decimal.ToInt32(PrieviewRowCountSpinEdit.Value)
                                          :
@@ -426,7 +423,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void HeaderRowSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.ColumnHeaderRow = decimal.ToInt32(((SpinEdit)sender).Value);
+            _sheet.ColumnHeaderRow = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -486,7 +483,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
 
         private void PrieviewRowCountSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
+            _sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -568,9 +565,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #region Mapping Procedures
 
-        private bool _IgnoreDtChanges;
+        private bool _ignoreDtChanges;
         private void AssingMapping(ImportMap importMap) {
-            _IgnoreDtChanges = true;
+            _ignoreDtChanges = true;
             var dt = MappingGrid.DataSource as DataTable;
             if (dt == null || importMap == null) return;
 
@@ -591,7 +588,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
                 dt.Rows[i][dt.Columns.Count - 1] = null;
             }
-            _IgnoreDtChanges = false;
+            _ignoreDtChanges = false;
         }
 
         private void GuesMappings() {
@@ -604,10 +601,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 var dataRow = rows[i];
                 var mapsTo =
                     (object)MappableColumns
-                                .Where(p => p.Name.ToUpper().Replace(" ", "").Replace("_", "")
-                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(" ", "").Replace("_", "") ||
-                                    p.DisplayName.ToUpper().Replace(" ", "").Replace("_", "")
-                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(" ", "").Replace("_", ""))
+                                .Where(p => p.Name.ToUpper().Replace(@" ", "").Replace(@"_", "")
+                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(@" ", "").Replace(@"_", "") ||
+                                    p.DisplayName.ToUpper().Replace(@" ", "").Replace(@"_", "")
+                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(@" ", "").Replace(@"_", ""))
                                 .Select(p => p.Name)
                                 .FirstOrDefault()
                     ;
@@ -621,8 +618,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #region Import Data
 
-        private BackgroundWorker _BgWorker;
-        private ProgressForm _FrmProgress;
+        private BackgroundWorker _bgWorker;
+        private ProgressForm _frmProgress;
 
 
         private void ImportButton_Click(object sender, EventArgs e) {
@@ -631,21 +628,21 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             if (Sheet.ColumnHeaderRow != null)
                 rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
 
-            _FrmProgress = new ProgressForm(Resources.ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___, rowCount, "Processing record {0} of {1} ");
-            _FrmProgress.CancelClick += FrmProgressCancelClick;
+            _frmProgress = new ProgressForm(Resources.ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___, rowCount, @"Processing record {0} of {1} ");
+            _frmProgress.CancelClick += FrmProgressCancelClick;
 
-            _BgWorker = new BackgroundWorker {
+            _bgWorker = new BackgroundWorker {
                 WorkerSupportsCancellation = true,
                 WorkerReportsProgress = true
             };
 
-            _BgWorker.RunWorkerCompleted += BgWorkerRunWorkerCompleted;
-            _BgWorker.ProgressChanged += BgWorkerProgressChanged;
-            _BgWorker.DoWork += BgWorkerDoWork;
+            _bgWorker.RunWorkerCompleted += BgWorkerRunWorkerCompleted;
+            _bgWorker.ProgressChanged += BgWorkerProgressChanged;
+            _bgWorker.DoWork += BgWorkerDoWork;
 
-            _BgWorker.RunWorkerAsync(Sheet.Rows());
+            _bgWorker.RunWorkerAsync(Sheet.Rows());
 
-            _FrmProgress.ShowDialog();
+            _frmProgress.ShowDialog();
 
         }
 

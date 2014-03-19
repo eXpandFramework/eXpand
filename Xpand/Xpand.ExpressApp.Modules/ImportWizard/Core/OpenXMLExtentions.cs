@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using DocumentFormat.OpenXml;
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         public SheetDimension(string sheetDimension) {
             var dimms = sheetDimension.Split(':');
             if (dimms.Count() != 2)
-                throw new InvalidDataException("Wrong sheet dimmension format");
+                throw new InvalidDataException(@"Wrong sheet dimmension format");
 
 
             StartColumnIndex = ExcelExtentions.SplitAddress(dimms[0])[0].ColumnAddressToIndex();
@@ -55,11 +56,9 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         public Cell this[string column] {
             get {
                 if (column == null)
-                    throw new Exception("Invalid column name: " + column);
+                    throw new Exception(@"Invalid column name: " + null);
 
-                var colIx = this.Columns()
-                    .Where(p => p.Name == column)
-                    .FirstOrDefault().ColumnIndex;
+                var colIx = this.Columns().First(p => p.Name == column).ColumnIndex;
                 var ret = this[colIx];
                 return
                     ret;
@@ -114,7 +113,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                     new string((char)('A' + i3), 1);
                 return s;
             }
-            throw new Exception("Invalid column address");
+            throw new Exception(@"Invalid column address");
         }
 
         public static int ColumnAddressToIndex(this string columnAddress) {
@@ -139,7 +138,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 var i3 = c3 - 'A';
                 return (i1 + 1) * 676 + (i2 + 1) * 26 + i3;
             }
-            throw new Exception("Invalid column address");
+            throw new Exception(@"Invalid column address");
         }
 
         public static string[] SplitAddress(string address) {
@@ -148,7 +147,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 if (address[i] >= '0' && address[i] <= '9')
                     break;
             if (i == address.Length)
-                throw new Exception("Invalid cell address format");
+                throw new Exception(@"Invalid cell address format");
             return new[] {
                 address.Substring(0, i),
                 address.Substring(i)
@@ -166,17 +165,14 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         /// <param name="test">Dummy parameter</param>
         /// <returns></returns>
         public static IEnumerable<DocumentFormat.OpenXml.Spreadsheet.Sheet> Sheets(this SpreadsheetDocument spreadsheet, object test) {
-            return spreadsheet.WorkbookPart.Workbook.Elements()
-                .Where(p => p.LocalName == "sheets").FirstOrDefault()
-                .Elements().Where(e => e.LocalName == "sheet")
+            return spreadsheet.WorkbookPart.Workbook.Elements().First(p => p.LocalName == @"sheets")
+                .Elements().Where(e => e.LocalName == @"sheet")
                 .Select(s => (DocumentFormat.OpenXml.Spreadsheet.Sheet)s);
         }
 
         public static IEnumerable<DocumentFormat.OpenXml.Spreadsheet.Row> Rows(this WorksheetPart worksheet) {
-            return worksheet.RootElement.Elements()
-                .Where(p => p.LocalName == "sheetData")
-                .FirstOrDefault()
-                .Elements().Where(e => e.LocalName == "row")
+            return worksheet.RootElement.Elements().First(p => p.LocalName == @"sheetData")
+                .Elements().Where(e => e.LocalName == @"row")
                 .Select(t => (DocumentFormat.OpenXml.Spreadsheet.Row)t);
         }
 
@@ -215,7 +211,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 WorkSheetPart = spreadsheet.WorkSheet(p),
                 Dimension = spreadsheet.WorkSheet(p)
                     .RootElement.Descendants<DocumentFormat.OpenXml.Spreadsheet.SheetDimension>()
-                    .FirstOrDefault().Reference
+                    .First().Reference
             });
         }
 
@@ -261,21 +257,11 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         }
 
 
-        public static IEnumerable<Cell> Cells(this Row row) {
-
-            return from c in row.Sheet.Columns() //select columns
-                   //join cell    
-                   join cl in row.OXmlRow.Cells(row.Sheet.WorkbookPart.SharedStringTablePart.SharedStringTable)
-                                             .Select(p => new Cell {
-                                                 OXmlCell = p,
-                                                 Row = row,
-                                                 Column = row.Sheet.Columns()
-                                                            .Where(t => t.ColumnIndex ==
-                                                                ColumnAddressToIndex(SplitAddress(p.CellReference)[0]))
-                                                            .FirstOrDefault(),
-                                                 Value = p.CellValue != null ? p.CellValue.Text : ""
-
-                                             })
+        public static IEnumerable<Cell> Cells(this Row row){
+            var sharedStringTable = row.Sheet.WorkbookPart.SharedStringTablePart.SharedStringTable;
+            return from c in row.Sheet.Columns() 
+                   join cl in row.OXmlRow.Cells(sharedStringTable)
+                                             .Select(p => GetCell(row, p))
                        //join by column index, select null for empty cells
                       on c.ColumnIndex equals cl != null ? cl.Column != null ? cl.Column.ColumnIndex : -1 : -1
                           into cls
@@ -290,8 +276,17 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                                cl.OXmlCell.CellValue.Text : "" : "" : ""
 
                    };
+        }
 
+        private static Cell GetCell(Row row, DocumentFormat.OpenXml.Spreadsheet.Cell p){
+            return new Cell {
+                OXmlCell = p,
+                Row = row,
+                Column = row.Sheet.Columns().First(t 
+                    => t.ColumnIndex ==ColumnAddressToIndex(SplitAddress(p.CellReference)[0])),
+                Value = p.CellValue != null ? p.CellValue.Text : ""
 
+            };
         }
 
         public static SheetDimension Dimentions(this Sheet sheet) {
@@ -304,9 +299,9 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
             var dtcs = sheet.Columns().Select(p => new DataColumn(p.Name));
             //check for duplicates and throw error if found
             var bad = dtcs.GroupBy(d => d.ColumnName).Select(g => new { g.Key, count = g.Count() }).Where(g => g.count > 1);
-            if (bad.Count() > 0) {
-                var s = bad.Aggregate(string.Empty, (current, enumerable) => current + (enumerable.Key + "; "));
-                throw new InvalidDataException("Duplicate column names found. " + s, new Exception("Bad columns : " + s.Trim()));
+            if (bad.Any()) {
+                var s = bad.Aggregate(string.Empty, (current, enumerable) => current + (enumerable.Key + @"; "));
+                throw new InvalidDataException(@"Duplicate column names found. " + s, new Exception(@"Bad columns : " + s.Trim()));
             }
 
             dt.Columns.AddRange(dtcs.ToArray());
@@ -334,7 +329,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
             var dtNew = new DataTable();
             //adding columns    
             for (var i = 0; i <= dt.Rows.Count; i++)
-                dtNew.Columns.Add(i.ToString());
+                dtNew.Columns.Add(i.ToString(CultureInfo.InvariantCulture));
             //Changing Column Captions: 
             dtNew.Columns[0].ColumnName = " ";
 

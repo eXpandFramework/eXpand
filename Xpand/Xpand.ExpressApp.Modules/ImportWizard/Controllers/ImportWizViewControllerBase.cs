@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.ImportWizard.Controllers {
 
         protected override void OnActivated() {
             if (View.ObjectTypeInfo.IsAbstract)
-                ImportAction.Active.SetItemValue("test", false);
+                ImportAction.Active.SetItemValue(@"test", false);
 
             base.OnActivated();
         }

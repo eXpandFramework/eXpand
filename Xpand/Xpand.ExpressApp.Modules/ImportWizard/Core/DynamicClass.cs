@@ -11,40 +11,40 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         public override string ToString() {
             var props = GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
             var sb = new StringBuilder();
-            sb.Append("{");
+            sb.Append(@"{");
             for (var i = 0; i < props.Length; i++) {
-                if (i > 0) sb.Append(", ");
+                if (i > 0) sb.Append(@", ");
                 sb.Append(props[i].Name);
-                sb.Append("=");
+                sb.Append(@"=");
                 sb.Append(props[i].GetValue(this, null));
             }
-            sb.Append("}");
+            sb.Append(@"}");
             return sb.ToString();
         }
     }
 
     public class DynamicProperty {
-        private readonly string _Name;
-        private readonly Type _Type;
+        private readonly string _name;
+        private readonly Type _type;
 
         /// <exclude/>
         /// <excludeToc/>
         public DynamicProperty(string name, Type type) {
             if (name == null) throw new ArgumentNullException("name");
             if (type == null) throw new ArgumentNullException("type");
-            _Name = name;
-            _Type = type;
+            _name = name;
+            _type = type;
         }
 
         public string Name {
             get {
-                return _Name;
+                return _name;
             }
         }
 
         public Type Type {
             get {
-                return _Type;
+                return _type;
             }
         }
     }
@@ -52,30 +52,30 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
     internal class ClassFactory {
         public static readonly ClassFactory Instance = new ClassFactory();
 
-        private readonly Dictionary<Signature, Type> _Classes;
-        private readonly ModuleBuilder _Module;
-        private int _ClassCount;
+        private readonly Dictionary<Signature, Type> _classes;
+        private readonly ModuleBuilder _module;
+        private int _classCount;
 
         private ClassFactory() {
             var name = new AssemblyName("DynamicClasses");
             var assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(name, AssemblyBuilderAccess.Run);
-            _Module = assembly.DefineDynamicModule("Module");
-            _Classes = new Dictionary<Signature, Type>();
+            _module = assembly.DefineDynamicModule("Module");
+            _classes = new Dictionary<Signature, Type>();
         }
 
         public Type GetDynamicClass(IEnumerable<DynamicProperty> properties) {
             var signature = new Signature(properties);
             Type type;
-            if (!_Classes.TryGetValue(signature, out type)) {
+            if (!_classes.TryGetValue(signature, out type)) {
                 type = CreateDynamicClass(signature.Properties);
-                _Classes.Add(signature, type);
+                _classes.Add(signature, type);
             }
             return type;
         }
 
         private Type CreateDynamicClass(DynamicProperty[] properties) {
-            var typeName = "DynamicClass" + (_ClassCount + 1);
-            var tb = _Module.DefineType(
+            var typeName = @"DynamicClass" + (_classCount + 1);
+            var tb = _module.DefineType(
                 typeName,
                 TypeAttributes.Class |
                 TypeAttributes.Public,
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
             GenerateEquals(tb, fields);
             GenerateGetHashCode(tb, fields);
             var result = tb.CreateType();
-            _ClassCount++;
+            _classCount++;
             return result;
         }
 

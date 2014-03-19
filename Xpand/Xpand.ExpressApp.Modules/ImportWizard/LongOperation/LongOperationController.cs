@@ -8,8 +8,8 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.ImportWizard.LongOperation {
     public abstract class LongOperationController : ViewController {
-        private IProgressControl _ProgressControl;
-        private AsyncOperation _WaitLongOperationCompleted;
+        private IProgressControl _progressControl;
+        private AsyncOperation _waitLongOperationCompleted;
         public List<string> ChangedProps = new List<string>();
 
         private void DoWork(DevExpress.ExpressApp.Demos.LongOperation longOperation) {
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
                 DoWorkCore(longOperation);
             } catch (Exception) {
                 longOperation.TerminateAsync();
-                _ProgressControl.Dispose();
+                _progressControl.Dispose();
                 throw;
 
             }
@@ -29,14 +29,14 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
             ((DevExpress.ExpressApp.Demos.LongOperation)sender).TerminateAsync();
         }
         protected void LongOperation_Completed(object sender, LongOperationCompletedEventArgs e) {
-            _ProgressControl.Dispose();
-            _ProgressControl = null;
+            _progressControl.Dispose();
+            _progressControl = null;
             ((DevExpress.ExpressApp.Demos.LongOperation)sender).CancellingTimeoutExpired -= LongOperation_CancellingTimeoutExpired;
             ((DevExpress.ExpressApp.Demos.LongOperation)sender).Completed -= LongOperation_Completed;
             ((DevExpress.ExpressApp.Demos.LongOperation)sender).Dispose();
 
-            _WaitLongOperationCompleted.PostOperationCompleted(WorkCompleted, null);
-            _WaitLongOperationCompleted = null;
+            _waitLongOperationCompleted.PostOperationCompleted(WorkCompleted, null);
+            _waitLongOperationCompleted = null;
         }
 
         protected abstract void DoWorkCore(DevExpress.ExpressApp.Demos.LongOperation longOperation);
@@ -56,14 +56,14 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
         }
         protected void StartLongOperation(List<string> strings) {
 
-            _WaitLongOperationCompleted = AsyncOperationManager.CreateOperation(null);
+            _waitLongOperationCompleted = AsyncOperationManager.CreateOperation(null);
             var longOperation = new DevExpress.ExpressApp.Demos.LongOperation(DoWork) { CancellingTimeoutMilliSeconds = 2000 };
             longOperation.CancellingTimeoutExpired += LongOperation_CancellingTimeoutExpired;
             longOperation.Completed += LongOperation_Completed;
 
             ChangedProps = strings;
-            _ProgressControl = CreateProgressControl();
-            _ProgressControl.ShowProgress(longOperation);
+            _progressControl = CreateProgressControl();
+            _progressControl.ShowProgress(longOperation);
             longOperation.StartAsync();
             OnOperationStarted();
         }
