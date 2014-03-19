@@ -10,6 +10,21 @@ using Fasterflect;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
+    public class ObjectModelSynchronizer : ModelSynchronizer<object, IModelNode> {
+        public ObjectModelSynchronizer(object component, IModelNode modelNode)
+            : base(component, modelNode) {
+        }
+
+
+        protected override void ApplyModelCore() {
+            ApplyModel(Model, Control, ApplyValues);
+        }
+
+        public override void SynchronizeModel() {
+            throw new NotImplementedException();
+        }
+    }
+
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
         public static readonly HashSet<string> ExcludedNodeMembers =
             new HashSet<string>(new[] { "Id", "Index", "Removed", "IsNewNode", "IsRemovedNode" });

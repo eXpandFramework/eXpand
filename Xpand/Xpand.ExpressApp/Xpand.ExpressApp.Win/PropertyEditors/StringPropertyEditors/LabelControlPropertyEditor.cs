@@ -26,20 +26,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
          
     }
 
-    public class LabelControlSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<LabelControl, IModelPropertyEditorLabelControl> {
-        public LabelControlSynchronizer(LabelControl component, IModelPropertyEditorLabelControl modelNode)
-            : base(component, modelNode) {
-        }
-
-
-        protected override void ApplyModelCore() {
-            ApplyModel(Model.LabelControl, Control, ApplyValues);
-        }
-
-        public override void SynchronizeModel() {
-            throw new NotImplementedException();
-        }
-    }
 
     public class LabelControlModelAdapterController:ModelAdapterController,IModelExtender{
         protected override void OnViewControlsCreated(){
@@ -48,7 +34,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             if (detailView!=null)
                 foreach (var item in detailView.GetItems<LabelControlPropertyEditor>()){
                     var modelPropertyEditorLabelControl = (IModelPropertyEditorLabelControl)item.Model;
-                    new LabelControlSynchronizer((LabelControl)item.Control,modelPropertyEditorLabelControl).ApplyModel();
+                    new ObjectModelSynchronizer(item.Control,modelPropertyEditorLabelControl.LabelControl).ApplyModel();
                 }
         }
 

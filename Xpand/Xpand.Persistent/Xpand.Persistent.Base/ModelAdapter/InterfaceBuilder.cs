@@ -562,6 +562,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions), typeof(BaseAppearanceCollection) };
+        public static readonly HashSet<string> ExcludedReservedNames = new HashSet<string> { "IsReadOnly" };
         public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null) {
             return DXFilter(info, BaseTypes, componentBaseType, attributes);
         }
@@ -572,7 +573,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static bool Filter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] filteredPropertyBaseTypes, Type[] attributes) {
-            return info.IsBrowseable() && info.HasAttributes(attributes) &&
+            return info.IsBrowseable() && info.HasAttributes(attributes) && !ExcludedReservedNames.Contains(info.Name)&&
                    FilterCore(info, componentBaseType, filteredPropertyBaseTypes);
         }
 

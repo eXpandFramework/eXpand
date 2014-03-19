@@ -372,6 +372,9 @@
     <Compile Include="SystemModule\ImmediatePostDataListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\XafLayoutControlModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\RibbonFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
