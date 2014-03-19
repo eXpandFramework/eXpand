@@ -181,7 +181,6 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         }
 
         public static IEnumerable<DocumentFormat.OpenXml.Spreadsheet.Cell> Cells(this DocumentFormat.OpenXml.Spreadsheet.Row row, SharedStringTable sharedStringTable) {
-
             foreach (var celll in row.Descendants<DocumentFormat.OpenXml.Spreadsheet.Cell>()) {
                 var c = (DocumentFormat.OpenXml.Spreadsheet.Cell)celll.Clone();
                 if (celll.CellValue != null) {
@@ -189,8 +188,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                                && celll.DataType.HasValue
                                && celll.CellValue.InnerText != null
                                && celll.DataType == CellValues.SharedString)
-                                  ? sharedStringTable.ChildElements[
-                                        int.Parse(celll.CellValue.InnerText)].InnerText
+                                  ? sharedStringTable.ChildElements[int.Parse(celll.CellValue.InnerText)].InnerText
                                   : celll.CellValue.InnerText;
                     c.CellValue.Text = text;
                 }
@@ -235,7 +233,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                     else {
                         var cell = sheet.Rows().Select(t => t.OXmlRow)
                             .ElementAt((int)columnHeaderRow - 1).Cells(
-                                sheet.WorkbookPart.SharedStringTablePart.SharedStringTable).
+                                GeSharedStringTable(sheet.WorkbookPart)).
                             ElementAtOrDefault(i);
                         col.Name = cell != null
                                        ? (cell.CellValue != null
@@ -258,24 +256,26 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
 
 
         public static IEnumerable<Cell> Cells(this Row row){
-            var sharedStringTable = row.Sheet.WorkbookPart.SharedStringTablePart.SharedStringTable;
-            return from c in row.Sheet.Columns() 
-                   join cl in row.OXmlRow.Cells(sharedStringTable)
-                                             .Select(p => GetCell(row, p))
-                       //join by column index, select null for empty cells
-                      on c.ColumnIndex equals cl != null ? cl.Column != null ? cl.Column.ColumnIndex : -1 : -1
-                          into cls
-                   from cl in cls.DefaultIfEmpty()
-                   select new Cell {
-                       Column = c,
-                       Row = row,
-                       OXmlCell = cl != null ? cl.OXmlCell : null,
-                       Value = cl != null ?
-                                   cl.OXmlCell != null ?
-                                       cl.OXmlCell.CellValue != null ?
-                               cl.OXmlCell.CellValue.Text : "" : "" : ""
+            var columns = row.Sheet.Columns();
+            var sharedStringTable = GeSharedStringTable(row.Sheet.WorkbookPart);
+            if (sharedStringTable == null){
+                return row.OXmlRow.Cells(null).Select(cell => GetCell(row, cell));
+                
+            }
 
-                   };
+            return columns.GroupJoin(row.OXmlRow.Cells(sharedStringTable)
+                .Select(p => GetCell(row, p)), column => column.ColumnIndex,
+                cl => cl != null ? cl.Column != null ? cl.Column.ColumnIndex : -1 : -1,
+                (column, cls) => new{column, cls}).SelectMany(@t => @t.cls.DefaultIfEmpty(), (@t, cl) => new Cell{
+                    Column = @t.column,
+                    Row = row,
+                    OXmlCell = cl != null ? cl.OXmlCell : null,
+                    Value = cl != null? cl.OXmlCell != null? cl.OXmlCell.CellValue != null? cl.OXmlCell.CellValue.Text: "": "": ""
+                });
+        }
+
+        private static SharedStringTable GeSharedStringTable(WorkbookPart workbookPart) {
+            return workbookPart.SharedStringTablePart != null ? workbookPart.SharedStringTablePart.SharedStringTable : null;
         }
 
         private static Cell GetCell(Row row, DocumentFormat.OpenXml.Spreadsheet.Cell p){
@@ -284,7 +284,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 Row = row,
                 Column = row.Sheet.Columns().First(t 
                     => t.ColumnIndex ==ColumnAddressToIndex(SplitAddress(p.CellReference)[0])),
-                Value = p.CellValue != null ? p.CellValue.Text : ""
+                Value = p.CellValue != null ? p.CellValue.Text : p.InnerText
 
             };
         }
