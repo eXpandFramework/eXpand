@@ -17,7 +17,7 @@
 		<!--Application
 			Name="AuditTrailTester.Web"
 			Url="http://localhost/AuditTrailTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="AuditTrailTesterEasyTest"/>
