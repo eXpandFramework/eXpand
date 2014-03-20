@@ -199,8 +199,15 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             richEditContainer.RichEditControl.Views.DraftView.AllowDisplayLineNumbers = true;
             richEditContainer.RichEditControl.Views.DraftView.Padding = new Padding(70, 4, 0, 0);
             richEditContainer.RichEditControl.InitializeDocument += richEditControl_InitializeDocument;
+            richEditContainer.RichEditControl.TextChanged += Editor_RtfTextChanged;
             richEditContainer.RichEditControl.AddService(typeof(ISyntaxHighlightService), new SyntaxHighlightService(this));
             return richEditContainer;
+        }
+
+        private void Editor_RtfTextChanged(object sender, EventArgs e) {
+            if (!inReadValue && (Control.DataBindings.Count > 0)) {
+                OnControlValueChanged();
+            }
         }
 
         void richEditControl_InitializeDocument(object sender, EventArgs e) {
@@ -262,7 +269,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public void Execute() {
-            TokenCollection tokens = Parse(_editor.Control.Text);
+            TokenCollection tokens = Parse(_editor.ControlValue as string);
             HighlightSyntax(tokens);
         }
 

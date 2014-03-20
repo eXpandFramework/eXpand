@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraBars;
+﻿using System.ComponentModel;
+using DevExpress.XtraBars;
 using DevExpress.XtraRichEdit;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
@@ -16,21 +17,22 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
                 bar.Visible = false;
             }    
         }
-
-        public override string Text{
+        [Bindable(true)]
+        public string ControlText{
             get { return richEditControl1.Text; }
             set { richEditControl1.Text = value; }
         }
-
+        [Bindable(true)]
         public string RtfText{
             get { return RichEditControl.RtfText; }
             set { RichEditControl.RtfText = value; }
         }
 
         private void btnFullSizeEditor_ItemClick(object sender, ItemClickEventArgs e) {
-            var fullEditor = new FullWinRichtEdit { RtfText = RtfText };
+            var fullEditor = new FullWinRichtEdit { RtfText = RtfText, Text = ControlText };
             fullEditor.ShowDialog();
             RtfText = fullEditor.RtfText;
+            ControlText = fullEditor.Text;
         }
     }
 }
