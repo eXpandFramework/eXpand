@@ -4,7 +4,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
-using Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win {
@@ -17,7 +16,6 @@ namespace Xpand.ExpressApp.XtraDashboard.Win {
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelPropertyEditor, IModelPropertyEditorDashboardViewEditor>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
         }
     }

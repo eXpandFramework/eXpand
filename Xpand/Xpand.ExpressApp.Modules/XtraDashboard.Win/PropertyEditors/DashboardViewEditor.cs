@@ -1,26 +1,23 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.DashboardWin;
+using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
-    [ModelAbstractClass]
-    public interface IModelPropertyEditorDashboardViewEditor : IModelPropertyEditor {
-        [DefaultValue(true)]
-        [Category("eXpand.XtraDashoard.Win")]
-        bool AllowPrintDashboard { get; set; }
-        [Category("eXpand.XtraDashoard.Win")]
-        [DefaultValue(true)]
-        bool AllowPrintDashboardItems { get; set; }
+    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
+        protected override Type GetControlType(){
+            return typeof (DashboardViewer);
+        }
     }
+
     [PropertyEditor(typeof(String), false)]
-    public class DashboardViewEditor : WinPropertyEditor, IComplexViewItem {
+    public class DashboardViewEditor : WinPropertyEditor, IComplexViewItem,IDashboardViewEditor {
         XafApplication _application;
         IObjectSpace _objectSpace;
 
@@ -55,14 +52,15 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
 
         void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
             Control.HandleCreated -= ControlOnHandleCreated;
-            var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewEditor)Model);
+            var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewer)Model);
             Control.BeginInvoke(new Action(() => {
                 var template = CurrentObject as IDashboardDefinition;
                 DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
-                DashboardViewer.AllowPrintDashboard = modelPropertyEditorDashboardViewEditor.AllowPrintDashboard;
+                DashboardViewer.AllowPrintDashboard = modelPropertyEditorDashboardViewEditor.DashboardViewEditor.AllowPrintDashboard;
                 DashboardViewer.AllowPrintDashboardItems =
-                    modelPropertyEditorDashboardViewEditor.AllowPrintDashboardItems;
+                    modelPropertyEditorDashboardViewEditor.DashboardViewEditor.AllowPrintDashboardItems;
             }));
         }
     }
+
 }

@@ -173,7 +173,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromCollection.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditor.cs" />
+    <Compile Include="PropertyEditors\DashboardViewEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\DashboardXMLEditor.cs" />
     <Compile Include="Templates\DashboardDesignerForm.cs">
       <SubType>Form</SubType>

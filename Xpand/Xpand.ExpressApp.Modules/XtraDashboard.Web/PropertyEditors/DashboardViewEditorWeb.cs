@@ -7,10 +7,17 @@ using DevExpress.ExpressApp.Web.Editors;
 using System;
 using System.Linq;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.ExpressApp.Dashboard.PropertyEditors;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
+    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
+        protected override Type GetControlType() {
+            return typeof(ASPxDashboardViewer);
+        }
+    }
+
     [PropertyEditor(typeof(String), false)]
-    public class DashboardViewEditorWeb : WebPropertyEditor, IComplexViewItem {
+    public class DashboardViewEditorWeb : WebPropertyEditor, IComplexViewItem,IDashboardViewEditor {
         ASPxDashboardViewer _asPxDashboardViewer;
         XafApplication _application;
         IObjectSpace _objectSpace;
