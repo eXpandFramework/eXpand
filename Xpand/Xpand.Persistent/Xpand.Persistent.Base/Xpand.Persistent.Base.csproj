@@ -236,6 +236,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MiddleTier\XpandWcfDataServerHelper.cs" />
+    <Compile Include="ModelAdapter\PropertyEditorControlAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />
     <Compile Include="General\MasterDetailRuleInfo.cs" />

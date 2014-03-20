@@ -22,7 +22,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
          
     }
 
-    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl,LabelControl> {
+    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl> {
+        protected override Type GetControlType(){
+            return typeof (LabelControl);
+        }
+
         protected override void ExtendingModelInterfaces(InterfaceBuilder builder, Assembly assembly, ModelInterfaceExtenders extenders){
             var calcType = builder.CalcType(typeof(LabelControlAppearanceObject), assembly);
             extenders.Add(calcType, typeof(IModelAppearanceFont));
