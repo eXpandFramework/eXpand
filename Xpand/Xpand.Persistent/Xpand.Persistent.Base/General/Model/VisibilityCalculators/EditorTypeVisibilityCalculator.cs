@@ -2,6 +2,12 @@
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.Persistent.Base.General.Model.VisibilityCalculators {
+    public abstract class EditorTypeVisibilityCalculator<TEditor> : EditorTypeVisibilityCalculator{
+        public override bool IsVisible(IModelNode node, string propertyName) {
+            return typeof(TEditor).IsAssignableFrom(EditorType(node));
+        }
+    }
+
     public abstract class EditorTypeVisibilityCalculator : IModelIsVisible {
 
         #region Implementation of IModelIsVisible

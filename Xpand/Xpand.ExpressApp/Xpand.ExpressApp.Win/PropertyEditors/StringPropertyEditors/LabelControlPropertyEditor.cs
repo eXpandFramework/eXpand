@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using DevExpress.ExpressApp;
+using System.Reflection;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -16,45 +15,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         IModelLabelControl LabelControl { get; }
     }
 
-    public class LabelPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator{
-        public override bool IsVisible(IModelNode node, string propertyName){
-            return typeof(LabelControlPropertyEditor).IsAssignableFrom(EditorType(node));
-        }
+    public class LabelPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<LabelControlPropertyEditor>{
     }
 
-    public interface IModelLabelControl:IModelNode{
+    public interface IModelLabelControl:IModelNodeEnabled{
          
     }
 
-
-    public class LabelControlModelAdapterController:ModelAdapterController,IModelExtender{
-        protected override void OnViewControlsCreated(){
-            base.OnViewControlsCreated();
-            var detailView = View as DetailView;
-            if (detailView!=null)
-                foreach (var item in detailView.GetItems<LabelControlPropertyEditor>()){
-                    var modelPropertyEditorLabelControl = (IModelPropertyEditorLabelControl)item.Model;
-                    new ObjectModelSynchronizer(item.Control,modelPropertyEditorLabelControl.LabelControl).ApplyModel();
-                }
-        }
-
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelPropertyEditor, IModelPropertyEditorLabelControl>();
-            var builder = new InterfaceBuilder(extenders);
-            var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(LabelControl).Name));
-
-            builder.ExtendInteface<IModelLabelControl, LabelControl>(assembly);
-
+    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl,LabelControl> {
+        protected override void ExtendingModelInterfaces(InterfaceBuilder builder, Assembly assembly, ModelInterfaceExtenders extenders){
             var calcType = builder.CalcType(typeof(LabelControlAppearanceObject), assembly);
-            extenders.Add(calcType, typeof (IModelAppearanceFont));
+            extenders.Add(calcType, typeof(IModelAppearanceFont));
         }
 
-        IEnumerable<InterfaceBuilderData> CreateBuilderData() {
-            yield return new InterfaceBuilderData(typeof(LabelControl)) {
-                Act = info => (info.DXFilter())
-            };
+        protected override IModelLabelControl GetControlModelNode(IModelPropertyEditorLabelControl modelPropertyEditorLabelControl){
+            return modelPropertyEditorLabelControl.LabelControl;
         }
     }
+
     [PropertyEditor(typeof(string),false)]
     public class LabelControlPropertyEditor:WinPropertyEditor {
         public LabelControlPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){

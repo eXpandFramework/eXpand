@@ -30,12 +30,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
         [ModelBrowsable(typeof(LayoutEditorVisibilityCalculator))]
         IModelOptionsLayoutView OptionsLayoutView { get; }
     }
-    public class LayoutEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            return typeof(LayoutViewListEditor).IsAssignableFrom(EditorType(node));
-        }
-        #endregion
+    public class LayoutEditorVisibilityCalculator : EditorTypeVisibilityCalculator<LayoutViewListEditor> {
     }
 
 }

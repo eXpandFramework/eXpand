@@ -9,10 +9,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor{
         IModelTwoDimensionListEditorSummaryItem TwoDimensionListEditor { get; }
     }
 
-    public class TwoDimensionListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        public override bool IsVisible(IModelNode node, string propertyName){
-            return typeof (TwoDimensionListEditor).IsAssignableFrom(EditorType(node));
-        }
+    public class TwoDimensionListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<TwoDimensionListEditor> {
     }
 
     public interface IModelTwoDimensionListEditorSummaryItem : IModelNode {

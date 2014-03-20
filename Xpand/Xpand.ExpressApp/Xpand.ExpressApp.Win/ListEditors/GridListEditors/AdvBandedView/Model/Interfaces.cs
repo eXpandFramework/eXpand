@@ -56,12 +56,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         IModelOptionsAdvBandedView OptionsAdvBandedView { get; }
     }
 
-    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            return typeof(AdvBandedListEditor).IsAssignableFrom(EditorType(node));
-        }
-        #endregion
+    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor> {
     }
 
     public interface IModelAdvBandedViewDesign : IModelLayoutDesignStore {

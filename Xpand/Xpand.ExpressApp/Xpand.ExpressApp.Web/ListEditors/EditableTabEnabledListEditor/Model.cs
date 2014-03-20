@@ -9,10 +9,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
         IModelEditableTabEnabledEditorSummaryItem EditableTabEnabledEditorSummaryItem { get; }
     }
 
-    public class EditableTabEnabledListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        public override bool IsVisible(IModelNode node, string propertyName){
-            return typeof (EditableTabEnabledListEditor).IsAssignableFrom(EditorType(node));
-        }
+    public class EditableTabEnabledListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<EditableTabEnabledListEditor> {
     }
 
     public interface IModelEditableTabEnabledEditorSummaryItem : IModelNode {
