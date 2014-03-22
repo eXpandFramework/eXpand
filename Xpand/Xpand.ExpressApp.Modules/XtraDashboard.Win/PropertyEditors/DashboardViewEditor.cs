@@ -5,8 +5,8 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.DashboardWin;
+using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
-using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
@@ -52,13 +52,10 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
 
         void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
             Control.HandleCreated -= ControlOnHandleCreated;
-            var modelPropertyEditorDashboardViewEditor = ((IModelPropertyEditorDashboardViewer)Model);
             Control.BeginInvoke(new Action(() => {
                 var template = CurrentObject as IDashboardDefinition;
-                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, false);
-                DashboardViewer.AllowPrintDashboard = modelPropertyEditorDashboardViewEditor.DashboardViewEditor.AllowPrintDashboard;
-                DashboardViewer.AllowPrintDashboardItems =
-                    modelPropertyEditorDashboardViewEditor.DashboardViewEditor.AllowPrintDashboardItems;
+                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, FilterEnabled.Runtime);
+
             }));
         }
     }

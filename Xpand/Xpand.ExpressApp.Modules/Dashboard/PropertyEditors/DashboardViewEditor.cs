@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -18,15 +18,10 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
     }
 
     public interface IModelDashboardViewEditor : IModelNode {
-        [DefaultValue(true)]
-        [Category("eXpand.XtraDashoard.Win")]
-        bool AllowPrintDashboard { get; set; }
-        [Category("eXpand.XtraDashoard.Win")]
-        [DefaultValue(true)]
-        bool AllowPrintDashboardItems { get; set; }
-
         IModelDashboardViewer DashboardViewer { get; }
     }
+
+    
 
     public interface IModelDashboardViewer : IModelNodeEnabled {
 

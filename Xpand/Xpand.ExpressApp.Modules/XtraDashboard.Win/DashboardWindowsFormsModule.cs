@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win {
     public sealed class DashboardWindowsFormsModule : XpandModuleBase {
         public DashboardWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(DashboardModule));
+            RequiredModuleTypes.Add(typeof(Security.Win.XpandSecurityWinModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

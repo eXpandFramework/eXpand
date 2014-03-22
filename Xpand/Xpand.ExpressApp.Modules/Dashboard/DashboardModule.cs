@@ -3,10 +3,13 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.Linq;
+using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
@@ -16,6 +19,15 @@ namespace Xpand.ExpressApp.Dashboard {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class DashboardModule : XpandModuleBase,IDashboardUser {
+        public DashboardModule(){
+            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelApplication,IModelApplicationDashboardModule>();
+        }
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {

@@ -1,4 +1,5 @@
-﻿using System.Web.UI.WebControls;
+﻿using System.IO;
+using System.Web.UI.WebControls;
 using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -6,7 +7,9 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using System;
 using System.Linq;
+using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
@@ -62,13 +65,23 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
             var template = CurrentObject as IDashboardDefinition;
-            if (template != null) e.DashboardXml = template.Xml;
+            if (template != null){
+                var dashBoard = template.CreateDashBoard(ObjectSpace, FilterEnabled.Runtime);
+                using (var memoryStream = new MemoryStream()){
+                    dashBoard.SaveToXml(memoryStream);
+                    string xml;
+                    using (var streamReader = new StreamReader(memoryStream)){
+                        xml = streamReader.ReadToEnd();
+                    }
+                    e.DashboardXml = xml;
+                }
+            }
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
             if (e.Data == null) {
                 var dsType = Definition.DashboardTypes.First(t => t.Caption == e.DataSourceName).Type;
-                e.Data = _objectSpace.GetObjects(dsType);
+                e.Data = _objectSpace.CreateDashboardDataSource(dsType);
             }
         }
 

@@ -51,6 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Dashboard.v13.2.Core, Version=13.2.8.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Dashboard.v13.2.Web">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -89,6 +90,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=13.2.8.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security.Web, Version=13.2.8.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
@@ -104,8 +113,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PropertyEditors\DashboardTypesEditor.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs" />
-    <Compile Include="XtraDashboardWebModule.cs" />
+    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XtraDashboardWebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
