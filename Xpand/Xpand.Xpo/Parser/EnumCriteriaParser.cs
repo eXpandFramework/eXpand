@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.Data.Filtering;
 
-namespace Xpand.ExpressApp.PropertyEditors {
+namespace Xpand.Xpo.Parser {
     public class EnumCriteriaParser : ICriteriaVisitor {
         /* Private */
         readonly Dictionary<string, OperandValue> _values = new Dictionary<string, OperandValue>();

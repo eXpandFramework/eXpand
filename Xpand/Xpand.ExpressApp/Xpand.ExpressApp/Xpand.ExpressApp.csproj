@@ -130,7 +130,6 @@
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
-    <Compile Include="PropertyEditors\EnumCriteriaParser.cs" />
     <Compile Include="PropertyEditors\ISerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />

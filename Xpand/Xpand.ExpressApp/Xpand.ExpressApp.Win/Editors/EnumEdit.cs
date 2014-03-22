@@ -19,7 +19,7 @@ using DevExpress.XtraEditors.Popup;
 using DevExpress.XtraEditors.Registrator;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
-using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Xpo.Parser;
 
 namespace Xpand.ExpressApp.Win.Editors {
     [DesignerCategory("")]
