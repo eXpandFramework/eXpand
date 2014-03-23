@@ -17,9 +17,7 @@ namespace Xpand.ExpressApp.ImportWizard.Controllers {
         }
 
         private void ImportAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            var objectSpace = View.IsRoot
-                ? Application.CreateObjectSpace(View.ObjectTypeInfo.Type)
-                : View.ObjectSpace.CreateNestedObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
 
             ShowWizard(objectSpace);
             View.Refresh();
