@@ -12,7 +12,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelEditor {
     public class MainClass {
-        private static ModelEditorForm modelEditorForm;
+        private static ModelEditorForm _modelEditorForm;
         static private void HandleException(Exception e) {
             Tracing.Tracer.LogError(e);
             Messaging.GetMessaging(null).Show(ModelEditorForm.Title, e);
@@ -35,8 +35,8 @@ namespace Xpand.ExpressApp.ModelEditor {
             Application.ThreadException += OnException;
             try {
                 var appSetting = ConfigurationManager.AppSettings["debug"];
-                if (appSetting != null && appSetting.ToLower() == "true") {
-                    Debugger.Break();
+                if (appSetting != null && appSetting.ToLower() == "true"){
+                    MessageBox.Show("Attach to this proccess");
                 }
                 var pathInfo = new PathInfo(args);
                 Tracing.Tracer.LogSeparator("PathInfo");
@@ -45,11 +45,11 @@ namespace Xpand.ExpressApp.ModelEditor {
                 CheckAssemblyFile(pathInfo);
                 var modelControllerBuilder = new ModelControllerBuilder();
                 var settingsStorageOnRegistry = new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor");
-                modelEditorForm = new ModelEditorForm(modelControllerBuilder.GetController(pathInfo), settingsStorageOnRegistry);
-                modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)modelEditorForm).ModelEditorSaveSettings();
-                modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
+                _modelEditorForm = new ModelEditorForm(modelControllerBuilder.GetController(pathInfo), settingsStorageOnRegistry);
+                _modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)_modelEditorForm).ModelEditorSaveSettings();
+                _modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
 
-                Application.Run(modelEditorForm);
+                Application.Run(_modelEditorForm);
             } catch (Exception exception) {
                 HandleException(exception);
             }

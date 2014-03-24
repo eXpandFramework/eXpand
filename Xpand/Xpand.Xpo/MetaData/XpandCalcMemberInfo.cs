@@ -5,7 +5,7 @@ using DevExpress.Xpo.Metadata;
 namespace Xpand.Xpo.MetaData {
     public class XpandCalcMemberInfo : XpandCustomMemberInfo {
         public XpandCalcMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string aliasExpression)
-            : base(owner, propertyName, propertyType, null, true, false) {
+            : base(owner, propertyName, propertyType, null, true, false,true) {
             AddAttribute(new PersistentAliasAttribute(aliasExpression));
         }
 

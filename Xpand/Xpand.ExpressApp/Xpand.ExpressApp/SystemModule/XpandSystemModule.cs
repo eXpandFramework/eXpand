@@ -22,6 +22,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
@@ -42,22 +43,24 @@ namespace Xpand.ExpressApp.SystemModule {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
+            if (!InterfaceBuilder.RuntimeMode)
+                new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance).AssignAsPersistentEntityStore();
         }
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
         }
 
         public override void Setup(XafApplication application) {
-            if (RuntimeMode && (XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource) && !((ITestSupport)application).IsTesting)
+            if (RuntimeMode)
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo) application.TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
+                application.SetupComplete +=
+                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                 application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
                 application.ListViewCreating+=ApplicationOnListViewCreating;
                 application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-                application.SetupComplete +=
-                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
         }
