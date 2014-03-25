@@ -66,14 +66,13 @@ namespace Xpand.Persistent.Base.General.Controllers {
             ObjectSpace.ObjectChanged-=ObjectSpaceOnObjectChanged;
         }
 
-        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs){
+        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
             string propertyName = objectChangedEventArgs.PropertyName;
-            if (!string.IsNullOrEmpty(propertyName)&&objectChangedEventArgs.Object.GetType()==View.ObjectTypeInfo.Type){
-                foreach (var notifiedEnabledMember in NotifiedEnabledMembers(propertyName)){
+            if (View != null && (!string.IsNullOrEmpty(propertyName) && objectChangedEventArgs.Object.GetType() == View.ObjectTypeInfo.Type)) {
+                foreach (var notifiedEnabledMember in NotifiedEnabledMembers(propertyName)) {
                     _onChangedmethodInfo.Call(View.CurrentObject, notifiedEnabledMember.Name);
                 }
             }
-
         }
 
         private IEnumerable<IModelMember> NotifiedEnabledMembers(string propertyName){
