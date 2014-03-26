@@ -3,22 +3,27 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 using XtraDashboardTester.Module.Web;
 
 //using DevExpress.ExpressApp.Security;
 
 namespace XtraDashboardTester.Web{
     // You can override various virtual methods and handle corresponding events to manage various aspects of your XAF application UI and behavior.
-    public class XtraDashboardTesterAspNetApplication : WebApplication{
+    public class XtraDashboardTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
         // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
         private SystemModule _module1;
         private SystemAspNetModule _module2;
 
         private XtraDashboardTesterAspNetModule _module4;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private SqlConnection _sqlConnection1;
 
         public XtraDashboardTesterAspNetApplication(){
@@ -30,6 +35,19 @@ namespace XtraDashboardTester.Web{
             return "en-US";
         }
 #endif
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
+        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
@@ -68,6 +86,8 @@ namespace XtraDashboardTester.Web{
         private void InitializeComponent(){
             _module1 = new SystemModule();
             _module2 = new SystemAspNetModule();
+            securityStrategyComplex1 = new SecurityStrategyComplex();
+            authenticationStandard1 = new AuthenticationStandard();
 
             _module4 = new XtraDashboardTesterAspNetModule();
             _sqlConnection1 = new SqlConnection();
@@ -78,6 +98,13 @@ namespace XtraDashboardTester.Web{
             _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XtraDashboardTester";
             _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
+            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // XtraDashboardTesterAspNetApplication
             // 
@@ -87,6 +114,7 @@ namespace XtraDashboardTester.Web{
             Modules.Add(_module2);
 
             Modules.Add(_module4);
+            this.Security = this.securityStrategyComplex1;
 
             DatabaseVersionMismatch += XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize) (this)).EndInit();
