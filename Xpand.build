@@ -106,7 +106,7 @@
     <!--Library
 		Resource\Library\*.*
 		-->
-    <CreateItem Include="$(XpandPath)\*.*;" Exclude="$(XpandPath)\*.locked">
+    <CreateItem Include="$(XpandPath)\*.*;" Exclude="$(XpandPath)\*.locked;$(XpandPath)\DevExpress*.*">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
