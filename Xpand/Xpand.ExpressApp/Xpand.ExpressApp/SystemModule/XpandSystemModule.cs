@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public override void Setup(XafApplication application) {
-            if (RuntimeMode)
+            if (RuntimeMode && XafTypesInfo.PersistentEntityStore == null)
                 XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo) application.TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
