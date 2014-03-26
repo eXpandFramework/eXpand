@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         }
 
         [Size(SizeAttribute.Unlimited)]
-//        [Browsable(false)]
+        [Browsable(false)]
         public string Info {
             get { return _info; }
             set { SetPropertyValue("Info", ref _info, value); }

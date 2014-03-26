@@ -1,52 +1,53 @@
 using System;
-using DevExpress.ExpressApp;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Xpo;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
-using System.Collections.Generic;
+using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
+using XtraDashboardTester.Module.Web;
+
 //using DevExpress.ExpressApp.Security;
 
-namespace XtraDashboardTester.Web {
+namespace XtraDashboardTester.Web{
     // You can override various virtual methods and handle corresponding events to manage various aspects of your XAF application UI and behavior.
-    public partial class XtraDashboardTesterAspNetApplication : WebApplication { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        
-        private XtraDashboardTester.Module.Web.XtraDashboardTesterAspNetModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+    public class XtraDashboardTesterAspNetApplication : WebApplication{
+        // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
 
-        public XtraDashboardTesterAspNetApplication() {
+        private XtraDashboardTesterAspNetModule _module4;
+        private SqlConnection _sqlConnection1;
+
+        public XtraDashboardTesterAspNetApplication(){
             InitializeComponent();
         }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";
         }
 #endif
-        // Override to execute custom code after a logon has been performed, the SecuritySystem object is initialized, logon parameters have been saved and user model differences are loaded.
-        protected override void OnLoggedOn(LogonEventArgs args) { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppXafApplication_LoggedOntopic
-            base.OnLoggedOn(args);
-        }
 
-        // Override to execute custom code after a user has logged off.
-        protected override void OnLoggedOff() { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppXafApplication_LoggedOfftopic
-            base.OnLoggedOff();
-        }
-
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
 
-        private void XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch(object sender,
+            DatabaseVersionMismatchEventArgs e){
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (System.Diagnostics.Debugger.IsAttached) {
+            if (Debugger.IsAttached){
                 e.Updater.Update();
                 e.Handled = true;
-            } else {
-                string message = "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
+            }
+            else{
+                string message =
+                    "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
                     "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
                     "To avoid this error, you should either start the application under Visual Studio in debug mode, or modify the " +
                     "source code of the 'DatabaseVersionMismatch' event handler to enable automatic database update, " +
@@ -56,7 +57,7 @@ namespace XtraDashboardTester.Web {
                     "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
                     "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
 
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null){
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);
@@ -64,31 +65,31 @@ namespace XtraDashboardTester.Web {
 #endif
         }
 
-        private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            
-            this.module4 = new XtraDashboardTester.Module.Web.XtraDashboardTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+        private void InitializeComponent(){
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+
+            _module4 = new XtraDashboardTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XtraDashboardTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XtraDashboardTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // XtraDashboardTesterAspNetApplication
             // 
-            this.ApplicationName = "XtraDashboardTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            
-            this.Modules.Add(this.module4);
+            ApplicationName = "XtraDashboardTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            Modules.Add(_module4);
 
+            DatabaseVersionMismatch += XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
         }
     }
 }
