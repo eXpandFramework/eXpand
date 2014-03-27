@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandXtraDashboardWeb</id>
-    <version>13.2.8.3</version>
+    <version>13.2.8.4</version>
     <title>DevExpress eXpandFramework XtraDashboard Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.8.3" />
-      <dependency id="eXpandDashboard" version="13.2.8.3" />
+      <dependency id="eXpandLib" version="13.2.8.4" />
+      <dependency id="eXpandDashboard" version="13.2.8.4" />
     </dependencies>
   </metadata>
   <files>
