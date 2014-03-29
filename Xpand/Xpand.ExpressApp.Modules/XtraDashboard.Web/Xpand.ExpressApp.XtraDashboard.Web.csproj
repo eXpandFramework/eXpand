@@ -118,7 +118,6 @@
     <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PropertyEditors\DashboardXmlEditor.cs" />
     <Compile Include="XtraDashboardWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
