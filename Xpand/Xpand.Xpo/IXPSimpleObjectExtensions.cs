@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -6,7 +7,11 @@ using Xpand.Xpo.MetaData;
 
 namespace Xpand.Xpo {
     public static class IXPSimpleObjectExtensions {
-        
+
+        public static XPMemberInfo GetKeyProperty(this XPClassInfo classInfo){
+            return classInfo.PersistentProperties.OfType<XPMemberInfo>().FirstOrDefault(info => info.HasAttribute(typeof(KeyAttribute)));
+        }
+
         public static XpandCustomMemberInfo CreateCustomMember(this XPClassInfo classInfo, string propertyName, Type propertyType,
                                                                bool nonPersistent, params Attribute[] attributes) {
             var xpandCustomMemberInfo = new XpandCustomMemberInfo(classInfo, propertyName, propertyType, null, nonPersistent, false);

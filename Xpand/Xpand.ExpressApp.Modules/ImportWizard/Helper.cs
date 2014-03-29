@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Properties;
 using Fasterflect;
+using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ImportWizard {
     public static class Helper {
@@ -49,36 +50,15 @@ namespace Xpand.ExpressApp.ImportWizard {
             if (!type.IsSubclassOf(typeof(XPBaseObject)))
                 return null;
 
-            var keyPropertyName = oSpace.Session.GetClassInfo(type).
-                        PersistentProperties.
-                        OfType<XPMemberInfo>().
-                        Where(p => p.HasAttribute(typeof(KeyAttribute))).
-                        Select(p => p.Name).
-                        FirstOrDefault() ??
+            var keyProperty= oSpace.Session.GetClassInfo(type).GetKeyProperty();
 
-                    oSpace.Session.GetClassInfo(type).
-                        PersistentProperties.
-                        OfType<XPMemberInfo>().
-                        Where(p => p.Name == "Name" || p.Name == "Code")
-                        .Select(p => p.Name)
-                        .FirstOrDefault() ??
-                    "Oid";
-
-            var item = (XPBaseObject)oSpace.FindObject(
-                                type,
-                                new BinaryOperator(keyPropertyName, value),
-                                true);
+            var item = (XPBaseObject)oSpace.FindObject(type,new BinaryOperator(keyProperty.Name, value),true);
             if (item != null)
                 return item;
 
             var nestedObjectSpace = oSpace.CreateNestedObjectSpace();
             item = (XPBaseObject)nestedObjectSpace.CreateObject(type);
-            var firstOrDefault = item.ClassInfo
-                                    .PersistentProperties
-                                    .OfType<XPMemberInfo>()
-                                    .FirstOrDefault(p => p.Name == keyPropertyName);
-            if (firstOrDefault != null)
-                firstOrDefault.SetValue(item, value);
+            keyProperty.SetValue(item, value);
 
             item.Save();
             nestedObjectSpace.CommitChanges();
