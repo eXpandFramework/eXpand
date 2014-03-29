@@ -88,7 +88,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var user2 = (ISecurityUserWithRoles)objectSpace.CreateObject(SecuritySystem.UserType);
             var typeInfo = objectSpace.TypesInfo.FindTypeInfo(user2.GetType());
             typeInfo.FindMember("UserName").SetValue(user2, userName);
-            user2.CallMethod("SetPassword", new object[]{passWord});
+            user2.CallMethod("SetPassword",new[]{typeof(string)}, new object[]{passWord});
             var roleCollection = (XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user2);
             foreach (var role in roles) {
                 roleCollection.BaseAdd(role);

@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web.ASPxCallbackPanel;
@@ -14,6 +15,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
     }
 
     public class AdditionalViewControlsRuleViewController : AdditionalViewControlsProvider.Logic.AdditionalViewControlsRuleViewController {
+        protected override Type GetControlType(){
+            return typeof (Control);
+        }
 
         protected override void AddControl(object control, object controls, LogicRuleInfo info) {
             base.AddControl(control, controls, info);

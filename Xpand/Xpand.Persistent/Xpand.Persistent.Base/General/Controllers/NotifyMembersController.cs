@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -51,14 +50,18 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
     }
     public class NotifyMembersController:ViewController<ObjectView>,IModelExtender {
-        private MethodInfo _onChangedmethodInfo;
+        private MethodInvoker _onChangedmethodInfo;
+        private string _notifiedMembers;
 
 
         protected override void OnActivated(){
             base.OnActivated();
-            _onChangedmethodInfo = View.ObjectTypeInfo.Type.Method("OnChanged",new[]{typeof(string)});
-            if(_onChangedmethodInfo!=null)
-                ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+            _notifiedMembers = ((IModelObjectViewNotifiedMembers)View.Model).NotifiedMembers;
+            if (!string.IsNullOrEmpty(_notifiedMembers)){
+                _onChangedmethodInfo = View.ObjectTypeInfo.Type.DelegateForCallMethod("OnChanged",new[]{typeof(string)});
+                if(_onChangedmethodInfo!=null)
+                    ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+            }
         }
 
         protected override void OnDeactivated(){
@@ -69,21 +72,17 @@ namespace Xpand.Persistent.Base.General.Controllers {
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
             string propertyName = objectChangedEventArgs.PropertyName;
             if (View != null && (!string.IsNullOrEmpty(propertyName) && objectChangedEventArgs.Object.GetType() == View.ObjectTypeInfo.Type)) {
-                foreach (var notifiedEnabledMember in NotifiedEnabledMembers(propertyName)) {
-                    _onChangedmethodInfo.Call(View.CurrentObject, notifiedEnabledMember.Name);
+                foreach (var notifiedEnabledMember in IsNotifiedEnabled(propertyName)) {
+                    _onChangedmethodInfo(View.CurrentObject, notifiedEnabledMember.Name);
                 }
             }
         }
 
-        private IEnumerable<IModelMember> NotifiedEnabledMembers(string propertyName){
-            var notifiedCalculatedMembers = ((IModelObjectViewNotifiedMembers)View.Model).NotifiedMembers;
+        private IEnumerable<IModelMember> IsNotifiedEnabled(string propertyName){
             var modelMembers = View.Model.ModelClass.AllMembers.Where(member => member.Name!=propertyName);
-            if (notifiedCalculatedMembers == ModelClassMembersConverter.AllMembers) return modelMembers;
-            if (notifiedCalculatedMembers == ModelClassMembersConverter.Calculated) return modelMembers.Where(member => member.IsCalculated);
-            if (!string.IsNullOrEmpty(notifiedCalculatedMembers)){
-                return modelMembers.Where(member => notifiedCalculatedMembers.Split(';').Contains(member.Name));
-            }
-            return Enumerable.Empty<IModelMember>();
+            if (_notifiedMembers == ModelClassMembersConverter.AllMembers) return modelMembers;
+            if (_notifiedMembers == ModelClassMembersConverter.Calculated) return modelMembers.Where(member => member.IsCalculated);
+            return modelMembers.Where(member => _notifiedMembers.Split(';').Contains(member.Name));
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

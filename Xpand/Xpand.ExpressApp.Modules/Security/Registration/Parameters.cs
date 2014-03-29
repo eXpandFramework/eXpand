@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.Security.Registration {
                 activationLinkMember.MemberInfo.SetValue(securityUserWithRoles, Guid.NewGuid().ToString());
             }
 
-            securityUserWithRoles.CallMethod("SetPassword", Password);
+            securityUserWithRoles.CallMethod("SetPassword",new []{typeof(string)}, Password);
             objectSpace.CommitChanges();
         }
 

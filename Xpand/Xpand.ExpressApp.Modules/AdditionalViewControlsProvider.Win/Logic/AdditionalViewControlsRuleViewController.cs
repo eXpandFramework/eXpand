@@ -11,6 +11,11 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
             base.OnFrameAssigned();
             Frame.ViewChanged += FrameOnViewChanged;
         }
+
+        protected override Type GetControlType(){
+            return typeof (Control);
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
             if (HasRules && View is DetailView) {
