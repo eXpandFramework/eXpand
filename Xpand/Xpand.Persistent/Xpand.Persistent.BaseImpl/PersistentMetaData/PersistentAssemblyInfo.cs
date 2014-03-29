@@ -23,7 +23,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
     [DefaultProperty("Name")]
-//    [Appearance("Hide_Attributes", AppearanceItemType.ViewItem, null, Visibility = ViewItemVisibility.Hide, TargetItems = "Attributes")]
     public class PersistentAssemblyInfo : XpandBaseCustomObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;

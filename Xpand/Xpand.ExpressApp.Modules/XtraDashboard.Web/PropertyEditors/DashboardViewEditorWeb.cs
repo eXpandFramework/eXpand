@@ -70,6 +70,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
                 using (var memoryStream = new MemoryStream()){
                     dashBoard.SaveToXml(memoryStream);
                     string xml;
+                    memoryStream.Position = 0;
                     using (var streamReader = new StreamReader(memoryStream)){
                         xml = streamReader.ReadToEnd();
                     }
