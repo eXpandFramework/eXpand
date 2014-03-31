@@ -2,16 +2,21 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 
 namespace Xpand.ExpressApp.ImportWizard.Controllers {
-    public abstract partial class ImportWizViewControllerBase : ViewController {
+    public abstract class ImportWizViewControllerBase : ViewController {
+        private readonly SimpleAction _importAction;
+
         protected ImportWizViewControllerBase() {
-            InitializeComponent();
-            RegisterActions(components);
             TargetViewType = ViewType.ListView;
+            _importAction = new SimpleAction(this, "ImportWizardWinActionId","Export") {
+                Caption = "Import from...",
+                ImageName = "Import",
+            };
+            _importAction.Execute += ImportAction_Execute;
         }
 
         protected override void OnActivated() {
             if (View.ObjectTypeInfo.IsAbstract)
-                ImportAction.Active.SetItemValue(@"test", false);
+                _importAction.Active.SetItemValue(@"test", false);
 
             base.OnActivated();
         }

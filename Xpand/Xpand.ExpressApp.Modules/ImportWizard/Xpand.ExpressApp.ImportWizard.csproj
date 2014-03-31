@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ImportWizard</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ImportWizard</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -109,9 +111,6 @@
     <Compile Include="Controllers\ImportWizViewControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ImportWizViewControllerBase.Designer.cs">
-      <DependentUpon>ImportWizViewControllerBase.cs</DependentUpon>
-    </Compile>
     <Compile Include="Core\DynamicClass.cs" />
     <Compile Include="Core\ImportMap.cs" />
     <Compile Include="Core\MappableProperty.cs" />
@@ -136,9 +135,6 @@
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\ImportWizViewControllerBase.resx">
-      <DependentUpon>ImportWizViewControllerBase.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
