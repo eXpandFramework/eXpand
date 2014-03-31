@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
 
                 //if referenced property
             else if (prop.ReferenceType != null)
-                MapStringToReferenceType(objectSpace, prop, value);
+                convertedValue = MapStringToReferenceType(objectSpace, prop, value);
 
             if (convertedValue != null)
                 convertedValue = AppllyDoubleValueRounding(convertedValue);
