@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -16,26 +16,25 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
-        public override void UpdateNode(ModelNode node) {
-            var modulesDifferences = ModuleDifferencesHelper.GetModuleDifferences(node);
+        public override void UpdateNode(ModelNode node){
+            MessageBox.Show("");
+            var modulesDifferences = node.Application.GetModuleDifferences();
             if (!MergingEnabled(modulesDifferences))
                 return;
             var modelViews = ((IModelViews)node);
             var newViews = AddNewViews(modelViews, modulesDifferences).ToList();
             var mergedDifferenceInfos = MergeDifferencesHelper.GetMergedDifferenceInfos(modelViews, modulesDifferences );
-            var differenceInfos = mergedDifferenceInfos as ModelMergedDifferenceInfo[] ?? mergedDifferenceInfos.ToArray();
-            CloneMergedView(differenceInfos, modelViews, modulesDifferences);
+            CloneMergedView(mergedDifferenceInfos, modelViews, modulesDifferences);
             foreach (var newView in newViews) {
                 newView.Remove();
             }
-            AddDifferenceLayers(node, differenceInfos, modulesDifferences);
+            AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
         }
 
         private bool MergingEnabled(IEnumerable<ModelApplicationBase> modulesDifferences){
-            var viewMergedDifferenceses = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
+            var mergedDifferenceses = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
                 application.Views).Where(view => view!=null).OfType<IModelObjectView>().Cast<IModelObjectViewMergedDifferences>();
-            return viewMergedDifferenceses.Any(
-                    differences => differences.MergedDifferences != null && differences.MergedDifferences.Any());
+            return mergedDifferenceses.Any(differences => differences.MergedDifferences != null && differences.MergedDifferences.Any());
         }
 
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -49,11 +48,11 @@ namespace Xpand.Persistent.Base.General {
 
         void AddDifferenceLayers(ModelNode node, IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, List<ModelApplicationBase> modulesDifferences) {
             var master = (ModelApplicationBase) ((ModelApplicationBase) node.Application).Master;
-            foreach (var mergedDifferenceInfo in mergedDifferenceses) {
-                foreach (ModelApplicationBase modulesDifference in GetModulesDifferences(modulesDifferences, mergedDifferenceInfo.MergedViewId)) {
-                    var modelApplicationBase = CreateInheritanceLayer(node, modulesDifference, mergedDifferenceInfo,master);
-                    master.InsertLayer(master.LayersCount - 1, modelApplicationBase);
-                }
+            foreach (ModelMergedDifferenceInfo mergedDifferenceInfo in mergedDifferenceses){
+                CollectModulesDifferences(modulesDifferences, mergedDifferenceInfo, (s, application, modelMergedDifferenceInfo) =>{
+                    var modelApplicationBase = CreateInheritanceLayer(node, (ModelApplicationBase)application, modelMergedDifferenceInfo, master);
+                    master.InsertLayer(master.LayersCount - 1, modelApplicationBase);                    
+                });
             }
             master.CallMethod("EnsureNodes");
         }
@@ -66,7 +65,7 @@ namespace Xpand.Persistent.Base.General {
                     var targetObjectView = modelView.AsObjectView;
                     foreach (var modelMergedDifferenceInfo in modelObjectView) {
                         var sourceObjectView = modelViews[modelMergedDifferenceInfo.MergedViewId].AsObjectView;
-                        var strategiesModel = ModuleDifferencesHelper.StrategiesModel((ModelNode)modelViews, modulesDifferences);
+                        var strategiesModel = modelViews.Application.StrategiesModel(modulesDifferences);
                         var optionsMergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy)((IModelApplication)strategiesModel).Options);
                         var modelMergedDifference = modelMergedDifferenceInfo.ModelMergedDifference;
                         var id = modelMergedDifference.Strategy.Id();
@@ -96,8 +95,20 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        IEnumerable<IModelApplication> GetModulesDifferences(IEnumerable<ModelApplicationBase> modulesDifferences, string viewId) {
-            return modulesDifferences.Cast<IModelApplication>().Where(application => application.Views[viewId] != null);
+        void CollectModulesDifferences(IEnumerable<ModelApplicationBase> modulesDifferences, ModelMergedDifferenceInfo mergedDifferenceInfo, Action<string, IModelApplication, ModelMergedDifferenceInfo> action) {
+            var mergedViewId = mergedDifferenceInfo.MergedViewId;
+            var modelApplications = modulesDifferences.Cast<IModelApplication>().Where(application => application.Views[mergedViewId] != null);
+            foreach (var modelApplication in modelApplications){
+                foreach (var modelView in modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(view
+                => view.Id == mergedViewId && view.MergedDifferences != null && view.MergedDifferences.Any())) {
+                    foreach (var modelMergedDifference in modelView.MergedDifferences) {
+                        var id = modelMergedDifference.View.Id();
+                        var modelMergedDifferenceInfo = new ModelMergedDifferenceInfo(mergedDifferenceInfo.ModelMergedDifference, id);
+                        CollectModulesDifferences(modulesDifferences, modelMergedDifferenceInfo, action);
+                    }
+                }    
+                action(mergedViewId,modelApplication,mergedDifferenceInfo);
+            }
         }
 
         IEnumerable<IModelMergedDifferenceStrategyIncludedNodePath> GetIncludedNodePaths(IModelObjectView modelObjectView, IModelMergedDifferenceStrategy strategy) {
@@ -241,136 +252,6 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     
-    static class ModuleDifferencesHelper {
-
-        public static List<ModelApplicationBase> GetModuleDifferences(ModelNode node) {
-            var modelSources = ((IModelSources) node.Application);
-            var modelApplicationBases = new List<ModelApplicationBase>();
-            foreach (var moduleBase in modelSources.Modules) {
-                ModelApplicationCreator modelApplicationCreator = node.CreatorInstance;
-                var modelApplicationBase = modelApplicationCreator.CreateModelApplication();
-                modelApplicationBase.Id = moduleBase.Name;
-                InitializeModelSources(modelApplicationBase, node);
-                var resourcesModelStore = new ResourcesModelStore(moduleBase.GetType().Assembly);
-                resourcesModelStore.Load(modelApplicationBase);
-                var modelViews = ((IModelApplication)modelApplicationBase).Views;
-                if (modelViews != null) {
-                    modelApplicationBases.Add(modelApplicationBase);
-                }
-            }
-
-            ReadFromOtherLayers(modelApplicationBases, node);
-            return modelApplicationBases;
-        }
-
-        static void InitializeModelSources(ModelApplicationBase modelApplicationBase, ModelNode node) {
-            var sources = ((IModelSources) node.Application);
-            var targetSources = ((IModelSources) modelApplicationBase.Application);
-            targetSources.BOModelTypes = sources.BOModelTypes;
-            targetSources.Modules = sources.Modules;
-            targetSources.Controllers = sources.Controllers;
-            targetSources.Localizers = sources.Localizers;
-            targetSources.EditorDescriptors = new EditorDescriptors(sources.EditorDescriptors);
-        }
-
-        static void ReadViewsFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifference modelMergedDifference, ModelApplicationBase modelApplicationBase) {
-            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
-            var viewId = GetViewId(modelMergedDifference, applicationBases);
-            var mergedView = (IModelObjectView)applicationBases.Cast<IModelApplication>().Select(application
-                                                                                                      => application.Views[viewId]).FirstOrDefault(view => view != null);
-            var modelNode = (ModelNode)mergedView;
-            if (modelNode != null){
-                var xml = "<Application><Views>" + modelNode.Xml + "</Views></Application>";
-                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-            }
-        }
-
-        public static string GetViewId(this IModelMergedDifference modelMergedDifference, IEnumerable<ModelApplicationBase> modelApplicationBases) {
-            var viewId = GetViewIdCore(modelMergedDifference);
-            if (string.IsNullOrEmpty(viewId)) {
-                var id = modelMergedDifference.Parent.Parent.Id();
-                var mergeDifferences = modelApplicationBases.Cast<IModelApplication>().Select(application =>
-                    application.Views[id]).OfType<IModelObjectViewMergedDifferences>().Where(view =>
-                        view != null && view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
-                viewId = mergeDifferences.Select(GetViewIdCore).First(value => !string.IsNullOrEmpty(value));
-            }
-            return viewId;
-        }
-
-        static string GetViewIdCore(IModelMergedDifference modelMergedDifference) {
-            return Regex.Match(((ModelNode)modelMergedDifference).Xml, "View=\"([^\"]*)",
-                               RegexOptions.Singleline | RegexOptions.IgnoreCase).Groups[1].Value;
-        }
-
-        static ModelApplicationBase _strategiesModel;
-        public static ModelApplicationBase StrategiesModel(ModelNode node, IEnumerable<ModelApplicationBase> modelApplicationBases) {
-            if (_strategiesModel==null) {
-                var strategies = ((IModelOptionsMergedDifferenceStrategy)node.Application.Options).MergedDifferenceStrategies;
-                var xml = string.Format("<Application><Options>{0}</Options></Application>", ((ModelNode)strategies).Xml);
-                var modelApplicationBase = node.CreatorInstance.CreateModelApplication();
-                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                ReadFromOtherLayers(modelApplicationBases, strategies, modelApplicationBase);
-                UpdateRemovedNodes(modelApplicationBase);
-                _strategiesModel=modelApplicationBase;
-            }
-            return _strategiesModel;
-        }
-
-        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifferenceStrategies strategies,
-                                        ModelApplicationBase modelApplicationBase) {
-            var xmls = modelApplicationBases.Cast<IModelApplication>().Select(application =>
-                application.Options).Cast<IModelOptionsMergedDifferenceStrategy>().Where(strategy =>
-                    strategy != null).Select(strategy => strategies.Xml()).Where(s => s != null);
-            foreach (var x in xmls) {
-                string xml = string.Format("<Application><Options>{0}</Options></Application>", x);
-                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-            }
-        }
-
-        static void UpdateRemovedNodes(IModelNode modelNode) {
-            for (int i = modelNode.NodeCount - 1; i >= 0; i--) {
-                var node = modelNode.GetNode(i);
-                var modelNode1 = ((ModelNode)node);
-                if (CanBeRemoved(modelNode1))
-                    node.Remove();
-                UpdateRemovedNodes(node);
-            }
-        }
-
-        static bool CanBeRemoved(ModelNode modelNode1) {
-            if (modelNode1.IsRemovedNode) {
-                for (int i = modelNode1.NodeCount - 1; i >= 0; i--) {
-                    if (!CanBeRemoved(modelNode1.GetNode(i)))
-                        return false;
-                }
-                return !modelNode1.IsNewNode;
-            }
-            return false;
-        }
-
-        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node) {
-            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
-            var strategiesModel = StrategiesModel(node, applicationBases);
-            foreach (var modelApplicationBase in applicationBases) {
-                var modelMergedDifferences = ModelMergedDifferences(modelApplicationBase);
-                foreach (var modelMergedDifference in modelMergedDifferences) {
-                    if (modelMergedDifference.View == null) {
-                        ReadViewsFromOtherLayers(applicationBases, modelMergedDifference, modelApplicationBase);
-                    }
-                    if (!modelMergedDifference.HasValue("Strategy")) {
-                        new ModelXmlReader().ReadFromModel(modelApplicationBase, strategiesModel);
-                    }
-                }
-            }
-        }
-
-        static IEnumerable<IModelMergedDifference> ModelMergedDifferences(ModelApplicationBase modelApplicationBase) {
-            var modelViews = ((IModelApplication)modelApplicationBase).Views.OfType<IModelObjectViewMergedDifferences>();
-            return modelViews.Where(differences=> differences.MergedDifferences != null && differences.MergedDifferences.Any())
-                                                   .SelectMany(differences => differences.MergedDifferences);
-        }
-
-    }
 
     class MergeDifferencesHelper {
         static bool IsDifferenceValid(ModelMergedDifferenceInfo difference, IModelViews views) {
@@ -381,8 +262,7 @@ namespace Xpand.Persistent.Base.General {
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var modelMergedDifferences = modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(differences 
                 => differences.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
-            return modelMergedDifferences.Select(MergedDifferenceInfo(modulesDifferences)).Where(differences =>
-                IsDifferenceValid(differences, modelViews));
+            return modelMergedDifferences.Select(MergedDifferenceInfo(modulesDifferences)).Where(differences =>IsDifferenceValid(differences, modelViews));
         }
 
         public static IEnumerable<ModelMergedDifferenceInfo> GetMergedDifferenceInfos(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -390,7 +270,7 @@ namespace Xpand.Persistent.Base.General {
             var modelMergedDifferenceInfos = modelApplicationBases.Cast<IModelApplication>().SelectMany(modelApplication 
                 => GetModelObjectViewMergedDifferenceses(modelViews, modelApplication, modelApplicationBases));
             return modelMergedDifferenceInfos.GroupBy(info =>
-                    new { Id = info.ModelMergedDifference.Id() ,info.TargetView}).Select(infos => infos.Last());
+                    new { Id = info.ModelMergedDifference.Id() ,View=info.TargetView.Id()}).Select(infos => infos.Last());
         }
 
         static Func<IModelMergedDifference, ModelMergedDifferenceInfo> MergedDifferenceInfo(IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -443,7 +323,7 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
-    public interface IModelOptionsMergedDifferenceStrategy {
+    public interface IModelOptionsMergedDifferenceStrategy :IModelNode{
         IModelMergedDifferenceStrategies MergedDifferenceStrategies { get; }
     }
 

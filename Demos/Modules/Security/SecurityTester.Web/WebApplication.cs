@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
@@ -10,15 +12,19 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecurityTester.Module;
 using SecurityTester.Module.Web;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Web {
     public class SecurityTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
-        SystemModule module1;
-        SystemAspNetModule module2;
-        SecurityTesterModule module3;
-        SecurityTesterAspNetModule module4;
-        SqlConnection sqlConnection1;
+        AnonymousAuthenticationStandard _authenticationStandard1;
+        SecurityStrategyComplex _securityStrategyComplex1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        SecurityTesterModule _module3;
+        SecurityTesterAspNetModule _module4;
+        SqlConnection _sqlConnection1;
 
         public SecurityTesterAspNetApplication() {
             InitializeComponent();
@@ -67,27 +73,37 @@ namespace SecurityTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new SecurityTesterModule();
-            module4 = new SecurityTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new SecurityTesterModule();
+            _module4 = new SecurityTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            _securityStrategyComplex1 = new SecurityStrategyComplex();
+            _authenticationStandard1 = new AnonymousAuthenticationStandard();
             ((ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SecurityTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // SecurityTesterAspNetApplication
             // 
+            _securityStrategyComplex1.Authentication = _authenticationStandard1;
+            _securityStrategyComplex1.RoleType = typeof(XpandRole);
+            _securityStrategyComplex1.UserType = typeof(SecuritySystemUser);
+            // 
+            // authenticationStandard1
+            // 
+            _authenticationStandard1.LogonParametersType = typeof(AnonymousLogonParameters);
             ApplicationName = "SecurityTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
+            Security = _securityStrategyComplex1;
 
             DatabaseVersionMismatch += SecurityTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();

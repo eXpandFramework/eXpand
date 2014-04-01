@@ -27,6 +27,7 @@ namespace AuditTrailTester.Web {
         // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
         AuditTrailModule auditTrailModule1;
         AuthenticationStandard authenticationStandard1;
+        SecurityStrategyComplex securityStrategyComplex1;
         ConditionalAppearanceModule conditionalAppearanceModule1;
         LogicModule logicModule1;
         SystemModule module1;
@@ -34,7 +35,7 @@ namespace AuditTrailTester.Web {
         AuditTrailTesterModule module3;
         AuditTrailTesterAspNetModule module4;
         SecurityModule securityModule1;
-        SecurityStrategyComplex securityStrategyComplex1;
+        
         SqlConnection sqlConnection1;
         ValidationModule validationModule1;
         XpandAuditTrailModule xpandAuditTrailModule1;
