@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
+using Xpand.Utils.Web;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelPropertyEditorControl, TModelControl> : ModelAdapterController, IModelExtender
@@ -13,13 +16,18 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         protected PropertyEditorControlAdapterController() {
             TargetViewType = ViewType.DetailView;
         }
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var detailView = ((DetailView)View);
             foreach (var item in detailView.GetItems<PropertyEditor>().Where(editor => editor.Model is TModelPropertyEditorControl)) {
                 var modelPropertyEditorLabelControl = (TModelPropertyEditorControl)item.Model;
-                new ObjectModelSynchronizer(item.Control, GetControlModelNode(modelPropertyEditorLabelControl)).ApplyModel();
+                new ObjectModelSynchronizer(GetPropertyEditorControl(item), GetControlModelNode(modelPropertyEditorLabelControl)).ApplyModel();
             }
+        }
+
+        protected virtual object GetPropertyEditorControl(PropertyEditor item){
+            return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).First() : item.Control;
         }
 
         protected abstract TModelControl GetControlModelNode(TModelPropertyEditorControl modelPropertyEditorLabelControl);

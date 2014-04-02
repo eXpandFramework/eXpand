@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
     }
 
     [DomainLogic(typeof(IModelDashboardDataSourceFilter))]
-    public class ModelDashboardDataSource {
+    public class ModelDashboardDataSourceLogic {
         public static Type Get_DashboardDefinitionType(IModelDashboardDataSourceFilter dashboardDataSourceFilter){
             return typeof (DashboardDefinition);
         }

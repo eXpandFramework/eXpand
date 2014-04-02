@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
+﻿using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -20,8 +18,6 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
     public interface IModelDashboardViewEditor : IModelNode {
         IModelDashboardViewer DashboardViewer { get; }
     }
-
-    
 
     public interface IModelDashboardViewer : IModelNodeEnabled {
 

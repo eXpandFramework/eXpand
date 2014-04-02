@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -17,7 +16,6 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node){
-            MessageBox.Show("");
             var modulesDifferences = node.Application.GetModuleDifferences();
             if (!MergingEnabled(modulesDifferences))
                 return;
