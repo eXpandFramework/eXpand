@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Clone1, Clone1));
             _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Rename, Rename));
             _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Delete, Delete));
-            TargetViewNesting = Nesting.Root;
+            TargetViewNesting = Nesting.All;
         }
 
         void ViewVariantsChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
