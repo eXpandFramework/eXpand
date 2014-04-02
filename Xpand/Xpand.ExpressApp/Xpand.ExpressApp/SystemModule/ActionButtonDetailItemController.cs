@@ -17,12 +17,14 @@ namespace Xpand.ExpressApp.SystemModule {
                     actionBase.Active["ShowInContainer"] = modelActionButton.ShowInContainer;
             }
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             foreach (var actionButtonDetailItem in View.GetItems<ActionButtonDetailItem>()) {
                 actionButtonDetailItem.Executed -= ActionButtonDetailItemOnExecuted;
             }
         }
+
         private void ActionButtonDetailItemOnExecuted(object sender, EventArgs eventArgs) {
             var actionButtonDetailItem = ((ActionButtonDetailItem)sender);
             var simpleActions = Frame.Controllers.Cast<Controller>().SelectMany(controller1 => controller1.Actions).OfType<SimpleAction>();

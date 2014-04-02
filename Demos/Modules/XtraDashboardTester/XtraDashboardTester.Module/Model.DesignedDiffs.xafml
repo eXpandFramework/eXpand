@@ -1,2 +1,8 @@
 ﻿<?xml version="1.0" ?>
-<Application />
+<Application>
+  <DashboardModule>
+    <DataSources>
+      <DashboardDataSourceFilter DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />
+    </DataSources>
+  </DashboardModule>
+</Application>

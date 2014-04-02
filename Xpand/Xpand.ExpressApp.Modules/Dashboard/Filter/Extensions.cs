@@ -102,8 +102,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             return false;
         }
 
-        public static string SynchronizeFilter(this IModelDashboardDataSourceFilter modelDataSource, string filter) {
-            return Regex.Replace(filter, "( and )??" + modelDataSource.Filter + "( and )?", "", RegexOptions.IgnoreCase);
+        public static string SynchronizeFilter(this IModelDashboardDataSourceFilter modelDataSource, string filter){
+            return !string.IsNullOrEmpty(filter) ? Regex.Replace(filter, "( and )??" + modelDataSource.Filter + "( and )?", "", RegexOptions.IgnoreCase) : null;
         }
 
         public static string ApplyFilter(this IModelDashboardDataSourceFilter modelDataSource, string filterString) {
