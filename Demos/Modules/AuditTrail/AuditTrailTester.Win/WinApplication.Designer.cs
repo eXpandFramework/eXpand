@@ -32,8 +32,6 @@ namespace AuditTrailTester.Win {
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.xpandAuditTrailModule1 = new Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
-            this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             this.module3 = new AuditTrailTester.Module.AuditTrailTesterModule();
@@ -73,8 +71,6 @@ namespace AuditTrailTester.Win {
             this.Modules.Add(this.xpandAuditTrailModule1);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.securityModule1);
-            this.Modules.Add(this.xpandSystemModule1);
-            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.AuditTrailTesterWindowsFormsApplication_DatabaseVersionMismatch);
@@ -94,8 +90,6 @@ namespace AuditTrailTester.Win {
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule xpandAuditTrailModule1;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
-        private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule2;

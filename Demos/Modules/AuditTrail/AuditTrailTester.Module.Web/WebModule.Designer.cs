@@ -28,7 +28,7 @@ namespace AuditTrailTester.Module.Web {
             // 
             this.RequiredModuleTypes.Add(typeof(AuditTrailTester.Module.AuditTrailTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
+            
 
         }
 
