@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-	<TestExecutorPath>C:\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest\TestExecutor.v13.2.exe</TestExecutorPath>
+  <TestExecutorName>TestExecutor.v13.2.exe</TestExecutorName>
+	<TestExecutorPath>C:\Program Files (x86)\DevExpress 13.2\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
 	<EasyTestUserName>Admin</EasyTestUserName>
 	<EasyTestUserPassword>AdminPass</EasyTestUserPassword>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
@@ -128,11 +129,14 @@
     <TypeMockStop />
 <!--    <CallTarget Targets="RunEasyTests"></CallTarget>-->
   </Target>
-  
-      <ItemGroup>
-	
-  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\**\AutoTest.ets"/>	
-  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\AuditTrail\**\TestsLog.xml"/>	
+  <PropertyGroup>
+    <EasyTestFilter></EasyTestFilter>
+  </PropertyGroup>
+  <ItemGroup>
+  	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\$(EasyTestFilter)**\AutoTest.ets"/>	
+  	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\$(EasyTestFilter)**\TestsLog.xml"/>
+    <EasyTestReqs Include="$(XpandPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandPath)\Xpand.EasyTest.dll"/>
+    <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <MSBuild.ExtensionPack.Xml.XmlFile 
@@ -144,20 +148,24 @@
   </Target>
   <Target Name="RunEasyTests">
       <Delete Files="@EasyTestLogs"/>
-<!--	  <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=EasyTest" />-->
-<!--	  <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=EasyTest" />-->
-    <CallTarget Targets="c"></CallTarget>
-  	<Exec ContinueOnError="true" 
-          WorkingDirectory="$(_third_party_assemblies)" 
-          Command='ProcessAsUser.exe $(EasyTestUserName) $(EasyTestUserPassword) "$(TestExecutorPath)" %(EasyTests.FullPath)'/>
-    <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
-  </Target>
-  <Target Name="CopyEasyTestReqs">
-    <CreateItem Include="%(EasyTests.RelativeDir)">
-      <Output ItemName="EasyTestConfigLocations" TaskParameter="Include" />
+	  <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=EasyTest" />
+	  <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=EasyTest" />
+    <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
+      <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
-    <Message Text="@(EasyTestConfigLocations->'%(FullPath)', '%0D%0A')" />
-  </Target>
+      
+    <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
+      <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
+    <Message Text='WorkingDirectory="%(EasyTests.RelativeDir)"'/>
+  	<Exec ContinueOnError="true" 
+          WorkingDirectory="%(EasyTests.RelativeDir)"
+          Command='ProcessAsUser.exe $(EasyTestUserName) $(EasyTestUserPassword) $(TestExecutorName) %(EasyTests.Filename).ets'/>
+    <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
+    <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
+  
+</Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />
   </Target>

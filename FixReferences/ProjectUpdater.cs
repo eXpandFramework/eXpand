@@ -107,7 +107,9 @@ namespace FixReferences {
         private void UpdateAdapterVersion(string config){
             string readToEnd;
             using (var streamReader = new StreamReader(config)){
-                readToEnd = Regex.Replace(streamReader.ReadToEnd(), @"(<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=)([.\d]*)", "${1}" + _version);
+                var toEnd = streamReader.ReadToEnd();
+                readToEnd = Regex.Replace(toEnd, @"(<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=)([.\d]*)", "${1}" + _version);
+                readToEnd = Regex.Replace(readToEnd, @"((<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=).*?, PublicKeyToken=)(b88d1754d700e49a)", "$1c52ffed5d5ff0958", RegexOptions.Singleline | RegexOptions.IgnoreCase);
             }
             using (var streamWriter = new StreamWriter(config)) {
                 streamWriter.Write(readToEnd);

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>13.2.8.5</version>
+    <version>13.2.8.6</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#modeldifference</projectUrl>
@@ -23,8 +23,8 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.8.5" />
-      <dependency id="eXpandModelDifference" version="13.2.8.5" />
+      <dependency id="eXpandLib" version="13.2.8.6" />
+      <dependency id="eXpandModelDifference" version="13.2.8.6" />
     </dependencies>
   </metadata>
   <files>
