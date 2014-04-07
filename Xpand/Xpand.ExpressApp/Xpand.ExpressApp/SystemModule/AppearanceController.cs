@@ -127,12 +127,18 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private static Tuple<PropertyInfo, object, Font> GetPropertyInfoAndValue(IAppearanceFormat appearanceFormat, string propertyName) {
+        private Tuple<PropertyInfo, object, Font> GetPropertyInfoAndValue(IAppearanceFormat appearanceFormat, string propertyName) {
             var type = appearanceFormat.GetType();
             object obj = appearanceFormat;
             while (propertyName.Contains(".")) {
                 var name = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
-                var propertyInfo = type.Property(name, Flags.ExcludeHiddenMembers|Flags.InstancePublic);
+                PropertyInfo propertyInfo;
+                try{
+                    propertyInfo = type.Property(name, Flags.ExcludeHiddenMembers|Flags.InstancePublic);
+                }
+                catch (AmbiguousMatchException e){
+                    throw new AmbiguousMatchException(type.FullName,e);
+                }
                 if (propertyInfo == null)
                     return null;
                 propertyName = propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1);
