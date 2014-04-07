@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     }
 
     [PropertyEditor(typeof(string),false)]
-    public class LabelControlPropertyEditor:WinPropertyEditor {
+    public class LabelControlPropertyEditor : WinPropertyEditor, IModelPropertyEditorControlAdapter {
         public LabelControlPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
             ControlBindingProperty = "Text";
         }

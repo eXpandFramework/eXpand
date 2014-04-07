@@ -20,14 +20,21 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var detailView = ((DetailView)View);
-            foreach (var item in detailView.GetItems<PropertyEditor>().Where(editor => editor.Model is TModelPropertyEditorControl)) {
-                var modelPropertyEditorLabelControl = (TModelPropertyEditorControl)item.Model;
-                new ObjectModelSynchronizer(GetPropertyEditorControl(item), GetControlModelNode(modelPropertyEditorLabelControl)).ApplyModel();
+            foreach (var item in detailView.GetItems<PropertyEditor>().Where(editor => editor is IModelPropertyEditorControlAdapter)) {
+                item.ControlCreated+=ItemOnControlCreated;
             }
         }
 
+        private void ItemOnControlCreated(object sender, EventArgs eventArgs){
+            var item = (PropertyEditor)sender;
+            var modelPropertyEditorLabelControl = (TModelPropertyEditorControl)item.Model;
+            var propertyEditorControl = GetPropertyEditorControl(item);
+            if (propertyEditorControl != null)
+                new ObjectModelSynchronizer(propertyEditorControl, GetControlModelNode(modelPropertyEditorLabelControl)).ApplyModel();
+        }
+
         protected virtual object GetPropertyEditorControl(PropertyEditor item){
-            return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).First() : item.Control;
+            return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
         }
 
         protected abstract TModelControl GetControlModelNode(TModelPropertyEditorControl modelPropertyEditorLabelControl);
@@ -52,5 +59,9 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             };
         }
 
+    }
+
+    public interface IModelPropertyEditorControlAdapter {
+         
     }
 }
