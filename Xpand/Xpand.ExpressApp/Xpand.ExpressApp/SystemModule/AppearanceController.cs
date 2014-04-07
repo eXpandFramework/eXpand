@@ -53,8 +53,11 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void AppearanceControllerOnCustomCreateAppearanceRule(object sender, CustomCreateAppearanceRuleEventArgs e){
-            if (e.RuleProperties.GetPropertyValue("Attribute")==null)
-                e.Rule = new AppearanceRule(new CachedAppearanceRuleProperties((IXpandAppearanceRuleProperties) e.RuleProperties), View.ObjectSpace);
+            if (e.RuleProperties.GetPropertyValue("Attribute")==null){
+                var xpandAppearanceRuleProperties = e.RuleProperties as IXpandAppearanceRuleProperties;
+                if (xpandAppearanceRuleProperties != null)
+                    e.Rule = new AppearanceRule(new CachedAppearanceRuleProperties(xpandAppearanceRuleProperties), View.ObjectSpace);
+            }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
