@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
         private const string DefaultReason = "LinqListViewController is active";
         protected override void OnActivated() {
             base.OnActivated();
-            bool flag = !View.Id.EndsWith(LinqCollectionSource.DefaultSuffix);
+            bool flag = !(View.CollectionSource is LinqCollectionSource);
             Frame.GetController<ListViewProcessCurrentObjectController>().Active[DefaultReason] = flag;
             Frame.GetController<DeleteObjectsViewController>().Active[DefaultReason] = flag;
             Frame.GetController<NewObjectViewController>().Active[DefaultReason] = flag;
