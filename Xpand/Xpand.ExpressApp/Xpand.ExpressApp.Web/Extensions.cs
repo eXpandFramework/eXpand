@@ -16,16 +16,20 @@ namespace Xpand.ExpressApp.Web {
         }
 
         public static bool SupportsUserActivation(this WebApplication application) {
+            if (application.Model == null)
+                return false;
             var modelOptionsRegistration = application.Model.Options as IModelOptionsRegistration;
             return modelOptionsRegistration != null && modelOptionsRegistration.Registration.Enabled &&
                    ((IModelRegistrationActivation)modelOptionsRegistration.Registration).ActivationIdMember != null;
         }
         public static bool SupportsQueryStringParameter(this WebApplication application) {
+            if (application.Model == null)
+                return false;
             var modelOptionsQueryStringParameter = application.Model.Options as IModelOptionsQueryStringParameter;
             return modelOptionsQueryStringParameter != null && modelOptionsQueryStringParameter.QueryStringParameters.Any();
         }
 
-        public static bool SupportsFriendlyUrl(this WebApplication application)  {
+        public static bool SupportsFriendlyUrl(this WebApplication application) {
             if (application.Model == null)
                 return false;
             var modelOptionsFriendlyUrl = application.Model.Options as IModelOptionsFriendlyUrl;
