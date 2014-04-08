@@ -17,11 +17,11 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             TargetViewType = ViewType.DetailView;
         }
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
+        protected override void OnActivated() {
+            base.OnActivated();
             var detailView = ((DetailView)View);
             foreach (var item in detailView.GetItems<PropertyEditor>().Where(editor => editor is IModelPropertyEditorControlAdapter)) {
-                item.ControlCreated+=ItemOnControlCreated;
+                item.ControlCreated += ItemOnControlCreated;
             }
         }
 
