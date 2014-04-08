@@ -79,7 +79,7 @@ namespace Xpand.Utils.Fastreflect{
             return list1;
         }
 
-        public static PropertyInfo Property(this Type type, string name, Flags bindingFlags){
+        public static PropertyInfo PropertyX(this Type type, string name, Flags bindingFlags){
             // we need to check all properties to do partial name matches
             if (bindingFlags.IsAnySet(Flags.PartialNameMatch | Flags.TrimExplicitlyImplemented)){
                 return type.Properties(bindingFlags, name).FirstOrDefault();
@@ -88,7 +88,7 @@ namespace Xpand.Utils.Fastreflect{
             PropertyInfo result = type.GetProperty(name, bindingFlags | Flags.DeclaredOnly);
             if (result == null && bindingFlags.IsNotSet(Flags.DeclaredOnly)){
                 if (type.BaseType != typeof (object) && type.BaseType != null){
-                    return type.BaseType.Property(name, bindingFlags);
+                    return type.BaseType.PropertyX(name, bindingFlags);
                 }
             }
             bool hasSpecialFlags = bindingFlags.IsSet(Flags.ExcludeExplicitlyImplemented);

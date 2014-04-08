@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Model;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Utils.Fastreflect;
 
 namespace Xpand.ExpressApp.SystemModule {
     public class AppearanceController : ViewController, IModelExtender {
@@ -137,10 +138,10 @@ namespace Xpand.ExpressApp.SystemModule {
                 var name = propertyName.Substring(0, propertyName.IndexOf(".", StringComparison.Ordinal));
                 PropertyInfo propertyInfo;
                 try{
-                    propertyInfo = type.Property(name, Flags.ExcludeHiddenMembers|Flags.InstancePublic);
+                    propertyInfo = type.PropertyX(name, Flags.ExcludeHiddenMembers|Flags.InstancePublic);
                 }
                 catch (AmbiguousMatchException e){
-                    throw new AmbiguousMatchException(type.FullName,e);
+                    throw new AmbiguousMatchException(type.FullName+", "+propertyName,e);
                 }
                 if (propertyInfo == null)
                     return null;
