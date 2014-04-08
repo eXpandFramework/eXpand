@@ -55,8 +55,8 @@ namespace Xpand.ExpressApp.Validation.Controllers {
                 var passwordScore = PasswordAdvisor.CheckStrength(password +"");
                 if (passwordScore<modelMemberPasswordScore.PasswordScore) {
                     var messageTemplate = String.Format(CaptionHelper.GetLocalizedText(XpandValidationModule.XpandValidation, "PasswordScoreFailed"), modelMemberPasswordScore.Name, passwordScore, modelMemberPasswordScore.PasswordScore);
-                    var ruleValidationResult = new RuleValidationResult(null, View.CurrentObject, ValidationState.Invalid, messageTemplate);
-                    ruleSetValidationResult.AddResult(new RuleSetValidationResultItem(View.CurrentObject, ContextIdentifier.Save, null,ruleValidationResult));
+                    var validationResult = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, messageTemplate, ContextIdentifier.Save,View.CurrentObject,View.ObjectTypeInfo.Type);
+                    ruleSetValidationResult.AddResult(validationResult.Results.First());
                     args.Handled = true;
                 }
             }

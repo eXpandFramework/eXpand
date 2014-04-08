@@ -363,6 +363,7 @@
     <Compile Include="Security\IModelOptionsRegistration.cs" />
     <Compile Include="Security\IModelRegistrationActivation.cs" />
     <Compile Include="Security\IModelRegistrationEnabled.cs" />
+    <Compile Include="Validation\RuleMessage.cs" />
     <Compile Include="Validation\IPasswordScoreController.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
