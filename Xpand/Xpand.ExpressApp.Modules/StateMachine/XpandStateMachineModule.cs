@@ -44,10 +44,13 @@ namespace Xpand.ExpressApp.StateMachine {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             var typeInfo = typesInfo.FindTypeInfo<XpoStateMachine>();
-            typeInfo.CreateMember(EnableFilteredPropety, typeof (bool));
+            if (typeInfo.FindMember(EnableFilteredPropety) == null) {
+                typeInfo.CreateMember(EnableFilteredPropety, typeof(bool));
+            }
             if (!RuntimeMode) {
                 CreateDesignTimeCollection(typesInfo, typeof(XpoStateMachine), AdminRoles);
-            } else if (Application.CanBuildSecurityObjects()) {
+            }
+            else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();
             }
         }
