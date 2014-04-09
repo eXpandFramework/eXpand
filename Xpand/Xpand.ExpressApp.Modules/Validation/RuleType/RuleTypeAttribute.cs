@@ -2,6 +2,7 @@
 
 namespace Xpand.ExpressApp.Validation.RuleType {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = true)]
+    [Obsolete("Use RuleType",true)]
     public class RuleTypeAttribute : Attribute {
         readonly string _id;
         readonly RuleType _ruleType;
