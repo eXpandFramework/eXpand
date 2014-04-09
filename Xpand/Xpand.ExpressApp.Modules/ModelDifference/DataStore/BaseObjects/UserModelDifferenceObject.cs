@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -28,6 +29,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public bool NonPersistent {
             get { return _nonPersistent; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
+        }
+        [Browsable(false)]
+        public bool IsCurrentUserModel{
+            get {  return ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name), this);}
         }
 
         public override void AfterConstruction() {
