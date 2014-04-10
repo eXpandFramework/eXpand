@@ -3,12 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.PropertyEditors {
+    public interface IModelPeopertyEditorSortOrder{
+        [Category("eXpand")]
+        [ModelBrowsable(typeof(StringLookupPropertyEditorVisibilityCalculator))]
+        SortingDirection SortingDirection { get; set; }
+    }
+
+    public class StringLookupPropertyEditorVisibilityCalculator :EditorTypeVisibilityCalculator<IStringLookupPropertyEditor>{
+         
+    }
+
     public class ComboBoxItemsBuilder {
 
         PropertyEditor _propertyEditor;
@@ -34,6 +47,8 @@ namespace Xpand.ExpressApp.PropertyEditors {
 
         void GroupBuild(Action<IEnumerable<string>, bool> itemsCalculated) {
             var xpView = new XPView(((XPObjectSpace) ((IObjectSpaceHolder) _propertyEditor).ObjectSpace).Session, _propertyEditor.ObjectTypeInfo.Type);
+            var columnSortOrder = ((IModelPeopertyEditorSortOrder)_propertyEditor.Model).SortingDirection;
+            xpView.Sorting=new SortingCollection(new SortProperty(_propertyEditor.PropertyName,columnSortOrder));
             xpView.AddProperty(_propertyEditor.PropertyName, _propertyEditor.PropertyName, true);
             itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(), false);
         }

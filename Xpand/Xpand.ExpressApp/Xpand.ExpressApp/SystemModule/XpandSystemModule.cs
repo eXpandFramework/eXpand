@@ -17,6 +17,7 @@ using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
+using Xpand.ExpressApp.PropertyEditors;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
@@ -129,6 +130,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelPropertyEditor, IModelPeopertyEditorSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
