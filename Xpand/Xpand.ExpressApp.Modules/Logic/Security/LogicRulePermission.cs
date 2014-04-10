@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.Logic.Security {
 
         public string ExecutionContextGroup { get; set; }
         public string ActionExecutionContextGroup { get; set; }
+        public string ObjectChangedExecutionContextGroup { get; set; }
 
 
         public string ViewContextGroup { get; set; }

@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public virtual void Execute(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject, EventArgs eventArgs) {
-            var validRules = _evaluator.GetValidRules(view, executionContext);
+            var validRules = _evaluator.GetValidRules(view, executionContext,eventArgs);
             var logicRuleInfos = validRules.Select(o => new LogicRuleInfo{
                 Active = _evaluator.Fit(currentObject, o),
                 Object = currentObject,

@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base;
 namespace Xpand.Persistent.Base.Logic {
     [ModelAbstractClass]
     public interface ILogicRule :IRule {
+
         [Category("ConditionalLogic.Behavior")]
         [Description("Specifies the criteria string which is used when determining whether logic should be executed.")]
         [CriteriaOptions("TypeInfo")]

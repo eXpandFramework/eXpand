@@ -23,9 +23,25 @@ namespace Xpand.Persistent.Base.Logic.Model {
         string ActionExecutionContextGroup { get; set; }
 
         [Category("Logic.Data")]
+        [DataSourceProperty("ObjectChangedExecutionContexts")]
+        [ModelBrowsable(typeof(ObjectChangedContextGroupVisibilityCalculator))]
+        string ObjectChangedExecutionContextGroup { get; set; }
+
+        [Category("Logic.Data")]
         [DataSourceProperty("ViewContexts")]
         [ModelBrowsable(typeof(ViewContextGroupVisibilityCalculator))]
         string ViewContextGroup { get; set; }
+    }
+
+    public class ObjectChangedContextGroupVisibilityCalculator : IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName){
+            var modelLogicRule = (IModelLogicRule)node;
+            if (modelLogicRule.ModelClass != null){
+                var names = modelLogicRule.ModelClass.TypeInfo.Members.Select(info => info.Name);
+                return modelLogicRule.ModelLogicWrapper.ObjectChangedExecutionContextGroup.SelectMany(contexts => contexts).Any(context => context.PropertyNames.Split(';').Any(names.Contains));
+            }
+            return false;
+        }
     }
 
     public class FrameTemplateContextGroupVisibilityCalculator:IModelIsVisible {

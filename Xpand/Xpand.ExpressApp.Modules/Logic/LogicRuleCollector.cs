@@ -60,7 +60,19 @@ namespace Xpand.ExpressApp.Logic {
             logicRuleObject.ExecutionContext = GetExecutionContext(contextLogicRule, modelLogic);
             logicRuleObject.FrameTemplateContext = GetFrameTemplateContext(contextLogicRule, modelLogic);
             AddViews(logicRuleObject.Views,modelLogic,contextLogicRule);
+            AddObjectChangedProperties(logicRuleObject.ObjectChangedPropertyNames, modelLogic, contextLogicRule);
             return logicRuleObject;
+        }
+
+        private void AddObjectChangedProperties(HashSet<string> objectChangedPropertyNames, IModelLogicWrapper modelLogic, IContextLogicRule contextLogicRule){
+            if (!string.IsNullOrEmpty(contextLogicRule.ObjectChangedExecutionContextGroup)) {
+                var executionContexts = modelLogic.ObjectChangedExecutionContextGroup.FirstOrDefault(
+                        contexts => contexts.Id == contextLogicRule.ObjectChangedExecutionContextGroup);
+                if (executionContexts != null)
+                    foreach (var s in executionContexts.SelectMany(executionContext => executionContext.PropertyNames.Split(';'))){
+                        objectChangedPropertyNames.Add(s);
+                    }
+            }
         }
 
         void AddViews(HashSet<string> views, IModelLogicWrapper modelLogic, IContextLogicRule contextLogicRule) {

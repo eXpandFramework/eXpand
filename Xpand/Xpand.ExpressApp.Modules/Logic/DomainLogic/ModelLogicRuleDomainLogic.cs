@@ -16,6 +16,11 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             return actionExecutionContextGroup != null ? actionExecutionContextGroup.Select(groupContext => groupContext.Id).ToList() : new List<string>();
         }
 
+        public static List<string> Get_ObjectChangedExecutionContexts(IModelLogicRule modelLogicRule) {
+            var actionExecutionContextGroup = modelLogicRule.ModelLogicWrapper.ObjectChangedExecutionContextGroup;
+            return actionExecutionContextGroup != null ? actionExecutionContextGroup.Select(groupContext => groupContext.Id).ToList() : new List<string>();
+        }
+
         public static bool Get_GroupContext(IModelLogicRule modelLogicRule) {
             return !string.IsNullOrEmpty(modelLogicRule.ExecutionContextGroup) ||
                    !string.IsNullOrEmpty(modelLogicRule.ActionExecutionContextGroup);

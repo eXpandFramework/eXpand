@@ -10,10 +10,5 @@ namespace Xpand.Persistent.Base.Logic.Model {
         [Browsable(false)]
         ExecutionContext ExecutionContext { get; set; }
     }
-    [ModelNodesGenerator(typeof(ActionExecutionContextNodeGenerator))]
-    // ReSharper disable PossibleInterfaceMemberAmbiguity
-    public interface IModelActionExecutionContexts : IModelNode, IModelList<IModelActionExecutionContext>, IRule {
-        // ReSharper restore PossibleInterfaceMemberAmbiguity
-    }
 
 }

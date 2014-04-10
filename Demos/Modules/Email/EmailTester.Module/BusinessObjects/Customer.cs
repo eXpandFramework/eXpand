@@ -8,4 +8,10 @@ namespace EmailTester.Module.BusinessObjects {
         public Customer(Session session) : base(session) {
         }
     }
+
+    [DefaultClassOptions]
+    public class EmailTask:Task{
+        public EmailTask(Session session) : base(session){
+        }
+    }
 }

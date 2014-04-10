@@ -230,8 +230,9 @@
     <Compile Include="Logic\ILogicInstaller.cs" />
     <Compile Include="Logic\LogicRule.cs" />
     <Compile Include="Logic\Model\IContextLogicRule.cs" />
-    <Compile Include="Logic\Model\IModelActionExecutionContextGroup.cs" />
+    <Compile Include="Logic\Model\ActionExecutionContext.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
+    <Compile Include="Logic\Model\ObjectChangedExecutionContext.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>

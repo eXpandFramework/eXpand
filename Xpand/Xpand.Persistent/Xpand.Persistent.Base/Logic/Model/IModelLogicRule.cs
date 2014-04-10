@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     [ModelAbstractClass]
+// ReSharper disable once PossibleInterfaceMemberAmbiguity
     public interface IModelLogicRule : IModelNode, IContextLogicRule {
 
         [ModelPersistentName("TypeInfo")]
@@ -17,6 +18,8 @@ namespace Xpand.Persistent.Base.Logic.Model {
         IEnumerable<IModelView> Views { get; }
         [Browsable(false)]
         IEnumerable<string> ActionExecutionContexts { get; }
+        [Browsable(false)]
+        IEnumerable<string> ObjectChangedExecutionContexts { get; }
         [Browsable(false)]
         IEnumerable<string> ExecutionContexts { get; }
         [Browsable(false)]

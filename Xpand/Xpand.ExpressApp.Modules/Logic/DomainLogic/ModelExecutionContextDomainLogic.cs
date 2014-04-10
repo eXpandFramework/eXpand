@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.Logic.DomainLogic {
             var first = LogicInstallerManager.Instance.LogicInstallers.First(installer 
                 =>Equals(((ModelNode) installer.GetModelLogic(modelExecutionContext.Application).ExecutionContextsGroup).Parent.Id,
                          ((ModelNode) modelLogic.Parent.Parent).Id));
-            return first.ExecutionContexts.Select(context => context.ToString()).ToList();
+            return first.ValidExecutionContexts.Select(context => context.ToString()).ToList();
         }
 
     }

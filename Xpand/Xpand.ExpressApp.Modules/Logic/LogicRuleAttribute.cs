@@ -40,6 +40,7 @@ namespace Xpand.ExpressApp.Logic {
         public Nesting Nesting { get; set; }
         public string ExecutionContextGroup { get; set; }
         public string ActionExecutionContextGroup { get; set; }
+        public string ObjectChangedExecutionContextGroup { get; set; }
         public string ViewContextGroup { get; set; }
         public string FrameTemplateContextGroup { get; set; }
 

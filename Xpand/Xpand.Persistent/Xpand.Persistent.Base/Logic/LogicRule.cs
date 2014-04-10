@@ -10,10 +10,12 @@ namespace Xpand.Persistent.Base.Logic {
         ExecutionContext ExecutionContext { get; set; }
         FrameTemplateContext FrameTemplateContext { get; set; }
         HashSet<string> Views { get; }
+        HashSet<string> ObjectChangedPropertyNames { get; }
     }
 
     public abstract class LogicRule : ILogicRuleObject {
         readonly HashSet<string> _views=new HashSet<string>();
+        private readonly HashSet<string> _objectChangedPropertyNames=new HashSet<string>();
 
         protected LogicRule(IContextLogicRule logicRule) {
             Description = logicRule.Description;
@@ -66,6 +68,9 @@ namespace Xpand.Persistent.Base.Logic {
 
         public HashSet<string> Views {
             get { return _views; }
+        }
+        public HashSet<string> ObjectChangedPropertyNames {
+            get { return _objectChangedPropertyNames; }
         }
         #endregion
         public override string ToString() {
