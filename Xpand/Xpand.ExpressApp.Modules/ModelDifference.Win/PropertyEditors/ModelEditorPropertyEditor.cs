@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         ModelApplicationBase GetMasterModelCore(bool recreate) {
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            var masterModel = !recreate ? _modelLoader.GetMasterModel(false) : _modelLoader.ReCreate();
+            var masterModel = !recreate ? _modelLoader.GetMasterModel(true) : _modelLoader.ReCreate();
             InterfaceBuilder.SkipAssemblyCleanup = false;
             return masterModel;
         }
