@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -120,7 +119,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
-            var connectionString = getConnectionStringWithOutThreadSafeDataLayerInitialization(args);
+            var connectionString = GetConnectionStringWithOutThreadSafeDataLayerInitialization(args);
             (xafApplication).ConnectionString = connectionString;
             return connectionString;
         }
@@ -152,16 +151,15 @@ namespace Xpand.Persistent.Base.General {
 
         static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication, IDataStore connectionProvider, string connectionString) {
             var xafApplicationDataStore = xafApplication as IXafApplicationDataStore;
-            var selectDataSecurityProvider = xafApplication.Security as ISelectDataSecurityProvider;
             if (xafApplicationDataStore != null) {
                 IDataStore dataStore = xafApplicationDataStore.GetDataStore(connectionProvider);
-                return dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), selectDataSecurityProvider)
-                                          : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
+                return dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), xafApplication.Security)
+                                          : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security);
             }
-            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), selectDataSecurityProvider);
+            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security);
         }
 
-        static string getConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
+        static string GetConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
             return args.Connection != null ? args.Connection.ConnectionString : args.ConnectionString;
         }
     }

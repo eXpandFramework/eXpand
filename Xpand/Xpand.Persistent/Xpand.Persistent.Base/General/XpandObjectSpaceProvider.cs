@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
@@ -11,7 +12,7 @@ using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider {
-        readonly ISelectDataSecurityProvider _selectDataSecurityProvider;
+        readonly ISecurityStrategyBase _security;
         IDataLayer _dataLayer;
         bool _allowICommandChannelDoWithSecurityContext;
         ClientSideSecurity? _clientSideSecurity;
@@ -19,15 +20,11 @@ namespace Xpand.Persistent.Base.General {
 
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISelectDataSecurityProvider selectDataSecurityProvider,bool threadSafe=false)
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security,bool threadSafe=false)
             : base(provider, threadSafe) {
-            _selectDataSecurityProvider = selectDataSecurityProvider;
+            _security = security;
             DataStoreProvider = provider;
             Tracing.Tracer.LogVerboseValue(GetType().FullName,Environment.StackTrace);
-        }
-
-        public ISelectDataSecurityProvider SelectDataSecurityProvider {
-            get { return _selectDataSecurityProvider; }
         }
 
         public new IDataLayer WorkingDataLayer {
@@ -66,12 +63,14 @@ namespace Xpand.Persistent.Base.General {
         private XpandUnitOfWork CreateUnitOfWork() {
             var uow = new XpandUnitOfWork(DataLayer);
 
-            if (SelectDataSecurityProvider == null)
-                return uow;
-            if (!_clientSideSecurity.HasValue || _clientSideSecurity.Value == ClientSideSecurity.UIlevel)
-                return uow;
-            var currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, uow, true, null, new SecurityRuleProvider(XPDictionary, _selectDataSecurityProvider.CreateSelectDataSecurity()), null);
-            return new XpandUnitOfWork(currentObjectLayer, uow);
+            var securedObjectLayer = _security as ISelectDataSecurityProvider;
+            if (securedObjectLayer != null &&
+                (_clientSideSecurity.HasValue && _clientSideSecurity.Value != ClientSideSecurity.UIlevel)){
+                var securityRuleProvider = new SecurityRuleProvider(XPDictionary,securedObjectLayer.CreateSelectDataSecurity());
+                var currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, uow,true, null, securityRuleProvider, null);
+                return new XpandUnitOfWork(currentObjectLayer, uow);
+            }
+            return uow;
         }
     }
 
