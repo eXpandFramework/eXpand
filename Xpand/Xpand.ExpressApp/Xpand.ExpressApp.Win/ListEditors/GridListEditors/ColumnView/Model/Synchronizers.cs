@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
         string GetPropertyName(TModelColumn modelColumn) {
             var propertyName = modelColumn.PropertyName;
-            if (modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
+            if (modelColumn.ModelMember != null && modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
                 propertyName += "!";
             }
             return propertyName;
