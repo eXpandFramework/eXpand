@@ -370,7 +370,7 @@
     <Compile Include="SystemModule\CloseWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DestroyControlsOnCloseController.cs">
+    <Compile Include="SystemModule\FormCachingController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByColumnController.cs">

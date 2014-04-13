@@ -1,6 +1,6 @@
 using System.ComponentModel;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.Utils;
-using DevExpress.Xpo;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.Core;
@@ -21,14 +21,11 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (_existentTypesMemberCreator == null && RuntimeMode) {
+            if (_existentTypesMemberCreator == null && RuntimeMode&&(!string.IsNullOrEmpty(ConnectionString)||Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
                 WCTypesInfo.Instance.Register(GetAdditionalClasses(ModuleManager));
                 _existentTypesMemberCreator = new ExistentTypesMemberCreator();
-                var reflectionDictionary = WorldCreatorModuleBase.GetReflectionDictionary(this);
-                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, reflectionDictionary);
-                var simpleDataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy);
-                var session = new Session(simpleDataLayer);
+                var session = Application.FindModule<WorldCreatorModuleBase>().GetUnitOfWork();
                 _existentTypesMemberCreator.CreateMembers(session,typesInfo);
             }
         }

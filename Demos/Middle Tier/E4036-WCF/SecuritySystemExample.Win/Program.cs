@@ -39,6 +39,7 @@ namespace SecuritySystemExample.Win {
                     delegate(object sender, CreateCustomObjectSpaceProviderEventArgs e) {
                         e.ObjectSpaceProvider =new DataServerObjectSpaceProvider(clientDataServer, securityClient);
                     };
+
                 winApplication.Setup();
                 winApplication.Start();
                 clientDataServer.Close();

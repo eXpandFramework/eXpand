@@ -131,6 +131,7 @@
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ClientServer\XpandSecuredDataServer.cs" />
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>

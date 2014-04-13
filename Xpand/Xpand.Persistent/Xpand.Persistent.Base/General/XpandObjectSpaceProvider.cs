@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
@@ -62,7 +61,6 @@ namespace Xpand.Persistent.Base.General {
 
         private XpandUnitOfWork CreateUnitOfWork() {
             var uow = new XpandUnitOfWork(DataLayer);
-
             var securedObjectLayer = _security as ISelectDataSecurityProvider;
             if (securedObjectLayer != null &&
                 (_clientSideSecurity.HasValue && _clientSideSecurity.Value != ClientSideSecurity.UIlevel)){

@@ -7,11 +7,14 @@ using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Xpo;
 using System.ServiceModel;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
+using Xpand.ExpressApp.Security.ClientServer;
+using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
     class Program {
         static void Main() {
             try {
+                
                 string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
@@ -25,12 +28,13 @@ namespace ConsoleApplicationServer {
                 serverApplication.Setup();
                 Console.WriteLine("CheckCompatibility...");
                 serverApplication.CheckCompatibility();
+                XpandWcfDataServerHelper.AddKnownTypesForAll(serverApplication);
                 serverApplication.Dispose();
 
                 Console.WriteLine("Starting server...");
                 QueryRequestSecurityStrategyHandler securityProviderHandler =() => securityStrategyComplex;
 
-                var dataServer =new SecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
+                var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
 
                 var serviceHost = new ServiceHost(new WcfSecuredDataServer(dataServer));
                 var defaultBinding = (WSHttpBinding)WcfDataServerHelper.CreateDefaultBinding();

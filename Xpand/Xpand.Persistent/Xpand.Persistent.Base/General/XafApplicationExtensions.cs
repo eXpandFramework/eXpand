@@ -32,8 +32,13 @@ namespace Xpand.Persistent.Base.General {
             return (Controller) methodInfo.Call(application);
         }
 
-        public static T FindModule<T>(this XafApplication xafApplication) where T : ModuleBase {
-            return (T)xafApplication.Modules.FindModule(typeof(T));
+        public static T FindModule<T>(this XafApplication xafApplication,bool extactMatch=true) where T : ModuleBase{
+            var moduleType = typeof(T);
+            if (moduleType.IsInterface || moduleType.IsAbstract)
+                extactMatch = false;
+            return !extactMatch
+                ? (T) xafApplication.Modules.FirstOrDefault(@base => @base is T)
+                : (T) xafApplication.Modules.FindModule(moduleType);
         }
 
         public static void SetClientSideSecurity(this XafApplication xafApplication) {

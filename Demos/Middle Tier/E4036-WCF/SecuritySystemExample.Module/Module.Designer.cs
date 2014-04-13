@@ -76,7 +76,7 @@ namespace SecuritySystemExample.Module {
             RequiredModuleTypes.Add(typeof(MasterDetailWindowsModule));
             RequiredModuleTypes.Add(typeof(XpandPivotGridWinModule));
             RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
-
+            RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule));
         }
 
         #endregion

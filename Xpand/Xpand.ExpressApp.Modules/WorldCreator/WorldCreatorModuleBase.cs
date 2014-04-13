@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -24,14 +25,9 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode) {
+            if (RuntimeMode){
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
-                application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
             }
-        }
-        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
-            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProvider is IXpandObjectSpaceProvider))
-                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs, "WorldCreator");
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -39,13 +35,11 @@ namespace Xpand.ExpressApp.WorldCreator {
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
             if (Application == null || GetPath() == null||!RuntimeMode)
                 return;
-            if (ConnectionString != null) {
-                var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
-                using (var dataLayer = new SimpleDataLayer(xpoMultiDataStoreProxy)) {
-                    using (var unitOfWork = new UnitOfWork(dataLayer)) {
-                        RunUpdaters(unitOfWork);
-                        AddDynamicModules(moduleManager, unitOfWork);
-                    }                    
+            if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {
+                using (var unitOfWork = GetUnitOfWork()) {
+                    RunUpdaters(unitOfWork);
+                    AddDynamicModules(moduleManager, unitOfWork);
+                    if (unitOfWork.DataLayer != null) unitOfWork.DataLayer.Dispose();
                 }
             } else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
@@ -58,9 +52,18 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         }
 
-        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
-            var session = ((XPObjectSpace)((Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().First().CreateUpdatingObjectSpace(false)))).Session;
-            MergeTypes(new UnitOfWork(session.DataLayer));
+        public virtual UnitOfWork GetUnitOfWork(){
+            var dataServerObjectSpaceProvider = Application.ObjectSpaceProvider as DataServerObjectSpaceProvider;
+            if (dataServerObjectSpaceProvider != null){
+                return (UnitOfWork)((XPObjectSpace)dataServerObjectSpaceProvider.CreateObjectSpace()).Session;
+            }
+            var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
+            return new UnitOfWork(new SimpleDataLayer(xpoMultiDataStoreProxy));
+        }
+
+        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
+            var session = ((XPObjectSpace)((Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false)))).Session;
+            if (session.DataLayer != null) MergeTypes(new UnitOfWork(session.DataLayer));
         }
 
         void RunUpdaters(Session session) {
