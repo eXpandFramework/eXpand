@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using DevExpress.DashboardCommon;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -77,6 +78,26 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
+        public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled, IObjectSpace objectSpace){
+            var dashBoard = template.CreateDashBoard(objectSpace, filterEnabled);
+            using (var memoryStream = new MemoryStream()) {
+                dashBoard.SaveToXml(memoryStream);
+                memoryStream.Position = 0;
+                var document = XDocument.Load(memoryStream);
+                var dataSourceAdapters = GetDataSources(dashBoard, filterEnabled, template, objectSpace);
+                foreach (var dataSourceAdapter in dataSourceAdapters){
+                    if (document.Root != null){
+                        DataSourceAdapter adapter = dataSourceAdapter;
+                        var datasources = document.Root.Descendants("DataSource").Where(element => element.Attribute("Name").Value==adapter.DataSource.Name&&!element.Descendants("Filter").Any());
+                        foreach (var datasource in datasources){
+                            datasource.Add(new XElement("Filter", dataSourceAdapter.DataSource.Filter));    
+                        }
+                    }
+                }
+                return document.ToString();
+            }
+        }
+
         public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
             var dataSources = GetDataSources(dashboard, filterEnabled, template, objectSpace);
             foreach (var dataSource in dataSources) {
@@ -84,7 +105,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        private static IEnumerable<DataSourceAdapter> GetDataSources(DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
+        static IEnumerable<DataSourceAdapter> GetDataSources(DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
             var modelDashboardModule =
                 ((IModelApplicationDashboardModule)ApplicationHelper.Instance.Application.Model).DashboardModule;
             return modelDashboardModule.DataSources.Where(source => source.NodeEnabled && CanApply(source, filterEnabled, template, objectSpace)).Select(modelDataSource => {
@@ -118,6 +139,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             return filterString + criteria;
         }
     }
+
     class DataSourceAdapter {
         private readonly DataSource _dataSource;
 

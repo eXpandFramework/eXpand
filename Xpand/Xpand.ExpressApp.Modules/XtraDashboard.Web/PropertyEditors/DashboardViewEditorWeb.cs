@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Web.UI.WebControls;
+﻿using System.Web.UI.WebControls;
 using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -64,19 +63,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            var template = CurrentObject as IDashboardDefinition;
-            if (template != null){
-                var dashBoard = template.CreateDashBoard(ObjectSpace, FilterEnabled.Runtime);
-                using (var memoryStream = new MemoryStream()){
-                    dashBoard.SaveToXml(memoryStream);
-                    string xml;
-                    memoryStream.Position = 0;
-                    using (var streamReader = new StreamReader(memoryStream)){
-                        xml = streamReader.ReadToEnd();
-                    }
-                    e.DashboardXml = xml;
-                }
-            }
+            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime, ObjectSpace);
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
