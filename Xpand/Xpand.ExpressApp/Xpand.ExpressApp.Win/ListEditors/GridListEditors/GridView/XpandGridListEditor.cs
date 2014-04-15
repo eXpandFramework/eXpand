@@ -151,11 +151,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         #endregion
         bool IDXPopupMenuHolder.CanShowPopupMenu(Point position) {
-            var hitTest = ((DevExpress.XtraGrid.Views.Grid.GridView) Grid.FocusedView).CalcHitInfo(Grid.PointToClient(position)).HitTest;
-            return ((hitTest == GridHitTest.Row)
-                 || (hitTest == GridHitTest.RowCell)
-                 || (hitTest == GridHitTest.EmptyRow)
-                 || (hitTest == GridHitTest.None));
+            var focusedView = Grid.FocusedView as DevExpress.XtraGrid.Views.Grid.GridView;
+            if (focusedView != null){
+                var hitTest = focusedView.CalcHitInfo(Grid.PointToClient(position)).HitTest;
+                return ((hitTest == GridHitTest.Row)
+                        || (hitTest == GridHitTest.RowCell)
+                        || (hitTest == GridHitTest.EmptyRow)
+                        || (hitTest == GridHitTest.None));
+            }
+            return false;
         }
     }
     public class ErrorTypeEventArgs : EventArgs {
