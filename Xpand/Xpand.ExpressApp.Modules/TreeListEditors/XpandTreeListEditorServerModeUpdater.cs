@@ -12,13 +12,15 @@ namespace Xpand.ExpressApp.TreeListEditors {
         public override void UpdateNode(ModelNode node) {
             var modelViews = (IModelViews)node;
             var typeInfo = XafTypesInfo.Instance.FindTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper));
-            var type = ReflectionHelper.FindTypeDescendants(typeInfo).First(info
-                => !info.IsAbstract).Type;
-            var helper=(TreeListEditorVisibilityCalculatorHelper) type.CreateInstance();
-            var modelListViews = modelViews.OfType<IModelListView>().Where(view => helper.TreelistEditorType().Any(type1 
-                => type1.IsAssignableFrom(view.EditorType)));
-            foreach (var modelListView in modelListViews) {
-                modelListView.UseServerMode = false;
+            var firstOrDefault = ReflectionHelper.FindTypeDescendants(typeInfo).FirstOrDefault(info=> !info.IsAbstract);
+            if (firstOrDefault != null){
+                var type = firstOrDefault.Type;
+                var helper=(TreeListEditorVisibilityCalculatorHelper) type.CreateInstance();
+                var modelListViews = modelViews.OfType<IModelListView>().Where(view => helper.TreelistEditorType().Any(type1 
+                    => type1.IsAssignableFrom(view.EditorType)));
+                foreach (var modelListView in modelListViews) {
+                    modelListView.UseServerMode = false;
+                }
             }
         }
     }
