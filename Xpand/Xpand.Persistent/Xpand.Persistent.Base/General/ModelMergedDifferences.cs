@@ -68,7 +68,8 @@ namespace Xpand.Persistent.Base.General {
                         var modelMergedDifference = modelMergedDifferenceInfo.ModelMergedDifference;
                         var id = modelMergedDifference.Strategy.Id();
                         var differenceStrategy = optionsMergedDifferenceStrategy.MergedDifferenceStrategies[id];
-                        MergeObjectViewValueInfos(differenceStrategy, sourceObjectView, targetObjectView);
+                        if (differenceStrategy.MergedViewValueInfos!=null)
+                            MergeObjectViewValueInfos(differenceStrategy, sourceObjectView, targetObjectView);
                         CloneNodes(modelMergedDifference, targetObjectView, sourceObjectView);
                     }
                 }

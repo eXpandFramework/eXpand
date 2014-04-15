@@ -197,14 +197,18 @@ namespace Xpand.Persistent.Base.General {
 
         static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifferenceStrategies strategies,
                                         ModelApplicationBase modelApplicationBase) {
-            var xmls = modelApplicationBases.Cast<IModelApplication>().Select(application =>
-                application.Options).Cast<IModelOptionsMergedDifferenceStrategy>().Where(strategy =>
-                    strategy != null).Select(strategy => strategies.Xml()).Where(s => s != null);
-            foreach (var x in xmls) {
-                string xml = string.Format("<Application><Options>{0}</Options></Application>", x);
-                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
+            foreach (var applicationBase in modelApplicationBases.Cast<IModelApplication>()){
+                var mergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy) applicationBase.Options);
+                if (mergedDifferenceStrategy != null){
+                    var xml = mergedDifferenceStrategy.Xml();
+                    if (!string.IsNullOrEmpty(xml)){
+                        xml = string.Format("<Application>{0}</Application>", xml);
+                        new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
+                    }
+                }
             }
         }
+
         static void UpdateRemovedNodes(IModelNode modelNode) {
             for (int i = modelNode.NodeCount - 1; i >= 0; i--) {
                 var node = modelNode.GetNode(i);
