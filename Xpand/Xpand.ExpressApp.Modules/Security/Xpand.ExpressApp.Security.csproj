@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Core\CurrentUserNameOperator.cs" />
     <Compile Include="Registration\ManageUsersOnLogonController.cs">
       <SubType>Component</SubType>
     </Compile>

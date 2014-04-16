@@ -64,6 +64,7 @@ namespace Xpand.ExpressApp.Security {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            CurrentUserNameOperator.Register();
             if (Application != null) {
                 var roleTypeProvider = Application.Security as IRoleTypeProvider;
                 if (roleTypeProvider != null) {
