@@ -13,6 +13,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Xpo;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Dashboard.Filter {
     public static class Extensions {
@@ -73,8 +74,10 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
 
         public static void SynchronizeModel(this DevExpress.DashboardCommon.Dashboard dashboard, IObjectSpace objectSpace, IDashboardDefinition template) {
             var dataSources = GetDataSources(dashboard, FilterEnabled.Always, template, objectSpace);
-            foreach (var dataSource in dataSources) {
-                dataSource.DataSource.Filter = dataSource.ModelDataSource.SynchronizeFilter(dataSource.DataSource.Filter);
+            foreach (var dataSource in dataSources){
+                var filter = dataSource.ModelDataSource as IModelDashboardDataSourceFilter;
+                if (filter != null)
+                    dataSource.DataSource.Filter = filter.SynchronizeFilter(dataSource.DataSource.Filter);
             }
         }
 
@@ -100,8 +103,11 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
 
         public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
             var dataSources = GetDataSources(dashboard, filterEnabled, template, objectSpace);
-            foreach (var dataSource in dataSources) {
-                dataSource.DataSource.Filter = dataSource.ModelDataSource.ApplyFilter(dataSource.DataSource.Filter);
+            foreach (var adapter in dataSources) {
+                var filter = adapter.ModelDataSource as  IModelDashboardDataSourceFilter;
+                if (filter != null) adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
+                var parameter = adapter.ModelDataSource as IModelDashboardDataSourceParameter;
+                if (parameter != null) parameter.ApplyValue(dashboard.Parameters[parameter.ParameterName]);
             }
         }
 
@@ -115,7 +121,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }).Where(adapter => adapter.ModelDataSource != null);
         }
 
-        private static bool CanApply(IModelDashboardDataSourceFilter modelDashboardDataSource, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
+        private static bool CanApply(IModelDashboardDataSource modelDashboardDataSource, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
             if (modelDashboardDataSource.NodeEnabled&&new[]{FilterEnabled.Always,filterEnabled}.Contains(modelDashboardDataSource.Enabled)) {
                 var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(template, CriteriaOperator.Parse(modelDashboardDataSource.DashboardDefinitionCriteria));
                 return isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
@@ -123,8 +129,25 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             return false;
         }
 
+
         public static string SynchronizeFilter(this IModelDashboardDataSourceFilter modelDataSource, string filter){
             return !string.IsNullOrEmpty(filter) ? Regex.Replace(filter, "( and )??" + modelDataSource.Filter + "( and )?", "", RegexOptions.IgnoreCase) : null;
+        }
+
+        public static void ApplyValue(this IModelDashboardDataSourceParameter parameter, DashboardParameter dashboardParameter){
+            if (parameter.IsCustomFunction) {
+                if (dashboardParameter!=null) {
+                    var criteriaOperator = CriteriaOperator.Parse("Field="+ parameter.ParameterValue);
+                    new CustomFunctionValueProcessor().Process(criteriaOperator);
+                    dashboardParameter.Value = ((OperandValue) ((BinaryOperator) criteriaOperator).RightOperand).Value;
+                }
+            }
+            else {
+                object result;
+                var tryToChange = parameter.ParameterValue.TryToChange(dashboardParameter.Type, out result);
+                if (tryToChange)
+                    dashboardParameter.Value = result;
+            }
         }
 
         public static string ApplyFilter(this IModelDashboardDataSourceFilter modelDataSource, string filterString) {
@@ -143,9 +166,9 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
     class DataSourceAdapter {
         private readonly DataSource _dataSource;
 
-        private readonly IModelDashboardDataSourceFilter _dashboardDataSource;
+        private readonly IModelDashboardDataSource _dashboardDataSource;
 
-        public DataSourceAdapter(DataSource dataSource, IModelDashboardDataSourceFilter dashboardDataSource) {
+        public DataSourceAdapter(DataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
             _dataSource = dataSource;
             _dashboardDataSource = dashboardDataSource;
         }
@@ -154,7 +177,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             get { return _dataSource; }
         }
 
-        public IModelDashboardDataSourceFilter ModelDataSource {
+        public IModelDashboardDataSource ModelDataSource {
             get { return _dashboardDataSource; }
         }
     }

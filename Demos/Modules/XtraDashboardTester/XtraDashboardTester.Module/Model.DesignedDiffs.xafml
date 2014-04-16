@@ -2,7 +2,8 @@
 <Application>
   <DashboardModule>
     <DataSources>
-      <DashboardDataSourceFilter DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />
+      <DashboardDataSourceFilter Id="Filter" DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />
+      <DashboardDataSourceParameter Id="Parameter" DataSourceName="FilteredDataSource" ParameterName="Parameter1" IsCustomFunction="True" ParameterValue="CurrentUserName()" IsNewNode="True" />
     </DataSources>
   </DashboardModule>
 </Application>

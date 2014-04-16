@@ -14,11 +14,16 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
         IModelDashboardModule DashboardModule { get; }
     }
 
+
+    public interface IModelDashboardParameter:IModelNode{
+
+    }
+
     public interface IModelDashboardModule:IModelNode{
         IModelDashboarDataSources DataSources { get; }
     }
     [ModelNodesGenerator(typeof(DashboarDataSourcesNodesGenerator))]
-    public interface IModelDashboarDataSources : IModelNode, IModelList<IModelDashboardDataSourceFilter> {
+    public interface IModelDashboarDataSources : IModelNode, IModelList<IModelDashboardDataSource> {
 
     }
 
@@ -28,18 +33,39 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
         }
     }
 
-    [KeyProperty("DataSourceName"), DisplayProperty("DataSourceName")]
-    [ModelDisplayName("DataSourceFilter")]
-    public interface IModelDashboardDataSourceFilter : IModelNodeEnabled {
-        string DataSourceName { get; set; }
+    [ModelAbstractClass]
+    public interface IModelDashboardDataSource : IModelNodeEnabled{
         [Required]
-        string Filter { get; set; }
+        string DataSourceName { get; set; }
+
         [CriteriaOptions("DashboardDefinitionType")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof (UITypeEditor))]
         string DashboardDefinitionCriteria { get; set; }
+
         [Browsable(false)]
-        Type DashboardDefinitionType { get;  }
+        Type DashboardDefinitionType { get; }
+
         FilterEnabled Enabled { get; set; }
+    }
+
+    
+    [ModelDisplayName("Filter")]
+    public interface IModelDashboardDataSourceFilter : IModelDashboardDataSource{
+        [Required]
+        [Category("Filter")]
+        string Filter { get; set; }
+    }
+
+    [ModelDisplayName("Parameter")]
+    public interface IModelDashboardDataSourceParameter : IModelDashboardDataSource {
+        [Required]
+        [Category("Parameter")]
+        string ParameterName { get; set; }
+        [Required]
+        [Category("Parameter")]
+        string ParameterValue { get; set; }
+        [Category("Parameter")]
+        bool IsCustomFunction { get; set; }
     }
 
     public enum FilterEnabled{
@@ -48,9 +74,9 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
         DesignTime
     }
 
-    [DomainLogic(typeof(IModelDashboardDataSourceFilter))]
+    [DomainLogic(typeof(IModelDashboardDataSource))]
     public class ModelDashboardDataSourceLogic {
-        public static Type Get_DashboardDefinitionType(IModelDashboardDataSourceFilter dashboardDataSourceFilter){
+        public static Type Get_DashboardDefinitionType(IModelDashboardDataSource dashboardDataSource) {
             return typeof (DashboardDefinition);
         }
     }
