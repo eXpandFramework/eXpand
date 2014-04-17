@@ -20,8 +20,11 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         }
 
         protected virtual void ReplaceLayer(ModelApplicationBase model, ModelApplicationBase layer, bool isCurrentUserModel, ShowViewParameters showViewParameters) {
-            if (isCurrentUserModel)
+            if (isCurrentUserModel){
                 ModelApplicationHelper.RemoveLayer(model);
+                layer.Id = "UserDiff";
+                ModelApplicationHelper.AddLayer(model, layer);
+            }
             else
                 model.ReplaceLayer(layer);
         }
