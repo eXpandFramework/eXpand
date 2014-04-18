@@ -233,7 +233,9 @@
     <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
     <None Include="FunctionalTests\FullTextContains\FullTextContains.xafml" />
     <None Include="FunctionalTests\GridView\GridView.ets" />
-    <None Include="FunctionalTests\GridView\ImmediatePostData.xafml" />
+    <None Include="FunctionalTests\GridView\ImmediatePostData.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.Win.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
       <SubType>Designer</SubType>

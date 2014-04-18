@@ -8,16 +8,17 @@ namespace Xpand.ExpressApp.Win.SystemModule{
     public class ImmediatePostDataController : ViewController<ListView> {
         GridView _gridView;
 
-        protected override void OnViewControlsCreated(){
-            base.OnViewControlsCreated();            
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
             var gridControl = View.Editor.Control as GridControl;
-            if (gridControl != null){
+            if (gridControl != null) {
                 _gridView = gridControl.FocusedView as GridView;
-                if (_gridView != null){
+                if (_gridView != null) {
                     var modelColumns = View.Model.Columns.Where(column => column.ImmediatePostData);
                     foreach (var modelColumn in modelColumns){
-                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.PropertyName);
-                        gridColumn.ColumnEdit.EditValueChanged+=ColumnEdit_EditValueChanged;
+                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.ModelMember.MemberInfo.BindingName);
+                        if (gridColumn.ColumnEdit != null)
+                            gridColumn.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
                     }
                 }
             }

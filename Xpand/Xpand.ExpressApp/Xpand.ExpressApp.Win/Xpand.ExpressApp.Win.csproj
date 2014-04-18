@@ -424,7 +424,7 @@
     <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ImmediatePostDataListViewController.cs">
+    <Compile Include="SystemModule\ImmediatePostDataController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SelectedItemSumController.cs">

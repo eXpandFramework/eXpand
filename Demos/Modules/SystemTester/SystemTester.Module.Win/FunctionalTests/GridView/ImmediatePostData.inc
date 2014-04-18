@@ -1,4 +1,4 @@
-﻿#IncludeFile .\Init.inc
+﻿;#IncludeFile .\Init.inc
 *UseModel ImmediatePostData
  IsExternalModel = True
 *Navigate GridView.ImmediateRefresh
