@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -26,6 +27,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
+using Xpand.Xpo.CustomFunctions;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using Fasterflect;
 
@@ -36,6 +38,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardUser {
         public XpandSystemModule() {
+            new FullTextContainsFunction().Register();
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));

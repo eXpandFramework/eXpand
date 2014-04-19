@@ -112,6 +112,7 @@
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UriValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\XpandUtcDateTimeConverter.cs" />
+    <Compile Include="CustomFunctions\FullTextContainsFunction.cs" />
     <Compile Include="DB\IDataStoreExtensions.cs" />
     <Compile Include="DB\XpandDataStoreService.cs" />
     <Compile Include="DB\SchemaColumnSizeUpdater.cs" />
