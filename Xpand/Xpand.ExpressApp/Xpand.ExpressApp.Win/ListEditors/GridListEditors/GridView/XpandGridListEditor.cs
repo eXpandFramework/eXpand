@@ -3,20 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.Data;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Core;
+using DevExpress.LookAndFeel;
+using DevExpress.Utils.Menu;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
+using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.FilterEditor;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
+using Fasterflect;
+using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     [ListEditor(typeof(object), false)]
@@ -187,6 +197,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         event EventHandler<ErrorTypeEventArgs> QueryErrorType;
     }
 
+    public class XpandFilterBuilder : FilterBuilder {
+        public XpandFilterBuilder(FilterColumnCollection columns, IDXMenuManager manager, UserLookAndFeel lookAndFeel,
+            DevExpress.XtraGrid.Views.Base.ColumnView view, FilterColumn fColumn): base(columns, manager, lookAndFeel, view, fColumn){
+        }
+
+        protected override void OnFilterControlCreated(IFilterControl filterControl){
+            base.OnFilterControlCreated(filterControl);
+            var view = (DevExpress.XtraGrid.Views.Base.ColumnView) this.GetFieldValue("view");
+            XpandFilterTreeNodeModel.Criteria = view.ActiveFilterCriteria;
+            fcMain = new XpandGridFilterControl(){
+                UseMenuForOperandsAndOperators = view.OptionsFilter.FilterEditorUseMenuForOperandsAndOperators,
+                AllowAggregateEditing = view.OptionsFilter.FilterEditorAggregateEditing,
+            };
+        }
+    }
+
+
     public class XpandXafGridView : XpandGridView, IColumnView, IQueryErrorType {
         readonly GridListEditorBase _gridListEditor;
 
@@ -199,6 +226,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         protected override XpandGridView CreateInstanceView() {
             return new XpandXafGridView(_gridListEditor);
+        }
+
+        protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn){
+            return new XpandFilterBuilder(filterColumns,GridControl.MenuManager,GridControl.LookAndFeel,this,defaultFilterColumn);
         }
 
         public event EventHandler<ErrorTypeEventArgs> QueryErrorType;
