@@ -20,6 +20,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.BandedGrid;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 
@@ -60,6 +61,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
         BaseGridController _gridController;
 
         public AdvBandedGridView() {
+        }
+
+        protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn) {
+            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn,_gridListEditor.Model.ModelClass);
         }
 
         public override void CancelUpdateCurrentRow() {

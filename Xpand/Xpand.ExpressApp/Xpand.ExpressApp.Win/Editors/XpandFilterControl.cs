@@ -4,16 +4,32 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.FilterEditor;
 using Fasterflect;
+using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.Xpo.CustomFunctions;
+using Xpand.Xpo.Filtering;
 
 namespace Xpand.ExpressApp.Win.Editors {
 
     public static class FilterControlExtensions{
+        public static void RaisePopupMenuShowingX(this IXpandFilterControl filterControl,PopupMenuShowingEventArgs e){
+            if (e.MenuType == FilterControlMenuType.Clause && filterControl.ModelClass != null){
+                var criteriaOperator = new XpandNodeToCriteriaProcessor().Process(e.CurrentNode);
+                var operandProperty = criteriaOperator.GetOperands().OfType<OperandProperty>().First();
+                var modelMember =filterControl.ModelClass.AllMembers.Cast<IModelMemberFullTestContains>()
+                        .FirstOrDefault(member => member.FullText && member.Name == operandProperty.PropertyName);
+                if (modelMember != null){
+                    var dxMenuItem = new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
+                    e.Menu.Items.Add(dxMenuItem);
+                }
+            }
+        }
+
         public static WinFilterTreeNodeModel CreateXModel(this IXpandFilterControl filterControl){
             var control = (FilterControl) filterControl;
             return new XpandFilterTreeNodeModel(control);
@@ -32,13 +48,28 @@ namespace Xpand.ExpressApp.Win.Editors {
     }
 
     public interface IXpandFilterControl{
+        IModelClass ModelClass { get; }
+        Func<CriteriaOperator> Criteria { get; }
         WinFilterTreeNodeModel CreateModel();
         FilterControlFocusInfo FocusInfo { get; set; }
         void RefreshTreeAfterNodeChange();
         void RaiseFilterChanged(FilterChangedEventArgs args);
+        void RaisePopupMenuShowing(PopupMenuShowingEventArgs e);
     }
 
     public class XpandGridFilterControl : GridFilterControl, IXpandFilterControl {
+        private readonly Func<CriteriaOperator> _criteria=() => null;
+
+        public XpandGridFilterControl(Func<CriteriaOperator> criteria, IModelClass modelClass){
+            _criteria = criteria;
+            ModelClass = modelClass;
+        }
+
+        public IModelClass ModelClass { get; private set; }
+
+        public Func<CriteriaOperator> Criteria{
+            get { return _criteria; }
+        }
 
         WinFilterTreeNodeModel IXpandFilterControl.CreateModel() {
             return this.CreateXModel();
@@ -47,6 +78,7 @@ namespace Xpand.ExpressApp.Win.Editors {
         protected override WinFilterTreeNodeModel CreateModel() {
             return ((IXpandFilterControl)this).CreateModel();
         }
+
         FilterControlFocusInfo IXpandFilterControl.FocusInfo {
             get { return FocusInfo; }
             set { FocusInfo = value; }
@@ -59,16 +91,25 @@ namespace Xpand.ExpressApp.Win.Editors {
         void IXpandFilterControl.RaiseFilterChanged(FilterChangedEventArgs args) {
             RaiseFilterChanged(args);
         }
+
         protected override void RaisePopupMenuShowing(PopupMenuShowingEventArgs e) {
             base.RaisePopupMenuShowing(e);
-            if (e.MenuType == FilterControlMenuType.Clause)
-                e.Menu.Items.Add(new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText), this.OnClauseClick) {
-                    Tag = ClauseTypeEnumHelper.FullText
-                });
+            ((IXpandFilterControl) this).RaisePopupMenuShowing(e);
+        }
+
+        void IXpandFilterControl.RaisePopupMenuShowing(PopupMenuShowingEventArgs e){
+            this.RaisePopupMenuShowingX(e);
         }
     }
 
     public class XpandFilterControl : FilterControl,IXpandFilterControl {
+        private readonly Func<CriteriaOperator> _criteria= () => null;
+        private readonly Func<IModelClass> _modelClass=() => null;
+
+        public XpandFilterControl(Func<CriteriaOperator> criteria, Func<IModelClass> modelClass){
+            _criteria = criteria;
+            _modelClass = modelClass;
+        }
 
         public event Action<BaseEdit> EditorActivated;
 
@@ -77,6 +118,14 @@ namespace Xpand.ExpressApp.Win.Editors {
             if (activated != null && baseEdit != null) activated(baseEdit);
         }
 
+        protected override void RaisePopupMenuShowing(PopupMenuShowingEventArgs e) {
+            base.RaisePopupMenuShowing(e);
+            ((IXpandFilterControl)this).RaisePopupMenuShowing(e);
+        }
+
+        void IXpandFilterControl.RaisePopupMenuShowing(PopupMenuShowingEventArgs e) {
+            this.RaisePopupMenuShowingX(e);
+        }
 
         protected override void OnFocusedElementChanged() {
             base.OnFocusedElementChanged();
@@ -91,6 +140,15 @@ namespace Xpand.ExpressApp.Win.Editors {
         protected override void OnKeyDown(KeyEventArgs e) {
             base.OnKeyDown(e);
             InvokeEditorActivated(ActiveEditor);
+        }
+
+
+        public IModelClass ModelClass{
+            get { return _modelClass(); }
+        }
+
+        public Func<CriteriaOperator> Criteria{
+            get { return _criteria; }
         }
 
         WinFilterTreeNodeModel IXpandFilterControl.CreateModel(){
@@ -170,10 +228,14 @@ namespace Xpand.ExpressApp.Win.Editors {
         public XpandCriteriaToTreeProcessor(INodesFactory nodesFactory, IList<CriteriaOperator> skippedHolder) : base(nodesFactory, skippedHolder){
         }
 
+        public object ProcessX(CriteriaOperator criteriaOperator){
+            return this.CallMethod("Process", new[]{typeof (CriteriaOperator)}, criteriaOperator);
+        }
         object ICriteriaVisitor.Visit(FunctionOperator theOperand){
             var skippedHolder = new List<CriteriaOperator>();
             var visit = ((IClientCriteriaVisitor) new CriteriaToTreeProcessorBase(Factory, skippedHolder)).Visit(theOperand);
             if (skippedHolder.Contains(theOperand)&&theOperand.OperatorType==FunctionOperatorType.Custom){
+                skippedHolder.Remove(theOperand);
                 return Factory.Create((ClauseType) ClauseTypeEnumHelper.FullText, (OperandProperty) theOperand.Operands[1],new[]{theOperand.Operands[2]});
             }
             return visit;
@@ -185,16 +247,14 @@ namespace Xpand.ExpressApp.Win.Editors {
             OnNotifyControl+=OnOnNotifyControl;
         }
 
-        public static CriteriaOperator Criteria { get; set; }
-
-
         private void OnOnNotifyControl(FilterChangedEventArgs info){
             if (info.Action == FilterChangedAction.RebuildWholeTree && info.CurrentNode == null&&!_isUpdating){
                 _isUpdating = true;
                 BeginUpdate();
                 RootNode = null;
                 var processor = new XpandCriteriaToTreeProcessor(CreateNodesFactory(),new List<CriteriaOperator>() );
-                var node = (Node) processor.CallMethod("Process",new []{typeof(CriteriaOperator)},Criteria);
+                var criteriaOperator = ((IXpandFilterControl) Control).Criteria();
+                var node = (Node)processor.ProcessX(criteriaOperator);
                 if (AllowCreateDefaultClause && node == null) {
                     node = CreateCriteriaByDefaultProperty();
                 }
@@ -233,8 +293,26 @@ namespace Xpand.ExpressApp.Win.Editors {
     }
 
     public class FilterEditorControl : DevExpress.XtraFilterEditor.FilterEditorControl {
+        private readonly Func<IModelClass> _modelClass=() => null;
+
+        public FilterEditorControl(Func<IModelClass> modelClass){
+            _modelClass = modelClass;
+        }
+
+        public new string EditorText {
+            get { return base.EditorText; }
+            set { base.EditorText = value; }
+        }
+
+        protected override bool CanBeDisplayedByTree(CriteriaOperator criteria){
+            var criteriaOperators = new List<CriteriaOperator>();
+            var processor = new XpandCriteriaToTreeProcessor(new FilterControlNodesFactory(Tree.Model), criteriaOperators);
+            processor.ProcessX(criteria);
+            return !criteriaOperators.Any();
+        }
+
         protected override FilterControl CreateTreeControl(){
-            return new XpandFilterControl();
+            return new XpandFilterControl(() => CriteriaOperator.Parse(EditorText),_modelClass);
         }
     }
 }

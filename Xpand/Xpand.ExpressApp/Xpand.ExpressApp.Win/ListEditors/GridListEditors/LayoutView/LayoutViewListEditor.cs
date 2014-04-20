@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
@@ -93,6 +96,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         public XpandXafLayoutView(GridControl gridControl)
             : base(gridControl) {
         }
+
+        protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns,
+            FilterColumn defaultFilterColumn){
+            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn, _gridListEditor.Model.ModelClass);
+        }
+
         public override void Assign(BaseView v, bool copyEvents) {
             var xafGridView = (IMasterDetailColumnView)v;
             ((IMasterDetailColumnView)this).Window = xafGridView.Window;

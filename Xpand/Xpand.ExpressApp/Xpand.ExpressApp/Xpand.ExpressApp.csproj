@@ -169,6 +169,9 @@
     <Compile Include="SystemModule\Search\DetailViewFullTextSearchController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\Search\FullTextContainsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>
     </Compile>

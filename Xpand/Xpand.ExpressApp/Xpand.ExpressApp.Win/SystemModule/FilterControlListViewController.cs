@@ -76,7 +76,7 @@ Forms.DockStyle.None) {
 
         private void gridControl_HandleCreated(object sender, EventArgs e) {
             ((Forms.Control) sender).HandleCreated-=gridControl_HandleCreated;
-            var filterEditorControl = new Editors.FilterEditorControl();
+            var filterEditorControl = new Editors.FilterEditorControl(() => View.Model.ModelClass);
             var helper = new FilterEditorControlHelper(Application,ObjectSpace);
             helper.Attach(filterEditorControl);
             _filterControl = (XpandFilterControl) filterEditorControl.FilterControl;

@@ -41,6 +41,7 @@ using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.XtraLayout;
 using DevExpress.XtraPrinting;
 using Fasterflect;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {

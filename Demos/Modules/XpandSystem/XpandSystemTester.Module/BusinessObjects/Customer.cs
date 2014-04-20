@@ -1,12 +1,74 @@
-﻿using DevExpress.Persistent.Base;
+﻿using System;
+using System.ComponentModel;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace XpandSystemTester.Module.BusinessObjects{
     [DefaultClassOptions]
     public class Customer : Person{
+        private string _criteria;
+        private string _objectTypeName;
+        private readonly InitializeIndicator _initializeIndicator;
+
         public Customer(Session session)
             : base(session){
+            _initializeIndicator=new InitializeIndicator();
+        }
+        [CriteriaOptions("DataType")]
+        [EditorAlias(EditorAliases.CriteriaPropertyEditorEx)]
+        [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof(ObjectValidatorLargeNonDelayedMember))]
+        [VisibleInListView(true)]
+        [ModelDefault("RowCount", "0")]
+        public string Criteria {
+            get { return _criteria; }
+            set {
+                SetPropertyValue("Criteria", ref _criteria, value);
+            }
+        }
+
+        protected bool IsInitializing {
+            get { return _initializeIndicator.IsInitializing; }
+        }
+
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        [ImmediatePostData, NonPersistent]
+        public Type DataType {
+            get {
+                if (_objectTypeName != null) {
+                    return ReflectionHelper.GetType(_objectTypeName);
+                }
+                return null;
+            }
+            set {
+                string stringValue = value == null ? null : value.FullName;
+                string savedObjectTypeName = ObjectTypeName;
+                try {
+                    if (stringValue != _objectTypeName) {
+                        ObjectTypeName = stringValue;
+                    }
+                }
+                catch (Exception) {
+                    ObjectTypeName = savedObjectTypeName;
+                }
+                if (!IsInitializing) {
+                    _criteria = null;
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public string ObjectTypeName {
+            get {
+                return _objectTypeName;
+            }
+            set {
+                SetPropertyValue("ObjectTypeName", ref _objectTypeName, value);
+            }
         }
 
         [Association, Aggregated]

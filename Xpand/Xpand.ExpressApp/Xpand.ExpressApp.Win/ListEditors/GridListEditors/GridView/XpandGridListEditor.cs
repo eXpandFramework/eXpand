@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -23,6 +22,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Fasterflect;
 using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
@@ -198,15 +198,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     }
 
     public class XpandFilterBuilder : FilterBuilder {
-        public XpandFilterBuilder(FilterColumnCollection columns, IDXMenuManager manager, UserLookAndFeel lookAndFeel,
-            DevExpress.XtraGrid.Views.Base.ColumnView view, FilterColumn fColumn): base(columns, manager, lookAndFeel, view, fColumn){
+        private readonly IModelClass _model;
+
+        public XpandFilterBuilder(FilterColumnCollection columns, IDXMenuManager manager, UserLookAndFeel lookAndFeel, DevExpress.XtraGrid.Views.Base.ColumnView view, FilterColumn fColumn, IModelClass model): base(columns, manager, lookAndFeel, view, fColumn){
+            _model = model;
         }
 
         protected override void OnFilterControlCreated(IFilterControl filterControl){
             base.OnFilterControlCreated(filterControl);
             var view = (DevExpress.XtraGrid.Views.Base.ColumnView) this.GetFieldValue("view");
-            XpandFilterTreeNodeModel.Criteria = view.ActiveFilterCriteria;
-            fcMain = new XpandGridFilterControl(){
+            fcMain = new XpandGridFilterControl(() => view.ActiveFilterCriteria,_model) {
                 UseMenuForOperandsAndOperators = view.OptionsFilter.FilterEditorUseMenuForOperandsAndOperators,
                 AllowAggregateEditing = view.OptionsFilter.FilterEditorAggregateEditing,
             };
@@ -229,7 +230,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         }
 
         protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn){
-            return new XpandFilterBuilder(filterColumns,GridControl.MenuManager,GridControl.LookAndFeel,this,defaultFilterColumn);
+            return this.CreateFilterBuilderDialogEx(filterColumns,defaultFilterColumn,_gridListEditor.Model.ModelClass);
         }
 
         public event EventHandler<ErrorTypeEventArgs> QueryErrorType;

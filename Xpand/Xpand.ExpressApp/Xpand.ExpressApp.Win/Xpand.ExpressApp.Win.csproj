@@ -265,7 +265,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs">
-      <SubType>Component</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\XpandGridView.cs">
       <SubType>Component</SubType>
@@ -310,6 +310,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor.cs" />
+    <Compile Include="PropertyEditors\CriteriaPropertyEditor.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\FilterableEnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\FolderBrowseEditor.cs" />
@@ -408,7 +409,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
-    <Compile Include="SystemModule\FilterControlController.cs">
+    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">

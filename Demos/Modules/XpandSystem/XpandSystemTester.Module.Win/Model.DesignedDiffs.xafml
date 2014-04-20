@@ -1,2 +1,6 @@
-﻿<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="Customer_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" />
+  </Views>
+</Application>
