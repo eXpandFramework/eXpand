@@ -107,7 +107,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var isAttached = Debugger.IsAttached;
             if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)))
                 File.Delete(assemblyFilePath);
-            _fileExistInPath = File.Exists(assemblyFilePath);
+                _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
             }

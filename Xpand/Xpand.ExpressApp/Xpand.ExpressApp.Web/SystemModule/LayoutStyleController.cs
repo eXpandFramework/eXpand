@@ -151,18 +151,19 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             var containerControl = layoutItemTemplateContainer.Controls.OfType<Panel>().FirstOrDefault();
             if (containerControl != null && layoutItemTemplateContainer.LayoutItemControl != containerControl) {
                 var layoutStyle = ((IModelLayoutViewItemStyle)layoutItemTemplateContainer.Model).LayoutStyle;
-                ApplyStyle(layoutStyle.ContainerPanel, containerControl);
+                if (layoutStyle != null)
+                    ApplyStyle(layoutStyle.ContainerPanel, containerControl);
             }
         }
 
         public void ApplyCaptionControlStyle(LayoutItemTemplateContainer layoutItemTemplateContainer) {
             var layoutStyle = ((IModelLayoutViewItemStyle)layoutItemTemplateContainer.Model).LayoutStyle;
-            if (layoutItemTemplateContainer.CaptionControl != null)
+            if (layoutItemTemplateContainer.CaptionControl != null && layoutStyle != null)
                 ApplyStyle(layoutStyle.Caption, layoutItemTemplateContainer.CaptionControl);
         }
 
         public void ApplyContainerCellStyle(WebControl webControl, ILayoutStyle layoutStyle) {
-            if (webControl != null)
+            if (webControl != null && layoutStyle != null)
                 ApplyStyle(layoutStyle.ContainerCell, webControl);
         }
 
@@ -229,7 +230,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         public void ApplyControlStyle(WebControl webControl, ILayoutStyle layoutStyle) {
-            if (webControl != null)
+            if (webControl != null && layoutStyle != null)
                 ApplyStyle(layoutStyle.Control, webControl);
         }
     }
