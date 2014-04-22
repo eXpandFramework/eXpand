@@ -6,6 +6,7 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
@@ -17,6 +18,11 @@ namespace Xpand.Persistent.Base.General {
 
     public static class TypesInfoExtensions {
         private const string PersistentEntityStore = "persistentEntityStore";
+
+        public static IModelClass GetModelClass(this ITypeInfo typeInfo){
+            return CaptionHelper.ApplicationModel.BOModel.GetClass(typeInfo.Type);
+        }
+
         public static XPClassInfo FindDCXPClassInfo(this TypeInfo typeInfo) {
             var xpoTypeInfoSource = XpandModuleBase.XpoTypeInfoSource;
             var xpDictionary = xpoTypeInfoSource.XPDictionary;

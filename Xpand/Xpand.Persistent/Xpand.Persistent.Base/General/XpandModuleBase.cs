@@ -203,6 +203,7 @@ namespace Xpand.Persistent.Base.General {
 
             extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
             extenders.Add<IModelClass, IModelClassEx>();
+            extenders.Add<IModelClass, IModelClassDefaultCriteria>();
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, IModelTypesInfoProvider>();
