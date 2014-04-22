@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -12,6 +13,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid;
+using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.Editors;
 using FilterEditorControl = DevExpress.XtraFilterEditor.FilterEditorControl;
 using Forms = System.Windows.Forms;
@@ -76,7 +78,7 @@ Forms.DockStyle.None) {
 
         private void gridControl_HandleCreated(object sender, EventArgs e) {
             ((Forms.Control) sender).HandleCreated-=gridControl_HandleCreated;
-            var filterEditorControl = new Editors.FilterEditorControl(() => View.Model.ModelClass);
+            var filterEditorControl = new Editors.FilterEditorControl(() => View.Model.ModelClass.AllMembers.Cast<IModelMemberFullTextContains>());
             var helper = new FilterEditorControlHelper(Application,ObjectSpace);
             helper.Attach(filterEditorControl);
             _filterControl = (XpandFilterControl) filterEditorControl.FilterControl;

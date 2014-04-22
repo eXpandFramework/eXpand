@@ -32,6 +32,8 @@ namespace Xpand.Xpo.CustomFunctions{
         public string Format(Type providerType, params string[] operands) {
             if (providerType == typeof(MSSqlConnectionProvider))
                 return string.Format("contains({0}, {1})", operands[0], operands[1]);
+            if (providerType == typeof(MySqlConnectionProvider))
+                return string.Format("match ({0}) against ({1})", operands[0], operands[1]);
             throw new NotSupportedException(string.Concat("This provider is not supported: ",
                 providerType.Name));
         }

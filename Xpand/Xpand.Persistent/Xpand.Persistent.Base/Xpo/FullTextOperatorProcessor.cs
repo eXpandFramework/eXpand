@@ -1,31 +1,88 @@
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
+using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using Xpand.Xpo.CustomFunctions;
+using Xpand.Xpo.Filtering;
 
 namespace Xpand.Persistent.Base.Xpo{
-    public class FullTextOperatorProcessor : CriteriaProcessorBase, ICriteriaVisitor {
-        readonly HashSet<string>  _names=new HashSet<string>();
+    public class FullTextOperatorProcessor : IClientCriteriaVisitor, IQueryCriteriaVisitor {
+        readonly List<XPMemberInfo> _memberInfos=new List<XPMemberInfo>();
 
-        public FullTextOperatorProcessor(HashSet<string> names){
-            _names = names;
+        public FullTextOperatorProcessor(List<XPMemberInfo> memberInfos){
+            _memberInfos = memberInfos;
         }
-        object ICriteriaVisitor.Visit(BinaryOperator theOperator) {
-            Process(theOperator);
-            
+
+        public static object Process(CriteriaOperator op, List<XPMemberInfo> memberInfos) {
+            return op.Accept(new FullTextOperatorProcessor(memberInfos)) ;
+        }
+
+        public object Visit(BetweenOperator theOperator){
+            return IsFullIndexed(theOperator.TestExpression)
+                ? (object) new FunctionOperator(FullTextContainsFunction.FunctionName, theOperator.GetOperators())
+                : theOperator;
+        }
+
+        object ICriteriaVisitor.Visit(BinaryOperator theOperator){
+            return IsFullIndexed(theOperator.LeftOperand)
+                ? (object) new FunctionOperator(FullTextContainsFunction.FunctionName, theOperator.GetOperators())
+                : theOperator;
+        }
+
+        private bool IsFullIndexed(CriteriaOperator theOperator){
+            var queryOperand = theOperator as QueryOperand;
+            string name = queryOperand != null ? queryOperand.ColumnName : ((OperandProperty) theOperator).PropertyName;
+            return _memberInfos.Any(info => info.MappingField == name);
+        }
+
+        public object Visit(UnaryOperator theOperator){
             return theOperator;
         }
 
+        public object Visit(InOperator theOperator){
+            return theOperator;
+        }
+
+        object ICriteriaVisitor.Visit(GroupOperator theOperator) {
+            var criteriaOperators = theOperator.Operands.Select(@operator => @operator.Accept(this)).Cast<CriteriaOperator>().ToList();
+            theOperator.Operands.Clear();
+            theOperator.Operands.AddRange(criteriaOperators);
+            return theOperator;
+        }
+
+        public object Visit(OperandValue theOperand){
+            return theOperand;
+        }
+
         object ICriteriaVisitor.Visit(FunctionOperator theOperator){
-            Process(theOperator);
-            if (theOperator.OperatorType == FunctionOperatorType.Contains) {
-                var propertyName = ((OperandProperty)theOperator.Operands[0]).PropertyName;
-                if (_names.Contains(propertyName)) {
-                    theOperator.OperatorType=FunctionOperatorType.Custom;
+            if (theOperator.OperatorType != FunctionOperatorType.Custom){
+                if (IsFullIndexed(theOperator.Operands[0])){
+                    theOperator.OperatorType = FunctionOperatorType.Custom;
                     theOperator.Operands.Insert(0, new OperandValue(FullTextContainsFunction.FunctionName));
                 }
             }
             return theOperator;
+        }
+
+        object IQueryCriteriaVisitor.Visit(QueryOperand theOperand){
+            return theOperand;
+        }
+
+        public object Visit(QuerySubQueryContainer theOperand){
+            return theOperand;
+        }
+
+        public object Visit(AggregateOperand theOperand){
+            return theOperand;
+        }
+
+        public object Visit(OperandProperty theOperand){
+            return theOperand;
+        }
+
+        public object Visit(JoinOperand theOperand){
+            return theOperand;
         }
     }
 }

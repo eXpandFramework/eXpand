@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
+using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo.DB;
@@ -17,6 +18,10 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static XPDictionary GetXPDictionary(this XafApplication xafApplication){
+            return XpandModuleBase.Dictiorary;
         }
 
         public static bool CanBuildSecurityObjects(this XafApplication xafApplication) {

@@ -20,6 +20,7 @@ using DevExpress.XtraGrid.FilterEditor;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Fasterflect;
+using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
@@ -198,16 +199,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     }
 
     public class XpandFilterBuilder : FilterBuilder {
-        private readonly IModelClass _model;
+        private readonly IEnumerable<IModelMember> _modelMembers;
 
-        public XpandFilterBuilder(FilterColumnCollection columns, IDXMenuManager manager, UserLookAndFeel lookAndFeel, DevExpress.XtraGrid.Views.Base.ColumnView view, FilterColumn fColumn, IModelClass model): base(columns, manager, lookAndFeel, view, fColumn){
-            _model = model;
+        public XpandFilterBuilder(FilterColumnCollection columns, IDXMenuManager manager, UserLookAndFeel lookAndFeel, DevExpress.XtraGrid.Views.Base.ColumnView view, FilterColumn fColumn, IEnumerable<IModelMember> modelMembers): base(columns, manager, lookAndFeel, view, fColumn){
+            _modelMembers = modelMembers;
         }
 
         protected override void OnFilterControlCreated(IFilterControl filterControl){
             base.OnFilterControlCreated(filterControl);
             var view = (DevExpress.XtraGrid.Views.Base.ColumnView) this.GetFieldValue("view");
-            fcMain = new XpandGridFilterControl(() => view.ActiveFilterCriteria,_model) {
+            fcMain = new XpandGridFilterControl(() => view.ActiveFilterCriteria, () => _modelMembers) {
                 UseMenuForOperandsAndOperators = view.OptionsFilter.FilterEditorUseMenuForOperandsAndOperators,
                 AllowAggregateEditing = view.OptionsFilter.FilterEditorAggregateEditing,
             };
@@ -230,7 +231,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         }
 
         protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn){
-            return this.CreateFilterBuilderDialogEx(filterColumns,defaultFilterColumn,_gridListEditor.Model.ModelClass);
+            return this.CreateFilterBuilderDialogEx(filterColumns,defaultFilterColumn,_gridListEditor.Model.GetFullTextMembers());
         }
 
         public event EventHandler<ErrorTypeEventArgs> QueryErrorType;

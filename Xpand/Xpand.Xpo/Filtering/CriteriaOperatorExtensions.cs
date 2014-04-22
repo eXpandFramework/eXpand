@@ -8,7 +8,7 @@ using Fasterflect;
 
 namespace Xpand.Xpo.Filtering {
     public static class CriteriaOperatorExtensions {
-        public static IEnumerable<CriteriaOperator> GetOperands(this CriteriaOperator criteriaOperator) {
+        public static IEnumerable<CriteriaOperator> GetOperators(this CriteriaOperator criteriaOperator) {
             if (criteriaOperator is FunctionOperator)
                 return (IEnumerable<CriteriaOperator>) criteriaOperator.GetPropertyValue("Operands");
             var binaryOperator = criteriaOperator as BinaryOperator;
@@ -16,7 +16,7 @@ namespace Xpand.Xpo.Filtering {
                 return new[]{binaryOperator.LeftOperand, binaryOperator.RightOperand};
             var unaryOperator = criteriaOperator as UnaryOperator;
             if (unaryOperator != null) 
-                return unaryOperator.Operand.GetOperands();
+                return unaryOperator.Operand.GetOperators();
             var betweenOperator = criteriaOperator as BetweenOperator;
             if (betweenOperator != null)
                 return new[] { betweenOperator.TestExpression,betweenOperator.BeginExpression, betweenOperator.EndExpression };

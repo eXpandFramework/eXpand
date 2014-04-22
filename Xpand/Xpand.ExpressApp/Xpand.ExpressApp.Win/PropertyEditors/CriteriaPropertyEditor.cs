@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
+using Xpand.ExpressApp.SystemModule.Search;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using FilterEditorControl = Xpand.ExpressApp.Win.Editors.FilterEditorControl;
 
@@ -23,7 +25,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             var controlHelper = new FilterEditorControlHelper(_application, _objectSpace);
             var filterControl = new FilterEditorControl(() =>{
                 var criteriaObjectType = helper.GetCriteriaObjectType(CurrentObject);
-                return Model.Application.BOModel.GetClass(criteriaObjectType);
+                return Model.Application.BOModel.GetClass(criteriaObjectType).AllMembers.Cast<IModelMemberFullTextContains>();
             });
             controlHelper.Attach(filterControl);
             filterControl.AllowCreateDefaultClause = false;

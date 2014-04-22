@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,6 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.General.Model.Options;
@@ -225,8 +225,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     }
 
     public static class ColumnViewExtennsions {
-        public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IModelClass model){
-            return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,model);
+        public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IEnumerable<IModelMember> modelMembers){
+            return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,modelMembers);
         }
 
         public static string PropertyName(this GridColumn column) {

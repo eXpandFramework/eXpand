@@ -377,6 +377,9 @@
     <Compile Include="SystemModule\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\FullTextAutoFilterRowController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>

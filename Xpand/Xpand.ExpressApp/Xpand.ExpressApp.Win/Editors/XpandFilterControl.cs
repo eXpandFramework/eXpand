@@ -18,11 +18,10 @@ namespace Xpand.ExpressApp.Win.Editors {
 
     public static class FilterControlExtensions{
         public static void RaisePopupMenuShowingX(this IXpandFilterControl filterControl,PopupMenuShowingEventArgs e){
-            if (e.MenuType == FilterControlMenuType.Clause && filterControl.ModelClass != null){
+            if (e.MenuType == FilterControlMenuType.Clause && filterControl.ModelMembers != null){
                 var criteriaOperator = new XpandNodeToCriteriaProcessor().Process(e.CurrentNode);
-                var operandProperty = criteriaOperator.GetOperands().OfType<OperandProperty>().First();
-                var modelMember =filterControl.ModelClass.AllMembers.Cast<IModelMemberFullTestContains>()
-                        .FirstOrDefault(member => member.FullText && member.Name == operandProperty.PropertyName);
+                var operandProperty = criteriaOperator.GetOperators().OfType<OperandProperty>().First();
+                var modelMember =filterControl.ModelMembers.Cast<IModelMemberFullTextContains>().FirstOrDefault(member => member.FullText && member.Name == operandProperty.PropertyName);
                 if (modelMember != null){
                     var dxMenuItem = new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
                     e.Menu.Items.Add(dxMenuItem);
@@ -48,7 +47,7 @@ namespace Xpand.ExpressApp.Win.Editors {
     }
 
     public interface IXpandFilterControl{
-        IModelClass ModelClass { get; }
+        IEnumerable<IModelMember> ModelMembers { get; }
         Func<CriteriaOperator> Criteria { get; }
         WinFilterTreeNodeModel CreateModel();
         FilterControlFocusInfo FocusInfo { get; set; }
@@ -59,13 +58,17 @@ namespace Xpand.ExpressApp.Win.Editors {
 
     public class XpandGridFilterControl : GridFilterControl, IXpandFilterControl {
         private readonly Func<CriteriaOperator> _criteria=() => null;
+        private readonly Func<IEnumerable<IModelMember>> _modelMembers=() => null;
 
-        public XpandGridFilterControl(Func<CriteriaOperator> criteria, IModelClass modelClass){
+        public XpandGridFilterControl(Func<CriteriaOperator> criteria, Func<IEnumerable<IModelMember>> modelMembers) {
             _criteria = criteria;
-            ModelClass = modelClass;
+            _modelMembers = modelMembers;
         }
 
-        public IModelClass ModelClass { get; private set; }
+
+        public IEnumerable<IModelMember> ModelMembers{
+            get { return _modelMembers(); }
+        }
 
         public Func<CriteriaOperator> Criteria{
             get { return _criteria; }
@@ -104,11 +107,11 @@ namespace Xpand.ExpressApp.Win.Editors {
 
     public class XpandFilterControl : FilterControl,IXpandFilterControl {
         private readonly Func<CriteriaOperator> _criteria= () => null;
-        private readonly Func<IModelClass> _modelClass=() => null;
+        private readonly Func<IEnumerable<IModelMember>> _fullTextMembers = () => null;
 
-        public XpandFilterControl(Func<CriteriaOperator> criteria, Func<IModelClass> modelClass){
+        public XpandFilterControl(Func<CriteriaOperator> criteria, Func<IEnumerable<IModelMember>> fullTextMembers) {
             _criteria = criteria;
-            _modelClass = modelClass;
+            _fullTextMembers = fullTextMembers;
         }
 
         public event Action<BaseEdit> EditorActivated;
@@ -143,8 +146,8 @@ namespace Xpand.ExpressApp.Win.Editors {
         }
 
 
-        public IModelClass ModelClass{
-            get { return _modelClass(); }
+        public IEnumerable<IModelMember> ModelMembers {
+            get { return _fullTextMembers(); }
         }
 
         public Func<CriteriaOperator> Criteria{
@@ -293,10 +296,10 @@ namespace Xpand.ExpressApp.Win.Editors {
     }
 
     public class FilterEditorControl : DevExpress.XtraFilterEditor.FilterEditorControl {
-        private readonly Func<IModelClass> _modelClass=() => null;
+        private readonly Func<IEnumerable<IModelMember>> _fullTextMembers = () => null;
 
-        public FilterEditorControl(Func<IModelClass> modelClass){
-            _modelClass = modelClass;
+        public FilterEditorControl(Func<IEnumerable<IModelMember>> fullTextMembers) {
+            _fullTextMembers = fullTextMembers;
         }
 
         public new string EditorText {
@@ -312,7 +315,7 @@ namespace Xpand.ExpressApp.Win.Editors {
         }
 
         protected override FilterControl CreateTreeControl(){
-            return new XpandFilterControl(() => CriteriaOperator.Parse(EditorText),_modelClass);
+            return new XpandFilterControl(() => CriteriaOperator.Parse(EditorText),_fullTextMembers);
         }
     }
 }

@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Utils.Linq;
 using Fasterflect;
@@ -34,6 +35,14 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public static class ModelNodeExtensions {
+        public static XPClassInfo GetXPClassInfo(this IModelClass modelClass){
+            return XpandModuleBase.Dictiorary.GetClassInfo(modelClass.TypeInfo.Type);
+        }
+
+        public static XPMemberInfo GetXpmemberInfo(this IModelMember modelMember){
+            return modelMember.ModelClass.GetXPClassInfo().FindMember(modelMember.Name);
+        }
+
         public static IModelNode GetParent<TNode>(this IModelNode node) where TNode : IModelNode {
             var modelNode = node;
             while (!(modelNode is TNode)) {

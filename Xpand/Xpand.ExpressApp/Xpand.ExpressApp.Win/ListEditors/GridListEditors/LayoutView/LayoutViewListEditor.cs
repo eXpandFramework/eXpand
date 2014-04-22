@@ -13,6 +13,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
@@ -99,7 +100,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
 
         protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns,
             FilterColumn defaultFilterColumn){
-            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn, _gridListEditor.Model.ModelClass);
+            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn, _gridListEditor.Model.GetFullTextMembers());
         }
 
         public override void Assign(BaseView v, bool copyEvents) {
