@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         }
 
         bool CanAccessDeletedObjects(string context) {
-            return !(context == "Delete" && !ObjectSpace.IsDeletionDefferedType(View.ObjectTypeInfo.Type));
+            return !(context == "Delete" && !ObjectSpace.IsDeletionDeferredType(View.ObjectTypeInfo.Type));
         }
 
         private void OnSelectorCustomGetAggregatedObjectsToValidate(object sender, CustomGetAggregatedObjectsToValidateEventArgs args) {

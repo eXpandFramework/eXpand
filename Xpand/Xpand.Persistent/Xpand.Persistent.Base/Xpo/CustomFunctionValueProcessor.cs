@@ -7,10 +7,10 @@ namespace Xpand.Persistent.Base.Xpo{
         object ICriteriaVisitor.Visit(BetweenOperator theOperator){
             Process(theOperator);
             var leftOperandValue = GetCustomFunctionOperandValue(theOperator.BeginExpression);
-            if (leftOperandValue != null)
+            if (!ReferenceEquals(leftOperandValue,null))
                 theOperator.BeginExpression = leftOperandValue;
             var rightOperandValue = GetCustomFunctionOperandValue(theOperator.EndExpression);
-            if (rightOperandValue != null)
+            if (!ReferenceEquals(rightOperandValue,null))
                 theOperator.EndExpression = rightOperandValue;
             return theOperator;
         }
@@ -18,17 +18,17 @@ namespace Xpand.Persistent.Base.Xpo{
         object ICriteriaVisitor.Visit(BinaryOperator theOperator) {
             Process(theOperator);
             var leftOperandValue = GetCustomFunctionOperandValue(theOperator.LeftOperand);
-            if (leftOperandValue!=null)
+            if (!ReferenceEquals(leftOperandValue,null))
                 theOperator.LeftOperand=leftOperandValue;
             var rightOperandValue = GetCustomFunctionOperandValue(theOperator.RightOperand);
-            if (rightOperandValue!=null)
+            if (!ReferenceEquals(rightOperandValue,null))
                 theOperator.RightOperand=rightOperandValue;
             return theOperator;
         }
 
         private OperandValue GetCustomFunctionOperandValue(CriteriaOperator theOperator){
             var functionOperator = theOperator as FunctionOperator;
-            return functionOperator != null? (functionOperator.OperatorType == FunctionOperatorType.Custom
+            return !ReferenceEquals(functionOperator,null)? (functionOperator.OperatorType == FunctionOperatorType.Custom
                     ? new OperandValue(theOperator.Accept(this)): null): null;
         }
 

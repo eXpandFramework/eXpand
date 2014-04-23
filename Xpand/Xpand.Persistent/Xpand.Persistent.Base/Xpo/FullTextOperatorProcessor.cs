@@ -32,7 +32,7 @@ namespace Xpand.Persistent.Base.Xpo{
 
         private bool IsFullIndexed(CriteriaOperator theOperator){
             var queryOperand = theOperator as QueryOperand;
-            string name = queryOperand != null ? queryOperand.ColumnName : ((OperandProperty) theOperator).PropertyName;
+            string name = !ReferenceEquals(queryOperand,null) ? queryOperand.ColumnName : ((OperandProperty) theOperator).PropertyName;
             return _memberInfos.Any(info => info.MappingField == name);
         }
 
