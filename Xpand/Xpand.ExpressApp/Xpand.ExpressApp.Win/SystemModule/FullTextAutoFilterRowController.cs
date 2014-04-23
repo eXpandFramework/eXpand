@@ -20,9 +20,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void GridViewOnColumnFilterChanged(object sender, EventArgs eventArgs){
             var gridView = ((GridView) sender);
             var activeFilterCriteria = gridView.ActiveFilterCriteria;
-            var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo());
-            FullTextOperatorProcessor.Process(activeFilterCriteria,memberInfos.ToList());
-            gridView.ActiveFilterCriteria=activeFilterCriteria;
+            if (activeFilterCriteria!=null){
+                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo());
+                if (memberInfos.Any()){
+                    FullTextOperatorProcessor.Process(activeFilterCriteria, memberInfos.ToList());
+                    gridView.ActiveFilterCriteria = activeFilterCriteria;
+                }
+            }
         }
     }
 }
