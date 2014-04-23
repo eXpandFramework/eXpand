@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
@@ -8,6 +9,7 @@ namespace Xpand.Persistent.Base.General.Model{
     [ModelAbstractClass]
     public interface IModelClassDefaultCriteria : IModelClass{
         [Required]
+        [Category("eXpand")]
         string DefaultCriteria { get; set; }
     }
 
