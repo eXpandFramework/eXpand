@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnViewControlsCreated();
             var columnsListEditor = View.Editor as ColumnsListEditor;
             var gridView = columnsListEditor.GridView();
-            gridView.ColumnFilterChanged+=GridViewOnColumnFilterChanged;
+            if (gridView != null) gridView.ColumnFilterChanged+=GridViewOnColumnFilterChanged;
         }
 
         private void GridViewOnColumnFilterChanged(object sender, EventArgs eventArgs){
