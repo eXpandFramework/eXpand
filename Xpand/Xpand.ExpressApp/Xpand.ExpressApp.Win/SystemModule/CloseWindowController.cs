@@ -8,13 +8,18 @@ using DevExpress.XtraEditors;
 namespace Xpand.ExpressApp.Win.SystemModule{
     public class CloseWindowController:WindowController{
         public event FormClosingEventHandler FormClosing;
+        public event EventHandler<HandledEventArgs> CanClose;
+        public event EventHandler<CancelEventArgs> QueryCanClose;
+
+        protected virtual void OnQueryCanClose(CancelEventArgs e) {
+            var handler = QueryCanClose;
+            if (handler != null) handler(this, e);
+        }
 
         protected virtual void OnFormClosing(object sender, FormClosingEventArgs e){
             FormClosingEventHandler handler = FormClosing;
             if (handler != null) handler(sender, e);
         }
-
-        public event EventHandler<HandledEventArgs> CanClose;
 
         protected virtual void OnCanClose(HandledEventArgs e){
             EventHandler<HandledEventArgs> handler = CanClose;
@@ -71,10 +76,13 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         void FormOnClosing(object sender, CancelEventArgs cancelEventArgs) {
-            if (!_editing && !_isLoggingOff&&!_mainFormClosing)
-                cancelEventArgs.Cancel = true;
+            if (!_editing && !_isLoggingOff&&!_mainFormClosing){
+                var eventArgs = new CancelEventArgs();
+                OnQueryCanClose(eventArgs);
+                cancelEventArgs.Cancel = eventArgs.Cancel || Frame.View.CanClose();
+            }
         }
-        
+
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
             if (!_editing && !_isLoggingOff&&!_mainFormClosing) {
                 e.Cancel =  e.CloseReason == CloseReason.UserClosing;
