@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -38,7 +37,6 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardUser {
         public XpandSystemModule() {
-            new FullTextContainsFunction().Register();
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
@@ -85,6 +83,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            new FullTextContainsFunction().Register();
             if (RuntimeMode) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
