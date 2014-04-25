@@ -12,8 +12,9 @@ namespace Xpand.Persistent.Base.General {
             frame.CallMethod("OnViewChanged", frame);
         }
 
-        public static IEnumerable<T> GetControllers<T>(this Frame frame, Type controllerType) where T:Controller {
-            return frame.Controllers.OfType<T>();
+        public static IEnumerable<T> GetControllers<T>(this Frame frame) where T:Controller {
+// ReSharper disable once RedundantEnumerableCastCall
+            return frame.Controllers.Cast<Controller>().OfType<T>();
         }
 
         public static Controller GetController(this Frame frame, Type controllerType) {

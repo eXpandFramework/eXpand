@@ -45,10 +45,7 @@ namespace Xpand.ExpressApp.MapView.Web {
         private T GetMemberValue<T>(object obj, IModelMember modelMember) {
             if (modelMember == null) return default(T);
             var value = modelMember.MemberInfo.GetValue(obj);
-            if (value != null)
-                return (T)value;
-            else
-                return default(T);
+            return value != null ? (T) value : default(T);
         }
 
         private string GetMemberValueToString(object obj, IModelMember modelMember) {

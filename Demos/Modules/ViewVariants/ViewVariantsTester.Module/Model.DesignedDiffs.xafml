@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="ViewVariantsTester" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ModifyViewVariants" ImageName="Action_CloneMerge_Clone_Object">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Clone" ImageName="Action_CloneMerge_Clone_Object" />
+          <ChoiceActionItem Id="Delete" ImageName="Action_Delete" />
+          <ChoiceActionItem Id="Rename" ImageName="Action_Edit" />
+        </ChoiceActionItems>
+      </Action>
+    </Actions>
+  </ActionDesign>
   <Views>
     <ListView Id="TestClass_ListView" IsViewClonable="True" />
   </Views>

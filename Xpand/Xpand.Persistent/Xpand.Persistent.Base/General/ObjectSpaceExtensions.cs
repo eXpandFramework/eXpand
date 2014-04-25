@@ -84,23 +84,23 @@ namespace Xpand.Persistent.Base.General {
             objectSpace.Rollback();
         }
 
-        public static IEnumerable<ClassType> GetNonDeletedObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
-            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !(objectSpace.IsDeletedObject(type)));
+        public static IEnumerable<TClassType> GetNonDeletedObjectsToSave<TClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<TClassType>().Where(type => !(objectSpace.IsDeletedObject(type)));
         }
-        public static IEnumerable<ClassType> GetDeletedObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
-            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => (objectSpace.IsDeletedObject(type)));
-        }
-
-        public static IEnumerable<ClassType> GetNewObjectsToSave<ClassType>(this IObjectSpace objectSpace) {
-            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => objectSpace.IsNewObject(type));
-        }
-        public static IEnumerable<ClassType> GetObjectsToUpdate<ClassType>(this IObjectSpace objectSpace) {
-            return objectSpace.GetObjectsToSave(true).OfType<ClassType>().Where(type => !objectSpace.IsNewObject(type));
+        public static IEnumerable<TClassType> GetDeletedObjectsToSave<TClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<TClassType>().Where(type => (objectSpace.IsDeletedObject(type)));
         }
 
-        public static IList<ClassType> GetObjects<ClassType>(this IObjectSpace objectSpace, Expression<Func<ClassType, bool>> expression) {
-            CriteriaOperator criteriaOperator = new XPQuery<ClassType>(((XPObjectSpace)objectSpace).Session).TransformExpression(expression);
-            return objectSpace.GetObjects<ClassType>(criteriaOperator);
+        public static IEnumerable<TClassType> GetNewObjectsToSave<TClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<TClassType>().Where(type => objectSpace.IsNewObject(type));
+        }
+        public static IEnumerable<TClassType> GetObjectsToUpdate<TClassType>(this IObjectSpace objectSpace) {
+            return objectSpace.GetObjectsToSave(true).OfType<TClassType>().Where(type => !objectSpace.IsNewObject(type));
+        }
+
+        public static IList<TClassType> GetObjects<TClassType>(this IObjectSpace objectSpace, Expression<Func<TClassType, bool>> expression) {
+            CriteriaOperator criteriaOperator = new XPQuery<TClassType>(((XPObjectSpace)objectSpace).Session).TransformExpression(expression);
+            return objectSpace.GetObjects<TClassType>(criteriaOperator);
         }
 
         public static bool NeedReload(this XPObjectSpace objectSpace, object currentObject) {
@@ -137,9 +137,16 @@ namespace Xpand.Persistent.Base.General {
             return classInfo;
         }
 
-        public static T FindObject<T>(this XPObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior) {
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
-            CriteriaOperator criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
+        public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior=PersistentCriteriaEvaluationBehavior.BeforeTransaction) {
+            CriteriaOperator criteriaOperator;
+            Type objectType=typeof(T);
+            if (objectType.IsInterface){
+                objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+                criteriaOperator = GetCriteriaOperator(objectType, expression, (XPObjectSpace)objectSpace);
+            }
+            else{
+                criteriaOperator=new XPQuery<T>(((XPObjectSpace) objectSpace).Session).TransformExpression(expression);
+            }
             bool inTransaction = persistentCriteriaEvaluationBehavior == PersistentCriteriaEvaluationBehavior.InTransaction;
             return (T)objectSpace.FindObject(objectType, criteriaOperator, inTransaction);
         }
