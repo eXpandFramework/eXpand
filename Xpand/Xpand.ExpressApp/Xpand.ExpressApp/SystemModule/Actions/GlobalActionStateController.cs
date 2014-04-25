@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
         [Category("eXpand")]
         bool Active { get; set; }
     }
-    public class GlobalActionStateController:WindowController,IModelExtender {
+    public class GlobalActionStateController:ViewController,IModelExtender {
         protected override void OnActivated() {
             base.OnActivated();
             var modelActions = new HashSet<string>(Application.Model.ActionDesign.Actions.Cast<IModelActionState>().Where(state => !state.Active).Select(state => state.Id));
