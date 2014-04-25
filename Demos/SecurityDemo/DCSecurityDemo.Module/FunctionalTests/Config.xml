@@ -35,8 +35,8 @@
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=13.2.9.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=13.2.9.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=13.2.9.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=13.2.9.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WinAppUiBin" Value="[ConfigPath]\..\..\DCSecurityDemo.UiLevel.Win\Bin\EasyTest" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Win\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Web" />
