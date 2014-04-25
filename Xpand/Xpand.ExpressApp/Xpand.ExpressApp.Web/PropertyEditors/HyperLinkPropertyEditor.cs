@@ -6,9 +6,10 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxEditors;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [PropertyEditor(typeof(String), "HyperLinkPropertyEditor", false)]
+    [PropertyEditor(typeof(String), EditorAliases.HyperLinkPropertyEditor, false)]
     [CancelClickEventPropagation]
     public class HyperLinkPropertyEditor : ASPxPropertyEditor {
         public const string UrlEmailMask =
