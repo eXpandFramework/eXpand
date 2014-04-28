@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
-using EmailTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Registration;
@@ -39,7 +38,7 @@ namespace EmailTester.Module.DatabaseUpdate {
                 emailTemplate.Body = "The Status of (@Model.Subject) changed to (@Model.Status)";
             }
             var adminRole = ObjectSpace.GetAdminRole("Admin");
-            var adminUser = (User) adminRole.GetUser("Admin");
+            var adminUser = (XpandUser) adminRole.GetUser("Admin");
             adminUser.Email = "apostolis.bekiaris@gmail.com";
 
             var userRole = ObjectSpace.GetRole("User");

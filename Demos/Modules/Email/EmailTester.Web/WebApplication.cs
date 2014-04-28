@@ -103,7 +103,7 @@ namespace EmailTester.Web {
             // _securityStrategyComplex
             // 
             _securityStrategyComplex.Authentication = _authenticationStandard;
-            _securityStrategyComplex.UserType = typeof (User);
+            _securityStrategyComplex.UserType = typeof (XpandUser);
             _securityStrategyComplex.RoleType = typeof (XpandRole);
             // 
             // _authenticationStandard

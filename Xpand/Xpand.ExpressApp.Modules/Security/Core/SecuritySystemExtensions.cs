@@ -43,6 +43,22 @@ namespace Xpand.ExpressApp.Security.Core {
     }
     public static class SecuritySystemExtensions {
 
+        public static void NewSecurityStrategyComplex<TAuthentation, TLogonParameter>(this XafApplication application)
+            where TAuthentation : AuthenticationBase {
+            application.NewSecurityStrategyComplex(typeof(TAuthentation),typeof(TLogonParameter));
+        }
+
+        public static void NewSecurityStrategyComplex(this XafApplication application,Type authethicationType=null, Type logonParametersType=null){
+            var parametersType = logonParametersType ?? typeof(XpandLogonParameters);
+            AuthenticationStandard authenticationStandard = new XpandAuthenticationStandard(typeof(XpandUser), parametersType);
+            if(authethicationType!=null){
+                authenticationStandard = (AuthenticationStandard) authethicationType.CreateInstance(typeof (XpandUser), parametersType);
+            }
+            var security = new SecurityStrategyComplex(typeof(XpandUser), typeof(XpandRole), authenticationStandard);
+            application.Security=security;
+
+        }
+
         public static SecuritySystemRoleBase GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {

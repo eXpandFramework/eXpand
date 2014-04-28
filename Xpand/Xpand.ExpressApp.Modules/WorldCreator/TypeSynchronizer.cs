@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         public void SynchronizeTypes(string connectionString) {
             using (var session = new Session { ConnectionString = connectionString }) {
                 using (var types = new XPCollection<XPObjectType>(session)) {
-                    IEnumerable<XPObjectType> xpObjectTypes = types.Where(objectType => ReflectionHelper.FindType(objectType.TypeName) != null).ToList();
+                    IEnumerable<XPObjectType> xpObjectTypes = types.Where(objectType => FindType(objectType.TypeName) != null).ToList();
                     var sqlMultiDataStoreProxy = new MultiDataStoreProxy(connectionString);
                     foreach (var connstring in GetConnectionStrings(sqlMultiDataStoreProxy.DataStoreManager, xpObjectTypes, connectionString)) {
                         if (connstring != connectionString) {
@@ -31,9 +32,20 @@ namespace Xpand.ExpressApp.WorldCreator {
             }
         }
 
+        private static Type FindType(string name){
+            Type type = null;
+            try{
+                type = ReflectionHelper.FindType(name);
+            }
+            catch (ReflectionTypeLoadException e){
+                Tracing.Tracer.LogError(e);
+            }
+            return type;
+        }
+
         public IEnumerable<string> GetConnectionStrings(DataStoreManager dataStoreManager, IEnumerable<XPObjectType> xpObjectTypes,
                                                         string exculdeString) {
-            return xpObjectTypes.Select(type => dataStoreManager.GetConnectionString(ReflectionHelper.FindType(type.TypeName))).Distinct().Where(s => s != exculdeString);
+            return xpObjectTypes.Select(type => dataStoreManager.GetConnectionString(FindType(type.TypeName))).Distinct().Where(s => s != exculdeString);
         }
 
         void SynchronizeTypes(string connectionString, IEnumerable<XPObjectType> xpObjectTypes) {

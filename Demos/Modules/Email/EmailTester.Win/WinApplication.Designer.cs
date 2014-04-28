@@ -52,7 +52,7 @@ namespace EmailTester.Win {
             // _securityStrategyComplex
             // 
             this._securityStrategyComplex.Authentication = this._authenticationStandard;
-            this._securityStrategyComplex.UserType = typeof(User);
+            this._securityStrategyComplex.UserType = typeof(XpandUser);
             this._securityStrategyComplex.RoleType = typeof(XpandRole);
             // 
             // _authenticationStandard

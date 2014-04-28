@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -18,6 +20,10 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static ReadOnlyCollection<Controller> ActualControllers(this ControllersManager controllersManager){
+            return (ReadOnlyCollection<Controller>) controllersManager.GetPropertyValue("ActualControllers");
         }
 
         public static XPDictionary GetXPDictionary(this XafApplication xafApplication){

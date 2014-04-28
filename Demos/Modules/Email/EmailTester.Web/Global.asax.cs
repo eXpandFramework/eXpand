@@ -1,11 +1,9 @@
 using System;
 using System.Configuration;
 using System.Web;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
-using EmailTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 
 namespace EmailTester.Web {
@@ -31,8 +29,8 @@ namespace EmailTester.Web {
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
-            var security = new SecurityStrategyComplex(typeof(User), typeof(XpandRole), new AuthenticationStandard());
-            WebApplication.Instance.Security = security;
+            
+            WebApplication.Instance.NewSecurityStrategyComplex();
 
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();

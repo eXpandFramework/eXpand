@@ -19,7 +19,11 @@ namespace Xpand.Persistent.Base.General {
     public static class TypesInfoExtensions {
         private const string PersistentEntityStore = "persistentEntityStore";
 
-        public static IModelClass GetModelClass(this ITypeInfo typeInfo){
+        public static bool IsDomainComponent(this Type type){
+            return type.Attribute<DomainComponentAttribute>() != null ||new ReflectionDictionary().QueryClassInfo(type) != null;
+        }
+
+        public static IModelClass ModelClass(this ITypeInfo typeInfo){
             return CaptionHelper.ApplicationModel.BOModel.GetClass(typeInfo.Type);
         }
 
