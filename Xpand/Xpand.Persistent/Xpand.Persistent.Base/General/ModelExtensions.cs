@@ -179,15 +179,14 @@ namespace Xpand.Persistent.Base.General {
                 var id = modelMergedDifference.Parent.Parent.Id();
                 var mergeDifferences = modelApplicationBases.Cast<IModelApplication>().Select(application =>
                     application.Views[id]).OfType<IModelObjectViewMergedDifferences>().Where(view =>
-                        view != null && view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
+                        view != null && view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences).ToArray();
                 viewId = mergeDifferences.Select(GetViewIdCore).First(value => !string.IsNullOrEmpty(value));
             }
             return viewId;
         }
 
-        static string GetViewIdCore(IModelMergedDifference modelMergedDifference) {
-            return Regex.Match(((ModelNode)modelMergedDifference).Xml, "View=\"([^\"]*)",
-                               RegexOptions.Singleline | RegexOptions.IgnoreCase).Groups[1].Value;
+        static string GetViewIdCore(IModelMergedDifference modelMergedDifference){
+            return Regex.Match(((ModelNode)modelMergedDifference).Xml, "View=\"([^\"]*)",RegexOptions.Singleline | RegexOptions.IgnoreCase).Groups[1].Value;
         }
 
         static ModelApplicationBase _strategiesModel;
@@ -197,15 +196,14 @@ namespace Xpand.Persistent.Base.General {
                 var xml = string.Format("<Application><Options>{0}</Options></Application>", ((ModelNode)strategies).Xml);
                 var modelApplicationBase = ((ModelApplicationBase) application).CreatorInstance.CreateModelApplication();
                 new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                ReadFromOtherLayers(modelApplicationBases, strategies, modelApplicationBase);
+                ReadFromOtherLayers(modelApplicationBases, modelApplicationBase);
                 UpdateRemovedNodes(modelApplicationBase);
                 _strategiesModel = modelApplicationBase;
             }
             return _strategiesModel;
         }
 
-        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifferenceStrategies strategies,
-                                        ModelApplicationBase modelApplicationBase) {
+        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases,ModelApplicationBase modelApplicationBase) {
             foreach (var applicationBase in modelApplicationBases.Cast<IModelApplication>()){
                 var mergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy) applicationBase.Options);
                 if (mergedDifferenceStrategy != null){
