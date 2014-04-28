@@ -438,6 +438,7 @@
     <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
     <Compile Include="XpandBaseCustomObject.cs" />
     <Compile Include="Xpo\CustomFunctionValueProcessor.cs" />
+    <Compile Include="Xpo\Extensions.cs" />
     <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
     <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />

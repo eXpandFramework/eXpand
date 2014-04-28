@@ -91,6 +91,7 @@ namespace Xpand.ExpressApp.Security.Registration {
 
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
             e.ShowViewParameters.TargetWindow = TargetWindow.Current;
+            e.ShowViewParameters.Controllers.Add(new RegistrationDialogController());
         }
 
         protected virtual void ConfigureDialogController(DialogController dialogController) {
