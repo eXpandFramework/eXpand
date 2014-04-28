@@ -91,15 +91,15 @@
   
   <Target Name="Build" DependsOnTargets="FixReferences">
     <MSBuild Projects="@(ProjectFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);DeployTarget=Package;PackageLocation=MyProject.zip;CreatePackageOnPublish=True" />
-<!--    <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />-->
-<!--    <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />-->
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);" />
+    <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(ProjectFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
-<!--    <MSBuild Projects="@(DemoFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />-->
-<!--    <MSBuild Projects="@(DemoTesterFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />-->
+	<MSBuild Projects="@(DemoFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(DemoTesterFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
@@ -148,7 +148,7 @@
   <ItemGroup>
   	<EasyTests Include="$(MSBuildProjectDirectory)\Demos\$(EasyTestFilter)**\AutoTest.ets"/>	
   	<EasyTestLogs Include="$(MSBuildProjectDirectory)\Demos\$(EasyTestFilter)**\TestsLog.xml"/>
-    <EasyTestReqs Include="$(XpandPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandPath)\Xpand.EasyTest.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll"/>
     <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
@@ -184,7 +184,7 @@
   </Target>
   <Target Name="Report" DependsOnTargets="Clean;Build;Copy">
     <MakeDir Directories="$(ArtifactDirectory)" />
-    <CreateItem Include="$(XpandPath)\Xpand.*.dll;">
+    <CreateItem Include="$(XpandDLLPath)\Xpand.*.dll;">
       <Output ItemName="fxAssemblies" TaskParameter="Include" />
     </CreateItem>
     <!--
@@ -213,7 +213,7 @@
   <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
   <Target Name="Installer">
     <MakeDir Directories="$(InstallerFolder);" />
-    <CreateItem Include="$(XpandPath)\*.dll;$(XpandPath)\*.exe;$(XpandPath)\*.config;">
+    <CreateItem Include="$(XpandDLLPath)\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config;">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
@@ -228,7 +228,7 @@
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
     <Exec Command="Resource\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
     <CreateItem Include="setup.exe">
-      <!--Exclude="$(XpandPath)\*.locked" -->
+      <!--Exclude="$(XpandDLLPath)\*.locked" -->
       <Output ItemName="setupFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
