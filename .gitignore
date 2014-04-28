@@ -57,3 +57,4 @@ TestsLog.xml
 **/FunctionalTests/*.Web_View.html
 **/ModelAdaptor/*.dll
 PublicKeyToken.txt
+**/UnusableNodes*.xml

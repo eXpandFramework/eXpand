@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="Export" Active="False" />
+    </Actions>
+  </ActionDesign>
+  <Options>
+    <Athentication>
+      <AnonymousAuthentication Enabled="True" />
+      <AutoAthentication Enabled="True" />
+    </Athentication>
+    <MergedDifferenceStrategies>
+      <MergedDifferenceStrategy Id="EverythingButLayout">
+        <MergedViewValueInfos>
+          <ListViewValueInfos>
+            <MergedViewValueInfo Name="EditorType" IsNewNode="True" />
+          </ListViewValueInfos>
+        </MergedViewValueInfos>
+      </MergedDifferenceStrategy>
+    </MergedDifferenceStrategies>
+  </Options>
+  <Views>
+    <ListView Id="DocsBaseObject_ListView" ShowSelectionColumn="False" />
+    <ListView Id="Module_ListView">
+      <GridViewOptions>
+        <SettingsPager Mode="ShowAllRecords" Visible="False" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>

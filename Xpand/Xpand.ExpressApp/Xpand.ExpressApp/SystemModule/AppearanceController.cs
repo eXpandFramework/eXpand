@@ -150,7 +150,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 obj = propertyInfo.Get(obj);
             }
             var property = type.Property(propertyName);
-            return new Tuple<PropertyInfo, object, Font>(property, obj, (Font)property.Get(obj));
+            return property!=null ? new Tuple<PropertyInfo, object, Font>(property, obj, (Font)property.Get(obj)) : null;
         }
 
     }

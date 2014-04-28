@@ -75,7 +75,7 @@ namespace Xpand.ExpressApp.ImportWizard {
         }
 
         private static CriteriaOperator GetDefaultCriteria(IMemberInfo memberInfo, object value){
-            var criteria = CriteriaOperator.Parse(((IModelClassDefaultCriteria)memberInfo.Owner.GetModelClass()).DefaultCriteria);
+            var criteria = CriteriaOperator.Parse(((IModelClassDefaultCriteria)memberInfo.Owner.ModelClass()).DefaultCriteria);
             var dictionary = new Dictionary<string, object>{{memberInfo.Name, value}};
             new BinaryOperatorValueMapperCriteriaProcessor(dictionary).Process(criteria);
             return criteria;

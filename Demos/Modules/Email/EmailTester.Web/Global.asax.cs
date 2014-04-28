@@ -1,7 +1,6 @@
 using System;
 using System.Configuration;
 using System.Web;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
 using Xpand.ExpressApp.Security.Core;

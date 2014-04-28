@@ -2,11 +2,8 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Utils;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.Security.Registration;
-using Xpand.Persistent.Base.Security;
 
 namespace EmailTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
@@ -18,8 +15,7 @@ namespace EmailTester.Module.DatabaseUpdate {
                 var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Subject = "User activation";
                 emailTemplate.Body = string.Format("A new user @Model.User.UserName has been created. To activate the account please click the following link {0}@Model.User.Activation",
-                                                   ((IModelRegistration)
-                                                    ((IModelOptionsRegistration) CaptionHelper.ApplicationModel.Options).Registration).ActivationHost+"?ua=");
+                                                   "http://localhost:50822/"+"?ua=");
                 
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Subject = "pass forgotten";

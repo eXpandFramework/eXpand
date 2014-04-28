@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C729AAD-7626-4668-A7F1-35F7D240489D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.Docs.Module.Web</RootNamespace>
+    <AssemblyName>Xpand.Docs.Module.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Printing.v13.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v13.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FileAttachment.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FileAttachment.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.HtmlPropertyEditor.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.HtmlPropertyEditor.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.IO.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.MapView.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.MapView.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NCarousel.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.NCarousel.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Scheduler.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Scheduler.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="WebModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebModule.Designer.cs">
+      <DependentUpon>WebModule.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebModule.resx">
+      <DependentUpon>WebModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xpand.Docs.Module\Xpand.Docs.Module.csproj">
+      <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
+      <Name>Xpand.Docs.Module</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Editors\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ReadMe.txt" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

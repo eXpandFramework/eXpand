@@ -12,11 +12,9 @@
     <RootNamespace>EmailTester.Web</RootNamespace>
     <AssemblyName>EmailTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -108,6 +106,10 @@
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -209,12 +211,10 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

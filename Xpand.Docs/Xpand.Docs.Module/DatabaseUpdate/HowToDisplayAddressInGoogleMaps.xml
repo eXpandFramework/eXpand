@@ -1,0 +1,75 @@
+﻿<div class="post-body entry-content">
+  <p>
+    Open <a href="http://documentation.devexpress.com/#Xaf/CustomDocument2579" target="_blank">Application </a><a href="http://documentation.devexpress.com/#Xaf/CustomDocument2830" target="_blank">Model editor</a>&nbsp;to configure from where the module will take its data. This requires that we locate the Customer in the BOModel node and simply change the attributes as illustrated below.
+  </p>
+  <p>
+    <a href="http://lh3.ggpht.com/-_bUVlAlYo3A/UkIIV-J1RxI/AAAAAAAAB1s/wxNmhL1gP2g/s1600-h/image2.png">
+      <img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="http://lh4.ggpht.com/-tl5FcpjsEhY/UkIIWh8r9KI/AAAAAAAAB10/Na1_z36E8Oo/image_thumb.png?imgmax=800" width="637" height="327" />
+    </a>
+  </p>
+  <p>
+    <em>Step3</em>: To display the Customer Addresses, the MapView module provides the MapListEditor. Simply install the MapViewWebModule and assign the list editor to the Customer_ListView.
+  </p>
+  <p>
+    <a href="http://lh5.ggpht.com/-QvRjexhfIi4/UkIIXx2rHKI/AAAAAAAAB18/79K8OWr7r1Q/s1600-h/image5.png">
+      <img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="http://lh4.ggpht.com/-2Cn-Q8lzRO8/UkIIZHhFa5I/AAAAAAAAB2E/-hlu_1z6xXY/image_thumb1.png?imgmax=800" width="718" height="415" />
+    </a>
+  </p>
+  <p>
+    <em>Step4</em>: Run the XAF web app and see the results in the map!
+  </p>
+  <p>
+    <a href="http://lh5.ggpht.com/-YGrilgBgmqU/UkIIcujQxwI/AAAAAAAAB2M/83e94Vzvlgs/s1600-h/image8.png">
+      <img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="http://lh6.ggpht.com/-1iAYjEsPi8Q/UkIIe5kcA5I/AAAAAAAAB2U/vgync3QpR1M/image_thumb2.png?imgmax=800" width="830" height="867" />
+    </a>
+  </p>
+  <p>
+    <strong>Bonus scenario: </strong>Display a detail view of the mapped address.
+  </p>
+  <p>
+    <a href="http://www.expandframework.com/forum/profile/userid-494.html">Sergej Derjabkin</a> also contributed webmaster detail functionality which is available with XpandSystemAspNetModule so install it as in <em>Step1</em> and set the MasterDetailMode attribute to ListViewAndDetailView. Youi ‘ll need to override the SupportMasterDetailMode of your WebApplication descendant and return true.
+  </p>
+  <p>
+    <a href="http://lh5.ggpht.com/-twOTNsWKzJ0/UkIIgpxEk9I/AAAAAAAAB2c/RA3QOgrrvIU/s1600-h/image11.png">
+      <img title="image" style="border-left-width: 0px; border-right-width: 0px; background-image: none; border-bottom-width: 0px; padding-top: 0px; padding-left: 0px; margin: 0px; display: inline; padding-right: 0px; border-top-width: 0px" border="0" alt="image" src="http://lh3.ggpht.com/-WC-qOHuwI8s/UkIIiPWo0AI/AAAAAAAAB2k/6Kx8m8kqDhc/image_thumb3.png?imgmax=800" width="784" height="534" />
+    </a>
+  </p>
+  <p>Simple and fast – the XAF way!</p>
+  <p>
+    <a href="http://www.expandframework.com/forum/profile/userid-494.html">Sergej Derjabkin</a> released his MapView module as a preview in eXpand v13.1.7.2 and asked me to get your feedback in order to develop further, so feel free to thank him personally and ask your questions or even contribute your code or ideas in <a href="http://www.expandframework.com/forum.html">eXpand forums</a>. To see MapView module in action use the Demos/Modules/MapView/MapViewTester.sln found in <a href="http://www.expandframework.com/" target="_blank">eXpandFramework</a> sources.
+  </p>
+  <table style="width: 400px" cellspacing="6" cellpadding="6">
+    <tbody>
+      <tr>
+        <td style="border-top: black 1px solid; border-bottom: black 1px solid; background-color: #edebe0">
+          <p>
+            <a href="http://feeds.feedburner.com/XAF" target="_blank">Subscribe to XAF feed</a>
+            <br />
+            <a href="http://feeds.feedburner.com/expandframeworkfeed" target="_blank">Subscribe to community feed</a>
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="float:left; margin-left:10px;">
+
+
+    <table cellpadding="6" cellspacing="6" style="width: 400px">
+      <tbody>
+        <tr>
+          <td style="border-top: black 1px solid; border-bottom: black 1px solid; background-color: #edebe0">
+            <p>
+              <a href="http://feeds.feedburner.com/XAF" target="_blank">Subscribe to XAF feed</a>
+              <br />
+              <a href="http://feeds.feedburner.com/expandframeworkfeed" target="_blank">Subscribe to community feed</a>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="http://digg.com/submit?phase=3&amp;url=http://apobekiaris.blogspot.gr/2013/09/a-google-map-module-for-xaf-web.html" target="_blank">
+      <img alt="DiggIt!" src="http://sites.google.com/site/xafpoint/xafpointblogfiles/91x17-digg-button.gif?attredirects=0" />
+    </a>
+  </div>
+  <div style="clear: both;"></div>
+</div>

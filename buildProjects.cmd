@@ -18,6 +18,9 @@ call ".\Xpand.DLL\GACInstaller.exe"
 echo Installing Toolbox Items...
 call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"
 
+echo Building Xpand.Docs...
+%msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Xpand.Docs\Xpand.Docs.sln"
+
 echo Building Demo Projects...
 %msbuild% /nologo /t:Rebuild /verbosity:quiet /p:Configuration=%configuration% ".\Demos\AllDemos.sln"
 

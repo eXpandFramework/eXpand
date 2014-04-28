@@ -124,9 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportWizResourceLocalizer.cs" />
-    <Compile Include="Controllers\ImportWizViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ImportWizViewController.cs" />
     <Compile Include="Controllers\ImportWizViewController.Designer.cs">
       <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </Compile>
