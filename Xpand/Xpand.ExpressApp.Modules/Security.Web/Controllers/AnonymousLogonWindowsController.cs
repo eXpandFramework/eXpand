@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Web;
 using System.Web.Security;
 using DevExpress.ExpressApp;
@@ -9,15 +10,16 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
+using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 
 namespace Xpand.ExpressApp.Security.Web.Controllers {
-    public class AnonymousLogonWindowsController : Security.Controllers.AnonymousLogonWindowsController {
+    public class AnonymousLogonController : Security.Controllers.AnonymousLogonController {
         string _userName;
         int _loginAttempts;
 
-        public AnonymousLogonWindowsController() {
+        public AnonymousLogonController() {
             var popupWindowShowAction = new PopupWindowShowAction(this, "LogonAnonymous", "Security") { Caption = "Login" };
             popupWindowShowAction.Execute+=PopupWindowShowActionOnExecute;
             popupWindowShowAction.CustomizePopupWindowParams+=PopupWindowShowActionOnCustomizePopupWindowParams;
@@ -51,7 +53,6 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
         void LoginAnonymously(AnonymousLogonParameters anonymousLogonParameters) {
             anonymousLogonParameters.AnonymousLogin = false;
             ObjectSerializer.WriteObjectPropertyValues(null, anonymousLogonParameters.Storage, anonymousLogonParameters);
-
             SecuritySystem.Instance.Logoff();
             HttpContext.Current.Session.Abandon();
             FormsAuthentication.SignOut();
@@ -67,6 +68,7 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             args.View=_loginAttempts>=3?LogonAttemptsAmountedToLimitDetailView():detailView;
             var registrationControllers = XpandSecurityModuleBase.CreateRegistrationControllers(Application);
             args.DialogController.Controllers.AddRange(registrationControllers);
+            args.DialogController.SaveOnAccept = false;
             args.DialogController.Activated+=DialogControllerOnActivated;
         }
 
@@ -74,7 +76,14 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             var dialogController = ((DialogController) sender);
             dialogController.Activated-=DialogControllerOnActivated;
             dialogController.Deactivated+=DialogControllerOnDeactivated;
-            dialogController.Frame.GetController<ManageUsersOnLogonController>().CustomActiveKey += OnCustomActiveKey;
+            var manageUsersOnLogonController = dialogController.Frame.GetController<ManageUsersOnLogonController>();
+            manageUsersOnLogonController.CustomActiveKey += OnCustomActiveKey;
+            manageUsersOnLogonController.CustomProccessedLogonParameter+=ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
+            manageUsersOnLogonController.CustomProccessedLogonParameter += ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
+        }
+
+        private void ManageUsersOnLogonControllerOnCustomProccessedLogonParameter(object sender, HandledEventArgs handledEventArgs){
+            handledEventArgs.Handled =((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled;
         }
 
         void OnCustomActiveKey(object sender, CustomActiveKeyArgs e) {
@@ -83,8 +92,12 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
 
         void DialogControllerOnDeactivated(object sender, EventArgs eventArgs) {
             var dialogController = ((DialogController) sender);
-            dialogController.Deactivated-=DialogControllerOnDeactivated;
-            dialogController.Frame.GetController<ManageUsersOnLogonController>().CustomActiveKey -= OnCustomActiveKey;
+            dialogController.Activated -= DialogControllerOnActivated;
+            dialogController.Deactivated -= DialogControllerOnDeactivated;
+            var manageUsersOnLogonController = dialogController.Frame.GetController<ManageUsersOnLogonController>();
+            manageUsersOnLogonController.CustomActiveKey -= OnCustomActiveKey;
+            manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
+            manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
         }
 
     }

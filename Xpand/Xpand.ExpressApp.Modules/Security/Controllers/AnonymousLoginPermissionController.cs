@@ -3,9 +3,9 @@ using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Controllers {
-    public abstract class AnonymousLogonWindowsController:WindowController {
+    public abstract class AnonymousLogonController:WindowController {
         
-        protected AnonymousLogonWindowsController() {
+        protected AnonymousLogonController() {
             TargetWindowType = WindowType.Main;
         }
         protected override void OnActivated() {
