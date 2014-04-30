@@ -148,6 +148,7 @@
     <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
     <Compile Include="General\Model\DefaultMember.cs" />
