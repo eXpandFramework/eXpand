@@ -53,8 +53,8 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
             ExecutionContextGroup = ContextLogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
 
-        
-        private Type _objectTypeData;
+
+        private Type _objectTypeData = typeof(PersistentBase);
 
         [RuleRequiredField]
         [ValueConverter(typeof (TypeValueConverter))]
