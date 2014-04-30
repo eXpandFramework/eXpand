@@ -12,14 +12,12 @@ namespace EmailTester.Module.DatabaseUpdate {
             base.UpdateDatabaseAfterUpdateSchema();
             var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
+                
                 var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
-                emailTemplate.Subject = "User activation";
-                emailTemplate.Body = string.Format("A new user @Model.User.UserName has been created. To activate the account please click the following link {0}@Model.User.Activation",
-                                                   "http://localhost:50822/"+"?ua=");
+                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");;
                 
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
-                emailTemplate.Subject = "pass forgotten";
-                emailTemplate.Body = "We created a temporary password (@Model.Password) for the UserName (@Model.User.UserName). Please login to reset it";
+                emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
                 
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Subject = "New Customer";

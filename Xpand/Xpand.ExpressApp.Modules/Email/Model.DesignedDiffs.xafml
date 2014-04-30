@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.Email.BusinessObjects.EmailTemplate" ImageName="ModelEditor_CreatableItems_Object" />
+  </BOModel>
   <Views>
     <DetailView Id="EmailOperationPermissionData_DetailView">
       <Layout>

@@ -13,6 +13,17 @@ namespace Xpand.ExpressApp.Email.BusinessObjects {
 
         public EmailTemplate(Session session) : base(session) {
         }
+        public void Configure(EmailTemplateConfig config, string acivationHost=null) {
+            if (config == EmailTemplateConfig.UserActivation){
+                Subject = "User activation";
+                Body = string.Format("A new user @Model.User.UserName has been created. To activate the account please click the following link {0}@Model.User.Activation",
+                                                   acivationHost + "?ua=");
+            }
+            else{
+                Subject = "pass forgotten";
+                Body = "We created a temporary password (@Model.Password) for the UserName (@Model.User.UserName). Please login to reset it";
+            }
+        }
 
         [EditorAlias(EditorAliases.HtmlPropertyEditor), RuleRequiredField, Size(-1)]
         [Index(2)]
@@ -39,5 +50,10 @@ namespace Xpand.ExpressApp.Email.BusinessObjects {
                 }
             }
         }
+    }
+
+    public enum EmailTemplateConfig{
+        UserActivation,
+        PassForgotten
     }
 }
