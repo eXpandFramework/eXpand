@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Xpo;
+using Fasterflect;
 using Xpand.Docs.Module.BusinessObjects;
+using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
@@ -21,22 +25,57 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             base(objectSpace, currentDBVersion) {
         }
 
+
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             var moduleChild = ObjectSpace.FindObject<ModuleChild>(null);
-            
             if (moduleChild==null){
                 var moduleTypes = GetModuleTypes();
-                var childModules = ObjectSpace.CreateModuleChilds(moduleTypes);
+                var childModules = ObjectSpace.GetModuleChilds(moduleTypes);
                 foreach (var childModule in childModules){
                     childModule.Value.CreateArtifacts(childModule.Key);
                     childModule.Value.CreateExtenderInterfaces(childModule.Key);
                 }
                 CreateSecurityObjects();
                 UpdateMapViewModule(childModules);
+                CreateRegistrationEmailTemplates();
+                CreateObjects();
                 ObjectSpace.CommitChanges();
                 throw new NotImplementedException("Please restart");
             }
+
+            CreateObjects();
+        }
+
+        private void CreateObjects(){
+            if (ObjectSpace.FindObject<ModuleArtifact>(artifact => artifact.Type == ModuleArtifactType.Action) == null){
+                var moduleTypes = GetModuleTypes();
+                var controllers = moduleTypes.SelectMany(type => type.Assembly.GetTypes()).Where(type => !type.IsAbstract&&typeof(Controller).IsAssignableFrom(type)).Select(type => type.CreateInstance()).Cast<Controller>();
+                foreach (var controller in controllers){
+                    var controllerName = controller.GetType().Name;
+                    var controllerArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact 
+                        => artifact.Type==ModuleArtifactType.Controller&&artifact.Name==controllerName,PersistentCriteriaEvaluationBehavior.InTransaction);
+                    foreach (var action in controller.Actions){
+                        var name = action.Id;
+                        var actionArtifact =ObjectSpace.FindObject<ModuleArtifact>(artifact 
+                            => artifact.Name==name&&artifact.Type==ModuleArtifactType.Action,PersistentCriteriaEvaluationBehavior.InTransaction)?? ObjectSpace.CreateObject<ModuleArtifact>();
+                        actionArtifact.Name = name;
+                        actionArtifact.Type = ModuleArtifactType.Action;
+                        actionArtifact.Text = action.ToolTip;
+                        actionArtifact.ModuleChilds.AddRange(controllerArtifact.ModuleChilds);
+                        actionArtifact.Artifacts.Add(controllerArtifact);
+                        controllerArtifact.Artifacts.Add(actionArtifact);
+                    }
+                }
+            }
+        }
+
+        private void CreateRegistrationEmailTemplates(){
+            var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+            emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
+
+            emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+            emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
         }
 
         private void UpdateMapViewModule(Dictionary<Type, ModuleChild> childModules){
@@ -55,7 +94,7 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
         private void CreateSecurityObjects(){
             var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
             var adminRole = ObjectSpace.GetAdminRole("Admin");
-            var adminUser = (XpandUser)adminRole.GetUser("Admin");
+            var adminUser = (XpandUser)adminRole.GetUser("Admin", ConfigurationManager.AppSettings["AdminDefaultPass"]);
             adminUser.Email = "apostolis.bekiaris@gmail.com";
 
             var anonymousRole = ObjectSpace.GetAnonymousRole("Anonymous");

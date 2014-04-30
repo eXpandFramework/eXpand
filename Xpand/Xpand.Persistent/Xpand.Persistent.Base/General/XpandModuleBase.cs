@@ -26,6 +26,7 @@ using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
@@ -491,6 +492,7 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("CustomizeTypesInfo"))
                 return;
+            ModelValueOperator.Register();
             foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null)) {
                 memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInListViewAttribute(false));

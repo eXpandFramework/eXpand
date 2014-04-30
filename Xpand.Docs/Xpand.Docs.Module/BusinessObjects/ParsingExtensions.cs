@@ -104,11 +104,12 @@ namespace Xpand.Docs.Module.BusinessObjects {
             moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.ViewItem);
             moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.ListEditor);
             moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.Permission);
-            var moduleArtifacts = moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.Controller);
+            var controllers = moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.Controller);
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            foreach (var moduleArtifact in moduleArtifacts){
-                var extenderInterfaces = moduleChild.CreateExtenderInterfaces(moduleArtifact.Key);
-                moduleArtifact.Value.Artifacts.AddRange(extenderInterfaces);
+            foreach (var pair in controllers){
+                var extenderInterfaces = moduleChild.CreateExtenderInterfaces(pair.Key);
+                pair.Value.Artifacts.AddRange(extenderInterfaces);
+                moduleChild.CreateArtifacts(moduleType, ModuleArtifactType.Action);
             }
             InterfaceBuilder.SkipAssemblyCleanup = false;
             moduleChild.CreateArtifacts( moduleType, ModuleArtifactType.BusinessObject);
@@ -134,12 +135,14 @@ namespace Xpand.Docs.Module.BusinessObjects {
                 : (assemblyName.EndsWith(".Web") ? Platform.Web : Platform.Both);
         }
 
-        public static Dictionary<Type, ModuleChild> CreateModuleChilds(this IObjectSpace objectSpace, IEnumerable<Type> moduleTypes) {
+        public static Dictionary<Type, ModuleChild> GetModuleChilds(this IObjectSpace objectSpace, IEnumerable<Type> moduleTypes) {
             var moduleChildren = new Dictionary<Type, ModuleChild>();
             foreach (var moduleType in moduleTypes) {
-                var moduleChild = objectSpace.CreateObject<ModuleChild>();
-                moduleChild.AssemblyName = moduleType.Assembly.GetName().Name;
-                moduleChild.Name = moduleType.Name;
+                var assemblyName = moduleType.Assembly.GetName().Name;
+                var name = moduleType.Name;
+                var moduleChild =objectSpace.FindObject<ModuleChild>(child => child.AssemblyName==assemblyName&&child.Name==name)?? objectSpace.CreateObject<ModuleChild>();
+                moduleChild.AssemblyName = assemblyName;
+                moduleChild.Name = name;
                 moduleChild.Platform = GetPlatform(moduleChild.AssemblyName);
                 moduleChildren.Add(moduleType, moduleChild);
             }

@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Docs.Web", "Xpand.Doc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Docs.Module.Win", "Xpand.Docs.Module.Win\Xpand.Docs.Module.Win.csproj", "{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Docs.Win", "Xpand.Docs.Win\Xpand.Docs.Win.csproj", "{D05D93DF-312D-4D4E-B980-726871EC7833}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,14 +51,6 @@ Global
 		{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}.Test|Any CPU.Build.0 = EasyTest|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{D05D93DF-312D-4D4E-B980-726871EC7833}.Test|Any CPU.Build.0 = EasyTest|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

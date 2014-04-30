@@ -32,7 +32,7 @@
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
 	  <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
-    <XpandDocsSitePath>c:\11</XpandDocsSitePath>
+    <XpandDocsSitePath></XpandDocsSitePath>
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
@@ -91,7 +91,7 @@
   
   <Target Name="Build" DependsOnTargets="FixReferences">
     <MSBuild Projects="@(ProjectFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);" />
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(DemoFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(DemoTesterFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
   </Target>
@@ -129,6 +129,7 @@
   </Target>
   
   <Target Name="PusblishXpandDocsSite">
+      <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;DefineConstants=$(DefineConstants)" />
       <ItemGroup>
           <PackagedFiles Include="$(XpandDocsPath)\Xpand.Docs.Web\**\*.*;"
                 Exclude="$(XpandDocsPath)\**\*.csproj;$(XpandDocsPath)\**\*.resx;$(XpandDocsPath)\**\*.log;$(XpandDocsPath)\**\*.bak;$(XpandDocsPath)\Xpand.Docs.Web\obj\**\*.*;$(XpandDocsPath)\Xpand.Docs.Web\Properties\*.*;$(XpandDocsPath)\Xpand.Docs.Web\**\*.cs;$(XpandDocsPath)\Xpand.Docs.Web\*.config"/>

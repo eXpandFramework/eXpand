@@ -20,6 +20,19 @@
       </OwnMembers>
     </Class>
   </BOModel>
+  <Email>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
+      <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="NoReply" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="NoReply" CurrentObjectEmailMember="Email" IsNewNode="True" />
+    </Rules>
+    <SmtpClientContexts>
+      <SmtpClientContext Id="NoReply" SenderEmail="noreply@expandframework.com" Host="localhost" UseDefaultCredentials="True" IsNewNode="True" />
+    </SmtpClientContexts>
+  </Email>
   <NavigationItems NavigationStyle="TreeList" DefaultChildItemsDisplayStyle="List">
     <Items>
       <Item Id="Default" Index="0">
@@ -35,12 +48,13 @@
         <Items IsNewNode="True">
           <Item Id="Document_ListView" ViewId="Document_ListView" ObjectKey="" ImageName="BO_List" Index="0" IsNewNode="True" />
           <Item Id="ModuleArtifact_ListView" ViewId="ModuleArtifact_ListView" ObjectKey="" Index="0" Caption="Everything" ImageName="Action_StateMachine" IsNewNode="True" />
-          <Item Id="@0935b74b-e6c5-45e6-8ed1-347c8b0f40c2" ViewId="ModuleArtifact_ListView_Controller" Caption="Controller" Index="1" ImageName="ModelEditor_Controllers" IsNewNode="True" />
-          <Item Id="ListEditor" Caption="ListEditor" ViewId="ModuleArtifact_ListView_ListEditor" Index="2" ImageName="ModelEditor_ImageSources" IsNewNode="True" />
-          <Item Id="ViewItem" ViewId="ModuleArtifact_ListView_VIewItem" Caption="View Item" Index="3" ImageName="Navigation_Item_Dashboard" IsNewNode="True" />
-          <Item Id="Business Object" Index="4" ImageName="BO_Person" Caption="Business Object" ViewId="ModuleArtifact_ListView_BusinessObject" IsNewNode="True" />
+          <Item Id="Actions" Index="2" ImageName="Action_SimpleAction" ViewId="ModuleArtifact_ListView_Action" Caption="Action" IsNewNode="True" />
+          <Item Id="Business Object" Index="3" ImageName="BO_Person" Caption="Business Object" ViewId="ModuleArtifact_ListView_BusinessObject" IsNewNode="True" />
+          <Item Id="@0935b74b-e6c5-45e6-8ed1-347c8b0f40c2" ViewId="ModuleArtifact_ListView_Controller" Caption="Controller" Index="4" ImageName="ModelEditor_Controllers" IsNewNode="True" />
           <Item Id="Permission" Index="4" ImageName="BO_Security_Permission_Object" ViewId="ModuleArtifact_ListView_Permission" Caption="Permission" IsNewNode="True" />
-          <Item Id="Model" Index="5" ImageName="Action_EditModel" IsNewNode="True">
+          <Item Id="ListEditor" Caption="ListEditor" ViewId="ModuleArtifact_ListView_ListEditor" Index="5" ImageName="ModelEditor_ImageSources" IsNewNode="True" />
+          <Item Id="ViewItem" ViewId="ModuleArtifact_ListView_VIewItem" Caption="View Item" Index="6" ImageName="Navigation_Item_Dashboard" IsNewNode="True" />
+          <Item Id="Model" Index="7" ImageName="Action_EditModel" IsNewNode="True">
             <Items IsNewNode="True">
               <Item Id="ExtendedInterface_ListView" ViewId="ExtendedInterface_ListView" ObjectKey="" ImageName="ModelEditor_Class_Object" IsNewNode="True" />
               <Item Id="ExtenderInterface_ListView" ImageName="ModelEditor_ModelMerge" ViewId="ExtenderInterface_ListView" IsNewNode="True" />
@@ -60,7 +74,7 @@
         </MergedViewValueInfos>
       </MergedDifferenceStrategy>
     </MergedDifferenceStrategies>
-    <Registration Enabled="True" />
+    <Registration Enabled="False" />
   </Options>
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.2.9.0" IsNewNode="True" />
@@ -214,6 +228,11 @@
     <ListView Id="ModuleArtifact_ListView" MasterDetailMode="ListViewAndDetailView">
       <Columns>
         <ColumnInfo Id="Type" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_Action" MasterDetailMode="ListViewAndDetailView" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,Action#" Caption="Action">
+      <Columns>
+        <ColumnInfo Id="Type" Index="-1" />
       </Columns>
     </ListView>
     <ListView Id="ModuleArtifact_ListView_BusinessObject" MasterDetailMode="ListViewAndDetailView" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,BusinessObject#" Caption="Business Object">

@@ -36,6 +36,7 @@ namespace Xpand.Docs.Module.BusinessObjects{
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_Controller")]
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_Permission")]
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_BusinessObject")]
+    [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_Action")]
     [DefaultProperty("Name")]
     public class ModuleArtifact : DocsBaseObject, INameProvider, ITreeNode{
         private XpandUser _creator;
@@ -113,7 +114,8 @@ namespace Xpand.Docs.Module.BusinessObjects{
         Model,
         Document,
         Permission,
-        BusinessObject
+        BusinessObject,
+        Action
     }
 
     [DefaultClassOptions]
