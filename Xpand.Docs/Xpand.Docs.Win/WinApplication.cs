@@ -2,6 +2,7 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 //using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win;
 
 namespace Xpand.Docs.Win {
@@ -9,6 +10,7 @@ namespace Xpand.Docs.Win {
     public partial class DocsWindowsFormsApplication : XpandWinApplication {
         public DocsWindowsFormsApplication() {
             InitializeComponent();
+            this.NewSecurityStrategyComplex();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

@@ -3,9 +3,6 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
-using AnonymousLogonParameters = Xpand.ExpressApp.Security.Web.AuthenticationProviders.AnonymousLogonParameters;
 
 namespace Xpand.Docs.Web {
     public class Global : HttpApplication {
@@ -28,7 +25,6 @@ namespace Xpand.Docs.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            WebApplication.Instance.NewSecurityStrategyComplex<AnonymousAuthenticationStandard, AnonymousLogonParameters>();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

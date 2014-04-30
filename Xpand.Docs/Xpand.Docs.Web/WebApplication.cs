@@ -8,6 +8,8 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.Docs.Module;
 using Xpand.Docs.Module.Web;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.ExpressApp.Web;
 
 namespace Xpand.Docs.Web{
@@ -20,6 +22,7 @@ namespace Xpand.Docs.Web{
 
         public DocsAspNetApplication(){
             InitializeComponent();
+            this.NewSecurityStrategyComplex<AnonymousAuthenticationStandard, AnonymousLogonParameters>();
         }
 
         protected override bool SupportMasterDetailMode{
@@ -35,7 +38,7 @@ namespace Xpand.Docs.Web{
             e.Updater.Update();
             e.Handled = true;
 #else
-            if (true){
+            if (Debugger.IsAttached){
                 e.Updater.Update();
                 e.Handled = true;
             }

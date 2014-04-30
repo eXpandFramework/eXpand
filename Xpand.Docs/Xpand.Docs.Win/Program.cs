@@ -29,7 +29,7 @@ namespace Xpand.Docs.Win {
             }
 #endif
             try {
-                winApplication.NewSecurityStrategyComplex();
+                
                 winApplication.Setup();
                 winApplication.Start();
             }
