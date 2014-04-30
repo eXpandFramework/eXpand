@@ -149,13 +149,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior=PersistentCriteriaEvaluationBehavior.BeforeTransaction) {
-            CriteriaOperator criteriaOperator;
+            CriteriaOperator criteriaOperator = null;
             Type objectType=typeof(T);
             if (objectType.IsInterface){
                 objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
                 criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
             }
-            else{
+            else if (expression!=null){
                 criteriaOperator=new XPQuery<T>(((XPObjectSpace) objectSpace).Session).TransformExpression(expression);
             }
             bool inTransaction = persistentCriteriaEvaluationBehavior == PersistentCriteriaEvaluationBehavior.InTransaction;
