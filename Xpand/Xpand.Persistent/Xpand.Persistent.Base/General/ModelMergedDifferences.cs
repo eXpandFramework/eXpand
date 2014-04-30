@@ -47,15 +47,28 @@ namespace Xpand.Persistent.Base.General {
         void AddDifferenceLayers(ModelNode node, IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, List<ModelApplicationBase> modulesDifferences) {
             var master = (ModelApplicationBase)((ModelApplicationBase)node.Application).Master;
             foreach (ModelMergedDifferenceInfo mergedDifferenceInfo in mergedDifferenceses) {
-                var mergedViewId = mergedDifferenceInfo.MergedViewId;
-                var modelApplications = modulesDifferences.Cast<IModelApplication>().Where(application => application.Views[mergedViewId] != null);
-                foreach (var view in modelApplications.SelectMany(application => application.Views.OfType<IModelObjectView>().Where(objectView
-                    => objectView.Id == mergedViewId))) {
-                    var modelApplicationBase = CreateInheritanceLayer(node, (ModelApplicationBase)view.Application, mergedDifferenceInfo, master);
+                CollectModulesDifferences(modulesDifferences, mergedDifferenceInfo, (s, application, modelMergedDifferenceInfo) => {
+                    var modelApplicationBase = CreateInheritanceLayer(node, (ModelApplicationBase)application, modelMergedDifferenceInfo, master);
                     master.InsertLayer(master.LayersCount - 1, modelApplicationBase);
-                }
+                });
             }
             master.CallMethod("EnsureNodes");
+        }
+
+        void CollectModulesDifferences(IEnumerable<ModelApplicationBase> modulesDifferences, ModelMergedDifferenceInfo mergedDifferenceInfo, Action<string, IModelApplication, ModelMergedDifferenceInfo> action) {
+            var mergedViewId = mergedDifferenceInfo.MergedViewId;
+            var modelApplications = modulesDifferences.Cast<IModelApplication>().Where(application => application.Views[mergedViewId] != null);
+            foreach (var modelApplication in modelApplications) {
+                foreach (var modelView in modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(view
+                => view.Id == mergedViewId && view.MergedDifferences != null && view.MergedDifferences.Any())) {
+                    foreach (var modelMergedDifference in modelView.MergedDifferences) {
+                        var id = modelMergedDifference.View.Id();
+                        var modelMergedDifferenceInfo = new ModelMergedDifferenceInfo(mergedDifferenceInfo.ModelMergedDifference, id);
+                        CollectModulesDifferences(modulesDifferences, modelMergedDifferenceInfo, action);
+                    }
+                }
+                action(mergedViewId, modelApplication, mergedDifferenceInfo);
+            }
         }
 
         void CloneMergedView(IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, IModelViews modelViews, List<ModelApplicationBase> modulesDifferences) {
