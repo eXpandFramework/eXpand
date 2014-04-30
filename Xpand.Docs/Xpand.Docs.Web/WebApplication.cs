@@ -22,6 +22,10 @@ namespace Xpand.Docs.Web{
 
         public DocsAspNetApplication(){
             InitializeComponent();
+        }
+
+        protected override void OnSetupStarted(){
+            base.OnSetupStarted();
             this.NewSecurityStrategyComplex<AnonymousAuthenticationStandard, AnonymousLogonParameters>();
         }
 
