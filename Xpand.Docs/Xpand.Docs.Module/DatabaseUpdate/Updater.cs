@@ -38,7 +38,6 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
                 }
                 CreateSecurityObjects();
                 UpdateMapViewModule(childModules);
-                CreateRegistrationEmailTemplates();
                 CreateObjects();
                 ObjectSpace.CommitChanges();
                 throw new NotImplementedException("Please restart");
@@ -48,17 +47,27 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
         }
 
         private void CreateObjects(){
-            if (ObjectSpace.FindObject<ModuleArtifact>(artifact => artifact.Type == ModuleArtifactType.Action) == null){
+            CreateActionArtifacsts();
+            CreateRegistrationEmailTemplates();
+        }
+
+        private void CreateActionArtifacsts(){
+            if (!ObjectSpace.Contains<ModuleArtifact>(artifact => artifact.Type == ModuleArtifactType.Action)){
                 var moduleTypes = GetModuleTypes();
-                var controllers = moduleTypes.SelectMany(type => type.Assembly.GetTypes()).Where(type => !type.IsAbstract&&typeof(Controller).IsAssignableFrom(type)).Select(type => type.CreateInstance()).Cast<Controller>();
+                var controllers =moduleTypes.SelectMany(type => type.Assembly.GetTypes())
+                        .Where(type => !type.IsAbstract && typeof (Controller).IsAssignableFrom(type))
+                        .Select(type => type.CreateInstance())
+                        .Cast<Controller>();
                 foreach (var controller in controllers){
                     var controllerName = controller.GetType().Name;
-                    var controllerArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact 
-                        => artifact.Type==ModuleArtifactType.Controller&&artifact.Name==controllerName,PersistentCriteriaEvaluationBehavior.InTransaction);
+                    var controllerArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact
+                        => artifact.Type == ModuleArtifactType.Controller && artifact.Name == controllerName,
+                        PersistentCriteriaEvaluationBehavior.InTransaction);
                     foreach (var action in controller.Actions){
                         var name = action.Id;
-                        var actionArtifact =ObjectSpace.FindObject<ModuleArtifact>(artifact 
-                            => artifact.Name==name&&artifact.Type==ModuleArtifactType.Action,PersistentCriteriaEvaluationBehavior.InTransaction)?? ObjectSpace.CreateObject<ModuleArtifact>();
+                        var actionArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact
+                            => artifact.Name == name && artifact.Type == ModuleArtifactType.Action,
+                            PersistentCriteriaEvaluationBehavior.InTransaction) ?? ObjectSpace.CreateObject<ModuleArtifact>();
                         actionArtifact.Name = name;
                         actionArtifact.Type = ModuleArtifactType.Action;
                         actionArtifact.Text = action.ToolTip;
@@ -71,11 +80,13 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
         }
 
         private void CreateRegistrationEmailTemplates(){
-            var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
-            emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
+            if (!ObjectSpace.Contains<EmailTemplate>()){
+                var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
 
-            emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
-            emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
+                emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
+            }
         }
 
         private void UpdateMapViewModule(Dictionary<Type, ModuleChild> childModules){

@@ -17,7 +17,15 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
-        public static XPClassInfo FindXPClassInfo(this XPObjectSpace objectSpace,Type type) {
+        public static bool Contains<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true) where T : class{
+            return objectSpace.FindObject(expression, intransaction) != null;
+        }
+
+        public static bool Contains<T>(this IObjectSpace objectSpace) where T:class {
+            return objectSpace.Contains<T>(null);
+        }
+
+        public static XPClassInfo FindXPClassInfo(this IObjectSpace objectSpace, Type type) {
             ITypeInfo typeInfo = objectSpace.TypesInfo.FindTypeInfo(type);
             var xpoTypeInfoSource = ((XpoTypeInfoSource) objectSpace.GetFieldValue("xpoTypeInfoSource"));
             if (xpoTypeInfoSource.TypeIsKnown(typeInfo.Type)) {
@@ -26,8 +34,7 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        public static Type GetObjectKeyType(this XPObjectSpace objectSpace, 
-                                            Type objectType) {
+        public static Type GetObjectKeyType(this IObjectSpace objectSpace, Type objectType) {
             
             Type result = null;
             var xpClassInfo = objectSpace.FindXPClassInfo(objectType);
@@ -35,7 +42,7 @@ namespace Xpand.Persistent.Base.General {
                 Type queryableType = xpClassInfo.ClassType;
                 if (queryableType.IsInterface) {
                     queryableType = PersistentInterfaceHelper.GetPersistentInterfaceDataType(queryableType);
-                    xpClassInfo = objectSpace.Session.GetClassInfo(queryableType);
+                    xpClassInfo = ((XPObjectSpace) objectSpace).Session.GetClassInfo(queryableType);
                 }
                 XPMemberInfo keyMember = xpClassInfo.KeyProperty;
                 if (keyMember != null) {
@@ -103,7 +110,7 @@ namespace Xpand.Persistent.Base.General {
             return objectSpace.GetObjects<TClassType>(criteriaOperator);
         }
 
-        public static bool NeedReload(this XPObjectSpace objectSpace, object currentObject) {
+        public static bool NeedReload(this IObjectSpace objectSpace, object currentObject) {
             XPMemberInfo optimisticLockFieldInfo;
             XPClassInfo classInfo = GetClassInfo(objectSpace, currentObject, out optimisticLockFieldInfo);
             Boolean isObjectChangedByAnotherUser = false;
@@ -112,13 +119,13 @@ namespace Xpand.Persistent.Base.General {
                 Object lockFieldValue = optimisticLockFieldInfo.GetValue(currentObject);
 
                 if (lockFieldValue != null) {
-                    if (objectSpace.Session.FindObject(currentObject.GetType(), new GroupOperator(
+                    if (((XPObjectSpace) objectSpace).Session.FindObject(currentObject.GetType(), new GroupOperator(
                             new BinaryOperator(objectSpace.GetKeyPropertyName(currentObject.GetType()), keyPropertyValue),
                             new BinaryOperator(classInfo.OptimisticLockFieldName, lockFieldValue)), true) == null) {
                         isObjectChangedByAnotherUser = true;
                     }
                 } else {
-                    if (objectSpace.Session.FindObject(currentObject.GetType(), new GroupOperator(
+                    if (((XPObjectSpace)objectSpace).Session.FindObject(currentObject.GetType(), new GroupOperator(
                             new BinaryOperator(objectSpace.GetKeyPropertyName(currentObject.GetType()), keyPropertyValue),
                             new NullOperator(classInfo.OptimisticLockFieldName)), true) == null) {
                         isObjectChangedByAnotherUser = true;
@@ -131,10 +138,14 @@ namespace Xpand.Persistent.Base.General {
             return session.Dictionary.QueryClassInfo(obj);
         }
 
-        static XPClassInfo GetClassInfo(this XPObjectSpace objectSpace, object currentObject, out XPMemberInfo optimisticLockFieldInfo) {
-            XPClassInfo classInfo = FindObjectXPClassInfo(currentObject, objectSpace.Session);
+        static XPClassInfo GetClassInfo(this IObjectSpace objectSpace, object currentObject, out XPMemberInfo optimisticLockFieldInfo) {
+            XPClassInfo classInfo = FindObjectXPClassInfo(currentObject, ((XPObjectSpace)objectSpace).Session);
             optimisticLockFieldInfo = classInfo.OptimisticLockFieldInDataLayer;
             return classInfo;
+        }
+
+        public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction){
+            return objectSpace.FindObject(expression, intransaction ? PersistentCriteriaEvaluationBehavior.BeforeTransaction : PersistentCriteriaEvaluationBehavior.InTransaction);
         }
 
         public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior=PersistentCriteriaEvaluationBehavior.BeforeTransaction) {
@@ -142,7 +153,7 @@ namespace Xpand.Persistent.Base.General {
             Type objectType=typeof(T);
             if (objectType.IsInterface){
                 objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
-                criteriaOperator = GetCriteriaOperator(objectType, expression, (XPObjectSpace)objectSpace);
+                criteriaOperator = GetCriteriaOperator(objectType, expression, objectSpace);
             }
             else{
                 criteriaOperator=new XPQuery<T>(((XPObjectSpace) objectSpace).Session).TransformExpression(expression);
@@ -151,10 +162,10 @@ namespace Xpand.Persistent.Base.General {
             return (T)objectSpace.FindObject(objectType, criteriaOperator, inTransaction);
         }
 
-        static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, XPObjectSpace objectSpace) {
+        static CriteriaOperator GetCriteriaOperator<T>(Type objectType, Expression<Func<T, bool>> expression, IObjectSpace objectSpace) {
             Expression transform = new ExpressionConverter().Convert(objectType, expression);
             var genericType = typeof(XPQuery<>).MakeGenericType(new[] { objectType });
-            var xpquery = genericType.CreateInstance(new object[] { objectSpace.Session });
+            var xpquery = genericType.CreateInstance(new object[] { ((XPObjectSpace)objectSpace).Session });
             return (CriteriaOperator) xpquery.CallMethod("TransformExpression", new object[]{transform});
         }
 
