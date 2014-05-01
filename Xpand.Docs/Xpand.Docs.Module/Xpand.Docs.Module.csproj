@@ -182,6 +182,7 @@
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\WebSample.ets" />
     <None Include="FunctionalTests\WinSample.ets" />
     <None Include="Images\ReadMe.txt" />
