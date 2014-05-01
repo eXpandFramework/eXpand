@@ -149,6 +149,7 @@
       <Output  TaskParameter="Lines" ItemName="ErrorLines"/>
     </ReadLinesFromFile>
     <Error Text="@(ErrorLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
+    <Message Text="@(ErrorLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
     <Delete Files="$(OutputFile)"></Delete>
     <!--EasyTest-->
     
