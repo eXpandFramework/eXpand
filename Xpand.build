@@ -141,6 +141,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
     <!--DBUpdater-->
+    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandDLLPath" Value="$(XpandDLLPath)"/>
     <Exec Command="$(DBUpdaterName) -silent $(XpandDocsSitePath)\web.config $(XpandDocsSitePath)\bin\Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(DBUpdaterPath)" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>

@@ -59,15 +59,10 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
                         .Select(type => type.CreateInstance())
                         .Cast<Controller>();
                 foreach (var controller in controllers){
-                    var controllerName = controller.GetType().Name;
-                    var controllerArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact
-                        => artifact.Type == ModuleArtifactType.Controller && artifact.Name == controllerName,
-                        PersistentCriteriaEvaluationBehavior.InTransaction);
+                    var controllerArtifact = ObjectSpace.GetModuleArtifact(controller.GetType());
                     foreach (var action in controller.Actions){
                         var name = action.Id;
-                        var actionArtifact = ObjectSpace.FindObject<ModuleArtifact>(artifact
-                            => artifact.Name == name && artifact.Type == ModuleArtifactType.Action,
-                            PersistentCriteriaEvaluationBehavior.InTransaction) ?? ObjectSpace.CreateObject<ModuleArtifact>();
+                        var actionArtifact = ObjectSpace.GetObject<ModuleArtifact>(artifact=> artifact.Name == name && artifact.Type == ModuleArtifactType.Action) ;
                         actionArtifact.Name = name;
                         actionArtifact.Type = ModuleArtifactType.Action;
                         actionArtifact.Text = action.ToolTip;
@@ -78,6 +73,9 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
                 }
             }
         }
+
+
+
 
         private void CreateRegistrationEmailTemplates(){
             if (!ObjectSpace.Contains<EmailTemplate>()){

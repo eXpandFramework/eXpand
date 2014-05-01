@@ -17,6 +17,11 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ObjectSpaceExtensions {
+        public static T GetObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,
+            bool intransaction = true) where T : class{
+            return objectSpace.FindObject(expression, intransaction) ?? objectSpace.CreateObject<T>();
+        }
+
         public static bool Contains<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true) where T : class{
             return objectSpace.FindObject(expression, intransaction) != null;
         }
