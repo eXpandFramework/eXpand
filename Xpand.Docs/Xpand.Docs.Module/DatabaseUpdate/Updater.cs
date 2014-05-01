@@ -8,7 +8,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo;
 using Fasterflect;
 using Xpand.Docs.Module.BusinessObjects;
 using Xpand.ExpressApp.Email.BusinessObjects;
@@ -133,19 +132,11 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
 
 
         private IEnumerable<Type> GetModuleTypes() {
-            var fullPath = GetXpandDLLPath();
+            var fullPath = this.XpandRootPath()+@"\Xpand.DLL";
 //            var files = Directory.GetFiles(fullPath, "Xpand.ExpressApp*.dll", SearchOption.TopDirectoryOnly).Where(s => s.Contains("ModelDiff"));
             var files = Directory.GetFiles(fullPath, "Xpand.ExpressApp*.dll", SearchOption.TopDirectoryOnly);
             return files.Select(Assembly.LoadFrom).Select(assembly => assembly.GetTypes().FirstOrDefault(type => !type.IsAbstract && typeof(XpandModuleBase).IsAssignableFrom(type))).Where(moduleType => moduleType != null);
         }
 
-        private string GetXpandDLLPath(){
-            var fullPath = Environment.GetEnvironmentVariable("XpandDLLPath");
-            if (string.IsNullOrEmpty(fullPath)){
-                fullPath =Path.GetFullPath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"..\..\Xpand.dll");
-                return !XpandModuleBase.IsHosted ? Path.GetFullPath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase +@"..\..\..\..\Xpand.dll") : fullPath;
-            }
-            return fullPath;
-        }
     }
 }
