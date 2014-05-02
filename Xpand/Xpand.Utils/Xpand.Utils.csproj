@@ -99,6 +99,7 @@
     <Compile Include="Helpers\StreamExtensions.cs" />
     <Compile Include="Linq\Extensions.cs" />
     <Compile Include="Helpers\XpandConvert.cs" />
+    <Compile Include="Proxies\AssemblyReflectionManager.cs" />
     <Compile Include="Win32\Win32Constants.cs" />
     <Compile Include="Win32\Win32Declares.cs" />
     <Compile Include="Win32\Win32Types.cs" />
