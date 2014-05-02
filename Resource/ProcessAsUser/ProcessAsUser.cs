@@ -7,6 +7,8 @@ namespace ProcessAsUser{
         const UInt32 Infinite = 0xFFFFFFFF;
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GetExitCodeProcess(IntPtr hProcess, out uint exitCode);
 
         public struct SessionInfo{
             readonly IntPtr _intPtr;
@@ -78,7 +80,7 @@ namespace ProcessAsUser{
             return logonUserToken;
         }
 
-        public static void Launch(string userName, string password, string processPath, string arguments) {
+        public static void Launch(string userName, string password, string processPath, string arguments,Action<int> exitCode) {
             var sessionInfo = GetSessionInfo(userName,password);
             if (sessionInfo.Info != null) {
                 var wtsSessionInfo = sessionInfo.Info.Value;
@@ -87,10 +89,17 @@ namespace ProcessAsUser{
                 if (processInformation != null) {
                     var tProcessInfo = processInformation.Value;
                     WaitForSingleObject(tProcessInfo.hProcess, Infinite);
+                    uint code;
+                    var exitCodeProcess = GetExitCodeProcess(processInformation.Value.hProcess, out code);
+                    if (exitCodeProcess)
+                        exitCode((int) code);
                     CloseHandle(tProcessInfo.hThread);
                     CloseHandle(tProcessInfo.hProcess);
                 }
                 CloseHandle(userToken);
+            }
+            else{
+                throw new Exception("Login");
             }
             WTSFreeMemory(sessionInfo.IntPtr);
         }

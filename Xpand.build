@@ -133,30 +133,36 @@
 		-->
   </Target>
 
-  <Target Name="PublishXpandDocsSite" DependsOnTargets="ConfigEasyTestParams">
+  <Target Name="PublishXpandDocsSite">
+    <CallTarget Targets="RunEasyTestsForDocsSite"></CallTarget>
+<!--    <CallTarget Targets="UpdateXpandDocsSiteFiles"></CallTarget>-->
+<!--    <CallTarget Targets="DBUpdater"></CallTarget>-->
+  </Target>
+  <Target Name="UpdateXpandDocsSiteFiles">
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;DefineConstants=$(DefineConstants)" />
     <ItemGroup>
       <PackagedFiles Include="$(XpandDocsPath)\Xpand.Docs.Web\**\*.*;"
             Exclude="$(XpandDocsPath)\**\*.csproj;$(XpandDocsPath)\**\*.resx;$(XpandDocsPath)\**\*.log;$(XpandDocsPath)\**\*.bak;$(XpandDocsPath)\Xpand.Docs.Web\obj\**\*.*;$(XpandDocsPath)\Xpand.Docs.Web\Properties\*.*;$(XpandDocsPath)\Xpand.Docs.Web\**\*.cs;$(XpandDocsPath)\Xpand.Docs.Web\*.config"/>
     </ItemGroup>
     <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
-    <!--DBUpdater-->
+  </Target>
+  <Target Name="DBUpdater">
     <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
     <Exec Command="$(DBUpdaterName) -silent $(XpandDocsSitePath)\web.config $(XpandDocsSitePath)\bin\Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(DBUpdaterPath)" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
     <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value=""/>
-    <ReadLinesFromFile  File="$(OutputFile)" Condition="'$(ErrorCode)' == '1'" >
-      <Output  TaskParameter="Lines" ItemName="ErrorLines"/>
+    <ReadLinesFromFile  File="$(OutputFile)">
+      <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
     </ReadLinesFromFile>
-    <Error Text="@(ErrorLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
-    <Message Text="@(ErrorLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
+    <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
+    <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
     <Delete Files="$(OutputFile)"></Delete>
-    <!--EasyTest-->
-    
-<!--    <CallTarget Targets="RunEasyTests"></CallTarget>-->
   </Target>
-  <Target Name="ConfigEasyTestParams">
+  <Target Name="RunEasyTestsForDocsSite" DependsOnTargets="ConfigEasyTestParamsForDocsSite">
+    <CallTarget Targets="RunEasyTests"></CallTarget>
+  </Target>
+  <Target Name="ConfigEasyTestParamsForDocsSite">
     <PropertyGroup>
       <EasyTestFilter>Xpand.Docs\</EasyTestFilter>
     </PropertyGroup>
@@ -167,10 +173,8 @@
 
       <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
       <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
-      <EasyProjects Remove="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
+      <EasyProjects Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
     </ItemGroup>
-    <Message Text="$(EasyTestFilter)"></Message>
-    
   </Target>
   <Target Name="Test" >
     <Message Text="$(EasyTestFilter)"></Message>
