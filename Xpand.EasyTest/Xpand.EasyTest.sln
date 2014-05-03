@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WebAdapter", "Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj", "{38E16F8A-517C-4CA9-9775-56F598F25534}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {80DC8CB8-C285-4953-871F-E49002FA10E8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WinAdapter", "Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj", "{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {80DC8CB8-C285-4953-871F-E49002FA10E8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
