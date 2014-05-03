@@ -56,6 +56,15 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Win.v13.2">
       <SpecificVersion>False</SpecificVersion>
@@ -124,7 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImportWizResourceLocalizer.cs" />
-    <Compile Include="Controllers\ImportWizViewController.cs" />
+    <Compile Include="Controllers\ImportWizViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\ImportWizViewController.Designer.cs">
       <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </Compile>

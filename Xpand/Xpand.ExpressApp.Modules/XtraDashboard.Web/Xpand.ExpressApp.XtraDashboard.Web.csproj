@@ -54,6 +54,15 @@
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Sparkline.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -125,9 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PropertyEditors\DashboardTypesEditor.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs" />
     <Compile Include="XtraDashboardWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.XtraDashboard.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.XtraDashboard.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -53,6 +55,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
@@ -160,9 +171,7 @@
     <Compile Include="Controllers\DashboardDesignerController.Designer.cs">
       <DependentUpon>DashboardDesignerController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\WinDashboardNavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\WinDashboardNavigationController.cs" />
     <Compile Include="Controllers\WinDashboardNavigationController.designer.cs">
       <DependentUpon>WinDashboardNavigationController.cs</DependentUpon>
     </Compile>
@@ -178,9 +187,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromCollection.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\DashboardViewEditor.cs" />
     <Compile Include="PropertyEditors\DashboardXMLEditor.cs" />
     <Compile Include="Templates\DashboardDesignerForm.cs">
       <SubType>Form</SubType>
