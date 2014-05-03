@@ -107,7 +107,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (Directory.Exists(appSetting))
                 return appSetting;
-            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
+            if (Application!=null&&InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
                 var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
@@ -117,14 +117,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     var values = Enum.GetValues(typeInfo.Type);
                     var value = values.GetValue(1);
                     var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
-                    return (int) invoke != (int) value
-                               ? userAppDataPath
-                               : PathHelper.GetApplicationFolder();
+                    return (int) invoke != (int) value? userAppDataPath: PathHelper.GetApplicationFolder();
                 }
             }
-            var folder = InterfaceBuilder.RuntimeMode
-                                ? AppDomain.CurrentDomain.SetupInformation.ApplicationBase
-                                : InterfaceBuilder.GetTempDirectory();
+            var folder = InterfaceBuilder.RuntimeMode? AppDomain.CurrentDomain.SetupInformation.ApplicationBase: InterfaceBuilder.GetTempDirectory();
             return Path.Combine(folder, "ModelAdaptor");
         }
     }
