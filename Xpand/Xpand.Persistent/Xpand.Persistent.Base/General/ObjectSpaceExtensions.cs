@@ -150,7 +150,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction){
-            return objectSpace.FindObject(expression, intransaction ? PersistentCriteriaEvaluationBehavior.BeforeTransaction : PersistentCriteriaEvaluationBehavior.InTransaction);
+            return objectSpace.FindObject(expression, intransaction ? PersistentCriteriaEvaluationBehavior.InTransaction : PersistentCriteriaEvaluationBehavior.BeforeTransaction);
         }
 
         public static T FindObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior=PersistentCriteriaEvaluationBehavior.BeforeTransaction) {

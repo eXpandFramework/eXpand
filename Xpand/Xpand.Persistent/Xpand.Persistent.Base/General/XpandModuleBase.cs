@@ -105,15 +105,14 @@ namespace Xpand.Persistent.Base.General {
                 if (!InterfaceBuilder.RuntimeMode)
                     return false;
                 if (!_isHosted.HasValue) {
-                    var xafApplication = ApplicationHelper.Instance.Application;
-                    _isHosted = GetIsHosted(xafApplication.Model);
+                    _isHosted = GetIsHosted(CaptionHelper.ApplicationModel);
                 }
                 return _isHosted.Value;
             }
         }
 
         public static bool GetIsHosted(IModelApplication application) {
-            var modelSources = ((IModelSources) application);
+            var modelSources = application as IModelSources;
             if (modelSources == null)
                 return Assembly.GetEntryAssembly() == null;
             return modelSources.Modules.Any(@base => {

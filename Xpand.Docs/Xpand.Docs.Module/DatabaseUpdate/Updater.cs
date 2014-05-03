@@ -31,9 +31,21 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            RunInTempDomain();
+            RunInSeperateDomain();
             CreateSecurityObjects();
+            CreateRegistrationEmailTemplates(ObjectSpace);
         }
+
+        private void CreateRegistrationEmailTemplates(IObjectSpace objectSpace) {
+            if (!objectSpace.Contains<EmailTemplate>()) {
+                var emailTemplate = objectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
+
+                emailTemplate = objectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
+            }
+        }
+
 
         private void CreateSecurityObjects() {
             var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
@@ -68,7 +80,7 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             return actionStateOperationPermissionData;
         }
 
-        private void RunInTempDomain() {
+        private void RunInSeperateDomain() {
             var domainSetup = new AppDomainSetup{
                 ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
                 ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,
@@ -79,7 +91,8 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
 
             AppDomain childDomain = AppDomain.CreateDomain("Temp", null, domainSetup);
             var runtime = (IRuntime) childDomain.CreateInstanceAndUnwrap(typeof (Runtime).Assembly.FullName, typeof (Runtime).FullName);
-            runtime.Run(new RuntimeSetupInfo{XpandRootPath = this.XpandRootPath()});
+            var connectionString = XpandModuleBase.ConnectionString;
+            runtime.Run(new RuntimeSetupInfo{XpandRootPath = this.XpandRootPath(),ConnectionString=connectionString});
             AppDomain.Unload(childDomain);
         }
     }
@@ -91,18 +104,24 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
     [Serializable]
     public class RuntimeSetupInfo{
         public string XpandRootPath { get; set; }
+
+        public string ConnectionString { get; set; }
     }
 
     public class Runtime : MarshalByRefObject, IRuntime {
         public bool Run(RuntimeSetupInfo setupInfo) {
             var typesInfo = new TypesInfo();
+            typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
+            var reflectionDictionary = new ReflectionDictionary();reflectionDictionary.CollectClassInfos(typeof(ModuleArtifact).Assembly);
+            var xpoTypeInfoSource = new XpoTypeInfoSource(typesInfo,reflectionDictionary);
+            typesInfo.AddEntityStore(xpoTypeInfoSource);
             typesInfo.LoadTypes(typeof(ModuleArtifact).Assembly);
-            var exportedTypesFromAssembly = ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly,ExportedTypeHelpers.IsExportedType);
-            var xpoTypeInfoSource = new XpoTypeInfoSource(typesInfo,new ReflectionDictionary());
+            var exportedTypesFromAssembly = ModuleHelper.CollectExportedTypesFromAssembly(typeof(ModuleArtifact).Assembly,ExportedTypeHelpers.IsExportedType);
             foreach (var type in exportedTypesFromAssembly){
                 xpoTypeInfoSource.RegisterEntity(type);
             }
-            var objectSpace = new XPObjectSpace(typesInfo, xpoTypeInfoSource, () => new UnitOfWork{ ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString });
+
+            var objectSpace = new XPObjectSpace(typesInfo, xpoTypeInfoSource, () => new UnitOfWork(reflectionDictionary){ ConnectionString = setupInfo.ConnectionString });
             if (!objectSpace.Contains<ModuleChild>()){
                 var moduleTypes = GetModuleTypes(setupInfo);
                 var childModules = objectSpace.GetModuleChilds(moduleTypes);
@@ -126,7 +145,6 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
 
         private void CreateObjects(IObjectSpace objectSpace, RuntimeSetupInfo setupInfo) {
             CreateActionArtifacsts(objectSpace,setupInfo);
-            CreateRegistrationEmailTemplates(objectSpace);
         }
 
         private void CreateActionArtifacsts(IObjectSpace objectSpace, RuntimeSetupInfo setupInfo) {
@@ -152,15 +170,6 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             }
         }
 
-        private void CreateRegistrationEmailTemplates(IObjectSpace objectSpace) {
-            if (!objectSpace.Contains<EmailTemplate>()) {
-                var emailTemplate = objectSpace.CreateObject<EmailTemplate>();
-                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
-
-                emailTemplate = objectSpace.CreateObject<EmailTemplate>();
-                emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
-            }
-        }
 
         private void UpdateMapViewModule(Dictionary<Type, ModuleChild> childModules,IObjectSpace objectSpace) {
             var modules = objectSpace.CreateModules(childModules.Values).ToList();

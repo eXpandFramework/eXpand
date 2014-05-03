@@ -69,7 +69,7 @@ namespace Xpand.Docs.Module.BusinessObjects {
         public static Dictionary<Type, ModuleArtifact> CreateArtifacts(this ModuleChild moduleChild, Type moduleType, ModuleArtifactType moduleArtifactType) {
             var artifactTypes = moduleType.Assembly.GetTypes().Where(type => !type.IsAbstract).Where(type => moduleArtifactType.IsValidArtifactType(type)).ToArray();
             var objectSpace = moduleChild.XPObjectSpace();
-            return artifactTypes.ToDictionary(type => type, type => CreateArtifact(moduleChild, moduleArtifactType, objectSpace, type));
+            return artifactTypes.ToList().ToDictionary(type => type, type => CreateArtifact(moduleChild, moduleArtifactType, objectSpace, type));
         }
 
         private static ModuleArtifact CreateArtifact(ModuleChild moduleChild, ModuleArtifactType moduleArtifactType,IObjectSpace objectSpace, Type type){
