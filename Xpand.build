@@ -39,7 +39,8 @@
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
     <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
-    <XpandDocsSitePath>C:\inetpub\vhosts\documentation.expandframework.com</XpandDocsSitePath>
+    <DocsSiteName>documentation.expandframework.com</DocsSiteName>
+    <XpandDocsSitePath>C:\inetpub\vhosts\$(DocsSiteName)</XpandDocsSitePath>
     <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
     
   </PropertyGroup>
@@ -132,14 +133,27 @@
     <CallTarget Targets="UpdateXpandDocsSiteFiles"></CallTarget>
     <CallTarget Targets="DBUpdater"></CallTarget>
   </Target>
+  <Target Name="StartXpandDocsSite">
+    <Exec Command="appcmd start site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
+  </Target>
+ <Target Name="KillXpandDocsSite">
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Get" IncludeUserInfo="true">
+      <Output ItemName="ProcessList" TaskParameter="Processes"/>
+    </MSBuild.ExtensionPack.Computer.Process>
+    <Message Text="%(ProcessList.Identity)  - %(ProcessList.User) - %(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
+    <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
+  </Target>
   <Target Name="UpdateXpandDocsSiteFiles">
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);DefineConstants=$(DefineConstants)" />
+    <CallTarget Targets="KillXpandDocsSite" />
     <ItemGroup>
       <PackagedFiles Include="$(XpandDocsPath)\Xpand.Docs.Web\**\*.*;"
-            Exclude="$(XpandDocsPath)\**\*.csproj;$(XpandDocsPath)\**\*.resx;$(XpandDocsPath)\**\*.log;$(XpandDocsPath)\**\*.bak;$(XpandDocsPath)\Xpand.Docs.Web\obj\**\*.*;$(XpandDocsPath)\Xpand.Docs.Web\Properties\*.*;$(XpandDocsPath)\Xpand.Docs.Web\**\*.cs;$(XpandDocsPath)\Xpand.Docs.Web\*.config"/>
+            Exclude="$(XpandDocsPath)\**\*.csproj;$(XpandDocsPath)\**\*.pdb;$(XpandDocsPath)\**\*.resx;$(XpandDocsPath)\**\*.log;$(XpandDocsPath)\**\*.bak;$(XpandDocsPath)\Xpand.Docs.Web\obj\**\*.*;$(XpandDocsPath)\Xpand.Docs.Web\Properties\*.*;$(XpandDocsPath)\Xpand.Docs.Web\**\*.cs;$(XpandDocsPath)\Xpand.Docs.Web\*.config"/>
     </ItemGroup>
     <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
-  </Target>
+    <CallTarget Targets="StartXpandDocsSite" />
+    </Target>
   <Target Name="DBUpdater">
     <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
     <Exec Command="$(DBUpdaterName) -silent $(XpandDocsSitePath)\web.config $(XpandDocsSitePath)\bin\Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(DBUpdaterPath)" ContinueOnError="true">
