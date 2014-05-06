@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3EB209EB-C0A7-489F-9287-612CE5DA911D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.ExpressApp.NH</RootNamespace>
+    <AssemblyName>Xpand.ExpressApp.NH</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Charts.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v13.2">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.CodeParser.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.2">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Data.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v13.2">
+      <HintPath>..\packages\DevExpress.ExpressApp.13.2.9.0\lib\net40\DevExpress.ExpressApp.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Images.v13.2">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Images.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Office.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.PivotGrid.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Printing.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.RichEdit.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Sparkline.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Spreadsheet.v13.2.Core">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Spreadsheet.v13.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v13.2">
+      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Utils.v13.2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BindingFactory.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="InstanceState.cs" />
+    <Compile Include="NHCollectionT.cs" />
+    <Compile Include="NHEntityStore.cs" />
+    <Compile Include="NHCollection.cs" />
+    <Compile Include="NHObjectSpace.cs" />
+    <Compile Include="NHObjectSpaceProvider.cs" />
+    <Compile Include="NHPropertyCollectionSource.cs" />
+    <Compile Include="NHWhereGenerator.cs" />
+    <Compile Include="ObjectSpaceInstanceInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemotePersistenceManagerProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
+      <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
+      <Name>Xpand.ExpressApp.NH.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
