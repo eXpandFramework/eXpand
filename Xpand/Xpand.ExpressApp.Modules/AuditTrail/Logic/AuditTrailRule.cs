@@ -9,15 +9,21 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             AuditingMode=auditTrailRule.AuditingMode;
             AuditMemberStrategy = auditTrailRule.AuditMemberStrategy;
             MemberContext = auditTrailRule.AuditTrailMembersContext;
+            AuditTrailStrategy=auditTrailRule.AuditTrailStrategy;
+            AuditPending=auditTrailRule.AuditPending;
         }
 
         public string MemberContext { get; set; }
+
+        public bool? AuditPending { get; set; }
 
         public bool IncludeRelatedTypes { get; set; }
 
         public ObjectAuditingMode? AuditingMode { get; set; }
 
         public AuditMemberStrategy AuditMemberStrategy { get; set; }
+
+        public AuditTrailStrategy AuditTrailStrategy { get; set; }
     }
 
     public enum AuditMemberStrategy {

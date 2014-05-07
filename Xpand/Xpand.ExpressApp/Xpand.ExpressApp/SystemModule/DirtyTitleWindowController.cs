@@ -41,10 +41,10 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        private void windowTemplateController_CustomizeWindowCaption(object sender, CustomizeWindowCaptionEventArgs e) {
-            if (Enabled()) {
+        private void windowTemplateController_CustomizeWindowCaption(object sender, CustomizeWindowCaptionEventArgs e){
+            if (Enabled() && e.WindowCaption.FirstPart != null){
                 e.WindowCaption.FirstPart = e.WindowCaption.FirstPart.TrimStart(DirtyMark);
-                if (Window.View.ObjectSpace.IsModified) {
+                if (Window.View.ObjectSpace.IsModified){
                     e.WindowCaption.FirstPart = String.Format("{0} {1}", DirtyMark, e.WindowCaption.FirstPart);
                 }
             }

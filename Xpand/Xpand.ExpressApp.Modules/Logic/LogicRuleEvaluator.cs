@@ -63,15 +63,24 @@ namespace Xpand.ExpressApp.Logic {
         public virtual IEnumerable<ILogicRuleObject> GetValidRules(View view, ExecutionContext executionContext, EventArgs eventArgs) {
             if (view!=null) {
                 var tuple = new Tuple<ITypeInfo, ExecutionContext>(view.ObjectTypeInfo, executionContext);
-                return LogicRuleManager.Instance[tuple].Where(rule => IsValidRule(rule, view,eventArgs,executionContext)).OrderBy(rule => rule.Index);
+                var logicRuleObjects = LogicRuleManager.Instance[tuple];
+                var validRules = logicRuleObjects.Where(rule => IsValidRule(rule, view,eventArgs,executionContext));
+                return validRules.OrderBy(rule => rule.Index);
             }
             return Enumerable.Empty<ILogicRuleObject>();
         }
 
-        protected virtual bool IsValidRule(ILogicRuleObject rule, ViewInfo viewInfo,EventArgs eventArgs,ExecutionContext executionContext) {
-            return (IsValidViewId(viewInfo.ViewId, rule)) &&IsValidNewObject(rule)&&
-                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule)
-                   && IsValidViewEditMode(viewInfo, rule) && TemplateContextGroupIsValid(rule) && ViewIsRoot(rule)&&IsVailidExecutionContext(rule,executionContext,eventArgs);
+        protected virtual bool IsValidRule(ILogicRuleObject rule, ViewInfo viewInfo,EventArgs eventArgs,ExecutionContext executionContext){
+            var isValidViewId = IsValidViewId(viewInfo.ViewId, rule);
+            var isValidNewObject = IsValidNewObject(rule);
+            var isValidViewType = IsValidViewType(viewInfo, rule);
+            var isValidNestedType = IsValidNestedType(rule, viewInfo);
+            var isValidTypeInfo = IsValidTypeInfo(viewInfo, rule);
+            var isValidViewEditMode = IsValidViewEditMode(viewInfo, rule);
+            var templateContextGroupIsValid = TemplateContextGroupIsValid(rule);
+            var viewIsRoot = ViewIsRoot(rule);
+            var isVailidExecutionContext = IsVailidExecutionContext(rule,executionContext,eventArgs);
+            return isValidViewId &&isValidNewObject&&isValidViewType && isValidNestedType && isValidTypeInfo&& isValidViewEditMode && templateContextGroupIsValid && viewIsRoot&&isVailidExecutionContext;
         }
 
         protected virtual bool IsVailidExecutionContext(ILogicRuleObject rule, ExecutionContext executionContext, EventArgs eventArgs){

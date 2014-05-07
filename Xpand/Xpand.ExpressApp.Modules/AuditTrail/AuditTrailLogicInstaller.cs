@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.AuditTrail {
         }
 
         public override List<ExecutionContext> ExecutionContexts {
-            get { return new List<ExecutionContext> {ExecutionContext.ViewChanging}; }
+            get { return new List<ExecutionContext>(); }
         }
 
         public override LogicRulesNodeUpdater<IAuditTrailRule, IModelAuditTrailRule> LogicRulesNodeUpdater {
@@ -23,8 +23,7 @@ namespace Xpand.ExpressApp.AuditTrail {
 
         protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
             var auditTrail = ((IModelApplicationAudiTrail)applicationModel).AudiTrail;
-            return new ModelLogicWrapper(auditTrail.Rules, auditTrail.ExecutionContextsGroup,
-                                         auditTrail.ViewContextsGroup, auditTrail.FrameTemplateContextsGroup);
+            return new ModelLogicWrapper(auditTrail.Rules, null,auditTrail.ViewContextsGroup, auditTrail.FrameTemplateContextsGroup);
         }
     }
 }

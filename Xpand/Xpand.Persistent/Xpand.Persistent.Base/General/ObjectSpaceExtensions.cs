@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.Data.Filtering;
@@ -16,7 +17,20 @@ using Xpand.Xpo.DB;
 using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
-    public static class ObjectSpaceExtensions {
+    public static class ObjectSpaceExtensions {        [DebuggerStepThrough]
+        public static void SetIsModified(this IObjectSpace objectSpace,bool isModified){
+            objectSpace.CallMethod("SetIsModified", new[] { typeof(bool) }, isModified);
+        }
+
+        public static void RollbackSilent(this IObjectSpace objectSpace){
+            objectSpace.CallMethod("Reload");
+        }
+
+        [DebuggerStepThrough]
+        public static Session Session(this IObjectSpace objectSpace){
+            return ((XPObjectSpace) objectSpace).Session;
+        }
+
         public static T GetObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,
             bool intransaction = true) where T : class{
             return objectSpace.FindObject(expression, intransaction) ?? objectSpace.CreateObject<T>();
@@ -89,11 +103,6 @@ namespace Xpand.Persistent.Base.General {
                 return (session.DataLayer != null && session.ObjectLayer == null) || (session.DataLayer != null && session.ObjectLayer != null);
             }
             throw new NotImplementedException(objectSpace.GetType().FullName);
-        }
-
-        public static void RollBackSilent(this IObjectSpace objectSpace) {
-            objectSpace.ConfirmationRequired += (sender, args) => args.ConfirmationResult = ConfirmationResult.No;
-            objectSpace.Rollback();
         }
 
         public static IEnumerable<TClassType> GetNonDeletedObjectsToSave<TClassType>(this IObjectSpace objectSpace) {

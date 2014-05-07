@@ -32,6 +32,7 @@ using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
+using Xpand.Xpo.MetaData;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -491,6 +492,7 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("CustomizeTypesInfo"))
                 return;
+            CreateXpandDefaultProperty(typesInfo);
             ModelValueOperator.Register();
             foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null)) {
                 memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
@@ -510,6 +512,19 @@ namespace Xpand.Persistent.Base.General {
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
+        }
+
+        private static void CreateXpandDefaultProperty(ITypesInfo typesInfo){
+            var infos =typesInfo.PersistentTypes.Select(info => new{TypeInfo = info, Attribute = info.FindAttribute<XpandDefaultPropertyAttribute>()})
+                    .Where(arg => arg.Attribute != null).ToList();
+            foreach (var info in infos.Where(arg => arg.TypeInfo.Base.FindAttribute<XpandDefaultPropertyAttribute>()==null)){
+                var classInfo = Dictiorary.GetClassInfo(info.TypeInfo.Type);
+                var memberInfo = new XpandCalcMemberInfo(classInfo, info.Attribute.MemberName,typeof (string), info.Attribute.Expression);
+                if (info.Attribute.InVisibleInAllViews)
+                    memberInfo.AddAttribute(new InvisibleInAllViewsAttribute());
+                typesInfo.RefreshInfo(info.TypeInfo);
+                ((TypeInfo)info.TypeInfo).DefaultMember = info.TypeInfo.FindMember(info.Attribute.MemberName);
+            }
         }
 
         void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {

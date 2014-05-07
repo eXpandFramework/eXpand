@@ -150,9 +150,8 @@ namespace Xpand.ExpressApp.SystemModule {
                 obj = propertyInfo.Get(obj);
             }
             var property = type.Property(propertyName);
-            return property!=null ? new Tuple<PropertyInfo, object, Font>(property, obj, (Font)property.Get(obj)) : null;
+            return obj != null? (property != null? new Tuple<PropertyInfo, object, Font>(property, obj, (Font) property.Get(obj)): null): null;
         }
-
     }
 
     public class CachedAppearanceRuleProperties : DevExpress.ExpressApp.ConditionalAppearance.CachedAppearanceRuleProperties {
