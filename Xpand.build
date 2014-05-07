@@ -155,11 +155,11 @@
     <CallTarget Targets="StartXpandDocsSite" />
     </Target>
   <Target Name="DBUpdater">
+    <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(XpandDocsSitePath)\bin"/>
     <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
-    <Exec Command="$(DBUpdaterName) -silent $(XpandDocsSitePath)\web.config $(XpandDocsSitePath)\bin\Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(DBUpdaterPath)" ContinueOnError="true">
+    <Exec Command="$(DBUpdaterName) -silent ..\web.config Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(XpandDocsSitePath)\bin" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
-    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value=""/>
     <ReadLinesFromFile  File="$(OutputFile)">
       <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
     </ReadLinesFromFile>
