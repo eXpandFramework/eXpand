@@ -49,12 +49,12 @@ namespace Xpand.ExpressApp.AuditTrail {
             return Get_PendingMembers(classPendingMember).FirstOrDefault(member => member.Type == typeof (bool)&&member.Name=="Pending");
         }
     }
-    public class PendingAuditsController:ViewController,IModelExtender {
+    public class AuditPendingController:ViewController,IModelExtender {
         public const string ApproveAudits = "ApproveAudits";
         private bool _auditPending;
         private readonly SimpleAction _approveAuditsAction;
 
-        public PendingAuditsController(){
+        public AuditPendingController(){
             _approveAuditsAction = new SimpleAction(this,ApproveAudits,PredefinedCategory.ObjectsCreation);
             _approveAuditsAction.Execute+=ApproveAuditsActionOnExecute;
             _approveAuditsAction.TargetObjectType = typeof (IBaseAuditDataItemPersistent);
@@ -82,9 +82,9 @@ namespace Xpand.ExpressApp.AuditTrail {
                 var pendingMember = modelAuditPending.PendingMember;
                 var creatorMember = modelAuditPending.CreatorMember;
                 if (pendingMember != null && creatorMember!=null){
-                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And [" 
-                        + pendingMember.Name + "] = True) Or [" +pendingMember.Name + "] = False)");
-                    listView.CollectionSource.Criteria[typeof(PendingAuditsController).Name] = @operator;
+//                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And [" 
+//                        + pendingMember.Name + "] = True) Or [" +pendingMember.Name + "] = False)");
+//                    listView.CollectionSource.Criteria[typeof(AuditPendingController).Name] = @operator;
                 }
             }
         }

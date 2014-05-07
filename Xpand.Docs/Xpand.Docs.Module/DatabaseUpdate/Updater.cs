@@ -53,7 +53,7 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
         private void ApproveAuditsActionPermission(XpandRole userRole){
             var actionStateRulePermission = ObjectSpace.CreateObject<ActionStateOperationPermissionData>();
             actionStateRulePermission.ObjectTypeData = typeof (object);
-            actionStateRulePermission.ActionId = PendingAuditsController.ApproveAudits;
+            actionStateRulePermission.ActionId = AuditPendingController.ApproveAudits;
             actionStateRulePermission.ActionState = ActionState.Hidden;
             actionStateRulePermission.ID = "Hide ApproveAudits";
             userRole.Permissions.Add(actionStateRulePermission);

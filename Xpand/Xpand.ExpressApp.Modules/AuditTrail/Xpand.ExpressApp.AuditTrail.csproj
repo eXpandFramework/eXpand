@@ -145,7 +145,7 @@
     <Compile Include="Model\IModelApplicationAudiTrail.cs" />
     <Compile Include="Model\IModelAuditTrailRule.cs" />
     <Compile Include="Model\IModelLogicAuditTrail.cs" />
-    <Compile Include="PendingAuditsController.cs">
+    <Compile Include="AuditPendingController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\AuditTrailOperationPermissionData.cs" />
