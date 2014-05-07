@@ -153,7 +153,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, new[] { source });
             if (compilerResults.Errors.Count > 0) {
-                RaiseCompilerException(source, compilerResults);
+                RaiseCompilerException("AssemblyFile= "+assemblyFile+Environment.NewLine+source, compilerResults);
             }
             return compilerResults.CompiledAssembly;
         }
