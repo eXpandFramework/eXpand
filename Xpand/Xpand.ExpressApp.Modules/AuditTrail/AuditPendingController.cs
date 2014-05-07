@@ -82,9 +82,9 @@ namespace Xpand.ExpressApp.AuditTrail {
                 var pendingMember = modelAuditPending.PendingMember;
                 var creatorMember = modelAuditPending.CreatorMember;
                 if (pendingMember != null && creatorMember!=null){
-//                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And [" 
-//                        + pendingMember.Name + "] = True) Or [" +pendingMember.Name + "] = False)");
-//                    listView.CollectionSource.Criteria[typeof(AuditPendingController).Name] = @operator;
+                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And ["
+                        + pendingMember.Name + "] = True) Or ([" + pendingMember.Name + "] = False Or [" + pendingMember.Name + "] Is Null))");
+                    listView.CollectionSource.Criteria[typeof(AuditPendingController).Name] = @operator;
                 }
             }
         }

@@ -118,7 +118,7 @@
     <SchemaModule Name="XpandWorkFlowModule" Version="13.2.9.3" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <ListView Id="AuditDataItemPersistent_Approved_ListView" Caption="Approved" Criteria="" AutoExpandAllGroups="True" Filter="[Pending] = False And [OperationType] &lt;&gt; 'InitialValueAssigned'">
+    <ListView Id="AuditDataItemPersistent_Approved_ListView" Caption="Approved" Criteria="[Pending] = False And [OperationType] &lt;&gt; 'InitialValueAssigned'" AutoExpandAllGroups="True" Filter="">
       <Columns>
         <ColumnInfo Id="UserName" GroupIndex="1" />
         <ColumnInfo Id="TargetTypeName" GroupIndex="3" />
@@ -129,7 +129,7 @@
         <ActionLink ActionId="ApproveAudits" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <ListView Id="AuditDataItemPersistent_Pending_ListView" Caption="Pending" Criteria="" AutoExpandAllGroups="True" Filter="[Pending] = True And [OperationType] &lt;&gt; 'InitialValueAssigned'">
+    <ListView Id="AuditDataItemPersistent_Pending_ListView" Caption="Pending" Criteria="[Pending] = True And [OperationType] &lt;&gt; 'InitialValueAssigned'" AutoExpandAllGroups="True" Filter="">
       <Columns>
         <ColumnInfo Id="UserName" GroupIndex="1" />
         <ColumnInfo Id="TargetTypeName" GroupIndex="3" />
