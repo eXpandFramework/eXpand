@@ -153,13 +153,13 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, new[] { source });
             if (compilerResults.Errors.Count > 0) {
-                RaiseCompilerException("AssemblyFile= "+assemblyFile+Environment.NewLine+source, compilerResults);
+                RaiseCompilerException(source, compilerResults,assemblyFile);
             }
             return compilerResults.CompiledAssembly;
         }
-        private static void RaiseCompilerException(String source, CompilerResults compilerResults) {
+        private static void RaiseCompilerException(String source, CompilerResults compilerResults,string assemblyFile) {
             var errors = compilerResults.Errors.Cast<CompilerError>().Aggregate(String.Empty, (current, compilerError) => current + String.Format("({0},{1}): {2}\r\n", compilerError.Line, compilerError.Column, compilerError.ErrorText));
-            throw new CompilerErrorException(compilerResults, source, errors);
+            throw new CompilerErrorException(compilerResults, source,"Assembly="+assemblyFile+Environment.NewLine+ errors);
         }
 
         private static CompilerParameters GetCompilerParameters(String[] references, Boolean isDebug, String assemblyFile) {
