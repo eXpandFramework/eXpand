@@ -101,7 +101,7 @@
         </MergedViewValueInfos>
       </MergedDifferenceStrategy>
     </MergedDifferenceStrategies>
-    <Registration ActivateUser="False" />
+    <Registration ActivateUser="False" Enabled="True" />
   </Options>
   <SchemaModules>
     <SchemaModule Name="EmailModule" Version="13.2.9.3" IsNewNode="True" />

@@ -494,7 +494,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             CreateXpandDefaultProperty(typesInfo);
             ModelValueOperator.Register();
-            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null)) {
+            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null).ToList()) {
                 memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
