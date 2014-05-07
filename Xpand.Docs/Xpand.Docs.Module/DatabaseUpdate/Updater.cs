@@ -34,10 +34,10 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            RunInSeperateDomain();
+            ParseXpandModules();
             CreateSecurityObjects();
             CreateRegistrationEmailTemplates(ObjectSpace);
-            if (CurrentDBVersion <= new Version("13.2.9.3")){
+            if (new Version(XpandAssemblyInfo.Version) <= new Version("13.2.9.3")) {
                 var userRole = (XpandRole) ObjectSpace.GetRole("User");
                 userRole.SetTypePermissions<XpandAuditDataItemPersistent>(SecurityOperations.ReadOnlyAccess,SecuritySystemModifier.Allow);
                 ApproveAuditsActionPermission(userRole);
@@ -99,7 +99,7 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             return actionStateOperationPermissionData;
         }
 
-        private void RunInSeperateDomain() {
+        private void ParseXpandModules() {
             var domainSetup = new AppDomainSetup{
                 ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
                 ConfigurationFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile,

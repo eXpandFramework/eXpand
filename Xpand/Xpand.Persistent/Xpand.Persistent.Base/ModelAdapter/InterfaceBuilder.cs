@@ -115,6 +115,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
                 return _assemblies[_assemblyName];
             }
+
+            TraceBuildReason(assemblyFilePath);
+
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
@@ -124,6 +127,16 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
             _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
+        }
+
+        private void TraceBuildReason(string assemblyFilePath){
+            var tracing = Tracing.Tracer;
+            tracing.LogVerboseSubSeparator("InterfacerBuilder:" + assemblyFilePath);
+            tracing.LogVerboseValue("FileExistsInPath", _fileExistInPath);
+            tracing.LogVerboseValue("LoadFromPath", LoadFromPath);
+            tracing.LogVerboseValue("RuntimeMode", LoadFromPath);
+            if (LoadFromPath && _fileExistInPath)
+                tracing.LogValue("VersionMatch", VersionMatch(assemblyFilePath));
         }
 
         bool VersionMatch(string assemblyFilePath) {
