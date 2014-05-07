@@ -151,6 +151,9 @@
     <Compile Include="BusinessObjects\Document.cs" />
     <Compile Include="BusinessObjects\ExtenderInterface.cs" />
     <Compile Include="BusinessObjects\ParsingExtensions.cs" />
+    <Compile Include="Class1.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -191,6 +194,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\HowToDisplayAddressInGoogleMaps.xml" />
     <EmbeddedResource Include="DatabaseUpdate\MapViewInstalation.xml" />
+    <Content Include="DatabaseUpdate\XMLFile1.xml" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

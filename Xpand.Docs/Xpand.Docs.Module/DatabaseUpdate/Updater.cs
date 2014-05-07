@@ -11,10 +11,13 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Docs.Module.BusinessObjects;
+using Xpand.ExpressApp.AuditTrail;
+using Xpand.ExpressApp.AuditTrail.BusinessObjects;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved;
@@ -34,6 +37,22 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             RunInSeperateDomain();
             CreateSecurityObjects();
             CreateRegistrationEmailTemplates(ObjectSpace);
+            if (CurrentDBVersion <= new Version("13.2.9.3")){
+                var userRole = (XpandRole) ObjectSpace.GetRole("User");
+                userRole.SetTypePermissions<XpandAuditDataItemPersistent>(SecurityOperations.ReadOnlyAccess,SecuritySystemModifier.Allow);
+                ApproveAuditsActionPermission(userRole);
+                userRole.SetTypePermissions<Document>(SecurityOperations.Create,SecuritySystemModifier.Allow);
+                userRole.AddMemberAccessPermission<Document>("Name,Url,Author", SecurityOperations.ReadWriteAccess,"Creator Is Null");
+            }
+        }
+
+        private void ApproveAuditsActionPermission(XpandRole userRole){
+            var actionStateRulePermission = ObjectSpace.CreateObject<ActionStateOperationPermissionData>();
+            actionStateRulePermission.ObjectTypeData = typeof (object);
+            actionStateRulePermission.ActionId = PendingAuditsController.ApproveAudits;
+            actionStateRulePermission.ActionState = ActionState.Hidden;
+            actionStateRulePermission.ID = "Hide ApproveAudits";
+            userRole.Permissions.Add(actionStateRulePermission);
         }
 
         private void CreateRegistrationEmailTemplates(IObjectSpace objectSpace) {
@@ -61,8 +80,8 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
                 var typeInfos = XafTypesInfo.Instance.PersistentTypes.Where(info => typeof(DocsBaseObject).IsAssignableFrom(info.Type));
                 foreach (var typeInfo in typeInfos) {
                     userRole.EnsureTypePermissions(typeInfo.Type, SecurityOperations.ReadOnlyAccess);
-                    userRole.Permissions.Add(IOActionPermission(ObjectSpace));
-                    anonymousRole.Permissions.Add(IOActionPermission(ObjectSpace));
+                    userRole.Permissions.Add(IOActionPermission());
+                    anonymousRole.Permissions.Add(IOActionPermission());
                     anonymousRole.EnsureTypePermissions(typeInfo.Type, SecurityOperations.ReadOnlyAccess);
                     if (typeof(ModuleArtifact).IsAssignableFrom(typeInfo.Type))
                         userRole.AddMemberAccessPermission(typeInfo.Type, "Text,Author,Url", SecurityOperations.Write, "Creator=CurrentUserId() or Text Is  Null");
@@ -72,8 +91,8 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             }
         }
 
-        private ActionStateOperationPermissionData IOActionPermission(IObjectSpace objectSpace) {
-            var actionStateOperationPermissionData = objectSpace.CreateObject<ActionStateOperationPermissionData>();
+        private ActionStateOperationPermissionData IOActionPermission() {
+            var actionStateOperationPermissionData = ObjectSpace.CreateObject<ActionStateOperationPermissionData>();
             actionStateOperationPermissionData.ActionId = "IO";
             actionStateOperationPermissionData.ActionState = ActionState.Hidden;
             actionStateOperationPermissionData.ID = "Hide IO Action";
@@ -178,9 +197,7 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             var document = objectSpace.CreateObject<Document>();
             document.Name = "How to display an address from and object property in Google Maps";
             document.Text = GetType().Assembly.GetManifestResourceStream(GetType(), "HowToDisplayAddressInGoogleMaps.xml").ReadToEndAsString();
-            document.Author = objectSpace.CreateObject<Author>();
-            document.Author.FirstName = "Apostolis";
-            document.Author.FirstName = "Bekiaris";
+            document.Author = "Apostolis Bekiaris";
             mapViewModule.Documents.Add(document);
         }
 

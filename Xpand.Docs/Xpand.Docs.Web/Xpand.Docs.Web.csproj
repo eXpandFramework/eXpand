@@ -25,7 +25,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-   <DeployOnBuild>True</DeployOnBuild>
+    <DeployOnBuild>True</DeployOnBuild>
     <DeployTarget>Package</DeployTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -244,6 +244,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj">
+      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
+      <Name>Xpand.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xpand.Docs.Module.Web\Xpand.Docs.Module.Web.csproj">
       <Project>{0c729aad-7626-4668-a7f1-35f7d240489d}</Project>
       <Name>Xpand.Docs.Module.Web</Name>

@@ -21,7 +21,7 @@
     </MergedDifferenceStrategies>
   </Options>
   <Views>
-    <ListView Id="DocsBaseObject_ListView" ShowSelectionColumn="False" />
+    <ListView Id="DocsBaseObject_ListView" ShowSelectionColumn="True" />
     <ListView Id="Module_ListView">
       <GridViewOptions>
         <SettingsPager Mode="ShowAllRecords" Visible="False" />

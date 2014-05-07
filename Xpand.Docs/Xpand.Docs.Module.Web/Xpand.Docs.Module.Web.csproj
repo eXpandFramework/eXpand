@@ -11,8 +11,10 @@
     <RootNamespace>Xpand.Docs.Module.Web</RootNamespace>
     <AssemblyName>Xpand.Docs.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -210,6 +212,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj">
+      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
+      <Name>Xpand.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xpand.Docs.Module\Xpand.Docs.Module.csproj">
       <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
       <Name>Xpand.Docs.Module</Name>

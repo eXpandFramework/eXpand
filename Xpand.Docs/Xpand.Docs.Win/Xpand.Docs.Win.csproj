@@ -227,6 +227,10 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj">
+      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
+      <Name>Xpand.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xpand.Docs.Module.Win\Xpand.Docs.Module.Win.csproj">
       <Project>{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}</Project>
       <Name>Xpand.Docs.Module.Win</Name>

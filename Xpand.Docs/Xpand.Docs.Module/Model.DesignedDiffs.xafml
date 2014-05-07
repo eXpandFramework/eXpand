@@ -1,5 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="Xpand.Docs" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ApproveAudits" ImageName="BO_Audit_ChangeHistory" />
+    </Actions>
+  </ActionDesign>
+  <AudiTrail>
+    <AuditTrailMembersContextGroup>
+      <AuditTrailMembersContexts Id="All editable ModuleArtifact members" IsNewNode="True">
+        <AuditTrailMembersContext ClassName="Xpand.Docs.Module.BusinessObjects.ModuleArtifact" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="Name" IsNewNode="True" />
+            <AuditTrailMembersContextMember ModelMemberName="Text" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+      </AuditTrailMembersContexts>
+    </AuditTrailMembersContextGroup>
+    <Rules>
+      <AuditTrailRule Id="Disable for all" TypeInfo="DevExpress.Xpo.XPBaseObject" Index="0" AuditingMode="None" IsNewNode="True" />
+      <AuditTrailRule Id="Full for all ModuleArtifact editable members" AuditingMode="Full" TypeInfo="Xpand.Docs.Module.BusinessObjects.ModuleArtifact" Index="1" AuditTrailMembersContext="All editable ModuleArtifact members" AuditPending="True" IsNewNode="True" />
+    </Rules>
+  </AudiTrail>
   <BOModel>
     <Class Name="Xpand.Docs.Module.BusinessObjects.Document">
       <AppearanceRules>
@@ -62,6 +83,12 @@
           </Item>
         </Items>
       </Item>
+      <Item Id="Changes" ImageName="BO_Audit_ChangeHistory" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="@289fb130-5e8b-4556-879a-95ccc70f90f3" ViewId="AuditDataItemPersistent_Approved_ListView" Caption="Approved" IsNewNode="True" />
+          <Item Id="@78450e73-78ef-4461-a6a7-db7fda47cf47" ViewId="AuditDataItemPersistent_Pending_ListView" Caption="Pending" IsNewNode="True" />
+        </Items>
+      </Item>
     </Items>
   </NavigationItems>
   <Options UseServerMode="True">
@@ -77,10 +104,39 @@
     <Registration Enabled="False" />
   </Options>
   <SchemaModules>
+    <SchemaModule Name="EmailModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="ModelArtifactStateModule" Version="13.2.9.3" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="13.2.9.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="13.2.9.2" IsNewNode="True" />
+    <SchemaModule Name="WorldCreatorDBMapperModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="WorldCreatorModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandAuditTrailModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandViewVariantsModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandWorkFlowModule" Version="13.2.9.3" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="AuditDataItemPersistent_Approved_ListView" Caption="Approved" Criteria="" AutoExpandAllGroups="True" Filter="[Pending] = False And [OperationType] &lt;&gt; 'InitialValueAssigned'">
+      <Columns>
+        <ColumnInfo Id="UserName" GroupIndex="1" />
+        <ColumnInfo Id="TargetTypeName" GroupIndex="3" />
+        <ColumnInfo Id="ModifiedOn" GroupIndex="0" />
+        <ColumnInfo Id="OperationType" GroupIndex="2" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="ApproveAudits" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="AuditDataItemPersistent_Pending_ListView" Caption="Pending" Criteria="" AutoExpandAllGroups="True" Filter="[Pending] = True And [OperationType] &lt;&gt; 'InitialValueAssigned'">
+      <Columns>
+        <ColumnInfo Id="UserName" GroupIndex="1" />
+        <ColumnInfo Id="TargetTypeName" GroupIndex="3" />
+        <ColumnInfo Id="ModifiedOn" GroupIndex="0" />
+        <ColumnInfo Id="OperationType" GroupIndex="2" />
+      </Columns>
+    </ListView>
     <DetailView Id="Document_DetailView">
       <Items>
         <PropertyEditor Id="Name" Caption="Subject" />

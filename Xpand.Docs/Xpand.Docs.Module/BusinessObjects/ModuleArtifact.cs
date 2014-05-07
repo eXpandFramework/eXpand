@@ -26,7 +26,16 @@ namespace Xpand.Docs.Module.BusinessObjects{
     [NonPersistent]
     [ModelMergedDifferences(CloneViewType.ListView)]
     public abstract class DocsBaseObject : BaseObject{
+        // Fields...
+        private bool _pending;
+
         protected DocsBaseObject(Session session) : base(session){
+        }
+
+        [InvisibleInAllViews]
+        public bool Pending{
+            get { return _pending; }
+            set { SetPropertyValue("Pending", ref _pending, value); }
         }
     }
 
@@ -37,7 +46,8 @@ namespace Xpand.Docs.Module.BusinessObjects{
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_Permission")]
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_BusinessObject")]
     [CloneView(CloneViewType.ListView, "ModuleArtifact_ListView_Action")]
-    [DefaultProperty("Name")]
+    [DefaultProperty("DisplayName")]
+    [XpandDefaultProperty("Type + ' / '+ Name")]
     public class ModuleArtifact : DocsBaseObject, INameProvider, ITreeNode{
         private XpandUser _creator;
         private string _name;
@@ -98,12 +108,6 @@ namespace Xpand.Docs.Module.BusinessObjects{
 
         IBindingList ITreeNode.Children{
             get { return Artifacts; }
-        }
-
-        protected override void OnSaving(){
-            base.OnSaving();
-            if (Session.IsNewObject(this) && Creator == null && SecuritySystem.CurrentUser != null)
-                Creator = Session.GetObjectByKey<XpandUser>(SecuritySystem.CurrentUserId);
         }
     }
 
