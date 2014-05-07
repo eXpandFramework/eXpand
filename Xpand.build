@@ -128,11 +128,7 @@
 		-->
   </Target>
 
-  <Target Name="PublishXpandDocsSite">
-    <CallTarget Targets="RunEasyTestsForDocsSite"></CallTarget>
-    <CallTarget Targets="UpdateXpandDocsSiteFiles"></CallTarget>
-    <CallTarget Targets="DBUpdater"></CallTarget>
-  </Target>
+  <Target Name="PublishXpandDocsSite" DependsOnTargets="RunEasyTestsForDocsSite;UpdateXpandDocsSiteFiles;DBUpdater"/>
   <Target Name="StartXpandDocsSite">
     <Exec Command="appcmd start site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>

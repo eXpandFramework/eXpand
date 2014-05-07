@@ -32,18 +32,22 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             base(objectSpace, currentDBVersion) {
         }
 
+
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             ParseXpandModules();
             CreateSecurityObjects();
             CreateRegistrationEmailTemplates(ObjectSpace);
-            if (new Version(XpandAssemblyInfo.Version) <= new Version("13.2.9.3")) {
+
+            var version = new Version(XpandAssemblyInfo.Version);
+            if (version<new Version(13,2,9,28)){
                 var userRole = (XpandRole) ObjectSpace.GetRole("User");
                 userRole.SetTypePermissions<XpandAuditDataItemPersistent>(SecurityOperations.ReadOnlyAccess,SecuritySystemModifier.Allow);
                 ApproveAuditsActionPermission(userRole);
                 userRole.SetTypePermissions<Document>(SecurityOperations.Create,SecuritySystemModifier.Allow);
                 userRole.AddMemberAccessPermission<Document>("Name,Url,Author", SecurityOperations.ReadWriteAccess,"Creator Is Null");
             }
+            
         }
 
         private void ApproveAuditsActionPermission(XpandRole userRole){
