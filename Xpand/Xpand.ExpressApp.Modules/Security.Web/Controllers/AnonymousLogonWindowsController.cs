@@ -79,15 +79,7 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             var manageUsersOnLogonController = dialogController.Frame.GetController<ManageUsersOnLogonController>();
             manageUsersOnLogonController.CustomActiveKey += OnCustomActiveKey;
             manageUsersOnLogonController.CustomProccessedLogonParameter+=ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
-            manageUsersOnLogonController.CustomProccessedLogonParameter += ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
-        }
-
-        private void ManageUsersOnLogonControllerOnCustomProccessedLogonParameter(object sender, HandledEventArgs handledEventArgs){
-            handledEventArgs.Handled =((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled;
-        }
-
-        void OnCustomActiveKey(object sender, CustomActiveKeyArgs e) {
-            e.Handled = e.View.ObjectTypeInfo.Type == typeof(AnonymousLogonParameters);
+            manageUsersOnLogonController.CustomCancelLogonParameter += ManageUsersOnLogonControllerOnCustomCancelLogonParameter;
         }
 
         void DialogControllerOnDeactivated(object sender, EventArgs eventArgs) {
@@ -98,7 +90,19 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             manageUsersOnLogonController.CustomActiveKey -= OnCustomActiveKey;
             manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
             manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
+            manageUsersOnLogonController.CustomCancelLogonParameter -= ManageUsersOnLogonControllerOnCustomCancelLogonParameter;
         }
 
+        private void ManageUsersOnLogonControllerOnCustomCancelLogonParameter(object sender, ParameterEventArgs parameterEventArgs){
+            parameterEventArgs.Handled=((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled;
+        }
+
+        private void ManageUsersOnLogonControllerOnCustomProccessedLogonParameter(object sender, HandledEventArgs handledEventArgs){
+            handledEventArgs.Handled =((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled;
+        }
+
+        void OnCustomActiveKey(object sender, CustomActiveKeyArgs e) {
+            e.Handled = e.View.ObjectTypeInfo.Type == typeof(AnonymousLogonParameters);
+        }
     }
 }
