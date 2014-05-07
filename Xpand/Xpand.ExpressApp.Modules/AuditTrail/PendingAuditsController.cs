@@ -82,11 +82,9 @@ namespace Xpand.ExpressApp.AuditTrail {
                 var pendingMember = modelAuditPending.PendingMember;
                 var creatorMember = modelAuditPending.CreatorMember;
                 if (pendingMember != null && creatorMember!=null){
-                    //[Creator.Oid] = CurrentUserId() And [Pending] = True Or [Pending] = False
-//                    string criteria = string.Format("(([{0}] = True And [{1}.{2}]) = CurrentUserId() Or [{0}] = False)",
-//                        pendingMember.Name, creatorMember.Name, creatorMember.ModelClass.KeyProperty);
-                    var criteriaOperator = CriteriaOperator.Parse("(([Creator.Oid] = CurrentUserId() And [Pending] = True) Or [Pending] = False)");
-                    listView.CollectionSource.Criteria[typeof(PendingAuditsController).Name] = criteriaOperator;
+                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And [" 
+                        + pendingMember.Name + "] = True) Or [" +pendingMember.Name + "] = False)");
+                    listView.CollectionSource.Criteria[typeof(PendingAuditsController).Name] = @operator;
                 }
             }
         }
@@ -103,7 +101,7 @@ namespace Xpand.ExpressApp.AuditTrail {
 
         private void CustomCommitChanges(object sender, HandledEventArgs handledEventArgs){
             _auditPending = false;
-            Frame.GetController<LogicRuleViewController>().LogicRuleExecutor.Execute(ExecutionContext.None, EventArgs.Empty, View);
+            Frame.GetController<LogicRuleViewController>().LogicRuleExecutor.Execute<IAuditTrailRule>(ExecutionContext.None, EventArgs.Empty, View);
             if (_auditPending){
                 var objectSpace = ((IObjectSpace) sender);
                 if (!objectSpace.IsNewObject(View.CurrentObject)) {

@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         private void BeginSessionAudit(){
             var handledEventArgs = new HandledEventArgs();
-            _logicRuleViewController.LogicRuleExecutor.Execute(ExecutionContext.None, View, handledEventArgs);
+            _logicRuleViewController.LogicRuleExecutor.Execute<IAuditTrailRule>(ExecutionContext.None, View, handledEventArgs);
             if (handledEventArgs.Handled)
                 AuditTrailService.Instance.BeginSessionAudit(ObjectSpace.Session(), AuditTrailStrategy.OnObjectLoaded);
         }

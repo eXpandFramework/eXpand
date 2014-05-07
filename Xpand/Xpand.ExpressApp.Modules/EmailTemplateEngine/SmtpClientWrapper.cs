@@ -4,13 +4,13 @@ namespace Xpand.EmailTemplateEngine {
     using System.Net.Mail;
 
     public class SmtpClientWrapper : ISmtpClient {
-        private readonly SmtpClient realClient;
-        private bool disposed;
+        private readonly SmtpClient _realClient;
+        private bool _disposed;
 
         public SmtpClientWrapper(SmtpClient realClient) {
             Invariant.IsNotNull(realClient, "realClient");
 
-            this.realClient = realClient;
+            _realClient = realClient;
         }
 
         [DebuggerStepThrough]
@@ -27,7 +27,7 @@ namespace Xpand.EmailTemplateEngine {
         public void Send(MailMessage message) {
             Invariant.IsNotNull(message, "message");
 
-            realClient.Send(message);
+            _realClient.Send(message);
         }
 
         [DebuggerStepThrough]
@@ -36,11 +36,11 @@ namespace Xpand.EmailTemplateEngine {
 
         [DebuggerStepThrough]
         private void Dispose(bool disposing) {
-            if (!disposed && disposing) {
+            if (!_disposed && disposing) {
                 DisposeCore();
             }
 
-            disposed = true;
+            _disposed = true;
         }
     }
 }
