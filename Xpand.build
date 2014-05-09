@@ -34,7 +34,8 @@
     <TempPath>$(BuildPath)\Temp</TempPath>
     <XpandDLLPath>$(MSBuildProjectDirectory)\Xpand.DLL</XpandDLLPath>
     <RecompiledDXSources>$(Configuration)</RecompiledDXSources>
-<!--    <RecompiledDXSources>RecompiledDXSources</RecompiledDXSources>-->
+    <!--    <RecompiledDXSources>RecompiledDXSources</RecompiledDXSources>-->
+    <SkipDashboard Condition="'$(RecompiledDXSources)' == 'RecompiledDXSources'">true</SkipDashboard>
     <OutputFile>$(MSBuildProjectDirectory)\output.txt</OutputFile>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
@@ -42,7 +43,7 @@
     <DocsSiteName>documentation.expandframework.com</DocsSiteName>
     <XpandDocsSitePath>C:\inetpub\vhosts\$(DocsSiteName)</XpandDocsSitePath>
     <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
-    
+
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
@@ -52,7 +53,7 @@
 	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
 	-->
   <!-- Main build entry file (extends development builds)-->
-  
+
   <ItemGroup>
     <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;"></CoreProjectSolutions>
     <AddInProjects Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj"></AddInProjects>
@@ -87,16 +88,16 @@
 
   <Target Name="Build" DependsOnTargets="FixReferences">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-	<MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    
+
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-	<MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -133,12 +134,12 @@
   <Target Name="StartXpandDocsSite">
     <Exec Command="appcmd start site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
- <Target Name="KillXpandDocsSite">
+  <Target Name="KillXpandDocsSite">
     <MSBuild.ExtensionPack.Computer.Process TaskAction="Get" IncludeUserInfo="true">
       <Output ItemName="ProcessList" TaskParameter="Processes"/>
     </MSBuild.ExtensionPack.Computer.Process>
     <Message Text="%(ProcessList.Identity)  - %(ProcessList.User) - %(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
-    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'@(ProcessList->Count())' !='0' And %(ProcessList.User)' == '$(DocsSiteName)'"/>
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
     <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
   <Target Name="UpdateXpandDocsSiteFiles">
@@ -150,7 +151,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
     <CallTarget Targets="StartXpandDocsSite" />
-    </Target>
+  </Target>
   <Target Name="DBUpdater">
     <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(XpandDocsSitePath)\bin"/>
     <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
@@ -182,8 +183,8 @@
     </ItemGroup>
   </Target>
   <Target Name="Test" >
-<!--    <MSBuild Projects=".\Xpand.EasyTest\Xpand.EasyTest.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />-->
-    
+    <!--    <MSBuild Projects=".\Xpand.EasyTest\Xpand.EasyTest.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />-->
+
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
     <TypeMockStop />
