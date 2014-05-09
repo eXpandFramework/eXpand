@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Management;
 using System.Windows.Forms;
 
 namespace XpandAddIns.ModelEditor {
@@ -26,13 +28,33 @@ namespace XpandAddIns.ModelEditor {
                 MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
                 return;
             }
-            File.Copy(path, Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""),true);
-            path = Path.Combine(Path.GetDirectoryName(assemblyPath)+"", Path.GetFileName(path)+"");
+            
+            var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
+            KillProcess(destFileName);
+            if (path!=destFileName)
+                File.Copy(path, destFileName,true);
             string arguments = String.Format("\"{0}\" \"{2}\" \"{1}\"", Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
-            if (File.Exists(path))
-                Process.Start(path, arguments);
+            if (File.Exists(destFileName))
+                Process.Start(destFileName, arguments);
             else
-                MessageBox.Show(String.Format("Model editor not found at {0}", path));
+                MessageBox.Show(String.Format("Model editor not found at {0}", destFileName));
+        }
+
+        public void KillProcess(string path){
+            const string wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
+            using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+            using (var results = searcher.Get()) {
+                var query = Process.GetProcesses()
+                    .Join(results.Cast<ManagementObject>(), p => p.Id, mo => (int) (uint) mo["ProcessId"],
+                        (p, mo) => new{
+                            Process = p,
+                            Path = (string) mo["ExecutablePath"],
+                            CommandLine = (string) mo["CommandLine"],
+                        });
+                foreach (var item in query.Where(arg => arg.Path==path)) {
+                    item.Process.Kill();
+                }
+            }
         }
 
     }
