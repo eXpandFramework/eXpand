@@ -32,7 +32,7 @@ namespace Xpand.Docs.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Email.EmailModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.XpandSecurityModule));
-//            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.StateMachine.XpandStateMachineModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.StateMachine.XpandStateMachineModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Workflow.XpandWorkFlowModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule));

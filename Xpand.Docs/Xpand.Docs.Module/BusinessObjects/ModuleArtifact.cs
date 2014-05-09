@@ -26,7 +26,6 @@ namespace Xpand.Docs.Module.BusinessObjects{
     [NonPersistent]
     [ModelMergedDifferences(CloneViewType.ListView)]
     public abstract class DocsBaseObject : BaseObject{
-        // Fields...
         private bool _pending;
 
         protected DocsBaseObject(Session session) : base(session){

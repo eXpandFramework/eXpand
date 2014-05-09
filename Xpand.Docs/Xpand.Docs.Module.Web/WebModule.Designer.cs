@@ -43,6 +43,7 @@ namespace Xpand.Docs.Module.Web {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MapView.Web.MapViewWebModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.HtmlPropertyEditor.Web.XpandHtmlPropertyEditorAspNetModule));
 
 
         }
