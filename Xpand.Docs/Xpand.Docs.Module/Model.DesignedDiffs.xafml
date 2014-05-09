@@ -7,7 +7,12 @@
   </ActionDesign>
   <AudiTrail>
     <AuditTrailMembersContextGroup>
-      <AuditTrailMembersContexts Id="All editable ModuleArtifact members" IsNewNode="True">
+      <AuditTrailMembersContexts Id="All editable DocsBaseObject members" IsNewNode="True">
+        <AuditTrailMembersContext ClassName="Xpand.Docs.Module.BusinessObjects.Module" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="Installation" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
         <AuditTrailMembersContext ClassName="Xpand.Docs.Module.BusinessObjects.ModuleArtifact" IsNewNode="True">
           <Members IsNewNode="True">
             <AuditTrailMembersContextMember ModelMemberName="Name" IsNewNode="True" />
@@ -18,7 +23,7 @@
     </AuditTrailMembersContextGroup>
     <Rules>
       <AuditTrailRule Id="Disable for all" TypeInfo="DevExpress.Xpo.XPBaseObject" Index="0" AuditingMode="None" IsNewNode="True" />
-      <AuditTrailRule Id="Full for all ModuleArtifact editable members" AuditingMode="Full" TypeInfo="Xpand.Docs.Module.BusinessObjects.ModuleArtifact" Index="1" AuditTrailMembersContext="All editable ModuleArtifact members" AuditPending="True" IsNewNode="True" />
+      <AuditTrailRule Id="Full for all DocsBaseObject editable members" AuditingMode="Full" Index="1" AuditTrailMembersContext="All editable DocsBaseObject members" AuditPending="True" TypeInfo="Xpand.Docs.Module.BusinessObjects.DocsBaseObject" IsNewNode="True" />
     </Rules>
   </AudiTrail>
   <BOModel>
