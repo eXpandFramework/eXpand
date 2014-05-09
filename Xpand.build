@@ -87,19 +87,20 @@
 
   <Target Name="Build" DependsOnTargets="FixReferences">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+	<MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+	<MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
