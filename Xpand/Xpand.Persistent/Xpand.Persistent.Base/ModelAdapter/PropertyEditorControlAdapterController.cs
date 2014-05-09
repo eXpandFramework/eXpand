@@ -12,7 +12,7 @@ using Xpand.Utils.Web;
 namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelPropertyEditorControl, TModelControl> : ModelAdapterController, IModelExtender
         where TModelPropertyEditorControl : IModelPropertyEditor
-        where TModelControl : IModelNodeEnabled  {
+        where TModelControl : IModelModelAdapter {
         protected PropertyEditorControlAdapterController() {
             TargetViewType = ViewType.DetailView;
         }

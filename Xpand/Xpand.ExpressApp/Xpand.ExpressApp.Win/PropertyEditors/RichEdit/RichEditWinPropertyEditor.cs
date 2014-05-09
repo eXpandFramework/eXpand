@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         IModelRichEdit RichEdit { get; }
     }
 
-    public interface IModelRichEdit : IModelNode {
+    public interface IModelRichEdit : IModelModelAdapter {
         [DefaultValue("rtf")]
         string HighLightExtension { get; set; }
         bool PrintXML { get; set; }

@@ -14,9 +14,7 @@ namespace Xpand.Persistent.Base.General.Model.VisibilityCalculators {
 
         protected Type EditorType(IModelNode node){
             var modelNode = node.GetParent<IModelListView>();
-            if (modelNode != null) return ((IModelListView) modelNode).EditorType;
-            modelNode= node.GetParent<IModelPropertyEditor>();
-            return ((IModelPropertyEditor) modelNode).PropertyEditorType;
+            return modelNode != null ? modelNode.EditorType : node.GetParent<IModelPropertyEditor>().PropertyEditorType;
         }
 
         #endregion

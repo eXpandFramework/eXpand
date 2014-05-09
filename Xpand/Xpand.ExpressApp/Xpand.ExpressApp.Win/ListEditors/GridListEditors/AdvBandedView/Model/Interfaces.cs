@@ -1,12 +1,18 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
+using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
@@ -17,7 +23,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public interface IModelGridBand : IModelNode {
         IModelGridBands GridBands { get; }
     }
-
+    [ModelDisplayName("AdvBandedViewOptions")]
     public interface IModelOptionsAdvBandedView : IModelOptionsColumnView {
         IModelGridBands GridBands { get; }
     }
@@ -54,6 +60,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public interface IModelListViewOptionsAdvBandedView : IModelListViewOptionsColumnView {
         [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
         IModelOptionsAdvBandedView OptionsAdvBandedView { get; }
+        [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
+        IModelAdvBandedViewModelAdapters AdvBandedViewModelAdapters { get; }
     }
 
     public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor> {
@@ -64,4 +72,25 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         [DefaultValue("Use the property editor to invoke the designer")]
         string Layout { get; set; }
     }
+
+    [ModelNodesGenerator(typeof(ModelAdvBandedViewAdaptersNodeGenerator))]
+    public interface IModelAdvBandedViewModelAdapters : IModelList<IModelAdvBandedViewModelAdapter>, IModelNode {
+
+    }
+
+    public interface IModelAdvBandedViewModelAdapter : IModelCommonModelAdapter<IModelOptionsAdvBandedView> {
+
+    }
+
+    [DomainLogic(typeof(IModelAdvBandedViewModelAdapter))]
+    public class ModelAdvBandedViewModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelOptionsAdvBandedView> {
+        public static IModelList<IModelOptionsAdvBandedView> Get_ModelAdapters(IModelAdvBandedViewModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
+    }
+
+    public class ModelAdvBandedViewAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsAdvBandedView,IModelAdvBandedViewModelAdapter> {
+
+    }
+
 }

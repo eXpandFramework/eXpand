@@ -18,6 +18,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
     public interface IModelListViewOptionsTreeListNavigation : IModelRootNavigationItems {
         IModelOptionsTreeList TreeListOptions { get; }
     }
+
+    [ModelDisplayName("TreeList")]
     public interface IModelOptionsTreeList : IModelOptionsColumnView {
 
     }

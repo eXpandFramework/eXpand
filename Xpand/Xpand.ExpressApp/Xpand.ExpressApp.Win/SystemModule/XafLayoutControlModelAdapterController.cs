@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         IModelXafLayoutControl XafLayoutControl { get; }
     }
 
-    public interface IModelXafLayoutControl:IModelNode{
+    public interface IModelXafLayoutControl : IModelModelAdapter {
          
     }
 }

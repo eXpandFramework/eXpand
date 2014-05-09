@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
         IModelDashboardViewer DashboardViewer { get; }
     }
 
-    public interface IModelDashboardViewer : IModelNodeEnabled {
+    public interface IModelDashboardViewer : IModelModelAdapter {
 
     }
 

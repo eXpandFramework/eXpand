@@ -215,6 +215,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             ModelSynchronizerList.Add(new ColumnsListEditorModelSynchronizer((ColumnsListEditor)columnViewEditor, modelListView));
             ((IColumnViewEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
         }
+
         public override void Dispose() {
             base.Dispose();
             var gridListEditor = Control as IColumnViewEditor;

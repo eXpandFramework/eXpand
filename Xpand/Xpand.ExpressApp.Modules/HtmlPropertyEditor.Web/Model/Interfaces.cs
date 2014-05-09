@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Web.ASPxHtmlEditor;
 using Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
 using Xpand.Utils.Helpers;
@@ -14,10 +17,37 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
     
     [ModelAbstractClass]
     public interface IModelPropertyHtmlEditor : IModelPropertyEditor {
+        [ModelBrowsable(typeof(HtmlEditorVisibilityCalculator))]
         IModelHtmlEditor HtmlEditor { get; }
+        [ModelBrowsable(typeof(HtmlEditorVisibilityCalculator))]
+        IModelHtmlEditorModelAdapters HtmlEditorModelAdapters { get; }
     }
 
-    public interface IModelHtmlEditor:IModelNodeEnabled {
+    public class HtmlEditorVisibilityCalculator : EditorTypeVisibilityCalculator<ASPxHtmlPropertyEditor> {
+         
+    }
+
+    [ModelNodesGenerator(typeof(ModelHtmlEditorAdaptersNodeGenerator))]
+    public interface IModelHtmlEditorModelAdapters : IModelList<IModelHtmlEditorModelAdapter>, IModelNode {
+
+    }
+
+    public interface IModelHtmlEditorModelAdapter : IModelCommonModelAdapter<IModelHtmlEditor> {
+
+    }
+
+    [DomainLogic(typeof(IModelHtmlEditorModelAdapter))]
+    public class ModelHtmlEditorModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelHtmlEditor> {
+        public static IModelList<IModelHtmlEditor> Get_ModelAdapters(IModelHtmlEditorModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
+    }
+
+    public class ModelHtmlEditorAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelHtmlEditor, IModelHtmlEditorModelAdapter> {
+
+    }
+
+    public interface IModelHtmlEditor : IModelModelAdapter {
         IModelHtmlEditorToolBars ToolBars { get; }
         IModelHtmlEditorShortcuts Shortcuts { get; }
         IModelHtmlEditorCustomDialogs CustomDialogs { get; }

@@ -3,7 +3,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model.ModelAdaptor;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -26,10 +25,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CustomModelSynchronizerHelper.
-                Assign<IModelAdaptorGridViewOptionsRule, IModelModelAdaptorGridViewOptionsRule>
-                (e, new GridLstEditorDynamicModelSynchronizer(_gridListEditor), Frame,
-                 rule => new GridLstEditorDynamicModelSynchronizer(_gridListEditor.GridView, rule));
+            CustomModelSynchronizerHelper.Assign(e, new GridLstEditorDynamicModelSynchronizer(_gridListEditor));
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {

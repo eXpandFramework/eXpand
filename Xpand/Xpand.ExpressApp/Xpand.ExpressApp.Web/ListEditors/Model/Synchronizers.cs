@@ -6,13 +6,15 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
-    public class GridViewListEditorModelSynchronizer : ModelListSynchronizer {
-        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor): this(columnViewEditor.Grid, ((IModelListViewOptionsGridView)columnViewEditor.Model).GridViewOptions) {
-            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, (IModelListViewOptionsGridView) columnViewEditor.Model));
-        }
-
-        public GridViewListEditorModelSynchronizer(ASPxGridView asPxGridView, IModelOptionsGridView modelOptionsGridView): base(asPxGridView, modelOptionsGridView) {
-            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(asPxGridView, modelOptionsGridView));
+    public class GridViewListEditorModelSynchronizer:ModelListSynchronizer {
+        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor)
+            : base(columnViewEditor, columnViewEditor.Model){
+            var listViewOptionsGridView = (IModelListViewOptionsGridView)columnViewEditor.Model;
+            foreach (var modelAdapter in listViewOptionsGridView.GridViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters)){
+                ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(columnViewEditor.Grid, modelAdapter));
+            }
+            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(columnViewEditor.Grid, ((IModelListViewOptionsGridView)columnViewEditor.Model).GridViewOptions));
+            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, listViewOptionsGridView));
         }
     }
 

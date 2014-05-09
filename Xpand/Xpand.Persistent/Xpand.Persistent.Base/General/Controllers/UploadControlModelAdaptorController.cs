@@ -14,7 +14,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         IModelUploadControl UploadControl { get; }
     }
 
-    public interface IModelUploadControl:IModelNode {
+    public interface IModelUploadControl : IModelModelAdapter {
     }
 
     public interface IASPxPropertyEditorUploadControlProvider {

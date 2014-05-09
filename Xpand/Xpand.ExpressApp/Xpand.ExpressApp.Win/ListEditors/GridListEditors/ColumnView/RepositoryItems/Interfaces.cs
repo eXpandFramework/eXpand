@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
     }
     [ModelDisplayName("Item")]
     [ModelAbstractClass]
-    public interface IModelRepositoryItem : IModelNodeEnabled {
+    public interface IModelRepositoryItem : IModelModelAdapter {
 
     }
     #region RepositoryItem Descenants

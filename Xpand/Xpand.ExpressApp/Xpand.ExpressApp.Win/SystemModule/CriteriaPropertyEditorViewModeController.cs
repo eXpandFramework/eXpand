@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using DevExpress.Accessibility;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraFilterEditor;
@@ -22,7 +21,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
     }
 
-    public interface IModelFilterControl : IModelNodeEnabled {
+    public interface IModelFilterControl : IModelModelAdapter {
     }
 
     public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorFilterControl, IModelFilterControl> {

@@ -73,7 +73,7 @@ namespace Xpand.Utils.Helpers {
             return ((MethodCallExpression)lambda.Body).Method;
         }
 
-        public static MemberInfo GetExpression(LambdaExpression lambda) {
+        public static MemberInfo GetExpression(this LambdaExpression lambda) {
 
             if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
 

@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -10,6 +11,28 @@ namespace Xpand.Persistent.Base.General.Model.Options {
     public interface IModelListViewOptionsGridView : IModelListViewOptionsColumnView {
         [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
         IModelOptionsGridView GridViewOptions { get; }
+        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
+        IModelGridViewModelAdapters GridViewModelAdapters { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelGridViewAdaptersNodeGenerator))]
+    public interface IModelGridViewModelAdapters : IModelList<IModelGridViewModelAdapter>, IModelNode {
+
+    }
+
+    public interface IModelGridViewModelAdapter : IModelCommonModelAdapter<IModelOptionsGridView> {
+
+    }
+
+    [DomainLogic(typeof(IModelGridViewModelAdapter))]
+    public class ModelGridViewModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelOptionsGridView> {
+        public static IModelList<IModelOptionsGridView> Get_ModelAdapters(IModelGridViewModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
+    }
+
+    public class ModelGridViewAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsGridView, IModelGridViewModelAdapter> {
+
     }
 
     public abstract class GridListEditorVisibilityCalculatorHelper : EditorTypeVisibilityCalculator {
@@ -31,19 +54,25 @@ namespace Xpand.Persistent.Base.General.Model.Options {
         #endregion
     }
 
+    [ModelDisplayName("GridView")]
     public interface IModelOptionsGridView : IModelOptionsColumnView {
     }
 
     public interface IModelListViewOptionsColumnView : IModelListView {
     }
-    public interface IModelOptionsColumnView : IModelNodeEnabled {
+
+    [ModelAbstractClass]
+    public interface IModelOptionsColumnView : IModelModelAdapter {
 
     }
+
     [ModelAbstractClass]
     public interface IModelColumnOptionsColumnView : IModelColumn {
 
     }
-    public interface IModelColumnViewColumnOptions : IModelNodeEnabled {
+
+    [ModelAbstractClass]
+    public interface IModelColumnViewColumnOptions : IModelNodeEnabled{
 
     }
 
@@ -52,7 +81,10 @@ namespace Xpand.Persistent.Base.General.Model.Options {
         [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
         IModelOptionsColumnGridView OptionsColumnGridView { get; }
     }
+
+    [ModelDisplayName("ColumnGridViewOptions")]
     public interface IModelOptionsColumnGridView : IModelColumnViewColumnOptions {
     }
 
+    
 }

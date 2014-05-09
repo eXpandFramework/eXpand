@@ -1,4 +1,5 @@
-﻿using DevExpress.Data.Summary;
+﻿using System.Linq;
+using DevExpress.Data.Summary;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Columns;
@@ -83,7 +84,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 
         public GridLstEditorDynamicModelSynchronizer(XafGridView gridView, IModelListViewOptionsGridView modelListView, bool overrideViewDesignMode)
             : base(gridView, modelListView) {
-            ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(gridView, modelListView.GridViewOptions, overrideViewDesignMode));
+            var adapters =  modelListView.GridViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters);
+            foreach (var adapter in adapters){
+                ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(gridView, adapter, overrideViewDesignMode));    
+            }
             ModelSynchronizerList.Add(new GridListEditorColumnOptionsSynchroniser(gridView, modelListView));
             ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(gridView, modelListView));
         }
