@@ -138,7 +138,7 @@
       <Output ItemName="ProcessList" TaskParameter="Processes"/>
     </MSBuild.ExtensionPack.Computer.Process>
     <Message Text="%(ProcessList.Identity)  - %(ProcessList.User) - %(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
-    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'@(ProcessList->Count())' !='0' And %(ProcessList.User)' == '$(DocsSiteName)'"/>
     <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
   <Target Name="UpdateXpandDocsSiteFiles">
