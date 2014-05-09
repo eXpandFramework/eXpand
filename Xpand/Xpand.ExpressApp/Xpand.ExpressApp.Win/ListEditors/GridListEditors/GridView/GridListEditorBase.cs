@@ -41,7 +41,27 @@ using NewItemRowPosition = DevExpress.ExpressApp.NewItemRowPosition;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
-    internal class InternalXafWinFilterTreeNodeModel : WinFilterTreeNodeModelBase {
+    public static class Extensions{
+        public static RepositoryItem CreateDefaultFilterControlRepositoryItem(this DataColumnInfoFilterColumn column, DevExpress.XtraGrid.Views.Grid.GridView gridView, ITypeInfo objectTypeInfo, RepositoryEditorsFactory repositoryFactory) {
+            if (gridView != null && column != null) {
+                if (column.Parent == null || !column.Parent.IsList) {
+                    IMemberInfo memberInfo = objectTypeInfo.FindMember(column.FullName);
+                    if (memberInfo != null) {
+                        GridColumn gridColumn = gridView.Columns[memberInfo.BindingName];
+                        if (gridColumn != null) {
+                            return new GridFilterColumn(gridColumn).ColumnEditor;
+                        }
+                    }
+                }
+                if (repositoryFactory != null && column.ColumnType != null) {
+                    return repositoryFactory.CreateStandaloneRepositoryItem(column.ColumnType);
+                }
+            }
+            return null;
+        }
+
+    }
+    public class InternalXafWinFilterTreeNodeModel : WinFilterTreeNodeModelBase {
         protected override void OnCreateCustomRepositoryItem(CreateCustomRepositoryItemEventArgs args) {
             base.OnCreateCustomRepositoryItem(args);
             if (CreateCustomRepositoryItem != null) {
@@ -164,23 +184,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 				IMemberInfo mi = ObjectTypeInfo.FindMember(listProperty.Name); 
 				if(mi != null && mi.IsList && (mi.ListElementTypeInfo != null)) {
 					return mi.ListElementTypeInfo;
-				}
-			}
-			return null;
-		}
-		protected RepositoryItem CreateDefaultFilterControlRepositoryItem(DataColumnInfoFilterColumn column) {
-			if(GridView != null && column != null) {
-				if(column.Parent == null || !column.Parent.IsList) { 
-					IMemberInfo memberInfo = ObjectTypeInfo.FindMember(column.FullName);
-					if(memberInfo != null) {
-						GridColumn gridColumn = GridView.Columns[memberInfo.BindingName]; 
-						if(gridColumn != null) {
-							return new GridFilterColumn(gridColumn).ColumnEditor;
-						}
-					}
-				}
-				if(repositoryFactory != null && column.ColumnType != null) {
-					return repositoryFactory.CreateStandaloneRepositoryItem(column.ColumnType);
 				}
 			}
 			return null;
@@ -770,7 +773,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 				CreateCustomFilterEditorRepositoryItem(this, e);
 			}
 			if(e.RepositoryItem == null) {
-				e.RepositoryItem = CreateDefaultFilterControlRepositoryItem(e.Column);
+                e.RepositoryItem = e.Column.CreateDefaultFilterControlRepositoryItem((DevExpress.XtraGrid.Views.Grid.GridView) GridView,ObjectTypeInfo,RepositoryFactory);
 			}
 		}
 		protected virtual void ProcessMouseClick(EventArgs e) {

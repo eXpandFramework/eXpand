@@ -252,25 +252,28 @@ namespace Xpand.ExpressApp.Win.Editors {
 
         private void OnOnNotifyControl(FilterChangedEventArgs info){
             if (info.Action == FilterChangedAction.RebuildWholeTree && info.CurrentNode == null&&!_isUpdating){
-                _isUpdating = true;
-                BeginUpdate();
-                RootNode = null;
-                var processor = new XpandCriteriaToTreeProcessor(CreateNodesFactory(),new List<CriteriaOperator>() );
-                var criteriaOperator = ((IXpandFilterControl) Control).Criteria();
-                var node = (Node)processor.ProcessX(criteriaOperator);
-                if (AllowCreateDefaultClause && node == null) {
-                    node = CreateCriteriaByDefaultProperty();
-                }
-                RootNode = node as GroupNode;
-                if (RootNode == null) {
-                    RootNode = CreateGroupNode(null);
-                    if (node != null) {
-                        RootNode.AddNode(node);
+                var criteriaOperator = ((IXpandFilterControl)Control).Criteria();
+                if (criteriaOperator!=null){
+                    _isUpdating = true;
+                    BeginUpdate();
+                    RootNode = null;
+                    var processor = new XpandCriteriaToTreeProcessor(CreateNodesFactory(), new List<CriteriaOperator>());
+
+                    var node = (Node) processor.ProcessX(criteriaOperator);
+                    if (AllowCreateDefaultClause && node == null){
+                        node = CreateCriteriaByDefaultProperty();
                     }
+                    RootNode = node as GroupNode;
+                    if (RootNode == null){
+                        RootNode = CreateGroupNode(null);
+                        if (node != null){
+                            RootNode.AddNode(node);
+                        }
+                    }
+                    FocusInfo = new FilterControlFocusInfo(RootNode, 0);
+                    EndUpdate(FilterChangedAction.RebuildWholeTree);
+                    _isUpdating = false;
                 }
-                FocusInfo = new FilterControlFocusInfo(RootNode, 0);
-                EndUpdate(FilterChangedAction.RebuildWholeTree);
-                _isUpdating=false;
 
             }
         }
