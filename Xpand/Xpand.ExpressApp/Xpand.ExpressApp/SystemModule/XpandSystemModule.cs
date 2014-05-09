@@ -85,8 +85,8 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            new FullTextContainsFunction().Register();
             if (RuntimeMode) {
+                new FullTextContainsFunction().Register();
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);
                 }
@@ -95,6 +95,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 CreatePessimisticLockingField(typesInfo);
             }
         }
+
         void CreatePessimisticLockingField(ITypesInfo typesInfo) {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
             foreach (var typeInfo in typeInfos) {
