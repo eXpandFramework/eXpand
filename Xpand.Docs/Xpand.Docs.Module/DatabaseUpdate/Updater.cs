@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
@@ -39,15 +38,26 @@ namespace Xpand.Docs.Module.DatabaseUpdate {
             CreateSecurityObjects();
             CreateRegistrationEmailTemplates(ObjectSpace);
 
-            var version = new Version(XpandAssemblyInfo.Version);
-            if (version<new Version(13,2,9,28)){
+            if (VersionUpdateNeeded("13.2.9.28")){
                 var userRole = (XpandRole) ObjectSpace.GetRole("User");
                 userRole.SetTypePermissions<XpandAuditDataItemPersistent>(SecurityOperations.ReadOnlyAccess,SecuritySystemModifier.Allow);
                 ApproveAuditsActionPermission(userRole);
                 userRole.SetTypePermissions<Document>(SecurityOperations.Create,SecuritySystemModifier.Allow);
                 userRole.AddMemberAccessPermission<Document>("Name,Url,Author", SecurityOperations.ReadWriteAccess,"Creator Is Null");
             }
+            if (VersionUpdateNeeded("13.2.9.32")) {
+                var userRole = (XpandRole)ObjectSpace.GetRole("User");
+                userRole.AddMemberAccessPermission<BusinessObjects.Module>("Installation", SecurityOperations.Write);
+                var typeInfos = XafTypesInfo.Instance.PersistentTypes.Where(info => typeof(ModuleArtifact).IsAssignableFrom(info.Type));
+                foreach (var typeInfo in typeInfos){
+                    userRole.AddMemberAccessPermission(typeInfo.Type, "Text,Author,Url", SecurityOperations.Write);   
+                }
+            }
             
+        }
+
+        private bool VersionUpdateNeeded(string version){
+            return new Version(XpandAssemblyInfo.Version) < new Version(version);
         }
 
         private void ApproveAuditsActionPermission(XpandRole userRole){
