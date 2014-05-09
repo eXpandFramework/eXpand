@@ -33,7 +33,6 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             base.OnChanged(propertyName, oldValue, newValue);
             if (propertyName == "Info") {
                 HasReminder = !string.IsNullOrEmpty(Info);
-                TimeBeforeStart=HasReminder?TimeSpan.Zero:TimeSpan.MinValue;
             }
         }
 
