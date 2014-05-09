@@ -61,9 +61,11 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
                 var modelMemberReminderInfo = modelBoModelClassMembers.AddNode<IModelMemberReminderInfo>(supportsReminderAttribute.MemberName);
                 modelMemberReminderInfo.Name = supportsReminderAttribute.MemberName;
                 modelMemberReminderInfo.ReminderCriteria=supportsReminderAttribute.Criteria;
-                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(modelMemberReminderInfo.MemberInfo.Owner.Type);
-                XPMemberInfo xpMemberInfo = classInfo.FindMember(modelMemberReminderInfo.Name);
-                ModelMemberReminderInfoDomainLogic.ModifyModel(modelMemberReminderInfo, xpMemberInfo);
+                if (modelMemberReminderInfo.MemberInfo != null){
+                    var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(modelMemberReminderInfo.MemberInfo.Owner.Type);
+                    XPMemberInfo xpMemberInfo = classInfo.FindMember(modelMemberReminderInfo.Name);
+                    ModelMemberReminderInfoDomainLogic.ModifyModel(modelMemberReminderInfo, xpMemberInfo);
+                }
                 ReminderInfoAppearenceRuleUpdater.AddRule(modelClass.Application,modelClass);
             }
         }
