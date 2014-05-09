@@ -134,7 +134,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PropertyEditors\DashboardTypesEditor.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs" />
+    <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XtraDashboardWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
