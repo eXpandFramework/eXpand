@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
@@ -10,6 +11,7 @@ namespace Xpand.ExpressApp.ModelAdaptor {
     [ToolboxBitmap(typeof (ModelAdaptorModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
+    [Obsolete("Use Application.ModelAdapters node",true)]
     public sealed class ModelAdaptorModule :XpandModuleBase {
         public ModelAdaptorModule() {
             LogicInstallerManager.RegisterInstaller(new ModelAdaptorLogicInstaller(this));

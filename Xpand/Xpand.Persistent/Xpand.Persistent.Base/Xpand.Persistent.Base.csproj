@@ -246,7 +246,6 @@
     <Compile Include="ModelAdapter\PropertyEditorControlAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
     <Compile Include="General\ISelectionCriteria.cs" />
     <Compile Include="General\MasterDetailRuleInfo.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
@@ -328,10 +327,6 @@
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelAdaptorRuleController.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelModelAdaptorLogic.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelModelAdaptorRule.cs" />
-    <Compile Include="ModelAdapter\Logic\ModelAdaptorRule.cs" />
     <Compile Include="ModelAdapter\ModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>

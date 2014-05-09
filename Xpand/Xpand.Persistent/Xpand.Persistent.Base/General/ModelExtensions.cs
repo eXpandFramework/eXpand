@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo.Metadata;
-using Xpand.Persistent.Base.ModelAdapter.Logic;
 using Xpand.Utils.Linq;
 using Fasterflect;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
@@ -23,17 +22,8 @@ namespace Xpand.Persistent.Base.General {
             var synchronizerList = ((ModelSynchronizerList)e.ModelSynchronizer);
             synchronizerList.Add(modelSynchronizer);
         }
-
-        public static void Assign<TModelAdaptorRule, TModelModelAdaptorRule>(CreateCustomModelSynchronizerEventArgs e, IModelSynchronizable modelSynchronizer, Frame frame, Func<TModelModelAdaptorRule, IModelSynchronizable> func)
-            where TModelAdaptorRule : IModelAdaptorRule
-            where TModelModelAdaptorRule : IModelNode {
-            var modelAdaptorRuleController = frame.Controllers.ToList<Controller>().OfType<IModelAdaptorRuleController>().FirstOrDefault();
-            if (modelAdaptorRuleController != null) {
-                modelAdaptorRuleController.ExecuteLogic(typeof(TModelAdaptorRule), typeof(TModelModelAdaptorRule), rule => Assign(e, func.Invoke((TModelModelAdaptorRule)rule)));
-            }
-            Assign(e, modelSynchronizer);
-        }
     }
+
     public static class ModelNodeExtensions {
         public static XPClassInfo GetXPClassInfo(this IModelClass modelClass){
             return XpandModuleBase.Dictiorary.GetClassInfo(modelClass.TypeInfo.Type);
@@ -43,14 +33,14 @@ namespace Xpand.Persistent.Base.General {
             return modelMember.ModelClass.GetXPClassInfo().FindMember(modelMember.Name);
         }
 
-        public static IModelNode GetParent<TNode>(this IModelNode node) where TNode : IModelNode {
+        public static TNode GetParent<TNode>(this IModelNode node) where TNode : class, IModelNode {
             var modelNode = node;
             while (!(modelNode is TNode)) {
                 if (modelNode.Parent == null)
                     return null;
                 modelNode = modelNode.Parent;
             }
-            return modelNode;
+            return modelNode as TNode;
         }
 
         public static string Xml(this IModelNode modelNode) {

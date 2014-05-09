@@ -95,11 +95,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -121,8 +116,6 @@
     <Compile Include="Model\HtmlEditorModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Model\ModelAdaptor\IModelAdaptorHtmlEditorRule.cs" />
-    <Compile Include="Model\ModelAdaptor\IModelModelAdaptorHtmlEditorRule.cs" />
     <Compile Include="Model\Synchronizers.cs" />
     <Compile Include="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
