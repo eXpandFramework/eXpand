@@ -54,8 +54,8 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             anonymousLogonParameters.AnonymousLogin = false;
             ObjectSerializer.WriteObjectPropertyValues(null, anonymousLogonParameters.Storage, anonymousLogonParameters);
             SecuritySystem.Instance.Logoff();
-            HttpContext.Current.Session.Abandon();
             FormsAuthentication.SignOut();
+            HttpContext.Current.Session.Abandon();
         }
 
         void PopupWindowShowActionOnCustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args) {
