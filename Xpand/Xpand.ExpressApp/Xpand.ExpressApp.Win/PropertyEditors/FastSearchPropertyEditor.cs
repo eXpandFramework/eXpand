@@ -297,7 +297,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
     [ToolboxItem(false)]
     public class LookUpGridEditEx : GridLookUpEdit, IGridInplaceEdit {
-        static readonly List<WeakReference> __ENCList = new List<WeakReference>();
+        static readonly List<WeakReference> _encList = new List<WeakReference>();
 
         [AccessedThroughProperty("fPropertiesView")]
         GridView _fPropertiesView;
@@ -357,24 +357,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         [DebuggerNonUserCode]
         static void __ENCAddToList(object value) {
-            List<WeakReference> list = __ENCList;
+            List<WeakReference> list = _encList;
             lock (list) {
-                if (__ENCList.Count == __ENCList.Capacity) {
+                if (_encList.Count == _encList.Capacity) {
                     int index = 0;
-                    int num3 = __ENCList.Count - 1;
+                    int num3 = _encList.Count - 1;
                     for (int i = 0; i <= num3; i++) {
-                        WeakReference reference = __ENCList[i];
+                        WeakReference reference = _encList[i];
                         if (reference.IsAlive) {
                             if (i != index) {
-                                __ENCList[index] = __ENCList[i];
+                                _encList[index] = _encList[i];
                             }
                             index++;
                         }
                     }
-                    __ENCList.RemoveRange(index, __ENCList.Count - index);
-                    __ENCList.Capacity = __ENCList.Count;
+                    _encList.RemoveRange(index, _encList.Count - index);
+                    _encList.Capacity = _encList.Count;
                 }
-                __ENCList.Add(new WeakReference(value));
+                _encList.Add(new WeakReference(value));
             }
         }
 
@@ -410,7 +410,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     public class RepositoryItemGridLookUpEditEx : RepositoryItemGridLookUpEdit, ILookupEditRepositoryItem {
         // Fields
         internal const string EditorName = "LookUpEditEx";
-        LookupEditorHelper m_helper;
+        LookupEditorHelper _mHelper;
 
         // Methods
         static RepositoryItemGridLookUpEditEx() {
@@ -422,7 +422,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         public LookupEditorHelper Helper {
-            get { return m_helper; }
+            get { return _mHelper; }
         }
 
 
@@ -432,11 +432,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         string ILookupEditRepositoryItem.DisplayMember {
-            get { return ((m_helper.DisplayMember != null) ? m_helper.DisplayMember.Name : string.Empty); }
+            get { return ((_mHelper.DisplayMember != null) ? _mHelper.DisplayMember.Name : string.Empty); }
         }
 
         Type ILookupEditRepositoryItem.LookupObjectType {
-            get { return m_helper.LookupObjectType; }
+            get { return _mHelper.LookupObjectType; }
         }
 
         public override void Assign(RepositoryItem item) {
@@ -445,24 +445,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 base.Assign(source);
             } catch (Exception) {
             }
-            m_helper = source.Helper;
+            _mHelper = source.Helper;
         }
 
         public override string GetDisplayText(FormatInfo format, object editValue) {
             string result = base.GetDisplayText(format, editValue);
-            if ((string.IsNullOrEmpty(result) && (editValue != null)) && (m_helper != null)) {
-                result = m_helper.GetDisplayText(editValue, NullText, format.FormatString);
+            if ((string.IsNullOrEmpty(result) && (editValue != null)) && (_mHelper != null)) {
+                result = _mHelper.GetDisplayText(editValue, NullText, format.FormatString);
             }
             return result;
         }
 
-        public void Init(string displayFormat__1, LookupEditorHelper helper) {
-            m_helper = helper;
-            m_helper.SmallCollectionItemCount = 0x186a0;
+        public void Init(string displayFormat, LookupEditorHelper helper) {
+            _mHelper = helper;
+            _mHelper.SmallCollectionItemCount = 0x186a0;
             BeginUpdate();
-            DisplayFormat.FormatString = displayFormat__1;
+            DisplayFormat.FormatString = displayFormat;
             DisplayFormat.FormatType = FormatType.Custom;
-            EditFormat.FormatString = displayFormat__1;
+            EditFormat.FormatString = displayFormat;
             EditFormat.FormatType = FormatType.Custom;
             TextEditStyle = TextEditStyles.Standard;
             ExportMode = ExportMode.DisplayText;
