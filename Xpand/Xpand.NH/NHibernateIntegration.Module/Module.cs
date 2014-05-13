@@ -20,6 +20,7 @@ using Xpand.ExpressApp.NH.DataLayer;
 using TestDataLayer.Maps;
 using Xpand.ExpressApp.NH;
 using Xpand.ExpressApp.NH.Core;
+using Xpand.ExpressApp.NH.BaseImpl;
 
 namespace Xpand.ExpressApp.Module
 {
@@ -31,6 +32,7 @@ namespace Xpand.ExpressApp.Module
             InitializeComponent();
             AdditionalExportedTypes.Add(typeof(Person));
             AdditionalExportedTypes.Add(typeof(PhoneNumber));
+            AdditionalExportedTypes.Add(typeof(User));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {
@@ -43,7 +45,23 @@ namespace Xpand.ExpressApp.Module
             base.Setup(application);
             application.CreateCustomObjectSpaceProvider += application_CreateCustomObjectSpaceProvider;
             application.CreateCustomPropertyCollectionSource += application_CreateCustomPropertyCollectionSource;
+            application.LoggingOn += application_LoggingOn;
             // Manage various aspects of the application UI and behavior at the module level.
+        }
+
+        void application_LoggingOn(object sender, LogonEventArgs e)
+        {
+            using (var objectSpace = Application.CreateObjectSpace())
+            {
+                var users = objectSpace.GetObjects(typeof(User));
+                if (users.Count == 0)
+                {
+                    var adminUser = objectSpace.CreateObject<User>();
+                    adminUser.UserName = "Administrator";
+                    adminUser.StoredPassword = User.GeneratePassword(string.Empty);
+                    objectSpace.CommitChanges();
+                }
+            }
         }
 
         void application_CreateCustomPropertyCollectionSource(object sender, CreateCustomPropertyCollectionSourceEventArgs e)
@@ -59,7 +77,6 @@ namespace Xpand.ExpressApp.Module
             //persistenceManager.AddMappingAssembly(typeof(PersonMap).Assembly);
 
             var persistenceManager = (IPersistenceManager)new RemotePersistenceManagerProxy("http://localhost:8733/Design_Time_Addresses/NHibernateService/Service1").GetTransparentProxy();
-
             e.ObjectSpaceProvider = new NH.NHObjectSpaceProvider(XafTypesInfo.Instance, persistenceManager);
         }
     }

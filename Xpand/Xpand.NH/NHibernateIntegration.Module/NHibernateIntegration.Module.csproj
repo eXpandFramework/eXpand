@@ -84,6 +84,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Images.13.2.9.0\lib\net40\DevExpress.ExpressApp.Images.v13.2.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.ExpressApp.Security.13.2.9.0\lib\net40\DevExpress.ExpressApp.Security.v13.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.13.2.9.0\lib\net40\DevExpress.ExpressApp.v13.2.dll</HintPath>
@@ -270,6 +274,10 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj">
+      <Project>{1d957b2a-fe7a-4ba8-bdc2-3d8aa7770e18}</Project>
+      <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
       <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
       <Name>Xpand.ExpressApp.NH.Core</Name>
