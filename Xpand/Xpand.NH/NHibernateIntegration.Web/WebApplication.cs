@@ -4,6 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Web;
 using System.Collections.Generic;
+using Xpand.ExpressApp.NH.BaseImpl;
 //using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.Web {
@@ -12,6 +13,9 @@ namespace Xpand.ExpressApp.Web {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private Xpand.ExpressApp.Module.NHibernateIntegrationModule module3;
+        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
+        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private Xpand.ExpressApp.Module.Web.NHibernateIntegrationAspNetModule module4;
 
         public NHibernateIntegrationAspNetApplication() {
@@ -54,18 +58,35 @@ namespace Xpand.ExpressApp.Web {
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new Xpand.ExpressApp.Module.NHibernateIntegrationModule();
             this.module4 = new Xpand.ExpressApp.Module.Web.NHibernateIntegrationAspNetModule();
+            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // securityModule1
+            // 
+            this.securityModule1.UserType = null;
+            // 
+            // securityComplex1
+            // 
+            this.securityComplex1.Authentication = this.authenticationStandard1;
+            this.securityComplex1.RoleType = typeof(Role);
+            this.securityComplex1.UserType = typeof(User);
+            // 
+            // authenticationStandard1
+            // 
+            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // NHibernateIntegrationAspNetApplication
             // 
             this.ApplicationName = "NHibernateIntegration";
+            this.CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
             this.Modules.Add(this.module3);
             this.Modules.Add(this.module4);
-
-            this.CollectionsEditMode = DevExpress.ExpressApp.Editors.ViewEditMode.Edit;
-
+            this.Modules.Add(this.securityModule1);
+            this.Security = this.securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.NHibernateIntegrationAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

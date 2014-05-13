@@ -78,12 +78,15 @@ namespace Xpand.ExpressApp.NH
                 if (memberInfo.ListElementType != null)
                 {
                     var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
-                    memberInfo.IsAssociation = true;
-                    //TODO: Throw appropriate exception, when Single() fails
-                    memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.Single(m => m.MemberType == memberInfo.Owner.Type);
-                    memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
-                    memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
-                    memberInfo.IsAggregated = true;
+                    
+                    memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => m.MemberType == memberInfo.Owner.Type);
+                    if (memberInfo.AssociatedMemberInfo != null)
+                    {
+                        memberInfo.IsAssociation = true;
+                        memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
+                        memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
+                        memberInfo.IsAggregated = true;
+                    }
                 }
                 memberInfo.IsPersistent = !memberInfo.IsReadOnly;
             }

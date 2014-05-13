@@ -193,6 +193,10 @@
     <Compile Include="ObjectSpaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
+      <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
+      <Name>Xpand.ExpressApp.NH.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Xpand.ExpressApp.NH.DataLayer\Xpand.ExpressApp.NH.DataLayer.csproj">
       <Project>{15f6477b-a7f3-43fb-b1b7-4c08c9c12e89}</Project>
       <Name>Xpand.ExpressApp.NH.DataLayer</Name>

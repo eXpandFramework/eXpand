@@ -369,6 +369,8 @@ namespace Xpand.ExpressApp.NH
 
         private static StringBuilder CreateFromAndWhereHql(Type objectType, CriteriaOperator criteria)
         {
+            Guard.ArgumentNotNull(objectType, "objectType");
+
             StringBuilder sb = new StringBuilder();
             sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0}\r\n", objectType.Name);
 
@@ -496,5 +498,17 @@ namespace Xpand.ExpressApp.NH
             if (obj != null)
                 GetInstanceInfoSafe(obj).State = InstanceState.Changed;
         }
+
+        public override String GetKeyValueAsString(Object obj)
+        {
+            Object keyValue = GetKeyValue(obj);
+            if (keyValue != null)
+            {
+                return keyValue.ToString();
+            }
+
+            return null;
+        }
+
     }
 }

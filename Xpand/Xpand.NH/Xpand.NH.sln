@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.NH.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.NH.Core", "Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj", "{E87B0AFC-3B3E-4969-BBAF-AFDDA718BBC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.NH.BaseImpl", "Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj", "{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,12 @@ Global
 		{E87B0AFC-3B3E-4969-BBAF-AFDDA718BBC7}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{E87B0AFC-3B3E-4969-BBAF-AFDDA718BBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E87B0AFC-3B3E-4969-BBAF-AFDDA718BBC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D957B2A-FE7A-4BA8-BDC2-3D8AA7770E18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

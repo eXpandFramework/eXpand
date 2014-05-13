@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.NH
         }
         static string AsString(object value)
         {
-            return "N'" + value.ToString().Replace("'", "''") + "'";
+            return "'" + value.ToString().Replace("'", "''") + "'";
         }
         static string FixNonFixedText(string toFix)
         {
@@ -114,7 +114,7 @@ namespace Xpand.ExpressApp.NH
         }
         protected override string FormatOperandProperty(OperandProperty operand)
         {
-            return string.Format("\"{0}\"", operand.PropertyName);
+            return operand.PropertyName;
         }
     }
 }

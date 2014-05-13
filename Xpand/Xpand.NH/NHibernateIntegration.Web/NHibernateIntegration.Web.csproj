@@ -99,6 +99,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.ReportsV2.13.2.8.2\lib\net40\DevExpress.ExpressApp.ReportsV2.v13.2.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+      <HintPath>..\packages\DevExpress.ExpressApp.Security.13.2.9.0\lib\net40\DevExpress.ExpressApp.Security.v13.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.13.2.9.0\lib\net40\DevExpress.ExpressApp.v13.2.dll</HintPath>
@@ -272,6 +275,8 @@
     <Reference Include="System.EnterpriseServices">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web">
       <Private>False</Private>
     </Reference>
@@ -338,6 +343,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WebApplication.resx">
       <DependentUpon>WebApplication.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -357,6 +363,10 @@
     <ProjectReference Include="..\NHibernateIntegration.Module\NHibernateIntegration.Module.csproj">
       <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
       <Name>NHibernateIntegration.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj">
+      <Project>{1d957b2a-fe7a-4ba8-bdc2-3d8aa7770e18}</Project>
+      <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
