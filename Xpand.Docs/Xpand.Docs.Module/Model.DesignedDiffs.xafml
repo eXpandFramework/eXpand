@@ -47,13 +47,18 @@
     </Class>
   </BOModel>
   <Email>
+    <EmailReceipients>
+      <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
+        <EmailReceipient Id="Admin Users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
+      </EmailReceipientGroup>
+    </EmailReceipients>
     <EmailTemplateContexts>
       <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
-      <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+      <EmailTemplate Id="user registered" Criteria="[Name] = 'user activation'" IsNewNode="True" />
     </EmailTemplateContexts>
     <Rules>
       <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="NoReply" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
-      <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="NoReply" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="user registered" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user registered" SmtpClientContext="NoReply" CurrentObjectEmailMember="Email" EmailReceipientsContext="Send to Admins" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
       <SmtpClientContext Id="NoReply" SenderEmail="noreply@expandframework.com" Host="localhost" UseDefaultCredentials="True" IsNewNode="True" />

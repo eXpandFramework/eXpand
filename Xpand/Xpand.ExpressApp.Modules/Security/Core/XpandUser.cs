@@ -6,6 +6,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.Security.Core{
+    [System.ComponentModel.DisplayName("User")]
     public class XpandUser : SecuritySystemUser {
         public XpandUser(Session session)
             : base(session) {
