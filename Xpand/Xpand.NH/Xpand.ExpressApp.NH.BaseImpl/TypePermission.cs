@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
@@ -51,10 +52,16 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             set;
         }
 
+
+        [DataMember]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
+        public string TypeName { get; set; }
+
         public Type TargetType
         {
-            get;
-            set;
+            get { return !string.IsNullOrWhiteSpace(TypeName) ?  Type.GetType(TypeName) : null; }
+            set { TypeName = value !=null ? value.AssemblyQualifiedName : null;}
         }
 
     }

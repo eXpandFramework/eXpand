@@ -100,9 +100,11 @@ namespace Xpand.ExpressApp.NH
             throw new NotImplementedException();
         }
 
-        public DevExpress.Data.Filtering.CriteriaOperator GetCriteria(object collection)
+        public CriteriaOperator GetCriteria(object collection)
         {
-            throw new NotImplementedException();
+            CriteriaOperator result = null;
+            DoIfNHCollection(collection, nhc => result = nhc.Criteria);
+            return result;
         }
 
         public string GetDisplayableProperties(object collection)

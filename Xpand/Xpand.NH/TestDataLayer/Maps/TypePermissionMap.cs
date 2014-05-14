@@ -17,6 +17,7 @@ namespace TestDataLayer.Maps
             Map(x => x.AllowNavigate);
             Map(x => x.AllowRead);
             Map(x => x.AllowWrite);
+            Map(x => x.TypeName);
             Not.LazyLoad();
         }
     }
