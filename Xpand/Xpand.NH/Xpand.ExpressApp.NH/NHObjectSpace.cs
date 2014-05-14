@@ -173,7 +173,7 @@ namespace Xpand.ExpressApp.NH
 
         public bool IsCollectionLoaded(object collection)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool IsConnected

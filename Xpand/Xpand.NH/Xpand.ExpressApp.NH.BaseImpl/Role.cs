@@ -56,5 +56,19 @@ namespace Xpand.ExpressApp.NH.BaseImpl
                 return users;
             }
         }
+
+
+        private List<TypePermission> typePermissions;
+
+        public IList<TypePermission> TypePermissions
+        {
+            get
+            {
+                if (typePermissions == null)
+                    typePermissions = new List<TypePermission>();
+
+                return typePermissions;
+            }
+        }
     }
 }
