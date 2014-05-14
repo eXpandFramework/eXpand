@@ -15,6 +15,7 @@ namespace TestDataLayer.Maps
             Map(x => x.UserName);
             Map(x => x.StoredPassword);
             Map(x => x.IsActive);
+            HasManyToMany(x => x.Roles).Cascade.All().Table("UserToRole").Not.LazyLoad();
             Not.LazyLoad();
         }
     }

@@ -23,9 +23,38 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             set;
         }
 
+        [DataMember]
+        public bool IsAdministrative { get; set; }
+
+        [DataMember]
+        public bool CanEditModel { get; set; }
+
         public IList<IOperationPermission> GetPermissions()
         {
-            throw new NotImplementedException();
+            List<IOperationPermission> result = new List<IOperationPermission>();
+            if (IsAdministrative)
+            {
+                result.Add(new IsAdministratorPermission());
+            }
+            if (CanEditModel)
+            {
+                result.Add(new ModelOperationPermission());
+            }
+            return result;
+        }
+
+
+        private IList<User> users;
+
+        public IList<User> Users
+        {
+            get
+            {
+                if (users == null)
+                    users = new List<User>();
+
+                return users;
+            }
         }
     }
 }

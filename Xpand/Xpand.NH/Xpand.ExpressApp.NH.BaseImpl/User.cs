@@ -37,10 +37,17 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             set;
         }
 
+
+        private List<Role> roles;
         [DataMember]
-        public IList<ISecurityRole> Roles
+        public IList<Role> Roles
         {
-            get { return null; }
+            get
+            {
+                if (roles == null)
+                    roles = new List<Role>();
+                return roles;
+            }
         }
 
         [DataMember]
@@ -83,8 +90,22 @@ namespace Xpand.ExpressApp.NH.BaseImpl
 
         public IEnumerable<IOperationPermission> GetPermissions()
         {
-            //TODO: Implement GetPermissions
-            yield break;
+            return roles.SelectMany(r => r.GetPermissions()).ToList().AsReadOnly();
+        }
+
+
+
+        protected IList<ISecurityRole> RolesAsReadOnly
+        {
+            get
+            {
+                return roles.Cast<ISecurityRole>().ToList().AsReadOnly();
+            }
+        }
+
+        IList<ISecurityRole> ISecurityUserWithRoles.Roles
+        {
+            get { return RolesAsReadOnly; }
         }
     }
 }

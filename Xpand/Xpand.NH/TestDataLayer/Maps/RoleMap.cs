@@ -13,6 +13,11 @@ namespace TestDataLayer.Maps
         {
             Id(x => x.Id).GeneratedBy.Guid();
             Map(x => x.Name);
+            Map(x => x.IsAdministrative);
+            Map(x => x.CanEditModel);
+            HasManyToMany(x => x.Users).Cascade.All().Table("UserToRole").Not.LazyLoad();
+            Not.LazyLoad();
         }
+
     }
 }

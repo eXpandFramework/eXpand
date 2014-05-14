@@ -59,6 +59,7 @@ namespace Xpand.ExpressApp.Module
                     var adminUser = objectSpace.CreateObject<User>();
                     adminUser.UserName = "Administrator";
                     adminUser.IsActive = true;
+                    adminUser.Roles.Add(new Role { Name = "Administrator", CanEditModel = true, IsAdministrative = true });
                     objectSpace.CommitChanges();
                 }
             }

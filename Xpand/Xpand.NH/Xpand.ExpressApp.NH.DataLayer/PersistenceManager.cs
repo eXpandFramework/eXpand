@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
             }
         }
 
-        public IList UpdateObjects(IList updateList, System.Collections.IList deleteList)
+        public IList UpdateObjects(IList updateList, IList deleteList)
         {
             using (var factory = CreateSessionFactory(connectionString))
             using (var session = factory.OpenSession())
