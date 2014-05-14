@@ -40,6 +40,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             {
                 result.Add(new ModelOperationPermission());
             }
+            result.AddRange(TypePermissions.SelectMany(tp => tp.GetPermissions()));
             return result;
         }
 
