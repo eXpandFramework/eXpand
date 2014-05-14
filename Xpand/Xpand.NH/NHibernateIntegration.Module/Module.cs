@@ -33,6 +33,7 @@ namespace Xpand.ExpressApp.Module
             AdditionalExportedTypes.Add(typeof(Person));
             AdditionalExportedTypes.Add(typeof(PhoneNumber));
             AdditionalExportedTypes.Add(typeof(User));
+            AdditionalExportedTypes.Add(typeof(Role));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {

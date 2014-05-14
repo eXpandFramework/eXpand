@@ -31,8 +31,8 @@ namespace Xpand.ExpressApp.NH
             throw new NotImplementedException();
         }
 
-        private IEntityStore entityStore;
-        public DevExpress.ExpressApp.DC.IEntityStore EntityStore
+        private static IEntityStore entityStore;
+        public IEntityStore EntityStore
         {
             get
             {

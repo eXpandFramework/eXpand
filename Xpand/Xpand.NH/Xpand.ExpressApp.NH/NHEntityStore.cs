@@ -50,6 +50,7 @@ namespace Xpand.ExpressApp.NH
             TypeInfo typeInfo = (TypeInfo)typesInfo.FindTypeInfo(type);
             typeInfo.Source = this;
             typeInfo.IsPersistent = Metadata.Any(tm => tm.Type == type);
+             
             typeInfo.Refresh();
             typeInfo.RefreshMembers();
         }
