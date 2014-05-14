@@ -7,15 +7,12 @@ using Xpand.ExpressApp.NH.BaseImpl;
 
 namespace TestDataLayer.Maps
 {
-    public class UserMap : ClassMap<User>
+    public class RoleMap : ClassMap<Role>
     {
-        public UserMap()
+        public RoleMap()
         {
             Id(x => x.Id).GeneratedBy.Guid();
-            Map(x => x.UserName);
-            Map(x => x.StoredPassword);
-            Map(x => x.IsActive);
-            Not.LazyLoad();
+            Map(x => x.Name);
         }
     }
 }

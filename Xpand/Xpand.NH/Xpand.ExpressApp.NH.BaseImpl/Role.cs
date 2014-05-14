@@ -12,6 +12,10 @@ namespace Xpand.ExpressApp.NH.BaseImpl
     public class Role : ISecurityRole, IOperationPermissionsProvider
     {
 
+
+        [DataMember]
+        public Guid Id { get; set; }
+
         [DataMember]
         public string Name
         {

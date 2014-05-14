@@ -6,13 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security;
 using System.Text;
 
 namespace Xpand.ExpressApp.NH.BaseImpl
 {
     [DataContract]
     [DefaultClassOptions]
-    public class User : ISecurityUser, ISecurityUserWithRoles, IAuthenticationStandardUser
+    public class User : ISecurityUser, ISecurityUserWithRoles, IAuthenticationStandardUser, IOperationPermissionProvider
     {
 
         [DataMember]
@@ -58,6 +59,8 @@ namespace Xpand.ExpressApp.NH.BaseImpl
 
         public bool ComparePassword(string password)
         {
+            if (string.IsNullOrWhiteSpace(password) && string.IsNullOrWhiteSpace(StoredPassword)) return true;
+
             return new PasswordCryptographer().AreEqual(StoredPassword, password);
         }
 
@@ -68,6 +71,20 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         public void SetPassword(string password)
         {
             StoredPassword = GeneratePassword(password);
+        }
+
+
+
+        public IEnumerable<IOperationPermissionProvider> GetChildren()
+        {
+            //TODO: Implement GetChildren
+            yield break;
+        }
+
+        public IEnumerable<IOperationPermission> GetPermissions()
+        {
+            //TODO: Implement GetPermissions
+            yield break;
         }
     }
 }

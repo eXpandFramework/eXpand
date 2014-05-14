@@ -177,6 +177,7 @@
   <ItemGroup>
     <Compile Include="Maps\PersonMap.cs" />
     <Compile Include="Maps\PhoneNumberMap.cs" />
+    <Compile Include="Maps\RoleMap.cs" />
     <Compile Include="Maps\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

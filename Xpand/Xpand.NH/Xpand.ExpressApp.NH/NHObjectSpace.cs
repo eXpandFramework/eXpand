@@ -482,7 +482,7 @@ namespace Xpand.ExpressApp.NH
             {
                 object newValue = member.GetValue(newObject);
                 object oldValue = member.GetValue(oldObject);
-                if (instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
+                if (newValue != null && oldValue != null && instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
                 {
                     RefreshObject(oldValue, newValue);
                 }

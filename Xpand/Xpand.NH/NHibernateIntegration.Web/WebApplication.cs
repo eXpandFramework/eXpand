@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Web {
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private Xpand.ExpressApp.Module.NHibernateIntegrationModule module3;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityComplex securityComplex1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private Xpand.ExpressApp.Module.Web.NHibernateIntegrationAspNetModule module4;
 
@@ -59,19 +59,19 @@ namespace Xpand.ExpressApp.Web {
             this.module3 = new Xpand.ExpressApp.Module.NHibernateIntegrationModule();
             this.module4 = new Xpand.ExpressApp.Module.Web.NHibernateIntegrationAspNetModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityComplex();
+            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // securityModule1
             // 
-            this.securityModule1.UserType = null;
+            this.securityModule1.UserType = typeof(User);
             // 
-            // securityComplex1
+            // securityStrategyComplex1
             // 
-            this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(Role);
-            this.securityComplex1.UserType = typeof(User);
+            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
+            this.securityStrategyComplex1.RoleType = typeof(Role);
+            this.securityStrategyComplex1.UserType = typeof(User);
             // 
             // authenticationStandard1
             // 
@@ -86,7 +86,7 @@ namespace Xpand.ExpressApp.Web {
             this.Modules.Add(this.module3);
             this.Modules.Add(this.module4);
             this.Modules.Add(this.securityModule1);
-            this.Security = this.securityComplex1;
+            this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.NHibernateIntegrationAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

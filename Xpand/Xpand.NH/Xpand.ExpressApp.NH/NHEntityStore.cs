@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.NH
             types.Add(type);
             TypeInfo typeInfo = (TypeInfo)typesInfo.FindTypeInfo(type);
             typeInfo.Source = this;
-            typeInfo.IsPersistent = true;
+            typeInfo.IsPersistent = Metadata.Any(tm => tm.Type == type);
             typeInfo.Refresh();
             typeInfo.RefreshMembers();
         }

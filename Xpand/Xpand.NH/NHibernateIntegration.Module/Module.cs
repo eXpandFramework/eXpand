@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.Module
                 {
                     var adminUser = objectSpace.CreateObject<User>();
                     adminUser.UserName = "Administrator";
-                    adminUser.StoredPassword = User.GeneratePassword(string.Empty);
+                    adminUser.IsActive = true;
                     objectSpace.CommitChanges();
                 }
             }
