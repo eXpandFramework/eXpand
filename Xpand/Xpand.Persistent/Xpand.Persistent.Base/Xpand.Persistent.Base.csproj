@@ -142,6 +142,9 @@
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\ModifyObjectSpaceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\NotifyMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -439,7 +442,13 @@
     <Compile Include="Xpo\Extensions.cs" />
     <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
+    <Compile Include="Xpo\MetaData\XpandLinkToListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
+    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

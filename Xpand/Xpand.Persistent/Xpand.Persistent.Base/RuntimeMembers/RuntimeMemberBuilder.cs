@@ -13,6 +13,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
 using Xpand.Persistent.Base.Xpo;
+using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Xpo;
 using Xpand.Xpo.MetaData;
 using Xpand.Persistent.Base.General;
@@ -54,7 +55,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
                 RefreshTypes(model.GetTypesInfo(), modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
             }
-            Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
+            Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation finished");
         }
 
         static void CreateAssociatedCollectionMembers(IEnumerable<IModelMemberOneToManyCollection> modelMemberOneToManyCollections, XPObjectSpace xpObjectSpace) {
@@ -165,6 +166,11 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 var xpandCollectionMemberInfo = xpClassInfo.CreateCollection(modelMemberOneToManyCollection.Name, elementType, null, associationAttribute);
                 modelMemberOneToManyCollection.AssociatedMember.ModelClass.TypeInfo.FindMember(modelMemberOneToManyCollection.AssociatedMember.Name).AddAttribute(associationAttribute);
                 return xpandCollectionMemberInfo;
+            }
+            var modelMemberModelMember = modelMemberEx as IModelMemberModelMember;
+            if (modelMemberModelMember != null){
+                var memberInfo = ModelMemberModelMemberDomainLogic.Get_MemberInfo(modelMemberModelMember);
+                return (XpandCustomMemberInfo) xpClassInfo.FindMember(memberInfo.Name);
             }
             return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type, modelMemberEx is IModelMemberNonPersistent);
         }

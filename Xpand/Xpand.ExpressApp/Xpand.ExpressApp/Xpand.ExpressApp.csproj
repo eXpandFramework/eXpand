@@ -189,14 +189,12 @@
     </Compile>
     <Compile Include="TranslatorProviders\GoogleTranslatorProvider.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="XpandDetailView.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\AllowEditEnum.cs" />
     <Compile Include="Enums\BooleanEnum.cs" />
     <Compile Include="Enums\DetailViewType.cs" />
-    <Compile Include="XpandListView.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\XpandNavigationItemNodeUpdater.cs" />
@@ -273,6 +271,8 @@
     <Compile Include="ViewShortCutProccesor.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XpandDetailView.cs" />
+    <Compile Include="XpandListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

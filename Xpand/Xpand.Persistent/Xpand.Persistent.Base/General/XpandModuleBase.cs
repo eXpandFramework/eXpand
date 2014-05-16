@@ -29,7 +29,9 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
+using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using Xpand.Xpo.MetaData;
@@ -137,7 +139,9 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
                     typeof (CreatableItemController), typeof (FilterByColumnController),
                     typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController),
-                    typeof (CustomAttibutesController),typeof(NotifyMembersController)
+                    typeof (CustomAttibutesController), typeof (NotifyMembersController),
+                    typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
+                    typeof(ModifyObjectSpaceController)
                 });
             }
             return declaredControllerTypes;
@@ -444,6 +448,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override void Setup(XafApplication application) {
+            lock (XafTypesInfo.Instance) {
+                if (RuntimeMode && XafTypesInfo.PersistentEntityStore == null)
+                    XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo));
+            }
             base.Setup(application);
             if (RuntimeMode)
                 ApplicationHelper.Instance.Initialize(application);
@@ -455,12 +463,18 @@ namespace Xpand.Persistent.Base.General {
 
             if (Executed("Setup"))
                 return;
-
+            
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
+
+            if (RuntimeMode){
+                application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+                application.SetupComplete +=
+                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
+            }
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }

@@ -142,6 +142,7 @@
     <Compile Include="MetaData\XpandCodeMemberInfo.cs" />
     <Compile Include="MetaData\XpandCustomMemberInfo.cs" />
     <Compile Include="ExpressionVisitor.cs" />
+    <Compile Include="MetaData\XpandProxyCustomMemberInfo.cs" />
     <Compile Include="Parser\EnumCriteriaParser.cs" />
     <Compile Include="XpandCustomObject.cs" />
     <Compile Include="FunctionOperators\ContainsFunction.cs" />

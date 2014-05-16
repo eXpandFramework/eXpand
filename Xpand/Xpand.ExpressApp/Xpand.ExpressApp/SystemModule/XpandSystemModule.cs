@@ -53,19 +53,13 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public override void Setup(XafApplication application) {
-            lock (XafTypesInfo.Instance){
-                if (RuntimeMode && XafTypesInfo.PersistentEntityStore == null)
-                    XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo) application.TypesInfo));
-            }
+            
             base.Setup(application);
             if (RuntimeMode) {
-                application.SetupComplete +=
-                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                 application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
                 application.ListViewCreating+=ApplicationOnListViewCreating;
                 application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-                application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
         }
 
