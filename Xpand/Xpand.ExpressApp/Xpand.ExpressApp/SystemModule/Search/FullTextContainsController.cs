@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
             collectionSourceBase.BeginUpdateCriteria();
             var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo());
             foreach (var criteriaOperator in collectionSourceBase.Criteria) {
-                FullTextOperatorProcessor.Process(criteriaOperator, memberInfos.ToList());    
+                if (!ReferenceEquals(criteriaOperator,null)) FullTextOperatorProcessor.Process(criteriaOperator, memberInfos.ToList());
             }
             collectionSourceBase.EndUpdateCriteria();
         }

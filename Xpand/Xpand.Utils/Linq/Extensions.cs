@@ -6,6 +6,20 @@ using System.Reflection;
 
 namespace Xpand.Utils.Linq{
     public static class Extensions{
+        public static IEnumerable<T> SkipLastN<T>(this IEnumerable<T> source, int n) {
+            var it = source.GetEnumerator();
+            bool hasRemainingItems;
+            var cache = new Queue<T>(n + 1);
+
+            do{
+                var b = hasRemainingItems = it.MoveNext();
+                if (b) {
+                    cache.Enqueue(it.Current);
+                    if (cache.Count > n)
+                        yield return cache.Dequeue();
+                }
+            } while (hasRemainingItems);
+        }
         public static IEnumerable<TResult> SelectNonNull<T, TResult>(this IEnumerable<T> sequence,
             Func<T, TResult> projection) where TResult : class{
             return sequence.Select(projection).Where(e => e != null);
@@ -96,39 +110,39 @@ namespace Xpand.Utils.Linq{
 
         private static class NullChecker<T> where T : class {
             private static readonly List<Func<T, bool>> _checkers;
-            private static readonly List<string> names;
+            private static readonly List<string> _names;
 
             static NullChecker() {
                 _checkers = new List<Func<T, bool>>();
-                names = new List<string>();
+                _names = new List<string>();
                 // We can't rely on the order of the properties, but we 
                 // can rely on the order of the constructor parameters 
                 // in an anonymous type - and that there'll only be 
                 // one constructor. 
-                foreach (string name in typeof(T).GetConstructors()[0]
-                                                 .GetParameters()
-                                                 .Select(p => p.Name)) {
-                    names.Add(name);
-                    PropertyInfo property = typeof(T).GetProperty(name);
-                    // I've omitted a lot of error checking, but here's 
-                    // at least one bit... 
-                    if (property.PropertyType.IsValueType) {
-                        throw new ArgumentException
-                            ("Property " + property + " is a value type");
+                var constructorInfo = typeof(T).GetConstructors().FirstOrDefault();
+                if (constructorInfo != null)
+                    foreach (string name in constructorInfo.GetParameters().Select(p => p.Name)) {
+                        _names.Add(name);
+                        PropertyInfo property = typeof(T).GetProperty(name);
+                        // I've omitted a lot of error checking, but here's 
+                        // at least one bit... 
+                        if (property.PropertyType.IsValueType) {
+                            throw new ArgumentException
+                                ("Property " + property + " is a value type");
+                        }
+                        ParameterExpression param = Expression.Parameter(typeof(T), "container");
+                        Expression propertyAccess = Expression.Property(param, property);
+                        Expression nullValue = Expression.Constant(null, property.PropertyType);
+                        Expression equality = Expression.Equal(propertyAccess, nullValue);
+                        var lambda = Expression.Lambda<Func<T, bool>>(equality, param);
+                        _checkers.Add(lambda.Compile());
                     }
-                    ParameterExpression param = Expression.Parameter(typeof(T), "container");
-                    Expression propertyAccess = Expression.Property(param, property);
-                    Expression nullValue = Expression.Constant(null, property.PropertyType);
-                    Expression equality = Expression.Equal(propertyAccess, nullValue);
-                    var lambda = Expression.Lambda<Func<T, bool>>(equality, param);
-                    _checkers.Add(lambda.Compile());
-                }
             }
 
             internal static void Check(T item) {
                 for (int i = 0; i < _checkers.Count; i++) {
                     if (_checkers[i](item)) {
-                        throw new ArgumentNullException(names[i]);
+                        throw new ArgumentNullException(_names[i]);
                     }
                 }
             }

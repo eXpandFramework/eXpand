@@ -17,7 +17,7 @@ namespace Xpand.Utils.Helpers {
         private const string ImplicitOperatorMethodName = "op_Implicit";
         private const string ExplicitOperatorMethodName = "op_Explicit";
         private static readonly CultureInfo _defaultCultureInfo = CultureInfo.CurrentCulture;
-        private const Conversion _defaultConversion = Conversion.None;
+        private const Conversion DefaultConversion = Conversion.None;
 
         public static bool CanChange<T>(object value) {
             T result;            
@@ -44,7 +44,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static bool TryToChange<T>(object value, out T result, CultureInfo culture) {
-            return TryToChange(value, out result, culture, _defaultConversion);
+            return TryToChange(value, out result, culture, DefaultConversion);
         }
 
         public static bool TryToChange<T>(object value, out T result, Conversion options) {
@@ -66,7 +66,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static T Change<T>(object value, CultureInfo culture) {
-            return Change<T>(value, culture, _defaultConversion);
+            return Change<T>(value, culture, DefaultConversion);
         }
 
         public static T Change<T>(object value, Conversion options) {
@@ -103,7 +103,7 @@ namespace Xpand.Utils.Helpers {
 
         public static bool TryToChange(this object value, Type destinationType, out object result, CultureInfo culture) {
             return TryToChange(value, destinationType, out result, 
-                _defaultConversion, culture);
+                DefaultConversion, culture);
         }
 
         public static bool TryToChange(this object value, Type destinationType, out object result, Conversion options) {
@@ -465,19 +465,19 @@ namespace Xpand.Utils.Helpers {
             return enumTryParse;
         }
 
-        public static object Change(object value, Type destinationType) {
+        public static object Change(this object value, Type destinationType) {
             return Change(value, destinationType, _defaultCultureInfo);
         }
 
-        public static object Change(object value, Type destinationType, CultureInfo culture) {
-            return Change(value, destinationType, culture, _defaultConversion);
+        public static object Change(this object value, Type destinationType, CultureInfo culture) {
+            return Change(value, destinationType, culture, DefaultConversion);
         }
 
-        public static object Change(object value, Type destinationType, Conversion options) {
+        public static object Change(this object value, Type destinationType, Conversion options) {
             return Change(value, destinationType, _defaultCultureInfo, options);
         }
 
-        public static object Change(object value, Type destinationType, CultureInfo culture, Conversion options) {
+        public static object Change(this object value, Type destinationType, CultureInfo culture, Conversion options) {
             object result;
             if (TryToChange(value, destinationType, out result, options, culture)) {
                 return result;

@@ -59,11 +59,11 @@ namespace Xpand.Utils.Helpers {
             return types;
         }
 
-        public static MethodInfo GetMemberInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method) {
-            return GetMemberInfo(method);
+        public static MethodInfo GetMethodInfo<TTarget>(this TTarget target, Expression<Action<TTarget>> method) {
+            return GetMethodInfo(method);
         }
 
-        public static MethodInfo GetMemberInfo(Expression method) {
+        public static MethodInfo GetMethodInfo(Expression method) {
             if (method == null) throw new ArgumentNullException("method");
 
             var lambda = method as LambdaExpression;
@@ -73,20 +73,41 @@ namespace Xpand.Utils.Helpers {
             return ((MethodCallExpression)lambda.Body).Method;
         }
 
-        public static MemberInfo GetExpression(this LambdaExpression lambda) {
+        public static string GetPath<T>(this Expression<Func<T, object>> expr) {
+            var stack = new Stack<string>();
 
+            MemberExpression me;
+            switch (expr.Body.NodeType) {
+                case ExpressionType.Convert:
+                case ExpressionType.ConvertChecked:
+                    var ue = expr.Body as UnaryExpression;
+                    me = ((ue != null) ? ue.Operand : null) as MemberExpression;
+                    break;
+                default:
+                    me = expr.Body as MemberExpression;
+                    break;
+            }
+
+            while (me != null) {
+                stack.Push(me.Member.Name);
+                me = me.Expression as MemberExpression;
+            }
+
+            return string.Join(".", stack.ToArray());
+        }
+
+        public static MemberInfo GetMemberInfo(this LambdaExpression lambda) {
             if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
-
             MemberExpression memberExpr = null;
-
-
-            if (lambda.Body.NodeType == ExpressionType.Convert)
-                memberExpr = ((UnaryExpression)lambda.Body).Operand as MemberExpression;
-            else if (lambda.Body.NodeType == ExpressionType.MemberAccess)
-                memberExpr = lambda.Body as MemberExpression;
-
+            switch (lambda.Body.NodeType){
+                case ExpressionType.Convert:
+                    memberExpr = ((UnaryExpression)lambda.Body).Operand as MemberExpression;
+                    break;
+                case ExpressionType.MemberAccess:
+                    memberExpr = lambda.Body as MemberExpression;
+                    break;
+            }
             if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
-
             return memberExpr.Member;
         }
 
@@ -133,7 +154,7 @@ namespace Xpand.Utils.Helpers {
         public static MemberInfo GetMemberInfo<TTarget>(this TTarget target, Expression member) {
             if (member == null) throw new ArgumentNullException("member");
             var lambda = member as LambdaExpression;
-            return GetExpression(lambda);
+            return GetMemberInfo(lambda);
         }
 
         public static void SetProperty<T>(this INotifyPropertyChanged source,

@@ -4,28 +4,28 @@ using DevExpress.Persistent.Base;
 namespace Xpand.Persistent.Base.General {
     public class ApplicationHelper {
         private const string ValueManagerKey = "ApplicationHelper";
-        private static volatile IValueManager<ApplicationHelper> instanceValueManager;
-        private static readonly object syncRoot = new object();
+        private static volatile IValueManager<ApplicationHelper> _instanceValueManager;
+        private static readonly object _syncRoot = new object();
         private XafApplication _application;
         private ApplicationHelper() {
         }
         public static ApplicationHelper Instance {
             get {
-                if (instanceValueManager == null) {
-                    lock (syncRoot) {
-                        if (instanceValueManager == null) {
-                            instanceValueManager = ValueManager.GetValueManager<ApplicationHelper>(ValueManagerKey);
+                if (_instanceValueManager == null) {
+                    lock (_syncRoot) {
+                        if (_instanceValueManager == null) {
+                            _instanceValueManager = ValueManager.GetValueManager<ApplicationHelper>(ValueManagerKey);
                         }
                     }
                 }
-                if (instanceValueManager.Value == null) {
-                    lock (syncRoot) {
-                        if (instanceValueManager.Value == null) {
-                            instanceValueManager.Value = new ApplicationHelper();
+                if (_instanceValueManager.Value == null) {
+                    lock (_syncRoot) {
+                        if (_instanceValueManager.Value == null) {
+                            _instanceValueManager.Value = new ApplicationHelper();
                         }
                     }
                 }
-                return instanceValueManager.Value;
+                return _instanceValueManager.Value;
             }
         }
         public XafApplication Application { get { return _application; } }

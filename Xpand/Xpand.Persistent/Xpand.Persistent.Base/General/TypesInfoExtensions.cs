@@ -214,7 +214,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IMemberInfo FindMember<T>(this ITypeInfo typesInfo, Expression<Func<T, object>> expression) {
-            MemberInfo memberInfo = ReflectionExtensions.GetExpression(expression);
+            MemberInfo memberInfo = expression.GetMemberInfo();
             return typesInfo.FindMember(memberInfo.Name);
         }
 

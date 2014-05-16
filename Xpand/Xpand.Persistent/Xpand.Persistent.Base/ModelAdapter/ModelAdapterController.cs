@@ -16,6 +16,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
+using Xpand.Utils.Linq;
 using Guard = DevExpress.ExpressApp.Utils.Guard;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
@@ -192,12 +193,12 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static ModelNode GetNodeByPath(this IModelNode node, string path) {
-            const string pathSeparator = "/";
             const string rootNodeName = "Application";
             Guard.ArgumentNotNull(node, "node");
             Guard.ArgumentNotNullOrEmpty(path, "path");
-            string[] items = path.Split(new[] { pathSeparator }, StringSplitOptions.RemoveEmptyEntries);
-            IModelNode sourceNode = items[0] == rootNodeName ? node.Root : node.GetNode(items[0]);
+            string[] items = path.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            var sourceNode = (items[0] == rootNodeName ? node.Root : node.GetNode(items[0])) ;
+            sourceNode.ThrowIfNull();
             for (int i = 1; i < items.Length; ++i) {
                 if (sourceNode == null) {
                     return null;

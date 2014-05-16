@@ -47,9 +47,20 @@ namespace Xpand.Persistent.Base.General {
             return ((ModelNode) modelNode).Xml;
         }
 
-        public static object GetValue(this IModelNode modelNode, string propertyName) {
-            var modelValueInfo = ((ModelNode)modelNode).GetValueInfo(propertyName);
-            return GetValue(modelNode, propertyName, modelValueInfo.PropertyType);
+        public static object GetValue(this IModelNode modelNode, string propertyName){
+            var modelValueInfo = GetModelValueInfo(modelNode, propertyName);
+            return GetValue(modelValueInfo.Item2, propertyName.Split('.').Last(), modelValueInfo.Item1.PropertyType);
+        }
+
+        private static Tuple<ModelValueInfo,IModelNode> GetModelValueInfo(this IModelNode modelNode, string propertyName) {
+            if (propertyName.Contains(".")){
+                var split = propertyName.Split('.');
+                var strings = string.Join(".", split.Skip(1));
+                var node = ((IModelNode) modelNode.GetValue(split.First()));
+                return node.GetModelValueInfo(strings);
+            }
+            var modelValueInfo = ((ModelNode) modelNode).GetValueInfo(propertyName);
+            return new Tuple<ModelValueInfo, IModelNode>(modelValueInfo, modelNode);
         }
 
         public static object GetValue(this IModelNode modelNode,string propertyName,Type propertyType) {

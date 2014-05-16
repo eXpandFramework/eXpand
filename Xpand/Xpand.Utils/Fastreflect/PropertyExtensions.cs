@@ -79,6 +79,15 @@ namespace Xpand.Utils.Fastreflect{
             return list1;
         }
 
+        public static PropertyInfo PropertyX(this Type type, string name){
+            PropertyInfo propertyInfo = null;
+            foreach (var s in name.Split('.')){
+                propertyInfo = PropertyX(type, s, Flags.AllMembers);
+                type=propertyInfo.PropertyType;
+            }
+            return propertyInfo;
+        }
+
         public static PropertyInfo PropertyX(this Type type, string name, Flags bindingFlags){
             // we need to check all properties to do partial name matches
             if (bindingFlags.IsAnySet(Flags.PartialNameMatch | Flags.TrimExplicitlyImplemented)){
