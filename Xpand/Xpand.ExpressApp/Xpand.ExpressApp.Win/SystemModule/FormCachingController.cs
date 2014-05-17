@@ -6,7 +6,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraEditors;
-using Xpand.Utils.Helpers;
+using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public interface IModelOptionsFormCaching : IModelNode {
@@ -45,16 +46,43 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private void ApplicationOnDetailViewCreated(object sender, DetailViewCreatedEventArgs e){
             var strategy = ((WinShowViewStrategyBase) Application.ShowViewStrategy);
-            foreach (var winWindow in strategy.Windows.Where(winWindow => !winWindow.View.IsValueNull())){
-                var view = winWindow.View;
-                var shortcut = view.CreateShortcut();
-                var newViewShortCut = e.View.CreateShortcut();
-                shortcut.ObjectKey = newViewShortCut.ObjectKey;
-                if (shortcut == newViewShortCut)
-                    view.CurrentObject = view.ObjectSpace.GetObject(e.View.CurrentObject);
+            var winWindow = strategy.Windows.FirstOrDefault(window => window.View!=null&&window.View.Model == e.View.Model);
+            if (winWindow != null){
+                if (e.View.ObjectSpace.IsNewObject(e.View.CurrentObject)){
+                    var newViewShortcut = e.View.CreateShortcut();
+                    var temporaryObjectKey = newViewShortcut[ViewShortcut.TemporaryObjectKeyParamName];
+                    var newObj = winWindow.View.ObjectSpace.CreateObject(winWindow.View.ObjectTypeInfo.Type);
+                    e.View.CurrentObject.Map(newObj,Flags.Public);
+                    CustomizeViewShortcut(e, winWindow, temporaryObjectKey);
+                    winWindow.View.CurrentObject = newObj;
+                    
+                }
+                else{
+                    winWindow.View.CurrentObject = winWindow.View.ObjectSpace.GetObject(e.View.CurrentObject);
+                }
             }
         }
+
+        private static void CustomizeViewShortcut(DetailViewCreatedEventArgs e, WinWindow winWindow, string temporaryObjectKey){
+            e.View.CustomizeViewShortcut += (o, args) =>{
+                var shortcut = args.ViewShortcut;
+                if (shortcut.ContainsKey(ViewShortcut.IsNewObject)){
+                    shortcut.Remove(ViewShortcut.IsNewObject);
+                }
+            };
+            winWindow.View.CustomizeViewShortcut += (o, args) =>{
+                var shortcut = args.ViewShortcut;
+                if (shortcut.ContainsKey(ViewShortcut.TemporaryObjectKeyParamName))
+                    shortcut[ViewShortcut.TemporaryObjectKeyParamName] = temporaryObjectKey;
+                if (shortcut.ContainsKey(ViewShortcut.IsNewObject)){
+                    shortcut.Remove(ViewShortcut.IsNewObject);
+                }
+            };
+        }
+
         private void CloseWindowControllerOnFormClosing(object sender, FormClosingEventArgs formClosingEventArgs) {
+            if (Frame.View.ObjectSpace.IsNewObject(Frame.View.CurrentObject))
+                Frame.View.ObjectSpace.SetIsModified(false);
             ((XtraForm)sender).Hide();
         }
 
