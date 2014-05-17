@@ -4,6 +4,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
@@ -21,6 +22,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         public XpandViewVariantsModule() {
             RequiredModuleTypes.Add(typeof(ViewVariantsModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {

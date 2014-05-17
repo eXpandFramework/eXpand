@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.ViewVariants.ViewVariant">
+      <OwnMembers>
+        <MemberModelMember Name="Criteria" IsCustom="False" Tag="" DeclaredType="DevExpress.ExpressApp.Model.IModelListView" CreateMember="True" CreatedAtDesignTime="True" IsNewNode="True">
+          <AdditionalMembers IsNewNode="True">
+            <MemberModelMemberAdditionalMember Name="ModelClass.TypeInfo" DeclaredType="DevExpress.ExpressApp.Model.IModelClass" ModelNodePath="ModelClass.TypeInfo" IsNewNode="True" />
+          </AdditionalMembers>
+        </MemberModelMember>
+        <MemberModelMember Name="ViewCaption" IsCustom="False" Tag="" ModelNodePath="Caption" DeclaredType="DevExpress.ExpressApp.Model.IModelView" CreatedAtDesignTime="True" CreateMember="True" RowCount="1" IsNewNode="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Localization>
     <LocalizationGroup Name="eXpand.ViewVariants" IsNewNode="True">
       <LocalizationItem Name="CreateView" Value="Create New..." IsNewNode="True" />
@@ -13,4 +25,23 @@
     <SchemaModule Name="SystemModule" Version="8.3.4.5247" IsNewNode="True" />
     <SchemaModule Name="ViewVariantsModule" Version="8.3.4.5247" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="ViewVariant_DetailView">
+      <Items>
+        <PropertyEditor Id="Criteria" PropertyName="Criteria" IsNewNode="True" />
+        <PropertyEditor Id="ViewCaption" PropertyName="ViewCaption" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="6.753812636165577">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="ViewVariant" RelativeSize="100">
+              <LayoutItem Id="ViewCaption" ViewItem="ViewCaption" SizeConstraintsType="Default" Index="0" RelativeSize="51.612903225806448" IsNewNode="True" />
+              <LayoutItem Id="VariantCaption" SizeConstraintsType="Default" Index="1" RelativeSize="48.387096774193552" ViewItem="VariantCaption" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+        <LayoutItem Id="Criteria" ViewItem="Criteria" SizeConstraintsType="Default" Index="1" RelativeSize="93.246187363834423" IsNewNode="True" />
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>
