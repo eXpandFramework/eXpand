@@ -127,7 +127,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
 
         void CollectionSource_CriteriaApplied(object sender, EventArgs e) {
-            if (Grid != null) SetFirstRowChangeAfterInit(Grid, false);
+            if (Grid != null && MasterDetail) SetFirstRowChangeAfterInit(Grid, false);
             if (Grid != null) Grid.FocusedRowIndex = -1;
             OnFocusedObjectChanged();
         }
