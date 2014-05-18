@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Web {
     public sealed class FilterDataStoreAspNetModule : FilterDataStoreModuleBase {
         bool _proxyEventsSubscribed;
         static FilterDataStoreAspNetModule() {
-            _tablesDictionary = new Dictionary<string, Type>();
+            TablesDictionary = new Dictionary<string, Type>();
         }
         public FilterDataStoreAspNetModule() {
             RequiredModuleTypes.Add(typeof(FilterDataStoreModule));

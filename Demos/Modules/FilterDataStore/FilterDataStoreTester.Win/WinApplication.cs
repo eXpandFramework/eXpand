@@ -7,7 +7,7 @@ using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
 
 namespace FilterDataStoreTester.Win {
-    public partial class FilterDataStoreTesterWindowsFormsApplication : WinApplication, IAutoCreateOption {
+    public partial class FilterDataStoreTesterWindowsFormsApplication : WinApplication {
         public FilterDataStoreTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
