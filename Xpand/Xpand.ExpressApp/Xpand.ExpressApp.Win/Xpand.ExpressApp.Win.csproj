@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}</ProjectGuid>
+    <ProjectGuid>{CEC3CAD6-623B-4640-B7A9-D50BE1DCB513}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Win</RootNamespace>
@@ -382,6 +382,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ImmediatePostDataListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SelectedItemSumController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\XafLayoutControlModelAdapterController.cs">
