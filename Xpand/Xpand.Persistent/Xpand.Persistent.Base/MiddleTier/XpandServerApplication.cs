@@ -13,9 +13,6 @@ namespace Xpand.Persistent.Base.MiddleTier {
         public XpandServerApplication(ISecurityStrategyBase securityStrategy) {
             Security = securityStrategy;
         }
-        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
-            return null;
-        }
 
         protected override void OnSetupComplete() {
             base.OnSetupComplete();
@@ -36,10 +33,6 @@ namespace Xpand.Persistent.Base.MiddleTier {
         protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs args) {
             args.Updater.Update();
             args.Handled = true;
-        }
-
-        public AutoCreateOption AutoCreateOption {
-            get { return AutoCreateOption.DatabaseAndSchema; }
         }
 
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {

@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     [Obsolete("", true)]
@@ -48,25 +47,17 @@ namespace Xpand.Persistent.Base.General {
     }
 
 
-    public interface IXafApplicationDataStore {
-        IDataStore GetDataStore(IDataStore dataStore);
-    }
-
     public interface IXafApplicationDirectory {
         string BinDirectory { get;  }
     }
     public interface ILayoutManager {
     }
 
-    public interface IAutoCreateOption {
-        AutoCreateOption AutoCreateOption { get; }
-    }
-
     public interface IWindowCreating {
         event EventHandler<WindowCreatingEventArgs> WindowCreating;
     }
 
-    public interface IXafApplication : IConfirmationRequired, IXafApplicationDataStore, IAutoCreateOption, IWindowCreating {
+    public interface IXafApplication : IConfirmationRequired,  IWindowCreating {
         string ModelAssemblyFilePath { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }

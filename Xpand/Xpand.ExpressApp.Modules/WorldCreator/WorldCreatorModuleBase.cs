@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (dataServerObjectSpaceProvider != null){
                 return (UnitOfWork)((XPObjectSpace)dataServerObjectSpaceProvider.CreateObjectSpace()).Session;
             }
-            var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary());
+            var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary(),AutoCreateOption.DatabaseAndSchema);
             return new UnitOfWork(new SimpleDataLayer(xpoMultiDataStoreProxy));
         }
 

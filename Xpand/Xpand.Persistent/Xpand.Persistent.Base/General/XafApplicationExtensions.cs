@@ -88,7 +88,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static void DropSqlServerDatabase(string connectionString) {
-            var connectionProvider = (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.None);
+            var connectionProvider = (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
             using (var dbConnection = connectionProvider.Connection) {
                 using (var sqlConnection = (SqlConnection)DataStore(connectionString).Connection) {
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
@@ -110,7 +110,7 @@ namespace Xpand.Persistent.Base.General {
             else {
                 connectionStr = MSSqlConnectionProvider.GetConnectionString(connectionStringParser.GetPartByName("Data Source"), "master");
             }
-            return (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionStr, DevExpress.Xpo.DB.AutoCreateOption.None);
+            return (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionStr, AutoCreateOption.None);
         }
 
         public static ClientSideSecurity? ClientSideSecurity(this XafApplication xafApplication) {
@@ -130,8 +130,7 @@ namespace Xpand.Persistent.Base.General {
             if (DisableObjectSpaceProderCreation)
                 return;
             var connectionString = ConnectionString(xafApplication, args);
-            var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema);
-            args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication, connectionProvider, connectionString));
+            args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication,  connectionString));
         }
 
         static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
@@ -140,18 +139,10 @@ namespace Xpand.Persistent.Base.General {
             return connectionString;
         }
 
-        public static AutoCreateOption AutoCreateOption(this XafApplication xafApplication) {
-            return ConfigurationManager.AppSettings.AllKeys.Contains("AutoCreateOption")
-                       ? (AutoCreateOption)
-                         Enum.Parse(typeof(AutoCreateOption), ConfigurationManager.AppSettings["AutoCreateOption"])
-                       : DevExpress.Xpo.DB.AutoCreateOption.DatabaseAndSchema;
-        }
-
         public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreName) {
             if (dataStoreName == null) {
                 var connectionString = ConnectionString(xafApplication, args);
-                var connectionProvider = XpoDefault.GetConnectionProvider(connectionString, DefaultAutoCreateOption(xafApplication));
-                args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication, connectionProvider, connectionString);
+                args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication,  connectionString);
             } else if (DataStoreManager.GetDataStoreAttributes(dataStoreName).Any()) {
                 var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
                 DisableObjectSpaceProderCreation = false;
@@ -160,18 +151,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        static AutoCreateOption DefaultAutoCreateOption(XafApplication xafApplication) {
-            var autoCreateOption = xafApplication as IAutoCreateOption;
-            return autoCreateOption != null ? autoCreateOption.AutoCreateOption : DevExpress.Xpo.DB.AutoCreateOption.None;
-        }
-
-        static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication, IDataStore connectionProvider, string connectionString) {
-            var xafApplicationDataStore = xafApplication as IXafApplicationDataStore;
-            if (xafApplicationDataStore != null) {
-                IDataStore dataStore = xafApplicationDataStore.GetDataStore(connectionProvider);
-                return dataStore != null ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(dataStore), xafApplication.Security)
-                                          : new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security);
-            }
+        static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication,  string connectionString) {
             return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security);
         }
 

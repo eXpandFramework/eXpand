@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Configuration;
+using System.Web;
+using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     public class DataStoreProvider : IXpoDataStoreProxy {
-        private readonly DataStoreProxy _storeProxy;
+        private DataStoreProxy _proxy;
         private readonly string _connectionString;
         public DataStoreProvider(string connectionString) {
             _connectionString = connectionString;
-            _storeProxy = new DataStoreProxy(connectionString);
         }
 
         public DataStoreProvider(IDataStore dataStore) {
-            _storeProxy = new DataStoreProxy(dataStore);
+            _proxy = new DataStoreProxy(dataStore);
             var connectionProviderSql = dataStore as ConnectionProviderSql;
             if (connectionProviderSql!=null)
                 _connectionString = connectionProviderSql.ConnectionString;
@@ -24,10 +26,18 @@ namespace Xpand.Persistent.Base.General {
         }
         public virtual IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;
-            return Proxy;
+            return new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema));
         }
         public IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;
+            if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
+                var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
+                if (cacheNode == null) {
+                    var cacheRoot = new DataCacheRoot(Proxy.DataStore);
+                    cacheNode = new DataCacheNode(cacheRoot);
+                }
+                return cacheNode;
+            }
             return Proxy;
         }
         public XPDictionary XPDictionary {
@@ -35,7 +45,7 @@ namespace Xpand.Persistent.Base.General {
         }
         public virtual DataStoreProxy Proxy {
             get {
-                return _storeProxy;
+                return _proxy ??(_proxy =new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None)));
             }
         }
     }

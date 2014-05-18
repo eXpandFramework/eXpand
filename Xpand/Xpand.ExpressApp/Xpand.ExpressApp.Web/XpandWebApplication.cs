@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
 
 
@@ -20,10 +17,6 @@ namespace Xpand.ExpressApp.Web {
 
         string IXafApplication.ModelAssemblyFilePath {
             get { return GetModelAssemblyFilePath(); }
-        }
-
-        public virtual AutoCreateOption AutoCreateOption {
-            get { return this.AutoCreateOption(); }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -80,18 +73,6 @@ namespace Xpand.ExpressApp.Web {
 
         public new void WriteLastLogonParameters(DetailView view, object logonObject) {
             base.WriteLastLogonParameters(view, logonObject);
-        }
-
-        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
-            if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
-                var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
-                if (cacheNode == null) {
-                    var _cacheRoot = new DataCacheRoot(dataStore);
-                    cacheNode = new DataCacheNode(_cacheRoot);
-                }
-                return cacheNode;
-            }
-            return null;
         }
 
         public event HandledEventHandler CustomWriteSecuredLogonParameters;

@@ -442,10 +442,10 @@
     <Compile Include="Xpo\Extensions.cs" />
     <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
+    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
     <Compile Include="Xpo\MetaData\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
     <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
       <SubType>Component</SubType>
     </Compile>

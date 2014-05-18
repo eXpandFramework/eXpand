@@ -41,18 +41,17 @@ namespace Xpand.Xpo.DB {
     }
     public class DataStoreManager {
         public const string StrDefault = "Default";
-        readonly Dictionary<string, ReflectionDictionary> _reflectionDictionaries = new Dictionary<string, ReflectionDictionary>();
+        readonly Dictionary<KeyInfo, ReflectionDictionary> _reflectionDictionaries = new Dictionary<KeyInfo, ReflectionDictionary>();
         readonly Dictionary<string, DataStoreManagerSimpleDataLayer> _simpleDataLayers = new Dictionary<string, DataStoreManagerSimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
         readonly IList<DataStoreAttribute> _dataStoreAttributes;
-
+        private bool _dataLayersCreated;
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
             _dataStoreAttributes = GetDataStoreAttributes().ToList();
         }
-
 
         public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
@@ -94,14 +93,12 @@ namespace Xpand.Xpo.DB {
         }
 
         ReflectionDictionary GetDictionary(KeyInfo keyInfo) {
-            if (!_reflectionDictionaries.ContainsKey(keyInfo.Key)) {
+            if (!_reflectionDictionaries.ContainsKey(keyInfo)) {
                 var reflectionDictionary = new ReflectionDictionary();
-                _reflectionDictionaries.Add(keyInfo.Key, reflectionDictionary);
-                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(reflectionDictionary, GetConnectionProvider(keyInfo.Key), keyInfo.Key == StrDefault, keyInfo.IsLegacy);
-                _simpleDataLayers.Add(keyInfo.Key, simpleDataLayer);
+                _reflectionDictionaries.Add(keyInfo, reflectionDictionary);
                 _tables.Add(keyInfo.Key, new List<string>());
             }
-            return _reflectionDictionaries[keyInfo.Key];
+            return _reflectionDictionaries[keyInfo];
         }
 
         public IDataStore GetConnectionProvider(Type type) {
@@ -112,7 +109,6 @@ namespace Xpand.Xpo.DB {
             string key = GetKeyInfo(type).Key;
             return GetConnectionString(key);
         }
-
 
         public string GetConnectionString(string key) {
             if (key == StrDefault)
@@ -154,34 +150,50 @@ namespace Xpand.Xpo.DB {
                     .Select(@t => @t.dataStoreAttribute);
         }
 
-        public Dictionary<string, DataStoreManagerSimpleDataLayer> SimpleDataLayers {
-            get { return _simpleDataLayers; }
+        public Dictionary<string, DataStoreManagerSimpleDataLayer> GetDataLayers(IDataStore defaultStore) {
+            if (!_dataLayersCreated) {
+                _dataLayersCreated = true;
+                foreach (var dictionary in _reflectionDictionaries) {
+                    var keyInfo = dictionary.Key;
+                    GetDataLayer(keyInfo.Key,defaultStore);
+                }
+            }
+            return _simpleDataLayers;
+
         }
 
+        public DataStoreManagerSimpleDataLayer GetDataLayer(string key,IDataStore defaultStore){
+            if (!_simpleDataLayers.ContainsKey(key)){
+                var keyValuePair = _reflectionDictionaries.First(info => info.Key.Key==key);
+                var connectionProvider = keyValuePair.Key.Key==StrDefault?defaultStore:GetConnectionProvider(keyValuePair.Key.Key);
+                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(keyValuePair.Value, connectionProvider,
+                    keyValuePair.Key.Key == StrDefault, keyValuePair.Key.IsLegacy);
+                _simpleDataLayers.Add(keyValuePair.Key.Key, simpleDataLayer);
+            }
+            return _simpleDataLayers[key];
+        }
 
-        public Dictionary<IDataStore, DataStoreInfo> GetDataStores(DBTable[] dbTables) {
+        public Dictionary<IDataStore, DataStoreInfo> GetDataStores(DBTable[] dbTables, IDataStore dataStore) {
             Dictionary<IDataStore, DataStoreInfo> dataStoreInfos =
-                _simpleDataLayers.ToDictionary(keyValuePair => keyValuePair.Value.ConnectionProvider, keyValuePair =>
+                GetDataLayers(dataStore).ToDictionary(keyValuePair => keyValuePair.Value.ConnectionProvider, keyValuePair =>
                                                new DataStoreInfo { IsLegacy = keyValuePair.Value.IsLegacy });
             foreach (var dbTable in dbTables) {
                 if (dbTable.Name == "XPObjectType") {
-                    foreach (var simpleDataLayer in _simpleDataLayers) {
+                    foreach (var simpleDataLayer in GetDataLayers(dataStore)) {
                         var dataStoreInfo = dataStoreInfos[simpleDataLayer.Value.ConnectionProvider];
                         dataStoreInfo.DbTables.Add(dbTable);
-                        //                        dataStoreInfo.IsLegacy = simpleDataLayer.Value.IsLegacy;
                     }
                 } else {
-                    var key = GetKeyInfo(dbTable.Name);
-                    var dataStoreManagerSimpleDataLayer = _simpleDataLayers[key];
+                    var key = GetKey(dbTable.Name);
+                    var dataStoreManagerSimpleDataLayer = GetDataLayer(key,dataStore);
                     var dataStoreInfo = dataStoreInfos[dataStoreManagerSimpleDataLayer.ConnectionProvider];
                     dataStoreInfo.DbTables.Add(dbTable);
-                    //                    dataStoreInfo.IsLegacy = dataStoreManagerSimpleDataLayer.IsLegacy;
                 }
             }
             return dataStoreInfos;
         }
 
-        public string GetKeyInfo(string tableName) {
+        public string GetKey(string tableName) {
             if (tableName == typeof(XPObjectType).Name)
                 return StrDefault;
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();

@@ -14,20 +14,21 @@ namespace Xpand.Persistent.Base.General {
         readonly XpoObjectHacker _xpoObjectHacker = new XpoObjectHacker();
         readonly DataStoreManager _dataStoreManager;
 
-        protected MultiDataStoreProxy() {
-        }
+        public MultiDataStoreProxy(IDataStore dataStore, string connectionString,XPDictionary dictionary=null) : base(dataStore){
+            if (dictionary==null)
+                dictionary=XpandModuleBase.Dictiorary;
 
-        public MultiDataStoreProxy(string connectionString)
-            : this(connectionString, XpandModuleBase.Dictiorary) {
-
-        }
-
-        public MultiDataStoreProxy(string connectionString, XPDictionary xpDictionary)
-            : base(connectionString) {
             _dataStoreManager = new DataStoreManager(connectionString);
-            FillDictionaries(xpDictionary);
+            FillDictionaries(dictionary);
         }
 
+        public MultiDataStoreProxy(string connectionString,AutoCreateOption autoCreateOption=AutoCreateOption.None):this(XpoDefault.GetConnectionProvider(connectionString, autoCreateOption),connectionString ){
+            
+        }
+
+        public MultiDataStoreProxy(string connectionString,XPDictionary dictionary,AutoCreateOption  option=AutoCreateOption.None):this(XpoDefault.GetConnectionProvider(connectionString, option),connectionString,dictionary ){
+            
+        }
 
         public DataStoreManager DataStoreManager {
             get { return _dataStoreManager; }
@@ -40,7 +41,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public override ModificationResult ModifyData(params ModificationStatement[] dmlStatements) {
+        public override ModificationResult ModifyData(params ModificationStatement[] dmlStatements){
             var dataStoreModifyDataEventArgs = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
             var name = typeof(XPObjectType).Name;
@@ -49,20 +50,20 @@ namespace Xpand.Persistent.Base.General {
             if (insertStatement != null) {
                 modificationResult = ModifyXPObjectTable(dmlStatements, insertStatement, modificationResult);
             } else {
-                var key = _dataStoreManager.GetKeyInfo(dmlStatements[0].TableName);
-                modificationResult = _dataStoreManager.SimpleDataLayers[key].ModifyData(dmlStatements);
+                var key = _dataStoreManager.GetKey(dmlStatements[0].TableName);
+                modificationResult = _dataStoreManager.GetDataLayer(key,DataStore).ModifyData(dmlStatements);
             }
             if (modificationResult != null) return modificationResult;
             throw new NotImplementedException();
         }
 
         ModificationResult ModifyXPObjectTable(ModificationStatement[] dmlStatements, InsertStatement insertStatement, ModificationResult modificationResult) {
-            foreach (var simpleDataLayer in _dataStoreManager.SimpleDataLayers) {
+            foreach (var simpleDataLayer in _dataStoreManager.GetDataLayers(DataStore)) {
                 if (!simpleDataLayer.Value.IsLegacy) {
                     var dataLayer = simpleDataLayer.Value;
                     if (!TypeExists(dataLayer, insertStatement)) {
                         if (!dataLayer.IsMainLayer) {
-                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.SimpleDataLayers[DataStoreManager.StrDefault]);
+                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.GetDataLayer(DataStoreManager.StrDefault,DataStore));
                         }
                         var modifyData = dataLayer.ModifyData(dmlStatements);
                         if (modifyData.Identities.Any())
@@ -91,7 +92,7 @@ namespace Xpand.Persistent.Base.General {
             var resultSet = new List<SelectStatementResult>();
             List<SelectedData> selectedDatas = selects.Select(stm => {
                 OnDataStoreSelectData(new DataStoreSelectDataEventArgs(new[] { stm }));
-                var simpleDataLayer = _dataStoreManager.SimpleDataLayers[_dataStoreManager.GetKeyInfo(stm.TableName)];
+                var simpleDataLayer = _dataStoreManager.GetDataLayer(_dataStoreManager.GetKey(stm.TableName),DataStore);
                 return simpleDataLayer.SelectData(stm);
             }).ToList();
             foreach (SelectedData selectedData in selectedDatas.Where(
@@ -102,7 +103,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables) {
-            foreach (KeyValuePair<IDataStore, DataStoreInfo> keyValuePair in _dataStoreManager.GetDataStores(tables)) {
+            foreach (KeyValuePair<IDataStore, DataStoreInfo> keyValuePair in _dataStoreManager.GetDataStores(tables, DataStore)) {
                 var store = keyValuePair.Key as ConnectionProviderSql;
                 if (store != null) {
                     var dataStoreInfo = keyValuePair.Value;
@@ -121,7 +122,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void RunExtraUpdaters(DBTable[] tables, ConnectionProviderSql store, bool dontCreateIfFirstTableNotExist) {
-            foreach (var schemaUpdater in schemaUpdaters) {
+            foreach (var schemaUpdater in SchemaUpdaters) {
                 schemaUpdater.Update(store, new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables));
             }
         }

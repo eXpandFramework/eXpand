@@ -1,4 +1,6 @@
-﻿using DevExpress.Xpo.DB;
+﻿using System;
+using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
@@ -13,10 +15,15 @@ namespace Xpand.Persistent.Base.General {
             : base(connectionString) {
         }
 
+        public override IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects){
+            disposableObjects = new IDisposable[]{};
+            return new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,AutoCreateOption.DatabaseAndSchema), ConnectionString);
+        }
+
         public override DataStoreProxy Proxy {
             get {
                 return ConnectionString != null
-                           ? (_multiDataStoreProxy ?? (_multiDataStoreProxy = new MultiDataStoreProxy(ConnectionString)))
+                           ? (_multiDataStoreProxy ?? (_multiDataStoreProxy = new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,AutoCreateOption.None), ConnectionString)))
                            : base.Proxy;
             }
         }
