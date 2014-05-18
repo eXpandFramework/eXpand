@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -32,123 +31,163 @@
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Charts.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v13.2">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.CodeParser.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Data.v13.2">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Data.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DataAccess.v13.2">
       <HintPath>..\packages\DevExpress.DataAccess.13.2.9.0\lib\net40\DevExpress.DataAccess.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DataAccess.v13.2.UI">
       <HintPath>..\packages\DevExpress.DataAccess.UI.13.2.9.0\lib\net40\DevExpress.DataAccess.v13.2.UI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Design.v13.2">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.Design.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Design.ModelEditor.v13.2">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.ExpressApp.Design.ModelEditor.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Design.v13.2">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.ExpressApp.Design.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.DesignCore.v13.2">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.ExpressApp.DesignCore.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v13.2">
       <HintPath>..\packages\DevExpress.ExpressApp.13.2.9.0\lib\net40\DevExpress.ExpressApp.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.Design.v13.2">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.ExpressApp.Win.Design.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
       <HintPath>..\packages\DevExpress.ExpressApp.Xpo.13.2.9.0\lib\net40\DevExpress.ExpressApp.Xpo.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Images.v13.2">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Images.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Office.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Office.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v13.2">
       <HintPath>..\packages\DevExpress.Persistent.Base.13.2.9.0\lib\net40\DevExpress.Persistent.Base.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.PivotGrid.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Printing.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.RichEdit.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Sparkline.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Spreadsheet.v13.2.Core">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Spreadsheet.v13.2.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.2">
       <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Utils.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v13.2.UI">
       <HintPath>..\packages\DevExpress.Utils.UI.13.2.9.0\lib\net40\DevExpress.Utils.v13.2.UI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v13.2">
       <HintPath>..\packages\DevExpress.Xpo.13.2.9.0\lib\net40\DevExpress.Xpo.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v13.2">
       <HintPath>..\packages\DevExpress.XtraBars.13.2.9.0\lib\net40\DevExpress.XtraBars.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v13.2">
       <HintPath>..\packages\DevExpress.XtraCharts.13.2.9.0\lib\net40\DevExpress.XtraCharts.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v13.2.UI">
       <HintPath>..\packages\DevExpress.XtraCharts.13.2.9.0\lib\net40\DevExpress.XtraCharts.v13.2.UI.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v13.2.Wizard">
       <HintPath>..\packages\DevExpress.XtraCharts.13.2.9.0\lib\net40\DevExpress.XtraCharts.v13.2.Wizard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v13.2">
       <HintPath>..\packages\DevExpress.XtraEditors.13.2.9.0\lib\net40\DevExpress.XtraEditors.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v13.2">
       <HintPath>..\packages\DevExpress.XtraGrid.13.2.9.0\lib\net40\DevExpress.XtraGrid.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v13.2">
       <HintPath>..\packages\DevExpress.XtraLayout.13.2.9.0\lib\net40\DevExpress.XtraLayout.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v13.2">
       <HintPath>..\packages\DevExpress.XtraBars.13.2.9.0\lib\net40\DevExpress.XtraNavBar.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v13.2">
       <HintPath>..\packages\DevExpress.XtraPivotGrid.13.2.9.0\lib\net40\DevExpress.XtraPivotGrid.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v13.2">
       <HintPath>..\packages\DevExpress.XtraPrinting.13.2.9.0\lib\net40\DevExpress.XtraPrinting.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v13.2.Design">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.XtraPrinting.v13.2.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v13.2">
       <HintPath>..\packages\DevExpress.XtraReports.13.2.9.0\lib\net40\DevExpress.XtraReports.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraRichEdit.v13.2">
       <HintPath>..\packages\DevExpress.XtraRichEdit.13.2.9.0\lib\net40\DevExpress.XtraRichEdit.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v13.2.Design">
       <HintPath>..\packages\DevExpress.Design.13.2.9.0\lib\net40\DevExpress.XtraScheduler.v13.2.Design.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v13.2">
       <HintPath>..\packages\DevExpress.XtraTreeList.13.2.9.0\lib\net40\DevExpress.XtraTreeList.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraVerticalGrid.v13.2">
       <HintPath>..\packages\DevExpress.XtraVerticalGrid.13.2.9.0\lib\net40\DevExpress.XtraVerticalGrid.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraWizard.v13.2">
       <HintPath>..\packages\DevExpress.XtraWizard.13.2.9.0\lib\net40\DevExpress.XtraWizard.v13.2.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
