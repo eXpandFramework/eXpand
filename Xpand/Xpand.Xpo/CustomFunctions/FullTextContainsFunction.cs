@@ -3,18 +3,6 @@ using DevExpress.Data.Filtering;
 using DevExpress.Xpo.DB;
 
 namespace Xpand.Xpo.CustomFunctions{
-    public static class CustomFunctionOperatorExtensions {
-        public static void Register(this ICustomFunctionOperator customFunctionOperator) {
-            ICustomFunctionOperator registeredItem = CriteriaOperator.GetCustomFunction(customFunctionOperator.Name);
-            if (registeredItem != null && registeredItem != customFunctionOperator) {
-                throw new InvalidOperationException();
-            }
-            if (registeredItem == null) {
-                CriteriaOperator.RegisterCustomFunction(customFunctionOperator);
-            }
-        }
-    }
-
     public class FullTextContainsFunction : ICustomFunctionOperatorFormattable {
         public const string FunctionName = "HasText";
         #region ICustomFunctionOperator Members
