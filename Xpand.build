@@ -70,6 +70,14 @@
       <ReplacementValue>$(Version)</ReplacementValue>
     </Tokens>
   </ItemGroup>
+  
+  <ItemGroup>
+	<NHibernateAssemblies Include="
+		$(_third_party_assemblies)\NHibernate.dll;
+		$(_third_party_assemblies)\FluentNHibernate.dll;
+		$(_third_party_assemblies)\Iesi.Collections.dll;"/>
+		
+  </ItemGroup>
   <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
@@ -85,6 +93,7 @@
 	-->
 
   <Target Name="Build" DependsOnTargets="FixReferences">
+	<Copy SourceFiles="@(NHibernateAssemblies)" DestinationFolder="$(XpandDLLPath)" />
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
