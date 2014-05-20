@@ -31,8 +31,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module", "FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj", "{2FE9D002-F5ED-46AC-860D-1ADF67573F0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Win", "FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj", "{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A986B220-63AF-44A6-98D5-7F55E1E2FA03} = {A986B220-63AF-44A6-98D5-7F55E1E2FA03}
+		{F40D575E-A391-4156-B2FC-9E01627C033D} = {F40D575E-A391-4156-B2FC-9E01627C033D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Win", "FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj", "{105CC473-6BB4-4144-A9D9-B591B28D9A38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A986B220-63AF-44A6-98D5-7F55E1E2FA03} = {A986B220-63AF-44A6-98D5-7F55E1E2FA03}
+		{F40D575E-A391-4156-B2FC-9E01627C033D} = {F40D575E-A391-4156-B2FC-9E01627C033D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Base", "FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj", "{782230D9-DFA4-4D7A-89A9-660A361B5A8A}"
 EndProject
