@@ -94,6 +94,7 @@
     <Compile Include="NHCollectionT.cs" />
     <Compile Include="NHEntityStore.cs" />
     <Compile Include="NHCollection.cs" />
+    <Compile Include="NHNestedObjectSpace.cs" />
     <Compile Include="NHObjectSpace.cs" />
     <Compile Include="NHObjectSpaceProvider.cs" />
     <Compile Include="NHPropertyCollectionSource.cs" />

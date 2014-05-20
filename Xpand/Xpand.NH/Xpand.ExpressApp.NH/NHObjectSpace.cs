@@ -21,9 +21,9 @@ namespace Xpand.ExpressApp.NH
 
         private readonly IPersistenceManager persistenceManager;
         private readonly IEntityStore entityStore;
-        private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances = new Dictionary<object, ObjectSpaceInstanceInfo>();
+        private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
 
-        public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager)
+        internal NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, Dictionary<object, ObjectSpaceInstanceInfo> instances)
             : base(typesInfo, entityStore)
         {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
@@ -31,7 +31,12 @@ namespace Xpand.ExpressApp.NH
             Guard.ArgumentNotNull(entityStore, "entityStore");
             this.persistenceManager = persistenceManager;
             this.entityStore = entityStore;
+            this.instances = instances;
         }
+
+        public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager) :
+            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>()) { }
+        
         public void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             DoIfNHCollection(collection, nhc => nhc.Criteria = criteria);
@@ -72,7 +77,7 @@ namespace Xpand.ExpressApp.NH
 
         public IObjectSpace CreateNestedObjectSpace()
         {
-            return new NHObjectSpace(typesInfo, entityStore, persistenceManager);
+            return new NHNestedObjectSpace(typesInfo, entityStore, persistenceManager, instances, this);
         }
 
         public IDisposable CreateParseCriteriaScope()
@@ -258,7 +263,7 @@ namespace Xpand.ExpressApp.NH
             throw new NotImplementedException();
         }
 
-        public object ReloadObject(object obj)
+        public virtual object ReloadObject(object obj)
         {
             Guard.ArgumentNotNull(obj, "obj");
 
@@ -400,11 +405,16 @@ namespace Xpand.ExpressApp.NH
         private void AddObject(object instance, InstanceState state)
         {
             Guard.ArgumentNotNull(instance, "instance");
-            if (instances.ContainsKey(instance))
-                throw new ArgumentException("Object already added");
+            if (instances.ContainsKey(instance)) return;
 
             instances.Add(instance, new ObjectSpaceInstanceInfo { Instance = instance, State = state });
-
+            var typeInfo = TypesInfo.FindTypeInfo(instance.GetType());
+            AddObjects(
+                typeInfo.Members.Where(m => m.IsAssociation && m.IsList)
+                    .Select(m => m.GetValue(instance))
+                    .OfType<IEnumerable>()
+                    .Cast<IEnumerable<object>>()
+                    .SelectMany(e => e), state);
         }
         protected override object CreateObjectCore(Type type)
         {
@@ -425,7 +435,9 @@ namespace Xpand.ExpressApp.NH
             if (key == null)
                 throw new ArgumentException("No key defined", "objectFromDifferentObjectSpace");
 
-            object result = instances.Values.FirstOrDefault(i => object.Equals(GetKeyValue(i.Instance), key));
+            object result = instances.Values
+                .Where(i => objectFromDifferentObjectSpace.GetType() == i.Instance.GetType() && object.Equals(GetKeyValue(i.Instance), key))
+                .Select(i => i.Instance).FirstOrDefault();
 
             if (result != null)
                 return result;
@@ -435,7 +447,7 @@ namespace Xpand.ExpressApp.NH
             if (result != null)
                 AddObject(result, InstanceState.Unchanged);
 
-            return result;
+            return result ?? objectFromDifferentObjectSpace;
         }
 
         protected override void DoCommit()
@@ -512,5 +524,43 @@ namespace Xpand.ExpressApp.NH
             return null;
         }
 
+        public override Object GetObjectKey(Type type, String objectKeyString)
+        {
+            Object result = null;
+            Type keyPropertyType = GetKeyPropertyType(type);
+            if (keyPropertyType == typeof(Int16))
+            {
+                Int16 val = 0;
+                Int16.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Int32))
+            {
+                Int32 val = 0;
+                Int32.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Int64))
+            {
+                Int64 val = 0;
+                Int64.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Guid))
+            {
+                result = new Guid(objectKeyString);
+            }
+            else if (keyPropertyType == typeof(String))
+            {
+                result = objectKeyString;
+            }
+            else
+            {
+                result = ObjectKeyHelper.Instance.DeserializeObjectKey(objectKeyString, typeof(List<Object>));
+            }
+            return result;
+        }
+
+        
     }
 }

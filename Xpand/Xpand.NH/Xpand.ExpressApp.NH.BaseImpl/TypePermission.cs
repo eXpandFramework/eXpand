@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.Security.Strategy;
+﻿using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -62,6 +63,35 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         {
             get { return !string.IsNullOrWhiteSpace(TypeName) ?  Type.GetType(TypeName) : null; }
             set { TypeName = value !=null ? value.AssemblyQualifiedName : null;}
+        }
+
+        public IEnumerable<IOperationPermission> GetPermissions()
+        {
+            List<IOperationPermission> result = new List<IOperationPermission>();
+            if (TargetType != null)
+            {
+                if (AllowRead)
+                {
+                    result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Read));
+                }
+                if (AllowWrite)
+                {
+                    result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Write));
+                }
+                if (AllowCreate)
+                {
+                    result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Create));
+                }
+                if (AllowDelete)
+                {
+                    result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Delete));
+                }
+                if (AllowNavigate)
+                {
+                    result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Navigate));
+                }
+            }
+            return result;
         }
 
     }

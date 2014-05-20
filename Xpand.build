@@ -53,7 +53,7 @@
   <!-- Main build entry file (extends development builds)-->
 
   <ItemGroup>
-    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;"></CoreProjectSolutions>
+    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
     <AddInProjects Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj"></AddInProjects>
     <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
@@ -70,6 +70,14 @@
       <ReplacementValue>$(Version)</ReplacementValue>
     </Tokens>
   </ItemGroup>
+  
+  <ItemGroup>
+	<NHibernateAssemblies Include="
+		$(_third_party_assemblies)\NHibernate.dll;
+		$(_third_party_assemblies)\FluentNHibernate.dll;
+		$(_third_party_assemblies)\Iesi.Collections.dll;"/>
+		
+  </ItemGroup>
   <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
@@ -85,6 +93,7 @@
 	-->
 
   <Target Name="Build" DependsOnTargets="FixReferences">
+	<Copy SourceFiles="@(NHibernateAssemblies)" DestinationFolder="$(XpandDLLPath)" />
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
