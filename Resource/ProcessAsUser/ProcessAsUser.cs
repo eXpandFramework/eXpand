@@ -99,7 +99,7 @@ namespace ProcessAsUser{
                 CloseHandle(userToken);
             }
             else{
-                throw new Exception("Login");
+                Environment.Exit(255);
             }
             WTSFreeMemory(sessionInfo.IntPtr);
         }

@@ -7,8 +7,6 @@
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
-    <EasyTestUserName>Admin</EasyTestUserName>
-    <EasyTestUserPassword>AdminPass</EasyTestUserPassword>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
@@ -191,7 +189,7 @@
     <!--    <CallTarget Targets="RunEasyTests"></CallTarget>-->
   </Target>
   <PropertyGroup>
-    <EasyTestFilter>Demos\</EasyTestFilter>
+    <EasyTestFilter>Demos\Modules\AuditTrail\</EasyTestFilter>
   </PropertyGroup>
   <ItemGroup>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
@@ -221,9 +219,13 @@
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
     <Message Text='WorkingDirectory="%(EasyTests.RelativeDir)"'/>
+    <Delete Files="$(OutputFile)"></Delete>
     <Exec ContinueOnError="true"
           WorkingDirectory="%(EasyTests.RelativeDir)"
-          Command='ProcessAsUser.exe $(EasyTestUserName) $(EasyTestUserPassword) $(TestExecutorName) %(EasyTests.Filename).ets'/>
+          Command='ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+    </Exec>
+    <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />
     <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
 
