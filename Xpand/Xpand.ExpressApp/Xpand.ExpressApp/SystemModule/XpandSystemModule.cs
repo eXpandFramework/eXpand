@@ -53,7 +53,6 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public override void Setup(XafApplication application) {
-            
             base.Setup(application);
             if (RuntimeMode) {
                 application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;

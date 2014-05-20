@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 using Xpand.Persistent.Base.General;
 using Application = System.Windows.Forms.Application;
@@ -9,6 +10,10 @@ namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
         public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            args.ObjectSpaceProvider=new XPObjectSpaceProvider(args.ConnectionString,args.Connection);
         }
 
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {

@@ -54,6 +54,8 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 RefreshTypes(model.GetTypesInfo(), modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
                 CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
                 RefreshTypes(model.GetTypesInfo(), modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
+                if (xpObjectSpace!=null)
+                    ApplicationHelper.Instance.Application.ObjectSpaceProvider.UpdateSchema();
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation finished");
         }
@@ -71,7 +73,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         static IObjectSpace CreateObjectSpace() {
-            return XpandModuleBase.ObjectSpaceCreated?ApplicationHelper.Instance.Application.CreateObjectSpace():null;
+            return XpandModuleBase.ObjectSpaceCreated?ApplicationHelper.Instance.Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(true):null;
         }
 
         static void CreateXpandCustomMemberInfo(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {

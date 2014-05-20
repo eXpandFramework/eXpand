@@ -63,7 +63,7 @@ namespace FeatureCenter.Win {
             this.ioModule1 = new Xpand.ExpressApp.IO.IOModule();
             this.masterDetailModule1 = new Xpand.ExpressApp.MasterDetail.MasterDetailModule();
             this.xpandPivotChartModule1 = new Xpand.ExpressApp.PivotChart.XpandPivotChartModule();
-            this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
+//            this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
             
@@ -76,7 +76,7 @@ namespace FeatureCenter.Win {
             this.worldCreatorWinModule1 = new Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule();
             this.ioWinModule1 = new Xpand.ExpressApp.IO.Win.IOWinModule();
             this.exceptionHandlingWinModule1 = new Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule();
-            this.filterDataStoreWindowsFormsModule1 = new Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule();
+//            this.filterDataStoreWindowsFormsModule1 = new Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule();
             this.additionalViewControlsProviderWindowsFormsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule();
             this.xpandPivotChartWinModule1 = new Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule();
             
@@ -190,7 +190,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.masterDetailModule1);
             this.Modules.Add(this.pivotChartModuleBase1);
             this.Modules.Add(this.xpandPivotChartModule1);
-            this.Modules.Add(this.filterDataStoreModule1);
+//            this.Modules.Add(this.filterDataStoreModule1);
             this.Modules.Add(this.additionalViewControlsModule1);
             this.Modules.Add(this.scriptRecorderModuleBase1);
             
@@ -208,12 +208,12 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.module3);
             this.Modules.Add(this.fileAttachmentsWindowsFormsModule1);
             this.Modules.Add(this.htmlPropertyEditorWindowsFormsModule1);
-            this.Modules.Add(this.pivotChartWindowsFormsModule1);
+//            this.Modules.Add(this.pivotChartWindowsFormsModule1);
             this.Modules.Add(this.reportsModule1);
             this.Modules.Add(this.reportsWindowsFormsModule1);
             this.Modules.Add(this.schedulerModuleBase1);
             this.Modules.Add(this.schedulerWindowsFormsModule1);
-            this.Modules.Add(this.treeListEditorsWindowsFormsModule1);
+//            this.Modules.Add(this.treeListEditorsWindowsFormsModule1);
             this.Modules.Add(this.module7);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.modelDifferenceWindowsFormsModule1);
@@ -223,7 +223,7 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
             this.Modules.Add(this.exceptionHandlingWinModule1);
-            this.Modules.Add(this.filterDataStoreWindowsFormsModule1);
+//            this.Modules.Add(this.filterDataStoreWindowsFormsModule1);
             this.Modules.Add(this.additionalViewControlsProviderWindowsFormsModule1);
             this.Modules.Add(this.xpandPivotChartWinModule1);
             
@@ -293,7 +293,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.IO.IOModule ioModule1;
         private Xpand.ExpressApp.MasterDetail.MasterDetailModule masterDetailModule1;
         private Xpand.ExpressApp.PivotChart.XpandPivotChartModule xpandPivotChartModule1;
-        private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
+//        private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
         
@@ -306,7 +306,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule worldCreatorWinModule1;
         private Xpand.ExpressApp.IO.Win.IOWinModule ioWinModule1;
         private Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule exceptionHandlingWinModule1;
-        private Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule filterDataStoreWindowsFormsModule1;
+//        private Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule filterDataStoreWindowsFormsModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule additionalViewControlsProviderWindowsFormsModule1;
         private Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule xpandPivotChartWinModule1;
         
