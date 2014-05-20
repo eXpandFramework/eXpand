@@ -8,7 +8,7 @@ namespace ProcessAsUser {
                 throw new ArgumentException( "Args count=" +args.Length+ "Expected args--> ExePath,ExeArgs");
             var userName = GetVariable("ProcessAsUserUserName");
             var password = GetVariable("ProcessAsUserPassword");
-            ProcessAsUser.Launch(userName,password,args[2],args[3],Environment.Exit);
+            ProcessAsUser.Launch(userName,password,args[0],args[1],Environment.Exit);
         }
 
         private static string GetVariable(string variableName){
