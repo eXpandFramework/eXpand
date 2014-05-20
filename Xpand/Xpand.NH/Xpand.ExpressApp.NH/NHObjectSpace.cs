@@ -512,5 +512,42 @@ namespace Xpand.ExpressApp.NH
             return null;
         }
 
+        public override Object GetObjectKey(Type type, String objectKeyString)
+        {
+            Object result = null;
+            Type keyPropertyType = GetKeyPropertyType(type);
+            if (keyPropertyType == typeof(Int16))
+            {
+                Int16 val = 0;
+                Int16.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Int32))
+            {
+                Int32 val = 0;
+                Int32.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Int64))
+            {
+                Int64 val = 0;
+                Int64.TryParse(objectKeyString, out val);
+                result = val;
+            }
+            else if (keyPropertyType == typeof(Guid))
+            {
+                result = new Guid(objectKeyString);
+            }
+            else if (keyPropertyType == typeof(String))
+            {
+                result = objectKeyString;
+            }
+            else
+            {
+                result = ObjectKeyHelper.Instance.DeserializeObjectKey(objectKeyString, typeof(List<Object>));
+            }
+            return result;
+        }
+
     }
 }
