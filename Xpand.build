@@ -53,7 +53,7 @@
   <!-- Main build entry file (extends development builds)-->
 
   <ItemGroup>
-    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;"></CoreProjectSolutions>
+    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
     <AddInProjects Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj"></AddInProjects>
     <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
