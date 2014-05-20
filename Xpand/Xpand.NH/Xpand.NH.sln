@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernateIntegration.Module", "NHibernateIntegration.Module\NHibernateIntegration.Module.csproj", "{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}"
 EndProject
@@ -16,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEntities", "TestEntities\TestEntities.csproj", "{94593FF7-D191-40A4-93B7-4771FF397EC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataLayer", "TestDataLayer\TestDataLayer.csproj", "{E0D3A6D9-5764-472E-B3B6-C2D71757E0D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C5577456-F66E-49C6-BA1A-8321EA142ADE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.NH", "Xpand.ExpressApp.NH\Xpand.ExpressApp.NH.csproj", "{3EB209EB-C0A7-489F-9287-612CE5DA911D}"
 EndProject
@@ -78,12 +76,6 @@ Global
 		{E0D3A6D9-5764-472E-B3B6-C2D71757E0D5}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{E0D3A6D9-5764-472E-B3B6-C2D71757E0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D3A6D9-5764-472E-B3B6-C2D71757E0D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5577456-F66E-49C6-BA1A-8321EA142ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3EB209EB-C0A7-489F-9287-612CE5DA911D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3EB209EB-C0A7-489F-9287-612CE5DA911D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EB209EB-C0A7-489F-9287-612CE5DA911D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
