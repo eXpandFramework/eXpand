@@ -25,12 +25,12 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelNodeExtensions {
-        public static XPClassInfo GetXPClassInfo(this IModelClass modelClass){
-            return XpandModuleBase.Dictiorary.GetClassInfo(modelClass.TypeInfo.Type);
+        public static XPClassInfo QueryXPClassInfo(this IModelClass modelClass){
+            return XpandModuleBase.Dictiorary.QueryClassInfo(modelClass.TypeInfo.Type);
         }
 
         public static XPMemberInfo GetXpmemberInfo(this IModelMember modelMember){
-            return modelMember.ModelClass.GetXPClassInfo().FindMember(modelMember.Name);
+            return XpandModuleBase.Dictiorary.GetClassInfo(modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
         }
 
         public static TNode GetParent<TNode>(this IModelNode node) where TNode : class, IModelNode {

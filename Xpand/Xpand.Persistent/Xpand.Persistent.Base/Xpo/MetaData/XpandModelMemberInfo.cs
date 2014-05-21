@@ -219,11 +219,14 @@ namespace Xpand.Persistent.Base.Xpo.MetaData{
     }
 
     public class XpandModelMemberInfoController:ViewController<DetailView>{
-        private List<IXpandModelMemberInfo> _memberInfos;
+        private List<IXpandModelMemberInfo> _memberInfos=new List<IXpandModelMemberInfo>();
 
         protected override void OnActivated(){
             base.OnActivated();
-            _memberInfos = View.Model.ModelClass.GetXPClassInfo().Members.OfType<IXpandModelMemberInfo>().ToList();
+            var classInfo = View.Model.ModelClass.QueryXPClassInfo();
+            if (classInfo != null){
+                _memberInfos = classInfo.Members.OfType<IXpandModelMemberInfo>().ToList();
+            }
             if (_memberInfos.Any()){
                 foreach (var memberInfo in _memberInfos) {
                     memberInfo.ApplyModel(View.CurrentObject, ((Link)View.Tag).ListView.Model);
