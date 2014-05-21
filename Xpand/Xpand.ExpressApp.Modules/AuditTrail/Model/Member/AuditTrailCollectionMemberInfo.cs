@@ -25,6 +25,7 @@ namespace Xpand.ExpressApp.AuditTrail.Model.Member {
             var auditedObjectWeakReferenceType = ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.AuditedObjectWeakReference").Type;
             return GetAuditTrail(xpBaseObject.Session, xpBaseObject, auditedObjectWeakReferenceType);
         }
+
         XPBaseCollection GetAuditTrail(Session session, XPBaseObject xpBaseObject, Type auditedObjectWeakReferenceType) {
             var binaryOperator = new BinaryOperator("TargetType", session.GetObjectType(xpBaseObject));
             var operands = new BinaryOperator("TargetKey", XPWeakReference.KeyToString(session.GetKeyValue(xpBaseObject)));

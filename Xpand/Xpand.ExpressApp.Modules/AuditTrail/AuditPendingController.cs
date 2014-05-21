@@ -6,6 +6,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.AuditTrail;
@@ -82,7 +83,7 @@ namespace Xpand.ExpressApp.AuditTrail {
                 var pendingMember = modelAuditPending.PendingMember;
                 var creatorMember = modelAuditPending.CreatorMember;
                 if (pendingMember != null && creatorMember!=null){
-                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty +"] = CurrentUserId() And ["
+                    var @operator =CriteriaOperator.Parse("(([" + creatorMember.Name + "." + creatorMember.ModelClass.KeyProperty + "] = " + CurrentUserIdParameter.ParameterName+ "() And ["
                         + pendingMember.Name + "] = True) Or ([" + pendingMember.Name + "] = False Or [" + pendingMember.Name + "] Is Null))");
                     listView.CollectionSource.Criteria[typeof(AuditPendingController).Name] = @operator;
                 }

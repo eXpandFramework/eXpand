@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AuditTrail</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AuditTrail</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -131,6 +133,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditProccesors.cs" />
     <Compile Include="BusinessObjects\XpandAuditDataItemPersistent.cs" />
     <Compile Include="BusinessObjects\XpandAuditedObjectWeakReference.cs" />
     <Compile Include="AudiTrailExtensions.cs" />
