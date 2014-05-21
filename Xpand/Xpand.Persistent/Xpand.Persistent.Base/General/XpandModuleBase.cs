@@ -206,6 +206,7 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("ExtendModelInterfaces"))
                 return;
 
+            extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
             extenders.Add<IModelClass, IModelClassEx>();
             extenders.Add<IModelClass, IModelClassDefaultCriteria>();

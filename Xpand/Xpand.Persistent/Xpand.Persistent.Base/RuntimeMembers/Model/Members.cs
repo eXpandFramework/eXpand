@@ -5,6 +5,7 @@ using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
@@ -93,7 +94,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
                 var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
                 if (xpandCustomMemberInfo == null) {
                     if (!modelMemberEx.CreatedAtDesignTime.HasValue)
-                        modelMemberEx.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
+                        modelMemberEx.CreatedAtDesignTime = CreatedAtDesignTime(modelMemberEx);
                     createXpandCustomMemberInfo(modelMemberEx, xpClassInfo);
                     xpClassInfo.FindMember(modelMemberEx.Name).AddAttribute(new ModelMemberExMemberInfoAttribute());
                     var typesInfo = ((BaseInfo)modelMemberEx.ModelClass.TypeInfo).Store;
@@ -101,6 +102,11 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
                 }
             }
             return modelMemberEx.ModelClass.TypeInfo.FindMember(modelMemberEx.Name);
+        }
+
+        private static bool CreatedAtDesignTime(TModelMember modelMemberEx){
+            var createdAtDesignTime = !InterfaceBuilder.RuntimeMode;
+            return createdAtDesignTime || modelMemberEx.Application.Id() == ModelApplicationLayerIds.Generator;
         }
 
         protected static bool CheckTag(TModelMember modelMemberEx) {
