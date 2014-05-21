@@ -11,10 +11,13 @@ using NHibernate.Tool.hbm2ddl;
 using NHibernate.Mapping;
 using System.Collections;
 using Xpand.ExpressApp.NH.Core;
+using DevExpress.Utils;
+using System.Globalization;
+using DevExpress.Data.Filtering;
 
 namespace Xpand.ExpressApp.NH.DataLayer
 {
-    
+
 
     public class PersistenceManager : IPersistenceManager
     {
@@ -77,7 +80,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
         }
 
 
-        public System.Collections.IList GetObjects(string hql)
+        private IList GetObjects(string hql)
         {
             using (var factory = CreateSessionFactory(connectionString))
             using (var session = factory.OpenSession())
@@ -108,7 +111,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
                         session.Delete(obj);
                 }
                 session.Flush();
-            
+
             }
             return updateList;
         }
@@ -140,6 +143,68 @@ namespace Xpand.ExpressApp.NH.DataLayer
                 .Select(cm => new TypeMetadata { Type = cm.MappedClass, KeyPropertyName = cm.IdentifierProperty.Name })
                 .Cast<ITypeMetadata>()
                 .ToList();
+        }
+
+        private static StringBuilder CreateFromAndWhereHql(Type objectType, string criteriaString)
+        {
+            Guard.ArgumentNotNull(objectType, "objectType");
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0}\r\n", objectType.Name);
+
+            if (!string.IsNullOrWhiteSpace(criteriaString))
+            {
+                CriteriaOperator criteria = CriteriaOperator.Parse(criteriaString);
+                string hqlWhere = new NHWhereGenerator().Process(criteria);
+                sb.AppendFormat(CultureInfo.InvariantCulture, "Where {0}\r\n", hqlWhere);
+            }
+            return sb;
+        }
+
+
+        public IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
+        {
+
+            Guard.ArgumentIsNotNullOrEmpty(typeName, "typeName");
+
+            Type objectType = Type.GetType(typeName);
+            if (objectType == null)
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Type not found: {0}", typeName), "typeName");
+
+            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
+
+            if (sorting != null && sorting.Count > 0)
+                sb.AppendFormat(CultureInfo.InvariantCulture, "order by {0}\r\n", string.Join(",", sorting));
+
+            return GetObjects(sb.ToString());
+        }
+
+
+        private string GetKeyPropertyName(Type type)
+        {
+            Guard.ArgumentNotNull(type, "type");
+            var metadata = GetMetadata().FirstOrDefault(md => md.Type == type);
+            if (metadata == null)
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Metadata not found for the type: {0}", type.AssemblyQualifiedName), "type");
+
+            return metadata.KeyPropertyName;
+        }
+        public int GetObjectsCount(string typeName, string criteria)
+        {
+            Guard.ArgumentIsNotNullOrEmpty(typeName, "typeName");
+
+            Type objectType = Type.GetType(typeName);
+
+            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
+            sb.Insert(0, string.Format(CultureInfo.InvariantCulture, "Select Count({0})", GetKeyPropertyName(objectType)));
+            var result = GetObjects(sb.ToString());
+            if (result.Count == 1)
+                return Convert.ToInt32(result[0]);
+            else
+                return 0;
+
+
         }
     }
 }

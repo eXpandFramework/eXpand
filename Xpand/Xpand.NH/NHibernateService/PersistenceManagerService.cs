@@ -28,10 +28,6 @@ namespace Xpand.ExpressApp.NH.Service
                 return persistenceManager;
             }
         }
-        public System.Collections.IList GetObjects(string hql)
-        {
-            return PersistenceManager.GetObjects(hql);
-        }
 
         public System.Collections.IList UpdateObjects(System.Collections.IList updateList, System.Collections.IList deleteList)
         {
@@ -46,6 +42,16 @@ namespace Xpand.ExpressApp.NH.Service
         public IList<ITypeMetadata> GetMetadata()
         {
             return PersistenceManager.GetMetadata();
+        }
+
+        public System.Collections.IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
+        {
+            return PersistenceManager.GetObjects(typeName, criteria, sorting, topReturnedObjectsCount);
+        }
+
+        public int GetObjectsCount(string typeName, string criteria)
+        {
+            return PersistenceManager.GetObjectsCount(typeName, criteria);
         }
     }
 }

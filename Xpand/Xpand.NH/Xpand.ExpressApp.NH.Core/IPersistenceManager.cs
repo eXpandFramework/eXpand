@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.NH.Core
     public interface IPersistenceManager
     {
         [OperationContract]
-        IList GetObjects(string hql);
+        IList GetObjects(string typeName,  string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount);
 
         [OperationContract]
         IList UpdateObjects(IList updateList, IList deleteList);
@@ -21,5 +21,8 @@ namespace Xpand.ExpressApp.NH.Core
 
         [OperationContract]
         IList<ITypeMetadata> GetMetadata();
+
+        [OperationContract]
+        int GetObjectsCount(string typeName, string criteria);
     }
 }

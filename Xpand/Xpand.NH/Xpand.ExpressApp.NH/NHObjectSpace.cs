@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Xpand.ExpressApp.NH
 
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager) :
             this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>()) { }
-        
+
         public void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             DoIfNHCollection(collection, nhc => nhc.Criteria = criteria);
@@ -146,13 +147,10 @@ namespace Xpand.ExpressApp.NH
 
         public int GetObjectsCount(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
-            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
-            sb.Insert(0, string.Format(CultureInfo.InvariantCulture, "Select Count({0})", GetKeyPropertyName(objectType)));
-            var result = persistenceManager.GetObjects(sb.ToString());
-            if (result.Count == 1)
-                return Convert.ToInt32(result[0]);
-            else
-                return 0;
+            Guard.ArgumentNotNull(objectType, "objectType");
+
+            return persistenceManager.GetObjectsCount(objectType.AssemblyQualifiedName, criteria.ToString());
+
 
         }
 
@@ -355,12 +353,18 @@ namespace Xpand.ExpressApp.NH
 
         internal IEnumerable GetObjects(Type objectType, IList<string> memberNames, CriteriaOperator criteria, List<SortProperty> sorting, int topReturnedObjectsCount)
         {
-            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
+            Guard.ArgumentNotNull(objectType, "objectType");
 
-            if (sorting != null && sorting.Count > 0)
-                sb.AppendFormat(CultureInfo.InvariantCulture, "order by {0}\r\n", string.Join(",", sorting));
+            IList<ISortPropertyInfo> sortInfos = null;
 
-            var objects = persistenceManager.GetObjects(sb.ToString());
+            if (sorting != null)
+            {
+                sortInfos = sorting.Select(sp => new SortPropertyInfo { PropertyName = sp.PropertyName, Descending = sp.Direction == SortingDirection.Descending })
+                    .Cast<ISortPropertyInfo>().ToList();
+            }
+
+            var objects = persistenceManager.GetObjects(objectType.AssemblyQualifiedName, ReferenceEquals(null, criteria) ? null : criteria.ToString(),
+                sortInfos, topReturnedObjectsCount);
 
             for (int i = 0; i < objects.Count; i++)
             {
@@ -372,22 +376,6 @@ namespace Xpand.ExpressApp.NH
             }
 
             return objects;
-        }
-
-        private static StringBuilder CreateFromAndWhereHql(Type objectType, CriteriaOperator criteria)
-        {
-            Guard.ArgumentNotNull(objectType, "objectType");
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0}\r\n", objectType.Name);
-
-            if (!ReferenceEquals(criteria, null))
-            {
-                string criteriaString = new NHWhereGenerator().Process(criteria);
-                if (!string.IsNullOrWhiteSpace(criteriaString))
-                    sb.AppendFormat(CultureInfo.InvariantCulture, "Where {0}\r\n", criteriaString);
-            }
-            return sb;
         }
 
         private object FindInstanceByKey(object key)
@@ -561,6 +549,6 @@ namespace Xpand.ExpressApp.NH
             return result;
         }
 
-        
+
     }
 }

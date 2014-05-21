@@ -98,7 +98,6 @@
     <Compile Include="NHObjectSpace.cs" />
     <Compile Include="NHObjectSpaceProvider.cs" />
     <Compile Include="NHPropertyCollectionSource.cs" />
-    <Compile Include="NHWhereGenerator.cs" />
     <Compile Include="ObjectSpaceInstanceInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemotePersistenceManagerProxy.cs" />

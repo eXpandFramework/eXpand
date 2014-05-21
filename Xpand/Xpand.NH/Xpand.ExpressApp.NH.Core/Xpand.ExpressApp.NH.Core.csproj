@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="IPersistenceManager.cs" />
     <Compile Include="IPersistenceManagerProvider.cs" />
+    <Compile Include="ISortPropertyInfo.cs" />
     <Compile Include="ITypeMetadata.cs" />
+    <Compile Include="SortPropertyInfo.cs" />
     <Compile Include="TypeMetadata.cs" />
     <Compile Include="XpandDataContractResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

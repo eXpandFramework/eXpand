@@ -58,6 +58,8 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         }
 
         [DataMember]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
         public string StoredPassword
         {
             get;
