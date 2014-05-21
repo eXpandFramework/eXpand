@@ -33,8 +33,13 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             if (FilterProviderManager.IsRegistered) {
-                SubscribeToDataStoreProxyEvents();
+                Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
             }
+        }
+
+        private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs){
+            Application.ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
+            SubscribeToDataStoreProxyEvents();
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
@@ -48,7 +53,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)) {
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
                 }
-                DataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                IDisposable[] objects;
+                var proxy = (DataStoreProxy) ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.CreateWorkingStore(out objects);
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
                 ProxyEventsSubscribed = true;
@@ -60,7 +66,6 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
-                SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent && !info.IsInterface)) {
                     var xpClassInfo = XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
