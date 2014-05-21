@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="XVideoRental.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50036"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

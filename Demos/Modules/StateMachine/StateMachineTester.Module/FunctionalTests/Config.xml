@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="StateMachineTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50023"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

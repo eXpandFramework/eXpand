@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="XtraDashboardTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50032"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

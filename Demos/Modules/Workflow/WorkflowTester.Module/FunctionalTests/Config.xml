@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="WorkflowTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50029"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

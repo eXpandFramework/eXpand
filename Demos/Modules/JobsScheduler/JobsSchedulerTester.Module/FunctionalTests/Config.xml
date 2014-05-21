@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="JobsSchedulerTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50013"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="AdditionalViewControlProviderTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:5003"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

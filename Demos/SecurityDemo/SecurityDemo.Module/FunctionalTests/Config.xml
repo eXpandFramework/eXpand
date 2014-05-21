@@ -15,7 +15,7 @@
 		<!-- Web -->
 		<Application
 			Name="SecurityDemo.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50034"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
     <Application
