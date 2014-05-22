@@ -92,7 +92,7 @@ namespace SecurityTester.Web {
             // 
             _securityStrategyComplex1.Authentication = _authenticationStandard1;
             _securityStrategyComplex1.RoleType = typeof(XpandRole);
-            _securityStrategyComplex1.UserType = typeof(SecuritySystemUser);
+            _securityStrategyComplex1.UserType = typeof(XpandUser);
             // 
             // authenticationStandard1
             // 

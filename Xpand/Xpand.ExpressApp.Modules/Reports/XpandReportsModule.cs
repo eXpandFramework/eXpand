@@ -9,6 +9,11 @@ namespace Xpand.ExpressApp.Reports {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandReportsModule : XpandModuleBase {
+        public override void Setup(XafApplication application){
+            base.Setup(application);
+            LoadDxBaseImplType("DevExpress.Persistent.BaseImpl.ReportData");
+        }
+
         protected override ModuleTypeList GetRequiredModuleTypesCore() {
             ModuleTypeList requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
             requiredModuleTypesCore.Add(typeof(DevExpress.ExpressApp.Reports.ReportsModule));

@@ -330,6 +330,28 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
+        protected void LoadDxBaseImplType(string typeName) {
+            try {
+                if (RuntimeMode) {
+                    AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
+                    Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
+                    Application.TypesInfo.LoadTypes(assembly);
+                    var info = Application.TypesInfo.FindTypeInfo(typeName);
+                    if (info == null)
+                        throw new FileNotFoundException();
+                    Type typeInfo = info.Type;
+                    AdditionalExportedTypes.Add(typeInfo);
+                }
+            }
+            catch (FileNotFoundException) {
+                throw new FileNotFoundException(
+                    "Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
+            }
+            finally {
+                AppDomain.CurrentDomain.AssemblyResolve -= DXAssemblyResolve;
+            }
+        }
+
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             if (IsLoadingExternalModel()) {
                 var declaredExportedTypes = new List<Type>();
