@@ -99,7 +99,7 @@ namespace FixReferences {
                 config = Path.Combine(functionalTestsPath,"Config.xml");
                 if (File.Exists(config)){
                     ReplaceToken(config);
-                    UpdateAdapterVersion(config);
+//                    UpdateAdapterVersion(config);
                 }
             }
         }
