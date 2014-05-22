@@ -202,6 +202,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void properties_Enter(object sender, EventArgs e) {
             _lookup = (LookUpGridEditEx)sender;
+            var editButton = _lookup.Properties.Buttons[1];
+            UpdateButtonState(editButton, _lookup.Properties.Buttons[2]);
             InitializeDataSource();
         }
 
@@ -257,17 +259,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void CreateButtons(RepositoryItemGridLookUpEditEx properties) {
             properties.ButtonsStyle = BorderStyles.HotFlat;
-            var editButton = CreatelButton("Action_Edit", "tooltipDetail", "DetailButtonTag");
-            editButton.Enabled = _lookup.EditValue != null;
-
-
+            var editButton = CreateButton("Action_Edit", "tooltipDetail", "DetailButtonTag");
             string info;
             editButton.Visible = DataManipulationRight.CanEdit(MemberInfo.MemberType, null, null,null,null)&&DataManipulationRight.CanEdit(ObjectType, propertyName, CurrentObject,null,_helper.ObjectSpace);
             properties.Buttons.Add(editButton);
-            var newButton = CreatelButton("MenuBar_New", "tooltipNew", "AddButtonTag");
+            var newButton = CreateButton("MenuBar_New", "tooltipNew", "AddButtonTag");
             newButton.Visible = DataManipulationRight.CanCreate(null, MemberInfo.MemberType, null, out info);
             properties.Buttons.Add(newButton);
-            var clearButton = CreatelButton("Action_Clear", "tooltipClear", "MinusButtonTag");
+            var clearButton = CreateButton("Action_Clear", "tooltipClear", "MinusButtonTag");
             clearButton.Enabled = editButton.Enabled;
             if (!editButton.Visible) {
                 properties.ReadOnly = true;
@@ -275,13 +274,20 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 newButton.Visible = false;
             }
             properties.Buttons.Add(clearButton);
-            _lookup.EditValueChanged += (sender, args) => {
-                editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
-                clearButton.Enabled = editButton.Enabled;
-            };
+            UpdateButtonState(editButton, clearButton);
         }
 
-        EditorButton CreatelButton(string imageName, string tooltip, string tag) {
+        private void UpdateButtonState(EditorButton editButton, EditorButton clearButton){
+            if (_lookup != null){
+                editButton.Enabled = _lookup.EditValue != null;
+                _lookup.EditValueChanged += (sender, args) =>{
+                    editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
+                    clearButton.Enabled = editButton.Enabled;
+                };
+            }
+        }
+
+        EditorButton CreateButton(string imageName, string tooltip, string tag) {
             var detailButton = new EditorButton{
                 ImageLocation = ImageLocation.MiddleCenter,
                 Kind = ButtonPredefines.Glyph,
