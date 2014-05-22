@@ -12,7 +12,8 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.PropertyEditors {
-    public interface IModelPeopertyEditorSortOrder{
+    [ModelAbstractClass]
+    public interface IModelMemberViewItemSortOrder:IModelMemberViewItem{
         [Category("eXpand")]
         [ModelBrowsable(typeof(StringLookupPropertyEditorVisibilityCalculator))]
         SortingDirection SortingDirection { get; set; }
@@ -47,7 +48,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
 
         void GroupBuild(Action<IEnumerable<string>, bool> itemsCalculated) {
             var xpView = new XPView(((XPObjectSpace) ((IObjectSpaceHolder) _propertyEditor).ObjectSpace).Session, _propertyEditor.ObjectTypeInfo.Type);
-            var columnSortOrder = ((IModelPeopertyEditorSortOrder)_propertyEditor.Model).SortingDirection;
+            var columnSortOrder = ((IModelMemberViewItemSortOrder)_propertyEditor.Model).SortingDirection;
             xpView.Sorting=new SortingCollection(new SortProperty(_propertyEditor.PropertyName,columnSortOrder));
             xpView.AddProperty(_propertyEditor.PropertyName, _propertyEditor.PropertyName, true);
             itemsCalculated.Invoke(xpView.OfType<ViewRecord>().Select(record => record[0]).OfType<string>(), false);

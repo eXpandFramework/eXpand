@@ -24,7 +24,6 @@ using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
-using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo.CustomFunctions;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
@@ -128,7 +127,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelPropertyEditor, IModelPeopertyEditorSortOrder>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
             extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
