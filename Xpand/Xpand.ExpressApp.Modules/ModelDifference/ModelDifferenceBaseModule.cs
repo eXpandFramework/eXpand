@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             LoadApplicationModels(loadResources, model);
             if (Application.Security is ISecurityComplex && _userModelDictionaryDifferenceStore != null)
                 _userModelDictionaryDifferenceStore.Load();
+            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
 
         void LoadApplicationModels(bool loadResources, ModelApplicationBase model) {
@@ -51,7 +52,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (!customModelDifferenceStoreEventArgs.Handled)
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
             ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, userDiffLayer);
-            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
+
         }
 
         public abstract string GetPath();

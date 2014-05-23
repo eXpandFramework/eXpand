@@ -54,8 +54,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 RefreshTypes(model.GetTypesInfo(), modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
                 CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
                 RefreshTypes(model.GetTypesInfo(), modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
-                if (xpObjectSpace!=null)
-                    ApplicationHelper.Instance.Application.ObjectSpaceProvider.UpdateSchema();
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation finished");
         }

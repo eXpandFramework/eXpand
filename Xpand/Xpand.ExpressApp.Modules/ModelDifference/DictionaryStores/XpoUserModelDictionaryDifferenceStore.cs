@@ -16,7 +16,6 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
-using Xpand.Persistent.Base.RuntimeMembers;
 using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
@@ -122,7 +121,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 roleModel.GetModel(model);
             ModelApplicationHelper.AddLayer(model, userDiff);
             LoadCore(userDiff);
-            RuntimeMemberBuilder.CreateRuntimeMembers(userDiff.Application);
         }
 
         private void LoadCore(ModelApplicationBase userDiff){
