@@ -14,6 +14,8 @@ using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 using Xpand.ExpressApp.ExceptionHandling.Win;
+using Xpand.ExpressApp.FilterDataStore.Core;
+using Xpand.ExpressApp.FilterDataStore.Win.Providers;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.ModelDifference;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
@@ -65,9 +67,9 @@ namespace FeatureCenter.Module.Win {
 
             e.AddExtraDiffStore(new WCCalculatedFieldModelStore());
             e.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
-//            SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
-//            if (skinFilterProvider != null)
-//                skinFilterProvider.FilterValue = ((IModelApplicationOptionsSkin)Application.Model.Options).Skin;
+            SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
+            if (skinFilterProvider != null)
+                skinFilterProvider.FilterValue = ((IModelApplicationOptionsSkin)Application.Model.Options).Skin;
         }
 
     }

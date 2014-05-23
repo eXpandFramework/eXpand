@@ -12,10 +12,6 @@ namespace FeatureCenter.Win {
             InitializeComponent();
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            args.ObjectSpaceProvider=new XPObjectSpaceProvider(args.ConnectionString,args.Connection);
-        }
-
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {
         //            return new ShowInSingleWindowStrategy(this);
         //        }

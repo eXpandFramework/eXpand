@@ -146,6 +146,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Win.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore, Version=13.2.9.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win, Version=13.2.9.6, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ImportWizard.Win">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.Win.dll</HintPath>

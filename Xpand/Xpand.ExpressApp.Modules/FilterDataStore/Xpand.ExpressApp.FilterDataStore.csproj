@@ -109,7 +109,6 @@
     <Compile Include="Core\FilterProviderBase.cs" />
     <Compile Include="Core\FilterProviderConfiguration.cs" />
     <Compile Include="Core\StatementContext.cs" />
-    <Compile Include="DomainLogic\ModelDisabledDataStoreFilterDomainLogic.cs" />
     <Compile Include="FilterDataStoreModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -159,6 +158,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DomainLogic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
