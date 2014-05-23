@@ -181,7 +181,7 @@
     </Reference>
     <Reference Include="DevExpress.Web.ASPxThemes.v13.2">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxTreeList.v13.2">
       <SpecificVersion>False</SpecificVersion>

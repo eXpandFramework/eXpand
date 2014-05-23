@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="AuditTrailTester.Web"
-			Url="http://localhost:4031"
+			Url="http://localhost:50131"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->

@@ -167,6 +167,7 @@
     <Reference Include="DevExpress.Web.ASPxThemes.v13.2">
       <HintPath>..\packages\DevExpress.Web.ASPxThemes.13.2.9.0\lib\net40\DevExpress.Web.ASPxThemes.v13.2.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxTreeList.v13.2">
       <SpecificVersion>False</SpecificVersion>

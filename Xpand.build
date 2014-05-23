@@ -231,7 +231,7 @@
     <Delete Files="$(OutputFile)"></Delete>
     <Exec ContinueOnError="true"
           WorkingDirectory="%(EasyTests.RelativeDir)"
-          Command='ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
+          Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
     <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />

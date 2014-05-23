@@ -79,6 +79,7 @@
     </Reference>
     <Reference Include="DevExpress.Web.ASPxThemes.v13.2">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxTreeList.v13.2">
       <SpecificVersion>False</SpecificVersion>

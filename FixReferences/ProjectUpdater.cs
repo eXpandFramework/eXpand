@@ -13,7 +13,7 @@ namespace FixReferences {
 
         readonly string[] _copyLocalReferences ={
             "Xpand.ExpressApp.FilterDataStore", "Xpand.ExpressApp.FilterDataStore.Win",
-            "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl"
+            "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl","DevExpress.Web.ASPxThemes."
         };
 
         readonly Dictionary<string, string> _requiredApplicationProjectReferences =
@@ -99,12 +99,11 @@ namespace FixReferences {
                 config = Path.Combine(functionalTestsPath,"Config.xml");
                 if (File.Exists(config)){
                     ReplaceToken(config);
-//                    UpdateAdapterVersion(config);
                 }
             }
         }
 
-        private void UpdateAdapterVersion(string config){
+        protected void UpdateAdapterVersion(string config){
             string readToEnd;
             using (var streamReader = new StreamReader(config)){
                 var toEnd = streamReader.ReadToEnd();
@@ -195,7 +194,7 @@ namespace FixReferences {
 
                 UpdateElementValue(reference, "SpecificVersion", "False", file, document);
 
-                if (_copyLocalReferences.Contains(attribute.Value))
+                if (_copyLocalReferences.Any(s => attribute.Value.StartsWith(s)))
                     UpdateElementValue(reference, "Private", "True", file, document);
 
                 if (reference.Attribute("Include").Value.StartsWith("Xpand.")) {
