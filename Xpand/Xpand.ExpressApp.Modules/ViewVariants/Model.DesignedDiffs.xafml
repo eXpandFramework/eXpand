@@ -16,7 +16,7 @@
     <LocalizationGroup Name="eXpand.ViewVariants" IsNewNode="True">
       <LocalizationItem Name="CreateView" Value="Create New..." IsNewNode="True" />
       <LocalizationItem Name="DeleteView" Value="Delete" IsNewNode="True" />
-      <LocalizationItem Name="RenameView" Value="Rename" IsNewNode="True" />
+      <LocalizationItem Name="ModifyView" Value="Modify" IsNewNode="True" />
     </LocalizationGroup>
   </Localization>
   <SchemaModules IsNewNode="True">

@@ -94,9 +94,8 @@ namespace Xpand.ExpressApp.ViewVariants {
         void RenameViewVariant(SingleChoiceActionExecuteEventArgs e) {
             ShowViewVariantView(e, controller => RenameViewVariantCore(controller.Frame),
                                 detailView => {
-                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "RenameView");
+                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "ModiyView");
                                     var viewVariant = ((ViewVariant)detailView.CurrentObject);
-//                                    ((IViewVariant) viewVariant).ViewCaption = GetViewCaption();
                                     viewVariant.VariantCaption =_changeVariantController.ChangeVariantAction.SelectedItem.Caption;
                                 });
         }
@@ -119,7 +118,6 @@ namespace Xpand.ExpressApp.ViewVariants {
             ChangeToVariant(infos);
         }
 
-
         void ShowViewVariantView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs,Action<DialogController> dialogControllerAction,Action<DetailView> detailViewAction) {
             var objectSpace = Application.CreateObjectSpace(typeof (ViewVariant));
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewVariant>());
@@ -135,14 +133,6 @@ namespace Xpand.ExpressApp.ViewVariants {
             };
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }
-
-//        string GetViewCaption() {
-//            var selectedItem = _changeVariantController.ChangeVariantAction.SelectedItem;
-//            if (selectedItem != null)
-//                return Application.Model.Views[_currentVariantInfo.ViewID].Caption;
-//            var modelVariant = ((IModelViewVariants) _rootListView).Variants[DefaultVariantId];
-//            return modelVariant != null ? modelVariant.Caption : _rootListView.Caption;
-//        }
 
         private void RenameViewVariantCore(Frame frame) {
             var viewVariant = (ViewVariant)frame.View.CurrentObject;

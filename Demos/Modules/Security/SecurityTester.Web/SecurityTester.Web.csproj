@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v13.2">
       <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.Office.v13.2.Core">
       <SpecificVersion>False</SpecificVersion>
@@ -69,6 +70,10 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v13.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v13.2">
+      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.v13.2">
