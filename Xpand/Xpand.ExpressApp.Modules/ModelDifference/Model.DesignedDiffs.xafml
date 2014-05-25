@@ -12,6 +12,11 @@
         <Member Name="XmlContent" RowCount="22" />
       </OwnMembers>
     </Class>
+    <Class Name="Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects.UserModelDifferenceObject">
+      <AppearanceRules>
+        <AppearanceRule Id="Hide Users Tab" AppearanceItemType="LayoutItem" TargetItems="Users" Criteria="CurrentUserId()==null" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
   </BOModel>
   <SchemaModules IsNewNode="True">
     <SchemaModule Name="CloneObjectModule" Version="13.1.6.0" IsNewNode="True" />
@@ -82,7 +87,7 @@
                 </LayoutGroup>
                 <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b">
                   <LayoutItem Id="CombineOrder" RelativeSize="9" />
-                  <LayoutItem Id="NonPersistent" ViewItem="" RelativeSize="90" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="90" ViewItem="" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
@@ -111,7 +116,7 @@
                 </LayoutGroup>
                 <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55" ImageName="">
                   <LayoutItem Id="CombineOrder" RelativeSize="4" />
-                  <LayoutItem Id="NonPersistent" ViewItem="NonPersistent" RelativeSize="95" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="95" ViewItem="NonPersistent" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
