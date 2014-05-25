@@ -2,7 +2,7 @@
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <DXVersion>13.2</DXVersion>
-    <DXPath>C:\DevExpress $(DXVersion)</DXPath>
+    <DXPath>C:\Program Files (x86)\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
@@ -10,7 +10,8 @@
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
-    <TwitterTool>_third_party_assemblies\XTwitter.exe</TwitterTool>
+	<_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
   </PropertyGroup>
   <PropertyGroup>
     <!--
@@ -35,7 +36,7 @@
     <!--    <RecompiledDXSources>RecompiledDXSources</RecompiledDXSources>-->
     <SkipDashboard Condition="'$(RecompiledDXSources)' == 'RecompiledDXSources'">true</SkipDashboard>
     <OutputFile>$(MSBuildProjectDirectory)\output.txt</OutputFile>
-    <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
     <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
     <DocsSiteName>documentation.expandframework.com</DocsSiteName>
@@ -54,7 +55,7 @@
 
   <ItemGroup>
     <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
-    <AddInProjects Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj"></AddInProjects>
+    <AddInProjects Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;.\ToolboxCreator\Xpand.ToolboxCreator.csproj"></AddInProjects>
     <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
   </ItemGroup>
@@ -70,14 +71,6 @@
       <ReplacementValue>$(Version)</ReplacementValue>
     </Tokens>
   </ItemGroup>
-  
-  <ItemGroup>
-	<NHibernateAssemblies Include="
-		$(_third_party_assemblies)\NHibernate.dll;
-		$(_third_party_assemblies)\FluentNHibernate.dll;
-		$(_third_party_assemblies)\Iesi.Collections.dll;"/>
-		
-  </ItemGroup>
   <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
@@ -91,9 +84,13 @@
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
-
-  <Target Name="Build" DependsOnTargets="FixReferences">
-	<Copy SourceFiles="@(NHibernateAssemblies)" DestinationFolder="$(XpandDLLPath)" />
+	<Target Name="Copy3rdPartyAssemblies">
+		<CreateItem Include="$(_third_party_assemblies)\**\*.*">
+			<Output TaskParameter="Include" ItemName="FilesToCopy"/>
+		</CreateItem>
+		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
+	</Target>
+  <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -282,7 +279,7 @@
     </CreateItem>
     <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
