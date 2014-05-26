@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Runtime.InteropServices;
 using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using Fasterflect;
@@ -36,6 +35,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
+            webBrowsers.KillAllWebBrowsers();
             bool isSingleWebDev = testApplication.FindParamValue(SingleWebDevParamName) != null;
             if (testApplication.FindParamValue("DontKillWebDev") == null) {
                 if (isSingleWebDev) {
@@ -65,37 +65,9 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     }
 
     public class IISExpressServerHelper{
-        internal class NativeMethods {
-            // Methods
-            [DllImport("user32.dll", SetLastError = true)]
-            internal static extern IntPtr GetTopWindow(IntPtr hWnd);
-            [DllImport("user32.dll", SetLastError = true)]
-            internal static extern IntPtr GetWindow(IntPtr hWnd, uint uCmd);
-            [DllImport("user32.dll", SetLastError = true)]
-            internal static extern uint GetWindowThreadProcessId(IntPtr hwnd, out uint lpdwProcessId);
-            [DllImport("user32.dll", SetLastError = true)]
-            internal static extern bool PostMessage(HandleRef hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-        }
-
-        static void SendStopMessageToProcess(int pid) {
-            try {
-                for (IntPtr ptr = NativeMethods.GetTopWindow(IntPtr.Zero); ptr != IntPtr.Zero; ptr = NativeMethods.GetWindow(ptr, 2)) {
-                    uint num;
-                    NativeMethods.GetWindowThreadProcessId(ptr, out num);
-                    if (pid == num) {
-                        var hWnd = new HandleRef(null, ptr);
-                        NativeMethods.PostMessage(hWnd, 0x12, IntPtr.Zero, IntPtr.Zero);
-                        return;
-                    }
-                }
-            }
-            catch (ArgumentException) {
-            }
-        }
 
         public static void Stop(Process process) {
-            SendStopMessageToProcess(process.Id);
-            process.Close();
+            process.Kill();
         }
 
         public static Process Run(TestApplication testApplication, Uri uri) {

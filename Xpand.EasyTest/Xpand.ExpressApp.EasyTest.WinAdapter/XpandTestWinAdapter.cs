@@ -10,5 +10,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             registrator.RegisterCommands();
         }
 
+        public override void RunApplication(TestApplication testApplication){
+            base.RunApplication(testApplication);
+        }
     }
 }
