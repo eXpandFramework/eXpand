@@ -758,7 +758,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         private void SetupLayoutView() {
             DevExpress.ExpressApp.Utils.Guard.ArgumentNotNull(layoutView, "layoutView");
             autoScrollHelper = new LayoutViewAutoScrollHelper(layoutView);
-            layoutView.TemplateCard = new LayoutViewCard { AllowDrawBackground = false };
+            layoutView.TemplateCard = new LayoutViewCard();
             layoutView.CardMinSize = new Size(400, 200);
             layoutView.ErrorMessages = ErrorMessages;
             //            layoutView.ShowButtonMode = ShowButtonModeEnum.ShowOnlyInEditor;

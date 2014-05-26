@@ -3,7 +3,7 @@ using Microsoft.Win32;
 
 namespace ProcessAsUser {
     class Program {
-        static void Main(string[] args) {
+        static void Main(string[] args){
             if (args.Length!=2)
                 throw new ArgumentException( "Args count=" +args.Length+ "Expected args--> ExePath,ExeArgs");
                 
