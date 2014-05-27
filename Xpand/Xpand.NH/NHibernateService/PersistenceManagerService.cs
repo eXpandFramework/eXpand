@@ -6,7 +6,7 @@ using Xpand.ExpressApp.NH.DataLayer;
 
 namespace Xpand.ExpressApp.NH.Service
 {
-    [XpandDataContractSerializer]
+    [XpandDataContractSerializer(true)]
     public class PersistenceManagerService : IPersistenceManagerService
     {
         private PersistenceManager persistenceManager;
