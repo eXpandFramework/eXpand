@@ -76,18 +76,24 @@ namespace Xpand.ExpressApp.NH
                     memberInfo.IsPersistent = true;
                 }
 
-                if (memberInfo.ListElementType != null)
+                if (typeMetadata.RelationProperties.Contains(memberInfo.Name))
                 {
-                    var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
-                    
-                    memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => m.MemberType == memberInfo.Owner.Type);
-                    if (memberInfo.AssociatedMemberInfo != null)
+
+                    if (memberInfo.ListElementType != null)
                     {
-                        memberInfo.IsAssociation = true;
-                        memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
-                        memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
-                        memberInfo.IsAggregated = true;
+                        var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
+
+                        memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => m.MemberType == memberInfo.Owner.Type);
+                        if (memberInfo.AssociatedMemberInfo != null)
+                        {
+                            memberInfo.IsAssociation = true;
+                            memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
+                            memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
+                            memberInfo.IsAggregated = true;
+                        }
                     }
+                    else
+                        memberInfo.IsAssociation = true;
                 }
                 memberInfo.IsPersistent = !memberInfo.IsReadOnly;
             }

@@ -9,5 +9,6 @@ namespace Xpand.ExpressApp.NH.Core
     {
         Type Type { get; }
         string KeyPropertyName { get; }
+        IList<string> RelationProperties { get; }
     }
 }

@@ -408,6 +408,12 @@ namespace Xpand.ExpressApp.NH
                     .OfType<IEnumerable>()
                     .Cast<IEnumerable<object>>()
                     .SelectMany(e => e), state);
+
+            AddObjects(
+                typeInfo.Members.Where(m => m.IsAssociation && !m.IsList)
+                    .Select(m => m.GetValue(instance))
+                    .Where(v => v != null), state);
+
         }
         protected override object CreateObjectCore(Type type)
         {
@@ -472,10 +478,19 @@ namespace Xpand.ExpressApp.NH
                 DeleteObject(obj);
         }
 
+
         private void RefreshObject(object oldObject, object newObject)
+        {
+            RefreshObject(oldObject, newObject, new List<object>());
+        }
+
+        private void RefreshObject(object oldObject, object newObject, List<object> refreshedInstances)
         {
             Guard.ArgumentNotNull(oldObject, "oldObject");
             Guard.ArgumentNotNull(newObject, "newObject");
+
+            if (refreshedInstances.Any(ri => ReferenceEquals(ri, oldObject))) return;
+            refreshedInstances.Add(oldObject);
 
             if (oldObject.GetType() != newObject.GetType())
                 throw new ArgumentException("Objects must have the same type.", "newObject");
@@ -489,9 +504,10 @@ namespace Xpand.ExpressApp.NH
             {
                 object newValue = member.GetValue(newObject);
                 object oldValue = member.GetValue(oldObject);
-                if (newValue != null && oldValue != null && instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
+                if (newValue != null && oldValue != null && 
+                    instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
                 {
-                    RefreshObject(oldValue, newValue);
+                    RefreshObject(oldValue, newValue, refreshedInstances);
                 }
                 else
                     member.SetValue(oldObject, newValue);

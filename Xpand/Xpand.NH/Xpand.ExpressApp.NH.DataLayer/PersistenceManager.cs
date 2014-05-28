@@ -145,9 +145,18 @@ namespace Xpand.ExpressApp.NH.DataLayer
         {
             var config = GetConfiguration(connectionString).BuildConfiguration();
             return config.ClassMappings
-                .Select(cm => new TypeMetadata { Type = cm.MappedClass, KeyPropertyName = cm.IdentifierProperty.Name })
+                .Select(cm => CreateTypeMetadata(cm))
                 .Cast<ITypeMetadata>()
                 .ToList();
+        }
+
+        private static TypeMetadata CreateTypeMetadata(PersistentClass cm)
+        {
+            var result = new TypeMetadata { Type = cm.MappedClass, KeyPropertyName = cm.IdentifierProperty.Name };
+            foreach (var property in cm.PropertyIterator.Where(p => p.IsEntityRelation))
+                result.RelationProperties.Add(property.Name);
+
+            return result;
         }
 
         private static StringBuilder CreateFromAndWhereHql(Type objectType, string criteriaString)
