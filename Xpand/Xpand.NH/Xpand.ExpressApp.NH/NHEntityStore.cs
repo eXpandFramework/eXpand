@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.NH
         public override void InitMemberInfo(object member, XafMemberInfo memberInfo)
         {
             base.InitMemberInfo(member, memberInfo);
-            var typeMetadata = Metadata.FirstOrDefault(tm => tm.Type == memberInfo.Owner.Type);
+            var typeMetadata = Metadata.FirstOrDefault(tm => memberInfo.Owner.Type.IsAssignableFrom(tm.Type));
 
             if (typeMetadata != null)
             {

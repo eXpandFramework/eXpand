@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.NH.Service
             {
                 if (persistenceManager == null)
                 {
-                    persistenceManager = new PersistenceManager(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                    persistenceManager = CreatePersistenceManager();
                     foreach (var type in ServiceTypesHelper.MappingTypes)
                     {
                         persistenceManager.AddMappingType(type);
@@ -29,6 +29,21 @@ namespace Xpand.ExpressApp.NH.Service
             }
         }
 
+        protected virtual PersistenceManager CreatePersistenceManager()
+        {
+            return new PersistenceManager(ConnectionString);
+        }
+
+        protected string ConnectionString
+        {
+            get { return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString; }
+        }
+
+
+        protected virtual string ConnectionStringName
+        {
+            get { return "ConnectionString"; }
+        }
         public System.Collections.IList UpdateObjects(System.Collections.IList updateList, System.Collections.IList deleteList)
         {
             return PersistenceManager.UpdateObjects(updateList, deleteList);

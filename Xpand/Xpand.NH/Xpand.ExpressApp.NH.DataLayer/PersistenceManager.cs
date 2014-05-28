@@ -56,9 +56,14 @@ namespace Xpand.ExpressApp.NH.DataLayer
         private FluentConfiguration GetConfiguration(string connectionString)
         {
             return Fluently.Configure()
-                           .Database(MsSqlConfiguration.MsSql2008.ConnectionString(c => c.Is(connectionString)))
+                           .Database(GetDatabaseConfiguration(connectionString))
                            .Mappings(AddMappings)
                            .ExposeConfiguration(UpdateSchema);
+        }
+
+        protected virtual IPersistenceConfigurer GetDatabaseConfiguration(string connectionString)
+        {
+            return MsSqlConfiguration.MsSql2008.ConnectionString(c => c.Is(connectionString));
         }
 
         private void AddMappings(MappingConfiguration m)

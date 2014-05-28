@@ -53,7 +53,9 @@ namespace Xpand.ExpressApp.NH.Service
         private static IList<Type> GetMappingTypes()
         {
             List<Type> result = new List<Type>();
-            string location = typeof(ServiceTypesHelper).Assembly.Location;
+
+            Uri locationUri = new Uri(typeof(ServiceTypesHelper).Assembly.CodeBase);
+            string location = locationUri.LocalPath;
             if (!string.IsNullOrEmpty(location) && File.Exists(location))
             {
                 string directoryName = Path.GetDirectoryName(location);
@@ -85,8 +87,14 @@ namespace Xpand.ExpressApp.NH.Service
 
         private static bool IsMappingType(Type type)
         {
-            return type.BaseType != null && type.BaseType.IsGenericType &&
-                typeof(ClassMap<>).IsAssignableFrom(type.BaseType.GetGenericTypeDefinition()) && type.GetConstructor(Type.EmptyTypes) != null;
+            if (type.BaseType == null || !type.BaseType.IsGenericType || type == typeof(ClassMap<>))
+                return false;
+
+            Type classMapGeneric = typeof(ClassMap<>).MakeGenericType(type.BaseType.GetGenericArguments()[0]);
+
+            return classMapGeneric.IsAssignableFrom(type) &&
+                   type.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) != null;
         }
+
     }
 }

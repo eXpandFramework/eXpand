@@ -34,8 +34,6 @@ namespace Xpand.ExpressApp.NH.Core
 			if (type != null)
 				return type;
 
-            Debug.Print(typeNamespace);
-            Debug.Print(typeName);
             type = Type.GetType(typeName);
             if (type != null)
 				return type;

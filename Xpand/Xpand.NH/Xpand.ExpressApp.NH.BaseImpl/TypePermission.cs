@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
 {
 
     [DataContract]
-    public class TypePermission : ITypePermissionOperations
+    public class TypePermission : ITypePermission
     {
         [DataMember]
         public Guid Id { get; set; }
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             set { TypeName = value !=null ? value.AssemblyQualifiedName : null;}
         }
 
-        public IEnumerable<IOperationPermission> GetPermissions()
+        public IList<IOperationPermission> GetPermissions()
         {
             List<IOperationPermission> result = new List<IOperationPermission>();
             if (TargetType != null)
