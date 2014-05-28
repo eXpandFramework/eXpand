@@ -5,6 +5,7 @@ using System.ServiceModel.Description;
 using System.Xml;
 using System.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace Xpand.ExpressApp.NH.Core
 {
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.NH.Core
 	{
 		private string xmlNamespace;
 
-
+        private readonly Dictionary<Tuple<string, string>, Type> typesCache = new Dictionary<Tuple<string, string>, Type>();
 		public XpandDataContractResolver(string xmlNamespace)
 		{
 			this.xmlNamespace = xmlNamespace;
@@ -34,9 +35,22 @@ namespace Xpand.ExpressApp.NH.Core
 			if (type != null)
 				return type;
 
-            type = Type.GetType(typeName);
+
+            var tuple = new Tuple<string,string>(typeName, typeNamespace);
+            if (typesCache.TryGetValue(tuple, out type))
+                return type;
+
+            type = TryGetType(typeName, typeNamespace);
+            typesCache.Add(tuple, type);
+            return type;
+
+		}
+
+        private static Type TryGetType(string typeName, string typeNamespace)
+        {
+            Type type = Type.GetType(typeName);
             if (type != null)
-				return type;
+                return type;
 
             int lastSlashIndex = typeNamespace.LastIndexOf("/");
             if (lastSlashIndex >= 0)
@@ -46,8 +60,7 @@ namespace Xpand.ExpressApp.NH.Core
             }
 
             return null;
-
-		}
+        }
 
 		public override bool TryResolveType(Type type, Type declaredType, DataContractResolver knownTypeResolver,
 											out System.Xml.XmlDictionaryString typeName,

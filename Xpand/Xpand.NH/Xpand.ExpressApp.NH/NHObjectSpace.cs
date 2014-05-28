@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -366,15 +367,19 @@ namespace Xpand.ExpressApp.NH
             var objects = persistenceManager.GetObjects(objectType.AssemblyQualifiedName, ReferenceEquals(null, criteria) ? null : criteria.ToString(),
                 sortInfos, topReturnedObjectsCount);
 
+            Debug.Print("Adding instances...");
+            var keyInstanceCache = instances.Values.Where(ii => objectType.IsInstanceOfType(ii.Instance)).ToDictionary(ii => GetKeyValue(ii.Instance));
             for (int i = 0; i < objects.Count; i++)
             {
-                object existingInstance = FindInstanceByKey(GetKeyValue(objects[i]));
-                if (existingInstance != null)
-                    objects[i] = existingInstance;
+                var obj = objects[i];
+                ObjectSpaceInstanceInfo existingInstanceInfo;
+                keyInstanceCache.TryGetValue(GetKeyValue(obj), out existingInstanceInfo);
+                if (existingInstanceInfo != null)
+                    objects[i] = existingInstanceInfo.Instance;
                 else
-                    AddObject(objects[i], InstanceState.Unchanged);
+                    AddObject(obj, InstanceState.Unchanged);
             }
-
+            Debug.Print("Adding instances completed");
             return objects;
         }
 
