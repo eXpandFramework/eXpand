@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandNHibernateDataLayer</id>
-    <version>13.2.9.6</version>
+    <version>13.2.9.7</version>
     <title>DevExpress eXpandFramework NHibernate data layer Library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandNHibernateCore" version="13.2.9.6" />
+      <dependency id="eXpandNHibernateCore" version="13.2.9.7" />
     </dependencies>
   </metadata>
   <files>
