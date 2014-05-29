@@ -21,6 +21,7 @@
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="WorldCreatorTesterEasyTest" />
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="WorldCreatorTesterCreator" />
 	</TestDatabases>
 
 	<Aliases>
