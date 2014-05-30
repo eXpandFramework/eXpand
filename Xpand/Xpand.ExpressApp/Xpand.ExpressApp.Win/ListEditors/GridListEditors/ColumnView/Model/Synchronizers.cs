@@ -235,13 +235,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             return xafGridColumn != null ? xafGridColumn.PropertyName : ((IXafGridColumn)column).PropertyName;
         }
 
-        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn) {
-            var xafGridColumn = gridColumn as XafGridColumn;
-            if (xafGridColumn != null) {
-                return (IModelColumnOptionsColumnView)xafGridColumn.Model;
-            }
-            var advBandedGridColumn = gridColumn as IXafGridColumn;
-            return advBandedGridColumn != null ? (IModelColumnOptionsColumnView)advBandedGridColumn.Model : null;
+        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn){
+            return (IModelColumnOptionsColumnView) gridColumn.Model();
         }
     }
 
