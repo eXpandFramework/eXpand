@@ -1,20 +1,20 @@
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 
-namespace Xpand.ExpressApp.MessageBox {
+namespace Xpand.Persistent.Base.MessageBox {
     [NonPersistent]
     public class MessageBoxTextMessage {
 
-        private readonly string _Message;
+        private readonly string _message;
 
         [ModelDefault("Caption", " ")]
         [Size(SizeAttribute.Unlimited)]
         public string Message {
-            get { return _Message; }
+            get { return _message; }
         }
 
-        public MessageBoxTextMessage(string Message) {
-            _Message = Message;
+        public MessageBoxTextMessage(string message) {
+            _message = message;
         }
     }
 }

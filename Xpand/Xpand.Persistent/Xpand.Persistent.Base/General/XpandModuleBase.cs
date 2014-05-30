@@ -28,6 +28,7 @@ using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.MessageBox;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
@@ -78,6 +79,10 @@ namespace Xpand.Persistent.Base.General {
         protected virtual void OnExtendingModelInterfaces(ExtendingModelInterfacesArgs e) {
             EventHandler<ExtendingModelInterfacesArgs> handler = ExtendingModelInterfaces;
             if (handler != null) handler(this, e);
+        }
+
+        public XpandModuleBase(){
+            AdditionalExportedTypes.Add(typeof(MessageBoxTextMessage));
         }
 
         public static MultiValueDictionary<KeyValuePair<string,ApplicationModulesManager>, object> CallMonitor {
