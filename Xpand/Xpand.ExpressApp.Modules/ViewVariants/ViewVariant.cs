@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ViewVariants {
     }
 
     [NonPersistent]
-    [Appearance("Hide_Caption", AppearanceItemType.ViewItem, "ShowCaption=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ViewCaption,VariantCaption")]
+    [Appearance("Hide_Caption", AppearanceItemType.ViewItem, "ShowCaption=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ViewCaption,VariantCaption,Criteria")]
     public class ViewVariant : XpandBaseCustomObject, IViewVariant{
         private string _variantCaption;
         private bool _showCaption;
@@ -31,7 +31,6 @@ namespace Xpand.ExpressApp.ViewVariants {
 
         string IViewVariant.ViewCaption {
             get { return GetPropertyValue("ViewCaption") as string; }
-//            set { SetPropertyValue("ViewCaption", value); }
         }
 
         [RuleRequiredField(TargetCriteria = "ShowCaption=true")]

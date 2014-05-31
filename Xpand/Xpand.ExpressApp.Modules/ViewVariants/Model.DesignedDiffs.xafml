@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="ModifyViewVariants" ImageName="Action_CloneMerge_Clone_Object">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Clone" ImageName="Action_CloneMerge_Clone_Object" />
+          <ChoiceActionItem Id="Delete" ImageName="Action_Delete" />
+          <ChoiceActionItem Id="Modify" ImageName="Action_Edit" />
+        </ChoiceActionItems>
+      </Action>
+    </Actions>
+  </ActionDesign>
   <BOModel>
     <Class Name="Xpand.ExpressApp.ViewVariants.ViewVariant">
       <OwnMembers>
