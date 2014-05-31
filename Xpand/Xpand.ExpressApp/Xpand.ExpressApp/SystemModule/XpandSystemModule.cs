@@ -22,7 +22,6 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.MessageBox;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo.CustomFunctions;
@@ -46,9 +45,6 @@ namespace Xpand.ExpressApp.SystemModule {
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
             if (!InterfaceBuilder.RuntimeMode)
                 new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance).AssignAsPersistentEntityStore();
-        }
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
         }
 
         public override void Setup(XafApplication application) {
