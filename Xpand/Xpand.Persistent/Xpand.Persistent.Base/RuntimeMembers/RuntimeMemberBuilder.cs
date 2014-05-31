@@ -71,7 +71,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         static IObjectSpace CreateObjectSpace() {
-            return XpandModuleBase.ObjectSpaceCreated?ApplicationHelper.Instance.Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(true):null;
+            return XpandModuleBase.ObjectSpaceCreated?ApplicationHelper.Instance.Application.ObjectSpaceProvider.CreateObjectSpace():null;
         }
 
         static void CreateXpandCustomMemberInfo(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
