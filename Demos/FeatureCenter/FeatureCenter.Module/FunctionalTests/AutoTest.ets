@@ -5,7 +5,7 @@
 #DropDB XpandFeatureCenterWorldCreator
 
 #Application FeatureCenter.Win
-;#Application FeatureCenter.Web
+#Application FeatureCenter.Web
 
 *FillForm
  User Name = Admin
