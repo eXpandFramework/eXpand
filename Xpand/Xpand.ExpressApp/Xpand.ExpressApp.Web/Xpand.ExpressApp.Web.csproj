@@ -170,6 +170,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
+    <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
