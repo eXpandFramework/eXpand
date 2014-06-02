@@ -17,12 +17,12 @@
 			Name="SecurityDemo.Web"
 			Url="http://localhost:50034"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Stdandalone"/>
     <Application
 			Name="SecurityDemo.UiLevel.Web"
 			Url="http://localhost:62551"
 			PhysicalPath="[WebAppUiBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Stdandalone"/>
 		<!-- For IIS -->
 		<!--Application
 			Name="SecurityDemo.Web"

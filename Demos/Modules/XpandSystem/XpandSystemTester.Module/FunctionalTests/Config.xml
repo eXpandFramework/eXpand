@@ -12,7 +12,7 @@
 			Name="XpandSystemTester.Web"
 			Url="http://localhost:50031"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Stdandalone"/>
 		<!-- For IIS -->
 		<!--Application
 			Name="XpandSystemTester.Web"
