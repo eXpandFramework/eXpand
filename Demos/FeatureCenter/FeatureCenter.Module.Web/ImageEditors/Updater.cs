@@ -20,14 +20,17 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             if (ObjectSpace.FindObject<PictureObject>(null) == null) {
                 var masterObject = ObjectSpace.CreateObject<PictureMasterObject>();
                 masterObject.Title = "masterobject";
-                masterObject.HorizontalPicObjects.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjects[0].ImagePath = "";
-                masterObject.HorizontalPicObjectsStyleModified.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjectsStyleModified[0].ImagePath = null;
-                masterObject.VerticalPicObjects.AddRange(GetAlbums());
-                masterObject.VerticalPicObjectsStyleModified.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjectsWithNoImage.AddRange(GetAlbums());
-                masterObject.VerticalPicObjectsWithNoImage.AddRange(GetAlbums());
+                var pictureObjects = GetAlbums();
+                if (pictureObjects.Any()){
+                    masterObject.HorizontalPicObjects.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjects[0].ImagePath = "";
+                    masterObject.HorizontalPicObjectsStyleModified.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjectsStyleModified[0].ImagePath = null;
+                    masterObject.VerticalPicObjects.AddRange(pictureObjects);
+                    masterObject.VerticalPicObjectsStyleModified.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjectsWithNoImage.AddRange(pictureObjects);
+                    masterObject.VerticalPicObjectsWithNoImage.AddRange(pictureObjects);
+                }
                 ObjectSpace.CommitChanges();
             }
         }
