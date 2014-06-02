@@ -134,7 +134,7 @@
 		-->
   </Target>
 
-  <Target Name="PublishXpandDocsSite" DependsOnTargets="RunEasyTestsForDocsSite;UpdateXpandDocsSiteFiles;DBUpdater"/>
+  <Target Name="PublishXpandDocsSite" DependsOnTargets="RunEasyTestsForDocsSite;UpdateXpandDocsSiteFiles;XpandDocsSiteDBUpdater"/>
   <Target Name="StartXpandDocsSite">
     <Exec Command="appcmd start site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
@@ -156,18 +156,13 @@
     <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
     <CallTarget Targets="StartXpandDocsSite" />
   </Target>
-  <Target Name="DBUpdater">
-    <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(XpandDocsSitePath)\bin"/>
-    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
-    <Exec Command="$(DBUpdaterName) -silent ..\web.config Xpand.docs.web.dll >$(OutputFile)" WorkingDirectory="$(XpandDocsSitePath)\bin" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
-    </Exec>
-    <ReadLinesFromFile  File="$(OutputFile)">
-      <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
-    </ReadLinesFromFile>
-    <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
-    <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
-    <Delete Files="$(OutputFile)"></Delete>
+  <Target Name="XpandDocsSiteDBUpdater">
+    <PropertyGroup>
+      <DBUpdaterFolder>$(XpandDocsSitePath)\bin</DBUpdaterFolder>
+      <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
+      <DBUpdaterDll>Xpand.docs.web.dll</DBUpdaterDll>
+    </PropertyGroup>
+    <CallTarget Targets="DBUpdate"></CallTarget>
   </Target>
   <Target Name="RunEasyTestsForDocsSite" DependsOnTargets="ConfigEasyTestParamsForDocsSite">
     <CallTarget Targets="RunEasyTests"></CallTarget>
@@ -195,10 +190,14 @@
     
   </Target>
   <PropertyGroup>
-    <EasyTestFilter>Demos\</EasyTestFilter>
+    <EasyTestFilter>Demos\FeatureCenter\FeatureCenter.Module\</EasyTestFilter>
+    <DBUpdaterFolder></DBUpdaterFolder>
+    <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
+    <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
   </PropertyGroup>
   <ItemGroup>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
+    <EasyTestsDBUpdater Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
@@ -214,9 +213,35 @@
     </MSBuild.ExtensionPack.Xml.XmlFile>
     <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="ErrorAndContinue"></Error>
   </Target>
-  <Target Name="RunEasyTests">
+  <Target Name="ConfigDBUpdaterForFCWeb">
+    <PropertyGroup>
+      <DBUpdaterFolder>$(MSBuildProjectDirectory)\Demos\FeatureCenter\FeatureCenter.Web\bin</DBUpdaterFolder>
+      <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
+      <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
+    </PropertyGroup>
+<!--    <Error Text="DBUpdaterFolder=$(DBUpdaterFolder)"></Error>-->
+    
+  </Target>
+  <Target Name="EasyTestUpdateDBTimeout" DependsOnTargets="ConfigDBUpdaterForFCWeb;DBUpdate">
+    
+  </Target>
+  <Target Name="DBUpdate">
+      <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
+      <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
+      <Exec Command="$(DBUpdaterName) -silent $(DBUpdaterConfig) $(DBUpdaterDll) >$(OutputFile)" WorkingDirectory="$(DBUpdaterFolder)" ContinueOnError="true">
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+      </Exec>
+      <ReadLinesFromFile  File="$(OutputFile)">
+        <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
+      </ReadLinesFromFile>
+      <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
+      <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
+      <Delete Files="$(OutputFile)"></Delete>
+  </Target>
+
+  <Target Name="RunEasyTests" DependsOnTargets="EasyTestUpdateDBTimeout">
     <Delete Files="@EasyTestLogs"/>
-    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
+<!--    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />-->
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
