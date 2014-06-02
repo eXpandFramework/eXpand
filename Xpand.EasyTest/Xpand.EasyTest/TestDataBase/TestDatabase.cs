@@ -1,6 +1,4 @@
 ﻿using DevExpress.EasyTest.Framework;
-using Xpand.EasyTest.ASA;
-using Xpand.EasyTest.SQLite;
 using Xpand.EasyTest.TestDataBase.Operations;
 
 namespace Xpand.EasyTest.TestDataBase {

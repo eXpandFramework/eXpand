@@ -2,7 +2,7 @@
 using System.IO;
 using DevExpress.EasyTest.Framework;
 
-namespace Xpand.EasyTest.SQLite {
+namespace Xpand.EasyTest.TestDataBase.Operations {
     public class SQLiteDatabaseOperation : IEasyTestDatabaseOperation {
         public void Drop(TestDatabase database) {
             try {
