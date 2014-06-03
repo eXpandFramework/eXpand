@@ -10,7 +10,7 @@
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
-	<_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
   </PropertyGroup>
   <PropertyGroup>
@@ -36,7 +36,7 @@
     <!--    <RecompiledDXSources>RecompiledDXSources</RecompiledDXSources>-->
     <SkipDashboard Condition="'$(RecompiledDXSources)' == 'RecompiledDXSources'">true</SkipDashboard>
     <OutputFile>$(MSBuildProjectDirectory)\output.txt</OutputFile>
-    
+
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
     <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
     <DocsSiteName>documentation.expandframework.com</DocsSiteName>
@@ -84,12 +84,12 @@
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
-	<Target Name="Copy3rdPartyAssemblies">
-		<CreateItem Include="$(_third_party_assemblies)\**\*.*">
-			<Output TaskParameter="Include" ItemName="FilesToCopy"/>
-		</CreateItem>
-		<Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
-	</Target>
+  <Target Name="Copy3rdPartyAssemblies">
+    <CreateItem Include="$(_third_party_assemblies)\**\*.*">
+      <Output TaskParameter="Include" ItemName="FilesToCopy"/>
+    </CreateItem>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
+  </Target>
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -159,7 +159,7 @@
   <Target Name="XpandDocsSiteDBUpdater">
     <PropertyGroup>
       <DBUpdaterFolder>$(XpandDocsSitePath)\bin</DBUpdaterFolder>
-      <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
+      <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
       <DBUpdaterDll>Xpand.docs.web.dll</DBUpdaterDll>
     </PropertyGroup>
     <CallTarget Targets="DBUpdate"></CallTarget>
@@ -187,17 +187,13 @@
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
     <TypeMockStop />
-    
+
   </Target>
   <PropertyGroup>
-    <EasyTestFilter>Demos\FeatureCenter\FeatureCenter.Module\</EasyTestFilter>
-    <DBUpdaterFolder></DBUpdaterFolder>
-    <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
-    <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
+    <EasyTestFilter>Demos\FeatureCenter\FeatureCenter.module\</EasyTestFilter>
   </PropertyGroup>
   <ItemGroup>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
-    <EasyTestsDBUpdater Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
@@ -216,32 +212,38 @@
   <Target Name="ConfigDBUpdaterForFCWeb">
     <PropertyGroup>
       <DBUpdaterFolder>$(MSBuildProjectDirectory)\Demos\FeatureCenter\FeatureCenter.Web\bin</DBUpdaterFolder>
-      <DBUpdatrConfig>..\web.config</DBUpdatrConfig>
+      <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
       <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
     </PropertyGroup>
-<!--    <Error Text="DBUpdaterFolder=$(DBUpdaterFolder)"></Error>-->
-    
+    <!--    <Error Text="DBUpdaterFolder=$(DBUpdaterFolder)"></Error>-->
+
   </Target>
-  <Target Name="EasyTestUpdateDBTimeout" DependsOnTargets="ConfigDBUpdaterForFCWeb;DBUpdate">
-    
+  <Target Name="EasyTestUpdateDBTimeout">
+    <ItemGroup>
+      <DbToDrop Include="Northwind;XpandFeatureCenterWeb;XpandFeatureCenterEasyTest;XpandFeatureCenterExceptionHandling;XpandFeatureCenterMultipleDataStore;XpandFeatureCenterWorldCreator;XpandFeatureCenter"></DbToDrop>
+    </ItemGroup>
+    <Exec Command='sqlcmd -E -S . -Q "ALTER DATABASE %(DbToDrop.Identity) SET SINGLE_USER WITH ROLLBACK IMMEDIATE"' ContinueOnError="false"/>
+    <Exec Command='sqlcmd -E -S . -Q "DROP DATABASE %(DbToDrop.Identity)"' ContinueOnError="false"/>
+    <CallTarget Targets="ConfigDBUpdaterForFCWeb;DBUpdate"></CallTarget>
   </Target>
   <Target Name="DBUpdate">
-      <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
-      <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
-      <Exec Command="$(DBUpdaterName) -silent $(DBUpdaterConfig) $(DBUpdaterDll) >$(OutputFile)" WorkingDirectory="$(DBUpdaterFolder)" ContinueOnError="true">
-        <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
-      </Exec>
-      <ReadLinesFromFile  File="$(OutputFile)">
-        <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
-      </ReadLinesFromFile>
-      <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
-      <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
-      <Delete Files="$(OutputFile)"></Delete>
+    <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
+    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
+    <Exec Command="$(DBUpdaterName) -silent $(DBUpdaterConfig) $(DBUpdaterDll) >$(OutputFile)" WorkingDirectory="$(DBUpdaterFolder)" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+    </Exec>
+    <ReadLinesFromFile  File="$(OutputFile)">
+      <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
+    </ReadLinesFromFile>
+    <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
+    <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
+    <Delete Files="$(OutputFile)"></Delete>
   </Target>
 
-  <Target Name="RunEasyTests" DependsOnTargets="EasyTestUpdateDBTimeout">
+  <Target Name="RunEasyTests" >
+    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
+    <CallTarget Targets="EasyTestUpdateDBTimeout" />
     <Delete Files="@EasyTestLogs"/>
-<!--    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />-->
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
@@ -256,7 +258,6 @@
     <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
     <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
-
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />
