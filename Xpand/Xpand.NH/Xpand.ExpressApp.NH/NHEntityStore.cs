@@ -5,10 +5,11 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.NH.Core;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.NH
 {
-    public class NHEntityStore : ReflectionTypeInfoSource, IEntityStore
+    public class NHEntityStore : ReflectionTypeInfoSource, IEntityStore, ITypeInfoSource
     {
         private List<Type> types = new List<Type>();
         private readonly ITypesInfo typesInfo;
@@ -22,6 +23,12 @@ namespace Xpand.ExpressApp.NH
 
             this.typesInfo = typesInfo;
             this.persistenceManager = persistenceManager;
+        }
+
+        public new void EnumMembers(TypeInfo info, EnumMembersHandler handler)
+        {
+            foreach (var property in GetPropertyDescriptors(info.Type))
+                handler(property, property.Name);
         }
 
 
@@ -50,7 +57,7 @@ namespace Xpand.ExpressApp.NH
             TypeInfo typeInfo = (TypeInfo)typesInfo.FindTypeInfo(type);
             typeInfo.Source = this;
             typeInfo.IsPersistent = Metadata.Any(tm => tm.Type == type);
-             
+
             typeInfo.Refresh();
             typeInfo.RefreshMembers();
         }
@@ -60,10 +67,24 @@ namespace Xpand.ExpressApp.NH
             return base.RegisterNewMember(owner, memberInfo);
         }
 
+
+        public override void InitTypeInfo(TypeInfo info)
+        {
+            base.InitTypeInfo(info);
+        }
+
         public override void InitMemberInfo(object member, XafMemberInfo memberInfo)
         {
             base.InitMemberInfo(member, memberInfo);
             var typeMetadata = Metadata.FirstOrDefault(tm => memberInfo.Owner.Type.IsAssignableFrom(tm.Type));
+
+            PropertyDescriptor descriptor = member as PropertyDescriptor;
+            if (descriptor != null)
+            {
+                foreach (Attribute attr in descriptor.Attributes)
+                    if (!memberInfo.Attributes.Any(a => a.GetType() == attr.GetType()))
+                        memberInfo.AddAttribute(attr);
+            }
 
             if (typeMetadata != null)
             {

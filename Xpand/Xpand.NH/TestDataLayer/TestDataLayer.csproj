@@ -215,6 +215,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maps\ObjectPermissionMap.cs" />
     <Compile Include="Maps\PersonMap.cs" />
     <Compile Include="Maps\PhoneNumberMap.cs" />
     <Compile Include="Maps\RoleMap.cs" />

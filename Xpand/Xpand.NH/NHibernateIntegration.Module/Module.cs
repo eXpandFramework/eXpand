@@ -35,6 +35,7 @@ namespace Xpand.ExpressApp.Module
             AdditionalExportedTypes.Add(typeof(User));
             AdditionalExportedTypes.Add(typeof(Role));
             AdditionalExportedTypes.Add(typeof(TypePermission));
+            AdditionalExportedTypes.Add(typeof(ObjectPermission));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {

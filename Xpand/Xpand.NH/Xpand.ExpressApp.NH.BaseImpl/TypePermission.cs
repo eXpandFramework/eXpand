@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         [DataMember]
         public Guid Id { get; set; }
 
+
         [DataMember]
         public bool AllowCreate
         {
@@ -61,8 +62,8 @@ namespace Xpand.ExpressApp.NH.BaseImpl
 
         public Type TargetType
         {
-            get { return !string.IsNullOrWhiteSpace(TypeName) ?  Type.GetType(TypeName) : null; }
-            set { TypeName = value !=null ? value.AssemblyQualifiedName : null;}
+            get { return !string.IsNullOrWhiteSpace(TypeName) ? Type.GetType(TypeName) : null; }
+            set { TypeName = value != null ? value.AssemblyQualifiedName : null; }
         }
 
         public IList<IOperationPermission> GetPermissions()
@@ -91,8 +92,24 @@ namespace Xpand.ExpressApp.NH.BaseImpl
                     result.Add(new TypeOperationPermission(TargetType, SecurityOperations.Navigate));
                 }
             }
+            result.AddRange(ObjectPermissions.SelectMany(op => op.GetPermissions()));
             return result;
         }
 
+        private List<ObjectPermission> objectPermissions;
+
+        [DataMember]
+        public IList<ObjectPermission> ObjectPermissions
+        {
+            get
+            {
+                if (objectPermissions == null)
+                {
+                    objectPermissions = new List<ObjectPermission>();
+                }
+
+                return objectPermissions;
+            }
+        }
     }
 }

@@ -144,18 +144,29 @@ namespace Xpand.ExpressApp.NH.DataLayer
         public IList<ITypeMetadata> GetMetadata()
         {
             var config = GetConfiguration(connectionString).BuildConfiguration();
+            
             return config.ClassMappings
-                .Select(cm => CreateTypeMetadata(cm))
+                .Select(cm => CreateTypeMetadata(cm, config.CollectionMappings))
                 .Cast<ITypeMetadata>()
                 .ToList();
         }
 
-        private static TypeMetadata CreateTypeMetadata(PersistentClass cm)
+        private static TypeMetadata CreateTypeMetadata(PersistentClass cm, ICollection<NHibernate.Mapping.Collection> collectionMappings)
         {
             var result = new TypeMetadata { Type = cm.MappedClass, KeyPropertyName = cm.IdentifierProperty.Name };
+
+            string classFullName = cm.MappedClass.FullName;
+            foreach(var collectionMapping in collectionMappings)
+            {
+                if (collectionMapping.Owner == cm && collectionMapping.Role.StartsWith(classFullName) && collectionMapping.IsOneToMany)
+                {
+                    result.RelationProperties.Add(collectionMapping.Role.Substring(classFullName.Length + 1));
+                }
+            }
             foreach (var property in cm.PropertyIterator.Where(p => p.IsEntityRelation))
                 result.RelationProperties.Add(property.Name);
 
+            
             return result;
         }
 
