@@ -33,38 +33,49 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Charts.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Charts.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v13.2">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.CodeParser.v13.2.dll</HintPath>
+    <Reference Include="DevExpress.CodeParser.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.CodeParser.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Data.v13.2.dll</HintPath>
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Data.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Images.v13.2">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Images.v13.2.dll</HintPath>
+    <Reference Include="DevExpress.Images.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Images.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Office.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.Office.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Office.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.PivotGrid.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.PivotGrid.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Printing.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Printing.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.RichEdit.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.RichEdit.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Sparkline.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.Sparkline.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Sparkline.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Spreadsheet.v13.2.Core">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Spreadsheet.v13.2.Core.dll</HintPath>
+    <Reference Include="DevExpress.Spreadsheet.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Spreadsheet.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
-      <HintPath>..\packages\DevExpress.Core.13.2.9.0\lib\net40\DevExpress.Utils.v13.2.dll</HintPath>
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Utils.v13.2.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>

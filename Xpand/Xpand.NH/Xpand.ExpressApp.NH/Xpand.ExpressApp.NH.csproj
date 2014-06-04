@@ -33,53 +33,53 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v14.1.Core">
-      
+    <Reference Include="DevExpress.Charts.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Charts.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v14.1">
-      
+    <Reference Include="DevExpress.CodeParser.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.CodeParser.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1">
-      
+    <Reference Include="DevExpress.Data.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Data.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1">
-      
+    <Reference Include="DevExpress.ExpressApp.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.ExpressApp.13.2.9.1\lib\net40\DevExpress.ExpressApp.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Images.v14.1">
-      
+    <Reference Include="DevExpress.Images.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Images.v13.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v14.1.Core">
-      
+    <Reference Include="DevExpress.Office.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Office.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v14.1.Core">
-      
+    <Reference Include="DevExpress.PivotGrid.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.PivotGrid.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v14.1.Core">
-      
+    <Reference Include="DevExpress.Printing.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Printing.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v14.1.Core">
-      
+    <Reference Include="DevExpress.RichEdit.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.RichEdit.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v14.1.Core">
-      
+    <Reference Include="DevExpress.Sparkline.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Sparkline.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Spreadsheet.v14.1.Core">
-      
+    <Reference Include="DevExpress.Spreadsheet.v13.2.Core, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Spreadsheet.v13.2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.1">
-      
+    <Reference Include="DevExpress.Utils.v13.2, Version=13.2.9.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DevExpress.Core.13.2.9.1\lib\net40\DevExpress.Utils.v13.2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -107,13 +107,13 @@
     <Compile Include="RemotePersistenceManagerProxy.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
       <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
       <Name>Xpand.ExpressApp.NH.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
