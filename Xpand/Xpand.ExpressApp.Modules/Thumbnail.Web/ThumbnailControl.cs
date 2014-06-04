@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Web;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Web;
 using Image = System.Drawing.Image;
@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
                     byte[] buffer = ImageToByteArray(item.Image);
                     HttpContext.Current.Response.ClearHeaders();
                     HttpContext.Current.Response.ClearContent();
-                    HttpContext.Current.Response.AppendHeader("content-length", buffer.Length.ToString());
+                    HttpContext.Current.Response.AppendHeader("content-length", buffer.Length.ToString(CultureInfo.InvariantCulture));
                     HttpContext.Current.Response.ContentType = "application/x-unknown-content-type";
                     HttpContext.Current.Response.OutputStream.Write(buffer, 0, buffer.Length);
                     HttpContext.Current.Response.End();
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.Thumbnail.Web {
             Controls.Clear();
             if (Page != null) {
                 int i = 0;
-                ClientScriptProxy.Current.Page =(Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
+//                ClientScriptProxy.Current.Page =(Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
                 string noImageUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.Thumbnail.Web.Resources.noimage.jpg");
                 if (DataSource != null) {
                     var rootTable = new Table();
