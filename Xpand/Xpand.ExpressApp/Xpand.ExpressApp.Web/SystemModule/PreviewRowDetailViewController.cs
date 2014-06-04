@@ -7,7 +7,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxGridView;
@@ -18,7 +17,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [ModelAbstractClass]
     public interface IModelListViewPreviewRowDetailView : IModelListView {
         [DataSourceProperty(ModelViewsDomainLogic.DataSourcePropertyPath)]
-        [DataSourceCriteria(ModelObjectViewDomainLogic.ModelViewsByClassCriteria)]
+        [DataSourceCriteria(ModelObjectViewLogic.ModelViewsByClassCriteria)]
         [Category("eXpand")]
         IModelDetailView PreviewRowDetailView { get; set; }
 

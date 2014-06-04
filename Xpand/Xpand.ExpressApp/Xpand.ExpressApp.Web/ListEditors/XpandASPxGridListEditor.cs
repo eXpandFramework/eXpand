@@ -143,8 +143,8 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             return gridView;
         }
 
-        protected override GridViewDataColumnWithInfo CreateColumn(IModelColumn columnInfo) {
-            GridViewDataColumnWithInfo gridViewDataColumnWithInfo = base.CreateColumn(columnInfo);
+        protected override GridViewDataColumn CreateColumn(IModelColumn columnInfo) {
+            GridViewDataColumn gridViewDataColumnWithInfo = base.CreateColumn(columnInfo);
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
@@ -171,13 +171,13 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
 
     public class ColumnCreatedEventArgs : EventArgs {
-        private readonly GridViewDataColumnWithInfo _gridViewDataColumnWithInfo;
+        private readonly GridViewDataColumn _gridViewDataColumnWithInfo;
 
-        public ColumnCreatedEventArgs(GridViewDataColumnWithInfo gridViewDataColumnWithInfo) {
+        public ColumnCreatedEventArgs(GridViewDataColumn gridViewDataColumnWithInfo) {
             _gridViewDataColumnWithInfo = gridViewDataColumnWithInfo;
         }
 
-        public GridViewDataColumnWithInfo GridViewDataColumnWithInfo {
+        public GridViewDataColumn GridViewDataColumnWithInfo {
             get { return _gridViewDataColumnWithInfo; }
         }
     }
