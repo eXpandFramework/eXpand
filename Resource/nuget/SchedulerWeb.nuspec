@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandSchedulerWeb</id>
-    <version>13.2.9.7</version>
+    <version>13.2.9.8</version>
     <title>DevExpress eXpandFramework Scheduler Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.9.7" />
-      <dependency id="eXpandScheduler" version="13.2.9.7" />
+      <dependency id="eXpandLib" version="13.2.9.8" />
+      <dependency id="eXpandScheduler" version="13.2.9.8" />
     </dependencies>
   </metadata>
   <files>
