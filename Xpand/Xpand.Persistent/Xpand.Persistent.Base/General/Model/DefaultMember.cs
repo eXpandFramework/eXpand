@@ -32,6 +32,8 @@ namespace Xpand.Persistent.Base.General.Model{
         }
 
         private static IMemberInfo GetDefaultMember(ITypeInfo typeInfo, Func<IMemberInfo, bool> condition){
+            if (condition == null)
+                condition = info => true;
             return typeInfo.OwnMembers.FirstOrDefault(condition) ?? typeInfo.Members.FirstOrDefault(condition);
         }
     }
