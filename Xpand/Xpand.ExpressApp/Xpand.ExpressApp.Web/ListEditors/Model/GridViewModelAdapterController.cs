@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act =info =>(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
+                Act =info =>info.Name!="Item"&&(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
                      typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {

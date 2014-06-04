@@ -12,7 +12,7 @@
 			Name="FeatureCenter.Web"
 			Url="http://localhost:5030"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true"  />
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Standalone"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="ExternalApplicationWeb"

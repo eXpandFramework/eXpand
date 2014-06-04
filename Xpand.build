@@ -215,8 +215,6 @@
       <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
       <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
     </PropertyGroup>
-    <!--    <Error Text="DBUpdaterFolder=$(DBUpdaterFolder)"></Error>-->
-
   </Target>
   <Target Name="EasyTestUpdateDBTimeout">
     <ItemGroup>

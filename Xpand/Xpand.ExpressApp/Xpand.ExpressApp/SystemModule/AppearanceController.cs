@@ -33,14 +33,9 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void AppearanceControllerOnCustomApplyAppearance(object sender, ApplyAppearanceEventArgs e) {
-            var currentAppearanceContexts = _appearanceController.CallMethod("GetCurrentAppearanceContexts",new[]{typeof(View)}, e.View);
-            var appearanceRules =
-                (List<DevExpress.ExpressApp.ConditionalAppearance.AppearanceRule>)
-                    _appearanceController.CallMethod("GetAppearanceRules",
-                        new[]{typeof (ObjectView), typeof (string), typeof (string), typeof (object),
-                            typeof (IEnumerable<string>)
-                        }, (ObjectView) e.View, e.ItemType, e.ItemName, e.Item,
-                        currentAppearanceContexts);
+            var appearanceRules =(List<DevExpress.ExpressApp.ConditionalAppearance.AppearanceRule>)
+                    _appearanceController.CallMethod("GetAppearanceRules",new[]{typeof (ObjectView), typeof (string), typeof (string), typeof (object)}, 
+                    (ObjectView) e.View, e.ItemType, e.ItemName, e.Item);
             foreach (var result in appearanceRules.OfType<AppearanceRule>()) {
                 var conditionalAppearanceItems = result.Validate(e.ContextObjects, e.EvaluatorContextDescriptor);
                 e.AppearanceObject.Items.AddRange(conditionalAppearanceItems);
