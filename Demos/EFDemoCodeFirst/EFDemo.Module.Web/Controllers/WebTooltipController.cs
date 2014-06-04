@@ -15,7 +15,7 @@ namespace EFDemo.Module.Web.Controllers {
             if(listEditor != null) {
                 ASPxGridView gridControl = listEditor.Grid;
                 foreach(GridViewColumn column in gridControl.Columns) {
-                    if((column as GridViewDataColumnWithInfo) != null)
+                    if((column as GridViewDataColumn) != null)
                         column.ToolTip = "Click to sort by " + column.Caption;
                 }
             }
