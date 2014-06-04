@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -24,8 +25,13 @@ namespace Xpand.ExpressApp.NH
         private readonly IPersistenceManager persistenceManager;
         private readonly IEntityStore entityStore;
         private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
+        private readonly ISelectDataSecurity selectDataSecurity;
 
-        internal NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, Dictionary<object, ObjectSpaceInstanceInfo> instances)
+        internal NHObjectSpace(ITypesInfo typesInfo, 
+            IEntityStore entityStore, 
+            IPersistenceManager persistenceManager, 
+            Dictionary<object, ObjectSpaceInstanceInfo> instances,
+            ISelectDataSecurity selectDataSecurity)
             : base(typesInfo, entityStore)
         {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
@@ -34,10 +40,14 @@ namespace Xpand.ExpressApp.NH
             this.persistenceManager = persistenceManager;
             this.entityStore = entityStore;
             this.instances = instances;
+            this.selectDataSecurity = selectDataSecurity;
         }
 
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager) :
-            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>()) { }
+            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), null) { }
+        
+        public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, ISelectDataSecurity selectDataSecurity) :
+            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), selectDataSecurity) { }
 
         public void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {

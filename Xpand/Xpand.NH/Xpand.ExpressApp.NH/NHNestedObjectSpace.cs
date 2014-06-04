@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.NH
 
         internal NHNestedObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, 
             Dictionary<object, ObjectSpaceInstanceInfo> instances,  NHObjectSpace parentObjectSpace) : 
-            base(typesInfo, entityStore, persistenceManager, instances)
+            base(typesInfo, entityStore, persistenceManager, instances, null)
         {
 
             this.parentObjectSpace = parentObjectSpace;

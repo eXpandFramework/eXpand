@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,25 @@ namespace Xpand.ExpressApp.NH
     {
         private readonly ITypesInfo typesInfo;
         private readonly IPersistenceManager persistenceManager;
-        public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager)
+        private readonly ISelectDataSecurityProvider selectDataProvider;
+
+        public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager, ISelectDataSecurityProvider selectDataProvider)
         {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
             Guard.ArgumentNotNull(persistenceManager, "persistenceManager");
             this.typesInfo = typesInfo;
             this.persistenceManager = persistenceManager;
+            this.selectDataProvider = selectDataProvider;
         }
+
+        public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager) :
+            this(typesInfo, persistenceManager, null) { }
 
         public string ConnectionString { get; set; }
         public IObjectSpace CreateObjectSpace()
         {
-            return new NHObjectSpace(typesInfo, EntityStore, persistenceManager);
+            return new NHObjectSpace(typesInfo, EntityStore, persistenceManager,
+                selectDataProvider != null ? selectDataProvider.CreateSelectDataSecurity() : null);
         }
 
         public IObjectSpace CreateUpdatingObjectSpace(bool allowUpdateSchema)
