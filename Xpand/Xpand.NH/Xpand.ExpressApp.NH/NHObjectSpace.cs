@@ -27,9 +27,9 @@ namespace Xpand.ExpressApp.NH
         private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
         private readonly ISelectDataSecurity selectDataSecurity;
 
-        internal NHObjectSpace(ITypesInfo typesInfo, 
-            IEntityStore entityStore, 
-            IPersistenceManager persistenceManager, 
+        internal NHObjectSpace(ITypesInfo typesInfo,
+            IEntityStore entityStore,
+            IPersistenceManager persistenceManager,
             Dictionary<object, ObjectSpaceInstanceInfo> instances,
             ISelectDataSecurity selectDataSecurity)
             : base(typesInfo, entityStore)
@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.NH
 
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager) :
             this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), null) { }
-        
+
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, ISelectDataSecurity selectDataSecurity) :
             this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), selectDataSecurity) { }
 
@@ -362,6 +362,22 @@ namespace Xpand.ExpressApp.NH
             return new NHCollection(this, objectType, criteria, sorting, inTransaction);
         }
 
+
+        private List<CriteriaOperator> GetSecurityCriteria(Type type)
+        {
+            if (selectDataSecurity != null)
+            {
+
+                IList<string> criteria = selectDataSecurity.GetObjectCriteria(type);
+                if (criteria != null)
+                {
+                    return criteria.Select(c => CriteriaOperator.TryParse(c)).Where(c => !ReferenceEquals(c, null)).ToList();
+                }
+
+            }
+
+            return new List<CriteriaOperator>();
+        }
         internal IEnumerable GetObjects(Type objectType, IList<string> memberNames, CriteriaOperator criteria, List<SortProperty> sorting, int topReturnedObjectsCount)
         {
             Guard.ArgumentNotNull(objectType, "objectType");
@@ -374,10 +390,16 @@ namespace Xpand.ExpressApp.NH
                     .Cast<ISortPropertyInfo>().ToList();
             }
 
-            var objects = persistenceManager.GetObjects(objectType.AssemblyQualifiedName, ReferenceEquals(null, criteria) ? null : criteria.ToString(),
+
+            var secureCriteria = GetSecurityCriteria(objectType);
+            if (!ReferenceEquals(null, criteria))
+                secureCriteria.Add(criteria);
+
+            string criteriaString = secureCriteria.Count > 0 ? CriteriaOperator.And(secureCriteria).ToString() : null;
+
+            var objects = persistenceManager.GetObjects(objectType.AssemblyQualifiedName, criteriaString,
                 sortInfos, topReturnedObjectsCount);
 
-            Debug.Print("Adding instances...");
             var keyInstanceCache = instances.Values.Where(ii => objectType.IsInstanceOfType(ii.Instance)).ToDictionary(ii => GetKeyValue(ii.Instance));
             for (int i = 0; i < objects.Count; i++)
             {
@@ -389,7 +411,6 @@ namespace Xpand.ExpressApp.NH
                 else
                     AddObject(obj, InstanceState.Unchanged);
             }
-            Debug.Print("Adding instances completed");
             return objects;
         }
 
