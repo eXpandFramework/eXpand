@@ -34,10 +34,10 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.EasyTest.v13.2">
+    <Reference Include="DevExpress.EasyTest.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
