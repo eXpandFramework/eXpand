@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <DXVersion>13.2</DXVersion>
+    <DXVersion>14.1</DXVersion>
     <DXPath>C:\Program Files (x86)\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
