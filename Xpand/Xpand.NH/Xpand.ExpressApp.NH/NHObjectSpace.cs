@@ -254,7 +254,7 @@ namespace Xpand.ExpressApp.NH
 
         public DevExpress.Data.Filtering.CriteriaOperator ParseCriteria(string criteria)
         {
-            throw new NotImplementedException();
+            return CriteriaOperator.TryParse(criteria);
         }
 
         public void ReloadCollection(object collection)
@@ -383,10 +383,10 @@ namespace Xpand.ExpressApp.NH
             return objects;
         }
 
-        private object FindInstanceByKey(object key)
+        private object FindInstanceByKey(Type objectType, object key)
         {
             return instances.Values
-                .Where(i => object.Equals(GetKeyValue(i.Instance), key))
+                .Where(i => i.Instance.GetType() == objectType && object.Equals(GetKeyValue(i.Instance), key))
                 .Select(i => i.Instance)
                 .FirstOrDefault();
         }
@@ -504,7 +504,7 @@ namespace Xpand.ExpressApp.NH
             {
                 object newValue = member.GetValue(newObject);
                 object oldValue = member.GetValue(oldObject);
-                if (newValue != null && oldValue != null && 
+                if (newValue != null && oldValue != null &&
                     instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
                 {
                     RefreshObject(oldValue, newValue, refreshedInstances);
@@ -518,8 +518,14 @@ namespace Xpand.ExpressApp.NH
         {
             base.SetModified(obj, args);
 
-            if (obj != null)
+            if (obj != null && IsPersistent(obj))
                 GetInstanceInfoSafe(obj).State = InstanceState.Changed;
+        }
+
+        private bool IsPersistent(object obj)
+        {
+            var typeInfo = TypesInfo.FindTypeInfo(obj.GetType());
+            return typeInfo != null && typeInfo.IsPersistent;
         }
 
         public override String GetKeyValueAsString(Object obj)
@@ -570,6 +576,13 @@ namespace Xpand.ExpressApp.NH
             return result;
         }
 
+        public override object GetObjectByKey(Type type, object key)
+        {
+            object result = FindInstanceByKey(type, key);
 
+            result = persistenceManager.GetObjectByKey(type, key);
+            AddObject(result, InstanceState.Unchanged);
+            return result;
+        }
     }
 }

@@ -111,5 +111,8 @@ namespace Xpand.ExpressApp.NH.BaseImpl
                 return objectPermissions;
             }
         }
+
+        [DataMember]
+        public Role Owner { get; set; }
     }
 }

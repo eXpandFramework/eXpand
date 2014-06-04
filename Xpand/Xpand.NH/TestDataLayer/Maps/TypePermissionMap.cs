@@ -19,6 +19,7 @@ namespace TestDataLayer.Maps
             Map(x => x.AllowWrite);
             Map(x => x.TypeName);
             HasMany(x => x.ObjectPermissions).Not.LazyLoad();
+            References(x => x.Owner).Column("Role_id").Not.LazyLoad();
             Not.LazyLoad();
         }
     }

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.NH.Core;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace Xpand.ExpressApp.NH
 {
@@ -110,8 +111,13 @@ namespace Xpand.ExpressApp.NH
                             memberInfo.IsAssociation = true;
                             memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
                             memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
+                            memberInfo.AssociatedMemberInfo.AssociatedMemberOwner = memberInfo.Owner.Type;
+                            memberInfo.AssociatedMemberInfo.AssociatedMemberInfo = memberInfo;
                             memberInfo.IsAggregated = true;
                         }
+                        else
+                            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                                "No owner reference found for the collection {0}", memberInfo.Name));
                     }
                     else
                         memberInfo.IsAssociation = true;

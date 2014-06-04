@@ -12,6 +12,7 @@ namespace TestDataLayer.Maps
         public ObjectPermissionMap()
         {
             Id(x => x.Id).GeneratedBy.Guid().UnsavedValue(Guid.Empty);
+            Map(x => x.Criteria);
             Map(x => x.AllowDelete);
             Map(x => x.AllowNavigate);
             Map(x => x.AllowRead);

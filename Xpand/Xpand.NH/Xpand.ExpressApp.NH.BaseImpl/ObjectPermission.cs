@@ -51,17 +51,17 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             set;
 
         }
-        
+
+        private bool allowRead;
+
         [DataMember]
-        [VisibleInListView(false), VisibleInDetailView(false)]
         public bool AllowRead
         {
-            get;
-            set;
+            get { return allowRead; }
+            set { allowRead = value; }
         }
         
         [DataMember]
-        [VisibleInListView(false), VisibleInDetailView(false)]
         public bool AllowWrite
         {
             get;
@@ -69,13 +69,13 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         }
 
         [DataMember]
-        [VisibleInListView(false), VisibleInDetailView(false)]
         public bool AllowDelete
         {
             get;
             set;
         }
-        [VisibleInListView(false), VisibleInDetailView(false)]
+
+        [DataMember]
         public bool AllowNavigate
         {
             get;

@@ -215,10 +215,8 @@
     <Compile Include="ObjectPermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="RoleBase.cs" />
     <Compile Include="TypePermission.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
