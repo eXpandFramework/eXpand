@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils.CodeGeneration;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.Persistent.Base.General;
@@ -73,40 +74,39 @@ namespace Xpand.Persistent.Base.ModelDifference {
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, XpandApplicationModulesManager applicationModulesManager) {
             XpandModuleBase.CallMonitor.Clear();
-//            var ruleBaseDescantans = RemoveRuntimeTypeFromIModelRuleBaseDescantans();
+
+            var keyValuePair = Patch();
+
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
             applicationModulesManager.TypesInfo.AssignAsInstance();
+            
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
                                                                                        applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
 
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
-//            AddRuntimeTypesToIModelRuleBaseDescenants(ruleBaseDescantans);
+
+            keyValuePair.Key[typeof(IModelRuleBase)] = keyValuePair.Value;
             return modelApplication;
         }
 
-//        void AddRuntimeTypesToIModelRuleBaseDescenants(List<KeyValuePair<TypeInfo, TypeInfo>> ruleBaseDescantans) {
-//            ModifyIModelRuleBaseDescantans((infos, pair) => infos.Add(pair.Key, pair.Value), ruleBaseDescantans);
-//        }
+        private KeyValuePair<Dictionary<Type, Type[]>, Type[]> Patch() {
+            var dictionary = ((Dictionary<Type, Type[]>)((TypesInfo)XafTypesInfo.Instance).TypeHierarchyHelper.GetFieldValue("implementorsByInterface"));
+            Type[] types = dictionary[typeof(IModelRuleBase)];
+            var runtimeTypes = types.Where(type => type.GetType().Name == "RuntimeType").ToList();
+            var nonRuntimeTypes = types.Where(type => type.GetType().Name != "RuntimeType").ToList();
+            foreach (var runtimeType in runtimeTypes) {
+                var firstOrDefault = nonRuntimeTypes.FirstOrDefault(type => type.Name == runtimeType.Name);
+                if (firstOrDefault != null) {
+                    nonRuntimeTypes.Remove(firstOrDefault);
+                }
+            }
 
-//        List<KeyValuePair<TypeInfo, TypeInfo>> RemoveRuntimeTypeFromIModelRuleBaseDescantans() {
-//            return ModifyIModelRuleBaseDescantans((infos, pair) => infos.Remove(pair.Key));
-//        }
-
-//        List<KeyValuePair<TypeInfo, TypeInfo>> ModifyIModelRuleBaseDescantans(Action<Dictionary<TypeInfo, TypeInfo>, KeyValuePair<TypeInfo, TypeInfo>> action, List<KeyValuePair<TypeInfo, TypeInfo>> keyValuePairs = null) {
-//            var typeInfo = (TypeInfo)XafTypesInfo.Instance.FindTypeInfo(typeof(IModelRuleBase));
-//            FieldInfo fieldInfo = typeInfo.GetType().GetField("descendants", BindingFlags.Instance | BindingFlags.NonPublic);
-//            if (fieldInfo != null) {
-//                var dictionary = (Dictionary<TypeInfo, TypeInfo>)fieldInfo.GetValue(typeInfo);
-//                if (keyValuePairs == null)
-//                    keyValuePairs = dictionary.Where(info => info.Value.Type != null && info.Value.Type.GetType().Name == "RuntimeType").ToList();
-//                foreach (KeyValuePair<TypeInfo, TypeInfo> keyValuePair in keyValuePairs) {
-//                    action.Invoke(dictionary, keyValuePair);
-//                }
-//            }
-//            return keyValuePairs;
-//        }
+            var array = runtimeTypes.Concat(nonRuntimeTypes).ToArray();
+            dictionary[typeof(IModelRuleBase)] = array;
+            return new KeyValuePair<Dictionary<Type, Type[]>, Type[]>(dictionary, types);
+        }
 
         XpandApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
             if (!string.IsNullOrEmpty(configFileName)) {
