@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
             return GetConfiguration(connectionString).BuildSessionFactory();
         }
 
-        private static void UpdateSchema(Configuration config)
+        protected virtual void UpdateSchema(Configuration config)
         {
             new SchemaUpdate(config).Execute(true, true);
         }

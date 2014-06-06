@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.NH.Service
             return PersistenceManager.UpdateObjects(updateList, deleteList);
         }
 
-        public object GetObjectByKey(Type type, object key)
+        public virtual object GetObjectByKey(Type type, object key)
         {
             return PersistenceManager.GetObjectByKey(type, key);
         }
@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.NH.Service
             return PersistenceManager.GetMetadata();
         }
 
-        public System.Collections.IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
+        public virtual System.Collections.IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
         {
             return PersistenceManager.GetObjects(typeName, criteria, sorting, topReturnedObjectsCount);
         }

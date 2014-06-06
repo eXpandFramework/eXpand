@@ -609,7 +609,12 @@ namespace Xpand.ExpressApp.NH
 
         public override object GetObjectByKey(Type type, object key)
         {
+
+            //TODO: Check Object Permissions
             object result = FindInstanceByKey(type, key);
+
+            if (result != null)
+                return result;
 
             result = persistenceManager.GetObjectByKey(type, key);
             AddObject(result, InstanceState.Unchanged);
