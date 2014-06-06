@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="60">
 	<Applications>
 		<!-- Win -->
 		<Application
