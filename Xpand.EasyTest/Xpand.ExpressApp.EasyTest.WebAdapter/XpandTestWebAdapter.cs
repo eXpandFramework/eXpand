@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
             webBrowsers.KillAllWebBrowsers();
             bool isSingleWebDev = testApplication.FindParamValue(SingleWebDevParamName) != null;
-            if (testApplication.FindParamValue("DontKillWebDev") == null) {
+            if (testApplication.FindParamValue("DontKillWebDev") == null&&_process!=null) {
                 if (isSingleWebDev) {
                     if (context != KillApplicationConext.TestNormalEnded) {
                         IISExpressServerHelper.Stop(_process);
