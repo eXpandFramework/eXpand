@@ -2,7 +2,6 @@
 using System.Web.UI;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
-using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
@@ -11,8 +10,8 @@ using Xpand.Persistent.Base.Security;
 namespace Xpand.ExpressApp.Web {
 
     public static class Extensions {
-        public static IModelMemberViewItem Model(this GridViewDataColumn column){
-            return ((ViewModeDataItemTemplate) column.DataItemTemplate).PropertyEditor.Model;
+        public static IModelMemberViewItem Model(this GridViewDataColumn column,IModelListView modelListView){
+            return modelListView.Columns[column.FieldName];
         }
 
         public static DefaultHttpRequestManager NewHttpRequestManager(this WebApplication application) {

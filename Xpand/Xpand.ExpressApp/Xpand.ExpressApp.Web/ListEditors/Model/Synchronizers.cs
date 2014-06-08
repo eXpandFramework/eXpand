@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         protected override void ApplyModelCore() {
             var dataColumnWithInfos = Control.Columns.OfType<GridViewDataColumn>().ToList();
             foreach (var viewDataColumnWithInfo in dataColumnWithInfos) {
-                var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model());
+                var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model(Model));
                 ApplyModel(modelColumnOptionsGridView.OptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
             }
             ApplyGridBandModel(dataColumnWithInfos);
@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             }
             foreach (var column in modelColumnOptionsGridViewBands) {
                 if (column.OptionsColumnGridView.NodeEnabled) {
-                    var gridViewColumn = dataColumnWithInfos.Single(info => info.Model() == column);
+                    var gridViewColumn = dataColumnWithInfos.Single(info => info.Model(Model) == column);
                     ApplyModel(column.OptionsColumnGridView, gridViewColumn, ApplyValues);
                     var modelGridViewBand = column.GridViewBand;
                     if (modelGridViewBand != null) {

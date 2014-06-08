@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Web.ListEditors{
         }
 
         private void grid_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e){
-            if (IsColumnSupported((IModelColumn) e.DataColumn.Model())){
+            if (IsColumnSupported((IModelColumn) e.DataColumn.Model(Model))){
                 e.Cell.Attributes["onclick"] = RenderHelper.EventCancelBubbleCommand;
             }
         }
@@ -77,7 +77,7 @@ namespace Xpand.ExpressApp.Web.ListEditors{
                 var columnInfo = container.Column;
                 if (columnInfo != null)
                     editor.SetClientSideEventHandler("ValueChanged", String.Format(CallbackArgumentFormat,
-                        _callback.ClientInstanceName, container.KeyValue, columnInfo.Model().PropertyName,
+                        _callback.ClientInstanceName, container.KeyValue, columnInfo.Model(Model).PropertyName,
                         editor is ASPxDateEdit ? "s.GetText()" : "s.GetValue()"));
             }
         }
@@ -125,7 +125,7 @@ namespace Xpand.ExpressApp.Web.ListEditors{
 
         protected override ColumnWrapper AddColumnCore(IModelColumn columnInfo){
             var columnWrapper = (ASPxGridViewColumnWrapper) base.AddColumnCore(columnInfo);
-            if (IsColumnSupported((IModelColumn) columnWrapper.Column.Model())){
+            if (IsColumnSupported((IModelColumn) columnWrapper.Column.Model(Model))){
                 columnWrapper.Column.Settings.AllowSort = DefaultBoolean.False;
                 columnWrapper.Column.Settings.AllowGroup = DefaultBoolean.False;
             }

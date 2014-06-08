@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void ApplyModelCore(GridViewDataColumn columnWithInfo) {
-            var modelColumn = (IModelColumnUnbound)columnWithInfo.Model();
+            var modelColumn = (IModelColumnUnbound)columnWithInfo.Model(Model);
             columnWithInfo.FieldName = modelColumn.Id;
             columnWithInfo.UnboundType = UnboundColumnType.Object;
             columnWithInfo.UnboundExpression = modelColumn.UnboundExpression;
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void SynchronizeModel(GridViewDataColumn columnWithInfo) {
-            ((IModelColumnUnbound)columnWithInfo.Model()).UnboundExpression = columnWithInfo.UnboundExpression;
+            ((IModelColumnUnbound)columnWithInfo.Model(Model)).UnboundExpression = columnWithInfo.UnboundExpression;
         }
 
         void ForEachColumnLink(Action<GridViewDataColumn> action) {

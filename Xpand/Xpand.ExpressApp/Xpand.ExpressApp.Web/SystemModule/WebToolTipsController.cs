@@ -1,6 +1,7 @@
 ﻿using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.SystemModule;
@@ -14,12 +15,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     if (columnWrapper is ASPxGridViewColumnWrapper) {
                         GridViewDataColumn column =
                             ((ASPxGridViewColumnWrapper)columnWrapper).Column;
-                        if (TooltipCalculator.HasToolTip(column.Model()))
-                            column.ToolTip = TooltipCalculator.GetToolTip(column.Model());
+                        var modelListView = (IModelListView) View.Model;
+                        if (TooltipCalculator.HasToolTip(column.Model(modelListView)))
+                            column.ToolTip = TooltipCalculator.GetToolTip(column.Model(modelListView));
                     }
                 }
             }
         }
+
         protected override void SetDetailViewToolTips() {
             foreach (PropertyEditor editor in ((DetailView)View).GetItems<PropertyEditor>()) {
                 if ( (editor.Control is WebControl) && TooltipCalculator.HasToolTip(editor.Model))
