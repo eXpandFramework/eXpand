@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Web {
 
     public static class Extensions {
         public static IModelMemberViewItem Model(this GridViewDataColumn column,IModelListView modelListView){
-            return modelListView.Columns[column.FieldName];
+            return modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.FieldName == column.FieldName);
         }
 
         public static DefaultHttpRequestManager NewHttpRequestManager(this WebApplication application) {
