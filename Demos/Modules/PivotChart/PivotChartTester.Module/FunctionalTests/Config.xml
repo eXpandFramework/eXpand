@@ -12,7 +12,7 @@
 			Name="PivotChartTester.Web"
 			Url="http://localhost:50019"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Stdandalone"/>
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->
 		<!--Application
 			Name="PivotChartTester.Web"

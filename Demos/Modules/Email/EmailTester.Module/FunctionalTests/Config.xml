@@ -12,7 +12,7 @@
 			Name="EmailTester.Web"
 			Url="http://localhost:5006"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" WebBrowserType="Stdandalone"/>
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->
 		<!--Application
 			Name="EmailTester.Web"

@@ -1,0 +1,22 @@
+<VSTemplate Version="2.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>eXpand Applications Solution v14.1</Name>
+    <Description>eXpand ready Windows Forms projects: Win module and Windows Forms application</Description>
+    <Icon>XpandWinSolution.ico</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <DefaultName>Solution</DefaultName>
+    <SortOrder>0</SortOrder>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectCollection>
+    </ProjectCollection>
+    <CustomParameters>
+      <CustomParameter Name="$win$" Value="true"/>
+      <CustomParameter Name="$web$" Value="true"/>
+    </CustomParameters>
+  </TemplateContent>
+<WizardExtension>
+    <Assembly>DevExpress.ExpressApp.TemplateWizard.v14.1, Version=1.0.0.0, Culture=Neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
+    <FullClassName>DevExpress.ExpressApp.TemplateWizard.NewSolutionWizards</FullClassName>
+  </WizardExtension>
+</VSTemplate>
