@@ -190,7 +190,7 @@
 
   </Target>
   <PropertyGroup>
-    <EasyTestFilter>Demos\FeatureCenter\FeatureCenter.module\</EasyTestFilter>
+    <EasyTestFilter>Demos\</EasyTestFilter>
   </PropertyGroup>
   <ItemGroup>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
