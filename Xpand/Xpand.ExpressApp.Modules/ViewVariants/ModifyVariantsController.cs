@@ -213,8 +213,11 @@ namespace Xpand.ExpressApp.ViewVariants {
         }
 
         IModelListView FindRootListView() {
-            var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
-            return variantsInfo == null ? View.Model : (IModelListView) Application.Model.Views[variantsInfo.RootViewId];
+            if (_viewVariantsModule.FrameVariantsEngine != null){
+                var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
+                return variantsInfo == null ? View.Model : (IModelListView) Application.Model.Views[variantsInfo.RootViewId];
+            }
+            return null;
         }
 
         IModelVariant CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption){
