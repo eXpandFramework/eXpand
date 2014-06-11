@@ -1,8 +1,7 @@
 #DropDB XpandSecurityDemoEasyTest
 
-#Application SecurityDemo.Win
-#Application SecurityDemo.Web
-
+#Application SecurityDemo.UiLevel.Web
+;#Application SecurityDemo.UiLevel.Win
 
 *FillForm
  User = Sam

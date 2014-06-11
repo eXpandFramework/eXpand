@@ -180,7 +180,7 @@
       <EasyTestLogs Remove="@(EasyTestLogs)"></EasyTestLogs>
       <EasyProjects Remove="@(EasyProjects)"></EasyProjects>
 
-      <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest.ets"/>
+      <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
       <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
       <EasyProjects Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
     </ItemGroup>
