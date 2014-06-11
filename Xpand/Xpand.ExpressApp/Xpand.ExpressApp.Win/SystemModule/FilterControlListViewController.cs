@@ -16,7 +16,6 @@ using DevExpress.XtraGrid;
 using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using FilterEditorControl = DevExpress.XtraFilterEditor.FilterEditorControl;
 using Forms = System.Windows.Forms;
 
@@ -99,7 +98,7 @@ Forms.DockStyle.None) {
                 Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
-            accept.Click += ((o, args) => ((IColumnViewEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
+            accept.Click += ((o, args) => ((ColumnsListEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
             accept.Dock = Forms.DockStyle.Bottom;
             _filterControl.Controls.Add(accept);
 
