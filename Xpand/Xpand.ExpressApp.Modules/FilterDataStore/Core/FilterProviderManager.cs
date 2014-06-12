@@ -22,8 +22,11 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
 
         public static FilterProviderCollection Providers {
             get {
-                if (ValueManager.Value == null)
-                    Initialize();
+                if (ValueManager.Value == null){
+                    ValueManager.Value=new FilterProviderCollection();
+                    if (IsRegistered)
+                        Initialize();
+                }
                 return ValueManager.Value;
             }
         }

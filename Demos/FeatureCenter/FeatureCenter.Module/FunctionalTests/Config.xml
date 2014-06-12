@@ -10,7 +10,7 @@
 		<!-- Web -->
 		<Application
 			Name="FeatureCenter.Web"
-			Url="http://localhost:5030"
+			Url="http://localhost:50300"
 			PhysicalPath="[WebAppBin]"
 			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true"   />
 		<!-- For IIS -->

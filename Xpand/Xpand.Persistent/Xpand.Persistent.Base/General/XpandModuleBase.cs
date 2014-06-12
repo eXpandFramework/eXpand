@@ -500,8 +500,6 @@ namespace Xpand.Persistent.Base.General {
 
             if (RuntimeMode){
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
-                application.SetupComplete +=
-                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
         }
 
@@ -617,10 +615,12 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
+        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             lock (_lockObject) {
+                RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
                 ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
             }
+            Application.EnsureShowViewStrategy();
         }
 
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {

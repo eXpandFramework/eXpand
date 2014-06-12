@@ -19,7 +19,8 @@ namespace FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter {
         }
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            FilterProviderManager.Providers.OfType<ContinentFilterProvider>().Single().FilterValue = null;
+            var continentFilterProvider = FilterProviderManager.Providers.OfType<ContinentFilterProvider>().SingleOrDefault();
+            if (continentFilterProvider != null) continentFilterProvider.FilterValue = null;
         }
         void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
 

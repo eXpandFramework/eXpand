@@ -187,10 +187,8 @@
   </Target>
   <Target Name="Test" >
     <PropertyGroup>
-    <dd>true</dd>
     </PropertyGroup>
-    <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(SkipErrors)" />
-        <MSBuild Projects=".\Xpand.EasyTest\Xpand.EasyTest.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    
 
     <TypeMockStart />
     <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->

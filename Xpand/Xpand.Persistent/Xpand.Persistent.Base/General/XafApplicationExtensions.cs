@@ -26,6 +26,10 @@ namespace Xpand.Persistent.Base.General {
             return (ReadOnlyCollection<Controller>) controllersManager.GetPropertyValue("ActualControllers");
         }
 
+        public static void EnsureShowViewStrategy(this XafApplication xafApplication){
+            xafApplication.CallMethod("EnsureShowViewStrategy");
+        }
+
         public static XPDictionary GetXPDictionary(this XafApplication xafApplication){
             return XpandModuleBase.Dictiorary;
         }
