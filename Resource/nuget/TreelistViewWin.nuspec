@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandTreelistViewWin</id>
-    <version>14.1.3.2</version>
+    <version>14.1.3.3</version>
     <title>DevExpress eXpandFramework TreelistView Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="14.1.3.2" />
-      <dependency id="eXpandSystemWin" version="14.1.3.2" />
-      <dependency id="eXpandTreelistView" version="14.1.3.2" />
+      <dependency id="eXpandLib" version="14.1.3.3" />
+      <dependency id="eXpandSystemWin" version="14.1.3.3" />
+      <dependency id="eXpandTreelistView" version="14.1.3.3" />
     </dependencies>
   </metadata>
   <files>
