@@ -17,6 +17,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         bool FormCaching { get; set; }
     }
 
+    [ModelInterfaceImplementor(typeof(IModelOptionsFormCaching),"Application.Options")]
+    public interface IModelDetailViewFormCaching:IModelOptionsFormCaching{
+         
+    }
+
     public class ModelOptionFormCachingVisibilityCalculator:IModelIsVisible{
         public bool IsVisible(IModelNode node, string propertyName){
             return ((IModelOptionsWin) node.Application.Options).UIType != UIType.SingleWindowSDI;
@@ -31,7 +36,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             var modelOptions = Application.Model.Options;
             bool isVisible = new ModelOptionFormCachingVisibilityCalculator().IsVisible(modelOptions, null);
             _closeWindowController = Frame.GetController<CloseWindowController>();
-            if (isVisible && ((IModelOptionsFormCaching)modelOptions).FormCaching) {
+            if (isVisible ) {
                 _closeWindowController.CanClose += OnCanClose;
                 Application.DetailViewCreated += ApplicationOnDetailViewCreated;
             }
@@ -48,17 +53,18 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             var strategy = ((WinShowViewStrategyBase) Application.ShowViewStrategy);
             var winWindow = strategy.Windows.FirstOrDefault(window => window.View!=null&&window.View.Model == e.View.Model);
             if (winWindow != null){
-                if (e.View.ObjectSpace.IsNewObject(e.View.CurrentObject)){
-                    var newViewShortcut = e.View.CreateShortcut();
-                    var temporaryObjectKey = newViewShortcut[ViewShortcut.TemporaryObjectKeyParamName];
-                    var newObj = winWindow.View.ObjectSpace.CreateObject(winWindow.View.ObjectTypeInfo.Type);
-                    e.View.CurrentObject.Map(newObj,Flags.Public);
-                    CustomizeViewShortcut(e, winWindow, temporaryObjectKey);
-                    winWindow.View.CurrentObject = newObj;
-                    
-                }
-                else{
-                    winWindow.View.CurrentObject = winWindow.View.ObjectSpace.GetObject(e.View.CurrentObject);
+                if (((IModelDetailViewFormCaching) e.View.Model).FormCaching){
+                    if (e.View.ObjectSpace.IsNewObject(e.View.CurrentObject)){
+                        var newViewShortcut = e.View.CreateShortcut();
+                        var temporaryObjectKey = newViewShortcut[ViewShortcut.TemporaryObjectKeyParamName];
+                        var newObj = winWindow.View.ObjectSpace.CreateObject(winWindow.View.ObjectTypeInfo.Type);
+                        e.View.CurrentObject.Map(newObj,Flags.Public);
+                        CustomizeViewShortcut(e, winWindow, temporaryObjectKey);
+                        winWindow.View.CurrentObject = newObj;
+                    }
+                    else{
+                        winWindow.View.CurrentObject = winWindow.View.ObjectSpace.GetObject(e.View.CurrentObject);
+                    }
                 }
             }
         }
@@ -81,21 +87,25 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private void CloseWindowControllerOnFormClosing(object sender, FormClosingEventArgs formClosingEventArgs) {
-            if (Frame.View.ObjectSpace.IsNewObject(Frame.View.CurrentObject))
-                Frame.View.ObjectSpace.SetIsModified(false);
-            ((XtraForm)sender).Hide();
+            var view = Frame.View;
+            if (((IModelDetailViewFormCaching) view.Model).FormCaching){
+                if (view.ObjectSpace.IsNewObject(view.CurrentObject))
+                    view.ObjectSpace.SetIsModified(false);
+                ((XtraForm) sender).Hide();
+            }
         }
 
         private void OnCanClose(object sender, HandledEventArgs handledEventArgs) {
-            if (!handledEventArgs.Handled){
-                handledEventArgs.Handled = Frame.Context == TemplateContext.View ;
-                if (handledEventArgs.Handled)
-                    _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
+            if (!handledEventArgs.Handled && Frame.Context == TemplateContext.View && Frame.View != null &&
+                ((IModelDetailViewFormCaching) Frame.View.Model).FormCaching){
+                handledEventArgs.Handled = true ;
+                _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
             }
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsFormCaching>();
+            extenders.Add<IModelDetailView, IModelDetailViewFormCaching>();
         }
     }
 }
