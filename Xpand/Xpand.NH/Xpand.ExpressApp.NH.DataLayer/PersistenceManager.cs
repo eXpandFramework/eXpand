@@ -196,7 +196,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
             string classFullName = cm.MappedClass.FullName;
             foreach (var collectionMapping in collectionMappings)
             {
-                if (collectionMapping.Owner == cm && collectionMapping.Role.StartsWith(classFullName) && collectionMapping.IsOneToMany)
+                if (collectionMapping.Owner == cm && collectionMapping.Role.StartsWith(classFullName))
                 {
                     result.Properties.Add(new PropertyMetadata
                     {

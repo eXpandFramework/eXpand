@@ -77,6 +77,8 @@ namespace Xpand.ExpressApp.NH
         public override void InitMemberInfo(object member, XafMemberInfo memberInfo)
         {
             base.InitMemberInfo(member, memberInfo);
+            if (memberInfo.Owner.IsInterface) return;
+
             var typeMetadata = Metadata.FirstOrDefault(tm => memberInfo.Owner.Type.IsAssignableFrom(tm.Type));
 
             PropertyDescriptor descriptor = member as PropertyDescriptor;
@@ -98,16 +100,19 @@ namespace Xpand.ExpressApp.NH
                         InitializeKeyProperty(memberInfo);
                     }
 
-                    if (propertyMetadata.RelationType == RelationType.OneToMany)
+                    switch (propertyMetadata.RelationType)
                     {
-
-                        InitializeOneToMany(memberInfo);
+                        case RelationType.OneToMany:
+                            InitializeOneToMany(memberInfo);
+                            break;
+                        case RelationType.ManyToMany:
+                            InitializeManyToMany(memberInfo);
+                            break;
+                        case RelationType.Reference:
+                            memberInfo.IsAssociation = true;
+                            break;
                     }
 
-                    if (propertyMetadata.RelationType == RelationType.Reference)
-                    {
-                        memberInfo.IsAssociation = true;
-                    }
                     memberInfo.IsPersistent = !memberInfo.IsReadOnly;
                 }
             }
@@ -132,6 +137,34 @@ namespace Xpand.ExpressApp.NH
                     "No owner reference found for the collection {0}", memberInfo.Name));
         }
 
+        private bool IsListOfType(Type listType, Type elementType)
+        {
+            if (listType.HasElementType) 
+                return listType.GetElementType() == elementType;
+
+            return typeof(IEnumerable<>).MakeGenericType(elementType).IsAssignableFrom(listType);
+        }
+        private void InitializeManyToMany(XafMemberInfo memberInfo)
+        {
+            var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
+
+            memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => IsListOfType(m.MemberType, memberInfo.Owner.Type));
+            if (memberInfo.AssociatedMemberInfo != null)
+            {
+                memberInfo.IsAssociation = true;
+                memberInfo.IsManyToMany = true;
+                memberInfo.AssociatedMemberInfo.IsAssociation = true;
+                memberInfo.AssociatedMemberInfo.IsManyToMany = true;
+
+                memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
+                memberInfo.AssociatedMemberInfo.AssociatedMemberOwner = memberInfo.Owner.Type;
+                memberInfo.AssociatedMemberInfo.AssociatedMemberInfo = memberInfo;
+                memberInfo.IsAggregated = false;
+            }
+            else
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                    "No owner reference found for the collection {0}", memberInfo.Name));
+        }
         private static void InitializeKeyProperty(XafMemberInfo memberInfo)
         {
             memberInfo.IsKey = true;

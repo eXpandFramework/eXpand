@@ -259,7 +259,13 @@ namespace Xpand.ExpressApp.NH
 
         public System.Collections.IList ModifiedObjects
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return instances.Values
+                    .Where(ii => ii.State == InstanceState.Changed || ii.State == InstanceState.New)
+                    .Select(ii => ii.Instance).
+                    ToList();
+            }
         }
 
         public DevExpress.Data.Filtering.CriteriaOperator ParseCriteria(string criteria)
