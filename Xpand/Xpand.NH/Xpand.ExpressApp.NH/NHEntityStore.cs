@@ -89,41 +89,57 @@ namespace Xpand.ExpressApp.NH
 
             if (typeMetadata != null)
             {
-                if (typeMetadata.KeyPropertyName == memberInfo.Name)
-                {
-                    memberInfo.IsKey = true;
-                    memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
-                    memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
-                    memberInfo.Owner.KeyMember = memberInfo;
-                    memberInfo.IsPersistent = true;
-                }
+                IPropertyMetadata propertyMetadata = typeMetadata.Properties.FirstOrDefault(p => p.Name == memberInfo.Name);
 
-                if (typeMetadata.RelationProperties.Contains(memberInfo.Name))
+                if (propertyMetadata != null)
                 {
-
-                    if (memberInfo.ListElementType != null)
+                    if (Equals(typeMetadata.KeyProperty, propertyMetadata))
                     {
-                        var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
-
-                        memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => m.MemberType == memberInfo.Owner.Type);
-                        if (memberInfo.AssociatedMemberInfo != null)
-                        {
-                            memberInfo.IsAssociation = true;
-                            memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
-                            memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
-                            memberInfo.AssociatedMemberInfo.AssociatedMemberOwner = memberInfo.Owner.Type;
-                            memberInfo.AssociatedMemberInfo.AssociatedMemberInfo = memberInfo;
-                            memberInfo.IsAggregated = true;
-                        }
-                        else
-                            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                                "No owner reference found for the collection {0}", memberInfo.Name));
+                        InitializeKeyProperty(memberInfo);
                     }
-                    else
+
+                    if (propertyMetadata.RelationType == RelationType.OneToMany)
+                    {
+
+                        InitializeOneToMany(memberInfo);
+                    }
+
+                    if (propertyMetadata.RelationType == RelationType.Reference)
+                    {
                         memberInfo.IsAssociation = true;
+                    }
+                    memberInfo.IsPersistent = !memberInfo.IsReadOnly;
                 }
-                memberInfo.IsPersistent = !memberInfo.IsReadOnly;
             }
+        }
+
+        private void InitializeOneToMany(XafMemberInfo memberInfo)
+        {
+            var associatedTypeInfo = typesInfo.FindTypeInfo(memberInfo.ListElementType);
+
+            memberInfo.AssociatedMemberInfo = (XafMemberInfo)associatedTypeInfo.Members.FirstOrDefault(m => m.MemberType == memberInfo.Owner.Type);
+            if (memberInfo.AssociatedMemberInfo != null)
+            {
+                memberInfo.IsAssociation = true;
+                memberInfo.AssociatedMemberInfo.IsReferenceToOwner = true;
+                memberInfo.AssociatedMemberOwner = associatedTypeInfo.Type;
+                memberInfo.AssociatedMemberInfo.AssociatedMemberOwner = memberInfo.Owner.Type;
+                memberInfo.AssociatedMemberInfo.AssociatedMemberInfo = memberInfo;
+                memberInfo.IsAggregated = true;
+            }
+            else
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
+                    "No owner reference found for the collection {0}", memberInfo.Name));
+        }
+
+        private static void InitializeKeyProperty(XafMemberInfo memberInfo)
+        {
+            memberInfo.IsKey = true;
+            memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
+            memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
+            memberInfo.Owner.KeyMember = memberInfo;
+            memberInfo.IsPersistent = true;
+
         }
 
         public IEnumerable<Type> RegisteredEntities

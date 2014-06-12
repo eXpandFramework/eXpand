@@ -472,7 +472,7 @@ namespace Xpand.ExpressApp.NH
             if (result != null)
                 return result;
 
-            result = persistenceManager.GetObjectByKey(objectFromDifferentObjectSpace.GetType(), key);
+            result = GetObjectByKey(objectFromDifferentObjectSpace.GetType(), key);
 
             if (result != null)
                 AddObject(result, InstanceState.Unchanged);
@@ -592,6 +592,12 @@ namespace Xpand.ExpressApp.NH
                 Int64.TryParse(objectKeyString, out val);
                 result = val;
             }
+            else if (keyPropertyType == typeof(decimal))
+            {
+                decimal val;
+                decimal.TryParse(objectKeyString, out val);
+                result = val;
+            }
             else if (keyPropertyType == typeof(Guid))
             {
                 result = new Guid(objectKeyString);
@@ -609,6 +615,9 @@ namespace Xpand.ExpressApp.NH
 
         public override object GetObjectByKey(Type type, object key)
         {
+
+            if (key == null)
+                return null;
 
             //TODO: Check Object Permissions
             object result = FindInstanceByKey(type, key);

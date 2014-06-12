@@ -25,6 +25,11 @@ namespace Xpand.ExpressApp.NH.DataLayer
         private readonly string connectionString;
         private readonly List<Assembly> mappingAssemblies = new List<Assembly>();
         private readonly List<Type> mappingTypes = new List<Type>();
+        private static ISessionFactory sessionFactory;
+        private static readonly object sessionFactoryLock = new object();
+        private static Configuration configuration;
+        private readonly object configurationLock = new object();
+
         public PersistenceManager(string connectionString)
         {
             if (connectionString == null)
@@ -33,6 +38,24 @@ namespace Xpand.ExpressApp.NH.DataLayer
             this.connectionString = connectionString;
         }
 
+
+        private ISessionFactory SessionFactory
+        {
+            get
+            {
+                if (sessionFactory == null)
+                {
+                    lock (sessionFactoryLock)
+                    {
+                        if (sessionFactory == null)
+                        {
+                            sessionFactory = CreateSessionFactory(connectionString);
+                        }
+                    }
+                }
+                return sessionFactory;
+            }
+        }
         public void AddMappingAssembly(Assembly assembly)
         {
             mappingAssemblies.Add(assembly);
@@ -45,7 +68,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
 
         public ISessionFactory CreateSessionFactory(string connectionString)
         {
-            return GetConfiguration(connectionString).BuildSessionFactory();
+            return Configuration.BuildSessionFactory();
         }
 
         protected virtual void UpdateSchema(Configuration config)
@@ -53,6 +76,25 @@ namespace Xpand.ExpressApp.NH.DataLayer
             new SchemaUpdate(config).Execute(true, true);
         }
 
+
+        private Configuration Configuration
+        {
+            get
+            {
+                if (configuration == null)
+                {
+                    lock (configurationLock)
+                    {
+                        if (configuration == null)
+                        {
+                            configuration = GetConfiguration(connectionString).BuildConfiguration();
+                        }
+                    }
+                }
+
+                return configuration;
+            }
+        }
         private FluentConfiguration GetConfiguration(string connectionString)
         {
             return Fluently.Configure()
@@ -87,8 +129,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
 
         private IList GetObjects(string hql)
         {
-            using (var factory = CreateSessionFactory(connectionString))
-            using (var session = factory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 List<object> results = new List<object>();
                 var query = session.CreateQuery(hql);
@@ -97,10 +138,10 @@ namespace Xpand.ExpressApp.NH.DataLayer
             }
         }
 
+
         public IList UpdateObjects(IList updateList, IList deleteList)
         {
-            using (var factory = CreateSessionFactory(connectionString))
-            using (var session = factory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 if (updateList != null)
                 {
@@ -124,8 +165,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
 
         public object GetObjectByKey(Type type, object key)
         {
-            using (var factory = CreateSessionFactory(connectionString))
-            using (var session = factory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 return session.Get(type, key);
             }
@@ -133,8 +173,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
 
         public object GetObjectKey(object obj)
         {
-            using (var factory = CreateSessionFactory(connectionString))
-            using (var session = factory.OpenSession())
+            using (var session = SessionFactory.OpenSession())
             {
                 return session.GetIdentifier(obj);
             }
@@ -143,41 +182,73 @@ namespace Xpand.ExpressApp.NH.DataLayer
 
         public IList<ITypeMetadata> GetMetadata()
         {
-            var config = GetConfiguration(connectionString).BuildConfiguration();
-            
-            return config.ClassMappings
-                .Select(cm => CreateTypeMetadata(cm, config.CollectionMappings))
+            return Configuration.ClassMappings
+                .Select(cm => CreateTypeMetadata(cm, Configuration.CollectionMappings))
                 .Cast<ITypeMetadata>()
                 .ToList();
         }
 
         private static TypeMetadata CreateTypeMetadata(PersistentClass cm, ICollection<NHibernate.Mapping.Collection> collectionMappings)
         {
-            var result = new TypeMetadata { Type = cm.MappedClass, KeyPropertyName = cm.IdentifierProperty.Name };
+            var result = new TypeMetadata { Type = cm.MappedClass };
 
+            result.KeyProperty = AddPropertyMetadata(result, cm.IdentifierProperty);
             string classFullName = cm.MappedClass.FullName;
-            foreach(var collectionMapping in collectionMappings)
+            foreach (var collectionMapping in collectionMappings)
             {
                 if (collectionMapping.Owner == cm && collectionMapping.Role.StartsWith(classFullName) && collectionMapping.IsOneToMany)
                 {
-                    result.RelationProperties.Add(collectionMapping.Role.Substring(classFullName.Length + 1));
+                    result.Properties.Add(new PropertyMetadata
+                    {
+                        Name = collectionMapping.Role.Substring(classFullName.Length + 1),
+                        RelationType = collectionMapping.IsOneToMany ? RelationType.OneToMany : RelationType.ManyToMany
+                    });
                 }
             }
-            foreach (var property in cm.PropertyIterator.Where(p => p.IsEntityRelation))
-                result.RelationProperties.Add(property.Name);
+            foreach (var property in cm.PropertyIterator)
+            {
+                AddPropertyMetadata(result, property);
+            }
 
-            
+
             return result;
         }
 
-        private static StringBuilder CreateFromAndWhereHql(Type objectType, string criteriaString)
+        private static PropertyMetadata AddPropertyMetadata(TypeMetadata typeMetadata, Property property)
+        {
+            PropertyMetadata propertyMetadata = new PropertyMetadata
+            {
+                Name = property.Name,
+                RelationType = property.IsEntityRelation ? RelationType.Reference : RelationType.Value
+            };
+
+            typeMetadata.Properties.Add(propertyMetadata);
+            return propertyMetadata;
+        }
+
+        private StringBuilder CreateFromAndWhereHql(Type objectType, string criteriaString)
         {
             Guard.ArgumentNotNull(objectType, "objectType");
 
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0}\r\n", objectType.Name);
+            sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0} as m \r\n", objectType.Name);
 
+            var metadata = this.GetMetadata().FirstOrDefault(md => md.Type == objectType);
+            if (metadata != null)
+            {
+                string[] relationPropertyNames = metadata.Properties
+                .Where(p => p.RelationType == RelationType.OneToMany || p.RelationType == RelationType.ManyToMany)
+                .Select(p => p.Name)
+                .ToArray();
+
+                foreach (var rp in relationPropertyNames)
+                {
+                    var propertyInfo = objectType.GetProperty(rp);
+                    if (propertyInfo != null && !typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType))
+                        sb.AppendFormat(CultureInfo.InvariantCulture, "left join fetch m.{1}\r\n", objectType.Name, rp);
+                }
+            }
             if (!string.IsNullOrWhiteSpace(criteriaString))
             {
                 CriteriaOperator criteria = CriteriaOperator.Parse(criteriaString);
@@ -213,7 +284,10 @@ namespace Xpand.ExpressApp.NH.DataLayer
             if (metadata == null)
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Metadata not found for the type: {0}", type.AssemblyQualifiedName), "type");
 
-            return metadata.KeyPropertyName;
+            if (metadata.KeyProperty == null)
+                return null;
+
+            return metadata.KeyProperty.Name;
         }
         public int GetObjectsCount(string typeName, string criteria)
         {

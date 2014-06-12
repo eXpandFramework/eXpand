@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.NH.Service
             return PersistenceManager.GetObjectByKey(type, key);
         }
 
-        public IList<ITypeMetadata> GetMetadata()
+        public virtual IList<ITypeMetadata> GetMetadata()
         {
             return PersistenceManager.GetMetadata();
         }

@@ -9,7 +9,7 @@ namespace Xpand.ExpressApp.NH.Core
     public class TypeMetadata : ITypeMetadata
     {
 
-        private List<string> relationProperties;
+        private List<IPropertyMetadata> properties;
 
         public Type Type
         {
@@ -35,21 +35,21 @@ namespace Xpand.ExpressApp.NH.Core
         }
 
         [DataMember]
-        public string KeyPropertyName
+        public IPropertyMetadata KeyProperty
         {
             get;
             set;
         }
 
         [DataMember]
-        public IList<string> RelationProperties
+        public IList<IPropertyMetadata> Properties
         {
             get
             {
-                if (relationProperties == null)
-                    relationProperties = new List<string>();
+                if (properties == null)
+                    properties = new List<IPropertyMetadata>();
 
-                return relationProperties;
+                return properties;
             }
         }
     }
