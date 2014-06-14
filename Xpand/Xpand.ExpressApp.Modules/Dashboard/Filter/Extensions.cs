@@ -23,12 +23,19 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             dashboard.ApplyModel(FilterEnabled.Always, template, objectSpace);
         }
 
-        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, IObjectSpace objectSpace, FilterEnabled filterEnabled) {
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template,IObjectSpace objectSpace, FilterEnabled filterEnabled){
+            var dashBoard = CreateDashBoard(template, objectSpace);
+            if (dashBoard != null){
+                dashBoard.ApplyModel(filterEnabled, template, objectSpace);
+            }
+            return dashBoard;
+        }
+
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, IObjectSpace objectSpace) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
                 if (!string.IsNullOrEmpty(template.Xml)) {
                     dashboard = LoadFromXml(template);
-                    dashboard.ApplyModel(filterEnabled, template, objectSpace);
                 }
                 foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new { wrapper.Type, Caption = GetCaption(wrapper) })) {
                     var wrapper = typeWrapper;
@@ -118,7 +125,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 var dataSource = dashboard.DataSources.FirstOrDefault(source =>
                     String.Equals(source.Name.Trim(), modelDataSource.DataSourceName.Trim(), StringComparison.CurrentCultureIgnoreCase));
                 return new DataSourceAdapter(dataSource, modelDataSource);
-            }).Where(adapter => adapter.ModelDataSource != null);
+            }).Where(adapter => adapter.ModelDataSource != null&&adapter.DataSource!=null);
         }
 
         private static bool CanApply(IModelDashboardDataSource modelDashboardDataSource, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {

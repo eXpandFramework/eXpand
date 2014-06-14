@@ -92,7 +92,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, FilterEnabled.DesignTime);
+            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace);
+            Designer.Dashboard.ApplyModel(FilterEnabled.DesignTime, _template, ObjectSpace);
             _editHistory.Changed += _EditHistory_Changed;
         }
 
