@@ -32,8 +32,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             extenders.Add(calcType, typeof(IModelAppearanceFont));
         }
 
-        protected override IModelLabelControl GetControlModelNode(IModelPropertyEditorLabelControl modelPropertyEditorLabelControl){
-            return modelPropertyEditorLabelControl.LabelControl;
+        protected override IModelLabelControl[] GetControlModelNodes(IModelPropertyEditorLabelControl modelPropertyEditorLabelControl){
+            return new[]{modelPropertyEditorLabelControl.LabelControl};
         }
     }
 

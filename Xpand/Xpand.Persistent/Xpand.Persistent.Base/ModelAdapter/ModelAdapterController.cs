@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Guard = DevExpress.ExpressApp.Utils.Guard;
@@ -112,10 +113,23 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
     public class ModelAdaptersNodeGenerator:ModelNodesGeneratorBase{
         protected override void GenerateNodesCore(ModelNode node){
-            var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info => info.FindAttribute<ModelAbstractClassAttribute>(false) == null&&info.IsInterface );
-            foreach (var typeInfo in typeInfos){
+            var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
+                => info.FindAttribute<ModelAbstractClassAttribute>(false) == null&&info.IsInterface );
+            var moduleAssemblies = ((IModelSources) node.Application).Modules.Select(@base => @base.GetType().Assembly).ToArray();
+            var installedInfos = GetInstalledAdapters(typeInfos, moduleAssemblies);
+            foreach (var typeInfo in installedInfos) {
                 node.AddNode(GetName(typeInfo), typeInfo.Type);
             }
+        }
+
+        private static IEnumerable<ITypeInfo> GetInstalledAdapters(IEnumerable<ITypeInfo> typeInfos, Assembly[] moduleAssemblies){
+            var installedInfos = typeInfos.Where(info => moduleAssemblies.Contains(info.Type.Assembly)).ToList();
+            installedInfos.AddRange(
+                typeInfos.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
+                    .Select(source => new{source, moduleUserAttribute = source.FindAttribute<ModuleUserAttribute>()})
+                    .Where(@t => moduleAssemblies.Contains(@t.moduleUserAttribute.ModuleType.Assembly))
+                    .Select(@t => @t.source));
+            return installedInfos;
         }
 
         private static string GetName(ITypeInfo typeInfo){
@@ -219,7 +233,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelAdapterNodeGeneratorBase<T, T2> : ModelNodesGeneratorBase
         where T : IModelModelAdapter
         where T2 : IModelCommonModelAdapter<T> {
-        protected override void GenerateNodesCore(ModelNode node) {
+        protected override void GenerateNodesCore(ModelNode node){
+//            System.Windows.Forms.MessageBox.Show("");
             var modelOptionsAdvBandedView = ((IModelApplicationModelAdapterContexts)node.Application).ModelAdapterContexts.GetAdapters<T>().First();
             var optionsAdvBandedView = node.AddNode<T2>("Default");
             optionsAdvBandedView.ModelAdapter=modelOptionsAdvBandedView;

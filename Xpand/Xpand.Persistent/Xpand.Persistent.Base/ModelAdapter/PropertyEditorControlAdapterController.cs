@@ -29,15 +29,19 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             var item = (PropertyEditor)sender;
             var modelPropertyEditorLabelControl = (TModelPropertyEditorControl)item.Model;
             var propertyEditorControl = GetPropertyEditorControl(item);
-            if (propertyEditorControl != null)
-                new ObjectModelSynchronizer(propertyEditorControl, GetControlModelNode(modelPropertyEditorLabelControl)).ApplyModel();
+            if (propertyEditorControl != null){
+                var modelControls = GetControlModelNodes(modelPropertyEditorLabelControl);
+                foreach (var modelControl in modelControls){
+                    new ObjectModelSynchronizer(propertyEditorControl, modelControl).ApplyModel();   
+                }                
+            }
         }
 
         protected virtual object GetPropertyEditorControl(PropertyEditor item){
             return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
         }
 
-        protected abstract TModelControl GetControlModelNode(TModelPropertyEditorControl modelPropertyEditorLabelControl);
+        protected abstract TModelControl[] GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorLabelControl);
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelPropertyEditor, TModelPropertyEditorControl>();

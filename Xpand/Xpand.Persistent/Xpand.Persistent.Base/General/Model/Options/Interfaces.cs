@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.DC;
+﻿using System;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
@@ -20,6 +21,7 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     }
 
+    [ModelDisplayName("Adapter")]
     public interface IModelGridViewModelAdapter : IModelCommonModelAdapter<IModelOptionsGridView> {
 
     }
@@ -55,7 +57,24 @@ namespace Xpand.Persistent.Base.General.Model.Options {
     }
 
     [ModelDisplayName("GridView")]
+    [ModuleUserAttribute(typeof(IGridOptionsUser))]
     public interface IModelOptionsGridView : IModelOptionsColumnView {
+    }
+
+    public interface IGridOptionsUser{
+    }
+
+    [AttributeUsage(AttributeTargets.Interface)]
+    public sealed class ModuleUserAttribute : Attribute{
+        private readonly Type _moduleType;
+
+        public ModuleUserAttribute(Type moduleType){
+            _moduleType = moduleType;
+        }
+
+        public Type ModuleType{
+            get { return _moduleType; }
+        }
     }
 
     public interface IModelListViewOptionsColumnView : IModelListView {

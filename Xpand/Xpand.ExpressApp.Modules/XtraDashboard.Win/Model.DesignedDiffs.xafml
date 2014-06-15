@@ -12,7 +12,13 @@
     </DetailView>
     <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
       <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
+        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True">
+          <DashboardViewEditor IsNewNode="True">
+            <ModelAdapters IsNewNode="True">
+              <DashboardViewerModelAdapter Id="Default" ModelAdapter="DashboardViewer" IsNewNode="True" />
+            </ModelAdapters>
+          </DashboardViewEditor>
+        </PropertyEditor>
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">

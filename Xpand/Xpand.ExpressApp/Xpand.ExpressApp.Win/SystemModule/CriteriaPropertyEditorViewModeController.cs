@@ -25,8 +25,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
 
     public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorFilterControl, IModelFilterControl> {
-        protected override IModelFilterControl GetControlModelNode(IModelPropertyEditorFilterControl modelPropertyEditorLabelControl){
-            return modelPropertyEditorLabelControl.FilterControl;
+        protected override IModelFilterControl[] GetControlModelNodes(IModelPropertyEditorFilterControl modelPropertyEditorLabelControl){
+            return new[] { modelPropertyEditorLabelControl.FilterControl };
         }
 
         protected override Type GetControlType(){
