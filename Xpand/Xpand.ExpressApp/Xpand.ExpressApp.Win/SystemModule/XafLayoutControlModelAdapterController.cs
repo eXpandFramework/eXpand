@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraLayout;
@@ -14,7 +15,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var layoutControl = ((WinLayoutManager)(((DetailView) View).LayoutManager)).Container;
-            new ObjectModelSynchronizer(layoutControl, ((IModelDetailViewXafLayoutControl) View.Model).XafLayoutControl).ApplyModel();
+            var modelXafLayoutControl = ((IModelDetailViewXafLayoutControl) View.Model).XafLayoutControl;
+            foreach (var modelAdapter in modelXafLayoutControl.ModelAdapters){
+                new ObjectModelSynchronizer(layoutControl, modelAdapter.ModelAdapter).ApplyModel();
+            }
+            new ObjectModelSynchronizer(layoutControl, modelXafLayoutControl).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
@@ -39,6 +44,25 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     }
 
     public interface IModelXafLayoutControl : IModelModelAdapter {
-         
+        IModelXafLayoutControlModelAdapters ModelAdapters { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelXafLayoutControlAdaptersNodeGenerator))]
+    public interface IModelXafLayoutControlModelAdapters : IModelList<IModelXafLayoutControlModelAdapter>, IModelNode {
+
+    }
+
+    public class ModelXafLayoutControlAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelXafLayoutControl, IModelXafLayoutControlModelAdapter> {
+    }
+
+    [ModelDisplayName("Adapter")]
+    public interface IModelXafLayoutControlModelAdapter : IModelCommonModelAdapter<IModelXafLayoutControl> {
+    }
+
+    [DomainLogic(typeof(IModelXafLayoutControlModelAdapter))]
+    public class ModelXafLayoutControlModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelXafLayoutControl> {
+        public static IModelList<IModelXafLayoutControl> Get_ModelAdapters(IModelXafLayoutControlModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
     }
 }

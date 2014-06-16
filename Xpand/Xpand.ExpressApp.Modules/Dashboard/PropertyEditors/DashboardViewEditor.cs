@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
     }
 
     [DomainLogic(typeof(IModelDashboardViewerModelAdapter))]
-    public class ModelGridViewModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelDashboardViewer> {
+    public class ModelDashboardViewerModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelDashboardViewer> {
         public static IModelList<IModelDashboardViewer> Get_ModelAdapters(IModelDashboardViewerModelAdapter adapter) {
             return GetModelAdapters(adapter.Application);
         }

@@ -41,7 +41,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
         }
 
-        protected abstract TModelControl[] GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorLabelControl);
+        protected abstract TModelControl[] GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorFilterControl);
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelPropertyEditor, TModelPropertyEditorControl>();

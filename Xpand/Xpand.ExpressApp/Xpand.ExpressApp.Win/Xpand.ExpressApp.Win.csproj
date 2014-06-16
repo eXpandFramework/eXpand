@@ -219,12 +219,52 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\RememberGridSelectionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemBaseProgressBar.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemBaseSpinEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemBlobBaseEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemCalcEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemCheckedComboBoxEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemCheckEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemColorEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemColorPickEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemDateEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemFontEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemHyperLinkEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemImageComboBox.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemImageEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemLookupEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemLookUpEditBase.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemMarqueeProgressBar.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemMemoEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemMemoExEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemMRUEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemObjectEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPictureEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPopupCriteriaEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPopupExpressionEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryFieldPicker.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemButtonEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemComboBox.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemFileDataEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPopupBase.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPopupBaseAutoSearchEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemPopupContainerEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemProgressBar.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemProtectedContentTextEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemRadioGroup.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemRangeTrackBar.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemRtfEditEx.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemSpinEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemTextEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemTimeEdit.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemTrackBar.cs" />
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemZoomTrackBar.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>

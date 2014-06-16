@@ -28,7 +28,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
             typeof (IModelRepositoryItemSpinEdit),
             typeof (IModelRepositoryItemObjectEdit),
             typeof (IModelRepositoryItemMemoEdit),
-            typeof (IModelRepositoryItemLookupEdit),
             typeof (IModelRepositoryItemProtectedContentTextEdit),
             typeof (IModelRepositoryItemBlobBaseEdit),
             typeof (IModelRepositoryItemRtfEditEx),

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -19,7 +21,26 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     }
 
     public interface IModelLabelControl : IModelModelAdapter {
-         
+        IModelLabelControlModelAdapters ModelAdapters { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelLabelControlAdaptersNodeGenerator))]
+    public interface IModelLabelControlModelAdapters : IModelList<IModelLabelControlModelAdapter>, IModelNode {
+
+    }
+
+    public class ModelLabelControlAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelLabelControl, IModelLabelControlModelAdapter> {
+    }
+
+    [ModelDisplayName("Adapter")]
+    public interface IModelLabelControlModelAdapter : IModelCommonModelAdapter<IModelLabelControl> {
+    }
+
+    [DomainLogic(typeof(IModelLabelControlModelAdapter))]
+    public class ModelLabelControlModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelLabelControl> {
+        public static IModelList<IModelLabelControl> Get_ModelAdapters(IModelLabelControlModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
     }
 
     public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl> {
@@ -32,8 +53,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             extenders.Add(calcType, typeof(IModelAppearanceFont));
         }
 
-        protected override IModelLabelControl[] GetControlModelNodes(IModelPropertyEditorLabelControl modelPropertyEditorLabelControl){
-            return new[]{modelPropertyEditorLabelControl.LabelControl};
+        protected override IModelLabelControl[] GetControlModelNodes(IModelPropertyEditorLabelControl modelPropertyEditorFilterControl){
+            var modelLabelControls = modelPropertyEditorFilterControl.LabelControl.ModelAdapters.Select(adapter => adapter.ModelAdapter);
+            return modelLabelControls.Concat(new[] { modelPropertyEditorFilterControl.LabelControl }).ToArray();
         }
     }
 

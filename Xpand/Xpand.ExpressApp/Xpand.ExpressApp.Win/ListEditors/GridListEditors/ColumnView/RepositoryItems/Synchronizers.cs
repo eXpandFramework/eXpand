@@ -1,9 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
     public class RepositoryItemColumnViewSynchronizer : RepositoryItemSynchronizer<DevExpress.XtraGrid.Views.Base.ColumnView, IModelListView> {
@@ -44,6 +46,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
                     var repositoryItem = dxPropertyEditor.Control.Properties;
                     var modelRepositoryItems = GetRepositoryItems(repositoryItem, viewItem);
                     foreach (var modelRepositoryItem in modelRepositoryItems){
+                        foreach (var adapter in (IEnumerable) modelRepositoryItem.GetPropertyValue("ModelAdapters")) {
+                            ApplyModel((IModelNode) adapter.GetPropertyValue("ModelAdapter"),repositoryItem,ApplyValues);
+                        }
                         ApplyModel(modelRepositoryItem, repositoryItem, ApplyValues);
                     }
                 }
