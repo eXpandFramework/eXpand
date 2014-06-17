@@ -1,4 +1,5 @@
 ﻿using System.Web.UI.WebControls;
+using DevExpress.DashboardCommon;
 using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -50,13 +51,23 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         private ASPxDashboardViewer CreateDashboardViewer() {
             var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, RegisterJQuery = true,Width = Unit.Percentage(100)};
             control.DashboardLoading += DashboardLoading;
+            control.DashboardLoaded+=DashboardLoaded;
             control.DataLoading += DataLoading;
             return control;
+        }
+
+        private void DashboardLoaded(object sender, DashboardLoadedWebEventArgs e){
+            e.Dashboard.CustomFilterExpression+=DashboardOnCustomFilterExpression;
+        }
+
+        private void DashboardOnCustomFilterExpression(object sender, DashboardCustomFilterExpressionEventArgs e){
+            ((DevExpress.DashboardCommon.Dashboard) sender).ApplyFilterModel(FilterEnabled.Runtime, Definition, ObjectSpace);
         }
 
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             if (_asPxDashboardViewer != null && unwireEventsOnly) {
                 _asPxDashboardViewer.DashboardLoading -= DashboardLoading;
+                _asPxDashboardViewer.DashboardLoaded-=DashboardLoaded;
                 _asPxDashboardViewer.DataLoading -= DataLoading;
             }
             base.BreakLinksToControl(unwireEventsOnly);

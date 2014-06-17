@@ -54,9 +54,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
             var template = CurrentObject as IDashboardDefinition;
             Control.HandleCreated -= ControlOnHandleCreated;
             Control.BeginInvoke(new Action(() => {
-                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace);
-                DashboardViewer.Dashboard.ApplyModel(FilterEnabled.Runtime,template, _objectSpace);
-
+                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, FilterEnabled.Runtime);
             }));
         }
     }

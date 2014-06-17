@@ -20,14 +20,12 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
         public static void SaveDashboard(this IObjectSpace objectSpace, DevExpress.DashboardCommon.Dashboard dashboard, IDashboardDefinition template, MemoryStream memoryStream) {
             dashboard.SynchronizeModel(objectSpace, template);
             dashboard.SaveToXml(memoryStream);
-            dashboard.ApplyModel(FilterEnabled.Always, template, objectSpace);
+            dashboard.ApplyFilterModel(FilterEnabled.Always, template, objectSpace);
         }
 
         public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template,IObjectSpace objectSpace, FilterEnabled filterEnabled){
             var dashBoard = CreateDashBoard(template, objectSpace);
-            if (dashBoard != null){
-                dashBoard.ApplyModel(filterEnabled, template, objectSpace);
-            }
+            dashBoard.CustomFilterExpression+= (sender, args) => ApplyFilterModel((DevExpress.DashboardCommon.Dashboard) sender,filterEnabled, template, objectSpace);
             return dashBoard;
         }
 
@@ -89,7 +87,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
         }
 
         public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled, IObjectSpace objectSpace){
-            var dashBoard = template.CreateDashBoard(objectSpace, filterEnabled);
+            var dashBoard = template.CreateDashBoard(objectSpace);
             using (var memoryStream = new MemoryStream()) {
                 dashBoard.SaveToXml(memoryStream);
                 memoryStream.Position = 0;
@@ -108,7 +106,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
+        public static void ApplyFilterModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IObjectSpace objectSpace) {
             var dataSources = GetDataSources(dashboard, filterEnabled, template, objectSpace);
             foreach (var adapter in dataSources) {
                 var filter = adapter.ModelDataSource as  IModelDashboardDataSourceFilter;
