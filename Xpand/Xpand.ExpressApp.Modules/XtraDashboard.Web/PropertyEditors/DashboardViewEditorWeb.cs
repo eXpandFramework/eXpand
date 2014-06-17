@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
             if (e.Data == null) {
-                var dsType = Definition.DashboardTypes.First(t => t.Caption == e.DataSourceName).Type;
+                var dsType = Definition.DashboardTypes.First(t => t.GetDefaultCaption() == e.DataSourceName).Type;
                 e.Data = _objectSpace.CreateDashboardDataSource(dsType);
             }
         }

@@ -7,8 +7,6 @@ using System.Xml.Linq;
 using DevExpress.DashboardCommon;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.General;
@@ -35,7 +33,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 if (!string.IsNullOrEmpty(template.Xml)) {
                     dashboard = LoadFromXml(template);
                 }
-                foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new { wrapper.Type, Caption = GetCaption(wrapper) })) {
+                foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new { wrapper.Type, Caption = wrapper.GetDefaultCaption() })) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
                     var objects = objectSpace.CreateDashboardDataSource(wrapper.Type);
@@ -52,15 +50,6 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 Tracing.Tracer.LogError(e);
             }
             return dashboard;
-        }
-
-        static string GetCaption(ITypeWrapper typeWrapper) {
-            var modelApplicationBase = ((ModelApplicationBase)CaptionHelper.ApplicationModel);
-            var currentAspect = modelApplicationBase.CurrentAspect;
-            modelApplicationBase.SetCurrentAspect("");
-            var caption = typeWrapper.Caption;
-            modelApplicationBase.SetCurrentAspect(currentAspect);
-            return caption;
         }
 
         static DevExpress.DashboardCommon.Dashboard LoadFromXml(IDashboardDefinition dashboardDefinition) {
