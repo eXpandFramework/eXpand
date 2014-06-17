@@ -96,10 +96,10 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private void OnCanClose(object sender, HandledEventArgs handledEventArgs) {
-            if (!handledEventArgs.Handled && Frame.Context == TemplateContext.View && Frame.View != null &&
-                ((IModelDetailViewFormCaching) Frame.View.Model).FormCaching){
-                handledEventArgs.Handled = true ;
-                _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
+            if (!handledEventArgs.Handled ){
+                handledEventArgs.Handled = Frame.Context == TemplateContext.View;
+                if (handledEventArgs.Handled)
+                    _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
             }
         }
 
