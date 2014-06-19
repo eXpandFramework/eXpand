@@ -106,6 +106,9 @@
     <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v14.1.UI">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Dashboard.v14.1.Win">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

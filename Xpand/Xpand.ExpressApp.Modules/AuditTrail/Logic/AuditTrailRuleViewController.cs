@@ -30,8 +30,6 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         protected override void OnDeactivated(){
             base.OnDeactivated();
             ObjectSpace.Committed -= ObjectSpaceOnCommitted;
-//            Application.ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
-//            AuditTrailService.Instance.CustomizeSessionAuditingOptions -= InstanceOnCustomizeSessionAuditingOptions;
         }
 
         protected override void OnViewControlsCreated(){
@@ -41,9 +39,6 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         protected override void OnActivated(){
             base.OnActivated();
-//            AuditTrailService.Instance.CustomizeSessionAuditingOptions += InstanceOnCustomizeSessionAuditingOptions;
-
-//            Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
             BeginSessionAudit();
         }
 
@@ -54,28 +49,18 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
                 AuditTrailService.Instance.BeginSessionAudit(ObjectSpace.Session(), AuditTrailStrategy.OnObjectLoaded);
         }
 
-//        private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs){
-//            BeginSessionAudit();
-//        }
-
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
             BeginSessionAudit();
         }
 
-/*
-        private void InstanceOnCustomizeSessionAuditingOptions(object sender, CustomizeSessionAuditingOptionsEventArgs e){
-            _logicRuleViewController.LogicRuleExecutor.Execute(ExecutionContext.None, e,View);
-        }
-*/
-
         private void AuditSystemChanges(){
-            var actionBase =Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).FirstOrDefault(@base => @base.Id == "EditModel");
-            if (actionBase != null){
-                actionBase.Executing += (sender, args) =>{
+            var editModelAction =Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).FirstOrDefault(@base => @base.Id == "EditModel");
+            if (editModelAction != null){
+                editModelAction.Executing += (sender, args) =>{
                     AuditTrailService.Instance.SaveAuditTrailData += InstanceOnSaveAuditTrailData;
                     _editingModel = true;
                 };
-                actionBase.ExecuteCompleted += (sender, args) =>{
+                editModelAction.ExecuteCompleted += (sender, args) =>{
                     AuditTrailService.Instance.SaveAuditTrailData -= InstanceOnSaveAuditTrailData;
                     _editingModel = false;
                 };

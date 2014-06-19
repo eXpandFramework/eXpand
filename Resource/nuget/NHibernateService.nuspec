@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandNHibernateService</id>
-    <version>14.1.3.4</version>
+    <version>14.1.4.1</version>
     <title>DevExpress eXpandFramework NHibernate WCF service library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandNHibernateDataLayer" version="14.1.3.4" />
+      <dependency id="eXpandNHibernateDataLayer" version="14.1.4.1" />
     </dependencies>
   </metadata>
   <files>

@@ -213,7 +213,7 @@
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
       <Output TaskParameter="Elements" ItemName="Test"/>
     </MSBuild.ExtensionPack.Xml.XmlFile>
-    <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="ErrorAndContinue"></Error>
+    <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="True"></Error>
   </Target>
   <Target Name="ConfigDBUpdaterForFCWeb">
     <PropertyGroup>
@@ -252,8 +252,6 @@
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
-    <Message Text='WorkingDirectory="%(EasyTests.RelativeDir)"'/>
-    <Delete Files="$(OutputFile)"></Delete>
     <Exec ContinueOnError="true"
           WorkingDirectory="%(EasyTests.RelativeDir)"
           Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>

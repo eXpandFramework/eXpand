@@ -68,6 +68,9 @@
     <Reference Include="DevExpress.Dashboard.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Utils.v14.1.UI">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Dashboard.v14.1.Win">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
