@@ -3,7 +3,7 @@ using System.IO;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 
-namespace Xpand.ExpressApp.ModelDifference.Core {
+namespace Xpand.Persistent.Base.ModelDifference {
     public abstract class ModelApplicationFromStreamStoreBase {
         public virtual void Load(ModelApplicationBase model) {
             Load(model,GetAspect());

@@ -15,6 +15,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     internal class ModelDifferenceObjectInfo {
