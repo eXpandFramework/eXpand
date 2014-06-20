@@ -7,7 +7,7 @@ using DevExpress.XtraEditors;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public class CloseWindowController:WindowController{
-        public event FormClosingEventHandler FormClosing;
+        public event EventHandler<FormClosingEventArgs> FormClosing;
         public event EventHandler<HandledEventArgs> CanClose;
         public event EventHandler<CancelEventArgs> QueryCanClose;
 
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         protected virtual void OnFormClosing(object sender, FormClosingEventArgs e){
-            FormClosingEventHandler handler = FormClosing;
+            EventHandler<FormClosingEventArgs> handler = FormClosing;
             if (handler != null) handler(sender, e);
         }
 
@@ -28,7 +28,8 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private static bool _editing;
         bool _isLoggingOff;
-        private static bool _mainFormClosing;
+        public static bool MainFormClosing;
+
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -45,7 +46,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             var mainForm = Frame.Template as MainForm;
             if (mainForm != null){
                 mainForm.Closing += MainFormOnClosing;
-                mainForm.Shown += (o, eventArgs) => { _mainFormClosing = false; };
+                mainForm.Shown += (o, eventArgs) => { MainFormClosing = false; };
             }
             var handledEventArgs = new HandledEventArgs();
             OnCanClose(handledEventArgs);
@@ -64,7 +65,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private void MainFormOnClosing(object sender, CancelEventArgs cancelEventArgs){
-            _mainFormClosing = !cancelEventArgs.Cancel;
+            MainFormClosing = !cancelEventArgs.Cancel;
         }
 
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
@@ -76,15 +77,15 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         void FormOnClosing(object sender, CancelEventArgs cancelEventArgs) {
-            if (!_editing && !_isLoggingOff&&!_mainFormClosing){
+            if (!_editing && !_isLoggingOff){
                 var eventArgs = new CancelEventArgs();
                 OnQueryCanClose(eventArgs);
-                cancelEventArgs.Cancel = eventArgs.Cancel || Frame.View.CanClose();
+                cancelEventArgs.Cancel = eventArgs.Cancel || !Frame.View.CanClose();
             }
         }
 
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
-            if (!_editing && !_isLoggingOff&&!_mainFormClosing) {
+            if (!_editing && !_isLoggingOff) {
                 e.Cancel =  e.CloseReason == CloseReason.UserClosing;
                 if (e.Cancel)
                     OnFormClosing(sender,e);

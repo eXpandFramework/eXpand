@@ -88,10 +88,14 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private void CloseWindowControllerOnFormClosing(object sender, FormClosingEventArgs formClosingEventArgs) {
             var view = Frame.View;
-            if (((IModelDetailViewFormCaching) view.Model).FormCaching){
-                if (view.ObjectSpace.IsNewObject(view.CurrentObject))
-                    view.ObjectSpace.SetIsModified(false);
-                ((XtraForm) sender).Hide();
+            var modelDetailViewFormCaching = view.Model as IModelDetailViewFormCaching;
+            if (modelDetailViewFormCaching != null){
+                formClosingEventArgs.Cancel = modelDetailViewFormCaching.FormCaching;
+                if (modelDetailViewFormCaching.FormCaching&&!CloseWindowController.MainFormClosing){
+                    if (view.ObjectSpace.IsNewObject(view.CurrentObject))
+                        view.ObjectSpace.SetIsModified(false);
+                    ((XtraForm) sender).Hide();
+                }
             }
         }
 
