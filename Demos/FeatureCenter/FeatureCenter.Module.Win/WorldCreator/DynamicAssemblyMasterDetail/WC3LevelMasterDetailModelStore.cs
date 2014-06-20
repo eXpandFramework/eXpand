@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Xpand.ExpressApp.ModelDifference.Core;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail {
     public class WC3LevelMasterDetailModelStore : ModelApplicationFromStreamStoreBase {
