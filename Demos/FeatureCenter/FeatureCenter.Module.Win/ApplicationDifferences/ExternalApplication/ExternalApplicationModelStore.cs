@@ -1,7 +1,8 @@
 ﻿using System.IO;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
-    public class ExternalApplicationModelStore : Xpand.ExpressApp.ModelDifference.Core.ModelApplicationFromStreamStoreBase {
+    public class ExternalApplicationModelStore : ModelApplicationFromStreamStoreBase {
         public override string Name {
             get { return "ExternalApplication.Win.ExternalApplicationWindowsFormsApplication"; }
         }

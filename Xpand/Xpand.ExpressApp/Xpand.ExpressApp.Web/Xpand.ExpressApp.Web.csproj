@@ -246,13 +246,9 @@
     <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Templates\XpandBaseXafPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Include="Templates\XpandBaseXafPage.cs" />
     <Compile Include="XpandPopupWindow.cs" />
-    <Compile Include="XpandWebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandWebApplication.cs" />
     <Compile Include="XpandWebWindow.cs" />
   </ItemGroup>
   <ItemGroup>

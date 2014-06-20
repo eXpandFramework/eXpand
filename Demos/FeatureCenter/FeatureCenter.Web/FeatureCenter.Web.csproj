@@ -283,12 +283,9 @@
     <Content Include="Images\UnSelectedRight.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationCode\WebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ApplicationCode\WebApplication.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -305,7 +302,6 @@
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
