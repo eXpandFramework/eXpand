@@ -178,6 +178,7 @@
   <Target Name="ConfigEasyTestParamsForDocsSite">
     <PropertyGroup>
       <EasyTestFilter>Xpand.Docs\</EasyTestFilter>
+      <FCWebDbUpdater>No</FCWebDbUpdater>
     </PropertyGroup>
     <ItemGroup>
       <EasyTests Remove="@(EasyTests)"></EasyTests>
@@ -223,20 +224,20 @@
     </MSBuild.ExtensionPack.Xml.XmlFile>
     <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="True"></Error>
   </Target>
-  <Target Name="ConfigDBUpdaterForFCWeb">
+  <Target Name="ConfigFCWebDbUpdater">
     <PropertyGroup>
       <DBUpdaterFolder>$(MSBuildProjectDirectory)\Demos\FeatureCenter\FeatureCenter.Web\bin</DBUpdaterFolder>
       <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
       <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
     </PropertyGroup>
   </Target>
-  <Target Name="EasyTestUpdateDBTimeout">
+  <Target Name="FCWebDbUpdater">
     <ItemGroup>
       <DbToDrop Include="Northwind;XpandFeatureCenterWeb;XpandFeatureCenterEasyTest;XpandFeatureCenterExceptionHandling;XpandFeatureCenterMultipleDataStore;XpandFeatureCenterWorldCreator;XpandFeatureCenter"></DbToDrop>
     </ItemGroup>
     <Exec Command='sqlcmd -E -S . -Q "ALTER DATABASE %(DbToDrop.Identity) SET SINGLE_USER WITH ROLLBACK IMMEDIATE"' ContinueOnError="false"/>
     <Exec Command='sqlcmd -E -S . -Q "DROP DATABASE %(DbToDrop.Identity)"' ContinueOnError="false"/>
-    <CallTarget Targets="ConfigDBUpdaterForFCWeb;DBUpdate"></CallTarget>
+    <CallTarget Targets="ConfigFCWebDbUpdater;DBUpdate"></CallTarget>
   </Target>
   <Target Name="DBUpdate">
     <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
@@ -254,7 +255,7 @@
 
   <Target Name="RunEasyTests" >
     <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
-    <CallTarget Targets="EasyTestUpdateDBTimeout" />
+    <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
     <Delete Files="@EasyTestLogs"/>
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
