@@ -92,7 +92,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
 
         private KeyValuePair<Dictionary<Type, Type[]>, Type[]> Patch() {
             var dictionary = ((Dictionary<Type, Type[]>)((TypesInfo)XafTypesInfo.Instance).TypeHierarchyHelper.GetFieldValue("implementorsByInterface"));
-            Type[] types = dictionary[typeof(IModelRuleBase)];
+            var types = dictionary.ContainsKey(typeof(IModelRuleBase))?dictionary[typeof(IModelRuleBase)]:new Type[0];
             var runtimeTypes = types.Where(type => type.GetType().Name == "RuntimeType").ToList();
             var nonRuntimeTypes = types.Where(type => type.GetType().Name != "RuntimeType").ToList();
             foreach (var runtimeType in runtimeTypes) {
