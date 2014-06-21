@@ -150,7 +150,6 @@
     <MSBuild.ExtensionPack.Computer.Process TaskAction="Get" IncludeUserInfo="true">
       <Output ItemName="ProcessList" TaskParameter="Processes"/>
     </MSBuild.ExtensionPack.Computer.Process>
-    <Message Text="%(ProcessList.Identity)  - %(ProcessList.User) - %(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
     <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
     <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
@@ -173,8 +172,7 @@
   </Target>
   <Target Name="XpandDocsSiteDBUpdater" DependsOnTargets="ConfigXpandDocsSiteDBUpdater;DBUpdate">
   </Target>
-  <Target Name="RunEasyTestsForDocsSite" DependsOnTargets="ConfigEasyTestParamsForDocsSite">
-    <CallTarget Targets="RunEasyTests"></CallTarget>
+  <Target Name="RunEasyTestsForDocsSite" DependsOnTargets="ConfigEasyTestParamsForDocsSite;RunEasyTests">
   </Target>
   <Target Name="ConfigEasyTestParamsForDocsSite">
     <PropertyGroup>
@@ -262,7 +260,7 @@
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
-    <Exec ContinueOnError="true"
+    <Exec ContinueOnError="true" 
           WorkingDirectory="%(EasyTests.RelativeDir)"
           Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
