@@ -4,6 +4,8 @@
     <DXVersion>14.1</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
+    <ProjectConverterPath>$(DXPath)\Components\Tools\Components</ProjectConverterPath>
+    <ProjectConverterName>ProjectConverter.exe</ProjectConverterName>
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
@@ -154,6 +156,7 @@
     <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
   </Target>
   <Target Name="UpdateXpandDocsSiteFiles">
+    <Exec Command='$(ProjectConverterName) /sc "$(XpandDocsSitePath)"' WorkingDirectory="$(ProjectConverterPath)"></Exec>
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);DefineConstants=$(DefineConstants)" />
     <CallTarget Targets="KillXpandDocsSite" />
     <ItemGroup>

@@ -41,7 +41,7 @@ namespace XpandAddins {
                 var position = Cursor.Position;
                 Rectangle rectangle = Screen.FromPoint(position).Bounds;
                 _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
-                var userName = string.Format("/s /k:{0} \"{1}\"", token, directoryName);
+                var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
                 
             }
