@@ -88,6 +88,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private void CloseWindowControllerOnFormClosing(object sender, FormClosingEventArgs formClosingEventArgs) {
             var view = Frame.View;
+            formClosingEventArgs.Cancel = false;
             var modelDetailViewFormCaching = view.Model as IModelDetailViewFormCaching;
             if (modelDetailViewFormCaching != null){
                 formClosingEventArgs.Cancel = modelDetailViewFormCaching.FormCaching;
