@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.XtraEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public class CloseWindowController:WindowController{
@@ -78,14 +79,21 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         void FormOnClosing(object sender, CancelEventArgs cancelEventArgs) {
             if (!_editing && !_isLoggingOff){
-                var eventArgs = new CancelEventArgs();
-                OnQueryCanClose(eventArgs);
-                cancelEventArgs.Cancel = eventArgs.Cancel || !Frame.View.CanClose();
+                cancelEventArgs.Cancel = true;
             }
         }
 
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
             if (!_editing && !_isLoggingOff) {
+                if (Frame.View.ObjectSpace.IsModified){
+                    var confirmationResult = Frame.Application.AskConfirmation(ConfirmationType.NeedSaveChanges);
+                    if (confirmationResult==ConfirmationResult.Cancel)
+                        return;
+                    if (confirmationResult==ConfirmationResult.Yes)
+                        Frame.View.ObjectSpace.CommitChanges();
+                    else if (confirmationResult==ConfirmationResult.No)
+                        Frame.View.ObjectSpace.RollbackSilent();
+                }
                 e.Cancel =  e.CloseReason == CloseReason.UserClosing;
                 if (e.Cancel)
                     OnFormClosing(sender,e);
