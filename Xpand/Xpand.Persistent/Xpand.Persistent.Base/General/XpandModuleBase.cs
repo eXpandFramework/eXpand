@@ -487,8 +487,9 @@ namespace Xpand.Persistent.Base.General {
             var helper = new ConnectionStringHelper();
             helper.Attach(this);
             var generatorHelper = new SequenceGeneratorHelper();
-            generatorHelper.Attach(this,helper);
-
+            generatorHelper.Attach(this);
+            helper.ConnectionStringUpdated += (sender, args) => generatorHelper.InitializeSequenceGenerator();
+                
             if (Executed("Setup"))
                 return;
             

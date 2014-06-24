@@ -212,8 +212,6 @@ namespace Xpand.Persistent.Base.General {
                         }
                         finally {
                             session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
-                            _sequenceGenerator.Dispose();
-                            _sequenceGenerator = null;
                         }
                     }
 
@@ -261,18 +259,15 @@ namespace Xpand.Persistent.Base.General {
             get { return _xpandModuleBase.Application; }
         }
 
-        void XpandModuleBaseOnConnectionStringUpdated(object sender, EventArgs eventArgs) {
-            InitializeSequenceGenerator();
-        }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType {
-            get { return _xpandModuleBase.SequenceObjectType; }
+            get { return _xpandModuleBase.SequenceObjectType ?? _xpandModuleBase.Application.Modules.OfType<ISequenceGeneratorUser>().Cast<ModuleBase>().First().AdditionalExportedTypes.First(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject"); }
             set { _xpandModuleBase.SequenceObjectType = value; }
         }
 
-        void InitializeSequenceGenerator() {
+        public void InitializeSequenceGenerator() {
 
             try {
                 var cancelEventArgs = new CancelEventArgs();
@@ -294,16 +289,14 @@ namespace Xpand.Persistent.Base.General {
 
         void AddToAdditionalExportedTypes(string[] strings) {
             _xpandModuleBase.AddToAdditionalExportedTypes(strings);
-            SequenceObjectType = _xpandModuleBase.AdditionalExportedTypes.Single(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject");
         }
 
-        public void Attach(XpandModuleBase xpandModuleBase, ConnectionStringHelper helper) {
+        public void Attach(XpandModuleBase xpandModuleBase) {
             _xpandModuleBase = xpandModuleBase;
             if (!_xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
                 if (_xpandModuleBase.RuntimeMode) {
                     Application.LoggedOff += ApplicationOnLoggedOff;
                     AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
-                    helper.ConnectionStringUpdated += XpandModuleBaseOnConnectionStringUpdated;
                 }
             }
         }
