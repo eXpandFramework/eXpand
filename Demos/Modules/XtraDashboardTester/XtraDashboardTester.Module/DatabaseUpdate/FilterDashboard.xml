@@ -16,12 +16,7 @@
     <DataSource ComponentName="dataSource1" Name="FilteredDataSource">
       <DataProvider DataConnection=".\SqlExpress_XtraDashboardTesterConnection" SupportSql="true">
         <Selection>
-          <Table Name="Customer">
-            <Columns>
-              <Column Name="Oid" Alias="Oid" />
-              <Column Name="User" Alias="User" />
-            </Columns>
-          </Table>
+          <Table Name="Customer" />
           <Table Name="Person">
             <References>
               <Reference Key="Oid" ParentKey="Oid" ParentTable="Customer" />
@@ -29,16 +24,12 @@
             <Columns>
               <Column Name="FirstName" Alias="FirstName" />
               <Column Name="LastName" Alias="LastName" />
-              <Column Name="Email" Alias="Email" />
             </Columns>
           </Table>
           <Table Name="SecuritySystemUser">
             <References>
               <Reference Key="Oid" ParentKey="User" ParentTable="Customer" />
             </References>
-            <Columns>
-              <Column Name="UserName" Alias="UserName" />
-            </Columns>
           </Table>
           <Filters>
             <Filter TableName="Customer" FilterString="" />
@@ -47,22 +38,21 @@
       </DataProvider>
     </DataSource>
   </DataSources>
+  <Parameters>
+    <Parameter Name="Parameter1" Value="Admin" />
+  </Parameters>
   <Items>
     <Grid ComponentName="gridDashboardItem1" Name="Grid 1" DataSource="dataSource1">
       <DataItems>
         <Dimension DataMember="FirstName" UniqueName="DataItem0" />
         <Dimension DataMember="LastName" UniqueName="DataItem1" />
-        <Dimension DataMember="UserName" UniqueName="DataItem2" />
       </DataItems>
       <GridColumns>
         <GridDimensionColumn>
-          <Dimension Name="DataItem0" />
+          <Dimension UniqueName="DataItem0" />
         </GridDimensionColumn>
         <GridDimensionColumn>
-          <Dimension Name="DataItem1" />
-        </GridDimensionColumn>
-        <GridDimensionColumn>
-          <Dimension Name="DataItem2" />
+          <Dimension UniqueName="DataItem1" />
         </GridDimensionColumn>
       </GridColumns>
       <GridOptions />
