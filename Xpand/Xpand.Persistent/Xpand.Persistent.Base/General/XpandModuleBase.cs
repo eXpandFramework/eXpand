@@ -621,7 +621,6 @@ namespace Xpand.Persistent.Base.General {
                 RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
                 ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
             }
-            Application.EnsureShowViewStrategy();
         }
 
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
