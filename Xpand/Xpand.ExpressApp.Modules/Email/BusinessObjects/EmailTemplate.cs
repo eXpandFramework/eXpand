@@ -6,6 +6,7 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Email.BusinessObjects {
     [DefaultClassOptions]
+    [ImageName("Action_WindowList")]
     public class EmailTemplate : XpandCustomObject, IEmailTemplate {
         string _body;
         string _name;
