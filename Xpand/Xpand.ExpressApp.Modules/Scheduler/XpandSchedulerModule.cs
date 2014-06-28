@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Scheduler {
     }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandSchedulerModule : XpandModuleBase,IDashboardUser {
+    public sealed class XpandSchedulerModule : XpandModuleBase,IDashboardInteractionUser {
         public const string XpandScheduler = "Scheduler";
         public XpandSchedulerModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Scheduler.SchedulerModuleBase));

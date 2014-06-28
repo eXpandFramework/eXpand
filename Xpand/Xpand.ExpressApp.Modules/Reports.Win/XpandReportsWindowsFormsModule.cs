@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Reports.Win {
     [ToolboxBitmap(typeof(XpandReportsWindowsFormsModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class XpandReportsWindowsFormsModule : XpandModuleBase, IDashboardUser {
+    public sealed class XpandReportsWindowsFormsModule : XpandModuleBase, IDashboardInteractionUser {
         protected override ModuleTypeList GetRequiredModuleTypesCore() {
             ModuleTypeList requiredModuleTypesCore = base.GetRequiredModuleTypesCore();
             requiredModuleTypesCore.Add(typeof(DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule));

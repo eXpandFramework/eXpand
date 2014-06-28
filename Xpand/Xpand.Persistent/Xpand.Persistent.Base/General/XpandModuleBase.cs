@@ -133,7 +133,7 @@ namespace Xpand.Persistent.Base.General {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             var declaredControllerTypes = base.GetDeclaredControllerTypes();
-            if (!Executed<IDashboardUser>("DashboardUser")) {
+            if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[]
                     {typeof (DashboardInteractionController), typeof (WebDashboardRefreshController)});
             }

@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Dashboard {
     [ToolboxBitmap(typeof(DashboardModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class DashboardModule : XpandModuleBase,IDashboardUser {
+    public sealed class DashboardModule : XpandModuleBase,IDashboardInteractionUser {
         public DashboardModule(){
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }

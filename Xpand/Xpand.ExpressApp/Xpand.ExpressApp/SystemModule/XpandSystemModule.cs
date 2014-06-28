@@ -29,11 +29,10 @@ using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
-
     [ToolboxItem(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardUser {
+    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardInteractionUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));

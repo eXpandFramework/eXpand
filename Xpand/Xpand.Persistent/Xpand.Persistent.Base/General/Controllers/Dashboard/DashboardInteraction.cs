@@ -9,7 +9,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
-    public interface IDashboardUser {
+    public interface IDashboardInteractionUser {
          
     }
     public class DashboardInteractionController : ViewController<DashboardView>, IModelExtender {
