@@ -132,10 +132,11 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnFocusedObjectChanged();
         }
 
-        private static void SetFirstRowChangeAfterInit(ASPxGridView grid, bool value) {
+        private void SetFirstRowChangeAfterInit(ASPxGridView grid, bool value) {
             grid.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
                 "function (s,e) {{ s.firstRowChangedAfterInit = {0};}}", value ? "true" : "false");
         }
+
         protected override ASPxGridView CreateGridControl() {
             ASPxGridView gridView = base.CreateGridControl();
             if (MasterDetail)
@@ -148,6 +149,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
+
         public override void SetControlSelectedObjects(IList<object> objects) {
             if (!MasterDetail || objects.Count != 1) {
                 base.SetControlSelectedObjects(objects);
