@@ -33,7 +33,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
             foreach (var item in View.GetItems<DashboardViewItem>()) {
                 var modelDashboardViewItem = (item.GetModel(View));
-                if (!(modelDashboardViewItem is IModelDashboardReportViewItem))
+                if (!(modelDashboardViewItem is IModelDashboardReportViewItemBase))
                     AssignMasterDetailModes((IModelDashboardViewItemEx)modelDashboardViewItem);
             }
         }

@@ -24,7 +24,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public class DashboardViewFilterVisibilityCalculator : IModelIsVisible {
         #region Implementation of IModelIsVisible
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !(node.Parent is IModelDashboardReportViewItem);
+            return !(node.Parent is IModelDashboardReportViewItemBase);
         }
         #endregion
     }
@@ -63,7 +63,9 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             return (IModelDashboardViewItem)view.Model.Items[item.Id];
         }
     }
-    public interface IModelDashboardReportViewItem : IModelDashboardViewItem {
+
+    [ModelAbstractClass]
+    public interface IModelDashboardReportViewItemBase : IModelDashboardViewItem {
         string ReportName { get; set; }
         bool CreateDocumentOnLoad { get; set; }
         [Browsable(false)]
@@ -82,9 +84,25 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
     [ModelAbstractClass]
     public interface IModelDashboardViewItemEx : IModelDashboardViewItem {
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
         IModelDashboardViewFilter Filter { get; }
         [DefaultValue(ViewItemVisibility.Show)]
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
+        [Category("eXpand")]
         ViewItemVisibility Visibility { get; set; }
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
+        [Category("eXpand")]
         MasterDetailMode? MasterDetailMode { get; set; }
+    }
+
+    public class ModelDashboardViewItemExVisibilityCalculator:IModelIsVisible{
+        public bool IsVisible(IModelNode node, string propertyName){
+            var any = ((IModelSources) node.Application).Modules.OfType<IDashboardInteractionUser>().Any();
+            if (any && propertyName == "MasterDetailMode"){
+                var modelView = ((IModelDashboardViewItem) node).View;
+                return modelView is IModelListView;
+            }
+            return any;
+        }
     }
 }

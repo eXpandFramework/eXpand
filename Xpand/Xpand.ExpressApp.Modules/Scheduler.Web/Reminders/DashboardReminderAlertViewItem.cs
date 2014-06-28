@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
-using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
     public interface IModelDashboardReminderAlertViewItem : IModelDashboardViewItem {
@@ -22,7 +21,7 @@ namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
         MasterDetailMode? MasterDetailMode { get; set; }
     }
 
-    [ViewItem(typeof(IModelDashboardReportViewItem))]
+    [ViewItem(typeof(IModelDashboardReminderAlertViewItem))]
     public class DashboardReminderAlertViewItem :DashboardViewItem, IComplexViewItem {
         public DashboardReminderAlertViewItem(IModelDashboardViewItem model, Type objectType) : base(model, objectType) {
         }

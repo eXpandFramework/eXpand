@@ -77,6 +77,7 @@ namespace Xpand.Persistent.Base.General.Model.Options {
         }
     }
 
+    [ModelAbstractClass]
     public interface IModelListViewOptionsColumnView : IModelListView {
     }
 
