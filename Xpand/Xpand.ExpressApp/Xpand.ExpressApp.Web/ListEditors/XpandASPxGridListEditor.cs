@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -64,19 +65,29 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
         public event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
         public event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
-
-
-
-        protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
-            EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
-            if (handler != null) handler(this, e);
-        }
+        public event EventHandler<CustomCreateWebDataSourceEventArgs> CustomCreateWebDataSource;
 
         public XpandASPxGridListEditor(IModelListView info)
             : base(info) {
         }
 
+        protected override WebDataSource CreateWebDataSource(object collection){
+            var args = new CustomCreateWebDataSourceEventArgs(collection);
+            OnCustomCreateWebDataSource(args);
+            if (args.Handled)
+                collection = args.Collection;
+            return base.CreateWebDataSource(collection);
+        }
 
+        protected virtual void OnCustomCreateWebDataSource(CustomCreateWebDataSourceEventArgs e){
+            var handler = CustomCreateWebDataSource;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
+            EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
+            if (handler != null) handler(this, e);
+        }
 
         public override object FocusedObject {
             get {
@@ -168,6 +179,15 @@ namespace Xpand.ExpressApp.Web.ListEditors {
                 ViewControlsCreated(this, new ViewControlCreatedEventArgs(listView.IsRoot));
 
         }
+
+    }
+
+    public class CustomCreateWebDataSourceEventArgs : HandledEventArgs{
+        public CustomCreateWebDataSourceEventArgs(object collection){
+            Collection = collection;
+        }
+
+        public object Collection { get; set; }
 
     }
 
