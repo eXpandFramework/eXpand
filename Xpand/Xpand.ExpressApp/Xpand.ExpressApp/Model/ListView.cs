@@ -4,7 +4,6 @@ using System.Drawing.Design;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Model {
-    [ModelAbstractClass]
     public interface IModelListViewLinq : IModelListView {
         [Category("eXpand")]
         string XPQueryMethod { get; set; }

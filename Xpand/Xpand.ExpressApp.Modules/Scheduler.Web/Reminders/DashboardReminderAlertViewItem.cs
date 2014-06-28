@@ -21,9 +21,6 @@ namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
         [Browsable(false)]
         MasterDetailMode? MasterDetailMode { get; set; }
     }
-    public interface IModelDashboardReportViewItem : IModelDashboardReportViewItemBase {
-
-    }
 
     [ViewItem(typeof(IModelDashboardReportViewItem))]
     public class DashboardReminderAlertViewItem :DashboardViewItem, IComplexViewItem {

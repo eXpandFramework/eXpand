@@ -24,7 +24,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public class DashboardViewFilterVisibilityCalculator : IModelIsVisible {
         #region Implementation of IModelIsVisible
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !(node.Parent is IModelDashboardReportViewItemBase);
+            return !(node.Parent is IModelDashboardReportViewItem);
         }
         #endregion
     }
@@ -63,8 +63,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             return (IModelDashboardViewItem)view.Model.Items[item.Id];
         }
     }
-    [ModelAbstractClass]
-    public interface IModelDashboardReportViewItemBase : IModelDashboardViewItem {
+    public interface IModelDashboardReportViewItem : IModelDashboardViewItem {
         string ReportName { get; set; }
         bool CreateDocumentOnLoad { get; set; }
         [Browsable(false)]

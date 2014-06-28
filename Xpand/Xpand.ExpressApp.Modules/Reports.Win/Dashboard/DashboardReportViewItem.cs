@@ -13,14 +13,11 @@ using DevExpress.XtraPrinting.Preview;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
-    public interface IModelDashboardReportViewItem : IModelDashboardReportViewItemBase {
-
-    }
     [ViewItem(typeof(IModelDashboardReportViewItem))]
     public class DashboardReportViewItem : DashboardViewItem, IComplexViewItem {
         readonly IModelDashboardReportViewItem _model;
         XafReport _report;
-        PrintControl _printControl;
+        PrintControl PrintControl;
         XafApplication _application;
 
         public DashboardReportViewItem(IModelDashboardReportViewItem model, Type objectType)
@@ -37,16 +34,16 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
         }
 
         protected override object CreateControlCore() {
-            _printControl = new PrintControl { Dock = DockStyle.Fill };
-            _printControl.ParentChanged += OnControlParentChanged;
+            PrintControl = new PrintControl { Dock = DockStyle.Fill };
+            PrintControl.ParentChanged += OnControlParentChanged;
             Type reportDataType = ReportsModule.FindReportsModule(_application.Modules).ReportDataType;
             var reportData = (IReportData)View.ObjectSpace.FindObject(reportDataType, CriteriaOperator.Parse("ReportName=?", Model.ReportName));
             if (reportData == null)
                 throw new NullReferenceException(string.Format("Report {0} not found", Model.ReportName));
             _report = (XafReport)reportData.LoadReport(View.ObjectSpace);
             View.ControlsCreated += ViewOnControlsCreated;
-            _printControl.PrintingSystem = Report.PrintingSystem;
-            return _printControl;
+            PrintControl.PrintingSystem = Report.PrintingSystem;
+            return PrintControl;
         }
 
         void ViewOnControlsCreated(object sender, EventArgs eventArgs) {
@@ -65,7 +62,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
 
         void OnTransformed(object sender, EventArgs e) {
             RibbonControl ribbon = ((ClassicToRibbonTransformer)sender).Ribbon;
-            new PrintRibbonController { PrintControl = _printControl }.Initialize(ribbon, ribbon.StatusBar);
+            new PrintRibbonController { PrintControl = PrintControl }.Initialize(ribbon, ribbon.StatusBar);
         }
         #region Implementation of IComplexPropertyEditor
         void IComplexViewItem.Setup(IObjectSpace objectSpace, XafApplication application) {
