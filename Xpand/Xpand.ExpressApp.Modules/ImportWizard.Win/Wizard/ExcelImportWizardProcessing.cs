@@ -13,18 +13,15 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
     public partial class ExcelImportWizard{
-        public void ProccesExcellRows(IEnumerable<Row> records, XPObjectSpace objectSpace, DoWorkEventArgs e, Type type){
+        public void ProccesExcellRows( XPObjectSpace objectSpace, DoWorkEventArgs e, Type type){
+            var workerArgs = ((WorkerArgs) e.Argument);
+            var records = workerArgs.Rows;
             int i = 0;
-            List<XPMemberInfo> props = objectSpace.FindXPClassInfo(type).PersistentProperties
-                .OfType<XPMemberInfo>().ToList();
-
-            //get key property name of the object type being imported
+            var props = objectSpace.FindXPClassInfo(type).PersistentProperties.OfType<XPMemberInfo>().ToList();
             string keyPropertyName = objectSpace.GetKeyPropertyName(type);
-
-            //for every row in excel sheet
             foreach (Row excelRow in records){
                 ++i;
-                if (i == 1) continue;
+                if (i <= workerArgs.HeaderRows) continue;
                 if (_bgWorker.CancellationPending){
                     e.Cancel = true;
                     break;

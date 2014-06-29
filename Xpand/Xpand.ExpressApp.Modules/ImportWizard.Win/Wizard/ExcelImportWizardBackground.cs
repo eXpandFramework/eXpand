@@ -7,9 +7,27 @@ using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
+    class WorkerArgs {
+        private readonly IEnumerable<Row> _rows;
+        private readonly int _headerRows;
+
+        public WorkerArgs(IEnumerable<Row> rows, int? headerRows){
+            _rows = rows;
+            if (headerRows != null) _headerRows = headerRows.Value;
+        }
+
+        public IEnumerable<Row> Rows {
+            get { return _rows; }
+        }
+
+        public int HeaderRows {
+            get { return _headerRows; }
+        }
+    }
+
     public partial class ExcelImportWizard{
         private void BgWorkerDoWork(object sender, DoWorkEventArgs e){
-            ProccesExcellRows((IEnumerable<Row>) e.Argument, ObjectSpace, e, Type);
+            ProccesExcellRows( ObjectSpace, e, Type);
         }
 
         private void BgWorkerProgressChanged(object sender, ProgressChangedEventArgs e){

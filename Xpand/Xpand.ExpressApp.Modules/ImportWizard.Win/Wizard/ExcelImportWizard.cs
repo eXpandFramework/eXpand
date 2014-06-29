@@ -640,7 +640,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             _bgWorker.ProgressChanged += BgWorkerProgressChanged;
             _bgWorker.DoWork += BgWorkerDoWork;
 
-            _bgWorker.RunWorkerAsync(Sheet.Rows());
+            _bgWorker.RunWorkerAsync(new WorkerArgs(Sheet.Rows(),Sheet.ColumnHeaderRow));
 
             _frmProgress.ShowDialog();
 
