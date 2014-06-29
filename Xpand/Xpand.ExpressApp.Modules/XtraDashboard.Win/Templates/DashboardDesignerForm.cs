@@ -68,7 +68,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         void UpdateTemplateXml() {
             using (var ms = new MemoryStream()){
-                ObjectSpace.SaveDashboard(Designer.Dashboard,Template, ms);
+                Designer.Dashboard.SaveDashboard( Template, ms);
                 ms.Position = 0;
                 using (var sr = new StreamReader(ms)) {
                     string xml = sr.ReadToEnd();
@@ -92,7 +92,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, FilterEnabled.DesignTime);
+            Designer.Dashboard = _template.CreateDashBoard( FilterEnabled.DesignTime);
             _editHistory.Changed += _EditHistory_Changed;
         }
 

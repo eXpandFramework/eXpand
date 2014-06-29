@@ -63,13 +63,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime, ObjectSpace);
+            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime);
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
             if (e.Data == null) {
                 var dsType = Definition.DashboardTypes.First(t => t.GetDefaultCaption() == e.DataSourceName).Type;
-                e.Data = _objectSpace.CreateDashboardDataSource(dsType);
+                e.Data = Application.CreateDashboardDataSource(dsType);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -54,13 +53,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
         void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
             var template = CurrentObject as IDashboardDefinition;
             if (template != null) {
-                var dashBoard = template.GetXml(FilterEnabled.Runtime, ObjectSpace);
+                var dashBoard = template.GetXml(FilterEnabled.Runtime);
 
             }
 
             Control.HandleCreated -= ControlOnHandleCreated;
             Control.BeginInvoke(new Action(() => {
-                DashboardViewer.Dashboard = template.CreateDashBoard(ObjectSpace, FilterEnabled.Runtime);
+                DashboardViewer.Dashboard = template.CreateDashBoard(FilterEnabled.Runtime);
 
             }));
         }
