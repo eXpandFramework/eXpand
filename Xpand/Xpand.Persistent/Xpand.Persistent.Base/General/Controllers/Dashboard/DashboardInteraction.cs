@@ -3,10 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Win;
+using Fasterflect;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public interface IDashboardInteractionUser {
@@ -28,24 +33,37 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         readonly Dictionary<IModelListView, MasterDetailMode> _masterDetailModes = new Dictionary<IModelListView, MasterDetailMode>();
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (Frame is WinWindow)
+                ((Form)Frame.Template).Shown -= Template_Shown;
+            ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
+            if (Frame is WinWindow)
+                ((Form)Frame.Template).Shown+=Template_Shown;
+
             ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
             foreach (var item in View.GetItems<DashboardViewItem>()) {
                 var modelDashboardViewItem = (item.GetModel(View));
                 if (!(modelDashboardViewItem is IModelDashboardReportViewItemBase))
                     AssignMasterDetailModes((IModelDashboardViewItemEx)modelDashboardViewItem);
+                
             }
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            foreach (var result in View.Items.OfType<DashboardViewItem>()) {
-                var frame1 = result.Frame;
-                if (frame1 != null && frame1.View is ListView) {
-                    var listView = ((ListView)frame1.View);
-                    DashboardViewItem result1 = result;
-                    listView.SelectionChanged += (sender, args) => OnSelectionChanged(new SelectionChangedArgs(listView, result1));
+            foreach (var viewItem in View.Items.OfType<DashboardViewItem>()) {
+                var frame = viewItem.Frame;
+                if (frame != null ){
+                    var listView = frame.View as ListView;
+                    if (listView != null){
+                        DashboardViewItem result1 = viewItem;
+                        listView.SelectionChanged +=(sender, args) => OnSelectionChanged(new SelectionChangedArgs(listView, result1));
+                    }
                 }
             }
             ResetMasterDetailModes();
@@ -57,6 +75,17 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
                 if (modelListView != null) {
                     _masterDetailModes.Add(modelListView, modelListView.MasterDetailMode);
                     modelListView.MasterDetailMode = modelDashboardViewItem.MasterDetailMode.Value;
+                }
+            }
+        }
+
+        private void Template_Shown(object sender, EventArgs e){
+            foreach (var item in View.GetItems<DashboardViewItem>()){
+                var controller = item.Frame.GetController<FocusDefaultDetailViewItemController>();
+                var defaultItem = controller.GetFieldValue("defaultItem");
+                if (defaultItem != null){
+                    controller.CallMethod("FocusDefaultItemControl");
+                    break;
                 }
             }
         }
@@ -123,11 +152,6 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             var collectionSourceBase = filteredListView.CollectionSource;
             collectionSourceBase.Criteria[modelDashboardViewItemFiltered.Filter.DataSourceView.Id] = CriteriaSelectionOperator(listView, filteredColumn);
             return filteredListView;
-        }
-
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
         }
 
         CriteriaOperator CriteriaSelectionOperator(ListView listView, IModelColumn filteredColumn) {
