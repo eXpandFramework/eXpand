@@ -91,8 +91,8 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             formClosingEventArgs.Cancel = false;
             var modelDetailViewFormCaching = view.Model as IModelDetailViewFormCaching;
             if (modelDetailViewFormCaching != null){
-                formClosingEventArgs.Cancel = modelDetailViewFormCaching.FormCaching;
                 if (modelDetailViewFormCaching.FormCaching&&!CloseWindowController.MainFormClosing){
+                    formClosingEventArgs.Cancel = modelDetailViewFormCaching.FormCaching;
                     if (view.ObjectSpace.IsNewObject(view.CurrentObject))
                         view.ObjectSpace.SetIsModified(false);
                     ((XtraForm) sender).Hide();

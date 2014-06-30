@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         public event EventHandler<FormClosingEventArgs> FormClosing;
         public event EventHandler<HandledEventArgs> CanClose;
         public event EventHandler<CancelEventArgs> QueryCanClose;
-
+        
         protected virtual void OnQueryCanClose(CancelEventArgs e) {
             var handler = QueryCanClose;
             if (handler != null) handler(this, e);
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
                     Application.LoggingOff += ApplicationOnLoggingOff;
                     Application.LoggedOff += ApplicationOnLoggedOff;
                     form.FormClosing += FormOnFormClosing;
-                    form.Closing += FormOnClosing;
+                    form.Closing += OnClosing;
                     var editModelAction = Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().EditModelAction;
                     editModelAction.Executing += (o, eventArgs) => _editing = true;
                     editModelAction.ExecuteCompleted += (o, eventArgs) => _editing = false;
@@ -77,7 +77,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             _isLoggingOff = !loggingOffEventArgs.Cancel;
         }
 
-        void FormOnClosing(object sender, CancelEventArgs cancelEventArgs) {
+        void OnClosing(object sender, CancelEventArgs cancelEventArgs) {
             if (!_editing && !_isLoggingOff){
                 cancelEventArgs.Cancel = true;
             }
