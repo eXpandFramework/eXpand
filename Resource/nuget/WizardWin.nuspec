@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandWizardWin</id>
-    <version>14.1.4.3</version>
+    <version>14.1.4.4</version>
     <title>DevExpress eXpandFramework Wizard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#wizard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="14.1.4.3" />
+      <dependency id="eXpandLib" version="14.1.4.4" />
     </dependencies>
   </metadata>
   <files>
