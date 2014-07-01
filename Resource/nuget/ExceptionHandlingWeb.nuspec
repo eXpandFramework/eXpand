@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandExceptionHandlingWeb</id>
-    <version>14.1.4.4</version>
+    <version>14.1.4.5</version>
     <title>DevExpress eXpandFramework ExceptionHandling Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExceptionHandling</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="14.1.4.4" />
-      <dependency id="eXpandExceptionHandling" version="14.1.4.4" />
+      <dependency id="eXpandLib" version="14.1.4.5" />
+      <dependency id="eXpandExceptionHandling" version="14.1.4.5" />
     </dependencies>
   </metadata>
   <files>
