@@ -69,7 +69,8 @@ namespace Xpand.ExpressApp.MapView {
 
         public static IModelList<IModelMember> Get_NumericMembers(IModelMapView modelMapView)   {
 
-            return GetMembers(modelMapView, m => m.Type == typeof(float) || m.Type == typeof(double) || m.Type==typeof(decimal));
+            return GetMembers(modelMapView, m => m.Type == typeof(float) || m.Type == typeof(double) || m.Type==typeof(decimal) 
+                || m.Type == typeof(float?) || m.Type == typeof(double?) || m.Type == typeof(decimal?));
         }
         public static bool Get_AllowHtmlInInfoWindowText(IModelMapView modelMapView) {
             return modelMapView.GetFromListView(mv => mv.AllowHtmlInInfoWindowText);

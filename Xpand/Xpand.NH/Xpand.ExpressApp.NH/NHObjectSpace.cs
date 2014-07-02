@@ -632,7 +632,9 @@ namespace Xpand.ExpressApp.NH
                 return result;
 
             result = persistenceManager.GetObjectByKey(type, key);
-            AddObject(result, InstanceState.Unchanged);
+            if (result != null)
+                AddObject(result, InstanceState.Unchanged);
+            
             return result;
         }
     }

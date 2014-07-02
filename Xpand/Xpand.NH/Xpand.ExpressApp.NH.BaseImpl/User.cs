@@ -15,6 +15,11 @@ namespace Xpand.ExpressApp.NH.BaseImpl
     public class User : ISecurityUser, ISecurityUserWithRoles, IAuthenticationStandardUser, IOperationPermissionProvider
     {
 
+        public User()
+        {
+            IsActive = true;
+        }
+
         [DataMember]
         public Guid Id
         {

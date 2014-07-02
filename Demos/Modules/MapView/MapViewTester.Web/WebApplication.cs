@@ -66,6 +66,10 @@ namespace MapViewTester.Web
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
 
+        protected override void OnViewShowing(Frame targetFrame, View view, Frame sourceFrame)
+        {
+            base.OnViewShowing(targetFrame, view, sourceFrame);
+        }
         void MapViewTesterAspNetApplication_DatabaseVersionMismatch(object sender,
                                                                         DatabaseVersionMismatchEventArgs e)
         {
