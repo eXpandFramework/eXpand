@@ -6,21 +6,33 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.SystemModule {
     public class ChangeLanguageController : WindowController {
+        private readonly SingleChoiceAction _chooseLanguage;
+        private readonly SingleChoiceAction _chooseFormattingCulture;
+
         public ChangeLanguageController() {
-            var chooseLanguage = new SingleChoiceAction(this, "ChooseLanguage", PredefinedCategory.Tools);
-            chooseLanguage.Execute+=ChooseLanguage_Execute;
-            var chooseFormattingCulture = new SingleChoiceAction(this, "ChooseFormattingCulture", PredefinedCategory.Tools);
-            chooseFormattingCulture.Execute+=ChooseFormattingCulture_Execute;
+            TargetWindowType=WindowType.Main;
+            _chooseLanguage = new SingleChoiceAction(this, "ChooseLanguage", PredefinedCategory.Tools);
+            _chooseLanguage.Execute+=ChooseLanguage_Execute;
+            _chooseFormattingCulture = new SingleChoiceAction(this, "ChooseFormattingCulture", PredefinedCategory.Tools);
+            _chooseFormattingCulture.Execute+=ChooseFormattingCulture_Execute;
             var defaultCulture = CultureInfo.InvariantCulture.TwoLetterISOLanguageName;
             var defaultFormattingCulture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 
-            chooseLanguage.Items.Add(new ChoiceActionItem(string.Format("Default ({0})",defaultCulture), defaultCulture));
-            chooseFormattingCulture.Items.Add(new ChoiceActionItem(string.Format("Default ({0})", defaultFormattingCulture), defaultFormattingCulture));
+            _chooseLanguage.Items.Add(new ChoiceActionItem(string.Format("Default ({0})",defaultCulture), defaultCulture));
+            _chooseFormattingCulture.Items.Add(new ChoiceActionItem(string.Format("Default ({0})", defaultFormattingCulture), defaultFormattingCulture));
             var languages = new[]{"German (de)", "Spanish (es)", "Japanese (ja)", "Russian (ru)"};
             foreach (var language in languages) {
-                chooseFormattingCulture.Items.Add(new ChoiceActionItem(language, null));
-                chooseLanguage.Items.Add(new ChoiceActionItem(language, null));
+                _chooseFormattingCulture.Items.Add(new ChoiceActionItem(language, null));
+                _chooseLanguage.Items.Add(new ChoiceActionItem(language, null));
             }
+        }
+
+        public SingleChoiceAction ChooseLanguage{
+            get { return _chooseLanguage; }
+        }
+
+        public SingleChoiceAction ChooseFormattingCulture{
+            get { return _chooseFormattingCulture; }
         }
 
         private void ChooseLanguage_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {

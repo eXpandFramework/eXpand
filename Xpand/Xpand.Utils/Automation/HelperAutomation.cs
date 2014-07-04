@@ -1,5 +1,6 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Security;
@@ -9,24 +10,22 @@ using Xpand.Utils.Win32;
 namespace Xpand.Utils.Automation {
     [SecuritySafeCritical]
     public class HelperAutomation {
-        private ArrayList allWindowCaptions;
-        private ArrayList allWindowHandles;
+        private ICollection<string> _allWindowCaptions;
+        private ICollection<IntPtr> _allWindowHandles;
 
 
-        public ArrayList AllWindowCaptions {
-            get { return allWindowCaptions; }
-            set { allWindowCaptions = value; }
+        public ICollection<string> AllWindowCaptions {
+            get { return _allWindowCaptions; }
         }
 
-        public ArrayList AllWindowHandles {
-            get { return allWindowHandles; }
-            set { allWindowHandles = value; }
+        public ICollection<IntPtr> AllWindowHandles {
+            get { return _allWindowHandles; }
         }
 
 
         public void FindAllWindows(string parentWindowCaption) {
-            allWindowCaptions = new ArrayList();
-            allWindowHandles = new ArrayList();
+            _allWindowCaptions = new Collection<string>();
+            _allWindowHandles = new Collection<IntPtr>();
             IntPtr windowHandle = Win32Declares.WindowHandles.FindWindow(null, parentWindowCaption);
             if (parentWindowCaption == null)
                 windowHandle = IntPtr.Zero;
@@ -38,8 +37,8 @@ namespace Xpand.Utils.Automation {
             var sb = new StringBuilder(length + 1);
             Win32Declares.Window.GetWindowText(hwnd, sb, sb.Capacity);
             string value = sb.ToString();
-            allWindowCaptions.Add(value);
-            allWindowHandles.Add(hwnd);
+            _allWindowCaptions.Add(value);
+            _allWindowHandles.Add(hwnd);
             return 1;
         }
 
