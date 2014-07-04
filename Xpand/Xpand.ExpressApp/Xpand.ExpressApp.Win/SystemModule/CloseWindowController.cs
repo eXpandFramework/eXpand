@@ -37,35 +37,48 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.TemplateChanged += FrameOnTemplateChanged;
+            Frame.TemplateViewChanged+=FrameOnTemplateViewChanged;
             Frame.Disposing += FrameOnDisposing;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
             Frame.Disposing -= FrameOnDisposing;
             Frame.TemplateChanged -= FrameOnTemplateChanged;
             Frame.GetController<WinModificationsController>().SaveAndCloseAction.Execute -= SaveAndCloseActionOnExecute;
         }
 
+        private void FrameOnTemplateViewChanged(object sender, EventArgs eventArgs){
+            var form = Frame.Template as XtraForm;
+            if (form!=null){
+                form.FormClosing -= FormOnFormClosing;
+                form.Closing -= OnClosing;
+                var handledEventArgs = new HandledEventArgs();
+                OnCanClose(handledEventArgs);
+                if (handledEventArgs.Handled){
+                    form.FormClosing += FormOnFormClosing;
+                    form.Closing += OnClosing;
+                }
+            }
+        }
+
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
             var mainForm = Frame.Template as MainForm;
             if (mainForm != null){
+                mainForm.Closing -= MainFormOnClosing;
                 mainForm.Closing += MainFormOnClosing;
                 mainForm.Shown += (o, eventArgs) => { MainFormClosing = false; };
             }
-            var handledEventArgs = new HandledEventArgs();
-            OnCanClose(handledEventArgs);
-            if (handledEventArgs.Handled) {                
-                var form = Frame.Template as XtraForm;
-                if (form != null) {
-                    Frame.GetController<WinModificationsController>().SaveAndCloseAction.Execute += SaveAndCloseActionOnExecute;
-                    Application.LoggingOff += ApplicationOnLoggingOff;
-                    Application.LoggedOff += ApplicationOnLoggedOff;
-                    form.FormClosing += FormOnFormClosing;
-                    form.Closing += OnClosing;
-                    var editModelAction = Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().EditModelAction;
-                    editModelAction.Executing += (o, eventArgs) => _editing = true;
-                    editModelAction.ExecuteCompleted += (o, eventArgs) => _editing = false;
-                }
+            
+            var form = Frame.Template as XtraForm;
+            if (form != null) {
+                Frame.GetController<WinModificationsController>().SaveAndCloseAction.Execute += SaveAndCloseActionOnExecute;
+                Application.LoggingOff += ApplicationOnLoggingOff;
+                Application.LoggedOff += ApplicationOnLoggedOff;
+                    
+                var editModelAction = Frame.GetController<DevExpress.ExpressApp.Win.SystemModule.EditModelController>().EditModelAction;
+                editModelAction.Executing += (o, eventArgs) => _editing = true;
+                editModelAction.ExecuteCompleted += (o, eventArgs) => _editing = false;
             }
         }
 
