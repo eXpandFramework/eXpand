@@ -2,6 +2,8 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.XtraEditors;
 using Xpand.Persistent.Base.General;
@@ -41,6 +43,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing -= FrameOnDisposing;
             Frame.TemplateChanged -= FrameOnTemplateChanged;
+            Frame.GetController<WinModificationsController>().SaveAndCloseAction.Execute -= SaveAndCloseActionOnExecute;
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
@@ -51,9 +54,10 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             }
             var handledEventArgs = new HandledEventArgs();
             OnCanClose(handledEventArgs);
-            if (handledEventArgs.Handled) {
+            if (handledEventArgs.Handled) {                
                 var form = Frame.Template as XtraForm;
                 if (form != null) {
+                    Frame.GetController<WinModificationsController>().SaveAndCloseAction.Execute += SaveAndCloseActionOnExecute;
                     Application.LoggingOff += ApplicationOnLoggingOff;
                     Application.LoggedOff += ApplicationOnLoggedOff;
                     form.FormClosing += FormOnFormClosing;
@@ -63,6 +67,10 @@ namespace Xpand.ExpressApp.Win.SystemModule{
                     editModelAction.ExecuteCompleted += (o, eventArgs) => _editing = false;
                 }
             }
+        }
+
+        private void SaveAndCloseActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
+            if (Frame != null) ((XtraForm) Frame.Template).Close();
         }
 
         private void MainFormOnClosing(object sender, CancelEventArgs cancelEventArgs){
