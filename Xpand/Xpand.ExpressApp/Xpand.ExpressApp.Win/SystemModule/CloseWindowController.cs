@@ -106,18 +106,20 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
             if (!_editing && !_isLoggingOff) {
-                if (Frame.View.ObjectSpace.IsModified){
-                    var confirmationResult = Frame.Application.AskConfirmation(ConfirmationType.NeedSaveChanges);
-                    if (confirmationResult==ConfirmationResult.Cancel)
-                        return;
-                    if (confirmationResult==ConfirmationResult.Yes)
-                        Frame.View.ObjectSpace.CommitChanges();
-                    else if (confirmationResult==ConfirmationResult.No)
-                        Frame.View.ObjectSpace.RollbackSilent();
+                if (Frame.View!=null){
+                    if (Frame.View.ObjectSpace.IsModified){
+                        var confirmationResult = Frame.Application.AskConfirmation(ConfirmationType.NeedSaveChanges);
+                        if (confirmationResult == ConfirmationResult.Cancel)
+                            return;
+                        if (confirmationResult == ConfirmationResult.Yes)
+                            Frame.View.ObjectSpace.CommitChanges();
+                        else if (confirmationResult == ConfirmationResult.No)
+                            Frame.View.ObjectSpace.RollbackSilent();
+                    }
+                    e.Cancel = e.CloseReason == CloseReason.UserClosing;
+                    if (e.Cancel)
+                        OnFormClosing(sender, e);
                 }
-                e.Cancel =  e.CloseReason == CloseReason.UserClosing;
-                if (e.Cancel)
-                    OnFormClosing(sender,e);
             }
         }
     }
