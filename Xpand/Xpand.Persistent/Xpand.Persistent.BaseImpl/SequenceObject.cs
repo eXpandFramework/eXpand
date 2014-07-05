@@ -9,20 +9,20 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.Persistent.BaseImpl {
 
     public class SequenceObject : XPBaseObject, ISequenceObject {
-        private string typeName;
-        private long nextSequence;
+        private string _typeName;
+        private long _nextSequence;
         public SequenceObject(Session session)
             : base(session) {
         }
         [Key]
         [Size(1024)]
         public string TypeName {
-            get { return typeName; }
-            set { SetPropertyValue("TypeName", ref typeName, value); }
+            get { return _typeName; }
+            set { SetPropertyValue("TypeName", ref _typeName, value); }
         }
         public long NextSequence {
-            get { return nextSequence; }
-            set { SetPropertyValue("NextSequence", ref nextSequence, value); }
+            get { return _nextSequence; }
+            set { SetPropertyValue("NextSequence", ref _nextSequence, value); }
         }
 
         IList<ISequenceReleasedObject> ISequenceObject.SequenceReleasedObjects {
