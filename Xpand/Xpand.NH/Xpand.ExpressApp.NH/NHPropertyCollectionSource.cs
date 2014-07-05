@@ -17,6 +17,8 @@ namespace Xpand.ExpressApp.NH
 
         public override void Add(object obj)
         {
+            if (!objectSpace.Contains(obj))
+                System.Diagnostics.Debugger.Break();
             base.Add(obj);
             if (MemberInfo.AssociatedMemberInfo != null)
             {

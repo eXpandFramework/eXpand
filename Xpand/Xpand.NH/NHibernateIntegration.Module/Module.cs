@@ -21,6 +21,7 @@ using TestDataLayer.Maps;
 using Xpand.ExpressApp.NH;
 using Xpand.ExpressApp.NH.Core;
 using Xpand.ExpressApp.NH.BaseImpl;
+using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.Module
 {
@@ -35,6 +36,7 @@ namespace Xpand.ExpressApp.Module
             AdditionalExportedTypes.Add(typeof(User));
             AdditionalExportedTypes.Add(typeof(Role));
             AdditionalExportedTypes.Add(typeof(TypePermission));
+            AdditionalExportedTypes.Add(typeof(ObjectPermission));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB)
         {
@@ -79,8 +81,10 @@ namespace Xpand.ExpressApp.Module
             //var persistenceManager = new PersistenceManager(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             //persistenceManager.AddMappingAssembly(typeof(PersonMap).Assembly);
 
-            var persistenceManager = (IPersistenceManager)new RemotePersistenceManagerProxy("http://localhost:8733/Design_Time_Addresses/NHibernateService/Service1").GetTransparentProxy();
-            e.ObjectSpaceProvider = new NH.NHObjectSpaceProvider(XafTypesInfo.Instance, persistenceManager);
+            var persistenceManager = (IPersistenceManager)new RemotePersistenceManagerProxy(
+                "http://localhost:8733/Design_Time_Addresses/NHibernateService/Service1").GetTransparentProxy();
+            e.ObjectSpaceProvider = new NH.NHObjectSpaceProvider(XafTypesInfo.Instance, persistenceManager,
+                Application.Security as ISelectDataSecurityProvider);
         }
     }
 }

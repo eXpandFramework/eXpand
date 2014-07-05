@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Xpand.ExpressApp.NH.Core;
 
@@ -8,6 +9,7 @@ namespace Xpand.ExpressApp.NH.Core
     public class TypeMetadata : ITypeMetadata
     {
 
+        private List<IPropertyMetadata> properties;
 
         public Type Type
         {
@@ -33,10 +35,22 @@ namespace Xpand.ExpressApp.NH.Core
         }
 
         [DataMember]
-        public string KeyPropertyName
+        public IPropertyMetadata KeyProperty
         {
             get;
             set;
+        }
+
+        [DataMember]
+        public IList<IPropertyMetadata> Properties
+        {
+            get
+            {
+                if (properties == null)
+                    properties = new List<IPropertyMetadata>();
+
+                return properties;
+            }
         }
     }
 }

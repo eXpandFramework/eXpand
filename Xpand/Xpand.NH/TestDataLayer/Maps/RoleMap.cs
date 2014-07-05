@@ -16,7 +16,7 @@ namespace TestDataLayer.Maps
             Map(x => x.IsAdministrative);
             Map(x => x.CanEditModel);
             HasManyToMany(x => x.Users).Cascade.All().Table("UserToRole").Inverse().Not.LazyLoad();
-            HasMany(x => x.TypePermissions).Cascade.All().Not.LazyLoad();
+            HasMany(x => x.TypePermissions).KeyColumn("Role_id").Cascade.All().Not.LazyLoad();
             Not.LazyLoad();
         }
 

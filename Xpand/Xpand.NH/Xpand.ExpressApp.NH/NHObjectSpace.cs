@@ -1,12 +1,15 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -22,8 +25,13 @@ namespace Xpand.ExpressApp.NH
         private readonly IPersistenceManager persistenceManager;
         private readonly IEntityStore entityStore;
         private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
+        private readonly ISelectDataSecurity selectDataSecurity;
 
-        internal NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, Dictionary<object, ObjectSpaceInstanceInfo> instances)
+        internal NHObjectSpace(ITypesInfo typesInfo,
+            IEntityStore entityStore,
+            IPersistenceManager persistenceManager,
+            Dictionary<object, ObjectSpaceInstanceInfo> instances,
+            ISelectDataSecurity selectDataSecurity)
             : base(typesInfo, entityStore)
         {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
@@ -32,11 +40,15 @@ namespace Xpand.ExpressApp.NH
             this.persistenceManager = persistenceManager;
             this.entityStore = entityStore;
             this.instances = instances;
+            this.selectDataSecurity = selectDataSecurity;
         }
 
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager) :
-            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>()) { }
-        
+            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), null) { }
+
+        public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, ISelectDataSecurity selectDataSecurity) :
+            this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), selectDataSecurity) { }
+
         public void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             DoIfNHCollection(collection, nhc => nhc.Criteria = criteria);
@@ -146,13 +158,10 @@ namespace Xpand.ExpressApp.NH
 
         public int GetObjectsCount(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
-            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
-            sb.Insert(0, string.Format(CultureInfo.InvariantCulture, "Select Count({0})", GetKeyPropertyName(objectType)));
-            var result = persistenceManager.GetObjects(sb.ToString());
-            if (result.Count == 1)
-                return Convert.ToInt32(result[0]);
-            else
-                return 0;
+            Guard.ArgumentNotNull(objectType, "objectType");
+
+            return persistenceManager.GetObjectsCount(objectType.AssemblyQualifiedName, criteria.ToString());
+
 
         }
 
@@ -250,12 +259,18 @@ namespace Xpand.ExpressApp.NH
 
         public System.Collections.IList ModifiedObjects
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return instances.Values
+                    .Where(ii => ii.State == InstanceState.Changed || ii.State == InstanceState.New)
+                    .Select(ii => ii.Instance).
+                    ToList();
+            }
         }
 
         public DevExpress.Data.Filtering.CriteriaOperator ParseCriteria(string criteria)
         {
-            throw new NotImplementedException();
+            return CriteriaOperator.TryParse(criteria);
         }
 
         public void ReloadCollection(object collection)
@@ -353,47 +368,62 @@ namespace Xpand.ExpressApp.NH
             return new NHCollection(this, objectType, criteria, sorting, inTransaction);
         }
 
-        internal IEnumerable GetObjects(Type objectType, IList<string> memberNames, CriteriaOperator criteria, List<SortProperty> sorting, int topReturnedObjectsCount)
+
+        private List<CriteriaOperator> GetSecurityCriteria(Type type)
         {
-            StringBuilder sb = CreateFromAndWhereHql(objectType, criteria);
-
-            if (sorting != null && sorting.Count > 0)
-                sb.AppendFormat(CultureInfo.InvariantCulture, "order by {0}\r\n", string.Join(",", sorting));
-
-            var objects = persistenceManager.GetObjects(sb.ToString());
-
-            for (int i = 0; i < objects.Count; i++)
+            if (selectDataSecurity != null)
             {
-                object existingInstance = FindInstanceByKey(GetKeyValue(objects[i]));
-                if (existingInstance != null)
-                    objects[i] = existingInstance;
-                else
-                    AddObject(objects[i], InstanceState.Unchanged);
+
+                IList<string> criteria = selectDataSecurity.GetObjectCriteria(type);
+                if (criteria != null)
+                {
+                    return criteria.Select(c => CriteriaOperator.TryParse(c)).Where(c => !ReferenceEquals(c, null)).ToList();
+                }
+
             }
 
-            return objects;
+            return new List<CriteriaOperator>();
         }
-
-        private static StringBuilder CreateFromAndWhereHql(Type objectType, CriteriaOperator criteria)
+        internal IEnumerable GetObjects(Type objectType, IList<string> memberNames, CriteriaOperator criteria, List<SortProperty> sorting, int topReturnedObjectsCount)
         {
             Guard.ArgumentNotNull(objectType, "objectType");
 
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormat(CultureInfo.InvariantCulture, "FROM {0}\r\n", objectType.Name);
+            IList<ISortPropertyInfo> sortInfos = null;
 
-            if (!ReferenceEquals(criteria, null))
+            if (sorting != null)
             {
-                string criteriaString = new NHWhereGenerator().Process(criteria);
-                if (!string.IsNullOrWhiteSpace(criteriaString))
-                    sb.AppendFormat(CultureInfo.InvariantCulture, "Where {0}\r\n", criteriaString);
+                sortInfos = sorting.Select(sp => new SortPropertyInfo { PropertyName = sp.PropertyName, Descending = sp.Direction == SortingDirection.Descending })
+                    .Cast<ISortPropertyInfo>().ToList();
             }
-            return sb;
+
+
+            var secureCriteria = GetSecurityCriteria(objectType);
+            if (!ReferenceEquals(null, criteria))
+                secureCriteria.Add(criteria);
+
+            string criteriaString = secureCriteria.Count > 0 ? CriteriaOperator.And(secureCriteria).ToString() : null;
+
+            var objects = persistenceManager.GetObjects(objectType.AssemblyQualifiedName, criteriaString,
+                sortInfos, topReturnedObjectsCount);
+
+            var keyInstanceCache = instances.Values.Where(ii => objectType.IsInstanceOfType(ii.Instance)).ToDictionary(ii => GetKeyValue(ii.Instance));
+            for (int i = 0; i < objects.Count; i++)
+            {
+                var obj = objects[i];
+                ObjectSpaceInstanceInfo existingInstanceInfo;
+                keyInstanceCache.TryGetValue(GetKeyValue(obj), out existingInstanceInfo);
+                if (existingInstanceInfo != null)
+                    objects[i] = existingInstanceInfo.Instance;
+                else
+                    AddObject(obj, InstanceState.Unchanged);
+            }
+            return objects;
         }
 
-        private object FindInstanceByKey(object key)
+        private object FindInstanceByKey(Type objectType, object key)
         {
             return instances.Values
-                .Where(i => object.Equals(GetKeyValue(i.Instance), key))
+                .Where(i => i.Instance.GetType() == objectType && object.Equals(GetKeyValue(i.Instance), key))
                 .Select(i => i.Instance)
                 .FirstOrDefault();
         }
@@ -415,6 +445,12 @@ namespace Xpand.ExpressApp.NH
                     .OfType<IEnumerable>()
                     .Cast<IEnumerable<object>>()
                     .SelectMany(e => e), state);
+
+            AddObjects(
+                typeInfo.Members.Where(m => m.IsAssociation && !m.IsList)
+                    .Select(m => m.GetValue(instance))
+                    .Where(v => v != null), state);
+
         }
         protected override object CreateObjectCore(Type type)
         {
@@ -442,7 +478,7 @@ namespace Xpand.ExpressApp.NH
             if (result != null)
                 return result;
 
-            result = persistenceManager.GetObjectByKey(objectFromDifferentObjectSpace.GetType(), key);
+            result = GetObjectByKey(objectFromDifferentObjectSpace.GetType(), key);
 
             if (result != null)
                 AddObject(result, InstanceState.Unchanged);
@@ -479,10 +515,19 @@ namespace Xpand.ExpressApp.NH
                 DeleteObject(obj);
         }
 
+
         private void RefreshObject(object oldObject, object newObject)
+        {
+            RefreshObject(oldObject, newObject, new List<object>());
+        }
+
+        private void RefreshObject(object oldObject, object newObject, List<object> refreshedInstances)
         {
             Guard.ArgumentNotNull(oldObject, "oldObject");
             Guard.ArgumentNotNull(newObject, "newObject");
+
+            if (refreshedInstances.Any(ri => ReferenceEquals(ri, oldObject))) return;
+            refreshedInstances.Add(oldObject);
 
             if (oldObject.GetType() != newObject.GetType())
                 throw new ArgumentException("Objects must have the same type.", "newObject");
@@ -496,9 +541,10 @@ namespace Xpand.ExpressApp.NH
             {
                 object newValue = member.GetValue(newObject);
                 object oldValue = member.GetValue(oldObject);
-                if (newValue != null && oldValue != null && instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
+                if (newValue != null && oldValue != null &&
+                    instances.ContainsKey(oldValue) && object.Equals(GetKeyValue(oldValue), GetKeyValue(newValue)))
                 {
-                    RefreshObject(oldValue, newValue);
+                    RefreshObject(oldValue, newValue, refreshedInstances);
                 }
                 else
                     member.SetValue(oldObject, newValue);
@@ -509,8 +555,14 @@ namespace Xpand.ExpressApp.NH
         {
             base.SetModified(obj, args);
 
-            if (obj != null)
+            if (obj != null && IsPersistent(obj))
                 GetInstanceInfoSafe(obj).State = InstanceState.Changed;
+        }
+
+        private bool IsPersistent(object obj)
+        {
+            var typeInfo = TypesInfo.FindTypeInfo(obj.GetType());
+            return typeInfo != null && typeInfo.IsPersistent;
         }
 
         public override String GetKeyValueAsString(Object obj)
@@ -546,6 +598,12 @@ namespace Xpand.ExpressApp.NH
                 Int64.TryParse(objectKeyString, out val);
                 result = val;
             }
+            else if (keyPropertyType == typeof(decimal))
+            {
+                decimal val;
+                decimal.TryParse(objectKeyString, out val);
+                result = val;
+            }
             else if (keyPropertyType == typeof(Guid))
             {
                 result = new Guid(objectKeyString);
@@ -561,6 +619,23 @@ namespace Xpand.ExpressApp.NH
             return result;
         }
 
-        
+        public override object GetObjectByKey(Type type, object key)
+        {
+
+            if (key == null)
+                return null;
+
+            //TODO: Check Object Permissions
+            object result = FindInstanceByKey(type, key);
+
+            if (result != null)
+                return result;
+
+            result = persistenceManager.GetObjectByKey(type, key);
+            if (result != null)
+                AddObject(result, InstanceState.Unchanged);
+            
+            return result;
+        }
     }
 }

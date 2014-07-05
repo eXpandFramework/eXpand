@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.Base.Security;
 using System;
 using System.Collections.Generic;

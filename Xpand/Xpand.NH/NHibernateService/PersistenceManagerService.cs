@@ -6,7 +6,7 @@ using Xpand.ExpressApp.NH.DataLayer;
 
 namespace Xpand.ExpressApp.NH.Service
 {
-    [XpandDataContractSerializer]
+    [XpandDataContractSerializer(true)]
     public class PersistenceManagerService : IPersistenceManagerService
     {
         private PersistenceManager persistenceManager;
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.NH.Service
             {
                 if (persistenceManager == null)
                 {
-                    persistenceManager = new PersistenceManager(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                    persistenceManager = CreatePersistenceManager();
                     foreach (var type in ServiceTypesHelper.MappingTypes)
                     {
                         persistenceManager.AddMappingType(type);
@@ -28,24 +28,45 @@ namespace Xpand.ExpressApp.NH.Service
                 return persistenceManager;
             }
         }
-        public System.Collections.IList GetObjects(string hql)
+
+        protected virtual PersistenceManager CreatePersistenceManager()
         {
-            return PersistenceManager.GetObjects(hql);
+            return new PersistenceManager(ConnectionString);
         }
 
+        protected string ConnectionString
+        {
+            get { return ConfigurationManager.ConnectionStrings[ConnectionStringName].ConnectionString; }
+        }
+
+
+        protected virtual string ConnectionStringName
+        {
+            get { return "ConnectionString"; }
+        }
         public System.Collections.IList UpdateObjects(System.Collections.IList updateList, System.Collections.IList deleteList)
         {
             return PersistenceManager.UpdateObjects(updateList, deleteList);
         }
 
-        public object GetObjectByKey(Type type, object key)
+        public virtual object GetObjectByKey(Type type, object key)
         {
             return PersistenceManager.GetObjectByKey(type, key);
         }
 
-        public IList<ITypeMetadata> GetMetadata()
+        public virtual IList<ITypeMetadata> GetMetadata()
         {
             return PersistenceManager.GetMetadata();
+        }
+
+        public virtual System.Collections.IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
+        {
+            return PersistenceManager.GetObjects(typeName, criteria, sorting, topReturnedObjectsCount);
+        }
+
+        public int GetObjectsCount(string typeName, string criteria)
+        {
+            return PersistenceManager.GetObjectsCount(typeName, criteria);
         }
     }
 }

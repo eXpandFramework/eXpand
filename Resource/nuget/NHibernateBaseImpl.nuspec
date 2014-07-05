@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>eXpandNHibernateBaseImpl</id>
+    <version>14.1.4.1</version>
+    <title>DevExpress eXpandFramework NHibernate WCF service library</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>XAF NHibernate WCF Service/ eXpandFramework</description>
+    <summary>XAF NHibernate WCF Service/ eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.NH.BaseImpl.dll" target="lib\net40\Xpand.ExpressApp.NH.BaseImpl.dll" />
+  </files>
+</package>

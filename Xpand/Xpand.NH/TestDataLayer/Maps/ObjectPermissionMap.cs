@@ -7,20 +7,18 @@ using Xpand.ExpressApp.NH.BaseImpl;
 
 namespace TestDataLayer.Maps
 {
-    public class TypePermissionMap : ClassMap<TypePermission>
+    public class ObjectPermissionMap : ClassMap<ObjectPermission>
     {
-        public TypePermissionMap()
+        public ObjectPermissionMap()
         {
-            Id(x => x.Id);
-            Map(x => x.AllowCreate);
+            Id(x => x.Id).GeneratedBy.Guid().UnsavedValue(Guid.Empty);
+            Map(x => x.Criteria);
             Map(x => x.AllowDelete);
             Map(x => x.AllowNavigate);
             Map(x => x.AllowRead);
             Map(x => x.AllowWrite);
-            Map(x => x.TypeName);
-            HasMany(x => x.ObjectPermissions).Not.LazyLoad();
-            References(x => x.Owner).Column("Role_id").Not.LazyLoad();
-            Not.LazyLoad();
+            References(x => x.Owner);
+            Not.LazyLoad();            
         }
     }
 }

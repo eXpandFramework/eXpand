@@ -8,9 +8,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace Xpand.ExpressApp.NH
+namespace Xpand.ExpressApp.NH.DataLayer
 {
-    public class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor
+    class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor
     {
         const string nullString = "null";
 

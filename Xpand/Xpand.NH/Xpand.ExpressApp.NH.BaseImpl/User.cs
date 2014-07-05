@@ -12,9 +12,13 @@ using System.Text;
 namespace Xpand.ExpressApp.NH.BaseImpl
 {
     [DataContract]
-    [DefaultClassOptions]
     public class User : ISecurityUser, ISecurityUserWithRoles, IAuthenticationStandardUser, IOperationPermissionProvider
     {
+
+        public User()
+        {
+            IsActive = true;
+        }
 
         [DataMember]
         public Guid Id
@@ -58,6 +62,8 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         }
 
         [DataMember]
+        [VisibleInDetailView(false)]
+        [VisibleInListView(false)]
         public string StoredPassword
         {
             get;

@@ -10,6 +10,7 @@
     <AssemblyName>Xpand.ExpressApp.NH.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +29,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,7 +46,12 @@
   <ItemGroup>
     <Compile Include="IPersistenceManager.cs" />
     <Compile Include="IPersistenceManagerProvider.cs" />
+    <Compile Include="IPropertyMetadata.cs" />
+    <Compile Include="ISortPropertyInfo.cs" />
     <Compile Include="ITypeMetadata.cs" />
+    <Compile Include="PropertyMetadata.cs" />
+    <Compile Include="RelationType.cs" />
+    <Compile Include="SortPropertyInfo.cs" />
     <Compile Include="TypeMetadata.cs" />
     <Compile Include="XpandDataContractResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

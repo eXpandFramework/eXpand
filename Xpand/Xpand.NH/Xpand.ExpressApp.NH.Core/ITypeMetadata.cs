@@ -8,6 +8,7 @@ namespace Xpand.ExpressApp.NH.Core
     public interface ITypeMetadata
     {
         Type Type { get; }
-        string KeyPropertyName { get; }
+        IPropertyMetadata KeyProperty { get; }
+        IList<IPropertyMetadata> Properties { get; }
     }
 }
