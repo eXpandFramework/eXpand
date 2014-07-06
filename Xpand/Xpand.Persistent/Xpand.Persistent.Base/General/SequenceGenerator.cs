@@ -270,7 +270,6 @@ namespace Xpand.Persistent.Base.General {
         public void InitializeSequenceGenerator() {
             if (_xpandModuleBase==null)
                 return;
-            AddToAdditionalExportedTypes(new[] { SequenceObjectType.FullName });
             try {
                 var cancelEventArgs = new CancelEventArgs();
                 _xpandModuleBase.OnInitSeqGenerator(cancelEventArgs);
@@ -298,6 +297,7 @@ namespace Xpand.Persistent.Base.General {
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;
+                    AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
                 }
             }
         }
