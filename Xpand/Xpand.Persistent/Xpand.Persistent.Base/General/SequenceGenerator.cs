@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -263,7 +262,7 @@ namespace Xpand.Persistent.Base.General {
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Type SequenceObjectType {
-            get { return _xpandModuleBase.SequenceObjectType ?? _xpandModuleBase.Application.Modules.OfType<ISequenceGeneratorUser>().Cast<ModuleBase>().First().AdditionalExportedTypes.First(type => type.FullName == "Xpand.Persistent.BaseImpl.SequenceObject"); }
+            get { return _xpandModuleBase.SequenceObjectType ; }
             set { _xpandModuleBase.SequenceObjectType = value; }
         }
 
@@ -275,6 +274,8 @@ namespace Xpand.Persistent.Base.General {
                 _xpandModuleBase.OnInitSeqGenerator(cancelEventArgs);
                 if (cancelEventArgs.Cancel)
                     return;
+                if (SequenceObjectType == null)
+                    SequenceObjectType = _xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
@@ -288,16 +289,11 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void AddToAdditionalExportedTypes(string[] strings) {
-            _xpandModuleBase.AddToAdditionalExportedTypes(strings);
-        }
-
         public void Attach(XpandModuleBase xpandModuleBase) {
             if (!xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;
-                    AddToAdditionalExportedTypes(new[] { "Xpand.Persistent.BaseImpl.SequenceObject" });
                 }
             }
         }
