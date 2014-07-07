@@ -104,9 +104,6 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\RememberMeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Permissions\OverallCustomizationAllowedPermission.cs" />
     <Compile Include="XpandSecurityModule.cs">
       <SubType>Component</SubType>
