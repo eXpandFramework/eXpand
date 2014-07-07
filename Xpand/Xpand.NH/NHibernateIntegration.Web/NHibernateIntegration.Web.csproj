@@ -12,11 +12,9 @@
     <RootNamespace>Xpand.ExpressApp.Web</RootNamespace>
     <AssemblyName>NHibernateIntegration.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -50,214 +48,216 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Charts.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Charts.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.CodeParser.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.CodeParser.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Data.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DataAccess.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.DataAccess.14.1.4.0\lib\net40\DevExpress.DataAccess.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v14.1.UI, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DataAccess.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.DataAccess.UI.14.1.4.0\lib\net40\DevExpress.DataAccess.v14.1.UI.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Design.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Design.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.Design.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Design.ModelEditor.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Design.ModelEditor.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.ExpressApp.Design.ModelEditor.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Design.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Design.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.ExpressApp.Design.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.DesignCore.v14.1, Version=14.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.DesignCore.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.ExpressApp.DesignCore.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Images.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Images.14.1.4.0\lib\net40\DevExpress.ExpressApp.Images.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Reports.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Reports.14.1.4.0\lib\net40\DevExpress.ExpressApp.Reports.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ReportsV2.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.ReportsV2.14.1.4.0\lib\net40\DevExpress.ExpressApp.ReportsV2.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Security.14.1.4.0\lib\net40\DevExpress.ExpressApp.Security.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.14.1.4.0\lib\net40\DevExpress.ExpressApp.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Validation.14.1.4.0\lib\net40\DevExpress.ExpressApp.Validation.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Web.14.1.4.0\lib\net40\DevExpress.ExpressApp.Web.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.Design.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Win.Design.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.ExpressApp.Win.Design.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.ExpressApp.Xpo.14.1.4.0\lib\net40\DevExpress.ExpressApp.Xpo.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Images.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Images.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Images.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Office.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Persistent.Base.14.1.4.0\lib\net40\DevExpress.Persistent.Base.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Persistent.BaseImpl.14.1.4.0\lib\net40\DevExpress.Persistent.BaseImpl.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.PivotGrid.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.PivotGrid.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Printing.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.RichEdit.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Sparkline.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Sparkline.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Spreadsheet.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Spreadsheet.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Spreadsheet.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Core.14.1.4.0\lib\net40\DevExpress.Utils.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.1.UI, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Utils.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Utils.UI.14.1.4.0\lib\net40\DevExpress.Utils.v14.1.UI.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxThemes.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxThemes.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Web.ASPxThemes.14.1.4.0\lib\net40\DevExpress.Web.ASPxThemes.v14.1.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.ASPxTreeList.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Web.ASPxTreeList.14.1.4.0\lib\net40\DevExpress.Web.ASPxTreeList.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Web.14.1.4.0\lib\net40\DevExpress.Web.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Xpo.14.1.4.0\lib\net40\DevExpress.Xpo.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraBars.14.1.4.0\lib\net40\DevExpress.XtraBars.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraCharts.14.1.4.0\lib\net40\DevExpress.XtraCharts.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v14.1.UI, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraCharts.14.1.4.0\lib\net40\DevExpress.XtraCharts.v14.1.UI.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraCharts.14.1.4.0\lib\net40\DevExpress.XtraCharts.v14.1.Wizard.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraEditors.14.1.4.0\lib\net40\DevExpress.XtraEditors.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraGauges.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraGauges.Core.14.1.4.0\lib\net40\DevExpress.XtraGauges.v14.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraGrid.14.1.4.0\lib\net40\DevExpress.XtraGrid.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraLayout.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraLayout.14.1.4.0\lib\net40\DevExpress.XtraLayout.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraNavBar.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraBars.14.1.4.0\lib\net40\DevExpress.XtraNavBar.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPivotGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraPivotGrid.14.1.4.0\lib\net40\DevExpress.XtraPivotGrid.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPrinting.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraPrinting.14.1.4.0\lib\net40\DevExpress.XtraPrinting.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v14.1.Design, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraPrinting.v14.1.Design">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.XtraPrinting.v14.1.Design.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraReports.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraReports.14.1.4.0\lib\net40\DevExpress.XtraReports.v14.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v14.1.Extensions">
       <HintPath>..\packages\DevExpress.XtraReports.14.1.4.0\lib\net40\DevExpress.XtraReports.v14.1.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraRichEdit.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraRichEdit.14.1.4.0\lib\net40\DevExpress.XtraRichEdit.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v14.1.Extensions, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraRichEdit.v14.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraRichEdit.14.1.4.0\lib\net40\DevExpress.XtraRichEdit.v14.1.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v14.1.Design, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Design">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.Design.14.1.4.0\lib\net40\DevExpress.XtraScheduler.v14.1.Design.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraTreeList.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraTreeList.14.1.4.0\lib\net40\DevExpress.XtraTreeList.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraVerticalGrid.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraVerticalGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraVerticalGrid.14.1.4.0\lib\net40\DevExpress.XtraVerticalGrid.v14.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraWizard.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=8f2823b07f50ed12, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraWizard.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DevExpress.XtraWizard.14.1.4.0\lib\net40\DevExpress.XtraWizard.v14.1.dll</HintPath>
     </Reference>
@@ -417,8 +417,7 @@
           <IISUrl>http://localhost:49329/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
