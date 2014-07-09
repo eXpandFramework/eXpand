@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandLogic</id>
-    <version>14.1.4.6</version>
+    <version>14.1.4.7</version>
     <title>DevExpress eXpandFramework Logic Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#logic</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="14.1.4.6" />
-      <dependency id="eXpandSecurity" version="14.1.4.6" />
+      <dependency id="eXpandLib" version="14.1.4.7" />
+      <dependency id="eXpandSecurity" version="14.1.4.7" />
     </dependencies>
   </metadata>
   <files>
