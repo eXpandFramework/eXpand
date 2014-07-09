@@ -38,6 +38,9 @@ namespace FixReferences {
             }
             UpdateReferences(document, directoryName, file);
             UpdateConfig(file);
+            if (SyncConfigurations(document))
+                DocumentHelper.Save(document, file);
+
             var licElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName == "EmbeddedResource" && element.Attribute("Include").Value == @"Properties\licenses.licx");
             if (licElement != null) {
                 licElement.Remove();
@@ -48,6 +51,31 @@ namespace FixReferences {
                 File.Delete(combine);
 
             UpdateVs2010Compatibility(document, file);
+        }
+
+        private bool SyncConfigurations(XDocument document){
+            var debugOutputPath = GetOutputPath(document,"Debug").Value;
+            if (debugOutputPath.ToLower().TrimEnd('\\').EndsWith("xpand.dll")){
+                var releaseOutputPath = GetOutputPath(document,"Release");
+                if (releaseOutputPath.Value+"" != debugOutputPath){
+                    releaseOutputPath.Value = debugOutputPath;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private XElement GetOutputPath(XDocument document, string configuration){
+            return document.Descendants().Where(element => element.Name.LocalName=="OutputPath").First(element =>{
+                if (element.Parent != null){
+                    var attribute = element.Parent.Attribute("Condition");
+                    if (attribute != null){
+                        var value = attribute.Value+"";
+                        return new[]{"Configuration",configuration}.All(value.Contains);
+                    }
+                }
+                return false;
+            });
         }
 
         void UpdateVs2010Compatibility(XDocument document, string file) {

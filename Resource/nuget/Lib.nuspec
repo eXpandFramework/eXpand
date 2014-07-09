@@ -14,7 +14,7 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <group targetFramework=".NETFramework4.0" version="14.1.4.6">
+      <group targetFramework=".NETFramework4.0">
         <dependency id="fasterflect" version="2.1.3" />
       </group>
     </dependencies>
