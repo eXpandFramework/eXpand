@@ -229,15 +229,15 @@ namespace Xpand.ExpressApp.ViewVariants {
             return newVariantNode;
         }
         IModelVariant CreateVariantNode(string variantCaption,string viewCaption, IModelVariants modelVariants) {
-            var id = FormatListViewCaption(viewCaption);
+            var id = GetId(viewCaption);
             var modelView = ((IModelListView) Application.Model.Views[id]);
             var modelListView = modelView ?? (IModelListView)(((ModelNode)View.Model).Clone(id));
             modelListView.Caption = viewCaption;
             return CreateVariantNode(variantCaption, modelVariants, modelListView, variantCaption);
         }
 
-        private  string FormatListViewCaption(string caption){
-            return View.Model.ModelClass.TypeInfo.Name +"_ListView_"+caption;
+        private  string GetId(string caption){
+            return View.Model.ModelClass.TypeInfo.Name +"_ListView_"+caption.Replace(" ","");
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
