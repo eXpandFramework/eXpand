@@ -104,11 +104,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             if (!handledEventArgs.Handled ){
                 handledEventArgs.Handled = Frame.Context == TemplateContext.View;
                 if (handledEventArgs.Handled){
+                    handledEventArgs.Handled = false;
                     var formCaching = Frame.View.Model as IModelDetailViewFormCaching;
-                    if (formCaching != null){
-                        handledEventArgs.Handled = formCaching.FormCaching;
-                        if (formCaching.FormCaching)
-                            _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
+                    if (formCaching != null && formCaching.FormCaching){
+                        handledEventArgs.Handled = true;
+                        _closeWindowController.FormClosing += CloseWindowControllerOnFormClosing;
                     }
                 }
             }
