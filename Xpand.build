@@ -45,7 +45,7 @@
     <DocsSiteName>documentation.expandframework.com</DocsSiteName>
     <XpandDocsSitePath>C:\inetpub\vhosts\$(DocsSiteName)</XpandDocsSitePath>
     <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
-	<MSBuildCommunityTasksPath>Resource\Build</MSBuildCommunityTasksPath>
+	
   </PropertyGroup>
   <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
