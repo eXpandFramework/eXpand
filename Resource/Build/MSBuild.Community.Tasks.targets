@@ -3,8 +3,8 @@
   <!-- $Id$ -->
 
   <PropertyGroup>
-    <MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">Resource\Build</MSBuildCommunityTasksPath>
-    <MSBuildCommunityTasksLib>$([MSBUILD]::Unescape($(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.dll))</MSBuildCommunityTasksLib>
+    <MSBuildCommunityTasksPath Condition="'$(MSBuildCommunityTasksPath)' == ''">$(MSBuildExtensionsPath)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksLib>MSBuild.Community.Tasks.dll</MSBuildCommunityTasksLib>
   </PropertyGroup>
 
   <UsingTask AssemblyFile="$(MSBuildCommunityTasksLib)" TaskName="MSBuild.Community.Tasks.AspNet.InstallAspNet" />
