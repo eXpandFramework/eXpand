@@ -14,7 +14,7 @@
     <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
-    <SkipErrors>false</SkipErrors>
+    <BatchCall>false</BatchCall>
   </PropertyGroup>
   <PropertyGroup>
     <!--
@@ -96,7 +96,7 @@
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(SkipErrors)" />
+    <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -110,7 +110,7 @@
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="$(XpandAddinSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(SkipErrors)" />
+    <MSBuild Projects="$(XpandAddinSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -383,8 +383,18 @@
     <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec;Resource\NuGet\XtraDashboardWeb.nuspec" Condition="$(SkipDashboard)=='true'"/>
     <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
-
-  <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
+  <Target Name="cmdTest">
+    <Exec ContinueOnError="true" Command=".\FixReferences\bin\debug\FixReferences.exe"/>
+    <MSBuild.ExtensionPack.Framework.CommandLine ContinueOnError="true" Command=".\FixReferences\bin\debug\FixReferences.exe"/>
+  </Target>
+  <Target Name="GitHubLink">
+    <Exec Command="githublink.exe $(MSBuildProjectDirectory) -u https://github.com/eXpand/eXpand -b master -l link.log -g true" WorkingDirectory="$(_third_party_assemblies)" ContinueOnError="true"></Exec>
+    <CreateItem Include="$(XpandDLLPath)\*.pdb;">
+      <Output ItemName="files" TaskParameter="Include" />
+    </CreateItem>
+    <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
+  </Target>
+  <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput" DependsOnTargets="GitHubLink">
     <MakeDir Directories="$(BuildPath)\NuGet" />
     <Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
     <CreateItem Include="Build\NuGet\*.nupkg" >

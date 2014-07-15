@@ -8,7 +8,7 @@
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>MemberLevelSecurity Module (Win) / eXpandFramework</description>
+    <description>MemberLevelSecurity Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>MemberLevelSecurity Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
@@ -21,6 +21,8 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.dll" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.pdb" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.pdb" />
     <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.pdb" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.Win.pdb" />
   </files>
 </package>

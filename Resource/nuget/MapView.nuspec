@@ -9,7 +9,7 @@
     <id>eXpandMapView</id>
     <title>DevExpress eXpandFramework MapView Module</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Google Maps integration</description>
+    <description>Google Maps integration. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Google Maps</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
@@ -19,5 +19,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.MapView.dll" target="lib\net40\Xpand.ExpressApp.MapView.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MapView.pdb" target="lib\net40\Xpand.ExpressApp.MapView.pdb" />
   </files>
 </package>

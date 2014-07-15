@@ -1,6 +1,6 @@
 call clear.bat
 echo Build Target
-%msbuild% /nologo /p:Configuration=%configuration% /fl /p:SkipErrors=true /v:m Xpand.build 
+%msbuild% /nologo /p:Configuration=%configuration% /fl /p:BatchCall=true /v:m Xpand.build 
 
 echo Installing assemblies to GAC...
 xcopy "_third_party_assemblies\GACInstaller.exe" ".\Xpand.DLL\*.*" /S /Y /H /I

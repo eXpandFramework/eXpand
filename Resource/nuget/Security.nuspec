@@ -8,8 +8,8 @@
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Security Module (Win) / eXpandFramework</description>
-    <summary>Security Module (Win) / eXpandFramework</summary>
+    <description>Security Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>Security Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
@@ -19,5 +19,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Security.dll" target="lib\net40\Xpand.ExpressApp.Security.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Security.pdb" target="lib\net40\Xpand.ExpressApp.Security.pdb" />
   </files>
 </package>

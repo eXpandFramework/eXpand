@@ -18,7 +18,7 @@
 ◦combine end user modifications with application model, 
 ◦support for multiple models at design time,
 Blogs:
-http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
+http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Model managment</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
@@ -29,5 +29,6 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Web.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Web.pdb" />
   </files>
 </package>

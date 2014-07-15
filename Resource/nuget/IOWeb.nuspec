@@ -8,7 +8,7 @@
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>IO Module (Web) / eXpandFramework</description>
+    <description>IO Module (Web) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>IO Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
@@ -20,5 +20,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.IO.Web.dll" target="lib\net40\Xpand.ExpressApp.IO.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.IO.Web.pdb" target="lib\net40\Xpand.ExpressApp.IO.Web.pdb" />
   </files>
 </package>

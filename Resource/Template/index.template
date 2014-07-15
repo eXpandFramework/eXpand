@@ -32,7 +32,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <h1>eXpand Framework</h1>
 
-<p><em>Development build ${Version}</em></p>
+<p><em>Development build ${Version} / Tested with <a href="https://documentation.devexpress.com/#Xaf/CustomDocument3206">EasyTest</a></em></p>
 
 <h2>eXpand Framework</h2>
 <b>Support XAF on facebook</b><div class="fb-like" data-href="http://www.facebook.com/DevExpress.XAF" data-send="false" data-width="450" data-show-faces="false"></div>
@@ -44,7 +44,7 @@
 
 </ul>
 
-Tip: To update Xpand version if you are using the binaries just override the old ones. For this to work you need to set the Specific Version attribute to false for all Xpand Assemblies.
+<sub><em>Tip: To <strong>debug</strong> the precompiled assemblies in VS enable Source Server support under Tools/Options/Debugging and put the related symbol in the path.</sub></em>
 <p><sub><em>Build ${Version} released on ${BuildTime}.</em></sub></p>
 <p> The most recent release is available at our <a href="http://teamcity.expandframework.com/guestLogin.html?guest=1">build server </a></p>
 <p>To get notified on new releases you may follow us on twitter <a href="https://twitter.com/eXpandFramework">@expandframework</a> or subscribe to its <a href="http://feeds.feedburner.com/expandframeworkfeed">rss feed</a>. Also condider subscribing to the <a href="http://www.expandframework.com/forum/11-news.html">news forum</p>

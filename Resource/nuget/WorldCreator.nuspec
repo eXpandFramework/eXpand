@@ -9,7 +9,7 @@
     <id>eXpandWorldCreator</id>
     <title>DevExpress eXpandFramework WorldCreator Module</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Creates dynamic persistent assemblies. The XAF user interface allows us to create an assembly without writing a single line of code. Advanced users can even use c# scripting and create new code generation templates.  
+    <description>Creates dynamic persistent assemblies. The XAF user interface allows us to create an assembly without writing a single line of code. Advanced users can even use c# scripting and create new code generation templates. To debug in VS enable Source Server support under Tools/Options/Debugging.
 Blogs:
 http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <summary>Design runtime assemblies</summary>
@@ -21,5 +21,6 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.pdb" target="lib\net40\Xpand.ExpressApp.WorldCreator.pdb" />
   </files>
 </package>

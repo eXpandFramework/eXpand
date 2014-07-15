@@ -12,7 +12,7 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
-    <description>DevExpress eXpandFramework System Module (Web)</description>
+    <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
       <dependency id="eXpandLib" version="14.1.4.7" />
       <dependency id="eXpandSystem" version="14.1.4.7" />
@@ -20,5 +20,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\net40\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.pdb" target="lib\net40\Xpand.ExpressApp.Web.pdb" />
   </files>
 </package>

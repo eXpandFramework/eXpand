@@ -8,7 +8,7 @@
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Validation Module (Win) / eXpandFramework</description>
+    <description>Validation Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Validation Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
@@ -21,5 +21,6 @@
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.Win.dll" target="lib\net40\Xpand.ExpressApp.Validation.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Validation.Win.pdb" target="lib\net40\Xpand.ExpressApp.Validation.Win.pdb" />
   </files>
 </package>
