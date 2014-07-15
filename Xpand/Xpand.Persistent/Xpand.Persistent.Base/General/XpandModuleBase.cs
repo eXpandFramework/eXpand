@@ -414,33 +414,25 @@ namespace Xpand.Persistent.Base.General {
                 }
             }
             catch (Exception e) {
-                throw new InvalidOperationException(
-                    String.Format("Exception occurs while ensure classes from assembly {0}\r\n{1}", assembly.FullName,
-                                  e.Message), e);
+                throw new InvalidOperationException(String.Format("Exception occurs while ensure classes from assembly {0}\r\n{1}", assembly.FullName,e.Message), e);
             }
             return typesList;
         }
 
-        public Type LoadFromBaseImpl(string typeName) {
-            if (BaseImplAssembly != null) {
-                ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(typeName);
-                return typeInfo != null ? typeInfo.Type : null;
-            }
-            return null;
+        public Type LoadFromBaseImpl(string typeName){
+            return BaseImplAssembly != null ? BaseImplAssembly.GetType(typeName) : null;
         }
 
         protected internal void AddToAdditionalExportedTypes(string[] types) {
             if (RuntimeMode) {
-                IEnumerable<Type> types1 = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
-                AdditionalExportedTypes.AddRange(types1);
+                var collection = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
+                AdditionalExportedTypes.AddRange(collection);
             }
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
             if (RuntimeMode) {
-                IEnumerable<Type> types =
-                    assembly.GetTypes()
-                            .Where(type1 => String.Join("", new[]{type1.Namespace}).StartsWith(nameSpaceName));
+                var types =assembly.GetTypes().Where(type1 => String.Join("", new[]{type1.Namespace}).StartsWith(nameSpaceName));
                 AdditionalExportedTypes.AddRange(types);
             }
         }
