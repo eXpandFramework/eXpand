@@ -1,5 +1,6 @@
 ﻿using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace WizardUITester.Module.BusinessObjects {
@@ -8,6 +9,7 @@ namespace WizardUITester.Module.BusinessObjects {
         public TestClass(Session session) : base(session) {
         }
         // Fields...
+        private string _PropertyName;
         private string _page2;
         private string _page1;
 
@@ -17,13 +19,14 @@ namespace WizardUITester.Module.BusinessObjects {
                 _page1 = value;
             }
         }
-
+        [RuleRequiredField]
         public string Page2 {
             get { return _page2; }
             set {
                 _page2 = value;
             }
         }
+
         
     }
 }
