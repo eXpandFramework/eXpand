@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Clone1)) {
                 CreateViewVariant(e);
             } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Modify)) {
-                RenameViewVariant(e);
+                ModifyViewVariant(e);
             } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Delete)){
                 DeleteViewVariant(e);
             }
@@ -77,8 +77,8 @@ namespace Xpand.ExpressApp.ViewVariants {
                                 });
         }
 
-        void RenameViewVariant(SingleChoiceActionExecuteEventArgs e) {
-            ShowViewVariantView(e, controller => RenameViewVariantCore(controller.Frame),
+        void ModifyViewVariant(SingleChoiceActionExecuteEventArgs e) {
+            ShowViewVariantView(e, controller => ModifyViewVariantCore(controller.Frame),
                                 detailView => {
                                     detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "ModiyView");
                                     var viewVariant = ((ViewVariant)detailView.CurrentObject);
@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }
 
-        private void RenameViewVariantCore(Frame frame) {
+        private void ModifyViewVariantCore(Frame frame) {
             var viewVariant = (ViewVariant)frame.View.CurrentObject;
             var modelVariants = ((IModelViewVariants)_rootListView).Variants;
             if (_currentVariantInfo.Id == DefaultVariantId) {
@@ -139,8 +139,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             else {
                 var modelVariant = modelVariants[_currentVariantInfo.Id];
                 modelVariant.Caption = viewVariant.VariantCaption;
-                DeleteViewVariantCore(((IModelListViewViewClonable)_rootListView).DeleteViewOnRename);
-                CreateViewVariantCore(frame);
+                SynchronizeModel(frame, modelVariant);
             }
         }
 
@@ -181,6 +180,11 @@ namespace Xpand.ExpressApp.ViewVariants {
             }
             var modelVariant = CreateVariantNode(viewVariant.VariantCaption, ((IViewVariant)viewVariant).ViewCaption, modelVariants);
             ChangeToVariant();
+            SynchronizeModel(frame, modelVariant);
+        }
+
+        private void SynchronizeModel(Frame frame, IModelVariant modelVariant){
+            var viewVariant = (ViewVariant)frame.View.CurrentObject;
             var modelMemberInfoController = frame.GetController<XpandModelMemberInfoController>();
             modelMemberInfoController.SynchronizeModel(Application.Model.Views[modelVariant.View.Id], viewVariant);
         }
