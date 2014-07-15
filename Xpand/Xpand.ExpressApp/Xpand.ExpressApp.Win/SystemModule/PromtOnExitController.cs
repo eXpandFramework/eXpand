@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         bool PromptOnExit { get; set; }
     }
     public class PromtOnExitController : WindowController, IModelExtender {
-        static bool enableEventHandling = true;
+        static bool _enableEventHandling = true;
         volatile bool _editing;
         bool _isLoggingOff;
 
@@ -56,19 +56,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (_editing || _isLoggingOff) {
                 return;
             }
-            if (!enableEventHandling) return;
+            if (!_enableEventHandling) return;
             var ea = (FormClosingEventArgs)e;
-            if ((ea.CloseReason == CloseReason.UserClosing && Window.IsMain&&CanPrompt())) {
+            if ((ea.CloseReason == CloseReason.UserClosing && Window.IsMain && CanPrompt())) {
                 var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
                 var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
                 bool yes = XtraMessageBox.Show(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
                 e.Cancel = !yes;
-                if (yes) {
-                    enableEventHandling = false;
-                    ((WinWindow)sender).Close();
-                }
             }
-            
         }
 
         bool CanPrompt() {
@@ -84,7 +79,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         void OnWindowTemplateChanged(object sender, EventArgs e) {
             Window.TemplateChanged -= OnWindowTemplateChanged;
-            enableEventHandling = ((IModelOptionsPromptOnExit)Application.Model.Options).PromptOnExit;
+            _enableEventHandling = ((IModelOptionsPromptOnExit)Application.Model.Options).PromptOnExit;
             ((WinWindow)Window).Closing += OnWindowClosing;
             ((WinWindow)Window).Closed += OnWindowClosed;
         }
