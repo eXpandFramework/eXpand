@@ -3,7 +3,7 @@
   <Email>
     <EmailReceipients>
       <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
-        <EmailReceipient Id="Admins" EmailReceipient="EmailTester.Module.BusinessObjects.User" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
+        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
       </EmailReceipientGroup>
       <EmailReceipientGroup Id="Send to project members" IsNewNode="True">
         <EmailReceipient Id="All project Members" EmailReceipient="EmailTester.Module.BusinessObjects.Member" EmailMember="Email" Criteria="[Project.Oid] = 'RuleObjectKeyValue'" IsNewNode="True" />
@@ -38,7 +38,7 @@
     </SmtpClientContexts>
   </Email>
   <Options>
-    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" UserModelClass="EmailTester.Module.BusinessObjects.User" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" ActivationIdMember="Activation" />
+    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" UserModelClass="" ActivationIdMember="" />
   </Options>
   <SchemaModules>
     <SchemaModule Name="EmailModule" Version="13.2.5.1" IsNewNode="True" />

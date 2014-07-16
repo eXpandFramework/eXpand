@@ -95,14 +95,11 @@
     <Compile Include="EmailTemplate.cs" />
     <Compile Include="EmailTemplateEngine.cs" />
     <Compile Include="EmailTemplateModelWrapper.cs" />
-    <Compile Include="FileSystemEmailTemplateContentReader.cs" />
     <Compile Include="IEmailSender.cs" />
     <Compile Include="IEmailTemplate.cs" />
-    <Compile Include="IEmailTemplateContentReader.cs" />
     <Compile Include="IEmailTemplateEngine.cs" />
     <Compile Include="Invariant.cs" />
     <Compile Include="ISmtpClient.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtpClientWrapper.cs" />
   </ItemGroup>

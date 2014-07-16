@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -41,7 +42,9 @@ namespace Xpand.ExpressApp.Email.BusinessObjects {
         }
 
         [ImmediatePostData, RuleRequiredField]
-        [Index(1)]
+        [Index(1)][Size(SizeAttribute.Unlimited)]
+        [EditorAlias(EditorAliases.StringPropertyEditor)]
+        [ModelDefault("RowCount","1")]
         public string Subject {
             get { return _subject; }
             set {

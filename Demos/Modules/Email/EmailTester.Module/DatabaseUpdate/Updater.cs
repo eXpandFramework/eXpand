@@ -14,8 +14,8 @@ namespace EmailTester.Module.DatabaseUpdate {
             if (ObjectSpace.IsNewObject(defaultRole)) {
                 
                 var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
-                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");;
-                
+                emailTemplate.Configure(EmailTemplateConfig.UserActivation, "http://localhost:50822/");
+
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Configure(EmailTemplateConfig.PassForgotten);
                 

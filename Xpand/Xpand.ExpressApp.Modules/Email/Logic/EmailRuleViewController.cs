@@ -34,10 +34,8 @@ namespace Xpand.ExpressApp.Email.Logic {
             if (emailRule != null && !logicRuleInfo.InvertCustomization) {
                 var modelApplicationEmail = (IModelApplicationEmail) Application.Model;
                 var emailTemplateObject = EmailTemplateObject(modelApplicationEmail, emailRule, ObjectSpace);
-                var templateEngine =new EmailTemplateEngine.EmailTemplateEngine(
-                        new StreamEmailTemplateContentReader(emailTemplateObject.Body));
                 var modelSmtpClientContext = modelApplicationEmail.Email.SmtpClientContexts.First(emailTemplate => emailTemplate.GetValue<string>("Id") == emailRule.SmtpClientContext);
-                var email = CreateEmail(templateEngine, logicRuleInfo, emailRule, modelSmtpClientContext,emailTemplateObject,modelApplicationEmail);
+                var email = CreateEmail(logicRuleInfo, emailRule, modelSmtpClientContext,emailTemplateObject,modelApplicationEmail);
                 if (email!=null) {
                     var emailSender = new EmailSender{
                         CreateClientFactory =
@@ -48,7 +46,8 @@ namespace Xpand.ExpressApp.Email.Logic {
             }
         }
 
-        EmailTemplateEngine.Email CreateEmail(EmailTemplateEngine.EmailTemplateEngine templateEngine, LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail) {
+        EmailTemplateEngine.Email CreateEmail(LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail) {
+            var templateEngine = new EmailTemplateEngine.EmailTemplateEngine(emailTemplateObject);
             var email = templateEngine.Execute(logicRuleInfo.Object, emailRule.ID);
             if (emailRule.CurrentObjectEmailMember != null) {
                 var toEmail = emailRule.CurrentObjectEmailMember.MemberInfo.GetValue(logicRuleInfo.Object) as string;
@@ -58,7 +57,6 @@ namespace Xpand.ExpressApp.Email.Logic {
                 AddReceipients(emailRule, modelApplicationEmail, email,logicRuleInfo.Object);
             }
             email.From = modelSmtpClientContext.SenderEmail;
-            email.Subject = emailTemplateObject.Subject;
             modelSmtpClientContext.ReplyToEmails.Split(';').Each(s => email.ReplyTo.Add(s));
             return email.To.Count == 0 ? null : email;
         }

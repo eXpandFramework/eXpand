@@ -1,7 +1,12 @@
 namespace Xpand.EmailTemplateEngine {
     using System.Collections.Generic;
 
-    public interface IEmailTemplate {
+    public interface IEmail{
+        string Subject { get; set; }
+        string Body { get; }
+    }
+
+    public interface IEmailTemplate : IEmail{
         string From { get; set; }
 
         string Sender { get; set; }
@@ -15,10 +20,6 @@ namespace Xpand.EmailTemplateEngine {
         ICollection<string> Bcc { get; }
 
         IDictionary<string, string> Headers { get; }
-
-        string Subject { get; set; }
-
-        string Body { get; }
 
         void SetModel(dynamic model);
 
