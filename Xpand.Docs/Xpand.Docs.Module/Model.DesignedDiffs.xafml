@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="Xpand.Docs" Logo="ExpressAppLogo">
+<Application Title="Xpand.Docs" Logo="ExpressAppLogo" VersionFormat="Version {0}.{1}.{2}.{3}">
   <ActionDesign>
     <Actions>
       <Action Id="ApproveAudits" ImageName="BO_Audit_ChangeHistory" />
@@ -95,7 +95,7 @@
       </Item>
     </Items>
   </NavigationItems>
-  <Options UseServerMode="True">
+  <Options DataAccessMode="Server">
     <MergedDifferenceStrategies>
       <MergedDifferenceStrategy Id="EverythingButLayout">
         <MergedViewValueInfos>
