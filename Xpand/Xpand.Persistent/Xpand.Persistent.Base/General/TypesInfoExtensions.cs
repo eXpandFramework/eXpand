@@ -48,10 +48,13 @@ namespace Xpand.Persistent.Base.General {
 
         public static void AssignAsInstance(this ITypesInfo typesInfo) {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
-            typeof (XafTypesInfo).SetFieldValue("instance", typesInfo);
-            var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
-            xpoTypeInfoSource.AssignAsPersistentEntityStore();
-            typeof(XafTypesInfo).SetFieldValue(PersistentEntityStore, xpoTypeInfoSource);
+            var type = typeof (XafTypesInfo);
+            if (type.GetFieldValue("instance")!=typesInfo){
+                type.SetFieldValue("instance", typesInfo);
+                var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
+                xpoTypeInfoSource.AssignAsPersistentEntityStore();
+                type.SetFieldValue(PersistentEntityStore, xpoTypeInfoSource);
+            }
         }
 
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
