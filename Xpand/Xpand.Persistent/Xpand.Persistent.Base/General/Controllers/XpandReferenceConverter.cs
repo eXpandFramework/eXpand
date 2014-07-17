@@ -30,8 +30,12 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
             ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(GetTypeInfo());
-            List<Type> typeInfos = ReflectionHelper.FindTypeDescendants(typeInfo).Select(info => info.Type).ToList();
-            return new StandardValuesCollection(typeInfos);
+            var typeInfos = GetTypeInfos(typeInfo);
+            return new StandardValuesCollection(typeInfos.ToArray());
+        }
+
+        protected virtual IEnumerable<Type> GetTypeInfos(ITypeInfo typeInfo){
+            return ReflectionHelper.FindTypeDescendants(typeInfo).Select(info => info.Type);
         }
 
         protected abstract Type GetTypeInfo();
