@@ -21,13 +21,13 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
         }
 
         static EmailSender GetEmailSender() {
-            return new EmailSender {
-                                       CreateClientFactory = () => new SmtpClientWrapper(CreateSmtpClient())
-                                   };
+            return new EmailSender {CreateClientFactory = () => new SmtpClientWrapper(CreateSmtpClient())};
         }
 
-        static EmailTemplateEngine.EmailTemplateEngine GetEmailTemplateEngine(JobDataMap jobDataMap) {
-            return new EmailTemplateEngine.EmailTemplateEngine(new StreamEmailTemplateContentReader(jobDataMap.GetString<SendEmailJobDataMap>(map => map.EmailTemplate)));
+        static EmailTemplateEngine.EmailTemplateEngine GetEmailTemplateEngine(JobDataMap jobDataMap){
+            var bodyTemplate = jobDataMap.GetString<SendEmailJobDataMap>(map => map.EmailTemplate);
+            var subjectTemplate = jobDataMap.GetString<SendEmailJobDataMap>(emailJobDataMap => emailJobDataMap.SubjectTemplate);
+            return new EmailTemplateEngine.EmailTemplateEngine(subjectTemplate,bodyTemplate);
         }
 
         ThresholdCalculationEmailSubsystem(IEmailTemplateEngine templateEngine, IEmailSender sender, string name) {

@@ -26,21 +26,29 @@ namespace Xpand.EmailTemplateEngine {
 
         private static readonly string[] _referencedAssemblies = BuildReferenceList().ToArray();
         private static readonly RazorTemplateEngine _razorEngine = CreateRazorEngine();
+        private readonly string _subject;
+        private readonly string _body;
 
         public EmailTemplateEngine(IEmail emailTemplate)
             : this(emailTemplate, DefaultHtmlTemplateSuffix, DefaultTextTemplateSuffix, DefaultSharedTemplateSuffix) {
-            EmailTemplate = emailTemplate;
         }
 
         public EmailTemplateEngine(IEmail emailTemplate, string htmlTemplateSuffix, string textTemplateSuffix, string sharedTemplateSuffix) {
             Invariant.IsNotNull(emailTemplate, "emailTemplate");
-            EmailTemplate = emailTemplate;
+            _subject = emailTemplate.Subject;
+            _body = emailTemplate.Body;
             SharedTemplateSuffix = sharedTemplateSuffix;
             HtmlTemplateSuffix = htmlTemplateSuffix;
             TextTemplateSuffix = textTemplateSuffix;
         }
 
-        public IEmail EmailTemplate { get; private set; }
+        public EmailTemplateEngine(string subject, string body){
+            _subject = subject;
+            _body = body;
+            SharedTemplateSuffix = DefaultSharedTemplateSuffix;
+            HtmlTemplateSuffix = DefaultHtmlTemplateSuffix;
+            TextTemplateSuffix = DefaultTextTemplateSuffix;
+        }
 
         protected string SharedTemplateSuffix { get; private set; }
 
@@ -237,13 +245,13 @@ namespace Xpand.EmailTemplateEngine {
             var templates = suffixesWithContentTypes.Select(pair => new{
                 Suffix = pair.Key,
                 TemplateName = templateName + pair.Key+BodyTemplateNameSuffix,
-                Content = EmailTemplate.Body,
+                Content = _body,
                 ContentType = pair.Value
             });
             templates = templates.Concat(suffixesWithContentTypes.Select(pair => new {
                 Suffix = pair.Key,
                 TemplateName = templateName + pair.Key+SubjectTemplateNameSuffix,
-                Content = EmailTemplate.Subject,
+                Content = _subject,
                 ContentType = pair.Value
             })).Where(x => !string.IsNullOrWhiteSpace(x.Content)).ToList();
 
