@@ -56,6 +56,10 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.EmailTemplateEngine, Version=14.1.4.7, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.EmailTemplateEngine.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Email">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Email.dll</HintPath>
