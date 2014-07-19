@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
-            var dynamicModelSynchronizer = new GridViewLstEditorDynamicModelSynchronizer(this);
+            var dynamicModelSynchronizer = new GridViewListEditorDynamicModelSynchronizer((DevExpress.XtraGrid.Views.Grid.GridView) GridView,Model,((IColumnViewEditor)this).OverrideViewDesignMode);
             dynamicModelSynchronizer.ModelSynchronizerList.Insert(0, listEditorSynchronizer);
             return dynamicModelSynchronizer.ModelSynchronizerList;
         }
