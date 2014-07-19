@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CustomModelSynchronizerHelper.Assign(e, new GridLstEditorDynamicModelSynchronizer(_gridListEditor));
+            CustomModelSynchronizerHelper.Assign(e, new GridListEditorDynamicModelSynchronizer(_gridListEditor));
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {

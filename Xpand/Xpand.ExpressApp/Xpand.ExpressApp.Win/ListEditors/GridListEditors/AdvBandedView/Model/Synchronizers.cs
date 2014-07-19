@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
                 ModelSynchronizerList.Add(new AdvBandedViewGridBandsSynchronizer(columnViewEditor, optionsAdvBandedView));
             }
             
-            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(columnViewEditor));
+            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
             ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));    
         }
     }
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
             }
         }
 
-        void SynchronizeGridBands(GridBandCollection gridBands) {
+        void SynchronizeGridBands(IEnumerable<DevExpress.XtraGrid.Views.BandedGrid.GridBand> gridBands) {
             foreach (var gridBand in gridBands.OfType<GridBand>()) {
                 gridBand.ModelGridBand.Index = gridBand.VisibleIndex;
                 ApplyModel(gridBand.ModelGridBand, gridBand, SynchronizeValues);

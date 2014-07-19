@@ -75,11 +75,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     }
 
 
-    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TGridDesignerEditor, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TGridDesignerEditor, TModelListViewOptionsColumnView>
-        where TGridDesignerEditor : ColumnsListEditor
+    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TComponent, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TComponent, TModelListViewOptionsColumnView>
         where TModelListViewOptionsColumnView : IModelListViewOptionsColumnView
         where TModelColumn : IModelColumnOptionsColumnView {
-        protected ColumnViewEditorColumnOptionsSynchronizer(TGridDesignerEditor control, TModelListViewOptionsColumnView modelNode)
+        protected ColumnViewEditorColumnOptionsSynchronizer(TComponent control, TModelListViewOptionsColumnView modelNode)
             : base(control, modelNode) {
         }
         protected override void ApplyModelCore() {
@@ -106,7 +105,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
         public override void SynchronizeModel() {
             var gridColumnCollection = GetColumnView().Columns;
-            foreach (var column in gridColumnCollection.OfType<GridColumn>().ToList()) {
+            foreach (var column in gridColumnCollection.ToList()) {
                 var propertyName = column.PropertyName();
                 if (Model.Columns[propertyName] is TModelColumn) {
                     var modelColumn = (TModelColumn)Model.Columns[propertyName];
