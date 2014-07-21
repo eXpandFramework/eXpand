@@ -14,18 +14,33 @@ using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Fasterflect;
+using DevExpress.ExpressApp.SystemModule;
 
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         List<Type> _dynamicModuleTypes = new List<Type>();
 
+        public static event EventHandler<CollectTypesEventArgs> AddAdditionalReflectionDictionaryTypes;
+
+        /// <summary>
+        /// Add additional custom types to the ReflectionDictionary. 
+        /// Required if you add your own PersistentXYZAttributes (similar to PersistentAggregatedAttribute, ...) implementations.
+        /// </summary>
+        /// <param name="e"></param>
+        private static void OnAddAdditionalReflectionDictionaryTypes(CollectTypesEventArgs e) {
+            EventHandler<CollectTypesEventArgs> handler = AddAdditionalReflectionDictionaryTypes;
+            if (handler != null) {
+                handler(null, e);
+            }
+        }
+
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode){
+            if (RuntimeMode) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
             }
         }
@@ -33,7 +48,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
-            if (Application == null || GetPath() == null||!RuntimeMode)
+            if (Application == null || GetPath() == null || !RuntimeMode)
                 return;
             if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {
                 using (var unitOfWork = GetUnitOfWork()) {
@@ -41,27 +56,28 @@ namespace Xpand.ExpressApp.WorldCreator {
                     AddDynamicModules(moduleManager, unitOfWork);
                     if (unitOfWork.DataLayer != null) unitOfWork.DataLayer.Dispose();
                 }
-            } else {
+            }
+            else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
                 foreach (var assembly1 in assemblies) {
                     moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
-            Application.LoggedOn+=ApplicationOnLoggedOn;
-            
+            Application.LoggedOn += ApplicationOnLoggedOn;
+
 
         }
 
-        public virtual UnitOfWork GetUnitOfWork(){
+        public virtual UnitOfWork GetUnitOfWork() {
             var dataServerObjectSpaceProvider = Application.ObjectSpaceProvider as DataServerObjectSpaceProvider;
-            if (dataServerObjectSpaceProvider != null){
+            if (dataServerObjectSpaceProvider != null) {
                 return (UnitOfWork)((XPObjectSpace)dataServerObjectSpaceProvider.CreateObjectSpace()).Session;
             }
-            var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary(),AutoCreateOption.DatabaseAndSchema);
+            var xpoMultiDataStoreProxy = new MultiDataStoreProxy(ConnectionString, GetReflectionDictionary(), AutoCreateOption.DatabaseAndSchema);
             return new UnitOfWork(new SimpleDataLayer(xpoMultiDataStoreProxy));
         }
 
-        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
+        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
             var session = ((XPObjectSpace)((Application.ObjectSpaceProvider.CreateUpdatingObjectSpace(false)))).Session;
             if (session.DataLayer != null) MergeTypes(new UnitOfWork(session.DataLayer));
         }
@@ -82,9 +98,13 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (persistentAssemblyInfoType == null)
                 throw new ArgumentNullException("Add a business object that implements " +
                                                 typeof(IPersistentAssemblyInfo).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
-            IEnumerable<Type> types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => (type.Namespace + "").StartsWith(persistentAssemblyInfoType.Namespace + ""));
+            var types = persistentAssemblyInfoType.Assembly.GetTypes().Where(type => (type.Namespace + "").StartsWith(persistentAssemblyInfoType.Namespace + ""));
             var reflectionDictionary = new ReflectionDictionary();
-            foreach (var type in types) {
+
+            var collectTypesEventArgs = new CollectTypesEventArgs(new List<Type>());
+            OnAddAdditionalReflectionDictionaryTypes(collectTypesEventArgs);
+
+            foreach (var type in types.Union(collectTypesEventArgs.Types)) {
                 reflectionDictionary.QueryClassInfo(type);
             }
             return reflectionDictionary;

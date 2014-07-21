@@ -11,7 +11,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
     [CreateableItem(typeof(IPersistentMemberInfo))]
     [CreateableItem(typeof(IPersistentClassInfo))]
     [CreateableItem(typeof(IExtendedMemberInfo))]
-    public class PersistentModelDefaultAttribute : PersistentAttributeInfo {
+    public class PersistentModelDefaultAttribute : PersistentAttributeInfo, IPersistentModelDefaultAttribute{
         string _propertyName;
         string _value;
 
