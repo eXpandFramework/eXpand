@@ -83,7 +83,7 @@ namespace Xpand.Utils.Fastreflect{
             PropertyInfo propertyInfo = null;
             foreach (var s in name.Split('.')){
                 propertyInfo = PropertyX(type, s, Flags.AllMembers);
-                type=propertyInfo.PropertyType;
+                if (propertyInfo != null) type=propertyInfo.PropertyType;
             }
             return propertyInfo;
         }

@@ -140,7 +140,11 @@
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AppearanceController.cs">
+    <Compile Include="SystemModule\Appearance\AppearanceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Appearance\AppearanceRuleObject.cs" />
+    <Compile Include="SystemModule\Appearance\AppearanceRuleObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ChangeLanguageController.cs">

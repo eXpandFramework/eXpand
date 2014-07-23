@@ -13,7 +13,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Fastreflect;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.ExpressApp.SystemModule.Appearance {
     public class AppearanceController : ViewController, IModelExtender {
         private DevExpress.ExpressApp.ConditionalAppearance.AppearanceController _appearanceController;
 
@@ -49,7 +49,8 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void AppearanceControllerOnCustomCreateAppearanceRule(object sender, CustomCreateAppearanceRuleEventArgs e){
-            if (e.RuleProperties.GetPropertyValue("Attribute")==null){
+            var propertyInfo = e.RuleProperties.GetType().PropertyX("Attribute");
+            if (propertyInfo!=null&& e.RuleProperties.GetPropertyValue("Attribute") == null) {
                 var xpandAppearanceRuleProperties = e.RuleProperties as IXpandAppearanceRuleProperties;
                 if (xpandAppearanceRuleProperties != null)
                     e.Rule = new AppearanceRule(new CachedAppearanceRuleProperties(xpandAppearanceRuleProperties), View.ObjectSpace);
