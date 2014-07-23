@@ -17,7 +17,8 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <DelaySign>false</DelaySign>
     <OutputPath>..\..\Xpand.Dll\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Xpo/</PublishUrl>
@@ -106,6 +107,7 @@
     <Compile Include="ConnectionProviders\DBColumnTypeExtensions.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
+    <Compile Include="Converters\ValueConverters\ColorValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\UnitValueConverter.cs" />
@@ -120,7 +122,8 @@
     <Compile Include="DB\XpoServerId.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtensions.cs" />
     <Compile Include="Filtering\CriteriaOperatorExtractor.cs" />
-    <Compile Include="Collections\XPBaseCollectionExtensions.cs"></Compile>
+    <Compile Include="Collections\XPBaseCollectionExtensions.cs">
+    </Compile>
     <Compile Include="ConnectionProviders\CustomContainsProvider.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescConverter.cs" />
     <Compile Include="Converters\TypeConverters\EnumDescTypeConverter.cs" />
