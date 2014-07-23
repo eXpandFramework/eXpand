@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,16 @@ namespace Xpand.ExpressApp.NH
             {
                 var referenceToOwner = MemberInfo.AssociatedMemberInfo;
                 if (referenceToOwner != null)
+                {
+                    if (MemberInfo.IsManyToMany)
+                    {
+                        IList list = referenceToOwner.GetValue(obj) as IList;
+                        if (list != null && !list.Contains(MasterObject))
+                            list.Add(MasterObject);
+                    }
+                    else
                     referenceToOwner.SetValue(obj, MasterObject);
+                }
             }
         }
     }
