@@ -243,7 +243,7 @@
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
+    <Compile Include="SystemModule\PreventDataLoadingController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Templates\XpandBaseXafPage.cs">

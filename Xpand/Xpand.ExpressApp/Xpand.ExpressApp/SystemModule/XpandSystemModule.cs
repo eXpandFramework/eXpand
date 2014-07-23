@@ -124,8 +124,8 @@ namespace Xpand.ExpressApp.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
-            extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
-            extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
+            extenders.Add<IModelClass, IModelClassPreventDataLoading>();
+            extenders.Add<IModelListView, IModelListViewPreventLoadingData>();
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
@@ -137,21 +137,42 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
-            if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
-                parameters.NodeType = typeof (IModelColumn);
-                string name = parameters.Values["Id"];
-                if (parameters.Values.ContainsKey("CalcPropertyName")) {
-                    name = parameters.Values["CalcPropertyName"];
-                    parameters.Values.Remove("CalcPropertyName");
+            var currentVersion = new Version(XpandAssemblyInfo.Version);
+            if (currentVersion>new Version("0.0.0.0")&&currentVersion<new Version("14.1.5.2")){
+                if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
+                    parameters.NodeType = typeof (IModelColumn);
+                    string name = parameters.Values["Id"];
+                    if (parameters.Values.ContainsKey("CalcPropertyName")) {
+                        name = parameters.Values["CalcPropertyName"];
+                        parameters.Values.Remove("CalcPropertyName");
+                    }
+                    parameters.Values.Add("PropertyName",name);
                 }
-                parameters.Values.Add("PropertyName",name);
+                if (typeof(IModelListViewPreventLoadingData).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("PreventLoadingData")) {
+                    if (parameters.Values["LoadWhenFiltered"] == "True") {
+                        parameters.Values["LoadWhenFiltered"] = "FilterAndCriteria";
+                    }
+                    else if (parameters.Values["LoadWhenFiltered"] == "False") {
+                        parameters.Values["LoadWhenFiltered"] = "No";
+                    }
+                }
             }
-            if (typeof(IModelListViewLoadWhenFiltered).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("LoadWhenFiltered")) {
-                if (parameters.Values["LoadWhenFiltered"] == "True"){
-                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.FilterAndCriteria.ToString();
-                }
-                else if (parameters.Values["LoadWhenFiltered"] == "False"){
-                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.No.ToString();
+            if (currentVersion > new Version("14.1.5.1")){
+                if (typeof (IModelListViewPreventLoadingData).IsAssignableFrom(parameters.NodeType)){
+                    if (parameters.Values.ContainsKey("LoadWhenFiltered")){
+                        string value = parameters.Values["LoadWhenFiltered"];
+                        if (!string.IsNullOrEmpty(value)){
+                            if (value == "No")
+                                parameters.Values["PreventLoadingData"] = "Never";
+                            else if (value=="Filter")
+                                parameters.Values["PreventLoadingData"] = "SearchAndFiltersEmpty";
+                            else if (value == "FilterAndCriteria")
+                                parameters.Values["PreventLoadingData"] = "SearchAndFiltersAndCriteriaEmpty";
+                            else{
+                                parameters.Values["PreventLoadingData"] = value;
+                            }
+                        }
+                    }
                 }
             }
         }
