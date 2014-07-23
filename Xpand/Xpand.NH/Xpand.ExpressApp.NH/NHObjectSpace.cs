@@ -124,10 +124,6 @@ namespace Xpand.ExpressApp.NH
             return result;
         }
 
-        public string GetDisplayableProperties(object collection)
-        {
-            throw new NotImplementedException();
-        }
 
         public DevExpress.Data.Filtering.CriteriaOperator GetFilter(object collection)
         {
