@@ -31,7 +31,30 @@ namespace Xpand.ExpressApp.NH
                             list.Add(MasterObject);
                     }
                     else
-                    referenceToOwner.SetValue(obj, MasterObject);
+                        referenceToOwner.SetValue(obj, MasterObject);
+
+                    ObjectSpace.SetModified(referenceToOwner.GetOwnerInstance(obj));
+                }
+            }
+        }
+
+        public override void Remove(object obj)
+        {
+            base.Remove(obj);
+            if (MemberInfo.AssociatedMemberInfo != null)
+            {
+                var referenceToOwner = MemberInfo.AssociatedMemberInfo;
+                if (referenceToOwner != null)
+                {
+                    if (MemberInfo.IsManyToMany)
+                    {
+                        IList list = referenceToOwner.GetValue(obj) as IList;
+                        if (list != null && list.Contains(MasterObject))
+                        {
+                            list.Remove(MasterObject);
+                            ObjectSpace.SetModified(referenceToOwner.GetOwnerInstance(obj));
+                        }
+                    }
                 }
             }
         }
