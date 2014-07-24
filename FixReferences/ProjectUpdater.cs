@@ -127,11 +127,12 @@ namespace FixReferences {
                 config = Path.Combine(functionalTestsPath,"Config.xml");
                 if (File.Exists(config)){
                     ReplaceToken(config);
+                    UpdateAdapterVersion(config);
                 }
             }
         }
 
-        protected void UpdateAdapterVersion(string config){
+        private void UpdateAdapterVersion(string config){
             string readToEnd;
             using (var streamReader = new StreamReader(config)){
                 var toEnd = streamReader.ReadToEnd();

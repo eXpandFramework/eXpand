@@ -14,6 +14,7 @@ namespace XpandSystemTester.Win {
         /// </summary>
         [STAThread]
         static void Main() {
+            
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
