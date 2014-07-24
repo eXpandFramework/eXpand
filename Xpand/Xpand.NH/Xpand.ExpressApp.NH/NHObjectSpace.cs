@@ -428,19 +428,37 @@ namespace Xpand.ExpressApp.NH
             foreach (var instance in instances)
                 AddObject(instance, state);
         }
+
+        private object AddOrGetExistingInstance(object instance, InstanceState state)
+        {
+            var existingObject = FindInstanceByKey(instance.GetType(), GetKeyValue(instance));
+
+            if (existingObject != null) //TODO: Refresh existing object?
+                return existingObject;
+
+            AddObject(instance, state);
+            return instance;
+        }
+
+        private void MergeWithExistingInstances(IList list, InstanceState state)
+        {
+            for (int i = 0; i < list.Count; i++)
+                list[i] = AddOrGetExistingInstance(list[i], state);
+        }
+
         private void AddObject(object instance, InstanceState state)
         {
             Guard.ArgumentNotNull(instance, "instance");
             if (instances.ContainsKey(instance)) return;
 
+          
             instances.Add(instance, new ObjectSpaceInstanceInfo { Instance = instance, State = state });
             var typeInfo = TypesInfo.FindTypeInfo(instance.GetType());
-            AddObjects(
+            foreach (var list in
                 typeInfo.Members.Where(m => m.IsAssociation && m.IsList)
                     .Select(m => m.GetValue(instance))
-                    .OfType<IEnumerable>()
-                    .Cast<IEnumerable<object>>()
-                    .SelectMany(e => e), state);
+                    .OfType<IList>())
+                MergeWithExistingInstances(list, state);
 
             AddObjects(
                 typeInfo.Members.Where(m => m.IsAssociation && !m.IsList)
