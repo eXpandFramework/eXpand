@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ApplicationExit_HideOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit_MinimizeOnExit.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -127,6 +128,7 @@
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\ApplicationExit_Model.inc" />
     <None Include="FunctionalTests\DefaultNavigation.inc" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>

@@ -1,0 +1,1 @@
+﻿*Action Model Value(Views/SalesVolume_DetailView;DetailViewCaching;True)
