@@ -12,7 +12,7 @@ using Xpand.Xpo.DB;
 namespace Xpand.ExpressApp.SystemModule.Search {
     [ModelAbstractClass]
     public interface IModelMemberFullTextContains : IModelMember {
-        [Category("eXpand")]
+        [Category("eXpand.Search")]
         [Description("Supported in eXpand ListEditors, CollectionSource.CriteriaApplying, CriteriaPropertyEditorEx, gridView.ColumnFilterChanged, XpandObjectSpaceProvider")]
         bool FullText { get; set; }
     }

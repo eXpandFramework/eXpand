@@ -4,7 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
 
-namespace XpandSystemTester.Module.Win.FunctionalTests {
+namespace XpandSystemTester.Module.Win.FunctionalTests.DetailViewCaching {
     public class DetailViewCaching:ViewController<DetailView> {
         static readonly Dictionary<ITypeInfo,int> _dictionary=new Dictionary<ITypeInfo, int>(); 
 

@@ -7,12 +7,12 @@ using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Win.SystemModule;
 
-namespace XpandSystemTester.Module.Win.FunctionalTests {
+namespace XpandSystemTester.Module.Win.FunctionalTests.ApplicationExit {
     public class ApplicationExit:ViewController {
         private readonly SingleChoiceAction _singleChoiceAction;
         private MainForm _mainForm;
 
-        public ApplicationExit(){
+        public ApplicationExit() {
             _singleChoiceAction = new SingleChoiceAction(this,GetType().Name,PredefinedCategory.ObjectsCreation){
                 ItemType = SingleChoiceActionItemType.ItemIsOperation
             };

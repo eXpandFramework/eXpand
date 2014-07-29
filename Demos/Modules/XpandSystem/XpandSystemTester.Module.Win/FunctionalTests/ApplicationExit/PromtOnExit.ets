@@ -1,9 +1,9 @@
 #DropDB XpandSystemTesterEasyTest
 #Application XpandSystemTester.Win
 
-#IncludeFile Login.inc
-#IncludeFile ApplicationExit_Model.inc
-#IncludeFile DefaultNavigation.inc
+#IncludeFile ..\Login.inc
+#IncludeFile DefaultModel.inc
+#IncludeFile ..\DefaultNavigation.inc
 
 *ActionAvailable Application Exit
 *Action Application Exit(PromptOnExit) 

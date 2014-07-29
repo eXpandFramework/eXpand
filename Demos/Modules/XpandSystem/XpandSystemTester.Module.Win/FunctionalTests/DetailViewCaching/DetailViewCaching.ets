@@ -1,8 +1,8 @@
 #DropDB XpandSystemTesterEasyTest
 #Application XpandSystemTester.Win
 
-#IncludeFile Login.inc
-#IncludeFile DefaultNavigation.inc
+#IncludeFile ..\Login.inc
+#IncludeFile ..\DefaultNavigation.inc
 
 *Action Model Value(Views/SalesVolume_DetailView;DetailViewCaching;True)
 *Action Model Value(Options;MinimizeOnExit;True)
@@ -22,8 +22,8 @@
 *CheckActionsHint
  Delete[0] = SalesVolumeMonth_DetailView Called 1
 *Action Log Off
-#IncludeFile Login.inc
-#IncludeFile DefaultNavigation.inc
+#IncludeFile ..\Login.inc
+#IncludeFile ..\DefaultNavigation.inc
 
 ;Create new object save and update
 *Action New(Sales Volume)

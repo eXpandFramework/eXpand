@@ -84,15 +84,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
     <None Include="FunctionalTests\Login.inc" />
-    <Compile Include="FunctionalTests\DetailViewCaching.cs">
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\ModelValue.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\ApplicationExit.cs">
+    <Compile Include="FunctionalTests\ApplicationExit\ApplicationExit.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinModule.cs">
@@ -123,19 +126,24 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\ApplicationExit_PromtOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit_HideOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit_MinimizeOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml">
+    <Content Include="FunctionalTests\ApplicationExit\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="FunctionalTests\ApplicationExit_Model.inc" />
+    <Content Include="FunctionalTests\DetailViewCaching\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\FullTextContains\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\ApplicationExit\DefaultModel.inc" />
     <None Include="FunctionalTests\DefaultNavigation.inc" />
-    <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
