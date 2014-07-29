@@ -406,13 +406,13 @@
     <Compile Include="SystemModule\AutoExpandNewRowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CloseWindowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FormCachingController.cs">
+    <Compile Include="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByColumnController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\DetailViewCachingController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FullTextAutoFilterRowController.cs">
@@ -468,9 +468,7 @@
     <Compile Include="SystemModule\PessimisticLockingViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\PromtOnExitController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\PromtOnExitController.cs" />
     <Compile Include="SystemModule\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -507,7 +505,7 @@
     <Compile Include="SystemModule\LoadWithWindowsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\MinimizeOnCloseController.cs">
+    <Compile Include="SystemModule\CloseFormController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NotifyIconController.cs">
