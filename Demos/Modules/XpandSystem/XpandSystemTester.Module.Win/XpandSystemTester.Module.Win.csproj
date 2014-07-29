@@ -84,7 +84,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\DetailViewCaching.ets" />
     <None Include="FunctionalTests\Login.inc" />
+    <Compile Include="FunctionalTests\DetailViewCaching.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\ModelValue.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,6 +123,7 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ApplicationExit_PromtOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit_HideOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit_MinimizeOnExit.ets" />
     <None Include="Images\ReadMe.txt" />

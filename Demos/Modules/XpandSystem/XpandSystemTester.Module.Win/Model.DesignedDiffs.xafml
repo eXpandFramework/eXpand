@@ -1,15 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
-  <Views>
-    <ListView Id="Customer_ListView" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor">
-      <GridViewOptions>
-        <OptionsFilter ColumnFilterPopupMaxRecordsCount="5" ColumnFilterPopupRowCount="5" />
-      </GridViewOptions>
-    </ListView>
-    <ListView Id="SalesVolume_ListView">
-      <GridViewOptions>
-        <OptionsFilter ColumnFilterPopupMaxRecordsCount="0" />
-      </GridViewOptions>
-    </ListView>
-  </Views>
-</Application>
+<Application />
