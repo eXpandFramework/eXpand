@@ -12,6 +12,10 @@
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <UsingTask TaskName="MSBuild.ExtensionPack.Framework.Gac" AssemblyName="..\..\Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
+  
+
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -64,11 +68,13 @@
     <EmbeddedResource Include="TestDataBase\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
+
+
   <Target Name="BeforeBuild">
+    <GacUtil Assemblies="$(TargetName)" Command="Uninstall"/>
   </Target>
   <Target Name="AfterBuild">
+    <GacUtil Assemblies="$(TargetPath)"/>
   </Target>
-  -->
 </Project>
