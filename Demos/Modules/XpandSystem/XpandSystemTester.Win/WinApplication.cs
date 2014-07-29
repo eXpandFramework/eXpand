@@ -1,9 +1,6 @@
-using System;
-using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace XpandSystemTester.Win {
@@ -11,7 +8,15 @@ namespace XpandSystemTester.Win {
         public XpandSystemTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersReading+=OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e){
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";

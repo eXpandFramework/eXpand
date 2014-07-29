@@ -76,22 +76,24 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var winWindow = strategy.Windows.FirstOrDefault(window => window.View != null && window.View.Model == e.View.Model);
             if (winWindow != null) {
                 if (((IModelDetailViewCaching)e.View.Model).DetailViewCaching) {
-                    if (e.View.ObjectSpace.IsNewObject(e.View.CurrentObject)) {
-                        var newViewShortcut = e.View.CreateShortcut();
-                        var temporaryObjectKey = newViewShortcut[ViewShortcut.TemporaryObjectKeyParamName];
-                        var newObj = winWindow.View.ObjectSpace.CreateObject(winWindow.View.ObjectTypeInfo.Type);
-                        e.View.CurrentObject.Map(newObj, Flags.Public);
-                        CustomizeViewShortcut(e, winWindow, temporaryObjectKey);
-                        winWindow.View.CurrentObject = newObj;
-                    }
-                    else {
-                        winWindow.View.CurrentObject = winWindow.View.ObjectSpace.GetObject(e.View.CurrentObject);
-                    }
+                    winWindow.View.CurrentObject=GetCurrentObject(e, winWindow);
                 }
             }
         }
 
-        private static void CustomizeViewShortcut(DetailViewCreatedEventArgs e, WinWindow winWindow, string temporaryObjectKey) {
+        private object GetCurrentObject(DetailViewCreatedEventArgs e, WinWindow winWindow){
+            if (e.View.ObjectSpace.IsNewObject(e.View.CurrentObject)){
+                var newViewShortcut = e.View.CreateShortcut();
+                var temporaryObjectKey = newViewShortcut[ViewShortcut.TemporaryObjectKeyParamName];
+                var newObj = winWindow.View.ObjectSpace.CreateObject(winWindow.View.ObjectTypeInfo.Type);
+                e.View.CurrentObject.Map(newObj, Flags.Public);
+                CustomizeViewShortcut(e, winWindow, temporaryObjectKey);
+                return newObj;
+            }
+            return winWindow.View.ObjectSpace.GetObject(e.View.CurrentObject);
+        }
+
+        private void CustomizeViewShortcut(DetailViewCreatedEventArgs e, WinWindow winWindow, string temporaryObjectKey) {
             e.View.CustomizeViewShortcut += (o, args) => {
                 var shortcut = args.ViewShortcut;
                 if (shortcut.ContainsKey(ViewShortcut.IsNewObject)) {

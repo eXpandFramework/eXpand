@@ -1,7 +1,9 @@
 using System;
 
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using Xpand.ExpressApp.Security.Core;
 using XpandSystemTester.Module.BusinessObjects;
 
 namespace XpandSystemTester.Module.DatabaseUpdate {
@@ -20,8 +22,18 @@ namespace XpandSystemTester.Module.DatabaseUpdate {
                 customer.FirstName = "Tolis";
                 customer.LastName = "Bek";
                 customer.Email = "apostolis.bekiaris at gmail";
-                ObjectSpace.CommitChanges();
+
+                var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+
+                var adminRole = ObjectSpace.GetAdminRole("Admin");
+                adminRole.GetUser("Admin");
+
+                var userRole = ObjectSpace.GetRole("User");
+                var user = (SecuritySystemUser)userRole.GetUser("user");
+                user.Roles.Add(defaultRole);
             }
+
+            
         }
     }
 }
