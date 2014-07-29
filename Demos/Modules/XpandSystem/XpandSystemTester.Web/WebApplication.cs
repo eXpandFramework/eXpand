@@ -7,21 +7,21 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Web;
 using XpandSystemTester.Module;
 using XpandSystemTester.Module.Web;
 
 namespace XpandSystemTester.Web {
     public class XpandSystemTesterAspNetApplication : WebApplication {
-        SystemModule module1;
-        SystemAspNetModule module2;
-        XpandSystemTesterModule module3;
-        XpandSystemTesterAspNetModule module4;
-        SqlConnection sqlConnection1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        XpandSystemTesterModule _module3;
+        XpandSystemTesterAspNetModule _module4;
+        SqlConnection _sqlConnection1;
         
 
         public XpandSystemTesterAspNetApplication() {
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
 #if EASYTEST
         protected override string GetUserCultureName() {
@@ -30,6 +30,12 @@ namespace XpandSystemTester.Web {
 #endif
         protected override bool SupportMasterDetailMode {
             get { return true; }
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -69,27 +75,27 @@ namespace XpandSystemTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new XpandSystemTesterModule();
-            module4 = new XpandSystemTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new XpandSystemTesterModule();
+            _module4 = new XpandSystemTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
             ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XpandSystemTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // XpandSystemTesterAspNetApplication
             // 
             ApplicationName = "XpandSystemTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
             DatabaseVersionMismatch +=
                 XpandSystemTesterAspNetApplication_DatabaseVersionMismatch;
