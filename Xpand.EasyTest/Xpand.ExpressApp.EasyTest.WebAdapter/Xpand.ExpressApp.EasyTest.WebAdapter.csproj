@@ -72,9 +72,9 @@
 
 
   <Target Name="BeforeBuild">
-    <GacUtil Assemblies="$(TargetName)" Command="Uninstall"/>
+    <GacUtil Assemblies="$(TargetName)" Command="Uninstall" Condition="'$(Configuration)'!='Release'"/>
   </Target>
   <Target Name="AfterBuild">
-    <GacUtil Assemblies="$(TargetPath)"/>
+    <GacUtil Assemblies="$(TargetPath)" Condition="'$(Configuration)'!='Release'"/>
   </Target>
 </Project>
