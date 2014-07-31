@@ -11,11 +11,11 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassPreventDataLoading : IModelNode {
         [Category("eXpand")]
         [Description("Listview records are loaded only when a filter is present")]
-        [DefaultValue(PreventLoadingData.Never)]
-        PreventLoadingData PreventLoadingData { get; set; }
+        [DefaultValue(PreventDataLoading.Never)]
+        PreventDataLoading PreventDataLoading { get; set; }
     }
 
-    public enum PreventLoadingData{
+    public enum PreventDataLoading{
         Never,
         SearchAndFiltersAndCriteriaEmpty,
         Always,
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.SystemModule {
     }
 
     [ModelInterfaceImplementor(typeof(IModelClassPreventDataLoading), "ModelClass")]
-    public interface IModelListViewPreventLoadingData : IModelClassPreventDataLoading {
+    public interface IModelListViewPreventDataLoading : IModelClassPreventDataLoading {
     }
 
     public abstract class PreventDataLoadingController : ViewController<ListView> {
@@ -65,14 +65,14 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         protected bool IsReady() {
-            var modelListViewGridViewOptions = ((IModelListViewPreventLoadingData)View.Model);
-            if (modelListViewGridViewOptions.PreventLoadingData==PreventLoadingData.SearchAndFiltersAndCriteriaEmpty)
+            var modelListViewGridViewOptions = ((IModelListViewPreventDataLoading)View.Model);
+            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.SearchAndFiltersAndCriteriaEmpty)
                 return !FiltersAreEmpty() || !string.IsNullOrEmpty(View.Model.Criteria);
-            if (modelListViewGridViewOptions.PreventLoadingData==PreventLoadingData.SearchAndFiltersEmpty)
+            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.SearchAndFiltersEmpty)
                 return !FiltersAreEmpty();
-            if (modelListViewGridViewOptions.PreventLoadingData==PreventLoadingData.Criteria)
+            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.Criteria)
                 return !string.IsNullOrEmpty(View.Model.Criteria);
-            return modelListViewGridViewOptions.PreventLoadingData==PreventLoadingData.Always;
+            return modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.Always;
         }
 
         private bool FiltersAreEmpty(){
