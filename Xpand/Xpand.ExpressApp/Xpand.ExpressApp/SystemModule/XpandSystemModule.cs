@@ -125,7 +125,7 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
             extenders.Add<IModelClass, IModelClassPreventDataLoading>();
-            extenders.Add<IModelListView, IModelListViewPreventLoadingData>();
+            extenders.Add<IModelListView, IModelListViewPreventDataLoading>();
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
@@ -148,7 +148,7 @@ namespace Xpand.ExpressApp.SystemModule {
                     }
                     parameters.Values.Add("PropertyName",name);
                 }
-                if (typeof(IModelListViewPreventLoadingData).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("PreventLoadingData")) {
+                if (typeof(IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("PreventLoadingData")) {
                     if (parameters.Values["LoadWhenFiltered"] == "True") {
                         parameters.Values["LoadWhenFiltered"] = "FilterAndCriteria";
                     }
@@ -158,7 +158,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 }
             }
             if (currentVersion > new Version("14.1.5.1")){
-                if (typeof (IModelListViewPreventLoadingData).IsAssignableFrom(parameters.NodeType)){
+                if (typeof (IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType)){
                     if (parameters.Values.ContainsKey("LoadWhenFiltered")){
                         string value = parameters.Values["LoadWhenFiltered"];
                         if (!string.IsNullOrEmpty(value)){

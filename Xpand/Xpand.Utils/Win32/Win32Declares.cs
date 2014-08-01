@@ -566,6 +566,8 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class WindowHandles {
+            [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+            public static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
             /// <summary>
             /// The FindWindowEx function retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search. 
             /// </summary>

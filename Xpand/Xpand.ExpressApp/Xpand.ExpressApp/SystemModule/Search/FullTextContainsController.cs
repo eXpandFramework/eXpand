@@ -18,9 +18,6 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     }
 
     public static class ModelMemberFullTextContainsEx {
-        public static IEnumerable<IModelMember> GetFullTextMembers(this IModelClass modelClass) {
-            return modelClass.AllMembers.Cast<IModelMemberFullTextContains>().Where(member => member.FullText);
-        }
         public static IEnumerable<IModelMember> GetFullTextMembers(this IModelListView modelListView) {
             return modelListView.Columns.Select(column => column.ModelMember).Where(info => info != null && info.MemberInfo != null).Cast<IModelMemberFullTextContains>().Where(contains => contains.FullText);
         }
