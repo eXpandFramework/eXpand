@@ -6,8 +6,9 @@ using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 
 namespace XpandSystemTester.Module.Win.FunctionalTests {
-    public class ModelValue:ViewController {
+    public class ModelValue:WindowController {
         public ModelValue(){
+            TargetWindowType=WindowType.Main;
             var parametrizedAction = new ParametrizedAction(this,GetType().Name,PredefinedCategory.ObjectsCreation, typeof(string));
             parametrizedAction.Execute+=ParametrizedActionOnExecute;
         }
@@ -18,8 +19,9 @@ namespace XpandSystemTester.Module.Win.FunctionalTests {
             if (!path.StartsWith("Application"))
                 path = "Application/" + path;
             var modelNode = Application.Model.GetNodeByPath(path);
-            var propertyType = modelNode.NodeInfo.ValuesInfo.First(info => info.Name==operands[1]).PropertyType;
-            var value = operands[2].Change(propertyType);
+            var modelValueInfo = modelNode.NodeInfo.ValuesInfo.First(info => info.Name==operands[1]);
+            var typeConverter = modelValueInfo.TypeConverter;
+            var value =typeConverter!=null? typeConverter.ConvertFrom(operands[2]):operands[2].Change(modelValueInfo.PropertyType);
             modelNode.SetValue(operands[1], value);
         }
     }

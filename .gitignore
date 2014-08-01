@@ -50,7 +50,10 @@ Demos/FeatureCenter/FeatureCenter.Web/Title Title*.jpg
 *ModelAdaptorASPxHtmlEditor.dll
 *UpgradeLog*.htm
 **/Backup*
-**/FunctionalTests/*.jpeg
+**/FunctionalTests/**/*Win_View.jpeg
+**/FunctionalTests/**/*Web_View.jpeg
+**/FunctionalTests/**/*Win_View.png
+**/FunctionalTests/**/*Web_View.png
 Index.dat
 Storage.dat
 TestsLog.xml

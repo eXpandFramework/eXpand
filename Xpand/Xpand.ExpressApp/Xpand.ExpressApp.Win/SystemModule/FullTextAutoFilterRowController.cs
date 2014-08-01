@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.XtraGrid.Views.Grid;
@@ -23,8 +24,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (activeFilterCriteria!=null){
                 var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo());
                 if (memberInfos.Any()){
-                    FullTextOperatorProcessor.Process(activeFilterCriteria, memberInfos.ToList());
-                    gridView.ActiveFilterCriteria = activeFilterCriteria;
+                    var filterCriteria = FullTextOperatorProcessor.Process(activeFilterCriteria, memberInfos.ToList());
+                    gridView.ActiveFilterCriteria = filterCriteria as CriteriaOperator;
                 }
             }
         }

@@ -50,9 +50,14 @@
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.Base.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -65,10 +70,13 @@
     <Reference Include="DevExpress.XtraGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
@@ -85,6 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\FullTextContains\AdvBandedListEditor_FilterEditor_Appearence.ets" />
+    <None Include="FunctionalTests\FullTextContains\XpandObjectSpaceProvider.ets" />
+    <None Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.ets" />
+    <None Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .ets" />
+    <None Include="FunctionalTests\FullTextContains\CollectionSourceCriteria.ets" />
+    <None Include="FunctionalTests\FullTextContains\XpandGridListEditor_FilterEditor_Appearence.ets" />
     <None Include="FunctionalTests\Login.inc" />
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
       <SubType>Component</SubType>
@@ -92,10 +106,14 @@
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\FullTextContains\FullTextContainsObject.cs" />
     <Compile Include="FunctionalTests\ModelValue.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\ApplicationExit\ApplicationExit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\ParameterValue.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinModule.cs">
@@ -108,12 +126,17 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj">
+      <Project>{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}</Project>
+      <Name>Xpand.ExpressApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XpandSystemTester.Module\XpandSystemTester.Module.csproj">
       <Project>{EF04B36B-E62F-40CB-8BC6-C1B740489383}</Project>
       <Name>XpandSystemTester.Module</Name>
@@ -142,10 +165,14 @@
     <Content Include="FunctionalTests\FullTextContains\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\FullTextContains\Init.inc" />
+    <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.inc" />
     <None Include="FunctionalTests\ApplicationExit\DefaultModel.inc" />
     <None Include="FunctionalTests\DefaultNavigation.inc" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="FunctionalTests\FullTextContains\Images\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo.Metadata;
@@ -66,14 +67,25 @@ namespace Xpand.ExpressApp.SystemModule.Search {
             }
         }
 
+        private bool _applying;
         private void CollectionSourceOnCriteriaApplying(object sender, EventArgs eventArgs){
-            var collectionSourceBase = View.CollectionSource;
-            collectionSourceBase.BeginUpdateCriteria();
-            var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo());
-            foreach (var criteriaOperator in collectionSourceBase.Criteria) {
-                if (!ReferenceEquals(criteriaOperator,null)) FullTextOperatorProcessor.Process(criteriaOperator, memberInfos.ToList());
+            if (!_applying) {
+                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo()).ToArray();
+                if (memberInfos.Any()){
+                    var collectionSourceBase = View.CollectionSource;
+                    collectionSourceBase.BeginUpdateCriteria();
+                    foreach (var key in collectionSourceBase.Criteria.Keys){
+                        var criteriaOperator = collectionSourceBase.Criteria[key];
+                        if (!ReferenceEquals(criteriaOperator, null)){
+                            _applying = true;
+                            collectionSourceBase.Criteria[key] =
+                                (CriteriaOperator) FullTextOperatorProcessor.Process(criteriaOperator, memberInfos);
+                        }
+                    }
+                    collectionSourceBase.EndUpdateCriteria();
+                }
             }
-            collectionSourceBase.EndUpdateCriteria();
+            _applying = false;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
