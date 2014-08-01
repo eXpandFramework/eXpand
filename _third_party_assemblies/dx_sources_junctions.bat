@@ -21,6 +21,9 @@ for %%x in (%XAFDirs%) do for /f %%l in ('dir /b "%targetDir%"\%%x') do junction
 
 junction -s %xafJunctionDir%\DevExpress.ExpressApp.Modules "%targetDir%\DevExpress.ExpressApp.Modules"
 
+mkdir %xafJunctionDir%\DevExpress.ExpressApp.EasyTest
+junction -s %xafJunctionDir%\DevExpress.ExpressApp.EasyTest\DevExpress.ExpressApp.EasyTest.WinAdapter "%targetDir%\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.EasyTest.WinAdapter"
+junction -s %xafJunctionDir%\DevExpress.ExpressApp.EasyTest\DevExpress.ExpressApp.EasyTest.WebAdapter "%targetDir%\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.EasyTest.WebAdapter"
 
 
 
@@ -30,3 +33,5 @@ junction -s %xafJunctionDir%\DevExpress.ExpressApp.Modules "%targetDir%\DevExpre
 
 
 
+
+ /
