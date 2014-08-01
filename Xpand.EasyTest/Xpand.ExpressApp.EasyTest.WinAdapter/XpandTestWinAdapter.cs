@@ -9,9 +9,5 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             base.RegisterCommands(registrator);
             registrator.RegisterCommands();
         }
-
-        public override void RunApplication(TestApplication testApplication){
-            base.RunApplication(testApplication);
-        }
     }
 }
