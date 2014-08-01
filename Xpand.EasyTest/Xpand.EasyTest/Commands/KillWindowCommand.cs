@@ -12,7 +12,7 @@ namespace Xpand.EasyTest.Commands{
                 if (windowHandle == IntPtr.Zero)
                     throw new CommandException(String.Format("Cannot find window {0}", mainParameter.Value),StartPosition);
             }
-            Win32.DestroyWindow(windowHandle);
+            Win32.CloseWindow(windowHandle);
         }
     }
 }
