@@ -139,7 +139,8 @@ namespace Xpand.Persistent.Base.General {
 
         static string ConnectionString(XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
             var connectionString = GetConnectionStringWithOutThreadSafeDataLayerInitialization(args);
-            (xafApplication).ConnectionString = connectionString;
+            if (!xafApplication.ObjectSpaceProviders.Any())
+                xafApplication.ConnectionString = connectionString;
             return connectionString;
         }
 

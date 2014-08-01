@@ -8,13 +8,13 @@ using Xpand.Xpo.Filtering;
 
 namespace Xpand.Persistent.Base.Xpo{
     public class FullTextOperatorProcessor : IClientCriteriaVisitor, IQueryCriteriaVisitor {
-        readonly List<XPMemberInfo> _memberInfos=new List<XPMemberInfo>();
+        readonly IEnumerable<XPMemberInfo> _memberInfos;
 
-        public FullTextOperatorProcessor(List<XPMemberInfo> memberInfos){
+        public FullTextOperatorProcessor(IEnumerable<XPMemberInfo> memberInfos){
             _memberInfos = memberInfos;
         }
 
-        public static object Process(CriteriaOperator op, List<XPMemberInfo> memberInfos) {
+        public static object Process(CriteriaOperator op, IEnumerable<XPMemberInfo> memberInfos) {
             return op.Accept(new FullTextOperatorProcessor(memberInfos)) ;
         }
 
@@ -40,7 +40,7 @@ namespace Xpand.Persistent.Base.Xpo{
         }
 
         private bool IsFullIndexedCore(string name){
-            return _memberInfos.Any(info => info.MappingField == name);
+            return _memberInfos.Any(info => (info.MappingField != null && info.MappingField == name)||(info.MappingField==null&&info.Name==name));
         }
 
         public object Visit(UnaryOperator theOperator){

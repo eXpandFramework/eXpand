@@ -14,7 +14,8 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.ApplicationExit {
 
         public ApplicationExit() {
             _singleChoiceAction = new SingleChoiceAction(this,GetType().Name,PredefinedCategory.ObjectsCreation){
-                ItemType = SingleChoiceActionItemType.ItemIsOperation
+                ItemType = SingleChoiceActionItemType.ItemIsOperation,
+                TargetViewType = ViewType.ListView
             };
             _singleChoiceAction.Items.Add(new ChoiceActionItem("MinimizeOnExit", "MinimizeOnExit"));
             _singleChoiceAction.Items.Add(new ChoiceActionItem("HideOnExit", "HideOnExit"));

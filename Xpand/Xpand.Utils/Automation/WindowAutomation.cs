@@ -38,9 +38,9 @@ namespace Xpand.Utils.Automation {
             return ret;
         }
 
-        public static void FocusWindow(string caption) {
+        public static bool FocusWindow(string caption) {
             IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, caption);
-            FocusWindow(findWindow);
+            return FocusWindow(findWindow);
         }
         #endregion
         public static Point GetGetWindowPosition(string windowCaption) {
