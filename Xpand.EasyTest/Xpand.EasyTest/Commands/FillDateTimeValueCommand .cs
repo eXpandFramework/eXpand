@@ -3,23 +3,12 @@ using System.Globalization;
 using DevExpress.EasyTest.Framework;
 
 namespace Xpand.EasyTest.Commands {
-
-    public class FillDateTimeValueCommand : Command {
-        private int GetIntegerParameterValue(string parameterName) {
-            int result = 0;
-            Parameter parameter = Parameters[parameterName];
-            if (parameter != null) {
-                if (!Int32.TryParse(parameter.Value, out result)) {
-                    throw new CommandException(string.Format(
-                        "'{0}' value is incorrect", parameterName), StartPosition);
-                }
-            }
-            return result;
-        }
+    public class FillDateTimeValueCommand : Command{
+        public const string Name = "FillDateTimeValue";
         protected override void InternalExecute(ICommandAdapter adapter) {
-            int deltaDays = GetIntegerParameterValue("Days");
-            int deltaHours = GetIntegerParameterValue("Hours");
-            int deltaMinutes = GetIntegerParameterValue("Minutes");
+            var deltaDays = this.ParameterValue<int>("Days");
+            var deltaHours = this.ParameterValue<int>("Hours");
+            var deltaMinutes = this.ParameterValue<int>("Minutes");
             string cultureName = Parameters["Culture"] != null ? Parameters["Culture"].Value : null;
             CultureInfo currentCulture =
                 cultureName != null ? CultureInfo.GetCultureInfo(cultureName) : null;
