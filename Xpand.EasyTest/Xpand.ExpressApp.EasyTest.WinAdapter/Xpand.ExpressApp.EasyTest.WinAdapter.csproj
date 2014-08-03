@@ -33,7 +33,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v14.1, Version=14.1.0.0, Culture=neutral, PublicKeyToken=79868b8147b5eae4, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.EasyTest.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.EasyTest.v14.1.dll</HintPath>
     </Reference>
@@ -66,8 +66,7 @@
   <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
   <Target Name="BeforeBuild">
     <GacUtil Assemblies="$(TargetName)" Command="Uninstall" />
-    <Message Text="BeforeBuild">
-    </Message>
+    <Message Text="BeforeBuild"></Message>
   </Target>
   <Target Name="AfterBuild">
     <GacUtil Assemblies="$(TargetPath)" />
