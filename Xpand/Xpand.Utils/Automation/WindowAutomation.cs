@@ -15,6 +15,17 @@ namespace Xpand.Utils.Automation {
             }
         }
         #region FocusWindow
+
+        public static void SetReadOnly(){
+            var helperAutomation = new HelperAutomation();
+            SetReadOnly(helperAutomation.GetFocusControlHandle());
+        }
+
+        public static void SetReadOnly(IntPtr windowHandle){
+            const int EM_SETREADONLY = 0x00CF;
+            Win32Declares.Message.SendMessage(windowHandle, EM_SETREADONLY, 1, 0);
+        }
+
         public static bool FocusWindow(IntPtr windowHandle) {
             if (Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle)
                 return true;
@@ -72,16 +83,23 @@ namespace Xpand.Utils.Automation {
             Win32Declares.Window.ShowWindow(handle, Win32Declares.Window.ShowWindowEnum.SW_SHOWMAXIMIZED);
         }
         #region CloseWindow
-        public static bool CloseWindow(IntPtr windowHandle) {
-            bool destroyWindow = Win32Declares.Window.DestroyWindow(windowHandle);
-            Application.DoEvents();
-            return destroyWindow;
+        public static void CloseWindow(IntPtr windowHandle){
+            Win32Declares.Message.SendMessage(windowHandle, (uint) Win32Constants.Standard.WM_SYSCOMMAND,
+                (int) Win32Constants.Standard.SC_CLOSE, 0);
         }
 
-        public static bool CloseWindow(string windowCaption) {
+        public static void CloseWindow(string windowCaption) {
             IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
-            return CloseWindow(findWindow);
+            CloseWindow(findWindow);
         }
         #endregion
+
+        public static bool KillFocus(){
+            var helperAutomation = new HelperAutomation();
+            var focusControlHandle = helperAutomation.GetFocusControlHandle();
+            Win32Declares.Message.SendMessage(focusControlHandle,
+                Win32Constants.Focus.WM_KILLFOCUS, IntPtr.Zero, IntPtr.Zero);
+            return helperAutomation.GetFocusControlHandle()!=focusControlHandle;
+        }
     }
 }

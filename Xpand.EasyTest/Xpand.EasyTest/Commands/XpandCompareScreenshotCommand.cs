@@ -3,7 +3,6 @@ using System.Drawing;
 using System.IO;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
-using Xpand.Utils.Automation;
 using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest.Commands{
@@ -20,7 +19,14 @@ namespace Xpand.EasyTest.Commands{
             if (Parameters["ScreenMainWindow"] != null){
                 Boolean.TryParse(Parameters["ScreenMainWindow"].Value, out screenMainWindow);
             }
-
+            if (this.ParameterValue("KillFocus",true)){
+                var hideCaretCommand = new KillFocusCommand();
+                hideCaretCommand.Execute(adapter);
+            }
+            if (this.ParameterValue("HideCursor",true)) {
+                var hideCaretCommand = new HideCursorCommand();
+                hideCaretCommand.Execute(adapter);
+            }
 
             IntPtr windowHandle = activeWindowControl.GetInterface<ITestWindow>().GetActiveWindowHandle();
             if (screenMainWindow){
@@ -29,7 +35,7 @@ namespace Xpand.EasyTest.Commands{
 
             Parameter windowNameParameter = Parameters["WindowTitle"];
             if (windowNameParameter != null){
-                windowHandle = Win32.FindWindowByCaption(IntPtr.Zero, windowNameParameter.Value);
+                windowHandle = Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, windowNameParameter.Value);
                 if (windowHandle == IntPtr.Zero)
                     throw new CommandException(String.Format("Cannot find window {0}", windowNameParameter.Value),StartPosition);
             }
