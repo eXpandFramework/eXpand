@@ -20,6 +20,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
         public const string ListEditor = "ListEditor";
         private const string CollectionSourceCriteria = "CollectionSource.CriteriaApplying";
         public const string CriteriaPropertyEditorEx = "CriteriaPropertyEditorEx";
+        public const string PopupCriteriaPropertyEditorEx = "PopupCriteriaPropertyEditorEx";
         public const string ColumnFilterChanged = "GridView.ColumnFilterChange";
         public const string XpandObjectSpaceProvider = "XpandObjectSpaceProvider";
         public FullTextContains(){
@@ -32,6 +33,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
             singleChoiceAction.Items.Add(new ChoiceActionItem(CriteriaPropertyEditorEx, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(ColumnFilterChanged, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(XpandObjectSpaceProvider, null));
+            singleChoiceAction.Items.Add(new ChoiceActionItem(PopupCriteriaPropertyEditorEx, null));
             singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
         }
 
@@ -41,6 +43,11 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             switch (e.SelectedChoiceActionItem.Id){
+                case PopupCriteriaPropertyEditorEx:{
+                    var listView = CreateListView(PopupCriteriaPropertyEditorEx);
+                    ConfigParameters(e.ShowViewParameters,listView);
+                }
+                    break;
                 case XpandObjectSpaceProvider:{
                     Verify(() =>ObjectSpace.FindObject(TargetObjectType,
                                 CriteriaOperator.Parse("FullText = 'Apostolis Bekiaris'")));
@@ -102,8 +109,11 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
             return detailView;
         }
 
-        private ListView CreateListView(){
-            var listViewId = TargetObjectType.Name + "_LookupListView";
+        private ListView CreateListView(string viewId=null){
+            var listViewId = TargetObjectType.Name +"_LookupListView";
+            if (viewId != null){
+                listViewId = viewId+"_ListView";
+            }
             var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(), TargetObjectType,listViewId);
             var listView = Application.CreateListView(listViewId, collectionSource, true);
             return listView;

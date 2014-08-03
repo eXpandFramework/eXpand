@@ -93,13 +93,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
-    <None Include="FunctionalTests\FullTextContains\AdvBandedListEditor_FilterEditor_Appearence.ets" />
     <None Include="FunctionalTests\FullTextContains\XpandObjectSpaceProvider.ets" />
     <None Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.ets" />
     <None Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .ets" />
     <None Include="FunctionalTests\FullTextContains\CollectionSourceCriteria.ets" />
-    <None Include="FunctionalTests\FullTextContains\XpandGridListEditor_FilterEditor_Appearence.ets" />
-    <None Include="FunctionalTests\Login.inc" />
+    <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.ets" />
+    <Compile Include="Class1.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -156,6 +157,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\XpandSystemTester.Module\FunctionalTests\Login.inc">
+      <Link>FunctionalTests\Login.inc</Link>
+    </Content>
     <Content Include="FunctionalTests\ApplicationExit\Config.xml">
       <SubType>Designer</SubType>
     </Content>

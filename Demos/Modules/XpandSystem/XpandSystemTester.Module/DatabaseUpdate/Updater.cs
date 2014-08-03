@@ -1,5 +1,4 @@
 using System;
-
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
