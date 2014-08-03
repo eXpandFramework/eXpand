@@ -23,7 +23,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (AllowEdit) {
                 var textBox = RenderHelper.CreateASPxTextBox();
                 textBox.MaxLength = MaxLength;
-                textBox.ValidationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
+                var validationSettings = textBox.ValidationSettings;
+                validationSettings.ValidateOnLeave = true;
+                validationSettings.CausesValidation = true;
+                validationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
                 textBox.TextChanged += ExtendedEditValueChangedHandler;
                 return textBox;
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -59,14 +60,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         public const string UrlEmailMask =
             @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
 
-        HyperLinkEdit _hyperlinkEditCore;
+        HyperLinkEdit _hyperlinkEdit;
 
         public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
         }
 
         public new HyperLinkEdit Control {
-            get { return _hyperlinkEditCore; }
+            get { return _hyperlinkEdit; }
         }
 
         protected override RepositoryItem CreateRepositoryItem() {
@@ -74,8 +75,16 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         protected override object CreateControlCore() {
-            _hyperlinkEditCore = new HyperLinkEdit();
-            return _hyperlinkEditCore;
+            _hyperlinkEdit = new HyperLinkEdit();
+            _hyperlinkEdit.MaskBox.Mask.MaskType=MaskType.RegEx;
+            _hyperlinkEdit.Validating+=HyperlinkEditOnValidating;
+            var maskProperties = _hyperlinkEdit.MaskBox.Mask;
+            maskProperties.EditMask = UrlEmailMask;
+            return _hyperlinkEdit;
+        }
+
+        private void HyperlinkEditOnValidating(object sender, CancelEventArgs cancelEventArgs){
+            
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
@@ -87,6 +96,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             EditMaskType = EditMaskType.RegEx;
             hyperLinkProperties.Mask.MaskType = MaskType.RegEx;
             hyperLinkProperties.Mask.EditMask = UrlEmailMask;
+            hyperLinkProperties.Validating+=HyperLinkPropertiesOnValidating;
+        }
+
+        private void HyperLinkPropertiesOnValidating(object sender, CancelEventArgs cancelEventArgs){
+            
         }
 
         void hyperLinkProperties_OpenLink(object sender, OpenLinkEventArgs e) {
