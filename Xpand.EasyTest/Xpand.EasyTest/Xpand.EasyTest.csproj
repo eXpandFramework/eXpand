@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -43,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,8 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\KillFocusCommand.cs" />
+    <Compile Include="Commands\HideCursorCommand.cs" />
     <Compile Include="Commands\KillWindowCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
+    <Compile Include="Commands\SendKeysCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
     <Compile Include="Commands\Extensions.cs" />
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />
@@ -77,7 +82,7 @@
   </Target>
   <Target Name="AfterBuild">
     <GacUtil Assemblies="$(TargetPath)" />
-    <Message Text="AfterBuild">
-    </Message>
+    <GacUtil Assemblies="Xpand.Utils" Command="Uninstall" />
+    <GacUtil Assemblies="$(TargetDir)Xpand.Utils.dll" />
   </Target>
 </Project>

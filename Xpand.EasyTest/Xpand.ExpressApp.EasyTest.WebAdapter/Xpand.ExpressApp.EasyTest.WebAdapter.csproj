@@ -69,12 +69,12 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
-
-
   <Target Name="BeforeBuild">
-    <GacUtil Assemblies="$(TargetName)" Command="Uninstall" Condition="'$(Configuration)'!='Release'"/>
+    <GacUtil Assemblies="$(TargetName)" Command="Uninstall" />
+    <Message Text="BeforeBuild">
+    </Message>
   </Target>
   <Target Name="AfterBuild">
-    <GacUtil Assemblies="$(TargetPath)" Condition="'$(Configuration)'!='Release'"/>
+    <GacUtil Assemblies="$(TargetPath)" />
   </Target>
 </Project>
