@@ -17,6 +17,7 @@ using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
@@ -45,6 +46,13 @@ namespace Xpand.Persistent.Base.General {
         XafApplication Application { get; }
     }
 
+
+    public enum ModuleType{
+        None,
+        Agnostic,
+        Win,
+        Web
+    }
     [ToolboxItem(false)]
     public class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
         private static string _xpandPathInRegistry;
@@ -59,7 +67,8 @@ namespace Xpand.Persistent.Base.General {
         static  bool? _isHosted;
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
-        
+        private ModuleType _moduleType;
+
         public event EventHandler ApplicationModulesManagerSetup;
 
         protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
@@ -123,11 +132,14 @@ namespace Xpand.Persistent.Base.General {
             var modelSources = application as IModelSources;
             if (modelSources == null)
                 return Assembly.GetEntryAssembly() == null;
-            return modelSources.Modules.Any(@base => {
-                var attribute =((IModelTypesInfoProvider) application).TypesInfo.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-                if (attribute != null)
-                    return attribute.FilterString == "Xaf.Platform.Web";
-                return false;
+            var moduleBases = modelSources.Modules;
+            return GetIsHosted(moduleBases);
+        }
+
+        private static bool GetIsHosted(IEnumerable<ModuleBase> moduleBases){
+            return moduleBases.Any(@base =>{
+                var attribute =XafTypesInfo.Instance.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
             });
         }
 
@@ -149,6 +161,13 @@ namespace Xpand.Persistent.Base.General {
                     typeof(ModifyObjectSpaceController)
                 });
             }
+            if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
+                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseControllerWin)
+            });
+            if (!Executed("GetDeclaredWebControllerTypes",ModuleType.Web))
+                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController)
+            });
+
             return declaredControllerTypes;
         }
 
@@ -178,22 +197,46 @@ namespace Xpand.Persistent.Base.General {
             customLogics.RegisterLogic(typeof(IModelApplicationListViews), typeof(ModelApplicationListViewsDomainLogic));
         }
 
-        public bool Executed<T>(string name) {
-            if (typeof(T).IsAssignableFrom(GetType())) {
-                Type value = typeof (T);
-                var keyValuePair = new KeyValuePair<string, ApplicationModulesManager>(name, ModuleManager);
-                if (CallMonitor.ContainsKey(keyValuePair)) {
-                    if (!CallMonitor.GetValues(keyValuePair, true).Contains(value)) {
-                        CallMonitor.Add(keyValuePair, value);
-                        return false;
-                    }
-                    return true;
+        public bool Executed<T>(string name){
+            return !ExecutionConditions<T>() || ExecutedCore(name,typeof(T));
+        }
+
+        private bool ExecutedCore(string name,Type value=null){
+            value = value ?? typeof (object);
+            var keyValuePair = new KeyValuePair<string, ApplicationModulesManager>(name, ModuleManager);
+            if (CallMonitor.ContainsKey(keyValuePair)){
+                if (!CallMonitor.GetValues(keyValuePair, true).Contains(value)){
+                    CallMonitor.Add(keyValuePair, value);
+                    return false;
                 }
-                CallMonitor.Add(keyValuePair, value);
-                
-                return false;
+                return true;
             }
-            return true;
+            CallMonitor.Add(keyValuePair, value);
+
+            return false;
+        }
+
+        private bool ExecutionConditions<T>(){
+            return typeof(T).IsAssignableFrom(GetType());
+        }
+
+        public bool Executed(string name,ModuleType moduleType){
+            return ModuleType != moduleType || ExecutedCore(name);
+        }
+
+        public ModuleType ModuleType{
+            get{
+                if (_moduleType==ModuleType.None){
+                    var toolboxTabNameAttribute = GetType().Attributes<ToolboxTabNameAttribute>().First();
+                    if (toolboxTabNameAttribute.TabName==XpandAssemblyInfo.TabWinModules)
+                        _moduleType=ModuleType.Win;
+                    else if (toolboxTabNameAttribute.TabName==XpandAssemblyInfo.TabAspNetModules)
+                        _moduleType=ModuleType.Web;
+                    else if (toolboxTabNameAttribute.TabName==XpandAssemblyInfo.TabWinWebModules)
+                        _moduleType=ModuleType.Agnostic;
+                }
+                return _moduleType;
+            }
         }
 
         public bool Executed(string name) {
@@ -211,6 +254,8 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("ExtendModelInterfaces"))
                 return;
 
+            extenders.Add<IModelClass, IModelClassInvalidEditorAction>();
+            extenders.Add<IModelDetailView, IModelDetailViewInvalidEditorAction>();
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
             extenders.Add<IModelClass, IModelClassEx>();
