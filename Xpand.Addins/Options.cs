@@ -17,6 +17,7 @@ namespace XpandAddIns {
         public const string FormatOnSave = "FormatOnSave";
         public const string ModelEditorPath = "modelEditorPath";
         public const string ProjectConverterPath = "projectConverterPath";
+        public const string TestExecutorPath = "testExecutorPath";
         public const string Token = "token";
         public const string GacUtilPath = "GacUtilPath";
         public const string GacUtilRegex = "GacUtilRegex";
@@ -36,6 +37,7 @@ namespace XpandAddIns {
             DecoupledStorage storage = GetStorage();
             modelEditorPathButtonEdit.Text = storage.ReadString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             projectConverterPathButtonEdit.Text = storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
+            testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             gacUtilPathButtonEdit.Text = storage.ReadString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
             publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
             gacUtilRegexButtonEdit.Text = storage.ReadString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
@@ -104,7 +106,10 @@ namespace XpandAddIns {
 
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e) {
-            if (Equals(openFileDialog1.Tag, ProjectConverterPath)) {
+            if (Equals(openFileDialog1.Tag, TestExecutorPath)) {
+                testExecutorButtonEdit.Text = openFileDialog1.FileName;
+            }
+            else if (Equals(openFileDialog1.Tag, ProjectConverterPath)) {
                 projectConverterPathButtonEdit.Text = openFileDialog1.FileName;
             }
             else if (Equals(openFileDialog1.Tag, ModelEditorPath))
@@ -118,6 +123,7 @@ namespace XpandAddIns {
             decoupledStorage.WriteString(PageName, Token, publicTokenTextEdit.Text);
             decoupledStorage.WriteString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
+            decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             decoupledStorage.WriteString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
@@ -197,6 +203,10 @@ namespace XpandAddIns {
 
         public static string ReadString(string key) {
             return Storage.ReadString(GetPageName(), key);
+        }
+
+        private void testExecutorButtonEdit_ButtonClick_1(object sender, ButtonPressedEventArgs e) {
+            ShowDialog(TestExecutorPath);
         }
     }
 }

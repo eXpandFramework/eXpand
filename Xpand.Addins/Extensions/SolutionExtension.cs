@@ -20,11 +20,11 @@ namespace XpandAddIns.Extensions {
             return solution.Properties.Cast<Property>().Single(property => property.Name == solutionProperty.ToString());
         }
         public static void CollapseAllFolders(this Solution solution) {
-            var DTE = CodeRush.ApplicationObject;
-            var UIHSolutionExplorer = DTE.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
-            if (UIHSolutionExplorer == null || UIHSolutionExplorer.UIHierarchyItems.Count == 0)
+            var dte = CodeRush.ApplicationObject;
+            var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+            if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;
-            UIHierarchyItem rootItem = UIHSolutionExplorer.UIHierarchyItems.Item(1);
+            UIHierarchyItem rootItem = uihSolutionExplorer.UIHierarchyItems.Item(1);
             rootItem.DTE.SuppressUI = true;
             Collapse(rootItem);
             rootItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
@@ -32,7 +32,7 @@ namespace XpandAddIns.Extensions {
         }
         public static Project FindStartUpProject(this Solution solution) {
             Property startUpProperty = solution.GetProperty(SolutionProperty.StartupProject);
-            return solution.FindProject((startUpProperty.Value + ""));
+            return solution.Projects.Cast<Project>().FirstOrDefault(project => project.Name == (string) startUpProperty.Value);
         }
 
         private static void Collapse(UIHierarchyItem item) {

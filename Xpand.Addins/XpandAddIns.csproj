@@ -78,6 +78,7 @@
     <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ConfigurationProperty.cs" />

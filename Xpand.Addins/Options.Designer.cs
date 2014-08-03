@@ -59,6 +59,9 @@ namespace XpandAddIns
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.formatOnSaveCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.testExecutorButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
+            this.labelControl6 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).BeginInit();
@@ -72,6 +75,7 @@ namespace XpandAddIns
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,7 +88,7 @@ namespace XpandAddIns
             // 
             this.publicTokenTextEdit.Location = new System.Drawing.Point(122, 80);
             this.publicTokenTextEdit.Name = "publicTokenTextEdit";
-            this.publicTokenTextEdit.Size = new System.Drawing.Size(152, 22);
+            this.publicTokenTextEdit.Size = new System.Drawing.Size(152, 20);
             this.publicTokenTextEdit.TabIndex = 2;
             // 
             // labelControl1
@@ -101,7 +105,7 @@ namespace XpandAddIns
             this.modelEditorPathButtonEdit.Name = "modelEditorPathButtonEdit";
             this.modelEditorPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
             new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.modelEditorPathButtonEdit.Size = new System.Drawing.Size(393, 22);
+            this.modelEditorPathButtonEdit.Size = new System.Drawing.Size(393, 20);
             this.modelEditorPathButtonEdit.TabIndex = 4;
             this.modelEditorPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.modelEditorPathButtonEdit_ButtonClick);
             // 
@@ -119,7 +123,7 @@ namespace XpandAddIns
             this.projectConverterPathButtonEdit.Name = "projectConverterPathButtonEdit";
             this.projectConverterPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
             new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.projectConverterPathButtonEdit.Size = new System.Drawing.Size(393, 22);
+            this.projectConverterPathButtonEdit.Size = new System.Drawing.Size(152, 20);
             this.projectConverterPathButtonEdit.TabIndex = 7;
             this.projectConverterPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.projectConverterPathButtonEdit_ButtonClick);
             // 
@@ -133,7 +137,6 @@ namespace XpandAddIns
             // 
             // gridControl1
             // 
-            this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(8, 117);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -171,7 +174,6 @@ namespace XpandAddIns
             // 
             // gridControl2
             // 
-            this.gridControl2.EmbeddedNavigator.Name = "";
             this.gridControl2.Location = new System.Drawing.Point(8, 249);
             this.gridControl2.MainView = this.gridView2;
             this.gridControl2.Name = "gridControl2";
@@ -253,7 +255,7 @@ namespace XpandAddIns
             this.gacUtilPathButtonEdit.Name = "gacUtilPathButtonEdit";
             this.gacUtilPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
             new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.gacUtilPathButtonEdit.Size = new System.Drawing.Size(411, 22);
+            this.gacUtilPathButtonEdit.Size = new System.Drawing.Size(411, 20);
             this.gacUtilPathButtonEdit.TabIndex = 20;
             this.gacUtilPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.gacUtilPathButtonEdit_ButtonClick);
             // 
@@ -279,7 +281,7 @@ namespace XpandAddIns
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gacUtilRegexButtonEdit.Location = new System.Drawing.Point(82, 45);
             this.gacUtilRegexButtonEdit.Name = "gacUtilRegexButtonEdit";
-            this.gacUtilRegexButtonEdit.Size = new System.Drawing.Size(411, 22);
+            this.gacUtilRegexButtonEdit.Size = new System.Drawing.Size(411, 20);
             this.gacUtilRegexButtonEdit.TabIndex = 21;
             // 
             // tabControl1
@@ -307,15 +309,35 @@ namespace XpandAddIns
             // 
             // formatOnSaveCheckEdit
             // 
-            this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(292, 80);
+            this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(280, 80);
             this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
             this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
-            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(219, 18);
+            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(231, 19);
             this.formatOnSaveCheckEdit.TabIndex = 27;
+            // 
+            // testExecutorButtonEdit
+            // 
+            this.testExecutorButtonEdit.Location = new System.Drawing.Point(378, 52);
+            this.testExecutorButtonEdit.Name = "testExecutorButtonEdit";
+            this.testExecutorButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
+            this.testExecutorButtonEdit.Size = new System.Drawing.Size(138, 20);
+            this.testExecutorButtonEdit.TabIndex = 29;
+            this.testExecutorButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.testExecutorButtonEdit_ButtonClick_1);
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(282, 55);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(71, 13);
+            this.labelControl6.TabIndex = 28;
+            this.labelControl6.Text = "TestExecutor :";
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.testExecutorButtonEdit);
+            this.Controls.Add(this.labelControl6);
             this.Controls.Add(this.formatOnSaveCheckEdit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gridControl1);
@@ -330,6 +352,7 @@ namespace XpandAddIns
             this.Name = "Options";
             this.Size = new System.Drawing.Size(530, 488);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).EndInit();
@@ -344,6 +367,7 @@ namespace XpandAddIns
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -416,5 +440,7 @@ namespace XpandAddIns
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private CheckEdit formatOnSaveCheckEdit;
+        private ButtonEdit testExecutorButtonEdit;
+        private LabelControl labelControl6;
     }
 }
