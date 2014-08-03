@@ -77,14 +77,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected override object CreateControlCore() {
             _hyperlinkEdit = new HyperLinkEdit();
             _hyperlinkEdit.MaskBox.Mask.MaskType=MaskType.RegEx;
-            _hyperlinkEdit.Validating+=HyperlinkEditOnValidating;
             var maskProperties = _hyperlinkEdit.MaskBox.Mask;
             maskProperties.EditMask = UrlEmailMask;
             return _hyperlinkEdit;
-        }
-
-        private void HyperlinkEditOnValidating(object sender, CancelEventArgs cancelEventArgs){
-            
         }
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
