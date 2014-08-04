@@ -162,7 +162,8 @@ namespace Xpand.Persistent.Base.General {
                 });
             }
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
-                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseControllerWin)
+                declaredControllerTypes = declaredControllerTypes.Union(new[]{
+                    typeof (InvalidEditorActionBaseControllerWin), typeof (XpandWinModificationController)
             });
             if (!Executed("GetDeclaredWebControllerTypes",ModuleType.Web))
                 declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController)

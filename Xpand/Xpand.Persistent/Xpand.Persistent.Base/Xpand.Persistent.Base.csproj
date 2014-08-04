@@ -157,6 +157,9 @@
     <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\XpandWinModificationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
