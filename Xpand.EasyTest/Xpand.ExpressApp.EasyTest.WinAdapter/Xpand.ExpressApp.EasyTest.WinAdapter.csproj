@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,7 +67,8 @@
   <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
   <Target Name="BeforeBuild">
     <GacUtil Assemblies="$(TargetName)" Command="Uninstall" />
-    <Message Text="BeforeBuild"></Message>
+    <Message Text="BeforeBuild">
+    </Message>
   </Target>
   <Target Name="AfterBuild">
     <GacUtil Assemblies="$(TargetPath)" />

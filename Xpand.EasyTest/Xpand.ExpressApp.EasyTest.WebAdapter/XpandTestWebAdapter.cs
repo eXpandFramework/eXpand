@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 WaitForAllWebBrowsersResponse();
         }
     }
-    public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter{
+    public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
         private Process _process;
         private const string SingleWebDevParamName = "SingleWebDev";
         private const string UrlParamName = "Url";
@@ -140,7 +140,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         public override void RegisterCommands(IRegisterCommand registrator){
             base.RegisterCommands(registrator);
-            registrator.RegisterCommands();
+            registrator.RegisterCommands(this);
         }
     }
 
