@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using SecurityTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 
 namespace SecurityTester.Module.Web {
@@ -17,7 +16,7 @@ namespace SecurityTester.Module.Web {
             anonymousRole.GetAnonymousUser();
 
             //add project specific permissions
-            anonymousRole.SetTypePermissions<Customer>(SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow);
+//            anonymousRole.SetTypePermissions<Customer>(SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow);
         }
     }
 }

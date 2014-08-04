@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
@@ -28,7 +27,15 @@ namespace SecurityTester.Web {
 
         public SecurityTesterAspNetApplication() {
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";
