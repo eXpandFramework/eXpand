@@ -144,7 +144,9 @@
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ShowNavigationItemController.cs" />
+    <Compile Include="Controllers\ShowNavigationItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Core\CurrentUserNameOperator.cs" />
     <Compile Include="Core\XpandUser.cs" />
     <Compile Include="Permissions\NavigationItemPermission.cs" />

@@ -51,14 +51,15 @@ namespace Xpand.ExpressApp.Security {
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
-        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
             var keyValuePairs = new[]{
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions))
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(e.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(e.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(e.Permissions)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), new NavigationItemPermissionRequestProcessor(e.Permissions))
             };
             foreach (var keyValuePair in keyValuePairs) {
-                customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
+                e.Processors.Add(keyValuePair);
             }
         }
 
