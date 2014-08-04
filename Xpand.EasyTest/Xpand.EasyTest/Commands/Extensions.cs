@@ -5,6 +5,32 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.EasyTest.Commands {
     public static class Extensions {
+        public static string GetXpandPath(string directory) {
+            var directoryInfo = new DirectoryInfo(directory);
+            while (!File.Exists(Path.Combine(directoryInfo.FullName, "Xpand.build"))) {
+                directoryInfo = directoryInfo.Parent;
+                if (directoryInfo == null)
+                    throw new ArgumentNullException();
+            }
+            return directoryInfo.FullName;
+        }
+
+        public static string GetPlatformSuffixedPath(this ICommandAdapter adapter,string fileName){
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName) + "";
+            var suffix = adapter.IsWinAdapter() ? ".win" : ".web";
+            if (!fileNameWithoutExtension.ToLower().EndsWith(suffix)) {
+                var directoryName = Path.GetDirectoryName(fileName) + "";
+                fileName = string.Format("{0}{1}{2}", fileNameWithoutExtension, suffix, Path.GetExtension(fileName));
+                fileName =Path.Combine(directoryName, fileName);
+            }
+            return fileName;
+        }
+        public static Command SynchWith(this Command instance, Command command) {
+            instance.Parameters.AddRange(command.Parameters);
+            instance.Parameters.MainParameter = command.Parameters.MainParameter;
+            return instance;
+        }
+
         public static T ParameterValue<T>(this Command command, string parameterName){
             return command.ParameterValue(parameterName, default(T));
         }
