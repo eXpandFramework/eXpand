@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +122,13 @@
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\Login.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FunctionalTests\HyperLinkPropertyEditor\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

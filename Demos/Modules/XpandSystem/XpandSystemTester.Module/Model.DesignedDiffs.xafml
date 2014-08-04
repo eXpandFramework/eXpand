@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="XpandSystemTester" Logo="ExpressAppLogo">
+  <NavigationItems StartupNavigationItem="SalesVolume_ListView" />
   <SchemaModules>
     <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
   </SchemaModules>

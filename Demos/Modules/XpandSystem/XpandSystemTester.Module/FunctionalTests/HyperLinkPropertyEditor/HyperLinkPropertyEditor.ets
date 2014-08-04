@@ -17,28 +17,19 @@
  Row[0] = http://www.expandFramework.com
 
 ;Does not save an invalid url and notify with an icon
-#IfDef XpandSystemTester.Web
 *ProcessRecord
  Url = http://www.expandFramework.com
  Action = Edit
-#EndIf
-#IfDef XpandSystemTester.Win
-*ProcessRecord
- Url = http://www.expandFramework.com
-*SendKeys aaaa
-#EndIf
-*SetActiveWindowSize 1024x768
-*Sleep 10000
-#IfDef XpandSystemTester.Web
-*FillForm
+*XpandFillForm
  Url = aaaa
-#EndIf
+ SendKeysX = True
+
+*SetActiveWindowSize 1024x768
 *Action Save and Close
-#IfDef XpandSystemTester.Web
-*XpandCompareScreenshot HyperLinkPropertyEditor.Web.png
- Mask = WebRootDetailView_Mask.png.pic
-#EndIf
-#IfDef XpandSystemTester.Win
-*XpandCompareScreenshot HyperLinkPropertyEditor.Win.png
- Mask = WinDetailView_Mask.png.pic
-#EndIf
+*XpandCompareScreenshot HyperLinkPropertyEditor.png
+ Mask = /regX/MainView.png.pic
+
+;#IfDef XpandSystemTester.Win
+;*XpandCompareScreenshot HyperLinkPropertyEditor.Win.png
+; Mask = /regX/WinDetailView_Mask.png.pic
+;#EndIf

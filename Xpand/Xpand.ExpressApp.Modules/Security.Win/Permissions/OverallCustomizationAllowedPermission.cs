@@ -21,13 +21,13 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         #endregion
     }
     public class OverallCustomizationAllowedPermissionRequestProcessor : PermissionRequestProcessorBase<OverallCustomizationAllowedPermissionRequest> {
-        private readonly IPermissionDictionary permissions;
+        private readonly IPermissionDictionary _permissions;
         public OverallCustomizationAllowedPermissionRequestProcessor(IPermissionDictionary permissions) {
-            this.permissions = permissions;
+            _permissions = permissions;
         }
         #region Overrides of PermissionRequestProcessorBase<OverallCustomizationAllowedPermissionRequest>
         public override bool IsGranted(OverallCustomizationAllowedPermissionRequest permissionRequest) {
-            return (permissions.FindFirst<OverallCustomizationAllowedPermission>() != null);
+            return (_permissions.FindFirst<OverallCustomizationAllowedPermission>() != null);
         }
         #endregion
     }
