@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\GridListEditor\GridListEditor.ets" />
     <None Include="FunctionalTests\FullTextContains\XpandObjectSpaceProvider.ets" />
     <None Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.ets" />
     <None Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .ets" />
@@ -117,6 +118,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\FullTextContains\FullTextContainsObject.cs" />
+    <Compile Include="FunctionalTests\GridListEditor\GridListEditorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\GridListEditor\GridListEditorObject.cs" />
     <Compile Include="FunctionalTests\ModelValue.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -136,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -165,9 +171,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\XpandSystemTester.Module\FunctionalTests\Login.inc">
-      <Link>FunctionalTests\Login.inc</Link>
-    </Content>
     <Content Include="FunctionalTests\ApplicationExit\Config.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -177,6 +180,10 @@
     <Content Include="FunctionalTests\FullTextContains\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\GridListEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\Login.inc" />
     <None Include="FunctionalTests\FullTextContains\Init.inc" />
     <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.inc" />
     <None Include="FunctionalTests\ApplicationExit\DefaultModel.inc" />

@@ -229,9 +229,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,modelMembers);
         }
 
-        public static string PropertyName(this GridColumn column) {
+        public static string PropertyName(this GridColumn column){
             var xafGridColumn = column as XafGridColumn;
-            return xafGridColumn != null ? xafGridColumn.PropertyName : ((IXafGridColumn)column).PropertyName;
+            if (xafGridColumn != null) 
+                return xafGridColumn.PropertyName;
+            var gridColumn = column as IXafGridColumn;
+            return gridColumn != null ? gridColumn.PropertyName : null;
         }
 
         public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn){
