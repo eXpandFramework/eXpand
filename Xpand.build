@@ -11,12 +11,13 @@
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
-    <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
+    <ToolsPath>$(MSBuildProjectDirectory)\Resource\Tool</ToolsPath>
+    <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
     <BatchCall>false</BatchCall>
-  </PropertyGroup>
-  <PropertyGroup>
+    <ExecCommand></ExecCommand>
+  
     <!--
 			Primary configuration properties (override them via command line if needed
 		-->
@@ -77,6 +78,20 @@
   </ItemGroup>
   <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="IndexSources" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.TaskFactory.PowerShell.dll"> 
+        <ParameterGroup> 
+          <Output Output="true" /> 
+        </ParameterGroup> 
+        <Task> 
+          <![CDATA[
+          Set-ExecutionPolicy Unrestricted
+          $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
+          $var = powershell .\Resource\NuGet\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+          $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
+]]>
+          
+        </Task> 
+  </UsingTask> 
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build" />
     <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" >
@@ -101,6 +116,7 @@
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    
 
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
@@ -190,20 +206,6 @@
       <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
       <EasyProjects Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
     </ItemGroup>
-  </Target>
-  <Target Name="Test" >
-    <ItemGroup>
-      <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*s" ></DxAssemblies>
-    </ItemGroup>
-    <Delete Files="@(DxAssemblies)"></Delete>
-    <PropertyGroup>
-    </PropertyGroup>
-    
-
-    <TypeMockStart />
-    <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
-    <TypeMockStop />
-
   </Target>
   <PropertyGroup>
     <EasyTestFilter>Demos\</EasyTestFilter>
@@ -378,31 +380,31 @@
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
   </Target>
-
+  <Target Name="ExecuteCommand">
+      <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" >
+        <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+      </Exec>
+      <Error Text="$(OutputOfExec)" Condition="'$(ErrorCode)' > '0'" />
+  </Target>
   <ItemGroup>
     <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec;Resource\NuGet\XtraDashboardWeb.nuspec" Condition="$(SkipDashboard)=='true'"/>
-    <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+    <NuspecFile Include="Resource\NuGet\lib*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
-  <Target Name="cmdTest">
-    <Exec ContinueOnError="true" Command=".\FixReferences\bin\debug\FixReferences.exe"/>
-    <MSBuild.ExtensionPack.Framework.CommandLine ContinueOnError="true" Command=".\FixReferences\bin\debug\FixReferences.exe"/>
-  </Target>
-  <Target Name="GitHubLink">
-    <Exec Command="githublink.exe $(MSBuildProjectDirectory) -u https://github.com/eXpand/eXpand -b master -l link.log -g true" WorkingDirectory="$(_third_party_assemblies)" ContinueOnError="true"></Exec>
+  <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
+    <IndexSources/>
     <CreateItem Include="$(XpandDLLPath)\*.pdb;">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
-  </Target>
-  <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput" DependsOnTargets="GitHubLink">
     <MakeDir Directories="$(BuildPath)\NuGet" />
-    <Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack %(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" />
     <CreateItem Include="Build\NuGet\*.nupkg" >
       <Output TaskParameter="Include" ItemName="NuGetFile"/>
     </CreateItem>
+  <Message Text="@(NuGetFile)"></Message>
   </Target>
-
   <Target Name="NuGet"  Inputs="@(NuGetFile)" Outputs="NotUsedOutput" DependsOnTargets="NuGetPackage">
-    <Exec ContinueOnError="false" Command="$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey) " />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey)" />
   </Target>
 </Project>
