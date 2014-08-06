@@ -105,9 +105,16 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
             var isAttached = Debugger.IsAttached;
-            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)))
-                File.Delete(assemblyFilePath);
-                _fileExistInPath = File.Exists(assemblyFilePath);
+                
+            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath))) {
+                try{
+                    File.Delete(assemblyFilePath);
+                }
+                catch (UnauthorizedAccessException e){
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                } 
+            }
+            _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
             }
