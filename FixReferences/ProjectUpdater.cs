@@ -124,10 +124,9 @@ namespace FixReferences {
             }
             var functionalTestsPath = Path.GetDirectoryName(file)+@"\FunctionalTests";
             if (Directory.Exists(functionalTestsPath)){
-                config = Path.Combine(functionalTestsPath,"Config.xml");
-                if (File.Exists(config)){
-                    ReplaceToken(config);
-                    UpdateAdapterVersion(config);
+                foreach (var configFile in Directory.GetFiles(functionalTestsPath,"Config.xml",SearchOption.AllDirectories)){
+                    ReplaceToken(configFile);
+                    UpdateAdapterVersion(configFile);    
                 }
             }
         }

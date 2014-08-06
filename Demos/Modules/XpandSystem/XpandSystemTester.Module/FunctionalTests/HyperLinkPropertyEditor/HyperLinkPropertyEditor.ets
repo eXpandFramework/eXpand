@@ -29,7 +29,3 @@
 *XpandCompareScreenshot HyperLinkPropertyEditor.png
  Mask = /regX/MainView.png.pic
 
-;#IfDef XpandSystemTester.Win
-;*XpandCompareScreenshot HyperLinkPropertyEditor.Win.png
-; Mask = /regX/WinDetailView_Mask.png.pic
-;#EndIf
