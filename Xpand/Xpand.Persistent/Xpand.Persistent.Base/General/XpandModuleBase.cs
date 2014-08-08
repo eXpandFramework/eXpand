@@ -69,6 +69,8 @@ namespace Xpand.Persistent.Base.General {
         static  bool? _isHosted;
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
+        private static readonly HashSet<Type> _disabledControllerTypes = new HashSet<Type>();
+        private static readonly object _disabledControllerTypesLock = new object();
         private ModuleType _moduleType;
         private bool _customUserModelDifferenceStore;
 
@@ -147,7 +149,27 @@ namespace Xpand.Persistent.Base.General {
         }
 
 
-        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
+        public static void DisableControllers(params Type[] types){
+            lock (_disabledControllerTypesLock){
+                foreach (Type type in types){
+                    if (!_disabledControllerTypes.Contains(type))
+                        _disabledControllerTypes.Add(type);
+                }
+            }
+        }
+
+        private IEnumerable<Type> FilterDisabledControllers(IEnumerable<Type> controllers){
+            if (controllers == null) return null;
+            lock (_disabledControllerTypesLock){
+                return controllers.Where(t => !_disabledControllerTypes.Contains(t)).ToArray();
+            }
+        }
+
+        protected override sealed IEnumerable<Type> GetDeclaredControllerTypes(){
+            return FilterDisabledControllers(base.GetDeclaredControllerTypes());
+        }
+
+        protected virtual IEnumerable<Type> GetDeclaredControllerTypesCore() {
             var declaredControllerTypes = base.GetDeclaredControllerTypes();
             if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[]
@@ -171,7 +193,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
                 declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof (InvalidEditorActionBaseControllerWin)});
-            if (!Executed("GetDeclaredWebControllerTypes",ModuleType.Web))
+            if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
                 declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController)
             });
 
