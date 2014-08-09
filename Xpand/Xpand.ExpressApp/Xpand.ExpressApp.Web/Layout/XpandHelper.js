@@ -11,7 +11,6 @@
                 return parentControl;
             }
         }
-        throw "GetElementParentControl not found";
     },
     
     GetFirstChildControl: function (element) {
@@ -21,7 +20,6 @@
                 return control;
             }
         }
-        throw " GetFirstChildControl not found";
     },
 
     IsRootSplitter: function (splitter) {

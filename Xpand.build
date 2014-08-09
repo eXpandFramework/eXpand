@@ -121,7 +121,7 @@
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
-    <Delete Files="@(DxAssemblies)"></Delete>
+    <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)==true"></Delete>
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
