@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -223,6 +222,7 @@ namespace XpandAddins {
             DTE dte = CodeRush.ApplicationObject;
             try {
                 var uniqueName = CodeRush.ApplicationObject.Solution.FindStartUpProject().UniqueName;
+                dte.WriteToOutput("Building EasyTest/Debug Configuration");
                 CodeRush.Solution.Active.SolutionBuild.BuildProject("EasyTest", uniqueName, true);
                 if (_lastBuildSucceeded) {
                     var activeFileName = CodeRush.Documents.ActiveFileName;

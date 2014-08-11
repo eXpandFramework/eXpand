@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Utils;
@@ -34,11 +35,12 @@ namespace Xpand.ExpressApp.ModelEditor {
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += OnException;
             try {
-                var appSetting = ConfigurationManager.AppSettings["debug"];
-                if (appSetting != null && appSetting.ToLower() == "true"){
+                var strings = args;
+                if (args.Length>3&&args[0]=="d"){
                     MessageBox.Show("Attach to this proccess");
+                    strings = args.Skip(1).ToArray();
                 }
-                var pathInfo = new PathInfo(args);
+                var pathInfo = new PathInfo(strings);
                 Tracing.Tracer.LogSeparator("PathInfo");
                 Tracing.Tracer.LogText(pathInfo.ToString());
                 Tracing.Tracer.LogSeparator("PathInfo");

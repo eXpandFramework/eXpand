@@ -15,10 +15,12 @@ namespace XpandAddIns {
     public partial class Options : OptionsPage {
         public const string ProjectPaths = "ProjectPaths";
         public const string FormatOnSave = "FormatOnSave";
+        public const string DebugME = "DebugME";
         public const string ModelEditorPath = "modelEditorPath";
         public const string ProjectConverterPath = "projectConverterPath";
         public const string TestExecutorPath = "testExecutorPath";
         public const string Token = "token";
+        
         // DXCore-generated code...
         #region Initialize
         protected override void Initialize() {
@@ -38,6 +40,7 @@ namespace XpandAddIns {
             testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
             formatOnSaveCheckEdit.Checked = storage.ReadBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
+            checkEditDebugME.Checked = storage.ReadBoolean(PageName, DebugME, checkEditDebugME.Checked);
 
             gridControl1.DataSource = GetConnectionStrings();
             gridControl2.DataSource = GetSourceCodeInfos();
@@ -119,6 +122,7 @@ namespace XpandAddIns {
             decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
+            decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
             decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
             SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
             SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", decoupledStorage, (BindingList<SourceCodeInfo>)gridControl2.DataSource);
@@ -189,6 +193,9 @@ namespace XpandAddIns {
             ShowDialog(ProjectConverterPath);
         }
 
+        public static bool ReadBool(string key){
+            return Storage.ReadBoolean(GetPageName(), key);
+        }
         public static string ReadString(string key) {
             return Storage.ReadString(GetPageName(), key);
         }

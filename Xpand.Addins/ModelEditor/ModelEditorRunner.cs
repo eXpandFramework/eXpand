@@ -22,22 +22,28 @@ namespace XpandAddIns.ModelEditor {
             
         }
         void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path) {
-            var fullPath = projectWrapper.FullPath;
-            string assemblyPath = Path.Combine(fullPath, Path.Combine(projectWrapper.OutputPath, outputFileName));
-            if (!File.Exists(assemblyPath)) {
-                MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
-                return;
-            }
+            try{
+                var fullPath = projectWrapper.FullPath;
+                string assemblyPath = Path.Combine(fullPath, Path.Combine(projectWrapper.OutputPath, outputFileName));
+                if (!File.Exists(assemblyPath)) {
+                    MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
+                    return;
+                }
             
-            var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
-            KillProcess(destFileName);
-            if (path!=destFileName)
-                File.Copy(path, destFileName,true);
-            string arguments = String.Format("\"{0}\" \"{2}\" \"{1}\"", Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
-            if (File.Exists(destFileName))
-                Process.Start(destFileName, arguments);
-            else
-                MessageBox.Show(String.Format("Model editor not found at {0}", destFileName));
+                var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
+                KillProcess(destFileName);
+                if (path!=destFileName)
+                    File.Copy(path, destFileName,true);
+                string debugMe = Options.ReadBool(Options.DebugME)?"d":null;
+                string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
+                if (File.Exists(destFileName))
+                    Process.Start(destFileName, arguments);
+                else
+                    MessageBox.Show(String.Format("Model editor not found at {0}", destFileName));
+            }
+            catch (Exception e){
+                MessageBox.Show(e.ToString());
+            }
         }
 
         public void KillProcess(string path){
