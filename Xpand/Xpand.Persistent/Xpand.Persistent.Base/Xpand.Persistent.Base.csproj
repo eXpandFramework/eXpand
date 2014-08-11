@@ -151,6 +151,9 @@
     <Compile Include="General\Controllers\InvalidEditorAction.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\ModelViewSavingController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\ModifyObjectSpaceController.cs">
       <SubType>Component</SubType>
     </Compile>
