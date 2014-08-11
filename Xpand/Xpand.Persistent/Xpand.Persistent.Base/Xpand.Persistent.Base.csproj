@@ -167,6 +167,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
+    <Compile Include="General\FastReflectPropertyDescriptor.cs" />
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="General\Model\ModelNodePath.cs" />
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
