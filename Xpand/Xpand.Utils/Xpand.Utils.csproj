@@ -83,8 +83,6 @@
     <Compile Include="Automation\SystemAutomation.cs" />
     <Compile Include="Automation\Wait.cs" />
     <Compile Include="Automation\WaitAutomation.cs" />
-    <Compile Include="Dynamic\ObjectFactory.cs" />
-    <Compile Include="Dynamic\DynamicElement.cs" />
     <Compile Include="Fastreflect\PropertyExtensions.cs" />
     <Compile Include="GeneralDataStructures\HashedArrayList.cs" />
     <Compile Include="GeneralDataStructures\MultiKeyDictionary.cs" />
@@ -104,13 +102,9 @@
     <Compile Include="Win32\Win32Declares.cs" />
     <Compile Include="Win32\Win32Types.cs" />
     <Compile Include="Automation\WindowAutomation.cs" />
-    <Compile Include="DependentAssembly\DependentAttributeInspector.cs" />
-    <Compile Include="DependentAssembly\DependentAssemblyPathResolver.cs" />
-    <Compile Include="DependentAssembly\IDependentAssemblyInspector.cs" />
     <Compile Include="BackingFieldResolver\BackingFieldResolver.cs" />
     <Compile Include="BackingFieldResolver\ILPattern.cs" />
     <Compile Include="BackingFieldResolver\MatchContext.cs" />
-    <Compile Include="DependentAssembly\DependentAssemblyAttribute.cs" />
     <Compile Include="ExpressionBuilder\Builder.cs" />
     <Compile Include="BackingFieldResolver\MethodBaseRocks.cs" />
     <Compile Include="ExpressionBuilder\IBuilder.cs" />
