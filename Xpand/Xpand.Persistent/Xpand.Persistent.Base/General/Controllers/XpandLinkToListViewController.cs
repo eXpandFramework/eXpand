@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 
-namespace Xpand.Persistent.Base.Xpo.MetaData{
+namespace Xpand.Persistent.Base.General.Controllers{
     public class XpandLinkToListViewController : Controller {
         private Link _link;
         private View _previousView;
