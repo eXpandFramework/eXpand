@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.General;
 using BaseObject = DevExpress.Persistent.BaseImpl.BaseObject;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 

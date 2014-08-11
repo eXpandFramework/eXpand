@@ -14,6 +14,7 @@ using DevExpress.XtraGrid.Views.Base;
 using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.PropertyEditors;
+using XpandSystemTester.Module.FunctionalTests;
 
 namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
     public class FullTextContains:ViewController{
@@ -37,8 +38,8 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
             singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
         }
 
-        public ParameterValue ParameterValue{
-            get { return Application.MainWindow.GetController<ParameterValue>(); }
+        public XpandEasyTestController XpandEasyTestController {
+            get { return Application.MainWindow.GetController<XpandEasyTestController>(); }
         }
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
@@ -56,7 +57,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 case ColumnFilterChanged:{
                     var gridView = ((ColumnsListEditor) ((ListView) View).Editor).GridView();
                     gridView.ActiveFilterCriteria = CriteriaOperator.Parse("FullText = 'Apostolis Bekiaris'");
-                    ParameterValue.ParameterAction.Value = gridView.ActiveFilterCriteria;
+                    XpandEasyTestController.ParameterAction.Value = gridView.ActiveFilterCriteria;
                 }
                     break;
                 case CriteriaPropertyEditorEx:{
@@ -100,7 +101,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
         private void Verify(SqlExecutionErrorException sqlExecutionErrorException) {
             var sqlException = sqlExecutionErrorException.InnerException as SqlException;
             if (sqlException != null && sqlException.Number == 7601)
-                Frame.GetController<ParameterValue>().ParameterAction.Value ="ContainsException";
+                Frame.GetController<XpandEasyTestController>().ParameterAction.Value ="ContainsException";
         }
 
         private DetailView CreateDetailView(){
@@ -146,7 +147,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 DisplayMenu(filterEditorControl.FilterControl);
             }
             else if (e.SelectedChoiceActionItem.Id == FullTextContains.ListEditor){
-                var value = Application.MainWindow.GetController<ParameterValue>().Value ?? "FullName";
+                var value = Application.MainWindow.GetController<XpandEasyTestController>().Value ?? "FullName";
                 var gridView = ((ColumnsListEditor) ((ListView) Frame.View).Editor).GridView();
                 var defaultColumn = gridView.Columns[value];
                 gridView.FilterEditorCreated += GridViewOnFilterEditorCreated;
