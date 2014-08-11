@@ -56,10 +56,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AssignModelToUserCommand.cs" />
     <Compile Include="Commands\KillFocusCommand.cs" />
     <Compile Include="Commands\HideCursorCommand.cs" />
     <Compile Include="Commands\KillWindowCommand.cs" />
     <Compile Include="Commands\SendKeysCommand.cs" />
+    <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
