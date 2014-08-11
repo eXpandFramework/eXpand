@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DevExpress.CodeRush.Core;
-using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
@@ -214,42 +213,6 @@ namespace XpandAddins {
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded){
             _lastBuildSucceeded = succeeded;
-            if (succeeded) {
-                if (project == "Xpand.ExpressApp.ModelEditor.csproj") {
-                    var outputPath = CodeRush.Solution.Active.FindProjectFromUniqueName(project).FindOutputPath();
-                    File.Copy(outputPath, Options.Storage.ReadString(Options.GetPageName(), Options.ModelEditorPath),true);
-                }
-                else {
-                    string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
-                    if (File.Exists(gacUtilPath)) {
-                        Project dteProject = CodeRush.Solution.Active.FindProjectFromUniqueName(project);
-                        if (ProjectExists(dteProject)) {
-                            Environment.CurrentDirectory = Path.GetDirectoryName(gacUtilPath) + "";
-                            string outputPath = dteProject.FindOutputPath();
-                            if (File.Exists(outputPath))
-                                Process.Start("gacutil.exe", String.Format(@"/i ""{0}"" /f", outputPath));
-                        } else {
-                            Log.Send("GagUtl Project Not Found:", dteProject.FileName);
-                        }
-                    }
-                }
-            }
-        }
-
-        public static bool ProjectExists(Project project) {
-            IEnumerable<string> allProjectPaths =
-                Options.Storage.GetGroupedKeys(Options.ProjectPaths).SelectMany(
-                    s => Options.Storage.ReadStrings(Options.ProjectPaths, s));
-            return allProjectPaths.Where(MatchProjectName(project)).FirstOrDefault() != null;
-        }
-
-        static Func<string, bool> MatchProjectName(Project project) {
-            string fileName = Path.GetFileName(project.FileName) + "";
-            string pattern = Options.ReadString(Options.GacUtilRegex);
-            return s => {
-                string s1 = s.Split('|')[0];
-                return s1 == project.FileName && (!string.IsNullOrEmpty(pattern) && !Regex.IsMatch(fileName, pattern));
-            };
         }
         
         private void RunEasyTest_Execute(ExecuteEventArgs ea){

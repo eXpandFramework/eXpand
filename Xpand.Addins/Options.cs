@@ -19,8 +19,6 @@ namespace XpandAddIns {
         public const string ProjectConverterPath = "projectConverterPath";
         public const string TestExecutorPath = "testExecutorPath";
         public const string Token = "token";
-        public const string GacUtilPath = "GacUtilPath";
-        public const string GacUtilRegex = "GacUtilRegex";
         // DXCore-generated code...
         #region Initialize
         protected override void Initialize() {
@@ -38,9 +36,7 @@ namespace XpandAddIns {
             modelEditorPathButtonEdit.Text = storage.ReadString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             projectConverterPathButtonEdit.Text = storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
-            gacUtilPathButtonEdit.Text = storage.ReadString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
             publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
-            gacUtilRegexButtonEdit.Text = storage.ReadString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
             formatOnSaveCheckEdit.Checked = storage.ReadBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
 
             gridControl1.DataSource = GetConnectionStrings();
@@ -114,8 +110,6 @@ namespace XpandAddIns {
             }
             else if (Equals(openFileDialog1.Tag, ModelEditorPath))
                 modelEditorPathButtonEdit.Text = openFileDialog1.FileName;
-            else if (Equals(openFileDialog1.Tag, GacUtilPath))
-                gacUtilPathButtonEdit.Text = openFileDialog1.FileName;
         }
 
         private void Options_CommitChanges(object sender, CommitChangesEventArgs ea) {
@@ -124,8 +118,6 @@ namespace XpandAddIns {
             decoupledStorage.WriteString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
-            decoupledStorage.WriteString(PageName, GacUtilPath, gacUtilPathButtonEdit.Text);
-            decoupledStorage.WriteString(PageName, GacUtilRegex, gacUtilRegexButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
             decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
             SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
@@ -181,10 +173,6 @@ namespace XpandAddIns {
             var regexObj = new Regex("<" + attributeName + ">([^<]*)</" + attributeName + ">");
             Match matchResults = regexObj.Match(readToEnd);
             return matchResults.Success ? matchResults.Groups[1].Value : null;
-        }
-
-        private void gacUtilPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(GacUtilPath);
         }
 
         private void modelEditorPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
