@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using DevExpress.EasyTest.Framework;
+using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.EasyTest.Commands {
@@ -12,6 +14,13 @@ namespace Xpand.EasyTest.Commands {
     }
 
     public static class Extensions {
+        public static void Execute(this CopyFileCommand copyFileCommand,ICommandAdapter adapter,TestParameters testParameters,string sourceFile,string destinationFile){
+            var sourceParameter = new Parameter("Source", sourceFile, true, new PositionInScript(0));
+            var destinationParameter = new Parameter("Destination", destinationFile, true, new PositionInScript(0));
+            copyFileCommand.ParseCommand(testParameters, sourceParameter, destinationParameter);
+            copyFileCommand.Execute(adapter);
+        }
+
         public static string GetXpandPath(string directory) {
             var directoryInfo = new DirectoryInfo(directory);
             while (!File.Exists(Path.Combine(directoryInfo.FullName, "Xpand.build"))) {
@@ -35,6 +44,27 @@ namespace Xpand.EasyTest.Commands {
 
         public static bool IsWinAdapter(this ICommandAdapter instance){
             return Adapter is IXpandTestWinAdapter;
+        }
+
+        public static TestAlias GetAlias(this TestParameters testParameters,string name,string webName=null){
+            string aliasName = IsWinAdapter(null) ? name : webName??name;
+            var options = testParameters.LoadOptions();
+            return options.Aliases.Cast<TestAlias>().First(@alias => alias.Name == aliasName);
+        }
+
+        public static Options LoadOptions(this TestParameters testParameters) {
+            var configPath = Path.Combine(testParameters.ScriptsPath, "config.xml");
+            var optionsStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return Options.LoadOptions(optionsStream, null, null, Path.GetDirectoryName(configPath));
+        }
+
+        public static Command ParseCommand(this Command command,TestParameters testParameters,params Parameter[] parameters){
+            string[] strings = parameters.Select(parameter =>" "+ parameter.Name + " = " + parameter.Value).ToArray();
+            var commandName = "*"+command.GetType().Name.Replace("Command","");
+            var scriptLines = new ScriptStringList(new[] { commandName }.Concat(strings).ToArray());
+            var commandCreationParam = new CommandCreationParam(scriptLines, 0, testParameters);
+            command.ParseCommand(commandCreationParam);
+            return command;
         }
 
         public static Command SynchWith(this Command instance, Command command) {
@@ -72,6 +102,8 @@ namespace Xpand.EasyTest.Commands {
                 {typeof (KillFocusCommand), KillFocusCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
+                {typeof (AssignModelToUserCommand), AssignModelToUserCommand.Name},
+                {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
             };
