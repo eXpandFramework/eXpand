@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DevExpress.Data.Filtering;
+using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
+using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Fasterflect;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
@@ -25,6 +32,36 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelNodeExtensions {
+        public static ITypeInfo GetGenericListArgument(this IModelNode nodeByPath) {
+            var type = nodeByPath.GetType();
+            if (typeof(IEnumerable).IsAssignableFrom(type)) {
+                var genericModelList = type.GetInterfaces().First(type1 => typeof(IEnumerable).IsAssignableFrom(type1) && type1.IsGenericType);
+                return XafTypesInfo.Instance.FindTypeInfo(genericModelList.GetGenericArguments()[0]);
+            }
+            return null;
+        }
+
+        public static IEnumerable<IModelChoiceActionItem> ActionChoiceItems(this IModelNode modelnode, Frame frame) {
+            return modelnode.Application.ActionDesign.Actions.Where(action => action.ChoiceActionItems != null && action.ChoiceActionItems.Any()).SelectMany(action => action.ChoiceActionItems);
+        }
+
+        public static ActionBase ToAction(this IModelAction modelAction, Frame frame){
+            return frame.Actions().First(@base => @base.Model == modelAction);
+        }
+
+        private static ExpressionEvaluator GetExpressionEvaluator(IModelNode dataSourceNode, CriteriaOperator criteriaOperator) {
+            var typeInfo = dataSourceNode.GetGenericListArgument();
+            var descendants = ReflectionHelper.FindTypeDescendants(typeInfo);
+            var propertyDescriptors = descendants.SelectMany(info => info.Members).DistinctBy(info => info.Name).Select(info => new XafPropertyDescriptor(info,info.Name)).Cast<PropertyDescriptor>().ToArray();
+            var evaluatorContextDescriptor = new EvaluatorContextDescriptorDefault(new PropertyDescriptorCollection(propertyDescriptors));
+            return new ExpressionEvaluator(evaluatorContextDescriptor, criteriaOperator, false, XpandModuleBase.Dictiorary.CustomFunctionOperators);    
+        }
+
+        public static IEnumerable<T> GetNodes<T>(this IEnumerable<T> modelNodes, string criteria) where T:IModelNode{
+            var expressionEvaluator = GetExpressionEvaluator((IModelNode) modelNodes, CriteriaOperator.Parse(criteria));
+            return expressionEvaluator!=null ? modelNodes.Where(arg => (bool) expressionEvaluator.Evaluate(arg)) : Enumerable.Empty<T>();
+        }
+
         public static XPClassInfo QueryXPClassInfo(this IModelClass modelClass){
             return XpandModuleBase.Dictiorary.QueryClassInfo(modelClass.TypeInfo.Type);
         }
@@ -33,14 +70,28 @@ namespace Xpand.Persistent.Base.General {
             return XpandModuleBase.Dictiorary.GetClassInfo(modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
         }
 
-        public static TNode GetParent<TNode>(this IModelNode node) where TNode : class, IModelNode {
-            var modelNode = node;
-            while (!(modelNode is TNode)) {
-                if (modelNode.Parent == null)
-                    return null;
-                modelNode = modelNode.Parent;
+        public static TNode GetParent<TNode>(this IModelNode modelNode) where TNode : class, IModelNode{
+            if (modelNode is TNode)
+                return (TNode) modelNode;
+            var parent = modelNode.Parent;
+            while (!(parent is TNode)) {
+                parent = parent.Parent;
+                if (parent == null)
+                    break;
             }
-            return modelNode as TNode;
+            return parent != null ? (TNode)parent : default(TNode);
+        }
+
+        public static void Undo(this IModelNode modelNode){
+            ((ModelNode) modelNode).Undo();
+        }
+
+        public static IModelNode FindNodeByPath(this IModelNode modelNode,string nodePath){
+            return ModelEditorHelper.FindNodeByPath(nodePath, (ModelNode) modelNode);
+        }
+
+        public static string Path(this IModelNode modelNode){
+            return ModelEditorHelper.GetModelNodePath((ModelNode) modelNode);
         }
 
         public static string Xml(this IModelNode modelNode) {
@@ -52,7 +103,7 @@ namespace Xpand.Persistent.Base.General {
             return GetValue(modelValueInfo.Item2, propertyName.Split('.').Last(), modelValueInfo.Item1.PropertyType);
         }
 
-        private static Tuple<ModelValueInfo,IModelNode> GetModelValueInfo(this IModelNode modelNode, string propertyName) {
+        public static Tuple<ModelValueInfo,IModelNode> GetModelValueInfo(this IModelNode modelNode, string propertyName) {
             if (propertyName.Contains(".")){
                 var split = propertyName.Split('.');
                 var strings = string.Join(".", split.Skip(1));
@@ -66,8 +117,24 @@ namespace Xpand.Persistent.Base.General {
         public static object GetValue(this IModelNode modelNode,string propertyName,Type propertyType) {
             return modelNode.CallMethod(new[]{propertyType}, "GetValue", propertyName);
         }
-        public static void SetValue(this IModelNode modelNode,string propertyName,Type propertyType,object value) {
-            modelNode.CallMethod(new[] { propertyType }, "SetValue", propertyName, value);
+
+        public static void SetChangedValue(this IModelNode modelNode, string propertyName,  string value){
+            modelNode.SetValue(propertyName, null,value);
+        }
+
+        public static void SetValue(this IModelNode modelNode,string propertyName,Type propertyType,object value){
+            if (propertyType==null){
+                var modelValueInfo = modelNode.GetModelValueInfo(propertyName).Item1;
+                var changedValue = modelValueInfo.ChangedValue(value, modelValueInfo.PropertyType);
+                modelNode.CallMethod(new[] { modelValueInfo.PropertyType }, "SetValue", propertyName, changedValue);
+            }
+            else
+                modelNode.CallMethod(new[] { propertyType }, "SetValue", propertyName, value);
+        }
+
+        public static object ChangedValue(this ModelValueInfo modelValueInfo,object value, Type destinationType){
+            var typeConverter = modelValueInfo.TypeConverter;
+            return typeConverter != null ? typeConverter.ConvertFrom(value) : value.Change(destinationType);
         }
 
         public static bool IsRemovedNode(this IModelNode modelNode) {
@@ -96,6 +163,7 @@ namespace Xpand.Persistent.Base.General {
             return layoutViewItems.Where(item => item.ViewItem == memberViewItem);
         }
     }
+
     public class ModelNodeWrapper {
         readonly ModelNode _modelNode;
 
@@ -292,6 +360,11 @@ namespace Xpand.Persistent.Base.General {
             ModelApplicationHelper.RemoveLayer(application);
             ModelApplicationHelper.AddLayer(application, layer);
             ModelApplicationHelper.AddLayer(application, lastLayer);
+        }
+
+        public static ModelApplicationBase GetLayer(this ModelApplicationBase modelApplicationBase, string id){
+            var modelNodeWrapper = modelApplicationBase.GetLayers().FirstOrDefault(wrapper => wrapper.ModelNode.Id==id);
+            return modelNodeWrapper != null ? (ModelApplicationBase) modelNodeWrapper.ModelNode : null;
         }
 
         public static ModelApplicationBase GetLayer(this ModelApplicationBase modelApplicationBase, int index) {

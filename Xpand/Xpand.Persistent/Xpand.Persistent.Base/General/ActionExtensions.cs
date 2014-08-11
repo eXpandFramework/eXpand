@@ -1,8 +1,17 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
+using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ActionExtensions {
+
+        public static IModelBaseChoiceActionItem Model(this ChoiceActionItem choiceActionItem){
+            var modelAction = ((SingleChoiceAction) choiceActionItem.GetPropertyValue("Owner")).Model;
+            var nodePath = choiceActionItem.GetIdPath();
+            return (IModelBaseChoiceActionItem) modelAction.ChoiceActionItems.FindNodeByPath(nodePath);
+        }
+
         public static bool DoExecute(this ActionBase actionBase) {
             if (!actionBase.Active||!actionBase.Enabled)
                 return false;
