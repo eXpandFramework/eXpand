@@ -76,6 +76,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Utils, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
@@ -83,6 +87,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="FunctionalTests\Actions\Actions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\DynamicMembers\DynamicMembersObject.cs" />
+    <Compile Include="FunctionalTests\XpandEasyTestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -94,11 +106,14 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -110,7 +125,17 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Actions\Actions.ets" />
+    <None Include="FunctionalTests\Actions\Actions.Xpand.xafml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\DynamicMembers\DynamicMembers.ets" />
+    <None Include="FunctionalTests\DynamicMembers\DynamicMembers.Xpand.xafml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
@@ -119,6 +144,15 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
+    <Content Include="FunctionalTests\Actions\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <None Include="FunctionalTests\Actions\Create action item from model.inc" />
+    <None Include="FunctionalTests\Actions\Lock View Model.inc" />
+    <None Include="FunctionalTests\Actions\Reset View Model.inc" />
+    <None Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>

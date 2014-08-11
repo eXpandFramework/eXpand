@@ -5,7 +5,7 @@ using Xpand.ExpressApp.EasyTest.WinAdapter;
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
 
 namespace Xpand.ExpressApp.EasyTest.WinAdapter {
-    public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter,IXpandTestWinAdapter {
+    public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter,IXpandTestWinAdapter,ICommandsRegistrator {
         public override void RegisterCommands(IRegisterCommand registrator) {
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);

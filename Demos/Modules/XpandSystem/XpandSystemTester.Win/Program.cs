@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 
 namespace XpandSystemTester.Win {
     static class Program {
@@ -10,17 +11,18 @@ namespace XpandSystemTester.Win {
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
+        static void Main(){
             
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
-            System.IO.File.Delete("Model.User.xafml");
+            XpandModuleBase.IsEasyTesting = true;
 #endif
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
             var winApplication = new XpandSystemTesterWindowsFormsApplication();
+            winApplication.DoStartupActions(XpandModuleBase.IsEasyTesting);
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;

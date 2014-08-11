@@ -111,6 +111,7 @@
     <None Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .ets" />
     <None Include="FunctionalTests\FullTextContains\CollectionSourceCriteria.ets" />
     <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.ets" />
+    <Compile Include="FunctionalTests\ApplicationExit\ApplicationExitObject.cs" />
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -122,13 +123,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\GridListEditor\GridListEditorObject.cs" />
-    <Compile Include="FunctionalTests\ModelValue.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FunctionalTests\ApplicationExit\ApplicationExit.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\ParameterValue.cs">
+    <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinModule.cs">

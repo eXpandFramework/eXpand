@@ -15,7 +15,8 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ModelDifference {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser {
+    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser{
+        public const string ModelDifferenceCategory = "eXpand.ModelDifference";
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));

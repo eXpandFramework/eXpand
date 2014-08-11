@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
