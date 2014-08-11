@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.Logic.Model {
     [ModelAbstractClass]
@@ -10,7 +11,7 @@ namespace Xpand.Persistent.Base.Logic.Model {
 
         [ModelPersistentName("TypeInfo")]
         [DataSourceProperty("Application.BOModel"), Required]
-        [Description("Required. Specifies the business class whose properties are affected by the current rule."), Category("Logic.Data")]
+        [Description("Required. Specifies the business class whose properties are affected by the current rule."), Category(AttributeCategoryNameProvider.LogicData)]
         [RefreshProperties(RefreshProperties.All)]
         IModelClass ModelClass { get; set; }
 

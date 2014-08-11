@@ -46,10 +46,6 @@ namespace Xpand.Persistent.Base.General {
         event CancelEventHandler ConfirmationRequired;
     }
 
-
-    public interface IXafApplicationDirectory {
-        string BinDirectory { get;  }
-    }
     public interface ILayoutManager {
     }
 

@@ -16,22 +16,35 @@ using Fasterflect;
 using Xpand.Persistent.Base.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.ViewVariants {
+    public interface IModelApplicationViewVariants:IModelApplication{
+        IModelXpandViewVariants ViewVariants { get; }
+    }
+
+    public interface IModelXpandViewVariants:IModelNode{
+        [Browsable(false)]
+        string Storage { get; set; }
+    }
+
     public interface IModelClassViewClonable {
         [Description("Determines if the clone action will be shown for the view")]
-        [Category("eXpand.ViewVariants")]
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
         bool IsViewClonable { get; set; }
-        [Category("eXpand.ViewVariants")]
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
+        bool ClonedViewResetEnabled { get; set; }
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
         [DefaultValue(true)]
         bool DeleteViewOnRename { get; set; }
-        [Category("eXpand.ViewVariants")]
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
         [DefaultValue(true)]
         bool DeleteViewOnDelete { get; set; }
     }
+
     [ModelInterfaceImplementor(typeof(IModelClassViewClonable), "ModelClass")]
     public interface IModelListViewViewClonable : IModelClassViewClonable {
     }
 
     public class ModifyVariantsController : ViewController<ListView>, IModelExtender {
+        public const string ClonedViewsWithReset = "ClonedViewsWithReset";
         public const string IsClonable = "IsViewClonable";
         public const string Modify = "Modify";
         public const string Clone1 = "Clone";
@@ -71,7 +84,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         void DeleteViewVariant(SingleChoiceActionExecuteEventArgs e) {
             ShowViewVariantView(e, controller => DeleteViewVariantCore(((IModelListViewViewClonable)_rootListView).DeleteViewOnDelete),
                                 detailView => {
-                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "DeleteView");
+                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory, "DeleteView");
                                     var viewVariant = ((ViewVariant)detailView.CurrentObject);
                                     viewVariant.ShowCaption = false;
                                 });
@@ -80,7 +93,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         void ModifyViewVariant(SingleChoiceActionExecuteEventArgs e) {
             ShowViewVariantView(e, controller => ModifyViewVariantCore(controller.Frame),
                                 detailView => {
-                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "ModiyView");
+                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory, "ModiyView");
                                     var viewVariant = ((ViewVariant)detailView.CurrentObject);
                                     viewVariant.VariantCaption =_changeVariantController.ChangeVariantAction.SelectedItem.Caption;
                                 });
@@ -88,7 +101,28 @@ namespace Xpand.ExpressApp.ViewVariants {
 
         void CreateViewVariant(SingleChoiceActionExecuteEventArgs e) {
             ShowViewVariantView(e, controller => CreateViewVariantCore(controller.Frame),
-                                detailView => detailView.Caption =CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants,"CreateView"));
+                                detailView => detailView.Caption =CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory,"CreateView"));
+        }
+
+        private IModelListView CloneView(string id, string viewCaption) {
+            var modelApplicationBase = (ModelApplicationBase)Application.Model;
+            var clonedViewResetEnabled = ((IModelListViewViewClonable)View.Model).ClonedViewResetEnabled;
+            if (clonedViewResetEnabled) {
+                var modelListView = (IModelListView)(((ModelNode)View.Model).Clone(id));
+                modelListView.Caption = viewCaption;
+                SynchronizeModel(Frame, id);
+                var viewXml = modelListView.Xml();
+                var clonedViewsStorage = ((IModelApplicationViewVariants)Application.Model).ViewVariants.Storage ?? viewXml;
+                var clonedViewStorageLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
+                clonedViewStorageLayer.Id = id;
+                new ModelXmlReader().ReadFromString(clonedViewStorageLayer,"",clonedViewsStorage);
+                new ModelXmlReader().ReadFromString(clonedViewStorageLayer, "", string.Format("<Application><Views>{0}</Views></Application>", viewXml));                    
+                ((IModelApplicationViewVariants)Application.Model).ViewVariants.Storage = clonedViewStorageLayer.Xml;
+                modelListView.Remove();
+                modelApplicationBase.AddLayerBeforeLast(clonedViewStorageLayer);
+                return (IModelListView) Application.Model.Views[id];
+            }
+            return (IModelListView)(((ModelNode)View.Model).Clone(id));
         }
 
         void DeleteViewVariantCore(bool deleteView) {
@@ -139,7 +173,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             else {
                 var modelVariant = modelVariants[_currentVariantInfo.Id];
                 modelVariant.Caption = viewVariant.VariantCaption;
-                SynchronizeModel(frame, modelVariant);
+                SynchronizeModel(frame, modelVariant.View.Id);
             }
         }
 
@@ -178,15 +212,14 @@ namespace Xpand.ExpressApp.ViewVariants {
             if (modelVariants.Count == 0) {
                 CreateVariantNode(DefaultVariantId, modelVariants,_rootListView,_rootListView.Caption);
             }
-            var modelVariant = CreateVariantNode(viewVariant.VariantCaption, ((IViewVariant)viewVariant).ViewCaption, modelVariants);
+            CreateVariantNode(viewVariant.VariantCaption, ((IViewVariant)viewVariant).ViewCaption, modelVariants);
             ChangeToVariant();
-            SynchronizeModel(frame, modelVariant);
         }
 
-        private void SynchronizeModel(Frame frame, IModelVariant modelVariant){
+        private void SynchronizeModel(Frame frame, string viewId){
             var viewVariant = (ViewVariant)frame.View.CurrentObject;
             var modelMemberInfoController = frame.GetController<XpandModelMemberInfoController>();
-            modelMemberInfoController.SynchronizeModel(Application.Model.Views[modelVariant.View.Id], viewVariant);
+            modelMemberInfoController.SynchronizeModel(Application.Model.Views[viewId], viewVariant);
         }
 
         void ChangeToVariant() {
@@ -224,20 +257,19 @@ namespace Xpand.ExpressApp.ViewVariants {
             return null;
         }
 
-        IModelVariant CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption){
+        void CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption){
             var newVariantNode = modelVariants.AddNode<IModelVariant>();
             modelVariants.Current = newVariantNode;
             newVariantNode.Caption = caption;
             newVariantNode.Id = id;
             newVariantNode.View = modelListView;
-            return newVariantNode;
         }
-        IModelVariant CreateVariantNode(string variantCaption,string viewCaption, IModelVariants modelVariants) {
+
+        void CreateVariantNode(string variantCaption, string viewCaption, IModelVariants modelVariants) {
             var id = GetId(viewCaption);
             var modelView = ((IModelListView) Application.Model.Views[id]);
-            var modelListView = modelView ?? (IModelListView)(((ModelNode)View.Model).Clone(id));
-            modelListView.Caption = viewCaption;
-            return CreateVariantNode(variantCaption, modelVariants, modelListView, variantCaption);
+            var modelListView = modelView ?? CloneView(id, viewCaption);
+            CreateVariantNode(variantCaption, modelVariants, modelListView, variantCaption);
         }
 
         private  string GetId(string caption){
@@ -247,7 +279,7 @@ namespace Xpand.ExpressApp.ViewVariants {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelListView, IModelListViewViewClonable>();
             extenders.Add<IModelClass, IModelClassViewClonable>();
+            extenders.Add<IModelApplication, IModelApplicationViewVariants>();
         }
-
     }
 }

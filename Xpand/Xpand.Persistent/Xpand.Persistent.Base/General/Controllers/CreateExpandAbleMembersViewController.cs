@@ -3,10 +3,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
     public interface IModelClassCreateExpandAbleMembers {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [DefaultValue(true)]
         [Description("Creates automatically any ref objects that are null when a detailview of a new persistent object is shown")]
         bool CreateExpandAbleMembers { get; set; }

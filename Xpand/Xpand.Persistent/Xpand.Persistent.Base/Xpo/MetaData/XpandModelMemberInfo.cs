@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Utils.Fastreflect;
 using Xpand.Xpo.MetaData;
@@ -21,12 +22,12 @@ namespace Xpand.Persistent.Base.Xpo.MetaData{
     }
 
     public interface IModelMemberModelMemberCommon:IModelNode{
-        [Category("eXpand.ModelMembers")]
+        [Category(AttributeCategoryNameProvider.ModelMembers)]
         [TypeConverter(typeof(StringToModelTypeConverter))]
         [Required]
         Type DeclaredType { get; set; }
         [Required]
-        [Category("eXpand.ModelMembers")]
+        [Category(AttributeCategoryNameProvider.ModelMembers)]
         string ModelNodePath { get; set; }
     }
 
@@ -66,12 +67,12 @@ namespace Xpand.Persistent.Base.Xpo.MetaData{
     [ModelDisplayName("ModelMember")]
     public interface IModelMemberModelMember : IModelMemberEx, IModelMemberModelMemberCommon {
         [Required(typeof(NonRequiredCalculator))]
-        [Category("eXpand.ModelMembers")]
+        [Category(AttributeCategoryNameProvider.ModelMembers)]
         [ReadOnly(true)]
         new Type Type { get; set; }
-        [Category("eXpand.ModelMembers")]
+        [Category(AttributeCategoryNameProvider.ModelMembers)]
         IModelMemberModelMembers AdditionalMembers { get; }
-        [Category("eXpand.ModelMembers")]
+        [Category(AttributeCategoryNameProvider.ModelMembers)]
         [ModelReadOnly(typeof(ReadonlyOnTrueCalculator))]
         bool CreateMember { get; set; }
     }

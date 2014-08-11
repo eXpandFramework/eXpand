@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public interface IModelDashboardViewFilter : IModelNode {
@@ -88,10 +89,10 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         IModelDashboardViewFilter Filter { get; }
         [DefaultValue(ViewItemVisibility.Show)]
         [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         ViewItemVisibility Visibility { get; set; }
         [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         MasterDetailMode? MasterDetailMode { get; set; }
     }
 

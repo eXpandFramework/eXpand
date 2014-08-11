@@ -197,16 +197,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
 
     public static class ModelAdapterExtension {
-        public static TNode GetParentNode<TNode>(this IModelNode modelNode) where TNode : IModelNode {
-            var parent = modelNode.Parent;
-            while (!(parent is TNode)) {
-                parent = parent.Parent;
-                if (parent == null)
-                    break;
-            }
-            return parent != null ? (TNode)parent : default(TNode);
-        }
-
         public static ModelNode GetNodeByPath(this IModelNode node, string path) {
             const string rootNodeName = "Application";
             Guard.ArgumentNotNull(node, "node");

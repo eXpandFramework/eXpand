@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public interface IModelAppearanceFont:IModelNode {
@@ -45,7 +46,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     [DomainLogic(typeof(IModelNodeEnabled))]
     public class ModelNodeEnabledDomainLogic{
         public static IModelObjectView Get_ParentObjectView(IModelNodeEnabled modelNodeEnabled){
-            return modelNodeEnabled.GetParentNode<IModelObjectView>();
+            return modelNodeEnabled.GetParent<IModelObjectView>();
         }
     }
 }

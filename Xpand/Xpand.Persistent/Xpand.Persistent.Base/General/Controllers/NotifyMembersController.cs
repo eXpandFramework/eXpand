@@ -5,13 +5,14 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Fasterflect;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
     public interface ISupportNotifiedMembers{
     }
 
     public interface IModelClassNotifiedMembers : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [TypeConverter(typeof(ModelClassMembersConverter))]
         string NotifiedMembers { get; set; }
     }

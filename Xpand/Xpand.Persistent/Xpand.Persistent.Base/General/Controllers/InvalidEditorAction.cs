@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.Web.ASPxEditors;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
     public enum InvalidEditorAction {
@@ -16,7 +17,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         CancelCommit
     }
     public interface IModelClassInvalidEditorAction:IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [DefaultValue(InvalidEditorAction.CancelCommit)]
         InvalidEditorAction InvalidEditorAction { get; set; }
     }

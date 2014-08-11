@@ -11,7 +11,7 @@ namespace Xpand.Persistent.Base.General.Model{
     [ModelAbstractClass]
     public interface IModelClassDefaultCriteria : IModelClass{
         [Required]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + AssemblyInfo.VSuffix, typeof(UITypeEditor))]
         [CriteriaOptions("TypeInfo")]
         string DefaultCriteria { get; set; }
