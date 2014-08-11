@@ -142,6 +142,9 @@
     <Compile Include="General\ActionExtensions.cs" />
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
