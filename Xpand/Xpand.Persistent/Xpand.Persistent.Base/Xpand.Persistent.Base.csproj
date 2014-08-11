@@ -142,7 +142,22 @@
     <Compile Include="General\ActionExtensions.cs" />
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\Controllers\Actions\ActionModifyModelControler.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ChangeViewModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ResetViewModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
@@ -504,9 +519,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="General\Controllers\Actions\ModifyModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

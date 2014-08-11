@@ -16,7 +16,7 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport, IXafApplicationDirectory {
+    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport {
         public XpandWinApplication() {
         }
 
@@ -119,10 +119,6 @@ namespace Xpand.ExpressApp.Win {
         }
 
         bool ITestSupport.IsTesting { get; set; }
-
-        string IXafApplicationDirectory.BinDirectory {
-            get { return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; }
-        }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
 

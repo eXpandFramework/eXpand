@@ -20,6 +20,7 @@ using Xpand.ExpressApp.PropertyEditors;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Controllers.Actions;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -32,7 +33,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardInteractionUser {
+    public sealed class XpandSystemModule : XpandModuleBase, ISequenceGeneratorUser, IModelXmlConverter, IDashboardInteractionUser, IModifyModelActionUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -131,8 +132,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
-            extenders.Add<IModelClass, IModelClassPersistModelModifications>();
-            extenders.Add<IModelObjectView, IModelObjectViewPersistModelModifications>();
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
