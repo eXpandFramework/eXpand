@@ -225,7 +225,7 @@
     <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="General\Model\Interfaces.cs" />
-    <Compile Include="General\Model\CloneView.cs" />
+    <Compile Include="General\CloneView.cs" />
     <Compile Include="General\Model\ModulesNode.cs" />
     <Compile Include="General\Model\ReadOnlyParametersNode.cs" />
     <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
@@ -458,7 +458,7 @@
     <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
     <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
-    <Compile Include="Xpo\MetaData\XpandLinkToListViewController.cs">
+    <Compile Include="General\Controllers\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
