@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Xpand.Utils.BackingFieldResolver;
 using Fasterflect;
+using Xpand.Utils.BackingFieldResolver;
 
 namespace Xpand.Utils.ExpressionBuilder {
     public abstract class Builder<T> : IBuilder<T> {
