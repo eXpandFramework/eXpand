@@ -22,7 +22,6 @@ namespace XpandSystemTester.Win {
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
             var winApplication = new XpandSystemTesterWindowsFormsApplication();
-            winApplication.DoStartupActions(XpandModuleBase.IsEasyTesting);
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
