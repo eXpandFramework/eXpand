@@ -220,6 +220,9 @@
     <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
+    <ItemGroup>
+      <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+    </ItemGroup>
     <MSBuild.ExtensionPack.Xml.XmlFile
       TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" Condition="'@(EasyTestLogs->Count())'!='0'"
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
