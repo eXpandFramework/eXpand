@@ -91,7 +91,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
-    <Compile Include="FunctionalTests\DynamicMembers\DynamicMembersObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -131,11 +130,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\DynamicMembers\DynamicMembers.ets" />
-    <None Include="FunctionalTests\DynamicMembers\DynamicMembers.Xpand.xafml">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
