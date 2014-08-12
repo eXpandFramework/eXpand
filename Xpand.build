@@ -228,7 +228,7 @@
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
       <Output TaskParameter="Elements" ItemName="Test"/>
     </MSBuild.ExtensionPack.Xml.XmlFile>
-    <Error Text="%0D%0AApplicationName: %(Test.ApplicationName)%0D%0AError: %(Test.Error)" Condition="'@(Test->Count())'!='0'"  ContinueOnError="True"></Error>
+    <Error Text="%(Test.ApplicationName)%0a%(Test.Error)" Condition="'@(Test->Count())'!='0'"></Error>
   </Target>
   <Target Name="ConfigFCWebDbUpdater">
     <PropertyGroup>
