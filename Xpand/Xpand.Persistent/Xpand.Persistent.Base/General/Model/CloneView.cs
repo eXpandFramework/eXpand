@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 
-namespace Xpand.Persistent.Base.General {
+namespace Xpand.Persistent.Base.General.Model {
     public class ModelViewClonerUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelClasses = node.Application.BOModel.Where(modelClass => modelClass.TypeInfo.FindAttribute<CloneViewAttribute>() != null);

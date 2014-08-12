@@ -245,7 +245,7 @@
     <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="General\Model\Interfaces.cs" />
-    <Compile Include="General\CloneView.cs" />
+    <Compile Include="General\Model\CloneView.cs" />
     <Compile Include="General\Model\ModulesNode.cs" />
     <Compile Include="General\Model\ReadOnlyParametersNode.cs" />
     <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
@@ -519,7 +519,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
