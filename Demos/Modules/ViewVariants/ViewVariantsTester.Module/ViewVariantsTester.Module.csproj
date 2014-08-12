@@ -68,6 +68,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\TestClass.cs" />
+    <Compile Include="FunctionalTests\Actions\Actions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\XpandEasyTestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -78,11 +85,14 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -94,17 +104,24 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Actions\Actions.ets" />
+    <None Include="FunctionalTests\Actions\Actions.Xpand.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\Sample.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\Actions\Can Clone a ListView.inc" />
+    <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Actions\Reset View Variant Model.inc" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

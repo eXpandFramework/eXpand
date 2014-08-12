@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="ViewVariantsTester.Module.FunctionalTests.Actions.ActionsObject" IsViewClonable="True" ClonedViewResetEnabled="True" />
+    <Class Name="Xpand.ExpressApp.ViewVariants.ViewVariant">
+      <OwnMembers>
+        <MemberModelMember Name="Criteria" IsCustom="False" Tag="" />
+        <MemberModelMember Name="ViewCaption" IsCustom="False" Tag="" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

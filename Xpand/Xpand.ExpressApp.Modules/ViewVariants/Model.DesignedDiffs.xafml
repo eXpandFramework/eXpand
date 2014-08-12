@@ -2,6 +2,11 @@
 <Application>
   <ActionDesign>
     <Actions>
+      <Action Id="ModifyModel" ItemsFromModel="True">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="Reset View Model" Active="True" />
+        </ChoiceActionItems>
+      </Action>
       <Action Id="ModifyViewVariants" ImageName="Action_CloneMerge_Clone_Object">
         <ChoiceActionItems>
           <ChoiceActionItem Id="Clone" ImageName="Action_CloneMerge_Clone_Object" />

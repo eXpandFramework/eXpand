@@ -121,6 +121,7 @@
     <Compile Include="ModifyVariantsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="VariantClone.cs" />
     <Compile Include="XpandViewVariantsModule.cs">
       <SubType>Component</SubType>
     </Compile>
