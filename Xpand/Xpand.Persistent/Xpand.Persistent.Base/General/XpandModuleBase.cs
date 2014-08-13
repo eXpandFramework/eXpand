@@ -70,6 +70,7 @@ namespace Xpand.Persistent.Base.General {
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
         private ModuleType _moduleType;
+        private bool _customUserModelDifferenceStore;
 
         public event EventHandler ApplicationModulesManagerSetup;
 
@@ -541,14 +542,23 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void OnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
+            if (IsHosted&&_customUserModelDifferenceStore)
+                return;
+            _customUserModelDifferenceStore = true;
             var stringModelStores = GetEmbededModelStores(pair => pair.Key.EndsWith(".Xpand"));
             foreach (var stringModelStore in stringModelStores){
                 e.AddExtraDiffStore(stringModelStore.Key, stringModelStore.Value);    
             }
-            string[] strings = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly);
-            foreach (var s in strings){
-                string fileNameTemplate = Path.GetFileNameWithoutExtension(s);
-                var storePath = Path.GetDirectoryName(s);
+            var models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly).ToList();
+            if (IsHosted){
+                var path = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "model.user.xafml");
+                if (File.Exists(path)){
+                    models.Add(path);
+                }                
+            }
+            foreach (var path in models){
+                string fileNameTemplate = Path.GetFileNameWithoutExtension(path);
+                var storePath = Path.GetDirectoryName(path);
                 var fileModelStore = new FileModelStore(storePath,fileNameTemplate);
                 e.AddExtraDiffStore(fileNameTemplate,fileModelStore);
             }
