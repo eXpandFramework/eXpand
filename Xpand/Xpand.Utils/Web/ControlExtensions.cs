@@ -18,8 +18,8 @@ namespace Xpand.Utils.Web {
             return container.FindNestedControls(typeof (TNestedControl)).Cast<TNestedControl>();
         }
 
-        public static IEnumerable<TNestedControl> FindNestedControls<TNestedControl>(this Control container, string id) where TNestedControl : Control{
-            return container.FindNestedControls<TNestedControl>().Where(control => control.ID == id);
+        public static IEnumerable<TNestedControl> FindNestedControls<TNestedControl>(this Control container,params string[] ids) where TNestedControl : Control{
+            return container.FindNestedControls<TNestedControl>().Where(control => ids.Contains(control.ID));
         }
     }
 }

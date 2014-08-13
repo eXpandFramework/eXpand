@@ -91,6 +91,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
+    <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -129,6 +131,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
+    <None Include="FunctionalTests\HideToolBar\HideToolBar.Xpand.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
@@ -149,12 +155,16 @@
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\HideToolBar\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\HyperLinkPropertyEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\Login.inc" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FunctionalTests\HideToolBar\Images\" />
     <Folder Include="FunctionalTests\HyperLinkPropertyEditor\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
