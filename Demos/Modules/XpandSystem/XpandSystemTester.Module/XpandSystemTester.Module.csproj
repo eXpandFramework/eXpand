@@ -91,6 +91,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\CommonTestObject.cs" />
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
@@ -128,7 +129,6 @@
     <None Include="FunctionalTests\Actions\Actions.ets" />
     <None Include="FunctionalTests\Actions\Actions.Xpand.xafml">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
