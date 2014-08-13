@@ -102,7 +102,7 @@ namespace Xpand.EasyTest.Commands {
                 {typeof (KillFocusCommand), KillFocusCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
-                {typeof (AssignModelToUserCommand), AssignModelToUserCommand.Name},
+                {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},

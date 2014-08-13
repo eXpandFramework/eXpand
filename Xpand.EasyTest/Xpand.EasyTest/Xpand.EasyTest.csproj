@@ -56,7 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AssignModelToUserCommand.cs" />
+    <Compile Include="Commands\UseModelCommand.cs" />
     <Compile Include="Commands\KillFocusCommand.cs" />
     <Compile Include="Commands\HideCursorCommand.cs" />
     <Compile Include="Commands\KillWindowCommand.cs" />

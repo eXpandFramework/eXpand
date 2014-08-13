@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using DevExpress.EasyTest.Framework;
@@ -10,7 +11,7 @@ namespace Xpand.EasyTest.Commands{
         public const string Name = "XpandCompareScreenshot";
         protected override void InternalExecute(ICommandAdapter adapter){
             ITestControl activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
-            ExecuteFromParameters(adapter);
+            ExecuteAdditionalCommands(adapter);
             var windowHandle = GetWindowHandle(activeWindowControl);
             var testImage = GetTestImage(windowHandle);
             var filename = GetFilename(adapter);
@@ -25,11 +26,13 @@ namespace Xpand.EasyTest.Commands{
 
         private void CompareAndSave(string filename, Image testImage, ICommandAdapter adapter){
             Image etalonImage = Image.FromFile(filename);
-            var maskFileName = GetMaskFileName(adapter);
-            Image maskImage = (!string.IsNullOrEmpty(maskFileName)) ? Image.FromFile(maskFileName) : null;
-            Image diffImage = ImageHelper.CompareImage(etalonImage, testImage, maskImage);
-            if (diffImage != null){
-                SaveAllImages(diffImage, filename, testImage);
+            var maskFileNames = GetMaskFileNames(adapter);
+            foreach (var maskFileName in maskFileNames){
+                Image maskImage = (!string.IsNullOrEmpty(maskFileName)) ? Image.FromFile(maskFileName) : null;
+                Image diffImage = ImageHelper.CompareImage(etalonImage, testImage, maskImage);
+                if (diffImage != null) {
+                    SaveAllImages(diffImage, filename, testImage);
+                }    
             }
         }
 
@@ -78,7 +81,7 @@ namespace Xpand.EasyTest.Commands{
             return windowHandle;
         }
 
-        private void ExecuteFromParameters(ICommandAdapter adapter){
+        private void ExecuteAdditionalCommands(ICommandAdapter adapter){
             if (this.ParameterValue("KillFocus", true)){
                 var hideCaretCommand = new KillFocusCommand();
                 hideCaretCommand.Execute(adapter);
@@ -87,21 +90,28 @@ namespace Xpand.EasyTest.Commands{
                 var hideCaretCommand = new HideCursorCommand();
                 hideCaretCommand.Execute(adapter);
             }
+            if (this.ParameterValue("SetActiveWindowSize", true)){
+                var activeWindowSizeCommand = new SetActiveWindowSizeCommand();
+                activeWindowSizeCommand.Parameters.MainParameter=new MainParameter("1024x768");
+                activeWindowSizeCommand.Execute(adapter);
+            }
         }
 
-        private string GetMaskFileName(ICommandAdapter adapter){
+        private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){
             var parameter = Parameters["Mask"];
-            string maskFileName;
-            if (parameter == null) 
-                maskFileName = null;
-            else{
-                if (parameter.Value.StartsWith("/regX/")){
-                    var path = Extensions.GetXpandPath(ScriptsPath);
-                    maskFileName = Path.Combine(path, @"Xpand.EasyTest\Resources\Masks\" + parameter.Value.TrimStart("/regX/".ToCharArray()));
+            if (parameter != null){
+                foreach (string maskPath in parameter.Value.Split(';')){
+                    string maskFileName;
+                    if (maskPath.StartsWith("/regX/")){
+                        string path = Extensions.GetXpandPath(ScriptsPath);
+                        maskFileName = Path.Combine(path,
+                            @"Xpand.EasyTest\Resources\Masks\" + maskPath.TrimStart("/regX/".ToCharArray()));
+                    }
+                    else 
+                        maskFileName = ScriptsPath + "\\Images\\" + maskPath;
+                    yield return adapter.GetPlatformSuffixedPath(maskFileName);
                 }
-                else maskFileName = ScriptsPath + "\\Images\\" + parameter.Value;
             }
-            return adapter.GetPlatformSuffixedPath(maskFileName);
         }
 
     }
