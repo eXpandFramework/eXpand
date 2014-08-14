@@ -101,6 +101,7 @@ namespace Xpand.EasyTest.Commands {
                 {typeof (HideCursorCommand), HideCursorCommand.Name},
                 {typeof (KillFocusCommand), KillFocusCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
+                {typeof (XpandProcessRecordCommand), XpandProcessRecordCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
