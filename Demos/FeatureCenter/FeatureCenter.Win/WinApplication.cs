@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 using Xpand.Persistent.Base.General;
 using Application = System.Windows.Forms.Application;

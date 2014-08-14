@@ -1,21 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Workflow.CommonServices;
-using DevExpress.ExpressApp.Workflow.Server;
-using DevExpress.ExpressApp.Workflow.Versioning;
-using DevExpress.ExpressApp.Workflow.Xpo;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
-using Xpand.ExpressApp;
-using Xpand.ExpressApp.Core;
-using Xpand.ExpressApp.Workflow;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Win {
