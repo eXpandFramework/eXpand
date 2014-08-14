@@ -14,7 +14,7 @@ using System.Linq;
 using AggregatedAttribute = DevExpress.Xpo.AggregatedAttribute;
 
 namespace Xpand.ExpressApp.FileAttachment {
-    [ToolboxTabName(XpandAssemblyInfo.TabWinModules), ToolboxBitmap(typeof (XpandFileAttachmentsModule)), ToolboxItem(true)]
+    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules), ToolboxBitmap(typeof (XpandFileAttachmentsModule)), ToolboxItem(true)]
     public sealed class XpandFileAttachmentsModule : XpandModuleBase {
         public const string FileDataFolderName = "FileData";
         public static int ReadBytesSize = 0x1000;
