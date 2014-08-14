@@ -94,6 +94,7 @@
     <Compile Include="FunctionalTests\CommonTestObject.cs" />
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
+    <None Include="FunctionalTests\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -115,6 +116,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -143,6 +145,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\HyperLinkPropertyEditor\Save a valid url.inc" />
     <None Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
     <Content Include="FunctionalTests\Actions\Config.xml">
       <SubType>Designer</SubType>
@@ -158,13 +161,16 @@
     <Content Include="FunctionalTests\HideToolBar\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.web.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.win.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.win.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.web.png" />
     <Content Include="FunctionalTests\HyperLinkPropertyEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\Login.inc" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FunctionalTests\HideToolBar\Images\" />
     <Folder Include="FunctionalTests\HyperLinkPropertyEditor\Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

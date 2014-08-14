@@ -1,4 +1,6 @@
-﻿*Action Actions(ChangeColumnCaption)
+﻿;#IncludeFile .\Init.inc
+
+*Action Actions(ChangeColumnCaption)
 *CheckTable
  Columns = Changed
 *Action Modify Model(Reset View Model)

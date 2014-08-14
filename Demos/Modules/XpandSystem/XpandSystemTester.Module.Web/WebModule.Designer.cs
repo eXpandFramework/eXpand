@@ -29,6 +29,7 @@ namespace XpandSystemTester.Module.Web {
             this.RequiredModuleTypes.Add(typeof(XpandSystemTester.Module.XpandSystemTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
 
         }
 

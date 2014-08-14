@@ -1,8 +1,4 @@
-#DropDB XpandSystemTesterEasyTest
-#Application XpandSystemTester.Win
-#IncludeFile ..\Login.inc
+#IncludeFile .\Init.inc
 
-*Action Navigation(Default.Grid List Editor Object)
-*Action Grid List Editor(UnboundColumn)
-*Action Navigation(Default.My Details)
-*Action Navigation(Default.Grid List Editor Object)
+#IncludeFile .\Suppot Custom unbound column creation.inc
+

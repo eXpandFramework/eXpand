@@ -104,17 +104,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\GridListEditor\Suppot Custom unbound column creation.inc" />
+    <None Include="FunctionalTests\GridListEditor\Init.inc" />
+    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.Xpand.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.Xpand.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\FullTextContains\FullTextContains.Xpand.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
     <None Include="FunctionalTests\GridListEditor\GridListEditor.ets" />
-    <None Include="FunctionalTests\FullTextContains\XpandObjectSpaceProvider.ets" />
-    <None Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.ets" />
-    <None Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .ets" />
-    <None Include="FunctionalTests\FullTextContains\CollectionSourceCriteria.ets" />
-    <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.ets" />
+    <Content Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.inc" />
+    <Content Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .inc" />
+    <Content Include="FunctionalTests\FullTextContains\Init.inc" />
+    <Content Include="FunctionalTests\FullTextContains\ListEditors_FilterEditor_Appearence.inc" />
     <Compile Include="FunctionalTests\ApplicationExit\ApplicationExitObject.cs" />
+    <None Include="FunctionalTests\DetailViewCaching\When existing objects.inc" />
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -139,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -162,8 +178,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -171,24 +185,23 @@
     <Content Include="FunctionalTests\ApplicationExit\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\DetailViewCaching\When new objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="FunctionalTests\FullTextContains\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\FullTextContains\Images\AdvBandedListEditor.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\Images\CriteriaPropertyEditorEx.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\Images\XpandGridListEditor.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\When ObjectSpace Query.inc" />
     <Content Include="FunctionalTests\GridListEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\Login.inc" />
-    <None Include="FunctionalTests\FullTextContains\Init.inc" />
-    <None Include="FunctionalTests\FullTextContains\ListEditor_FilterEditor_Appearence.inc" />
-    <None Include="FunctionalTests\ApplicationExit\DefaultModel.inc" />
-    <None Include="FunctionalTests\DefaultNavigation.inc" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FunctionalTests\FullTextContains\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

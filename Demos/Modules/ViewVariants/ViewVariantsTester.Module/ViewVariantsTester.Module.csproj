@@ -117,6 +117,7 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Actions\Can Clone a ListView.inc" />
     <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Variant Model.inc" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>

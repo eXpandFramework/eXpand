@@ -1,4 +1,6 @@
-﻿*Action Modify Variants(Clone)
+﻿;#IncludeFile .\Init.inc
+
+*Action Modify Variants(Clone)
 *FillForm
  View Caption = Cloned
  Variant Caption = Cloned

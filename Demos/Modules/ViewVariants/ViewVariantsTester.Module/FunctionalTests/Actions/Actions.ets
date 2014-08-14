@@ -1,7 +1,4 @@
-#DropDB ViewVariantsTesterEasyTest
-*AssignModelToUser
-#Application ViewVariantsTester.Win
-
+#IncludeFile .\Init.inc
 
 *Action Navigation(Default.Actions Object)
 

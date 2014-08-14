@@ -42,6 +42,11 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.CodeParser.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -54,9 +59,22 @@
     <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Persistent.Base.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v14.1.Core, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraNavBar.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraRichEdit.v14.1, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v14.1.Extensions, Version=14.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -68,14 +86,17 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Win, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -85,6 +106,7 @@
       <Private>True</Private>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Utils, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
@@ -93,6 +115,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

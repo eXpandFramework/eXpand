@@ -1,9 +1,9 @@
 #DropDB XpandSystemTesterEasyTest
 #Application XpandSystemTester.Win
 
+*UseModel
 #IncludeFile ..\Login.inc
-#IncludeFile DefaultModel.inc
-#IncludeFile ..\DefaultNavigation.inc
+*Action Navigation(Default.Application Exit Object)
 
 *ActionAvailable Application Exit
 *Action Application Exit(PromptOnExit) 
@@ -11,6 +11,5 @@
  Respond = No
 *ActionAvailable Application Exit
 
-*Action Model Value(Options;MinimizeOnExit;True)
 *Action Application Exit(PromptOnExit) 
 !ActionAvailable Application Exit

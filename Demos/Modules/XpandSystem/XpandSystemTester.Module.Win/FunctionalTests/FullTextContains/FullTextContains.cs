@@ -14,11 +14,12 @@ using DevExpress.XtraGrid.Views.Base;
 using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.PropertyEditors;
-using XpandSystemTester.Module.FunctionalTests;
 
 namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
     public class FullTextContains:ViewController{
-        public const string ListEditor = "ListEditor";
+        private readonly ParametrizedAction _parametrizedAction;
+        public const string XpandGridListEditor = "XpandGridListEditor";
+        public const string AdvBandedListEditor = "AdvBandedListEditor";
         private const string CollectionSourceCriteria = "CollectionSource.CriteriaApplying";
         public const string CriteriaPropertyEditorEx = "CriteriaPropertyEditorEx";
         public const string PopupCriteriaPropertyEditorEx = "PopupCriteriaPropertyEditorEx";
@@ -29,17 +30,24 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 ItemType = SingleChoiceActionItemType.ItemIsOperation,
             };
             TargetObjectType = typeof(FullTextContainsObject);
-            singleChoiceAction.Items.Add(new ChoiceActionItem(ListEditor, null));
+            singleChoiceAction.Items.Add(new ChoiceActionItem(XpandGridListEditor, null));
+            singleChoiceAction.Items.Add(new ChoiceActionItem(AdvBandedListEditor, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(CollectionSourceCriteria, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(CriteriaPropertyEditorEx, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(ColumnFilterChanged, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(XpandObjectSpaceProvider, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(PopupCriteriaPropertyEditorEx, null));
             singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
+            _parametrizedAction = new ParametrizedAction(this,"FullTextContainsParam",PredefinedCategory.View, typeof(string));
+            _parametrizedAction.Execute+=ParametrizedActionOnExecute;
         }
 
-        public XpandEasyTestController XpandEasyTestController {
-            get { return Application.MainWindow.GetController<XpandEasyTestController>(); }
+        private void ParametrizedActionOnExecute(object sender, ParametrizedActionExecuteEventArgs parametrizedActionExecuteEventArgs){
+            
+        }
+
+        public ParametrizedAction ParametrizedAction{
+            get { return _parametrizedAction; }
         }
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
@@ -57,7 +65,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 case ColumnFilterChanged:{
                     var gridView = ((ColumnsListEditor) ((ListView) View).Editor).GridView();
                     gridView.ActiveFilterCriteria = CriteriaOperator.Parse("FullText = 'Apostolis Bekiaris'");
-                    XpandEasyTestController.ParameterAction.Value = gridView.ActiveFilterCriteria;
+                    ParametrizedAction.Value = gridView.ActiveFilterCriteria;
                 }
                     break;
                 case CriteriaPropertyEditorEx:{
@@ -72,8 +80,8 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                             CriteriaOperator.Parse("FullText=?", "Apostolis Bekiaris");
                     });
                     break;
-                case ListEditor:{
-                    ListView listView = CreateListView();
+                case XpandGridListEditor:case AdvBandedListEditor:{
+                    ListView listView = CreateListView("FullText_"+e.SelectedChoiceActionItem.Id);
                     ConfigParameters(e.ShowViewParameters, listView);
                     e.ShowViewParameters.Controllers.Add(Application.CreateController<ShowClauseMenu>());
                 } 
@@ -101,13 +109,12 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
         private void Verify(SqlExecutionErrorException sqlExecutionErrorException) {
             var sqlException = sqlExecutionErrorException.InnerException as SqlException;
             if (sqlException != null && sqlException.Number == 7601)
-                Frame.GetController<XpandEasyTestController>().ParameterAction.Value ="ContainsException";
+                ParametrizedAction.Value = "ContainsException";
         }
 
         private DetailView CreateDetailView(){
             var objectSpace = Application.CreateObjectSpace();
-            var detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject(TargetObjectType));
-            return detailView;
+            return Application.CreateDetailView(objectSpace, objectSpace.CreateObject(TargetObjectType));
         }
 
         private ListView CreateListView(string viewId=null){
@@ -116,8 +123,7 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 listViewId = viewId+"_ListView";
             }
             var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(), TargetObjectType,listViewId);
-            var listView = Application.CreateListView(listViewId, collectionSource, true);
-            return listView;
+            return Application.CreateListView(listViewId, collectionSource, true);
         }
 
         private void ConfigParameters(ShowViewParameters showViewParameters, ObjectView objectView){
@@ -129,14 +135,12 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
         }
     }
 
-   
-
     public class ShowClauseMenu : DialogController{
         public ShowClauseMenu(){
             var singleChoiceAction = new SingleChoiceAction(this, GetType().Name, PredefinedCategory.PopupActions){
                 ItemType = SingleChoiceActionItemType.ItemIsOperation
             };
-            singleChoiceAction.Items.Add(new ChoiceActionItem(FullTextContains.ListEditor, null));
+            singleChoiceAction.Items.Add(new ChoiceActionItem(FullTextContains.XpandGridListEditor, null));
             singleChoiceAction.Items.Add(new ChoiceActionItem(FullTextContains.CriteriaPropertyEditorEx, null));
             singleChoiceAction.Execute+=ActionOnExecute;
         }
@@ -146,10 +150,10 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
                 var filterEditorControl = ((CriteriaPropertyEditorEx) ((DetailView) Frame.View).FindItem("Criteria")).Control;
                 DisplayMenu(filterEditorControl.FilterControl);
             }
-            else if (e.SelectedChoiceActionItem.Id == FullTextContains.ListEditor){
-                var value = Application.MainWindow.GetController<XpandEasyTestController>().Value ?? "FullName";
+            else if (e.SelectedChoiceActionItem.Id == FullTextContains.XpandGridListEditor){
+                var value = Application.MainWindow.GetController<FullTextContains>().ParametrizedAction.Value ?? "FullName";
                 var gridView = ((ColumnsListEditor) ((ListView) Frame.View).Editor).GridView();
-                var defaultColumn = gridView.Columns[value];
+                var defaultColumn = gridView.Columns[value.ToString()];
                 gridView.FilterEditorCreated += GridViewOnFilterEditorCreated;
                 gridView.ShowFilterEditor(defaultColumn);
             }
@@ -175,5 +179,4 @@ namespace XpandSystemTester.Module.Win.FunctionalTests.FullTextContains {
             filterControl.CallMethod("ShowClauseMenu");
         }
     }
-
 }

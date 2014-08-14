@@ -44,6 +44,9 @@
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
