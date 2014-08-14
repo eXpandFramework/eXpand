@@ -63,3 +63,4 @@ PublicKeyToken.txt
 **/UnusableNodes*.xml
 Xpand/Xpand.NH/packages
 **/_ReSharper.*
+Model.User.xafml
