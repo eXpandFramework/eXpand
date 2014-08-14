@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Win32;
@@ -100,19 +101,27 @@ namespace Xpand.EasyTest.Commands{
         private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){
             var parameter = Parameters["Mask"];
             if (parameter != null){
-                foreach (string maskPath in parameter.Value.Split(';')){
-                    string maskFileName;
-                    if (maskPath.StartsWith("/regX/")){
-                        string path = Extensions.GetXpandPath(ScriptsPath);
-                        maskFileName = Path.Combine(path,
-                            @"Xpand.EasyTest\Resources\Masks\" + maskPath.TrimStart("/regX/".ToCharArray()));
-                    }
-                    else 
-                        maskFileName = ScriptsPath + "\\Images\\" + maskPath;
-                    yield return adapter.GetPlatformSuffixedPath(maskFileName);
-                }
+                foreach (var p in GetMasks(adapter, parameter)) yield return p;
+            }
+            parameter = Parameters["XMask"];
+            if (parameter != null){
+                parameter.Value = string.Join(";", parameter.Value.Split(';').Select(s => "/regX/" + s));
+                foreach (var p in GetMasks(adapter, parameter)) yield return p;
             }
         }
 
+        private IEnumerable<string> GetMasks(ICommandAdapter adapter, Parameter parameter){
+            foreach (string maskPath in parameter.Value.Split(';')){
+                string maskFileName;
+                if (maskPath.StartsWith("/regX/")){
+                    string path = Extensions.GetXpandPath(ScriptsPath);
+                    maskFileName = Path.Combine(path,
+                        @"Xpand.EasyTest\Resources\Masks\" + maskPath.TrimStart("/regX/".ToCharArray()));
+                }
+                else
+                    maskFileName = ScriptsPath + "\\Images\\" + maskPath;
+                yield return adapter.GetPlatformSuffixedPath(maskFileName);
+            }
+        }
     }
 }
