@@ -11,7 +11,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions {
     public interface IModifyModelActionUser {
@@ -22,14 +21,21 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         IModelModifyModelNodePaths ModelNodePaths { get; }
     }
 
-    public class ModifyModelNodePathsUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+    public class ModelActiosNodesUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+        public const string LockViewModel = "Lock View Model";
         public override void UpdateNode(ModelNode node){
-            var stream = GetType().Assembly.GetManifestResourceStream(GetType(), "ModifyModel.xafml");
-            var readToEndAsString = stream.ReadToEndAsString();
-            var stringModelStore = new StringModelStore(readToEndAsString);
-            stringModelStore.Load((ModelApplicationBase)node.Application);
+            var modelAction = ((IModelActions) node)[ActionModifyModelControler.ModifyModelActionName];
+            if (modelAction != null && modelAction.ChoiceActionItems != null){
+                var lockViewModel = modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(LockViewModel);
+                var modelNodePaths = ((IModelChoiceActionItemModifyModel) lockViewModel).ModelNodePaths;
+                modelNodePaths.NewCaption = "Unlock Model";
+                var allObjectViews = modelNodePaths.AddNode<IModelModifyModelNodePath>("All Object Views");
+                var handleModelSaving = allObjectViews.Attributes.AddNode<IModelModelNodeAttribute>("HandleModelSaving");
+                handleModelSaving.Value = "True";
+            }
         }
     }
+
     public class ModifyModelNodePathsNodeGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
             
@@ -72,11 +78,12 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
     }
 
     public class ActionModifyModelControler:WindowController,IModelExtender {
+        public const string ModifyModelActionName = "ModifyModel";
         private List<SingleChoiceAction> _singleChoiceActions;
         private readonly SingleChoiceAction _modifyModelAction;
 
         public ActionModifyModelControler(){
-            _modifyModelAction = new SingleChoiceAction(this,"ModifyModel",PredefinedCategory.View){
+            _modifyModelAction = new SingleChoiceAction(this,ModifyModelActionName,PredefinedCategory.View){
                 ItemType = SingleChoiceActionItemType.ItemIsOperation,
                 DefaultItemMode = DefaultItemMode.LastExecutedItem
             };

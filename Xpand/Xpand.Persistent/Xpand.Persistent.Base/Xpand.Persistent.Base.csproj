@@ -151,7 +151,7 @@
     <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ChangeViewModelController.cs">
+    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
@@ -176,9 +176,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\XpandWinModificationController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
@@ -520,12 +517,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="General\Controllers\Actions\ModifyModel.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

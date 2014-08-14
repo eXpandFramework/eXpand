@@ -157,7 +157,7 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
             }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelControler), typeof(ResetViewModelController), typeof(ChangeViewModelController) });
+                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelControler), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
             }
             if (!Executed("GetDeclaredControllerTypes")) {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
@@ -290,15 +290,14 @@ namespace Xpand.Persistent.Base.General {
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
+            if (!Executed<IModifyModelActionUser>("ModifyModelActionUpdater")) {
+                updaters.Add(new ModelActiosNodesUpdater());
+                updaters.Add(new ModifyModelActionChoiceItemsUpdater());
+            }
             if (Executed("AddGeneratorUpdaters"))
                 return;
-            if (!Executed<IModifyModelActionUser>("ModifyModelActionUpdater")) {
-                updaters.Add(new ModifyModelNodePathsUpdater());
-            }
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
-            
-            
         }
 
         protected internal bool RuntimeMode {
@@ -421,7 +420,7 @@ namespace Xpand.Persistent.Base.General {
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
             var declaredExportedTypes = base.GetDeclaredExportedTypes();
             return !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[]{typeof (ChangeViewModel)})
+                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration)})
                 : declaredExportedTypes;
         }
 

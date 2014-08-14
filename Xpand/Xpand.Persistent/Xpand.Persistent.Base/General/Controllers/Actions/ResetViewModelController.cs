@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
@@ -7,18 +6,13 @@ using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions {
     public class ResetViewModelController : ModifyModelActionControllerBase {
-        private const string ResetViewModel = "Reset View Model";
-        protected override IEnumerable<ChoiceActionItem> GetChoiceActionItems(){
-            yield return new ChoiceActionItem(ResetViewModel,null);
-        }
-
         private void ViewOnCustomModelSaving(object sender, HandledEventArgs handledEventArgs){
             handledEventArgs.Handled = true;
         }
 
         protected override void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             var choiceActionItem = e.SelectedChoiceActionItem;
-            if (choiceActionItem.Id == ResetViewModel){
+            if (choiceActionItem.Id == ModifyModelActionChoiceItemsUpdater.ResetViewModel){
                 var modelApplicationBase = (ModelApplicationBase)Application.Model;
                 var modelApplication = modelApplicationBase.CreatorInstance.CreateModelApplication();
                 modelApplication.Id = modelApplicationBase.LastLayer.Id;
