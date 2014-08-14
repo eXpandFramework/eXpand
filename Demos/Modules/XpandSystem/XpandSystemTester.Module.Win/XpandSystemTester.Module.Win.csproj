@@ -106,16 +106,16 @@
   <ItemGroup>
     <None Include="FunctionalTests\GridListEditor\Suppot Custom unbound column creation.inc" />
     <None Include="FunctionalTests\GridListEditor\Init.inc" />
-    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.Xpand.xafml">
+    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
-    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.Xpand.xafml">
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
-    <None Include="FunctionalTests\FullTextContains\FullTextContains.Xpand.xafml">
+    <None Include="FunctionalTests\FullTextContains\FullTextContains.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
@@ -154,7 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
