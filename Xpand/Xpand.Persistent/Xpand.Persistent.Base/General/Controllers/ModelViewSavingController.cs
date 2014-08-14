@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model;
 
@@ -15,10 +14,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
     public class ModelViewSavingController:ViewController,IModelExtender{
-        public ModelViewSavingController(){
-            
-        }
-
         protected override void OnActivated(){
             base.OnActivated();
             View.CustomModelSaving+=ViewOnCustomModelSaving;
@@ -30,7 +25,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void ViewOnCustomModelSaving(object sender, HandledEventArgs handledEventArgs){
-            handledEventArgs.Handled = ((IModelViewModelSaving) View.Model).HandleModelSaving;
+            handledEventArgs.Handled = (bool) View.Model.GetValue<IModelClassModelSaving>(saving => saving.HandleModelSaving);
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

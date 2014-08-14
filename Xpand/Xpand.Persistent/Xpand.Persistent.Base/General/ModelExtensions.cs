@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
@@ -96,6 +97,11 @@ namespace Xpand.Persistent.Base.General {
 
         public static string Xml(this IModelNode modelNode) {
             return ((ModelNode) modelNode).Xml;
+        }
+
+        public static object GetValue<T>(this IModelNode modelNode, Expression<Func<T, object>> property){
+            var name = typeof(T).GetMemberInfo(property).Name;
+            return modelNode.GetValue(name);
         }
 
         public static object GetValue(this IModelNode modelNode, string propertyName){

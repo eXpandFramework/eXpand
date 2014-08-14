@@ -80,7 +80,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         }
 
         private void Template_Shown(object sender, EventArgs e){
-            foreach (var item in View.GetItems<DashboardViewItem>()){
+            foreach (var item in View.GetItems<DashboardViewItem>().Where(item => item.Frame!=null)){
                 var controller = item.Frame.GetController<FocusDefaultDetailViewItemController>();
                 var defaultItem = controller.GetFieldValue("defaultItem");
                 if (defaultItem != null){
