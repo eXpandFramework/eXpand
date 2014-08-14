@@ -116,7 +116,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -129,12 +128,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\Actions\Actions.ets" />
-    <None Include="FunctionalTests\Actions\Actions.Xpand.xafml">
+    <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
-    <None Include="FunctionalTests\HideToolBar\HideToolBar.Xpand.xafml">
+    <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
