@@ -63,16 +63,30 @@ namespace Xpand.Utils.Automation {
             return position;
         }
 
-        public static bool MoveWindow(string windowCaption, Point newPoisition) {
-            IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
+        public static bool ResizeWindow(IntPtr window, Size newSize){
             Win32Types.RECT lpRect;
-            Win32Declares.Rect.GetWindowRect(findWindow, out lpRect);
+            Win32Declares.Rect.GetWindowRect(window, out lpRect);
             Rectangle rectangle = lpRect.ToRectangle();
-            bool moveWindow = Win32Declares.Window.MoveWindow(findWindow, newPoisition.X, newPoisition.Y, rectangle.Width,
-                                                              rectangle.Height, true);
-            Application.DoEvents();
+            if (newSize.Width!=rectangle.Width||newSize.Height!=rectangle.Height){
+                bool moveWindow = Win32Declares.Window.MoveWindow(window, rectangle.X, rectangle.Y, newSize.Width, newSize.Height, true);
+                Application.DoEvents();
+                return moveWindow;
+            }
+            return true;
+        }
 
+        public static bool MoveWindow(IntPtr window, Point newLocation){
+            Win32Types.RECT lpRect;
+            Win32Declares.Rect.GetWindowRect(window, out lpRect);
+            Rectangle rectangle = lpRect.ToRectangle();
+            bool moveWindow = Win32Declares.Window.MoveWindow(window, newLocation.X, newLocation.Y, rectangle.Width,rectangle.Height, true);
+            Application.DoEvents();
             return moveWindow;
+        }
+
+        public static bool MoveWindow(string windowCaption, Point newLocation) {
+            var findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
+            return MoveWindow(findWindow, newLocation);
         }
 
         public static void MinimizeWindow(IntPtr handle) {

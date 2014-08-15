@@ -107,6 +107,8 @@ namespace Xpand.EasyTest.Commands {
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
+                {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
+                {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
             };
             foreach (var keyValuePair in dictionary) {

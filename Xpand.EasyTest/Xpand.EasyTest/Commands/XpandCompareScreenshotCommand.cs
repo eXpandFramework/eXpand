@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using DevExpress.EasyTest.Framework;
@@ -11,8 +12,8 @@ namespace Xpand.EasyTest.Commands{
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
         protected override void InternalExecute(ICommandAdapter adapter){
-            ITestControl activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             ExecuteAdditionalCommands(adapter);
+            ITestControl activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             var windowHandle = GetWindowHandle(activeWindowControl);
             var testImage = GetTestImage(windowHandle);
             var filename = GetFilename(adapter);
@@ -96,9 +97,13 @@ namespace Xpand.EasyTest.Commands{
             if (parameter!=null){
                 activeWindowSize = parameter.Value;
             }
-            var activeWindowSizeCommand = new SetActiveWindowSizeCommand();
+            var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
             activeWindowSizeCommand.Execute(adapter);
+
+            var sleepCommand = new SleepCommand();
+            sleepCommand.Parameters.MainParameter=new MainParameter(5000.ToString(CultureInfo.InvariantCulture));
+            sleepCommand.Execute(adapter);
         }
 
         private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){
