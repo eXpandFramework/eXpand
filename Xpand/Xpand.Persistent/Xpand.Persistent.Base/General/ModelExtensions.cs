@@ -324,10 +324,14 @@ namespace Xpand.Persistent.Base.General {
             return false;
         }
 
-        static IEnumerable<IModelMergedDifference> ModelMergedDifferences(ModelApplicationBase modelApplicationBase) {
-            var modelViews = ((IModelApplication)modelApplicationBase).Views.OfType<IModelObjectViewMergedDifferences>();
-            return modelViews.Where(differences => differences.MergedDifferences != null && differences.MergedDifferences.Any())
-                                                   .SelectMany(differences => differences.MergedDifferences);
+        static IEnumerable<IModelMergedDifference> ModelMergedDifferences(ModelApplicationBase modelApplicationBase){
+            var views = ((IModelApplication)modelApplicationBase).Views;
+            if (views != null){
+                var modelViews = views.OfType<IModelObjectViewMergedDifferences>();
+                return modelViews.Where(differences => differences.MergedDifferences != null && differences.MergedDifferences.Any())
+                    .SelectMany(differences => differences.MergedDifferences);
+            }
+            return Enumerable.Empty<IModelMergedDifference>();
         }
 
         public static void RemoveLayer(this ModelApplicationBase application, string id) {
