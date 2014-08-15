@@ -91,11 +91,14 @@ namespace Xpand.EasyTest.Commands{
                 var hideCaretCommand = new HideCursorCommand();
                 hideCaretCommand.Execute(adapter);
             }
-            if (this.ParameterValue("SetActiveWindowSize", true)){
-                var activeWindowSizeCommand = new SetActiveWindowSizeCommand();
-                activeWindowSizeCommand.Parameters.MainParameter=new MainParameter("1024x768");
-                activeWindowSizeCommand.Execute(adapter);
+            var parameter = Parameters["ActiveWindowSize"];
+            string activeWindowSize = "1024x768";
+            if (parameter!=null){
+                activeWindowSize = parameter.Value;
             }
+            var activeWindowSizeCommand = new SetActiveWindowSizeCommand();
+            activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
+            activeWindowSizeCommand.Execute(adapter);
         }
 
         private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){
