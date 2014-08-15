@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
@@ -153,28 +154,32 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandWebCommandAdapter : WebCommandAdapter {
         static XpandWebCommandAdapter(){
             FastTimeOuts = true;
-        }
-        public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
             if (FastTimeOuts){
-                TimeOutWait = 2000;
-                TimeOutPostBack = 2000;
-                TimeOutBrowserResponse = 2000;
-                TimeOutFrameLoading = 2000;
-                TimeOutWaitCallBack = 2000;
-                TimeOutGetReflectTestControl = 2000;
+                SetTimeOut("TimeOutWait", 2000);
+                SetTimeOut("TimeOutPostBack", 2000);
+                SetTimeOut("TimeOutBrowserResponse", 2000);
+                SetTimeOut("TimeOutFrameLoading", 2000);
+                SetTimeOut("TimeOutWaitCallBack", 2000);
+                SetTimeOut("TimeOutGetReflectTestControl", 2000);
             }
             else{
-                TimeOutWait = 15000;
-                TimeOutPostBack = 10000;
-                TimeOutBrowserResponse = 60000;
-                TimeOutFrameLoading = 10000;
-                TimeOutWaitCallBack = 25000;
-                TimeOutGetReflectTestControl = 60000;
+                SetTimeOut("TimeOutWait", 15000);
+                SetTimeOut("TimeOutPostBack", 10000);
+                SetTimeOut("TimeOutBrowserResponse", 60000);
+                SetTimeOut("TimeOutFrameLoading", 10000);
+                SetTimeOut("TimeOutWaitCallBack", 25000);
+                SetTimeOut("TimeOutGetReflectTestControl", 60000);
             }
         }
 
-        // Fields...
+        private static void SetTimeOut(string propertyName, int timeOut){
+            var propertyInfo = typeof(WebCommandAdapter).GetProperty(propertyName,BindingFlags.Static|BindingFlags.Public);
+            propertyInfo.SetValue(null,timeOut,null);
+        }
 
+        public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
+
+        }
         public static bool FastTimeOuts { get; set; }
     }
 
