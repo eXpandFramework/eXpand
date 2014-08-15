@@ -12,7 +12,7 @@
 			Name="XpandSystemTester.Web"
 			Url="http://localhost:50031"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="True" DefaultWindowSize="1024x768"/>
 		<!-- For IIS -->
 		<!--Application
 			Name="XpandSystemTester.Web"

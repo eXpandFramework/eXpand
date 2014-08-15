@@ -11,31 +11,20 @@ using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using Fasterflect;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
+using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
 
 namespace Xpand.ExpressApp.EasyTest.WebAdapter{
-    class XpandWebBrowserCollection : WebBrowserCollection, IWebBrowserCollection{
-        IEasyTestWebBrowser IWebBrowserCollection.CreateWebBrowser(){
-            var xafWebBrowser = new XAFWebBrowser(this);
-            Add(xafWebBrowser);
-            return xafWebBrowser;
-        }
-
-        void IWebBrowserCollection.WaitForAllWebBrowsersResponse(){
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            WaitForAllWebBrowsersResponse();
-            stopwatch.Stop();
-            if (stopwatch.ElapsedMilliseconds>5000)
-                WaitForAllWebBrowsersResponse();
-        }
-    }
     public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
         private Process _process;
         private const string SingleWebDevParamName = "SingleWebDev";
         private const string UrlParamName = "Url";
+
         public override void RunApplication(TestApplication testApplication){
+            if (testApplication.FindParamValue("DefaultWindowSize") != null) {
+                WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
+            }
             if (!GetParamValue("UseIISExpress", false, testApplication)){
                 RunApplicationBase(testApplication);
             }
@@ -46,9 +35,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 
                 if (!WebDevWebServerHelper.IsWebDevServerStarted(uri)){
                     _process = IISExpressServerHelper.Run(testApplication,uri);
-                }
-                if (testApplication.FindParamValue("DefaultWindowSize") != null) {
-                    WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
                 }
                 this.CallMethod("CreateBrowser", url);
             }
@@ -110,8 +96,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 webBrowserType = "Default";
             }
             return webBrowserType == "Default"
-                ? (IWebBrowserCollection) new XpandWebBrowserCollection()
-                : new StandaloneWebBrowserCollection();
+                ? (IWebBrowserCollection) new WebBrowserCollection()
+                : new XpandStandaloneWebBrowserCollection();
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
@@ -144,10 +130,52 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
     }
 
+    public class XpandStandaloneWebBrowserCollection : StandaloneWebBrowserCollection,IWebBrowserCollection {
+        public const string EasyTestBrowser = "EasyTest Browser";
+        IEasyTestWebBrowser IWebBrowserCollection.CreateWebBrowser() {
+            var webBrowser = CreateWebBrowser();
+            var standaloneWebBrowser = ((XAFStandaloneWebBrowser)webBrowser);
+            var browserControl = ((StandaloneWebBrowserControl) standaloneWebBrowser.WebBrowser);
+            browserControl.ScrollBarsEnabled = false;
+            var form = browserControl.Parent;
+            form.Location=new Point(0,0);
+            form.Invoke(new MethodInvoker(delegate{
+                form.Text = EasyTestBrowser;
+                if (WebBrowserCollection.DefaultFormSize!=new Size()){
+                    form.Width = WebBrowserCollection.DefaultFormSize.Width;
+                    form.Height = WebBrowserCollection.DefaultFormSize.Height;
+                }
+            }));
+            return webBrowser;
+        }
+    }
+
     public class XpandWebCommandAdapter : WebCommandAdapter {
+        static XpandWebCommandAdapter(){
+            FastTimeOuts = true;
+        }
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
+            if (FastTimeOuts){
+                TimeOutWait = 2000;
+                TimeOutPostBack = 2000;
+                TimeOutBrowserResponse = 2000;
+                TimeOutFrameLoading = 2000;
+                TimeOutWaitCallBack = 2000;
+                TimeOutGetReflectTestControl = 2000;
+            }
+            else{
+                TimeOutWait = 15000;
+                TimeOutPostBack = 10000;
+                TimeOutBrowserResponse = 60000;
+                TimeOutFrameLoading = 10000;
+                TimeOutWaitCallBack = 25000;
+                TimeOutGetReflectTestControl = 60000;
+            }
         }
 
+        // Fields...
+
+        public static bool FastTimeOuts { get; set; }
     }
 
     public class IISExpressServerHelper{

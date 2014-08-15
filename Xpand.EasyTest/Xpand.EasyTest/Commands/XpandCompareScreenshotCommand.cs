@@ -102,7 +102,7 @@ namespace Xpand.EasyTest.Commands{
             activeWindowSizeCommand.Execute(adapter);
 
             var sleepCommand = new SleepCommand();
-            sleepCommand.Parameters.MainParameter=new MainParameter(5000.ToString(CultureInfo.InvariantCulture));
+            sleepCommand.Parameters.MainParameter=new MainParameter(500.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);
         }
 
