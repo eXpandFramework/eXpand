@@ -174,7 +174,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         private static void SetTimeOut(string propertyName, int timeOut){
             var propertyInfo = typeof(WebCommandAdapter).GetProperty(propertyName,BindingFlags.Static|BindingFlags.Public);
-            propertyInfo.SetValue(null,timeOut,null);
+            if (propertyInfo != null) propertyInfo.SetValue(null,timeOut,null);
         }
 
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
