@@ -1,16 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="XpandSystemTester" Logo="ExpressAppLogo">
-  <NavigationItems StartupNavigationItem="SalesVolume_ListView" />
-  <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.1.4.0" IsNewNode="True" />
-  </SchemaModules>
-  <Views>
-    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView">
-      <Columns>
-        <ColumnUnbound Id="@b7590735-5a2a-4453-b5e4-e3ac6a904e3d" UnboundType="Integer" UnboundExpression="1+1" Caption="a" IsNewNode="True" />
-      </Columns>
-    </ListView>
-    <ListView Id="SalesVolume_ListView" EnanbleUnboundColumnCreation="True" />
-    <ListView Id="SalesVolume_Months_ListView" MasterDetailMode="ListViewAndDetailView" />
-  </Views>
+<Application Title="XpandSystemTester">
+  
 </Application>

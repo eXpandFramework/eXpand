@@ -95,6 +95,7 @@
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <None Include="FunctionalTests\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
+    <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -136,7 +137,16 @@
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
+    <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets">
+      <SubType>Designer</SubType>
+    </None>
+    <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +154,14 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\HyperLinkPropertyEditor\Init.inc" />
+    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
+    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
+    <Content Include="FunctionalTests\MergedDifferences\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\MergedDifferences\Init.inc" />
+    <None Include="FunctionalTests\MergedDifferences\ListView Filters.inc" />
     <None Include="FunctionalTests\HyperLinkPropertyEditor\Save a valid url.inc" />
     <None Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
     <Content Include="FunctionalTests\Actions\Config.xml">
@@ -169,9 +187,7 @@
     </Content>
     <None Include="FunctionalTests\Login.inc" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FunctionalTests\HyperLinkPropertyEditor\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,7 +5,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelDifference {
     public class ResourceModelCollector {
@@ -113,5 +115,27 @@ namespace Xpand.Persistent.Base.ModelDifference {
             return null;
         }
 
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(IEnumerable<ModuleBase> modules) {
+            return ResourceInfos(modules).Where(pair => !pair.Key.EndsWith("Model.DesignedDiffs")).ToDictionary(pair => pair.Key, pair => new StringModelStore(pair.Value.AspectInfos.First().Xml));
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(Func<KeyValuePair<string, ResourceInfo>, bool> func, ModuleList modules) {
+            return ResourceInfos(modules).Where(func).ToDictionary(pair => pair.Key, pair => new StringModelStore(pair.Value.AspectInfos.First().Xml));
+        }
+
+        public static Dictionary<string, ResourceInfo> ResourceInfos(IEnumerable<ModuleBase> modules){
+            var resourceModelCollector = new ResourceModelCollector();
+            var moduleAssemblies = modules.Select(module => module.GetType().Assembly);
+            var assemblies = new[]{typeof (XpandModuleBase).Assembly}.Concat(moduleAssemblies);
+            return resourceModelCollector.Collect(assemblies, "");
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores() {
+            return GetEmbededModelStores(pair => pair.Key.EndsWith(".Xpand"));
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(Func<KeyValuePair<string, ResourceInfo>, bool> func) {
+            return GetEmbededModelStores(func, ApplicationHelper.Instance.Application.Modules);
+        }
     }
 }

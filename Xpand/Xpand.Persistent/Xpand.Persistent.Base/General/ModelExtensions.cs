@@ -15,10 +15,12 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Fasterflect;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
+using ResourcesModelStore = DevExpress.ExpressApp.ResourcesModelStore;
 
 namespace Xpand.Persistent.Base.General {
     public static class CustomModelSynchronizerHelper {
@@ -203,10 +205,20 @@ namespace Xpand.Persistent.Base.General {
                     modelApplicationBases.Add(modelApplicationBase);
                 }
             }
+            modelApplicationBases=modelApplicationBases.Concat(GetEmbebedApplications(modelApplicationBases, node)).ToList();
             ReadFromOtherLayers(modelApplicationBases, node);
             return modelApplicationBases;
         }
-
+        
+        private static IEnumerable<ModelApplicationBase> GetEmbebedApplications(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node){
+            var moduleBases = modelApplicationBases.Cast<IModelSources>().SelectMany(sources => sources.Modules);
+            return ResourceModelCollector.GetEmbededModelStores(moduleBases).Select(pair =>{
+                var modelApplication = node.CreatorInstance.CreateModelApplication();
+                modelApplication.Id = pair.Key;
+                pair.Value.Load(modelApplication);
+                return modelApplication;
+            });
+        }
         static void InitializeModelSources(ModelApplicationBase modelApplicationBase, ModelNode node) {
             var sources = ((IModelSources)node.Application);
             var targetSources = ((IModelSources)modelApplicationBase.Application);

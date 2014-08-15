@@ -18,7 +18,8 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
         public override void UpdateNode(ModelNode node){
             var modulesDifferences = node.Application.GetModuleDifferences();
-            if (!MergingEnabled(modulesDifferences))
+            var mergingEnabled = MergingEnabled(modulesDifferences);
+            if (!mergingEnabled)
                 return;
             var modelViews = ((IModelViews)node);
             
@@ -29,10 +30,14 @@ namespace Xpand.Persistent.Base.General {
             AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
         }
 
-        private bool MergingEnabled(IEnumerable<ModelApplicationBase> modulesDifferences){
-            var mergedDifferenceses = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
-                application.Views).Where(view => view!=null).OfType<IModelObjectView>().Cast<IModelObjectViewMergedDifferences>();
-            return mergedDifferenceses.Any(differences => differences.MergedDifferences != null && differences.MergedDifferences.Any());
+        private bool MergingEnabled(IEnumerable<ModelApplicationBase> modelApplicationBases){
+            var modelViews = modelApplicationBases.Cast<IModelApplication>().SelectMany(application => application.Views);
+            var mergedDifferenceses = modelViews.Where(view => view!=null).OfType<IModelObjectView>().Cast<IModelObjectViewMergedDifferences>();
+            return mergedDifferenceses.Any(ShouldMerged);
+        }
+
+        private bool ShouldMerged(IModelObjectViewMergedDifferences differences){
+            return differences.MergedDifferences != null && differences.MergedDifferences.Any();
         }
 
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -135,11 +140,14 @@ namespace Xpand.Persistent.Base.General {
         }
 
         IEnumerable<ModelValueInfo> GetValuesInfos(IModelView sourceObjectView, IModelMergedViewValueInfos mergedViewValueInfos) {
-            var modelViewValueInfos = mergedViewValueInfos.ListViewValueInfos;
-            if (sourceObjectView is IModelDetailView) {
-                modelViewValueInfos = mergedViewValueInfos.DetailViewValueInfos;
+            if (mergedViewValueInfos != null){
+                var modelViewValueInfos = mergedViewValueInfos.ListViewValueInfos;
+                if (sourceObjectView is IModelDetailView) {
+                    modelViewValueInfos = mergedViewValueInfos.DetailViewValueInfos;
+                }
+                return modelViewValueInfos.Where(info => info.NodeEnabled).Select(info => info.ModelValueInfo);
             }
-            return modelViewValueInfos.Where(info => info.NodeEnabled).Select(info => info.ModelValueInfo);
+            return Enumerable.Empty<ModelValueInfo>();
         }
 
         void CloneNodes(IModelView modelView, IModelMergedDifferenceStrategyIncludedNodePath nodePath,IModelObjectView modelObjectView) {

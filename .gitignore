@@ -65,3 +65,4 @@ Xpand/Xpand.NH/packages
 **/_ReSharper.*
 Model.User.xafml
 log.txt
+**/*.Web_View.html

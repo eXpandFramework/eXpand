@@ -542,7 +542,7 @@ namespace Xpand.Persistent.Base.General {
             if (IsHosted&&_customUserModelDifferenceStore)
                 return;
             _customUserModelDifferenceStore = true;
-            var stringModelStores = GetEmbededModelStores(pair => pair.Key.EndsWith(".Xpand"));
+            var stringModelStores = ResourceModelCollector.GetEmbededModelStores();
             foreach (var stringModelStore in stringModelStores){
                 e.AddExtraDiffStore(stringModelStore.Key, stringModelStore.Value);    
             }
@@ -563,13 +563,6 @@ namespace Xpand.Persistent.Base.General {
 
         public static string BinDirectory{
             get{return IsHosted ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;}
-        }
-
-        public static Dictionary<string, StringModelStore> GetEmbededModelStores(Func<KeyValuePair<string,ResourceInfo>,bool> func ){
-            var resourceModelCollector = new ResourceModelCollector();
-            var assemblies = new[] { typeof(XpandModuleBase).Assembly }.Concat(ApplicationHelper.Instance.Application.Modules.Select(module => module.GetType().Assembly));
-            var resourceInfos = resourceModelCollector.Collect(assemblies, "").Where(func);
-            return resourceInfos.ToDictionary(pair => pair.Key,pair => new StringModelStore(pair.Value.AspectInfos.First().Xml));
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }
