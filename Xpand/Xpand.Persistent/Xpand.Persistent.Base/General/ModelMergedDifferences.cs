@@ -273,9 +273,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
-            var modelMergedDifferences = modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(differences
-                => differences.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
-            return modelMergedDifferences.Select(MergedDifferenceInfo(modulesDifferences)).Where(differences => IsDifferenceValid(differences, modelViews));
+            if (modelApplication.Views != null){
+                var modelMergedDifferences = modelApplication.Views.OfType<IModelObjectViewMergedDifferences>().Where(differences
+                    => differences.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences);
+                return modelMergedDifferences.Select(MergedDifferenceInfo(modulesDifferences)).Where(differences => IsDifferenceValid(differences, modelViews));
+            }
+            return Enumerable.Empty<ModelMergedDifferenceInfo>();
         }
 
         public static IEnumerable<ModelMergedDifferenceInfo> GetMergedDifferenceInfos(this IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
