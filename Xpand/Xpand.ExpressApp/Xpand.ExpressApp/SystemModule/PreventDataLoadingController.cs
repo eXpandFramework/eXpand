@@ -16,10 +16,8 @@ namespace Xpand.ExpressApp.SystemModule {
 
     public enum PreventDataLoading{
         Default,
-        FiltersAndCriteriaEmpty,
         FiltersEmpty,
         FilterEmpty,
-        SearchAndFilterAndCurrentFilterCriteriaEmpty 
     }
 
     [ModelInterfaceImplementor(typeof(IModelClassPreventDataLoading), "ModelClass")]
