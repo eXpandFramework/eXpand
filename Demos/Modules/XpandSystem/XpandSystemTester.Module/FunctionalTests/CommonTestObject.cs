@@ -5,7 +5,9 @@ using DevExpress.Xpo;
 namespace XpandSystemTester.Module.FunctionalTests {
     [DefaultClassOptions]
     public class CommonTestObject:BaseObject {
-        public CommonTestObject(Session session) : base(session){
+        protected CommonTestObject(Session session) : base(session){
         }
+
+        public string Name { get; set; }
     }
 }

@@ -138,10 +138,11 @@ Forms.DockStyle.None) {
         }
 
         private string GetCriteriaFromView() {
-            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type,View.Model.Filter, false);
-            new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
-            FilterWithObjectsProcessorMode.StringToObject);
-            return CriteriaOperator.ToString(criteriaWrapper.CriteriaOperator);
+            using (ObjectSpace.CreateParseCriteriaScope()) {
+                var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, View.Model.Filter, false);
+                new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
+                return CriteriaOperator.ToString(criteriaWrapper.CriteriaOperator);
+            }
         }
     }
 }

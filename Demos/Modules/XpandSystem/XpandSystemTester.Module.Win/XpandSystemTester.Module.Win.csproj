@@ -104,9 +104,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\DetailViewCaching\Init.inc" />
+    <Content Include="FunctionalTests\FilterEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
+    <Content Include="FunctionalTests\FilterEditor\Images\FilterEditorTop.win.png" />
+    <Content Include="FunctionalTests\FilterEditor\Init.inc" />
     <Content Include="FunctionalTests\PreventDataLoading\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\FilterEditor\FilterEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FilterEditor\FilterEditor.ets" />
     <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
     <None Include="FunctionalTests\GridView\Custom unbound column creation.inc" />
@@ -135,6 +146,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
     </Compile>
