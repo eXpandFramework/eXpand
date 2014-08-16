@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.ListViewControl.LayoutViewGridListEditor {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string LayoutViewGridListEditor_ListView = "LayoutViewGridListEditor_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;

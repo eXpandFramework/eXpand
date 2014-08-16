@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.RuntimeFields.OrphanedCollectionFromModel {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string RuntimeOrphanedCollection_DetailView = "RuntimeOrphanedCollectionFromModel_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;

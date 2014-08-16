@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Miscellaneous.ToolTip {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string Tooltip_DetailView = "Tooltip_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!(typesInfo.Type == typeof (Customer))) yield break;

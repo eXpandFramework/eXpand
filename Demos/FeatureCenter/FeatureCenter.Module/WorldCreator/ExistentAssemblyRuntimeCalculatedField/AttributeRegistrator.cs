@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeCalculatedField {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string ExistentAssemblyRuntimeFields_DetailView = "ExistentAssemblyRuntimeFields_DetailView";
         private const string ExistentAssemblyRuntimeFields_ListView = "ExistentAssemblyRuntimeFields_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

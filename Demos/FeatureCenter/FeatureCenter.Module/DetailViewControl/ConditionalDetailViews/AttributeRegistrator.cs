@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.DetailViewControl.ConditionalDetailViews {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public const string ConditionalDetailViews_ListView = "ConditionalDetailViews_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;

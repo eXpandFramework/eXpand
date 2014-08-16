@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(PENACustomer)) yield break;

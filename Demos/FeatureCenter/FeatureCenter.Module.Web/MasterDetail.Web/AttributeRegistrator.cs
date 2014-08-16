@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Web.MasterDetail.Web {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string MasterDetailModeListView = "MasterDetailMode_ListView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
 #if EASYTEST

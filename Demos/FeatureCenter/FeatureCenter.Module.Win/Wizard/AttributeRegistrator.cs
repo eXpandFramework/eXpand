@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.Wizard {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public static readonly string WizardCustomerDetailView = "WizardCustomer_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

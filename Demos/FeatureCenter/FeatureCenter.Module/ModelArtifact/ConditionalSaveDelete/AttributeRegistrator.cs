@@ -7,7 +7,7 @@ using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalSaveDelete {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderConditionalSaveDelete, "1=1", "1=1", Captions.ViewMessageConditionalSaveDelete, Position.Bottom) { View = "ConditionalSaveDelete_DetailView" };

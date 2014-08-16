@@ -5,7 +5,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public const string MasterDetailDynamicAssembly = "MasterDetailDynamicAssembly";
         public const string DMDCustomer = "DMDCustomer";
         private const string DMDCustomerCalculatedField_ListView = "DMDCustomerCalculatedField_ListView";

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string ExternalApplicationDetailView = "ExternalApplication_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
 #if EASYTEST

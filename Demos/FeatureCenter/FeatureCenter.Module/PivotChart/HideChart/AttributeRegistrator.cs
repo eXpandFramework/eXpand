@@ -8,7 +8,7 @@ using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.PivotChart.HideChart {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string DetailView = "HideChart_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(Analysis)) yield break;

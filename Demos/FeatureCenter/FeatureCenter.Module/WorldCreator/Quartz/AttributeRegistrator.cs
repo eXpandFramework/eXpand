@@ -8,7 +8,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
 namespace FeatureCenter.Module.WorldCreator.Quartz {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string Quartz_DetailView = "Quartz_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!(typesInfo.Type == typeof (PersistentAssemblyInfo))) yield break;
