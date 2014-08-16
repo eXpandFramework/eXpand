@@ -104,7 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\Actions\Actions.ets" />
-    <None Include="FunctionalTests\Actions\Actions.Xpand.xafml">
+    <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\AutoTest.ets" />

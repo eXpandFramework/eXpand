@@ -1,4 +1,6 @@
-﻿*XpandProcessRecord
+﻿#IncludeFile .\Init.inc
+
+*XpandProcessRecord
  Url = http://www.expandFramework.com
  Action = Edit
 *XpandFillForm

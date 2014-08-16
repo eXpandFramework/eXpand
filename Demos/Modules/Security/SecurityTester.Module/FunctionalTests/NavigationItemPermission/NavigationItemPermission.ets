@@ -1,13 +1,7 @@
-#DropDB SecurityTesterEasyTest
+#IncludeFile .\Init.inc
 
-#Application SecurityTester.Win
-*FillForm
- User Name = Admin
-*Action Log On
-*Action Navigation(NavigationItemPermission.Navigation Item Permission Object)
-*SetActiveWindowSize 1024x768
 *XpandCompareScreenshot AdminNavigationItemPermission.png
- Mask = /regX/Navigation.png.pic
+ XMask = Navigation.png
 
 ;Create permission and logon
 *Action Navigation(Default.Role)
@@ -33,9 +27,8 @@
 *Action Navigation(NavigationItemPermission.Navigation Item Permission Object)
 
 ;CompareScreenShot
-*SetActiveWindowSize 1024x768
 *XpandCompareScreenshot UserNavigationItemPermission.png
- Mask = /regX/Navigation.png.pic
+ XMask = Navigation.png
 
 ;The items are visible in other strategies
 *Action Navigation Item Permission
@@ -46,6 +39,6 @@
 *Action Navigation(NavigationItemPermission.Navigation Item Permission Object)
 *SetActiveWindowSize 1024x768
 *XpandCompareScreenshot UserNavigationItemPermission.png
- Mask = /regX/Navigation.png.pic
+ XMask = Navigation.png
 
 

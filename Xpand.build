@@ -221,10 +221,10 @@
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <ItemGroup>
-      <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+      <FailedLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
     </ItemGroup>
     <MSBuild.ExtensionPack.Xml.XmlFile
-      TaskAction="ReadElements" File="%(EasyTestLogs.FullPath)" Condition="'@(EasyTestLogs->Count())'!='0'"
+      TaskAction="ReadElements" File="%(FailedLogs.FullPath)" Condition="'@(FailedLogs->Count())'!='0'"
       XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
       <Output TaskParameter="Elements" ItemName="Test"/>
     </MSBuild.ExtensionPack.Xml.XmlFile>

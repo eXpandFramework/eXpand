@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="10">
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
 	<Applications>
 		<!-- Win -->
 		<Application
@@ -27,7 +27,7 @@
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
 		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.1.5.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SecurityTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SecurityTester.Web" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SecurityTester.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\SecurityTester.Web" />
 	</Aliases>
 </Options>
