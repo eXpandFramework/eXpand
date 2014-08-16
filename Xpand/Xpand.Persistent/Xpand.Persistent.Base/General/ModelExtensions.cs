@@ -217,7 +217,7 @@ namespace Xpand.Persistent.Base.General {
                 modelApplication.Id = pair.Key;
                 pair.Value.Load(modelApplication);
                 return modelApplication;
-            });
+            }).Cast<IModelApplication>().Where(application => application.Views!=null).Cast<ModelApplicationBase>();
         }
         static void InitializeModelSources(ModelApplicationBase modelApplicationBase, ModelNode node) {
             var sources = ((IModelSources)node.Application);
