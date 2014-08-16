@@ -109,7 +109,7 @@
     </Content>
     <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
-    <None Include="FunctionalTests\GridView\Suppot Custom unbound column creation.inc" />
+    <None Include="FunctionalTests\GridView\Custom unbound column creation.inc" />
     <None Include="FunctionalTests\GridView\Init.inc" />
     <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml">
       <SubType>Designer</SubType>
@@ -124,7 +124,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
-    <None Include="FunctionalTests\GridView\GridListEditor.ets" />
+    <None Include="FunctionalTests\GridView\GridView.ets" />
     <Content Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.inc" />
     <Content Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .inc" />
     <Content Include="FunctionalTests\FullTextContains\Init.inc" />

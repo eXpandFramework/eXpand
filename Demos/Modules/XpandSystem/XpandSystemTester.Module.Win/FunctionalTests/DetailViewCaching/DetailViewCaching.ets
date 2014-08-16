@@ -1,9 +1,4 @@
-#DropDB XpandSystemTesterEasyTest
-#Application XpandSystemTester.Win
-
-*UseModel
-#IncludeFile ..\Login.inc
-*Action Navigation(Default.Detail View Caching Object)
+#IncludeFile .\Init.inc
 
 #IncludeFile .\When new objects.inc
 #IncludeFile .\When existing objects.inc
