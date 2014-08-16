@@ -114,7 +114,6 @@
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
-    <Compile Include="Core\AttributeRegistrator.cs" />
     <Compile Include="Core\ReadOnlyParameters\MonthAgoParameter.cs" />
     <Compile Include="Editors\ReleaseSequencePopupWindowHelper.cs" />
     <Compile Include="GlobalSuppressions.cs" />

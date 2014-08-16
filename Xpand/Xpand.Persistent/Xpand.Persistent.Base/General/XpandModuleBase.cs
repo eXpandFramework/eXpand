@@ -231,6 +231,7 @@ namespace Xpand.Persistent.Base.General {
             return ModuleType != moduleType || ExecutedCore(name);
         }
 
+
         public ModuleType ModuleType{
             get{
                 if (_moduleType==ModuleType.None){
@@ -593,11 +594,36 @@ namespace Xpand.Persistent.Base.General {
             return new[] { DefaultXafAppType };
         }
 
+        IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
+            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator))
+                .Descendants.Where(info => !info.IsAbstract).Select(typeInfo => (AttributeRegistrator)typeInfo.Type.CreateInstance())
+                .SelectMany(registrator => GetAttributes(type, registrator));
+        }
+
+        private IEnumerable<Attribute> GetAttributes(ITypeInfo type, AttributeRegistrator registrator) {
+            return registrator.GetType().IsGenericType && type.Type != registrator.GetType().GetGenericArguments()[0]
+                ? Enumerable.Empty<Attribute>()
+                : registrator.GetAttributes(type);
+        }
+
+        void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
+            IEnumerable<Attribute> attributes = GetAttributes(persistentType);
+            foreach (var attribute in attributes) {
+                persistentType.AddAttribute(attribute);
+            }
+        }
+
+
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
 
             if (Executed("CustomizeTypesInfo"))
                 return;
+            if (RuntimeMode) {
+                foreach (var persistentType in typesInfo.PersistentTypes) {
+                    CreateAttributeRegistratorAttributes(persistentType);
+                }
+            }
             CreateXpandDefaultProperty(typesInfo);
             ModelValueOperator.Register();
             foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null).ToList()) {
@@ -801,5 +827,7 @@ namespace Xpand.Persistent.Base.General {
         bool Executed(string name) {
             return _xpandModuleBase.Executed(name);
         }
+
+
     }
 }

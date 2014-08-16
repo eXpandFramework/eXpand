@@ -27,7 +27,6 @@ using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo.CustomFunctions;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
-using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
     [ToolboxItem(true)]
@@ -74,11 +73,6 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             new FullTextContainsFunction().Register();
-            if (RuntimeMode) {
-                foreach (var persistentType in typesInfo.PersistentTypes) {
-                    CreateAttributeRegistratorAttributes(persistentType);
-                }
-            }
             if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);
             }
@@ -102,17 +96,6 @@ namespace Xpand.ExpressApp.SystemModule {
             editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
         }
 
-        void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
-            IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-            foreach (var attribute in attributes) {
-                persistentType.AddAttribute(attribute);
-            }
-        }
-
-        IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)typeInfo.Type.CreateInstance()).SelectMany(registrator => registrator.GetAttributes(type));
-        }
-
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
@@ -125,8 +108,6 @@ namespace Xpand.ExpressApp.SystemModule {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
-            extenders.Add<IModelClass, IModelClassPreventDataLoading>();
-            extenders.Add<IModelListView, IModelListViewPreventDataLoading>();
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
@@ -164,12 +145,28 @@ namespace Xpand.ExpressApp.SystemModule {
                             if (value == "No")
                                 parameters.Values["PreventLoadingData"] = "Never";
                             else if (value=="Filter")
-                                parameters.Values["PreventLoadingData"] = "SearchAndFiltersEmpty";
+                                parameters.Values["PreventLoadingData"] = "FiltersEmpty";
                             else if (value == "FilterAndCriteria")
-                                parameters.Values["PreventLoadingData"] = "SearchAndFiltersAndCriteriaEmpty";
+                                parameters.Values["PreventLoadingData"] = "SearchOrFiltersOrCriteriaEmpty";
                             else{
                                 parameters.Values["PreventLoadingData"] = value;
                             }
+                        }
+                    }
+                }
+            }
+            if (currentVersion > new Version("14.1.5.3")){
+                if (typeof (IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType)){
+                    if (parameters.Values.ContainsKey("SearchAndFiltersEmpty")) {
+                        string value = parameters.Values["SearchAndFiltersEmpty"];
+                        if (!string.IsNullOrEmpty(value)){
+                            parameters.Values["SearchAndFiltersEmpty"] = "FiltersEmpty";
+                        }
+                    }
+                    if (parameters.Values.ContainsKey("SearchAndFiltersAndCriteriaEmpty")) {
+                        string value = parameters.Values["SearchAndFiltersAndCriteriaEmpty"];
+                        if (!string.IsNullOrEmpty(value)){
+                            parameters.Values["SearchAndFiltersAndCriteriaEmpty"] = "FiltersAndCriteriaEmpty";
                         }
                     }
                 }
