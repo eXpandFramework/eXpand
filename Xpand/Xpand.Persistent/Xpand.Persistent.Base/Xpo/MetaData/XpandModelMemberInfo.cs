@@ -31,6 +31,16 @@ namespace Xpand.Persistent.Base.Xpo.MetaData{
         string ModelNodePath { get; set; }
     }
 
+    public class StringToEnumConverter<T> : StringConverter {
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
+            return new StandardValuesCollection(Enum.GetNames(typeof(T)));
+        }
+
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext context) {
+            return true;
+        }
+    }
+
     public class StringToModelTypeConverter : StringToTypeConverterBase {
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context){
             var typeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelNode)).Descendants.Where(info => info.IsInterface).OrderBy(info => info.FullName);

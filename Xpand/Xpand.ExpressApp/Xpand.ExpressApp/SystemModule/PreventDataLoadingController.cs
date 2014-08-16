@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -9,47 +8,58 @@ using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassPreventDataLoading : IModelNode {
-        [Category("eXpand")]
-        [Description("Listview records are loaded only when a filter is present")]
-        [DefaultValue(PreventDataLoading.Never)]
+        [Category("eXpand.PreventDataLoading")]
         PreventDataLoading PreventDataLoading { get; set; }
+        [Category("eXpand.PreventDataLoading")]
+        bool PreventDataLoadingWhenFilterByText { get; set; }
     }
 
     public enum PreventDataLoading{
-        Never,
-        SearchAndFiltersAndCriteriaEmpty,
-        Always,
-        [Description("Will prevent loading data when the IModelListView Filter property is empty. This means no data will be loaded if the user hasn't search or filtered using the FilterEditor or AutofilterRow. Even if a filter is selected from the filters dropdown data still won't be loaded without the user searching or filtering data")]
-        SearchAndFiltersEmpty,
-        [Description("Will prevent loading data when the a filter condition isn't applied using the Filters dropdown and user hasn't filtered using the FilterEditor or AutofilterRow and user hasn't searched. This means searching or filtering in any way including selecting a filter with a filter criteria from the filters dropdown will allow data to be loaded into the list.")]
-        SearchAndFilterAndCurrentFilterCriteriaEmpty ,
-        Criteria,
-
+        Default,
+        FiltersAndCriteriaEmpty,
+        FiltersEmpty,
+        FilterEmpty,
+        SearchAndFilterAndCurrentFilterCriteriaEmpty 
     }
 
     [ModelInterfaceImplementor(typeof(IModelClassPreventDataLoading), "ModelClass")]
     public interface IModelListViewPreventDataLoading : IModelClassPreventDataLoading {
     }
 
-    public abstract class PreventDataLoadingController : ViewController<ListView> {
+    public  class PreventDataLoadingController : ViewController<ListView>,IModelExtender {
         private FilterController _filterController;
         protected const string PreventDataLoadingKey = "PreventLoadingData";
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            _filterController.FullTextFilterAction.Execute -= FullTextFilterAction_Execute;
+            _filterController.SetFilterAction.Execute -= SetFilterActionOnExecute;
+        }
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (IsReady()) {
+            if (ShouldPreventLoading()) {
                 PreventDataLoading();
-                _filterController = Frame.GetController<FilterController>();
-                _filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
+            }
+            _filterController = Frame.GetController<FilterController>();
+            _filterController.SetFilterAction.Execute += SetFilterActionOnExecute;
+            _filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
+        }
+        
+        private void SetFilterActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
+            if (ShouldPreventLoading()) 
+                PreventDataLoading();
+            else{
+                DefaultLoading();
             }
         }
 
-        protected void PreventDataLoading(CriteriaOperator criteriaOperator){
+        public void PreventDataLoading(CriteriaOperator criteriaOperator){
             if (ReferenceEquals(criteriaOperator, null)) {
                 PreventDataLoading();
             }
             else {
-                ClearPreventLoadingDataCriteria();
+                DefaultLoading();
             }
         }
 
@@ -57,33 +67,18 @@ namespace Xpand.ExpressApp.SystemModule {
             View.CollectionSource.Criteria[PreventDataLoadingKey] = GetPreventLoadingDataCriteria();
         }
 
-        protected override void OnDeactivated(){
-            base.OnDeactivated();
-            if (IsReady())
-                _filterController.FullTextFilterAction.Execute-=FullTextFilterAction_Execute;
-            
-        }
-
-        protected bool IsReady() {
-            var modelListViewGridViewOptions = ((IModelListViewPreventDataLoading)View.Model);
-            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.SearchAndFiltersAndCriteriaEmpty)
-                return !FiltersAreEmpty() || !string.IsNullOrEmpty(View.Model.Criteria);
-            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.SearchAndFiltersEmpty)
-                return !FiltersAreEmpty();
-            if (modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.Criteria)
-                return !string.IsNullOrEmpty(View.Model.Criteria);
-            return modelListViewGridViewOptions.PreventDataLoading==SystemModule.PreventDataLoading.Always;
-        }
-
-        private bool FiltersAreEmpty(){
-            return (string.IsNullOrEmpty(View.Model.Filter))&& ((IModelListViewFilter) View.Model).Filters.Any();
+        protected bool ShouldPreventLoading(){
+            var preventDataLoading = ((IModelListViewPreventDataLoading)View.Model);
+            if (preventDataLoading.PreventDataLoading == SystemModule.PreventDataLoading.FilterEmpty)
+                return string.IsNullOrEmpty(View.Model.Filter);
+            if (preventDataLoading.PreventDataLoading == SystemModule.PreventDataLoading.FiltersEmpty)
+                return ((IModelListViewFilter)View.Model).Filters.CurrentFilter == null;
+            return false;
         }
 
         void FullTextFilterAction_Execute(object sender, ParametrizedActionExecuteEventArgs e) {
-            if (string.IsNullOrEmpty(e.ParameterCurrentValue as string))
-                View.CollectionSource.Criteria[PreventDataLoadingKey] = GetPreventLoadingDataCriteria();
-            else
-                ClearPreventLoadingDataCriteria();
+            if (((IModelListViewPreventDataLoading) View.Model).PreventDataLoadingWhenFilterByText)
+                DefaultLoading();
         }
 
         private BinaryOperator GetPreventLoadingDataCriteria() {
@@ -93,10 +88,14 @@ namespace Xpand.ExpressApp.SystemModule {
             return new BinaryOperator(memberInfo.Name, o);
         }
 
-        protected void ClearPreventLoadingDataCriteria() {
+        protected void DefaultLoading() {
             if (!ReferenceEquals(View.CollectionSource.Criteria[PreventDataLoadingKey], null))
                 View.CollectionSource.Criteria[PreventDataLoadingKey] = null;
         }
 
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            extenders.Add<IModelClass, IModelClassPreventDataLoading>();
+            extenders.Add<IModelListView, IModelListViewPreventDataLoading>();
+        }
     }
 }

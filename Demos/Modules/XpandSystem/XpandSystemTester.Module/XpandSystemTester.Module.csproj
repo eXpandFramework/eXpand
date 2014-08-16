@@ -96,6 +96,11 @@
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <None Include="FunctionalTests\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
+    <None Include="FunctionalTests\PreventDataLoading\Filters Not Empty.inc" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -117,6 +122,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -132,7 +138,7 @@
     <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\AutoTest\AutoTest.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml">
       <SubType>Designer</SubType>
@@ -147,6 +153,10 @@
     <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +164,15 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\PreventDataLoading\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
+    <None Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
+    <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
     <None Include="FunctionalTests\HyperLinkPropertyEditor\Init.inc" />
     <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
     <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
@@ -172,7 +191,7 @@
     <None Include="FunctionalTests\Actions\Lock View Model.inc" />
     <None Include="FunctionalTests\Actions\Reset View Model.inc" />
     <None Include="FunctionalTests\Actions\Configure View Model.inc" />
-    <Content Include="FunctionalTests\Config.xml">
+    <Content Include="FunctionalTests\AutoTest\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="FunctionalTests\HideToolBar\Config.xml">

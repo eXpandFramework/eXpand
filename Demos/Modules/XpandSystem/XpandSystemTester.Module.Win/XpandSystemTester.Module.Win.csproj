@@ -104,8 +104,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\GridListEditor\Suppot Custom unbound column creation.inc" />
-    <None Include="FunctionalTests\GridListEditor\Init.inc" />
+    <Content Include="FunctionalTests\PreventDataLoading\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
+    <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
+    <None Include="FunctionalTests\GridView\Suppot Custom unbound column creation.inc" />
+    <None Include="FunctionalTests\GridView\Init.inc" />
     <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -119,7 +124,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
-    <None Include="FunctionalTests\GridListEditor\GridListEditor.ets" />
+    <None Include="FunctionalTests\GridView\GridListEditor.ets" />
     <Content Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.inc" />
     <Content Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .inc" />
     <Content Include="FunctionalTests\FullTextContains\Init.inc" />
@@ -134,11 +139,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\FullTextContains\FullTextContainsObject.cs" />
-    <Compile Include="FunctionalTests\GridListEditor\GridListEditorController.cs">
+    <Compile Include="FunctionalTests\GridView\GridViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\GridListEditor\GridListEditorObject.cs" />
+    <Compile Include="FunctionalTests\GridView\GridViewObject.cs" />
     <Compile Include="FunctionalTests\ApplicationExit\ApplicationExit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PreventDataLoading\AttributeRegistrator.cs" />
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
@@ -154,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -177,6 +187,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -195,7 +209,7 @@
     <Content Include="FunctionalTests\FullTextContains\Images\CriteriaPropertyEditorEx.win.png" />
     <Content Include="FunctionalTests\FullTextContains\Images\XpandGridListEditor.win.png" />
     <Content Include="FunctionalTests\FullTextContains\When ObjectSpace Query.inc" />
-    <Content Include="FunctionalTests\GridListEditor\Config.xml">
+    <Content Include="FunctionalTests\GridView\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\Login.inc" />

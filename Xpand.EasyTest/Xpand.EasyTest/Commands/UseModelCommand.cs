@@ -18,6 +18,9 @@ namespace Xpand.EasyTest.Commands{
                 var copyFileCommand = new CopyFileCommand();
                 var path1 = testAlias.Value;
                 var destinationFile = Path.Combine(path1, "Model.User.xafml" );
+                var deleteFileCommand = new DeleteFileCommand();
+                deleteFileCommand.Parameters.MainParameter=new MainParameter(destinationFile);
+                deleteFileCommand.Execute(adapter);
                 copyFileCommand.Execute(adapter, _testParameters, modelFile, destinationFile);
             }
 

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="PreventDataLoading_FilterNotEmpty" Filter="Contains([Name], 'Tolis')" PreventDataLoading="FilterEmpty" ShowAutoFilterRow="True" />
+  </Views>
+</Application>

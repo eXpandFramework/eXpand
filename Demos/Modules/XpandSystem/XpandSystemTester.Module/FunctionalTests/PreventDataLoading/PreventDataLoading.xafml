@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="PreventDataLoading_FilterByText" PreventDataLoading="FiltersEmpty" PreventDataLoadingWhenFilterByText="True">
+      <Filters CurrentFilterId="">
+        <Filter Id="All" IsNewNode="True" />
+        <Filter Id="CommonFilter" Criteria="[Name] = 'Tolis Bekiaris'" IsNewNode="True" />
+      </Filters>
+    </ListView>
+    <ListView Id="PreventDataLoading_FilterNotEmpty" Filter="Contains([Name], 'Tolis')" PreventDataLoading="FilterEmpty" />
+    <ListView Id="PreventDataLoading_FiltersNotEmpty" PreventDataLoading="FiltersEmpty">
+      <Filters>
+        <Filter Id="All" IsNewNode="True" />
+        <Filter Id="CommonFilter" Criteria="[Name] = 'Tolis Bekiaris'" IsNewNode="True" />
+      </Filters>
+    </ListView>
+  </Views>
+</Application>
