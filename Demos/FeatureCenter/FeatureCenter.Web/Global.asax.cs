@@ -39,7 +39,7 @@ namespace FeatureCenter.Web{
         protected void Application_BeginRequest(Object sender, EventArgs e){
             string filePath = HttpContext.Current.Request.PhysicalPath;
             if (!string.IsNullOrEmpty(filePath)
-                && (filePath.IndexOf("Images") >= 0) && !File.Exists(filePath)){
+                && (filePath.IndexOf("Images", StringComparison.Ordinal) >= 0) && !File.Exists(filePath)){
                 HttpContext.Current.Response.End();
             }
         }

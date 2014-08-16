@@ -2,11 +2,11 @@
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 
-namespace XpandSystemTester.Module.Win.FunctionalTests.GridListEditor {
-    public class GridListEditorController:ViewController<ListView>{
+namespace XpandSystemTester.Module.Win.FunctionalTests.GridView {
+    public class GridViewController:ViewController<ListView>{
         private const string UnboundColumn = "UnboundColumn";
-        public GridListEditorController(){
-            TargetObjectType = typeof (GridListEditorObject);
+        public GridViewController(){
+            TargetObjectType = typeof (GridViewObject);
             var singleChoiceAction = new SingleChoiceAction(this,"GridListEditor",PredefinedCategory.ObjectsCreation);
             singleChoiceAction.Items.Add(new ChoiceActionItem(UnboundColumn, null));
             singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
