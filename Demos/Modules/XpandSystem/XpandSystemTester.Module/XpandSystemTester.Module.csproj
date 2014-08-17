@@ -94,7 +94,7 @@
     <Compile Include="FunctionalTests\CommonTestObject.cs" />
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
-    <None Include="FunctionalTests\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
@@ -104,7 +104,7 @@
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -143,10 +143,10 @@
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml">
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets">
       <SubType>Designer</SubType>
     </None>
@@ -173,15 +173,15 @@
     <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
-    <None Include="FunctionalTests\HyperLinkPropertyEditor\Init.inc" />
-    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
-    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
     <Content Include="FunctionalTests\MergedDifferences\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\MergedDifferences\Init.inc" />
     <None Include="FunctionalTests\MergedDifferences\ListView Filters.inc" />
-    <None Include="FunctionalTests\HyperLinkPropertyEditor\Save a valid url.inc" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Save a valid url.inc" />
     <None Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
     <Content Include="FunctionalTests\Actions\Config.xml">
       <SubType>Designer</SubType>
@@ -201,7 +201,7 @@
     <Content Include="FunctionalTests\HideToolBar\Images\DetailView.win.png" />
     <Content Include="FunctionalTests\HideToolBar\Images\ListView.win.png" />
     <Content Include="FunctionalTests\HideToolBar\Images\ListView.web.png" />
-    <Content Include="FunctionalTests\HyperLinkPropertyEditor\Config.xml">
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\Login.inc" />

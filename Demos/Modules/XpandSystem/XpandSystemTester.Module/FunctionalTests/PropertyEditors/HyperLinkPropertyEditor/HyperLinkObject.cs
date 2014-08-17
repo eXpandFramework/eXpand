@@ -4,9 +4,10 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 
-namespace XpandSystemTester.Module.FunctionalTests.HyperLinkPropertyEditor {
+namespace XpandSystemTester.Module.FunctionalTests.PropertyEditors.HyperLinkPropertyEditor {
     [DefaultClassOptions]
     [DefaultProperty("Url")]
+    [NavigationItem("PropertyEditors")]
     public class HyperLinkObject:BaseObject {
         public HyperLinkObject(Session session) : base(session){
         }

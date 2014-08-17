@@ -165,8 +165,8 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        protected override sealed IEnumerable<Type> GetDeclaredControllerTypes(){
-            return FilterDisabledControllers(base.GetDeclaredControllerTypes());
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore());
         }
 
         protected virtual IEnumerable<Type> GetDeclaredControllerTypesCore() {
