@@ -348,7 +348,17 @@ namespace Xpand.Utils.Win32 {
             public static extern int CallNextKeyboardHook(int hHook, int ncode, int wParam, Win32Types.keybHookStruct lParam);
         }
 
-        public class Window {
+        public class Window{
+            public enum ShowScrollBarEnum{
+                SB_HORZ = 0,
+                SB_VERT = 1,
+                SB_CTL = 2,
+                SB_BOTH = 3
+            }
+            
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool ShowScrollBar(IntPtr hWnd, ShowScrollBarEnum wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
             /// <summary>
             /// The IsIconic function determines whether the specified window is minimized (iconic). 
             /// </summary>
