@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Helpers;
+using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest.Commands {
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
@@ -93,7 +95,16 @@ namespace Xpand.EasyTest.Commands {
         public static IXpandTestAdapter Adapter {
             get { return _adapter; }
         }
-        
+
+        public static string LogWindowText(this IntPtr intPtr) {
+            int length = Win32Declares.Window.GetWindowTextLength(intPtr);
+            var sb = new StringBuilder(length + 1);
+            Win32Declares.Window.GetWindowText(intPtr, sb, sb.Capacity);
+            var text = sb.ToString();
+            EasyTestTracer.Tracer.LogVerboseText(text);
+            return text;
+        }
+
         public static void RegisterCommands(this IRegisterCommand registerCommand,IXpandTestAdapter applicationAdapter){
             _adapter = applicationAdapter;
             var dictionary = new Dictionary<Type, string>{

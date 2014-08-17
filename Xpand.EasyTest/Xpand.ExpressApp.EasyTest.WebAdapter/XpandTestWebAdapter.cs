@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
@@ -12,6 +11,7 @@ using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using Fasterflect;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
+using HideScrollBarCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.HideScrollBarCommand;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
@@ -98,7 +98,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             }
             return webBrowserType == "Default"
                 ? (IWebBrowserCollection) new WebBrowserCollection()
-                : new XpandStandaloneWebBrowserCollection();
+                : new StandaloneWebBrowserCollection();
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
@@ -128,10 +128,11 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public override void RegisterCommands(IRegisterCommand registrator){
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
+            registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
         }
     }
 
-    public class XpandStandaloneWebBrowserCollection : StandaloneWebBrowserCollection,IWebBrowserCollection {
+    public class StandaloneWebBrowserCollection : DevExpress.ExpressApp.EasyTest.WebAdapter.StandaloneWebBrowserCollection,IWebBrowserCollection {
         public const string EasyTestBrowser = "EasyTest Browser";
         IEasyTestWebBrowser IWebBrowserCollection.CreateWebBrowser() {
             var webBrowser = CreateWebBrowser();
@@ -139,8 +140,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             var browserControl = ((StandaloneWebBrowserControl) standaloneWebBrowser.WebBrowser);
             browserControl.ScrollBarsEnabled = false;
             var form = browserControl.Parent;
-            form.Location=new Point(0,0);
             form.Invoke(new MethodInvoker(delegate{
+                form.Location = new Point(0, 0);
                 form.Text = EasyTestBrowser;
                 if (WebBrowserCollection.DefaultFormSize!=new Size()){
                     form.Width = WebBrowserCollection.DefaultFormSize.Width;

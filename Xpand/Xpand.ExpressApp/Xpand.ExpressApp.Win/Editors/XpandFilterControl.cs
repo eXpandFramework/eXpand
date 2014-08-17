@@ -253,7 +253,7 @@ namespace Xpand.ExpressApp.Win.Editors {
         private void OnOnNotifyControl(FilterChangedEventArgs info){
             if (info.Action == FilterChangedAction.RebuildWholeTree && info.CurrentNode == null&&!_isUpdating){
                 var criteriaOperator = ((IXpandFilterControl)Control).Criteria();
-                if (criteriaOperator!=null){
+                if (!ReferenceEquals(criteriaOperator,null)){
                     _isUpdating = true;
                     BeginUpdate();
                     RootNode = null;
