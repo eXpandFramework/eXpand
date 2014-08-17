@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\FocusWindowCommand.cs" />
+    <Compile Include="Commands\HideScrollBarCommand.cs" />
     <Compile Include="Commands\SetForeGroundWindowSize.cs" />
     <Compile Include="Commands\XpandAutoTestCommand.cs" />
     <Compile Include="Commands\UseModelCommand.cs" />
