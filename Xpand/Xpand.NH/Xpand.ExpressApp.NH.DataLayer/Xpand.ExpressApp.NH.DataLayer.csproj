@@ -34,47 +34,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Charts.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v14.1">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.CodeParser.v14.1.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Data.v14.1">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Data.v14.1.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Images.v14.1">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Images.v14.1.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Office.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Office.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.PivotGrid.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Printing.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.RichEdit.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Sparkline.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Spreadsheet.v14.1.Core">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Spreadsheet.v14.1.Core.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v14.1">
-      <HintPath>..\packages\DevExpress.Core.14.1.5.0\lib\net40\DevExpress.Utils.v14.1.dll</HintPath>
+      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="FluentNHibernate">
