@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.Security.Permissions{
         }
     }
 
+    [Serializable]
     public class NavigationItemPermissionRequest : IPermissionRequest{
         public NavigationItemPermissionRequest(string navigationItem){
             NavigationItem = navigationItem;
