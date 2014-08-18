@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDemo.Module", "EFDemo.Module\EFDemo.Module.csproj", "{D7B72244-7C11-414B-ABE5-A3EB78567D93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDemo.Win", "EFDemo.Win\EFDemo.Win.csproj", "{6ABA08C0-4C39-490C-9F2E-8C97EC101FB0}"

@@ -39,7 +39,7 @@
         <Member Name="Results" Caption="Resultate" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Address" Caption="Adresse">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Address" Caption="Adresse">
       <OwnMembers>
         <Member Name="City" Caption="Stadt" />
         <Member Name="Country" Caption="Land" />
@@ -49,12 +49,12 @@
         <Member Name="ZipPostal" Caption="Postleitzahl" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Country" Caption="Land">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Country" Caption="Land">
       <OwnMembers>
         <Member Name="PhoneCode" Caption="Ländervorwahl" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Event" Caption="Ereignis">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Event" Caption="Ereignis">
       <OwnMembers>
         <Member Name="AllDay" Caption="Ganztägig" />
         <Member Name="Description" Caption="Beschreibung" />
@@ -64,19 +64,19 @@
         <Member Name="Subject" Caption="Betreff" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.FileData" Caption="Dateidaten">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.FileData" Caption="Dateidaten">
       <OwnMembers>
         <Member Name="FileName" Caption="Dateiname" />
         <Member Name="Size" Caption="Grösse" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Note" Caption="Notizen">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Note" Caption="Notizen">
       <OwnMembers>
         <Member Name="DateTime" Caption="Zeitpunkt" />
         <Member Name="Text" Caption="Inhalt" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Organization" Caption="Organisation">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Organization" Caption="Organisation">
       <OwnMembers>
         <Member Name="Description" Caption="Beschreibung" />
         <Member Name="FullName" Caption="Gesamter Name" />
@@ -84,7 +84,7 @@
         <Member Name="WebSite" Caption="Webseite" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Party" Caption="Partei">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Party" Caption="Partei">
       <OwnMembers>
         <Member Name="Address1" Caption="Privatadresse" />
         <Member Name="Address2" Caption="Geschäftsadresse" />
@@ -93,7 +93,7 @@
         <Member Name="Photo" Caption="Foto" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Person">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Person">
       <OwnMembers>
         <Member Name="Birthday" Caption="Geburtstag" />
         <Member Name="FirstName" Caption="Vorname" />
@@ -102,25 +102,25 @@
         <Member Name="MiddleName" Caption="Mittlerer Name" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.PhoneNumber" Caption="Telefonnummer">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.PhoneNumber" Caption="Telefonnummer">
       <OwnMembers>
         <Member Name="Number" Caption="Nummer" />
         <Member Name="Party" Caption="Partei" />
         <Member Name="PhoneType" Caption="Art der Rufnummer" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.PhoneType" Caption="Art der Rufnummer">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.PhoneType" Caption="Art der Rufnummer">
       <OwnMembers>
         <Member Name="TypeName" Caption="Typname" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.State" Caption="Staat">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.State" Caption="Staat">
       <OwnMembers>
         <Member Name="LongName" Caption="Langer Name" />
         <Member Name="ShortName" Caption="Kurzer Name" />
       </OwnMembers>
     </Class>
-    <Class Name="EFDemo.Module.Data.Task" Caption="Aufgabe">
+    <Class Name="DevExpress.Persistent.BaseImpl.EF.Task" Caption="Aufgabe">
       <OwnMembers>
         <Member Name="AssignedTo" Caption="Zugewiesen an" />
         <Member Name="DateCompleted" Caption="Fertigstellungsdatum" />

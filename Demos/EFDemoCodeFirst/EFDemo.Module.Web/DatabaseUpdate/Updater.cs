@@ -5,6 +5,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Web;
 using DevExpress.ExpressApp.Updating;
+#if (CodeFirst)
+using DevExpress.Persistent.BaseImpl.EF;
+#endif
 using EFDemo.Module.Data;
 using EFDemo.Module.DatabaseUpdate;
 

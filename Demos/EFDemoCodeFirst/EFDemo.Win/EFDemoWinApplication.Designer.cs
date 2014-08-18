@@ -25,11 +25,12 @@ namespace EFDemo.Win {
 		private void InitializeComponent() {
 			this.systemModule1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
 			this.winSystemModule1 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-			this.efDemoWinModule1 = new EFDemo.Module.Win.EFDemoWinModule();
 			this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
 			this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
 			this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+			this.objectsModule1 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
 			this.efDemoModule1 = new EFDemo.Module.EFDemoModule();
+			this.efDemoWinModule1 = new EFDemo.Module.Win.EFDemoWinModule();
 			this.validationWinModule1 = new DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule();
 			this.fileAttachmentsWinModule1 = new DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule();
 			this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
@@ -49,18 +50,18 @@ namespace EFDemo.Win {
 			// reportsModule1
 			// 
 			this.reportsModule1.EnableInplaceReports = true;
-			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData);
+			this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.EF.ReportData);
 			// 
 			// securityComplex1
 			// 
 			this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-			this.securityStrategyComplex1.RoleType = typeof(EFDemo.Module.Data.Role);
-			this.securityStrategyComplex1.UserType = typeof(EFDemo.Module.Data.User);
+			this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.EF.Role);
+			this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.EF.User);
 			// 
 			// authenticationStandard1
 			// 
 			this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
-			this.authenticationStandard1.UserType = typeof(EFDemo.Module.Data.User);
+			this.authenticationStandard1.UserType = typeof(DevExpress.Persistent.BaseImpl.EF.User);
 			// 
 			// EFDemoWinApplication
 			// 
@@ -70,6 +71,7 @@ namespace EFDemo.Win {
 			this.Modules.Add(this.viewVariantsModule1);
 			this.Modules.Add(this.validationModule1);
 			this.Modules.Add(this.securityModule1);
+			this.Modules.Add(this.objectsModule1);
 			this.Modules.Add(this.conditionalAppearanceModule1);
 			this.Modules.Add(this.efDemoModule1);
 			this.Modules.Add(this.efDemoWinModule1);
@@ -94,11 +96,12 @@ namespace EFDemo.Win {
 
 		private DevExpress.ExpressApp.SystemModule.SystemModule systemModule1;
 		private DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule winSystemModule1;
-		private EFDemo.Module.Win.EFDemoWinModule efDemoWinModule1;
 		private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
 		private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
 		private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
+		private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule objectsModule1;
 		private EFDemo.Module.EFDemoModule efDemoModule1;
+		private EFDemo.Module.Win.EFDemoWinModule efDemoWinModule1;
 		private DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule validationWinModule1;
 		private DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule fileAttachmentsWinModule1;
 		private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;

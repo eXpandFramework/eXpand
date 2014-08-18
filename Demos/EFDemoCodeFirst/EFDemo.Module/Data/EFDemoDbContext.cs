@@ -8,42 +8,10 @@ using System.Data.Entity.Infrastructure;
 using System.ComponentModel;
 
 using DevExpress.ExpressApp.EF.Updating;
+using DevExpress.Persistent.BaseImpl.EF;
 
 namespace EFDemo.Module.Data {
 	public class EFDemoDbContext : DbContext {
-		private ObjectContext objectContext;
-		private void ObjectContext_ObjectMaterialized(Object sender, ObjectMaterializedEventArgs e) {
-			if(e.Entity is Event) {
-				Int32 count = ((Event)e.Entity).Resources.Count;
-			}
-			else if(e.Entity is Resource) {
-				Int32 count = ((Resource)e.Entity).Events.Count;
-			}
-			else if(e.Entity is Analysis) {
-				((Analysis)e.Entity).UpdateDimensionProperties();
-			}
-		}
-		private void ObjectStateManager_ObjectStateManagerChanged(Object sender, CollectionChangeEventArgs e) {
-			if(e.Action == CollectionChangeAction.Add) {
-				if(e.Element is Event) {
-					((Event)e.Element).objectContext = objectContext;
-				}
-			}
-		}
-		private void ObjectContext_SavingChanges(Object sender, EventArgs e) {
-			foreach(ObjectStateEntry objectStateEntry in ((IObjectContextAdapter)this).ObjectContext.ObjectStateManager.GetObjectStateEntries(EntityState.Added)) {
-				if(objectStateEntry.Entity is Event) {
-					((Event)objectStateEntry.Entity).BeforeSave();
-				}
-			}
-		}
-		private void Init() {
-			objectContext = ((IObjectContextAdapter)this).ObjectContext;
-			objectContext.SavingChanges += new EventHandler(ObjectContext_SavingChanges);
-			objectContext.ObjectMaterialized += new ObjectMaterializedEventHandler(ObjectContext_ObjectMaterialized);
-			objectContext.ObjectStateManager.ObjectStateManagerChanged += new CollectionChangeEventHandler(ObjectStateManager_ObjectStateManagerChanged);
-		}
-
 		protected override void OnModelCreating(DbModelBuilder modelBuilder) {
 			base.OnModelCreating(modelBuilder);
 
@@ -86,26 +54,18 @@ namespace EFDemo.Module.Data {
 				mc.MapLeftKey("ParentRoles_ID");
 				mc.MapRightKey("ChildRoles_ID");
 			});
-		}
-		protected override void Dispose(bool disposing) {
-			base.Dispose(disposing);
-			if(objectContext != null) {
-				objectContext.SavingChanges -= new EventHandler(ObjectContext_SavingChanges);
-				objectContext.ObjectMaterialized -= new ObjectMaterializedEventHandler(ObjectContext_ObjectMaterialized);
-				if(objectContext.ObjectStateManager != null) {
-					objectContext.ObjectStateManager.ObjectStateManagerChanged -= new CollectionChangeEventHandler(ObjectStateManager_ObjectStateManagerChanged);
-				}
-				objectContext = null;
-			}
+
+			modelBuilder.Entity<Resume>()
+				.HasMany(r => r.Portfolio)
+				.WithOptional(p => p.Resume)
+				.WillCascadeOnDelete(true);
 		}
 
 		public EFDemoDbContext(String connectionString)
 			: base(connectionString) {
-			Init();
 		}
 		public EFDemoDbContext(DbConnection connection)
 			: base(connection, false) {
-			Init();
 		}
 
 		public DbSet<Address> Addresses { get; set; }

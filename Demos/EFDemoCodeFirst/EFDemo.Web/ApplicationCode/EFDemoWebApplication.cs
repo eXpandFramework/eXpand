@@ -20,6 +20,7 @@ namespace EFDemo.Web {
 		private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
 		private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
 		private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
+		private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule objectsModule1;
 		private EFDemo.Module.Web.EFDemoWebModule efDemoWebModule1;
 		private EFDemo.Module.EFDemoModule efDemoModule1;
 		private AuthenticationStandard authenticationStandard1;
@@ -43,6 +44,7 @@ namespace EFDemo.Web {
 			this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
 			this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
 			this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+			this.objectsModule1 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
 			this.efDemoModule1 = new EFDemo.Module.EFDemoModule();
 			this.efDemoWebModule1 = new EFDemo.Module.Web.EFDemoWebModule();
 			this.schedulerAspNetModule1 = new DevExpress.ExpressApp.Scheduler.Web.SchedulerAspNetModule();
@@ -59,18 +61,18 @@ namespace EFDemo.Web {
 			// securityComplex1
 			// 
 			this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-			this.securityStrategyComplex1.RoleType = typeof(EFDemo.Module.Data.Role);
-			this.securityStrategyComplex1.UserType = typeof(EFDemo.Module.Data.User);
+			this.securityStrategyComplex1.RoleType = typeof(DevExpress.Persistent.BaseImpl.EF.Role);
+			this.securityStrategyComplex1.UserType = typeof(DevExpress.Persistent.BaseImpl.EF.User);
 			// 
 			// authenticationStandard1
 			// 
 			this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
-			this.authenticationStandard1.UserType = typeof(EFDemo.Module.Data.User);
+			this.authenticationStandard1.UserType = typeof(DevExpress.Persistent.BaseImpl.EF.User);
 			// 
 			// reportsModule1
 			// 
 			this.reportsModule1.EnableInplaceReports = true;
-			this.reportsModule1.ReportDataType = typeof(EFDemo.Module.Data.ReportData);
+			this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.EF.ReportData);
 			this.reportsModule1.ShowAdditionalNavigation = false;
 			// 
 			// validationModule1
@@ -96,6 +98,7 @@ namespace EFDemo.Web {
 			this.Modules.Add(this.validationModule1);
 			this.Modules.Add(this.viewVariantsModule1);
 			this.Modules.Add(this.conditionalAppearanceModule1);
+			this.Modules.Add(this.objectsModule1);
 			this.Modules.Add(this.efDemoModule1);
 			this.Modules.Add(this.efDemoWebModule1);
 			this.Modules.Add(this.schedulerModuleBase1);
@@ -122,10 +125,10 @@ namespace EFDemo.Web {
 		}
 		protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
 			if(args.Connection != null) {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, (DbConnection)args.Connection);
+				args.ObjectSpaceProvider = new EFObjectSpaceProvider(typeof(EFDemoDbContext), TypesInfo, null, (DbConnection)args.Connection);
 			}
 			else {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, args.ConnectionString);
+				args.ObjectSpaceProvider = new EFObjectSpaceProvider(typeof(EFDemoDbContext), TypesInfo, null, args.ConnectionString);
 			}
 		}
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.EF;
 
 namespace EFDemo.Module.Data {
 	[ImageName("BO_FileAttachment")]
@@ -16,7 +17,7 @@ namespace EFDemo.Module.Data {
 
 		[Browsable(false)]
 		public Int32 DocumentType_Int { get; protected set; }
-		public Resume Resume { get; set; }
+		public virtual Resume Resume { get; set; }
 
 		[NotMapped]
 		public DocumentType DocumentType {

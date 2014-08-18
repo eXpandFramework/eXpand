@@ -10,7 +10,7 @@ namespace EFDemo.Module {
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+            if(disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -24,16 +24,17 @@ namespace EFDemo.Module {
         /// </summary>
         private void InitializeComponent() {
             // 
-            // EFDemoModule
+			// EFDemoModule
             // 
-            this.Description = "EFDemo module";
+			this.Description = "EFDemo module";
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Reports.ReportsModule));
-            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.PivotChart.PivotChartModuleBase));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Reports.ReportsModule));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.PivotChart.PivotChartModuleBase));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule));
 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Dashboard.DashboardModule));
             //			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.JobScheduler.JobSchedulerModule));
@@ -45,8 +46,26 @@ namespace EFDemo.Module {
             //			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.XpandReportsModule));
-
-        }
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Address));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Analysis));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Country));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Event));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.FileAttachment));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.FileData));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.HCategory));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Note));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Organization));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Party));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Person));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.PhoneNumber));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Priority));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.ReportData));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Resource));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Role));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.State));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.Task));
+			this.AdditionalExportedTypes.Add(typeof(DevExpress.Persistent.BaseImpl.EF.User));
+		}
 
         #endregion
     }

@@ -8,13 +8,10 @@
     <ProjectGuid>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
+    <ApplicationIcon></ApplicationIcon>
+    <AssemblyKeyContainerName></AssemblyKeyContainerName>
     <AssemblyName>EFDemo.Module</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -22,12 +19,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>EFDemo.Module</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <StartupObject></StartupObject>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -52,16 +46,13 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <ConfigurationOverrideFile></ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CodeFirst</DefineConstants>
+    <DocumentationFile></DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
+    <NoWarn></NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -75,16 +66,13 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
+    <ConfigurationOverrideFile></ConfigurationOverrideFile>
+    <DefineConstants>TRACE;CodeFirst</DefineConstants>
+    <DocumentationFile></DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
+    <NoWarn></NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -97,7 +85,7 @@
     <ReferencePath>lib</ReferencePath>
   </PropertyGroup>
   <ItemGroup>
-   <Reference Include="Xpand.ExpressApp.Dashboard">
+    <Reference Include="Xpand.ExpressApp.Dashboard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
     </Reference>
@@ -145,6 +133,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -173,15 +165,15 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.EF.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.PivotGrid.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="DevExpress.Printing.v14.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -197,27 +189,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v14.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v14.1.UI">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="DevExpress.XtraReports.v14.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v14.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v14.1.UI">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -225,13 +197,13 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\EntityFramework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework.SqlServer">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\EntityFramework.SqlServer.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -274,13 +246,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ClearFieldsController.cs">
+    <Compile Include="Controllers\ClearContactTasksController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ClearFieldsController.Designer.cs">
-      <DependentUpon>ClearFieldsController.cs</DependentUpon>
+    <Compile Include="Controllers\ClearContactTasksController.Designer.cs">
+      <DependentUpon>ClearContactTasksController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ContactsListViewController.cs" />
+    <Compile Include="Controllers\ContactsListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\EFDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -303,39 +277,14 @@
       <DependentUpon>TaskActionsController.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Data\Address.cs" />
     <Compile Include="Data\Contact.cs" />
-    <Compile Include="Data\Analysis.cs" />
-    <Compile Include="Data\DimensionPropertiesList.cs" />
-    <Compile Include="Data\EFDemoDbContext.cs" />
-    <Compile Include="Data\TypePermissionObject.cs" />
-    <Compile Include="Data\User.cs" />
-    <Compile Include="Data\Role.cs" />
-    <Compile Include="Data\ReportData.cs" />
-    <Compile Include="Data\Country.cs" />
     <Compile Include="Data\DemoTask.cs" />
     <Compile Include="Data\Department.cs" />
-    <Compile Include="Data\DocumentType.cs" />
-    <Compile Include="Data\Event.cs" />
-    <Compile Include="Data\FileAttachment.cs" />
-    <Compile Include="Data\FileData.cs" />
-    <Compile Include="Data\HCategory.cs" />
-    <Compile Include="Data\Note.cs" />
-    <Compile Include="Data\Organization.cs" />
-    <Compile Include="Data\Party.cs" />
+    <Compile Include="Data\EFDemoDbContext.cs" />
     <Compile Include="Data\Payment.cs" />
-    <Compile Include="Data\Person.cs" />
-    <Compile Include="Data\PhoneNumber.cs" />
     <Compile Include="Data\PortfolioFileData.cs" />
     <Compile Include="Data\Position.cs" />
-    <Compile Include="Data\Priority.cs" />
-    <Compile Include="Data\Resource.cs" />
     <Compile Include="Data\Resume.cs" />
-    <Compile Include="Data\State.cs" />
-    <Compile Include="Data\Task.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Data\TitleOfCourtesy.cs" />
     <Compile Include="EFDemoModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -354,8 +303,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\ClearFieldsController.resx">
-      <DependentUpon>ClearFieldsController.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\ClearContactTasksController.resx">
+      <DependentUpon>ClearContactTasksController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\FindBySubjectController.resx">
       <DependentUpon>FindBySubjectController.cs</DependentUpon>
@@ -395,6 +344,5 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-  </PropertyGroup>
+  <PropertyGroup></PropertyGroup>
 </Project>

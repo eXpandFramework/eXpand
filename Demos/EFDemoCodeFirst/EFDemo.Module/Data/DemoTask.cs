@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.BaseImpl.EF;
 
 namespace EFDemo.Module.Data {
     [DefaultClassOptions]

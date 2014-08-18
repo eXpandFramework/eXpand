@@ -3,11 +3,14 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Updating;
-using EFDemo.Module.Data;
 using DevExpress.ExpressApp.Reports;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
+#if (CodeFirst)
+using DevExpress.Persistent.BaseImpl.EF;
+#endif
+using EFDemo.Module.Data;
 
 namespace EFDemo.Module.DatabaseUpdate {
 	public class Updater : ModuleUpdater {
