@@ -15,6 +15,7 @@
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
+	<BatchCall>false</BatchCall>
     <ExecCommand></ExecCommand>
   
     <!--
