@@ -422,12 +422,6 @@
     <EmbeddedResource Include="Resources\Rentals Dashboard.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj">
-      <Project>{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}</Project>
-      <Name>Xpand.ExpressApp.Logic</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>

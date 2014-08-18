@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandLib</id>
-    <version>14.1.6.2</version>
+    <version>14.1.6.3</version>
     <title>DevExpress eXpandFramework Library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>

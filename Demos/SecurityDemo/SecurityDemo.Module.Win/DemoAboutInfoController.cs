@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Actions;
@@ -26,7 +27,7 @@ namespace Demo.Module.Win {
         }
 
         private void demoAboutInfoAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            AboutForm.Show(typeof(string), ProductKind.XAF, DevExpress.Utils.About.ProductInfoStage.Registered);
+            DevExpress.Utils.About.AboutHelper.Show(DevExpress.Utils.About.ProductKind.XAF, new DevExpress.Utils.About.ProductStringInfo("DXperience Universal", "eXpressApp Framework"));
         }
     }
 }

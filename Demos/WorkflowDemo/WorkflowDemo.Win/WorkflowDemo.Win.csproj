@@ -5,17 +5,20 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{39A29045-06AC-44CD-9C46-E4E8A3C6173C}</ProjectGuid>
+    <ProjectGuid>{15E8F337-21C1-40B0-BCC8-6DD947AAF046}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WorkflowDemo.Win</RootNamespace>
     <AssemblyName>WorkflowDemo.Win</AssemblyName>
     <ApplicationIcon>demo-center.ico</ApplicationIcon>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <StartupObject></StartupObject>
+    <StartupObject>
+    </StartupObject>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>http://localhost/FeatureCenter.Win/</PublishUrl>
@@ -302,12 +305,12 @@
     <Content Include="demo-center.ico" />
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkflowDemo.Module.Win\WorkflowDemo.Module.Win.csproj">
-      <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>
+      <Project>{2bdffc29-034c-42ed-8741-7038bb1d4813}</Project>
       <Name>WorkflowDemo.Module.Win</Name>
-      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\WorkflowDemo.Module\WorkflowDemo.Module.csproj">
       <Project>{8C9511D1-D51D-4FE4-A12E-3D2B3DADC685}</Project>

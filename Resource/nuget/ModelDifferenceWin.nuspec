@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>14.1.6.2</version>
+    <version>14.1.6.3</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#modeldifference</projectUrl>
@@ -23,9 +23,9 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="14.1.6.2" />
-      <dependency id="eXpandSystemWin" version="14.1.6.2" />
-      <dependency id="eXpandModelDifference" version="14.1.6.2" />
+      <dependency id="eXpandLib" version="14.1.6.3" />
+      <dependency id="eXpandSystemWin" version="14.1.6.3" />
+      <dependency id="eXpandModelDifference" version="14.1.6.3" />
     </dependencies>
   </metadata>
   <files>

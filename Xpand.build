@@ -15,7 +15,6 @@
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
-    <BatchCall>false</BatchCall>
     <ExecCommand></ExecCommand>
   
     <!--
@@ -114,7 +113,7 @@
     <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
-    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     
 
@@ -129,7 +128,7 @@
     <MSBuild Projects="$(XpandAddinSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
     <MSBuild Projects="@(DemoTesterSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />

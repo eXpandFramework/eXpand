@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewVariantsTester.Module", "ViewVariantsTester.Module\ViewVariantsTester.Module.csproj", "{F3ED759E-EE79-45D9-9FDC-F8DE09BECA11}"
 EndProject
@@ -27,17 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{B04D7B65-DFE9-4029-8B9A-F6F080DFDFF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestExecutor", "..\..\..\..\DX Sources\2014.1\EasyTest\TestExecutor\TestExecutor.csproj", "{D2D3D24B-985F-474D-9FE8-C0C4433E5339}"
-EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = ..\\..\\..\\..\\DX\u0020Sources\\2014.1\\EasyTest\\TestExecutor\\TestExecutor.csproj
-		SccProjectName0 = \u0022$/2014.1/EasyTest\u0022
-		SccLocalPath0 = ..\\..\\..\\..\\DX\u0020Sources\\2014.1\\EasyTest
-		SccProvider0 = MSSCCI:DXVCS
-		SccProjectFilePathRelativizedFromConnection0 = TestExecutor\\
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		EasyTest|Any CPU = EasyTest|Any CPU
@@ -110,14 +100,6 @@ Global
 		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38E16F8A-517C-4CA9-9775-56F598F25534}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{38E16F8A-517C-4CA9-9775-56F598F25534}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.EasyTest|Any CPU.ActiveCfg = TestingDebug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.EasyTest|Any CPU.Build.0 = TestingDebug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.TestingDebug|Any CPU.ActiveCfg = TestingDebug|Any CPU
-		{D2D3D24B-985F-474D-9FE8-C0C4433E5339}.TestingDebug|Any CPU.Build.0 = TestingDebug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
