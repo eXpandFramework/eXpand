@@ -394,7 +394,7 @@
   </Target>
   <ItemGroup>
     <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec;Resource\NuGet\XtraDashboardWeb.nuspec" Condition="$(SkipDashboard)=='true'"/>
-    <NuspecFile Include="Resource\NuGet\lib*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+    <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
     <IndexSources/>
