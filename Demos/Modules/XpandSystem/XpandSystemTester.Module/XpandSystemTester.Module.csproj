@@ -94,6 +94,8 @@
     <Compile Include="FunctionalTests\CommonTestObject.cs" />
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
+    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.xafml" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
@@ -101,6 +103,7 @@
     </Compile>
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
     <None Include="FunctionalTests\PreventDataLoading\Filters Not Empty.inc" />
+    <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -173,6 +176,10 @@
     <None Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
     <Content Include="FunctionalTests\MergedDifferences\Config.xml">

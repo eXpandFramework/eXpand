@@ -35,7 +35,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.EasyTest.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v14.1">
       <SpecificVersion>False</SpecificVersion>
