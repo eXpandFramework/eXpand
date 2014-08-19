@@ -5,12 +5,13 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Fasterflect;
 using System.Linq;
+using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
     public static class FrameExtensions {
         public static IEnumerable<TAction> Actions<TAction>(this Frame frame, IEnumerable<IModelNode> items) where TAction : ActionBase {
-            var choiceActions = frame.Actions<TAction>().ToDictionary(action => action.Id, action => action);
-            return choiceActions.Any() ? items.GroupBy(model => model.GetParent<IModelAction>()).Where(nodes => choiceActions.ContainsKey(nodes.Key.Id)).Select(@group => choiceActions[@group.Key.Id]).Distinct() : Enumerable.Empty<TAction>();
+            var list = items.DistinctBy(model => model.GetParent<IModelAction>()).ToList();
+            return frame.Actions<TAction>().Where(choiceAction => list.Contains(choiceAction.Model));
         }
 
         public static IEnumerable<ActionBase> Actions(this Frame frame){
