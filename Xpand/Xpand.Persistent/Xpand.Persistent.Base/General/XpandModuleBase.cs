@@ -188,14 +188,13 @@ namespace Xpand.Persistent.Base.General {
                     typeof (CustomAttibutesController), typeof (NotifyMembersController),
                     typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
                     typeof(ModifyObjectSpaceController),typeof (ActionItemsFromModelController),typeof(ActionModelChoiceItemController),
-                    typeof (ModelViewSavingController)
+                    typeof (ModelViewSavingController),typeof (NavigationContainerController)
                 });
             }
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
-                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof (InvalidEditorActionBaseControllerWin)});
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseControllerWin), typeof (NaviationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController)
-            });
+                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController),typeof (NaviationContainerWebController)});
 
             return declaredControllerTypes;
         }
