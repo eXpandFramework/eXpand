@@ -18,7 +18,6 @@ using DevExpress.Utils;
 using DevExpress.Utils.Controls;
 using DevExpress.Utils.Serializing;
 using DevExpress.Xpo;
-using DevExpress.Xpo.DB.Exceptions;
 using Xpand.Utils.Helpers;
 using Fasterflect;
 
@@ -106,16 +105,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
             var isAttached = Debugger.IsAttached;
-                
-            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath))) {
-                try{
-                    File.Delete(assemblyFilePath);
-                }
-                catch (UnauthorizedAccessException e){
-                    throw new UnauthorizedAccessException(
-                        "The file is locked, probally by visual studio. You can disable this exception by setting InterfaceBuilder.SkipAssemblyCleanup =true, but caution: you model can be out of date",
-                        e);
-                } 
+
+            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) && !VersionMatch(assemblyFilePath)) {
+                File.Delete(assemblyFilePath);
             }
             _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
