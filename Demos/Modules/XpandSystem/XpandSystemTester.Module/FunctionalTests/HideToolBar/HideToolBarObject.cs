@@ -9,7 +9,7 @@ namespace XpandSystemTester.Module.FunctionalTests.HideToolBar {
         }
 
         
-        [Association("HideToolBarObject-HideToolBarObjectChilds")]
+        [Association("HideNavigationObject-HideToolBarObjectChilds")]
         public XPCollection<HideToolBarObjectChild> Children{
             get {
                 return GetCollection<HideToolBarObjectChild>("Children");
@@ -24,13 +24,13 @@ namespace XpandSystemTester.Module.FunctionalTests.HideToolBar {
         
         private HideToolBarObject _hideToolBarObject;
 
-        [Association("HideToolBarObject-HideToolBarObjectChilds")]
+        [Association("HideNavigationObject-HideToolBarObjectChilds")]
         public HideToolBarObject HideToolBarObject {
             get {
                 return _hideToolBarObject;
             }
             set {
-                SetPropertyValue("HideToolBarObject", ref _hideToolBarObject, value);
+                SetPropertyValue("HideNavigationObject", ref _hideToolBarObject, value);
             }
         }
     }
