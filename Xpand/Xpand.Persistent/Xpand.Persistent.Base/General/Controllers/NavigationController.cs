@@ -23,10 +23,11 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
     }
 
-    public class NaviationContainerWinController : NavigationContainerController {
+    public class NavigationContainerWinController : NavigationContainerController {
         protected override void OnActivated() {
             base.OnActivated();
-            Application.CustomizeTemplate += Application_CustomizeTemplate;
+            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
+                Application.CustomizeTemplate += Application_CustomizeTemplate;
         }
 
         protected override void OnDeactivated() {
@@ -43,7 +44,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
 
-    public class NaviationContainerWebController : WindowController {
+    public class NavigationContainerWebController : WindowController {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
