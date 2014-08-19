@@ -12,17 +12,23 @@ namespace Xpand.EasyTest.Commands{
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
         protected override void InternalExecute(ICommandAdapter adapter){
-            ExecuteAdditionalCommands(adapter);
-            ITestControl activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
+            var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             var windowHandle = GetWindowHandle(activeWindowControl);
+            ExecuteAdditionalCommands(adapter,windowHandle);
             var testImage = GetTestImage(windowHandle);
             var filename = GetFilename(adapter);
-            if (File.Exists(filename)){
-                CompareAndSave(filename, testImage,adapter);
+
+            try{
+                if (File.Exists(filename)){
+                    CompareAndSave(filename, testImage,adapter);
+                }
+                else{
+                    SaveActualImage(testImage, filename);
+                    throw new CommandException(String.Format("'{0}' master copy was not found", filename),StartPosition);
+                }
             }
-            else{
-                SaveActualImage(testImage, filename);
-                throw new CommandException(String.Format("'{0}' master copy was not found", filename),StartPosition);
+            finally{
+                ToggleNavigation(adapter);
             }
         }
 
@@ -41,9 +47,7 @@ namespace Xpand.EasyTest.Commands{
         private void SaveAllImages(Image diffImage, string filename, Image testImage){
             SaveDiffImage(diffImage, filename);
             SaveActualImage(testImage, filename);
-            throw new CommandException(
-                String.Format("A screenshot of the active window differs from the '{0}' master copy",
-                    filename), StartPosition);
+            throw new CommandException(String.Format("A screenshot of the active window differs from the '{0}' master copy",filename), StartPosition);
         }
 
         private static Image GetTestImage(IntPtr windowHandle){
@@ -83,14 +87,17 @@ namespace Xpand.EasyTest.Commands{
             return windowHandle;
         }
 
-        private void ExecuteAdditionalCommands(ICommandAdapter adapter){
-            if (this.ParameterValue("KillFocus", true)){
+        private void ExecuteAdditionalCommands(ICommandAdapter adapter, IntPtr windowHandle){
+            if (this.ParameterValue(KillFocusCommand.Name, true)){
                 var hideCaretCommand = new KillFocusCommand();
                 hideCaretCommand.Execute(adapter);
             }
-            if (this.ParameterValue("HideCursor", true)){
+            if (this.ParameterValue(HideCursorCommand.Name, true)){
                 var hideCaretCommand = new HideCursorCommand();
                 hideCaretCommand.Execute(adapter);
+            }
+            if (this.ParameterValue("ToggleNavigation", true)){
+                ToggleNavigation(adapter);
             }
             var parameter = Parameters["ActiveWindowSize"];
             string activeWindowSize = "1024x768";
@@ -99,11 +106,19 @@ namespace Xpand.EasyTest.Commands{
             }
             var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
+            activeWindowSizeCommand.Parameters.ExtraParameter = new MainParameter(windowHandle.ToString());
             activeWindowSizeCommand.Execute(adapter);
 
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter=new MainParameter(500.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);
+        }
+
+        private void ToggleNavigation(ICommandAdapter adapter){
+            var actionCommand = new ActionCommand();
+            actionCommand.Parameters.MainParameter = new MainParameter("Toggle Navigation");
+            actionCommand.Parameters.ExtraParameter = new MainParameter();
+            actionCommand.Execute(adapter);
         }
 
         private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){

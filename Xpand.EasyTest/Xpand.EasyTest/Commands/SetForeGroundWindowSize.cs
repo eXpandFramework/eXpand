@@ -10,14 +10,22 @@ namespace Xpand.EasyTest.Commands{
         public const string Name = "ResizeWindow";
         protected override void InternalExecute(ICommandAdapter adapter){
             EasyTestTracer.Tracer.InProcedure(Name);
-            IntPtr windowHandle = Win32Declares.WindowFocus.GetForegroundWindow();
+            var windowHandle = GetWindowHandle();
             var windowSize = SetActiveWindowSizeCommand.GetWindowSize(Parameters.MainParameter.Value);
-            WindowAutomation.ResizeWindow(windowHandle, windowSize);
+            if (adapter.IsWinAdapter())
+                WindowAutomation.ResizeWindow(windowHandle, windowSize);
+            else{
+                var setActiveWindowSizeCommand = new SetActiveWindowSizeCommand();
+                setActiveWindowSizeCommand.Parameters.MainParameter=Parameters.MainParameter;
+                setActiveWindowSizeCommand.Execute(adapter);
+            }
             WindowAutomation.MoveWindow(windowHandle, new Point(0, 0));
-
-            var focusWindowCommand = new FocusWindowCommand();
-            focusWindowCommand.Execute(adapter);
             EasyTestTracer.Tracer.OutProcedure(Name);
+        }
+
+        private IntPtr GetWindowHandle(){
+            var extraParameter = Parameters.ExtraParameter;
+            return extraParameter != null ? new IntPtr(int.Parse(extraParameter.Value)) : Win32Declares.WindowFocus.GetForegroundWindow();
         }
     }
 }

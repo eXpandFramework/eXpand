@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -14,8 +15,20 @@ namespace Xpand.Persistent.Base.General.Controllers {
         bool HideNavigationOnStartup { get; set; }
     }
     public class NavigationContainerController:WindowController,IModelExtender {
+        private readonly SimpleAction _toggleNavigation;
+
         public NavigationContainerController() {
             TargetWindowType=WindowType.Main;
+            _toggleNavigation = new SimpleAction(this, "ToggleNavigation", "Hidden");
+            _toggleNavigation.Execute+=ToggleNavigationOnExecute;
+        }
+
+        protected virtual void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
+            
+        }
+
+        public SimpleAction ToggleNavigation{
+            get { return _toggleNavigation; }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
@@ -30,26 +43,44 @@ namespace Xpand.Persistent.Base.General.Controllers {
                 Application.CustomizeTemplate += Application_CustomizeTemplate;
         }
 
+        protected override void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
+            base.ToggleNavigationOnExecute(sender, e);
+            var navigationPanel = GetNavigationPanel((IDockManagerHolder) Frame.Template);
+            navigationPanel.Visible = !navigationPanel.Visible;
+        }
+
         protected override void OnDeactivated() {
             Application.CustomizeTemplate -= Application_CustomizeTemplate;
             base.OnDeactivated();
         }
 
         private void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
-            if ((Window.Template == null || Window.Template == e.Template) && e.Template is IDockManagerHolder) {
-                var dockPanel = ((IDockManagerHolder)e.Template).DockManager.RootPanels.FirstOrDefault(panel => panel.Name == "dockPanelNavigation");
-                if (dockPanel != null) dockPanel.Visibility = DockVisibility.AutoHide;
+            if ((Window.Template == null || Window.Template == e.Template) && e.Template is IDockManagerHolder){
+                var dockManagerHolder = ((IDockManagerHolder)e.Template);
+                var dockPanel = GetNavigationPanel(dockManagerHolder);
+                if (dockPanel != null) 
+                    dockPanel.Visibility = DockVisibility.AutoHide;
             }
+        }
+
+        private DockPanel GetNavigationPanel(IDockManagerHolder dockManagerHolder){
+            return dockManagerHolder.DockManager.Panels.FirstOrDefault(panel => panel.Name == "dockPanelNavigation");
         }
     }
 
 
-    public class NavigationContainerWebController : WindowController {
+    public class NavigationContainerWebController : NavigationContainerController {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
                 WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
             
+        }
+
+        protected override void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
+            base.ToggleNavigationOnExecute(sender, e);
+            const string script = "OnClick('LPcell','separatorImage',true);";
+            WebWindow.CurrentRequestWindow.RegisterClientScript("separatorClick", script);
         }
 
         private void CurrentRequestPageOnInit(object sender, EventArgs eventArgs){
