@@ -94,6 +94,7 @@
     <Compile Include="FunctionalTests\CommonTestObject.cs" />
     <None Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
+    <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
     <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
     <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.xafml" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
@@ -149,9 +150,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
-    <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -169,13 +167,16 @@
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.web.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.win.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.web.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.win.png" />
     <Content Include="FunctionalTests\PreventDataLoading\Config.xml">
       <SubType>Designer</SubType>
     </Content>
     <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
     <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
-    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -203,10 +204,6 @@
     <Content Include="FunctionalTests\HideToolBar\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.web.png" />
-    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.win.png" />
-    <Content Include="FunctionalTests\HideToolBar\Images\ListView.win.png" />
-    <Content Include="FunctionalTests\HideToolBar\Images\ListView.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
       <SubType>Designer</SubType>
     </Content>
