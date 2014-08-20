@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{95
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WinAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj", "{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +92,12 @@ Global
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,5 +110,6 @@ Global
 		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {C112BEE4-6761-40F8-AFFF-A466B6FD810A}
 		{95B68DFA-4FF1-4582-978E-773BFF5D65BA} = {C112BEE4-6761-40F8-AFFF-A466B6FD810A}
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {95B68DFA-4FF1-4582-978E-773BFF5D65BA}
+		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD} = {95B68DFA-4FF1-4582-978E-773BFF5D65BA}
 	EndGlobalSection
 EndGlobal

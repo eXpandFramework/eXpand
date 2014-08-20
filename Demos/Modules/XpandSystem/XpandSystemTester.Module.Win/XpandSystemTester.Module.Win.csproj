@@ -201,7 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
-    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.Win.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
       <SubType>Designer</SubType>
     </None>
