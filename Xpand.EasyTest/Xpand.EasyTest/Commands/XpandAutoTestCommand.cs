@@ -7,30 +7,8 @@ namespace Xpand.EasyTest.Commands{
     public class XpandAutoTestCommand : Command{
         public const string Name = "XpandAutoTest";
         private const string LogonCaption = "Log On";
-        private readonly string[] _navigationControlPossibleNames = {"ViewsNavigation.Navigation", "Navigation"};
+        
 
-        private ITestControl GetNavigationTestControl(ICommandAdapter adapter){
-            string controlNames = "";
-            for (int i = 0; i < _navigationControlPossibleNames.Length; i++){
-                if (adapter.IsControlExist(TestControlType.Action, _navigationControlPossibleNames[i])){
-                    try{
-                        ITestControl testControl = adapter.CreateTestControl(TestControlType.Action,
-                            _navigationControlPossibleNames[i]);
-                        var gridBaseInterface = testControl.GetInterface<IGridBase>();
-                        int itemsCount = gridBaseInterface.GetRowCount();
-                        if (itemsCount > 0){
-                            return testControl;
-                        }
-                    }
-                    catch (WarningException){
-                    }
-                }
-                controlNames += (i <= _navigationControlPossibleNames.Length)
-                    ? _navigationControlPossibleNames[i] + " or "
-                    : _navigationControlPossibleNames[i];
-            }
-            throw new WarningException(string.Format("Cannot find the '{0}' control", controlNames));
-        }
 
         private void TryClosePopupWindow(ICommandAdapter adapter){
             try{
@@ -48,7 +26,7 @@ namespace Xpand.EasyTest.Commands{
             if (adapter.IsControlExist(TestControlType.Action, LogonCaption)){
                 adapter.CreateTestControl(TestControlType.Action, LogonCaption).GetInterface<IControlAct>().Act(null);
             }
-            int itemsCount = GetNavigationTestControl(adapter).GetInterface<IGridBase>().GetRowCount();
+            int itemsCount = adapter.GetNavigationTestControl().GetInterface<IGridBase>().GetRowCount();
             for (int i = 0; i < itemsCount; i++){
                 var testControl = GetTestControl(adapter);
                 var gridBase = testControl.GetInterface<IGridBase>();
@@ -94,7 +72,7 @@ namespace Xpand.EasyTest.Commands{
         private ITestControl GetTestControl(ICommandAdapter adapter){
             ITestControl testControl;
             try{
-                testControl = GetNavigationTestControl(adapter);
+                testControl = adapter.GetNavigationTestControl();
             }
             catch (WarningException){
                 TryClosePopupWindow(adapter);
@@ -103,7 +81,7 @@ namespace Xpand.EasyTest.Commands{
                     handleDialogCommand.Parameters.Add(new Parameter("Respond", "No", true, StartPosition));
                     handleDialogCommand.Execute(adapter);
                 }
-                testControl = GetNavigationTestControl(adapter);
+                testControl = adapter.GetNavigationTestControl();
             }
             return testControl;
         }

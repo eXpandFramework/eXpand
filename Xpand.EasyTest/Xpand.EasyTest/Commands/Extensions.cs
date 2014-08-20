@@ -16,6 +16,31 @@ namespace Xpand.EasyTest.Commands {
     }
 
     public static class Extensions {
+        private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
+
+        public static ITestControl GetNavigationTestControl(this ICommandAdapter adapter) {
+            string controlNames = "";
+            for (int i = 0; i < _navigationControlPossibleNames.Length; i++) {
+                if (adapter.IsControlExist(TestControlType.Action, _navigationControlPossibleNames[i])) {
+                    try {
+                        var testControl = adapter.CreateTestControl(TestControlType.Action,
+                            _navigationControlPossibleNames[i]);
+                        var gridBaseInterface = testControl.GetInterface<IGridBase>();
+                        int itemsCount = gridBaseInterface.GetRowCount();
+                        if (itemsCount > 0) {
+                            return testControl;
+                        }
+                    }
+                    catch (WarningException) {
+                    }
+                }
+                controlNames += (i <= _navigationControlPossibleNames.Length)
+                    ? _navigationControlPossibleNames[i] + " or "
+                    : _navigationControlPossibleNames[i];
+            }
+            throw new WarningException(string.Format("Cannot find the '{0}' control", controlNames));
+        }
+
         public static void Execute(this CopyFileCommand copyFileCommand,ICommandAdapter adapter,TestParameters testParameters,string sourceFile,string destinationFile){
             var sourceParameter = new Parameter("Source", sourceFile, true, new PositionInScript(0));
             var destinationParameter = new Parameter("Destination", destinationFile, true, new PositionInScript(0));
@@ -72,6 +97,7 @@ namespace Xpand.EasyTest.Commands {
         public static Command SynchWith(this Command instance, Command command) {
             instance.Parameters.AddRange(command.Parameters);
             instance.Parameters.MainParameter = command.Parameters.MainParameter;
+            instance.Parameters.ExtraParameter = command.Parameters.ExtraParameter;
             return instance;
         }
 
@@ -109,6 +135,9 @@ namespace Xpand.EasyTest.Commands {
             _adapter = applicationAdapter;
             var dictionary = new Dictionary<Type, string>{
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
+                {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
+                {typeof (NavigateCommand), NavigateCommand.Name},
+                {typeof (SaveAndCloseCommand), SaveAndCloseCommand.Name},
                 {typeof (HideCursorCommand), HideCursorCommand.Name},
                 {typeof (KillFocusCommand), KillFocusCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},

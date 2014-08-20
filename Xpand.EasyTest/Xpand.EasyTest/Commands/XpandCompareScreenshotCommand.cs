@@ -28,7 +28,9 @@ namespace Xpand.EasyTest.Commands{
                 }
             }
             finally{
-                ToggleNavigation(adapter);
+                if (this.ParameterValue("ToggleNavigation", true)){
+                    ToggleNavigation(adapter);
+                }
             }
         }
 
