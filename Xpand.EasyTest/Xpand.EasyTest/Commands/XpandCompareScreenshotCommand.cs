@@ -14,7 +14,7 @@ namespace Xpand.EasyTest.Commands{
         protected override void InternalExecute(ICommandAdapter adapter){
             var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             var windowHandle = GetWindowHandle(activeWindowControl);
-            ExecuteAdditionalCommands(adapter,windowHandle);
+            ExecuteAdditionalCommands(adapter);
             var testImage = GetTestImage(windowHandle);
             var filename = GetFilename(adapter);
 
@@ -87,28 +87,30 @@ namespace Xpand.EasyTest.Commands{
             return windowHandle;
         }
 
-        private void ExecuteAdditionalCommands(ICommandAdapter adapter, IntPtr windowHandle){
-            if (this.ParameterValue(KillFocusCommand.Name, true)){
-                var hideCaretCommand = new KillFocusCommand();
-                hideCaretCommand.Execute(adapter);
-            }
-            if (this.ParameterValue(HideCursorCommand.Name, true)){
-                var hideCaretCommand = new HideCursorCommand();
-                hideCaretCommand.Execute(adapter);
-            }
-            if (this.ParameterValue("ToggleNavigation", true)){
+        private void ExecuteAdditionalCommands(ICommandAdapter adapter){
+            if (this.ParameterValue("ToggleNavigation", true)) {
                 ToggleNavigation(adapter);
             }
+
             var parameter = Parameters["ActiveWindowSize"];
             string activeWindowSize = "1024x768";
-            if (parameter!=null){
+            if (parameter != null) {
                 activeWindowSize = parameter.Value;
             }
             var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
-            activeWindowSizeCommand.Parameters.ExtraParameter = new MainParameter(windowHandle.ToString());
             activeWindowSizeCommand.Execute(adapter);
 
+            if (this.ParameterValue(KillFocusCommand.Name, true)){
+                var hideCaretCommand = new KillFocusCommand();
+                hideCaretCommand.Execute(adapter);
+            }
+            
+            if (this.ParameterValue(HideCursorCommand.Name, true)){
+                var hideCaretCommand = new HideCursorCommand();
+                hideCaretCommand.Execute(adapter);
+            }
+            
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter=new MainParameter(500.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);

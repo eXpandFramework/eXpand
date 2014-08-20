@@ -1,4 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="XpandSystemTester">
-  <Options HideNavigationOnStartup="True" />
+  <ActionDesign>
+    <ActionToContainerMapping>
+      <ActionContainer Id="Hidden">
+        <ActionLink ActionId="ToggleNavigation" Removed="True" />
+      </ActionContainer>
+      <ActionContainer Id="View">
+        <ActionLink ActionId="ToggleNavigation" IsNewNode="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
+  </ActionDesign>
 </Application>
