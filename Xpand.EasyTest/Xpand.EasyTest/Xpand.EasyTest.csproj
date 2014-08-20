@@ -56,8 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreatePermissionCommand.cs" />
     <Compile Include="Commands\FocusWindowCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\SaveAndCloseCommand.cs" />
     <Compile Include="Commands\SetForeGroundWindowSize.cs" />
     <Compile Include="Commands\XpandAutoTestCommand.cs" />
     <Compile Include="Commands\UseModelCommand.cs" />
