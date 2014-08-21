@@ -1,6 +1,6 @@
 ﻿#DropDB XpandSystemTesterEasyTest
 
-;#Application XpandSystemTester.Web
+#Application XpandSystemTester.Web
 #Application XpandSystemTester.Win
 
 *UseModel

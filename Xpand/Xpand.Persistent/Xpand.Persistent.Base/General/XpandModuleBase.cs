@@ -124,8 +124,6 @@ namespace Xpand.Persistent.Base.General {
 
         public static bool IsHosted {
             get{
-                if (!InterfaceBuilder.RuntimeMode)
-                    return false;
                 if (!_isHosted.HasValue) {
                     _isHosted = GetIsHosted(CaptionHelper.ApplicationModel);
                 }

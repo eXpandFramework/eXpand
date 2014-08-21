@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="XpandSystemTester">
+  <NavigationItems StartupNavigationItem="MergedDifferencesObject_ListView" />
   <Options>
     <MergedDifferenceStrategies>
       <MergedDifferenceStrategy Id="ListViewFilters" IsNewNode="True">
