@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
                 defaultRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()", SecurityOperations.ReadOnlyAccess);
-                defaultRole.AddMemberAccessPermission(XpandModuleBase.UserType, "ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write, "[Oid] = CurrentUserId()");
+                defaultRole.AddMemberAccessPermission(SecuritySystem.UserType, "ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write, "[Oid] = CurrentUserId()");
                 defaultRole.GrandObjectAccessRecursively();
             }
             return defaultRole;
@@ -115,9 +115,10 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static SecuritySystemRoleBase GetAdminRole(this IObjectSpace objectSpace, string roleName) {
-            var administratorRole = (SecuritySystemRoleBase)objectSpace.FindObject(XpandModuleBase.RoleType, new BinaryOperator("Name", roleName));
+            var roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
+            var administratorRole = (SecuritySystemRoleBase)objectSpace.FindObject(roleType, new BinaryOperator("Name", roleName));
             if (administratorRole == null) {
-                administratorRole = (SecuritySystemRoleBase)objectSpace.CreateObject(XpandModuleBase.RoleType);
+                administratorRole = (SecuritySystemRoleBase)objectSpace.CreateObject(roleType);
                 administratorRole.Name = roleName;
                 administratorRole.IsAdministrative = true;
             }
@@ -141,9 +142,10 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static SecuritySystemRoleBase GetRole(this IObjectSpace objectSpace, string roleName,bool selfReadOnlyPermissions=true) {
-            var securityDemoRole = (SecuritySystemRoleBase)objectSpace.FindObject(XpandModuleBase.RoleType, new BinaryOperator("Name", roleName));
+            var roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
+            var securityDemoRole = (SecuritySystemRoleBase)objectSpace.FindObject(roleType, new BinaryOperator("Name", roleName));
             if (securityDemoRole == null) {
-                securityDemoRole = (SecuritySystemRoleBase)objectSpace.CreateObject(XpandModuleBase.RoleType);
+                securityDemoRole = (SecuritySystemRoleBase)objectSpace.CreateObject(roleType);
                 securityDemoRole.Name = roleName;
                 if (selfReadOnlyPermissions) {
                     securityDemoRole.GrandObjectAccessRecursively();
