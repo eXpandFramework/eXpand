@@ -12,13 +12,13 @@ namespace Xpand.Xpo.Filtering {
             if (criteriaOperator is FunctionOperator)
                 return (IEnumerable<CriteriaOperator>) criteriaOperator.GetPropertyValue("Operands");
             var binaryOperator = criteriaOperator as BinaryOperator;
-            if (binaryOperator != null) 
+            if (!ReferenceEquals(binaryOperator,null)) 
                 return new[]{binaryOperator.LeftOperand, binaryOperator.RightOperand};
             var unaryOperator = criteriaOperator as UnaryOperator;
-            if (unaryOperator != null) 
+            if (!ReferenceEquals(unaryOperator,null)) 
                 return unaryOperator.Operand.GetOperators();
             var betweenOperator = criteriaOperator as BetweenOperator;
-            if (betweenOperator != null)
+            if (!ReferenceEquals(betweenOperator,null))
                 return new[] { betweenOperator.TestExpression,betweenOperator.BeginExpression, betweenOperator.EndExpression };
             return Enumerable.Empty<CriteriaOperator>();
         }
