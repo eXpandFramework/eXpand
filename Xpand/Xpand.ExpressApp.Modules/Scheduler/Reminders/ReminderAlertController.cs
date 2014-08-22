@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         SchedulerStorage _schedulerStorage;
         Timer _dataSourceRefreshTimer;
         AppointmentStorage _appointmentStorage;
+        private IObjectSpace _objectSpace;
 
         protected ReminderAlertController() {
             TargetWindowType = WindowType.Main;
@@ -32,9 +33,21 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             RefreshReminders();
         }
 
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            _objectSpace = Application.CreateObjectSpace();
+            Frame.TemplateChanged += Frame_TemplateChanged;
+            Frame.Disposing+=FrameOnDisposing;
+        }
+
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            _objectSpace.Dispose();
+            Frame.Disposing-=FrameOnDisposing;
+            Frame.TemplateChanged -= Frame_TemplateChanged;
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.TemplateChanged += Frame_TemplateChanged;
             InitScheduler();
             InitDataSourceRefreshTimer();
         }
@@ -48,7 +61,6 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             _schedulerStorage = null;
             base.OnDeactivated();
         }
-
 
         private void InitDataSourceRefreshTimer() {
             _dataSourceRefreshTimer = new Timer { Interval = 5000 };
@@ -100,14 +112,12 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             StopRefreshingStorage();
             var appointment = e.Object as Appointment;
             if (appointment == null) throw new NullReferenceException("appointment");
-            using (var objectSpace = Application.CreateObjectSpace()) {
-                var type = (Type) appointment.CustomFields[BoTypeCustomField];
-                var eventBO = ((IEvent)objectSpace.GetObjectByKey(type, appointment.Id));
-                var reminderInfo = eventBO.GetReminderInfoMemberValue();
-                reminderInfo.HasReminder = appointment.HasReminder;
-                reminderInfo.Info = !reminderInfo.HasReminder ? null : new ReminderXmlPersistenceHelper(appointment.Reminder, DateSavingType.LocalTime).ToXml();
-                objectSpace.CommitChanges();
-            }
+            var type = (Type) appointment.CustomFields[BoTypeCustomField];
+            var eventBO = ((IEvent)_objectSpace.GetObjectByKey(type, appointment.Id));
+            var reminderInfo = eventBO.GetReminderInfoMemberValue();
+            reminderInfo.HasReminder = appointment.HasReminder;
+            reminderInfo.Info = !reminderInfo.HasReminder ? null : new ReminderXmlPersistenceHelper(appointment.Reminder, DateSavingType.LocalTime).ToXml();
+            _objectSpace.CommitChanges();
             StartRefreshingStorage();
         }
 
@@ -116,14 +126,12 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             BeginAppointmentsUpdating();
 
             var currentAppointmentKeys = new List<Guid>();
-            using (var objectSpace = Application.CreateObjectSpace()) {
-                foreach (var modelMemberReminderInfo in Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info!=null)) {
-                    var criteriaOperator = ExtractCriteria(modelMemberReminderInfo);
-                    var reminderEvents = objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
-                    foreach (IEvent evt in reminderEvents) {
-                        UpdateAppointmentInStorage(modelMemberReminderInfo.ModelClass.TypeInfo, evt);
-                        currentAppointmentKeys.Add((Guid) evt.AppointmentId);
-                    }    
+            foreach (var modelMemberReminderInfo in Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null)) {
+                var criteriaOperator = ExtractCriteria(modelMemberReminderInfo);
+                var reminderEvents = _objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
+                foreach (IEvent evt in reminderEvents) {
+                    UpdateAppointmentInStorage(modelMemberReminderInfo.ModelClass.TypeInfo, evt);
+                    currentAppointmentKeys.Add((Guid)evt.AppointmentId);
                 }
             }
             RemoveRedundantAppointments(currentAppointmentKeys);

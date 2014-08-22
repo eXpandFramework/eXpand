@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SchedulerTester" Logo="ExpressAppLogo">
+  <NavigationItems StartupNavigationItem="ReminderObject_ListView" />
+</Application>
