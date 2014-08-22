@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="XpandSystemTester">
+<Application Title="SystemTester">
   <Options>
     <MergedDifferenceStrategies>
       <MergedDifferenceStrategy Id="ListViewFilters" IsNewNode="True">

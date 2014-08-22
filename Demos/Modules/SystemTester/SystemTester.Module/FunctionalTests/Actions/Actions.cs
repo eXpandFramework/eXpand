@@ -1,7 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using XpandSystemTester.Module.FunctionalTests.Actions;
 
 namespace SystemTester.Module.FunctionalTests.Actions {
     public class Actions:ObjectViewController<ObjectView,ActionsObject> {
