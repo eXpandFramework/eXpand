@@ -269,12 +269,16 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public override void SetValue(object component, object value) {
-            var appearanceObject = ((AppearanceObject)component);
-            var font = appearanceObject.Font;
-            var fontBuilderSynch = new FontBuilderSynch((IModelAppearanceFont)_modelNode,font, _getApplyModelNodeValue);
-            var font1 = fontBuilderSynch.GetFont();
-            appearanceObject.Options.UseFont = !Equals(font1, font);
-            appearanceObject.Font = font1;
+            var appearanceObject = ((AppearanceObject) component);
+            Font font = appearanceObject.Font;
+            var fontBuilderSynch = new FontBuilderSynch((IModelAppearanceFont) _modelNode, font, _getApplyModelNodeValue);
+            Font font1 = fontBuilderSynch.GetFont();
+            if (!Equals(font1, font)){
+                appearanceObject.BeginUpdate();
+                appearanceObject.Options.UseFont = true;
+                appearanceObject.Font = font1;
+                appearanceObject.EndUpdate();
+            }
         }
 
         public override bool ShouldSerializeValue(object component) {
