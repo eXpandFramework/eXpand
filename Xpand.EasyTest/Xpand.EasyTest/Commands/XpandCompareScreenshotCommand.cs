@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest.Commands{
@@ -35,14 +36,17 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private void CompareAndSave(string filename, Image testImage, ICommandAdapter adapter){
-            Image etalonImage = Image.FromFile(filename);
+            var localImage = Image.FromFile(filename);
             var maskFileNames = GetMaskFileNames(adapter);
             foreach (var maskFileName in maskFileNames){
-                Image maskImage = (!string.IsNullOrEmpty(maskFileName)) ? Image.FromFile(maskFileName) : null;
-                Image diffImage = ImageHelper.CompareImage(etalonImage, testImage, maskImage);
-                if (diffImage != null) {
+                var maskImage = (!string.IsNullOrEmpty(maskFileName)) ? Image.FromFile(maskFileName) : null;
+                var differences = localImage.Differences(testImage, maskImage);
+                var threshold = this.ParameterValue<byte>("ImageDiffThreshold",3);
+                var percentage = differences.Percentage(threshold);
+                if (percentage>this.ParameterValue("ValidDiffPercentage",10)){
+                    var diffImage = differences.DiffImage(true, true);
                     SaveAllImages(diffImage, filename, testImage);
-                }    
+                } 
             }
         }
 
