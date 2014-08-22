@@ -210,8 +210,12 @@
   <PropertyGroup>
     <EasyTestFilter>Demos\</EasyTestFilter>
   </PropertyGroup>
+  <Target Name="w">
+    <Message Text="@(EasyTests -> '%(Filename)','%0a')"></Message>
+  </Target>
   <ItemGroup>
-    <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
+    <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
+    <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>

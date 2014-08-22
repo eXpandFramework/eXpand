@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.W
 	ProjectSection(ProjectDependencies) = postProject
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {80DC8CB8-C285-4953-871F-E49002FA10E8}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.ExpressApp.EasyTest.WebAdapter", "..\..\..\DevExpress 14.1\Components\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.EasyTest.WebAdapter\DevExpress.ExpressApp.EasyTest.WebAdapter.csproj", "{77999789-653A-40AA-BF3B-3291791FA934}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,9 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77999789-653A-40AA-BF3B-3291791FA934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77999789-653A-40AA-BF3B-3291791FA934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77999789-653A-40AA-BF3B-3291791FA934}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
