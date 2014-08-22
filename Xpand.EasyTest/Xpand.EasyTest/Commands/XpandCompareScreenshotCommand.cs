@@ -90,10 +90,6 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private void ExecuteAdditionalCommands(ICommandAdapter adapter){
-            if (this.ParameterValue("ToggleNavigation", true)) {
-                ToggleNavigation(adapter);
-            }
-
             var parameter = Parameters["ActiveWindowSize"];
             string activeWindowSize = "1024x768";
             if (parameter != null) {
@@ -102,6 +98,10 @@ namespace Xpand.EasyTest.Commands{
             var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
             activeWindowSizeCommand.Execute(adapter);
+
+            if (this.ParameterValue("ToggleNavigation", true)) {
+                ToggleNavigation(adapter);
+            }
 
             if (this.ParameterValue(KillFocusCommand.Name, true)){
                 var hideCaretCommand = new KillFocusCommand();
@@ -112,9 +112,14 @@ namespace Xpand.EasyTest.Commands{
                 var hideCaretCommand = new HideCursorCommand();
                 hideCaretCommand.Execute(adapter);
             }
-            
+
+            Wait(adapter, 1000);
+        }
+
+        private static void Wait(ICommandAdapter adapter, int interval){
             var sleepCommand = new SleepCommand();
-            sleepCommand.Parameters.MainParameter=new MainParameter(500.ToString(CultureInfo.InvariantCulture));
+
+            sleepCommand.Parameters.MainParameter = new MainParameter(interval.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);
         }
 

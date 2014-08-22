@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="SystemTester.Module.Win.FunctionalTests.FullTextContains.FullTextContainsObject">
+      <OwnMembers>
+        <Member Name="FullText" FullText="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="FullText_AdvBandedListEditor_ListView" ClassName="SystemTester.Module.Win.FunctionalTests.FullTextContains.FullTextContainsObject" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.AdvBandedListEditor" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Criteria" PropertyName="Criteria" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DataType" PropertyName="DataType" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FullText" PropertyName="FullText" Width="400" SortIndex="0" SortOrder="Ascending" Index="0" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="FullText_XpandGridListEditor_ListView" ClassName="SystemTester.Module.Win.FunctionalTests.FullTextContains.FullTextContainsObject" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Criteria" PropertyName="Criteria" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DataType" PropertyName="DataType" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FullText" PropertyName="FullText" Width="400" SortIndex="0" SortOrder="Ascending" Index="0" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

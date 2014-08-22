@@ -14,17 +14,13 @@ namespace Xpand.Persistent.Base.General.Controllers {
         [Category(AttributeCategoryNameProvider.Xpand)]
         bool HideNavigationOnStartup { get; set; }
     }
-    public class NavigationContainerController:WindowController,IModelExtender {
+
+
+    public class NavigationContainerController:ViewController,IModelExtender {
         private readonly SimpleAction _toggleNavigation;
 
-        public NavigationContainerController() {
-            TargetWindowType=WindowType.Main;
+        protected NavigationContainerController() {
             _toggleNavigation = new SimpleAction(this, "ToggleNavigation", "Hidden");
-            _toggleNavigation.Execute+=ToggleNavigationOnExecute;
-        }
-
-        protected virtual void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            
         }
 
         public SimpleAction ToggleNavigation{
@@ -37,25 +33,25 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
     public class NavigationContainerWinController : NavigationContainerController {
-        protected override void OnActivated() {
-            base.OnActivated();
+        public NavigationContainerWinController(){
+            ToggleNavigation.Execute += ToggleNavigationOnExecute;
+        }
+
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
             if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
                 Application.CustomizeTemplate += Application_CustomizeTemplate;
         }
 
-        protected override void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            base.ToggleNavigationOnExecute(sender, e);
-            var navigationPanel = GetNavigationPanel((IDockManagerHolder) Frame.Template);
-            navigationPanel.Visible = !navigationPanel.Visible;
-        }
-
-        protected override void OnDeactivated() {
-            Application.CustomizeTemplate -= Application_CustomizeTemplate;
-            base.OnDeactivated();
+        private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
+            var navigationPanel = GetNavigationPanel((IDockManagerHolder)Application.MainWindow.Template);
+            navigationPanel.Visibility = navigationPanel.Visibility==DockVisibility.Visible ? DockVisibility.Hidden : DockVisibility.Visible;
+            System.Windows.Forms.Application.DoEvents();
         }
 
         private void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
-            if ((Window.Template == null || Window.Template == e.Template) && e.Template is IDockManagerHolder){
+            if ((Frame.Template == null || Frame.Template == e.Template) && e.Template is IDockManagerHolder) {
+                Application.CustomizeTemplate -= Application_CustomizeTemplate;
                 var dockManagerHolder = ((IDockManagerHolder)e.Template);
                 var dockPanel = GetNavigationPanel(dockManagerHolder);
                 if (dockPanel != null) 
@@ -70,17 +66,20 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
 
     public class NavigationContainerWebController : NavigationContainerController {
+        public NavigationContainerWebController(){
+            ToggleNavigation.Execute+=ToggleNavigationOnExecute;
+        }
+
+        private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
+            const string script = "OnClick('LPcell','separatorImage',true);";
+            WebWindow.CurrentRequestWindow.RegisterClientScript("separatorClick", script);
+        }
+
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
                 WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
             
-        }
-
-        protected override void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            base.ToggleNavigationOnExecute(sender, e);
-            const string script = "OnClick('LPcell','separatorImage',true);";
-            WebWindow.CurrentRequestWindow.RegisterClientScript("separatorClick", script);
         }
 
         private void CurrentRequestPageOnInit(object sender, EventArgs eventArgs){

@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D2F0E803-AC94-4087-A48F-1E3153B2A589}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SystemTester.Module</RootNamespace>
+    <AssemblyName>SystemTester.Module</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\eXpandFrameWork\eXpand\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Persistent.Base, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Utils, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.Xpo, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FunctionalTests\Actions\Actions.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
+    <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
+    <Compile Include="FunctionalTests\XpandEasyTestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BusinessObjects\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\Actions\Actions.ets" />
+    <None Include="FunctionalTests\Actions\Actions.xafml" />
+    <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
+    <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml" />
+    <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
+    <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml" />
+    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.xafml" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml" />
+    <None Include="FunctionalTests\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\ReadMe.txt" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
+    <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
+    <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
+    <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
+    <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
+    <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\HideToolBar\Config.xml" />
+    <Content Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.web.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\DetailView.win.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.web.png" />
+    <Content Include="FunctionalTests\HideToolBar\Images\ListView.Win.png" />
+    <Content Include="FunctionalTests\MergedDifferences\Config.xml" />
+    <Content Include="FunctionalTests\MergedDifferences\Init.inc" />
+    <Content Include="FunctionalTests\MergedDifferences\ListView Filters.inc" />
+    <Content Include="FunctionalTests\MergedDifferences\ListView Filters_XpandSystemTester.Web_View.html" />
+    <Content Include="FunctionalTests\PreventDataLoading\Config.xml" />
+    <Content Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
+    <Content Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
+    <Content Include="FunctionalTests\PreventDataLoading\Filters Not Empty.inc" />
+    <Content Include="FunctionalTests\PreventDataLoading\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Save a valid url.inc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

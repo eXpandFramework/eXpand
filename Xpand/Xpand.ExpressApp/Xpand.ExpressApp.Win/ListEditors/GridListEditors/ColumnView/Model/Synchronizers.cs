@@ -128,19 +128,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             _columnsListEditor.ControlsCreated += ColumnsListEditorControlsCreated;
             _columnViewEditor = columnViewEditor;
         }
+
         private void SetupActiveFilterCriteriaToControl() {
             IObjectSpace objectSpace = _columnViewEditor.CollectionSource.ObjectSpace;
             ITypeInfo typeInfo = Model.ModelClass.TypeInfo;
-            CriteriaOperator criteriaOperator = objectSpace.ParseCriteria(Model.Filter);
-            if (_columnViewEditor.IsAsyncServerMode()) {
-                new AsyncServerModeCriteriaProccessor(typeInfo).Process(criteriaOperator);
+            using (objectSpace.CreateParseCriteriaScope()){
+                CriteriaOperator criteriaOperator = objectSpace.ParseCriteria(Model.Filter);
+                if (_columnViewEditor.IsAsyncServerMode()) {
+                    new AsyncServerModeCriteriaProccessor(typeInfo).Process(criteriaOperator);
+                }
+                var criteriaProcessor = new FilterWithObjectsProcessor(objectSpace, typeInfo, _columnViewEditor.IsAsyncServerMode());
+                criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
+                var enumParametersProcessor = new EnumPropertyValueCriteriaProcessor(_columnViewEditor.CollectionSource.ObjectTypeInfo);
+                enumParametersProcessor.Process(criteriaOperator);
+                Control.ActiveFilterCriteria = criteriaOperator;
             }
-            var criteriaProcessor = new FilterWithObjectsProcessor(objectSpace, typeInfo, _columnViewEditor.IsAsyncServerMode());
-            criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-            var enumParametersProcessor = new EnumPropertyValueCriteriaProcessor(_columnViewEditor.CollectionSource.ObjectTypeInfo);
-            enumParametersProcessor.Process(criteriaOperator);
-            Control.ActiveFilterCriteria = criteriaOperator;
         }
+
         private void ColumnsListEditorControlsCreated(object sender, EventArgs e) {
             Control.OptionsView.ShowFooter = Model.IsFooterVisible;
             Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;

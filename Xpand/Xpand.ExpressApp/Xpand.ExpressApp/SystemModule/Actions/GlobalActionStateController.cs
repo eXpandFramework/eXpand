@@ -12,6 +12,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
         bool Active { get; set; }
     }
     public class GlobalActionStateController:Controller,IModelExtender {
+        public const string ModelActiveAttribute = "ModelActiveAttribute";
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             var modelActionStates = Application.Model.ActionDesign.Actions.Cast<IModelActionState>();
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
                 var controllerType = Application.TypesInfo.FindTypeInfo(modelActionState.Controller.Name).Type;
                 var actionBase = Frame.GetController(controllerType).Actions[modelActionState.Id];
                 actionBase.Active.BeginUpdate();
-                actionBase.Active["ModelActiveAttribute"] = false;
+                actionBase.Active[ModelActiveAttribute] = false;
                 actionBase.Active.EndUpdate();
             }
         }

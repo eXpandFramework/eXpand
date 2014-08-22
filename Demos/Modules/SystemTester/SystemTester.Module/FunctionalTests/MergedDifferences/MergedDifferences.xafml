@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XpandSystemTester">
+  <Options>
+    <MergedDifferenceStrategies>
+      <MergedDifferenceStrategy Id="ListViewFilters" IsNewNode="True">
+        <IncludedNodePaths IsNewNode="True">
+          <MergedDifferenceStrategyIncludedNodePath Id="ListViewFilters" ViewType="ListView" NodePath="Filters" IsNewNode="True" />
+        </IncludedNodePaths>
+      </MergedDifferenceStrategy>
+    </MergedDifferenceStrategies>
+  </Options>
+  <Views>
+    <ListView Id="BaseObject_ListView">
+      <Filters>
+        <Filter Id="Common Filter" Criteria="Name ='Tolis Bekiaris'" IsNewNode="True" />
+      </Filters>
+    </ListView>
+    <ListView Id="MergedDifferencesObject_ListView">
+      <MergedDifferences>
+        <MergedDifference Id="BaseObject Filters" View="BaseObject_ListView" Strategy="ListViewFilters" IsNewNode="True" />
+      </MergedDifferences>
+    </ListView>
+  </Views>
+</Application>

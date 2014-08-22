@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="FilterEditor_Criteria" FilterControlPosition="Top" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" Filter="[FilterEditorObjectRef] = ##XpoObject#SystemTester.Module.Win.FunctionalTests.FilterEditor.FilterEditorObjectRef({00022993-9604-4552-b83a-7de5cec5104a})#" />
+    <ListView Id="FilterEditorObject_ListView" FilterControlPosition="Top" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" />
+  </Views>
+</Application>

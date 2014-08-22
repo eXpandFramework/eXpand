@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XpandSystemTester" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ModifyModel" ItemsFromModel="True" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration">
+      <OwnMembers>
+        <MemberModelMember Name="Criteria" IsCustom="False" Tag="" DeclaredType="DevExpress.ExpressApp.Model.IModelListView" CreateMember="True" CreatedAtDesignTime="True" IsNewNode="True">
+          <AdditionalMembers IsNewNode="True">
+            <MemberModelMemberAdditionalMember Name="ModelClass.TypeInfo" DeclaredType="DevExpress.ExpressApp.Model.IModelClass" ModelNodePath="ModelClass.TypeInfo" IsNewNode="True" />
+          </AdditionalMembers>
+        </MemberModelMember>
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ActionsObject_ListView" PreviewRowDetailView="ActionsObject_DetailView" ConfigurationView="ConfigureModelForActionsObject_DetailView" />
+    <DetailView Id="ConfigureModelForActionsObject_DetailView" ClassName="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Criteria" PropertyName="Criteria" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" IsNewNode="True">
+          <LayoutItem Id="Criteria" ViewItem="Criteria" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
