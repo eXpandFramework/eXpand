@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -7,8 +8,8 @@ using System.Reflection;
 namespace Xpand.Utils.Helpers {
     [Flags]
     public enum Conversion {
-        None = 0,
-        GuessValues = 1,
+        GuessValues = 0,
+        None=1,
         TreatNullAsDefault = 2,
         TreatWhitespaceAsDefault = 4,
     }
@@ -211,6 +212,14 @@ namespace Xpand.Utils.Helpers {
                 object o;
                 if (TryToChange(value, typeof (long), out o,Conversion.GuessValues)) {
                     result = new TimeSpan((long) o);
+                    return true;
+                }
+            }
+
+            if (destinationType == typeof (Size) && !string.IsNullOrEmpty(value + "")){
+                var strings = value.ToString().Split('x');
+                if (strings.Length == 2 && (strings[0].CanChange(typeof (int)) && strings[1].CanChange(typeof (int)))){
+                    result = new Size(int.Parse(strings[0]), int.Parse(strings[1]));
                     return true;
                 }
             }

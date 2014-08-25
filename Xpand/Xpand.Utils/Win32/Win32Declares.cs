@@ -704,7 +704,27 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class MouseCursor {
-            
+            [DllImport("user32.dll")]
+            public static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
+            [StructLayout(LayoutKind.Sequential)]
+            public struct CURSORINFO {
+                public Int32 cbSize;
+                public readonly Int32 flags;
+                public readonly IntPtr hCursor;
+                public POINTAPI ptScreenPos;
+            }
+
+            [DllImport("user32.dll")]
+            public static extern bool GetCursorInfo(out CURSORINFO pci);
+
+            public const Int32 CURSOR_SHOWING = 0x00000001;
+
+            [StructLayout(LayoutKind.Sequential)]
+            public struct POINTAPI {
+                public readonly int x;
+                public readonly int y;
+            }
+
         }
 
         public class Printers {

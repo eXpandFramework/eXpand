@@ -1,24 +1,16 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using AForge.Imaging.Filters;
 
 namespace Xpand.Utils.Helpers{
     public static class ImageExtensions{
         private static readonly Font _defaultFont = new Font("Arial", 8);
         private static readonly Brush[] _brushes = new Brush[256];
-
-        private static readonly ColorMatrix _colorMatrix = new ColorMatrix(new[]{
-            new[]{.3f, .3f, .3f, 0, 0},
-            new[]{.59f, .59f, .59f, 0, 0},
-            new[]{.11f, .11f, .11f, 0, 0},
-            new float[]{0, 0, 0, 1, 0},
-            new float[]{0, 0, 0, 0, 1}
-        });
 
         static ImageExtensions(){
             for (int i = 0; i < 256; i++){
@@ -165,8 +157,8 @@ namespace Xpand.Utils.Helpers{
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2){
-            var thisOne = (Bitmap) img1.Resize(16, 16).ToGrayScale();
-            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToGrayScale();
+            var thisOne = (Bitmap) img1.Resize(16, 16).ToBlackAndWhite();
+            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToBlackAndWhite();
             var differences = new byte[16, 16];
             for (int y = 0; y < 16; y++){
                 for (int x = 0; x < 16; x++){
@@ -176,16 +168,14 @@ namespace Xpand.Utils.Helpers{
             return differences;
         }
 
-        public static Image ToGrayScale(this Image original){
-            var newBitmap = new Bitmap(original.Width, original.Height);
-            Graphics g = Graphics.FromImage(newBitmap);
-            var attributes = new ImageAttributes();
-            attributes.SetColorMatrix(_colorMatrix);
-            g.DrawImage(original, new Rectangle(0, 0, original.Width, original.Height),
-                0, 0, original.Width, original.Height, GraphicsUnit.Pixel, attributes);
-            g.Dispose();
+        public static Image ToBlackAndWhite(this Image original){
+            var filtersSequence = new FiltersSequence { Grayscale.CommonAlgorithms.BT709,new OtsuThreshold() };
+            return filtersSequence.Apply((Bitmap)original);
+        }
 
-            return newBitmap;
+        public static Image ToGrayScale(this Image original){
+            var filtersSequence = new FiltersSequence{Grayscale.CommonAlgorithms.BT709};
+            return filtersSequence.Apply((Bitmap) original);
         }
 
         public static Image Resize(this Image originalImage, int newWidth, int newHeight){
