@@ -9,7 +9,7 @@
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
-    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
+    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">.\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <ToolsPath>$(MSBuildProjectDirectory)\Resource\Tool</ToolsPath>
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>

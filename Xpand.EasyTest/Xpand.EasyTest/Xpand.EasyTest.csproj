@@ -12,7 +12,6 @@
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-  <UsingTask TaskName="MSBuild.ExtensionPack.Framework.Gac" AssemblyName="..\..\Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -111,7 +110,5 @@
   <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">
   </Import>
   <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
-    <!--    <Message Text="MyValue=$(MyValue)"></Message>-->
-    <!--    <GacUtil Assemblies="$(TargetPath)" />-->
   </Target>
 </Project>

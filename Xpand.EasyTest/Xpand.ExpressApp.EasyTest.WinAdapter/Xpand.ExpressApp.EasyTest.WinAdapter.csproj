@@ -70,7 +70,8 @@
     <Message Text="BeforeBuild">
     </Message>
   </Target>
-  <Import Project="$(OutputPath)..\Resource\Build\Xpand.targets"></Import>
+  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">
+  </Import>
   <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
   </Target>
 </Project>
