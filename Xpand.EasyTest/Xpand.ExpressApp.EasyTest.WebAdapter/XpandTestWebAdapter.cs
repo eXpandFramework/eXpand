@@ -154,26 +154,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     }
 
     public class XpandWebCommandAdapter : WebCommandAdapter {
-        static XpandWebCommandAdapter(){
-            FastTimeOuts = true;
-            if (FastTimeOuts) {
-                TimeOutWait = 2000;
-                TimeOutPostBack = 2000;
-                TimeOutBrowserResponse = 2000;
-                TimeOutFrameLoading = 2000;
-                TimeOutWaitCallBack = 2000;
-                TimeOutGetReflectTestControl = 2000;
-            }
-            else {
-                TimeOutWait = 15000;
-                TimeOutPostBack = 10000;
-                TimeOutBrowserResponse = 60000;
-                TimeOutFrameLoading = 10000;
-                TimeOutWaitCallBack = 25000;
-                TimeOutGetReflectTestControl = 60000;
-
-            }
-        }
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
         }
         public new static bool FastTimeOuts { get; set; }
