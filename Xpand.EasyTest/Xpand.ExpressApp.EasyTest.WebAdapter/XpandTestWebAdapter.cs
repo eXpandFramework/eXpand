@@ -9,7 +9,7 @@ using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using Fasterflect;
-using Xpand.EasyTest.Commands;
+using Xpand.EasyTest;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
 using HideScrollBarCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.HideScrollBarCommand;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
@@ -102,6 +102,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
+            testApplication.StopScreenCaptureStream();
             webBrowsers.KillAllWebBrowsers();
             bool isSingleWebDev = testApplication.FindParamValue(SingleWebDevParamName) != null;
             if (testApplication.FindParamValue("DontKillWebDev") == null&&_process!=null) {
@@ -153,11 +154,29 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     }
 
     public class XpandWebCommandAdapter : WebCommandAdapter {
+        static XpandWebCommandAdapter(){
+            FastTimeOuts = true;
+            if (FastTimeOuts) {
+                TimeOutWait = 2000;
+                TimeOutPostBack = 2000;
+                TimeOutBrowserResponse = 2000;
+                TimeOutFrameLoading = 2000;
+                TimeOutWaitCallBack = 2000;
+                TimeOutGetReflectTestControl = 2000;
+            }
+            else {
+                TimeOutWait = 15000;
+                TimeOutPostBack = 10000;
+                TimeOutBrowserResponse = 60000;
+                TimeOutFrameLoading = 10000;
+                TimeOutWaitCallBack = 25000;
+                TimeOutGetReflectTestControl = 60000;
 
-        public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
-
+            }
         }
-        public static bool FastTimeOuts { get; set; }
+        public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
+        }
+        public new static bool FastTimeOuts { get; set; }
     }
 
     public class IISExpressServerHelper{

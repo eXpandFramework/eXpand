@@ -70,7 +70,7 @@
     <Message Text="BeforeBuild">
     </Message>
   </Target>
-  <Target Name="AfterBuild">
-    <GacUtil Assemblies="$(TargetPath)" />
+  <Import Project="$(OutputPath)..\Resource\Build\Xpand.targets"></Import>
+  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
   </Target>
 </Project>

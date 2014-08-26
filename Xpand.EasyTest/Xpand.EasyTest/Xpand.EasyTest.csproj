@@ -30,11 +30,32 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\AForge.Imaging.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\AForge.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\_third_party_assemblies\AForge.Video.FFMPEG.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -61,6 +82,7 @@
     <Compile Include="Commands\HideScrollBarCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
+    <Compile Include="Commands\ScreenCaptureCommand.cs" />
     <Compile Include="Commands\SetForeGroundWindowSize.cs" />
     <Compile Include="Commands\XpandAutoTestCommand.cs" />
     <Compile Include="Commands\UseModelCommand.cs" />
@@ -73,7 +95,7 @@
     <Compile Include="Commands\XpandFillFormCommand.cs" />
     <Compile Include="Commands\XpandProcessRecordCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
-    <Compile Include="Commands\Extensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />
     <Compile Include="TestDataBase\Operations\LocalDBDatabaseOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,15 +106,12 @@
     <EmbeddedResource Include="TestDataBase\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
   <Target Name="BeforeBuild">
-    <GacUtil Assemblies="$(TargetName)" Command="Uninstall" />
-    <Message Text="BeforeBuild">
-    </Message>
   </Target>
-  <Target Name="AfterBuild">
-    <GacUtil Assemblies="$(TargetPath)" />
-    <GacUtil Assemblies="Xpand.Utils" Command="Uninstall" />
-    <GacUtil Assemblies="$(TargetDir)Xpand.Utils.dll" />
+  <Import Project="$(OutputPath)..\Resource\Build\Xpand.targets">
+  </Import>
+  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
+    <!--    <Message Text="MyValue=$(MyValue)"></Message>-->
+    <!--    <GacUtil Assemblies="$(TargetPath)" />-->
   </Target>
 </Project>
