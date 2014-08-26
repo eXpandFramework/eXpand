@@ -1,11 +1,9 @@
-﻿using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace SystemTester.Module.FunctionalTests.PreventDataLoading {
-    [DefaultClassOptions]
     [XpandNavigationItem(PreventDataLoadingGroupName + "/Default", "PreventDataLoadingObject_ListView")]
     
     [CloneView(CloneViewType.ListView, "PreventDataLoading_FiltersNotEmpty")]

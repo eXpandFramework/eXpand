@@ -133,6 +133,9 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
             return result;
         }
 
-        public event EventHandler ItemsChanged;
+        event EventHandler ICheckedListBoxItemsProvider.ItemsChanged{
+            add { throw new NotImplementedException(); }
+            remove { throw new NotImplementedException(); }
+        }
     }
 }
