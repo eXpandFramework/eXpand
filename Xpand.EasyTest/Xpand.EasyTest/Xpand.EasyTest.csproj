@@ -108,7 +108,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
   </Target>
-  <Import Project="$(OutputPath)..\Resource\Build\Xpand.targets">
+  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">
   </Import>
   <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
     <!--    <Message Text="MyValue=$(MyValue)"></Message>-->
