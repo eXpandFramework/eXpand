@@ -69,14 +69,21 @@ namespace DXPdbJunctions{
                 CreateJunction(xJunctionDir + @"\" + xafDir, targetDir + @"\" + xafDir);
             }
 
-            CreateJunction(xJunctionDir + @"\DevExpress.ExpressApp.Modules",targetDir + @"\DevExpress.ExpressApp.Modules");
+            var targetModuleDir = targetDir + @"\DevExpress.ExpressApp.Modules";
+            CreateJunction(xJunctionDir + @"\DevExpress.ExpressApp.Modules",targetModuleDir);
 
-            var easyTestJunctionDir = junctionDir+@"\DevExpress.ExpressApp.EasyTest";
+            var easyTestJunctionDir = xJunctionDir+@"\DevExpress.ExpressApp.EasyTest";
             if (Directory.Exists(easyTestJunctionDir))
                 Delete(easyTestJunctionDir);
             Directory.CreateDirectory(easyTestJunctionDir);
-            CreateJunction(easyTestJunctionDir + @"\DevExpress.ExpressApp.EasyTest.WinAdapter",targetDir + @"\DevExpress.ExpressApp.EasyTest\DevExpress.ExpressApp.EasyTest.WinAdapter");
-            CreateJunction(easyTestJunctionDir + @"\DevExpress.ExpressApp.EasyTest.WebAdapter",targetDir + @"\DevExpress.ExpressApp.EasyTest\DevExpress.ExpressApp.EasyTest.WebAdapter");
+            CreateJunction(easyTestJunctionDir + @"\DevExpress.ExpressApp.EasyTest.WinAdapter", targetModuleDir + @"\DevExpress.ExpressApp.EasyTest.WinAdapter");
+            CreateJunction(easyTestJunctionDir + @"\DevExpress.ExpressApp.EasyTest.WebAdapter", targetModuleDir + @"\DevExpress.ExpressApp.EasyTest.WebAdapter");
+
+            var aspJunctionDir = junctionDir+@"\ASP";
+            if (Directory.Exists(aspJunctionDir))
+                Delete(aspJunctionDir);
+            CreateJunction(aspJunctionDir, targetDir);
+
         }
 
         private static void Delete(string path){
