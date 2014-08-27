@@ -10,7 +10,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
         public const string ResetViewModel = "Reset View Model";
 
         public override void UpdateNode(ModelNode node) {
-            var modelAction = ((IModelActions)node)[ActionModifyModelControler.ModifyModelActionName];
+            var modelAction = ((IModelActions)node)[ActionModifyModelController.ModifyModelActionName];
             if (modelAction != null && modelAction.ChoiceActionItems != null) {
                 modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(ResetViewModel);
                 modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(ChangeViewModel);
@@ -19,21 +19,21 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
     }
 
     public abstract class ModifyModelActionControllerBase : ViewController {
-        private ActionModifyModelControler _actionModifyModelControler;
+        private ActionModifyModelController _actionModifyModelControler;
 
         protected override void OnActivated() {
             base.OnActivated();
-            _actionModifyModelControler = Frame.GetController<ActionModifyModelControler>();
+            _actionModifyModelControler = Frame.GetController<ActionModifyModelController>();
             _actionModifyModelControler.ModifyModelAction.Execute += ModifyModelActionOnExecute;
         }
 
-        public ActionModifyModelControler ActionModifyModelControler{
+        public ActionModifyModelController ActionModifyModelControler{
             get { return _actionModifyModelControler; }
         }
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            _actionModifyModelControler = Frame.GetController<ActionModifyModelControler>();
+            _actionModifyModelControler = Frame.GetController<ActionModifyModelController>();
         }
 
         protected abstract void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e);

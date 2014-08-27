@@ -24,7 +24,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
     public class ModelActiosNodesUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
         public const string LockViewModel = "Lock View Model";
         public override void UpdateNode(ModelNode node){
-            var modelAction = ((IModelActions) node)[ActionModifyModelControler.ModifyModelActionName];
+            var modelAction = ((IModelActions) node)[ActionModifyModelController.ModifyModelActionName];
             if (modelAction != null && modelAction.ChoiceActionItems != null){
                 var lockViewModel = modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(LockViewModel);
                 var modelNodePaths = ((IModelChoiceActionItemModifyModel) lockViewModel).ModelNodePaths;
@@ -77,12 +77,12 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         string Value { get; set; }
     }
 
-    public class ActionModifyModelControler:WindowController,IModelExtender {
+    public class ActionModifyModelController:WindowController,IModelExtender {
         public const string ModifyModelActionName = "ModifyModel";
         private List<SingleChoiceAction> _singleChoiceActions;
         private readonly SingleChoiceAction _modifyModelAction;
 
-        public ActionModifyModelControler(){
+        public ActionModifyModelController(){
             _modifyModelAction = new SingleChoiceAction(this,ModifyModelActionName,PredefinedCategory.View){
                 ItemType = SingleChoiceActionItemType.ItemIsOperation,
                 DefaultItemMode = DefaultItemMode.LastExecutedItem

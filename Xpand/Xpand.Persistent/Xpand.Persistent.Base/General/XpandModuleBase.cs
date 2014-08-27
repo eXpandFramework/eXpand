@@ -177,7 +177,7 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes =declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
             }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelControler), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
+                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelController), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
             }
             if (!Executed("GetDeclaredControllerTypes")) {
                 declaredControllerTypes= declaredControllerTypes.Union(new[]{
