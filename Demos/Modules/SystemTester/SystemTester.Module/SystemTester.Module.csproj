@@ -110,9 +110,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
-    <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
