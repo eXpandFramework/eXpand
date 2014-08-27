@@ -4,7 +4,8 @@
  Name = bold font
 *Action Save
 *XpandCompareScreenshot DetailView.BoldFont1.png
- MaskRectangle = 55x95;51x9
+ WinMaskRectangle = 55x95;51x9
+ WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
 *Action New(Conditional Appearence Object)
@@ -13,6 +14,7 @@
 *Action Save
 *XpandCompareScreenshot DetailView.BoldFont2.png
  MaskRectangle = 55x95;51x13
+ WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
 *Action New(Conditional Appearence Object)
@@ -20,7 +22,10 @@
  Name = default font
 *XpandCompareScreenshot DetailView.DefaultFont.png
  MaskRectangle = 55x95;51x9
+ WebMaskRectangle = 107x214;59x16
 *SaveAndClose
+*Action Navigation(Default.Conditional Appearence Object)
 
 *XpandCompareScreenshot ListView.BoldFont.png
- MaskRectangle = 23x103;71x58
+ WinMaskRectangle = 23x103;71x58
+ WebMaskRectangle = 112x200;91x73

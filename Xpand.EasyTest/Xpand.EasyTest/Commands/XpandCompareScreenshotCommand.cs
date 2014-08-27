@@ -41,7 +41,7 @@ namespace Xpand.EasyTest.Commands{
             var localImage = Image.FromFile(filename);
             var masks = GetMasks(adapter);
             if (!masks.Any()){
-                var maskImage = CreateMaskImage();
+                var maskImage = CreateMaskImage(adapter);
                 CompareAndSaveCore(filename, testImage, localImage,maskImage);
             }
             var height = this.ParameterValue("MaskHeight", 0);
@@ -55,9 +55,10 @@ namespace Xpand.EasyTest.Commands{
             }
         }
 
-        private Bitmap CreateMaskImage(){
+        private Bitmap CreateMaskImage(ICommandAdapter adapter){
             Bitmap maskImage = null;
-            var parameterValue = this.ParameterValue<string>("MaskRectangle");
+            var parameterName = adapter.IsWinAdapter() ? "WinMaskRectangle" : "WebMaskRectangle";
+            var parameterValue = this.ParameterValue<string>(parameterName);
             if (!string.IsNullOrEmpty(parameterValue)){
                 var maskSize = this.ParameterValue("MaskSize", new Size(1024, 768));
                 maskImage = new Bitmap(maskSize.Width, maskSize.Height);

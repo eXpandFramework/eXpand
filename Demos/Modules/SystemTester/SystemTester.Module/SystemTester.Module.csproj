@@ -182,9 +182,13 @@
     <None Include="FunctionalTests\ConditionalAppearence\Font.inc" />
     <Content Include="FunctionalTests\ConditionalAppearence\Config.xml" />
     <None Include="FunctionalTests\ConditionalAppearence\Init.inc" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont1.web.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont1.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont2.web.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont2.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.DefaultFont.web.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.DefaultFont.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\ListView.BoldFont.web.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\ListView.BoldFont.win.png" />
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\HideToolBar\Config.xml" />
