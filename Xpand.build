@@ -9,7 +9,7 @@
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
-    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">.\Resource\Build\ExtensionPack\</ExtensionTasksPath>
+    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
     <ToolsPath>$(MSBuildProjectDirectory)\Resource\Tool</ToolsPath>
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
@@ -217,6 +217,8 @@
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+    <EasyTestVideoFiles Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
+    <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll"/>
@@ -278,7 +280,16 @@
     </Exec>
     <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
     <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />
+    <CallTarget Targets="CreateEasyTestVideos"></CallTarget>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
+  </Target>
+  <Target Name="CreateEasyTestVideos">
+    <ItemGroup>
+      <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
+    </ItemGroup>
+    <Message Text="@(testtt->Count())"></Message>
+<!--    <Message Text="@(EasyTestVideoFolders->'.%(Identity)')"></Message>-->
+    <Exec Command="VideoBuilder.exe %(EasyTestVideoFoldersList.Identity)" WorkingDirectory="$(XpandDLLPath)"></Exec>
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />

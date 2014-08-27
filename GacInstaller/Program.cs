@@ -54,7 +54,16 @@ namespace GacInstaller {
         }
 
         static IEnumerable<string> GetFiles() {
-            return Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "*.dll").Where(s => Assembly.ReflectionOnlyLoadFrom(s).GetName().GetPublicKeyToken().Length>0);
+            return Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "*.dll").Where(IsSigned);
+        }
+
+        private static bool IsSigned(string s){
+            try{
+                return Assembly.ReflectionOnlyLoadFrom(s).GetName().GetPublicKeyToken().Length>0;
+            }
+            catch (BadImageFormatException){
+                return false;
+            }
         }
     }
 }
