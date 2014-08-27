@@ -5,14 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D2F0E803-AC94-4087-A48F-1E3153B2A589}</ProjectGuid>
+    <ProjectGuid>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SystemTester.Module</RootNamespace>
     <AssemblyName>SystemTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -150,7 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\Actions\Actions.ets" />
-    <None Include="FunctionalTests\Actions\Actions.xafml" />
+    <None Include="FunctionalTests\Actions\Actions.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.ets" />
     <None Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.xafml">
       <SubType>Designer</SubType>
@@ -208,11 +212,16 @@
     <Content Include="FunctionalTests\PreventDataLoading\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
-    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Save a valid url.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\ScreenCapture\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
