@@ -25,7 +25,7 @@ namespace Xpand.EasyTest.Commands{
 
         private IntPtr GetWindowHandle(){
             var extraParameter = Parameters.ExtraParameter;
-            return extraParameter != null ? new IntPtr(int.Parse(extraParameter.Value)) : Win32Declares.WindowFocus.GetForegroundWindow();
+            return (extraParameter != null && extraParameter.Value!=null) ? new IntPtr(int.Parse(extraParameter.Value)) : Win32Declares.WindowFocus.GetForegroundWindow();
         }
     }
 }

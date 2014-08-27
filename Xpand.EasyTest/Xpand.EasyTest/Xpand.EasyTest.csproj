@@ -51,7 +51,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\AForge.Video.dll</HintPath>
     </Reference>
-    <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=x86">
+    <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\AForge.Video.FFMPEG.dll</HintPath>
     </Reference>
@@ -82,7 +82,7 @@
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
     <Compile Include="Commands\ScreenCaptureCommand.cs" />
-    <Compile Include="Commands\SetForeGroundWindowSize.cs" />
+    <Compile Include="Commands\ResizeWindowCommand.cs" />
     <Compile Include="Commands\XpandAutoTestCommand.cs" />
     <Compile Include="Commands\UseModelCommand.cs" />
     <Compile Include="Commands\KillFocusCommand.cs" />
@@ -107,8 +107,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="BeforeBuild">
   </Target>
-  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">
-  </Import>
-  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">
-  </Target>
+  <!--  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">-->
+  <!--  </Import>-->
+  <!--  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">-->
+  <!--  </Target>-->
 </Project>

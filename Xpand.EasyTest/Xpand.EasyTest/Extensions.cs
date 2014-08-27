@@ -19,7 +19,7 @@ namespace Xpand.EasyTest {
     public static class Extensions {
         private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
 
-        public static void StopScreenCaptureStream(this TestApplication testApplication) {
+        public static void StopScreenCaptureStream(this TestApplication testApplication){
             ScreenCaptureCommand.Stop();
         }
 
@@ -133,7 +133,7 @@ namespace Xpand.EasyTest {
             }
             return result;
         }
-        // Fields...
+        
         private static IXpandTestAdapter _adapter;
 
         public static IXpandTestAdapter Adapter {

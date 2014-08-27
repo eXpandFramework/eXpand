@@ -6,8 +6,10 @@ using System.IO;
 using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.Utils.Automation;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
+using Image = System.Drawing.Image;
 
 namespace Xpand.EasyTest.Commands{
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
@@ -37,16 +39,52 @@ namespace Xpand.EasyTest.Commands{
 
         private void CompareAndSave(string filename, Image testImage, ICommandAdapter adapter){
             var localImage = Image.FromFile(filename);
-            var maskFileNames = GetMaskFileNames(adapter);
-            foreach (var maskFileName in maskFileNames){
-                var maskImage = (!string.IsNullOrEmpty(maskFileName)) ? Image.FromFile(maskFileName) : null;
-                var differences = localImage.Differences(testImage, maskImage);
-                var threshold = this.ParameterValue<byte>("ImageDiffThreshold",3);
-                var percentage = differences.Percentage(threshold);
-                if (percentage>this.ParameterValue("ValidDiffPercentage",10)){
-                    var diffImage = differences.DiffImage(true, true);
-                    SaveAllImages(diffImage, filename, testImage);
-                } 
+            var masks = GetMasks(adapter);
+            if (!masks.Any()){
+                var maskImage = CreateMaskImage();
+                CompareAndSaveCore(filename, testImage, localImage,maskImage);
+            }
+            var height = this.ParameterValue("MaskHeight", 0);
+            var width = this.ParameterValue("MaskWidth", 0);
+            foreach (var mask in masks){
+                var maskImage = mask;
+                if (width>0&&height>0){
+                    maskImage = (Bitmap) maskImage.ResizeRectangle(width, height);
+                }
+                CompareAndSaveCore(filename, testImage, localImage, maskImage);
+            }
+        }
+
+        private Bitmap CreateMaskImage(){
+            Bitmap maskImage = null;
+            var parameterValue = this.ParameterValue<string>("MaskRectangle");
+            if (!string.IsNullOrEmpty(parameterValue)){
+                var maskSize = this.ParameterValue("MaskSize", new Size(1024, 768));
+                maskImage = new Bitmap(maskSize.Width, maskSize.Height);
+                using (var graphics = Graphics.FromImage(maskImage)) {
+                    using (var solidBlackBrush = new SolidBrush(Color.Black)) {
+                        graphics.FillRectangle(solidBlackBrush, new Rectangle(0, 0, maskImage.Width, maskImage.Height));
+                    }
+                    using (var solidBlackBrush = new SolidBrush(Color.White)) {
+                        var pointValues = parameterValue.Split(';')[0].Split('x');
+                        var location = new Point(Convert.ToInt32(pointValues[0]), Convert.ToInt32(pointValues[1]));
+                        var sizeValues = parameterValue.Split(';')[1].Split('x');
+                        var size = new Size(Convert.ToInt32(sizeValues[0]), Convert.ToInt32(sizeValues[1]));
+                        var rectangle = new Rectangle(location, size);
+                        graphics.FillRectangle(solidBlackBrush, rectangle);
+                    }
+                }
+            }
+            return maskImage;
+        }
+
+        private void CompareAndSaveCore(string filename, Image testImage, Image localImage, Image maskImage=null) {
+            var differences = localImage.Differences(testImage, maskImage);
+            var threshold = this.ParameterValue<byte>("ImageDiffThreshold", 3);
+            var percentage = differences.Percentage(threshold);
+            if (percentage > this.ParameterValue("ValidDiffPercentage", 10)){
+                var diffImage = differences.DiffImage(true, true);
+                SaveAllImages(diffImage, filename, testImage);
             }
         }
 
@@ -94,6 +132,10 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private void ExecuteAdditionalCommands(ICommandAdapter adapter){
+            if (this.ParameterValue("ToggleNavigation", true)) {
+                ToggleNavigation(adapter);
+            }
+
             var parameter = Parameters["ActiveWindowSize"];
             string activeWindowSize = "1024x768";
             if (parameter != null) {
@@ -103,17 +145,15 @@ namespace Xpand.EasyTest.Commands{
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
             activeWindowSizeCommand.Execute(adapter);
 
-            if (this.ParameterValue("ToggleNavigation", true)) {
-                ToggleNavigation(adapter);
+            if (this.ParameterValue(HideCursorCommand.Name, true)){
+                var hideCaretCommand = new HideCursorCommand();
+                hideCaretCommand.Execute(adapter);
             }
 
             if (this.ParameterValue(KillFocusCommand.Name, true)){
+                var helperAutomation = new HelperAutomation();
+                Win32Declares.Message.SendMessage(helperAutomation.GetFocusControlHandle(), Win32Declares.Message.EM_SETSEL, -1, 0);
                 var hideCaretCommand = new KillFocusCommand();
-                hideCaretCommand.Execute(adapter);
-            }
-            
-            if (this.ParameterValue(HideCursorCommand.Name, true)){
-                var hideCaretCommand = new HideCursorCommand();
                 hideCaretCommand.Execute(adapter);
             }
 
@@ -122,7 +162,6 @@ namespace Xpand.EasyTest.Commands{
 
         private static void Wait(ICommandAdapter adapter, int interval){
             var sleepCommand = new SleepCommand();
-
             sleepCommand.Parameters.MainParameter = new MainParameter(interval.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);
         }
@@ -134,19 +173,19 @@ namespace Xpand.EasyTest.Commands{
             actionCommand.Execute(adapter);
         }
 
-        private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter){
+        private IEnumerable<Bitmap> GetMasks(ICommandAdapter adapter){
             var parameter = Parameters["Mask"];
             if (parameter != null){
-                foreach (var p in GetMasks(adapter, parameter)) yield return p;
+                foreach (var p in GetMaskFileNames(adapter, parameter)) yield return (Bitmap) Image.FromFile(p);
             }
             parameter = Parameters["XMask"];
             if (parameter != null){
                 parameter.Value = string.Join(";", parameter.Value.Split(';').Select(s => "/regX/" + s));
-                foreach (var p in GetMasks(adapter, parameter)) yield return p;
+                foreach (var p in GetMaskFileNames(adapter, parameter)) yield return (Bitmap) Image.FromFile(p);
             }
         }
 
-        private IEnumerable<string> GetMasks(ICommandAdapter adapter, Parameter parameter){
+        private IEnumerable<string> GetMaskFileNames(ICommandAdapter adapter, Parameter parameter){
             foreach (string maskPath in parameter.Value.Split(';')){
                 string maskFileName;
                 if (maskPath.StartsWith("/regX/")){

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using AForge.Imaging.Filters;
 
 namespace Xpand.Utils.Helpers{
@@ -18,6 +17,29 @@ namespace Xpand.Utils.Helpers{
             }
         }
 
+        public static Bitmap ToNonIndexedImage(this Image image) {
+            var newBmp = new Bitmap(image.Width, image.Height, PixelFormat.Format32bppArgb);
+            using (Graphics gfx = Graphics.FromImage(newBmp)) {
+                gfx.DrawImage(image, 0, 0);
+            }
+            return newBmp;
+        }
+
+        public static Image ResizeRectangle(this Image image, int width, int height, double brightness = 0.5){
+            var bitmap = image;
+            var rectangle = bitmap.CalculateRectangle(brightness);
+            var indexed = bitmap.PixelFormat == PixelFormat.Format8bppIndexed;
+            if (indexed)
+                bitmap = bitmap.ToNonIndexedImage();
+            using (var graphics = Graphics.FromImage(bitmap)) {
+                using (var solidBlackBrush = new SolidBrush(Color.Black))
+                    graphics.FillRectangle(solidBlackBrush, rectangle);
+                using (var solidWhiteBrush = new SolidBrush(Color.White))
+                    graphics.FillRectangle(solidWhiteBrush, new Rectangle(rectangle.X, rectangle.Y, width, height));
+            }
+            return indexed ? bitmap.ToBlackAndWhite() : bitmap;
+        }
+
         public static Rectangle CalculateRectangle(this Image image,double brightness=0.5){
             var bitmap = ((Bitmap) image);
             var topLeft = CalcTopLeft(image, brightness, bitmap);
@@ -29,7 +51,7 @@ namespace Xpand.Utils.Helpers{
             for (int x = image.Width - 1; x > -1; x--){
                 for (int y = image.Height - 1; y > -1; y--){
                     if (bitmap.GetPixel(x, y).GetBrightness() > brightness) {
-                        return new Point(x, y);
+                        return new Point(x+1, y+1);
                     }
                 }
             }
@@ -157,8 +179,8 @@ namespace Xpand.Utils.Helpers{
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2){
-            var thisOne = (Bitmap) img1.Resize(16, 16).ToBlackAndWhite();
-            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToBlackAndWhite();
+            var thisOne = (Bitmap) img1.Resize(16, 16).ToGrayScale();
+            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToGrayScale();
             var differences = new byte[16, 16];
             for (int y = 0; y < 16; y++){
                 for (int x = 0; x < 16; x++){
@@ -178,23 +200,15 @@ namespace Xpand.Utils.Helpers{
             return filtersSequence.Apply((Bitmap) original);
         }
 
-        public static Image Resize(this Image originalImage, int newWidth, int newHeight){
+        public static Image Resize(this Image originalImage, int newWidth, int newHeight) {
             Image smallVersion = new Bitmap(newWidth, newHeight);
-            using (Graphics g = Graphics.FromImage(smallVersion)){
+            using (Graphics g = Graphics.FromImage(smallVersion)) {
                 g.SmoothingMode = SmoothingMode.HighQuality;
                 g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.DrawImage(originalImage, 0, 0, newWidth, newHeight);
             }
             return smallVersion;
-        }
-
-        public static Bitmap GetRgbHistogramBitmap(this Bitmap bmp){
-            return new Histogram(bmp).Visualize();
-        }
-
-        public static Histogram GetRgbHistogram(this Bitmap bmp){
-            return new Histogram(bmp);
         }
 
         public static float GetPercentageDifference(string image1Path, string image2Path, byte threshold = 3){
@@ -214,27 +228,6 @@ namespace Xpand.Utils.Helpers{
             return true;
         }
 
-        public static Image CreateImage(this Image srcImage, int maxWidth, int maxHeight){
-            if (srcImage == null) return null;
-            Size size = GetPhotoSize(srcImage, maxWidth, maxHeight);
-            Image ret = new Bitmap(size.Width, size.Height);
-            using (Graphics gr = Graphics.FromImage(ret)){
-                gr.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                gr.DrawImage(srcImage, new Rectangle(0, 0, size.Width, size.Height));
-            }
-            return ret;
-        }
-
-        private static Size GetPhotoSize(Image image, int maxWidth, int maxHeight){
-            int width = Math.Min(maxWidth, image.Width);
-            int height = width*image.Height/image.Width;
-            if (height > maxHeight){
-                height = maxHeight;
-                width = height*image.Width/image.Height;
-            }
-            return new Size(width, height);
-        }
-
         public static Rectangle GetZoomDestRectangle(this Image img, Rectangle r){
             float horzRatio = Math.Min((float) r.Width/img.Width, 1);
             float vertRatio = Math.Min((float) r.Height/img.Height, 1);
@@ -245,98 +238,6 @@ namespace Xpand.Utils.Helpers{
                 r.Top + (int) (r.Height - img.Height*zoomRatio)/2,
                 (int) (img.Width*zoomRatio),
                 (int) (img.Height*zoomRatio));
-        }
-    }
-
-    public class Histogram{
-        private static readonly Pen[] _p = {Pens.Red, Pens.Green, Pens.Blue};
-
-        public Histogram(Bitmap bitmap){
-            Bitmap = bitmap;
-            Red = new byte[256];
-            Green = new byte[256];
-            Blue = new byte[256];
-            CalculateHistogram();
-        }
-
-        public Histogram(string filePath) : this((Bitmap) Image.FromFile(filePath)){
-        }
-        public byte[] Red { get; private set; }
-        public byte[] Green { get; private set; }
-        public byte[] Blue { get; private set; }
-
-        public Bitmap Bitmap { get; private set; }
-
-
-        private void CalculateHistogram(){
-            var newBmp = (Bitmap) Bitmap.Resize(16, 16);
-            for (int x = 0; x < newBmp.Width; x++){
-                for (int y = 0; y < newBmp.Height; y++){
-                    var c = newBmp.GetPixel(x, y);
-                    Red[c.R]++;
-                    Green[c.G]++;
-                    Blue[c.B]++;
-                }
-            }
-        }
-
-        public Bitmap Visualize(){
-            const int oneColorHeight = 100;
-            const int margin = 10;
-
-            float[] maxValues = {Red.Max(), Green.Max(), Blue.Max()};
-            byte[][] values = {Red, Green, Blue};
-
-
-            var histogramBitmap = new Bitmap(276, oneColorHeight*3 + margin*4);
-            Graphics g = Graphics.FromImage(histogramBitmap);
-            g.FillRectangle(Brushes.White, 0, 0, histogramBitmap.Width, histogramBitmap.Height);
-            const int yOffset = margin + oneColorHeight;
-
-            for (int i = 0; i < 256; i++){
-                for (int color = 0; color < 3; color++){
-                    g.DrawLine(_p[color], margin + i, yOffset*(color + 1), margin + i,
-                        yOffset*(color + 1) - (values[color][i]/maxValues[color])*oneColorHeight);
-                }
-            }
-
-            for (int i = 0; i < 3; i++){
-                g.DrawString(_p[i].Color.ToKnownColor() + ", max value: " + maxValues[i], SystemFonts.SmallCaptionFont,
-                    Brushes.Silver, margin + 11, yOffset*i + margin + margin + 1);
-                g.DrawString(_p[i].Color.ToKnownColor() + ", max value: " + maxValues[i], SystemFonts.SmallCaptionFont,
-                    Brushes.Black, margin + 10, yOffset*i + margin + margin);
-                g.DrawRectangle(_p[i], margin, yOffset*i + margin, 256, oneColorHeight);
-            }
-            g.Dispose();
-
-            return histogramBitmap;
-        }
-
-        public override string ToString(){
-            var sb = new StringBuilder();
-
-            for (int i = 0; i < 256; i++){
-                sb.Append(string.Format("RGB {0,3} : ", i) +
-                          string.Format("({0,3},{1,3},{2,3})", Red[i], Green[i], Blue[i]));
-                sb.AppendLine();
-            }
-
-            return sb.ToString();
-        }
-
-        public float GetVariance(Histogram histogram){
-            double diffRed = 0, diffGreen = 0, diffBlue = 0;
-            for (int i = 0; i < 256; i++){
-                diffRed += Math.Pow(Red[i] - histogram.Red[i], 2);
-                diffGreen += Math.Pow(Green[i] - histogram.Green[i], 2);
-                diffBlue += Math.Pow(Blue[i] - histogram.Blue[i], 2);
-            }
-
-            diffRed /= 256;
-            diffGreen /= 256;
-            diffBlue /= 256;
-            const double maxDiff = 512;
-            return (float) (diffRed/maxDiff + diffGreen/maxDiff + diffBlue/maxDiff)/3;
         }
     }
 }

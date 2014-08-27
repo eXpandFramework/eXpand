@@ -108,6 +108,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
@@ -147,6 +151,10 @@
   <ItemGroup>
     <None Include="FunctionalTests\Actions\Actions.ets" />
     <None Include="FunctionalTests\Actions\Actions.xafml" />
+    <None Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.ets" />
+    <None Include="FunctionalTests\ConditionalAppearence\ConditionalAppearence.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml" />
     <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
@@ -171,6 +179,13 @@
     <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <None Include="FunctionalTests\ConditionalAppearence\Font.inc" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Config.xml" />
+    <None Include="FunctionalTests\ConditionalAppearence\Init.inc" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont1.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.BoldFont2.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.DefaultFont.win.png" />
+    <Content Include="FunctionalTests\ConditionalAppearence\Images\ListView.BoldFont.win.png" />
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\HideToolBar\Config.xml" />
     <Content Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />

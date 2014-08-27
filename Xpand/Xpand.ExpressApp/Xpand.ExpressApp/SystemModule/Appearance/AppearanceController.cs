@@ -116,13 +116,11 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
                         var infoAndValue = GetPropertyInfoAndValue(appearanceFormat, propertyName);
                         if (infoAndValue != null && infoAndValue.Item1 != null) {
                             var fontBuilder = new FontBuilder(ModelAppearanceFont, infoAndValue.Item3);
-                            infoAndValue.Item1.Set(infoAndValue.Item2, fontBuilder.GetFont());
+                            var font = fontBuilder.GetFont();
+                            infoAndValue.Item1.Set(infoAndValue.Item2, font);
                             break;
                         }
                     }
-                }
-                else {
-                    appearanceFormat.ResetFontStyle();
                 }
             }
         }

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester">
+  <BOModel>
+    <Class Name="SystemTester.Module.FunctionalTests.ConditionalAppearence.ConditionalAppearenceObject">
+      <AppearanceRules>
+        <AppearanceRule Id="Name with bold font" Criteria="Name='bold font'" FontStyle="Bold" TargetItems="Name" IsNewNode="True" />
+<!--        <AppearanceRule Id="Name with bold font 2" Criteria="Name='2nd bold font'" FontStyle="Bold" TargetItems="Name" IsNewNode="True" />        -->
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+</Application>

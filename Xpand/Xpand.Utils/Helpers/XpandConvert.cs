@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using Fasterflect;
 
 namespace Xpand.Utils.Helpers {
     [Flags]
@@ -216,10 +217,10 @@ namespace Xpand.Utils.Helpers {
                 }
             }
 
-            if (destinationType == typeof (Size) && !string.IsNullOrEmpty(value + "")){
+            if ((destinationType == typeof(Size) || destinationType == typeof(Point)) && !string.IsNullOrEmpty(value + "")) {
                 var strings = value.ToString().Split('x');
                 if (strings.Length == 2 && (strings[0].CanChange(typeof (int)) && strings[1].CanChange(typeof (int)))){
-                    result = new Size(int.Parse(strings[0]), int.Parse(strings[1]));
+                    result = destinationType.CreateInstance(int.Parse(strings[0]), int.Parse(strings[1]));
                     return true;
                 }
             }

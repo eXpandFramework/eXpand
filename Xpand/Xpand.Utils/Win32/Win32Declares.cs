@@ -78,6 +78,7 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class Message {
+            public const int EM_SETSEL = 0x00B1;
             #region PostMessage
             /// <summary>
             /// The PostMessage function places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message. 
@@ -705,7 +706,7 @@ namespace Xpand.Utils.Win32 {
 
         public class MouseCursor {
             [DllImport("user32.dll")]
-            public static extern bool DrawIcon(IntPtr hDC, int X, int Y, IntPtr hIcon);
+            public static extern bool DrawIcon(IntPtr hDC, int x, int y, IntPtr hIcon);
             [StructLayout(LayoutKind.Sequential)]
             public struct CURSORINFO {
                 public Int32 cbSize;
