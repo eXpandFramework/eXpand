@@ -1,9 +1,9 @@
 ﻿#DropDB SystemTesterEasyTest
-
 #Application SystemTester.Win
-
 *UseModel
 *Action Log On
+*ScreenCapture
+*Action Navigation(PreventDataLoading.Default)
 
 *Action New(Prevent Data Loading Object)
 *FillForm
@@ -25,3 +25,4 @@
 *Action Navigation(PreventDataLoading.Default)
 *CheckTable
  RowCount = 3
+

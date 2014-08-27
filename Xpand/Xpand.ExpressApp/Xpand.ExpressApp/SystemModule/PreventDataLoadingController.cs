@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public void PreventDataLoading(CriteriaOperator criteriaOperator){
-            if (ReferenceEquals(criteriaOperator, null)) {
+            if (ShouldPreventLoading()&&ReferenceEquals(criteriaOperator, null)) {
                 PreventDataLoading();
             }
             else {
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.SystemModule {
             View.CollectionSource.Criteria[PreventDataLoadingKey] = GetPreventLoadingDataCriteria();
         }
 
-        protected bool ShouldPreventLoading(){
+        bool ShouldPreventLoading(){
             var preventDataLoading = ((IModelListViewPreventDataLoading)View.Model);
             if (preventDataLoading.PreventDataLoading == SystemModule.PreventDataLoading.FilterEmpty)
                 return string.IsNullOrEmpty(View.Model.Filter);

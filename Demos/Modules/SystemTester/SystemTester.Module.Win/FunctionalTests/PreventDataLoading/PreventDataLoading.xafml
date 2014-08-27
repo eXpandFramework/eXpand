@@ -2,5 +2,6 @@
 <Application>
   <Views>
     <ListView Id="PreventDataLoading_FilterNotEmpty" Filter="Contains([Name], 'Tolis')" PreventDataLoading="FilterEmpty" ShowAutoFilterRow="True" />
+    <ListView Id="PreventDataLoadingObject_ListView" ShowAutoFilterRow="True" />
   </Views>
 </Application>
