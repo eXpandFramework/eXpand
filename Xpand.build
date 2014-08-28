@@ -59,7 +59,7 @@
 
   <ItemGroup>
     <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
-    <AddInProjects Include=".\ToolboxCreator\Xpand.ToolboxCreator.csproj"></AddInProjects>
+    <AddInProjects Include=".\Resource\ToolboxCreator\Xpand.ToolboxCreator.csproj;.\Resource\VideoBuilder\VideoBuilder.csproj"></AddInProjects>
     <XpandAddinSolution Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;"></XpandAddinSolution>
     <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
@@ -93,8 +93,8 @@
         </Task> 
   </UsingTask> 
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
-    <MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build" />
-    <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" >
+    <MSBuild Projects=".\Resource\FixReferences\FixReferences.csproj" Targets="Build" />
+    <Exec Command=".\Resource\FixReferences\bin\debug\FixReferences.exe" >
       <Output TaskParameter="Outputs" PropertyName="FixRefError" />
     </Exec>
     <Message Text="@(FixRefError)"/>

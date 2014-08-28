@@ -9,7 +9,7 @@ namespace FixReferences {
         static readonly HashSet<string> _excludedDirs=new HashSet<string>{"DXBuildGenerator"}; 
         static void Main() {
             Environment.CurrentDirectory = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            Execute(Path.GetFullPath(@"..\..\.."));
+            Execute(Path.GetFullPath(@"..\..\..\.."));
         }
 
         public static bool Execute(string rootDir){
