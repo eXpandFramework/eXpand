@@ -266,7 +266,7 @@
     <Delete Files="$(OutputFile)"></Delete>
   </Target>
   <Target Name="tmpStorage">
-        
+        <Message Text="@(NuspecFile)"></Message>
   </Target>
   <Target Name="RunEasyTests" >
     <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
@@ -413,8 +413,8 @@
       <Error Text="$(OutputOfExec)" Condition="'$(ErrorCode)' > '0'" />
   </Target>
   <ItemGroup>
-    <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec;Resource\NuGet\XtraDashboardWeb.nuspec" Condition="$(SkipDashboard)=='true'"/>
-    <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+    <NuspecFile Include="Resource\Nuspec\*.nuspec" Exclude="Resource\Nuspec\XtraDashboardWin.nuspec;Resource\Nuspec\XtraDashboardWeb.nuspec;Resource\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)=='true'"/>
+    <NuspecFile Include="Resource\Nuspec\*.nuspec" Exclude="Resource\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
     <IndexSources/>
