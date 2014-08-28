@@ -15,8 +15,9 @@
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
-	<BatchCall>false</BatchCall>
+	  <BatchCall>false</BatchCall>
     <ExecCommand></ExecCommand>
+    <ExecCommandWorkingDirectory></ExecCommandWorkingDirectory>
   
     <!--
 			Primary configuration properties (override them via command line if needed
@@ -221,8 +222,8 @@
     <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
     <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
@@ -264,7 +265,9 @@
     <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
     <Delete Files="$(OutputFile)"></Delete>
   </Target>
-
+  <Target Name="tmpStorage">
+        
+  </Target>
   <Target Name="RunEasyTests" >
     <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
@@ -287,9 +290,11 @@
     <ItemGroup>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
-    <Message Text="@(testtt->Count())"></Message>
-<!--    <Message Text="@(EasyTestVideoFolders->'.%(Identity)')"></Message>-->
-    <Exec Command="VideoBuilder.exe %(EasyTestVideoFoldersList.Identity)" WorkingDirectory="$(XpandDLLPath)"></Exec>
+    <ItemGroup>
+      <VideoBuilderFiles Include="$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
+    </ItemGroup>
+    <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe %(EasyTestVideoFoldersList.Identity);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />
@@ -401,7 +406,7 @@
     </Time>
   </Target>
   <Target Name="ExecuteCommand">
-      <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" >
+      <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" WorkingDirectory="$(ExecCommandWorkingDirectory)" >
         <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
         <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
       </Exec>
