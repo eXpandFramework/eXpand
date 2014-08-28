@@ -51,10 +51,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\_third_party_assemblies\AForge.Video.dll</HintPath>
     </Reference>
-    <Reference Include="AForge.Video.FFMPEG, Version=2.2.5.0, Culture=neutral, PublicKeyToken=03563089b1be05dd, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_third_party_assemblies\AForge.Video.FFMPEG.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

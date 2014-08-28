@@ -233,9 +233,11 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Actions\Config.xml" />
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
+    <None Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\ApplicationExit\Config.xml" />
+    <None Include="FunctionalTests\ApplicationExit\Init.inc" />
     <Content Include="FunctionalTests\FilterEditor\Config.xml" />
     <Content Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
     <Content Include="FunctionalTests\FilterEditor\Images\FilterEditorTop.win.png" />

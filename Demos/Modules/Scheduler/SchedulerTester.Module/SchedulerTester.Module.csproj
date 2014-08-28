@@ -67,7 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\TestEvent.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -96,7 +95,6 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

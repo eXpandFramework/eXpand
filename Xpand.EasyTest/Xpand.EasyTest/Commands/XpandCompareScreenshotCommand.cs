@@ -16,9 +16,10 @@ namespace Xpand.EasyTest.Commands{
         public const string Name = "XpandCompareScreenshot";
         protected override void InternalExecute(ICommandAdapter adapter){
             var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
-            var windowHandle = GetWindowHandle(activeWindowControl);
-            ExecuteAdditionalCommands(adapter);
-            var testImage = GetTestImage(windowHandle);
+            var windowHandleInfo = GetWindowHandle(activeWindowControl);
+            if (!windowHandleInfo.Value)
+                ExecuteAdditionalCommands(adapter);
+            var testImage = GetTestImage(windowHandleInfo.Key);
             var filename = GetFilename(adapter);
 
             try{
@@ -57,9 +58,8 @@ namespace Xpand.EasyTest.Commands{
 
         private Bitmap CreateMaskImage(ICommandAdapter adapter){
             Bitmap maskImage = null;
-            var parameterName = adapter.IsWinAdapter() ? "WinMaskRectangle" : "WebMaskRectangle";
-            var parameterValue = this.ParameterValue<string>(parameterName);
-            if (!string.IsNullOrEmpty(parameterValue)){
+            var maskRectangleValue = GetMaskRectangleParamValue(adapter);
+            if (!string.IsNullOrEmpty(maskRectangleValue)){
                 var maskSize = this.ParameterValue("MaskSize", new Size(1024, 768));
                 maskImage = new Bitmap(maskSize.Width, maskSize.Height);
                 using (var graphics = Graphics.FromImage(maskImage)) {
@@ -67,9 +67,9 @@ namespace Xpand.EasyTest.Commands{
                         graphics.FillRectangle(solidBlackBrush, new Rectangle(0, 0, maskImage.Width, maskImage.Height));
                     }
                     using (var solidBlackBrush = new SolidBrush(Color.White)) {
-                        var pointValues = parameterValue.Split(';')[0].Split('x');
+                        var pointValues = maskRectangleValue.Split(';')[0].Split('x');
                         var location = new Point(Convert.ToInt32(pointValues[0]), Convert.ToInt32(pointValues[1]));
-                        var sizeValues = parameterValue.Split(';')[1].Split('x');
+                        var sizeValues = maskRectangleValue.Split(';')[1].Split('x');
                         var size = new Size(Convert.ToInt32(sizeValues[0]), Convert.ToInt32(sizeValues[1]));
                         var rectangle = new Rectangle(location, size);
                         graphics.FillRectangle(solidBlackBrush, rectangle);
@@ -77,6 +77,12 @@ namespace Xpand.EasyTest.Commands{
                 }
             }
             return maskImage;
+        }
+
+        private string GetMaskRectangleParamValue(ICommandAdapter adapter){
+            var parameterName = adapter.IsWinAdapter() ? "WinMaskRectangle" : "WebMaskRectangle";
+            var parameterValue = this.ParameterValue<string>(parameterName);
+            return parameterValue ?? this.ParameterValue<string>("MaskRectangle");
         }
 
         private void CompareAndSaveCore(string filename, Image testImage, Image localImage, Image maskImage=null) {
@@ -112,12 +118,9 @@ namespace Xpand.EasyTest.Commands{
             return adapter.GetPlatformSuffixedPath(filename);
         }
 
-        private IntPtr GetWindowHandle(ITestControl activeWindowControl){
-            bool screenMainWindow = false;
-            if (Parameters["ScreenMainWindow"] != null){
-                Boolean.TryParse(Parameters["ScreenMainWindow"].Value, out screenMainWindow);
-            }
-
+        private KeyValuePair<IntPtr,bool> GetWindowHandle(ITestControl activeWindowControl){
+            var isCustom = false;
+            var screenMainWindow = this.ParameterValue("ScreenMainWindow",false);
             IntPtr windowHandle = activeWindowControl.GetInterface<ITestWindow>().GetActiveWindowHandle();
             if (screenMainWindow){
                 windowHandle = GetRootWindow(windowHandle.ToInt32());
@@ -125,11 +128,13 @@ namespace Xpand.EasyTest.Commands{
 
             Parameter windowNameParameter = Parameters["WindowTitle"];
             if (windowNameParameter != null){
+                isCustom = true;
                 windowHandle = Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, windowNameParameter.Value);
                 if (windowHandle == IntPtr.Zero)
                     throw new CommandException(String.Format("Cannot find window {0}", windowNameParameter.Value), StartPosition);
             }
-            return windowHandle;
+            
+            return new KeyValuePair<IntPtr, bool>(windowHandle,isCustom);
         }
 
         private void ExecuteAdditionalCommands(ICommandAdapter adapter){

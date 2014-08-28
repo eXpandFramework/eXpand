@@ -53,11 +53,13 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public void PreventDataLoading(CriteriaOperator criteriaOperator){
-            if (ShouldPreventLoading()&&ReferenceEquals(criteriaOperator, null)) {
-                PreventDataLoading();
-            }
-            else {
-                DefaultLoading();
+            if (((IModelListViewPreventDataLoading)View.Model).PreventDataLoading!=SystemModule.PreventDataLoading.Default) {
+                if (ReferenceEquals(criteriaOperator, null)){
+                    PreventDataLoading();
+                }
+                else{
+                    DefaultLoading();
+                }
             }
         }
 

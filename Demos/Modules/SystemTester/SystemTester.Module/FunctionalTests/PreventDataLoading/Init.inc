@@ -20,7 +20,3 @@
 *CheckTable
  RowCount = 3
 
-*Action Filter(CommonFilter)
-*CheckTable 
- RowCount = 1
-*Action Filter(CommonFilter)

@@ -210,11 +210,13 @@
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
+    <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Save a valid url.inc" />
   </ItemGroup>
   <ItemGroup>

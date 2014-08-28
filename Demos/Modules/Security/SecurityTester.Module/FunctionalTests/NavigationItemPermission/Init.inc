@@ -4,4 +4,5 @@
 *FillForm
  User Name = Admin
 *Action Log On
+*ScreenCapture
 *Action Navigation(NavigationItemPermission.Navigation Item Permission Object)

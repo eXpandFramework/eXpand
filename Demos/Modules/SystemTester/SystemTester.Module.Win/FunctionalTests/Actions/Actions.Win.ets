@@ -1,9 +1,4 @@
-#DropDB SystemTesterEasyTest
-#Application SystemTester.Win
-
-*UseModel
-*Action Log On
-*Action Navigation(Default.Actions Object)
+#IncludeFile .\Init.inc
 
 #IncludeFile .\Lock View Model.inc
 #IncludeFile .\Configure View Model.inc

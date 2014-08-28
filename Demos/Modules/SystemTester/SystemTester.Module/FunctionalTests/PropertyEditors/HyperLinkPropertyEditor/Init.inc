@@ -3,5 +3,5 @@
 #Application SystemTester.Win
 *UseModel
 *Action Log On
+*Action Navigation(PropertyEditors.Hyper Link Object)
 *ScreenCapture
-*Action Navigation(Default.Merged Differences Object)

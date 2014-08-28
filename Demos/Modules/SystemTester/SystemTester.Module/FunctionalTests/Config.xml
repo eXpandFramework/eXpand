@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
-	<Applications>
-		<!-- Win -->
-		<Application
+  <Applications>
+    <!-- Win -->
+    <Application
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
-			AdapterAssemblyName="[WinAdapterAssemblyName]"
+      AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
-		<!-- Web -->
-		<Application
+    <!-- Web -->
+    <Application
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
-		<!-- For IIS -->
-		<!--Application
-			Name="SystemTester.Web"
-			Url="http://localhost/SystemTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
-	</Applications>
-	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="SystemTesterEasyTest"/>
-	</TestDatabases>
-
-	<Aliases>
-		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SystemTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\SystemTester.Web" />
-	</Aliases>
+      AdapterFileName="[WebAdapterFileName]"
+/>
+    <!-- For IIS -->
+    <!--Application
+			Name="[SolutionName]Web"
+			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
+			 AdapterFileName="[WebAdapterFileName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SystemTesterEasyTest" />
+  </TestDatabases>
+  <Aliases>
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Web" />
+  </Aliases>
 </Options>

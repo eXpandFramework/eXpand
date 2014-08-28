@@ -116,11 +116,14 @@ namespace Xpand.Utils.Helpers{
         }
 
         private static byte[,] DifferenceCore(Image image1, Image image2, Image mask, double brightness) {
-            var rectangle1 = mask.Resize(image1.Width, image1.Height).CalculateRectangle(brightness);
-            Rectangle rectangle2=rectangle1;
-            if (image1.Width!=image2.Width||image1.Height!=image2.Height)
-                rectangle2 = mask.Resize(image2.Width, image2.Height).CalculateRectangle(brightness);
-            return image1.Crop(rectangle1).GetDifferences(image2.Crop(rectangle2));
+            if (mask != null){
+                var rectangle1 = mask.Resize(image1.Width, image1.Height).CalculateRectangle(brightness);
+                Rectangle rectangle2=rectangle1;
+                if (image1.Width!=image2.Width||image1.Height!=image2.Height)
+                    rectangle2 = mask.Resize(image2.Width, image2.Height).CalculateRectangle(brightness);
+                return image1.Crop(rectangle1).GetDifferences(image2.Crop(rectangle2));
+            }
+            return image1.GetDifferences(image2);
         }
 
         public static float Difference(this Image image1, Image image2, byte threshold = 3){

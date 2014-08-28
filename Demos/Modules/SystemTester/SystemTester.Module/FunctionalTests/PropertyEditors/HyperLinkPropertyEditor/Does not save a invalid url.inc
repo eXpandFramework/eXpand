@@ -6,4 +6,4 @@
  SendKeysX = True
 *Action Save and Close
 *XpandCompareScreenshot HyperLinkPropertyEditor.png
- XMask = MainView.png
+ MaskRectangle = 88x209;20x21
