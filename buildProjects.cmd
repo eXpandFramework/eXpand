@@ -7,7 +7,7 @@ xcopy "_third_party_assemblies\GACInstaller.exe" ".\Xpand.DLL\*.*" /S /Y /H /I
 call ".\Xpand.DLL\GACInstaller.exe" 
 
 echo Installing Toolbox Items...
-call buildproject.cmd Xpand.ToolboxCreator ".\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
+call buildproject.cmd Xpand.ToolboxCreator ".\Resource\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
 call ".\Xpand.DLL\Xpand.ToolBoxCreator.exe"
 
 
