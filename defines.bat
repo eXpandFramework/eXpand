@@ -6,8 +6,8 @@ rem set vsver=vs2008
 rem uncomment the line bellow if you not use vs2012
 rem set vsver=vs2012
 rem set vsver=vs2013
-
-set msbuild="%WinDir%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"
+set ProgramFiles=%ProgramFiles(x86)%
+set msbuild="%ProgramFiles%\MSBuild\12.0\Bin\MSBuild.exe"
 
 set GACPATH="%WinDir%\assembly\GAC_MSIL\"
 set Gac4path="%WinDir%\Microsoft.NET\assembly\GAC_MSIL\"

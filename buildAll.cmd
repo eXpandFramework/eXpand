@@ -1,5 +1,4 @@
 @echo on
-set ProgramFiles=%ProgramFiles%
 call defines.bat
 
 if exist Xpand.Key\Xpand.snk goto build
@@ -10,13 +9,13 @@ mkdir Xpand.Key
 :build
 
 
+call buildProjects.cmd
 
-call buildprojects.cmd
-
+%sn% -q -T Xpand.Dll\Xpand.Utils.dll > PublicKeyToken.txt
 
 echo Installing and refreshing visual studio templates
-xcopy "Xpand.DesignExperience\vs_templates\cs\*.*" %csharptemplates% /Y /R /I
-xcopy "Xpand.DesignExperience\vs_templates\vb\*.*" %vbtemplates% /Y /R /I
+xcopy "Xpand.DesignExperience\vs_templates\cs\*.*" %csharptemplates% /S /Y /H /I
+xcopy "Xpand.DesignExperience\vs_templates\vb\*.*" %vbtemplates% /S /Y /H /I 
 
 %SystemDrive%
 cd\
