@@ -1,2 +1,3 @@
-@echo off
-@%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild Xpand.build /t:Fixreferences%*
+@echo on
+call defines.bat
+%msbuild% Xpand.build /t:Fixreferences
