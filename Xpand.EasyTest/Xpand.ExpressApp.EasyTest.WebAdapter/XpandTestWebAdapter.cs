@@ -102,7 +102,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
-            testApplication.StopScreenCaptureStream();
             webBrowsers.KillAllWebBrowsers();
             bool isSingleWebDev = testApplication.FindParamValue(SingleWebDevParamName) != null;
             if (testApplication.FindParamValue("DontKillWebDev") == null&&_process!=null) {

@@ -15,11 +15,6 @@ namespace Xpand.EasyTest.Commands{
         private static ScreenCaptureStream _screenCaptureStream;
         private long _index;
 
-        public static void Stop() {
-            if (_screenCaptureStream != null) 
-                _screenCaptureStream.Stop();
-        }
-
         public override void ParseCommand(CommandCreationParam commandCreationParam){
             base.ParseCommand(commandCreationParam);
             _size = this.ParameterValue("Size", new Size(1024, 768));

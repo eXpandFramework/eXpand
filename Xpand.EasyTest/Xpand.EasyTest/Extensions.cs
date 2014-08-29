@@ -19,10 +19,6 @@ namespace Xpand.EasyTest {
     public static class Extensions {
         private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
 
-        public static void StopScreenCaptureStream(this TestApplication testApplication){
-            ScreenCaptureCommand.Stop();
-        }
-
         public static ITestControl GetNavigationTestControl(this ICommandAdapter adapter) {
             string controlNames = "";
             for (int i = 0; i < _navigationControlPossibleNames.Length; i++) {

@@ -18,11 +18,6 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             registrator.RegisterCommand(HideScrollBarCommand.Name, typeof (Commands.HideScrollBarCommand));
         }
 
-        public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
-            testApplication.StopScreenCaptureStream();
-            base.KillApplication(testApplication, context);
-        }
-
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType){
             _easyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
             return _easyTestCommandAdapter;
