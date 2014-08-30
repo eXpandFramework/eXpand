@@ -70,6 +70,10 @@ namespace Xpand.EasyTest {
             return fileName;
         }
 
+        public static bool IsWinCommand(this Command instance){
+            return Adapter is IXpandTestWinAdapter;
+        }
+
         public static bool IsWinAdapter(this ICommandAdapter instance){
             return Adapter is IXpandTestWinAdapter;
         }
@@ -165,6 +169,7 @@ namespace Xpand.EasyTest {
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
+                {typeof (StopCommand), StopCommand.Name},
             };
             foreach (var keyValuePair in dictionary) {
                 registerCommand.RegisterCommand(keyValuePair.Value, keyValuePair.Key);

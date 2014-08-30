@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AForge.Video.FFMPEG;
 
 namespace VideoBuilder {
@@ -11,8 +12,10 @@ namespace VideoBuilder {
             var firstFile = files.FirstOrDefault();
             if (firstFile != null){
                 var videoFileWriter = new VideoFileWriter();
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(firstFile);
+                fileNameWithoutExtension=Regex.Replace(fileNameWithoutExtension, @"([^\d]*)([\d]*)([^\d]*)", "$1$3", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                 using (var bitmap = new Bitmap(firstFile)){
-                    var videoFileName = Path.Combine(Path.GetDirectoryName(firstFile)+"", Path.GetFileNameWithoutExtension(firstFile) + ".avi");
+                    var videoFileName = Path.Combine(Path.GetDirectoryName(firstFile)+"", fileNameWithoutExtension + ".avi");
                     if (File.Exists(videoFileName))
                         File.Delete(videoFileName);
                     videoFileWriter.Open(videoFileName, bitmap.Width, bitmap.Height,3);
@@ -24,10 +27,7 @@ namespace VideoBuilder {
                 }
                 videoFileWriter.Close();
                 videoFileWriter.Dispose();
-                foreach (var file in files){
-                    File.Delete(file);
-                }
-                Console.Write("Video for "+Path.GetFileNameWithoutExtension(firstFile)+" created");
+                Console.Write("Video for "+fileNameWithoutExtension+" created");
             }
         }
     }

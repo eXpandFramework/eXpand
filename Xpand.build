@@ -215,13 +215,11 @@
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
-    <EasyTestVideoFiles Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
-    <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(_third_party_assemblies)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
-    <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
+    <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <ItemGroup>
@@ -263,7 +261,7 @@
     <Delete Files="$(OutputFile)"></Delete>
   </Target>
   <Target Name="tmpStorage">
-        <Message Text="@(NuspecFile)"></Message>
+        <Message Text="%(EasyTestLogs.Identity)"></Message>
   </Target>
   <Target Name="RunEasyTests" >
     <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
@@ -285,6 +283,8 @@
   </Target>
   <Target Name="CreateEasyTestVideos">
     <ItemGroup>
+      <EasyTestVideoFiles Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
+      <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
     <ItemGroup>
@@ -292,8 +292,10 @@
     </ItemGroup>
     <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe %(EasyTestVideoFoldersList.Identity);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
+    <Delete Files="@(EasyTestVideoFiles)"></Delete>
   </Target>
   <Target Name="Config">
+  <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe %(EasyTestVideoFoldersList.Identity);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
     <Message Text="This sub-solution does not need configuration" />
   </Target>
   <Target Name="Report" DependsOnTargets="Clean;Build;Copy">
