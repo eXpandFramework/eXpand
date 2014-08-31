@@ -154,6 +154,7 @@ namespace Xpand.EasyTest {
             var dictionary = new Dictionary<Type, string>{
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
+                {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},
                 {typeof (NavigateCommand), NavigateCommand.Name},
                 {typeof (SaveAndCloseCommand), SaveAndCloseCommand.Name},
                 {typeof (HideCursorCommand), HideCursorCommand.Name},
