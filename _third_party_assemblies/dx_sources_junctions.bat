@@ -1,1 +1,1 @@
-See Resource\DXPdbJunctions\DXPdbJunctions.sln
+See Resource\PDBLinker\PDBLinker.sln
