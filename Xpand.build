@@ -87,7 +87,7 @@
           <![CDATA[
           Set-ExecutionPolicy Unrestricted
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
-          $var = powershell .\Resource\NuGet\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+          $var = powershell .\Resource\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
 ]]>
           
@@ -201,7 +201,6 @@
       <EasyProjects Remove="@(EasyProjects)"></EasyProjects>
 
       <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
-      <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
       <EasyProjects Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
     </ItemGroup>
   </Target>
@@ -214,7 +213,7 @@
   <ItemGroup>
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
-    <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+    <EasyTestLogs Include="$(MSBuildProjectDirectory)\**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterSolutions)"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(_third_party_assemblies)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
