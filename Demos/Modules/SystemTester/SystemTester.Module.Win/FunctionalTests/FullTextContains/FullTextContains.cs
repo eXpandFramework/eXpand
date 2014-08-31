@@ -177,6 +177,7 @@ namespace SystemTester.Module.Win.FunctionalTests.FullTextContains {
             filterControl.Model.FocusInfo = new FilterControlFocusInfo((Node) groupNode.SubNodes[0], 1);
             System.Windows.Forms.Application.DoEvents();
             filterControl.CallMethod("ShowClauseMenu");
+            System.Windows.Forms.Application.DoEvents();
         }
     }
 }

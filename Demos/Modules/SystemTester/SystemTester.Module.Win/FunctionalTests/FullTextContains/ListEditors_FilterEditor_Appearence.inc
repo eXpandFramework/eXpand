@@ -16,7 +16,7 @@
 *Action Navigation(Default.Full Text Contains Object)
 *Action Full Text Contains(AdvBandedListEditor)
 *Action Show Clause Menu
-*Sleep 1000
+*Sleep 2000
 
 *XpandCompareScreenshot AdvBandedListEditor.png
  WindowTitle = Full Text Contains Object

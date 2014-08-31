@@ -4,7 +4,7 @@
  Name = bold font
 *Action Save
 *XpandCompareScreenshot DetailView.BoldFont1.png
- WinMaskRectangle = 55x95;51x9
+ WinMaskRectangle = 56x95;49x9
  WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
@@ -13,7 +13,7 @@
  Name = 2nd bold font
 *Action Save
 *XpandCompareScreenshot DetailView.BoldFont2.png
- WinMaskRectangle = 55x95;51x13
+ WinMaskRectangle = 56x95;49x9
  WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
@@ -21,7 +21,7 @@
 *XpandFillForm
  Name = default font
 *XpandCompareScreenshot DetailView.DefaultFont.png
- WinMaskRectangle = 55x95;51x9
+ WinMaskRectangle = 56x95;49x9
  WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 *Action Navigation(Default.Conditional Appearence Object)
