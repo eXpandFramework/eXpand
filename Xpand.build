@@ -286,11 +286,15 @@
       <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
+	<PropertyGroup>
+	<EasyTestVideoFolders>@(EasyTestVideoFoldersList)</EasyTestVideoFolders>
+	</PropertyGroup>
+	
     <ItemGroup>
       <VideoBuilderFiles Include="$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
     </ItemGroup>
     <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe %(EasyTestVideoFoldersList.Identity);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
     <Delete Files="@(EasyTestVideoFiles)"></Delete>
   </Target>
   <Target Name="Config">

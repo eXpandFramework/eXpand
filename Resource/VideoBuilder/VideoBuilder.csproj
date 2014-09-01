@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,7 +54,15 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
   -->
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <FFMPERG Include="..\..\_third_party_assemblies\FFMPEG\*.*">
+      </FFMPERG>
+    </ItemGroup>
+    <Message Text="@(FFMPERG)">
+    </Message>
+    <Copy SourceFiles="@(FFMPERG)" DestinationFolder="$(OutputPath)">
+    </Copy>
+  </Target>
 </Project>
