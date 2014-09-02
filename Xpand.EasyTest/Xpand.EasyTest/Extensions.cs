@@ -140,13 +140,11 @@ namespace Xpand.EasyTest {
             get { return _adapter; }
         }
 
-        public static string LogWindowText(this IntPtr intPtr) {
+        public static string WindowText(this IntPtr intPtr) {
             int length = Win32Declares.Window.GetWindowTextLength(intPtr);
             var sb = new StringBuilder(length + 1);
             Win32Declares.Window.GetWindowText(intPtr, sb, sb.Capacity);
-            var text = sb.ToString();
-            EasyTestTracer.Tracer.LogVerboseText(text);
-            return text;
+            return sb.ToString();
         }
 
         public static void RegisterCommands(this IRegisterCommand registerCommand,IXpandTestAdapter applicationAdapter){
@@ -159,6 +157,7 @@ namespace Xpand.EasyTest {
                 {typeof (SaveAndCloseCommand), SaveAndCloseCommand.Name},
                 {typeof (HideCursorCommand), HideCursorCommand.Name},
                 {typeof (KillFocusCommand), KillFocusCommand.Name},
+                {typeof (XpandDeleteFileCommand), XpandDeleteFileCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
                 {typeof (XpandProcessRecordCommand), XpandProcessRecordCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},

@@ -89,6 +89,7 @@
     <Compile Include="Commands\SendKeysCommand.cs" />
     <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
+    <Compile Include="Commands\XpandDeleteFileCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
     <Compile Include="Commands\XpandProcessRecordCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />

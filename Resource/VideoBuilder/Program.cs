@@ -10,16 +10,17 @@ namespace VideoBuilder {
     class Program {
         static void Main(string[] args){
             var paths = args[0].Split(';');
-            foreach (var path in paths){
-                Console.Write("Creating Videos for " + path);
+            foreach (var path in paths.Where(s => !string.IsNullOrEmpty(s))){
+                
                 var files = Directory.GetFiles(path, "*.bmp");
                 var images = GetImages(files).GroupBy(s => Regex.Replace(s, @"([^\d]*)([\d]*)([^\d]*)", "$1$3", RegexOptions.Singleline | RegexOptions.IgnoreCase));
                 foreach (var grouping in images){
+                    Console.WriteLine("Creating Videos for " + path);
                     var videoFileName = Path.Combine(path + "", grouping.Key + ".avi");
                     if (File.Exists(videoFileName))
                         File.Delete(videoFileName);
                     var videoFileWriter = new VideoFileWriter();
-                    const int frameRate = 3;
+                    int frameRate = 4;
                     using (var bitmap = new Bitmap(Path.Combine(path, grouping.First()+".bmp"))){
                         videoFileWriter.Open(videoFileName, bitmap.Width, bitmap.Height, frameRate,VideoCodec.MPEG4);
                     }
@@ -29,16 +30,21 @@ namespace VideoBuilder {
                     Console.WriteLine("Video for " + grouping.Key + " created");                    
                 }
             }
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
         }
 
         private static void WriteFranes(IEnumerable<string> grouping, string path, VideoFileWriter videoFileWriter, int frameRate){
             int index = 0;
-            foreach (var image in grouping.Select(s => Path.Combine(path, s + ".bmp"))){
-                using (var bitmap = new Bitmap(image)){
-                    videoFileWriter.WriteVideoFrame(bitmap, TimeSpan.FromSeconds((double)index/frameRate));
-                }
+            var images = grouping.Select(s => Path.Combine(path, s + ".bmp")).ToArray();
+            foreach (var image in images){
                 index++;
+                using (var bitmap = new Bitmap(image)){
+                    var timeSpan = TimeSpan.FromSeconds((double)index/frameRate);
+                    videoFileWriter.WriteVideoFrame(bitmap, timeSpan);
+                }
             }
+            Console.WriteLine("Found "+grouping.Count()+" images");
         }
 
         private static IEnumerable<string> GetImages(IEnumerable<string> files){

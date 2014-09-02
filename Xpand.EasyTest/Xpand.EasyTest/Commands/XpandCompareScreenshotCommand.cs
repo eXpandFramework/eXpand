@@ -15,10 +15,12 @@ namespace Xpand.EasyTest.Commands{
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
         protected override void InternalExecute(ICommandAdapter adapter){
+            EasyTestTracer.Tracer.LogText("MainParameter=" + Parameters.MainParameter.Value);
             var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             var windowHandleInfo = GetWindowHandle(activeWindowControl);
             if (!windowHandleInfo.Value)
                 ExecuteAdditionalCommands(adapter);
+
             var testImage = GetTestImage(windowHandleInfo.Key);
             var filename = GetFilename(adapter);
 
@@ -32,7 +34,7 @@ namespace Xpand.EasyTest.Commands{
                 }
             }
             finally{
-                if (this.ParameterValue("ToggleNavigation", true)){
+                if (!windowHandleInfo.Value&&this.ParameterValue("ToggleNavigation", true)) {
                     ToggleNavigation(adapter);
                 }
             }
@@ -105,6 +107,7 @@ namespace Xpand.EasyTest.Commands{
             Image testImage;
             try{
                 testImage = ImageHelper.GetImage(windowHandle);
+                EasyTestTracer.Tracer.LogText("Captured image for window with handle {0} and title {1}",windowHandle,windowHandle.WindowText());
             }
             catch (Exception e){
                 EasyTestTracer.Tracer.LogText("Exception:" + e.Message);
