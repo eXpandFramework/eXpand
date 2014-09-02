@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxEditors.FilterControl;
 using DevExpress.XtraCharts.Native;
@@ -9,12 +10,16 @@ using Xpand.ExpressApp.PivotChart.Web.Editors;
 
 namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
     [PropertyEditor(typeof(IAnalysisInfo), true)]
-    public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb {
+    public class AnalysisEditorWeb : DevExpress.ExpressApp.PivotChart.Web.AnalysisEditorWeb,ITestableContainer {
         public AnalysisEditorWeb(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
         }
         public new AnalysisControlWeb Control {
             get { return (AnalysisControlWeb)base.Control; }
+        }
+
+        ITestable[] ITestableContainer.GetTestableControls() {
+            return new ITestable[0];
         }
 
         protected override IAnalysisControl CreateAnalysisControl() {

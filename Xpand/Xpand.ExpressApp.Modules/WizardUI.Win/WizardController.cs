@@ -1,4 +1,5 @@
-﻿using Fasterflect;
+﻿using System.Collections;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
     using System;
@@ -194,7 +195,9 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <summary>
         /// Fires after the next button has been clicked
         /// </summary>
-        private bool Validate(XafWizardPage page) {
+        private bool Validate(XafWizardPage page){
+            if (page == null)
+                return true;
             var validationResults = new RuleSetValidationResult();
             var usedProperties = new List<string>();
             var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() };
@@ -214,12 +217,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 }
             }
 
-            var modifiedObjects = page.View.ObjectTypeInfo.IsPersistent ? ObjectSpace.ModifiedObjects : new List<object> { page.View.CurrentObject };
+            var modifiedObjects = ModifiedObjects(page);
             foreach (var obj in modifiedObjects) {
                 IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules) {
                     bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(String.Format(".{0}", property)))));
-
                     string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(ObjectSpace, rule, obj, out reason)) {
                         RuleValidationResult result = rule.Validate(obj);
@@ -241,13 +243,26 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             return validationResults.State != ValidationState.Invalid;
         }
 
+        private IList ModifiedObjects(XafWizardPage page){
+            IList modifiedObjects;
+            if (page.View.ObjectTypeInfo.IsPersistent){
+                modifiedObjects = ObjectSpace.ModifiedObjects;
+                if (modifiedObjects.Count == 0)
+                    modifiedObjects.Add(page.View.CurrentObject);
+            }
+            else
+                modifiedObjects =
+                    new List<object>{page.View.CurrentObject};
+            return modifiedObjects;
+        }
+
         /// <summary>
         /// Fires afer the Finish button has been clicked
         /// </summary>
         /// <param name="sender">Wizard Control</param>
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_FinishClick(object sender, CancelEventArgs e) {
-            if (!View.ObjectTypeInfo.IsPersistent && !Validate(_wizardForm.WizardControl.SelectedPage as XafWizardPage)) {
+            if (!Validate(_wizardForm.WizardControl.SelectedPage as XafWizardPage)) {
                 e.Cancel = true;
                 return;
             }

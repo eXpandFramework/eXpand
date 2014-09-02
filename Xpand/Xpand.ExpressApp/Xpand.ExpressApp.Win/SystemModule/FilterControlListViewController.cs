@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -12,7 +13,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid;
+using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.Editors;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using FilterEditorControl = DevExpress.XtraFilterEditor.FilterEditorControl;
 using Forms = System.Windows.Forms;
 
@@ -63,37 +66,39 @@ Forms.DockStyle.None) {
         }
 
         private void AssignControlDatasource(FilterEditorControl filterEditorControl) {
-            filterEditorControl.SourceControl = CriteriaPropertyEditorHelper.CreateFilterControlDataSource(View.ObjectTypeInfo.Type, Application.ObjectSpaceProvider);
+            filterEditorControl.SourceControl = View.CollectionSource.Collection;
             if (View.ObjectTypeInfo.DefaultMember != null) {
                 foreach (FilterColumn filterColumn in filterEditorControl.FilterColumns) {
                     if (View.ObjectTypeInfo.DefaultMember.Name == filterColumn.FieldName) {
                         filterEditorControl.SetDefaultColumn(filterColumn);
+                        break;
                     }
                 }
             }
         }
 
-
         private void gridControl_HandleCreated(object sender, EventArgs e) {
             ((Forms.Control) sender).HandleCreated-=gridControl_HandleCreated;
-            var filterEditorControl = new Editors.FilterEditorControl();
+            var filterEditorControl = new Editors.FilterEditorControl(() => View.Model.ModelClass.AllMembers.Cast<IModelMemberFullTextContains>());
             var helper = new FilterEditorControlHelper(Application,ObjectSpace);
             helper.Attach(filterEditorControl);
             _filterControl = (XpandFilterControl) filterEditorControl.FilterControl;
             _filterControl.Height = 150;
             _filterControl.Dock = ((IModelListViewFilterControlSettings)View.Model).FilterControlPosition;
             _filterControl.UseMenuForOperandsAndOperators = false;
+            _filterControl.AllowCreateDefaultClause = false;
             AssignControlDatasource(filterEditorControl);
 
             OnCustomAssignFilterControlSourceControl(e);
             var gridControl = AssignLookAndFeel(sender);
-            _filterControl.FilterCriteria = GetCriteriaFromView();
+            var criteriaFromView = GetCriteriaFromView();
+            _filterControl.FilterString = criteriaFromView;
 
             var accept = new SimpleButton {
                 Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
-            accept.Click += ((o, args) => _filterControl.ApplyFilter());
+            accept.Click += ((o, args) => ((ColumnsListEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
             accept.Dock = Forms.DockStyle.Bottom;
             _filterControl.Controls.Add(accept);
 
@@ -132,11 +137,12 @@ Forms.DockStyle.None) {
             }
         }
 
-        private CriteriaOperator GetCriteriaFromView() {
-            var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type,View.Model.Filter, false);
-            new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator,
-            FilterWithObjectsProcessorMode.StringToObject);
-            return criteriaWrapper.CriteriaOperator;
+        private string GetCriteriaFromView() {
+            using (ObjectSpace.CreateParseCriteriaScope()) {
+                var criteriaWrapper = new CriteriaWrapper(View.ObjectTypeInfo.Type, View.Model.Filter, false);
+                new FilterWithObjectsProcessor(ObjectSpace).Process(criteriaWrapper.CriteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
+                return CriteriaOperator.ToString(criteriaWrapper.CriteriaOperator);
+            }
         }
     }
 }

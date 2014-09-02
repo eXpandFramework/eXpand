@@ -29,8 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                 modelEditorViewController.SaveAction.Caption = caption;
                 modelEditorViewController.SetTemplate(Frame.Template);
                 var barManagerHolder = ((IBarManagerHolder)Frame.Template);
-                barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Where(
-                    item => item.Caption.IndexOf(caption) > -1).Single().Visibility = BarItemVisibility.Never;
+                barManagerHolder.BarManager.Items.OfType<BarButtonItem>().Single(item => item.Caption.IndexOf(caption, StringComparison.Ordinal) > -1).Visibility = BarItemVisibility.Never;
             }
         }
     }

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EF27B268-6029-49DA-9956-EE3E303BC5A5}</ProjectGuid>
+    <ProjectGuid>{0093BEE4-6D18-420B-929E-6BACC6056031}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -50,59 +50,61 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.2.Core">
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Images.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxThemes.v13.2">
+    <Reference Include="DevExpress.Web.ASPxThemes.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Reference Include="DevExpress.Docs.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Docs.v13.2">
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+    <Reference Include="DevExpress.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1.Web">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2.Web">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
@@ -145,11 +147,6 @@
     <Reference Include="Xpand.ExpressApp.MapView.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MapView.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>

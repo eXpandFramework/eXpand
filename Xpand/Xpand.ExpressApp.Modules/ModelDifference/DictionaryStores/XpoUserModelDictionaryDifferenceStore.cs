@@ -16,7 +16,6 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
-using Xpand.Persistent.Base.RuntimeMembers;
 using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
@@ -69,7 +68,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         public override void SaveDifference(ModelApplicationBase model) {
-            if (SecuritySystem.CurrentUser != null)
+            if (SecuritySystem.Instance != null && SecuritySystem.Instance.UserType==null)
+                base.SaveDifference(model);
+            else if ( SecuritySystem.CurrentUser != null)
                 base.SaveDifference(model);
         }
 
@@ -120,7 +121,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 roleModel.GetModel(model);
             ModelApplicationHelper.AddLayer(model, userDiff);
             LoadCore(userDiff);
-            RuntimeMemberBuilder.CreateRuntimeMembers(userDiff.Application);
         }
 
         private void LoadCore(ModelApplicationBase userDiff){
@@ -132,12 +132,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             CombineWithActiveDifferenceObjects(userDiff, modelDifferenceObjects);
         }
 
-        private bool _load=false;
         public override void Load(ModelApplicationBase model) {
-            if (!XpandModuleBase.IsHosted&&_load){
-                LoadCore(model);
-            }
-            _load = true;
+            LoadCore(model);
         }
 
     }

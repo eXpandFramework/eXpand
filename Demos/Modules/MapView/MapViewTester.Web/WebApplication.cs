@@ -35,7 +35,11 @@ namespace MapViewTester.Web
         {
             InitializeComponent();
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
 
         protected override void OnLoggedOn(LogonEventArgs args)
         {
@@ -62,6 +66,10 @@ namespace MapViewTester.Web
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
 
+        protected override void OnViewShowing(Frame targetFrame, View view, Frame sourceFrame)
+        {
+            base.OnViewShowing(targetFrame, view, sourceFrame);
+        }
         void MapViewTesterAspNetApplication_DatabaseVersionMismatch(object sender,
                                                                         DatabaseVersionMismatchEventArgs e)
         {

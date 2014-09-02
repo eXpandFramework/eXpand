@@ -1,3 +1,4 @@
+
 using System;
 using System.Configuration;
 using System.Windows.Forms;
@@ -26,10 +27,11 @@ namespace AdditionalViewControlProviderTester.Win {
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+#else
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null&&string.IsNullOrEmpty(winApplication.ConnectionString)) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
             try {
                 winApplication.Setup();
                 winApplication.Start();

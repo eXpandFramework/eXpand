@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="Export" Active="False" />
+    </Actions>
+  </ActionDesign>
+  <ModelAdapterContexts>
+    <ModelAdapters Id="Default Context">
+      <HtmlEditor Id="HtmlEditor">
+        <Settings AllowHtmlView="False" />
+        <SettingsDialogFormElements>
+          <InsertImageDialog ShowFileUploadSection="True" ShowImageStyleSettingsSection="False" ShowMoreOptionsButton="False" ShowSaveFileToServerButton="False" />
+        </SettingsDialogFormElements>
+        <SettingsImageSelector Enabled="False" />
+      </HtmlEditor>
+    </ModelAdapters>
+  </ModelAdapterContexts>
+  <Options>
+    <Athentication>
+      <AnonymousAuthentication Enabled="True" />
+      <AutoAthentication Enabled="True" />
+    </Athentication>
+    <MergedDifferenceStrategies>
+      <MergedDifferenceStrategy Id="EverythingButLayout">
+        <MergedViewValueInfos>
+          <ListViewValueInfos>
+            <MergedViewValueInfo Name="EditorType" IsNewNode="True" />
+          </ListViewValueInfos>
+        </MergedViewValueInfos>
+      </MergedDifferenceStrategy>
+    </MergedDifferenceStrategies>
+  </Options>
+  <Views>
+    <ListView Id="DocsBaseObject_ListView" ShowSelectionColumn="True" />
+    <ListView Id="Module_ListView">
+      <GridViewOptions>
+        <SettingsPager Mode="ShowAllRecords" Visible="False" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>

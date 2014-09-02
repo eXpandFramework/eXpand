@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -57,44 +58,43 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeParser.v13.2">
+    <Reference Include="DevExpress.CodeParser.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.Persistent.Base.v13.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.2">
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -120,10 +120,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
+    <Compile Include="ListEditors\MultiEditASPxGridListEditor.cs" />
     <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditor.cs" />
     <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditorController.cs">
       <SubType>Component</SubType>
@@ -165,6 +170,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
+    <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
     <Compile Include="FriendlyUrl\Model.cs">
       <SubType>Component</SubType>
@@ -180,8 +187,6 @@
     <Compile Include="ListEditors\Model\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\Model\ModelAdaptor\IModelAdaptorGridViewOptionsRule.cs" />
-    <Compile Include="ListEditors\Model\ModelAdaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
     <Compile Include="ListEditors\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -236,9 +241,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\LoadWhenFilteredController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Templates\XpandBaseXafPage.cs">

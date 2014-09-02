@@ -172,12 +172,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
         IModelOptionsPivotGrid OptionsPivotGrid { get; }
     }
 
-    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            return typeof(PivotGridListEditor).IsAssignableFrom(EditorType(node));
-        }
-        #endregion
+    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator<PivotGridListEditor> {
     }
 
     public interface IModelDrawCellRule : IModelPivotSelectionRule {

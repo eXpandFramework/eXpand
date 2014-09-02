@@ -2,23 +2,25 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandNCarouselWeb</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework NCarousel Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NCarousel Module (Web) / eXpandFramework</description>
+    <description>NCarousel Module (Web) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>NCarousel Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.NCarousel.dll" target="lib\net40\Xpand.NCarousel.dll" />
+    <file src="\Build\Temp\Xpand.NCarousel.pdb" target="lib\net40\Xpand.NCarousel.pdb" />
     <file src="\Build\Temp\Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.pdb" />
   </files>
 </package>

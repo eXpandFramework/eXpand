@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
@@ -19,32 +20,40 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             if (ObjectSpace.FindObject<PictureObject>(null) == null) {
                 var masterObject = ObjectSpace.CreateObject<PictureMasterObject>();
                 masterObject.Title = "masterobject";
-                masterObject.HorizontalPicObjects.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjects[0].ImagePath = "";
-                masterObject.HorizontalPicObjectsStyleModified.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjectsStyleModified[0].ImagePath = null;
-                masterObject.VerticalPicObjects.AddRange(GetAlbums());
-                masterObject.VerticalPicObjectsStyleModified.AddRange(GetAlbums());
-                masterObject.HorizontalPicObjectsWithNoImage.AddRange(GetAlbums());
-                masterObject.VerticalPicObjectsWithNoImage.AddRange(GetAlbums());
+                var pictureObjects = GetAlbums();
+                if (pictureObjects.Any()){
+                    masterObject.HorizontalPicObjects.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjects[0].ImagePath = "";
+                    masterObject.HorizontalPicObjectsStyleModified.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjectsStyleModified[0].ImagePath = null;
+                    masterObject.VerticalPicObjects.AddRange(pictureObjects);
+                    masterObject.VerticalPicObjectsStyleModified.AddRange(pictureObjects);
+                    masterObject.HorizontalPicObjectsWithNoImage.AddRange(pictureObjects);
+                    masterObject.VerticalPicObjectsWithNoImage.AddRange(pictureObjects);
+                }
                 ObjectSpace.CommitChanges();
             }
         }
 
-        List<PictureObject> GetAlbums(int count = 20) {
-            var random = new Random();
-            var albums = new List<PictureObject>();
-            for (int i = 0; i < count; i++) {
-                Bitmap bitmap = GetBitmap(random);
-                string mapPath = HttpContext.Current.Server.MapPath("/");
-                string filename = Path.Combine(mapPath, string.Format("Title Title{0}.jpg", i));
-                bitmap.Save(filename, ImageFormat.Jpeg);
-                string absoluteUri =
-                    HttpContext.Current.Request.Url.AbsoluteUri.Replace(
-                        HttpContext.Current.Request.Url.PathAndQuery, "/");
-                albums.Add(GetPictureObject(i, absoluteUri));
+        IEnumerable<PictureObject> GetAlbums(int count = 20) {
+            try{
+                var random = new Random();
+                var albums = new List<PictureObject>();
+                for (int i = 0; i < count; i++) {
+                    Bitmap bitmap = GetBitmap(random);
+                    string mapPath = HttpContext.Current.Server.MapPath("/");
+                    string filename = Path.Combine(mapPath, string.Format("Title Title{0}.jpg", i));
+                    bitmap.Save(filename, ImageFormat.Jpeg);
+                    string absoluteUri =
+                        HttpContext.Current.Request.Url.AbsoluteUri.Replace(
+                            HttpContext.Current.Request.Url.PathAndQuery, "/");
+                    albums.Add(GetPictureObject(i, absoluteUri));
+                }
+                return albums;
             }
-            return albums;
+            catch {
+                return Enumerable.Empty<PictureObject>(); 
+            }
         }
 
         PictureObject GetPictureObject(int i, string absoluteUri) {

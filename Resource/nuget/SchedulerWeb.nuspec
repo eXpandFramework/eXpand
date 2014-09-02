@@ -2,23 +2,24 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandSchedulerWeb</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework Scheduler Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Scheduler Module (Web) / eXpandFramework</description>
+    <description>Scheduler Module (Web) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Scheduler Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandScheduler" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandScheduler" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Scheduler.Web.dll" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Scheduler.Web.pdb" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.pdb" />
   </files>
 </package>

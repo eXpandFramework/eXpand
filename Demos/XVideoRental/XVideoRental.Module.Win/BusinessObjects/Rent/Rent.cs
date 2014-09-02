@@ -22,13 +22,13 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
     [MapInheritance(MapInheritanceType.ParentTable)]
     [PermissionBehavior(PermissionBehavior.ReadOnlyAccess)]
     public class Rent : RentEvent {
-        MovieItem item;
-        int days;
-        DateTime? returnedOn;
-        Receipt receipt;
-        Receipt receiptOverdue;
-        decimal payment;
-        decimal overduePayment;
+        MovieItem _item;
+        int _days;
+        DateTime? _returnedOn;
+        Receipt _receipt;
+        Receipt _receiptOverdue;
+        decimal _payment;
+        decimal _overduePayment;
 
         public Rent(Session session) : base(session) { }
 
@@ -55,7 +55,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         public override string Subject {
-            get { return Item.Movie.MovieTitle; }
+            get { if (Item != null) return Item.Movie.MovieTitle; return null; }
             set { }
         }
 
@@ -65,7 +65,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         public override string Description {
-            get { return item.Movie.Plot; }
+            get { if (_item != null) return _item.Movie.Plot; return null; }
             set { }
         }
 
@@ -80,7 +80,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         public override int Label {
-            get { return (int)item.Movie.Rating; }
+            get { return (int)_item.Movie.Rating; }
             set { }
         }
 
@@ -91,18 +91,18 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         [Persistent, Association("Item-Rents")]
         [RuleRequiredField]
         public MovieItem Item {
-            get { return item; }
-            protected set { SetPropertyValue("Item", ref item, value); }
+            get { return _item; }
+            protected set { SetPropertyValue("Item", ref _item, value); }
         }
 
         public int Days {
-            get { return days; }
-            set { SetPropertyValue<int>("Days", ref days, value); }
+            get { return _days; }
+            set { SetPropertyValue<int>("Days", ref _days, value); }
         }
 
         public DateTime? ReturnedOn {
-            get { return returnedOn; }
-            set { SetPropertyValue("ReturnedOn", ref returnedOn, value); }
+            get { return _returnedOn; }
+            set { SetPropertyValue("ReturnedOn", ref _returnedOn, value); }
         }
         [Indexed(Unique = false)]
         public DateTime ExpectedOn { get { return ReturnedOn.HasValue ? ReturnedOn.Value : ClearedReturnedOn; } }
@@ -135,12 +135,12 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             EndOn = ReturnedOn == null ? DateTime.MinValue : ReturnedOn.Value;
         }
         public decimal Payment {
-            get { return payment; }
-            set { SetPropertyValue<decimal>("Payment", ref payment, value); }
+            get { return _payment; }
+            set { SetPropertyValue<decimal>("Payment", ref _payment, value); }
         }
         public decimal OverduePayment {
-            get { return overduePayment; }
-            set { SetPropertyValue<decimal>("OverduePayment", ref overduePayment, value); }
+            get { return _overduePayment; }
+            set { SetPropertyValue<decimal>("OverduePayment", ref _overduePayment, value); }
         }
 
         public MovieItemFormat ItemFormat {
@@ -151,14 +151,14 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
 
         [Persistent, Association("Receipt-Rents")]
         public Receipt Receipt {
-            get { return receipt; }
-            protected set { SetPropertyValue("Receipt", ref receipt, value); }
+            get { return _receipt; }
+            protected set { SetPropertyValue("Receipt", ref _receipt, value); }
         }
 
         [Association("ReceiptOverdue-Rents")]
         public Receipt ReceiptOverdue {
-            get { return receiptOverdue; }
-            set { SetPropertyValue("ReceiptOverdue", ref receiptOverdue, value); }
+            get { return _receiptOverdue; }
+            set { SetPropertyValue("ReceiptOverdue", ref _receiptOverdue, value); }
         }
 
         [Action]

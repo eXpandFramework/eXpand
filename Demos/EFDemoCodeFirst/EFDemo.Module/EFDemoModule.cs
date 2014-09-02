@@ -3,9 +3,9 @@ using System.Data.Entity;
 using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.EF;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ViewVariantsModule;
+using DevExpress.Persistent.BaseImpl.EF;
 using EFDemo.Module.Data;
 
 namespace EFDemo.Module {

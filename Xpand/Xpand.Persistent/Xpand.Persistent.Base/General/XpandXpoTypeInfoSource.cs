@@ -5,26 +5,72 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp.DC;
+using DevExpress.Xpo.Metadata;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.Persistent.Base.General {
+    public class XpandXpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource, ITypeInfoSource {
+        void ITypeInfoSource.EnumMembers(TypeInfo info, EnumMembersHandler handler) {
+            EnumMembers(info, handler);
+            Type type = info.Type;
+            if (TypeIsKnown(type)) {
+                if (type.IsInterface) {
+                    EnumDCInterfaceMembers(info, handler);
+                }
+            }
+        }
+
+        public XpandXpoTypeInfoSource(TypesInfo typesInfo)
+            : base(typesInfo) {
+        }
+
+        void ITypeInfoSource.InitMemberInfo(object member, XafMemberInfo memberInfo) {
+            var dcPropertyInfo = member as DCPropertyInfo;
+            if (dcPropertyInfo != null) {
+                memberInfo.MemberType = dcPropertyInfo.PropertyType;
+                memberInfo.IsReadOnly = !dcPropertyInfo.CanWrite;
+            }
+            InitMemberInfo(member, memberInfo);
+        }
+
+        private void EnumDCInterfaceMembers(TypeInfo info, EnumMembersHandler handler) {
+            var generatedEntityInfo = info.FindDCXPClassInfo();
+            var dcPropertyInfos = DCPropertyInfos(generatedEntityInfo);
+            foreach (DCPropertyInfo dcPropertyInfo in dcPropertyInfos){
+                handler(dcPropertyInfo, dcPropertyInfo.Name);
+            }
+        }
+
+        IEnumerable<DCPropertyInfo> DCPropertyInfos(XPClassInfo classInfo) {
+            if (classInfo != null){
+                var xpandCalcMemberInfos = classInfo.OwnMembers.OfType<XpandCustomMemberInfo>();
+                return xpandCalcMemberInfos.Select(info => DcPropertyInfo(classInfo, info));
+            }
+            return Enumerable.Empty<DCPropertyInfo>();
+        }
+
+        DCPropertyInfo DcPropertyInfo(XPClassInfo classInfo, XpandCustomMemberInfo info) {
+            return new DCPropertyInfo(info.Name, info.MemberType, classInfo, true, !info.IsReadOnly, info);
+        }
+    }
+
     public sealed class DCPropertyInfo : PropertyInfo {
         readonly List<object> _attributesCore = new List<object>();
         readonly bool _canReadCore;
         readonly bool _canWriteCore;
-        readonly XpandCalcMemberInfo _xpandCalcMemberInfo;
-        readonly Type _declaringTypeCore;
+        readonly XpandCustomMemberInfo _xpandCustomMemberInfo;
+        readonly XPClassInfo _declaringTypeCore;
         readonly string _nameCore;
         readonly Type _propertyTypeCore;
 
-        public DCPropertyInfo(string name, Type propertyType, Type declaringType, bool canRead, bool canWrite, XpandCalcMemberInfo xpandCalcMemberInfo) {
+        public DCPropertyInfo(string name, Type propertyType, XPClassInfo declaringType, bool canRead, bool canWrite, XpandCustomMemberInfo xpandCustomMemberInfo) {
             _nameCore = name;
             _propertyTypeCore = propertyType;
             _declaringTypeCore = declaringType;
             _canReadCore = canRead;
             _canWriteCore = canWrite;
-            _xpandCalcMemberInfo = xpandCalcMemberInfo;
-            _attributesCore.AddRange(xpandCalcMemberInfo.Attributes);
+            _xpandCustomMemberInfo = xpandCustomMemberInfo;
+            _attributesCore.AddRange(xpandCustomMemberInfo.Attributes);
         }
 
 
@@ -37,7 +83,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override Type DeclaringType {
-            get { return _declaringTypeCore; }
+            get { return _declaringTypeCore.ClassType; }
         }
 
         public override bool CanRead {
@@ -57,7 +103,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override string ToString() {
-            return _xpandCalcMemberInfo.ToString();
+            return _xpandCustomMemberInfo.ToString();
         }
         public override MethodInfo[] GetAccessors(bool nonPublic) {
             throw new NotImplementedException();
@@ -76,19 +122,19 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override object GetValue(object obj, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture) {
-            return _xpandCalcMemberInfo.GetValue(obj);
+            return _xpandCustomMemberInfo.GetValue(obj);
         }
 
         public override void SetValue(object obj, object value, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture) {
-            _xpandCalcMemberInfo.SetValue(obj, value);
+            _xpandCustomMemberInfo.SetValue(obj, value);
         }
 
         public override object[] GetCustomAttributes(Type attributeType, bool inherit) {
-            return new object[] { _xpandCalcMemberInfo.FindAttributeInfo(attributeType) };
+            return new object[] { _xpandCustomMemberInfo.FindAttributeInfo(attributeType) };
         }
 
         public override object[] GetCustomAttributes(bool inherit) {
-            return _xpandCalcMemberInfo.Attributes.Cast<object>().ToArray();
+            return _xpandCustomMemberInfo.Attributes.Cast<object>().ToArray();
         }
 
         public override bool IsDefined(Type attributeType, bool inherit) {
@@ -96,11 +142,11 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public void RemoveAttribute(Attribute attribute) {
-            _xpandCalcMemberInfo.RemoveAttribute(attribute.GetType());
+            _xpandCustomMemberInfo.RemoveAttribute(attribute.GetType());
         }
 
         public void AddAttribute(Attribute attribute) {
-            _xpandCalcMemberInfo.AddAttribute(attribute);
+            _xpandCustomMemberInfo.AddAttribute(attribute);
         }
 
         public void RemoveInvalidTypeConverterAttributes(string nameSpace) {
@@ -115,51 +161,6 @@ namespace Xpand.Persistent.Base.General {
             foreach (var customAttribute in GetCustomAttributes(type, false).OfType<Attribute>()) {
                 _attributesCore.Remove(customAttribute);
             }
-        }
-    }
-
-    public class XpandXpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource, ITypeInfoSource {
-        void ITypeInfoSource.EnumMembers(TypeInfo info, EnumMembersHandler handler) {
-            EnumMembers(info, handler);
-            Type type = info.Type;
-            if (TypeIsKnown(type)) {
-                if (type.IsInterface) {
-                    EnumDCInterfaceMembers(info, handler);
-                }
-            }
-        }
-
-        public XpandXpoTypeInfoSource(TypesInfo typesInfo)
-            : base(typesInfo) {
-        }
-
-        void ITypeInfoSource.InitMemberInfo(object member, XafMemberInfo memberInfo) {
-            var dcPropertyInfo = member as DCPropertyInfo;
-            if (dcPropertyInfo != null) {
-                memberInfo.MemberType = ((PropertyInfo)member).PropertyType;
-                memberInfo.IsReadOnly = true;
-            }
-            InitMemberInfo(member, memberInfo);
-        }
-
-        private void EnumDCInterfaceMembers(TypeInfo info, EnumMembersHandler handler) {
-            var generatedEntityType = GetGeneratedEntityType(info.Type);
-            if (generatedEntityType != null) {
-                var dcPropertyInfos = DCPropertyInfos(generatedEntityType);
-                foreach (var dcPropertyInfo in dcPropertyInfos) {
-                    handler(dcPropertyInfo, dcPropertyInfo.Name);
-                }
-            }
-        }
-
-        IEnumerable<DCPropertyInfo> DCPropertyInfos(Type generatedEntityType) {
-            var classInfo = XPDictionary.GetClassInfo(generatedEntityType);
-            var xpandCalcMemberInfos = classInfo.OwnMembers.OfType<XpandCalcMemberInfo>();
-            return xpandCalcMemberInfos.Select(info => DcPropertyInfo(generatedEntityType, info));
-        }
-
-        DCPropertyInfo DcPropertyInfo(Type generatedEntityType, XpandCalcMemberInfo info) {
-            return new DCPropertyInfo(info.Name, info.MemberType, generatedEntityType, true, false, info);
         }
     }
 }

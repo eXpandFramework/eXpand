@@ -19,7 +19,7 @@ using DevExpress.XtraEditors.Popup;
 using DevExpress.XtraEditors.Registrator;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
-using Xpand.ExpressApp.PropertyEditors;
+using Xpand.Xpo.Parser;
 
 namespace Xpand.ExpressApp.Win.Editors {
     [DesignerCategory("")]
@@ -132,9 +132,8 @@ namespace Xpand.ExpressApp.Win.Editors {
 
     [DesignerCategory("")]
     [ToolboxItem(false)]
-    public partial class XafEnumEdit : ImageComboBoxEdit, IGridInplaceEdit {
+    public class XafEnumEdit : ImageComboBoxEdit, IGridInplaceEdit {
         static PropertyDescriptorCollection _imageComboBoxItemProperties;
-        object _gridEditingObject;
         IObjectSpace _objectSpace;
 
         static XafEnumEdit() {
@@ -166,13 +165,7 @@ namespace Xpand.ExpressApp.Win.Editors {
             get { return (RepositoryItemXafEnumEdit)base.Properties; }
         }
 
-        public object GridEditingObject {
-            get { return _gridEditingObject; }
-            set {
-                if (_gridEditingObject == value) return;
-                _gridEditingObject = value;
-            }
-        }
+        public object GridEditingObject { get; set; }
 
         public IObjectSpace ObjectSpace {
             get { return _objectSpace; }
@@ -252,10 +245,8 @@ namespace Xpand.ExpressApp.Win.Editors {
         }
     }
 
-    public partial class XafEnumEdit {
-    }
 
-    public class XafEnumEditPopupForm : PopupListBoxForm {
+    public class XafEnumEditPopupForm : PopupImageComboBoxEditListBoxForm {
 
 
         public XafEnumEditPopupForm(XafEnumEdit ownerEdit)
@@ -296,9 +287,7 @@ namespace Xpand.ExpressApp.Win.Editors {
 
         public void UpdateDataSource() {
             if (Properties == null) return;
-
             IList dataSource = OwnerEdit.GetDataSource(OwnerEdit.EditingObject);
-
             ListBox.DataSource = dataSource ?? Properties.Items;
         }
     }

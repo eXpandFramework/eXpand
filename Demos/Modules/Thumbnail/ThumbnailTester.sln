@@ -1,16 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Module", "ThumbnailTester.Module\ThumbnailTester.Module.csproj", "{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Module.Web", "ThumbnailTester.Module.Web\ThumbnailTester.Module.Web.csproj", "{6A996DFD-E299-411A-B10B-107C4D6DD08D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThumbnailTester.Web", "ThumbnailTester.Web\ThumbnailTester.Web.csproj", "{769F99E3-F213-43EC-890F-8BF5126ADAD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Thumbnail.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj", "{55002F8C-4046-4E00-B397-32CB19AD557E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{6F05015C-9A67-4B61-81EE-5DE437FC78BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		EasyTest|Any CPU = EasyTest|Any CPU
+		RecompiledDxSources|Any CPU = RecompiledDxSources|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -18,22 +25,37 @@ Global
 		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29D67FBE-430B-4933-9C76-AAB2AB70D5D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A996DFD-E299-411A-B10B-107C4D6DD08D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{769F99E3-F213-43EC-890F-8BF5126ADAD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55002F8C-4046-4E00-B397-32CB19AD557E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55002F8C-4046-4E00-B397-32CB19AD557E} = {6F05015C-9A67-4B61-81EE-5DE437FC78BB}
 	EndGlobalSection
 EndGlobal

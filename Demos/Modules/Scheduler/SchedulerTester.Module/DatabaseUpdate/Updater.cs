@@ -2,8 +2,8 @@ using System;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Security;
 using SchedulerTester.Module.BusinessObjects;
+using Xpand.ExpressApp.Scheduler.Reminders;
 
 namespace SchedulerTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
@@ -15,6 +15,7 @@ namespace SchedulerTester.Module.DatabaseUpdate {
                 customer.FirstName = "Tolis1";
                 var testEvent = ObjectSpace.CreateObject<TestEvent>();
                 testEvent.StartOn=DateTime.Today;
+                testEvent.CreateReminderInfoMember(ObjectSpace);
                 customer.TestEvents.Add(testEvent);
                 customer = ObjectSpace.CreateObject<Customer>();
                 customer.FirstName = "Tolis2";

@@ -5,15 +5,16 @@ using DevExpress.Xpo.Metadata;
 namespace Xpand.Xpo.MetaData {
     public class XpandCalcMemberInfo : XpandCustomMemberInfo {
         public XpandCalcMemberInfo(XPClassInfo owner, string propertyName, Type propertyType, string aliasExpression)
-            : base(owner, propertyName, propertyType, null, true, false) {
+            : base(owner, propertyName, propertyType, null, true, false,true) {
             AddAttribute(new PersistentAliasAttribute(aliasExpression));
         }
 
         public override object GetValue(object theObject) {
             var xpBaseObject = ((XPBaseObject)theObject);
-            return !xpBaseObject.Session.IsObjectsLoading && !xpBaseObject.Session.IsObjectsSaving
-                       ? xpBaseObject.EvaluateAlias(Name)
-                       : base.GetValue(theObject);
+            var res = !xpBaseObject.Session.IsObjectsLoading && !xpBaseObject.Session.IsObjectsSaving
+                ? xpBaseObject.EvaluateAlias(Name)
+                : base.GetValue(theObject);
+            return (res is IConvertible) ? Convert.ChangeType(res, MemberType) : res;
         }
 
         protected override bool CanPersist {

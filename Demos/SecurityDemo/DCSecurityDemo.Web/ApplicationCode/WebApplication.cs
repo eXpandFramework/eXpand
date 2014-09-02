@@ -46,7 +46,6 @@ namespace DCSecurityDemo.Web {
         private Xpand.ExpressApp.PivotChart.XpandPivotChartModule xpandPivotChartModule1;
         private DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule pivotChartAspNetModule1;
         private Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule xpandPivotChartAspNetModule1;
-        private Xpand.ExpressApp.Thumbnail.Web.ThumbnailWebModule thumbnailWebModule1;
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private Xpand.ExpressApp.TreeListEditors.Web.XpandTreeListEditorsAspNetModule xpandTreeListEditorsAspNetModule1;
         private Xpand.ExpressApp.Validation.Web.XpandValidationWebModule xpandValidationWebModule1;
@@ -121,7 +120,6 @@ namespace DCSecurityDemo.Web {
             this.xpandPivotChartModule1 = new Xpand.ExpressApp.PivotChart.XpandPivotChartModule();
             this.pivotChartAspNetModule1 = new DevExpress.ExpressApp.PivotChart.Web.PivotChartAspNetModule();
             this.xpandPivotChartAspNetModule1 = new Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule();
-            this.thumbnailWebModule1 = new Xpand.ExpressApp.Thumbnail.Web.ThumbnailWebModule();
             this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
             this.xpandTreeListEditorsAspNetModule1 = new Xpand.ExpressApp.TreeListEditors.Web.XpandTreeListEditorsAspNetModule();
             this.xpandValidationWebModule1 = new Xpand.ExpressApp.Validation.Web.XpandValidationWebModule();
@@ -211,7 +209,6 @@ namespace DCSecurityDemo.Web {
             this.Modules.Add(this.xpandPivotChartModule1);
             this.Modules.Add(this.pivotChartAspNetModule1);
             this.Modules.Add(this.xpandPivotChartAspNetModule1);
-            this.Modules.Add(this.thumbnailWebModule1);
             this.Modules.Add(this.xpandTreeListEditorsModule1);
             this.Modules.Add(this.xpandTreeListEditorsAspNetModule1);
             this.Modules.Add(this.xpandValidationWebModule1);

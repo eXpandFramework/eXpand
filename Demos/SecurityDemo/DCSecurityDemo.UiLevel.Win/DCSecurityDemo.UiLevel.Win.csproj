@@ -11,9 +11,11 @@
     <RootNamespace>DCSecurityDemo.UiLevel.Win</RootNamespace>
     <AssemblyName>DCSecurityDemo.UiLevel.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,83 +35,95 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Chart.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Chart.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Chart.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Reports.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.2">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Workflow.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v13.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v13.2">
+    <Reference Include="DevExpress.Workflow.Activities.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.2">
+    <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2">
+    <Reference Include="DevExpress.XtraEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
@@ -277,7 +291,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\DemoApplicationVersionInfo.cs" />
-    <Compile Include="Program.cs"></Compile>
+    <Compile Include="Program.cs">
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -316,7 +331,8 @@
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>

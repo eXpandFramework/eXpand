@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.FilterDataStore.Win {
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class FilterDataStoreWindowsFormsModule : FilterDataStoreModuleBase {
         public FilterDataStoreWindowsFormsModule() {
-            _tablesDictionary = new Dictionary<string, Type>();
+            TablesDictionary = new Dictionary<string, Type>();
             RequiredModuleTypes.Add(typeof(FilterDataStoreModule));
         }
 

@@ -12,11 +12,9 @@
     <RootNamespace>Xpand.ExpressApp.XtraDashboard.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.XtraDashboard.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -51,59 +49,71 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DataAccess.v13.2">
+    <Reference Include="DevExpress.DataAccess.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v13.2.UI">
+    <Reference Include="DevExpress.DataAccess.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v13.2.Core">
+    <Reference Include="DevExpress.Sparkline.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v13.2.Core">
+    <Reference Include="DevExpress.Dashboard.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.2">
+    <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard">
+    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v13.2.Win">
+    <Reference Include="DevExpress.Utils.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2">
+    <Reference Include="DevExpress.Dashboard.v14.1.Win">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v13.2">
+    <Reference Include="DevExpress.XtraEditors.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -129,6 +139,14 @@
     <Reference Include="Xpand.ExpressApp.Dashboard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security.Win">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
@@ -164,7 +182,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Helpers\DashBoardDefinitionExtensions.cs" />
     <Compile Include="Helpers\XPObjectSpaceAwareControlInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -173,7 +190,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\ChooseFromCollection.cs" />
-    <Compile Include="PropertyEditors\DashboardViewEditor.cs" />
+    <Compile Include="PropertyEditors\DashboardViewEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\DashboardXMLEditor.cs" />
     <Compile Include="Templates\DashboardDesignerForm.cs">
       <SubType>Form</SubType>
@@ -240,9 +259,7 @@
     <None Include="Resources\MenuBar_SaveAndClose_32x32.png" />
     <None Include="Resources\MenuBar_Save_32x32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

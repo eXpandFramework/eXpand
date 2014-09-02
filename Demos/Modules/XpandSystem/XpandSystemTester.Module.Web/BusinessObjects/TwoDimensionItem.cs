@@ -15,7 +15,7 @@ namespace XpandSystemTester.Module.Web.BusinessObjects{
         TargetItems = "HorizontalDimension", FontColor = "red")]
     [Appearance("test_appearance3", AppearanceItemType.ViewItem, "VerticalDimension.Title like '%1%'",
         TargetItems = "VerticalDimension", FontColor = "blue")]
-    public class TwoDimensionItem : BaseObject, ITwoDimensionItem{
+    public class TwoDimensionItem : BaseObject, ITwoDimensionItem {
         // Fields...
         private HorizontalDimension _horizontalDimension;
         private string _title;

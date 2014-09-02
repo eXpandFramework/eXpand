@@ -9,7 +9,7 @@ using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!(typesInfo.Type == typeof (Customer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderConditionalFKViolation, "1=1", "1=1",

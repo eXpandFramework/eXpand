@@ -12,7 +12,7 @@ namespace SecurityTester.Module.Web {
             InitializeComponent();
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            return ModuleUpdater.EmptyModuleUpdaters;
+            return new[]{new Updater(objectSpace, Version), };
         }
     }
 }

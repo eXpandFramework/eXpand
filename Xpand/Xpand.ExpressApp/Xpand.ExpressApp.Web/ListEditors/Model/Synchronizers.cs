@@ -6,13 +6,15 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
-    public class GridViewListEditorModelSynchronizer : ModelListSynchronizer {
-        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor): this(columnViewEditor.Grid, ((IModelListViewOptionsGridView)columnViewEditor.Model).GridViewOptions) {
-            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, (IModelListViewOptionsGridView) columnViewEditor.Model));
-        }
-
-        public GridViewListEditorModelSynchronizer(ASPxGridView asPxGridView, IModelOptionsGridView modelOptionsGridView): base(asPxGridView, modelOptionsGridView) {
-            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(asPxGridView, modelOptionsGridView));
+    public class GridViewListEditorModelSynchronizer:ModelListSynchronizer {
+        public GridViewListEditorModelSynchronizer(ASPxGridListEditor columnViewEditor)
+            : base(columnViewEditor, columnViewEditor.Model){
+            var listViewOptionsGridView = (IModelListViewOptionsGridView)columnViewEditor.Model;
+            foreach (var modelAdapter in listViewOptionsGridView.GridViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters)){
+                ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(columnViewEditor.Grid, modelAdapter));
+            }
+            ModelSynchronizerList.Add(new GridViewListViewOptionsSynchronizer(columnViewEditor.Grid, ((IModelListViewOptionsGridView)columnViewEditor.Model).GridViewOptions));
+            ModelSynchronizerList.Add(new GridViewListColumnOptionsSynchronizer(columnViewEditor.Grid, listViewOptionsGridView));
         }
     }
 
@@ -37,16 +39,16 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         protected override void ApplyModelCore() {
-            var dataColumnWithInfos = Control.Columns.OfType<GridViewDataColumnWithInfo>().ToList();
+            var dataColumnWithInfos = Control.Columns.OfType<GridViewDataColumn>().ToList();
             foreach (var viewDataColumnWithInfo in dataColumnWithInfos) {
-                var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model);
+                var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model(Model));
                 ApplyModel(modelColumnOptionsGridView.OptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
             }
             ApplyGridBandModel(dataColumnWithInfos);
 
         }
 
-        void ApplyGridBandModel(List<GridViewDataColumnWithInfo> dataColumnWithInfos) {
+        void ApplyGridBandModel(List<GridViewDataColumn> dataColumnWithInfos) {
             var modelColumnOptionsGridViewBands =
                 Model.Columns.OfType<IModelColumnOptionsGridViewBand>().Where(band => band.GridViewBand != null);
             if (modelColumnOptionsGridViewBands.Any()) {
@@ -54,7 +56,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             }
             foreach (var column in modelColumnOptionsGridViewBands) {
                 if (column.OptionsColumnGridView.NodeEnabled) {
-                    var gridViewColumn = dataColumnWithInfos.Single(info => info.Model == column);
+                    var gridViewColumn = dataColumnWithInfos.Single(info => info.Model(Model) == column);
                     ApplyModel(column.OptionsColumnGridView, gridViewColumn, ApplyValues);
                     var modelGridViewBand = column.GridViewBand;
                     if (modelGridViewBand != null) {

@@ -50,44 +50,62 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Xpand.DLL\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.2">
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -124,12 +142,57 @@
     <Compile Include="General\ActionExtensions.cs" />
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
+    <Compile Include="General\AttributeRegistrator.cs" />
+    <Compile Include="General\Controllers\Actions\ActionModifyModelControler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\Actions\ResetViewModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\InvalidEditorAction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\ModelViewSavingController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\ModifyObjectSpaceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\NavigationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\NotifyMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
+    <Compile Include="General\FastReflectPropertyDescriptor.cs" />
+    <Compile Include="General\MemberInfoExtensions.cs" />
+    <Compile Include="General\Model\ModelNodePath.cs" />
+    <Compile Include="General\ModuleUpdaterExtensions.cs" />
+    <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
+    <Compile Include="MessageBox\GenericMessageBox.cs" />
+    <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
+    <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
+    <Compile Include="General\Model\DefaultMember.cs" />
     <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />
     <Compile Include="General\TypesInfoBuilder.cs" />
     <Compile Include="General\CollectionSourceExtensions.cs" />
@@ -212,13 +275,16 @@
     <Compile Include="Logic\ILogicInstaller.cs" />
     <Compile Include="Logic\LogicRule.cs" />
     <Compile Include="Logic\Model\IContextLogicRule.cs" />
-    <Compile Include="Logic\Model\IModelActionExecutionContextGroup.cs" />
+    <Compile Include="Logic\Model\ActionExecutionContext.cs" />
     <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
+    <Compile Include="Logic\Model\ObjectChangedExecutionContext.cs" />
     <Compile Include="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MiddleTier\XpandWcfDataServerHelper.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelAdaptorRule.cs" />
+    <Compile Include="ModelAdapter\PropertyEditorControlAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\ISelectionCriteria.cs" />
     <Compile Include="General\MasterDetailRuleInfo.cs" />
     <Compile Include="General\DataStoreAttribute.cs" />
@@ -300,10 +366,6 @@
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelAdaptorRuleController.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelModelAdaptorLogic.cs" />
-    <Compile Include="ModelAdapter\Logic\IModelModelAdaptorRule.cs" />
-    <Compile Include="ModelAdapter\Logic\ModelAdaptorRule.cs" />
     <Compile Include="ModelAdapter\ModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -331,6 +393,7 @@
     <Compile Include="Logic\Model\IModelViewContexts.cs" />
     <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
     <Compile Include="General\ComponentInterfaces.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentVisibleInDetailViewAttribute.cs" />
     <Compile Include="RuntimeMembers\RuntimeMemberBuilder.cs" />
     <Compile Include="RuntimeMembers\Model\CalculatedMembers.cs" />
     <Compile Include="RuntimeMembers\Model\Collections\AssociatedCollection.cs" />
@@ -341,6 +404,7 @@
     <Compile Include="Security\IModelOptionsRegistration.cs" />
     <Compile Include="Security\IModelRegistrationActivation.cs" />
     <Compile Include="Security\IModelRegistrationEnabled.cs" />
+    <Compile Include="Validation\RuleMessage.cs" />
     <Compile Include="Validation\IPasswordScoreController.cs" />
     <Compile Include="XpandLocalizedClassInfoTypeConverter.cs" />
     <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
@@ -410,8 +474,17 @@
     <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
     <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
     <Compile Include="XpandBaseCustomObject.cs" />
+    <Compile Include="Xpo\CustomFunctionValueProcessor.cs" />
+    <Compile Include="Xpo\Extensions.cs" />
+    <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
     <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
     <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
+    <Compile Include="General\Controllers\XpandLinkToListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -449,7 +522,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

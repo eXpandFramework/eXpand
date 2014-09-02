@@ -1,19 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <DXVersion>14.1</DXVersion>
+    <DXPath>C:\DevExpress $(DXVersion)</DXPath>
+    <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
+    <ProjectConverterPath>$(DXPath)\Components\Tools\Components</ProjectConverterPath>
+    <ProjectConverterName>ProjectConverter.exe</ProjectConverterName>
+    <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
+    <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
+    <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
     <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
     <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
-    <NuGetTool>Resource\Tool\NuGet.exe</NuGetTool>
-	<TwitterTool>_third_party_assemblies\XTwitter.exe</TwitterTool>
-  </PropertyGroup>
-  <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
-  <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
-  <!--
-	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
-	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
-	-->
-  <!-- Main build entry file (extends development builds)-->
-  <PropertyGroup>
+    <ToolsPath>$(MSBuildProjectDirectory)\Resource\Tool</ToolsPath>
+    <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
+    <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
+	<BatchCall>false</BatchCall>
+    <ExecCommand></ExecCommand>
+  
     <!--
 			Primary configuration properties (override them via command line if needed
 		-->
@@ -31,25 +35,36 @@
     <ProjectName>Xpand</ProjectName>
     <TestPath>$(BuildPath)\Test</TestPath>
     <TempPath>$(BuildPath)\Temp</TempPath>
-    <XpandPath>$(MSBuildProjectDirectory)\Xpand.DLL</XpandPath>
-    <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    <XpandDLLPath>$(MSBuildProjectDirectory)\Xpand.DLL</XpandDLLPath>
+    <RecompiledDXSources>$(Configuration)</RecompiledDXSources>
+    <!--    <RecompiledDXSources>RecompiledDXSources</RecompiledDXSources>-->
+    <SkipDashboard Condition="'$(RecompiledDXSources)' == 'RecompiledDXSources'">true</SkipDashboard>
+    <OutputFile>$(MSBuildProjectDirectory)\output.txt</OutputFile>
+
     <SourceExclusions>**\.svn\**\*.*;**\_svn\**\*.*;**\*.user;**\*.suo;**\*.db;**\bin\**\*.*;**\obj\**\*.*;.hg\**\*.*;_hg\**\*.*;.git\**\*.*</SourceExclusions>
+    <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
+    <DocsSiteName>documentation.expandframework.com</DocsSiteName>
+    <XpandDocsSitePath>C:\inetpub\vhosts\$(DocsSiteName)</XpandDocsSitePath>
+    <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
+	
   </PropertyGroup>
+  <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
+  <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
+  <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
+  <!--
+	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
+	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
+	-->
+  <!-- Main build entry file (extends development builds)-->
+
   <ItemGroup>
-    <ProjectFiles Include="    .\Xpand\Xpand.Utils\Xpand.Utils.csproj;    .\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.ExpressApp.Modules\EmailTemplateEngine\Xpand.EmailTemplateEngine.csproj;    .\Xpand\Xpand.Xpo\Xpand.Xpo.csproj;    .\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj;    .\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ModelAdaptor\Xpand.ExpressApp.ModelAdaptor.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Validation\Xpand.ExpressApp.Validation.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj;.\Xpand\Xpand.ExpressApp.Modules\AuditTrail\Xpand.ExpressApp.AuditTrail.csproj;    .\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj;    .\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Security.Web\Xpand.ExpressApp.Security.Web.csproj;
-	.\Xpand\Xpand.ExpressApp.Modules\MapView\Xpand.ExpressApp.MapView.csproj;.\Xpand\Xpand.ExpressApp.Modules\FileAttachment\Xpand.ExpressApp.FileAttachment.csproj;.\Xpand\Xpand.ExpressApp.Modules\FileAttachment.Web\Xpand.ExpressApp.FileAttachment.Web.csproj;
-	.\Xpand\Xpand.ExpressApp.Modules\MapView.Web\Xpand.ExpressApp.MapView.Web.csproj;
-    .\Xpand\Xpand.ExpressApp.Modules\Validation.Win\Xpand.ExpressApp.Validation.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity\Xpand.ExpressApp.MemberLevelSecurity.csproj;    .\Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj;   .\Xpand\Xpand.ExpressApp.Modules\Email\Xpand.ExpressApp.Email.csproj; .\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj;    .\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Win\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ModelDifference\Xpand.ExpressApp.ModelDifference.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ModelDifference.Win\Xpand.ExpressApp.ModelDifference.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ModelDifference.Web\Xpand.ExpressApp.ModelDifference.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\FilterDataStore\Xpand.ExpressApp.FilterDataStore.csproj;    .\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Win\Xpand.ExpressApp.FilterDataStore.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\FilterDataStore.Web\Xpand.ExpressApp.FilterDataStore.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WizardUI.Win\Xpand.ExpressApp.WizardUI.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ViewVariants\Xpand.ExpressApp.ViewVariants.csproj;    .\Xpand\Xpand.ExpressApp.Modules\MasterDetail\Xpand.ExpressApp.MasterDetail.csproj;    .\Xpand\Xpand.ExpressApp.Modules\MasterDetail.Win\Xpand.ExpressApp.MasterDetail.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\TreeListEditors\Xpand.ExpressApp.TreeListEditors.csproj;    .\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Web\Xpand.ExpressApp.TreeListEditors.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Win\Xpand.ExpressApp.TreeListEditors.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling\Xpand.ExpressApp.ExceptionHandling.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Win\Xpand.ExpressApp.ExceptionHandling.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ExceptionHandling.Web\Xpand.ExpressApp.ExceptionHandling.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WorldCreator.SqlDBMapper\Xpand.ExpressApp.WorldCreator.SqlDBMapper.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WorldCreator.DBMapper\Xpand.ExpressApp.WorldCreator.DBMapper.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Win\Xpand.ExpressApp.WorldCreator.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\IO\Xpand.ExpressApp.IO.csproj;    .\Xpand\Xpand.ExpressApp.Modules\IO.Win\Xpand.ExpressApp.IO.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\IO.Web\Xpand.ExpressApp.IO.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj;" />
-    <ProjectFiles Include="        .\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Win\Xpand.ExpressApp.XtraDashboard.Win.csproj;.\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Web\Xpand.ExpressApp.XtraDashboard.Web.csproj;" Condition="$(SkipDashboard)!='true'" />
-    <ProjectFiles Include="    .\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj;    .\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\PivotGrid.Win\Xpand.ExpressApp.PivotGrid.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Chart.Win\Xpand.ExpressApp.Chart.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Scheduler\Xpand.ExpressApp.Scheduler.csproj;.\Xpand\Xpand.ExpressApp.Modules\Scheduler.Web\Xpand.ExpressApp.Scheduler.Web.csproj;.\Xpand\Xpand.ExpressApp.Modules\Scheduler.Win\Xpand.ExpressApp.Scheduler.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Reports\Xpand.ExpressApp.Reports.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Reports.Win\Xpand.ExpressApp.Reports.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\NCarousel\Xpand.NCarousel.csproj;    .\Xpand\Xpand.ExpressApp.Modules\NCarousel.Web\Xpand.ExpressApp.NCarousel.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Thumbnail.Web\Xpand.ExpressApp.Thumbnail.Web.csproj;    .\Xpand\Xpand.ExpressApp.Modules\JobScheduler\Xpand.ExpressApp.JobScheduler.csproj;    .\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;    .\Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ImportWizard\Xpand.ExpressApp.ImportWizard.csproj;    .\Xpand\Xpand.ExpressApp.Modules\ImportWizard.Win\Xpand.ExpressApp.ImportWizard.Win.csproj;    .\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj;    .\Xpand\Xpand.ExpressApp.Modules\StateMachine\Xpand.ExpressApp.StateMachine.csproj;    .\Xpand\Xpand.ExpressApp.Modules\HtmlPropertyEditor.Web\Xpand.ExpressApp.HtmlPropertyEditor.Web.csproj;    .\ToolBoxCreator\Xpand.ToolBoxCreator.csproj;" />
-    <ProjectFiles Include="    .\Demos\FeatureCenter\FeatureCenter.Base\FeatureCenter.Base.csproj;    .\Demos\FeatureCenter\FeatureCenter.Module\FeatureCenter.Module.csproj;    .\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj;    .\Demos\FeatureCenter\FeatureCenter.Module.Web\FeatureCenter.Module.Web.csproj;    .\Demos\FeatureCenter\FeatureCenter.Win\FeatureCenter.Win.csproj;    .\Demos\FeatureCenter\FeatureCenter.Web\FeatureCenter.Web.csproj;    .\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj;    .\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj;" Condition="$(SkipDashboard)!='true'" />
-    <ProjectFiles Include="    .\Demos\SecurityDemo\SecurityDemo.sln;" />
-    <ProjectFiles Include="    .\Demos\WorkflowDemo\WorkflowDemo.sln;" Condition="$(SkipDashboard)!='true'" />
-    <ProjectFiles Include="     .\Demos\XVideoRental\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj;    .\Demos\XVideoRental\XVideoRental.Win\XVideoRental.Win.csproj;    .\Demos\Middle Tier\E4036-WCF\E4036.sln;.\Demos\Middle Tier\E4035-Remoting\E4035.sln;" Condition="$(SkipDashboard)!='true'" />
-    <ProjectFiles Include="     .\Demos\Modules\MapView\MapViewTester.sln;.\Demos\Modules\FileAttachment\FileAttachmentTester.sln;.\Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.sln;  .\Demos\Modules\AuditTrail\AuditTrailTester.sln;    .\Demos\Modules\Chart\ChartTester.sln;    .\Demos\Modules\ExceptionHanding\ExceptionHandingTester.sln;    .\Demos\Modules\FilterDataStore\FilterDataStoreTester.sln;    .\Demos\Modules\ImportWizard\ImportWizardTester.sln;    .\Demos\Modules\IO\IOTester.sln;    .\Demos\Modules\JobsScheduler\JobsSchedulerTester.sln;    .\Demos\Modules\MasterDetail\MasterDetailTester.sln;    .\Demos\Modules\ModelArtifactState\ModelArtifactStateTester.sln;    .\Demos\Modules\ModelDifference\ModelDifferenceTester.sln;    .\Demos\Modules\NCarousel\NCarouselTester.sln; .\Demos\Modules\Email\EmailTester.sln; " />
-    <ProjectFiles Include=".\Demos\Modules\XtraDashboardTester\XtraDashboardTester.sln" Condition="$(SkipDashboard)!='true'" />
-    <ProjectFiles Include="    .\Demos\Modules\PivotChart\PivotChartTester.sln;    .\Demos\Modules\Reports\ReportsTester.sln;    .\Demos\Modules\Scheduler\SchedulerTester.sln;    .\Demos\Modules\Security\SecurityTester.sln;    .\Demos\Modules\StateMachine\StateMachineTester.sln;    .\Demos\Modules\Thumbnail\ThumbnailTester.sln;    .\Demos\Modules\TreeListEditors\TreeListEditorsTester.sln;    .\Demos\Modules\Validation\ValidationTester.sln;    .\Demos\Modules\ViewVariants\ViewVariantsTester.sln;    .\Demos\Modules\WizardUI\WizardUITester.sln;    .\Demos\Modules\Workflow\WorkflowTester.sln;    .\Demos\Modules\WorldCreator\WorldCreatorTester.sln;    .\Demos\Modules\XpandSystem\XpandSystemTester.sln;        .\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;    .\Xpand.Addins\XpandAddIns.csproj;    .\Xpand\Xpand.Tests\Xpand.Tests\Xpand.Tests.csproj;    " />
+    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
+    <AddInProjects Include=".\ToolboxCreator\Xpand.ToolboxCreator.csproj"></AddInProjects>
+    <XpandAddinSolution Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;"></XpandAddinSolution>
+    <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
+    <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
   </ItemGroup>
+
   <ItemGroup>
     <Tokens Include="SourcePackage">
       <ReplacementValue>$(ProjectName)-Source-$(Version).zip</ReplacementValue>
@@ -63,36 +78,76 @@
   </ItemGroup>
   <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="IndexSources" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.TaskFactory.PowerShell.dll"> 
+        <ParameterGroup> 
+          <Output Output="true" /> 
+        </ParameterGroup> 
+        <Task> 
+          <![CDATA[
+          Set-ExecutionPolicy Unrestricted
+          $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
+          $var = powershell .\Resource\NuGet\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+          $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
+]]>
+          
+        </Task> 
+  </UsingTask> 
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\FixReferences\FixReferences.csproj" Targets="Build" />
-    <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" />
+    <Exec Command=".\FixReferences\bin\debug\FixReferences.exe" >
+      <Output TaskParameter="Outputs" PropertyName="FixRefError" />
+    </Exec>
+    <Message Text="@(FixRefError)"/>
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
-  <Target Name="Build" DependsOnTargets="FixReferences">
-    <Message Text="@(ProjectFiles-&gt;'%(Filename)', '%0D%0A')" />
-    <MSBuild Projects="@(ProjectFiles)" Targets="Build" Properties="Configuration=$(Configuration);BuildConstants=NET35;OutputPath=$(XpandPath);DefineConstants=$(DefineConstants)" />
+  <Target Name="Copy3rdPartyAssemblies">
+    <CreateItem Include="$(_third_party_assemblies)\**\*.*">
+      <Output TaskParameter="Include" ItemName="FilesToCopy"/>
+    </CreateItem>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
+  </Target>
+  <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
+    <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
+    <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    
+
+    <ItemGroup>
+      <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
+    </ItemGroup>
+    <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
   </Target>
   <Target Name="Clean">
-    <MSBuild Projects="@(ProjectFiles)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(XpandAddinSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
+    <MSBuild Projects="@(DemoTesterSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
     <Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true" />
-    <RemoveDir Directories="$(BuildPath);$(XpandPath)" />
+    <RemoveDir Directories="$(BuildPath);$(XpandDLLPath)" />
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
     <!--Library
 		Resource\Library\*.*
 		-->
-    <CreateItem Include="$(XpandPath)\*.*;" Exclude="$(XpandPath)\*.locked">
+    <CreateItem Include="$(XpandDLLPath)\*.*;" Exclude="$(XpandDLLPath)\*.locked;$(XpandDLLPath)\DevExpress*.*">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
     <CreateItem Include="Xpand.Key\Xpand.snk;">
-      <!--Exclude="$(XpandPath)\*.locked" -->
+      <!--Exclude="$(XpandDLLPath)\*.locked" -->
       <Output ItemName="keyFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(keyFiles)" DestinationFolder="$(BuildPath)\Xpand.Key" />
@@ -103,17 +158,130 @@
 		<Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TestPath)" />
 		-->
   </Target>
-  <Target Name="Test" DependsOnTargets="Clean;Build;Copy">
-    <TypeMockStart />
-    <!--		<Exec ContinueOnError="false" Command="Resource\Machine.Specifications\mspec-clr4.exe Build\Temp\Xpand.Tests.dll"/>-->
-    <TypeMockStop />
+
+  <Target Name="PublishXpandDocsSite" DependsOnTargets="RunEasyTestsForDocsSite;UpdateXpandDocsSiteFiles;XpandDocsSiteDBUpdater"/>
+  <Target Name="StartXpandDocsSite">
+    <Exec Command="appcmd start site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
+  </Target>
+  <Target Name="KillXpandDocsSite">
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Get" IncludeUserInfo="true">
+      <Output ItemName="ProcessList" TaskParameter="Processes"/>
+    </MSBuild.ExtensionPack.Computer.Process>
+    <MSBuild.ExtensionPack.Computer.Process TaskAction="Terminate" ProcessId="%(ProcessList.ProcessId)" Condition="'%(ProcessList.User)' == '$(DocsSiteName)'"/>
+    <Exec Command="appcmd stop site /site.name:$(DocsSiteName)" WorkingDirectory="$(windir)\system32\inetsrv"></Exec>
+  </Target>
+  <Target Name="UpdateXpandDocsSiteFiles">
+    <Exec Command='$(ProjectConverterName) /sc "$(XpandDocsSitePath)"' WorkingDirectory="$(ProjectConverterPath)"></Exec>
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);DefineConstants=$(DefineConstants)" />
+    <CallTarget Targets="KillXpandDocsSite" />
+    <ItemGroup>
+      <PackagedFiles Include="$(XpandDocsPath)\Xpand.Docs.Web\**\*.*;"
+            Exclude="$(XpandDocsPath)\**\*.csproj;$(XpandDocsPath)\**\*.pdb;$(XpandDocsPath)\**\*.resx;$(XpandDocsPath)\**\*.log;$(XpandDocsPath)\**\*.bak;$(XpandDocsPath)\Xpand.Docs.Web\obj\**\*.*;$(XpandDocsPath)\Xpand.Docs.Web\Properties\*.*;$(XpandDocsPath)\Xpand.Docs.Web\**\*.cs;$(XpandDocsPath)\Xpand.Docs.Web\*.config"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(PackagedFiles)" DestinationFiles="@(PackagedFiles->'$(XpandDocsSitePath)\%(RecursiveDir)%(Filename)%(Extension)')"/>
+    <CallTarget Targets="StartXpandDocsSite" />
+  </Target>
+  <Target Name="ConfigXpandDocsSiteDBUpdater">
+    <PropertyGroup>
+      <DBUpdaterFolder>$(XpandDocsSitePath)\bin</DBUpdaterFolder>
+      <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
+      <DBUpdaterDll>Xpand.docs.web.dll</DBUpdaterDll>
+    </PropertyGroup>
+  </Target>
+  <Target Name="XpandDocsSiteDBUpdater" DependsOnTargets="ConfigXpandDocsSiteDBUpdater;DBUpdate">
+  </Target>
+  <Target Name="RunEasyTestsForDocsSite" DependsOnTargets="ConfigEasyTestParamsForDocsSite;RunEasyTests">
+  </Target>
+  <Target Name="ConfigEasyTestParamsForDocsSite">
+    <PropertyGroup>
+      <EasyTestFilter>Xpand.Docs\</EasyTestFilter>
+      <FCWebDbUpdater>No</FCWebDbUpdater>
+    </PropertyGroup>
+    <ItemGroup>
+      <EasyTests Remove="@(EasyTests)"></EasyTests>
+      <EasyTestLogs Remove="@(EasyTestLogs)"></EasyTestLogs>
+      <EasyProjects Remove="@(EasyProjects)"></EasyProjects>
+
+      <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
+      <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+      <EasyProjects Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Xpand.Docs.sln"></EasyProjects>
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <EasyTestFilter>Demos\</EasyTestFilter>
+  </PropertyGroup>
+  <ItemGroup>
+    <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
+    <EasyTestLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+    <EasyProjects Include="@(DemoSolutions)"/>
+    <EasyProjects Include="@(DemoTesterSolutions)"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;"/>
+    <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
+  </ItemGroup>
+  <Target Name="PrintEasyTestLogs" >
+    <ItemGroup>
+      <FailedLogs Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\TestsLog.xml"/>
+    </ItemGroup>
+    <MSBuild.ExtensionPack.Xml.XmlFile
+      TaskAction="ReadElements" File="%(FailedLogs.FullPath)" Condition="'@(FailedLogs->Count())'!='0'"
+      XPath="/Tests/Test[@Result='Warning' or @Result='Failed']" ReadChildrenToMetadata="true">
+      <Output TaskParameter="Elements" ItemName="Test"/>
+    </MSBuild.ExtensionPack.Xml.XmlFile>
+    <Error Text="@(Test -> '%(ApplicationName) - %(Name)%0a%(Error)%0a','%0a')" Condition="'@(Test->Count())'!='0'"></Error>
+  </Target>
+  <Target Name="ConfigFCWebDbUpdater">
+    <PropertyGroup>
+      <DBUpdaterFolder>$(MSBuildProjectDirectory)\Demos\FeatureCenter\FeatureCenter.Web\bin</DBUpdaterFolder>
+      <DBUpdaterConfig>..\web.config</DBUpdaterConfig>
+      <DBUpdaterDll>FeatureCenter.Web.dll</DBUpdaterDll>
+    </PropertyGroup>
+  </Target>
+  <Target Name="FCWebDbUpdater">
+    <ItemGroup>
+      <DbToDrop Include="Northwind;XpandFeatureCenterWeb;XpandFeatureCenterEasyTest;XpandFeatureCenterExceptionHandling;XpandFeatureCenterMultipleDataStore;XpandFeatureCenterWorldCreator;XpandFeatureCenter"></DbToDrop>
+    </ItemGroup>
+    <Exec Command='sqlcmd -E -S . -Q "ALTER DATABASE %(DbToDrop.Identity) SET SINGLE_USER WITH ROLLBACK IMMEDIATE"' ContinueOnError="false"/>
+    <Exec Command='sqlcmd -E -S . -Q "DROP DATABASE %(DbToDrop.Identity)"' ContinueOnError="false"/>
+    <CallTarget Targets="ConfigFCWebDbUpdater;DBUpdate"></CallTarget>
+  </Target>
+  <Target Name="DBUpdate">
+    <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
+    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
+    <Exec Command="$(DBUpdaterName) -silent $(DBUpdaterConfig) $(DBUpdaterDll) >$(OutputFile)" WorkingDirectory="$(DBUpdaterFolder)" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+    </Exec>
+    <ReadLinesFromFile  File="$(OutputFile)">
+      <Output  TaskParameter="Lines" ItemName="ExitCodeLines"/>
+    </ReadLinesFromFile>
+    <Error Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' == '1'" />
+    <Message Text="@(ExitCodeLines->'%(Identity)', '%0a%0d')" Condition="'$(ErrorCode)' != '1'" />
+    <Delete Files="$(OutputFile)"></Delete>
+  </Target>
+
+  <Target Name="RunEasyTests" >
+    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
+    <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
+    <Delete Files="@(EasyTestLogs)"/>
+    <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
+      <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
+    </CreateItem>
+    <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
+    <Exec ContinueOnError="true" 
+          WorkingDirectory="%(EasyTests.RelativeDir)"
+          Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+    </Exec>
+    <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
+    <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />
+    <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="Config">
     <Message Text="This sub-solution does not need configuration" />
   </Target>
   <Target Name="Report" DependsOnTargets="Clean;Build;Copy">
     <MakeDir Directories="$(ArtifactDirectory)" />
-    <CreateItem Include="$(XpandPath)\Xpand.*.dll;">
+    <CreateItem Include="$(XpandDLLPath)\Xpand.*.dll;">
       <Output ItemName="fxAssemblies" TaskParameter="Include" />
     </CreateItem>
     <!--
@@ -137,12 +305,14 @@
 		<Message Text="##teamcity[importData id='FxCop' file='$(ArtifactDirectory)/fxcop-report.xml']" />
 	-->
   </Target>
+  <Target Name="Test">
+  </Target>
   <Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
   <!--For Continuous integration and automated releases-->
   <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
   <Target Name="Installer">
     <MakeDir Directories="$(InstallerFolder);" />
-    <CreateItem Include="$(XpandPath)\*.dll;$(XpandPath)\*.exe;$(XpandPath)\*.config;">
+    <CreateItem Include="$(XpandDLLPath)\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config;">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
@@ -151,13 +321,13 @@
     </CreateItem>
     <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
     <Exec Command="Resource\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
     <CreateItem Include="setup.exe">
-      <!--Exclude="$(XpandPath)\*.locked" -->
+      <!--Exclude="$(XpandDLLPath)\*.locked" -->
       <Output ItemName="setupFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
@@ -207,7 +377,7 @@
     <CallTarget Targets="DeployUpdate" />
   </Target>
   <Target Name="Twitter">
-	<Exec ContinueOnError="false" Command="$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;"/>
+    <Exec ContinueOnError="false" Command="$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;"/>
   </Target>
   <Target Name="_Version">
     <FileUpdate Files="Xpand\Xpand.Utils\Properties\AssemblyInfo.cs" Regex="(\d+\.\d+\.\d+\.\d+)" ReplacementText="$(Version)" />
@@ -215,21 +385,31 @@
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
   </Target>
-
+  <Target Name="ExecuteCommand">
+      <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" >
+        <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
+        <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+      </Exec>
+      <Error Text="$(OutputOfExec)" Condition="'$(ErrorCode)' > '0'" />
+  </Target>
   <ItemGroup>
     <NuspecFile Include="Resource\NuGet\*.nuspec" Exclude="Resource\NuGet\XtraDashboardWin.nuspec;Resource\NuGet\XtraDashboardWeb.nuspec" Condition="$(SkipDashboard)=='true'"/>
     <NuspecFile Include="Resource\NuGet\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
-
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
+    <IndexSources/>
+    <CreateItem Include="$(XpandDLLPath)\*.pdb;">
+      <Output ItemName="files" TaskParameter="Include" />
+    </CreateItem>
+    <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
     <MakeDir Directories="$(BuildPath)\NuGet" />
-    <Exec ContinueOnError="false" Command="$(NuGetTool) pack %(NuspecFile.Identity) -BasePath $(MSBuildProjectDirectory) -OutputDirectory $(BuildPath)\NuGet -Version $(Version)"/>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack %(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" />
     <CreateItem Include="Build\NuGet\*.nupkg" >
       <Output TaskParameter="Include" ItemName="NuGetFile"/>
     </CreateItem>
+  <Message Text="@(NuGetFile)"></Message>
   </Target>
-
   <Target Name="NuGet"  Inputs="@(NuGetFile)" Outputs="NotUsedOutput" DependsOnTargets="NuGetPackage">
-    <Exec ContinueOnError="false" Command="$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey) " />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey)" />
   </Target>
 </Project>

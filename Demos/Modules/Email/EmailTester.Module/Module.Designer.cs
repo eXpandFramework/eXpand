@@ -27,8 +27,8 @@ namespace EmailTester.Module {
             // EmailTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.XpandSecurityModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Email.EmailModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.XpandSecurityModule));
         }
 
         #endregion

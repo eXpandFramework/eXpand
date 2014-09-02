@@ -15,10 +15,11 @@ namespace Xpand.ExpressApp.AuditTrail.Model {
     [DomainLogic(typeof(IModelAuditTrailRule))]
     public class ModelAuditTrailRuleDomainLogic {
         public static IEnumerable<string> Get_AuditTrailMembersContexts(IModelAuditTrailRule auditTrailRule) {
-            var modelAuditTrailMembersContextGroup = ((IModelLogicAuditTrail) auditTrailRule.Parent.Parent).AuditTrailMembersContextGroup;
+            var modelLogicAuditTrail = ((IModelLogicAuditTrail) auditTrailRule.Parent.Parent);
+            var modelAuditTrailMembersContextGroup = modelLogicAuditTrail.AuditTrailMembersContextGroup;
             var membersContexts = modelAuditTrailMembersContextGroup.SelectMany(contexts => contexts).Where(context 
                 => context.ModelClass.TypeInfo.IsAssignableFrom(auditTrailRule.TypeInfo));
-            return membersContexts.GroupBy(context => context.Parent.Parent).Select(contexts => contexts.Key.GetValue<string>("Id"));
+            return membersContexts.GroupBy(context => context.Parent).Select(contexts => contexts.Key.GetValue<string>("Id"));
         }
     }
 

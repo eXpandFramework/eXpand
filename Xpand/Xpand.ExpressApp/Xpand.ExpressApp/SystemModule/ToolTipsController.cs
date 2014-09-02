@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using Fasterflect;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -24,7 +23,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public bool HasToolTip(IModelMemberViewItem member) {
-            return !string.IsNullOrEmpty(GetToolTip(member));
+            return member != null && !string.IsNullOrEmpty(GetToolTip(member));
         }
 
         public string GetToolTip(IModelMemberViewItem member) {

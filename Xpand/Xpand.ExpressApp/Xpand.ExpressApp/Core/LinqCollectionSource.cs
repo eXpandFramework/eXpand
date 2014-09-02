@@ -9,11 +9,11 @@ using DevExpress.Xpo;
 namespace Xpand.ExpressApp.Core {
     public class LinqCollectionSource : CollectionSource {
         public const string DefaultSuffix = "_Linq";
-        private IBindingList collectionCore;
+        private IBindingList _collectionCore;
         public IList ConvertQueryToCollection(IQueryable sourceQuery) {
-            collectionCore = new BindingList<object>();
-            foreach (var item in sourceQuery) { collectionCore.Add(item); }
-            return collectionCore;
+            _collectionCore = new BindingList<object>();
+            foreach (var item in sourceQuery) { _collectionCore.Add(item); }
+            return _collectionCore;
         }
 
         public IQueryable Query { get; set; }
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Core {
             Query = query;
         }
         public override bool? IsObjectFitForCollection(object obj) {
-            return collectionCore.Contains(obj);
+            return _collectionCore.Contains(obj);
         }
     }
 }

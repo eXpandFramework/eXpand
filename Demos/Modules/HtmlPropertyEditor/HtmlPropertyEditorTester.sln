@@ -1,13 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module", "HtmlPropertyEditorTester.Module\HtmlPropertyEditorTester.Module.csproj", "{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}"
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module", "HtmlPropertyEditorTester.Module\HtmlPropertyEditorTester.Module.csproj", "{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module.Web", "HtmlPropertyEditorTester.Module.Web\HtmlPropertyEditorTester.Module.Web.csproj", "{0C729AAD-7626-4668-A7F1-35F7D240489D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Module.Web", "HtmlPropertyEditorTester.Module.Web\HtmlPropertyEditorTester.Module.Web.csproj", "{B7B555A1-EEAC-47B3-B948-7C65960A9885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Web", "HtmlPropertyEditorTester.Web\HtmlPropertyEditorTester.Web.csproj", "{82A6DBC9-B1B4-44E4-9718-55DF930CD349}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlPropertyEditorTester.Web", "HtmlPropertyEditorTester.Web\HtmlPropertyEditorTester.Web.csproj", "{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.HtmlPropertyEditor.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\HtmlPropertyEditor.Web\Xpand.ExpressApp.HtmlPropertyEditor.Web.csproj", "{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Logic", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj", "{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ModelAdaptor", "..\..\..\Xpand\Xpand.ExpressApp.Modules\ModelAdaptor\Xpand.ExpressApp.ModelAdaptor.csproj", "{5C78FE41-2525-40AC-9096-5D18B9A1ED84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{1F72B470-1C3F-4026-A0F2-77F2B463FA76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,31 +28,53 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C729AAD-7626-4668-A7F1-35F7D240489D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82A6DBC9-B1B4-44E4-9718-55DF930CD349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3889038-BB0E-4B28-8ECA-6CB3E6896BA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B555A1-EEAC-47B3-B948-7C65960A9885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F5B205-6C97-449E-9CFD-4B4D9FAB1799}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C78FE41-2525-40AC-9096-5D18B9A1ED84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C78FE41-2525-40AC-9096-5D18B9A1ED84}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{5C78FE41-2525-40AC-9096-5D18B9A1ED84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C78FE41-2525-40AC-9096-5D18B9A1ED84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E} = {1F72B470-1C3F-4026-A0F2-77F2B463FA76}
+		{5C78FE41-2525-40AC-9096-5D18B9A1ED84} = {1F72B470-1C3F-4026-A0F2-77F2B463FA76}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {1F72B470-1C3F-4026-A0F2-77F2B463FA76}
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {1F72B470-1C3F-4026-A0F2-77F2B463FA76}
+		{71319B74-CCF9-4171-B79B-1F9F1C89F4F7} = {1F72B470-1C3F-4026-A0F2-77F2B463FA76}
 	EndGlobalSection
 EndGlobal

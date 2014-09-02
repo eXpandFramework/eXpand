@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
     public abstract class LogicRulePermission : OperationPermissionBase, IContextLogicRule {
         protected LogicRulePermission(string operation, LogicRuleOperationPermissionData contextLogicRule)
             : base(operation) {
+            ObjectChangedExecutionContextGroup = contextLogicRule.ObjectChangedExecutionContextGroup;
             ExecutionContextGroup = contextLogicRule.ExecutionContextGroup;
             FrameTemplateContextGroup = contextLogicRule.FrameTemplateContextGroup;
             ViewContextGroup = contextLogicRule.ViewContextGroup;
@@ -48,6 +49,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public string ExecutionContextGroup { get; set; }
 
         public string ActionExecutionContextGroup { get; set; }
+        public string ObjectChangedExecutionContextGroup { get; set; }
 
         public string ViewContextGroup { get; set; }
 

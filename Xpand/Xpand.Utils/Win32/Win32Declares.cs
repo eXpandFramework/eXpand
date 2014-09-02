@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 namespace Xpand.Utils.Win32 {
@@ -126,118 +125,119 @@ namespace Xpand.Utils.Win32 {
             #endregion
             #region SendMessage
             [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessageTimeout(IntPtr hWnd, Win32Constants.Standard Msg, Win32Constants.Standard wParam, int lParam, Win32Constants.SendMessageTimeoutFlags fuFlags, uint uTimeout, out int lpdwResult);
+            public static extern IntPtr SendMessageTimeout(IntPtr hWnd, Win32Constants.Standard msg, Win32Constants.Standard wParam, int lParam, Win32Constants.SendMessageTimeoutFlags fuFlags, uint uTimeout, out int lpdwResult);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
+            public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            public static extern int SendMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="s">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard Msg, IntPtr wParam, string s);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard msg, IntPtr wParam, string s);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard msg, IntPtr wParam, IntPtr lParam);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="stringBuilder">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard Msg, IntPtr wParam, [Out] StringBuilder stringBuilder);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Standard msg, IntPtr wParam, [Out] StringBuilder stringBuilder);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="stringBuilder">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox Msg, IntPtr wParam, [Out] StringBuilder stringBuilder);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox msg, IntPtr wParam, [Out] StringBuilder stringBuilder);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="s">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox Msg, IntPtr wParam, string s);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox msg, IntPtr wParam, string s);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.ListBox msg, IntPtr wParam, IntPtr lParam);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Button Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Button msg, IntPtr wParam, IntPtr lParam);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Focus Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Focus msg, IntPtr wParam, IntPtr lParam);
 
             /// <summary>
             /// The SendMessage function sends the specified message to a window or windows. It calls the window procedure for the specified window and does not return until the window procedure has processed the message. To send a message and return immediately, use the SendMessageCallback or SendNotifyMessage function. To post a message to a thread's message queue and return immediately, use the PostMessage or PostThreadMessage function
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window whose window procedure will receive the message. If this parameter is HWND_BROADCAST, the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.</param>
-            /// <param name="Msg">[in] Specifies the message to be sent.</param>
+            /// <param name="msg">[in] Specifies the message to be sent.</param>
             /// <param name="wParam">[in] Specifies additional message-specific information.</param>
             /// <param name="lParam">[in] Specifies additional message-specific information.</param>
             /// <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
             [DllImport("user32.dll", CharSet = CharSet.Auto)]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Clipboard Msg, IntPtr wParam, IntPtr lParam);
+            public static extern IntPtr SendMessage(IntPtr hWnd, Win32Constants.Clipboard msg, IntPtr wParam, IntPtr lParam);
 
             /// <summary>
             /// The SendNotifyMessage function sends the specified message to a window or windows. If the window was created by the calling thread, SendNotifyMessage calls the window procedure for the window and does not return until the window procedure has processed the message. If the window was created by a different thread, SendNotifyMessage passes the message to the window procedure and returns immediately; it does not wait for the window procedure to finish processing the message.
@@ -266,6 +266,10 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class KeyBoard {
+            [DllImport("user32.dll")]
+            public static extern bool DestroyCaret();
+            [DllImport("user32.dll", SetLastError=true)]
+            public static extern bool HideCaret(IntPtr hWnd);
             /// <summary>
             /// The SendInput function synthesizes keystrokes, mouse motions, and button clicks.
             /// </summary>
@@ -344,7 +348,17 @@ namespace Xpand.Utils.Win32 {
             public static extern int CallNextKeyboardHook(int hHook, int ncode, int wParam, Win32Types.keybHookStruct lParam);
         }
 
-        public class Window {
+        public class Window{
+            public enum ShowScrollBarEnum{
+                SB_HORZ = 0,
+                SB_VERT = 1,
+                SB_CTL = 2,
+                SB_BOTH = 3
+            }
+            
+            [DllImport("user32.dll")]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool ShowScrollBar(IntPtr hWnd, ShowScrollBarEnum wBar, [MarshalAs(UnmanagedType.Bool)] bool bShow);
             /// <summary>
             /// The IsIconic function determines whether the specified window is minimized (iconic). 
             /// </summary>
@@ -400,23 +414,23 @@ namespace Xpand.Utils.Win32 {
             /// <summary>
             /// The WindowFromPoint function retrieves a handle to the window that contains the specified point. 
             /// </summary>
-            /// <param name="Point">[in] Specifies a POINT structure that defines the point to be checked. </param>
+            /// <param name="point">[in] Specifies a POINT structure that defines the point to be checked. </param>
             /// <returns>The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is NULL. If the point is over a static text control, the return value is a handle to the window under the static text control. </returns>
             [DllImport("user32.dll")]
-            public static extern IntPtr WindowFromPoint(Win32Types.POINT Point);
+            public static extern IntPtr WindowFromPoint(Win32Types.POINT point);
 
             /// <summary>
             /// The MoveWindow function changes the position and dimensions of the specified window. For a top-level window, the position and dimensions are relative to the upper-left corner of the screen. For a child window, they are relative to the upper-left corner of the parent window's client area. 
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window. </param>
-            /// <param name="X">[in] Specifies the new position of the left side of the window. </param>
-            /// <param name="Y">[in] Specifies the new position of the top of the window. </param>
+            /// <param name="x">[in] Specifies the new position of the left side of the window. </param>
+            /// <param name="y">[in] Specifies the new position of the top of the window. </param>
             /// <param name="nWidth">[in] Specifies the new width of the window. </param>
             /// <param name="nHeight">[in] Specifies the new height of the window. </param>
             /// <param name="bRepaint">[in] Specifies whether the window is to be repainted. If this parameter is TRUE, the window receives a message. If the parameter is FALSE, no repainting of any kind occurs. This applies to the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of moving a child window. </param>
             /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
             [DllImport("user32.dll")]
-            public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
+            public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
             #region Get/SET WindowPlacement
             public enum WINDOWPLACEMENTFLAGS {
                 WPF_SETMINPOSITION = 0x1,
@@ -479,15 +493,15 @@ namespace Xpand.Utils.Win32 {
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window.</param>
             /// <param name="hWndInsertAfter">[in] Handle to the window to precede the positioned window in the Z order. This parameter must be a window handle or one of the following values.HWND_BOTTOM Places the window at the bottom of the Z order. If the hWnd parameter identifies a topmost window, the window loses its topmost status and is placed at the bottom of all other windows.HWND_NOTOPMOST Places the window above all non-topmost windows (that is, behind all topmost windows). This flag has no effect if the window is already a non-topmost window.HWND_TOP Places the window at the top of the Z order.HWND_TOPMOST Places the window above all non-topmost windows. The window maintains its topmost position even when it is deactivated.For more information about how this parameter is used, see the following Remarks section</param>
-            /// <param name="X">[in] Specifies the new position of the left side of the window, in client coordinates. </param>
-            /// <param name="Y">[in] Specifies the new position of the top of the window, in client coordinates. </param>
+            /// <param name="x">[in] Specifies the new position of the left side of the window, in client coordinates. </param>
+            /// <param name="y">[in] Specifies the new position of the top of the window, in client coordinates. </param>
             /// <param name="cx">[in] Specifies the new width of the window, in pixels. </param>
             /// <param name="cy">[in] Specifies the new height of the window, in pixels.</param>
             /// <param name="setWindowPosEnum">[in] Specifies the window sizing and positioning flags. This parameter can be a combination of the following values. SWP_ASYNCWINDOWPOS If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request. SWP_DEFERERASE Prevents generation of the WM_SYNCPAINT message. SWP_DRAWFRAME Draws a frame (defined in the window's class description) around the window.SWP_FRAMECHANGED Applies new frame styles set using the SetWindowLong function. Sends a WM_NCCALCSIZE message to the window, even if the window's size is not being changed. If this flag is not specified, WM_NCCALCSIZE is sent only when the window's size is being changed.
             /// SWP_HIDEWINDOW Hides the window.SWP_NOACTIVATE Does not activate the window. If this flag is not set, the window is activated and moved to the top of either the topmost or non-topmost group (depending on the setting of the hWndInsertAfter parameter).SWP_NOCOPYBITS Discards the entire contents of the client area. If this flag is not specified, the valid contents of the client area are saved and copied back into the client area after the window is sized or repositioned.SWP_NOMOVE  Retains the current position (ignores X and Y parameters).SWP_NOOWNERZORDER Does not change the owner window's position in the Z order.SWP_NOREDRAW Does not redraw changes. If this flag is set, no repainting of any kind occurs. This applies to the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of the window being moved. When this flag is set, the application must explicitly invalidate or redraw any parts of the window and parent window that need redrawing.SWP_NOREPOSITION Same as the SWP_NOOWNERZORDER flag.SWP_NOSENDCHANGING Prevents the window from receiving the WM_WINDOWPOSCHANGING message.SWP_NOSIZE Retains the current size (ignores the cx and cy parameters).SWP_NOZORDER Retains the current Z order (ignores the hWndInsertAfter parameter).SWP_SHOWWINDOW Displays the window.</param>
             /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
             [DllImport("user32.dll")]
-            public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, Win32Constants.SetWindowPosEnum setWindowPosEnum);
+            public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, Win32Constants.SetWindowPosEnum setWindowPosEnum);
             #endregion
             #region SHowWindow
             public enum ShowWindowEnum {
@@ -566,6 +580,8 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class WindowHandles {
+            [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
+            public static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
             /// <summary>
             /// The FindWindowEx function retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search. 
             /// </summary>
@@ -688,16 +704,17 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class MouseCursor {
+            
         }
 
         public class Printers {
             /// <summary>
             /// The SetDefaultPrinter function sets the printer name of the default printer for the current user on the local computer. 
             /// </summary>
-            /// <param name="Name">[in] Pointer to a null-terminated string containing the default printer name. For a remote printer, the name format is \\server\printername. For a local printer, the name format is printername. If this parameter is NULL or an empty string, that is, "", SetDefaultPrinter does nothing if there is already a default printer. However, if there is no default printer, SetDefaultPrinter sets the default printer to the first printer, if any, in an enumeration of printers installed on the local computer. </param>
+            /// <param name="name">[in] Pointer to a null-terminated string containing the default printer name. For a remote printer, the name format is \\server\printername. For a local printer, the name format is printername. If this parameter is NULL or an empty string, that is, "", SetDefaultPrinter does nothing if there is already a default printer. However, if there is no default printer, SetDefaultPrinter sets the default printer to the first printer, if any, in an enumeration of printers installed on the local computer. </param>
             /// <returns>If the function succeeds, the return value is a nonzero value.If the function fails, the return value is zero</returns>
             [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]
-            public static extern bool SetDefaultPrinter(string Name);
+            public static extern bool SetDefaultPrinter(string name);
 
             /// <summary>
             /// The GetDefaultPrinter function retrieves the printer name of the default printer for the current user on the local computer. 

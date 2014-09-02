@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
@@ -8,30 +9,23 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
+using Xpand.Utils.Linq;
 using Guard = DevExpress.ExpressApp.Utils.Guard;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     class ParentCalculator {
-        public static ModelNode GetParent(IModelNode node) {
-            return GetParent<IModelColumn>(node) ?? GetParent<IModelListView>(node);
+        public static ModelNode GetParent(IModelNode node){
+            var modelColumn = node.GetParent<IModelColumn>();
+            return modelColumn != null ? (ModelNode) modelColumn : (ModelNode) node.GetParent<IModelListView>();
         }
-
-        static ModelNode GetParent<TNode>(IModelNode node) where TNode : IModelNode {
-            var modelNode = node;
-            while (!(modelNode is TNode)) {
-                if (modelNode.Parent == null)
-                    return null;
-                modelNode = modelNode.Parent;
-            }
-            return (ModelNode)modelNode;
-        }
-
     }
     public class MapModelReadOnlyCalculator : IModelIsReadOnly {
 
@@ -79,6 +73,72 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return false;
         }
     }
+
+    public interface IModelApplicationModelAdapterContexts:IModelApplication{
+        IModelModelAdapterContexts ModelAdapterContexts { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelAdapterContextsNodeGenerator))]
+    public interface IModelModelAdapterContexts:IModelList<IModelModelAdapters>,IModelNode{
+
+    }
+
+    [DomainLogic(typeof (IModelModelAdapterContexts))]
+    public static class ModelModelAdapterContextsDomainLogic {
+        public static IEnumerable<T> GetAdapters<T>(this IModelModelAdapterContexts contexts) where T:IModelModelAdapter{
+            var modelAdapters = contexts.SelectMany(adapters => adapters);
+            return modelAdapters.Where(modelAdapter => modelAdapter.NodeEnabled).OfType<T>();
+        }
+    }
+    public class ModelAdapterContextsNodeGenerator:ModelNodesGeneratorBase{
+        public const string Default = "Default Context";
+        protected override void GenerateNodesCore(ModelNode node){
+            node.AddNode<IModelModelAdapters>(Default);
+        }
+    }
+
+    public interface IModelModelAdapterContext:IModelNode{
+        IModelModelAdapters DefaultModelAdapters { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelAdaptersNodeGenerator))]
+    public interface IModelModelAdapters:IModelList<IModelModelAdapter>,IModelNode{
+         
+    }
+
+
+    [ModelAbstractClass]
+    public interface IModelModelAdapter:IModelNodeEnabled{
+    }
+
+    public class ModelAdaptersNodeGenerator:ModelNodesGeneratorBase{
+        protected override void GenerateNodesCore(ModelNode node){
+            var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
+                => info.FindAttribute<ModelAbstractClassAttribute>(false) == null&&info.IsInterface );
+            
+            var installedInfos = GetInstalledAdapters(modelAdapterTypeInfos, node.Application);
+            foreach (var typeInfo in installedInfos) {
+                node.AddNode(GetName(typeInfo), typeInfo.Type);
+            }
+        }
+
+        private static IEnumerable<ITypeInfo> GetInstalledAdapters(IEnumerable<ITypeInfo> typeInfos, IModelApplication application){
+            var modules = ((IModelSources)application).Modules;
+            var moduleAssemblies = modules.Select(@base => @base.GetType().Assembly);
+            var installedInfos = typeInfos.Where(info => moduleAssemblies.Contains(info.Type.Assembly));
+            var infos = typeInfos.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
+                .Select(source => new{source, moduleUserAttribute = source.FindAttribute<ModuleUserAttribute>()})
+                .Where(@t => modules.Any(@base => t.moduleUserAttribute.ModuleType.IsInstanceOfType(@base)))
+                .Select(@t => @t.source);
+            return installedInfos.Concat(infos);
+        }
+
+        private static string GetName(ITypeInfo typeInfo){
+            var displayNameAttribute = typeInfo.FindAttribute<ModelDisplayNameAttribute>();
+            return displayNameAttribute != null ? displayNameAttribute.ModelDisplayName : typeInfo.Type.Name.Replace("IModel", "");
+        }
+    }
+
     public enum FileLocation { None, ApplicationFolder, CurrentUserApplicationDataFolder }
     public abstract class ModelAdapterController : ViewController {
         protected void ExtendWithFont(ModelInterfaceExtenders extenders, InterfaceBuilder builder, Assembly assembly) {
@@ -118,7 +178,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (Directory.Exists(appSetting))
                 return appSetting;
-            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
+            if (Application!=null&&InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
                 var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
@@ -128,36 +188,22 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     var values = Enum.GetValues(typeInfo.Type);
                     var value = values.GetValue(1);
                     var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
-                    return (int) invoke != (int) value
-                               ? userAppDataPath
-                               : PathHelper.GetApplicationFolder();
+                    return (int) invoke != (int) value? userAppDataPath: PathHelper.GetApplicationFolder();
                 }
             }
-            var folder = InterfaceBuilder.RuntimeMode
-                                ? AppDomain.CurrentDomain.SetupInformation.ApplicationBase
-                                : InterfaceBuilder.GetTempDirectory();
+            var folder = InterfaceBuilder.RuntimeMode? AppDomain.CurrentDomain.SetupInformation.ApplicationBase: InterfaceBuilder.GetTempDirectory();
             return Path.Combine(folder, "ModelAdaptor");
         }
     }
 
     public static class ModelAdapterExtension {
-        public static TNode GetParentNode<TNode>(this IModelNode modelNode) where TNode : IModelNode {
-            var parent = modelNode.Parent;
-            while (!(parent is TNode)) {
-                parent = parent.Parent;
-                if (parent == null)
-                    break;
-            }
-            return parent != null ? (TNode)parent : default(TNode);
-        }
-
         public static ModelNode GetNodeByPath(this IModelNode node, string path) {
-            const string pathSeparator = "/";
             const string rootNodeName = "Application";
             Guard.ArgumentNotNull(node, "node");
             Guard.ArgumentNotNullOrEmpty(path, "path");
-            string[] items = path.Split(new[] { pathSeparator }, StringSplitOptions.RemoveEmptyEntries);
-            IModelNode sourceNode = items[0] == rootNodeName ? node.Root : node.GetNode(items[0]);
+            string[] items = path.Split(new[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            var sourceNode = (items[0] == rootNodeName ? node.Root : node.GetNode(items[0])) ;
+            sourceNode.ThrowIfNull();
             for (int i = 1; i < items.Length; ++i) {
                 if (sourceNode == null) {
                     return null;
@@ -165,6 +211,29 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 sourceNode = sourceNode.GetNode(items[i]);
             }
             return (ModelNode)sourceNode;
+        }
+    }
+
+    public interface IModelCommonModelAdapter<T> : IModelNodeEnabled where T:IModelModelAdapter{
+        [DataSourceProperty("ModelAdapters")]
+        T ModelAdapter { get; set; }
+        [Browsable(false)]
+        IModelList<T> ModelAdapters { get; }
+    }
+
+    public abstract class ModelAdapterNodeGeneratorBase<T, T2> : ModelNodesGeneratorBase
+        where T : IModelModelAdapter
+        where T2 : IModelCommonModelAdapter<T> {
+        protected override void GenerateNodesCore(ModelNode node){
+            var modelOptionsAdvBandedView = ((IModelApplicationModelAdapterContexts)node.Application).ModelAdapterContexts.GetAdapters<T>().FirstOrDefault();
+            var optionsAdvBandedView = node.AddNode<T2>("Default");
+            optionsAdvBandedView.ModelAdapter=modelOptionsAdvBandedView;
+        }
+    }
+
+    public abstract class ModelAdapterDomainLogicBase<T> where T : IModelModelAdapter{
+        public static IModelList<T> GetModelAdapters(IModelApplication modelApplication) {
+            return new CalculatedModelNodeList<T>(((IModelApplicationModelAdapterContexts)modelApplication).ModelAdapterContexts.GetAdapters<T>());
         }
     }
 }

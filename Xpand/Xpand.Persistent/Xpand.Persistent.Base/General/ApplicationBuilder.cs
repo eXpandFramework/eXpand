@@ -20,6 +20,7 @@ namespace Xpand.Persistent.Base.General {
                 .UsingTypesInfo(s => XafTypesInfo.Instance)
                 .FromModule(moduleName)
                 .FromAssembliesPath(directoryName)
+                .WithOutObjectSpaceProvider()
                 .Build();
             xafApplication.ConnectionString = connectionString;
             xafApplication.Setup();

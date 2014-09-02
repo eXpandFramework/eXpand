@@ -6,7 +6,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.PropertyEditor.CascadingEditors {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!ReferenceEquals(typesInfo.Type, typeof(CascadingPropertyEditorObject))) yield break;
             const string cascadingpropertyeditorobjectListview = "CascadingPropertyEditorObject_ListView";

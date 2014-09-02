@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -11,16 +10,13 @@ using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ViewStrategies;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win {
 
-    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport, IXafApplicationDirectory {
-        DataCacheNode _cacheNode;
-
+    public class XpandWinApplication : WinApplication, IWinApplication, ITestSupport {
         public XpandWinApplication() {
         }
 
@@ -31,10 +27,6 @@ namespace Xpand.ExpressApp.Win {
         protected override void OnSetupComplete() {
             this.SetClientSideSecurity();
             base.OnSetupComplete();
-        }
-
-        public virtual AutoCreateOption AutoCreateOption {
-            get { return this.AutoCreateOption(); }
         }
 
         protected override Form CreateModelEditorForm() {
@@ -126,22 +118,7 @@ namespace Xpand.ExpressApp.Win {
             container.Add(this);
         }
 
-        IDataStore IXafApplicationDataStore.GetDataStore(IDataStore dataStore) {
-            if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
-                if (_cacheNode == null) {
-                    var _cacheRoot = new DataCacheRoot(dataStore);
-                    _cacheNode = new DataCacheNode(_cacheRoot);
-                }
-                return _cacheNode;
-            }
-            return null;
-        }
-
         bool ITestSupport.IsTesting { get; set; }
-
-        string IXafApplicationDirectory.BinDirectory {
-            get { return AppDomain.CurrentDomain.SetupInformation.ApplicationBase; }
-        }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -90,7 +89,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
 
         ModelApplicationBase GetMasterModelCore(bool recreate) {
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            var masterModel = !recreate ? _modelLoader.GetMasterModel(false) : _modelLoader.ReCreate();
+            var masterModel = !recreate ? _modelLoader.GetMasterModel(true) : _modelLoader.ReCreate();
             InterfaceBuilder.SkipAssemblyCleanup = false;
             return masterModel;
         }
@@ -107,9 +106,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         void ModelEditorControlOnGotFocus(object sender, EventArgs eventArgs) {
             ((ModelEditorControl)sender).GotFocus-=ModelEditorControlOnGotFocus;
             _form = ((ModelEditorControl)sender).FindForm();
-            Debug.Assert(_form != null, "form != null");
-            _form.Deactivate += FormOnDeactivate;
-            _form.Activated += FormOnActivated;
+            if (_form != null){
+                _form.Deactivate += FormOnDeactivate;
+                _form.Activated += FormOnActivated;
+            }
         }
 
         void FormOnActivated(object sender, EventArgs eventArgs) {
@@ -141,6 +141,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 }
             } finally {
                 base.Dispose(disposing);
+                _typeInfo.AssignAsInstance();
             }
         }
 

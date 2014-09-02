@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.Threading;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
@@ -12,7 +15,11 @@ namespace AdditionalViewControlProviderTester.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
@@ -21,7 +28,7 @@ namespace AdditionalViewControlProviderTester.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

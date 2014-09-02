@@ -14,6 +14,7 @@ namespace FilterDataStoreTester.Win {
         /// </summary>
         [STAThread]
         static void Main() {
+
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
@@ -27,7 +28,7 @@ namespace FilterDataStoreTester.Win {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null && string.IsNullOrEmpty(winApplication.ConnectionString)) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
             try {

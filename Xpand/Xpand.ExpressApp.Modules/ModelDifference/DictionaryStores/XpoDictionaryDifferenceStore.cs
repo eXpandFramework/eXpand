@@ -47,8 +47,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         protected internal abstract ModelDifferenceObject GetNewDifferenceObject(IObjectSpace objectSpace);
 
         protected internal virtual void OnDifferenceObjectSaving(ModelDifferenceObject modelDifferenceObject, ModelApplicationBase model) {
-            if (model.HasModification)
-                ObjectSpace.SetModified(modelDifferenceObject);
             ObjectSpace.CommitChanges();
         }
     }

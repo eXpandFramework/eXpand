@@ -41,6 +41,7 @@ using DevExpress.XtraGrid.Views.Layout.ViewInfo;
 using DevExpress.XtraLayout;
 using DevExpress.XtraPrinting;
 using Fasterflect;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
@@ -757,7 +758,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         private void SetupLayoutView() {
             DevExpress.ExpressApp.Utils.Guard.ArgumentNotNull(layoutView, "layoutView");
             autoScrollHelper = new LayoutViewAutoScrollHelper(layoutView);
-            layoutView.TemplateCard = new LayoutViewCard { AllowDrawBackground = false };
+            layoutView.TemplateCard = new LayoutViewCard();
             layoutView.CardMinSize = new Size(400, 200);
             layoutView.ErrorMessages = ErrorMessages;
             //            layoutView.ShowButtonMode = ShowButtonModeEnum.ShowOnlyInEditor;

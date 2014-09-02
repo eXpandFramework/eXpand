@@ -19,36 +19,36 @@ namespace Xpand.Xpo {
 		}
 #else
 
-        private Guid oid = Guid.Empty;
+        private Guid _oid = Guid.Empty;
         [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
         public Guid Oid {
-            get { return oid; }
-            set { oid = value; }
+            get { return _oid; }
+            set { _oid = value; }
         }
 #endif
-        private bool isDefaultPropertyAttributeInit;
-        private XPMemberInfo defaultPropertyMemberInfo;
+        private bool _isDefaultPropertyAttributeInit;
+        private XPMemberInfo _defaultPropertyMemberInfo;
 
         protected override void OnSaving() {
             base.OnSaving();
             if (TrucateStrings)
-                trucateStrings();
-            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && oid == Guid.Empty) {
-                oid = XpoDefault.NewGuid();
+                DoTrucateStrings();
+            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && _oid == Guid.Empty) {
+                _oid = XpoDefault.NewGuid();
             }
         }
 
 
         public override string ToString() {
-            if (!isDefaultPropertyAttributeInit) {
+            if (!_isDefaultPropertyAttributeInit) {
                 var attrib = ClassInfo.FindAttributeInfo(typeof(DefaultPropertyAttribute)) as DefaultPropertyAttribute;
                 if (attrib != null) {
-                    defaultPropertyMemberInfo = ClassInfo.FindMember(attrib.Name);
+                    _defaultPropertyMemberInfo = ClassInfo.FindMember(attrib.Name);
                 }
-                isDefaultPropertyAttributeInit = true;
+                _isDefaultPropertyAttributeInit = true;
             }
-            if (defaultPropertyMemberInfo != null) {
-                object obj = defaultPropertyMemberInfo.GetValue(this);
+            if (_defaultPropertyMemberInfo != null) {
+                object obj = _defaultPropertyMemberInfo.GetValue(this);
                 if (obj != null) {
                     return obj.ToString();
                 }
@@ -87,7 +87,7 @@ namespace Xpand.Xpo {
         [MemberDesignTimeVisibility(false)]
         public bool TrucateStrings { get; set; }
 
-        private void trucateStrings() {
+        private void DoTrucateStrings() {
             foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties) {
                 if (xpMemberInfo.MemberType == typeof(string)) {
                     var value = xpMemberInfo.GetValue(this) as string;

@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxHtmlEditor;
-using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
 
@@ -36,8 +35,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
 
         void HtmlEditorOnControlCreated(object sender, EventArgs e) {
             var htmlPropertyEditor = ((ASPxHtmlPropertyEditor)sender);
-            var modelAdaptorRuleController = Frame.GetController<ModelAdaptorRuleController>();
-            new HtmlEditorModelSynchronizer(htmlPropertyEditor, modelAdaptorRuleController).ApplyModel();
+            new HtmlEditorModelSynchronizer(htmlPropertyEditor).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
@@ -63,6 +61,8 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
                             .Any(type => type.IsAssignableFrom(info.PropertyType))) {
                         return true;
                     }
+                    if (info.Name=="UploadImageFolder")
+                        info.AddAttribute(new DefaultValueAttribute("~/Images"));
                     info.RemoveInvalidTypeConverterAttributes("ASPxClasses.Design");
                     return info.DXFilter(BaseHtmlEditorControlTypes(), typeof (object));
                 }
@@ -101,7 +101,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
 
         Type[] BaseHtmlEditorControlTypes() {
             return new[]{
-                typeof (ASPxHtmlEditorSettingsBase),typeof(StylesBase),typeof(ImagesBase),typeof (ClientSideEvents)
+                typeof (PropertiesBase),typeof(StylesBase),typeof(ImagesBase),typeof (ClientSideEvents)
             };
         }
     }

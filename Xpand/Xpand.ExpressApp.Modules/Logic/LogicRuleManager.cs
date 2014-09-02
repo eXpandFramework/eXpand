@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Logic {
         public ReadOnlyCollection<ILogicRuleObject> this[ITypeInfo typeInfo] {
             get {
                 var logicRuleObjects = new List<ILogicRuleObject>();
-                foreach (var result in LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ExecutionContexts)) {
+                foreach (var result in LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ValidExecutionContexts)) {
                     logicRuleObjects.AddRange(Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, result)]);
                 }
                 return logicRuleObjects.AsReadOnly();
@@ -46,12 +46,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public static bool HasRules(ITypeInfo typeInfo) {
-            var executionContexts = LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ExecutionContexts);
+            var executionContexts = LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ValidExecutionContexts);
             return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any());
         }
 
         public static bool HasRules<TLogicInstaller>(ITypeInfo typeInfo) where TLogicInstaller : ILogicInstaller {
-            return LogicInstallerManager.Instance.LogicInstallers.OfType<TLogicInstaller>().First().ExecutionContexts.Any(context 
+            return LogicInstallerManager.Instance.LogicInstallers.OfType<TLogicInstaller>().First().ValidExecutionContexts.Any(context 
                 => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any());
         }
 

@@ -1,11 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
 
 namespace FileAttachmentTester.Win {
     static class Program {
@@ -21,17 +17,16 @@ namespace FileAttachmentTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
-            FileAttachmentTesterWindowsFormsApplication winApplication = new FileAttachmentTesterWindowsFormsApplication();
-            // Refer to the http://documentation.devexpress.com/#Xaf/CustomDocument2680 help article for more details on how to provide a custom splash form.
-            //winApplication.SplashScreen = new DevExpress.ExpressApp.Win.Utils.DXSplashScreen("YourSplashImage.png");
+            var winApplication = new FileAttachmentTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
+#else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
             try {
                 winApplication.Setup();
                 winApplication.Start();

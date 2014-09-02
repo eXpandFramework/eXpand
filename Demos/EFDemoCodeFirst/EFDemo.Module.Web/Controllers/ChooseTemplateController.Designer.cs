@@ -31,7 +31,7 @@ namespace EFDemo.Module.Controllers
 		  this.components = new System.ComponentModel.Container();
 		  this.ChooseTemplateAction = new DevExpress.ExpressApp.Actions.SingleChoiceAction(this.components);
 		  // 
-		  // ClearFieldsAction
+		  // ChooseTemplateAction
 		  // 
 		  this.ChooseTemplateAction.Caption = "Page Template";
 		  this.ChooseTemplateAction.PaintStyle = DevExpress.ExpressApp.Templates.ActionItemPaintStyle.Image;
@@ -40,7 +40,7 @@ namespace EFDemo.Module.Controllers
 		  this.ChooseTemplateAction.Category = "Appearance";
 		  this.ChooseTemplateAction.Execute += new DevExpress.ExpressApp.Actions.SingleChoiceActionExecuteEventHandler(ChooseTemplateAction_Execute);
 		  // 
-		  // ClearFieldsController
+		  // ChooseTemplateController
 		  // 
 		  this.Activated += new System.EventHandler(ChooseTemplateController_Activated);
 		  this.Deactivated += new System.EventHandler(ChooseTemplateController_Deactivated);

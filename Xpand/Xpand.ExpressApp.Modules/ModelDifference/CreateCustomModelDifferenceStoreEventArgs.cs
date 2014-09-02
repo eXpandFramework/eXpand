@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.Core;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public class CreateCustomModelDifferenceStoreEventArgs : HandledEventArgs {

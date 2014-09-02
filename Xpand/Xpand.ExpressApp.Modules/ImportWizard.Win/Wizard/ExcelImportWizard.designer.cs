@@ -331,7 +331,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
             // mappablePropertyBindingSource
             // 
             this.mappablePropertyBindingSource.DataSource = typeof(Xpand.ExpressApp.ImportWizard.Core.MappableProperty);
-            this.mappablePropertyBindingSource.CurrentChanged += new System.EventHandler(this.mappablePropertyBindingSource_CurrentChanged);
             // 
             // repositoryItemGridLookUpEdit1View
             // 

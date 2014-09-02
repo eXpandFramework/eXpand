@@ -70,10 +70,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
 
     internal sealed class OpenObjectFromListView : OpenObjectImplementation {
         const string HasReadPermissionToTargetObjectEnabledKey = "HasReadPermissionToTargetObject";
-        ControlCursorHelper cursorHelper;
-        GridControl grid;
-        DevExpress.XtraGrid.Views.Grid.GridView gridView;
-        ListView listView;
+        ControlCursorHelper _cursorHelper;
+        GridControl _grid;
+        DevExpress.XtraGrid.Views.Grid.GridView _gridView;
+        ListView _listView;
 
         public OpenObjectFromListView(OpenObjectController controller)
             : base(controller) {
@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
 
         ColumnsListEditor GridListEditor {
             get {
-                var columnsListEditor = listView.Editor as ColumnsListEditor;
+                var columnsListEditor = _listView.Editor as ColumnsListEditor;
                 return !(columnsListEditor is GridListEditor) && !(columnsListEditor is IColumnViewEditor)
                            ? null
                            : columnsListEditor;
@@ -91,30 +91,30 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         void listView_ControlsCreated(object sender, EventArgs e) {
             UnsubscribeFromGrid();
             if (GridListEditor != null) {
-                cursorHelper = new ControlCursorHelper(GridListEditor.GridView().GridControl);
-                grid = GridListEditor.GridView().GridControl;
-                gridView = GridListEditor.GridView();
+                _cursorHelper = new ControlCursorHelper(GridListEditor.GridView().GridControl);
+                _grid = GridListEditor.GridView().GridControl;
+                _gridView = GridListEditor.GridView();
                 SubscribeToGrid();
             }
         }
 
         void SubscribeToGrid() {
-            grid.MouseDown += grid_MouseDown;
-            grid.MouseMove += grid_MouseMove;
-            gridView.FocusedRowChanged += gridView_FocusedRowChanged;
-            gridView.FocusedColumnChanged += gridView_FocusedColumnChanged;
-            gridView.ShownEditor += gridView_ShownEditor;
-            gridView.DataSourceChanged += gridView_DataSourceChanged;
+            _grid.MouseDown += grid_MouseDown;
+            _grid.MouseMove += grid_MouseMove;
+            _gridView.FocusedRowChanged += gridView_FocusedRowChanged;
+            _gridView.FocusedColumnChanged += gridView_FocusedColumnChanged;
+            _gridView.ShownEditor += gridView_ShownEditor;
+            _gridView.DataSourceChanged += gridView_DataSourceChanged;
         }
 
         void UnsubscribeFromGrid() {
-            if (grid != null) {
-                grid.MouseDown -= grid_MouseDown;
-                grid.MouseMove -= grid_MouseMove;
-                gridView.FocusedRowChanged -= gridView_FocusedRowChanged;
-                gridView.FocusedColumnChanged -= gridView_FocusedColumnChanged;
-                gridView.ShownEditor -= gridView_ShownEditor;
-                gridView.DataSourceChanged -= gridView_DataSourceChanged;
+            if (_grid != null) {
+                _grid.MouseDown -= grid_MouseDown;
+                _grid.MouseMove -= grid_MouseMove;
+                _gridView.FocusedRowChanged -= gridView_FocusedRowChanged;
+                _gridView.FocusedColumnChanged -= gridView_FocusedColumnChanged;
+                _gridView.ShownEditor -= gridView_ShownEditor;
+                _gridView.DataSourceChanged -= gridView_DataSourceChanged;
             }
         }
 
@@ -133,9 +133,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
 
         void grid_MouseMove(object sender, MouseEventArgs eventArgs) {
             if (NativeMethods.IsCtrlShiftPressed() && FindObjectToOpen(eventArgs.X, eventArgs.Y) != null) {
-                cursorHelper.ChangeControlCursor(Cursors.Hand);
+                _cursorHelper.ChangeControlCursor(Cursors.Hand);
             } else {
-                cursorHelper.Restore();
+                _cursorHelper.Restore();
             }
         }
 
@@ -185,7 +185,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 Object currObject = XtraGridUtils.GetRow(GridListEditor.GridView(), rowHandle);
                 ITypeInfo typeInfo = currObject != null
                                          ? XafTypesInfo.Instance.FindTypeInfo(currObject.GetType())
-                                         : listView.ObjectTypeInfo;
+                                         : _listView.ObjectTypeInfo;
                 IMemberInfo memberInfo = typeInfo.FindMember(column.FieldName);
                 Object lastObject = null;
                 if (GridListEditor.GridView().ActiveEditor != null) {
@@ -206,34 +206,34 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
 
         public override void OnControllerActivated() {
             base.OnControllerActivated();
-            listView = (ListView)Controller.View;
+            _listView = (ListView)Controller.View;
             OpenObjectAction.Active[
                 DevExpress.ExpressApp.Win.SystemModule.OpenObjectController.ActiveKeyHasReadPermissionToTargetType] =
-                DataManipulationRight.CanRead(listView.ObjectTypeInfo.Type, null, null, listView.CollectionSource,
+                DataManipulationRight.CanRead(_listView.ObjectTypeInfo.Type, null, null, _listView.CollectionSource,
                                               ObjectSpace);
             bool hasObjectRefControl = false;
-            if (listView.Model != null) {
+            if (_listView.Model != null) {
                 if (
-                    listView.Model.Columns.Select(
-                        columnInfo => listView.ObjectTypeInfo.FindMember(columnInfo.PropertyName)).Any(
+                    _listView.Model.Columns.Select(
+                        columnInfo => _listView.ObjectTypeInfo.FindMember(columnInfo.PropertyName)).Any(
                             findMember => findMember != null && IsDetailViewExists(findMember.MemberType))) {
                     hasObjectRefControl = true;
                 }
             }
             OpenObjectAction.Active[ViewContainsObjectEditorActiveKey] = hasObjectRefControl;
-            listView.ControlsCreated += listView_ControlsCreated;
+            _listView.ControlsCreated += listView_ControlsCreated;
         }
 
         public override void OnControllerDeactivated() {
             OpenObjectAction.Active.RemoveItem(
                 DevExpress.ExpressApp.Win.SystemModule.OpenObjectController.ActiveKeyHasReadPermissionToTargetType);
             OpenObjectAction.Enabled.RemoveItem(HasReadPermissionToTargetObjectEnabledKey);
-            listView.ControlsCreated -= listView_ControlsCreated;
+            _listView.ControlsCreated -= listView_ControlsCreated;
             UnsubscribeFromGrid();
-            listView = null;
-            cursorHelper = null;
-            grid = null;
-            gridView = null;
+            _listView = null;
+            _cursorHelper = null;
+            _grid = null;
+            _gridView = null;
             base.OnControllerDeactivated();
         }
 
@@ -250,36 +250,36 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
 
 
     internal sealed class ObjectToOpenChangedEventArgs : EventArgs {
-        readonly Object objectToOpen;
+        readonly Object _objectToOpen;
 
         public ObjectToOpenChangedEventArgs(Object objectToOpen) {
-            this.objectToOpen = objectToOpen;
+            _objectToOpen = objectToOpen;
         }
 
         public Object ObjectToOpen {
-            get { return objectToOpen; }
+            get { return _objectToOpen; }
         }
     }
 
     internal abstract class OpenObjectImplementation {
         protected const string ViewContainsObjectEditorActiveKey = "HasObjectRefPropertyEditor";
         const string HasObjectToOpenEnabledKey = "HasObjectForOpening";
-        readonly OpenObjectController controller;
+        readonly OpenObjectController _controller;
 
         protected OpenObjectImplementation(OpenObjectController controller) {
-            this.controller = controller;
+            _controller = controller;
         }
 
         protected OpenObjectController Controller {
-            get { return controller; }
+            get { return _controller; }
         }
 
         protected SimpleAction OpenObjectAction {
-            get { return controller.OpenObjectAction; }
+            get { return _controller.OpenObjectAction; }
         }
 
         protected IObjectSpace ObjectSpace {
-            get { return controller.View.ObjectSpace; }
+            get { return _controller.View.ObjectSpace; }
         }
 
         protected void OnObjectToOpenChanged(Object objectToOpen) {
@@ -294,7 +294,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         protected Boolean IsDetailViewExists(Type targetType) {
-            return !String.IsNullOrEmpty(controller.Application.FindDetailViewId(targetType));
+            return !String.IsNullOrEmpty(_controller.Application.FindDetailViewId(targetType));
         }
 
         protected Boolean CanExecuteOpenObjectAction() {

@@ -17,22 +17,22 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
     [Serializable]
     public class AuthenticationCombinedLogonParameters : INotifyPropertyChanged, ICustomLogonParameter {
-        private bool useActiveDirectory;
-        private string userName;
-        private string password;
+        private bool _useActiveDirectory;
+        private string _userName;
+        private string _password;
 
         public bool UseActiveDirectory {
-            get { return useActiveDirectory; }
-            set { useActiveDirectory = value; RaisePropertyChanged("UseActiveDirectory"); }
+            get { return _useActiveDirectory; }
+            set { _useActiveDirectory = value; RaisePropertyChanged("UseActiveDirectory"); }
         }
         public string UserName {
-            get { return userName; }
-            set { userName = value; RaisePropertyChanged("UserName"); }
+            get { return _userName; }
+            set { _userName = value; RaisePropertyChanged("UserName"); }
         }
         [ModelDefault("IsPassword", "True")]
         public string Password {
-            get { return password; }
-            set { password = value; RaisePropertyChanged("Password"); }
+            get { return _password; }
+            set { _password = value; RaisePropertyChanged("Password"); }
         }
         protected void RaisePropertyChanged(string propertyName) {
             if (PropertyChanged != null) {
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabSecurity)]
     public class AuthenticationCombined : AuthenticationBase, IAuthenticationStandard {
-        private AuthenticationCombinedLogonParameters logonParameters;
+        private AuthenticationCombinedLogonParameters _logonParameters;
         Type _userType;
         Type _logonParametersType;
         private bool _createUserAutomatically;
@@ -56,17 +56,17 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             LogonParametersType = logonParametersType;
         }
         public override object Authenticate(IObjectSpace objectSpace) {
-            if (logonParameters.UseActiveDirectory)
+            if (_logonParameters.UseActiveDirectory)
                 return AuthenticateActiveDirectory(objectSpace);
             return AuthenticateStandard(objectSpace);
         }
 
         private object AuthenticateStandard(IObjectSpace objectSpace) {
-            if (string.IsNullOrEmpty(logonParameters.UserName))
+            if (string.IsNullOrEmpty(_logonParameters.UserName))
                 throw new ArgumentException(SecurityExceptionLocalizer.GetExceptionMessage(SecurityExceptionId.UserNameIsEmpty));
-            var user = (IAuthenticationStandardUser)objectSpace.FindObject(UserType, new BinaryOperator("UserName", logonParameters.UserName));
-            if (user == null || !user.ComparePassword(logonParameters.Password)) {
-                throw new AuthenticationException(logonParameters.UserName, SecurityExceptionLocalizer.GetExceptionMessage(SecurityExceptionId.RetypeTheInformation));
+            var user = (IAuthenticationStandardUser)objectSpace.FindObject(UserType, new BinaryOperator("UserName", _logonParameters.UserName));
+            if (user == null || !user.ComparePassword(_logonParameters.Password)) {
+                throw new AuthenticationException(_logonParameters.UserName, SecurityExceptionLocalizer.GetExceptionMessage(SecurityExceptionId.RetypeTheInformation));
             }
             return user;
         }
@@ -98,7 +98,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         }
 
         public override void ClearSecuredLogonParameters() {
-            logonParameters.Password = string.Empty;
+            _logonParameters.Password = string.Empty;
             base.ClearSecuredLogonParameters();
         }
         public override bool IsSecurityMember(Type type, string memberName) {
@@ -117,7 +117,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         [Browsable(false)]
         public override object LogonParameters {
             get {
-                return logonParameters;
+                return _logonParameters;
             }
         }
         public override bool AskLogonParametersViaUI {
@@ -164,7 +164,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
                     if (!typeof(AuthenticationCombinedLogonParameters).IsAssignableFrom(_logonParametersType)) {
                         throw new ArgumentException("LogonParametersType");
                     }
-                    logonParameters = (AuthenticationCombinedLogonParameters)_logonParametersType.CreateInstance(new object[0]);
+                    _logonParameters = (AuthenticationCombinedLogonParameters)_logonParametersType.CreateInstance(new object[0]);
                 }
             }
         }

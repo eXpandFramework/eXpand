@@ -39,10 +39,10 @@ namespace Xpand.Xpo {
     /// be merged (and they don't share the same ParameterExpressions).
     /// </summary>
     public class ExpressionVisitor<T> : ExpressionVisitor where T : Expression {
-        readonly Func<T, Expression> visitor;
+        readonly Func<T, Expression> _visitor;
 
         public ExpressionVisitor(Func<T, Expression> visitor) {
-            this.visitor = visitor;
+            _visitor = visitor;
         }
 
         public static Expression Visit(
@@ -58,7 +58,7 @@ namespace Xpand.Xpo {
         }
 
         protected override Expression Visit(Expression exp) {
-            if (exp is T && visitor != null) exp = visitor((T)exp);
+            if (exp is T && _visitor != null) exp = _visitor((T)exp);
 
             return base.Visit(exp);
         }
@@ -214,7 +214,7 @@ namespace Xpand.Xpo {
         protected virtual Expression VisitMethodCall(MethodCallExpression m) {
             Expression obj = Visit(m.Object);
             IEnumerable<Expression> args = VisitExpressionList(m.Arguments);
-            if (obj != m.Object || args != m.Arguments) {
+            if (obj != m.Object || !Equals(args, m.Arguments)) {
                 return Expression.Call(obj, m.Method, args);
             }
             return m;
@@ -250,7 +250,7 @@ namespace Xpand.Xpo {
 
         protected virtual MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding binding) {
             IEnumerable<MemberBinding> bindings = VisitBindingList(binding.Bindings);
-            if (bindings != binding.Bindings) {
+            if (!Equals(bindings, binding.Bindings)) {
                 return Expression.MemberBind(binding.Member, bindings);
             }
             return binding;
@@ -258,7 +258,7 @@ namespace Xpand.Xpo {
 
         protected virtual MemberListBinding VisitMemberListBinding(MemberListBinding binding) {
             IEnumerable<ElementInit> initializers = VisitElementInitializerList(binding.Initializers);
-            if (initializers != binding.Initializers) {
+            if (!Equals(initializers, binding.Initializers)) {
                 return Expression.ListBind(binding.Member, initializers);
             }
             return binding;
@@ -312,7 +312,7 @@ namespace Xpand.Xpo {
 
         protected virtual NewExpression VisitNew(NewExpression nex) {
             IEnumerable<Expression> args = VisitExpressionList(nex.Arguments);
-            if (args != nex.Arguments) {
+            if (!Equals(args, nex.Arguments)) {
                 return Expression.New(nex.Constructor, args, nex.Members);
             }
             return nex;
@@ -321,7 +321,7 @@ namespace Xpand.Xpo {
         protected virtual Expression VisitMemberInit(MemberInitExpression init) {
             NewExpression n = VisitNew(init.NewExpression);
             IEnumerable<MemberBinding> bindings = VisitBindingList(init.Bindings);
-            if (n != init.NewExpression || bindings != init.Bindings) {
+            if (n != init.NewExpression || !Equals(bindings, init.Bindings)) {
                 return Expression.MemberInit(n, bindings);
             }
             return init;
@@ -330,7 +330,7 @@ namespace Xpand.Xpo {
         protected virtual Expression VisitListInit(ListInitExpression init) {
             NewExpression n = VisitNew(init.NewExpression);
             IEnumerable<ElementInit> initializers = VisitElementInitializerList(init.Initializers);
-            if (n != init.NewExpression || initializers != init.Initializers) {
+            if (n != init.NewExpression || !Equals(initializers, init.Initializers)) {
                 return Expression.ListInit(n, initializers);
             }
             return init;
@@ -338,7 +338,7 @@ namespace Xpand.Xpo {
 
         protected virtual Expression VisitNewArray(NewArrayExpression na) {
             IEnumerable<Expression> exprs = VisitExpressionList(na.Expressions);
-            if (exprs != na.Expressions) {
+            if (!Equals(exprs, na.Expressions)) {
                 Type elementType = na.Type.GetElementType();
                 if (elementType != null) {
                     if (na.NodeType == ExpressionType.NewArrayInit) {
@@ -353,7 +353,7 @@ namespace Xpand.Xpo {
         protected virtual Expression VisitInvocation(InvocationExpression iv) {
             IEnumerable<Expression> args = VisitExpressionList(iv.Arguments);
             Expression expr = Visit(iv.Expression);
-            if (args != iv.Arguments || expr != iv.Expression) {
+            if (!Equals(args, iv.Arguments) || expr != iv.Expression) {
                 return Expression.Invoke(expr, args);
             }
             return iv;

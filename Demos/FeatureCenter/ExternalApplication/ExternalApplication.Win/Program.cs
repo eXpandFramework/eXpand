@@ -19,7 +19,7 @@ namespace ExternalApplication.Win
         static void Main()
         {
 #if EASYTEST
-			DevExpress.ExpressApp.EasyTest.WinAdapter.RemotingRegistration.Register(4100);
+            DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
 
             Application.EnableVisualStyles();
@@ -30,11 +30,12 @@ namespace ExternalApplication.Win
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
+#else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null)
             {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
             try
             {
                 winApplication.Setup();

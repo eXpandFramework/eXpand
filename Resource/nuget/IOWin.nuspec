@@ -2,24 +2,25 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandIOWin</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework IO Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>IO Module (Win) / eXpandFramework</description>
+    <description>IO Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>IO Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandTreelistViewWin" version="13.2.7.3" />
-      <dependency id="eXpandIO" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandTreelistViewWin" version="14.1.6.5" />
+      <dependency id="eXpandIO" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.IO.Win.dll" target="lib\net40\Xpand.ExpressApp.IO.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.IO.Win.pdb" target="lib\net40\Xpand.ExpressApp.IO.Win.pdb" />
   </files>
 </package>

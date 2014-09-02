@@ -5,6 +5,7 @@ using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
@@ -86,22 +87,26 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
     public abstract class ModelMemberExDomainLogicBase<TModelMember> where TModelMember:IModelMemberEx {
 
-        protected static IMemberInfo GetMemberInfo(TModelMember modelMemberEx, Action<TModelMember, XPClassInfo> CreateXpandCustomMemberInfo, Func<TModelMember, bool> validState) {
-            XPClassInfo classInfo = FindXPClassInfo(modelMemberEx);
-            var customMemberInfo = classInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
+        protected static IMemberInfo GetMemberInfo(TModelMember modelMemberEx, Action<TModelMember, XPClassInfo> createXpandCustomMemberInfo, Func<TModelMember, bool> validState) {
+            var customMemberInfo = FindXPClassInfo(modelMemberEx).FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
             if (ValidState(modelMemberEx, customMemberInfo,validState)) {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
                 var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
                 if (xpandCustomMemberInfo == null) {
                     if (!modelMemberEx.CreatedAtDesignTime.HasValue)
-                        modelMemberEx.CreatedAtDesignTime = !InterfaceBuilder.RuntimeMode;
-                    CreateXpandCustomMemberInfo.Invoke(modelMemberEx, xpClassInfo);
-                    classInfo.FindMember(modelMemberEx.Name).AddAttribute(new ModelMemberExMemberInfoAttribute());
+                        modelMemberEx.CreatedAtDesignTime = CreatedAtDesignTime(modelMemberEx);
+                    createXpandCustomMemberInfo(modelMemberEx, xpClassInfo);
+                    xpClassInfo.FindMember(modelMemberEx.Name).AddAttribute(new ModelMemberExMemberInfoAttribute());
                     var typesInfo = ((BaseInfo)modelMemberEx.ModelClass.TypeInfo).Store;
-                    typesInfo.RefreshInfo(xpClassInfo.ClassType);
+                    typesInfo.RefreshInfo(modelMemberEx.ModelClass.TypeInfo);
                 }
             }
             return modelMemberEx.ModelClass.TypeInfo.FindMember(modelMemberEx.Name);
+        }
+
+        private static bool CreatedAtDesignTime(TModelMember modelMemberEx){
+            var createdAtDesignTime = !InterfaceBuilder.RuntimeMode;
+            return createdAtDesignTime || modelMemberEx.Application.Id() == ModelApplicationLayerIds.Generator;
         }
 
         protected static bool CheckTag(TModelMember modelMemberEx) {
@@ -125,15 +130,9 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
             return false;
         }
 
-        protected static XPClassInfo FindDCXPClassInfo(TypeInfo typeInfo) {
-            var xpoTypeInfoSource = XpandModuleBase.XpoTypeInfoSource;
-            var generatedEntityType = xpoTypeInfoSource.GetGeneratedEntityType(typeInfo.Type);
-            return generatedEntityType == null ? null : xpoTypeInfoSource.XPDictionary.GetClassInfo(generatedEntityType);
-        }
-
         protected static XPClassInfo FindXPClassInfo(TModelMember modelMemberEx) {
             var typeInfo = (TypeInfo)modelMemberEx.ModelClass.TypeInfo;
-            return typeInfo.IsInterface ? FindDCXPClassInfo(typeInfo) : XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
+            return typeInfo.IsInterface ? typeInfo.FindDCXPClassInfo() : XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
         }
     }
 

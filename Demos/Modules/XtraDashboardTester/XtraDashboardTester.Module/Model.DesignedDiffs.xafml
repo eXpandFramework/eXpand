@@ -1,2 +1,9 @@
 ﻿<?xml version="1.0" ?>
-<Application />
+<Application>
+  <DashboardModule>
+    <DataSources>
+      <DashboardDataSourceFilter Id="Filter" DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />
+      <DashboardDataSourceParameter Id="Parameter" DataSourceName="FilteredDataSource" ParameterName="Parameter1" IsCustomFunction="True" ParameterValue="CurrentUserName()" IsNewNode="True" />
+    </DataSources>
+  </DashboardModule>
+</Application>

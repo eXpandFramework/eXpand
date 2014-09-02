@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public interface IModelDashboardViewFilter : IModelNode {
@@ -24,7 +25,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     public class DashboardViewFilterVisibilityCalculator : IModelIsVisible {
         #region Implementation of IModelIsVisible
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !(node.Parent is IModelDashboardReportViewItem);
+            return !(node.Parent is IModelDashboardReportViewItemBase);
         }
         #endregion
     }
@@ -63,7 +64,9 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             return (IModelDashboardViewItem)view.Model.Items[item.Id];
         }
     }
-    public interface IModelDashboardReportViewItem : IModelDashboardViewItem {
+
+    [ModelAbstractClass]
+    public interface IModelDashboardReportViewItemBase : IModelDashboardViewItem {
         string ReportName { get; set; }
         bool CreateDocumentOnLoad { get; set; }
         [Browsable(false)]
@@ -82,9 +85,25 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
     [ModelAbstractClass]
     public interface IModelDashboardViewItemEx : IModelDashboardViewItem {
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
         IModelDashboardViewFilter Filter { get; }
         [DefaultValue(ViewItemVisibility.Show)]
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         ViewItemVisibility Visibility { get; set; }
+        [ModelBrowsable(typeof(ModelDashboardViewItemExVisibilityCalculator))]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         MasterDetailMode? MasterDetailMode { get; set; }
+    }
+
+    public class ModelDashboardViewItemExVisibilityCalculator:IModelIsVisible{
+        public bool IsVisible(IModelNode node, string propertyName){
+            var any = ((IModelSources) node.Application).Modules.OfType<IDashboardInteractionUser>().Any();
+            if (any && propertyName == "MasterDetailMode"){
+                var modelView = ((IModelDashboardViewItem) node).View;
+                return modelView is IModelListView;
+            }
+            return any;
+        }
     }
 }

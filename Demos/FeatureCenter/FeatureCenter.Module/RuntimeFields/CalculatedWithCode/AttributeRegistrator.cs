@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.RuntimeFields.CalculatedWithCode {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string RuntimeCalculatedFields_ListView = "RuntimeCalculatedFields_ListView";
         private const string RuntimeCalculatedFields_DetailView = "RuntimeCalculatedFields_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

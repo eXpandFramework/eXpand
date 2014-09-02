@@ -7,35 +7,30 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web.ASPxClasses;
 using DevExpress.Web.ASPxGridView;
-using Xpand.ExpressApp.Web.ListEditors.Model.ModelAdaptor;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Web.ListEditors.Model {
     public class GridViewModelAdapterController : ModelAdapterController, IModelExtender {
-        protected ASPxGridListEditor _asPxGridListEditor;
+        protected ASPxGridListEditor ASPxGridListEditor;
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (_asPxGridListEditor != null)
-                _asPxGridListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
+            if (ASPxGridListEditor != null)
+                ASPxGridListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CustomModelSynchronizerHelper.
-                Assign<IModelAdaptorGridViewOptionsRule, IModelModelAdaptorGridViewOptionsRule>
-                (e,new GridViewListEditorModelSynchronizer(_asPxGridListEditor),Frame,
-                rule =>new GridViewListEditorModelSynchronizer(_asPxGridListEditor.Grid, rule));
-
+            CustomModelSynchronizerHelper.Assign(e, new GridViewListEditorModelSynchronizer(ASPxGridListEditor));
         }
 
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
             if (listView != null && listView.Editor != null && listView.Editor is ASPxGridListEditor) {
-                _asPxGridListEditor = (ASPxGridListEditor)listView.Editor;
-                _asPxGridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
+                ASPxGridListEditor = (ASPxGridListEditor)listView.Editor;
+                ASPxGridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
             }
         }
 
@@ -56,7 +51,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act =info =>(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
+                Act =info =>info.Name!="Item"&&(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
                      typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
             yield return new InterfaceBuilderData(typeof(GridViewColumn)) {

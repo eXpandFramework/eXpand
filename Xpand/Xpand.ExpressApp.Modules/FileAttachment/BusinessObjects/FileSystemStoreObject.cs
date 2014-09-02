@@ -19,17 +19,22 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
     [DefaultProperty("FileName")]
     [DeferredDeletion(false), OptimisticLocking(false)]
     public class FileSystemStoreObject : XpandCustomObject, IFileData, IEmptyCheckable, IFileSystemObject {
-        private Stream tempSourceStream;
-        private string tempFileName = string.Empty;
-        private static readonly object syncRoot = new object();
+        private Stream _tempSourceStream;
+        private string _tempFileName = string.Empty;
+        private static readonly object _syncRoot = new object();
+        private string _oldRealFileName;
         public FileSystemStoreObject(Session session) : base(session) { }
         public string RealFileName {
-            get {
-                if (!string.IsNullOrEmpty(FileName) && Oid != Guid.Empty)
-                    return Path.Combine(XpandFileAttachmentsModule.FileSystemStoreLocation, string.Format("{0}-{1}", Oid, FileName));
-                return null;
-            }
+            get{return GetLocation(FileName);}
         }
+
+        private string GetLocation(string fileName){
+            return !string.IsNullOrEmpty(fileName) && Oid != Guid.Empty
+                ? Path.Combine(XpandFileAttachmentsModule.FileSystemStoreLocation,
+                    string.Format("{0}-{1}", Oid, fileName))
+                : null;
+        }
+
         protected virtual void SaveFileToStore() {
             if (!string.IsNullOrEmpty(RealFileName)) {
                 try {
@@ -40,13 +45,17 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
                 } catch (DirectoryNotFoundException exc) {
                     throw new UserFriendlyException(exc);
                 }
+                if (_oldRealFileName != RealFileName){
+                    if (File.Exists(_oldRealFileName))
+                        File.Delete(_oldRealFileName);
+                }
             }
         }
         private void RemoveOldFileFromStore() {
-            if (!string.IsNullOrEmpty(tempFileName) && tempFileName != RealFileName) {
+            if (!string.IsNullOrEmpty(_tempFileName) && _tempFileName != RealFileName) {
                 try {
-                    File.Delete(tempFileName);
-                    tempFileName = string.Empty;
+                    File.Delete(_tempFileName);
+                    _tempFileName = string.Empty;
                 } catch (DirectoryNotFoundException exc) {
                     throw new UserFriendlyException(exc);
                 }
@@ -55,7 +64,7 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         protected override void OnSaving() {
             base.OnSaving();
             Guard.ArgumentNotNullOrEmpty(XpandFileAttachmentsModule.FileSystemStoreLocation, "FileSystemStoreLocation");
-            lock (syncRoot) {
+            lock (_syncRoot) {
                 if (!Directory.Exists(XpandFileAttachmentsModule.FileSystemStoreLocation))
                     Directory.CreateDirectory(XpandFileAttachmentsModule.FileSystemStoreLocation);
             }
@@ -75,11 +84,19 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         }
         #region IFileData Members
         public void Clear() {
-            if (string.IsNullOrEmpty(tempFileName))
-                tempFileName = RealFileName;
+            if (string.IsNullOrEmpty(_tempFileName))
+                _tempFileName = RealFileName;
             FileName = string.Empty;
             Size = 0;
         }
+
+        protected override void OnChanged(string propertyName, object oldValue, object newValue){
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (_oldRealFileName==null&&propertyName == "FileName" && !string.IsNullOrEmpty(oldValue + "")) {
+                _oldRealFileName = GetLocation(oldValue.ToString());
+            }
+        }
+
         [Size(260)]
         public string FileName {
             get { return GetPropertyValue<string>("FileName"); }
@@ -87,12 +104,12 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         }
         [Browsable(false)]
         public Stream TempSourceStream {
-            get { return tempSourceStream; }
+            get { return _tempSourceStream; }
             set {
-                tempSourceStream = value;
-                if (tempSourceStream is FileStream) {
+                _tempSourceStream = value;
+                if (_tempSourceStream is FileStream) {
                     try {
-                        tempSourceStream = File.OpenRead(((FileStream)tempSourceStream).Name);
+                        _tempSourceStream = File.OpenRead(((FileStream)_tempSourceStream).Name);
                     } catch (FileNotFoundException exc) {
                         throw new UserFriendlyException(exc);
                     }
@@ -103,8 +120,8 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         void IFileData.LoadFromStream(string fileName, Stream source) {
             FileName = fileName;
             TempSourceStream = source;
-            if (string.IsNullOrEmpty(tempFileName))
-                tempFileName = RealFileName;
+            if (string.IsNullOrEmpty(_tempFileName))
+                _tempFileName = RealFileName;
         }
         
         void IFileData.SaveToStream(Stream destination) {
@@ -118,7 +135,7 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
                         }
                     }
                 } else if (TempSourceStream != null)
-                    tempSourceStream.CopyStream(destination);
+                    _tempSourceStream.CopyStream(destination);
             } catch (DirectoryNotFoundException exc) {
                 throw new UserFriendlyException(exc);
             } catch (FileNotFoundException exc) {

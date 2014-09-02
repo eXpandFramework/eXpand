@@ -2,24 +2,25 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandEmail</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework Email Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Email Module / eXpandFramework</description>
+    <description>Email Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Email Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Email</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandSecurity" version="13.2.7.3" />
-      <dependency id="eXpandLogic" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandSecurity" version="14.1.6.5" />
+      <dependency id="eXpandLogic" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Email.dll" target="lib\net40\Xpand.ExpressApp.Email.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Email.pdb" target="lib\net40\Xpand.ExpressApp.Email.pdb" />
   </files>
 </package>

@@ -17,10 +17,10 @@ namespace XpandAddIns.ModelEditor {
             events.ProjectItemAdded += EventsOnProjectItemAdded;
             events.ProjectItemRenamed += EventsOnProjectItemRenamed;
             events.SolutionOpened += SetGridDataSource;
-            events.ProjectAdded += project => addProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project }));
-            events.ProjectRemoved += project1 => removeProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project1 }));
+            events.ProjectAdded += project => AddProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project }));
+            events.ProjectRemoved += project1 => RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project1 }));
         }
-        private void removeProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
+        private void RemoveProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
             var list = (BindingList<ProjectWrapper>)_gridControl.DataSource;
             foreach (var projectWrapper in projectWrappers) {
                 var singleWrapper = list.Single(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
@@ -45,7 +45,7 @@ namespace XpandAddIns.ModelEditor {
                 SetGridDataSource();
         }
 
-        private void addProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
+        private void AddProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
             foreach (var projectWrapper in projectWrappers) {
                 ((BindingList<ProjectWrapper>)_gridControl.DataSource).Add(projectWrapper);
             }

@@ -7,6 +7,9 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base.General;
+#if (CodeFirst)
+using DevExpress.Persistent.BaseImpl.EF;
+#endif
 using EFDemo.Module.Data;
 
 namespace EFDemo.Module.Controllers {

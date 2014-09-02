@@ -57,12 +57,15 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
 
         public void WriteShortcutTo(ViewShortcut currentShortcut, NameValueCollection queryString) {
             if (WebApplication.Instance.SupportsFriendlyUrl()) {
-                if (!IsNewObjectView(currentShortcut)) {
+                if (!IsNewObjectView(currentShortcut)){
+                    var windowId = queryString["WindowId"];
                     queryString.Clear();
                     var modelView = (IModelViewFriendlyUrl)WebApplication.Instance.Model.Views[currentShortcut.ViewId];
                     var objectKey = ObjectKey(currentShortcut, modelView);
                     var friendlyUrl = EditModeFriendlyUrl(currentShortcut, modelView.FriendlyUrl, modelView as IModelDetailViewFriendlyUrl);
                     queryString.Add(friendlyUrl, objectKey);
+                    if (!string.IsNullOrEmpty(windowId))
+                        queryString.Add("WindowId",windowId);
                 }
             }
         }

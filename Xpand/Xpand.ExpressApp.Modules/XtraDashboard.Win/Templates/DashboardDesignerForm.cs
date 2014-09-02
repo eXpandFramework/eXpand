@@ -10,7 +10,9 @@ using DevExpress.ExpressApp;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraBars.Ribbon;
+using Fasterflect;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
@@ -25,8 +27,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public DashboardDesignerForm() {
             InitializeComponent();
-            dashboardDesigner.ConfirmSaveOnClose = false;
-            _editHistory = Designer.GetPrivatePropertyValue<History>("History");
+            dashboardDesigner.ActionOnClose = DashboardActionOnClose.Prompt;
+            _editHistory = (History) Designer.GetPropertyValue("History");
         }
 
         public DashboardDesigner Designer {
@@ -65,8 +67,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
         void UpdateTemplateXml() {
-            using (var ms = new MemoryStream()) {
-                Designer.Dashboard.SaveToXml(ms);
+            using (var ms = new MemoryStream()){
+                Designer.Dashboard.SaveDashboard( Template, ms);
                 ms.Position = 0;
                 using (var sr = new StreamReader(ms)) {
                     string xml = sr.ReadToEnd();
@@ -90,7 +92,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(ObjectSpace, false);
+            Designer.Dashboard = _template.CreateDashBoard( FilterEnabled.DesignTime);
             _editHistory.Changed += _EditHistory_Changed;
         }
 

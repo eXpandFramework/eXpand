@@ -2,25 +2,27 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandMemberLevelSecurityWin</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework MemberLevelSecurity Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>MemberLevelSecurity Module (Win) / eXpandFramework</description>
+    <description>MemberLevelSecurity Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>MemberLevelSecurity Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#memberlevelsecuirty</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandSystemWin" version="13.2.7.3" />
-      <dependency id="eXpandSecurity" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandSystemWin" version="14.1.6.5" />
+      <dependency id="eXpandSecurity" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.dll" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.pdb" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.pdb" />
     <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.MemberLevelSecurity.Win.pdb" target="lib\net40\Xpand.ExpressApp.MemberLevelSecurity.Win.pdb" />
   </files>
 </package>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
@@ -38,24 +39,22 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
             return Frame.Controllers.Cast<Controller>().Where(controller => assemblies.Contains(controller.GetType().Assembly.FullName));
         }
 
-        protected override void OnActivated() {
-            base.OnActivated();
-            if (LogicRuleManager.HasRules<ControllerStateLogicInstaller>(View.ObjectTypeInfo)) {
-                _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-                _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=LogicRuleViewControllerOnLogicRuleExecute;
-            }
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
+            Frame.Disposing += FrameOnDisposing;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute;
         }
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (LogicRuleManager.HasRules<ControllerStateLogicInstaller>(View.ObjectTypeInfo))
-                _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=LogicRuleViewControllerOnLogicRuleExecute;
+        private void FrameOnDisposing(object sender, EventArgs e){
+            Frame.Disposing -= FrameOnDisposing;
+            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute;
         }
 
-        void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
-            var info = logicRuleExecuteEventArgs.LogicRuleInfo;
+        private void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs e){
+            var info = e.LogicRuleInfo;
             var controllerStateRule = info.Rule as IControllerStateRule;
-            if (controllerStateRule!=null) {
+            if (controllerStateRule != null) {
                 if (!string.IsNullOrEmpty(controllerStateRule.Module)) {
                     ChangeStateOnModules(info);
                 }
@@ -63,6 +62,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
                     ChangeState(controllerStateRule);
             }
         }
+
     }
 }
 

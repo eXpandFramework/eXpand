@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+  <Applications>
+    <!-- Win -->
+    <Application
+			Name="Xpand.Docs.Win"
+			FileName="[WinAppBin]\Xpand.Docs.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+    <!-- Web -->
+    <Application
+			Name="Xpand.Docs.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
+    <!-- For IIS -->
+    <!--Application
+			Name="Xpand.Docs.Web"
+			Url="http://localhost/Xpand.Docs.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="Xpand.DocsEasyTest"/>
+  </TestDatabases>
+
+  <Aliases>
+    <Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+    <Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\Xpand.Docs.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\Xpand.Docs.Web" />
+  </Aliases>
+</Options>
+

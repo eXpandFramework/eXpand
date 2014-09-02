@@ -26,23 +26,20 @@ namespace ValidationTester.Module.BusinessObjects {
             set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        [RuleRequiredField("City_WarningProperty", DefaultContexts.Save)]
-        [RuleType("City_WarningProperty", RuleType.Warning)]
+        [RuleRequiredField("City_WarningProperty", DefaultContexts.Save, ResultType = ValidationResultType.Warning)]
         public string City {
             get { return _city; }
             set { SetPropertyValue("City", ref _city, value); }
         }
 
-        [RuleRange("Age_InformationProperty", DefaultContexts.Save, 10, 60, CustomMessageTemplate = "Too old or too young.")]
-        [RuleType("Age_InformationProperty", RuleType.Information)]
+        [RuleRange("Age_InformationProperty", DefaultContexts.Save, 10, 60, CustomMessageTemplate = "Too old or too young.", ResultType = ValidationResultType.Information)]
         public int Age {
             get { return _age; }
             set { SetPropertyValue("Age", ref _age, value); }
         }
 
         [RuleValueComparison("Registration_ValueChangedProperty", RuleTypeController.ObjectSpaceObjectChanged,
-            ValueComparisonType.GreaterThanOrEqual, "LocalDateTimeToday()", ParametersMode.Expression, CustomMessageTemplate = "Registration before today?",SkipNullOrEmptyValues = false)]
-        [RuleType("Registration_ValueChangedProperty", RuleType.Information)]
+            ValueComparisonType.GreaterThanOrEqual, "LocalDateTimeToday()", ParametersMode.Expression, CustomMessageTemplate = "Registration before today?",SkipNullOrEmptyValues = false,ResultType = ValidationResultType.Information)]
         [ImmediatePostData]
         public DateTime Registration {
             get { return _registration; }

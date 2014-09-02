@@ -2,22 +2,23 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandWizardWin</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework Wizard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Wizard Module (Win) / eXpandFramework</description>
+    <description>Wizard Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Wizard Module (Win) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#wizard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\net40\Xpand.ExpressApp.WizardUI.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.WizardUI.Win.pdb" target="lib\net40\Xpand.ExpressApp.WizardUI.Win.pdb" />
   </files>
 </package>

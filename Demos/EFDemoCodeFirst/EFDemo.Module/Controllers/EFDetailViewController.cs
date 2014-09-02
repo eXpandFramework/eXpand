@@ -3,6 +3,9 @@ using System.Drawing;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+#if (CodeFirst)
+using DevExpress.Persistent.BaseImpl.EF;
+#endif
 using EFDemo.Module.Data;
 
 namespace EFDemo.Module.Controllers {

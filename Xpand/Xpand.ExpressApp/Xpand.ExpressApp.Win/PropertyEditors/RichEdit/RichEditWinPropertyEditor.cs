@@ -45,8 +45,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             base.OnViewControlsCreated();
             var detailView = View as DetailView;
             if (detailView != null)
-                foreach (var item in detailView.GetItems<RichEditWinPropertyEditor>()) {
-                    new RichEditControlSynchronizer(item.Control.RichEditControl, ((IModelMemberViewItemRichEdit)item.Model).RichEdit.Control).ApplyModel();
+                foreach (var item in detailView.GetItems<RichEditWinPropertyEditor>()){
+                    var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
+                    foreach (var modelAdapter in richEdit.ModelAdapters){
+                        new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
+                    }
+                    new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
                 }
         }
 
@@ -74,7 +78,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         IModelRichEdit RichEdit { get; }
     }
 
-    public interface IModelRichEdit : IModelNode {
+    public interface IModelRichEdit : IModelModelAdapter {
         [DefaultValue("rtf")]
         string HighLightExtension { get; set; }
         bool PrintXML { get; set; }
@@ -83,10 +87,30 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         bool ShowToolBars { get; set; }
         [DefaultValue("Text")]
         string ControlBindingProperty { get; set; }
+        IModelRichEditModelAdapters ModelAdapters { get; }
+    }
+
+    [ModelNodesGenerator(typeof(ModelRichEditAdaptersNodeGenerator))]
+    public interface IModelRichEditModelAdapters : IModelList<IModelRichEditModelAdapter>, IModelNode {
+
+    }
+
+    public class ModelRichEditAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelRichEdit, IModelRichEditModelAdapter> {
+    }
+
+    [ModelDisplayName("Adapter")]
+    public interface IModelRichEditModelAdapter : IModelCommonModelAdapter<IModelRichEdit> {
+    }
+
+    [DomainLogic(typeof(IModelRichEditModelAdapter))]
+    public class ModelDashboardViewerModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelRichEdit> {
+        public static IModelList<IModelRichEdit> Get_ModelAdapters(IModelRichEditModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
     }
 
     [DomainLogic(typeof(IModelRichEdit))]
-    public class ModelRichEditDomainLogic {
+    public class ModelRichEditDomainLogic  {
         public static string Get_ControlBindingProperty(IModelRichEdit modelRichEdit){
             return GetValue(modelRichEdit, attribute => attribute.ControlBindingProperty) as string;
         }
@@ -199,8 +223,15 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             richEditContainer.RichEditControl.Views.DraftView.AllowDisplayLineNumbers = true;
             richEditContainer.RichEditControl.Views.DraftView.Padding = new Padding(70, 4, 0, 0);
             richEditContainer.RichEditControl.InitializeDocument += richEditControl_InitializeDocument;
+            richEditContainer.RichEditControl.TextChanged += Editor_RtfTextChanged;
             richEditContainer.RichEditControl.AddService(typeof(ISyntaxHighlightService), new SyntaxHighlightService(this));
             return richEditContainer;
+        }
+
+        private void Editor_RtfTextChanged(object sender, EventArgs e) {
+            if (!inReadValue && (Control.DataBindings.Count > 0)) {
+                OnControlValueChanged();
+            }
         }
 
         void richEditControl_InitializeDocument(object sender, EventArgs e) {
@@ -262,7 +293,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public void Execute() {
-            TokenCollection tokens = Parse(_editor.Control.Text);
+            TokenCollection tokens = Parse(_editor.ControlValue as string);
             HighlightSyntax(tokens);
         }
 

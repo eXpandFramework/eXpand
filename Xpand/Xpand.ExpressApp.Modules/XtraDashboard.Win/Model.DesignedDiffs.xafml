@@ -9,42 +9,16 @@
       <Items>
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardXMLEditor" />
       </Items>
-      <Layout>
-        <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="9.3681917211328969">
-            <LayoutGroup Id="DashboardDefinition" RelativeSize="100">
-              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="37.2093023255814" />
-              <LayoutGroup Id="Autoc52d0b65-6717-4709-b6dc-8f988fc795e6" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="62.7906976744186" IsNewNode="True">
-                <LayoutGroup Id="Auto60194fe5-5873-4875-9e50-3d4beb2eb430" ShowCaption="False" Caption="" Index="0" RelativeSize="49.947423764458463" IsNewNode="True">
-                  <LayoutItem Id="Index" ViewItem="Index" SizeConstraintsType="Default" Index="0" RelativeSize="44.444444444444443" IsNewNode="True" />
-                  <LayoutItem Id="Icon" ViewItem="Icon" SizeConstraintsType="Default" Index="1" RelativeSize="55.555555555555557" IsNewNode="True" />
-                </LayoutGroup>
-                <LayoutGroup Id="Autoef7c89cc-c3b5-4fca-91d6-e0f9056a0b85" ShowCaption="False" Caption="" Index="1" RelativeSize="50.052576235541537" IsNewNode="True">
-                  <LayoutItem Id="Active" ViewItem="Active" SizeConstraintsType="Default" Index="0" RelativeSize="44.444444444444443" IsNewNode="True" />
-                  <LayoutItem Id="DashboardTypes" ShowCaption="False" ViewItem="DashboardTypes" SizeConstraintsType="Default" Index="1" RelativeSize="55.555555555555557" IsNewNode="True" />
-                </LayoutGroup>
-              </LayoutGroup>
-              <LayoutItem Id="Icon" SizeConstraintsType="Default" Index="2" RelativeSize="34.883720930232556" Removed="True" />
-              <LayoutItem Id="Active" Removed="True" />
-              <LayoutItem Id="Index" Removed="True" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs" RelativeSize="90.6318082788671">
-            <LayoutGroup Id="DashboardTypes" RelativeSize="100" Direction="Vertical" Caption="Xml">
-              <LayoutItem Id="Xml" ViewItem="Xml" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
-              <LayoutItem Id="DashboardTypes" Removed="True" />
-            </LayoutGroup>
-            <LayoutGroup Id="Roles" RelativeSize="100">
-              <LayoutItem Id="Roles" SizeConstraintsType="Default" RelativeSize="100" />
-            </LayoutGroup>
-          </TabbedGroup>
-          <LayoutGroup Id="DashboardTypes_Group" Removed="True" />
-        </LayoutGroup>
-      </Layout>
     </DetailView>
     <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
       <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True" />
+        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True">
+          <DashboardViewEditor IsNewNode="True">
+            <ModelAdapters IsNewNode="True">
+              <DashboardViewerModelAdapter Id="Default" ModelAdapter="DashboardViewer" IsNewNode="True" />
+            </ModelAdapters>
+          </DashboardViewEditor>
+        </PropertyEditor>
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">

@@ -372,10 +372,10 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             return PivotEvents<IPivotGroupIntervalEvent, IModelPivotGroupIntervalRule>(frame, modelPivotGroupIntervalRules, rule => rule.GroupIntervalType);
         }
 
-        IEnumerable<T> PivotEvents<T, V>(Frame frame, IEnumerable<IModelPivotFieldRule> modelPivotFieldRules, Func<V, Type> action)
+        IEnumerable<T> PivotEvents<T, TV>(Frame frame, IEnumerable<IModelPivotFieldRule> modelPivotFieldRules, Func<TV, Type> action)
             where T : IPivotEvent
-            where V : IModelPivotFieldRule {
-            return modelPivotFieldRules.Select(intervalRule => action.Invoke((V)intervalRule)).Select(type => CreateInstance<T>(frame, type));
+            where TV : IModelPivotFieldRule {
+            return modelPivotFieldRules.Select(intervalRule => action.Invoke((TV)intervalRule)).Select(type => CreateInstance<T>(frame, type));
         }
 
         public T CreateInstance<T>(Frame frame, Type type) where T : IPivotEvent {

@@ -1,1 +1,1 @@
-<%@ Application Language="C#" CodeBehind="Global.asax.cs" Inherits="DCSecurityDemo.Web.Global"%>
+<%@ Application Language="C#" CodeBehind="Global.asax.cs" Inherits="DCSecurityDemo.UiLevel.Web.Global"%>

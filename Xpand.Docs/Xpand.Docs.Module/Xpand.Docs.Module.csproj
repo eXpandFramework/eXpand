@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xpand.Docs.Module</RootNamespace>
+    <AssemblyName>Xpand.Docs.Module</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL" />
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.EmailTemplateEngine">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.EmailTemplateEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AuditTrail">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.AuditTrail.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Email">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Email.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.StateMachine">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjects\ModuleArtifact.cs" />
+    <Compile Include="BusinessObjects\Document.cs" />
+    <Compile Include="BusinessObjects\ExtenderInterface.cs" />
+    <Compile Include="BusinessObjects\ParsingExtensions.cs" />
+    <Compile Include="Class1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module.Designer.cs">
+      <DependentUpon>Module.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Module.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Module.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BusinessObjects\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Controllers\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\WebSample.ets" />
+    <None Include="FunctionalTests\WinSample.ets" />
+    <None Include="Images\ReadMe.txt" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DatabaseUpdate\HowToDisplayAddressInGoogleMaps.xml" />
+    <EmbeddedResource Include="DatabaseUpdate\MapViewInstalation.xml" />
+    <Content Include="DatabaseUpdate\XMLFile1.xml" />
+    <Content Include="FunctionalTests\Config.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

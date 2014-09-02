@@ -77,6 +77,7 @@
             DevExpress.DashboardWin.Bars.ChartSeriesTypeGalleryItem chartSeriesTypeGalleryItem22 = new DevExpress.DashboardWin.Bars.ChartSeriesTypeGalleryItem();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup15 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup16 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
+            DevExpress.XtraBars.Ribbon.GalleryItemGroup galleryItemGroup17 = new DevExpress.XtraBars.Ribbon.GalleryItemGroup();
             this.dashboardDesigner = new DevExpress.DashboardWin.DashboardDesigner();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.dashboardBackstageViewControl1 = new DevExpress.DashboardWin.Bars.DashboardBackstageViewControl();
@@ -108,7 +109,6 @@
             this.insertGaugesBarItem1 = new DevExpress.DashboardWin.Bars.InsertGaugesBarItem();
             this.insertCardsBarItem1 = new DevExpress.DashboardWin.Bars.InsertCardsBarItem();
             this.insertChoroplethMapBarItem1 = new DevExpress.DashboardWin.Bars.InsertChoroplethMapBarItem();
-            this.insertGeoPointMapBarItem1 = new DevExpress.DashboardWin.Bars.InsertGeoPointMapBarItem();
             this.insertRangeFilterBarItem1 = new DevExpress.DashboardWin.Bars.InsertRangeFilterBarItem();
             this.insertImageBarItem1 = new DevExpress.DashboardWin.Bars.InsertImageBarItem();
             this.insertTextBoxBarItem1 = new DevExpress.DashboardWin.Bars.InsertTextBoxBarItem();
@@ -320,6 +320,58 @@
             this.viewRibbonPage1 = new DevExpress.DashboardWin.Bars.ViewRibbonPage();
             this.skinsRibbonPageGroup1 = new DevExpress.DashboardWin.Bars.SkinsRibbonPageGroup();
             this.dashboardBarController1 = new DevExpress.DashboardWin.Bars.DashboardBarController();
+            this.renameDataSourceBarItem1 = new DevExpress.DashboardWin.Bars.RenameDataSourceBarItem();
+            this.serverModeBarItem1 = new DevExpress.DashboardWin.Bars.ServerModeBarItem();
+            this.insertGeoPointMapBarSubItem1 = new DevExpress.DashboardWin.Bars.InsertGeoPointMapBarSubItem();
+            this.insertGeoPointMapBarItem1 = new DevExpress.DashboardWin.Bars.InsertGeoPointMapBarItem();
+            this.insertBubbleMapBarItem1 = new DevExpress.DashboardWin.Bars.InsertBubbleMapBarItem();
+            this.insertPieMapBarItem1 = new DevExpress.DashboardWin.Bars.InsertPieMapBarItem();
+            this.convertDashboardItemTypeBarItem1 = new DevExpress.DashboardWin.Bars.ConvertDashboardItemTypeBarItem();
+            this.convertToPivotBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToPivotBarItem();
+            this.convertToGridBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToGridBarItem();
+            this.convertToChartBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToChartBarItem();
+            this.convertToPieBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToPieBarItem();
+            this.convertToGaugeBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToGaugeBarItem();
+            this.convertToCardBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToCardBarItem();
+            this.convertToChoroplethMapBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToChoroplethMapBarItem();
+            this.convertGeoPointMapBaseBarItem1 = new DevExpress.DashboardWin.Bars.ConvertGeoPointMapBaseBarItem();
+            this.convertToGeoPointMapBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToGeoPointMapBarItem();
+            this.convertToBubbleMapBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToBubbleMapBarItem();
+            this.convertToPieMapBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToPieMapBarItem();
+            this.convertToRangeFilterBarItem1 = new DevExpress.DashboardWin.Bars.ConvertToRangeFilterBarItem();
+            this.removeDataItemsBarItem1 = new DevExpress.DashboardWin.Bars.RemoveDataItemsBarItem();
+            this.transposeItemBarItem1 = new DevExpress.DashboardWin.Bars.TransposeItemBarItem();
+            this.filteringRibbonPageGroup10 = new DevExpress.DashboardWin.Bars.FilteringRibbonPageGroup();
+            this.dataRibbonPage10 = new DevExpress.DashboardWin.Bars.DataRibbonPage();
+            this.bubbleMapToolsRibbonPageCategory1 = new DevExpress.DashboardWin.Bars.BubbleMapToolsRibbonPageCategory();
+            this.filteringRibbonPageGroup11 = new DevExpress.DashboardWin.Bars.FilteringRibbonPageGroup();
+            this.dataRibbonPage11 = new DevExpress.DashboardWin.Bars.DataRibbonPage();
+            this.pieMapToolsRibbonPageCategory1 = new DevExpress.DashboardWin.Bars.PieMapToolsRibbonPageCategory();
+            this.masterFilterRibbonPageGroup8 = new DevExpress.DashboardWin.Bars.MasterFilterRibbonPageGroup();
+            this.masterFilterRibbonPageGroup9 = new DevExpress.DashboardWin.Bars.MasterFilterRibbonPageGroup();
+            this.interactivitySettingsRibbonPageGroup10 = new DevExpress.DashboardWin.Bars.InteractivitySettingsRibbonPageGroup();
+            this.interactivitySettingsRibbonPageGroup11 = new DevExpress.DashboardWin.Bars.InteractivitySettingsRibbonPageGroup();
+            this.geoPointMapClusterizationRibbonPageGroup1 = new DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup();
+            this.geoPointMapClusterizationBarItem1 = new DevExpress.DashboardWin.Bars.GeoPointMapClusterizationBarItem();
+            this.geoPointMapClusterizationRibbonPageGroup2 = new DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup();
+            this.geoPointMapClusterizationRibbonPageGroup3 = new DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup();
+            this.commonItemDesignRibbonPageGroup12 = new DevExpress.DashboardWin.Bars.CommonItemDesignRibbonPageGroup();
+            this.dashboardItemDesignRibbonPage12 = new DevExpress.DashboardWin.Bars.DashboardItemDesignRibbonPage();
+            this.commonItemDesignRibbonPageGroup13 = new DevExpress.DashboardWin.Bars.CommonItemDesignRibbonPageGroup();
+            this.dashboardItemDesignRibbonPage13 = new DevExpress.DashboardWin.Bars.DashboardItemDesignRibbonPage();
+            this.mapShapefileRibbonPageGroup3 = new DevExpress.DashboardWin.Bars.MapShapefileRibbonPageGroup();
+            this.mapShapefileRibbonPageGroup4 = new DevExpress.DashboardWin.Bars.MapShapefileRibbonPageGroup();
+            this.mapLegendPositionPageGroup2 = new DevExpress.DashboardWin.Bars.MapLegendPositionPageGroup();
+            this.mapLegendPositionPageGroup3 = new DevExpress.DashboardWin.Bars.MapLegendPositionPageGroup();
+            this.weightedLegendPageGroup1 = new DevExpress.DashboardWin.Bars.WeightedLegendPageGroup();
+            this.changeWeightedLegendTypeBarItem1 = new DevExpress.DashboardWin.Bars.ChangeWeightedLegendTypeBarItem();
+            this.weightedLegendNoneBarItem1 = new DevExpress.DashboardWin.Bars.WeightedLegendNoneBarItem();
+            this.weightedLegendLinearBarItem1 = new DevExpress.DashboardWin.Bars.WeightedLegendLinearBarItem();
+            this.weightedLegendNestedBarItem1 = new DevExpress.DashboardWin.Bars.WeightedLegendNestedBarItem();
+            this.galleryWeightedLegendPositionItem1 = new DevExpress.DashboardWin.Bars.GalleryWeightedLegendPositionItem();
+            this.weightedLegendPageGroup2 = new DevExpress.DashboardWin.Bars.WeightedLegendPageGroup();
+            this.pieMapOptionsPageGroup1 = new DevExpress.DashboardWin.Bars.PieMapOptionsPageGroup();
+            this.pieMapIsWeightedBarItem1 = new DevExpress.DashboardWin.Bars.PieMapIsWeightedBarItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             this.dashboardBackstageViewControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardBarAndDockingController1)).BeginInit();
@@ -330,7 +382,7 @@
             // 
             // dashboardDesigner
             // 
-            this.dashboardDesigner.ConfirmSaveOnClose = false;
+            this.dashboardDesigner.ActionOnClose = DevExpress.DashboardWin.DashboardActionOnClose.Discard;
             this.dashboardDesigner.CustomDBSchemaProvider = null;
             this.dashboardDesigner.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dashboardDesigner.Location = new System.Drawing.Point(0, 144);
@@ -366,7 +418,6 @@
             this.insertGaugesBarItem1,
             this.insertCardsBarItem1,
             this.insertChoroplethMapBarItem1,
-            this.insertGeoPointMapBarItem1,
             this.insertRangeFilterBarItem1,
             this.insertImageBarItem1,
             this.insertTextBoxBarItem1,
@@ -473,9 +524,37 @@
             this.quickAccessUndoBarItem1,
             this.quickAccessRedoBarItem1,
             this.barButtonItemSave,
-            this.barButtonItemSaveAndClose});
+            this.barButtonItemSaveAndClose,
+            this.renameDataSourceBarItem1,
+            this.serverModeBarItem1,
+            this.insertGeoPointMapBarSubItem1,
+            this.insertGeoPointMapBarItem1,
+            this.insertBubbleMapBarItem1,
+            this.insertPieMapBarItem1,
+            this.convertDashboardItemTypeBarItem1,
+            this.convertToPivotBarItem1,
+            this.convertToGridBarItem1,
+            this.convertToChartBarItem1,
+            this.convertToPieBarItem1,
+            this.convertToGaugeBarItem1,
+            this.convertToCardBarItem1,
+            this.convertToChoroplethMapBarItem1,
+            this.convertToGeoPointMapBarItem1,
+            this.convertToBubbleMapBarItem1,
+            this.convertToPieMapBarItem1,
+            this.convertGeoPointMapBaseBarItem1,
+            this.convertToRangeFilterBarItem1,
+            this.removeDataItemsBarItem1,
+            this.transposeItemBarItem1,
+            this.geoPointMapClusterizationBarItem1,
+            this.changeWeightedLegendTypeBarItem1,
+            this.weightedLegendNoneBarItem1,
+            this.weightedLegendLinearBarItem1,
+            this.weightedLegendNestedBarItem1,
+            this.galleryWeightedLegendPositionItem1,
+            this.pieMapIsWeightedBarItem1});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
-            this.ribbonControl1.MaxItemId = 129;
+            this.ribbonControl1.MaxItemId = 157;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.PageCategories.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageCategory[] {
             this.pivotToolsRibbonPageCategory1,
@@ -488,7 +567,9 @@
             this.choroplethMapToolsRibbonPageCategory1,
             this.geoPointMapToolsRibbonPageCategory1,
             this.imageToolsRibbonPageCategory1,
-            this.textBoxToolsRibbonPageCategory1});
+            this.textBoxToolsRibbonPageCategory1,
+            this.bubbleMapToolsRibbonPageCategory1,
+            this.pieMapToolsRibbonPageCategory1});
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.homeRibbonPage1,
             this.dataSourceRibbonPage1,
@@ -536,11 +617,11 @@
             // 
             // recentDashboardsControl1
             // 
-            this.recentDashboardsControl1.DashboardDesigner = null;
             this.recentDashboardsControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.recentDashboardsControl1.ForeColor = System.Drawing.Color.Transparent;
             this.recentDashboardsControl1.Location = new System.Drawing.Point(0, 0);
             this.recentDashboardsControl1.Name = "recentDashboardsControl1";
+            this.recentDashboardsControl1.ServiceProvider = null;
             this.recentDashboardsControl1.Size = new System.Drawing.Size(108, 150);
             this.recentDashboardsControl1.TabIndex = 0;
             // 
@@ -553,27 +634,27 @@
             // 
             // dashboardBackstageNewButton1
             // 
-            this.dashboardBackstageNewButton1.DashboardDesigner = this.dashboardDesigner;
             this.dashboardBackstageNewButton1.Glyph = ((System.Drawing.Image)(resources.GetObject("dashboardBackstageNewButton1.Glyph")));
             this.dashboardBackstageNewButton1.Name = "dashboardBackstageNewButton1";
+            this.dashboardBackstageNewButton1.ServiceProvider = this.dashboardDesigner;
             // 
             // dashboardBackstageOpenButton1
             // 
-            this.dashboardBackstageOpenButton1.DashboardDesigner = this.dashboardDesigner;
             this.dashboardBackstageOpenButton1.Glyph = ((System.Drawing.Image)(resources.GetObject("dashboardBackstageOpenButton1.Glyph")));
             this.dashboardBackstageOpenButton1.Name = "dashboardBackstageOpenButton1";
+            this.dashboardBackstageOpenButton1.ServiceProvider = this.dashboardDesigner;
             // 
             // dashboardBackstageSaveButton1
             // 
-            this.dashboardBackstageSaveButton1.DashboardDesigner = this.dashboardDesigner;
             this.dashboardBackstageSaveButton1.Glyph = ((System.Drawing.Image)(resources.GetObject("dashboardBackstageSaveButton1.Glyph")));
             this.dashboardBackstageSaveButton1.Name = "dashboardBackstageSaveButton1";
+            this.dashboardBackstageSaveButton1.ServiceProvider = this.dashboardDesigner;
             // 
             // dashboardBackstageSaveAsButton1
             // 
-            this.dashboardBackstageSaveAsButton1.DashboardDesigner = this.dashboardDesigner;
             this.dashboardBackstageSaveAsButton1.Glyph = ((System.Drawing.Image)(resources.GetObject("dashboardBackstageSaveAsButton1.Glyph")));
             this.dashboardBackstageSaveAsButton1.Name = "dashboardBackstageSaveAsButton1";
+            this.dashboardBackstageSaveAsButton1.ServiceProvider = this.dashboardDesigner;
             // 
             // fileNewBarItem1
             // 
@@ -675,11 +756,6 @@
             this.insertChoroplethMapBarItem1.Id = 20;
             this.insertChoroplethMapBarItem1.Name = "insertChoroplethMapBarItem1";
             // 
-            // insertGeoPointMapBarItem1
-            // 
-            this.insertGeoPointMapBarItem1.Id = 21;
-            this.insertGeoPointMapBarItem1.Name = "insertGeoPointMapBarItem1";
-            // 
             // insertRangeFilterBarItem1
             // 
             this.insertRangeFilterBarItem1.Id = 22;
@@ -717,6 +793,7 @@
             // 
             // dashboardSkinsBarItem1
             // 
+            this.dashboardSkinsBarItem1.AllowDrawArrow = true;
             // 
             // 
             // 
@@ -974,6 +1051,7 @@
             // 
             // galleryChartLegendPositionItem1
             // 
+            this.galleryChartLegendPositionItem1.AllowDrawArrow = true;
             // 
             // 
             // 
@@ -994,6 +1072,7 @@
             // 
             // galleryChartSeriesTypeItem1
             // 
+            this.galleryChartSeriesTypeItem1.AllowDrawArrow = true;
             // 
             // 
             // 
@@ -1419,6 +1498,7 @@
             // 
             // galleryMapLegendPositionItem1
             // 
+            this.galleryMapLegendPositionItem1.AllowDrawArrow = true;
             // 
             // 
             // 
@@ -2052,7 +2132,8 @@
             this.dataRibbonPage9.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.filteringRibbonPageGroup9,
             this.masterFilterRibbonPageGroup7,
-            this.interactivitySettingsRibbonPageGroup9});
+            this.interactivitySettingsRibbonPageGroup9,
+            this.geoPointMapClusterizationRibbonPageGroup1});
             this.dataRibbonPage9.Name = "dataRibbonPage9";
             this.dataRibbonPage9.Visible = false;
             // 
@@ -2209,16 +2290,19 @@
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertGaugesBarItem1);
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertCardsBarItem1);
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertChoroplethMapBarItem1);
-            this.insertRibbonPageGroup1.ItemLinks.Add(this.insertGeoPointMapBarItem1);
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertRangeFilterBarItem1);
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertImageBarItem1);
             this.insertRibbonPageGroup1.ItemLinks.Add(this.insertTextBoxBarItem1);
+            this.insertRibbonPageGroup1.ItemLinks.Add(this.insertGeoPointMapBarSubItem1);
             this.insertRibbonPageGroup1.Name = "insertRibbonPageGroup1";
             // 
             // itemOperationRibbonPageGroup1
             // 
             this.itemOperationRibbonPageGroup1.ItemLinks.Add(this.duplicateItemBarItem1);
             this.itemOperationRibbonPageGroup1.ItemLinks.Add(this.deleteItemBarItem1);
+            this.itemOperationRibbonPageGroup1.ItemLinks.Add(this.convertDashboardItemTypeBarItem1);
+            this.itemOperationRibbonPageGroup1.ItemLinks.Add(this.removeDataItemsBarItem1);
+            this.itemOperationRibbonPageGroup1.ItemLinks.Add(this.transposeItemBarItem1);
             this.itemOperationRibbonPageGroup1.Name = "itemOperationRibbonPageGroup1";
             // 
             // dashboardDesignRibbonPageGroup1
@@ -2247,6 +2331,8 @@
             this.dataSourceRibbonPageGroup1.ItemLinks.Add(this.newDataSourceBarItem1);
             this.dataSourceRibbonPageGroup1.ItemLinks.Add(this.editDataSourceBarItem1);
             this.dataSourceRibbonPageGroup1.ItemLinks.Add(this.deleteDataSourceBarItem1);
+            this.dataSourceRibbonPageGroup1.ItemLinks.Add(this.renameDataSourceBarItem1);
+            this.dataSourceRibbonPageGroup1.ItemLinks.Add(this.serverModeBarItem1);
             this.dataSourceRibbonPageGroup1.Name = "dataSourceRibbonPageGroup1";
             // 
             // dataSourceElementsRibbonPageGroup1
@@ -2294,7 +2380,6 @@
             this.dashboardBarController1.BarItems.Add(this.insertGaugesBarItem1);
             this.dashboardBarController1.BarItems.Add(this.insertCardsBarItem1);
             this.dashboardBarController1.BarItems.Add(this.insertChoroplethMapBarItem1);
-            this.dashboardBarController1.BarItems.Add(this.insertGeoPointMapBarItem1);
             this.dashboardBarController1.BarItems.Add(this.insertRangeFilterBarItem1);
             this.dashboardBarController1.BarItems.Add(this.insertImageBarItem1);
             this.dashboardBarController1.BarItems.Add(this.insertTextBoxBarItem1);
@@ -2400,7 +2485,375 @@
             this.dashboardBarController1.BarItems.Add(this.mapCanadaBarItem1);
             this.dashboardBarController1.BarItems.Add(this.quickAccessUndoBarItem1);
             this.dashboardBarController1.BarItems.Add(this.quickAccessRedoBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.renameDataSourceBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.serverModeBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.insertGeoPointMapBarSubItem1);
+            this.dashboardBarController1.BarItems.Add(this.insertGeoPointMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.insertBubbleMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.insertPieMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertDashboardItemTypeBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToPivotBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToGridBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToChartBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToPieBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToGaugeBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToCardBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToChoroplethMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertGeoPointMapBaseBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToGeoPointMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToBubbleMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToPieMapBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.convertToRangeFilterBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.removeDataItemsBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.transposeItemBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.geoPointMapClusterizationBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.changeWeightedLegendTypeBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.weightedLegendNoneBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.weightedLegendLinearBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.weightedLegendNestedBarItem1);
+            this.dashboardBarController1.BarItems.Add(this.galleryWeightedLegendPositionItem1);
+            this.dashboardBarController1.BarItems.Add(this.pieMapIsWeightedBarItem1);
             this.dashboardBarController1.Control = this.dashboardDesigner;
+            // 
+            // renameDataSourceBarItem1
+            // 
+            this.renameDataSourceBarItem1.Id = 129;
+            this.renameDataSourceBarItem1.Name = "renameDataSourceBarItem1";
+            // 
+            // serverModeBarItem1
+            // 
+            this.serverModeBarItem1.Id = 130;
+            this.serverModeBarItem1.Name = "serverModeBarItem1";
+            // 
+            // insertGeoPointMapBarSubItem1
+            // 
+            this.insertGeoPointMapBarSubItem1.Id = 131;
+            this.insertGeoPointMapBarSubItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.insertGeoPointMapBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.insertBubbleMapBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.insertPieMapBarItem1)});
+            this.insertGeoPointMapBarSubItem1.Name = "insertGeoPointMapBarSubItem1";
+            this.insertGeoPointMapBarSubItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionInMenu;
+            // 
+            // insertGeoPointMapBarItem1
+            // 
+            this.insertGeoPointMapBarItem1.Id = 132;
+            this.insertGeoPointMapBarItem1.Name = "insertGeoPointMapBarItem1";
+            // 
+            // insertBubbleMapBarItem1
+            // 
+            this.insertBubbleMapBarItem1.Id = 133;
+            this.insertBubbleMapBarItem1.Name = "insertBubbleMapBarItem1";
+            // 
+            // insertPieMapBarItem1
+            // 
+            this.insertPieMapBarItem1.Id = 134;
+            this.insertPieMapBarItem1.Name = "insertPieMapBarItem1";
+            // 
+            // convertDashboardItemTypeBarItem1
+            // 
+            this.convertDashboardItemTypeBarItem1.Id = 135;
+            this.convertDashboardItemTypeBarItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToPivotBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToGridBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToChartBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToPieBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToGaugeBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToCardBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToChoroplethMapBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertGeoPointMapBaseBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToRangeFilterBarItem1)});
+            this.convertDashboardItemTypeBarItem1.Name = "convertDashboardItemTypeBarItem1";
+            this.convertDashboardItemTypeBarItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionInMenu;
+            // 
+            // convertToPivotBarItem1
+            // 
+            this.convertToPivotBarItem1.Id = 136;
+            this.convertToPivotBarItem1.Name = "convertToPivotBarItem1";
+            // 
+            // convertToGridBarItem1
+            // 
+            this.convertToGridBarItem1.Id = 137;
+            this.convertToGridBarItem1.Name = "convertToGridBarItem1";
+            // 
+            // convertToChartBarItem1
+            // 
+            this.convertToChartBarItem1.Id = 138;
+            this.convertToChartBarItem1.Name = "convertToChartBarItem1";
+            // 
+            // convertToPieBarItem1
+            // 
+            this.convertToPieBarItem1.Id = 139;
+            this.convertToPieBarItem1.Name = "convertToPieBarItem1";
+            // 
+            // convertToGaugeBarItem1
+            // 
+            this.convertToGaugeBarItem1.Id = 140;
+            this.convertToGaugeBarItem1.Name = "convertToGaugeBarItem1";
+            // 
+            // convertToCardBarItem1
+            // 
+            this.convertToCardBarItem1.Id = 141;
+            this.convertToCardBarItem1.Name = "convertToCardBarItem1";
+            // 
+            // convertToChoroplethMapBarItem1
+            // 
+            this.convertToChoroplethMapBarItem1.Id = 142;
+            this.convertToChoroplethMapBarItem1.Name = "convertToChoroplethMapBarItem1";
+            // 
+            // convertGeoPointMapBaseBarItem1
+            // 
+            this.convertGeoPointMapBaseBarItem1.Id = 146;
+            this.convertGeoPointMapBaseBarItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToGeoPointMapBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToBubbleMapBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.convertToPieMapBarItem1)});
+            this.convertGeoPointMapBaseBarItem1.Name = "convertGeoPointMapBaseBarItem1";
+            // 
+            // convertToGeoPointMapBarItem1
+            // 
+            this.convertToGeoPointMapBarItem1.Id = 143;
+            this.convertToGeoPointMapBarItem1.Name = "convertToGeoPointMapBarItem1";
+            // 
+            // convertToBubbleMapBarItem1
+            // 
+            this.convertToBubbleMapBarItem1.Id = 144;
+            this.convertToBubbleMapBarItem1.Name = "convertToBubbleMapBarItem1";
+            // 
+            // convertToPieMapBarItem1
+            // 
+            this.convertToPieMapBarItem1.Id = 145;
+            this.convertToPieMapBarItem1.Name = "convertToPieMapBarItem1";
+            // 
+            // convertToRangeFilterBarItem1
+            // 
+            this.convertToRangeFilterBarItem1.Id = 147;
+            this.convertToRangeFilterBarItem1.Name = "convertToRangeFilterBarItem1";
+            // 
+            // removeDataItemsBarItem1
+            // 
+            this.removeDataItemsBarItem1.Id = 148;
+            this.removeDataItemsBarItem1.Name = "removeDataItemsBarItem1";
+            // 
+            // transposeItemBarItem1
+            // 
+            this.transposeItemBarItem1.Id = 149;
+            this.transposeItemBarItem1.Name = "transposeItemBarItem1";
+            // 
+            // filteringRibbonPageGroup10
+            // 
+            this.filteringRibbonPageGroup10.ItemLinks.Add(this.editFilterBarItem1);
+            this.filteringRibbonPageGroup10.ItemLinks.Add(this.clearFilterBarItem1);
+            this.filteringRibbonPageGroup10.Name = "filteringRibbonPageGroup10";
+            // 
+            // dataRibbonPage10
+            // 
+            this.dataRibbonPage10.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.filteringRibbonPageGroup10,
+            this.masterFilterRibbonPageGroup8,
+            this.interactivitySettingsRibbonPageGroup10,
+            this.geoPointMapClusterizationRibbonPageGroup2});
+            this.dataRibbonPage10.Name = "dataRibbonPage10";
+            this.dataRibbonPage10.Visible = false;
+            // 
+            // bubbleMapToolsRibbonPageCategory1
+            // 
+            this.bubbleMapToolsRibbonPageCategory1.Control = this.dashboardDesigner;
+            this.bubbleMapToolsRibbonPageCategory1.Name = "bubbleMapToolsRibbonPageCategory1";
+            this.bubbleMapToolsRibbonPageCategory1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.dataRibbonPage10,
+            this.dashboardItemDesignRibbonPage12});
+            this.bubbleMapToolsRibbonPageCategory1.Visible = false;
+            // 
+            // filteringRibbonPageGroup11
+            // 
+            this.filteringRibbonPageGroup11.ItemLinks.Add(this.editFilterBarItem1);
+            this.filteringRibbonPageGroup11.ItemLinks.Add(this.clearFilterBarItem1);
+            this.filteringRibbonPageGroup11.Name = "filteringRibbonPageGroup11";
+            // 
+            // dataRibbonPage11
+            // 
+            this.dataRibbonPage11.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.filteringRibbonPageGroup11,
+            this.masterFilterRibbonPageGroup9,
+            this.interactivitySettingsRibbonPageGroup11,
+            this.geoPointMapClusterizationRibbonPageGroup3});
+            this.dataRibbonPage11.Name = "dataRibbonPage11";
+            this.dataRibbonPage11.Visible = false;
+            // 
+            // pieMapToolsRibbonPageCategory1
+            // 
+            this.pieMapToolsRibbonPageCategory1.Control = this.dashboardDesigner;
+            this.pieMapToolsRibbonPageCategory1.Name = "pieMapToolsRibbonPageCategory1";
+            this.pieMapToolsRibbonPageCategory1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.dataRibbonPage11,
+            this.dashboardItemDesignRibbonPage13});
+            this.pieMapToolsRibbonPageCategory1.Visible = false;
+            // 
+            // masterFilterRibbonPageGroup8
+            // 
+            this.masterFilterRibbonPageGroup8.ItemLinks.Add(this.masterFilterBarItem1);
+            this.masterFilterRibbonPageGroup8.ItemLinks.Add(this.multipleValuesMasterFilterBarItem1);
+            this.masterFilterRibbonPageGroup8.Name = "masterFilterRibbonPageGroup8";
+            // 
+            // masterFilterRibbonPageGroup9
+            // 
+            this.masterFilterRibbonPageGroup9.ItemLinks.Add(this.masterFilterBarItem1);
+            this.masterFilterRibbonPageGroup9.ItemLinks.Add(this.multipleValuesMasterFilterBarItem1);
+            this.masterFilterRibbonPageGroup9.Name = "masterFilterRibbonPageGroup9";
+            // 
+            // interactivitySettingsRibbonPageGroup10
+            // 
+            this.interactivitySettingsRibbonPageGroup10.ItemLinks.Add(this.crossDataSourceFilteringBarItem1);
+            this.interactivitySettingsRibbonPageGroup10.ItemLinks.Add(this.ignoreMasterFiltersBarItem1);
+            this.interactivitySettingsRibbonPageGroup10.Name = "interactivitySettingsRibbonPageGroup10";
+            // 
+            // interactivitySettingsRibbonPageGroup11
+            // 
+            this.interactivitySettingsRibbonPageGroup11.ItemLinks.Add(this.crossDataSourceFilteringBarItem1);
+            this.interactivitySettingsRibbonPageGroup11.ItemLinks.Add(this.ignoreMasterFiltersBarItem1);
+            this.interactivitySettingsRibbonPageGroup11.Name = "interactivitySettingsRibbonPageGroup11";
+            // 
+            // geoPointMapClusterizationRibbonPageGroup1
+            // 
+            this.geoPointMapClusterizationRibbonPageGroup1.ItemLinks.Add(this.geoPointMapClusterizationBarItem1);
+            this.geoPointMapClusterizationRibbonPageGroup1.Name = "geoPointMapClusterizationRibbonPageGroup1";
+            // 
+            // geoPointMapClusterizationBarItem1
+            // 
+            this.geoPointMapClusterizationBarItem1.Id = 150;
+            this.geoPointMapClusterizationBarItem1.Name = "geoPointMapClusterizationBarItem1";
+            // 
+            // geoPointMapClusterizationRibbonPageGroup2
+            // 
+            this.geoPointMapClusterizationRibbonPageGroup2.ItemLinks.Add(this.geoPointMapClusterizationBarItem1);
+            this.geoPointMapClusterizationRibbonPageGroup2.Name = "geoPointMapClusterizationRibbonPageGroup2";
+            // 
+            // geoPointMapClusterizationRibbonPageGroup3
+            // 
+            this.geoPointMapClusterizationRibbonPageGroup3.ItemLinks.Add(this.geoPointMapClusterizationBarItem1);
+            this.geoPointMapClusterizationRibbonPageGroup3.Name = "geoPointMapClusterizationRibbonPageGroup3";
+            // 
+            // commonItemDesignRibbonPageGroup12
+            // 
+            this.commonItemDesignRibbonPageGroup12.ItemLinks.Add(this.showItemCaptionBarItem1);
+            this.commonItemDesignRibbonPageGroup12.ItemLinks.Add(this.editItemNamesBarItem1);
+            this.commonItemDesignRibbonPageGroup12.Name = "commonItemDesignRibbonPageGroup12";
+            // 
+            // dashboardItemDesignRibbonPage12
+            // 
+            this.dashboardItemDesignRibbonPage12.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.commonItemDesignRibbonPageGroup12,
+            this.mapShapefileRibbonPageGroup3,
+            this.mapLegendPositionPageGroup2,
+            this.weightedLegendPageGroup1});
+            this.dashboardItemDesignRibbonPage12.Name = "dashboardItemDesignRibbonPage12";
+            this.dashboardItemDesignRibbonPage12.Visible = false;
+            // 
+            // commonItemDesignRibbonPageGroup13
+            // 
+            this.commonItemDesignRibbonPageGroup13.ItemLinks.Add(this.showItemCaptionBarItem1);
+            this.commonItemDesignRibbonPageGroup13.ItemLinks.Add(this.editItemNamesBarItem1);
+            this.commonItemDesignRibbonPageGroup13.Name = "commonItemDesignRibbonPageGroup13";
+            // 
+            // dashboardItemDesignRibbonPage13
+            // 
+            this.dashboardItemDesignRibbonPage13.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.commonItemDesignRibbonPageGroup13,
+            this.mapShapefileRibbonPageGroup4,
+            this.mapLegendPositionPageGroup3,
+            this.weightedLegendPageGroup2,
+            this.pieMapOptionsPageGroup1});
+            this.dashboardItemDesignRibbonPage13.Name = "dashboardItemDesignRibbonPage13";
+            this.dashboardItemDesignRibbonPage13.Visible = false;
+            // 
+            // mapShapefileRibbonPageGroup3
+            // 
+            this.mapShapefileRibbonPageGroup3.ItemLinks.Add(this.mapLoadBarItem1);
+            this.mapShapefileRibbonPageGroup3.ItemLinks.Add(this.mapImportBarItem1);
+            this.mapShapefileRibbonPageGroup3.ItemLinks.Add(this.mapDefaultShapefileBarItem1);
+            this.mapShapefileRibbonPageGroup3.Name = "mapShapefileRibbonPageGroup3";
+            // 
+            // mapShapefileRibbonPageGroup4
+            // 
+            this.mapShapefileRibbonPageGroup4.ItemLinks.Add(this.mapLoadBarItem1);
+            this.mapShapefileRibbonPageGroup4.ItemLinks.Add(this.mapImportBarItem1);
+            this.mapShapefileRibbonPageGroup4.ItemLinks.Add(this.mapDefaultShapefileBarItem1);
+            this.mapShapefileRibbonPageGroup4.Name = "mapShapefileRibbonPageGroup4";
+            // 
+            // mapLegendPositionPageGroup2
+            // 
+            this.mapLegendPositionPageGroup2.ItemLinks.Add(this.mapShowLegendBarItem1);
+            this.mapLegendPositionPageGroup2.ItemLinks.Add(this.galleryMapLegendPositionItem1);
+            this.mapLegendPositionPageGroup2.Name = "mapLegendPositionPageGroup2";
+            // 
+            // mapLegendPositionPageGroup3
+            // 
+            this.mapLegendPositionPageGroup3.ItemLinks.Add(this.mapShowLegendBarItem1);
+            this.mapLegendPositionPageGroup3.ItemLinks.Add(this.galleryMapLegendPositionItem1);
+            this.mapLegendPositionPageGroup3.Name = "mapLegendPositionPageGroup3";
+            // 
+            // weightedLegendPageGroup1
+            // 
+            this.weightedLegendPageGroup1.ItemLinks.Add(this.changeWeightedLegendTypeBarItem1);
+            this.weightedLegendPageGroup1.ItemLinks.Add(this.galleryWeightedLegendPositionItem1);
+            this.weightedLegendPageGroup1.Name = "weightedLegendPageGroup1";
+            // 
+            // changeWeightedLegendTypeBarItem1
+            // 
+            this.changeWeightedLegendTypeBarItem1.Id = 151;
+            this.changeWeightedLegendTypeBarItem1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.weightedLegendNoneBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.weightedLegendLinearBarItem1),
+            new DevExpress.XtraBars.LinkPersistInfo(this.weightedLegendNestedBarItem1)});
+            this.changeWeightedLegendTypeBarItem1.Name = "changeWeightedLegendTypeBarItem1";
+            this.changeWeightedLegendTypeBarItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionInMenu;
+            // 
+            // weightedLegendNoneBarItem1
+            // 
+            this.weightedLegendNoneBarItem1.Id = 152;
+            this.weightedLegendNoneBarItem1.Name = "weightedLegendNoneBarItem1";
+            // 
+            // weightedLegendLinearBarItem1
+            // 
+            this.weightedLegendLinearBarItem1.Id = 153;
+            this.weightedLegendLinearBarItem1.Name = "weightedLegendLinearBarItem1";
+            // 
+            // weightedLegendNestedBarItem1
+            // 
+            this.weightedLegendNestedBarItem1.Id = 154;
+            this.weightedLegendNestedBarItem1.Name = "weightedLegendNestedBarItem1";
+            // 
+            // galleryWeightedLegendPositionItem1
+            // 
+            this.galleryWeightedLegendPositionItem1.AllowDrawArrow = true;
+            // 
+            // 
+            // 
+            this.galleryWeightedLegendPositionItem1.Gallery.ColumnCount = 3;
+            galleryItemGroup17.Caption = "Position";
+            this.galleryWeightedLegendPositionItem1.Gallery.Groups.AddRange(new DevExpress.XtraBars.Ribbon.GalleryItemGroup[] {
+            galleryItemGroup17});
+            this.galleryWeightedLegendPositionItem1.Gallery.ImageSize = new System.Drawing.Size(32, 32);
+            this.galleryWeightedLegendPositionItem1.Gallery.RowCount = 2;
+            this.galleryWeightedLegendPositionItem1.Id = 155;
+            this.galleryWeightedLegendPositionItem1.Name = "galleryWeightedLegendPositionItem1";
+            // 
+            // weightedLegendPageGroup2
+            // 
+            this.weightedLegendPageGroup2.ItemLinks.Add(this.changeWeightedLegendTypeBarItem1);
+            this.weightedLegendPageGroup2.ItemLinks.Add(this.galleryWeightedLegendPositionItem1);
+            this.weightedLegendPageGroup2.Name = "weightedLegendPageGroup2";
+            // 
+            // pieMapOptionsPageGroup1
+            // 
+            this.pieMapOptionsPageGroup1.ItemLinks.Add(this.pieMapIsWeightedBarItem1);
+            this.pieMapOptionsPageGroup1.Name = "pieMapOptionsPageGroup1";
+            // 
+            // pieMapIsWeightedBarItem1
+            // 
+            this.pieMapIsWeightedBarItem1.Id = 156;
+            this.pieMapIsWeightedBarItem1.Name = "pieMapIsWeightedBarItem1";
             // 
             // DashboardDesignerForm
             // 
@@ -2422,6 +2875,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSpinEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dashboardBarController1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -2458,7 +2912,6 @@
         private DevExpress.DashboardWin.Bars.InsertGaugesBarItem insertGaugesBarItem1;
         private DevExpress.DashboardWin.Bars.InsertCardsBarItem insertCardsBarItem1;
         private DevExpress.DashboardWin.Bars.InsertChoroplethMapBarItem insertChoroplethMapBarItem1;
-        private DevExpress.DashboardWin.Bars.InsertGeoPointMapBarItem insertGeoPointMapBarItem1;
         private DevExpress.DashboardWin.Bars.InsertRangeFilterBarItem insertRangeFilterBarItem1;
         private DevExpress.DashboardWin.Bars.InsertImageBarItem insertImageBarItem1;
         private DevExpress.DashboardWin.Bars.InsertTextBoxBarItem insertTextBoxBarItem1;
@@ -2670,6 +3123,58 @@
         private DevExpress.DashboardWin.Bars.DashboardBarController dashboardBarController1;
         private DevExpress.XtraBars.BarButtonItem barButtonItemSave;
         private DevExpress.XtraBars.BarButtonItem barButtonItemSaveAndClose;
+        private DevExpress.DashboardWin.Bars.RenameDataSourceBarItem renameDataSourceBarItem1;
+        private DevExpress.DashboardWin.Bars.ServerModeBarItem serverModeBarItem1;
+        private DevExpress.DashboardWin.Bars.InsertGeoPointMapBarSubItem insertGeoPointMapBarSubItem1;
+        private DevExpress.DashboardWin.Bars.InsertGeoPointMapBarItem insertGeoPointMapBarItem1;
+        private DevExpress.DashboardWin.Bars.InsertBubbleMapBarItem insertBubbleMapBarItem1;
+        private DevExpress.DashboardWin.Bars.InsertPieMapBarItem insertPieMapBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertDashboardItemTypeBarItem convertDashboardItemTypeBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToPivotBarItem convertToPivotBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToGridBarItem convertToGridBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToChartBarItem convertToChartBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToPieBarItem convertToPieBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToGaugeBarItem convertToGaugeBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToCardBarItem convertToCardBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToChoroplethMapBarItem convertToChoroplethMapBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertGeoPointMapBaseBarItem convertGeoPointMapBaseBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToGeoPointMapBarItem convertToGeoPointMapBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToBubbleMapBarItem convertToBubbleMapBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToPieMapBarItem convertToPieMapBarItem1;
+        private DevExpress.DashboardWin.Bars.ConvertToRangeFilterBarItem convertToRangeFilterBarItem1;
+        private DevExpress.DashboardWin.Bars.RemoveDataItemsBarItem removeDataItemsBarItem1;
+        private DevExpress.DashboardWin.Bars.TransposeItemBarItem transposeItemBarItem1;
+        private DevExpress.DashboardWin.Bars.GeoPointMapClusterizationBarItem geoPointMapClusterizationBarItem1;
+        private DevExpress.DashboardWin.Bars.ChangeWeightedLegendTypeBarItem changeWeightedLegendTypeBarItem1;
+        private DevExpress.DashboardWin.Bars.WeightedLegendNoneBarItem weightedLegendNoneBarItem1;
+        private DevExpress.DashboardWin.Bars.WeightedLegendLinearBarItem weightedLegendLinearBarItem1;
+        private DevExpress.DashboardWin.Bars.WeightedLegendNestedBarItem weightedLegendNestedBarItem1;
+        private DevExpress.DashboardWin.Bars.GalleryWeightedLegendPositionItem galleryWeightedLegendPositionItem1;
+        private DevExpress.DashboardWin.Bars.PieMapIsWeightedBarItem pieMapIsWeightedBarItem1;
+        private DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup geoPointMapClusterizationRibbonPageGroup1;
+        private DevExpress.DashboardWin.Bars.BubbleMapToolsRibbonPageCategory bubbleMapToolsRibbonPageCategory1;
+        private DevExpress.DashboardWin.Bars.DataRibbonPage dataRibbonPage10;
+        private DevExpress.DashboardWin.Bars.FilteringRibbonPageGroup filteringRibbonPageGroup10;
+        private DevExpress.DashboardWin.Bars.MasterFilterRibbonPageGroup masterFilterRibbonPageGroup8;
+        private DevExpress.DashboardWin.Bars.InteractivitySettingsRibbonPageGroup interactivitySettingsRibbonPageGroup10;
+        private DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup geoPointMapClusterizationRibbonPageGroup2;
+        private DevExpress.DashboardWin.Bars.DashboardItemDesignRibbonPage dashboardItemDesignRibbonPage12;
+        private DevExpress.DashboardWin.Bars.CommonItemDesignRibbonPageGroup commonItemDesignRibbonPageGroup12;
+        private DevExpress.DashboardWin.Bars.MapShapefileRibbonPageGroup mapShapefileRibbonPageGroup3;
+        private DevExpress.DashboardWin.Bars.MapLegendPositionPageGroup mapLegendPositionPageGroup2;
+        private DevExpress.DashboardWin.Bars.WeightedLegendPageGroup weightedLegendPageGroup1;
+        private DevExpress.DashboardWin.Bars.PieMapToolsRibbonPageCategory pieMapToolsRibbonPageCategory1;
+        private DevExpress.DashboardWin.Bars.DataRibbonPage dataRibbonPage11;
+        private DevExpress.DashboardWin.Bars.FilteringRibbonPageGroup filteringRibbonPageGroup11;
+        private DevExpress.DashboardWin.Bars.MasterFilterRibbonPageGroup masterFilterRibbonPageGroup9;
+        private DevExpress.DashboardWin.Bars.InteractivitySettingsRibbonPageGroup interactivitySettingsRibbonPageGroup11;
+        private DevExpress.DashboardWin.Bars.GeoPointMapClusterizationRibbonPageGroup geoPointMapClusterizationRibbonPageGroup3;
+        private DevExpress.DashboardWin.Bars.DashboardItemDesignRibbonPage dashboardItemDesignRibbonPage13;
+        private DevExpress.DashboardWin.Bars.CommonItemDesignRibbonPageGroup commonItemDesignRibbonPageGroup13;
+        private DevExpress.DashboardWin.Bars.MapShapefileRibbonPageGroup mapShapefileRibbonPageGroup4;
+        private DevExpress.DashboardWin.Bars.MapLegendPositionPageGroup mapLegendPositionPageGroup3;
+        private DevExpress.DashboardWin.Bars.WeightedLegendPageGroup weightedLegendPageGroup2;
+        private DevExpress.DashboardWin.Bars.PieMapOptionsPageGroup pieMapOptionsPageGroup1;
 
 
     }

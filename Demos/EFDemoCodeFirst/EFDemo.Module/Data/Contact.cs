@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.Persistent.BaseImpl.EF;
 
 namespace EFDemo.Module.Data {
 	[DefaultClassOptions]

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
@@ -29,6 +30,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return _nonPersistent; }
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
         }
+        [Browsable(false)]
+        public bool IsCurrentUserModel{
+            get {  return ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name), this);}
+        }
 
         public override void AfterConstruction() {
             base.AfterConstruction();
@@ -36,8 +41,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
             ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            modelDifferenceObject.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
+            if (SecuritySystem.CurrentUser != null)
+                modelDifferenceObject.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
+            else{
+                modelDifferenceObject.Name = "AutoCreated at " + DateTime.Now;
+            }
             return modelDifferenceObject;
+
         }
 
         public void AssignToCurrentUser() {

@@ -1,10 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Fasterflect;
 
 namespace Xpand.Xpo.Filtering {
     public static class CriteriaOperatorExtensions {
+        public static IEnumerable<CriteriaOperator> GetOperators(this CriteriaOperator criteriaOperator) {
+            if (criteriaOperator is FunctionOperator)
+                return (IEnumerable<CriteriaOperator>) criteriaOperator.GetPropertyValue("Operands");
+            var binaryOperator = criteriaOperator as BinaryOperator;
+            if (binaryOperator != null) 
+                return new[]{binaryOperator.LeftOperand, binaryOperator.RightOperand};
+            var unaryOperator = criteriaOperator as UnaryOperator;
+            if (unaryOperator != null) 
+                return unaryOperator.Operand.GetOperators();
+            var betweenOperator = criteriaOperator as BetweenOperator;
+            if (betweenOperator != null)
+                return new[] { betweenOperator.TestExpression,betweenOperator.BeginExpression, betweenOperator.EndExpression };
+            return Enumerable.Empty<CriteriaOperator>();
+        }
 
         /// <summary>
         /// Defines an extension method to <see cref="String"/> that converts the string value into a <see cref="criteria"/> by calling its <see cref="CriteriaOperator.Parse(string,out DevExpress.Data.Filtering.OperandValue[])"/> method.

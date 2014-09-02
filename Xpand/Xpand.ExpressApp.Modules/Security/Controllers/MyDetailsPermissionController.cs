@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         MyDetailsController _myDetailsController;
         ShowNavigationItemController _showNavigationItemController;
         ChoiceActionItem _myDetailsItem;
-        const string keyDisable = "MyDetailsPermissionController";
+        const string KeyDisable = "MyDetailsPermissionController";
         protected override void OnActivated() {
             base.OnActivated();
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
@@ -18,13 +18,13 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 
                 _myDetailsController = Frame.GetController<MyDetailsController>();
                 if (_myDetailsController != null) {
-                    _myDetailsController.Active.SetItemValue(keyDisable, !isGranted);
+                    _myDetailsController.Active.SetItemValue(KeyDisable, !isGranted);
                 }
                 _showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
                 if (_showNavigationItemController != null) {
                     _myDetailsItem = FindMyDetailsItem(_showNavigationItemController.ShowNavigationItemAction.Items);
                     if (_myDetailsItem != null) {
-                        _myDetailsItem.Active.SetItemValue(keyDisable, !isGranted);
+                        _myDetailsItem.Active.SetItemValue(KeyDisable, !isGranted);
                     }
                 }
                 
@@ -35,10 +35,10 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
         protected override void OnDeactivated() {
             if (_myDetailsController != null) {
-                _myDetailsController.Active.RemoveItem(keyDisable);
+                _myDetailsController.Active.RemoveItem(KeyDisable);
             }
             if (_myDetailsItem != null) {
-                _myDetailsItem.Active.RemoveItem(keyDisable);
+                _myDetailsItem.Active.RemoveItem(KeyDisable);
             }
             base.OnDeactivated();
         }

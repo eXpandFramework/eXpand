@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         public void Process(XafApplication application,IObjectSpace objectSpace) {
             var user = objectSpace.FindObject(XpandModuleBase.UserType, new GroupOperator(GroupOperatorType.Or,new BinaryOperator("UserName", UserName),new BinaryOperator("Email",Email)),true) as IAuthenticationStandardUser;
             if (user != null&&!objectSpace.IsNewObject(user))
-                throw new ArgumentException(CaptionHelper.GetLocalizedText(XpandSecurityModule.XpandSecurity, "AlreadyRegistered"));
+                throw new UserFriendlyException(CaptionHelper.GetLocalizedText(XpandSecurityModule.XpandSecurity, "AlreadyRegistered"));
 
             var securityUserWithRoles = objectSpace.IsNewObject(user)? (ISecurityUserWithRoles) user
                                                                : (ISecurityUserWithRoles)objectSpace.CreateObject(XpandModuleBase.UserType);
@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.Security.Registration {
                 activationLinkMember.MemberInfo.SetValue(securityUserWithRoles, Guid.NewGuid().ToString());
             }
 
-            securityUserWithRoles.CallMethod("SetPassword", Password);
+            securityUserWithRoles.CallMethod("SetPassword",new []{typeof(string)}, Password);
             objectSpace.CommitChanges();
         }
 

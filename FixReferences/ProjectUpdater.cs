@@ -8,11 +8,12 @@ using System.Xml.Linq;
 
 namespace FixReferences {
     class ProjectUpdater : Updater {
+        private readonly string _version;
         readonly XNamespace _xNamespace = XNamespace.Get("http://schemas.microsoft.com/developer/msbuild/2003");
 
         readonly string[] _copyLocalReferences ={
             "Xpand.ExpressApp.FilterDataStore", "Xpand.ExpressApp.FilterDataStore.Win",
-            "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl"
+            "Xpand.ExpressApp.FilterDataStore.Web", "Xpand.ExpressApp.ModelAdaptor", "Xpand.Persistent.BaseImpl","DevExpress.Web.ASPxThemes."
         };
 
         readonly Dictionary<string, string> _requiredApplicationProjectReferences =
@@ -25,8 +26,8 @@ namespace FixReferences {
                 {"Xpand.ExpressApp.PivotChart.Win", "Xpand.Persistent.BaseImpl"}
             };
 
-        public ProjectUpdater(IDocumentHelper documentHelper, string rootDir) : base(documentHelper, rootDir) {
-            
+        public ProjectUpdater(IDocumentHelper documentHelper, string rootDir,string version) : base(documentHelper, rootDir){
+            _version = version;
         }
 
         public override void Update(string file) {
@@ -37,6 +38,9 @@ namespace FixReferences {
             }
             UpdateReferences(document, directoryName, file);
             UpdateConfig(file);
+            if (SyncConfigurations(document))
+                DocumentHelper.Save(document, file);
+
             var licElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName == "EmbeddedResource" && element.Attribute("Include").Value == @"Properties\licenses.licx");
             if (licElement != null) {
                 licElement.Remove();
@@ -47,6 +51,31 @@ namespace FixReferences {
                 File.Delete(combine);
 
             UpdateVs2010Compatibility(document, file);
+        }
+
+        private bool SyncConfigurations(XDocument document){
+            var debugOutputPath = GetOutputPath(document,"Debug").Value;
+            if (debugOutputPath.ToLower().TrimEnd('\\').EndsWith("xpand.dll")){
+                var releaseOutputPath = GetOutputPath(document,"Release");
+                if (releaseOutputPath.Value+"" != debugOutputPath){
+                    releaseOutputPath.Value = debugOutputPath;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private XElement GetOutputPath(XDocument document, string configuration){
+            return document.Descendants().Where(element => element.Name.LocalName=="OutputPath").First(element =>{
+                if (element.Parent != null){
+                    var attribute = element.Parent.Attribute("Condition");
+                    if (attribute != null){
+                        var value = attribute.Value+"";
+                        return new[]{"Configuration",configuration}.All(value.Contains);
+                    }
+                }
+                return false;
+            });
         }
 
         void UpdateVs2010Compatibility(XDocument document, string file) {
@@ -92,6 +121,25 @@ namespace FixReferences {
                 if (File.Exists(config)) {
                     ReplaceToken(config);
                 }
+            }
+            var functionalTestsPath = Path.GetDirectoryName(file)+@"\FunctionalTests";
+            if (Directory.Exists(functionalTestsPath)){
+                foreach (var configFile in Directory.GetFiles(functionalTestsPath,"Config.xml",SearchOption.AllDirectories)){
+                    ReplaceToken(configFile);
+                    UpdateAdapterVersion(configFile);    
+                }
+            }
+        }
+
+        private void UpdateAdapterVersion(string config){
+            string readToEnd;
+            using (var streamReader = new StreamReader(config)){
+                var toEnd = streamReader.ReadToEnd();
+                readToEnd = Regex.Replace(toEnd, @"(<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=)([.\d]*)", "${1}" + _version);
+                readToEnd = Regex.Replace(readToEnd, @"((<Alias Name=""(Win|Web)AdapterAssemblyName"" Value=""Xpand\.ExpressApp\.EasyTest[^=]*=).*?, PublicKeyToken=)(b88d1754d700e49a)", "$1c52ffed5d5ff0958", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+            }
+            using (var streamWriter = new StreamWriter(config)) {
+                streamWriter.Write(readToEnd);
             }
         }
 
@@ -174,7 +222,7 @@ namespace FixReferences {
 
                 UpdateElementValue(reference, "SpecificVersion", "False", file, document);
 
-                if (_copyLocalReferences.Contains(attribute.Value))
+                if (_copyLocalReferences.Any(s => attribute.Value.StartsWith(s)))
                     UpdateElementValue(reference, "Private", "True", file, document);
 
                 if (reference.Attribute("Include").Value.StartsWith("Xpand.")) {

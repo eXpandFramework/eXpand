@@ -27,6 +27,7 @@ namespace AuditTrailTester.Web {
         // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
         AuditTrailModule auditTrailModule1;
         AuthenticationStandard authenticationStandard1;
+        SecurityStrategyComplex securityStrategyComplex1;
         ConditionalAppearanceModule conditionalAppearanceModule1;
         LogicModule logicModule1;
         SystemModule module1;
@@ -34,11 +35,15 @@ namespace AuditTrailTester.Web {
         AuditTrailTesterModule module3;
         AuditTrailTesterAspNetModule module4;
         SecurityModule securityModule1;
-        SecurityStrategyComplex securityStrategyComplex1;
+        
         SqlConnection sqlConnection1;
         ValidationModule validationModule1;
         XpandAuditTrailModule xpandAuditTrailModule1;
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public AuditTrailTesterAspNetApplication() {
             InitializeComponent();
             LastLogonParametersRead += OnLastLogonParametersRead;
@@ -59,8 +64,7 @@ namespace AuditTrailTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            e.Updater.Update();
-            e.Handled = true;
+            
             if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;

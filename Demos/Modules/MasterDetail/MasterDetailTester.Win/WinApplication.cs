@@ -1,15 +1,20 @@
 using System;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 
 namespace MasterDetailTester.Win {
-    public partial class MasterDetailTesterWindowsFormsApplication : XpandWinApplication {
+    public partial class MasterDetailTesterWindowsFormsApplication : WinApplication {
         public MasterDetailTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
         }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }

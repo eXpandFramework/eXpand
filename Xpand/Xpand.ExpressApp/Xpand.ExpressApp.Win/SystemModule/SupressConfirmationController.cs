@@ -1,56 +1,43 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
-using DevExpress.ExpressApp.Model;
 
-namespace Xpand.ExpressApp.Win.SystemModule
-{
-    public interface IModelClassSupressConfirmation : IModelNode
-    {
+namespace Xpand.ExpressApp.Win.SystemModule{
+    public interface IModelClassSupressConfirmation : IModelNode{
         [Category("eXpand")]
         [Description("Suppress confirmation message when an object has been change")]
         bool SupressConfirmation { get; set; }
     }
-    [ModelInterfaceImplementor(typeof(IModelClassSupressConfirmation), "ModelClass")]
-    public interface IModelViewSupressConfirmation : IModelClassSupressConfirmation
-    {
-        
+
+    [ModelInterfaceImplementor(typeof (IModelClassSupressConfirmation), "ModelClass")]
+    public interface IModelViewSupressConfirmation : IModelClassSupressConfirmation{
     }
 
-    public class SupressConfirmationController : ViewController<ObjectView>, IModelExtender
-    {
-        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders)
-        {
+    public class SupressConfirmationController : ViewController<ObjectView>, IModelExtender{
+        private WinModificationsController _winDetailViewController;
+
+        void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelClass, IModelClassSupressConfirmation>();
             extenders.Add<IModelObjectView, IModelViewSupressConfirmation>();
-            
         }
 
-        private WinModificationsController winDetailViewController;
-
-        protected override void OnActivated()
-        {
+        protected override void OnActivated(){
             base.OnActivated();
-            winDetailViewController = Frame.GetController<WinModificationsController>();
-            if (((IModelViewSupressConfirmation)View.Model).SupressConfirmation)
-                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
-
-            if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject)){
-                ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
-                winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoRollback;
+            _winDetailViewController = Frame.GetController<WinModificationsController>();
+            if (((IModelViewSupressConfirmation) View.Model).SupressConfirmation){
+                _winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoCommit;
+                if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject)){
+                    ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+                    _winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.AutoRollback;
+                }
             }
         }
 
-        protected override void OnDeactivated()
-        {
+        private void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e){
             ObjectSpace.ObjectChanged -= ObjectSpace_ObjectChanged;
-            base.OnDeactivated();
-        }
-
-        private void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e)
-        {
-            winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.Confirmation;
+            _winDetailViewController.ModificationsHandlingMode = ModificationsHandlingMode.Confirmation;
         }
     }
 }

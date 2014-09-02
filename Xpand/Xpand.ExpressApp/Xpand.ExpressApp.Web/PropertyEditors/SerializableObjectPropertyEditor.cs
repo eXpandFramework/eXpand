@@ -46,6 +46,14 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return _editModePanel;
         }
 
+        protected override void SetImmediatePostDataCompanionScript(string script){
+//            base.SetImmediatePostDataCompanionScript(script);
+        }
+
+        protected override WebControl CreateViewModeControlCore(){
+            _editModePanel = new Panel();
+            return _editModePanel;
+        }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
             _application = application;

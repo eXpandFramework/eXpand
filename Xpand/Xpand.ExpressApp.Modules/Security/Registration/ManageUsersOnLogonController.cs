@@ -6,14 +6,26 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using Fasterflect;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
     public class ManageUsersOnLogonController : ViewController<DetailView>,IModelExtender {
-        public event HandledEventHandler CustomProccessLogonParameter;
+        public event EventHandler<ParameterEventArgs> CustomProccessLogonParameter;
+        public event EventHandler<ParameterEventArgs> CustomProccessedLogonParameter;
+        public event EventHandler<ParameterEventArgs> CustomCancelLogonParameter;
+
+        protected virtual void OnCustomCancelLogonParameter(ParameterEventArgs e){
+            var handler = CustomCancelLogonParameter;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnCustomProccessedLogonParameter(ParameterEventArgs e){
+            var handler = CustomProccessedLogonParameter;
+            if (handler != null) handler(this, e);
+        }
+
         public event EventHandler<CustomActiveKeyArgs> CustomActiveKey;
 
         protected virtual void OnCustomActiveKey(CustomActiveKeyArgs e) {
@@ -22,10 +34,11 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
 
-        protected virtual void OnCustomProccessLogonParameter(HandledEventArgs e) {
+        protected virtual void OnCustomProccessLogonParameter(ParameterEventArgs e) {
             var handler = CustomProccessLogonParameter;
             if (handler != null) handler(this, e);
         }
+
 
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";
         public const string EmailPattern = @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
@@ -40,29 +53,13 @@ namespace Xpand.ExpressApp.Security.Registration {
             base.OnViewChanging(view);
             var customActiveKeyArgs = new CustomActiveKeyArgs(view);
             OnCustomActiveKey(customActiveKeyArgs);
-            if (!customActiveKeyArgs.Handled)
-                Active[ControllerActiveKey] = !SecuritySystem.IsAuthenticated;
-        }
-        
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            bool logonParametersActiveState = GetLogonParametersActiveState();
-            foreach (Controller item in Frame.Controllers) {
-                var logonController = item as LogonController;
-                if (logonController != null) {
-                    logonController.AcceptAction.Active[LogonActionParametersActiveKey] = !logonParametersActiveState;
-                    logonController.CancelAction.Active[LogonActionParametersActiveKey] = !logonParametersActiveState;
-                } else {
-                    var dialogController = item as RegistrationDialogController;
-                    if (dialogController != null) {
-                        dialogController.AcceptAction.Active[LogonActionParametersActiveKey] = logonParametersActiveState;
-                        dialogController.CancelAction.Active[LogonActionParametersActiveKey] = logonParametersActiveState;
-                        ConfigureDialogController(dialogController);
-                    }
-                }
+            var activeKey = !SecuritySystem.IsAuthenticated;
+            if (customActiveKeyArgs.Handled){
+                activeKey = customActiveKeyArgs.Handled;
             }
+            Active[ControllerActiveKey] = activeKey;
         }
-        
+                
         private SimpleAction CreateLogonSimpleAction(string id, string category, string caption, string imageName, string toolTip, Type parametersType) {
             var action = new SimpleAction(this, id, category) {
                 Caption = caption,
@@ -82,24 +79,15 @@ namespace Xpand.ExpressApp.Security.Registration {
         
         protected virtual void CreateParametersViewCore(SimpleActionExecuteEventArgs e) {
             var parametersType = e.Action.Tag as Type;
-            Guard.ArgumentNotNull(parametersType, "parametersType");
-            if (parametersType != null) {
-                var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), parametersType.CreateInstance());
-                detailView.ViewEditMode = ViewEditMode.Edit;
-                e.ShowViewParameters.CreatedView = detailView;
-            }
-
+            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), parametersType.CreateInstance());
+            detailView.ViewEditMode = ViewEditMode.Edit;
+            e.ShowViewParameters.CreatedView = detailView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
             e.ShowViewParameters.TargetWindow = TargetWindow.Current;
-        }
-
-        protected virtual void ConfigureDialogController(DialogController dialogController) {
-            dialogController.AcceptAction.Execute -= AcceptAction_Execute;
-            dialogController.CancelAction.Execute -= CancelAction_Execute;
-            dialogController.AcceptAction.Executing -= AcceptActionOnExecuting;
-            dialogController.AcceptAction.Executing += AcceptActionOnExecuting;
-            dialogController.AcceptAction.Execute += AcceptAction_Execute;
-            dialogController.CancelAction.Execute += CancelAction_Execute;
+            var dialogController = Frame.GetController<DialogController>();
+            dialogController.AcceptAction.Executing+=AcceptActionOnExecuting;
+            dialogController.AcceptAction.Execute+=AcceptAction_Execute;
+            dialogController.CancelAction.Execute+=CancelAction_Execute;
         }
 
         void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
@@ -117,16 +105,20 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
         protected virtual void AcceptParameters(ILogonParameters parameters) {
-            if (parameters != null) {
-                var eventArgs = new CustomProcesssLogonParamaterEventArgs(parameters);
-                OnCustomProccessLogonParameter(eventArgs);
-                if (!eventArgs.Handled)
-                    parameters.Process(Application,ObjectSpace);
+            var eventArgs = new ParameterEventArgs(parameters);
+            OnCustomProccessLogonParameter(eventArgs);
+            if (!eventArgs.Handled){
+                parameters.Process(Application,ObjectSpace);
             }
-            Application.LogOff();
+            OnCustomProccessedLogonParameter(eventArgs);
+            if (!eventArgs.Handled)
+                Application.LogOff();
         }
         protected virtual void CancelParameters(ILogonParameters parameters) {
-            Application.LogOff();
+            var parameterEventArgs = new ParameterEventArgs(parameters);
+            OnCustomCancelLogonParameter(parameterEventArgs);
+            if (!parameterEventArgs.Handled)
+                Application.LogOff();
         }
         
         protected virtual bool GetLogonParametersActiveState() {
@@ -146,6 +138,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
     }
 
+
     public class CustomActiveKeyArgs:HandledEventArgs {
         readonly View _view;
 
@@ -159,10 +152,10 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
     }
 
-    public class CustomProcesssLogonParamaterEventArgs:HandledEventArgs {
+    public class ParameterEventArgs:HandledEventArgs {
         readonly ILogonParameters _parameters;
 
-        public CustomProcesssLogonParamaterEventArgs(ILogonParameters parameters) {
+        public ParameterEventArgs(ILogonParameters parameters) {
             _parameters = parameters;
         }
 

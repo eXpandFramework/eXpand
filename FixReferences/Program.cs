@@ -14,16 +14,17 @@ namespace FixReferences {
 
         public static bool Execute(string rootDir){
             DeleteBackupFolders(rootDir);
+            var version = GetVersion(rootDir);
             var documentHelper = new DocumentHelper();
             var files = Directory.GetFiles(rootDir, "*.csproj", SearchOption.AllDirectories);
             foreach (var file in files) {
                 if (!_excludedDirs.Any(s => file.IndexOf(s, StringComparison.Ordinal)>-1)) {
-                    var projectReferencesUpdater = new ProjectUpdater(documentHelper,rootDir);
+                    var projectReferencesUpdater = new ProjectUpdater(documentHelper,rootDir,version);
                     projectReferencesUpdater.Update(file);
                 }
             }
 
-            var version = GetVersion(rootDir);
+            
             files = Directory.GetFiles(Path.Combine(rootDir, @"Resource\Nuget"), "*.nuspec");
             foreach (var file in files) {
                 var projectReferencesUpdater = new NugetUpdater(documentHelper, rootDir, version);

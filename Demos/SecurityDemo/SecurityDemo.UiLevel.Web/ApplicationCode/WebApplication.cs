@@ -1,10 +1,8 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Web;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Web;
 
-namespace SecurityDemo.Web {
+namespace SecurityDemo.UiLevel.Web.ApplicationCode {
     public partial class SecurityDemoAspNetApplication : XpandWebApplication {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
@@ -21,7 +19,7 @@ namespace SecurityDemo.Web {
         }
 
 
-        private void SecurityDemoAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void SecurityDemoAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
             try {
                 e.Updater.Update();
                 e.Handled = true;
@@ -34,7 +32,7 @@ namespace SecurityDemo.Web {
         }
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new SecurityDemo.Module.SecurityDemoModule();
             this.module4 = new SecurityDemo.Module.Web.SecurityDemoAspNetModule();

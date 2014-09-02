@@ -14,6 +14,7 @@ using Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -23,7 +24,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
-    public sealed class XpandSystemAspNetModule : XpandModuleBase {
+    public sealed class XpandSystemAspNetModule : XpandModuleBase, IGridOptionsUser {
         public const string XpandWeb = "eXpand.Web";
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

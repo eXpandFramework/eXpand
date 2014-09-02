@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module", "PivotChartTester.Module\PivotChartTester.Module.csproj", "{650097DC-5C89-4A87-9F08-69E08CFF3D37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module.Web", "PivotChartTester.Module.Web\PivotChartTester.Module.Web.csproj", "{E90ED353-87F1-4284-8180-E42826C8A5F9}"
@@ -10,6 +12,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module.Win", "PivotChartTester.Module.Win\PivotChartTester.Module.Win.csproj", "{ECA4D6AB-A823-4862-A4C4-E3AFFC327449}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Win", "PivotChartTester.Win\PivotChartTester.Win.csproj", "{AD6911C9-46FE-4E33-9E87-28D442B085B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.PivotChart", "..\..\..\Xpand\Xpand.ExpressApp.Modules\PivotChart\Xpand.ExpressApp.PivotChart.csproj", "{2626A753-BFA4-4616-BF32-00D7D7AC4174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.PivotChart.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\PivotChart.Win\Xpand.ExpressApp.PivotChart.Win.csproj", "{C044D0A5-B0E1-48D4-B55B-E992DC062A9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.PivotChart.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj", "{0D81BAF7-CC13-411C-BC50-8788755EBA4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{3015C01B-0B3B-4646-B127-05B763C21B7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,8 +60,30 @@ Global
 		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD6911C9-46FE-4E33-9E87-28D442B085B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
+		{0D81BAF7-CC13-411C-BC50-8788755EBA4F} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
 	EndGlobalSection
 EndGlobal

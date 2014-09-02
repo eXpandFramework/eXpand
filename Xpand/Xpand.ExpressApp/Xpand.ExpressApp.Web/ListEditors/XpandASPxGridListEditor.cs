@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -64,19 +65,29 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
         public event EventHandler<ViewControlCreatedEventArgs> ViewControlsCreated;
         public event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
-
-
-
-        protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
-            EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
-            if (handler != null) handler(this, e);
-        }
+        public event EventHandler<CustomCreateWebDataSourceEventArgs> CustomCreateWebDataSource;
 
         public XpandASPxGridListEditor(IModelListView info)
             : base(info) {
         }
 
+        protected override WebDataSource CreateWebDataSource(object collection){
+            var args = new CustomCreateWebDataSourceEventArgs(collection);
+            OnCustomCreateWebDataSource(args);
+            if (args.Handled)
+                collection = args.Collection;
+            return base.CreateWebDataSource(collection);
+        }
 
+        protected virtual void OnCustomCreateWebDataSource(CustomCreateWebDataSourceEventArgs e){
+            var handler = CustomCreateWebDataSource;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
+            EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
+            if (handler != null) handler(this, e);
+        }
 
         public override object FocusedObject {
             get {
@@ -127,15 +138,16 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         }
 
         void CollectionSource_CriteriaApplied(object sender, EventArgs e) {
-            if (Grid != null) SetFirstRowChangeAfterInit(Grid, false);
+            if (Grid != null && MasterDetail) SetFirstRowChangeAfterInit(Grid, false);
             if (Grid != null) Grid.FocusedRowIndex = -1;
             OnFocusedObjectChanged();
         }
 
-        private static void SetFirstRowChangeAfterInit(ASPxGridView grid, bool value) {
+        private void SetFirstRowChangeAfterInit(ASPxGridView grid, bool value) {
             grid.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
                 "function (s,e) {{ s.firstRowChangedAfterInit = {0};}}", value ? "true" : "false");
         }
+
         protected override ASPxGridView CreateGridControl() {
             ASPxGridView gridView = base.CreateGridControl();
             if (MasterDetail)
@@ -143,11 +155,12 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             return gridView;
         }
 
-        protected override GridViewDataColumnWithInfo CreateColumn(IModelColumn columnInfo) {
-            GridViewDataColumnWithInfo gridViewDataColumnWithInfo = base.CreateColumn(columnInfo);
+        protected override GridViewDataColumn CreateColumn(IModelColumn columnInfo) {
+            GridViewDataColumn gridViewDataColumnWithInfo = base.CreateColumn(columnInfo);
             OnColumnCreated(new ColumnCreatedEventArgs(gridViewDataColumnWithInfo));
             return gridViewDataColumnWithInfo;
         }
+
         public override void SetControlSelectedObjects(IList<object> objects) {
             if (!MasterDetail || objects.Count != 1) {
                 base.SetControlSelectedObjects(objects);
@@ -169,15 +182,24 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
     }
 
+    public class CustomCreateWebDataSourceEventArgs : HandledEventArgs{
+        public CustomCreateWebDataSourceEventArgs(object collection){
+            Collection = collection;
+        }
+
+        public object Collection { get; set; }
+
+    }
+
 
     public class ColumnCreatedEventArgs : EventArgs {
-        private readonly GridViewDataColumnWithInfo _gridViewDataColumnWithInfo;
+        private readonly GridViewDataColumn _gridViewDataColumnWithInfo;
 
-        public ColumnCreatedEventArgs(GridViewDataColumnWithInfo gridViewDataColumnWithInfo) {
+        public ColumnCreatedEventArgs(GridViewDataColumn gridViewDataColumnWithInfo) {
             _gridViewDataColumnWithInfo = gridViewDataColumnWithInfo;
         }
 
-        public GridViewDataColumnWithInfo GridViewDataColumnWithInfo {
+        public GridViewDataColumn GridViewDataColumnWithInfo {
             get { return _gridViewDataColumnWithInfo; }
         }
     }

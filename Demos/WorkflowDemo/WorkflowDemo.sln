@@ -1,5 +1,5 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDemo.Module.Win", "WorkflowDemo.Module.Win\WorkflowDemo.Module.Win.csproj", "{032F402B-CFDF-4CF1-9975-12355C8B7BAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowDemo.Win", "WorkflowDemo.Win\WorkflowDemo.Win.csproj", "{39A29045-06AC-44CD-9C46-E4E8A3C6173C}"

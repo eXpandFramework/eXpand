@@ -16,10 +16,10 @@ namespace EFDemo.Win {
 		}
 		protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
 			if(args.Connection != null) {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, (DbConnection)args.Connection);
+				args.ObjectSpaceProvider = new EFObjectSpaceProvider(typeof(EFDemoDbContext), TypesInfo, null, (DbConnection)args.Connection);
 			}
 			else {
-				args.ObjectSpaceProvider = new EFObjectSpaceProviderCF(typeof(EFDemoDbContext), TypesInfo, null, args.ConnectionString);
+				args.ObjectSpaceProvider = new EFObjectSpaceProvider(typeof(EFDemoDbContext), TypesInfo, null, args.ConnectionString);
 			}
 		}
 		public EFDemoWinApplication() {

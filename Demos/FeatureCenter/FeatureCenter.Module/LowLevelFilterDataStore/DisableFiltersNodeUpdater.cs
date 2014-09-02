@@ -15,8 +15,10 @@ namespace FeatureCenter.Module.LowLevelFilterDataStore {
                         continue;
                     if (((IModelClass)node.Parent).TypeInfo.Type == typeof(FDSUCustomer) && provider.Name == "UserFilterProvider")
                         continue;
-                    var modelDisabledDataStoreFilter = node.AddNode<IModelDisabledDataStoreFilter>();
-                    modelDisabledDataStoreFilter.Name = provider.Name;
+                    if (node[provider.Name]==null){
+                        var modelDisabledDataStoreFilter = node.AddNode<IModelDisabledDataStoreFilter>();
+                        modelDisabledDataStoreFilter.Name = provider.Name;
+                    }
                 }
         }
     }

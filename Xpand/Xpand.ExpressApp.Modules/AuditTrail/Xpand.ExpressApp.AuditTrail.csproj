@@ -48,33 +48,58 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.AuditTrail.v13.2">
+    <Reference Include="DevExpress.ExpressApp.AuditTrail.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="Xpand.ExpressApp.Logic">
@@ -106,6 +131,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditProccesors.cs" />
+    <Compile Include="BusinessObjects\XpandAuditDataItemPersistent.cs" />
+    <Compile Include="BusinessObjects\XpandAuditedObjectWeakReference.cs" />
+    <Compile Include="AudiTrailExtensions.cs" />
     <Compile Include="Model\Member\AuditTrailCollectionMemberInfo.cs" />
     <Compile Include="AuditTrailLogicInstaller.cs" />
     <Compile Include="Model\Member\IModelMemberAuditTrail.cs" />
@@ -117,6 +146,9 @@
     <Compile Include="Model\IModelApplicationAudiTrail.cs" />
     <Compile Include="Model\IModelAuditTrailRule.cs" />
     <Compile Include="Model\IModelLogicAuditTrail.cs" />
+    <Compile Include="AuditPendingController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\AuditTrailOperationPermissionData.cs" />
     <Compile Include="Logic\AuditTrailRule.cs" />
     <Compile Include="Logic\AuditTrailRuleAttribute.cs" />

@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" DefaultDetailView="AuthenticationStandardLogonParameters_DetailView_Demo" />
   </BOModel>
-  <NavigationItems StartupNavigationItem="Task_ListView">
+  <NavigationItems>
     <Items>
       <Item Id="Default">
         <Items>
@@ -14,8 +14,7 @@
     </Items>
   </NavigationItems>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.2.5.0" IsNewNode="True" />
-    <SchemaModule Name="XpandWorkFlowModule" Version="13.2.5.1" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <DetailView Id="AuthenticationStandardLogonParameters_DetailView_Demo" ClassName="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" Caption="Log On" IsNewNode="True">

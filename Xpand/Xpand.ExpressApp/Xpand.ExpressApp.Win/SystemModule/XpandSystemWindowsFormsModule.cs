@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
-    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase, IColumnCellFilterUser,IModelXmlConverter {
+    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase, IColumnCellFilterUser,IModelXmlConverter,IGridOptionsUser {
         public const string XpandWin = "Xpand.Win";
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));

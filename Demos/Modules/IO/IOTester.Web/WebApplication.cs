@@ -23,6 +23,11 @@ namespace IOTester.Web {
             InitializeComponent();
         }
 
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         public event CancelEventHandler ConfirmationRequired;
 
 

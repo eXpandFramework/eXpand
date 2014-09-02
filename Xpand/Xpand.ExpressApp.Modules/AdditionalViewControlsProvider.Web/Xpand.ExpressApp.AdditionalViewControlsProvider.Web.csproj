@@ -48,50 +48,59 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
+    <OutputPath>bin\RecompiledDxSources\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v13.2.Core">
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Reference Include="DevExpress.Office.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Docs.v13.2">
+    <Reference Include="DevExpress.Docs.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v13.2">
+    <Reference Include="DevExpress.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
@@ -141,18 +150,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControlsProviderAspNetModule.cs" />
+    <Compile Include="AdditionalViewControlsProviderAspNetModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\HintPanelBase.cs" />
     <Compile Include="Controls\WarningPanel.cs" />
     <Compile Include="Editors\AdditionalViewControlsItem.cs" />
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Decorators\WebHintPanelDecorator.cs" />
     <Compile Include="Controls\HintPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ControlTypeConverter.cs" />
     <Compile Include="Security\DecoratorTypeConverter.cs" />
-    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs" />
-    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs" />
+    <Compile Include="Security\UpdateControlTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Updater.cs"></Compile>
   </ItemGroup>
   <ItemGroup>

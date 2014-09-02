@@ -61,64 +61,64 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Workflow.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2">
+    <Reference Include="DevExpress.XtraEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
@@ -147,8 +147,8 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.FilterDataStore.Win">
       <SpecificVersion>False</SpecificVersion>
@@ -312,8 +312,6 @@
     <Compile Include="ListViewControl\TreeList\RecursiveView\Updater.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\OCategory.cs" />
     <Compile Include="ListViewControl\TreeList\TreeListOptions\Updater.cs" />
-    <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
-    <Compile Include="LowLevelFilterDataStore\SkinFilter\FDSSCustomer.cs" />
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -542,11 +540,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImportExport\DynamicAssemblyMasterDetail\DynamicAssemblyMasterDetailModelGroup.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="LowLevelFilterDataStore\SkinFilter\MDO_SkinFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

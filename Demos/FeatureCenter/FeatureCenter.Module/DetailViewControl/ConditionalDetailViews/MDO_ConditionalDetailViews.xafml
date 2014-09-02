@@ -3,9 +3,9 @@
   <BOModel>
     <Class Name="FeatureCenter.Module.Customer">
       <OwnMembers>
-        <RuntimeCalculatedMember Name="MaxOfOrderTotals" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
-        <RuntimeOrphanedColection Name="OrderLines" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
-        <RuntimeMember Name="RuntimeMember" Tag="" IsCustom="False" CreatedAtDesignTime="True" />
+        <RuntimeCalculatedMember Name="MaxOfOrderTotals" Tag="" IsCustom="False" CreatedAtDesignTime="False" />
+        <RuntimeOrphanedColection Name="OrderLines" Tag="" IsCustom="False" CreatedAtDesignTime="False" />
+        <RuntimeMember Name="RuntimeMember" Tag="" IsCustom="False" CreatedAtDesignTime="False" />
       </OwnMembers>
     </Class>
   </BOModel>

@@ -13,6 +13,8 @@ using Fasterflect;
 
 namespace Xpand.EmailTemplateEngine {
     public class EmailTemplateEngine : IEmailTemplateEngine {
+        private const string BodyTemplateNameSuffix = "_BodyTemplateNameSuffix";
+        private const string SubjectTemplateNameSuffix = "_SubjectTemplateNameSuffix";
         public const string DefaultSharedTemplateSuffix = "";
         public const string DefaultHtmlTemplateSuffix = "html";
         public const string DefaultTextTemplateSuffix = "text";
@@ -24,22 +26,29 @@ namespace Xpand.EmailTemplateEngine {
 
         private static readonly string[] _referencedAssemblies = BuildReferenceList().ToArray();
         private static readonly RazorTemplateEngine _razorEngine = CreateRazorEngine();
+        private readonly string _subject;
+        private readonly string _body;
 
-        public EmailTemplateEngine(IEmailTemplateContentReader contentReader)
-            : this(contentReader, DefaultHtmlTemplateSuffix, DefaultTextTemplateSuffix, DefaultSharedTemplateSuffix) {
-            ContentReader = contentReader;
+        public EmailTemplateEngine(IEmail emailTemplate)
+            : this(emailTemplate, DefaultHtmlTemplateSuffix, DefaultTextTemplateSuffix, DefaultSharedTemplateSuffix) {
         }
 
-        public EmailTemplateEngine(IEmailTemplateContentReader contentReader, string htmlTemplateSuffix, string textTemplateSuffix, string sharedTemplateSuffix) {
-            Invariant.IsNotNull(contentReader, "contentReader");
-
-            ContentReader = contentReader;
+        public EmailTemplateEngine(IEmail emailTemplate, string htmlTemplateSuffix, string textTemplateSuffix, string sharedTemplateSuffix) {
+            Invariant.IsNotNull(emailTemplate, "emailTemplate");
+            _subject = emailTemplate.Subject;
+            _body = emailTemplate.Body;
             SharedTemplateSuffix = sharedTemplateSuffix;
             HtmlTemplateSuffix = htmlTemplateSuffix;
             TextTemplateSuffix = textTemplateSuffix;
         }
 
-        protected IEmailTemplateContentReader ContentReader { get; private set; }
+        public EmailTemplateEngine(string subject, string body){
+            _subject = subject;
+            _body = body;
+            SharedTemplateSuffix = DefaultSharedTemplateSuffix;
+            HtmlTemplateSuffix = DefaultHtmlTemplateSuffix;
+            TextTemplateSuffix = DefaultTextTemplateSuffix;
+        }
 
         protected string SharedTemplateSuffix { get; private set; }
 
@@ -80,35 +89,35 @@ namespace Xpand.EmailTemplateEngine {
                      .Each(AddCCMails(mail));
 
             Action<string, Action<string>> set = (contentType, action) => {
-                var item = templates.SingleOrDefault(x => x.Key.Equals(contentType));
-
+                var item = templates.SingleOrDefault(x => x.Key.Equals(contentType)&&x.Value.GetType().Name.EndsWith(BodyTemplateNameSuffix));
                 IEmailTemplate template = item.Value;
 
                 if (item.Value != null) {
                     if (!string.IsNullOrWhiteSpace(template.From)) {
                         mail.From = template.From;
                     }
-
                     if (!string.IsNullOrWhiteSpace(template.Sender)) {
                         mail.Sender = template.Sender;
                     }
-
                     if (!string.IsNullOrWhiteSpace(template.Subject)) {
                         mail.Subject = template.Subject;
                     }
-
                     template.Headers.Each(pair => mail.Headers[pair.Key] = pair.Value);
-
                     if (action != null) {
                         action(template.Body);
+
                     }
                 }
             };
 
-            set(ContentTypes.Text, AssignTextBody(mail));
-            set(ContentTypes.Html, AssignHtmlBody(mail));
-            set(string.Empty, null);
-
+            foreach (var type in new[]{ContentTypes.Text, ContentTypes.Html, string.Empty}){
+                set(type, AssignTextBody(mail));
+                set(type, AssignHtmlBody(mail));
+                var valuePair = templates.SingleOrDefault(x => x.Key.Equals(type)&&x.Value.GetType().Name.EndsWith(SubjectTemplateNameSuffix));
+                if (valuePair.Value != null){
+                    mail.Subject = valuePair.Value.Body;
+                }
+            }
             return mail;
         }
 
@@ -144,12 +153,12 @@ namespace Xpand.EmailTemplateEngine {
                 throw new InvalidOperationException(parseExceptionMessage);
             }
             using (var codeProvider = new CSharpCodeProvider()) {
-                var compilerParameter = new CompilerParameters(_referencedAssemblies, assemblyName, false) {
+                var compilerParameter = new CompilerParameters(_referencedAssemblies, assemblyName, false){
                     GenerateInMemory = true,
                     CompilerOptions = "/optimize",
+                    OutputAssembly = Path.Combine(ReflectionExtensions.GetTempPath(), assemblyName),
+                    TempFiles = new TempFileCollection(ReflectionExtensions.GetTempPath()),
                 };
-                compilerParameter.OutputAssembly = Path.Combine(ReflectionExtensions.GetTempPath(), assemblyName);
-                compilerParameter.TempFiles = new TempFileCollection(ReflectionExtensions.GetTempPath());
                 var compilerResults = codeProvider.CompileAssemblyFromDom(compilerParameter, templateResults.Select(r => r.GeneratedCode).ToArray());
                 if (compilerResults.Errors.HasErrors) {
                     var compileExceptionMessage = string.Join(Environment.NewLine + Environment.NewLine, compilerResults.Errors.OfType<CompilerError>().Where(ce => !ce.IsWarning).Select(e => e.FileName + ":" + Environment.NewLine + e.ErrorText).ToArray());
@@ -197,31 +206,23 @@ namespace Xpand.EmailTemplateEngine {
 
         private static IEnumerable<string> BuildReferenceList() {
             string currentAssemblyLocation = typeof(EmailTemplateEngine).Assembly.CodeBase.Replace("file:///", string.Empty).Replace("/", "\\");
-
-            return new List<string>
-                       {
-                           "mscorlib.dll",
-                           "system.dll",
-                           "system.core.dll",
-                           "microsoft.csharp.dll",
-                           currentAssemblyLocation
-                       };
+            return new List<string>{"mscorlib.dll","system.dll","system.core.dll","microsoft.csharp.dll",currentAssemblyLocation};
         }
 
         private IEnumerable<KeyValuePair<string, IEmailTemplate>> CreateTemplateInstances(string templateName) {
-            return GetTemplateTypes(templateName).Select(pair => new KeyValuePair<string, IEmailTemplate>(pair.Key, (IEmailTemplate)pair.Value.CreateInstance()))
-                                                 .ToList();
+            return GetTemplateTypes(templateName).Select(CreateTemplateInstances).ToList();
+        }
+
+        private static KeyValuePair<string, IEmailTemplate> CreateTemplateInstances(KeyValuePair<string, Type> pair){
+            return new KeyValuePair<string, IEmailTemplate>(pair.Key, (IEmailTemplate)pair.Value.CreateInstance());
         }
 
         private IEnumerable<KeyValuePair<string, Type>> GetTemplateTypes(string templateName) {
             IEnumerable<KeyValuePair<string, Type>> templateTypes;
-
             _syncLock.EnterUpgradeableReadLock();
-
             try {
                 if (!_typeMapping.TryGetValue(templateName, out templateTypes)) {
                     _syncLock.EnterWriteLock();
-
                     try {
                         templateTypes = GenerateTemplateTypes(templateName);
                         _typeMapping.Add(templateName, templateTypes);
@@ -232,31 +233,30 @@ namespace Xpand.EmailTemplateEngine {
             } finally {
                 _syncLock.ExitUpgradeableReadLock();
             }
-
             return templateTypes;
         }
 
         private IEnumerable<KeyValuePair<string, Type>> GenerateTemplateTypes(string templateName) {
-            var suffixesWithContentTypes = new Dictionary<string, string>
-                                               {
+            var suffixesWithContentTypes = new Dictionary<string, string>{
                                                    { SharedTemplateSuffix, string.Empty },
                                                    { HtmlTemplateSuffix, ContentTypes.Html },
                                                    { TextTemplateSuffix, ContentTypes.Text }
                                                };
-
-            var templates = suffixesWithContentTypes.Select(pair => new {
+            var templates = suffixesWithContentTypes.Select(pair => new{
                 Suffix = pair.Key,
-                TemplateName = templateName + pair.Key,
-                Content = ContentReader.Read(templateName, pair.Key),
+                TemplateName = templateName + pair.Key+BodyTemplateNameSuffix,
+                Content = _body,
                 ContentType = pair.Value
-            })
-                                                    .Where(x => !string.IsNullOrWhiteSpace(x.Content))
-                                                    .ToList();
+            });
+            templates = templates.Concat(suffixesWithContentTypes.Select(pair => new {
+                Suffix = pair.Key,
+                TemplateName = templateName + pair.Key+SubjectTemplateNameSuffix,
+                Content = _subject,
+                ContentType = pair.Value
+            })).Where(x => !string.IsNullOrWhiteSpace(x.Content)).ToList();
 
             var compliableTemplates = templates.Select(x => new KeyValuePair<string, string>(x.TemplateName, x.Content)).ToArray();
-
             var assembly = GenerateAssembly(compliableTemplates);
-
             return templates.Select(x => new KeyValuePair<string, Type>(x.ContentType, assembly.GetType(NamespaceName + "." + x.TemplateName, true, false))).ToList();
         }
     }

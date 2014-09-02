@@ -8,7 +8,7 @@ using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.NorthWind {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(PersistentAssemblyInfo)) yield break;
             yield return new CloneViewAttribute(CloneViewType.DetailView, "NorthWind_DetailView");

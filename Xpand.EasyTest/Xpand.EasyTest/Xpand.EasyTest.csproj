@@ -10,7 +10,9 @@
     <AssemblyName>Xpand.EasyTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <UsingTask TaskName="MSBuild.ExtensionPack.Framework.Gac" AssemblyName="..\..\Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -23,20 +25,26 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.EasyTest.v13.2">
+    <Reference Include="DevExpress.EasyTest.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +56,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\FocusWindowCommand.cs" />
+    <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\SetForeGroundWindowSize.cs" />
+    <Compile Include="Commands\XpandAutoTestCommand.cs" />
+    <Compile Include="Commands\UseModelCommand.cs" />
+    <Compile Include="Commands\KillFocusCommand.cs" />
+    <Compile Include="Commands\HideCursorCommand.cs" />
+    <Compile Include="Commands\KillWindowCommand.cs" />
+    <Compile Include="Commands\SendKeysCommand.cs" />
+    <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
+    <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
+    <Compile Include="Commands\XpandFillFormCommand.cs" />
+    <Compile Include="Commands\XpandProcessRecordCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
     <Compile Include="Commands\Extensions.cs" />
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />
@@ -60,11 +81,15 @@
     <EmbeddedResource Include="TestDataBase\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+  <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
   <Target Name="BeforeBuild">
+    <GacUtil Assemblies="$(TargetName)" Command="Uninstall" />
+    <Message Text="BeforeBuild">
+    </Message>
   </Target>
   <Target Name="AfterBuild">
+    <GacUtil Assemblies="$(TargetPath)" />
+    <GacUtil Assemblies="Xpand.Utils" Command="Uninstall" />
+    <GacUtil Assemblies="$(TargetDir)Xpand.Utils.dll" />
   </Target>
-  -->
 </Project>

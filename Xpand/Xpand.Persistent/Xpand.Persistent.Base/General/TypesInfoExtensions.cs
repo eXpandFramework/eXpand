@@ -6,22 +6,56 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General {
 
     public static class TypesInfoExtensions {
-        public static void AssignAsInstance(this ITypesInfo typesInfo) {
-            Guard.ArgumentNotNull(typesInfo, "typesInfo");
-            typeof (XafTypesInfo).SetFieldValue("instance", typesInfo);
-            var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().FirstOrDefault();
-            typeof(XafTypesInfo).SetFieldValue("persistentEntityStore", xpoTypeInfoSource);
+        private const string PersistentEntityStore = "persistentEntityStore";
+
+        public static bool IsDomainComponent(this Type type){
+            return type.Attribute<DomainComponentAttribute>() != null ||new ReflectionDictionary().QueryClassInfo(type) != null;
         }
 
+        public static IModelClass ModelClass(this ITypeInfo typeInfo){
+            return CaptionHelper.ApplicationModel.BOModel.GetClass(typeInfo.Type);
+        }
+
+        public static XPClassInfo FindDCXPClassInfo(this TypeInfo typeInfo) {
+            var xpoTypeInfoSource = XpandModuleBase.XpoTypeInfoSource;
+            var xpDictionary = xpoTypeInfoSource.XPDictionary;
+            if (InterfaceBuilder.RuntimeMode) {
+                var generatedEntityType = xpoTypeInfoSource.GetGeneratedEntityType(typeInfo.Type);
+                return generatedEntityType == null ? null : xpDictionary.GetClassInfo(generatedEntityType);
+            }
+            var className = typeInfo.Name + "BaseDCDesignTimeClass";
+            var xpClassInfo = xpDictionary.QueryClassInfo("", className);
+            return xpClassInfo ?? new XPDataObjectClassInfo(xpDictionary, className);
+        }
+
+        public static void AssignAsPersistentEntityStore(this XpoTypeInfoSource xpoTypeInfoSource){
+            var entityStores = (List<IEntityStore>) XafTypesInfo.Instance.GetFieldValue("entityStores");
+            entityStores.RemoveAll(store => store is XpoTypeInfoSource);
+            XafTypesInfo.Instance.SetFieldValue("dcEntityStore", null);
+            ((TypesInfo) XafTypesInfo.Instance).AddEntityStore(xpoTypeInfoSource);
+        }
+
+        public static void AssignAsInstance(this ITypesInfo typesInfo) {
+            Guard.ArgumentNotNull(typesInfo, "typesInfo");
+            var type = typeof (XafTypesInfo);
+            if (type.GetFieldValue("instance")!=typesInfo){
+                type.SetFieldValue("instance", typesInfo);
+                var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
+                xpoTypeInfoSource.AssignAsPersistentEntityStore();
+                type.SetFieldValue(PersistentEntityStore, xpoTypeInfoSource);
+            }
+        }
 
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
@@ -32,7 +66,7 @@ namespace Xpand.Persistent.Base.General {
                 throw new ArgumentException("Add a business object that implements " +
                                                 typeof(T).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
             if (implementors.Count() > 1) {
-                var typeInfos = implementors.Where(implementor => !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
+                var typeInfos = implementors.Where(implementor =>implementor.Base!=null&& !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
                 foreach (ITypeInfo implementor in typeInfos) {
                     return implementor.Type;
                 }
@@ -183,7 +217,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IMemberInfo FindMember<T>(this ITypeInfo typesInfo, Expression<Func<T, object>> expression) {
-            MemberInfo memberInfo = ReflectionExtensions.GetExpression(expression);
+            MemberInfo memberInfo = expression.GetMemberInfo();
             return typesInfo.FindMember(memberInfo.Name);
         }
 

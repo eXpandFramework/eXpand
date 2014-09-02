@@ -1,11 +1,19 @@
 ﻿using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders {
-    static class Extensions {
+    public static class Extensions {
+        public static void CreateReminderInfoMember(this IEvent @event,IObjectSpace objectSpace){
+            var modelMemberReminderInfo = ModelMemberReminderInfo(@event);
+            var memberInfo = modelMemberReminderInfo.MemberInfo;
+            if (memberInfo.GetValue(@event)==null)
+                memberInfo.SetValue(@event, objectSpace.CreateObject(memberInfo.MemberType));
+        }
+
         public static ReminderInfo GetReminderInfoMemberValue(this IEvent @event) {
             var modelMemberReminderInfo = ModelMemberReminderInfo(@event);
             return (ReminderInfo) modelMemberReminderInfo.MemberInfo.GetValue(@event);

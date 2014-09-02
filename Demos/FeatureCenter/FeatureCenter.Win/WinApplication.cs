@@ -14,14 +14,18 @@ namespace FeatureCenter.Win {
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {
         //            return new ShowInSingleWindowStrategy(this);
         //        }
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         private void FeatureCenterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 if (this.DropDatabaseOnVersionMissmatch() > 0)
                     Application.ExitThread();
                 e.Updater.Update();

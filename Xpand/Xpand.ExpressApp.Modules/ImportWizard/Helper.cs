@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Properties;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.Xpo;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.ImportWizard {
     public static class Helper {
@@ -49,42 +55,36 @@ namespace Xpand.ExpressApp.ImportWizard {
             if (!type.IsSubclassOf(typeof(XPBaseObject)))
                 return null;
 
-            var keyPropertyName = oSpace.Session.GetClassInfo(type).
-                        PersistentProperties.
-                        OfType<XPMemberInfo>().
-                        Where(p => p.HasAttribute(typeof(KeyAttribute))).
-                        Select(p => p.Name).
-                        FirstOrDefault() ??
-
-                    oSpace.Session.GetClassInfo(type).
-                        PersistentProperties.
-                        OfType<XPMemberInfo>().
-                        Where(p => p.Name == "Name" || p.Name == "Code")
-                        .Select(p => p.Name)
-                        .FirstOrDefault() ??
-                    "Oid";
-
-            var item = (XPBaseObject)oSpace.FindObject(
-                                type,
-                                new BinaryOperator(keyPropertyName, value),
-                                true);
+            var defaultMember = GetDefaultMember(type);
+            object result;
+            value.TryToChange(defaultMember.MemberType, out result);
+            var criteriaOperator = GetDefaultCriteria(defaultMember, result);
+            var item = (XPBaseObject)oSpace.FindObject(type,criteriaOperator,true);
             if (item != null)
                 return item;
 
             var nestedObjectSpace = oSpace.CreateNestedObjectSpace();
             item = (XPBaseObject)nestedObjectSpace.CreateObject(type);
-            var firstOrDefault = item.ClassInfo
-                                    .PersistentProperties
-                                    .OfType<XPMemberInfo>()
-                                    .FirstOrDefault(p => p.Name == keyPropertyName);
-            if (firstOrDefault != null)
-                firstOrDefault.SetValue(item, value);
+            defaultMember.SetValue(item, value);
 
             item.Save();
             nestedObjectSpace.CommitChanges();
 
             return oSpace.GetObject(item);
 
+        }
+
+        private static CriteriaOperator GetDefaultCriteria(IMemberInfo memberInfo, object value){
+            var criteria = CriteriaOperator.Parse(((IModelClassDefaultCriteria)memberInfo.Owner.ModelClass()).DefaultCriteria);
+            var dictionary = new Dictionary<string, object>{{memberInfo.Name, value}};
+            new BinaryOperatorValueMapperCriteriaProcessor(dictionary).Process(criteria);
+            return criteria;
+        }
+
+        private static IMemberInfo GetDefaultMember(Type type){
+            var typeInfo = XafTypesInfo.CastTypeToTypeInfo(type);
+            var defaultMember = typeInfo.GetDefaultMember();
+            return defaultMember;
         }
 
 
@@ -97,22 +97,15 @@ namespace Xpand.ExpressApp.ImportWizard {
 
             //  var keyPropertyName = prop;          
 
-            var item = (XPBaseObject)uow.FindObject(
-                                type,
-                                new BinaryOperator(prop, value),
-                                true);
+            var item = (XPBaseObject)uow.FindObject(type,new BinaryOperator(prop, value),true);
             if (item != null)
                 return item;
 
             //var nestedUow = uow.BeginNestedUnitOfWork();
             item = (XPBaseObject)type.CreateInstance(uow);
-            var firstOrDefault = item.ClassInfo
-                                    .PersistentProperties
-                                    .OfType<XPMemberInfo>()
-                                    .FirstOrDefault(p => p.Name == prop);
+            var firstOrDefault = item.ClassInfo.PersistentProperties.OfType<XPMemberInfo>().FirstOrDefault(p => p.Name == prop);
             if (firstOrDefault != null)
-                firstOrDefault.
-                    SetValue(item, value);
+                firstOrDefault.SetValue(item, value);
 
             item.Save();
             //uow.CommitChanges();
@@ -121,6 +114,5 @@ namespace Xpand.ExpressApp.ImportWizard {
 
 
         }
-
     }
 }

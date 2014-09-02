@@ -58,12 +58,14 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                             }
                         }
                     } else if (additionalViewControl != null) {
-                        controls.CallMethod("Remove", new object[]{additionalViewControl});
+                        controls.CallMethod("Remove",new[]{GetControlType()}, new object[]{additionalViewControl});
                     }
                 }
             }
 
         }
+
+        protected abstract Type GetControlType();
 
         protected Dictionary<string, object> RuleToLayoutMap {
             get { return _infoToLayoutMapCore ?? (_infoToLayoutMapCore = new Dictionary<string, object>()); }
@@ -121,7 +123,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
         
         protected virtual void AddControl(object control, object controls, LogicRuleInfo info) {
-            controls.CallMethod("Add", new[]{control});
+            controls.CallMethod("Add",new[]{GetControlType()}, new[]{control});
         }
         
         protected virtual void InitializeControl(object control, IAdditionalViewControlsRule additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {

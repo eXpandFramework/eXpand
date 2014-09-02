@@ -14,25 +14,25 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Core;
 using Xpand.ExpressApp.Core.ReadOnlyParameters;
-using Xpand.ExpressApp.MessageBox;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
+using Xpand.ExpressApp.PropertyEditors;
 using Xpand.ExpressApp.TranslatorProviders;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Controllers.Actions;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.RuntimeMembers;
-using Xpand.Persistent.Base.RuntimeMembers.Model;
+using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.Xpo;
+using Xpand.Xpo.CustomFunctions;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
-using Fasterflect;
 
 namespace Xpand.ExpressApp.SystemModule {
-
     [ToolboxItem(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandSystemModule : XpandModuleBase,ISequenceGeneratorUser,IModelXmlConverter,IDashboardUser {
+    public sealed class XpandSystemModule : XpandModuleBase, ISequenceGeneratorUser, IModelXmlConverter, IDashboardInteractionUser, IModifyModelActionUser {
         public XpandSystemModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
@@ -42,23 +42,17 @@ namespace Xpand.ExpressApp.SystemModule {
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
             TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
-        }
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            return new List<Type>(base.GetDeclaredExportedTypes()) { typeof(MessageBoxTextMessage) };
+            if (!InterfaceBuilder.RuntimeMode)
+                new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance).AssignAsPersistentEntityStore();
         }
 
         public override void Setup(XafApplication application) {
-            if (RuntimeMode && (XafTypesInfo.PersistentEntityStore is XpandXpoTypeInfoSource) && !((ITestSupport)application).IsTesting)
-                XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo) application.TypesInfo));
             base.Setup(application);
             if (RuntimeMode) {
                 application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
                 application.ListViewCreating+=ApplicationOnListViewCreating;
                 application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
-                application.SetupComplete +=
-                    (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
-                application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
         }
 
@@ -78,15 +72,12 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (RuntimeMode) {
-                foreach (var persistentType in typesInfo.PersistentTypes) {
-                    CreateAttributeRegistratorAttributes(persistentType);
-                }
-            }
+            new FullTextContainsFunction().Register();
             if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);
             }
         }
+
         void CreatePessimisticLockingField(ITypesInfo typesInfo) {
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<PessimisticLockingAttribute>() != null);
             foreach (var typeInfo in typeInfos) {
@@ -105,17 +96,6 @@ namespace Xpand.ExpressApp.SystemModule {
             editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
         }
 
-        void CreateAttributeRegistratorAttributes(ITypeInfo persistentType) {
-            IEnumerable<Attribute> attributes = GetAttributes(persistentType);
-            foreach (var attribute in attributes) {
-                persistentType.AddAttribute(attribute);
-            }
-        }
-
-        IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
-            return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator)).Descendants.Select(typeInfo => (AttributeRegistrator)typeInfo.Type.CreateInstance()).SelectMany(registrator => registrator.GetAttributes(type));
-        }
-
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ModelListViewLinqNodesGeneratorUpdater());
@@ -126,36 +106,69 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemSortOrder>();
             extenders.Add<IModelListView, IModelListViewPropertyPathFilters>();
-            extenders.Add<IModelClass, IModelClassLoadWhenFiltered>();
-            extenders.Add<IModelListView, IModelListViewLoadWhenFiltered>();
             extenders.Add<IModelListView, IModelListViewLinq>();
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
-            extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelStaticText, IModelStaticTextEx>();
-            extenders.Add<IModelClass, IModelClassPersistModelModifications>();
-            extenders.Add<IModelObjectView, IModelObjectViewPersistModelModifications>();
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
-            if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
-                parameters.NodeType = typeof (IModelColumn);
-                string name = parameters.Values["Id"];
-                if (parameters.Values.ContainsKey("CalcPropertyName")) {
-                    name = parameters.Values["CalcPropertyName"];
-                    parameters.Values.Remove("CalcPropertyName");
+            var currentVersion = new Version(XpandAssemblyInfo.Version);
+            if (currentVersion>new Version("0.0.0.0")&&currentVersion<new Version("14.1.5.2")){
+                if (string.CompareOrdinal("RuntimeCalculatedColumn", parameters.XmlNodeName)==0){
+                    parameters.NodeType = typeof (IModelColumn);
+                    string name = parameters.Values["Id"];
+                    if (parameters.Values.ContainsKey("CalcPropertyName")) {
+                        name = parameters.Values["CalcPropertyName"];
+                        parameters.Values.Remove("CalcPropertyName");
+                    }
+                    parameters.Values.Add("PropertyName",name);
                 }
-                parameters.Values.Add("PropertyName",name);
+                if (typeof(IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("PreventLoadingData")) {
+                    if (parameters.Values["LoadWhenFiltered"] == "True") {
+                        parameters.Values["LoadWhenFiltered"] = "FilterAndCriteria";
+                    }
+                    else if (parameters.Values["LoadWhenFiltered"] == "False") {
+                        parameters.Values["LoadWhenFiltered"] = "No";
+                    }
+                }
             }
-            if (typeof(IModelListViewLoadWhenFiltered).IsAssignableFrom(parameters.NodeType) && parameters.Values.ContainsKey("LoadWhenFiltered")) {
-                if (parameters.Values["LoadWhenFiltered"] == "True"){
-                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.FilterAndCriteria.ToString();
+            if (currentVersion > new Version("14.1.5.1")){
+                if (typeof (IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType)){
+                    if (parameters.Values.ContainsKey("LoadWhenFiltered")){
+                        string value = parameters.Values["LoadWhenFiltered"];
+                        if (!string.IsNullOrEmpty(value)){
+                            if (value == "No")
+                                parameters.Values["PreventLoadingData"] = "Never";
+                            else if (value=="Filter")
+                                parameters.Values["PreventLoadingData"] = "FiltersEmpty";
+                            else if (value == "FilterAndCriteria")
+                                parameters.Values["PreventLoadingData"] = "SearchOrFiltersOrCriteriaEmpty";
+                            else{
+                                parameters.Values["PreventLoadingData"] = value;
+                            }
+                        }
+                    }
                 }
-                else if (parameters.Values["LoadWhenFiltered"] == "False"){
-                    parameters.Values["LoadWhenFiltered"] = LoadWhenFiltered.No.ToString();
+            }
+            if (currentVersion > new Version("14.1.5.3")){
+                if (typeof (IModelListViewPreventDataLoading).IsAssignableFrom(parameters.NodeType)){
+                    if (parameters.Values.ContainsKey("SearchAndFiltersEmpty")) {
+                        string value = parameters.Values["SearchAndFiltersEmpty"];
+                        if (!string.IsNullOrEmpty(value)){
+                            parameters.Values["SearchAndFiltersEmpty"] = "FiltersEmpty";
+                        }
+                    }
+                    if (parameters.Values.ContainsKey("SearchAndFiltersAndCriteriaEmpty")) {
+                        string value = parameters.Values["SearchAndFiltersAndCriteriaEmpty"];
+                        if (!string.IsNullOrEmpty(value)){
+                            parameters.Values["SearchAndFiltersAndCriteriaEmpty"] = "FiltersAndCriteriaEmpty";
+                        }
+                    }
                 }
             }
         }

@@ -10,6 +10,13 @@ namespace SecuritySystemExample.Win {
         public SecuritySystemExampleWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersRead+=OnLastLogonParametersRead;
+        }
+
+        private void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs e){
+            if (string.IsNullOrEmpty(((AuthenticationStandardLogonParameters)e.LogonObject).UserName)) {
+                ((AuthenticationStandardLogonParameters)e.LogonObject).UserName = "Administrator";
+            }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

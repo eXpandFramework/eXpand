@@ -8,7 +8,7 @@ namespace Xpand.Persistent.Base.General.Model {
     }
     [ModelAbstractClass]
     public interface IModelOptionsClientSideSecurity : IModelOptions {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("When SecurityStrategyComplex is used defined the type of security for eXpand objectspaceprovider")]
         ClientSideSecurity? ClientSideSecurity { get; set; }
     }

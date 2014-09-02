@@ -15,7 +15,7 @@ using Xpand.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders {
     [ModelDisplayName("ReminderInfo")]
-    public interface IModelMemberReminderInfo:IModelMemberPersistent {
+    public interface IModelMemberReminderInfo : IModelMemberPersistent {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Description("Specifies the current property type.")]
         [TypeConverter(typeof(XpandStringToTypeConverterExtended))]

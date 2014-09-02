@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -13,6 +15,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
+using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
@@ -72,11 +75,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     }
 
 
-    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TGridDesignerEditor, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TGridDesignerEditor, TModelListViewOptionsColumnView>
-        where TGridDesignerEditor : ColumnsListEditor
+    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TComponent, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TComponent, TModelListViewOptionsColumnView>
         where TModelListViewOptionsColumnView : IModelListViewOptionsColumnView
         where TModelColumn : IModelColumnOptionsColumnView {
-        protected ColumnViewEditorColumnOptionsSynchronizer(TGridDesignerEditor control, TModelListViewOptionsColumnView modelNode)
+        protected ColumnViewEditorColumnOptionsSynchronizer(TComponent control, TModelListViewOptionsColumnView modelNode)
             : base(control, modelNode) {
         }
         protected override void ApplyModelCore() {
@@ -91,7 +93,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
         string GetPropertyName(TModelColumn modelColumn) {
             var propertyName = modelColumn.PropertyName;
-            if (modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
+            if (modelColumn.ModelMember != null && modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
                 propertyName += "!";
             }
             return propertyName;
@@ -103,7 +105,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
         public override void SynchronizeModel() {
             var gridColumnCollection = GetColumnView().Columns;
-            foreach (var column in gridColumnCollection.OfType<GridColumn>().ToList()) {
+            foreach (var column in gridColumnCollection.ToList()) {
                 var propertyName = column.PropertyName();
                 if (Model.Columns[propertyName] is TModelColumn) {
                     var modelColumn = (TModelColumn)Model.Columns[propertyName];
@@ -212,6 +214,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             ModelSynchronizerList.Add(new ColumnsListEditorModelSynchronizer((ColumnsListEditor)columnViewEditor, modelListView));
             ((IColumnViewEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
         }
+
         public override void Dispose() {
             base.Dispose();
             var gridListEditor = Control as IColumnViewEditor;
@@ -222,18 +225,20 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     }
 
     public static class ColumnViewExtennsions {
-        public static string PropertyName(this GridColumn column) {
-            var xafGridColumn = column as XafGridColumn;
-            return xafGridColumn != null ? xafGridColumn.PropertyName : ((IXafGridColumn)column).PropertyName;
+        public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IEnumerable<IModelMember> modelMembers){
+            return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,modelMembers);
         }
 
-        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn) {
-            var xafGridColumn = gridColumn as XafGridColumn;
-            if (xafGridColumn != null) {
-                return (IModelColumnOptionsColumnView)xafGridColumn.Model;
-            }
-            var advBandedGridColumn = gridColumn as IXafGridColumn;
-            return advBandedGridColumn != null ? (IModelColumnOptionsColumnView)advBandedGridColumn.Model : null;
+        public static string PropertyName(this GridColumn column){
+            var xafGridColumn = column as XafGridColumn;
+            if (xafGridColumn != null) 
+                return xafGridColumn.PropertyName;
+            var gridColumn = column as IXafGridColumn;
+            return gridColumn != null ? gridColumn.PropertyName : null;
+        }
+
+        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn){
+            return (IModelColumnOptionsColumnView) gridColumn.Model();
         }
     }
 

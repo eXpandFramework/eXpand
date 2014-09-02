@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#modeldifference</projectUrl>
@@ -18,15 +18,16 @@
 ◦combine end user modifications with application model, 
 ◦support for multiple models at design time,
 Blogs:
-http://apobekiaris.blogspot.com/search/label/ModelDifference</description>
+http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Model managment</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.pdb" />
   </files>
 </package>

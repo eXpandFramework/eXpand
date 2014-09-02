@@ -66,7 +66,6 @@ namespace XVideoRental.Win {
             this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
             this.xpandReportsModule1 = new Xpand.ExpressApp.Reports.XpandReportsModule();
             this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule();
-            this.modelAdaptorModule1 = new Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -140,7 +139,6 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.xpandReportsModule1);
             this.Modules.Add(this._xpandReportsWindowsFormsModule2);
             this.Modules.Add(this.dashboardWindowsFormsModule1);
-            this.Modules.Add(this.modelAdaptorModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch);
@@ -190,7 +188,6 @@ namespace XVideoRental.Win {
         private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
         private Xpand.ExpressApp.Reports.XpandReportsModule xpandReportsModule1;
         private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
-        private Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule modelAdaptorModule1;
         
     }
 }

@@ -12,14 +12,14 @@ namespace Xpand.ExpressApp.Security.Permissions {
     }
 
     public class IsAdministratorPermissionRequestProcessor : PermissionRequestProcessorBase<IsAdministratorPermissionRequest> {
-        private readonly IPermissionDictionary permissions;
+        private readonly IPermissionDictionary _permissions;
 
         public IsAdministratorPermissionRequestProcessor(IPermissionDictionary permissions) {
-            this.permissions = permissions;
+            _permissions = permissions;
         }
 
         public override bool IsGranted(IsAdministratorPermissionRequest permissionRequest) {
-            return (permissions.FindFirst<IsAdministratorPermission>() != null);
+            return (_permissions.FindFirst<IsAdministratorPermission>() != null);
         }
     }
 }

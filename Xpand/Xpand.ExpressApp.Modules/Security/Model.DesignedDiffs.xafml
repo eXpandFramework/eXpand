@@ -78,7 +78,7 @@
                       <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="4" />
                       <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" />
                       <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
-                      <LayoutItem Id="Item5" ViewItem="" SizeConstraintsType="Default" Index="3" RelativeSize="88" />
+                      <LayoutItem Id="Item5" SizeConstraintsType="Default" Index="3" RelativeSize="88" ViewItem="" />
                     </LayoutGroup>
                     <LayoutGroup Id="Item1" RelativeSize="45">
                       <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4" />

@@ -5,7 +5,7 @@ namespace Xpand.EmailTemplateEngine {
     using System.Text;
 
     public abstract class EmailTemplate : IEmailTemplate {
-        private readonly StringBuilder buffer;
+        private readonly StringBuilder _buffer;
 
         [DebuggerStepThrough]
         protected EmailTemplate() {
@@ -15,7 +15,7 @@ namespace Xpand.EmailTemplateEngine {
             Bcc = new List<string>();
             Headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-            buffer = new StringBuilder();
+            _buffer = new StringBuilder();
         }
 
         public string From { get; set; }
@@ -35,7 +35,7 @@ namespace Xpand.EmailTemplateEngine {
         public string Subject { get; set; }
 
         public string Body {
-            get { return buffer.ToString(); }
+            get { return _buffer.ToString(); }
         }
 
         protected dynamic Model { get; private set; }
@@ -51,7 +51,7 @@ namespace Xpand.EmailTemplateEngine {
         }
 
         public virtual void WriteLiteral(object value) {
-            buffer.Append(value);
+            _buffer.Append(value);
         }
     }
 }

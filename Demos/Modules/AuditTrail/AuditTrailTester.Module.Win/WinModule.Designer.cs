@@ -28,7 +28,6 @@ namespace AuditTrailTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(AuditTrailTester.Module.AuditTrailTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
 
         }
 

@@ -1,5 +1,7 @@
-﻿using DevExpress.ExpressApp.Security;
+﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using SecuritySystemExample.Module;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
@@ -9,5 +11,10 @@ namespace ConsoleApplicationServer {
             ApplicationName = "SecuritySystemExample";
             Modules.Add(new SecuritySystemExampleModule());
         }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args,null);
+        }
+
     }
 }

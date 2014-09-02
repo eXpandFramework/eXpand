@@ -11,20 +11,13 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
     [CreateableItem]
     public class PersistentAssemblyVersionAttributeInfo : PersistentAssemblyAttributeInfo,
                                                           IPersistentAssemblyVersionAttributeInfo {
-        static FieldsClass _Fields;
+        
         string _version;
 
         public PersistentAssemblyVersionAttributeInfo(Session session)
             : base(session) {
         }
 
-        public new static FieldsClass Fields {
-            get {
-                if (ReferenceEquals(_Fields, null))
-                    _Fields = new FieldsClass();
-                return _Fields;
-            }
-        }
         #region IPersistentAssemblyVersionAttributeInfo Members
         [ModelDefault("EditMask", "#.#")]
         public string Version {

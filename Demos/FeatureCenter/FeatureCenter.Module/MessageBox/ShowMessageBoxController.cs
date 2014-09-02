@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.MessageBox;
+using Xpand.Persistent.Base.MessageBox;
 
 namespace FeatureCenter.Module.MessageBox {
     public class ShowMessageBoxController : ViewController {

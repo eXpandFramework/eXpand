@@ -5,7 +5,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.MessageBox {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         const string ShowMessageBoxObject_DetailView = "ShowMessageBoxObject_DetailView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

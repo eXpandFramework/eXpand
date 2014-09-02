@@ -11,9 +11,9 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public interface IModelOptionsApplicationModelDiffs : IModelOptions {
         [DefaultValue(true)]
         [Description("When an active user model difference is saved then it will be combined with the application user model difference")]
-        [Category("eXpand.ModelDifference")]
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         bool CombineActiveUserDiffsWithLastLayerOnSave { get; set; }
-        [Category("eXpand.ModelDifference")]
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [DefaultValue(true)]
         [Description("When a user model difference is loaded will be compiled with the application user model difference")]
         bool CombineLastLayerWithActiveUserDiffsOnLoad { get; set; }

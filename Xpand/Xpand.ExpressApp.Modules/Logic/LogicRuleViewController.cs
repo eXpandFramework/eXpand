@@ -11,7 +11,7 @@ using Xpand.Persistent.Base.Logic;
 namespace Xpand.ExpressApp.Logic {
     public class LogicRuleViewController : ViewController {
         readonly LogicRuleExecutor _logicRuleExecutor=new LogicRuleExecutor();
-        private bool isRefreshing;
+        private bool _isRefreshing;
         object _previousObject;
         XafApplication _application;
         ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
@@ -195,12 +195,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         private void ObjectSpace_Reloaded(object sender, EventArgs e) {
-            isRefreshing = false;
+            _isRefreshing = false;
             _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceReloaded, e,View);
         }
 
         private void ObjectSpace_Refreshing(object sender, CancelEventArgs e) {
-            isRefreshing = true;
+            _isRefreshing = true;
         }
 
         private void ViewOnCurrentObjectChanged(object sender, EventArgs args) {
@@ -210,7 +210,7 @@ namespace Xpand.ExpressApp.Logic {
                 if (notifyPropertyChanged != null)
                     notifyPropertyChanged.PropertyChanged -= OnPropertyChanged;
             }
-            if (!isRefreshing) {
+            if (!_isRefreshing) {
                 _logicRuleExecutor.Execute(ExecutionContext.CurrentObjectChanged, args,View);
                 var notifyPropertyChanged = View.CurrentObject as INotifyPropertyChanged;
                 if (notifyPropertyChanged != null)

@@ -29,10 +29,11 @@ namespace XtraDashboardTester.Web {
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
+#else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

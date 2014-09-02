@@ -6,11 +6,20 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using System;
 using System.Linq;
+using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Dashboard.PropertyEditors;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
+    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
+        protected override Type GetControlType() {
+            return typeof(ASPxDashboardViewer);
+        }
+    }
+
     [PropertyEditor(typeof(String), false)]
-    public class DashboardViewEditorWeb : WebPropertyEditor, IComplexViewItem {
+    public class DashboardViewEditorWeb : WebPropertyEditor, IComplexViewItem,IDashboardViewEditor {
         ASPxDashboardViewer _asPxDashboardViewer;
         XafApplication _application;
         IObjectSpace _objectSpace;
@@ -54,14 +63,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            var template = CurrentObject as IDashboardDefinition;
-            if (template != null) e.DashboardXml = template.Xml;
+            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime);
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
             if (e.Data == null) {
-                var dsType = Definition.DashboardTypes.First(t => t.Caption == e.DataSourceName).Type;
-                e.Data = _objectSpace.GetObjects(dsType);
+                var dsType = Definition.DashboardTypes.First(t => t.GetDefaultCaption() == e.DataSourceName).Type;
+                e.Data = Application.CreateDashboardDataSource(dsType);
             }
         }
 

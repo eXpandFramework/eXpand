@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
                 var propertyName = PropertyName(report, reportDataTypeMember);
                 var criteria = new InOperator(propertyName, dashboardInteractionController.Getkeys(listViewFilteringArgs.DataSourceListView));
                 report.SetFilteringObject(new LocalizedCriteriaWrapper(report.DataType, criteria));
-                report.CreateDocument(true);
+                report.CreateDocument(false);
             }
 
         }

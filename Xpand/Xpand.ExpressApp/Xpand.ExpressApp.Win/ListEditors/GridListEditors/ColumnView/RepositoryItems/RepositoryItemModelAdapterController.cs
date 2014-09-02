@@ -7,7 +7,6 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Repository;
 using System.Linq;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems {
@@ -29,7 +28,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
             typeof (IModelRepositoryItemSpinEdit),
             typeof (IModelRepositoryItemObjectEdit),
             typeof (IModelRepositoryItemMemoEdit),
-            typeof (IModelRepositoryItemLookupEdit),
             typeof (IModelRepositoryItemProtectedContentTextEdit),
             typeof (IModelRepositoryItemBlobBaseEdit),
             typeof (IModelRepositoryItemRtfEditEx),

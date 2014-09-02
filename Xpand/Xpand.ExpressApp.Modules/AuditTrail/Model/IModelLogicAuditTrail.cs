@@ -7,8 +7,8 @@ using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.AuditTrail.Model {
     public interface IModelLogicAuditTrail : IModelNode {
+        bool AuditSystemChanges { get; set; }
         IModelAuditTrailLogicRules Rules { get; }
-        IModelExecutionContextsGroup ExecutionContextsGroup { get; }
         IModelViewContextsGroup ViewContextsGroup { get; }
         IModelFrameTemplateContextsGroup FrameTemplateContextsGroup { get; }
         IModelAuditTrailMembersContextGroup AuditTrailMembersContextGroup { get; }

@@ -3,7 +3,8 @@ using System.Diagnostics;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Xpo;
+using DevExpress.Xpo.DB;
+using Xpand.Persistent.Base.General;
 
 namespace FilterDataStoreTester.Win {
     public partial class FilterDataStoreTesterWindowsFormsApplication : WinApplication {
@@ -13,9 +14,13 @@ namespace FilterDataStoreTester.Win {
         }
 
 
-
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
+            this.CreateCustomObjectSpaceprovider(args,null);
         }
 
         void FilterDataStoreTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender,
@@ -24,7 +29,7 @@ namespace FilterDataStoreTester.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-                                                                                      if (true) {
+                                                                                      if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {
@@ -46,6 +51,11 @@ namespace FilterDataStoreTester.Win {
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {
                 e.Languages.Add(userLanguageName);
             }
+        }
+
+        public AutoCreateOption AutoCreateOption{
+            get { return AutoCreateOption.DatabaseAndSchema; }
+            
         }
     }
 }

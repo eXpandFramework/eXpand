@@ -42,14 +42,30 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             if (_persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
                 if (_isPrimaryKey) {
                     persistentAttributeInfos.Add(GetPersistentKeyAttribute());
+//                    persistentAttributeInfos.Add(GetRuleRequiredAttribute());
                 }
                 if ((!IsSelfRefOnTheKey(_column, _isPrimaryKey)) && ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey()))))
                     persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
+            }
+            else{
+                if (_isPrimaryKey){
+//                    persistentAttributeInfos.Add(GetBrowsableAttribute());
+                }
             }
             var persistentPersistentAttribute = GetPersistentPersistentAttribute();
             if (((IsCompoundForeignKey())) || isCompoundPrimaryKey)
                 persistentPersistentAttribute.MapTo = String.Empty;
             persistentAttributeInfos.Add(persistentPersistentAttribute);
+        }
+
+        private IPersistentAttributeInfo GetBrowsableAttribute(){
+            var persistentVisibleInDetailViewAttribute = _objectSpace.CreateWCObject<IPersistentVisibleInDetailViewAttribute>();
+            persistentVisibleInDetailViewAttribute.Visible = false;
+            return persistentVisibleInDetailViewAttribute;
+        }
+
+        private IPersistentAttributeInfo GetRuleRequiredAttribute(){
+            return _objectSpace.CreateWCObject<IPersistentRuleRequiredFieldAttribute>();
         }
 
         bool IsOneToOne() {

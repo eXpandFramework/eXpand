@@ -15,7 +15,6 @@ using EmailTester.Module.Web;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.Web;
 using Xpand.Persistent.Base.General;
 
 namespace EmailTester.Web {
@@ -38,10 +37,12 @@ namespace EmailTester.Web {
             InitializeComponent();
             DatabaseVersionMismatch += EmailTesterAspNetApplication_DatabaseVersionMismatch;
         }
-
-        protected override IHttpRequestManager CreateHttpRequestManager() {
-            return this.NewHttpRequestManager();
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
         }
+#endif
+
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
@@ -52,8 +53,7 @@ namespace EmailTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            e.Updater.Update();
-            e.Handled = true;
+           
             if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
@@ -103,7 +103,7 @@ namespace EmailTester.Web {
             // _securityStrategyComplex
             // 
             _securityStrategyComplex.Authentication = _authenticationStandard;
-            _securityStrategyComplex.UserType = typeof (User);
+            _securityStrategyComplex.UserType = typeof (XpandUser);
             _securityStrategyComplex.RoleType = typeof (XpandRole);
             // 
             // _authenticationStandard

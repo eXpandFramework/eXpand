@@ -38,16 +38,61 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Office.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Win">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
@@ -56,8 +101,73 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\DetailViewCaching\Init.inc" />
+    <Content Include="FunctionalTests\FilterEditor\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
+    <Content Include="FunctionalTests\FilterEditor\Images\FilterEditorTop.win.png" />
+    <Content Include="FunctionalTests\FilterEditor\Init.inc" />
+    <Content Include="FunctionalTests\PreventDataLoading\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\FilterEditor\FilterEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FilterEditor\FilterEditor.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\Init.inc" />
+    <None Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
+    <None Include="FunctionalTests\GridView\Custom unbound column creation.inc" />
+    <None Include="FunctionalTests\GridView\Init.inc" />
+    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\FullTextContains\FullTextContains.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
+    <None Include="FunctionalTests\GridView\GridView.ets" />
+    <Content Include="FunctionalTests\FullTextContains\GridViewColumnFilterChange.inc" />
+    <Content Include="FunctionalTests\FullTextContains\CriteriaPropertyEditorEx_FilterEditor_Appearence .inc" />
+    <Content Include="FunctionalTests\FullTextContains\Init.inc" />
+    <Content Include="FunctionalTests\FullTextContains\ListEditors_FilterEditor_Appearence.inc" />
+    <Compile Include="FunctionalTests\ApplicationExit\ApplicationExitObject.cs" />
+    <None Include="FunctionalTests\DetailViewCaching\When existing objects.inc" />
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
+    <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\FullTextContains\FullTextContainsObject.cs" />
+    <Compile Include="FunctionalTests\GridView\GridViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\GridView\GridViewObject.cs" />
+    <Compile Include="FunctionalTests\ApplicationExit\ApplicationExit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PreventDataLoading\AttributeRegistrator.cs" />
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\XpandEasyTestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -74,6 +184,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj">
+      <Project>{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}</Project>
+      <Name>Xpand.ExpressApp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XpandSystemTester.Module\XpandSystemTester.Module.csproj">
       <Project>{EF04B36B-E62F-40CB-8BC6-C1B740489383}</Project>
       <Name>XpandSystemTester.Module</Name>
@@ -86,9 +200,35 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
+    <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\ApplicationExit\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\DetailViewCaching\When new objects.inc" />
+    <Content Include="FunctionalTests\DetailViewCaching\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\FullTextContains\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\FullTextContains\Images\AdvBandedListEditor.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\Images\CriteriaPropertyEditorEx.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\Images\XpandGridListEditor.win.png" />
+    <Content Include="FunctionalTests\FullTextContains\When ObjectSpace Query.inc" />
+    <Content Include="FunctionalTests\GridView\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\Login.inc" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

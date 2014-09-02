@@ -5,6 +5,13 @@
       <ObjectViewRule Id="Customer_DetailView_For_EUMembers" TypeInfo="ModelArtifactStateTester.Module.BusinessObjects.Customer" NormalCriteria="!Country.EUMember Or Country Is Null" View="" ObjectView="Customer_DetailView_NonEu" IsNewNode="True" />
     </Rules>
   </ConditionalObjectView>
+  <ModelArtifactState>
+    <ConditionalControllerState>
+      <Rules>
+        <ControllerStateRule Id="Deactivate TestController" TypeInfo="DevExpress.Xpo.XPBaseObject" ControllerType="ModelArtifactStateTester.Module.Controllers.TestController" State="Disabled" IsNewNode="True" />
+      </Rules>
+    </ConditionalControllerState>
+  </ModelArtifactState>
   <SchemaModules>
     <SchemaModule Name="ConditionalObjectViewModule" Version="13.1.5.19" IsNewNode="True" />
     <SchemaModule Name="LogicModule" Version="13.1.5.19" IsNewNode="True" />

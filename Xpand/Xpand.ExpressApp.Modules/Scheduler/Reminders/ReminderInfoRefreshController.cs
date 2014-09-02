@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
@@ -60,6 +61,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             else {
                 var appointment = CreateAppointment();
                 var reminder = appointment.CreateNewReminder();
+                reminder.AlertTime = DateTime.Now.Add(reminderInfo.TimeBeforeStart);
                 var helper = new ReminderXmlPersistenceHelper(reminder, DateSavingType.LocalTime);
                 reminderInfo.Info = helper.ToXml();
             }

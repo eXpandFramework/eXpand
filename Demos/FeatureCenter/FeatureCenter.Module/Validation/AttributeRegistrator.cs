@@ -6,7 +6,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.Validation {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         const string RuleType_ListView = "RuleTypeCustomer_ListView";
 
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

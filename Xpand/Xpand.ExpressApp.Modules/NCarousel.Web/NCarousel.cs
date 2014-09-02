@@ -2,12 +2,12 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.ExpressApp.Web;
 using Xpand.NCarousel;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Web;
@@ -55,10 +55,11 @@ namespace Xpand.ExpressApp.NCarousel.Web {
 
             }
         }
-        private string GetDataItemFunctionBody(string key) {
-            var options = new PostBackOptions(this, key);
+        private string GetDataItemFunctionBody(string key){
+            return key;
+//            var options = new PostBackOptions(this, key);
 // ReSharper disable PossibleNullReferenceException
-            return ((Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler).ClientScript.GetPostBackEventReference(options).Replace("'", "&#39;");
+//            return ((Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler).ClientScript.GetPostBackEventReference(options).Replace("'", "&#39;");
 // ReSharper restore PossibleNullReferenceException
         }
         public event EventHandler<RequestTextPictureItemEventArgs> RequestText;
@@ -100,8 +101,8 @@ namespace Xpand.ExpressApp.NCarousel.Web {
         }
 
         protected override void OnInit(EventArgs e) {
-            ClientScriptProxy.Current.Page =
-                (Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
+//            ClientScriptProxy.Current.Page =
+//                (Page) ((WebWindowTemplateHttpHandler) HttpContext.Current.Handler).ActualHandler;
             base.OnInit(e);
 
             string id = HttpContext.Current.Request.QueryString["imageid"];
@@ -111,7 +112,7 @@ namespace Xpand.ExpressApp.NCarousel.Web {
                     byte[] buffer = ImageToByteArray(item.Image);
                     HttpContext.Current.Response.ClearHeaders();
                     HttpContext.Current.Response.ClearContent();
-                    HttpContext.Current.Response.AppendHeader("content-length", buffer.Length.ToString());
+                    HttpContext.Current.Response.AppendHeader("content-length", buffer.Length.ToString(CultureInfo.InvariantCulture));
                     HttpContext.Current.Response.ContentType = "application/x-unknown-content-type";
                     HttpContext.Current.Response.OutputStream.Write(buffer, 0, buffer.Length);
                     HttpContext.Current.Response.End();

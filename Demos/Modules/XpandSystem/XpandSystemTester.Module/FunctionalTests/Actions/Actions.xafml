@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XpandSystemTester" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ChangeModelAction" ItemsFromModel="True">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="ChangeCaption" IsNewNode="True">
+            <ModelNodePaths NewCaption="Restore Caption" IsNewNode="True">
+              <ModifyModelNodePath Id="This action" ModelNodePath="ActionDesign\Actions" Criteria="ItemsFromModel = True And Id = 'ChangeModelAction'" IsNewNode="True">
+                <Attributes IsNewNode="True">
+                  <ModelNodeAttribute Id="Caption" Value="Changed" IsNewNode="True" />
+                </Attributes>
+              </ModifyModelNodePath>
+            </ModelNodePaths>
+          </ChoiceActionItem>
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="HiddenAction" ItemsFromModel="True">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="CodeItem" Active="False" />
+          <ChoiceActionItem Id="ModelItem" Active="False" IsNewNode="True" />
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ItemsFromModelAction" ItemsFromModel="True">
+        <ChoiceActionItems>
+          <ChoiceActionItem Id="@79d3b3b7-9e31-4693-9f10-5edaa0850974" IsNewNode="True">
+            <ModelNodePaths IsNewNode="True">
+              <ModifyModelNodePath Id="@85ab40a4-7af1-4916-b897-61ac7d2364a0" IsNewNode="True">
+                <Attributes IsNewNode="True">
+                  <ModelNodeAttribute Id="@038b9ba4-cbf8-4b75-a01b-92f4d2cd02e8" Value="required" IsNewNode="True" />
+                </Attributes>
+              </ModifyModelNodePath>
+            </ModelNodePaths>
+          </ChoiceActionItem>
+        </ChoiceActionItems>
+      </Action>
+      <Action Id="ModifyModel" ItemsFromModel="True" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration">
+      <OwnMembers>
+        <MemberModelMember Name="Criteria" IsCustom="False" Tag="" DeclaredType="DevExpress.ExpressApp.Model.IModelListView" CreateMember="True" CreatedAtDesignTime="True" IsNewNode="True">
+          <AdditionalMembers IsNewNode="True">
+            <MemberModelMemberAdditionalMember Name="ModelClass.TypeInfo" DeclaredType="DevExpress.ExpressApp.Model.IModelClass" ModelNodePath="ModelClass.TypeInfo" IsNewNode="True" />
+          </AdditionalMembers>
+        </MemberModelMember>
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="ActionsObject_ListView" PreviewRowDetailView="ActionsObject_DetailView" ConfigurationView="ConfigureModelForActionsObject_DetailView" />
+    <DetailView Id="ConfigureModelForActionsObject_DetailView" ClassName="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Criteria" PropertyName="Criteria" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" IsNewNode="True">
+          <LayoutItem Id="Criteria" ViewItem="Criteria" Index="0" IsNewNode="True" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

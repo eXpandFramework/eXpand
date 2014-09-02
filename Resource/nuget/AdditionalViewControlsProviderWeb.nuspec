@@ -2,27 +2,28 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandAdditionalViewControlsProviderWeb</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>AdditionalViewControlsProvider Module (Web) / eXpandFramework</description>
+    <description>AdditionalViewControlsProvider Module (Web) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>AdditionalViewControlsProvider Module (Web) / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandSystem" version="13.2.7.3" />
-      <dependency id="eXpandSystemWeb" version="13.2.7.3" />
-      <dependency id="eXpandSecurity" version="13.2.7.3" />
-      <dependency id="eXpandLogic" version="13.2.7.3" />
-      <dependency id="eXpandAdditionalViewControlsProvider" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandSystem" version="14.1.6.5" />
+      <dependency id="eXpandSystemWeb" version="14.1.6.5" />
+      <dependency id="eXpandSecurity" version="14.1.6.5" />
+      <dependency id="eXpandLogic" version="14.1.6.5" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" />
   </files>
 </package>

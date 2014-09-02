@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
@@ -16,7 +17,11 @@ namespace AuditTrailTester.Win {
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead+=OnLastLogonParametersRead;
         }
-
+#if TEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs lastLogonParametersReadEventArgs) {
             var parameters = ((AuthenticationStandardLogonParameters) lastLogonParametersReadEventArgs.LogonObject);
             if (string.IsNullOrEmpty(parameters.UserName))
@@ -47,7 +52,7 @@ namespace AuditTrailTester.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

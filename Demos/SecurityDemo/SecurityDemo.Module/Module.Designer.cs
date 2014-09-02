@@ -35,7 +35,7 @@ namespace SecurityDemo.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Workflow.XpandWorkFlowModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.ModelDifferenceModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelAdaptor.ModelAdaptorModule));
+           
         }
 
         #endregion

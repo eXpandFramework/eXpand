@@ -23,6 +23,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using View = DevExpress.ExpressApp.View;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
@@ -61,7 +62,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
     }
 
-    [PropertyEditor(typeof(IXPObject), false)]
+    [PropertyEditor(typeof(IXPObject), EditorAliases.FastSearchPropertyEditor,false)]
     public class FastSearchPropertyEditor : DXPropertyEditor, IComplexViewItem, IDependentPropertyEditor, ISupportViewShowing {
         LookupEditorHelper _helper;
         LookUpGridEditEx _lookup;
@@ -201,6 +202,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void properties_Enter(object sender, EventArgs e) {
             _lookup = (LookUpGridEditEx)sender;
+            var editButton = _lookup.Properties.Buttons[1];
+            UpdateButtonState(editButton, _lookup.Properties.Buttons[2]);
             InitializeDataSource();
         }
 
@@ -256,17 +259,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void CreateButtons(RepositoryItemGridLookUpEditEx properties) {
             properties.ButtonsStyle = BorderStyles.HotFlat;
-            var editButton = CreatelButton("Action_Edit", "tooltipDetail", "DetailButtonTag");
-            editButton.Enabled = _lookup.EditValue != null;
-
-
+            var editButton = CreateButton("Action_Edit", "tooltipDetail", "DetailButtonTag");
             string info;
             editButton.Visible = DataManipulationRight.CanEdit(MemberInfo.MemberType, null, null,null,null)&&DataManipulationRight.CanEdit(ObjectType, propertyName, CurrentObject,null,_helper.ObjectSpace);
             properties.Buttons.Add(editButton);
-            var newButton = CreatelButton("MenuBar_New", "tooltipNew", "AddButtonTag");
+            var newButton = CreateButton("MenuBar_New", "tooltipNew", "AddButtonTag");
             newButton.Visible = DataManipulationRight.CanCreate(null, MemberInfo.MemberType, null, out info);
             properties.Buttons.Add(newButton);
-            var clearButton = CreatelButton("Action_Clear", "tooltipClear", "MinusButtonTag");
+            var clearButton = CreateButton("Action_Clear", "tooltipClear", "MinusButtonTag");
             clearButton.Enabled = editButton.Enabled;
             if (!editButton.Visible) {
                 properties.ReadOnly = true;
@@ -274,13 +274,20 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 newButton.Visible = false;
             }
             properties.Buttons.Add(clearButton);
-            _lookup.EditValueChanged += (sender, args) => {
-                editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
-                clearButton.Enabled = editButton.Enabled;
-            };
+            UpdateButtonState(editButton, clearButton);
         }
 
-        EditorButton CreatelButton(string imageName, string tooltip, string tag) {
+        private void UpdateButtonState(EditorButton editButton, EditorButton clearButton){
+            if (_lookup != null){
+                editButton.Enabled = _lookup.EditValue != null;
+                _lookup.EditValueChanged += (sender, args) =>{
+                    editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
+                    clearButton.Enabled = editButton.Enabled;
+                };
+            }
+        }
+
+        EditorButton CreateButton(string imageName, string tooltip, string tag) {
             var detailButton = new EditorButton{
                 ImageLocation = ImageLocation.MiddleCenter,
                 Kind = ButtonPredefines.Glyph,
@@ -296,7 +303,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
     [ToolboxItem(false)]
     public class LookUpGridEditEx : GridLookUpEdit, IGridInplaceEdit {
-        static readonly List<WeakReference> __ENCList = new List<WeakReference>();
+        static readonly List<WeakReference> _encList = new List<WeakReference>();
 
         [AccessedThroughProperty("fPropertiesView")]
         GridView _fPropertiesView;
@@ -356,24 +363,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         [DebuggerNonUserCode]
         static void __ENCAddToList(object value) {
-            List<WeakReference> list = __ENCList;
+            List<WeakReference> list = _encList;
             lock (list) {
-                if (__ENCList.Count == __ENCList.Capacity) {
+                if (_encList.Count == _encList.Capacity) {
                     int index = 0;
-                    int num3 = __ENCList.Count - 1;
+                    int num3 = _encList.Count - 1;
                     for (int i = 0; i <= num3; i++) {
-                        WeakReference reference = __ENCList[i];
+                        WeakReference reference = _encList[i];
                         if (reference.IsAlive) {
                             if (i != index) {
-                                __ENCList[index] = __ENCList[i];
+                                _encList[index] = _encList[i];
                             }
                             index++;
                         }
                     }
-                    __ENCList.RemoveRange(index, __ENCList.Count - index);
-                    __ENCList.Capacity = __ENCList.Count;
+                    _encList.RemoveRange(index, _encList.Count - index);
+                    _encList.Capacity = _encList.Count;
                 }
-                __ENCList.Add(new WeakReference(value));
+                _encList.Add(new WeakReference(value));
             }
         }
 
@@ -409,7 +416,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     public class RepositoryItemGridLookUpEditEx : RepositoryItemGridLookUpEdit, ILookupEditRepositoryItem {
         // Fields
         internal const string EditorName = "LookUpEditEx";
-        LookupEditorHelper m_helper;
+        LookupEditorHelper _mHelper;
 
         // Methods
         static RepositoryItemGridLookUpEditEx() {
@@ -421,7 +428,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         public LookupEditorHelper Helper {
-            get { return m_helper; }
+            get { return _mHelper; }
         }
 
 
@@ -431,11 +438,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         string ILookupEditRepositoryItem.DisplayMember {
-            get { return ((m_helper.DisplayMember != null) ? m_helper.DisplayMember.Name : string.Empty); }
+            get { return ((_mHelper.DisplayMember != null) ? _mHelper.DisplayMember.Name : string.Empty); }
         }
 
         Type ILookupEditRepositoryItem.LookupObjectType {
-            get { return m_helper.LookupObjectType; }
+            get { return _mHelper.LookupObjectType; }
         }
 
         public override void Assign(RepositoryItem item) {
@@ -444,24 +451,24 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 base.Assign(source);
             } catch (Exception) {
             }
-            m_helper = source.Helper;
+            _mHelper = source.Helper;
         }
 
         public override string GetDisplayText(FormatInfo format, object editValue) {
             string result = base.GetDisplayText(format, editValue);
-            if ((string.IsNullOrEmpty(result) && (editValue != null)) && (m_helper != null)) {
-                result = m_helper.GetDisplayText(editValue, NullText, format.FormatString);
+            if ((string.IsNullOrEmpty(result) && (editValue != null)) && (_mHelper != null)) {
+                result = _mHelper.GetDisplayText(editValue, NullText, format.FormatString);
             }
             return result;
         }
 
-        public void Init(string displayFormat__1, LookupEditorHelper helper) {
-            m_helper = helper;
-            m_helper.SmallCollectionItemCount = 0x186a0;
+        public void Init(string displayFormat, LookupEditorHelper helper) {
+            _mHelper = helper;
+            _mHelper.SmallCollectionItemCount = 0x186a0;
             BeginUpdate();
-            DisplayFormat.FormatString = displayFormat__1;
+            DisplayFormat.FormatString = displayFormat;
             DisplayFormat.FormatType = FormatType.Custom;
-            EditFormat.FormatString = displayFormat__1;
+            EditFormat.FormatString = displayFormat;
             EditFormat.FormatType = FormatType.Custom;
             TextEditStyle = TextEditStyles.Standard;
             ExportMode = ExportMode.DisplayText;

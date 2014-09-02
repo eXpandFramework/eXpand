@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEditor {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string ChooseFromListCollectionEditor_DetailView = "ChooseFromListCollectionEditor_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (!ReferenceEquals(typesInfo.Type, typeof(XpandHolidayCalendar))) yield break;

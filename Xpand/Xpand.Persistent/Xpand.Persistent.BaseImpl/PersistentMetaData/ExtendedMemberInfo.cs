@@ -10,15 +10,16 @@ using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
-    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "Owner,Name")]
-    [Appearance("Hide_ExtendedMemberInfo_TemplateInfos", AppearanceItemType.ViewItem, null, TargetItems = "TemplateInfos",Visibility = ViewItemVisibility.Hide)]
+    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "OwnerType,Name")]
+    [Appearance("Hide_ExtendedMemberInfo_TemplateInfos", AppearanceItemType.ViewItem, null, TargetItems = "TemplateInfos", Visibility = ViewItemVisibility.Hide)]
     public abstract class ExtendedMemberInfo : PersistentTypeInfo, IExtendedMemberInfo {
-        
+
         Type _owner;
 
         PersistentClassInfo _ownerClassInfo;
 
-        protected ExtendedMemberInfo(Session session) : base(session) {
+        protected ExtendedMemberInfo(Session session)
+            : base(session) {
         }
 
         [VisibleInDetailView(false)]
@@ -35,13 +36,21 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         #region IExtendedMemberInfo Members
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof (TypeValueConverter))]
+        [ValueConverter(typeof(TypeValueConverter))]
         [RuleRequiredField(null, DefaultContexts.Save)]
-        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type Owner {
             get { return _owner; }
             set { SetPropertyValue("Owner", ref _owner, value); }
         }
+
+        [PersistentAlias("Concat(_owner,'')")]
+        public string OwnerType {
+            get {
+                return (string)this.EvaluateAlias("OwnerType");
+            }
+        }
+
         #endregion
     }
 }

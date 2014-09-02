@@ -54,6 +54,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                                                IXtraSerializableLayout, IXtraSerializableLayoutEx,
                                                ISupportXtraSerializer, IServiceProvider, IStringImageProvider, ISupportNewItemRow, IMasterDetailColumnView {
 
+        event CustomRowCellEditEventHandler CustomRowCellEditForEditing;
+        event RowHeightEventHandler CalcRowHeight;
+        event CellValueChangedEventHandler CellValueChanged;
         event EventHandler RestoreCurrentRow;
         int FocusedRowHandle { get; set; }
         bool CanFilterGroupSummaryColumns { get; set; }

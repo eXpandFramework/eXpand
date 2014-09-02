@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.Miscellaneous.LookUpListSearch {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         private const string LookUpListSearch_LookupListView = "LookUpListSearch_LookupListView";
         private const string LookUpListSearch_DetailView = "LookUpListSearch_DetailView";
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {

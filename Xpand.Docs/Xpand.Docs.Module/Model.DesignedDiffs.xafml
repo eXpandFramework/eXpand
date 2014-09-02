@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="Xpand.Docs" Logo="ExpressAppLogo" VersionFormat="Version {0}.{1}.{2}.{3}">
+  <ActionDesign>
+    <Actions>
+      <Action Id="ApproveAudits" ImageName="BO_Audit_ChangeHistory" />
+    </Actions>
+  </ActionDesign>
+  <AudiTrail>
+    <AuditTrailMembersContextGroup>
+      <AuditTrailMembersContexts Id="All editable DocsBaseObject members" IsNewNode="True">
+        <AuditTrailMembersContext ClassName="Xpand.Docs.Module.BusinessObjects.Module" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="Installation" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+        <AuditTrailMembersContext ClassName="Xpand.Docs.Module.BusinessObjects.ModuleArtifact" IsNewNode="True">
+          <Members IsNewNode="True">
+            <AuditTrailMembersContextMember ModelMemberName="Name" IsNewNode="True" />
+            <AuditTrailMembersContextMember ModelMemberName="Text" IsNewNode="True" />
+          </Members>
+        </AuditTrailMembersContext>
+      </AuditTrailMembersContexts>
+    </AuditTrailMembersContextGroup>
+    <Rules>
+      <AuditTrailRule Id="Disable for all" TypeInfo="DevExpress.Xpo.XPBaseObject" Index="0" AuditingMode="None" IsNewNode="True" />
+      <AuditTrailRule Id="Full for all DocsBaseObject editable members" AuditingMode="Full" Index="1" AuditTrailMembersContext="All editable DocsBaseObject members" AuditPending="True" TypeInfo="Xpand.Docs.Module.BusinessObjects.DocsBaseObject" IsNewNode="True" />
+    </Rules>
+  </AudiTrail>
+  <BOModel>
+    <Class Name="Xpand.Docs.Module.BusinessObjects.Document">
+      <AppearanceRules>
+        <AppearanceRule Id="Hide_Type" Visibility="Hide" TargetItems="Type" IsNewNode="True" />
+      </AppearanceRules>
+      <OwnMembers>
+        <Member Name="Url" RowCount="1" />
+      </OwnMembers>
+    </Class>
+    <Class Name="Xpand.Docs.Module.BusinessObjects.ExtenderInterface">
+      <AppearanceRules>
+        <AppearanceRule Id="Hide Type" TargetItems="Type" Visibility="Hide" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+    <Class Name="Xpand.Docs.Module.BusinessObjects.Module">
+      <OwnMembers>
+        <Member Name="ModuleChilds" Caption="Sub Modules" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Email>
+    <EmailReceipients>
+      <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
+        <EmailReceipient Id="Admin Users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
+      </EmailReceipientGroup>
+    </EmailReceipients>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
+      <EmailTemplate Id="user registered" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="NoReply" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="user registered" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user registered" SmtpClientContext="NoReply" CurrentObjectEmailMember="Email" EmailReceipientsContext="Send to Admins" IsNewNode="True" />
+    </Rules>
+    <SmtpClientContexts>
+      <SmtpClientContext Id="NoReply" SenderEmail="noreply@expandframework.com" Host="localhost" UseDefaultCredentials="True" IsNewNode="True" />
+    </SmtpClientContexts>
+  </Email>
+  <NavigationItems NavigationStyle="TreeList" DefaultChildItemsDisplayStyle="List">
+    <Items>
+      <Item Id="Default" Index="0">
+        <Items>
+          <Item Id="Module_ListView" ImageName="ModelEditor_Action_Modules" Caption="Modules" Index="0" />
+          <Item Id="Document_ListView" ImageName="BO_List" Caption="Documents" Removed="True" />
+          <Item Id="ExtendedInterface_ListView" Removed="True" />
+          <Item Id="ExtenderInterface_ListView" Removed="True" />
+          <Item Id="ModuleArtifact_ListView" Removed="True" />
+        </Items>
+      </Item>
+      <Item Id="Artifact" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Document_ListView" ViewId="Document_ListView" ObjectKey="" ImageName="BO_List" Index="0" IsNewNode="True" />
+          <Item Id="ModuleArtifact_ListView" ViewId="ModuleArtifact_ListView" ObjectKey="" Index="0" Caption="Everything" ImageName="Action_StateMachine" IsNewNode="True" />
+          <Item Id="Actions" Index="2" ImageName="Action_SimpleAction" ViewId="ModuleArtifact_ListView_Action" Caption="Action" IsNewNode="True" />
+          <Item Id="Business Object" Index="3" ImageName="BO_Person" Caption="Business Object" ViewId="ModuleArtifact_ListView_BusinessObject" IsNewNode="True" />
+          <Item Id="@0935b74b-e6c5-45e6-8ed1-347c8b0f40c2" ViewId="ModuleArtifact_ListView_Controller" Caption="Controller" Index="4" ImageName="ModelEditor_Controllers" IsNewNode="True" />
+          <Item Id="Permission" Index="4" ImageName="BO_Security_Permission_Object" ViewId="ModuleArtifact_ListView_Permission" Caption="Permission" IsNewNode="True" />
+          <Item Id="ListEditor" Caption="ListEditor" ViewId="ModuleArtifact_ListView_ListEditor" Index="5" ImageName="ModelEditor_ImageSources" IsNewNode="True" />
+          <Item Id="ViewItem" ViewId="ModuleArtifact_ListView_VIewItem" Caption="View Item" Index="6" ImageName="Navigation_Item_Dashboard" IsNewNode="True" />
+          <Item Id="Model" Index="7" ImageName="Action_EditModel" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="ExtendedInterface_ListView" ViewId="ExtendedInterface_ListView" ObjectKey="" ImageName="ModelEditor_Class_Object" IsNewNode="True" />
+              <Item Id="ExtenderInterface_ListView" ImageName="ModelEditor_ModelMerge" ViewId="ExtenderInterface_ListView" IsNewNode="True" />
+            </Items>
+          </Item>
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options DataAccessMode="Server">
+    <MergedDifferenceStrategies>
+      <MergedDifferenceStrategy Id="EverythingButLayout">
+        <MergedViewValueInfos>
+          <ListViewValueInfos NodeEnabled="True">
+            <MergedViewValueInfo Name="Caption" NodeEnabled="False" />
+          </ListViewValueInfos>
+        </MergedViewValueInfos>
+      </MergedDifferenceStrategy>
+    </MergedDifferenceStrategies>
+    <Registration ActivateUser="False" Enabled="True" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="EmailModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="LogicModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="ModelArtifactStateModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.2.9.0" IsNewNode="True" />
+    <SchemaModule Name="WorldCreatorDBMapperModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="WorldCreatorModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandAuditTrailModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandViewVariantsModule" Version="13.2.9.3" IsNewNode="True" />
+    <SchemaModule Name="XpandWorkFlowModule" Version="13.2.9.3" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Document_DetailView">
+      <Items>
+        <PropertyEditor Id="Name" Caption="Subject" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="7.4074074074074074">
+            <LayoutGroup Id="Document" RelativeSize="51.470588235294116">
+              <LayoutItem Id="Author" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Author" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleArtifact" RelativeSize="48.529411764705884" Caption="ModuleArtifact">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" Index="0" RelativeSize="100" ViewItem="Name" />
+              <LayoutItem Id="Type" SizeConstraintsType="Default" Index="1" RelativeSize="52.631578947368418" ViewItem="Type" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="3.5947712418300655" Caption="SizeableEditors">
+            <LayoutItem Id="Url" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Url" />
+            <LayoutItem Id="Text" SizeConstraintsType="Default" RelativeSize="52.631578947368418" ViewItem="Text" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="88.997821350762521">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Document" IsNewNode="True">
+              <LayoutItem Id="Text" ViewItem="Text" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Modules" RelativeSize="100" Index="1">
+              <LayoutItem Id="Modules" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Modules" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleChilds" RelativeSize="100" Index="2">
+              <LayoutItem Id="ModuleChilds" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ModuleChilds" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Document_ListView" MasterDetailMode="ListViewAndDetailView" DirtyTitle="True" />
+    <ListView Id="ExtendedInterface_ListView" MasterDetailMode="ListViewAndDetailView" />
+    <DetailView Id="ExtenderInterface_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="6.753812636165577">
+            <LayoutGroup Id="ExtenderInterface" RelativeSize="100" Caption="Extended Interface">
+              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="51.612903225806448" IsNewNode="True" />
+              <LayoutItem Id="ExtendedInterface" SizeConstraintsType="Default" Index="1" RelativeSize="48.387096774193552" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleArtifact" RelativeSize="32.608695652173914" Caption="ModuleArtifact" Direction="Horizontal" Removed="True">
+              <LayoutItem Id="Name" Removed="True" />
+              <LayoutItem Id="Type" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="93.246187363834423">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Text" IsNewNode="True">
+              <LayoutItem Id="Text" ViewItem="Text" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleChilds" RelativeSize="100" Index="1">
+              <LayoutItem Id="ModuleChilds" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Artifacts" RelativeSize="100" Index="2">
+              <LayoutItem Id="Artifacts" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Attributes" RelativeSize="100" Index="3">
+              <LayoutItem Id="Attributes" SizeConstraintsType="Default" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" Index="2" RelativeSize="80.610021786492368" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Text" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ExtenderInterface_ListView" MasterDetailMode="ListViewAndDetailView" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="ExtendedInterface" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="Module_Artifacts_ListView">
+      <Columns>
+        <ColumnInfo Id="Type" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Module_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="6.753812636165577">
+            <LayoutGroup Id="Module" RelativeSize="100">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" RelativeSize="51.612903225806448" ViewItem="Name" />
+              <LayoutItem Id="Platform" SizeConstraintsType="Default" RelativeSize="48.387096774193552" ViewItem="Platform" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="93.246187363834423" Index="1">
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Installation" IsNewNode="True">
+              <LayoutItem Id="Installation" ViewItem="Installation" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Documents" RelativeSize="100" Index="1">
+              <LayoutItem Id="Documents" SizeConstraintsType="Default" RelativeSize="100" ViewItem="Documents" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleChilds" RelativeSize="100" Index="2">
+              <LayoutItem Id="ModuleChilds" SizeConstraintsType="Default" RelativeSize="100" ViewItem="ModuleChilds" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="86.274509803921575" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Installation" ViewItem="Installation" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Module_ListView" MasterDetailMode="ListViewAndDetailView" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="Platform" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ModuleArtifact_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="6.753812636165577">
+            <LayoutGroup Id="ModuleArtifact" RelativeSize="100" Caption="Type">
+              <LayoutItem Id="Name" SizeConstraintsType="Default" Index="0" RelativeSize="51.612903225806448" ViewItem="Name" IsNewNode="True" />
+              <LayoutItem Id="Type" SizeConstraintsType="Default" RelativeSize="48.387096774193552" Index="1" ViewItem="Type" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Item2" CaptionLocation="Top" Index="1" RelativeSize="93.246187363834423" IsNewNode="True">
+            <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Text" IsNewNode="True">
+              <LayoutItem Id="Text" ViewItem="Text" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleChilds_Group" ShowCaption="True" Caption="Module Childs" Index="1" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="ModuleChilds" ViewItem="ModuleChilds" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" Caption="Artifacts" IsNewNode="True">
+              <LayoutItem Id="Artifacts" ViewItem="Artifacts" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="86.274509803921575" Caption="SizeableEditors" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="Name" ViewItem="Name" Removed="True" />
+            <LayoutItem Id="Text" ViewItem="Text" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="81.066666666666663" Removed="True">
+            <LayoutGroup Id="Children" RelativeSize="0" Direction="Horizontal">
+              <LayoutItem Id="Children" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ModuleChilds" Direction="Horizontal" RelativeSize="0" Caption="Module Childs">
+              <LayoutItem Id="ModuleChilds" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ModuleArtifact_ListView" MasterDetailMode="ListViewAndDetailView">
+      <Columns>
+        <ColumnInfo Id="Type" GroupIndex="0" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_Action" MasterDetailMode="ListViewAndDetailView" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,Action#" Caption="Action">
+      <Columns>
+        <ColumnInfo Id="Type" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_BusinessObject" MasterDetailMode="ListViewAndDetailView" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,BusinessObject#" Caption="Business Object">
+      <Columns>
+        <ColumnInfo Id="Type" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_Controller" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,Controller#" MasterDetailMode="ListViewAndDetailView" Caption="Controller">
+      <Columns>
+        <ColumnInfo Id="Type" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_ListEditor" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,ListEditor#" MasterDetailMode="ListViewAndDetailView" Caption="ListEditor">
+      <Columns>
+        <ColumnInfo Id="Type" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_Permission" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,Permission#" MasterDetailMode="ListViewAndDetailView" Caption="Permission">
+      <Columns>
+        <ColumnInfo Id="Type" Index="-1" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleArtifact_ListView_VIewItem" Criteria="[Type] = ##Enum#Xpand.Docs.Module.BusinessObjects.ModuleArtifactType,ViewItem#" MasterDetailMode="ListViewAndDetailView" Caption="View Item">
+      <Columns>
+        <ColumnInfo Id="Type" Removed="True" />
+      </Columns>
+    </ListView>
+    <ListView Id="ModuleChild_ModuleArtifacts_ListView">
+      <Columns>
+        <ColumnInfo Id="Type" GroupIndex="0" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

@@ -60,18 +60,34 @@ namespace Xpand.ExpressApp.Logic {
             return !(ruleObject.IsRootView.HasValue) || ruleObject.IsRootView == Frame.View.IsRoot;
         }
 
-        public virtual IEnumerable<ILogicRuleObject> GetValidRules(View view,  ExecutionContext executionContext) {
+        public virtual IEnumerable<ILogicRuleObject> GetValidRules(View view, ExecutionContext executionContext, EventArgs eventArgs) {
             if (view!=null) {
                 var tuple = new Tuple<ITypeInfo, ExecutionContext>(view.ObjectTypeInfo, executionContext);
-                return LogicRuleManager.Instance[tuple].Where(rule => IsValidRule(rule, view)).OrderBy(rule => rule.Index);
+                var logicRuleObjects = LogicRuleManager.Instance[tuple];
+                var validRules = logicRuleObjects.Where(rule => IsValidRule(rule, view,eventArgs,executionContext));
+                return validRules.OrderBy(rule => rule.Index);
             }
             return Enumerable.Empty<ILogicRuleObject>();
         }
 
-        protected virtual bool IsValidRule(ILogicRuleObject rule, ViewInfo viewInfo) {
-            return (IsValidViewId(viewInfo.ViewId, rule)) &&IsValidNewObject(rule)&&
-                   IsValidViewType(viewInfo, rule) && IsValidNestedType(rule, viewInfo) && IsValidTypeInfo(viewInfo, rule)
-                   && IsValidViewEditMode(viewInfo, rule) && TemplateContextGroupIsValid(rule) && ViewIsRoot(rule);
+        protected virtual bool IsValidRule(ILogicRuleObject rule, ViewInfo viewInfo,EventArgs eventArgs,ExecutionContext executionContext){
+            var isValidViewId = IsValidViewId(viewInfo.ViewId, rule);
+            var isValidNewObject = IsValidNewObject(rule);
+            var isValidViewType = IsValidViewType(viewInfo, rule);
+            var isValidNestedType = IsValidNestedType(rule, viewInfo);
+            var isValidTypeInfo = IsValidTypeInfo(viewInfo, rule);
+            var isValidViewEditMode = IsValidViewEditMode(viewInfo, rule);
+            var templateContextGroupIsValid = TemplateContextGroupIsValid(rule);
+            var viewIsRoot = ViewIsRoot(rule);
+            var isVailidExecutionContext = IsVailidExecutionContext(rule,executionContext,eventArgs);
+            return isValidViewId &&isValidNewObject&&isValidViewType && isValidNestedType && isValidTypeInfo&& isValidViewEditMode && templateContextGroupIsValid && viewIsRoot&&isVailidExecutionContext;
+        }
+
+        protected virtual bool IsVailidExecutionContext(ILogicRuleObject rule, ExecutionContext executionContext, EventArgs eventArgs){
+            if (executionContext == ExecutionContext.ObjectSpaceObjectChanged){
+                return rule.ObjectChangedPropertyNames.Contains(((ObjectChangedEventArgs) eventArgs).PropertyName);
+            }
+            return true;
         }
 
         bool IsValidNewObject(ILogicRuleObject rule) {
@@ -92,9 +108,9 @@ namespace Xpand.ExpressApp.Logic {
             return true;
         }
 
-        protected virtual bool IsValidRule(ILogicRuleObject rule, View view) {
+        protected virtual bool IsValidRule(ILogicRuleObject rule, View view, EventArgs eventArgs, ExecutionContext executionContext) {
             var viewEditMode = view is DetailView ? ((DetailView)view).ViewEditMode : (ViewEditMode?)null;
-            return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode));
+            return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode),eventArgs,executionContext);
         }
 
         protected virtual bool IsValidViewId(string viewId, ILogicRuleObject rule) {

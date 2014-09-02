@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General {
@@ -30,7 +29,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType, bool isLegacy)
-            : base(ReflectionHelper.FindType(nameSpaceType), null, isLegacy) {
+            : base(FindType(nameSpaceType), null, isLegacy) {
             _connectionString = connectionString;
         }
     }

@@ -7,18 +7,17 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
 using DevExpress.Web.ASPxGridView;
 using System.Linq;
-using Xpand.Utils.Dynamic;
+using Fasterflect;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     [ModelAbstractClass]
     public interface IModelListViewPreviewRowDetailView : IModelListView {
         [DataSourceProperty(ModelViewsDomainLogic.DataSourcePropertyPath)]
-        [DataSourceCriteria(ModelObjectViewDomainLogic.ModelViewsByClassCriteria)]
+        [DataSourceCriteria(ModelObjectViewLogic.ModelViewsByClassCriteria)]
         [Category("eXpand")]
         IModelDetailView PreviewRowDetailView { get; set; }
 
@@ -82,13 +81,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             readonly IObjectSpace _objectSpace;
             readonly IModelListViewPreviewRowDetailView _modelListViewPreviewRowDetailView;
             Window _window;
-            readonly IEnumerable<FastObjectFactory.CreateObject> _controllerTypes;
+            readonly IEnumerable<Type> _controllerTypes;
 
             public PreviewRowTemplate(XafApplication xafApplication, IObjectSpace objectSpace, IModelListViewPreviewRowDetailView modelListViewPreviewRowDetailView) {
                 _xafApplication = xafApplication;
                 _objectSpace = objectSpace;
                 _modelListViewPreviewRowDetailView = modelListViewPreviewRowDetailView;
-                _controllerTypes = GetCreateControllerDelegates();
+                _controllerTypes = GetControllerTypes();
             }
 
             void ITemplate.InstantiateIn(Control container) {
@@ -98,7 +97,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 if (_controllerTypes == null || _controllerTypes.Any()) {
                     Collection<Controller> controllers=null;
                     if (_controllerTypes!=null) {
-                        controllers = new Collection<Controller>(_controllerTypes.Select(o => o()).Cast<Controller>().ToList());
+                        controllers = new Collection<Controller>(_controllerTypes.Select(type => type.CreateInstance()).Cast<Controller>().ToList());
                     }
                     _window = _xafApplication.CreateWindow(TemplateContext.View, controllers, controllers==null, true);
                     _window.SetView(detailView);
@@ -107,14 +106,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 templateContainer.Controls.Add((Control)detailView.Control);
             }
 
-            IEnumerable<FastObjectFactory.CreateObject> GetCreateControllerDelegates() {
+            IEnumerable<Type> GetControllerTypes() {
                 var controllerActivationPolicy = _modelListViewPreviewRowDetailView.PreviewRowControllers.ControllerActivationPolicy;
                 if (controllerActivationPolicy == ControllerActivationPolicy.Default)
                     return null;
                 if (controllerActivationPolicy == ControllerActivationPolicy.DoNotActivate)
-                    return Enumerable.Empty<FastObjectFactory.CreateObject>();
+                    return Enumerable.Empty<Type>();
                 var modelPreviewRowControllers = _modelListViewPreviewRowDetailView.PreviewRowControllers.Where(controller => controller.Activate);
-                return modelPreviewRowControllers.Select(controller => FastObjectFactory.CreateObjectFactory(Type.GetType(controller.Name)));
+                return modelPreviewRowControllers.Select(controller => Type.GetType(controller.Name));
             }
         }
 

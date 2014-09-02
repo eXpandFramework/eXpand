@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Model {
 
     public interface IModelClassEnableUnboundColumnCreation:IModelNode {
         [Category("eXpand")]
-        bool EnanbleUnboundColumnCreation { get; set; }
+        bool EnableUnboundColumnCreation { get; set; }
     }
 
     public interface IModelColumnUnbound : IModelColumn {
@@ -170,7 +170,7 @@ namespace Xpand.ExpressApp.Model {
 
         protected override void OnActivated() {
             base.OnActivated();
-            _unboundColumnAction.Active["UnboundColumnController"] = ((IModelListViewEnableUnboundColumnCreation)View.Model).EnanbleUnboundColumnCreation;
+            _unboundColumnAction.Active["UnboundColumnController"] = ((IModelListViewEnableUnboundColumnCreation)View.Model).EnableUnboundColumnCreation;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

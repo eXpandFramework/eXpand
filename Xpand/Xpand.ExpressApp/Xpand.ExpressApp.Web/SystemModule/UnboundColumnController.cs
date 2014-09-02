@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web.ASPxGridView;
 using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -30,8 +31,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public UnboundColumnSynchronizer(ASPxGridListEditor control, IModelListView model)
             : base(control, model) {
         }
-        void ApplyModelCore(GridViewDataColumnWithInfo columnWithInfo) {
-            var modelColumn = (IModelColumnUnbound)columnWithInfo.Model;
+
+        void ApplyModelCore(GridViewDataColumn columnWithInfo) {
+            var modelColumn = (IModelColumnUnbound)columnWithInfo.Model(Model);
             columnWithInfo.FieldName = modelColumn.Id;
             columnWithInfo.UnboundType = UnboundColumnType.Object;
             columnWithInfo.UnboundExpression = modelColumn.UnboundExpression;
@@ -45,13 +47,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             ForEachColumnLink(SynchronizeModel);
         }
 
-        void SynchronizeModel(GridViewDataColumnWithInfo columnWithInfo) {
-            ((IModelColumnUnbound)columnWithInfo.Model).UnboundExpression = columnWithInfo.UnboundExpression;
+        void SynchronizeModel(GridViewDataColumn columnWithInfo) {
+            ((IModelColumnUnbound)columnWithInfo.Model(Model)).UnboundExpression = columnWithInfo.UnboundExpression;
         }
 
-        void ForEachColumnLink(Action<GridViewDataColumnWithInfo> action) {
+        void ForEachColumnLink(Action<GridViewDataColumn> action) {
             Model.Columns.OfType<IModelColumnUnbound>().Each(unbound => {
-                var xafGridColumn = Control.Grid.Columns[unbound.PropertyName] as GridViewDataColumnWithInfo;
+                var xafGridColumn = Control.Grid.Columns[unbound.PropertyName] as GridViewDataColumn;
                 if (xafGridColumn != null) action.Invoke(xafGridColumn);
             });
         }

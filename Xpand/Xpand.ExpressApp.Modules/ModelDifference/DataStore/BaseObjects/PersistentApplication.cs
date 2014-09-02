@@ -8,8 +8,8 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     public class PersistentApplication : XpandBaseCustomObject {
         string _name;
-        string executableName;
-        string uniqueName;
+        string _executableName;
+        string _uniqueName;
 
         public PersistentApplication(Session session) : base(session) {
         }
@@ -31,17 +31,17 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string UniqueName {
-            get { return uniqueName; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref uniqueName, value); }
+            get { return _uniqueName; }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _uniqueName, value); }
         }
 
         [RuleUniqueValue(null, DefaultContexts.Save)]
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string ExecutableName {
-            get { return executableName; }
+            get { return _executableName; }
 
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref executableName, value); }
+            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _executableName, value); }
         }
         #endregion
         public override void AfterConstruction() {

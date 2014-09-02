@@ -1,5 +1,4 @@
 using System.ComponentModel;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {

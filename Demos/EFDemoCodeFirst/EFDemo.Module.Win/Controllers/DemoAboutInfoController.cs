@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Text;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Utils.About;
@@ -9,8 +9,11 @@ using DevExpress.Utils.About;
 namespace Demo.Module.Win {
     public class DemoAboutInfoController : AboutInfoController {
         private SimpleAction demoAboutInfoAction;
-        private void demoAboutInfoAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            AboutForm.Show(typeof(string), ProductKind.XAF);
+
+        public DemoAboutInfoController()
+            : base() {
+            demoAboutInfoAction = new SimpleAction(this, "Demo About Info", DevExpress.Persistent.Base.PredefinedCategory.About);
+            demoAboutInfoAction.Caption = "About...";
         }
         protected override void OnActivated() {
             base.OnActivated();
@@ -22,10 +25,9 @@ namespace Demo.Module.Win {
             base.OnDeactivated();
             demoAboutInfoAction.Execute -= new SimpleActionExecuteEventHandler(demoAboutInfoAction_Execute);
         }
-        public DemoAboutInfoController()
-            : base() {
-            demoAboutInfoAction = new SimpleAction(this, "Demo About Info", DevExpress.Persistent.Base.PredefinedCategory.About);
-            demoAboutInfoAction.Caption = "About...";
+
+        private void demoAboutInfoAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
+            DevExpress.Utils.About.AboutHelper.Show(DevExpress.Utils.About.ProductKind.XAF, new DevExpress.Utils.About.ProductStringInfo("DXperience Universal", "eXpressApp Framework"));
         }
     }
 }

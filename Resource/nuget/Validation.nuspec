@@ -2,23 +2,24 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>eXpandValidation</id>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <title>DevExpress eXpandFramework Validation Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://expandframework.com/images/site/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Validation Module (Win) / eXpandFramework</description>
-    <summary>Validation Module (Win) / eXpandFramework</summary>
+    <description>Validation Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>Validation Module / eXpandFramework</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandSystemWin" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandSystemWin" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.Validation.dll" target="lib\net40\Xpand.ExpressApp.Validation.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Validation.pdb" target="lib\net40\Xpand.ExpressApp.Validation.pdb" />
   </files>
 </package>

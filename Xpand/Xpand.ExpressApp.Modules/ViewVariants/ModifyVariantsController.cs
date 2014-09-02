@@ -10,27 +10,48 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.Persistent.Base;
 using System.Linq;
+using DevExpress.Persistent.Validation;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
+using Xpand.Persistent.Base.Xpo.MetaData;
 
 namespace Xpand.ExpressApp.ViewVariants {
+    public interface IModelApplicationViewVariants:IModelApplication{
+        IModelXpandViewVariants ViewVariants { get; }
+    }
+
+    public interface IModelXpandViewVariants:IModelNode{
+        [Browsable(false)]
+        string Storage { get; set; }
+    }
+
     public interface IModelClassViewClonable {
         [Description("Determines if the clone action will be shown for the view")]
-        [Category("eXpand.ViewVariants")]
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
         bool IsViewClonable { get; set; }
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
+        bool ClonedViewResetEnabled { get; set; }
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
+        [DefaultValue(true)]
+        bool DeleteViewOnRename { get; set; }
+        [Category(XpandViewVariantsModule.ViewVariantsModelCategory)]
+        [DefaultValue(true)]
+        bool DeleteViewOnDelete { get; set; }
     }
+
     [ModelInterfaceImplementor(typeof(IModelClassViewClonable), "ModelClass")]
     public interface IModelListViewViewClonable : IModelClassViewClonable {
     }
 
     public class ModifyVariantsController : ViewController<ListView>, IModelExtender {
+        public const string ClonedViewsWithReset = "ClonedViewsWithReset";
         public const string IsClonable = "IsViewClonable";
-        public const string Rename = "Rename";
+        public const string Modify = "Modify";
         public const string Clone1 = "Clone";
         public const string DefaultVariantId = "XpandDefaultVariantId";
         public const string Delete = "Delete";
         
-        readonly SingleChoiceAction _viewVariantsChoiceAction;
+        readonly SingleChoiceAction _modifyVariantsAction;
         ChangeVariantController _changeVariantController;
         IModelListView _rootListView;
         VariantInfo _currentVariantInfo;
@@ -38,63 +59,85 @@ namespace Xpand.ExpressApp.ViewVariants {
         ViewVariantsModule _viewVariantsModule;
 
         public ModifyVariantsController() {
-            _viewVariantsChoiceAction = new SingleChoiceAction(this, "ModifyViewVariants", PredefinedCategory.View){Caption = "View Variant"};
-            _viewVariantsChoiceAction.Execute += ViewVariantsChoiceActionOnExecute;
-            _viewVariantsChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
-            _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Clone1, Clone1));
-            _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Rename, Rename));
-            _viewVariantsChoiceAction.Items.Add(new ChoiceActionItem(Delete, Delete));
-            TargetViewNesting = Nesting.All;
+            _modifyVariantsAction = new SingleChoiceAction(this, "ModifyViewVariants", PredefinedCategory.View){Caption = "Modify Variants"};
+            
+            _modifyVariantsAction.Execute += ModifyVariantsActionOnExecute;
+            _modifyVariantsAction.ShowItemsOnClick = true;
+            _modifyVariantsAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
+            _modifyVariantsAction.Items.Add(new ChoiceActionItem(Clone1, Clone1));
+            _modifyVariantsAction.Items.Add(new ChoiceActionItem(Modify, Modify));
+            _modifyVariantsAction.Items.Add(new ChoiceActionItem(Delete, Delete));
+            TargetViewNesting = Nesting.Any;
         }
 
-        void ViewVariantsChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
+        void ModifyVariantsActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             View.SaveModel();
             if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Clone1)) {
                 CreateViewVariant(e);
-            } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Rename)) {
-                RenameViewVariant(e);
-            } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Delete)) {
+            } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Modify)) {
+                ModifyViewVariant(e);
+            } else if (ReferenceEquals(e.SelectedChoiceActionItem.Data, Delete)){
                 DeleteViewVariant(e);
             }
         }
 
         void DeleteViewVariant(SingleChoiceActionExecuteEventArgs e) {
-            ShowViewVariantView(e, controller => DeleteViewVariantCore((ViewVariant) (controller).Frame.View.CurrentObject),
+            ShowViewVariantView(e, controller => DeleteViewVariantCore(((IModelListViewViewClonable)_rootListView).DeleteViewOnDelete),
                                 detailView => {
-                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "DeleteView");
-                                    var viewVariant = ((ViewVariant) detailView.CurrentObject);
-                                    viewVariant.CanDeleteView = true;
+                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory, "DeleteView");
+                                    var viewVariant = ((ViewVariant)detailView.CurrentObject);
                                     viewVariant.ShowCaption = false;
                                 });
         }
 
-        void RenameViewVariant(SingleChoiceActionExecuteEventArgs e) {
-            ShowViewVariantView(e, controller => RenameViewVariantCore((ViewVariant) (controller).Frame.View.CurrentObject),
+        void ModifyViewVariant(SingleChoiceActionExecuteEventArgs e) {
+            ShowViewVariantView(e, controller => ModifyViewVariantCore(controller.Frame),
                                 detailView => {
-                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants, "RenameView");
-                                    ((ViewVariant)detailView.CurrentObject).Caption = GetCaption();
-                                    ((ViewVariant)detailView.CurrentObject).CanDeleteView = _currentVariantInfo.Id != DefaultVariantId && _currentVariantInfo.Id!=null;
+                                    detailView.Caption = CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory, "ModiyView");
+                                    var viewVariant = ((ViewVariant)detailView.CurrentObject);
+                                    viewVariant.VariantCaption =_changeVariantController.ChangeVariantAction.SelectedItem.Caption;
                                 });
         }
 
         void CreateViewVariant(SingleChoiceActionExecuteEventArgs e) {
-            ShowViewVariantView(e, controller => CreateViewVariantCore((ViewVariant) (controller).Frame.View.CurrentObject),
-                                detailView => detailView.Caption =CaptionHelper.GetLocalizedText(XpandViewVariantsModule.XpandViewVariants,"CreateView"));
+            ShowViewVariantView(e, controller => CreateViewVariantCore(controller.Frame),
+                                detailView => detailView.Caption =CaptionHelper.GetLocalizedText(XpandViewVariantsModule.ViewVariantsModelCategory,"CreateView"));
         }
 
-        void DeleteViewVariantCore(ViewVariant viewVariant) {
+        private IModelListView CloneView(string id, string viewCaption) {
+            var modelApplicationBase = (ModelApplicationBase)Application.Model;
+            var clonedViewResetEnabled = ((IModelListViewViewClonable)View.Model).ClonedViewResetEnabled;
+            if (clonedViewResetEnabled) {
+                var modelListView = (IModelListView)(((ModelNode)View.Model).Clone(id));
+                modelListView.Caption = viewCaption;
+                SynchronizeModel(Frame, id);
+                var viewXml = modelListView.Xml();
+                var clonedViewsStorage = ((IModelApplicationViewVariants)Application.Model).ViewVariants.Storage ?? viewXml;
+                var clonedViewStorageLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
+                clonedViewStorageLayer.Id = id;
+                new ModelXmlReader().ReadFromString(clonedViewStorageLayer,"",clonedViewsStorage);
+                new ModelXmlReader().ReadFromString(clonedViewStorageLayer, "", string.Format("<Application><Views>{0}</Views></Application>", viewXml));                    
+                ((IModelApplicationViewVariants)Application.Model).ViewVariants.Storage = clonedViewStorageLayer.Xml;
+                modelListView.Remove();
+                modelApplicationBase.AddLayerBeforeLast(clonedViewStorageLayer);
+                return (IModelListView) Application.Model.Views[id];
+            }
+            return (IModelListView)(((ModelNode)View.Model).Clone(id));
+        }
+
+        void DeleteViewVariantCore(bool deleteView) {
             var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
             var rootModelVariant = ((IModelViewVariants)_rootListView).Variants[_currentVariantInfo.Id];
             rootModelVariant.Remove();
-            if (viewVariant.DeleteView)
+            if (deleteView)
                 Application.Model.Views[_currentVariantInfo.ViewID].Remove();
             var variantInfos = variantsInfo.Items.Where(info => info.Id != _currentVariantInfo.Id).ToArray();
             VariantsInfo infos=null;
             if (variantInfos.Length>1)
                 infos = new VariantsInfo(variantsInfo.RootViewId, DefaultVariantId, variantInfos);
             ChangeToVariant(infos);
+            UpdateActionState();
         }
-
 
         void ShowViewVariantView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs,Action<DialogController> dialogControllerAction,Action<DetailView> detailViewAction) {
             var objectSpace = Application.CreateObjectSpace(typeof (ViewVariant));
@@ -104,41 +147,33 @@ namespace Xpand.ExpressApp.ViewVariants {
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             detailViewAction.Invoke(detailView);
             var dialogController = new DialogController();
-            dialogController.Accepting +=(o, args) =>dialogControllerAction.Invoke((DialogController) o) ;
+            dialogController.Accepting += (o, args) => {
+                var controller = ((DialogController) o);
+                Validator.RuleSet.Validate(controller.Frame.View.ObjectSpace,controller.Frame.View.CurrentObject,ContextIdentifier.Save);
+                dialogControllerAction.Invoke(controller);
+            };
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
         }
 
-        string GetCaption() {
-            var selectedItem = _changeVariantController.ChangeVariantAction.SelectedItem;
-            if (selectedItem != null)
-                return selectedItem.Caption;
-            var modelVariant = ((IModelViewVariants) _rootListView).Variants[DefaultVariantId];
-            return modelVariant != null ? modelVariant.Caption : _rootListView.Caption;
-        }
-
-        private void RenameViewVariantCore(ViewVariant viewVariant) {
+        private void ModifyViewVariantCore(Frame frame) {
+            var viewVariant = (ViewVariant)frame.View.CurrentObject;
             var modelVariants = ((IModelViewVariants)_rootListView).Variants;
             if (_currentVariantInfo.Id == DefaultVariantId) {
-                modelVariants[DefaultVariantId].Caption = viewVariant.Caption;
+                modelVariants[DefaultVariantId].Caption = viewVariant.VariantCaption;
                 ChangeToVariant();
             } else if (_currentVariantInfo.Id==null) {
                 var modelVariant = modelVariants[DefaultVariantId];
                 if (modelVariant==null)
-                    CreateVariantNode(DefaultVariantId, modelVariants, _rootListView, viewVariant.Caption);
+                    CreateVariantNode(DefaultVariantId, modelVariants, _rootListView, viewVariant.VariantCaption);
                 else {
-                    modelVariant.Caption = viewVariant.Caption;
+                    modelVariant.Caption = viewVariant.VariantCaption;
                     ChangeToVariant();
                 }
             }
             else {
                 var modelVariant = modelVariants[_currentVariantInfo.Id];
-                modelVariant.Caption = viewVariant.Caption;
-                if (viewVariant.DeleteView) {
-                    DeleteViewVariantCore(viewVariant);
-                    CreateViewVariantCore(viewVariant);
-                } else {
-                    ChangeToVariant();
-                }
+                modelVariant.Caption = viewVariant.VariantCaption;
+                SynchronizeModel(frame, modelVariant.View.Id);
             }
         }
 
@@ -152,12 +187,9 @@ namespace Xpand.ExpressApp.ViewVariants {
             if (_changeVariantController.ChangeVariantAction.SelectedItem != null) {
                 _rootListView = FindRootListView();
                 _currentVariantInfo = (VariantInfo)_changeVariantController.ChangeVariantAction.SelectedItem.Data;
-                var items = _viewVariantsChoiceAction.Items;
-                if (_currentVariantInfo.Id == DefaultVariantId) {
-                    var choiceActionItems = items.Where(item => ReferenceEquals(item.Data, Delete)).ToList();
-                    foreach (var choiceActionItem in choiceActionItems) {
-                        choiceActionItem.Enabled[DefaultVariantId] = false;
-                    }
+                var items = _modifyVariantsAction.Items;
+                if (_currentVariantInfo.Id == DefaultVariantId){
+                    UpdateActionState();
                 }
                 else {
                     foreach (var item in items) {
@@ -167,14 +199,27 @@ namespace Xpand.ExpressApp.ViewVariants {
             }
         }
 
-        public void CreateViewVariantCore(ViewVariant viewVariant) {
+        private  void UpdateActionState(){
+            var choiceActionItems = _modifyVariantsAction.Items.Where(item => new[] { Delete, Modify }.Any(s => ReferenceEquals(s, item.Data))).ToList();
+            foreach (var choiceActionItem in choiceActionItems){
+                choiceActionItem.Enabled[DefaultVariantId] = false;
+            }
+        }
+
+        public void CreateViewVariantCore(Frame frame) {
+            var viewVariant = (ViewVariant)frame.View.CurrentObject;
             var modelVariants = ((IModelViewVariants)_rootListView ).Variants;
-            
             if (modelVariants.Count == 0) {
                 CreateVariantNode(DefaultVariantId, modelVariants,_rootListView,_rootListView.Caption);
             }
-            CreateVariantNode(viewVariant.Caption, modelVariants);
+            CreateVariantNode(viewVariant.VariantCaption, ((IViewVariant)viewVariant).ViewCaption, modelVariants);
             ChangeToVariant();
+        }
+
+        private void SynchronizeModel(Frame frame, string viewId){
+            var viewVariant = (ViewVariant)frame.View.CurrentObject;
+            var modelMemberInfoController = frame.GetController<XpandModelMemberInfoController>();
+            modelMemberInfoController.SynchronizeModel(Application.Model.Views[viewId], viewVariant);
         }
 
         void ChangeToVariant() {
@@ -193,25 +238,26 @@ namespace Xpand.ExpressApp.ViewVariants {
             base.OnViewControllersActivated();
             _viewVariantsModule = Application.FindModule<ViewVariantsModule>();
             _isViewClonable = ((IModelListViewViewClonable) View.Model).IsViewClonable;
-            _viewVariantsChoiceAction.Active[IsClonable] = _isViewClonable ;
+            _modifyVariantsAction.Active[IsClonable] = _isViewClonable ;
             if (_isViewClonable) {
                 _changeVariantController = Frame.GetController<ChangeVariantController>();
                 _rootListView = FindRootListView();
                 _changeVariantController.ChangeVariantAction.SelectedItemChanged += ChangeVariantActionOnSelectedItemChanged;
                 if (_changeVariantController.ChangeVariantAction.Items.Count == 0) {
-                    foreach (var item in _viewVariantsChoiceAction.Items.Where(item => ReferenceEquals(item.Data, Delete))) {
-                        item.Enabled[DefaultVariantId] = false;
-                    }
+                    UpdateActionState();
                 }
             }
         }
 
         IModelListView FindRootListView() {
-            var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
-            return variantsInfo == null ? View.Model : (IModelListView) Application.Model.Views[variantsInfo.RootViewId];
+            if (_viewVariantsModule.FrameVariantsEngine != null){
+                var variantsInfo = _viewVariantsModule.FrameVariantsEngine.GetVariants(View);
+                return variantsInfo == null ? View.Model : (IModelListView) Application.Model.Views[variantsInfo.RootViewId];
+            }
+            return null;
         }
 
-        void CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption) {
+        void CreateVariantNode(string id, IModelVariants modelVariants, IModelListView modelListView, string caption){
             var newVariantNode = modelVariants.AddNode<IModelVariant>();
             modelVariants.Current = newVariantNode;
             newVariantNode.Caption = caption;
@@ -219,17 +265,21 @@ namespace Xpand.ExpressApp.ViewVariants {
             newVariantNode.View = modelListView;
         }
 
-        void CreateVariantNode(string caption, IModelVariants modelVariants) {
-            var modelView = ((IModelListView) Application.Model.Views[caption]);
-            var modelListView = modelView??((IModelListView)((ModelNode)View.Model).Clone(caption));
-            modelListView.Caption = caption;
-            CreateVariantNode(caption, modelVariants, modelListView, caption);
+        void CreateVariantNode(string variantCaption, string viewCaption, IModelVariants modelVariants) {
+            var id = GetId(viewCaption);
+            var modelView = ((IModelListView) Application.Model.Views[id]);
+            var modelListView = modelView ?? CloneView(id, viewCaption);
+            CreateVariantNode(variantCaption, modelVariants, modelListView, variantCaption);
+        }
+
+        private  string GetId(string caption){
+            return View.Model.ModelClass.TypeInfo.Name +"_ListView_"+caption.Replace(" ","");
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelListView, IModelListViewViewClonable>();
             extenders.Add<IModelClass, IModelClassViewClonable>();
+            extenders.Add<IModelApplication, IModelApplicationViewVariants>();
         }
-
     }
 }

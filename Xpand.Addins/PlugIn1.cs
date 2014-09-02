@@ -6,10 +6,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using DevExpress.CodeRush.Core;
-using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
@@ -30,6 +30,7 @@ using Property = EnvDTE.Property;
 
 namespace XpandAddins {
     public partial class PlugIn1 : StandardPlugIn {
+        private bool _lastBuildSucceeded;
 
 
         private void convertProject_Execute(ExecuteEventArgs ea) {
@@ -41,7 +42,7 @@ namespace XpandAddins {
                 var position = Cursor.Position;
                 Rectangle rectangle = Screen.FromPoint(position).Bounds;
                 _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
-                var userName = string.Format("/s /k:{0} \"{1}\"", token, directoryName);
+                var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
                 
             }
@@ -170,10 +171,10 @@ namespace XpandAddins {
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
             var dte = CodeRush.ApplicationObject;
-            var UIHSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
-            if (UIHSolutionExplorer == null || UIHSolutionExplorer.UIHierarchyItems.Count == 0)
+            var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+            if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;
-            var uiHierarchyItem = UIHSolutionExplorer.UIHierarchyItems.Item(1);
+            var uiHierarchyItem = uihSolutionExplorer.UIHierarchyItems.Item(1);
             
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
@@ -209,48 +210,50 @@ namespace XpandAddins {
             throw new NotImplementedException();
         }
 
-        private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
+        private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded){
+            _lastBuildSucceeded = succeeded;
+        }
+        
+        private void RunEasyTest_Execute(ExecuteEventArgs ea){
+            Task.Factory.StartNew(RunTest);
+        }
 
-            if (succeeded) {
-                if (project == "Xpand.ExpressApp.ModelEditor.csproj") {
-                    var outputPath = CodeRush.Solution.Active.FindProjectFromUniqueName(project).FindOutputPath();
-                    File.Copy(outputPath, Options.Storage.ReadString(Options.GetPageName(), Options.ModelEditorPath),true);
+        private void RunTest(){
+            DTE dte = CodeRush.ApplicationObject;
+            try {
+                var uniqueName = CodeRush.ApplicationObject.Solution.FindStartUpProject().UniqueName;
+                dte.WriteToOutput("Building EasyTest/Debug Configuration");
+                CodeRush.Solution.Active.SolutionBuild.BuildProject("EasyTest", uniqueName, true);
+                if (_lastBuildSucceeded) {
+                    var activeFileName = CodeRush.Documents.ActiveFileName;
+                    var testLogPath = Path.Combine(Path.GetDirectoryName(activeFileName) + "", "Testslog.xml");
+                    if (File.Exists(testLogPath))
+                        File.Delete(testLogPath);
+                    var processStartInfo = new ProcessStartInfo(Options.ReadString(Options.TestExecutorPath)) {
+                        Arguments = string.Format(@"""{0}""", activeFileName),
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,CreateNoWindow = true
+                    };
+
+                    var process = Process.Start(processStartInfo);
+                    Debug.Assert(process != null, "process != null");
+                    process.WaitForExit();
+                    var document = XDocument.Load(File.OpenRead(testLogPath));
+                    var errorElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName=="Error");
+                    if (errorElement != null){
+                        var messageElement = errorElement.Descendants("Message").First();
+                        dte.WriteToOutput(messageElement.Value);
+                    }
+                    else
+                        dte.WriteToOutput("EasyTest Passed!");
                 }
                 else {
-                    string gacUtilPath = Options.Storage.ReadString(Options.GetPageName(), Options.GacUtilPath);
-                    if (File.Exists(gacUtilPath)) {
-                        Project dteProject = CodeRush.Solution.Active.FindProjectFromUniqueName(project);
-                        if (ProjectExists(dteProject)) {
-                            Environment.CurrentDirectory = Path.GetDirectoryName(gacUtilPath) + "";
-                            string outputPath = dteProject.FindOutputPath();
-                            if (File.Exists(outputPath))
-                                Process.Start("gacutil.exe", String.Format(@"/i ""{0}"" /f", outputPath));
-                        } else {
-                            Log.Send("GagUtl Project Not Found:", dteProject.FileName);
-                        }
-                    }
+                    dte.WriteToOutput("EasyTest build failed");
                 }
             }
+            catch (Exception e) {
+                dte.WriteToOutput(e.ToString());
+            }
         }
-
-        public static bool ProjectExists(Project project) {
-            IEnumerable<string> allProjectPaths =
-                Options.Storage.GetGroupedKeys(Options.ProjectPaths).SelectMany(
-                    s => Options.Storage.ReadStrings(Options.ProjectPaths, s));
-            return allProjectPaths.Where(MatchProjectName(project)).FirstOrDefault() != null;
-        }
-
-        static Func<string, bool> MatchProjectName(Project project) {
-            string fileName = Path.GetFileName(project.FileName) + "";
-            string pattern = Options.ReadString(Options.GacUtilRegex);
-            return s => {
-                string s1 = s.Split('|')[0];
-                return s1 == project.FileName && (!string.IsNullOrEmpty(pattern) && !Regex.IsMatch(fileName, pattern));
-            };
-        }
-
-
-
-
     }
 }

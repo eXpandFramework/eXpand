@@ -35,7 +35,7 @@ namespace Xpand.Xpo {
         }
 
         bool MemberHasChanged(ISupportChangedMembers supportChangedMembers, XPMemberInfo m) {
-            return m.HasAttribute(typeof(PersistentAttribute)) || m.IsKey || m is ServiceField ||
+            return m.IsKey || m is ServiceField ||
                    supportChangedMembers.ChangedProperties.Contains(m.Name);
         }
     }

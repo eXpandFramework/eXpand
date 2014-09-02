@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="60">
+	<Applications>
+		<!-- Win -->
+		<Application
+			Name="DCSecurityDemo.Win"
+			FileName="[WinAppBin]\DCSecurityDemo.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+    <Application
+			Name="DCSecurityDemo.UiLevel.Win"
+			FileName="[WinAppUiBin]\DCSecurityDemo.UiLevel.Win.exe"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			CommunicationPort="4100"/>
+		<!-- Web -->
+		<Application
+			Name="DCSecurityDemo.Web"
+			Url="http://localhost:50033"
+			PhysicalPath="[WebAppBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+    <Application
+			Name="DCSecurityDemo.UiLevel.Web"
+			Url="http://localhost:61911/"
+			PhysicalPath="[WebAppUiBin]"
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+		<!-- For IIS -->
+		<!--Application
+			Name="DCSecurityDemo.Web"
+			Url="http://localhost/DCSecurityDemo.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+	</Applications>
+	<TestDatabases>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandDCSecurityDemoEasyTest"/>
+	</TestDatabases>
+
+	<Aliases>
+		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAppUiBin" Value="[ConfigPath]\..\..\DCSecurityDemo.UiLevel.Win\Bin\EasyTest" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\DCSecurityDemo.Web" />
+		<Alias Name="WebAppUiBin" Value="[ConfigPath]\..\..\DCSecurityDemo.UiLevel.Web" />
+	</Aliases>
+</Options>

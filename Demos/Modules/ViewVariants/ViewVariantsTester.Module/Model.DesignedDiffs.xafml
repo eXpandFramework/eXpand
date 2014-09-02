@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="ViewVariantsTester" Logo="ExpressAppLogo">
+  
   <Views>
     <ListView Id="TestClass_ListView" IsViewClonable="True" />
   </Views>

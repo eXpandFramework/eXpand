@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -23,7 +22,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
     [DefaultProperty("Name")]
-    [Appearance("Hide_Attributes", AppearanceItemType.ViewItem, null, Visibility = ViewItemVisibility.Hide, TargetItems = "Attributes")]
     public class PersistentAssemblyInfo : XpandBaseCustomObject, IPersistentAssemblyInfo {
         CodeDomProvider _codeDomProvider;
         string _compileErrors;
@@ -59,9 +57,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode {
-            get {
-                return CodeEngine.GenerateCode(this);
-            }
+            get {return CodeEngine.GenerateCode(this);}
         }
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]

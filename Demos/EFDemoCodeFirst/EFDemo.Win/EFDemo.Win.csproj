@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <OwnerKey>{FE3BBBB6-72D5-11d2-9ACE-00C04F79A2A4}</OwnerKey>
@@ -9,9 +9,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <AssemblyKeyContainerName></AssemblyKeyContainerName>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
     <AssemblyName>EFDemo.Win</AssemblyName>
-    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -19,9 +21,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>EFDemo.Win</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject></StartupObject>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -46,13 +51,16 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile></ConfigurationOverrideFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;CodeFirst</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -67,13 +75,16 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile></ConfigurationOverrideFile>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
     <DefineConstants>TRACE;CodeFirst</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -86,255 +97,213 @@
     <ReferencePath>..\EFDemo.Module\lib</ReferencePath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DemoData.v13.2.Core">
+    <Reference Include="DevExpress.CodeParser.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.BonusSkins.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.DataAccess.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Charts.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.DataAccess.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.DemoData.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.BonusSkins.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.EF.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Charts.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.EF.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Images.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Reports.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Office.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.EF.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.PivotGrid.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2.Wizard">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.RichEdit.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v13.2.UI">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Sparkline.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.Utils.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraBars.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.UI">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Sparkline.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v13.2.UI">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v13.2.Extensions">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraLayout.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraNavBar.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2.Reporting.Extensions">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2.Core">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraReports.v14.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraVerticalGrid.v13.2">
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraTreeList.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    <Private>False</Private></Reference>
+    <Reference Include="DevExpress.XtraWizard.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    <Private>False</Private></Reference>
     <Reference Include="EntityFramework">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>False</Private>
-    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"><Private>False</Private></Reference>
     <Reference Include="System">
       <Name>System</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.configuration">
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations"><Private>False</Private></Reference>
+    <Reference Include="System.configuration"><Private>False</Private></Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
     <Reference Include="System.Data">
       <Name>System.Data</Name>
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
-      <Private>False</Private>
-    </Reference>
+    <Private>False</Private></Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
     </Reference>
+    
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    
     <Content Include="Model.xafml">
       <Subtype>Designer</Subtype>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -346,7 +315,8 @@
     <Compile Include="EFDemoWinApplication.Designer.cs">
       <DependentUpon>EFDemoWinApplication.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs"></Compile>
+    <Compile Include="Program.cs">
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -362,10 +332,12 @@
     <ProjectReference Include="..\EFDemo.Module.Win\EFDemo.Module.Win.csproj">
       <Project>{70AC2425-F2E8-480A-825C-9E42C8F071E6}</Project>
       <Name>EFDemo.Module.Win</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\EFDemo.Module\EFDemo.Module.csproj">
       <Project>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</Project>
       <Name>EFDemo.Module</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -397,5 +369,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup></PropertyGroup>
+  <PropertyGroup>
+    
+    
+  </PropertyGroup>
 </Project>

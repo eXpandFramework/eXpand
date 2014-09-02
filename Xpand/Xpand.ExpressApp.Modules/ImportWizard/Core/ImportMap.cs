@@ -19,25 +19,25 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         }
 
 
-        [Association("Sheet-Mappings")]
-        [DisplayName("Mappings")]
+        [Association(@"Sheet-Mappings")]
+        [DisplayName(@"Mappings")]
         [Aggregated]
         public XPCollection<Mapping> Mappings {
-            get { return GetCollection<Mapping>("Mappings"); }
+            get { return GetCollection<Mapping>(@"Mappings"); }
         }
 
-        private string _Description;
+        private string _description;
 
-        [DisplayName("Description"), Size(SizeAttribute.Unlimited)]
+        [DisplayName(@"Description"), Size(SizeAttribute.Unlimited)]
         public string Description {
-            get { return _Description; }
-            set { SetPropertyValue("Description", ref _Description, value); }
+            get { return _description; }
+            set { SetPropertyValue(@"Description", ref _description, value); }
         }
 
 
 
         public override string ToString() {
-            return string.Format("{0} - {1}", Description, Columns);
+            return string.Format(@"{0} - {1}", Description, Columns);
         }
 
         public ImportMap(Session session)

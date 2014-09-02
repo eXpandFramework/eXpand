@@ -21,9 +21,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridViewOnFocusedColumnChanged(object sender, FocusedColumnChangedEventArgs focusedColumnChangedEventArgs) {
-            var columnCellFilter = focusedColumnChangedEventArgs.FocusedColumn.Model() as IModelColumnCellFilter;
-            if (columnCellFilter != null) {   
-                _filterByColumnController.UpdateAction(columnCellFilter.CellFilter);
+            if (focusedColumnChangedEventArgs.FocusedColumn != null){
+                var columnCellFilter = focusedColumnChangedEventArgs.FocusedColumn.Model() as IModelColumnCellFilter;
+                if (columnCellFilter != null) {   
+                    _filterByColumnController.UpdateAction(columnCellFilter.CellFilter);
+                }
             }
         }
 

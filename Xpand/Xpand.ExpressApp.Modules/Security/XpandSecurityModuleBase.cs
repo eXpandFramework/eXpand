@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
@@ -29,7 +28,6 @@ namespace Xpand.ExpressApp.Security {
         protected virtual void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             var app = (XafApplication) sender;
             e.Controllers.AddRange(CreateRegistrationControllers(app));
-            e.Controllers.Add(app.CreateController<RegistrationDialogController>());
         }
 
         public static IEnumerable<Controller> CreateRegistrationControllers(XafApplication app) {
@@ -51,8 +49,5 @@ namespace Xpand.ExpressApp.Security {
             yield return app.CreateController<ResultsHighlightController>();
             yield return app.CreateController<RuleSetInitializationController>();
         }
-    }
-
-    public class RegistrationDialogController : DialogController {
     }
 }

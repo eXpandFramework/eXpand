@@ -3,7 +3,7 @@
   <Email>
     <EmailReceipients>
       <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
-        <EmailReceipient Id="Admins" EmailReceipient="EmailTester.Module.BusinessObjects.User" EmailMember="Email" Criteria="[Roles][[Name] = 'Admin']" IsNewNode="True" />
+        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
       </EmailReceipientGroup>
       <EmailReceipientGroup Id="Send to project members" IsNewNode="True">
         <EmailReceipient Id="All project Members" EmailReceipient="EmailTester.Module.BusinessObjects.Member" EmailMember="Email" Criteria="[Project.Oid] = 'RuleObjectKeyValue'" IsNewNode="True" />
@@ -13,12 +13,24 @@
       <EmailTemplate Id="New Cuctomer" Criteria="[Name] = 'New Customer'" IsNewNode="True" />
       <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
       <EmailTemplate Id="Project created" Criteria="[Name] = 'Project created'" IsNewNode="True" />
+      <EmailTemplate Id="TaskStatusChanged" Criteria="[Name] = 'TaskStatusChanged'" IsNewNode="True" />
       <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
     </EmailTemplateContexts>
+    <ExecutionContextsGroup>
+      <ExecutionContexts Id="ObjectSpaceObjectChanged" IsNewNode="True">
+        <ExecutionContext Name="ObjectSpaceObjectChanged" IsNewNode="True" />
+      </ExecutionContexts>
+    </ExecutionContextsGroup>
+    <ObjectChangedExecutionContextGroup>
+      <ObjectChangedExecutionContexts Id="Task monitor" IsNewNode="True">
+        <ObjectChangedExecutionContext Id="properies" PropertyNames="Status" IsNewNode="True" />
+      </ObjectChangedExecutionContexts>
+    </ObjectChangedExecutionContextGroup>
     <Rules>
       <EmailRule Id="New Customer created" TypeInfo="EmailTester.Module.BusinessObjects.Customer" View="Customer_DetailView" TemplateContext="New Cuctomer" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to Admins" IsNew="True" IsNewNode="True" />
       <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
       <EmailRule Id="Project created" TypeInfo="EmailTester.Module.BusinessObjects.Project" TemplateContext="Project created" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to project members" IsNewNode="True" />
+      <EmailRule Id="Task state changed" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="TaskStatusChanged" TypeInfo="EmailTester.Module.BusinessObjects.EmailTask" EmailReceipientsContext="Send to Admins" ObjectChangedExecutionContextGroup="Task monitor" ExecutionContextGroup="ObjectSpaceObjectChanged" IsNewNode="True" />
       <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
@@ -26,7 +38,7 @@
     </SmtpClientContexts>
   </Email>
   <Options>
-    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" UserModelClass="EmailTester.Module.BusinessObjects.User" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" ActivationIdMember="Activation" />
+    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" UserModelClass="" ActivationIdMember="" />
   </Options>
   <SchemaModules>
     <SchemaModule Name="EmailModule" Version="13.2.5.1" IsNewNode="True" />

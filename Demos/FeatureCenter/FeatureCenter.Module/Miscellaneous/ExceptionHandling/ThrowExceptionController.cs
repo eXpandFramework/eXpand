@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using Xpand.Persistent.Base.Validation;
 
 namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling {
     public class ThrowExceptionController:ViewController<DetailView> {
@@ -19,13 +20,9 @@ namespace FeatureCenter.Module.Miscellaneous.ExceptionHandling {
             if (((ActionBase)sender).Id == "Throw Exception")
                 throw new Exception("Exception was thrown");
             
-            var result = new RuleSetValidationResult();
             const string messageTemplate = "This exception will not be logged see FeatureCenterWindowsFormsModule ExceptionHandlingWinModuleOnCustomHandleException method ";
-            result.AddResult(new RuleSetValidationResultItem(View.CurrentObject, ContextIdentifier.Delete, null,
-                                                             new RuleValidationResult(null, this, ValidationState.Invalid,
-                                                                                      messageTemplate)));
-
-            throw new ValidationException(messageTemplate, result);
+            var messageResult = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, messageTemplate, ContextIdentifier.Delete,View.CurrentObject, View.ObjectTypeInfo.Type);
+            throw new ValidationException(messageResult);
         }
     }
 }

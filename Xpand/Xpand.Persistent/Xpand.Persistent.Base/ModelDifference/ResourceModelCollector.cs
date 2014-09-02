@@ -1,29 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelDifference {
     public class ResourceModelCollector {
         private const int MaxExpectedEncodingStringLengthInBytes = 512;
-        private static readonly Encoding[] ExpectedEncodings = new[] { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF7, Encoding.UTF32, Encoding.BigEndianUnicode };
-        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
+        private static readonly Encoding[] _expectedEncodings = { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF7, Encoding.UTF32, Encoding.BigEndianUnicode };
+        private static readonly Encoding _defaultEncoding = Encoding.UTF8;
         public Dictionary<string, ResourceInfo> Collect(IEnumerable<Assembly> assemblies, string prefix){
             var assemblyResourcesNames = assemblies.SelectMany(assembly => assembly.GetManifestResourceNames().Where(s => s.EndsWith(".xafml")), (assembly1, s) => new { assembly1, s });
             if (!string.IsNullOrEmpty(prefix))
-                assemblyResourcesNames = assemblyResourcesNames.Where(arg => ((arg.s.StartsWith(prefix) || (!(arg.s.StartsWith(prefix)) && arg.s.IndexOf("." + prefix) > -1))));
+                assemblyResourcesNames = assemblyResourcesNames.Where(arg => ((arg.s.StartsWith(prefix) || (!(arg.s.StartsWith(prefix)) && arg.s.IndexOf("." + prefix, StringComparison.Ordinal) > -1))));
             var dictionary = new Dictionary<string, ResourceInfo>();
             foreach (var assemblyResourcesName in assemblyResourcesNames){
                 var resourceName = assemblyResourcesName.s;
                 string path = GetPath(prefix, resourceName);
                 resourceName = GetResourceName(prefix, path);
                 if (!(dictionary.ContainsKey(resourceName)))
-                    dictionary.Add(resourceName, new ResourceInfo(resourceName, new AssemblyName(assemblyResourcesName.assembly1.FullName).Name));
+                    dictionary.Add(resourceName, new ResourceInfo(resourceName, assemblyResourcesName.assembly1));
                 var assembly1 = assemblyResourcesName.assembly1;
                 var xml = GetXml(assemblyResourcesName.s, assembly1);
                 string aspectName = GetAspectName(assemblyResourcesName.s);
@@ -43,7 +44,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
         string GetPath(string prefix, string resourceName) {
             if (string.IsNullOrEmpty(prefix))
                 return resourceName;
-            return resourceName.StartsWith(prefix) ? resourceName : resourceName.Substring(resourceName.IndexOf("." + prefix) + 1);
+            return resourceName.StartsWith(prefix) ? resourceName : resourceName.Substring(resourceName.IndexOf("." + prefix, StringComparison.Ordinal) + 1);
         }
 
         string GetAspectName(string resourceName) {
@@ -58,7 +59,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             string readToEnd;
             using (Stream manifestResourceStream = assembly1.GetManifestResourceStream(resourceName)) {
                 if (manifestResourceStream == null) throw new NullReferenceException(resourceName);
-                Encoding encoding = GetStreamEncoding(manifestResourceStream) ?? DefaultEncoding;
+                Encoding encoding = GetStreamEncoding(manifestResourceStream) ?? _defaultEncoding;
                 using (var streamReader = new StreamReader(manifestResourceStream, encoding)) {
                     readToEnd = streamReader.ReadToEnd();
                 }
@@ -68,10 +69,10 @@ namespace Xpand.Persistent.Base.ModelDifference {
 
         Encoding GetEncodingFromHeader(string encodingString) {
             if (string.IsNullOrEmpty(encodingString)) return null;
-            int start = encodingString.IndexOf(@"encoding=""");
+            int start = encodingString.IndexOf(@"encoding=""", StringComparison.Ordinal);
             if (start >= 0) {
                 start += 10;
-                int end = encodingString.IndexOf(@"""", start);
+                int end = encodingString.IndexOf(@"""", start, StringComparison.Ordinal);
                 if (end > 0) {
                     string encodingStr = encodingString.Substring(start, end - start);
                     try {
@@ -97,11 +98,11 @@ namespace Xpand.Persistent.Base.ModelDifference {
             finally {
                 stream.Position = position;
             }
-            foreach (Encoding encoding in ExpectedEncodings) {
+            foreach (Encoding encoding in _expectedEncodings) {
                 string content = encoding.GetString(bytes);
                 Encoding result = GetEncodingFromHeader(content);
                 if (result == null) continue;
-                if (result == encoding) return result;
+                if (ReferenceEquals(result , encoding)) return result;
                 content = result.GetString(bytes);
                 if (GetEncodingFromHeader(content) == null) {
                     throw new InvalidOperationException(
@@ -114,5 +115,27 @@ namespace Xpand.Persistent.Base.ModelDifference {
             return null;
         }
 
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(IEnumerable<ModuleBase> modules) {
+            return ResourceInfos(modules).Where(pair => !pair.Key.EndsWith("Model.DesignedDiffs")).ToDictionary(pair => pair.Key, pair => new StringModelStore(pair.Value.AspectInfos.First().Xml));
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(Func<KeyValuePair<string, ResourceInfo>, bool> func, ModuleList modules) {
+            return ResourceInfos(modules).Where(func).ToDictionary(pair => pair.Key, pair => new StringModelStore(pair.Value.AspectInfos.First().Xml));
+        }
+
+        public static Dictionary<string, ResourceInfo> ResourceInfos(IEnumerable<ModuleBase> modules){
+            var resourceModelCollector = new ResourceModelCollector();
+            var moduleAssemblies = modules.Select(module => module.GetType().Assembly);
+            var assemblies = new[]{typeof (XpandModuleBase).Assembly}.Concat(moduleAssemblies);
+            return resourceModelCollector.Collect(assemblies, "");
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores() {
+            return GetEmbededModelStores(pair => pair.Key.EndsWith(".Xpand"));
+        }
+
+        public static Dictionary<string, StringModelStore> GetEmbededModelStores(Func<KeyValuePair<string, ResourceInfo>, bool> func) {
+            return GetEmbededModelStores(func, ApplicationHelper.Instance.Application.Modules);
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraGrid.Views.BandedGrid;
-using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
@@ -15,17 +14,26 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         public AdvBandedViewLstEditorDynamicModelSynchronizer(AdvBandedListEditor columnViewEditor)
             : base(columnViewEditor) {
             ModelSynchronizerList.Add(new XpandGridListEditorSynchronizer(columnViewEditor));
-            ModelSynchronizerList.Add(new AdvBandedViewOptionsSynchronizer(columnViewEditor));
+            var modelOptionsAdvBandedViews = columnViewEditor.Model.AdvBandedViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters).Concat(new[]{columnViewEditor.Model.OptionsAdvBandedView});
+            foreach (var optionsAdvBandedView in modelOptionsAdvBandedViews){
+                ModelSynchronizerList.Add(new AdvBandedViewOptionsSynchronizer(columnViewEditor,optionsAdvBandedView));
+            }
             ModelSynchronizerList.Add(new AdvBandedColumnOptionsSynchroniser(columnViewEditor));
-            ModelSynchronizerList.Add(new AdvBandedViewGridBandsSynchronizer(columnViewEditor));
-            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(columnViewEditor));
-            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
+            foreach (var optionsAdvBandedView in modelOptionsAdvBandedViews) {
+                ModelSynchronizerList.Add(new AdvBandedViewGridBandsSynchronizer(columnViewEditor, optionsAdvBandedView));
+            }
+            
+            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
+            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));    
         }
     }
 
     public class AdvBandedViewGridBandsSynchronizer : ModelSynchronizer<AdvBandedListEditor, IModelOptionsAdvBandedView> {
         public AdvBandedViewGridBandsSynchronizer(AdvBandedListEditor control)
             : base(control, control.Model.OptionsAdvBandedView) {
+        }
+
+        public AdvBandedViewGridBandsSynchronizer(AdvBandedListEditor component, IModelOptionsAdvBandedView modelNode) : base(component, modelNode){
         }
 
         protected override void ApplyModelCore() {
@@ -49,7 +57,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
             }
         }
 
-        void SynchronizeGridBands(GridBandCollection gridBands) {
+        void SynchronizeGridBands(IEnumerable<DevExpress.XtraGrid.Views.BandedGrid.GridBand> gridBands) {
             foreach (var gridBand in gridBands.OfType<GridBand>()) {
                 gridBand.ModelGridBand.Index = gridBand.VisibleIndex;
                 ApplyModel(gridBand.ModelGridBand, gridBand, SynchronizeValues);
@@ -104,8 +112,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     }
 
     public class AdvBandedViewOptionsSynchronizer : ComponentSynchronizer<DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView, IModelOptionsAdvBandedView> {
-        public AdvBandedViewOptionsSynchronizer(AdvBandedListEditor control)
-            : base(control.GridView, control.Model.OptionsAdvBandedView, ((IColumnViewEditor)control).OverrideViewDesignMode) {
+        public AdvBandedViewOptionsSynchronizer(AdvBandedListEditor control, IModelOptionsAdvBandedView optionsAdvBandedView)
+            : base(control.GridView, optionsAdvBandedView, ((IColumnViewEditor)control).OverrideViewDesignMode) {
         }
     }
 

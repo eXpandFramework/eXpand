@@ -36,7 +36,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CodeFirst</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -44,187 +44,94 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;CodeFirst</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v13.2">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v13.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v13.2.Core">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v13.2.Core">
+    <Reference Include="DevExpress.Persistent.BaseImpl.EF.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v13.2">
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v13.2">
+    <Reference Include="DevExpress.Utils.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v13.2">
+    <Reference Include="DevExpress.XtraEditors.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v13.2">
+    <Reference Include="DevExpress.XtraGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPivotGrid.v13.2">
+    <Reference Include="DevExpress.XtraPivotGrid.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2.Reporting.Extensions">
+    <Reference Include="DevExpress.XtraScheduler.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2">
+    <Reference Include="DevExpress.XtraScheduler.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v13.2.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Chart.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Chart.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ExceptionHandling.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExceptionHandling.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.Win.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ImportWizard.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.IO.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelDifference.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.PivotGrid.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Reports.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Security">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Security.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Validation.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WizardUI.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WizardUI.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.WorldCreator.Win">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.Persistent.Base">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

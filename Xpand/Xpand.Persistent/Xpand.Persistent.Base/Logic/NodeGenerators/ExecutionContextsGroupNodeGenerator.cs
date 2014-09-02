@@ -6,9 +6,4 @@ namespace Xpand.Persistent.Base.Logic.NodeGenerators {
         protected override void GenerateNodesCore(ModelNode node) {
         }
     }
-    public class ActionExecutionContextsGroupNodeGenerator : ModelNodesGeneratorBase {
-        protected override void GenerateNodesCore(ModelNode node) {
-        }
-    }
-
 }

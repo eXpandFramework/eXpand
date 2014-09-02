@@ -1,11 +1,8 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Security.Core;
 
 namespace SecurityTester.Win {
     static class Program {
@@ -16,21 +13,24 @@ namespace SecurityTester.Win {
         static void Main() {
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
+            System.IO.File.Delete("Model.User.xafml");
 #endif
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
-            SecurityTesterWindowsFormsApplication winApplication = new SecurityTesterWindowsFormsApplication();
+            var winApplication = new SecurityTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
+#else
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
             try {
+                winApplication.NewSecurityStrategyComplex();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

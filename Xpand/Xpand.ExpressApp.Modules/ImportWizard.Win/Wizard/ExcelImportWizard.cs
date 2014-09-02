@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
@@ -28,13 +25,26 @@ using Xpand.ExpressApp.ImportWizard.Win.Forms;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
-
+    public delegate void ExcelImportWizardStringToPropertyMap(XPObjectSpace objectSpace, XPMemberInfo prop, string value, ref IXPSimpleObject newObj);
     public partial class ExcelImportWizard : XtraForm {
+
         readonly XafApplication _application;
+        readonly ExcelImportWizardStringToPropertyMap _propertyValueMapper;
+
         #region Initialization
 
-        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase, XafApplication application) {
+        //Extra constructor to enable Value mapping customisation
+        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo,
+            CollectionSourceBase collectionSourceBase, XafApplication application,
+            StringValueMapper valueMapper)
+            : this(objectSpace, typeInfo, collectionSourceBase, application, valueMapper.MapValueToObjectProperty) {
+        }
+
+
+        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase, XafApplication application,
+            ExcelImportWizardStringToPropertyMap propertyValueMapper = null) {
             _application = application;
+            _propertyValueMapper = propertyValueMapper ?? new StringValueMapper().MapValueToObjectProperty;
             //set local variable values
             if (objectSpace == null)
                 throw new ArgumentNullException("objectSpace", Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
@@ -57,13 +67,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             gridLookUpEdit1.Properties.View.OptionsBehavior.AutoPopulateColumns = true;
             gridLookUpEdit1.Properties.DataSource = MappableColumns;
 
-            //var col = gridLookUpEdit2View.Columns.ColumnByFieldName("Mapped");
-            //if (col != null) {
-            //    col.Visible = false;
-            //    col.FilterInfo =
-            //        new ColumnFilterInfo(new BinaryOperator("Mapped", false));
-
-            //}
 
             var mappablePropertyClassInfo
                 = objectSpace.Session.GetClassInfo(typeof(MappableProperty));
@@ -73,15 +76,9 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
                 column.Caption = mappablePropertyClassInfo
                                     .GetMember(column.FieldName).DisplayName;
-                if (column.FieldName == "Mapped") {
+                if (column.FieldName == @"Mapped")
                     column.Visible = false;
-                }
             }
-
-            //col = gridLookUpEdit2View.Columns.ColumnByFieldName("Oid");
-            //if (col != null)
-            //    col.Visible = false;
-
         }
 
 
@@ -89,23 +86,23 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Fill MRU item list with values
         /// </summary>
         private void ExcelImportWizard_Load(object sender, EventArgs e) {
-            _Mus = new MyUserSettings();
-            if (_Mus.MRUItems != null)
-                FileSelectEdit.Properties.Items.AddRange(_Mus.MRUItems);
+            _mus = new MyUserSettings();
+            if (_mus.MRUItems != null)
+                FileSelectEdit.Properties.Items.AddRange(_mus.MRUItems);
         }
         /// <summary>
         /// Save MRU item list with values
         /// </summary>
         private void ExcelImportWizard_FormClosing(object sender, FormClosingEventArgs e) {
-            if (_Mus.MRUItems == null)
-                _Mus.MRUItems = new List<string>();
+            if (_mus.MRUItems == null)
+                _mus.MRUItems = new List<string>();
             else
-                _Mus.MRUItems.Clear();
+                _mus.MRUItems.Clear();
             foreach (var item in FileSelectEdit.Properties.Items) {
-                _Mus.MRUItems.Add(item.ToString());
+                _mus.MRUItems.Add(item.ToString());
             }
 
-            _Mus.Save();
+            _mus.Save();
 
             if (ObjectSpace.Session.InTransaction)
                 ObjectSpace.Session.RollbackTransaction();
@@ -116,38 +113,38 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #endregion
 
-        private MyUserSettings _Mus;
+        private MyUserSettings _mus;
         public XPObjectSpace ObjectSpace { get; private set; }
         public CollectionSourceBase CurrentCollectionSource { get; private set; }
 
         private SpreadsheetDocument ExcelDocument { get; set; }
-        private Sheet _Sheet;
+        private Sheet _sheet;
         public Sheet Sheet {
-            get { return _Sheet; }
+            get { return _sheet; }
             private set {
-                _Sheet = value;
+                _sheet = value;
                 AssignDataSource();
 
             }
         }
 
-        private ImportMap _ImportMap;
+        private ImportMap _importMap;
         public ImportMap ImportMap {
-            get { return _ImportMap; }
+            get { return _importMap; }
             set {
-                _ImportMap = value;
+                _importMap = value;
                 AssingMapping(value);
             }
         }
 
-        private Type _Type;
+        private Type _type;
         public Type Type {
-            get { return _Type; }
-            set {
-                _Type = value;
+            get { return _type; }
+            private set {
+                _type = value;
 
-                if (_Type == null) return;
-                var props = ObjectSpace.Session.GetClassInfo(_Type)
+                if (_type == null) return;
+                var props = ObjectSpace.Session.GetClassInfo(_type)
                                 .PersistentProperties as IEnumerable<XPMemberInfo>;
                 if (props != null)
                     //todo: allow to use only properties that user can modify
@@ -173,7 +170,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         private void AssignDataSource() {
             ((GridView)ExcelSheetPreviewGrid.MainView).Columns.Clear();
-            ExcelSheetPreviewGrid.DataSource = _Sheet == null ? null : _Sheet.DataPreviewTable();
+            ExcelSheetPreviewGrid.DataSource = _sheet == null ? null : _sheet.DataPreviewTable();
         }
 
         #region Page commit
@@ -222,17 +219,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         #endregion
 
         private void InitWizPage1() {
-            //MappeablePropertiesCollection.AddRange(MappableColumns.ToList());
 
-
-            repositoryItemGridLookUpEdit.DataSource = MappableColumns;//.ToList();
-            repositoryItemGridLookUpEdit.DisplayMember = "Name";
-            repositoryItemGridLookUpEdit.ValueMember = "Name";
-            // repositoryItemGridLookUpEdit1View. = MappableColumns;
-            //repositoryItemGridLookUpEdit1View.DisplayMember = "Name";
-            //repositoryItemGridLookUpEdit1View.ValueMember = "Name";
-
-
+            repositoryItemGridLookUpEdit.DataSource = MappableColumns;
+            repositoryItemGridLookUpEdit.DisplayMember = @"Name";
+            repositoryItemGridLookUpEdit.ValueMember = @"Name";
 
             ImportMapLookUp.Properties.DataSource = ImportMapsCollection.ToList();
             ImportMapLookUp.EditValue = null;
@@ -244,20 +234,21 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 throw new InvalidDataException(Resources.ExcelImportWizard_InitWizPage1_Duplicate_column_names_found__please_fix_excel_column_names);
 
             //Assign data for Mapping Grid
-            var dt = _Sheet.DataPreviewTable().Transpose();
+            var dt = _sheet.DataPreviewTable().Transpose();
 
-            dt.RowChanged -= dt_RowChanged;
+            dt.RowChanged -= MappingGrid_RowChanged;
             var mappingGirdView = ((BandedGridView)MappingGrid.MainView);
 
             mappingGirdView.Columns.Clear();
             mappingGirdView.BestFitColumns();
             MappingGrid.DataSource = dt;
 
-            gridControl2_DataSourceChanged();
+            Initialize_GridControl2_AfterDataSourceChanged();
+
             //Register to Mapping data table change events
             //this will be used to synch grid data with Import map object
-            dt.RowChanged += dt_RowChanged;
-            dt_RowChanged(dt, null);
+            dt.RowChanged += MappingGrid_RowChanged;
+            MappingGrid_RowChanged(dt, null);
 
 
         }
@@ -269,10 +260,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void dt_RowChanged(object sender, DataRowChangeEventArgs e) {
+        void MappingGrid_RowChanged(object sender, DataRowChangeEventArgs e) {
             //when saved map is selected and something changes in the grid
             //changes radio selection to a custom map
-            if (!_IgnoreDtChanges && MappingRadioGroup.SelectedIndex != 1)
+            if (!_ignoreDtChanges && MappingRadioGroup.SelectedIndex != 1)
                 MappingRadioGroup.SelectedIndex = 1;
 
             var allowNext = false;
@@ -325,7 +316,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Takes care of how data is displayed in the Mapping grid
         /// Moves corresponding columns to corresponding bands
         /// </summary>
-        private void gridControl2_DataSourceChanged() {
+        private void Initialize_GridControl2_AfterDataSourceChanged() {
             //Banded Grid Control that prepared data for mapping
 
             var bands = ((BandedGridView)MappingGrid.MainView).Bands;
@@ -337,17 +328,19 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             foreach (BandedGridColumn col in cols) {
                 if (col.AbsoluteIndex != 0 && col.AbsoluteIndex != cols.Count - 1) {
                     //move value columns to Values band
-                    col.OwnerBand = bands["Values"];
+                    col.OwnerBand = bands[@"Values"];
                 }
                 if (col.AbsoluteIndex == cols.Count - 1) {
                     //Moves the LAST !!! column to Mapping band
-                    col.OwnerBand = bands["MapTo"];
+                    col.OwnerBand = bands[@"MapTo"];
                     col.ColumnEdit = repositoryItemGridLookUpEdit;
                     col.Width = 100;
                 }
 
             }
         }
+
+        #region UI Event Handlers
 
         /// <summary>
         /// File select editor, drop down button click
@@ -377,7 +370,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             if (string.IsNullOrEmpty(edit.Text) || !new FileInfo(edit.Text).Exists) {
                 SheetSelectEdit.Properties.DataSource = null;
                 SheetSelectEdit.EditValue = null;
-            } else {
+            }
+            else {
                 try {
                     ExcelDocument = SpreadsheetDocument.Open(edit.Text, false);
 
@@ -389,7 +383,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                         SheetSelectEdit.EditValue = sheets.FirstOrDefault();
 
                     ImportMapDescriptionEdit.Text = (new FileInfo(edit.Text)).Name;
-                } catch {
+                }
+                catch {
                     if (ExcelDocument != null) ExcelDocument.Close();
                     throw;
                 }
@@ -409,11 +404,11 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         private void HeaderRowCheck_CheckedChanged(object sender, EventArgs e) {
             HeaderRowSpinEdit.Enabled = ((CheckEdit)sender).Checked;
             PrieviewRowCountSpinEdit.Enabled = ((CheckEdit)sender).Checked;
-            _Sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
+            _sheet.ColumnHeaderRow = ((CheckEdit)sender).Checked
                                          ?
                                             decimal.ToInt32(HeaderRowSpinEdit.Value)
                                          : (int?)null;
-            _Sheet.PreviewRowCount = ((CheckEdit)sender).Checked
+            _sheet.PreviewRowCount = ((CheckEdit)sender).Checked
                                          ?
                                              decimal.ToInt32(PrieviewRowCountSpinEdit.Value)
                                          :
@@ -428,7 +423,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void HeaderRowSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.ColumnHeaderRow = decimal.ToInt32(((SpinEdit)sender).Value);
+            _sheet.ColumnHeaderRow = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -463,7 +458,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             if (sht != null) {
                 HeaderRowCheck.Checked = false;
                 Sheet = ExcelDocument.Sheets().FirstOrDefault(p => p.OXmlSheet.Name == sht.ToString());
-            } else {
+            }
+            else {
                 HeaderRowCheck.Checked = false;
                 Sheet = null;
             }
@@ -487,7 +483,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
 
         private void PrieviewRowCountSpinEdit_EditValueChanged(object sender, EventArgs e) {
-            _Sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
+            _sheet.PreviewRowCount = decimal.ToInt32(((SpinEdit)sender).Value);
             AssignDataSource();
         }
 
@@ -508,7 +504,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                         ////var im = Hellper.Clone(ImportMap, Session);
                         ////var im = ImportMap.Clone(typeof (ImportMap));
                         //ImportMap = (ImportMap)cc;
-                    } else ImportMap = new ImportMap(ObjectSpace.Session);
+                    }
+                    else ImportMap = new ImportMap(ObjectSpace.Session);
 
                     break;
                 default:
@@ -517,66 +514,6 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
 
         }
-
-        #region Mapping Procedures
-
-        private bool _IgnoreDtChanges;
-        private void AssingMapping(ImportMap importMap) {
-            _IgnoreDtChanges = true;
-            var dt = MappingGrid.DataSource as DataTable;
-            if (dt == null || importMap == null) return;
-
-            var rows = dt.Rows;
-
-            for (var i = 0; i < rows.Count; i++) {
-                if (!string.IsNullOrEmpty(rows[i][dt.Columns.Count - 1].ToString())) continue;
-
-                var index = i;
-                var mapping = importMap.Mappings.FirstOrDefault(p => p.Column == rows[index][0].ToString());
-
-                if (mapping != null) {
-                    var mapedTo = mapping.MapedTo;
-                    dt.Rows[i][dt.Columns.Count - 1] = mapedTo;
-                    var mappableCol = MappableColumns.FirstOrDefault(p => p.Name == mapedTo);
-                    if (mappableCol != null) mappableCol.Mapped = true;
-                }
-
-                dt.Rows[i][dt.Columns.Count - 1] = null;
-
-
-            }
-            _IgnoreDtChanges = false;
-        }
-
-        private void GuesMappings() {
-            var dt = MappingGrid.DataSource as DataTable;
-            if (dt == null || ImportMap == null) return;
-
-            var rows = dt.Rows;
-
-            //ImportMap.Changed += ImportMap_Changed;
-
-
-            for (var i = 0; i < rows.Count; i++) {
-                var dataRow = rows[i];
-                var mapsTo =
-                    (object)MappableColumns
-                                .Where(p => p.Name.ToUpper().Replace(" ", "").Replace("_", "")
-                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(" ", "").Replace("_", "") ||
-                                    p.DisplayName.ToUpper().Replace(" ", "").Replace("_", "")
-                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(" ", "").Replace("_", ""))
-                                .Select(p => p.Name)
-                                .FirstOrDefault()
-                    ;
-
-                dt.Rows[i][dataRow.ItemArray.Length - 1] = mapsTo != null ? mapsTo.ToString() : null;
-
-            }
-
-        }
-
-
-        #endregion
 
         private void textEdit1_TextChanged(object sender, EventArgs e) {
             wizardPage2.AllowNext = ImportMapDescriptionEdit.Text != string.Empty;
@@ -594,300 +531,10 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             InitWizPage1();
         }
 
-
-        #region Import Data
-
-        private BackgroundWorker _BgWorker;
-        private ProgressForm _FrmProgress;
-
-
-        private void ImportButton_Click(object sender, EventArgs e) {
-
-            var rowCount = Sheet.Rows().Count();
-            if (Sheet.ColumnHeaderRow != null)
-                rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
-
-            _FrmProgress = new ProgressForm(Resources.ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___, rowCount, "Processing record {0} of {1} ");
-            _FrmProgress.CancelClick += FrmProgressCancelClick;
-
-            _BgWorker = new BackgroundWorker {
-                WorkerSupportsCancellation = true,
-                WorkerReportsProgress = true
-            };
-
-            _BgWorker.RunWorkerCompleted += BgWorkerRunWorkerCompleted;
-            _BgWorker.ProgressChanged += BgWorkerProgressChanged;
-            _BgWorker.DoWork += BgWorkerDoWork;
-
-            _BgWorker.RunWorkerAsync(Sheet.Rows());
-
-            _FrmProgress.ShowDialog();
-
-
-        }
-
-        #region Progress Events
-        private void BgWorkerProgressChanged(object sender, ProgressChangedEventArgs e) {
-
-
-            if (_FrmProgress != null)
-                _FrmProgress.DoProgress(e.ProgressPercentage);
-
-            SetMemoText(e.UserState.ToString());
-
-        }
-
-        private delegate void SetMemoTextDelegate(string text);
-
-        public void SetMemoText(string text) {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (ResultsMemoEdit.InvokeRequired) {
-                var d = new SetMemoTextDelegate(SetMemoText);
-                Invoke(d, new object[] { text });
-            } else {
-                ResultsMemoEdit.Text += Environment.NewLine + text;
-                ResultsMemoEdit.Select(ResultsMemoEdit.Text.Length,
-                                       ResultsMemoEdit.Text.Length);
-                ResultsMemoEdit.ScrollToCaret();
-            }
-        }
-
-        private void FrmProgressCancelClick(object sender, EventArgs e) {
-            _BgWorker.CancelAsync();
-        }
-
-        private void BgWorkerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-
-            _FrmProgress.Close();
-
-            if (e.Cancelled) {
-                ObjectSpace.Rollback();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_cancelled, Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Work_Canceled, MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation);
-            } else if (e.Error != null) {
-                ObjectSpace.Rollback();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error__Details__ + e.Error, Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else {
-                ObjectSpace.CommitChanges();
-                XtraMessageBox.Show(Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_completed__Results__ + e.Result);
-            }
-
-            WizardControl.SelectedPage = completionWizardPage1;
-        }
-
-        #endregion
-
-        private void BgWorkerDoWork(object sender, DoWorkEventArgs e) {
-            ProccesExcellRows((IEnumerable<Row>)e.Argument, ObjectSpace, e);
-        }
-
-        private static Object GetCollectionOwner(Object masterObject, IMemberInfo memberInfo) {
-            return memberInfo.GetOwnerInstance(masterObject);
-        }
-
-
-        private void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
-            var newObjectTypeInfo = XafTypesInfo.Instance.FindTypeInfo(newObject.GetType());
-            if ((currentCollectionSource != null) && currentCollectionSource.ObjectTypeInfo.IsAssignableFrom(newObjectTypeInfo)) {
-                if (objectSpace == currentCollectionSource.ObjectSpace) {
-                    currentCollectionSource.Add(newObject);
-                } else {
-                    var propertyCollectionSource = (currentCollectionSource as PropertyCollectionSource);
-                    if ((propertyCollectionSource != null) && (propertyCollectionSource.MasterObject != null)) {
-                        Object collectionOwner;
-                        IMemberInfo memberInfo = null;
-                        if (propertyCollectionSource.MemberInfo.GetPath().Count > 1) {
-                            collectionOwner = GetCollectionOwner(propertyCollectionSource.MasterObject, propertyCollectionSource.MemberInfo);
-                            if (collectionOwner != null) {
-                                memberInfo = XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).FindMember(propertyCollectionSource.MemberInfo.LastMember.Name);
-                            }
-                        } else {
-                            collectionOwner = propertyCollectionSource.MasterObject;
-                            memberInfo = propertyCollectionSource.MemberInfo;
-                        }
-                        if ((collectionOwner != null) && XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).IsPersistent) {
-                            var collectionSource = _application.CreatePropertyCollectionSource(objectSpace, null, objectSpace.GetObject(collectionOwner), memberInfo, "", CollectionSourceMode.Normal);
-                            collectionSource.Add(newObject);
-                        }
-                    }
-                }
-            }
-        }
-
-        public void ProccesExcellRows(IEnumerable records, XPObjectSpace objectSpace, DoWorkEventArgs e) {
-
-            var i = 0;
-
-            //for every row in excel sheet
-            foreach (Row record in records) {
-                ++i;
-                if (i == 1) continue;
-                if (_BgWorker.CancellationPending) { e.Cancel = true; break; }
-
-                //var os = new ObjectSpace(objectSpace, XafTypesInfo.Instance);
-                object newObj = null;
-
-                //check if row contains Oid
-
-                //get key property name of the object type being imported
-                var kp = objectSpace.GetKeyPropertyName(Type);
-                //check if it exists in excel and is mapped ?
-                var idMapping = ImportMap.Mappings.FirstOrDefault(p => p.MapedTo == kp);
-                if (idMapping != null && GetQString(record[idMapping.Column].Value) != string.Empty) {
-                    try {
-                        //find existing object
-                        var val = record[idMapping.Column];
-                        var gwid = new Guid(GetQString(val.Value));
-                        newObj = objectSpace.FindObject(Type, new BinaryOperator(kp, gwid), true);
-                    } catch {
-
-                    }
-                }
-                if (newObj == null) //create a new instance
-                    newObj = objectSpace.CreateObject(Type) as IXPSimpleObject;
-
-                string message;
-                if (newObj != null) {
-                    var props = ((IXPSimpleObject)newObj).ClassInfo.PersistentProperties
-                        .OfType<XPMemberInfo>().ToList();
-
-
-                    foreach (var mapping in ImportMap.Mappings) {
-                        if (_BgWorker.CancellationPending) { e.Cancel = true; break; }
-                        Application.DoEvents();
-
-                        var mapping1 = mapping;
-                        var prop = props.FirstOrDefault(p => p.Name == mapping1.MapedTo);
-
-                        try {
-                            var val = record[mapping.Column];
-                            // continue;
-
-                            if (val != null) {
-                                //if simple property
-                                if (prop.ReferenceType == null && !prop.MemberType.IsEnum) {
-                                    var isNullable = prop.MemberType.IsGenericType && prop.MemberType.GetGenericTypeDefinition() == typeof(Nullable<>);
-                                    object convertedValue = null;
-
-                                    if (prop.MemberType == null) return;
-
-                                    if (isNullable) {
-                                        if (prop.StorageType == typeof(int)) {
-                                            int number;
-                                            if (val.Value != String.Empty && Int32.TryParse(val.Value, out number))
-                                                convertedValue = number;
-
-                                        } else if (prop.StorageType == typeof(DateTime)) {
-                                            if (val.Value != string.Empty) {
-                                                //Include validate
-                                                var dt = DateTime.FromOADate(Convert.ToDouble(val.Value));
-                                                convertedValue = dt;
-                                            }
-                                        } else if (prop.StorageType == typeof(double)) {
-                                            double number;
-                                            var rez = Double.TryParse(val.Value, out number);
-                                            if (rez) convertedValue = number;
-                                        }
-                                    } else {
-                                        if (prop.MemberType.IsEnum) {
-                                            prop.SetValue(newObj, Enum.Parse(prop.MemberType, val.Value));
-                                        } else if (prop.MemberType == typeof(char))
-                                            convertedValue = Convert.ChangeType(GetQString(val.Value), prop.MemberType);
-                                        else if (prop.StorageType == typeof(int)) {
-                                            int number;
-                                            if (val.Value != String.Empty && Int32.TryParse(val.Value, out number))
-                                                convertedValue = number;
-                                            else
-                                                convertedValue = 0;
-                                        } else if (prop.MemberType == typeof(Guid))
-                                            convertedValue = new Guid(GetQString(val.Value));
-                                        else if (prop.StorageType == typeof(DateTime)) {
-                                            if (val.Value != string.Empty) {
-                                                //Include validate
-                                                var dt = DateTime.FromOADate(Convert.ToDouble(val.Value));
-                                                convertedValue = dt;
-                                            }
-                                        } else if (prop.MemberType == typeof(double)) {
-                                            double number;
-                                            //  Application.CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
-                                            var rez = Double.TryParse(val.Value, NumberStyles.Number, new NumberFormatInfo { NumberDecimalSeparator = "." }, out number);
-                                            if (rez) convertedValue = number;
-                                        } else if (prop.MemberType == typeof(bool)) {
-                                            if (val.Value != string.Empty && (val.Value.Length == 1 || val.Value.ToLower() == "true" || val.Value.ToLower() == "false")) {
-                                                bool truefalse;
-                                                if (val.Value.ToLower() == "true" || val.Value.ToLower() == "false")
-                                                    truefalse = Convert.ToBoolean(val.Value);
-                                                else
-                                                    truefalse = Convert.ToBoolean(Convert.ToInt32(val.Value));
-                                                convertedValue = truefalse;
-                                            }
-                                        } else
-                                            convertedValue = Convert.ChangeType(val.Value, prop.MemberType);
-                                    }
-
-                                    if (convertedValue != null) {
-                                        if (convertedValue is double)
-                                            convertedValue = Math.Round((double)convertedValue, 2, MidpointRounding.ToEven);
-
-                                        prop.SetValue(newObj, convertedValue);
-                                    }
-                                }
-                                //if referenced property
-                                if (prop.ReferenceType != null) {
-
-                                    //if other referenced type
-                                    if (prop.MemberType.IsSubclassOf(typeof(XPBaseObject))) {
-                                        var text = val.Value;
-                                        var typ = prop.MemberType;
-                                        var mval = ImportWizard.Helper.GetXpObjectByKeyValue(objectSpace, text, typ);
-                                        prop.SetValue(newObj, objectSpace.GetObject(mval));
-                                    }
-                                }
-
-                            }
-
-                        } catch (Exception ee) {
-                            message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Error_processing_record__0____1_, i - 1, ee);
-                            _BgWorker.ReportProgress(0, message);
-                        }
-
-                        if (CurrentCollectionSource != null)
-                            AddNewObjectToCollectionSource(CurrentCollectionSource, newObj, ObjectSpace);
-                        ObjectSpace.Session.Save(newObj);
-                    }
-                }
-
-                objectSpace.CommitChanges();
-                message = string.Format(Resources.ExcelImportWizard_ProccesExcellRows_Importing_record__0__succesfull_, i - 1);
-                _BgWorker.ReportProgress(1, message);
-                Application.DoEvents();
-            }
-        }
-
-        #endregion
-
         private void radioGroup2_EditValueChanged(object sender, EventArgs e) {
             ImportMapDescriptionEdit.Enabled = (bool)radioGroup2.EditValue;
         }
 
-        public string GetQString(string oid) {
-            try {
-                var s1 = oid.IndexOf("'", StringComparison.Ordinal);
-                var s2 = oid.IndexOf("'", s1 + 1, StringComparison.Ordinal);
-                var s3 = oid.Substring(s1 + 1, s2 - 1);
-                return s3;
-            } catch (Exception) {
-
-                return string.Empty;
-            }
-
-        }
-
-        private void mappablePropertyBindingSource_CurrentChanged(object sender, EventArgs e) {
-
-        }
         /// <summary>
         /// Clear the MapsTo column Cell
         /// </summary>
@@ -914,8 +561,126 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             mainView.UpdateCurrentRow();
         }
 
+        #endregion
+
+        #region Mapping Procedures
+
+        private bool _ignoreDtChanges;
+        private void AssingMapping(ImportMap importMap) {
+            _ignoreDtChanges = true;
+            var dt = MappingGrid.DataSource as DataTable;
+            if (dt == null || importMap == null) return;
+
+            var rows = dt.Rows;
+
+            for (var i = 0; i < rows.Count; i++) {
+                if (!string.IsNullOrEmpty(rows[i][dt.Columns.Count - 1].ToString())) continue;
+
+                var index = i;
+                var mapping = importMap.Mappings.FirstOrDefault(p => p.Column == rows[index][0].ToString());
+
+                if (mapping != null) {
+                    var mapedTo = mapping.MapedTo;
+                    dt.Rows[i][dt.Columns.Count - 1] = mapedTo;
+                    var mappableCol = MappableColumns.FirstOrDefault(p => p.Name == mapedTo);
+                    if (mappableCol != null) mappableCol.Mapped = true;
+                }
+
+                dt.Rows[i][dt.Columns.Count - 1] = null;
+            }
+            _ignoreDtChanges = false;
+        }
+
+        private void GuesMappings() {
+            var dt = MappingGrid.DataSource as DataTable;
+            if (dt == null || ImportMap == null) return;
+
+            var rows = dt.Rows;
+
+            for (var i = 0; i < rows.Count; i++) {
+                var dataRow = rows[i];
+                var mapsTo =
+                    (object)MappableColumns
+                                .Where(p => p.Name.ToUpper().Replace(@" ", "").Replace(@"_", "")
+                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(@" ", "").Replace(@"_", "") ||
+                                    p.DisplayName.ToUpper().Replace(@" ", "").Replace(@"_", "")
+                                    == dataRow.ItemArray.First().ToString().ToUpper().Replace(@" ", "").Replace(@"_", ""))
+                                .Select(p => p.Name)
+                                .FirstOrDefault()
+                    ;
+
+                dt.Rows[i][dataRow.ItemArray.Length - 1] = mapsTo != null ? mapsTo.ToString() : null;
+            }
+        }
 
 
+        #endregion
+
+        #region Import Data
+
+        private BackgroundWorker _bgWorker;
+        private ProgressForm _frmProgress;
+
+
+        private void ImportButton_Click(object sender, EventArgs e) {
+
+            var rowCount = Sheet.Rows().Count();
+            if (Sheet.ColumnHeaderRow != null)
+                rowCount = (int)(rowCount - Sheet.ColumnHeaderRow);
+
+            _frmProgress = new ProgressForm(Resources.ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___, rowCount, @"Processing record {0} of {1} ");
+            _frmProgress.CancelClick += FrmProgressCancelClick;
+
+            _bgWorker = new BackgroundWorker {
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
+            };
+
+            _bgWorker.RunWorkerCompleted += BgWorkerRunWorkerCompleted;
+            _bgWorker.ProgressChanged += BgWorkerProgressChanged;
+            _bgWorker.DoWork += BgWorkerDoWork;
+
+            _bgWorker.RunWorkerAsync(new WorkerArgs(Sheet.Rows(),Sheet.ColumnHeaderRow));
+
+            _frmProgress.ShowDialog();
+
+        }
+
+        private void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
+            var newObjectTypeInfo = XafTypesInfo.Instance.FindTypeInfo(newObject.GetType());
+            if ((currentCollectionSource == null) ||
+                !currentCollectionSource.ObjectTypeInfo.IsAssignableFrom(newObjectTypeInfo)) return;
+
+            if (objectSpace == currentCollectionSource.ObjectSpace)
+                currentCollectionSource.Add(newObject);
+            else {
+                var propertyCollectionSource = (currentCollectionSource as PropertyCollectionSource);
+                if ((propertyCollectionSource != null) && (propertyCollectionSource.MasterObject != null)) {
+                    Object collectionOwner;
+                    IMemberInfo memberInfo = null;
+                    if (propertyCollectionSource.MemberInfo.GetPath().Count > 1) {
+                        collectionOwner = ImportUtils.GetCollectionOwner(propertyCollectionSource.MasterObject,
+                            propertyCollectionSource.MemberInfo);
+                        if (collectionOwner != null)
+                            memberInfo =
+                                XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType())
+                                    .FindMember(propertyCollectionSource.MemberInfo.LastMember.Name);
+                    }
+                    else {
+                        collectionOwner = propertyCollectionSource.MasterObject;
+                        memberInfo = propertyCollectionSource.MemberInfo;
+                    }
+                    if ((collectionOwner != null) &&
+                        XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).IsPersistent) {
+                        var collectionSource = _application.CreatePropertyCollectionSource(objectSpace, null,
+                            objectSpace.GetObject(collectionOwner), memberInfo, "", CollectionSourceMode.Normal);
+                        collectionSource.Add(newObject);
+                    }
+                }
+            }
+        }
+
+        #endregion
 
     }
 

@@ -255,7 +255,8 @@ namespace Xpand.Utils.Win32 {
         #endregion
         #region Focus enum
         public enum Focus {
-            WM_SETFOCUS = 7
+            WM_SETFOCUS = 7,
+            WM_KILLFOCUS = 0x0008
         }
         #endregion
         #region HWNDEnum enum

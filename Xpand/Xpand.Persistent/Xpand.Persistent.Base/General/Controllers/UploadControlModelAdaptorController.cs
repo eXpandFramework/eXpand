@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.Web.ASPxClasses;
@@ -14,7 +15,27 @@ namespace Xpand.Persistent.Base.General.Controllers {
         IModelUploadControl UploadControl { get; }
     }
 
-    public interface IModelUploadControl:IModelNode {
+    [ModelNodesGenerator(typeof(ModelUploadControlAdaptersNodeGenerator))]
+    public interface IModelUploadControlModelAdapters : IModelList<IModelUploadControlModelAdapter>, IModelNode {
+
+    }
+
+    public class ModelUploadControlAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelUploadControl, IModelUploadControlModelAdapter> {
+    }
+
+    [ModelDisplayName("Adapter")]
+    public interface IModelUploadControlModelAdapter : IModelCommonModelAdapter<IModelUploadControl> {
+    }
+
+    [DomainLogic(typeof(IModelUploadControlModelAdapter))]
+    public class ModelUploadControlModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelUploadControl> {
+        public static IModelList<IModelUploadControl> Get_ModelAdapters(IModelUploadControlModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
+    }
+
+    public interface IModelUploadControl : IModelModelAdapter {
+        IModelUploadControlModelAdapters ModelAdapters { get; }
     }
 
     public interface IASPxPropertyEditorUploadControlProvider {

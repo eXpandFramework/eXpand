@@ -1,7 +1,4 @@
-using System;
 using System.ComponentModel;
-using System.IO;
-using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -27,27 +24,8 @@ namespace Xpand.ExpressApp.PivotChart {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PivotChart");
-            try {
-                if (RuntimeMode) {
-                    AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
-                    Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
-                    Application.TypesInfo.LoadTypes(assembly);
-                    var info = Application.TypesInfo.FindTypeInfo("DevExpress.Persistent.BaseImpl.Analysis");
-                    if (info==null)
-                        throw new FileNotFoundException();
-                    Type typeInfo = info.Type;
-                    AdditionalExportedTypes.Add(typeInfo);
-                }
-            }
-            catch (FileNotFoundException) {
-                throw new FileNotFoundException(
-                    "Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-            }
-            finally {
-                AppDomain.CurrentDomain.AssemblyResolve-=DXAssemblyResolve;
-            }
+            LoadDxBaseImplType("DevExpress.Persistent.BaseImpl.Analysis");
         }
-
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

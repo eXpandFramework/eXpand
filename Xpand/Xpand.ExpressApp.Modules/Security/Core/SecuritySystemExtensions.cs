@@ -43,6 +43,24 @@ namespace Xpand.ExpressApp.Security.Core {
     }
     public static class SecuritySystemExtensions {
 
+        public static void NewSecurityStrategyComplex<TAuthentation, TLogonParameter>(this XafApplication application, Type userType = null, Type roleType = null)
+            where TAuthentation : AuthenticationBase {
+                application.NewSecurityStrategyComplex(typeof(TAuthentation), typeof(TLogonParameter), userType ?? typeof(SecuritySystemUser),roleType??typeof(SecuritySystemRole));
+        }
+
+        public static void NewSecurityStrategyComplex(this XafApplication application,Type authethicationType=null, Type logonParametersType=null,Type userType=null,Type roleType=null){
+            logonParametersType = logonParametersType ?? typeof(XpandLogonParameters);
+            userType = userType??typeof(XpandUser);
+            AuthenticationStandard authenticationStandard = new XpandAuthenticationStandard(userType, logonParametersType);
+            if(authethicationType!=null){
+                authenticationStandard = (AuthenticationStandard)authethicationType.CreateInstance();
+                authenticationStandard.UserType = userType;
+                authenticationStandard.LogonParametersType = logonParametersType;
+            }
+            var security = new SecurityStrategyComplex(userType, roleType??typeof(XpandRole), authenticationStandard);
+            application.Security=security;
+        }
+
         public static SecuritySystemRoleBase GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
@@ -88,7 +106,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var user2 = (ISecurityUserWithRoles)objectSpace.CreateObject(SecuritySystem.UserType);
             var typeInfo = objectSpace.TypesInfo.FindTypeInfo(user2.GetType());
             typeInfo.FindMember("UserName").SetValue(user2, userName);
-            user2.CallMethod("SetPassword", new object[]{passWord});
+            user2.CallMethod("SetPassword",new[]{typeof(string)}, new object[]{passWord});
             var roleCollection = (XPBaseCollection)typeInfo.FindMember("Roles").GetValue(user2);
             foreach (var role in roles) {
                 roleCollection.BaseAdd(role);

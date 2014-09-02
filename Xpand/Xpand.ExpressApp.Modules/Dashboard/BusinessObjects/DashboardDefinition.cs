@@ -110,7 +110,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         void UpdateTargetObjectTypes() {
             _targetObjectTypes = "<Types>\r\n";
-            foreach (TypeWrapper resource in DashboardTypes.Distinct())
+            foreach (var resource in DashboardTypes.Distinct())
                 _targetObjectTypes += string.Format("<Value Type=\"{0}\"/>\r\n", resource.Type.FullName);
             _targetObjectTypes += "</Types>";
         }

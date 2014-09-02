@@ -28,6 +28,7 @@ namespace ViewVariantsTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(ViewVariantsTester.Module.ViewVariantsTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
 
         }
 

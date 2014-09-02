@@ -27,7 +27,10 @@ namespace FeatureCenter.Module {
         }
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-
+#if EASYTEST
+            if (XpandModuleBase.IsHosted)
+                return;
+#endif
             var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WhatsNewAttribute>() != null).OrderBy(typeInfo => typeInfo.FindAttribute<WhatsNewAttribute>().Date);
             foreach (var typeInfo in typeInfos) {
                 var whatsNewAttribute = typeInfo.FindAttribute<WhatsNewAttribute>();

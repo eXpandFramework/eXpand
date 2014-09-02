@@ -9,11 +9,8 @@ using Project = EnvDTE.Project;
 namespace XpandAddIns.ModelEditor {
     public class ProjectWrapperBuilder {
         static IEnumerable<Project> GetProjects() {
-            IEnumerable<Project> projects = CodeRush.Solution.AllProjects.Select(project => CodeRush.Solution.FindEnvDTEProject(project.Name));
-
-            projects = projects.Where(project => project.ConfigurationManager != null && project.ProjectItems != null &&
-                                                 project.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.EndsWith(".xafml")));
-            return projects;
+            var projects = CodeRush.Solution.AllProjects.Select(project => CodeRush.Solution.FindEnvDTEProject(project.Name));
+            return projects.Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
         }
 
         static ProjectWrapper ProjectWrapperSelector(ProjectItem item1) {
@@ -28,8 +25,7 @@ namespace XpandAddIns.ModelEditor {
         }
 
         public static IEnumerable<ProjectWrapper> GetProjectWrappers() {
-            IEnumerable<Project> projects = GetProjects().ToList();
-
+            var projects = GetProjects().ToList();
             return GetProjectWrappers(projects);
         }
 
@@ -44,7 +40,7 @@ namespace XpandAddIns.ModelEditor {
         static void GetAllItems(IEnumerable<ProjectItem> projectItems, List<ProjectWrapper> list) {
             foreach (var projectItem in projectItems) {
                 string name = projectItem.Name;
-                if (name.EndsWith(".xafml") && projectItem.FindProperty(ProjectItemProperty.ItemType).Value + "" == "EmbeddedResource" && !name.Contains("Localization") && name.IndexOf(" ") == -1)
+                if (name.EndsWith(".xafml") &&  !name.Contains("Localization") && name.IndexOf(" ", System.StringComparison.Ordinal) == -1)
                     list.Add(ProjectWrapperSelector(projectItem));
                 GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }

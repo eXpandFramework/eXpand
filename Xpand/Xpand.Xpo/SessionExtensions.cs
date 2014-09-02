@@ -112,12 +112,12 @@ namespace Xpand.Xpo {
             return GetCount(session, type, null);
         }
 
-        public static int GetCount<ClassType>(this Session session, CriteriaOperator criteriaOperator) {
-            return (int)session.Evaluate<ClassType>(new AggregateOperand("", Aggregate.Count), criteriaOperator);
+        public static int GetCount<TClassType>(this Session session, CriteriaOperator criteriaOperator) {
+            return (int)session.Evaluate<TClassType>(new AggregateOperand("", Aggregate.Count), criteriaOperator);
         }
 
-        public static int GetCount<ClassType>(this Session session) {
-            return GetCount<ClassType>(session, null);
+        public static int GetCount<TClassType>(this Session session) {
+            return GetCount<TClassType>(session, null);
         }
 
         public static object GetObject(this Session session, PersistentCriteriaEvaluationBehavior behavior, object o) {
@@ -132,17 +132,17 @@ namespace Xpand.Xpo {
             return session.GetObjectByKey(o.GetType(), ((PersistentBase)o).ClassInfo.KeyProperty.GetValue(o));
         }
 
-        public static ClassType FindObject<ClassType>(this Session session, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior, Expression<Func<ClassType, bool>> expression) {
-            return (ClassType)
-                session.FindObject(persistentCriteriaEvaluationBehavior, typeof(ClassType), new XPQuery<ClassType>(session).TransformExpression(expression));
+        public static TClassType FindObject<TClassType>(this Session session, PersistentCriteriaEvaluationBehavior persistentCriteriaEvaluationBehavior, Expression<Func<TClassType, bool>> expression) {
+            return (TClassType)
+                session.FindObject(persistentCriteriaEvaluationBehavior, typeof(TClassType), new XPQuery<TClassType>(session).TransformExpression(expression));
         }
 
-        public static object FindObject<ClassType>(this Session session, Type classType, Expression<Func<ClassType, bool>> expression, bool selectDeleted) {
-            return session.FindObject(classType, new XPQuery<ClassType>(session).TransformExpression(expression),
+        public static object FindObject<TClassType>(this Session session, Type classType, Expression<Func<TClassType, bool>> expression, bool selectDeleted) {
+            return session.FindObject(classType, new XPQuery<TClassType>(session).TransformExpression(expression),
                                       selectDeleted);
         }
-        public static ClassType FindObject<ClassType>(this Session session, Expression<Func<ClassType, bool>> expression) {
-            return (ClassType)session.FindObject(typeof(ClassType), new XPQuery<ClassType>(session).TransformExpression(expression), false);
+        public static TClassType FindObject<TClassType>(this Session session, Expression<Func<TClassType, bool>> expression) {
+            return (TClassType)session.FindObject(typeof(TClassType), new XPQuery<TClassType>(session).TransformExpression(expression), false);
         }
     }
 }

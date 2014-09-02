@@ -1,22 +1,82 @@
-﻿using DevExpress.Persistent.Base;
+﻿using System;
+using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace XpandSystemTester.Module.BusinessObjects{
     [DefaultClassOptions]
     public class Customer : Person{
+        private readonly InitializeIndicator _initializeIndicator;
+        private string _criteria;
+        private string _objectTypeName;
+
         public Customer(Session session)
             : base(session){
+            _initializeIndicator = new InitializeIndicator();
         }
 
-        [Association, Aggregated]
+        [CriteriaOptions("DataType")]
+        [EditorAlias(EditorAliases.CriteriaPropertyEditorEx)]
+        [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof (ObjectValidatorLargeNonDelayedMember))]
+        [VisibleInListView(true)]
+        [ModelDefault("RowCount", "0")]
+        public string Criteria{
+            get { return _criteria; }
+            set { SetPropertyValue("Criteria", ref _criteria, value); }
+        }
+
+        protected bool IsInitializing{
+            get { return _initializeIndicator.IsInitializing; }
+        }
+
+        [TypeConverter(typeof (LocalizedClassInfoTypeConverter))]
+        [ImmediatePostData, NonPersistent]
+        public Type DataType{
+            get{
+                if (_objectTypeName != null){
+                    return ReflectionHelper.GetType(_objectTypeName);
+                }
+                return null;
+            }
+            set{
+                string stringValue = value == null ? null : value.FullName;
+                string savedObjectTypeName = ObjectTypeName;
+                try{
+                    if (stringValue != _objectTypeName){
+                        ObjectTypeName = stringValue;
+                    }
+                }
+                catch (Exception){
+                    ObjectTypeName = savedObjectTypeName;
+                }
+                if (!IsInitializing){
+                    _criteria = null;
+                }
+            }
+        }
+
+        [Browsable(false)]
+        public string ObjectTypeName{
+            get { return _objectTypeName; }
+            set { SetPropertyValue("ObjectTypeName", ref _objectTypeName, value); }
+        }
+
+        [Association, DevExpress.Xpo.Aggregated]
         public XPCollection<SalesVolume> SalesVolumes{
             get { return GetCollection<SalesVolume>("SalesVolumes"); }
         }
     }
 
     [DefaultClassOptions]
+    [XafDefaultProperty("Id")]
     public class SalesVolume : BaseObject{
+        private string _id;
         private Customer _customer;
         private decimal _volume;
 
@@ -24,6 +84,12 @@ namespace XpandSystemTester.Module.BusinessObjects{
 
         public SalesVolume(Session session)
             : base(session){
+        }
+
+
+        public string Id{
+            get { return _id; }
+            set { SetPropertyValue("Id", ref _id, value); }
         }
 
         [Association]
@@ -42,7 +108,7 @@ namespace XpandSystemTester.Module.BusinessObjects{
             set { SetPropertyValue("Volume", ref _volume, value); }
         }
 
-        [Association, Aggregated]
+        [Association, DevExpress.Xpo.Aggregated]
         public XPCollection<SalesVolumeMonth> Months{
             get { return GetCollection<SalesVolumeMonth>("Months"); }
         }

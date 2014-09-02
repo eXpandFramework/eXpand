@@ -153,7 +153,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
-        void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e) {
+        void ViewOnMasterRowGetRelationCount(object sender, MasterRowGetRelationCountEventArgs e){
+            if (e.RowHandle==GridControl.InvalidRowHandle)
+                e.RelationCount = 1;
             var currentObject = ((IMasterDetailColumnView)sender).GetRow(e.RowHandle);
             if (currentObject != null)
                 e.RelationCount = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView)).Count;

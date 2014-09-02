@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
 	<Applications>
 		<!-- Win -->
 		<Application
@@ -10,14 +10,14 @@
 		<!-- Web -->
 		<Application
 			Name="PivotChartTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50019"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/>
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
 		<!-- For IIS -->
 		<!--Application
 			Name="PivotChartTester.Web"
 			Url="http://localhost/PivotChartTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="PivotChartTesterEasyTest" />
@@ -25,8 +25,8 @@
 
 	<Aliases>
 		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WinAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-		<Alias Name="WebAdapterAssemblyName" Value="DevExpress.ExpressApp.EasyTest.WebAdapter.v13.2, Version=13.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\PivotChartTester.Win\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\PivotChartTester.Web" />
 	</Aliases>

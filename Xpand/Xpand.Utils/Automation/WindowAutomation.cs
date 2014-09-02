@@ -15,6 +15,17 @@ namespace Xpand.Utils.Automation {
             }
         }
         #region FocusWindow
+
+        public static void SetReadOnly(){
+            var helperAutomation = new HelperAutomation();
+            SetReadOnly(helperAutomation.GetFocusControlHandle());
+        }
+
+        public static void SetReadOnly(IntPtr windowHandle){
+            const int EM_SETREADONLY = 0x00CF;
+            Win32Declares.Message.SendMessage(windowHandle, EM_SETREADONLY, 1, 0);
+        }
+
         public static bool FocusWindow(IntPtr windowHandle) {
             if (Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle)
                 return true;
@@ -38,9 +49,9 @@ namespace Xpand.Utils.Automation {
             return ret;
         }
 
-        public static void FocusWindow(string caption) {
+        public static bool FocusWindow(string caption) {
             IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, caption);
-            FocusWindow(findWindow);
+            return FocusWindow(findWindow);
         }
         #endregion
         public static Point GetGetWindowPosition(string windowCaption) {
@@ -52,16 +63,30 @@ namespace Xpand.Utils.Automation {
             return position;
         }
 
-        public static bool MoveWindow(string windowCaption, Point newPoisition) {
-            IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
+        public static bool ResizeWindow(IntPtr window, Size newSize){
             Win32Types.RECT lpRect;
-            Win32Declares.Rect.GetWindowRect(findWindow, out lpRect);
+            Win32Declares.Rect.GetWindowRect(window, out lpRect);
             Rectangle rectangle = lpRect.ToRectangle();
-            bool moveWindow = Win32Declares.Window.MoveWindow(findWindow, newPoisition.X, newPoisition.Y, rectangle.Width,
-                                                              rectangle.Height, true);
-            Application.DoEvents();
+            if (newSize.Width!=rectangle.Width||newSize.Height!=rectangle.Height){
+                bool moveWindow = Win32Declares.Window.MoveWindow(window, rectangle.X, rectangle.Y, newSize.Width, newSize.Height, true);
+                Application.DoEvents();
+                return moveWindow;
+            }
+            return true;
+        }
 
+        public static bool MoveWindow(IntPtr window, Point newLocation){
+            Win32Types.RECT lpRect;
+            Win32Declares.Rect.GetWindowRect(window, out lpRect);
+            Rectangle rectangle = lpRect.ToRectangle();
+            bool moveWindow = Win32Declares.Window.MoveWindow(window, newLocation.X, newLocation.Y, rectangle.Width,rectangle.Height, true);
+            Application.DoEvents();
             return moveWindow;
+        }
+
+        public static bool MoveWindow(string windowCaption, Point newLocation) {
+            var findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
+            return MoveWindow(findWindow, newLocation);
         }
 
         public static void MinimizeWindow(IntPtr handle) {
@@ -72,16 +97,23 @@ namespace Xpand.Utils.Automation {
             Win32Declares.Window.ShowWindow(handle, Win32Declares.Window.ShowWindowEnum.SW_SHOWMAXIMIZED);
         }
         #region CloseWindow
-        public static bool CloseWindow(IntPtr windowHandle) {
-            bool destroyWindow = Win32Declares.Window.DestroyWindow(windowHandle);
-            Application.DoEvents();
-            return destroyWindow;
+        public static void CloseWindow(IntPtr windowHandle){
+            Win32Declares.Message.SendMessage(windowHandle, (uint) Win32Constants.Standard.WM_SYSCOMMAND,
+                (int) Win32Constants.Standard.SC_CLOSE, 0);
         }
 
-        public static bool CloseWindow(string windowCaption) {
+        public static void CloseWindow(string windowCaption) {
             IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, windowCaption);
-            return CloseWindow(findWindow);
+            CloseWindow(findWindow);
         }
         #endregion
+
+        public static bool KillFocus(){
+            var helperAutomation = new HelperAutomation();
+            var focusControlHandle = helperAutomation.GetFocusControlHandle();
+            Win32Declares.Message.SendMessage(focusControlHandle,
+                Win32Constants.Focus.WM_KILLFOCUS, IntPtr.Zero, IntPtr.Zero);
+            return helperAutomation.GetFocusControlHandle()!=focusControlHandle;
+        }
     }
 }

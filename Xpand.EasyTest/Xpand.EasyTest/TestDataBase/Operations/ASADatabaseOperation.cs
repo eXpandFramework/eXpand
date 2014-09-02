@@ -4,7 +4,7 @@ using System.IO;
 using DevExpress.EasyTest.Framework;
 using DevExpress.Xpo.DB.Helpers;
 
-namespace Xpand.EasyTest.ASA {
+namespace Xpand.EasyTest.TestDataBase.Operations {
     public class ASADatabaseOperation : IEasyTestDatabaseOperation {
         public void Drop(TestDatabase database) {
             using (var conn = DbConnection(database)) {

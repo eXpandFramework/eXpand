@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="XpandSystemTester">
+  <Views>
+    <ListView Id="HideToolBarObject_Children_ListView" HideToolBar="True" />
+    <DetailView Id="HideToolBarObject_DetailView" HideToolBar="True">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutItem Id="Children" ViewItem="Children" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+          <LayoutGroup Id="Children_Group" Index="1" RelativeSize="93.839835728952778" Removed="True">
+            <LayoutItem Id="Children" ViewItem="Children" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="HideToolBarObject_ListView" HideToolBar="True" />
+  </Views>
+</Application>

@@ -1,0 +1,12 @@
+﻿XAF is a domain specific language that can translate business requirements to technology. Therefore certain artifacts (Controllers,actions,bussiness objects, permission, model etc) exist so we can do the bussiness to technology translation.
+
+This application maps the XAF artifact domain and is applied to the eXpandFramework assemblies (feel free to use it in other XAF frameworks)..
+
+It is amazing how fast you can learn about expandframework by simply going through the navigation views.
+
+Xpand.Docs project follows the usual no code approach and is fully integrated to eXpandFramework continous integration process and distributed from the online repositories.
+
+As you can see in the source code there is a very simple yet powerful configuration through permissions that allows edit only to owned documents you cannot create artifacts since they are auto populated from the parsed assemblies.
+
+
+

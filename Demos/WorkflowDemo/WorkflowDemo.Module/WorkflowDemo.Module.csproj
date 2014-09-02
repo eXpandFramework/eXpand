@@ -35,58 +35,53 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Objects.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v14.1">
+      <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+      <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Activities">
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.ServiceModel">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Xaml">
+    <Reference Include="DevExpress.ExpressApp.Workflow.v14.1">
       <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="System.Xml">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Workflow.Activities.v14.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Dashboard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelAdaptor">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelAdaptor.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState">
       <SpecificVersion>False</SpecificVersion>
@@ -108,6 +103,36 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Activities">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Activities">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Objects\Issue.cs" />
@@ -122,8 +147,9 @@
     <Compile Include="StartWorkflowViaReceiveActivityController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Updater.cs" />
-    <Compile Include="XpandUpdater.cs" />
+    <Compile Include="Updater.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Module.resx">

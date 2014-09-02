@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule.Actions {
     [ModelAbstractClass]
@@ -11,15 +11,19 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
         [Category("eXpand")]
         bool Active { get; set; }
     }
-    public class GlobalActionStateController:WindowController,IModelExtender {
-        protected override void OnActivated() {
-            base.OnActivated();
-            var modelActions = new HashSet<string>(Application.Model.ActionDesign.Actions.Cast<IModelActionState>().Where(state => !state.Active).Select(state => state.Id));
-            var actions = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base => modelActions.Contains(@base.Id));
-            foreach (var action in actions) {
-                action.Active["ModelActiveAttribute"] = false;
+    public class GlobalActionStateController:Controller,IModelExtender {
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            var modelActionStates = Application.Model.ActionDesign.Actions.Cast<IModelActionState>();
+            foreach (var modelActionState in modelActionStates.Where(state => !state.Active)) {
+                var controllerType = Application.TypesInfo.FindTypeInfo(modelActionState.Controller.Name).Type;
+                var actionBase = Frame.GetController(controllerType).Actions[modelActionState.Id];
+                actionBase.Active.BeginUpdate();
+                actionBase.Active["ModelActiveAttribute"] = false;
+                actionBase.Active.EndUpdate();
             }
         }
+
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelAction,IModelActionState>();
         }

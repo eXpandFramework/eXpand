@@ -6,11 +6,11 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.SystemModule {
     public class ChangeLanguageController : WindowController {
-        
-        readonly SingleChoiceAction _chooseLanguage;
-        readonly SingleChoiceAction _chooseFormattingCulture;
+        private readonly SingleChoiceAction _chooseLanguage;
+        private readonly SingleChoiceAction _chooseFormattingCulture;
 
         public ChangeLanguageController() {
+            TargetWindowType=WindowType.Main;
             _chooseLanguage = new SingleChoiceAction(this, "ChooseLanguage", PredefinedCategory.Tools);
             _chooseLanguage.Execute+=ChooseLanguage_Execute;
             _chooseFormattingCulture = new SingleChoiceAction(this, "ChooseFormattingCulture", PredefinedCategory.Tools);
@@ -25,6 +25,14 @@ namespace Xpand.ExpressApp.SystemModule {
                 _chooseFormattingCulture.Items.Add(new ChoiceActionItem(language, null));
                 _chooseLanguage.Items.Add(new ChoiceActionItem(language, null));
             }
+        }
+
+        public SingleChoiceAction ChooseLanguage{
+            get { return _chooseLanguage; }
+        }
+
+        public SingleChoiceAction ChooseFormattingCulture{
+            get { return _chooseFormattingCulture; }
         }
 
         private void ChooseLanguage_Execute(object sender, SingleChoiceActionExecuteEventArgs e) {

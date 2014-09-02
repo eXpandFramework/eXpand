@@ -28,6 +28,8 @@ namespace Xpand.ExpressApp.Scheduler.Model {
     public interface IAppoitmentStorageStatuses : IModelNode {
         IModelAppoitmentStatuses Statuses { get; }
     }
+
+    [ModelDisplayName("Scheduler")]
     public interface IModelOptionsSchedulerEx : IModelOptionsColumnView {
         IModelSchedulerPopupMenus PopupMenus { get; }
     }

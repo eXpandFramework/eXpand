@@ -22,14 +22,25 @@ namespace Xpand.ExpressApp.FilterDataStore.Core {
 
         public static FilterProviderCollection Providers {
             get {
-                if (ValueManager.Value == null)
-                    Initialize();
+                if (ValueManager.Value == null){
+                    ValueManager.Value=new FilterProviderCollection();
+                    if (IsRegistered)
+                        Initialize();
+                }
                 return ValueManager.Value;
             }
         }
 
         public static bool IsRegistered {
-            get { return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null&&!XpandModuleBase.IsLoadingExternalModel(); }
+            get{
+                try{
+                    return (ConfigurationManager.GetSection(FilterProvider) as FilterProviderConfiguration) != null&&!XpandModuleBase.IsLoadingExternalModel();
+                }
+                catch (Exception e){
+                    Tracing.Tracer.LogError(e);
+                    return false;
+                }
+            }
 
         }
 

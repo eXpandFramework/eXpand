@@ -2,14 +2,14 @@
 
 namespace Xpand.Persistent.Base.Xpo {
     public class PatchXpoSpecificFieldNameProcessor : DevExpress.Persistent.Base.CriteriaProcessorBase {
-        readonly System.Collections.Generic.List<string> existingLookupFieldNames;
+        readonly System.Collections.Generic.List<string> _existingLookupFieldNames;
         readonly bool _remove=true;
 
         public PatchXpoSpecificFieldNameProcessor() {
         }
 
         public PatchXpoSpecificFieldNameProcessor(System.Collections.Generic.List<string> existingLookupFieldNames) {
-            this.existingLookupFieldNames = existingLookupFieldNames;
+            _existingLookupFieldNames = existingLookupFieldNames;
             _remove = false;
         }
 
@@ -17,7 +17,7 @@ namespace Xpand.Persistent.Base.Xpo {
             if (!_remove) {
                 if (AggregateLevel == 0 && !theOperand.PropertyName.EndsWith("!")) {
                     string probeLookupFieldName = theOperand.PropertyName + '!';
-                    if (existingLookupFieldNames.Contains(probeLookupFieldName)) {
+                    if (_existingLookupFieldNames.Contains(probeLookupFieldName)) {
                         theOperand.PropertyName = probeLookupFieldName;
                     }
                 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using DevExpress.ExpressApp.FileAttachments.Web;
-using DevExpress.Web.ASPxUploadControl;
 using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.FileAttachment.Web {
@@ -22,7 +21,7 @@ namespace Xpand.ExpressApp.FileAttachment.Web {
                 OnUploadControlProviderCreated(new ASPxPropertyEditorUploadControlProviderArgs(controlProvider));
                 fileDataPropertyEditor.Editor.Load -= eventHandlers[0];
             };
-            fileDataPropertyEditor.Editor.Load+= eventHandlers[0];
+            if (fileDataPropertyEditor.Editor != null) fileDataPropertyEditor.Editor.Load+= eventHandlers[0];
         }
 
     }

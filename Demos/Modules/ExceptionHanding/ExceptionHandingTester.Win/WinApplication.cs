@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
@@ -13,6 +14,11 @@ namespace ExceptionHandingTester.Win {
             DelayedViewItemsInitialization = true;
         }
 
+#if EASYTEST
+        protected override string GetUserCultureName() {
+            return "en-US";
+        }
+#endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
@@ -21,7 +27,7 @@ namespace ExceptionHandingTester.Win {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-            if (true) {
+            if (Debugger.IsAttached) {
                 e.Updater.Update();
                 e.Handled = true;
             } else {

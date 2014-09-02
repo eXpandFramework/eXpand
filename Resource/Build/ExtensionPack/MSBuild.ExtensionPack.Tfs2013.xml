@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSBuild.ExtensionPack.Tfs2013</name>
+    </assembly>
+    <members>
+        <member name="T:MSBuild.ExtensionPack.BaseTask">
+            <summary>
+            Provides a common task for all the MSBuildExtensionPack Tasks
+            </summary>
+        </member>
+        <member name="M:MSBuild.ExtensionPack.BaseTask.Execute">
+            <summary>
+            Executes this instance.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:MSBuild.ExtensionPack.BaseTask.TargetingLocalMachine">
+            <summary>
+            Determines whether the task is targeting the local machine
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:MSBuild.ExtensionPack.BaseTask.TargetingLocalMachine(System.Boolean)">
+            <summary>
+            Determines whether the task is targeting the local machine
+            </summary>
+            <param name="canExecuteRemotely">True if the current TaskAction can run against a remote machine</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:MSBuild.ExtensionPack.BaseTask.InternalExecute">
+            <summary>
+            This is the main InternalExecute method that all tasks should implement
+            </summary>
+            <remarks>
+            LogError should be thrown in the event of errors
+            </remarks>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.TaskAction">
+            <summary>
+            Sets the TaskAction.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.MachineName">
+            <summary>
+            Sets the MachineName.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.UserName">
+            <summary>
+            Sets the UserName
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.UserPassword">
+            <summary>
+            Sets the UserPassword.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.Authority">
+            <summary>
+            Sets the authority to be used to authenticate the specified user.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.AuthenticationLevel">
+            <summary>
+            Sets the authentication level to be used to connect to WMI. Default is Default. Also supports: Call, Connect, None, Packet, PacketIntegrity, PacketPrivacy, Unchanged
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.LogExceptionStack">
+            <summary>
+            Set to true to log the full Exception Stack to the console.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.SuppressTaskMessages">
+            <summary>
+            Set to true to suppress all Message logging by tasks. Errors and Warnings are not affected.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.BaseTask.ErrorOnDeprecated">
+            <summary>
+            Set to true to error if the task has been deprecated
+            </summary>
+        </member>
+        <member name="T:MSBuild.ExtensionPack.Tfs2013.TeamBuild">
+            <summary>
+            <b>Valid TaskActions are:</b>
+            <para><i>GetLatest</i> (<b>Required: </b>TeamFoundationServerUrl, TeamProject <b>Optional: </b>BuildDefinitionName, Status <b>Output: </b>Info)</para>
+            <para><i>Queue</i> (<b>Required: </b>TeamFoundationServerUrl, TeamProject, BuildDefinitionName <b>Optional: </b>DropLocation, CommandLineArguments)</para>
+            <para><i>RelatedChangesets</i> (<b>Required: </b>TeamFoundationServerUrl, TeamProject <b>Optional: </b>BuildUri, BuildDefinitionName <b>Output: </b>Info, RelatedItems)</para>
+            <para><i>RelatedWorkItems</i> (<b>Required: </b>TeamFoundationServerUrl, TeamProject <b>Optional: </b>BuildUri, BuildDefinitionName <b>Output: </b>Info, RelatedItems)</para>
+            <para><b>Remote Execution Support:</b> NA</para>
+            </summary>
+            <example>
+            <code lang="xml"><![CDATA[
+            <Project ToolsVersion="4.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+                <PropertyGroup>
+                    <TPath>$(MSBuildProjectDirectory)\..\MSBuild.ExtensionPack.tasks</TPath>
+                    <TPath Condition="Exists('$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks')">$(MSBuildProjectDirectory)\..\..\Common\MSBuild.ExtensionPack.tasks</TPath>
+                </PropertyGroup>
+                <Import Project="$(TPath)"/>
+                <PropertyGroup>
+                    <TeamFoundationServerUrl>http://YOURSERVER:8080/</TeamFoundationServerUrl>
+                    <TeamProject>YOURPROJECT</TeamProject>
+                    <BuildUri></BuildUri>
+                    <BuildDefinitionName>YOURDEF</BuildDefinitionName>
+                </PropertyGroup>
+                <Target Name="Default">
+                    <!-- Get information on the latest build -->
+                    <MSBuild.ExtensionPack.Tfs2013.TeamBuild TaskAction="GetLatest" TeamFoundationServerUrl="$(TeamFoundationServerUrl)" TeamProject="$(TeamProject)" BuildDefinitionName="$(BuildDefinitionName)">
+                        <Output ItemName="BuildInfo" TaskParameter="Info"/>
+                    </MSBuild.ExtensionPack.Tfs2013.TeamBuild>
+                    <Message Text="BuildDefinitionUri: %(BuildInfo.BuildDefinitionUri)"/>
+                    <Message Text="BuildFinished: %(BuildInfo.BuildFinished)"/>
+                    <Message Text="BuildNumber: %(BuildInfo.BuildNumber)"/>
+                    <Message Text="BuildUri: %(BuildInfo.BuildUri)"/>
+                    <Message Text="CompilationStatus: %(BuildInfo.CompilationStatus)"/>
+                    <Message Text="CompilationSuccess: %(BuildInfo.CompilationSuccess)"/>
+                    <Message Text="DropLocation: %(BuildInfo.DropLocation)"/>
+                    <Message Text="FinishTime: %(BuildInfo.FinishTime)"/>
+                    <Message Text="KeepForever: %(BuildInfo.KeepForever)"/>
+                    <Message Text="LabelName: %(BuildInfo.LabelName)"/>
+                    <Message Text="LastChangedBy: %(BuildInfo.LastChangedBy)"/>
+                    <Message Text="LastChangedOn: %(BuildInfo.LastChangedOn)"/>
+                    <Message Text="LogLocation: %(BuildInfo.LogLocation)"/>
+                    <Message Text="Quality: %(BuildInfo.Quality)"/>
+                    <Message Text="Reason: %(BuildInfo.Reason)"/>
+                    <Message Text="RequestedBy: %(BuildInfo.RequestedBy)"/>
+                    <Message Text="RequestedFor: %(BuildInfo.RequestedFor)"/>
+                    <Message Text="SourceGetVersion: %(BuildInfo.SourceGetVersion)"/>
+                    <Message Text="StartTime: %(BuildInfo.StartTime)"/>
+                    <Message Text="TestStatus: %(BuildInfo.TestStatus)"/>
+                    <Message Text="TestSuccess: %(BuildInfo.TestSuccess)"/>
+                    <!-- Queue a new build -->
+                    <MSBuild.ExtensionPack.Tfs2013.TeamBuild TaskAction="Queue" TeamFoundationServerUrl="$(TeamFoundationServerUrl)" TeamProject="$(TeamProject)" BuildDefinitionName="$(BuildDefinitionName)"/>
+                    <!-- Retrieve Changesets associated with a given build -->
+                    <MSBuild.ExtensionPack.Tfs2013.TeamBuild TaskAction="RelatedChangesets" TeamFoundationServerUrl="$(TeamFoundationServerUrl)" TeamProject="$(TeamProject)" BuildUri="$(BuildUri)" BuildDefinitionName="$(BuildDefinitionName)">
+                        <Output ItemName="Changesets" TaskParameter="RelatedItems"/>
+                    </MSBuild.ExtensionPack.Tfs2013.TeamBuild>
+                    <Message Text="ID = %(Changesets.Identity), Checked In By = %(Changesets.CheckedInBy), URI = %(Changesets.ChangesetUri), Comment = %(Changesets.Comment)"/>
+                    <!-- Retrieve Work Items associated with a given build -->
+                    <MSBuild.ExtensionPack.Tfs2013.TeamBuild TaskAction="RelatedWorkItems" TeamFoundationServerUrl="$(TeamFoundationServerUrl)" TeamProject="$(TeamProject)" BuildUri="$(BuildUri)" BuildDefinitionName="$(BuildDefinitionName)">
+                        <Output ItemName="WorkItems" TaskParameter="RelatedItems"/>
+                    </MSBuild.ExtensionPack.Tfs2013.TeamBuild>
+                    <Message Text="ID = %(Workitems.Identity), Status = %(Workitems.Status), Title = %(Workitems.Title), Type  = %(Workitems.Type), URI = %(Workitems.WorkItemUri), AssignedTo = %(Workitems.AssignedTo)"/>
+                </Target>
+            </Project>
+            ]]></code>    
+            </example>
+        </member>
+        <member name="M:MSBuild.ExtensionPack.Tfs2013.TeamBuild.InternalExecute">
+            <summary>
+            Performs the action of this task.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.TeamFoundationServerUrl">
+            <summary>
+            The Url of the Team Foundation Server.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.TeamProject">
+            <summary>
+            The name of the Team Project containing the build
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.BuildDefinitionName">
+            <summary>
+            The name of the build definition.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.DropLocation">
+            <summary>
+            The name of the Drop folder
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.BuildUri">
+            <summary>
+            Build Uri. Defaults to latest build.
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.Status">
+            <summary>
+            Set the Status property of the build to filter the search. Supports: Failed, InProgress, NotStarted, PartiallySucceeded, Stopped, Succeeded
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.Info">
+            <summary>
+            Gets the Build information
+            </summary>
+        </member>
+        <member name="P:MSBuild.ExtensionPack.Tfs2013.TeamBuild.RelatedItems">
+            <summary>
+            Gets Related items associated with the build
+            </summary>
+        </member>
+    </members>
+</doc>

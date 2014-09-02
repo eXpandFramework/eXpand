@@ -7,6 +7,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public interface IModelGridBand : IModelNode {
         IModelGridBands GridBands { get; }
     }
-
+    [ModelDisplayName("AdvBandedViewOptions")]
     public interface IModelOptionsAdvBandedView : IModelOptionsColumnView {
         IModelGridBands GridBands { get; }
     }
@@ -54,14 +55,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public interface IModelListViewOptionsAdvBandedView : IModelListViewOptionsColumnView {
         [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
         IModelOptionsAdvBandedView OptionsAdvBandedView { get; }
+        [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
+        IModelAdvBandedViewModelAdapters AdvBandedViewModelAdapters { get; }
     }
 
-    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
-        #region Overrides of EditorTypeVisibilityCalculator
-        public override bool IsVisible(IModelNode node, string propertyName) {
-            return typeof(AdvBandedListEditor).IsAssignableFrom(EditorType(node));
-        }
-        #endregion
+    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor> {
     }
 
     public interface IModelAdvBandedViewDesign : IModelLayoutDesignStore {
@@ -69,4 +67,25 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         [DefaultValue("Use the property editor to invoke the designer")]
         string Layout { get; set; }
     }
+
+    [ModelNodesGenerator(typeof(ModelAdvBandedViewAdaptersNodeGenerator))]
+    public interface IModelAdvBandedViewModelAdapters : IModelList<IModelAdvBandedViewModelAdapter>, IModelNode {
+
+    }
+
+    public interface IModelAdvBandedViewModelAdapter : IModelCommonModelAdapter<IModelOptionsAdvBandedView> {
+
+    }
+
+    [DomainLogic(typeof(IModelAdvBandedViewModelAdapter))]
+    public class ModelAdvBandedViewModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelOptionsAdvBandedView> {
+        public static IModelList<IModelOptionsAdvBandedView> Get_ModelAdapters(IModelAdvBandedViewModelAdapter adapter) {
+            return GetModelAdapters(adapter.Application);
+        }
+    }
+
+    public class ModelAdvBandedViewAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsAdvBandedView,IModelAdvBandedViewModelAdapter> {
+
+    }
+
 }

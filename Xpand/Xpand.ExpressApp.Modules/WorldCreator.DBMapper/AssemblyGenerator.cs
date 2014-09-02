@@ -29,13 +29,13 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
         static public IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(IDataStoreSchemaExplorer dataStoreSchemaExplorer) {
             if (dataStoreSchemaExplorer is MSSqlConnectionProvider) {
                 var msSqlConnectionProvider = ((MSSqlConnectionProvider)dataStoreSchemaExplorer);
-                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MSSqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+                dataStoreSchemaExplorer = new Xpo.ConnectionProviders.MSSqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
             } else if (dataStoreSchemaExplorer is OracleConnectionProvider) {
                 var msSqlConnectionProvider = ((OracleConnectionProvider)dataStoreSchemaExplorer);
-                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.OracleConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+                dataStoreSchemaExplorer = new Xpo.ConnectionProviders.OracleConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
             } else if (dataStoreSchemaExplorer is MySqlConnectionProvider) {
                 var msSqlConnectionProvider = ((MySqlConnectionProvider)dataStoreSchemaExplorer);
-                dataStoreSchemaExplorer = new Xpand.Xpo.ConnectionProviders.MySqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
+                dataStoreSchemaExplorer = new Xpo.ConnectionProviders.MySqlConnectionProvider(msSqlConnectionProvider.Connection, msSqlConnectionProvider.AutoCreateOption);
             }
             return dataStoreSchemaExplorer;
         }

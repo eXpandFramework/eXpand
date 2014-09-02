@@ -1,12 +1,11 @@
+using System;
 using System.ComponentModel;
-using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace XpandSystemTester.Module.Web.BusinessObjects{
-    [DefaultClassOptions]
     [DefaultProperty("Title")]
-    public class VerticalDimension : BaseObject{
+    public class VerticalDimension : BaseObject, IComparable{
         // Fields...
         private string _title;
 
@@ -17,6 +16,13 @@ namespace XpandSystemTester.Module.Web.BusinessObjects{
         public string Title{
             get { return _title; }
             set { SetPropertyValue("Title", ref _title, value); }
+        }
+
+        public int CompareTo(object obj){
+            var toCompare = obj as VerticalDimension;
+            if (toCompare != null)
+                return String.Compare(Title, toCompare.Title, StringComparison.Ordinal);
+            return 0;
         }
     }
 }

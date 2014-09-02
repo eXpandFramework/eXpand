@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>13.2.7.3</version>
+    <version>14.1.6.5</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -9,18 +9,19 @@
     <id>eXpandWorldCreatorWeb</id>
     <title>DevExpress eXpandFramework WorldCreator Module (Web)</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Creates dynamic persistent assemblies. The XAF user interface allows us to create an assembly without writing a single line of code. Advanced users can even use c# scripting and create new code generation templates.  
+    <description>Creates dynamic persistent assemblies. The XAF user interface allows us to create an assembly without writing a single line of code. Advanced users can even use c# scripting and create new code generation templates. To debug in VS enable Source Server support under Tools/Options/Debugging. 
 Blogs:
 http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <summary>Design runtime assemblies</summary>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="13.2.7.3" />
-      <dependency id="eXpandWorldCreator" version="13.2.7.3" />
+      <dependency id="eXpandLib" version="14.1.6.5" />
+      <dependency id="eXpandWorldCreator" version="14.1.6.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.Web.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.WorldCreator.Web.pdb" target="lib\net40\Xpand.ExpressApp.WorldCreator.Web.pdb" />
   </files>
 </package>

@@ -6,7 +6,7 @@ using Xpand.ExpressApp.Attributes;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.PivotChart.ShowInAnalysis {
-    public class AttributeRegistrator : Xpand.ExpressApp.Core.AttributeRegistrator {
+    public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
         public override IEnumerable<Attribute> GetAttributes(ITypeInfo typesInfo) {
             if (typesInfo.Type != typeof(OrderLine)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderShowInAnalysis, "1=1", "1=1", Captions.ViewMessageShowInAnalysis, Position.Bottom) { View = "ShowInAnalysis_ListView" };

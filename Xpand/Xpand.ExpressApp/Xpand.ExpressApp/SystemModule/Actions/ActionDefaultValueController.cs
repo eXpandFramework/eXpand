@@ -27,8 +27,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
                 if (actionDefaultValue.Synchronize) {
                     var parametrizedAction = action as ParametrizedAction;
                     if (parametrizedAction != null && !string.IsNullOrEmpty(actionDefaultValue.DefaultValue)) {
-                        parametrizedAction.Value = ReflectionHelper.Convert(actionDefaultValue.DefaultValue,
-                                                                            parametrizedAction.ValueType);
+                        parametrizedAction.Value = ReflectionHelper.Convert(actionDefaultValue.DefaultValue,parametrizedAction.ValueType);
                         parametrizedAction.DoExecute(parametrizedAction.Value);
                     }
                     var singleChoiceAction = action as SingleChoiceAction;

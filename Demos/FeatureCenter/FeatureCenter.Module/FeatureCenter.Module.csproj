@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -61,46 +62,46 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Kpi.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Kpi.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v13.2">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v13.2">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v13.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v13.2">
+    <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v13.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v13.2">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v13.2">
+    <Reference Include="DevExpress.Persistent.Base.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v13.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v13.2">
+    <Reference Include="DevExpress.Xpo.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
@@ -241,7 +242,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs"></Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
+    </Compile>
     <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
     <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
       <SubType>Component</SubType>
@@ -327,7 +329,8 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
+    </Compile>
     <Compile Include="DisplayUpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -361,16 +364,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="WorldCreator\Quartz\NorthWind.xml" />
     <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LowLevelFilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="Functional Tests\Config.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\ReadMe.txt" />
     <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -415,7 +416,6 @@
     <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrator_RoleDifference.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="Functional Tests\Sample.ets" />
     <EmbeddedResource Include="DetailViewControl\ConditionalDetailViews\MDO_ConditionalDetailViews.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -503,6 +503,7 @@
     <EmbeddedResource Include="MessageBox\MDO_MessageBox.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>

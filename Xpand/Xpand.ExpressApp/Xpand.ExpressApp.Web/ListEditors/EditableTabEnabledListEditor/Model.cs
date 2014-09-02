@@ -1,10 +1,15 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
     [ModelAbstractClass]
     public interface IModelColumnSummaryItemEditabledTabEnabled:IModelColumnSummaryItem{
+        [ModelBrowsable(typeof(EditableTabEnabledListEditorVisibilityCalculator))]
         IModelEditableTabEnabledEditorSummaryItem EditableTabEnabledEditorSummaryItem { get; }
+    }
+
+    public class EditableTabEnabledListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<EditableTabEnabledListEditor> {
     }
 
     public interface IModelEditableTabEnabledEditorSummaryItem : IModelNode {

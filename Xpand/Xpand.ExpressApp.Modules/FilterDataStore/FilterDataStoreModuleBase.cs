@@ -20,26 +20,24 @@ using Xpand.Xpo.Filtering;
 namespace Xpand.ExpressApp.FilterDataStore {
     public abstract class FilterDataStoreModuleBase : XpandModuleBase {
         static FilterDataStoreModuleBase() {
-            _tablesDictionary = new Dictionary<string, Type>();
+            TablesDictionary = new Dictionary<string, Type>();
         }
 
-        protected static Dictionary<string, Type> _tablesDictionary;
+        protected static Dictionary<string, Type> TablesDictionary;
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (!IsLoadingExternalModel())
-                application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
             application.SetupComplete+=ApplicationOnSetupComplete;
         }
 
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             if (FilterProviderManager.IsRegistered) {
-                SubscribeToDataStoreProxyEvents();
+                Application.ObjectSpaceCreated+=ApplicationOnObjectSpaceCreated;
             }
         }
 
-        private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
-            if (!(createCustomObjectSpaceProviderEventArgs.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().Any()))
-                Application.CreateCustomObjectSpaceprovider(createCustomObjectSpaceProviderEventArgs);
+        private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs){
+            Application.ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
+            SubscribeToDataStoreProxyEvents();
         }
 
         void SubscribeToDataStoreProxyEvents() {
@@ -48,7 +46,8 @@ namespace Xpand.ExpressApp.FilterDataStore {
                 if (!(objectSpaceProvider is IXpandObjectSpaceProvider)) {
                     throw new NotImplementedException("ObjectSpaceProvider does not implement " + typeof(IXpandObjectSpaceProvider).FullName);
                 }
-                DataStoreProxy proxy = ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.Proxy;
+                IDisposable[] objects;
+                var proxy = (DataStoreProxy) ((IXpandObjectSpaceProvider)objectSpaceProvider).DataStoreProvider.CreateWorkingStore(out objects);
                 proxy.DataStoreModifyData += (o, args) => ModifyData(args.ModificationStatements);
                 proxy.DataStoreSelectData += Proxy_DataStoreSelectData;
                 ProxyEventsSubscribed = true;
@@ -60,13 +59,12 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (FilterProviderManager.IsRegistered && FilterProviderManager.Providers != null) {
-                SubscribeToDataStoreProxyEvents();
                 CreateMembers(typesInfo);
                 foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent && !info.IsInterface)) {
                     var xpClassInfo = XpoTypeInfoSource.GetEntityClassInfo(persistentType.Type);
                     if (xpClassInfo != null && (xpClassInfo.TableName != null && xpClassInfo.ClassType != null)) {
-                        if (!IsMappedToParent(xpClassInfo) && !_tablesDictionary.ContainsKey(xpClassInfo.TableName))
-                            _tablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
+                        if (!IsMappedToParent(xpClassInfo) && !TablesDictionary.ContainsKey(xpClassInfo.TableName))
+                            TablesDictionary.Add(xpClassInfo.TableName, xpClassInfo.ClassType);
                     }
                 }
             }
@@ -108,12 +106,12 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         private void Proxy_DataStoreSelectData(object sender, DataStoreSelectDataEventArgs e) {
-            if (_tablesDictionary.Count > 0)
+            if (TablesDictionary.Count > 0)
                 FilterData(e.SelectStatements);
         }
 
         public void ModifyData(ModificationStatement[] statements) {
-            if (_tablesDictionary.Count > 0) {
+            if (TablesDictionary.Count > 0) {
                 InsertData(statements.OfType<InsertStatement>().ToList());
                 UpdateData(statements.OfType<UpdateStatement>());
             }
@@ -207,15 +205,15 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
-            if (!_tablesDictionary.ContainsKey(statement.TableName)) {
+            if (!TablesDictionary.ContainsKey(statement.TableName)) {
                 var classInfo = Application.Model.BOModel.Select(mclass => Dictiorary.QueryClassInfo(mclass.TypeInfo.Type)).FirstOrDefault(info => info != null && info.TableName == statement.TableName);
-                if (classInfo != null && !_tablesDictionary.ContainsKey(classInfo.TableName))
-                    _tablesDictionary.Add(classInfo.TableName, classInfo.ClassType);
+                if (classInfo != null && !TablesDictionary.ContainsKey(classInfo.TableName))
+                    TablesDictionary.Add(classInfo.TableName, classInfo.ClassType);
                 else
                     throw new ArgumentException(statement.TableName);
             }
 
-            var fullName = _tablesDictionary[statement.TableName].FullName;
+            var fullName = TablesDictionary[statement.TableName].FullName;
             if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.FirstOrDefault(member => member.Name == filterMemberName) == null && statement.SubNodes.Any()) {
                 return statement.SubNodes[0].Alias;
             }
@@ -238,7 +236,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         public bool FilterIsShared(string tableName, string providerName) {
             bool ret = false;
 
-            if (_tablesDictionary.ContainsKey(tableName)) {
+            if (TablesDictionary.ContainsKey(tableName)) {
                 IModelClass modelClass = GetModelClass(tableName);
                 if (modelClass != null && ((IModelClassDisabledDataStoreFilters)modelClass).DisabledDataStoreFilters.FirstOrDefault(childNode => childNode.Name == providerName) != null) ret = true;
             }
@@ -246,7 +244,7 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         IModelClass GetModelClass(string tableName) {
-            return Application.Model.BOModel[_tablesDictionary[tableName].FullName];
+            return Application.Model.BOModel[TablesDictionary[tableName].FullName];
         }
     }
 }

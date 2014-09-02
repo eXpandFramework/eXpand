@@ -11,6 +11,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.DomainLogic;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
@@ -52,8 +53,8 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
             ExecutionContextGroup = ContextLogicRuleDomainLogic.DefaultExecutionContextGroup;
         }
 
-        
-        private Type _objectTypeData;
+
+        private Type _objectTypeData = typeof(PersistentBase);
 
         [RuleRequiredField]
         [ValueConverter(typeof (TypeValueConverter))]
@@ -73,6 +74,9 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         public string ExecutionContextGroup { get; set; }
         [Index(12)]
         public string ActionExecutionContextGroup { get; set; }
+        [InvisibleInAllViews]
+        public string ObjectChangedExecutionContextGroup { get; set; }
+
         [Index(10)]
         public string ViewContextGroup { get; set; }
         [Index(11)]

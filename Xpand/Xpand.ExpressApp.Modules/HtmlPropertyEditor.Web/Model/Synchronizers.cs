@@ -3,30 +3,25 @@ using DevExpress.ExpressApp.Model;
 using System.Linq;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Web.ASPxHtmlEditor;
-using Xpand.ExpressApp.HtmlPropertyEditor.Web.Model.ModelAdaptor;
-using Xpand.ExpressApp.ModelAdaptor.Logic;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
     public class HtmlEditorModelSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<ASPxHtmlPropertyEditor, IModelPropertyEditor> {
-        readonly ModelAdaptorRuleController _adaptorRuleController;
 
-        public HtmlEditorModelSynchronizer(ASPxHtmlPropertyEditor htmlPropertyEditor,ModelAdaptorRuleController adaptorRuleController)
+        public HtmlEditorModelSynchronizer(ASPxHtmlPropertyEditor htmlPropertyEditor)
             : base(htmlPropertyEditor, (IModelPropertyEditor) htmlPropertyEditor.Model) {
-            _adaptorRuleController = adaptorRuleController;
         }
 
         protected override void ApplyModelCore() {
             var htmlEditor = Control.Editor;
             var modelHtmlEditor = ((IModelPropertyHtmlEditor)Model).HtmlEditor;
             if (htmlEditor != null) {
-                if (_adaptorRuleController != null) {
-                    _adaptorRuleController.ExecuteLogic<IModelAdaptorHtmlEditorRule, IModelModelAdaptorHtmlEditorRule>(rule => ApplyModel(rule, htmlEditor));
+                foreach (var editor in ((IModelPropertyHtmlEditor)Model).HtmlEditorModelAdapters.SelectMany(adapter => adapter.ModelAdapters)) {
+                    ApplyModel(editor,htmlEditor );
                 }
                 ApplyModel(modelHtmlEditor, htmlEditor);
             }
         }
-
 
         void ApplyModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
             ApplyModel(modelHtmlEditor, htmlEditor, ApplyValues);

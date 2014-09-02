@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
@@ -15,8 +16,16 @@ namespace SecurityDemo.UiLevel.Win {
 
         private void SecurityDemoWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
             try {
-                e.Updater.Update();
+#if EASYTEST
+            e.Updater.Update();
                 e.Handled = true;
+#else
+                if (Debugger.IsAttached){
+                    e.Updater.Update();
+                    e.Handled = true;
+                }
+#endif
+                
             } catch (CompatibilityException exception) {
                 if (exception.Error is CompatibilityUnableToOpenDatabaseError) {
                     throw new UserFriendlyException(

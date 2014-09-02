@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Email.Logic;
 using Xpand.ExpressApp.Email.Model;
@@ -14,6 +15,10 @@ namespace Xpand.ExpressApp.Email {
 
         public override List<ExecutionContext> ExecutionContexts {
             get { return new List<ExecutionContext>{ExecutionContext.ObjectSpaceCommited}; }
+        }
+
+        public override List<ExecutionContext> ValidExecutionContexts{
+            get { return new[] { ExecutionContext.ObjectSpaceCommited, ExecutionContext.ObjectSpaceObjectChanged }.ToList(); }
         }
 
         public override LogicRulesNodeUpdater<IEmailRule, IModelEmailRule> LogicRulesNodeUpdater {

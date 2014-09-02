@@ -13,10 +13,19 @@ namespace DCSecurityDemo.Web {
 		}
 		protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
+#if EASYTEST
+            DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
+#endif
 		}
 		protected void Session_Start(Object sender, EventArgs e) {
 			WebApplication.SetInstance(Session, new DCSecurityDemoAspNetApplication());
 
+
+#if EASYTEST
+            if (ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+            }
+#else
 
             if(ConfigurationManager.AppSettings["SiteMode"] != null && ConfigurationManager.AppSettings["SiteMode"].ToLower() == "true") {
                 InMemoryDataStoreProvider.Register();
@@ -27,6 +36,7 @@ namespace DCSecurityDemo.Web {
                     WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
             }
+#endif
             WebApplication.Instance.Setup();
 			WebApplication.Instance.Start();
         }

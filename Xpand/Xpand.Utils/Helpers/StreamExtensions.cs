@@ -42,6 +42,7 @@ namespace Xpand.Utils.Helpers {
         public static string ReadToEndAsString(this Stream stream) {
             using (var streamReader = new StreamReader(stream)) {
                 return streamReader.ReadToEnd();
+
             }
         }
     }

@@ -1,21 +1,18 @@
 using System;
 using System.Configuration;
-using System.Web.Configuration;
 using System.Web;
-
-using DevExpress.ExpressApp;
-using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
+using Xpand.ExpressApp.Security.Core;
 
 namespace XpandSystemTester.Web {
-    public class Global : System.Web.HttpApplication {
+    public class Global : HttpApplication {
         public Global() {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
-            ASPxWebControl.CallbackError += new EventHandler(Application_Error);
+            ASPxWebControl.CallbackError += Application_Error;
 
 #if EASYTEST
 			DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
@@ -28,17 +25,19 @@ namespace XpandSystemTester.Web {
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
-#endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+#else
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null&&string.IsNullOrEmpty(WebApplication.Instance.ConnectionString)) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+#endif
+            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }
         protected void Application_BeginRequest(Object sender, EventArgs e) {
             string filePath = HttpContext.Current.Request.PhysicalPath;
             if (!string.IsNullOrEmpty(filePath)
-                && (filePath.IndexOf("Images") >= 0) && !System.IO.File.Exists(filePath)) {
+                && (filePath.IndexOf("Images", StringComparison.Ordinal) >= 0) && !System.IO.File.Exists(filePath)) {
                 HttpContext.Current.Response.End();
             }
         }

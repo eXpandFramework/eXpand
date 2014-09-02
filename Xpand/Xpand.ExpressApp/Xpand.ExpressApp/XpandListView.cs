@@ -2,13 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ListEditors;
-using Xpand.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {
@@ -44,11 +42,7 @@ namespace Xpand.ExpressApp {
             if (xpandEditor != null)
                 xpandEditor.NotifyViewControlsCreated(this);
         }
-        protected override void OnCustomModelSaving(HandledEventArgs args) {
-            base.OnCustomModelSaving(args);
-            if (Model != null)
-                args.Handled = !((IModelObjectViewPersistModelModifications)Model).PersistModelModifications;
-        }
+
         public override IList SelectedObjects {
             get{
                 if (Editor != null) {

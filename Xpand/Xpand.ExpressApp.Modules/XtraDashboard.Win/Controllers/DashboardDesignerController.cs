@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             if (!string.IsNullOrEmpty(def.Xml)) {
                 var saveFileDialog = new SaveFileDialog {
                     AddExtension = true,
-                    Filter = "XML files (*.xml)|*.xml",
+                    Filter = @"XML files (*.xml)|*.xml",
                     FileName = def.Name + ".xml"
                 };
                 if (saveFileDialog.ShowDialog(Form.ActiveForm) == DialogResult.OK) {
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             var def = (IDashboardDefinition)View.CurrentObject;
             var openFileDialog = new OpenFileDialog {
                 AddExtension = true,
-                Filter = "XML files (*.xml)|*.xml",
+                Filter = @"XML files (*.xml)|*.xml",
                 FileName = def.Name + ".xml"
             };
             if (openFileDialog.ShowDialog(Form.ActiveForm) == DialogResult.OK) {

@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
@@ -82,6 +83,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// <returns></returns>
         protected override object CreateControlCore() {
             _comboControl = new CheckedComboBoxEdit();
+            _comboControl.Properties.IncrementalSearch = true;
             return _comboControl;
         }
 

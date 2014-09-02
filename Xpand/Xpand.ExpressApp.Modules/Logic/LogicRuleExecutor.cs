@@ -14,20 +14,26 @@ namespace Xpand.ExpressApp.Logic {
             get { return _evaluator; }
         }
 
-        public virtual void Execute(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject, EventArgs eventArgs) {
-            var validRules = _evaluator.GetValidRules(view, executionContext);
-            var logicRuleInfos = validRules.Select(o => new LogicRuleInfo{
+        public virtual void Execute<T>(View view, bool invertCustomization, ExecutionContext executionContext,
+            object currentObject, EventArgs eventArgs) where T:ILogicRule{
+            var logicRuleObjects = _evaluator.GetValidRules(view, executionContext, eventArgs);
+            var validRules = logicRuleObjects.OfType<T>().Cast<ILogicRuleObject>();
+            var logicRuleInfos = validRules.Select(o => new LogicRuleInfo {
                 Active = _evaluator.Fit(currentObject, o),
                 Object = currentObject,
                 Rule = o,
                 ExecutionContext = executionContext,
                 View = view,
-                EventArgs=eventArgs,
-                InvertCustomization=invertCustomization
+                EventArgs = eventArgs,
+                InvertCustomization = invertCustomization
             });
             foreach (var logicRuleInfo in logicRuleInfos) {
                 ExecuteCore(logicRuleInfo, executionContext);
             }
+        }
+
+        internal virtual void Execute(View view, bool invertCustomization, ExecutionContext executionContext, object currentObject, EventArgs eventArgs) {
+            Execute<ILogicRule>(view, invertCustomization, executionContext, currentObject, eventArgs);
         }
 
         void ExecuteCore(LogicRuleInfo logicRuleInfo, ExecutionContext executionContext) {
@@ -72,12 +78,24 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
-        public void Execute(ExecutionContext executionContext, View view, EventArgs eventArgs) {
-            Execute(view, false, executionContext,view!=null? view.CurrentObject:null, eventArgs);
+        public void Execute<T>(ExecutionContext executionContext, View view) where T : ILogicRule{
+            Execute<T>(executionContext, view,EventArgs.Empty);
         }
 
-        public void Execute(ExecutionContext executionContext,EventArgs eventArgs,View view) {
-            Execute(executionContext, view, eventArgs);
+        public void Execute<T>(ExecutionContext executionContext, View view, EventArgs eventArgs) where T:ILogicRule{
+            Execute<T>(view, false, executionContext, view != null ? view.CurrentObject : null, eventArgs);
+        }
+
+        internal void Execute(ExecutionContext executionContext, View view, EventArgs eventArgs) {
+            Execute<ILogicRule>(executionContext, view, eventArgs);
+        }
+
+        public void Execute<T>(ExecutionContext executionContext, EventArgs eventArgs, View view) where T : ILogicRule {
+            Execute<T>(executionContext, view, eventArgs);
+        }
+
+        internal void Execute(ExecutionContext executionContext,EventArgs eventArgs,View view) {
+            Execute<ILogicRule>(executionContext, view, eventArgs);
         }
     }
 }

@@ -37,12 +37,17 @@ namespace Xpand.ExpressApp.Logic {
         void ModuleOnCustomAddGeneratorUpdaters(object sender, GeneratorUpdaterEventArgs generatorUpdaterEventArgs) {
             _module.CustomAddGeneratorUpdaters-=ModuleOnCustomAddGeneratorUpdaters;
             var updaters = generatorUpdaterEventArgs.Updaters;
-            updaters.Add(new LogicDefaultContextNodeUpdater(ExecutionContexts, GetModelLogic));
+            updaters.Add(new LogicDefaultContextNodeUpdater(ValidExecutionContexts, GetModelLogic));
             updaters.Add(new LogicDefaultGroupContextNodeUpdater(GetModelLogic));
             updaters.Add(LogicRulesNodeUpdater);
         }
 
-        public abstract List<ExecutionContext>  ExecutionContexts { get; }
+
+        public abstract List<ExecutionContext> ExecutionContexts { get; }
+
+        public virtual List<ExecutionContext> ValidExecutionContexts{
+            get { return ExecutionContexts;}
+        }
 
         public abstract LogicRulesNodeUpdater<TLogicRule, TModelLogicRule> LogicRulesNodeUpdater { get; }
 

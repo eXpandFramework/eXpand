@@ -105,8 +105,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (string.IsNullOrEmpty(assemblyFilePath))
                 assemblyFilePath = AssemblyFilePath();
             var isAttached = Debugger.IsAttached;
-            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)))
+
+            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) && !VersionMatch(assemblyFilePath)) {
                 File.Delete(assemblyFilePath);
+            }
             _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)) {
                 return Assembly.LoadFile(assemblyFilePath);
@@ -115,6 +117,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")) {
                 return _assemblies[_assemblyName];
             }
+
+            TraceBuildReason(assemblyFilePath);
+
             _createdInterfaces = new Dictionary<Type, string>();
             var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
             _usingTypes.Add(typeof(XafApplication));
@@ -124,6 +129,16 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
             _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
+        }
+
+        private void TraceBuildReason(string assemblyFilePath){
+            var tracing = Tracing.Tracer;
+            tracing.LogVerboseSubSeparator("InterfacerBuilder:" + assemblyFilePath);
+            tracing.LogVerboseValue("FileExistsInPath", _fileExistInPath);
+            tracing.LogVerboseValue("LoadFromPath", LoadFromPath);
+            tracing.LogVerboseValue("RuntimeMode", LoadFromPath);
+            if (LoadFromPath && _fileExistInPath)
+                tracing.LogValue("VersionMatch", VersionMatch(assemblyFilePath));
         }
 
         bool VersionMatch(string assemblyFilePath) {
@@ -153,13 +168,13 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
             CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, new[] { source });
             if (compilerResults.Errors.Count > 0) {
-                RaiseCompilerException(source, compilerResults);
+                RaiseCompilerException(source, compilerResults,assemblyFile);
             }
             return compilerResults.CompiledAssembly;
         }
-        private static void RaiseCompilerException(String source, CompilerResults compilerResults) {
+        private static void RaiseCompilerException(String source, CompilerResults compilerResults,string assemblyFile) {
             var errors = compilerResults.Errors.Cast<CompilerError>().Aggregate(String.Empty, (current, compilerError) => current + String.Format("({0},{1}): {2}\r\n", compilerError.Line, compilerError.Column, compilerError.ErrorText));
-            throw new CompilerErrorException(compilerResults, source, errors);
+            throw new CompilerErrorException(compilerResults, source,"Assembly="+assemblyFile+Environment.NewLine+ errors);
         }
 
         private static CompilerParameters GetCompilerParameters(String[] references, Boolean isDebug, String assemblyFile) {
@@ -561,7 +576,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return info.DXFilter(info.DeclaringType, attributes);
         }
 
-        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions) };
+        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions), typeof(BaseAppearanceCollection) };
+        public static readonly HashSet<string> ExcludedReservedNames = new HashSet<string> { "IsReadOnly" };
         public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null) {
             return DXFilter(info, BaseTypes, componentBaseType, attributes);
         }
@@ -572,7 +588,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static bool Filter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] filteredPropertyBaseTypes, Type[] attributes) {
-            return info.IsBrowseable() && info.HasAttributes(attributes) &&
+            return info.IsBrowseable() && info.HasAttributes(attributes) && !ExcludedReservedNames.Contains(info.Name)&&
                    FilterCore(info, componentBaseType, filteredPropertyBaseTypes);
         }
 
