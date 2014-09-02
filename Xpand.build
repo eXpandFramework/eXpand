@@ -354,6 +354,7 @@
     </CreateItem>
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
     <Delete Files="@(setupFiles)" />
+    <CallTarget Targets="Distrib"></CallTarget>
   </Target>
   <Target Name="DeployUpdate">
     <MakeDir Directories="$(DeploymentFolder);" />
@@ -396,7 +397,6 @@
     <!--
 		Condition="$(DeployUpdate)=='true'" 
 		-->
-    <CallTarget Targets="DeployUpdate" />
   </Target>
   <Target Name="Twitter">
     <Exec ContinueOnError="false" Command="$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;"/>
