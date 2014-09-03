@@ -133,7 +133,7 @@
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
     <Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true" />
-    <RemoveDir Directories="$(BuildPath);$(XpandDLLPath)" />
+    <RemoveDir Directories="$(BuildPath);$(XpandDLLPath);$(EasyTestVideoFoldersInclude)" />
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
@@ -280,22 +280,25 @@
     <CallTarget Targets="CreateEasyTestVideos"></CallTarget>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
+  <PropertyGroup>
+    <EasyTestVideoFoldersInclude>$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))</EasyTestVideoFoldersInclude>
+  </PropertyGroup>
   <Target Name="CreateEasyTestVideos">
     <ItemGroup>
-      <EasyTestVideoFiles Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
-      <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
+      <EasyTestVideoImages Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
+      <EasyTestVideoFolders Include="$(EasyTestVideoFoldersInclude)"/>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
-	<PropertyGroup>
-	<EasyTestVideoFolders>@(EasyTestVideoFoldersList)</EasyTestVideoFolders>
-	</PropertyGroup>
-	
+    
+	  <PropertyGroup>
+	    <EasyTestVideoFolders>@(EasyTestVideoFoldersList)</EasyTestVideoFolders>
+	  </PropertyGroup>
     <ItemGroup>
       <VideoBuilderFiles Include="$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
     </ItemGroup>
     <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
-    <Delete Files="@(EasyTestVideoFiles)"></Delete>
+    <Delete Files="@(EasyTestVideoImages)"></Delete>
   </Target>
   <Target Name="Config">
   <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe %(EasyTestVideoFoldersList.Identity);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
