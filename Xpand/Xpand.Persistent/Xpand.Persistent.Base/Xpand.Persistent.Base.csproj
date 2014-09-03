@@ -123,6 +123,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -187,10 +188,12 @@
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="General\Model\ModelNodePath.cs" />
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
+    <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
+    <Compile Include="Security\EncryptedSettingsStorage.cs" />
     <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
     <Compile Include="General\Model\DefaultMember.cs" />
     <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />

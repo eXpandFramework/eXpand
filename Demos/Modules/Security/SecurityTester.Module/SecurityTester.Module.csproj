@@ -83,6 +83,7 @@
     <Compile Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\RememberMe\RememberMeObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -113,12 +114,17 @@
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\RememberMe\RememberMe.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\NavigationItemPermission\Config.xml" />
+    <None Include="FunctionalTests\RememberMe\When logoff.inc" />
+    <None Include="FunctionalTests\RememberMe\When startup.inc" />
+    <Content Include="FunctionalTests\RememberMe\Config.xml" />
+    <None Include="FunctionalTests\RememberMe\Init.inc" />
     <None Include="FunctionalTests\NavigationItemPermission\Init.inc" />
   </ItemGroup>
   <ItemGroup />

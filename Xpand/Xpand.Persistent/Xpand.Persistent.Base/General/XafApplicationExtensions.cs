@@ -22,6 +22,15 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
 
+        public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
+            var parameterTypes = new[] { typeof(DetailView), typeof(object) };
+            application.CallMethod("WriteLastLogonParameters", parameterTypes, new[] { detailView, SecuritySystem.LogonParameters });
+        }
+
+        public static void ReadLastLogonParameters(this XafApplication application) {
+            application.CallMethod("ReadLastLogonParameters", new[] { SecuritySystem.LogonParameters });
+        }
+
         public static ReadOnlyCollection<Controller> ActualControllers(this ControllersManager controllersManager){
             return (ReadOnlyCollection<Controller>) controllersManager.GetPropertyValue("ActualControllers");
         }

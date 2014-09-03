@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;

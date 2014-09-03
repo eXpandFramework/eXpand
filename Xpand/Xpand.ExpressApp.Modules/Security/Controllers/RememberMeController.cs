@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 var memberInfo = typeInfo.FindMember(rememberMePropertyName);
                 if (memberInfo != null) memberInfo.SetValue(logonParameters, false);
                 ObjectSerializer.WriteObjectPropertyValues(null, logonParameters.Storage, logonParameters);
+                Application.WriteLastLogonParameters();
             }
         }
     }
