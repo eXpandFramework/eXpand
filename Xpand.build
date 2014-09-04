@@ -310,6 +310,12 @@
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
+	
+	<MakeDir Directories="Xpand.DesignExperience"/>
+	<ItemGroup>
+	<DesignExperienceFiles Include=".\Support\Xpand.DesignExperience\**\*.*"/>
+	</ItemGroup>
+	<Copy    SourceFiles="@(DesignExperienceFiles)"    DestinationFolder=".\Xpand.DesignExperience\%(RecursiveDir)"    SkipUnchangedFiles="false"    />
 	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
     <CreateItem Include="setup.exe">
       <!--Exclude="$(XpandDLLPath)\*.locked" -->
@@ -317,6 +323,7 @@
     </CreateItem>
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
     <Delete Files="@(setupFiles)" />
+	<RemoveDir Directories="Xpand.DesignExperience"/>
     <CallTarget Targets="Distrib"></CallTarget>
   </Target>
   <Target Name="DeployUpdate">

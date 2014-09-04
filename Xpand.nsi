@@ -84,7 +84,7 @@ BrandingText "${APP_NAME} Install System v ${VERSION}"
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r /x .\Support\Xpand.DesignExperience Build\Installer\*
+    File /r /x Xpand.DesignExperience Build\Installer\*
     call InstallProjectTemplates
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
