@@ -45,19 +45,10 @@
     <XpandDocsPath>$(MSBuildProjectDirectory)\Xpand.Docs\</XpandDocsPath>
     <DocsSiteName>documentation.expandframework.com</DocsSiteName>
     <XpandDocsSitePath>C:\inetpub\vhosts\$(DocsSiteName)</XpandDocsSitePath>
-    <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
-	
   </PropertyGroup>
   <Import Project="Support\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Support\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
-  <ItemGroup>
-    <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
-    <AddInProjects Include=".\Support\ToolboxCreator\Xpand.ToolboxCreator.csproj;.\Support\VideoBuilder\VideoBuilder.csproj"></AddInProjects>
-    <XpandAddinSolution Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;"></XpandAddinSolution>
-    <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
-    <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
-  </ItemGroup>
-
+  <Import Project="Xpand.projects" />
   <ItemGroup>
     <Tokens Include="SourcePackage">
       <ReplacementValue>$(ProjectName)-Source-$(Version).zip</ReplacementValue>
@@ -99,28 +90,28 @@
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
   </Target>
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
-    <MSBuild Projects="@(CoreProjectSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(AddInProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(XpandAddinSolution)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
-    <MSBuild Projects="$(AllModulesSolution)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
-    <MSBuild Projects="@(DemoTesterSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    
-
+    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
     <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
   </Target>
   <Target Name="Clean">
-    <MSBuild Projects="@(CoreProjectSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="@(AddInProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="$(XpandAddinSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
-    <MSBuild Projects="$(AllModulesSolution)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
+    <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(EasyTestProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="$(VSAddons)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="$(ModuleProjects)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
-    <MSBuild Projects="@(DemoTesterSolutions)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(DemoTesterProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
@@ -204,7 +195,7 @@
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
-    <EasyProjects Include="@(DemoTesterSolutions)"/>
+    <EasyProjects Include="@(DemoTesterProjects)"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(_third_party_assemblies)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
     <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>

@@ -180,15 +180,11 @@
     <Compile Include="Permissions\XpandPermissionData.cs" />
     <Compile Include="Registration\Model.cs" />
     <Compile Include="Registration\Parameters.cs" />
-    <Compile Include="XpandSecurityModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSecurityModule.cs" />
     <Compile Include="Permissions\PermissionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="XpandSecurityModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSecurityModuleBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
