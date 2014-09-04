@@ -83,7 +83,15 @@
 					Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj;
                     Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;
 					Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;"/>
-    <DemoSolutions Include="Demos\EFDemoCodeFirst\EFDemoCodeFirst.sln;Demos\FeatureCenter\FeatureCenterVS2010.sln;Demos\Middle Tier\E4035-Remoting\E4035.sln;Demos\Middle Tier\E4036-WCF\E4036.sln;Demos\SecurityDemo\SecurityDemo.sln;Demos\WorkflowDemo\WorkflowDemo.sln;Demos\XVideoRental\XVideoRental.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
+    <DemoSolutions Include="
+					Demos\EFDemoCodeFirst\EFDemoCodeFirst.sln;
+					Demos\FeatureCenter\FeatureCenterVS2010.sln;
+					Demos\Middle Tier\E4035-Remoting\E4035.sln;
+					Demos\Middle Tier\E4036-WCF\E4036.sln;
+					Demos\SecurityDemo\SecurityDemo.sln;
+					Demos\WorkflowDemo\WorkflowDemo.sln;
+					Demos\XVideoRental\XVideoRental.sln;" 
+					Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterProjects Include="
                    Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.Web\AdditionalViewControlProviderTester.Web.csproj;
                    Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.Win\AdditionalViewControlProviderTester.Win.csproj;
