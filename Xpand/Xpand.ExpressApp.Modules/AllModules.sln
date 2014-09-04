@@ -326,11 +326,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreat
 		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60} = {E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreator.SqlDBMapper", "WorldCreator.SqlDBMapper\Xpand.ExpressApp.WorldCreator.SqlDBMapper.csproj", "{C4566461-3E4F-49C1-98B2-AB34901630E0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60} = {E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreator.Web", "WorldCreator.Web\Xpand.ExpressApp.WorldCreator.Web.csproj", "{D0B11788-3559-45D1-BC21-07953398755B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60} = {E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}
