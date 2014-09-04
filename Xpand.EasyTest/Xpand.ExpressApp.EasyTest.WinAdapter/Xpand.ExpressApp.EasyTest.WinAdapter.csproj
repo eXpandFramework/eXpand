@@ -64,9 +64,5 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\Resource\Build\MSBuild.Community.Tasks.targets" />
-<!--  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">-->
-<!--  </Import>-->
-<!--  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">-->
-<!--  </Target>-->
+  <Import Project="..\..\Support\Build\MSBuild.Community.Tasks.targets" />
 </Project>

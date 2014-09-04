@@ -30,8 +30,8 @@ RequestExecutionLevel admin
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER "${APP_NAME}"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
-!define MUI_WELCOMEFINISHPAGE_BITMAP "Resource\Installer\PageImage.bmp"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "Resource\Installer\PageImage.bmp"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "Support\Installer\PageImage.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "Support\Installer\PageImage.bmp"
 
 # Included files
 !include Sections.nsh

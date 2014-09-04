@@ -9,11 +9,10 @@
     <DBUpdaterName>DBUpdater.v$(DXVersion).exe</DBUpdaterName>
     <TestExecutorName>TestExecutor.v$(DXVersion).exe</TestExecutorName>
     <TestExecutorPath>$(DXPath)\Components\Tools\eXpressAppFramework\EasyTest\$(TestExecutorName)</TestExecutorPath>
-    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Resource\Build\ExtensionPack\</ExtensionTasksPath>
-    <TypeMockLocation>Resource\TypeMock\</TypeMockLocation>
-    <ToolsPath>$(MSBuildProjectDirectory)\Resource\Tool</ToolsPath>
+    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildProjectDirectory)\Support\Build\ExtensionPack\</ExtensionTasksPath>
+    <ToolsPath>$(MSBuildProjectDirectory)\Support\Tool</ToolsPath>
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
-    <_third_party_assemblies>$(MSBuildProjectDirectory)\_third_party_assemblies</_third_party_assemblies>
+    <_third_party_assemblies>$(MSBuildProjectDirectory)\Support\_third_party_assemblies</_third_party_assemblies>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
 	  <BatchCall>false</BatchCall>
     <ExecCommand></ExecCommand>
@@ -49,18 +48,11 @@
     <AllModulesSolution>.\Xpand\Xpand.ExpressApp.Modules\AllModules.sln</AllModulesSolution>
 	
   </PropertyGroup>
-  <Import Project="Resource\Build\MSBuild.Community.Tasks.targets" />
-  <Import Project="Resource\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
-  <Import Project="Resource\TypeMock\TypeMock.MSBuild.Tasks" />
-  <!--
-	<Import Project="Resource\Build\NCoverExplorer.MSBuildTasks.targets"/>
-	<Import Project="Resource\Build\Microsoft.StyleCop.Targets" />
-	-->
-  <!-- Main build entry file (extends development builds)-->
-
+  <Import Project="Support\Build\MSBuild.Community.Tasks.targets" />
+  <Import Project="Support\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
   <ItemGroup>
     <CoreProjectSolutions Include=".\Xpand\Helpers.sln;.\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln;.\Xpand.EasyTest\Xpand.EasyTest.sln;.\Xpand\Xpand.NH\Xpand.NH.sln"/>
-    <AddInProjects Include=".\Resource\ToolboxCreator\Xpand.ToolboxCreator.csproj;.\Resource\VideoBuilder\VideoBuilder.csproj"></AddInProjects>
+    <AddInProjects Include=".\Support\ToolboxCreator\Xpand.ToolboxCreator.csproj;.\Support\VideoBuilder\VideoBuilder.csproj"></AddInProjects>
     <XpandAddinSolution Include=".\Xpand.Addins\XpandAddIns.csproj;.\Xpand.Addins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;"></XpandAddinSolution>
     <DemoSolutions Include=".\Demos\AllDemos.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
     <DemoTesterSolutions Include=".\Demos\Modules\AllModuleTesters.sln;" Condition="$(RecompiledDXSources) == $(Configuration)"/>
@@ -77,9 +69,9 @@
       <ReplacementValue>$(Version)</ReplacementValue>
     </Tokens>
   </ItemGroup>
-  <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
-  <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Resource\build\Mash2\Mash2.MSBuild.Tasks.dll" />
-  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="IndexSources" AssemblyFile="Resource\build\ExtensionPack\MSBuild.ExtensionPack.TaskFactory.PowerShell.dll"> 
+  <UsingTask TaskName="MSBuild.ExtensionPack.FileSystem.File" AssemblyFile="Support\build\ExtensionPack\MSBuild.ExtensionPack.dll" />
+  <UsingTask TaskName="Mash2.MSBuild.Tasks.Twitter" AssemblyFile="Support\build\Mash2\Mash2.MSBuild.Tasks.dll" />
+  <UsingTask TaskFactory="PowershellTaskFactory" TaskName="IndexSources" AssemblyFile="Support\build\ExtensionPack\MSBuild.ExtensionPack.TaskFactory.PowerShell.dll"> 
         <ParameterGroup> 
           <Output Output="true" /> 
         </ParameterGroup> 
@@ -87,15 +79,15 @@
           <![CDATA[
           Set-ExecutionPolicy Unrestricted
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
-          $var = powershell .\Resource\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+          $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
 ]]>
           
         </Task> 
   </UsingTask> 
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
-    <MSBuild Projects=".\Resource\FixReferences\FixReferences.csproj" Targets="Build" />
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Resource\FixReferences\bin\debug\FixReferences.exe" />
+    <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" />
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Support\FixReferences\bin\debug\FixReferences.exe" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
@@ -137,9 +129,6 @@
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
-    <!--Library
-		Resource\Library\*.*
-		-->
     <CreateItem Include="$(XpandDLLPath)\*.*;" Exclude="$(XpandDLLPath)\*.locked;$(XpandDLLPath)\DevExpress*.*">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
@@ -309,26 +298,6 @@
     <CreateItem Include="$(XpandDLLPath)\Xpand.*.dll;">
       <Output ItemName="fxAssemblies" TaskParameter="Include" />
     </CreateItem>
-    <!--
-	Disabled for now
-		<FxCop 
-			TargetAssemblies="@(fxAssemblies)"
-			ToolPath="Resource/Tool/FxCop" 
-			ProjectFile="$(ProjectName).FxCop" 
-			AnalysisReportFileName="$(ArtifactDirectory)/fxcop.html" 
-			ApplyOutXsl="True"
-			ContinueOnError="True"
-			FailOnError="False"
-			OutputXslFileName="Resource/Tool/FxCop/Xml/FxCopReport.xsl"
-		/> 
-		<FxCop 
-			TargetAssemblies="@(fxAssemblies)"
-			ToolPath="Resource/Tool/FxCop" 
-			ProjectFile="$(ProjectName).FxCop" 
-			AnalysisReportFileName="$(ArtifactDirectory)/fxcop-report.xml" 			
-		/> 
-		<Message Text="##teamcity[importData id='FxCop' file='$(ArtifactDirectory)/fxcop-report.xml']" />
-	-->
   </Target>
   <Target Name="Test">
   </Target>
@@ -346,11 +315,11 @@
     </CreateItem>
     <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
-    <Exec Command="Resource\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
+    <Exec Command="Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
     <CreateItem Include="setup.exe">
       <!--Exclude="$(XpandDLLPath)\*.locked" -->
       <Output ItemName="setupFiles" TaskParameter="Include" />
@@ -381,14 +350,14 @@
       <Output TaskParameter="Include" ItemName="AllTokens" />
     </CreateItem>
     <!--Index-->
-    <Copy SourceFiles="Resource\Template\index.template" DestinationFolder="$(TempPath)" />
+    <Copy SourceFiles="Support\Template\index.template" DestinationFolder="$(TempPath)" />
     <TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(AllTokens)" />
     <Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
   </Target>
   <Target Name="Distrib">
     <MakeDir Directories="$(PackageDirectory);" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="Resource\Tool\**\*.*;Build\**\*.*;Resource\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
@@ -418,8 +387,8 @@
       <Error Text="$(OutputOfExec)" Condition="'$(ErrorCode)' > '0'" />
   </Target>
   <ItemGroup>
-    <NuspecFile Include="Resource\Nuspec\*.nuspec" Exclude="Resource\Nuspec\XtraDashboardWin.nuspec;Resource\Nuspec\XtraDashboardWeb.nuspec;Resource\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)=='true'"/>
-    <NuspecFile Include="Resource\Nuspec\*.nuspec" Exclude="Resource\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
+    <NuspecFile Include="Support\Nuspec\*.nuspec" Exclude="Support\Nuspec\XtraDashboardWin.nuspec;Support\Nuspec\XtraDashboardWeb.nuspec;Support\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)=='true'"/>
+    <NuspecFile Include="Support\Nuspec\*.nuspec" Exclude="Support\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
     <IndexSources/>
