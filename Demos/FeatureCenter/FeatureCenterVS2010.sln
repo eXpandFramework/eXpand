@@ -15,6 +15,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Base", "FeatureCenter.Base\FeatureCenter.Base.csproj", "{782230D9-DFA4-4D7A-89A9-660A361B5A8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalApplication.Module.Win", "ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj", "{A986B220-63AF-44A6-98D5-7F55E1E2FA03}"
+	ProjectSection(ProjectDependencies) = postProject
+		{782230D9-DFA4-4D7A-89A9-660A361B5A8A} = {782230D9-DFA4-4D7A-89A9-660A361B5A8A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalApplication.Win", "ExternalApplication\ExternalApplication.Win\ExternalApplication.Win.csproj", "{F40D575E-A391-4156-B2FC-9E01627C033D}"
 EndProject
@@ -23,6 +26,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Web", "FeatureCenter.Web\FeatureCenter.Web.csproj", "{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Quartz.Server", "..\..\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj", "{09082B9A-906C-4A17-A2E5-6C947DAC7C85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F40D575E-A391-4156-B2FC-9E01627C033D} = {F40D575E-A391-4156-B2FC-9E01627C033D}
+		{105CC473-6BB4-4144-A9D9-B591B28D9A38} = {105CC473-6BB4-4144-A9D9-B591B28D9A38}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
