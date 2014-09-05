@@ -230,16 +230,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Demos\FeatureCenter\ExternalApplication\ExternalApplication.Module.Win\ExternalApplication.Module.Win.csproj">
-      <Project>{a986b220-63af-44a6-98d5-7f55e1e2fa03}</Project>
-      <Name>ExternalApplication.Module.Win</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Demos\FeatureCenter\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj">
-      <Project>{a75e4f29-14bf-4291-89cf-f80deb2b5f43}</Project>
-      <Name>FeatureCenter.Module.Win</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
