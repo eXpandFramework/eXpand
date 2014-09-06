@@ -14,6 +14,8 @@ using Image = System.Drawing.Image;
 namespace Xpand.EasyTest.Commands{
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
+        readonly Size _defaultWindowSize = new Size(1024, 768);
+
         protected override void InternalExecute(ICommandAdapter adapter){
             EasyTestTracer.Tracer.LogText("MainParameter=" + Parameters.MainParameter.Value);
             var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
@@ -41,11 +43,14 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private void CompareAndSave(string filename, Image testImage, ICommandAdapter adapter){
+            var threshold = this.ParameterValue<byte>("ImageDiffThreshold", 3);
             var localImage = Image.FromFile(filename);
-            var masks = GetMasks(adapter);
+            var masks = GetMasks(adapter).ToArray();
+            var validDiffPercentace = this.ParameterValue("ValidDiffPercentage", 10);
             if (!masks.Any()){
-                var maskImage = CreateMaskImage(adapter);
-                CompareAndSaveCore(filename, testImage, localImage,maskImage);
+                var maskRectangle = GetMaskRectangle(adapter);
+                var keyValuePairs = localImage.Differences(testImage, maskRectangle, threshold);
+                CompareAndSaveCore(filename, testImage, keyValuePairs.ToArray(), validDiffPercentace);
             }
             var height = this.ParameterValue("MaskHeight", 0);
             var width = this.ParameterValue("MaskWidth", 0);
@@ -54,53 +59,31 @@ namespace Xpand.EasyTest.Commands{
                 if (width>0&&height>0){
                     maskImage = (Bitmap) maskImage.ResizeRectangle(width, height);
                 }
-                CompareAndSaveCore(filename, testImage, localImage, maskImage);
+                var differences = localImage.Differences(testImage, maskImage,threshold);
+                CompareAndSaveCore(filename, testImage, differences.ToArray(), validDiffPercentace);
             }
         }
 
-        private Bitmap CreateMaskImage(ICommandAdapter adapter){
-            Bitmap maskImage = null;
-            var maskRectangleValue = GetMaskRectangleParamValue(adapter);
-            if (!string.IsNullOrEmpty(maskRectangleValue)){
-                var maskSize = this.ParameterValue("MaskSize", new Size(1024, 768));
-                maskImage = new Bitmap(maskSize.Width, maskSize.Height);
-                using (var graphics = Graphics.FromImage(maskImage)) {
-                    using (var solidBlackBrush = new SolidBrush(Color.Black)) {
-                        graphics.FillRectangle(solidBlackBrush, new Rectangle(0, 0, maskImage.Width, maskImage.Height));
-                    }
-                    using (var solidBlackBrush = new SolidBrush(Color.White)) {
-                        var pointValues = maskRectangleValue.Split(';')[0].Split('x');
-                        var location = new Point(Convert.ToInt32(pointValues[0]), Convert.ToInt32(pointValues[1]));
-                        var sizeValues = maskRectangleValue.Split(';')[1].Split('x');
-                        var size = new Size(Convert.ToInt32(sizeValues[0]), Convert.ToInt32(sizeValues[1]));
-                        var rectangle = new Rectangle(location, size);
-                        graphics.FillRectangle(solidBlackBrush, rectangle);
-                    }
-                }
+        private void CompareAndSaveCore(string filename, Image testImage, KeyValuePair<byte[,], float>[] differences, int validDiffPercentace){
+            var difference = differences.FirstOrDefault(pair => pair.Value < validDiffPercentace);
+            if (difference.Key == null) {
+                var valuePairs = differences.OrderBy(pair => pair.Value);
+                var keyValuePair = valuePairs.First();
+                var diffImage = keyValuePair.Key.DiffImage(true, true);
+                SaveAllImages(diffImage, filename, testImage, keyValuePair.Value);
             }
-            return maskImage;
         }
 
-        private string GetMaskRectangleParamValue(ICommandAdapter adapter){
+        private Rectangle GetMaskRectangle(ICommandAdapter adapter){
             var parameterName = adapter.IsWinAdapter() ? "WinMaskRectangle" : "WebMaskRectangle";
-            var parameterValue = this.ParameterValue<string>(parameterName);
-            return parameterValue ?? this.ParameterValue<string>("MaskRectangle");
+            var rectangle = this.ParameterValue<Rectangle>(parameterName);
+            return rectangle==Rectangle.Empty? this.ParameterValue<Rectangle>("MaskRectangle"):rectangle;
         }
 
-        private void CompareAndSaveCore(string filename, Image testImage, Image localImage, Image maskImage=null) {
-            var differences = localImage.Differences(testImage, maskImage);
-            var threshold = this.ParameterValue<byte>("ImageDiffThreshold", 3);
-            var percentage = differences.Percentage(threshold);
-            if (percentage > this.ParameterValue("ValidDiffPercentage", 10)){
-                var diffImage = differences.DiffImage(true, true);
-                SaveAllImages(diffImage, filename, testImage);
-            }
-        }
-
-        private void SaveAllImages(Image diffImage, string filename, Image testImage){
+        private void SaveAllImages(Image diffImage, string filename, Image testImage, float percentage){
             SaveDiffImage(diffImage, filename);
             SaveActualImage(testImage, filename);
-            throw new CommandException(String.Format("A screenshot of the active window differs from the '{0}' master copy",filename), StartPosition);
+            throw new CommandException(String.Format("A screenshot of the active window differs {1}% from the '{0}' master copy", filename, Math.Round(percentage)), StartPosition);
         }
 
         private static Image GetTestImage(IntPtr windowHandle){
@@ -145,13 +128,10 @@ namespace Xpand.EasyTest.Commands{
                 ToggleNavigation(adapter);
             }
 
-            var parameter = Parameters["ActiveWindowSize"];
-            string activeWindowSize = "1024x768";
-            if (parameter != null) {
-                activeWindowSize = parameter.Value;
-            }
+            
+            var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
             var activeWindowSizeCommand = new ResizeWindowCommand();
-            activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(activeWindowSize);
+            activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));
             activeWindowSizeCommand.Execute(adapter);
 
             if (this.ParameterValue(HideCursorCommand.Name, true)){

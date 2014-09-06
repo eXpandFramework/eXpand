@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using AForge.Imaging.Filters;
 
 namespace Xpand.Utils.Helpers{
@@ -93,37 +95,72 @@ namespace Xpand.Utils.Helpers{
         public static Image Crop(this Image image,Rectangle cropRectangle) {
             var target = new Bitmap(cropRectangle.Width, cropRectangle.Height);
             using (var graphics = Graphics.FromImage(target)){
-                graphics.DrawImage(image, new Rectangle(0, 0, target.Width, target.Height),
-                    cropRectangle,GraphicsUnit.Pixel);
+                graphics.DrawImage(image, new Rectangle(0, 0, target.Width, target.Height),cropRectangle,GraphicsUnit.Pixel);
             }
             return target;
         }
 
-        public static byte[,] Differences(this Image image1, Image image2, Image mask, double brightness = 0.5) {
-            if (image1.Height>image2.Height&&image1.Width>image2.Width)
-                return DifferenceCore(image1, image2, mask, brightness);
-            if (image2.Height>image1.Height&&image2.Width>image1.Width)
-                return DifferenceCore(image2, image1, mask, brightness);
-            if (image1.Height > image2.Height && image1.Width == image2.Width)
-                return DifferenceCore(image1, image2, mask, brightness);
-            if (image2.Height > image1.Height && image2.Width == image1.Width)
-                return DifferenceCore(image2, image1, mask, brightness);
-            if (image1.Height > image2.Height)
-                return DifferenceCore(image1, image2, mask, brightness);
-            if (image2.Height > image1.Height)
-                return DifferenceCore(image2, image1, mask, brightness);
-            return DifferenceCore(image1, image2, mask, brightness);
+        public static void CreateMask(this Image image, Rectangle maskRectangle) {
+            using (var graphics = Graphics.FromImage(image)) {
+                using (var solidBlackBrush = new SolidBrush(Color.Black)) {
+                    graphics.FillRectangle(solidBlackBrush, new Rectangle(0, 0, image.Width, image.Height));
+                }
+                using (var solidBlackBrush = new SolidBrush(Color.White)) {
+                    graphics.FillRectangle(solidBlackBrush, maskRectangle);
+                }
+            }
         }
 
-        private static byte[,] DifferenceCore(Image image1, Image image2, Image mask, double brightness) {
+        public static IEnumerable<KeyValuePair<byte[,], float>> Differences(this Image image1, Image image2, Rectangle rectangle,byte threshold=3, double brightness = 0.5) {
+            var imageInfo = GetImageImfo(image1, image2);
+            var mask = new Bitmap(image1.Width,image2.Height);
+            mask.CreateMask(rectangle);
+            return DifferenceCore(imageInfo.Image1, imageInfo.Image2, mask, brightness).Select(bytes => new KeyValuePair<byte[,], float>(bytes, bytes.Percentage(threshold)));
+        }
+
+        public static IEnumerable<KeyValuePair<byte[,],float>> Differences(this Image image1, Image image2, Image mask,byte threshHold, double brightness = 0.5) {
+            var imageInfo = GetImageImfo(image1,image2);
+            var differences = DifferenceCore(imageInfo.Image1, imageInfo.Image2, mask, brightness);
+            return differences.Select(bytes => new KeyValuePair<byte[,], float>(bytes, bytes.Percentage(threshHold)));
+        }
+
+        private static ImageInfo GetImageImfo(Image image1, Image image2){
+            if (image1.Height > image2.Height && image1.Width > image2.Width)
+                return new ImageInfo{Image1 = image1, Image2 = image2};
+            if (image2.Height > image1.Height && image2.Width > image1.Width)
+                return new ImageInfo {Image2 = image2, Image1 = image1};
+            if (image1.Height > image2.Height && image1.Width == image2.Width)
+                return new ImageInfo {Image1 = image1, Image2 = image2};
+            if (image2.Height > image1.Height && image2.Width == image1.Width)
+                return new ImageInfo { Image2 = image2, Image1 = image1};
+            if (image1.Height > image2.Height)
+                return new ImageInfo { Image1 = image1, Image2 = image2};
+            if (image2.Height > image1.Height)
+                return new ImageInfo { Image2 = image2, Image1 = image1};
+            return new ImageInfo{Image1 = image1, Image2 = image2};
+        }
+
+        private class ImageInfo{
+            public Image Image1 { get; set; }
+            public Image Image2 { get; set; }
+        }
+
+        private static IEnumerable<byte[,]> DifferenceCore(Image image1, Image image2, Image mask, double brightness) {
             if (mask != null){
                 var rectangle1 = mask.Resize(image1.Width, image1.Height).CalculateRectangle(brightness);
                 Rectangle rectangle2=rectangle1;
                 if (image1.Width!=image2.Width||image1.Height!=image2.Height)
                     rectangle2 = mask.Resize(image2.Width, image2.Height).CalculateRectangle(brightness);
-                return image1.Crop(rectangle1).GetDifferences(image2.Crop(rectangle2));
+
+//                var image1Crop = image1.Crop(rectangle1);
+                var image2Crop = image2.Crop(rectangle2);
+                for (int j = 0; j < 10; j++){
+                    var y = rectangle1.Y-j;
+                    var rectangle = new Rectangle(rectangle1.X,y,rectangle1.Width, rectangle1.Height);
+                    yield return image1.Crop(rectangle).GetDifferences(image2Crop);
+                }
             }
-            return image1.GetDifferences(image2);
+            yield return image1.GetDifferences(image2);
         }
 
         public static float Difference(this Image image1, Image image2, byte threshold = 3){

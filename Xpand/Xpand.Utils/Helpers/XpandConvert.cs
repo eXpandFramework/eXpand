@@ -217,6 +217,22 @@ namespace Xpand.Utils.Helpers {
                 }
             }
 
+            if ((destinationType == typeof (Rectangle)) &&!string.IsNullOrEmpty(value + "")){
+                var rectParts = value.ToString().Split(';');
+                if (rectParts.Length == 2){
+                    object point;
+                    var canChange = rectParts[0].TryToChange(typeof (Point), out point);
+                    if (canChange){
+                        object size;
+                        canChange=rectParts[1].TryToChange(typeof (Size), out size);
+                        if (canChange){
+                            result = new Rectangle((Point) point, (Size) size);
+                            return true;
+                        }
+                    }
+                }
+            }
+
             if ((destinationType == typeof(Size) || destinationType == typeof(Point)) && !string.IsNullOrEmpty(value + "")) {
                 var strings = value.ToString().Split('x');
                 if (strings.Length == 2 && (strings[0].CanChange(typeof (int)) && strings[1].CanChange(typeof (int)))){
