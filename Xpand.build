@@ -262,7 +262,7 @@
   </Target>
   <Target Name="CreateEasyTestVideos">
     <ItemGroup>
-      <EasyTestVideoImages Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.bmp"/>
+      <EasyTestVideoImages Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.png"/>
       <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
