@@ -50,6 +50,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
             if (Application == null || GetPath() == null || !RuntimeMode)
                 return;
+            CheckObjectSpaceType();
             if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {
                 using (var unitOfWork = GetUnitOfWork()) {
                     RunUpdaters(unitOfWork);
@@ -66,6 +67,12 @@ namespace Xpand.ExpressApp.WorldCreator {
             Application.LoggedOn += ApplicationOnLoggedOn;
 
 
+        }
+
+        private void CheckObjectSpaceType(){
+            var objectSpaceProvider = Application.ObjectSpaceProvider as XPObjectSpaceProvider;
+            if (objectSpaceProvider!=null&&objectSpaceProvider.GetType()==typeof(XPObjectSpaceProvider))
+                throw new Exception("Override CreateDefaultObjectSpaceProvider method in "+Application.GetType() +@" and use the code found int the Demos\Modules\WorldCreatorTester solution");
         }
 
         public virtual UnitOfWork GetUnitOfWork() {
