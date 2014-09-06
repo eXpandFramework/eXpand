@@ -36,7 +36,7 @@ namespace Xpand.EasyTest.Commands{
         }
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var frameInterval = this.ParameterValue("FrameInterval",20);
+            var frameInterval = this.ParameterValue("FrameInterval",100);
             _screenCaptureStream = new ScreenCaptureStream(new Rectangle(_topLeft, _size), frameInterval);
             _screenCaptureStream.NewFrame+=ScreenCaptureStreamOnNewFrame;
             _screenCaptureStream.Start();
@@ -44,8 +44,8 @@ namespace Xpand.EasyTest.Commands{
 
         private void ScreenCaptureStreamOnNewFrame(object sender, NewFrameEventArgs e){
             string suffix = _index + _platformSuffix;
-            var filename = _fileName+suffix+".bmp";
-            e.Frame.Save(filename,ImageFormat.Bmp);
+            var filename = _fileName+suffix+".png";
+            e.Frame.Save(filename,ImageFormat.Png);
             _index++;
         }
 
