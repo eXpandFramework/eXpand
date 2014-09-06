@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Globalization;
 using System.IO;
 using AForge.Video;
 using DevExpress.EasyTest.Framework;
@@ -37,7 +36,7 @@ namespace Xpand.EasyTest.Commands{
         }
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var frameInterval = this.ParameterValue("FrameInterval",100);
+            var frameInterval = this.ParameterValue("FrameInterval",20);
             _screenCaptureStream = new ScreenCaptureStream(new Rectangle(_topLeft, _size), frameInterval);
             _screenCaptureStream.NewFrame+=ScreenCaptureStreamOnNewFrame;
             _screenCaptureStream.Start();
