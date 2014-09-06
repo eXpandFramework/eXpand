@@ -240,8 +240,8 @@ namespace Xpand.Utils.Helpers{
         }
 
         public static byte[,] GetDifferences(this Image img1, Image img2){
-            var thisOne = (Bitmap) img1.Resize(16, 16).ToGrayScale();
-            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToGrayScale();
+            var thisOne = (Bitmap) img1.Resize(16, 16).ToBlackAndWhite();
+            var theOtherOne = (Bitmap) img2.Resize(16, 16).ToBlackAndWhite();
             var differences = new byte[16, 16];
             for (int y = 0; y < 16; y++){
                 for (int x = 0; x < 16; x++){
