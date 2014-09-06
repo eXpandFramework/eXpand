@@ -25,12 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Web", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Web", "FeatureCenter.Web\FeatureCenter.Web.csproj", "{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Quartz.Server", "..\..\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj", "{09082B9A-906C-4A17-A2E5-6C947DAC7C85}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F40D575E-A391-4156-B2FC-9E01627C033D} = {F40D575E-A391-4156-B2FC-9E01627C033D}
-		{105CC473-6BB4-4144-A9D9-B591B28D9A38} = {105CC473-6BB4-4144-A9D9-B591B28D9A38}
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,20 +148,6 @@ Global
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.Build.0 = EasyTest|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.DebugTest|Any CPU.Build.0 = Debug|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.EasyTest|Any CPU.Build.0 = Release|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{09082B9A-906C-4A17-A2E5-6C947DAC7C85}.Test|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
