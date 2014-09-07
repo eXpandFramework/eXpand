@@ -1,8 +1,7 @@
 ﻿#DropDB SchedulerTesterEasyTest
-
 #Application SchedulerTester.Win
-
 *UseModel
+*ScreenCapture
 
 *Action New(Reminder Object)
 *FillForm

@@ -12,7 +12,7 @@ using EditorAliases = Xpand.ExpressApp.Scheduler.Reminders.EditorAliases;
 namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
     [PropertyEditor(typeof(TimeSpan), EditorAliases.TimeBeforeStartEditorAlias, false)]
     public class WebDurationPropertyEditor : ASPxPropertyEditor {
-        ASPxComboBox _Control;
+        ASPxComboBox _control;
 
         public WebDurationPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
 
@@ -23,14 +23,14 @@ namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
         }
 
         protected override System.Web.UI.WebControls.WebControl CreateEditModeControlCore() {
-            _Control = CreateDurationEditor();
-            _Control.ValueChanged += EditValueChangedHandler;
-            return _Control;
+            _control = CreateDurationEditor();
+            _control.ValueChanged += EditValueChangedHandler;
+            return _control;
         }
 
         public override void BreakLinksToControl(bool unwireEventsOnly) {
-            if (_Control != null)
-                _Control.ValueChanged -= EditValueChangedHandler;
+            if (_control != null)
+                _control.ValueChanged -= EditValueChangedHandler;
             base.BreakLinksToControl(unwireEventsOnly);
         }
 
@@ -45,14 +45,6 @@ namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
             if (valueCore != null)
                 return TimeSpan.Parse(valueCore);
             return controlValueCore;
-        }
-
-        protected override void WriteValueCore() {
-            base.WriteValueCore();
-        }
-        protected override void ReadViewModeValueCore() {
-            base.ReadViewModeValueCore();
-            
         }
 
         static void InitDurationCombo(ASPxComboBox cbSnooze) {

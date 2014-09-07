@@ -167,7 +167,8 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
 
             var reminder = appointment.CreateNewReminder();
             var reminderHelper = new ReminderXmlPersistenceHelper(reminder, DateSavingType.LocalTime);
-            reminderHelper.FromXml(reminderInfo.Info);
+            var value = (Reminder) reminderHelper.FromXml(reminderInfo.Info);
+            appointment.Reminders.Add(value);
             _schedulerStorage.EnableReminders = true;
         }
 
