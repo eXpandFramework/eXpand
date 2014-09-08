@@ -3,7 +3,6 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
@@ -13,17 +12,20 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [Serializable]
     public class XpandLogonParameters : AuthenticationStandardLogonParameters, IXpandLogonParameters, ICustomLogonParameter {
         SettingsStorage _storage;
+        private bool _rememberMe;
 
         [Index(2)]
-        public bool RememberMe { get; set; }
-        [Browsable(false)]
-        public SettingsStorage Storage {
-            get { return _storage; }
+        public bool RememberMe{
+            get { return _rememberMe; }
+            set{
+                _rememberMe = value;
+                RaisePropertyChanged("RememberMe");
+            }
         }
 
         [Browsable(false)]
-        public bool AutoAuthentication {
-            get { return ApplicationHelper.Instance.Application!=null && ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication.AutoAthentication.Enabled; }
+        public SettingsStorage Storage {
+            get { return _storage; }
         }
         
         void ICustomObjectSerialize.ReadPropertyValues(SettingsStorage storage) {

@@ -17,6 +17,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         int TicketExpiration { get; set; }
         [Description("Enable this to override XAF's default behaviour and create only the encrypted ticket")]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        [DefaultValue(true)]
         bool UseOnlySecuredStorage { get; set; }
     }
 

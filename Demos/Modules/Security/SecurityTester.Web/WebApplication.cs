@@ -1,9 +1,6 @@
-using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
@@ -11,14 +8,10 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using SecurityTester.Module;
 using SecurityTester.Module.Web;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.Persistent.Base.General;
 
 namespace SecurityTester.Web {
     public class SecurityTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
-        AnonymousAuthenticationStandard _authenticationStandard1;
-        SecurityStrategyComplex _securityStrategyComplex1;
         SystemModule _module1;
         SystemAspNetModule _module2;
         SecurityTesterModule _module3;
@@ -85,8 +78,7 @@ namespace SecurityTester.Web {
             _module3 = new SecurityTesterModule();
             _module4 = new SecurityTesterAspNetModule();
             _sqlConnection1 = new SqlConnection();
-            _securityStrategyComplex1 = new SecurityStrategyComplex();
-            _authenticationStandard1 = new AnonymousAuthenticationStandard();
+            
             ((ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -97,20 +89,18 @@ namespace SecurityTester.Web {
             // 
             // SecurityTesterAspNetApplication
             // 
-            _securityStrategyComplex1.Authentication = _authenticationStandard1;
-            _securityStrategyComplex1.RoleType = typeof(XpandRole);
-            _securityStrategyComplex1.UserType = typeof(XpandUser);
+
             // 
             // authenticationStandard1
             // 
-            _authenticationStandard1.LogonParametersType = typeof(AnonymousLogonParameters);
+            
             ApplicationName = "SecurityTester";
             Connection = _sqlConnection1;
             Modules.Add(_module1);
             Modules.Add(_module2);
             Modules.Add(_module3);
             Modules.Add(_module4);
-            Security = _securityStrategyComplex1;
+            
 
             DatabaseVersionMismatch += SecurityTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();
