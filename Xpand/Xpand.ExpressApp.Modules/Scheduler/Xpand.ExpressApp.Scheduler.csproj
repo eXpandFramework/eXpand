@@ -140,9 +140,6 @@
     </Compile>
     <Compile Include="Reminders\ReminderInfo.cs" />
     <Compile Include="Reminders\ModelUpdaters.cs" />
-    <Compile Include="Reminders\ReminderInfoRefreshController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Reminders\Extensions.cs" />
     <Compile Include="Reminders\SchedulerStorage.cs" />
     <Compile Include="XpandSchedulerModule.cs">
