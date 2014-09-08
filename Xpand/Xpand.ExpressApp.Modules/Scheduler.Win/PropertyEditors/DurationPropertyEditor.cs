@@ -6,7 +6,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraScheduler.UI;
 using EditorAliases = Xpand.ExpressApp.Scheduler.Reminders.EditorAliases;
 
-namespace Xpand.ExpressApp.Scheduler.Win.Reminders {
+namespace Xpand.ExpressApp.Scheduler.Win.PropertyEditors {
     [PropertyEditor(typeof(TimeSpan), EditorAliases.TimeBeforeStartEditorAlias, false)]
     public class DurationPropertyEditor : DXPropertyEditor {
         public DurationPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }

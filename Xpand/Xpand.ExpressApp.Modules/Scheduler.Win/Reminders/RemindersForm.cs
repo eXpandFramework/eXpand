@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Reminders {
             if (selectedReminders.Count <= 0) return;
             var appointment = selectedReminders[0].Appointment;
             var objectSpace = _xafApplication.CreateObjectSpace();
-            var objectType = (Type) appointment.CustomFields[Scheduler.Reminders.ReminderAlertController.BoTypeCustomField];
+            var objectType = (Type) appointment.CustomFields[Scheduler.Reminders.SchedulerStorage.BOType];
             var obj = objectSpace.FindObject(objectType, new BinaryOperator("Oid", appointment.Id));
             var detailView = _xafApplication.CreateDetailView(objectSpace, obj);
             var showViewParameters = new ShowViewParameters(detailView);

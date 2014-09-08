@@ -1,12 +1,5 @@
-﻿#DropDB SchedulerTesterEasyTest
-#Application SchedulerTester.Win
-*UseModel
-*ScreenCapture
+﻿#IncludeFile .\Init.inc
 
-*Action New(Reminder Object)
-*FillForm
- Has Reminder = True
-*SaveAndClose
-*Sleep 5000
-*HandleDialog
- Caption = 1 Reminder
+#IncludeFile .\new reminder.inc
+#IncludeFile .\missed reminder.inc
+#IncludeFile .\update reminder.inc

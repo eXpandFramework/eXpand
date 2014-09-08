@@ -91,6 +91,7 @@
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
+    <Compile Include="Commands\XpandHandleDialogCommand.cs" />
     <Compile Include="Commands\XpandProcessRecordCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
     <Compile Include="Extensions.cs" />

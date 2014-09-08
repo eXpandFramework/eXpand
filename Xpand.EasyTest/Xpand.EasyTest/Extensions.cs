@@ -163,6 +163,7 @@ namespace Xpand.EasyTest {
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
+                {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
