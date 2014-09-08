@@ -1,3 +1,7 @@
+#if !EASYTEST
+using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
 using DevExpress.ExpressApp;

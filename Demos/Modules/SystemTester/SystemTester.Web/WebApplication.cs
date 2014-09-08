@@ -1,6 +1,8 @@
+#if !EASYTEST
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
+#endif 
+using System.ComponentModel;
 using SystemTester.Module;
 using SystemTester.Module.Web;
 using DevExpress.ExpressApp;

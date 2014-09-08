@@ -15,6 +15,7 @@ namespace Xpand.EasyTest.Commands {
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
         readonly Size _defaultWindowSize = new Size(1024, 768);
+        private bool _additionalCommands;
 
         protected override void InternalExecute(ICommandAdapter adapter) {
             EasyTestTracer.Tracer.LogText("MainParameter=" + Parameters.MainParameter.Value);
@@ -36,7 +37,7 @@ namespace Xpand.EasyTest.Commands {
                 }
             }
             finally {
-                if (!windowHandleInfo.Value && this.ParameterValue("ToggleNavigation", true)) {
+                if (!windowHandleInfo.Value && this.ParameterValue("ToggleNavigation", true) && _additionalCommands) {
                     ToggleNavigation(adapter);
                 }
             }
@@ -147,10 +148,12 @@ namespace Xpand.EasyTest.Commands {
         }
 
         private void ExecuteAdditionalCommands(ICommandAdapter adapter) {
+            _additionalCommands = this.ParameterValue("AdditionalCommands", true);
+            if (!_additionalCommands)
+                return;
             if (this.ParameterValue("ToggleNavigation", true)) {
                 ToggleNavigation(adapter);
             }
-
 
             var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
             var activeWindowSizeCommand = new ResizeWindowCommand();
