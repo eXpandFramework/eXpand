@@ -6,6 +6,7 @@
 *Action Show Clause Menu
 *XpandCompareScreenshot XpandGridListEditor.png
  WindowTitle = Full Text Contains Object
+ ToggleNavigation = false
 
 *KillWindow Filter Editor
 *Action Log Off
