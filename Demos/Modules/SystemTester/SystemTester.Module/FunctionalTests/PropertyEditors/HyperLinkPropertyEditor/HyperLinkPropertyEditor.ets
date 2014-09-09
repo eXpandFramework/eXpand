@@ -2,7 +2,7 @@
 #Application XpandSystemTester.Web
 #Application XpandSystemTester.Win
 *UseModel
-#IncludeFile ..\..\Login.inc
+*Action Log On
 *Action Navigation(PropertyEditors.Hyper Link Object)
 
 #IncludeFile .\Save a valid url.inc
