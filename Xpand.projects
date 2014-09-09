@@ -83,6 +83,7 @@
 					Xpand\Xpand.ExpressApp.Modules\MemberLevelSecurity.Win\Xpand.ExpressApp.MemberLevelSecurity.Win.csproj;
                     Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj;
 					Xpand\Xpand.ExpressApp.Modules\JobScheduler.Jobs\Xpand.ExpressApp.JobScheduler.Jobs.csproj;"/>
+	<NHProjects Include="Xpand\Xpand.NH\Xpand.NH.sln"/>
     <DemoSolutions Include="
 					Demos\EFDemoCodeFirst\EFDemoCodeFirst.sln;
 					Demos\FeatureCenter\FeatureCenterVS2010.sln;
