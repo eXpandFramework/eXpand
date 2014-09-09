@@ -95,7 +95,7 @@
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -110,7 +110,7 @@
     <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(VSAddons)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(ModuleProjects)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
-    <MSBuild Projects="$(NHProjects)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
+    <MSBuild Projects="@(NHProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -287,15 +287,14 @@
   </Target>
   <Target Name="Report" DependsOnTargets="Clean;Build;Copy">
     <MakeDir Directories="$(ArtifactDirectory)" />
-    <CreateItem Include="$(XpandDLLPath)\Xpand.*.dll;">
-      <Output ItemName="fxAssemblies" TaskParameter="Include" />
-    </CreateItem>
   </Target>
   <Target Name="Test">
   </Target>
   <Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
   <!--For Continuous integration and automated releases-->
-  <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" />
+  <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" >
+	<IndexSources/>
+  </Target>
   <Target Name="Installer">
     <MakeDir Directories="$(InstallerFolder);" />
     <CreateItem Include="$(XpandDLLPath)\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config;">
@@ -362,7 +361,7 @@
 		-->
   </Target>
   <Target Name="Twitter">
-    <Exec ContinueOnError="false" Command="$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;"/>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;" />
   </Target>
   <Target Name="_Version">
     <FileUpdate Files="Xpand\Xpand.Utils\Properties\AssemblyInfo.cs" Regex="(\d+\.\d+\.\d+\.\d+)" ReplacementText="$(Version)" />
@@ -382,7 +381,6 @@
     <NuspecFile Include="Support\Nuspec\*.nuspec" Exclude="Support\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
-    <IndexSources/>
     <CreateItem Include="$(XpandDLLPath)\*.pdb;">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
