@@ -254,7 +254,7 @@
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
 	<Exec ContinueOnError="true" 
-          WorkingDirectory="%(EasyTests.RelativeDir)></Exec>
+          WorkingDirectory="%(EasyTests.RelativeDir)"
           Command='%(EasyTests.RelativeDir)\ProcessAsUserWrapper.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
