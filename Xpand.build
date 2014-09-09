@@ -255,7 +255,7 @@
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
 	<Exec ContinueOnError="true" 
           WorkingDirectory="%(EasyTests.RelativeDir)"
-          Command='%(EasyTests.RelativeDir)\ProcessAsUserWrapper.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
+          Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
     <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
