@@ -116,7 +116,10 @@
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
     <Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true" />
-    <RemoveDir Directories="$(BuildPath);$(XpandDLLPath);$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))" />
+    <ItemGroup>
+      <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
+    </ItemGroup>
+    <RemoveDir Directories="@(EasyTestVideoFolders)"></RemoveDir>
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
@@ -251,7 +254,7 @@
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
 	<Exec ContinueOnError="true" 
-          WorkingDirectory="%(EasyTests.RelativeDir)"
+          WorkingDirectory="%(EasyTests.RelativeDir)></Exec>
           Command='%(EasyTests.RelativeDir)\ProcessAsUserWrapper.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>

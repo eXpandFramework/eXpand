@@ -70,3 +70,4 @@ Resource/DXPdbJunctions/WindowsFormsApplication1/*
 *.avi
 **/Images/ScreenCapture/*.*
 Resource/PDBIndexer/packages/*
+**/packages/*.*
