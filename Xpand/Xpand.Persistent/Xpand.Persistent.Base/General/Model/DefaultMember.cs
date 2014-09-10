@@ -21,6 +21,8 @@ namespace Xpand.Persistent.Base.General.Model{
     [DomainLogic(typeof (IModelClassDefaultCriteria))]
     public static class DefaultCriteriaDomainLogic{
         public static string Get_DefaultCriteria(IModelClassDefaultCriteria modelClassDefaultCriteria){
+            if (!modelClassDefaultCriteria.TypeInfo.Members.Any())
+                return null;
             var defaultMember = GetDefaultMember(modelClassDefaultCriteria.TypeInfo);
             return new BinaryOperator(defaultMember.Name, "?").ToString();
         }

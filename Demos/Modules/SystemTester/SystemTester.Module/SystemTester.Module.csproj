@@ -119,6 +119,11 @@
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
+    <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembersObject.cs" />
+    <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -169,6 +174,10 @@
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.ets" />
+    <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -180,6 +189,13 @@
     <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
+    <None Include="FunctionalTests\RunTimeMembers\AssociatedCollection.inc" />
+    <None Include="FunctionalTests\RunTimeMembers\OrphanedCollection.inc" />
+    <None Include="FunctionalTests\RunTimeMembers\Persistent.inc" />
+    <None Include="FunctionalTests\RunTimeMembers\NonPersistent.inc" />
+    <None Include="FunctionalTests\RunTimeMembers\Calculated.inc" />
+    <None Include="FunctionalTests\RunTimeMembers\Init.inc" />
     <None Include="FunctionalTests\ConditionalAppearence\Font.inc" />
     <Content Include="FunctionalTests\ConditionalAppearence\Config.xml" />
     <None Include="FunctionalTests\ConditionalAppearence\Init.inc" />

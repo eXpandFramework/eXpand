@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.Country">
+      <OwnMembers>
+        <RuntimeMember Name="RunTimeMembersObject" IsCustom="True" Type="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject" Tag="" CreatedAtDesignTime="False" IsNewNode="True" />
+      </OwnMembers>
+    </Class>
+    <Class Name="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject">
+      <OwnMembers>
+        <RuntimeMember Name="Address" IsCustom="False" Type="DevExpress.Persistent.BaseImpl.Address" CreatedAtDesignTime="False" DataStoreColumnCreated="False" IsNewNode="True" />
+        <RuntimeOrphanedColection Name="AllBekiaris" IsCustom="True" CollectionType="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject" Criteria="[LastName] = 'Bekiaris'" CreatedAtDesignTime="False" IsNewNode="True" />
+        <RuntimeCalculatedMember Name="FullName" IsCustom="False" Type="System.String" AliasExpression="FirstName +' ' +LastName" CreatedAtDesignTime="False" IsNewNode="True" />
+        <MemberNonPersistent Name="NonPersistent" IsCustom="False" Type="System.Boolean" IsNewNode="True" />
+        <RuntimeNonPersistentMember Name="Countries" IsCustom="True" CollectionType="DevExpress.Persistent.BaseImpl.Country" AssociationName="sss" AssociatedMember="RunTimeMembersObject" Tag="" CreatedAtDesignTime="False" IsNewNode="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="RuntimeMembersCalculated_DetailView">
+      <Items>
+        <PropertyEditor Id="Address" PropertyName="Address" IsNewNode="True" />
+        <PropertyEditor Id="AllBekiaris" PropertyName="AllBekiaris" IsNewNode="True" />
+        <PropertyEditor Id="Countries" PropertyName="Countries" IsNewNode="True" />
+        <PropertyEditor Id="FullName" PropertyName="FullName" IsNewNode="True" />
+        <PropertyEditor Id="NonPersistent" PropertyName="NonPersistent" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="RunTimeMembersObject" RelativeSize="100">
+              <LayoutItem Id="FirstName" SizeConstraintsType="Default" RelativeSize="6.866952789699571" ViewItem="FirstName" />
+              <LayoutItem Id="LastName" ViewItem="LastName" SizeConstraintsType="Default" Index="1" RelativeSize="5.1502145922746783" IsNewNode="True" Removed="True" />
+              <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="2" RelativeSize="87.982832618025753" Caption="Created from model at runtime" IsNewNode="True">
+                <LayoutItem Id="FullName" ViewItem="FullName" SizeConstraintsType="Default" Index="0" RelativeSize="7.8048780487804876" IsNewNode="True" />
+                <LayoutItem Id="Address" ViewItem="Address" SizeConstraintsType="Default" Index="1" RelativeSize="5.8536585365853657" IsNewNode="True" />
+                <LayoutItem Id="NonPersistent" ViewItem="NonPersistent" SizeConstraintsType="Default" Index="2" RelativeSize="5.8536585365853657" IsNewNode="True" />
+                <LayoutGroup Id="Autoe1304aaa-0899-4278-b7b2-d725c838e917" ShowCaption="False" Caption="" Direction="Horizontal" Index="3" RelativeSize="72.4390243902439" IsNewNode="True">
+                  <LayoutItem Id="AllBekiaris" ViewItem="AllBekiaris" CaptionLocation="Top" SizeConstraintsType="Default" Index="0" RelativeSize="49.863013698630134" IsNewNode="True" />
+                  <LayoutItem Id="Countries" ViewItem="Countries" SizeConstraintsType="Default" Index="1" RelativeSize="50.136986301369866" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="RuntimeMembersCalculated_ListView">
+      <Columns>
+        <ColumnInfo Id="FullName" PropertyName="FullName" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

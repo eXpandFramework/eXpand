@@ -56,7 +56,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
 
         static bool CanBeLinked(IModelMemberDataStoreForeignKeyCreated modelMember, IModelClass modelClass) {
             return modelMember.MemberInfo != null && modelMember.MemberInfo.IsPersistent &&
-                   !modelMember.MemberInfo.IsReadOnly && (modelMember.MemberInfo.FindAttribute<AssociationAttribute>() == null)
+                   !modelMember.MemberInfo.IsReadOnly 
                    &&modelMember.MemberInfo.MemberTypeInfo==modelClass.TypeInfo;
         }
 

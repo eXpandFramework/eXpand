@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 
 //using DevExpress.ExpressApp.Security;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Web{
     // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
@@ -33,7 +34,7 @@ namespace SystemTester.Web{
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            this.CreateCustomObjectSpaceprovider(args, null);
         }
 
         private void SystemTesterAspNetApplication_DatabaseVersionMismatch(object sender,

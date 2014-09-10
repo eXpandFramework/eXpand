@@ -37,7 +37,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
                 var modelMemberOneToManyCollections = new List<IModelMemberOneToManyCollection>();
                 var xpObjectSpace = objectSpace as XPObjectSpace;
-                var modelMemberExs = GetMembersEx(model);
+                var modelMemberExs = GetMembersEx(model).ToArray();
                 foreach (var memberEx in modelMemberExs) {
                     var customCreateMemberArgs = new CustomCreateMemberArgs(memberEx);
                     OnCustomCreateMember(customCreateMemberArgs);

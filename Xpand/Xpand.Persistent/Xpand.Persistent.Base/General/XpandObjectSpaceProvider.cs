@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo;
 
@@ -16,8 +17,7 @@ namespace Xpand.Persistent.Base.General {
         IDataLayer _dataLayer;
         bool _allowICommandChannelDoWithSecurityContext;
         ClientSideSecurity? _clientSideSecurity;
-
-
+        public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
         public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security,bool threadSafe=false)
@@ -56,21 +56,26 @@ namespace Xpand.Persistent.Base.General {
             return new XpandUnitOfWork(dataLayer, disposableObjectsList.ToArray());
         }
 
-
         public void SetClientSideSecurity(ClientSideSecurity? clientSideSecurity) {
             _clientSideSecurity = clientSideSecurity;
         }
-        public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
 
         protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
             EventHandler<CreatingWorkingDataLayerArgs> handler = CreatingWorkingDataLayer;
             if (handler != null) handler(this, e);
         }
+
         protected override IDataLayer CreateDataLayer(IDataStore dataStore) {
             var creatingWorkingDataLayerArgs = new CreatingWorkingDataLayerArgs(dataStore);
             OnCreatingWorkingDataLayer(creatingWorkingDataLayerArgs);
-            _dataLayer = creatingWorkingDataLayerArgs.DataLayer ?? base.CreateDataLayer(dataStore);
+            _dataLayer = creatingWorkingDataLayerArgs.DataLayer ?? CreateDataLayerCore(dataStore);
             return _dataLayer;
+        }
+
+        private IDataLayer CreateDataLayerCore(IDataStore dataStore){
+            return threadSafe
+                ? (IDataLayer) new XpandThreadSafeDataLayer(XPDictionary, dataStore)
+                : new SimpleDataLayer(XPDictionary, dataStore);
         }
 
         private XpandUnitOfWork CreateUnitOfWork() {
@@ -86,4 +91,13 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
+    public class XpandThreadSafeDataLayer : ThreadSafeDataLayer {
+        public XpandThreadSafeDataLayer(XPDictionary xpDictionary, IDataStore dataStore) : base(xpDictionary, dataStore){
+            
+        }
+
+        protected override void OnClassInfoChanged(object sender, ClassInfoEventArgs e){
+
+        }
+    }
 }

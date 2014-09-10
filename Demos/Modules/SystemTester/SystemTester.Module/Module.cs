@@ -1,4 +1,5 @@
 using System;
+using SystemTester.Module.FunctionalTests.RuntimeMembers;
 using DevExpress.ExpressApp;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Updating;
@@ -10,7 +11,7 @@ namespace SystemTester.Module {
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-            return new[] { updater };
+            return new[] { updater,new RuntimeMembersUpdater(objectSpace, Version)  };
         }
     }
 }
