@@ -63,7 +63,6 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             return b;
         }
 
-
         void OnCustomWriteSecuredLogonParameters(object sender, HandledEventArgs handledEventArgs) {
             var webApplication = ((WebApplication) sender);
             handledEventArgs.Handled = true;
@@ -92,7 +91,7 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
         }
 
         HttpCookie HttpCookie(string logonParametersAsString, WebApplication webApplication) {
-            HttpCookie cookie = FormsAuthentication.GetAuthCookie("", webApplication.CanAutomaticallyLogonWithStoredLogonParameters);
+            var cookie = FormsAuthentication.GetAuthCookie(SecuritySystem.CurrentUserName, webApplication.CanAutomaticallyLogonWithStoredLogonParameters,FormsAuthentication.FormsCookiePath);
             FormsAuthenticationTicket formsTicket = FormsAuthentication.Decrypt(cookie.Value);
             if (formsTicket != null) {
                 var encryptedXafTicket = EncryptedXafTicket(formsTicket, logonParametersAsString);
@@ -138,6 +137,12 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             xafApplication.SetupComplete += ApplicationOnSetupComplete;
             xafApplication.LoggingOn += ApplicationOnLoggingOn;    
             xafApplication.LastLogonParametersReading+=XafApplicationOnLastLogonParametersReading;
+            xafApplication.CreateCustomLogonParameterStore+=XafApplicationOnCreateCustomLogonParameterStore;
+        }
+
+        private void XafApplicationOnCreateCustomLogonParameterStore(object sender, CreateCustomLogonParameterStoreEventArgs e){
+            e.Handled = SecuritySystem.LogonParameters is XpandLogonParameters;
+            e.Storage=new SettingsStorageOnString();
         }
 
         void XafApplicationOnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs lastLogonParametersReadingEventArgs) {

@@ -1,6 +1,6 @@
 ﻿#DropDB SecurityTesterEasyTest
-#Application SecurityTester.Win
-;#Application SecurityTester.Web
+;#Application SecurityTester.Win
+#Application SecurityTester.Web
 
 
 *XpandFillForm

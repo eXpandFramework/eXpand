@@ -34,7 +34,5 @@ namespace Xpand.ExpressApp.Security.Web {
                 new Authentication().Attach(this);
             }
         }
-
-        
     }
 }
