@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IAppearanceRuleProperties, IXpandAppearanceRuleProperties>();
+            extenders.Add<IAppearance, IXpandAppearanceRuleProperties>();
         }
     }
 
