@@ -145,6 +145,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\ApplicationExit\ApplicationExitObject.cs" />
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCaching.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Content Include="FunctionalTests\DetailViewCaching\Config.xml" />
+    <None Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
+    <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
@@ -202,6 +209,10 @@
     <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
+    <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\FilterEditor\FilterEditor.ets" />
     <None Include="FunctionalTests\FilterEditor\FilterEditor.xafml">
       <SubType>Designer</SubType>
@@ -239,6 +250,7 @@
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\ApplicationExit\Config.xml" />
     <None Include="FunctionalTests\ApplicationExit\Init.inc" />
+    <None Include="FunctionalTests\DetailViewCaching\Init.inc" />
     <Content Include="FunctionalTests\FilterEditor\Config.xml" />
     <Content Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
     <Content Include="FunctionalTests\FilterEditor\Images\FilterEditorTop.win.png" />
