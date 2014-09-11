@@ -183,8 +183,6 @@
     <Content Include="FunctionalTests\Actions\Config.xml" />
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
-    <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
-    <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
     <None Include="FunctionalTests\RunTimeMembers\AssociatedCollection.inc" />

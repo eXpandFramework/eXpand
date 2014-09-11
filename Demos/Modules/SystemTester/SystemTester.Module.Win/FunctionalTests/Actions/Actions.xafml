@@ -8,7 +8,7 @@
   <BOModel>
     <Class Name="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration">
       <OwnMembers>
-        <MemberModelMember Name="Criteria" IsCustom="False" Tag="" DeclaredType="DevExpress.ExpressApp.Model.IModelListView" CreateMember="True" CreatedAtDesignTime="True" IsNewNode="True">
+        <MemberModelMember Name="Criteria" DeclaredType="DevExpress.ExpressApp.Model.IModelListView" CreateMember="True" CreatedAtDesignTime="True" IsNewNode="True">
           <AdditionalMembers IsNewNode="True">
             <MemberModelMemberAdditionalMember Name="ModelClass.TypeInfo" DeclaredType="DevExpress.ExpressApp.Model.IModelClass" ModelNodePath="ModelClass.TypeInfo" IsNewNode="True" />
           </AdditionalMembers>
@@ -17,7 +17,7 @@
     </Class>
   </BOModel>
   <Views>
-    <ListView Id="ActionsObject_ListView" PreviewRowDetailView="ActionsObject_DetailView" ConfigurationView="ConfigureModelForActionsObject_DetailView" />
+    <ListView Id="ActionsObject_ListView" ConfigurationView="ConfigureModelForActionsObject_DetailView" DataAccessMode="Server" />
     <DetailView Id="ConfigureModelForActionsObject_DetailView" ClassName="Xpand.Persistent.Base.General.Controllers.Actions.ModelConfiguration" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Criteria" PropertyName="Criteria" IsNewNode="True" />
