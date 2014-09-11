@@ -3,7 +3,7 @@
   <BOModel>
     <Class Name="DevExpress.Persistent.BaseImpl.Country">
       <OwnMembers>
-        <RuntimeMember Name="RunTimeMembersObject" IsCustom="True" Type="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject" Tag="" CreatedAtDesignTime="False" IsNewNode="True" />
+        <RuntimeMember Name="RunTimeMembersObject" IsCustom="True" Type="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject" CreatedAtDesignTime="False" IsNewNode="True" />
       </OwnMembers>
     </Class>
     <Class Name="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject">

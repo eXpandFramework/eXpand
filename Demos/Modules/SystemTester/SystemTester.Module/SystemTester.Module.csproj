@@ -119,9 +119,6 @@
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
-    <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembers.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
