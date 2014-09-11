@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassHideViewToolBar {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Hides view toolbar")]
         bool? HideToolBar { get; set; }
     }

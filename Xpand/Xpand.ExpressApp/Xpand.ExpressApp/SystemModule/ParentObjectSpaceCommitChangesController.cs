@@ -3,10 +3,11 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassParentObjectSpaceCommitChanges {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool CommitParentObjectSpaceChanges { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassParentObjectSpaceCommitChanges), "ModelClass")]

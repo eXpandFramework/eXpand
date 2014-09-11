@@ -7,13 +7,14 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo.DB;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     [ModelAbstractClass]
     public interface IModelMemberFullTextContains : IModelMember {
-        [Category("eXpand.Search")]
+        [Category(AttributeCategoryNameProvider.Search)]
         [Description("Supported in eXpand ListEditors, CollectionSource.CriteriaApplying, CriteriaPropertyEditorEx, gridView.ColumnFilterChanged, XpandObjectSpaceProvider")]
         bool FullText { get; set; }
     }

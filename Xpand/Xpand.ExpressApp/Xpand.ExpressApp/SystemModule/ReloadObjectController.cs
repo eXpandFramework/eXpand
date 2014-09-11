@@ -3,10 +3,11 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelOptionsReloadSequenceObject {
-        [Category("Xpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Reload Sequence objects after objectspace commit.Useful in MiddleTier because the client is not aware of the sequance assigment from the server")]
         bool ReloadSequenceObject { get; set; }
     }

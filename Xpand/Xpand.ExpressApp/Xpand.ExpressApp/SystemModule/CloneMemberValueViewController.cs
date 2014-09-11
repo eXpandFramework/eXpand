@@ -6,10 +6,11 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using System.Linq;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelMemberCloneValue : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool CloneValue { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelMemberCloneValue), "ModelMember")]

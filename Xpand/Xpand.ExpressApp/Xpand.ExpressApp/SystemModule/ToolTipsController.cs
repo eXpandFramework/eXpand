@@ -4,12 +4,13 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelMemberToolTip : IModelNode {
         [Localizable(true)]
         [Description("Specifies the tooltip for the current property.")]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         string ToolTip { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelMemberToolTip), "ModelMember")]

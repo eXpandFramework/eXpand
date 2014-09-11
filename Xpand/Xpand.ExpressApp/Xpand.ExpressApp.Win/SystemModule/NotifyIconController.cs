@@ -11,10 +11,11 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsNotifyIconOptions : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Add a tray icon with a popup menu")]
         bool NotifyIcon { get; set; }
     }

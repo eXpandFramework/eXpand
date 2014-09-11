@@ -5,10 +5,11 @@ using DevExpress.ExpressApp.Editors;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelMemberCursorPosition {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Controls the position of the cursor after the control gets focused")]
         CursorPosition CursorPosition { get; set; }
     }

@@ -2,10 +2,11 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Win.ListEditors;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassHidePopupMenu : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Hides the popup menu of a gridview")]
         bool HidePopupMenu { get; set; }
     }

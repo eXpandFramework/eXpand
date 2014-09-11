@@ -2,17 +2,18 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using System.ComponentModel;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
 
     public interface IModelOptionsHighlightFocusedItem {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [DefaultValue(true)]
         bool HighlightFocusedLayoutItem { get; set; }
     }
 
     public interface IModelClassHighlightFocusedItem : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool HighlightFocusedLayoutItem { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassHighlightFocusedItem), "ModelClass")]

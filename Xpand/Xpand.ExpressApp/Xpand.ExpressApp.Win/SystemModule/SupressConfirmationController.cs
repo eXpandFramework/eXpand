@@ -3,10 +3,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.SystemModule;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public interface IModelClassSupressConfirmation : IModelNode{
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Suppress confirmation message when an object has been change")]
         bool SupressConfirmation { get; set; }
     }

@@ -4,10 +4,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.XtraEditors;
 using Microsoft.Win32;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsLoadWithWindowsOptions : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Modify windows registry in order your application to start along with windows")]
         bool LoadWithWindows { get; set; }
     }

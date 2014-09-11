@@ -9,12 +9,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.PropertyEditors {
     [ModelAbstractClass]
     public interface IModelMemberViewItemSortOrder:IModelMemberViewItem{
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [ModelBrowsable(typeof(StringLookupPropertyEditorVisibilityCalculator))]
         SortingDirection SortingDirection { get; set; }
     }

@@ -1,8 +1,11 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
     public interface IModelClassModifyObjectSpace{
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool ModifyObjectSpace { get; set; }
     }
 

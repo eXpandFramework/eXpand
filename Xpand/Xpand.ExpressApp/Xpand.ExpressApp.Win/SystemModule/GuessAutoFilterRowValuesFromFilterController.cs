@@ -4,10 +4,11 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassGuessAutoFilterRowValuesFromFilter : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool GuessAutoFilterRowValuesFromFilter { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassGuessAutoFilterRowValuesFromFilter), "ModelClass")]

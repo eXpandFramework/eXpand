@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsApplicationMultiInstances : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("If false only one application instance is allowed")]
         [DefaultValue(true)]
         bool ApplicationMultiInstances { get; set; }

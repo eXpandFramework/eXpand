@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
         IModelOptionsColumnAdvBandedView OptionsColumnAdvBandedView { get; }
         [DataSourceProperty("ListViewBands")]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
         IModelGridBand GridBand { get; set; }
 

@@ -4,11 +4,12 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelOptionsConnectionInfoStatusMessage {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Display connection info (server/database) at status bar")]
         [ModelBrowsable(typeof(WinOnlyVisibilityCalculator))]
         bool ConnectionInfoMessage { get; set; }

@@ -8,11 +8,12 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.Utils;
 using DevExpress.XtraBars;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     [ModelAbstractClass]
     public interface IModelClassNewObjectActionTooltip:IModelClass {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Localizable(true)]
         string NewObjectActionTooltip { get; set; }
     }

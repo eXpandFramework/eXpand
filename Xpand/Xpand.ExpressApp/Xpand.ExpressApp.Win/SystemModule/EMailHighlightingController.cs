@@ -7,10 +7,11 @@ using System.Windows.Forms;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using System.Linq;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelMemberIsEmail {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool IsEmail { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelMemberIsEmail), "ModelMember")]

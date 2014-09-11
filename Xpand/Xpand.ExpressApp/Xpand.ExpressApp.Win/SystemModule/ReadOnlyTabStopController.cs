@@ -7,10 +7,11 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassTabStopForReadOnly : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("If a detailview editor is readonly then you can not navigate to it using the TAB key")]
         bool TabOverReadOnlyEditors { get; set; }
         [Category("eXpand")]

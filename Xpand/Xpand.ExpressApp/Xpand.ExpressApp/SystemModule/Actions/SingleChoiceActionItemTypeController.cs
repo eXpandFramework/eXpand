@@ -4,11 +4,12 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Actions {
     [ModelAbstractClass]
     public interface IModelActionSingleChoiceActionItemType : IModelAction {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         SingleChoiceActionItemType? ItemType { get; set; }
     }
 

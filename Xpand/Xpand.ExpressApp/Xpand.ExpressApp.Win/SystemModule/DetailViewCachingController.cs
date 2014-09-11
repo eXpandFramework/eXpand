@@ -8,10 +8,11 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelOptionsDetailViewCaching : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("OnViewControlsCreated will be called only once")]
         [ModelBrowsable(typeof(ModelOptionsDetailViewCachingVisibilityCalculator))]
         bool DetailViewCaching { get; set; }

@@ -16,12 +16,13 @@ using DevExpress.XtraGrid;
 using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 using FilterEditorControl = DevExpress.XtraFilterEditor.FilterEditorControl;
 using Forms = System.Windows.Forms;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassFilterControlSettings : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("For listviews displays a filter expression editor control at the specified position")]
         Forms.DockStyle FilterControlPosition { get; set; }
     }

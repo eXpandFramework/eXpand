@@ -3,11 +3,12 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassEnableFKViolations {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Does not allow delete of an object that has referenced objects")]
         bool EnableFKViolations { get; set; }
     }

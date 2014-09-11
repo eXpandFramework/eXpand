@@ -9,10 +9,11 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public interface IModelMemberSeletectItemSum{
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool SelectedItemSum { get; set; } 
     }
 

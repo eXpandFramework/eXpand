@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Fasterflect;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public enum OpenViewWhenNestedStrategy {
@@ -14,11 +15,11 @@ namespace Xpand.ExpressApp.SystemModule {
 
     [ModelAbstractClass]
     public interface IModelListViewShowViewStrategy {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Works only with XpandShowViewStragey or derive from XpandWebApplication")]
         OpenViewWhenNestedStrategy OpenViewWhenNestedStrategy { get; set; }
 
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool OpenDetailViewAsPopup { get; set; }
     }
 

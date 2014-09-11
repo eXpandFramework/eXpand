@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public enum LookUpListSearch {
@@ -10,7 +11,7 @@ namespace Xpand.ExpressApp.SystemModule {
     }
 
     public interface IModelClassLookUpListSearch {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         LookUpListSearch LookUpListSearch { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassLookUpListSearch), "ModelClass")]

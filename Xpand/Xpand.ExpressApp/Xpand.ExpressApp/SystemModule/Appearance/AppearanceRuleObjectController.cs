@@ -3,10 +3,11 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Appearance {
     public interface IModelOptionAppearanceRule{
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool EndUserCustomizeAppearanceRule { get; set; }
     }
 

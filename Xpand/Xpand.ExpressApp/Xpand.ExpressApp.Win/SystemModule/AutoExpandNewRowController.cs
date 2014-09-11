@@ -8,10 +8,11 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassAutoExpandNewRow : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("If gridview in master detail auto expand new inserter row")]
         bool AutoExpandNewRow { get; set; }
     }

@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassDescribeRunTimeMembers : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Adds a TypeDesriptionProvider to describe runtime members")]
         bool DescribeRunTimeMembers { get; set; }
     }

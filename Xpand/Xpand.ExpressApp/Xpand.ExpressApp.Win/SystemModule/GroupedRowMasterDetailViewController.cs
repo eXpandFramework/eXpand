@@ -11,7 +11,7 @@ using Xpand.Persistent.Base.General.Model;
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelColumnMasterDetailView {
         [DataSourceProperty(ModelColumnDetailViewsDomainLogic.DetailViews)]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [ModelBrowsable(typeof(ModelColumnMasterDetailViewVisibilityCalculator))]
         IModelDetailView MasterDetailView { get; set; }
     }

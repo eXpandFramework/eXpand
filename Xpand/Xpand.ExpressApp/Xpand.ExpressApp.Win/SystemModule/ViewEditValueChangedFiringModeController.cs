@@ -7,11 +7,12 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelClassEditValueChangedFiringMode {
         [DefaultValue(EditValueChangedFiringMode.Buffered)]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         EditValueChangedFiringMode EditValueChangedFiringMode { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassEditValueChangedFiringMode), "ModelClass")]
@@ -19,14 +20,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     }
     public class ViewEditValueChangedFiringModeController : ListViewController<ColumnsListEditor>, IModelExtender {
-        GridView mainView;
+        GridView _mainView;
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (((IModelListViewEditValueChangedFiringMode)View.Model).EditValueChangedFiringMode == EditValueChangedFiringMode.Buffered) {
-                mainView = ((ColumnsListEditor)View.Editor).GridView();
-                if (mainView != null)
-                    mainView.ShownEditor += MainViewOnShownEditor;
+                _mainView = ((ColumnsListEditor)View.Editor).GridView();
+                if (_mainView != null)
+                    _mainView.ShownEditor += MainViewOnShownEditor;
             }
         }
         void MainViewOnShownEditor(object sender, EventArgs args) {

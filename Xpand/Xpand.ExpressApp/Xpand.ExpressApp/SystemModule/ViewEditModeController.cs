@@ -2,11 +2,12 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
 
     public interface IModelClassEditMode : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Control detail view default edit mode")]
         ViewEditMode? ViewEditMode { get; set; }
     }

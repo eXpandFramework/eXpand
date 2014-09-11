@@ -3,12 +3,13 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Actions {
     [ModelAbstractClass]
     public interface IModelActionState:IModelAction {
         [DefaultValue(true)]
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool Active { get; set; }
     }
     public class GlobalActionStateController:Controller,IModelExtender {

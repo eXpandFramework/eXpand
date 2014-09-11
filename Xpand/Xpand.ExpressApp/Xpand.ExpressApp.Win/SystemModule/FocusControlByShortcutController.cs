@@ -12,11 +12,12 @@ using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraBars;
 using DevExpress.XtraLayout;
+using Xpand.Persistent.Base.General.Model;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public interface IModelMemberFocusControlByShortcut : IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Focus associated editor when this keyboard shortcut is detected")]
         string FocusShortcut { get; set; }
     }

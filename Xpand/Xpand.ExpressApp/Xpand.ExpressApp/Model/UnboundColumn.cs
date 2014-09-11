@@ -12,6 +12,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Fasterflect;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Model {
     [ModelInterfaceImplementor(typeof(IModelClassEnableUnboundColumnCreation), "ModelClass")]
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.Model {
     }
 
     public interface IModelClassEnableUnboundColumnCreation:IModelNode {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool EnableUnboundColumnCreation { get; set; }
     }
 
