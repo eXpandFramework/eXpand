@@ -11,7 +11,7 @@ namespace ModelDifferenceTester.Module.DatabaseUpdate {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (XpandRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
 
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
@@ -20,8 +20,8 @@ namespace ModelDifferenceTester.Module.DatabaseUpdate {
             var user = (SecuritySystemUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
 
-            var modelRole = ObjectSpace.GetDefaultModelRole("ModelRole");
-            user.Roles.Add((XpandRole)modelRole);
+            var modelRole = (SecuritySystemRole)ObjectSpace.GetDefaultModelRole("ModelRole");
+            user.Roles.Add(modelRole);
 
             ObjectSpace.CommitChanges();
         }

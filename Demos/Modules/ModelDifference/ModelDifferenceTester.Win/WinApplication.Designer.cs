@@ -35,8 +35,7 @@ namespace ModelDifferenceTester.Win {
             this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
 
-            this._securityStrategyComplex = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this._authenticationStandard = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -47,14 +46,7 @@ namespace ModelDifferenceTester.Win {
             // 
             // _securityStrategyComplex
             // 
-            this._securityStrategyComplex.Authentication = this._authenticationStandard;
-            this._securityStrategyComplex.UserType = typeof(SecuritySystemUser);
-            this._securityStrategyComplex.RoleType = typeof(XpandRole);
-            // 
-            // _authenticationStandard
-            // 
             
-            this._authenticationStandard.LogonParametersType =  typeof(AuthenticationStandardLogonParameters);
             // 
             // ModelDifferenceTesterWindowsFormsApplication
             // 
@@ -67,7 +59,6 @@ namespace ModelDifferenceTester.Win {
             this.Modules.Add(this.securityModule1);
 
             this.Modules.Add(this.module4);
-            this.Security = this._securityStrategyComplex;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ModelDifferenceTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.ModelDifferenceTesterWindowsFormsApplication_CustomizeLanguagesList);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -84,7 +75,6 @@ namespace ModelDifferenceTester.Win {
         private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
 
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex _securityStrategyComplex;
-        private AuthenticationStandard _authenticationStandard;
+        
     }
 }

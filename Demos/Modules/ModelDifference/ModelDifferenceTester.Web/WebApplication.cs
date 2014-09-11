@@ -1,11 +1,12 @@
+#if !EASYTEST
 using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
@@ -18,24 +19,32 @@ using Xpand.ExpressApp.Security;
 
 namespace ModelDifferenceTester.Web {
     public class ModelDifferenceTesterAspNetApplication : WebApplication {
-        AuthenticationStandard _authenticationStandard;
-        SecurityStrategyComplex _securityStrategyComplex;
-        CloneObjectModule cloneObjectModule1;
-        ModelDifferenceAspNetModule modelDifferenceAspNetModule1;
-        ModelDifferenceModule modelDifferenceModule1;
-        SystemModule module1;
-        SystemAspNetModule module2;
-        ModelDifferenceTesterModule module3;
-        ModelDifferenceTesterAspNetModule module4;
-        SecurityModule securityModule1;
+        
+        
+        CloneObjectModule _cloneObjectModule1;
+        ModelDifferenceAspNetModule _modelDifferenceAspNetModule1;
+        ModelDifferenceModule _modelDifferenceModule1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        ModelDifferenceTesterModule _module3;
+        ModelDifferenceTesterAspNetModule _module4;
+        SecurityModule _securityModule1;
 
-        SqlConnection sqlConnection1;
-        XpandSecurityModule xpandSecurityModule1;
+        SqlConnection _sqlConnection1;
+        XpandSecurityModule _xpandSecurityModule1;
 
         public ModelDifferenceTesterAspNetApplication() {
             InitializeComponent();
             DatabaseVersionMismatch += ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";
@@ -78,52 +87,48 @@ namespace ModelDifferenceTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new ModelDifferenceTesterModule();
-            module4 = new ModelDifferenceTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
-            cloneObjectModule1 = new CloneObjectModule();
-            securityModule1 = new SecurityModule();
-            _securityStrategyComplex = new SecurityStrategyComplex();
-            _authenticationStandard = new AuthenticationStandard();
-            xpandSecurityModule1 = new XpandSecurityModule();
-            modelDifferenceModule1 = new ModelDifferenceModule();
-            modelDifferenceAspNetModule1 = new ModelDifferenceAspNetModule();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new ModelDifferenceTesterModule();
+            _module4 = new ModelDifferenceTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            _cloneObjectModule1 = new CloneObjectModule();
+            _securityModule1 = new SecurityModule();
+            
+            _xpandSecurityModule1 = new XpandSecurityModule();
+            _modelDifferenceModule1 = new ModelDifferenceModule();
+            _modelDifferenceAspNetModule1 = new ModelDifferenceAspNetModule();
             ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
                 "odelDifferenceTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // _securityStrategyComplex
             // 
-            _securityStrategyComplex.Authentication = _authenticationStandard;
-            _securityStrategyComplex.UserType = typeof (SecuritySystemUser);
-            _securityStrategyComplex.RoleType = typeof (SecuritySystemRole);
+            
             // 
             // _authenticationStandard
             // 
 
-            _authenticationStandard.LogonParametersType = typeof (AuthenticationStandardLogonParameters);
+            
             // 
             // ModelDifferenceTesterAspNetApplication
             // 
             ApplicationName = "ModelDifferenceTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(cloneObjectModule1);
-            Modules.Add(securityModule1);
-            Modules.Add(xpandSecurityModule1);
-            Modules.Add(modelDifferenceModule1);
-            Modules.Add(modelDifferenceAspNetModule1);
-            Modules.Add(module4);
-            Security = _securityStrategyComplex;
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_cloneObjectModule1);
+            Modules.Add(_securityModule1);
+            Modules.Add(_xpandSecurityModule1);
+            Modules.Add(_modelDifferenceModule1);
+            Modules.Add(_modelDifferenceAspNetModule1);
+            Modules.Add(_module4);
             ((ISupportInitialize) (this)).EndInit();
         }
 

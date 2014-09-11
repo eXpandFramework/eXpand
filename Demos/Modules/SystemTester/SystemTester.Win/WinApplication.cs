@@ -1,12 +1,11 @@
+#if !EASYTEST
 using System;
+#endif
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-
-//using DevExpress.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
-    // For more typical usage scenarios, be sure to check out http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWinWinApplicationMembersTopicAll
     public partial class SystemTesterWindowsFormsApplication : WinApplication {
         public SystemTesterWindowsFormsApplication() {
             InitializeComponent();
