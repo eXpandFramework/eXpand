@@ -2,10 +2,10 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public interface IModelOptionsApplicationModelDiffs : IModelOptions {
@@ -48,12 +48,16 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         }
 
         void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
-            var store = (args.Object) as UserModelDifferenceObject;
-            if (store != null && ReferenceEquals(GetDifference(Application.GetType().FullName, store.Name), store)) {
-                ModelApplicationBase modelApplicationBase = ((ModelApplicationBase)Application.Model).LastLayer;
-                new ModelXmlReader().ReadFromModel(modelApplicationBase, store.Model);
+            var userModelDifferenceObject = args.Object as UserModelDifferenceObject;
+            if (userModelDifferenceObject != null && ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name), userModelDifferenceObject)) {
+                var modelApplicationBase = ((ModelApplicationBase)Application.Model).LastLayer;
+                foreach (var aspectObject in userModelDifferenceObject.AspectObjects){
+                    var name = aspectObject.Name == CaptionHelper.DefaultLanguage ? "" : aspectObject.Name;
+                    new ModelXmlReader().ReadFromString(modelApplicationBase, name, aspectObject.Xml);
+                }
             }
         }
+
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
             return new QueryUserModelDifferenceObject(((XPObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
 

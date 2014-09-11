@@ -27,6 +27,7 @@ namespace ModelDifferenceTester.Module {
             // ModelDifferenceTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase));
         }
 
         #endregion
