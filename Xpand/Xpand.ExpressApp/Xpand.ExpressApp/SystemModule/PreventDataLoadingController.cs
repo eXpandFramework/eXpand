@@ -30,8 +30,10 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _filterController.FullTextFilterAction.Execute -= FullTextFilterAction_Execute;
-            _filterController.SetFilterAction.Execute -= SetFilterActionOnExecute;
+            if (_filterController != null){
+                _filterController.FullTextFilterAction.Execute -= FullTextFilterAction_Execute;
+                _filterController.SetFilterAction.Execute -= SetFilterActionOnExecute;
+            }
         }
 
         protected override void OnViewControlsCreated() {
