@@ -1,3 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <Views>
+    <DetailView Id="MDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+            <LayoutGroup Id="Xml Content" Index="0" />
+            <LayoutGroup Id="General" Index="1">
+              <LayoutItem Id="Name" RelativeSize="4.577968526466381" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.473029045643152">
+                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.526970954356848">
+                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Model" Removed="True" />
+          </TabbedGroup>
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="RDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+            <LayoutGroup Id="Xml Content" Index="0" />
+            <LayoutGroup Id="General" Index="1">
+              <LayoutItem Id="Name" RelativeSize="4.577968526466381" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.473029045643152">
+                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.526970954356848">
+                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Roles" Index="2" />
+            <LayoutGroup Id="Model" Removed="True" />
+          </TabbedGroup>
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="UDO_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+            <LayoutGroup Id="Xml Content" Index="0" />
+            <LayoutGroup Id="General" Index="1">
+              <LayoutItem Id="Name" RelativeSize="4.577968526466381" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44.398340248962654">
+                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55.601659751037346">
+                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Users" Index="2" />
+            <LayoutGroup Id="Model" Removed="True" />
+          </TabbedGroup>
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>
