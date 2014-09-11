@@ -13,6 +13,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         bool DataStoreColumnCreated { get; set; }
         
     }
+
     public interface IModelOptionMemberPersistent {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Description("If set when creating Runtime members it will throw any SqlExecutionErrorException/ConstrainsVionationException")]
@@ -21,12 +22,10 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
     [DomainLogic(typeof(IModelMemberPersistent))]
     public class ModelMemberPersistentDomainLogic : ModelMemberExDomainLogicBase<IModelMemberPersistent> {
-        public static IMemberInfo Get_MemberInfo(IModelMemberPersistent modelRuntimeMember) {
+        public static IMemberInfo Get_MemberInfo(IModelMemberPersistent modelRuntimeMember){
             return GetMemberInfo(modelRuntimeMember, 
                 (persistent, info) => info.CreateCustomMember(persistent.Name, persistent.Type, false),
                 persistent => true);
         }
-
     }
-
 }

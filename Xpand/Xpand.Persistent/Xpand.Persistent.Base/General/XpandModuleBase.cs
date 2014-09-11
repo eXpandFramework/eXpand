@@ -732,8 +732,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
-            node.IsCustom = false;
-            node.IsCalculated = false;
+            node.ClearValue(ex => ex.IsCustom);
+            node.ClearValue(ex => ex.IsCalculated);
         }
 
         public static void RemoveCall(string name, ApplicationModulesManager applicationModulesManager) {

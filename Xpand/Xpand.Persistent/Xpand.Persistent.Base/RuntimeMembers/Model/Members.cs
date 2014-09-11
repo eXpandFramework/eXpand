@@ -63,7 +63,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
     public interface IModelMemberNonPersistent : IModelMemberEx {
     }
 
-    public class XpandStringToTypeConverterExtended : DevExpress.ExpressApp.Model.Core.StringToTypeConverterExtended {
+    public class XpandStringToTypeConverterExtended : StringToTypeConverterExtended {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
             if (value != null) {
                 ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(Type.GetType(value.ToString()));
@@ -111,19 +111,18 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         protected static bool CheckTag(TModelMember modelMemberEx) {
             if (Equals(true, modelMemberEx.Tag)) {
-                modelMemberEx.Tag = null;
+                modelMemberEx.ClearValue(member => member.Tag);
                 return true;
             }
             return false;
         }
-
 
         protected static bool ValidState(TModelMember modelMemberEx, XPCustomMemberInfo memberInfo,Func<TModelMember,bool> validState) {
             if (CheckTag(modelMemberEx)) return false;
             if (memberInfo == null && !String.IsNullOrEmpty(modelMemberEx.Name)) {
                 modelMemberEx.Tag = true;
                 if (modelMemberEx.Type != null && (validState.Invoke(modelMemberEx))) {
-                    modelMemberEx.Tag = null;
+                    modelMemberEx.ClearValue(member => member.Tag);
                     return true;
                 }
             }

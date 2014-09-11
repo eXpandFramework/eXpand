@@ -32,6 +32,10 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelNodeExtensions {
+        public static void ClearValue<TNode>(this TNode node,Expression<Func<TNode, object>> expression) where TNode:IModelNode{
+            node.ClearValue(node.GetPropertyName(expression));
+        }
+
         public static ITypeInfo GetGenericListArgument(this IModelNode nodeByPath) {
             var type = nodeByPath.GetType();
             if (typeof(IEnumerable).IsAssignableFrom(type)) {
@@ -151,8 +155,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool HasValue(this IModelNode modelNode,params Type[] interfacesToSearch  ){
-            var valueInfos = ((ModelNode) modelNode).NodeInfo.ValuesInfo;
-            string[] namesToSearch=valueInfos.Select(info => info.Name).ToArray();
+            var valueInfos = ((ModelNode) modelNode).NodeInfo.ValuesInfo.ToArray();
+            var namesToSearch=valueInfos.Select(info => info.Name);
             if (interfacesToSearch != null){
                 namesToSearch = interfacesToSearch.SelectMany(type => type.Properties()).Select(info => info.Name).ToArray();
             }
