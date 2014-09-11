@@ -56,19 +56,24 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
         protected override void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             if (e.SelectedChoiceActionItem.Id == ModifyModelActionChoiceItemsUpdater.ChangeViewModel){
                 var showViewParameters = e.ShowViewParameters;
-                var objectSpace = Application.CreateObjectSpace();
                 var modelDetailView = ((IModelViewConfigurationView)View.Model).ConfigurationView;
-                var changeViewModel = objectSpace.CreateObject<ModelConfiguration>();
-                showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelDetailView,true,changeViewModel);
-                showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-                var dialogController = new DialogController();
-                var viewToConfigure = View;
-                dialogController.Accepting += (o, args) =>{
-                    var modelMemberInfoController = dialogController.Frame.GetController<XpandModelMemberInfoController>();
-                    modelMemberInfoController.SynchronizeModel(viewToConfigure.Model, dialogController.Frame.View.CurrentObject);
-                };
-                dialogController.Disposed += (o, args) => viewToConfigure.SetModel(viewToConfigure.Model);
-                showViewParameters.Controllers.Add(dialogController);
+                if (modelDetailView!=null){
+                    var objectSpace = Application.CreateObjectSpace();
+                    var changeViewModel = objectSpace.CreateObject<ModelConfiguration>();
+                    showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelDetailView, true,
+                        changeViewModel);
+                    showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+                    var dialogController = new DialogController();
+                    var viewToConfigure = View;
+                    dialogController.Accepting += (o, args) =>{
+                        var modelMemberInfoController =
+                            dialogController.Frame.GetController<XpandModelMemberInfoController>();
+                        modelMemberInfoController.SynchronizeModel(viewToConfigure.Model,
+                            dialogController.Frame.View.CurrentObject);
+                    };
+                    dialogController.Disposed += (o, args) => viewToConfigure.SetModel(viewToConfigure.Model);
+                    showViewParameters.Controllers.Add(dialogController);
+                }
             }
         }
 

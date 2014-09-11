@@ -188,6 +188,7 @@
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="General\Model\ModelNodePath.cs" />
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
+    <Compile Include="General\XpandCollectionSource.cs" />
     <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />

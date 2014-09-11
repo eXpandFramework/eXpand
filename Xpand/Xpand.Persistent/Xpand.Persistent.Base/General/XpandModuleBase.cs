@@ -552,10 +552,14 @@ namespace Xpand.Persistent.Base.General {
             application.CreateCustomUserModelDifferenceStore+=OnCreateCustomUserModelDifferenceStore;
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;
-
+            application.CreateCustomCollectionSource+=ApplicationOnCreateCustomCollectionSource;
             if (RuntimeMode){
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
+        }
+
+        private void ApplicationOnCreateCustomCollectionSource(object sender, CreateCustomCollectionSourceEventArgs e){
+            e.CollectionSource=new XpandCollectionSource(e.ObjectSpace, e.ObjectType, e.DataAccessMode, e.Mode);
         }
 
         private void OnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
