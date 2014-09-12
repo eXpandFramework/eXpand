@@ -156,6 +156,9 @@
     <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\ModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
       <SubType>Component</SubType>
     </Compile>

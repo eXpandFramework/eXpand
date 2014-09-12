@@ -4,8 +4,8 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ConditionalObjectViewRuleController : ViewController {
@@ -37,13 +37,13 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
             public IModelView Model { get; set; }
         }
 
-        void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
-            LogicRuleInfo info = logicRuleExecuteEventArgs.LogicRuleInfo;
+        void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs e) {
+            LogicRuleInfo info = e.LogicRuleInfo;
             if (info.InvertCustomization)
                 return;
             var objectViewRule = info.Rule as IObjectViewRule;
             if (objectViewRule!=null) {
-                ExecutionContext executionContext = logicRuleExecuteEventArgs.ExecutionContext;
+                ExecutionContext executionContext = e.ExecutionContext;
                 switch (executionContext) {
                     case ExecutionContext.None:
                         if (info.Active) {
@@ -63,8 +63,9 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
                     case ExecutionContext.CurrentObjectChanged:
                         if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView&&View.ObjectTypeInfo!=null) {
                             var modelView = info.Active ? objectViewRule.ObjectView : GetDefaultObjectView();
-                            if (modelView!=null)
-                                View.SetModel(modelView,true);
+                            if (modelView!=null){
+                                Frame.GetController<ModelController>().SetView();
+                            }
                         }
                         break;
                 }

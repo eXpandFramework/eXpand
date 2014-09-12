@@ -1,15 +1,10 @@
-﻿using System.ComponentModel;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions {
     public class ResetViewModelController : ModifyModelActionControllerBase {
-        private void ViewOnCustomModelSaving(object sender, HandledEventArgs handledEventArgs){
-            handledEventArgs.Handled = true;
-        }
-
         protected override void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             var choiceActionItem = e.SelectedChoiceActionItem;
             if (choiceActionItem.Id == ModifyModelActionChoiceItemsUpdater.ResetViewModel){
@@ -30,10 +25,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
                             throw new UserFriendlyException("Cannot reset new views");
                         }
                     }
-                }
-                View.CustomModelSaving += ViewOnCustomModelSaving;
-                View.SetModel(View.Model, true);
-                View.CustomModelSaving -= ViewOnCustomModelSaving;
+                }            
+                Frame.GetController<ModelController>().SetView(e.ShowViewParameters);
             }
         }
     }

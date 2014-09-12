@@ -34,12 +34,13 @@ namespace Xpand.Persistent.Base.General{
         }
 
         protected override void ApplySorting(IList<SortProperty> sorting){
+            if (CanApplySorting(sorting))
+                base.ApplySorting(sorting);
+        }
+
+        private bool CanApplySorting(IList<SortProperty> sorting){
             var xpServerCollectionSource = OriginalCollection as XPServerCollectionSource;
-            if (xpServerCollectionSource != null){
-                var defaultSorting = BaseObjectSpace.ConvertSortingToString(sorting);
-                if (xpServerCollectionSource.DefaultSorting!=defaultSorting)
-                    base.ApplySorting(sorting);
-            }
+            return xpServerCollectionSource == null || xpServerCollectionSource.DefaultSorting != BaseObjectSpace.ConvertSortingToString(sorting);
         }
     }
 }
