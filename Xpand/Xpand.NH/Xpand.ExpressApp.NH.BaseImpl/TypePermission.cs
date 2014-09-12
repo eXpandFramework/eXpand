@@ -6,6 +6,7 @@ using DevExpress.Xpo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -62,10 +63,22 @@ namespace Xpand.ExpressApp.NH.BaseImpl
 
         public Type TargetType
         {
-            get { return !string.IsNullOrWhiteSpace(TypeName) ? Type.GetType(TypeName) : null; }
+            get { return !string.IsNullOrWhiteSpace(TypeName) ? GetTypeFromName(TypeName) : null; }
             set { TypeName = value != null ? value.AssemblyQualifiedName : null; }
         }
 
+
+        private static Type GetTypeFromName(string typeName)
+        {
+            Guard.ArgumentNotNull(typeName, "typeName");
+
+            string[] parts = typeName.Split(new char[] { ',' }, 2);
+            if (parts.Length != 2)
+                return null;
+
+            AssemblyName assemblyName = new AssemblyName(parts[1]);
+            return Type.GetType(parts[0] + ", " + assemblyName.Name);
+        }
         public IList<IOperationPermission> GetPermissions()
         {
             List<IOperationPermission> result = new List<IOperationPermission>();
