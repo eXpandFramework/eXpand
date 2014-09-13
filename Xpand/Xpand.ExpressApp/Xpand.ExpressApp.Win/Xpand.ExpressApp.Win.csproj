@@ -469,7 +469,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\PromtOnExitController.cs" />
-    <Compile Include="SystemModule\ViewEditModeController.cs">
+    <Compile Include="SystemModule\SwitchToEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\WinSelectFirstNavigationItemController.cs">

@@ -121,6 +121,10 @@
     <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
+    <Compile Include="FunctionalTests\ViewEditMode\ViewEditMode.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\ViewEditMode\ViewEditModeObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,16 +179,27 @@
     <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\ViewEditMode\DetailView\ViewEditMode.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Actions\Change Action item visibility from model.inc" />
-    <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Actions\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
+    <Content Include="FunctionalTests\ViewEditMode\DetailView\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode.ets" />
+    <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode.ets" />
+    <None Include="FunctionalTests\ViewEditMode\DetailView\Init.inc" />
     <None Include="FunctionalTests\RunTimeMembers\AssociatedCollection.inc" />
     <None Include="FunctionalTests\RunTimeMembers\OrphanedCollection.inc" />
     <None Include="FunctionalTests\RunTimeMembers\Persistent.inc" />

@@ -6,12 +6,11 @@ using DevExpress.ExpressApp.Web;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    public class CollectionsEditModeController : ViewEditModeController {
+    public class CollectionsEditModeController : ViewController<DetailView> {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.ViewChanging += FrameOnViewChanging;
         }
-
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -28,19 +27,19 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         bool GetViewEditMode(ListPropertyEditor listPropertyEditor) {
             var modelPropertyEditor = ((IModelPropertyEditor)listPropertyEditor.Model);
-            var viewEditMode = ((IModelViewEditMode)modelPropertyEditor.View).ViewEditMode;
+            var viewEditMode = ((IModelObjectViewViewEditMode)modelPropertyEditor.View).ViewEditMode;
             return viewEditMode.HasValue && viewEditMode.Value == ViewEditMode.Edit;
         }
 
         void FrameOnViewChanging(object sender, ViewChangingEventArgs viewChangingEventArgs) {
-            if (!(viewChangingEventArgs.View is DashboardView) && viewChangingEventArgs.View != null) {
-                var viewEditMode = ((IModelViewEditMode)viewChangingEventArgs.View.Model).ViewEditMode;
-                if (viewEditMode.HasValue && viewChangingEventArgs.View is ListView) {
+            var listView = viewChangingEventArgs.View as ListView;
+            if (listView != null) {
+                var viewEditMode = ((IModelObjectViewViewEditMode)listView.Model).ViewEditMode;
+                if (viewEditMode.HasValue) {
                     var showViewStrategy = ((ShowViewStrategy)Application.ShowViewStrategy);
                     showViewStrategy.CollectionsEditMode = viewEditMode.Value;
                 }
             }
         }
-
     }
 }

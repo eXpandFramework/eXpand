@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester" Logo="ExpressAppLogo">
+  <Views>
+    <DetailView Id="ViewEditModeView_DetailView" ViewEditMode="View" />
+    <DetailView Id="ViewEditModeEdit_DetailView" ViewEditMode="Edit" />
+  </Views>
+</Application>

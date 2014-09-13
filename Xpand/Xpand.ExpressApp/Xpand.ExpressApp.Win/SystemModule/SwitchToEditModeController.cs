@@ -1,14 +1,15 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-    public class ViewEditModeController : ExpressApp.SystemModule.ViewEditModeController {
+    public class SwitchToEditModeController : ViewController<DetailView> {
         readonly SimpleAction _editAction;
 
-        public ViewEditModeController() {
+        public SwitchToEditModeController() {
             _editAction = new SimpleAction(this, "SwitchToEditMode", PredefinedCategory.RecordEdit);
             _editAction.Execute+=EditActionOnExecute;
             _editAction.Caption = "Edit";
@@ -21,17 +22,20 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             get { return _editAction; }
         }
 
-        protected override void UpdateViewAllowEditState() {
-            base.UpdateViewAllowEditState();
+        protected override void OnActivated(){
+            base.OnActivated();
             _editAction.Active["ViewEditMode"] = !View.AllowEdit;
-            ObjectSpace.Committed+=ObjectSpaceOnCommitted;
+            ObjectSpace.Committed -= ObjectSpaceOnCommitted;
+            ObjectSpace.Committed += ObjectSpaceOnCommitted;
         }
+
         protected override void OnDeactivated() {
             base.OnDeactivated();
             ObjectSpace.Committed-=ObjectSpaceOnCommitted;
         }
+
         void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
-            var viewEditMode = ((IModelViewEditMode)View.Model).ViewEditMode;
+            var viewEditMode = ((IModelDetailViewViewEditMode)View.Model).ViewEditMode;
             if (viewEditMode.HasValue) {
                 View.AllowEdit["ViewEditMode"] = View.ViewEditMode == ViewEditMode.Edit;
                 _editAction.Active["ViewEditMode"] = !View.AllowEdit.ResultValue;
