@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -32,16 +31,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(CloneObjectModule));
         }
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            if (Application != null) {
-                Application.LoggedOn += ApplicationOnLoggedOn;
-            }
-        }
-
-        void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
-            ((ShowViewStrategy)Application.ShowViewStrategy).CollectionsEditMode = ((IModelOptionsCollectionEditMode)Application.Model.Options).CollectionsEditMode;
-        }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
@@ -54,7 +43,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
             extenders.Add<IModelOptions, IModelOptionsQueryStringParameter>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
             extenders.Add<IModelListView, IModelListViewTwoDimensionListEditor>();

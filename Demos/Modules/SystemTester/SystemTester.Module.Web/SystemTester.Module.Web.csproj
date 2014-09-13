@@ -138,6 +138,10 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ViewEditMode.Web\ViewEditMode.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\ViewEditMode.Web\CollectionEditMode.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -158,8 +162,10 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="FunctionalTests\" />
+    <Content Include="FunctionalTests\ViewEditMode.Web\Config.xml" />
+    <None Include="FunctionalTests\ViewEditMode.Web\Init.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

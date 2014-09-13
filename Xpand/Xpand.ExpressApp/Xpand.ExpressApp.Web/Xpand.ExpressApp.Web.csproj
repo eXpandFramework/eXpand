@@ -206,7 +206,6 @@
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
-    <Compile Include="Model\IModelOptionsCollectionEditMode.cs" />
     <Compile Include="SystemModule\NullTextController.cs">
       <SubType>Component</SubType>
     </Compile>
