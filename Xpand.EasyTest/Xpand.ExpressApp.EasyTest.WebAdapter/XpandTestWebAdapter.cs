@@ -24,6 +24,10 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         private const string UrlParamName = "Url";
 
         public override void RunApplication(TestApplication testApplication){
+            var directoryName = testApplication.GetParamValue("PhysicalPath");
+            var path = Path.Combine(directoryName, "Model.User.xafml");
+            if (File.Exists(path))
+                File.Delete(path);
             if (testApplication.FindParamValue("DefaultWindowSize") != null) {
                 WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
             }

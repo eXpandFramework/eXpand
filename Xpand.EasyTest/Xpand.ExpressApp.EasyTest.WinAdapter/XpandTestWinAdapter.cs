@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.EasyTest.WinAdapter;
 using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls;
@@ -22,6 +23,15 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             ScreenCaptureCommand.Stop();
             base.KillApplication(testApplication, context);
         }
+
+        public override void RunApplication(TestApplication testApplication){
+            base.RunApplication(testApplication);
+            var directoryName = Path.GetDirectoryName(testApplication.GetParamValue("FileName"))+"";
+            var path = Path.Combine(directoryName,"Model.User.xafml");
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType){
             _easyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
             return _easyTestCommandAdapter;
