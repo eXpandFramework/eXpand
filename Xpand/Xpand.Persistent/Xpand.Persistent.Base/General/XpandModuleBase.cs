@@ -546,7 +546,6 @@ namespace Xpand.Persistent.Base.General {
                 
             if (Executed("Setup"))
                 return;
-            
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             application.CreateCustomUserModelDifferenceStore+=OnCreateCustomUserModelDifferenceStore;
@@ -556,6 +555,13 @@ namespace Xpand.Persistent.Base.General {
             if (RuntimeMode){
                 application.LoggedOn += (sender, args) => RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
             }
+        }
+
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
+            var moduleUpdaters = base.GetModuleUpdaters(objectSpace, versionFromDB);
+            if (Executed<ISequenceGeneratorUser>("GetModuleUpdaters")) return moduleUpdaters;
+            moduleUpdaters = moduleUpdaters.Concat(new[]{new SequenceGeneratorUpdater(objectSpace, Version)});
+            return moduleUpdaters;
         }
 
         private void ApplicationOnCreateCustomCollectionSource(object sender, CreateCustomCollectionSourceEventArgs e){
@@ -592,7 +598,7 @@ namespace Xpand.Persistent.Base.General {
         public static bool ObjectSpaceCreated { get; internal set; }
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Type SequenceObjectType { get; set; }
+        public static Type SequenceObjectType { get; set; }
 
         public static bool IsEasyTesting { get; set; }
 
@@ -636,10 +642,8 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-
             if (Executed("CustomizeTypesInfo"))
                 return;
             if (RuntimeMode) {

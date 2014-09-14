@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -250,7 +252,38 @@ namespace Xpand.Persistent.Base.General {
     public interface ISequenceGeneratorUser {
     }
 
+    class SequenceGeneratorUpdater:ModuleUpdater{
+        public SequenceGeneratorUpdater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion){
+        }
+
+        public override void UpdateDatabaseBeforeUpdateSchema(){
+            base.UpdateDatabaseBeforeUpdateSchema();
+            var xpObjectSpace = ObjectSpace as XPObjectSpace;
+            if (xpObjectSpace != null){
+                var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
+                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
+                var storageTable = dataStoreSchemaExplorer.GetStorageTables(classInfo.TableName).First();
+                if (storageTable.PrimaryKey != null && storageTable.PrimaryKey.Columns.Contains("TypeName")) {
+                    var memberInfo = classInfo.Members.FirstOrDefault(info => info.IsCollection&&typeof(ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
+                    if (memberInfo != null) {
+                        var tableName = memberInfo.CollectionElementType.Table.Name;
+                        DropTable(tableName, false);
+                    }
+                    ExecuteNonQueryCommand("alter table [" + classInfo.TableName + "] drop constraint PK_SequenceObject", false);
+                }
+            }
+        }
+
+        private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace){
+            var connectionProvider = ((BaseDataLayer)xpObjectSpace.Session.DataLayer).ConnectionProvider;
+            var multiDataStoreProxy = connectionProvider as MultiDataStoreProxy;
+            if (multiDataStoreProxy != null)
+                return (IDataStoreSchemaExplorer) multiDataStoreProxy.DataStore;
+            return connectionProvider as IDataStoreSchemaExplorer;
+        }
+    }
     class SequenceGeneratorHelper {
+
         private const string SequenceGeneratorHelperName = "SequenceGeneratorHelper";
         XpandModuleBase _xpandModuleBase;
 
@@ -258,12 +291,11 @@ namespace Xpand.Persistent.Base.General {
             get { return _xpandModuleBase.Application; }
         }
 
-
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Type SequenceObjectType {
-            get { return _xpandModuleBase.SequenceObjectType ; }
-            set { _xpandModuleBase.SequenceObjectType = value; }
+        public static Type SequenceObjectType {
+            get { return XpandModuleBase.SequenceObjectType; }
+            set { XpandModuleBase.SequenceObjectType = value; }
         }
 
         public void InitializeSequenceGenerator() {
@@ -274,8 +306,6 @@ namespace Xpand.Persistent.Base.General {
                 _xpandModuleBase.OnInitSeqGenerator(cancelEventArgs);
                 if (cancelEventArgs.Cancel)
                     return;
-                if (SequenceObjectType == null)
-                    SequenceObjectType = _xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
                 if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
@@ -291,6 +321,8 @@ namespace Xpand.Persistent.Base.General {
 
         public void Attach(XpandModuleBase xpandModuleBase) {
             if (!xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
+                if (SequenceObjectType == null)
+                    SequenceObjectType = xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;

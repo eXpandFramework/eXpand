@@ -5,24 +5,24 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl {
-
-    public class SequenceObject : XPBaseObject, ISequenceObject {
-        private string typeName;
-        private long nextSequence;
+    public class SequenceObject : XpandCustomObject, ISequenceObject {
+        private string _typeName;
+        private long _nextSequence;
         public SequenceObject(Session session)
             : base(session) {
         }
-        [Key]
-        [Size(1024)]
-        public string TypeName {
-            get { return typeName; }
-            set { SetPropertyValue("TypeName", ref typeName, value); }
+
+        public string TypeName{
+            get { return _typeName; }
+            set { SetPropertyValue("TypeName", ref _typeName, value); }
         }
+
         public long NextSequence {
-            get { return nextSequence; }
-            set { SetPropertyValue("NextSequence", ref nextSequence, value); }
+            get { return _nextSequence; }
+            set { SetPropertyValue("NextSequence", ref _nextSequence, value); }
         }
 
         IList<ISequenceReleasedObject> ISequenceObject.SequenceReleasedObjects {
