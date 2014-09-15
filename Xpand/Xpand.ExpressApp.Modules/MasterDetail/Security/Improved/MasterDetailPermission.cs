@@ -14,7 +14,8 @@ namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
             var modelApplication = ApplicationHelper.Instance.Application.Model;
             ChildListView = (IModelListView) modelApplication.Views[logicRule.ChildListView];
             var modelClass = modelApplication.BOModel.GetClass(((ILogicRule) logicRule).TypeInfo.Type);
-            CollectionMember = modelClass.FindMember(logicRule.CollectionMember);
+            if (logicRule.CollectionMember != null)
+                CollectionMember = modelClass.FindMember(logicRule.CollectionMember);
         }
         
         public override IList<string> GetSupportedOperations() {

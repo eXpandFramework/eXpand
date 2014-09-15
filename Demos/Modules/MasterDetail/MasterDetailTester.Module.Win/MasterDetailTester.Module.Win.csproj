@@ -48,6 +48,11 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Xpand.ExpressApp.MasterDetail, Version=14.1.6.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
@@ -58,6 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="FunctionalTests\MasterDetail.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\Project.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -88,8 +98,25 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\MasterDetailRules.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FromPermission.ets" />
+    <None Include="FunctionalTests\CommonModel.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\FromModel.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FunctionalTests\CreateMasterDetailObjects.inc" />
+    <None Include="FunctionalTests\Checks.inc" />
+    <None Include="FunctionalTests\ReadMe.txt" />
+    <None Include="FunctionalTests\Config.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,17 +1,56 @@
-﻿<?xml version="1.0" ?>
-<Application >
-  <MasterDetail>
-    <Rules>
-      <MasterDetailRule Id="CustomerOrders" TypeInfo="MasterDetailTester.Module.BusinessObjects.Customer" CollectionMember="Orders" ChildListView="Order_ListView" IsNewNode="True" />
-    </Rules>
-  </MasterDetail>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <ActionToContainerMapping>
+      <ActionContainer Id="Hidden">
+        <ActionLink ActionId="ToggleNavigation" Removed="True" />
+      </ActionContainer>
+      <ActionContainer Id="View">
+        <ActionLink ActionId="ToggleNavigation" IsNewNode="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
+  </ActionDesign>
   <Views>
-    <ListView Id="Customer_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor">
-      <GridViewOptions>
-        <OptionsDetail EnableMasterViewMode="True" ShowDetailTabs="False" />
-        <OptionsView ShowDetailButtons="True" />
-      </GridViewOptions>
-    </ListView>
-    <ListView Id="Order_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" />
+    <DetailView Id="MasterDetailOperationPermissionData_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8.2666666666666675">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col1" RelativeSize="48.266666666666666" />
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="51.733333333333334" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="91.733333333333334">
+            <TabbedGroup Id="Item4">
+              <LayoutGroup Id="Item2" Caption="MasterDetailData">
+                <LayoutItem Id="CollectionMember" RelativeSize="4.9612403100775193" />
+                <LayoutItem Id="ChildListView" RelativeSize="95.038759689922486" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item3">
+                <LayoutItem Id="IsNew" RelativeSize="4.9612403100775193" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="95.038759689922486">
+                  <LayoutItem Id="NormalCriteria" RelativeSize="47.3756906077348" />
+                  <LayoutItem Id="EmptyCriteria" RelativeSize="52.6243093922652" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item5">
+                <LayoutItem Id="View" RelativeSize="4.9612403100775193" />
+                <LayoutItem Id="ViewType" RelativeSize="3.7209302325581395" />
+                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="5.5813953488372094">
+                  <LayoutItem Id="Nesting" RelativeSize="49.309392265193367" />
+                  <LayoutItem Id="IsRootView" RelativeSize="50.690607734806633" />
+                </LayoutGroup>
+                <LayoutItem Id="ViewEditMode" RelativeSize="85.736434108527135" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item1">
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="4.9612403100775193" />
+                <LayoutItem Id="ExecutionContextGroup" RelativeSize="3.7209302325581395" />
+                <LayoutItem Id="ViewContextGroup" RelativeSize="3.7209302325581395" />
+                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="3.7209302325581395" />
+                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="83.875968992248062" />
+              </LayoutGroup>
+            </TabbedGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

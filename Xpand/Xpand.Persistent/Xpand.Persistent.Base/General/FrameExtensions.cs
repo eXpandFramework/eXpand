@@ -9,7 +9,7 @@ using System.Linq;
 namespace Xpand.Persistent.Base.General {
     public static class FrameExtensions {
         public static IEnumerable<TAction> Actions<TAction>(this Frame frame, IEnumerable<IModelNode> items) where TAction : ActionBase{
-            var choiceActions = frame.Actions<TAction>();
+            var choiceActions = frame.Actions<TAction>().ToArray();
             if (choiceActions.Any())
                 return items.GroupBy(model => model.GetParent<IModelAction>())
                     .Where(nodes => choiceActions.Select(action => action.Id).Any(s => s == nodes.Key.Id))
@@ -30,8 +30,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IEnumerable<T> GetControllers<T>(this Frame frame) where T:Controller {
-// ReSharper disable once RedundantEnumerableCastCall
-            return frame.Controllers.Cast<Controller>().OfType<T>();
+            foreach (var controller in frame.Controllers){
+                if (controller is T)
+                    yield return (T) controller;
+            }
         }
 
         public static Controller GetController(this Frame frame, Type controllerType){

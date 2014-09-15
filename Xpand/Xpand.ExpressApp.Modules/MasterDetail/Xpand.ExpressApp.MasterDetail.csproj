@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.MasterDetail</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.MasterDetail</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -123,6 +125,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Improved\MasterDetailOperationPermissionData.cs" />
     <Compile Include="Security\Improved\MasterDetailPermission.cs" />
+    <Compile Include="Security\Improved\PopulateChildListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Security\Improved\PopulateCollectionMemberController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\MasterDetailPermission.cs" />
   </ItemGroup>
   <ItemGroup>

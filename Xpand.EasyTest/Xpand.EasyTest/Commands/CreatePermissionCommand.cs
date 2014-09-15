@@ -6,12 +6,14 @@ namespace Xpand.EasyTest.Commands {
         public const string Name = "CreatePermission";
         protected override void InternalExecute(ICommandAdapter adapter){
             NavigateToRole(adapter);
-            ProccessUserRole(adapter);
-            CreateNewTypePermission(adapter);
+            foreach (var targetType in Parameters.MainParameter.Value.Split(';')) {
+                ProccessUserRole(adapter);
+                CreateNewTypePermission(adapter, targetType);    
+            }
             NavigateToRole(adapter);
         }
 
-        private void CreateNewTypePermission(ICommandAdapter adapter){
+        private void CreateNewTypePermission(ICommandAdapter adapter, string targetType){
             var actionCommand = new ActionCommand();
             actionCommand.Parameters.MainParameter = new MainParameter("Type Permissions");
             actionCommand.Parameters.ExtraParameter = new MainParameter();
@@ -21,7 +23,7 @@ namespace Xpand.EasyTest.Commands {
             actionCommand.Execute(adapter);
 
             var fillFormCommand = new FillFormCommand();
-            fillFormCommand.Parameters.Add(new Parameter("Target Type", Parameters.MainParameter.Value, true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Target Type", targetType, true, StartPosition));
             fillFormCommand.Parameters.Add(new Parameter("Read", this.ParameterValue("Read", true.ToString()), true, StartPosition));
             fillFormCommand.Parameters.Add(new Parameter("Write", this.ParameterValue("Write", true.ToString()), true, StartPosition));
             fillFormCommand.Parameters.Add(new Parameter("Delete", this.ParameterValue("Delete", true.ToString()), true, StartPosition));

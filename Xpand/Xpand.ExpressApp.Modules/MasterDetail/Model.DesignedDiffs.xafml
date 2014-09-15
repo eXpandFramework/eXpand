@@ -11,37 +11,44 @@
     <DetailView Id="MasterDetailOperationPermissionData_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="10">
-            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="51" />
+          <LayoutGroup Id="SimpleEditors" ShowCaption="False" Index="0" RelativeSize="8.4010840108401084">
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col1" RelativeSize="48.335974643423135">
+              <LayoutItem Id="ObjectTypeData" RelativeSize="51.612903225806448" />
+              <LayoutItem Id="Index" RelativeSize="48.387096774193552" />
+            </LayoutGroup>
+            <LayoutGroup Id="LogicRuleOperationPermissionData_col2" RelativeSize="51.664025356576865">
+              <LayoutItem Id="ID" RelativeSize="51.612903225806448" />
+              <LayoutItem Id="Description" RelativeSize="48.387096774193552" />
+            </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1" RelativeSize="89">
+          <LayoutGroup Id="SizeableEditors" ShowCaption="False" Index="1" RelativeSize="91.598915989159892">
             <TabbedGroup Id="Item4">
               <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="MasterDetail" IsNewNode="True">
-                <LayoutItem Id="ChildListView" ViewItem="ChildListView" SizeConstraintsType="Default" Index="0" RelativeSize="6" IsNewNode="True" />
-                <LayoutItem Id="CollectionMember" ViewItem="CollectionMember" SizeConstraintsType="Default" Index="1" RelativeSize="93" IsNewNode="True" />
+                <LayoutItem Id="CollectionMember" ViewItem="CollectionMember" SizeConstraintsType="Default" Index="0" RelativeSize="5.0552922590837284" IsNewNode="True" />
+                <LayoutItem Id="ChildListView" ViewItem="ChildListView" SizeConstraintsType="Default" Index="1" RelativeSize="94.944707740916272" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="Item3" Index="1">
-                <LayoutItem Id="IsNew" RelativeSize="6" />
-                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="93">
-                  <LayoutItem Id="NormalCriteria" RelativeSize="47" />
-                  <LayoutItem Id="EmptyCriteria" RelativeSize="52" />
+                <LayoutItem Id="IsNew" RelativeSize="5.0552922590837284" />
+                <LayoutGroup Id="Autoc6021d85-caf0-413c-8ec9-2267ee0c4dc2" RelativeSize="94.944707740916272">
+                  <LayoutItem Id="NormalCriteria" RelativeSize="47.438016528925623" />
+                  <LayoutItem Id="EmptyCriteria" RelativeSize="52.561983471074377" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Item5" Index="2">
-                <LayoutItem Id="View" RelativeSize="6" />
-                <LayoutItem Id="ViewType" RelativeSize="4" />
-                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="7">
-                  <LayoutItem Id="Nesting" RelativeSize="49" />
-                  <LayoutItem Id="IsRootView" RelativeSize="50" />
+                <LayoutItem Id="View" RelativeSize="5.0552922590837284" />
+                <LayoutItem Id="ViewType" RelativeSize="3.7914691943127963" />
+                <LayoutGroup Id="Auto6acd6bd2-7c38-4d12-bd5f-8892b2de60d2" RelativeSize="5.6872037914691944">
+                  <LayoutItem Id="Nesting" RelativeSize="49.421487603305785" />
+                  <LayoutItem Id="IsRootView" RelativeSize="50.578512396694215" />
                 </LayoutGroup>
-                <LayoutItem Id="ViewEditMode" RelativeSize="81" />
+                <LayoutItem Id="ViewEditMode" RelativeSize="85.466034755134288" />
               </LayoutGroup>
               <LayoutGroup Id="Item1" Index="3">
-                <LayoutItem Id="FrameTemplateContext" RelativeSize="6" />
-                <LayoutItem Id="ExecutionContextGroup" RelativeSize="4" />
-                <LayoutItem Id="ViewContextGroup" RelativeSize="4" />
-                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="4" />
-                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="79" />
+                <LayoutItem Id="FrameTemplateContext" RelativeSize="5.0552922590837284" />
+                <LayoutItem Id="ExecutionContextGroup" RelativeSize="3.7914691943127963" />
+                <LayoutItem Id="ViewContextGroup" RelativeSize="3.7914691943127963" />
+                <LayoutItem Id="FrameTemplateContextGroup" RelativeSize="3.7914691943127963" />
+                <LayoutItem Id="ActionExecutionContextGroup" RelativeSize="83.570300157977883" />
               </LayoutGroup>
             </TabbedGroup>
           </LayoutGroup>

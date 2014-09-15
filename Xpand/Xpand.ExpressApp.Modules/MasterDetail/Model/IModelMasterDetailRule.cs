@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.MasterDetail.Model {
         public static IModelList<IModelMember> Get_CollectionMembers(IModelMasterDetailRule masterDetailRule) {
             var calculatedModelNodeList = new CalculatedModelNodeList<IModelMember>();
             if (masterDetailRule.ModelClass != null) {
-                IEnumerable<IModelMember> modelMembers = masterDetailRule.Application.BOModel.GetClass(masterDetailRule.ModelClass.TypeInfo.Type).AllMembers.
+                var modelMembers = masterDetailRule.Application.BOModel.GetClass(masterDetailRule.ModelClass.TypeInfo.Type).AllMembers.
                         Where(member => member.MemberInfo.IsList);
                 calculatedModelNodeList.AddRange(modelMembers);
             }

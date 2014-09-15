@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="MasterDetailTester" Logo="ExpressAppLogo">
+  <MasterDetail>
+    <Rules>
+      <MasterDetailRule Id="Project_Contributors" TypeInfo="MasterDetailTester.Module.Win.FunctionalTests.Project" CollectionMember="Contributors" ChildListView="Contributor_ListView" IsNewNode="True" />
+    </Rules>
+  </MasterDetail>
+</Application>

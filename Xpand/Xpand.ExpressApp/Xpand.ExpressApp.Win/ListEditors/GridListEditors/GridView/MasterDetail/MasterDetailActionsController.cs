@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.XtraGrid;
+using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.Persistent.Base.General;
 
@@ -41,8 +42,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             return !_disposing && GridListEditor != null && GridListEditor.Grid != null && GridListEditor.Grid.FocusedView!=null && ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window == null;
         }
 
-        protected virtual IEnumerable<ActionBase> GetActions(Frame frame) {
-            return frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
+        protected virtual IEnumerable<ActionBase> GetActions(Frame frame){
+            return frame.Actions();
         }
 
         protected override void OnDeactivated() {
@@ -87,24 +88,24 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                     enableBoolLists = _enabledBoolLists;
                 }
                 foreach (var action in GetActions(Frame)) {
+                    action.CallMethod("UpdateState");
                     SyncStates(action.Id, action.Active, activeBoolLists);
                     SyncStates(action.Id, action.Enabled, enableBoolLists);
                 }
             }
         }
 
-
         void SyncStates(string id, BoolList boolList, Dictionary<string, BoolList> boolLists) {
-            if (boolList.Contains(id)) {
+            if (boolLists.ContainsKey(id)) {
                 var list = boolLists[id];
+                boolList.BeginUpdate();
                 if (list.GetKeys().FirstOrDefault() != null) {
-                    boolList.BeginUpdate();
                     boolList.Clear();
                     foreach (var key in list.GetKeys()) {
                         boolList.SetItemValue(key, list[key]);
                     }
-                    boolList.EndUpdate();
                 }
+                boolList.EndUpdate();
             }
         }
 

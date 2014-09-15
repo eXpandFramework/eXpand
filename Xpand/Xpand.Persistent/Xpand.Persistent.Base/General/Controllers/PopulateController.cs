@@ -32,7 +32,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
-            if (RefreshingProperties().Contains(objectChangedEventArgs.PropertyName) &&View is DetailView) {
+            if (!DisablePropertyEditorReplacement&&RefreshingProperties().Contains(objectChangedEventArgs.PropertyName) &&View is DetailView) {
                 var currentPropertyEditor = GetPropertyEditor(GetPropertyName());
                 var propertyEditor = Application.EditorFactory.CreatePropertyEditorByType(currentPropertyEditor.GetType(), currentPropertyEditor.Model, currentPropertyEditor.ObjectType, Application, ObjectSpace);
                 Populate(GetPredefinedValues);
@@ -70,6 +70,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
                 return GetPropertyName(lambdaExpression);
             }
         }
+
+        public bool DisablePropertyEditorReplacement { get; set; }
 
         protected string GetPropertyName(Expression<Func<T, object>> lambdaExpression) {
             var propertyInfo = lambdaExpression.GetMemberInfo() as PropertyInfo;
