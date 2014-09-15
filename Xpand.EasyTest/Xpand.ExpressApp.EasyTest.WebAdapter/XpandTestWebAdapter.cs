@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
@@ -25,9 +26,10 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         public override void RunApplication(TestApplication testApplication){
             var directoryName = testApplication.GetParamValue("PhysicalPath");
-            var path = Path.Combine(directoryName, "Model.User.xafml");
-            if (File.Exists(path))
-                File.Delete(path);
+            foreach (var model in Directory.GetFiles(directoryName, "Model.User*.xafml").ToArray()) {
+                File.Delete(model);    
+            }
+            
             if (testApplication.FindParamValue("DefaultWindowSize") != null) {
                 WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
             }

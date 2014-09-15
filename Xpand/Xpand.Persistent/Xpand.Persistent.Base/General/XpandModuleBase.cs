@@ -576,12 +576,10 @@ namespace Xpand.Persistent.Base.General {
             foreach (var stringModelStore in stringModelStores){
                 e.AddExtraDiffStore(stringModelStore.Key, stringModelStore.Value);    
             }
-            var models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly).ToList();
+            IEnumerable<string> models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly);
+            models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly)).Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
             if (IsHosted){
-                var path = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "model.user.xafml");
-                if (File.Exists(path)){
-                    models.Add(path);
-                }                
+                models=models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,"model.user*.xafml",SearchOption.TopDirectoryOnly));
             }
             foreach (var path in models){
                 string fileNameTemplate = Path.GetFileNameWithoutExtension(path);
