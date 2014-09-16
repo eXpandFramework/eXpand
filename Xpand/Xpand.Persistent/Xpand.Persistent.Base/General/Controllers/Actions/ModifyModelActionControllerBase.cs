@@ -19,28 +19,28 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
     }
 
     public abstract class ModifyModelActionControllerBase : ViewController {
-        private ActionModifyModelController _actionModifyModelControler;
+        private ActionModifyModelController _actionModifyModelController;
 
         protected override void OnActivated() {
             base.OnActivated();
-            _actionModifyModelControler = Frame.GetController<ActionModifyModelController>();
-            _actionModifyModelControler.ModifyModelAction.Execute += ModifyModelActionOnExecute;
+            _actionModifyModelController = Frame.GetController<ActionModifyModelController>();
+            _actionModifyModelController.ModifyModelAction.Execute += ModifyModelActionOnExecute;
         }
 
-        public ActionModifyModelController ActionModifyModelControler{
-            get { return _actionModifyModelControler; }
+        public ActionModifyModelController ActionModifyModelController{
+            get { return _actionModifyModelController; }
         }
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            _actionModifyModelControler = Frame.GetController<ActionModifyModelController>();
+            _actionModifyModelController = Frame.GetController<ActionModifyModelController>();
         }
 
         protected abstract void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e);
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _actionModifyModelControler.ModifyModelAction.Execute -= ModifyModelActionOnExecute;
+            _actionModifyModelController.ModifyModelAction.Execute -= ModifyModelActionOnExecute;
         }
     }
 }

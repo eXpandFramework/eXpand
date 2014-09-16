@@ -152,12 +152,14 @@ namespace Xpand.Utils.Helpers{
                 if (image1.Width!=image2.Width||image1.Height!=image2.Height)
                     rectangle2 = mask.Resize(image2.Width, image2.Height).CalculateRectangle(brightness);
 
-//                var image1Crop = image1.Crop(rectangle1);
-                var image2Crop = image2.Crop(rectangle2);
-                for (int j = 0; j < 10; j++){
-                    var y = rectangle1.Y-j;
-                    var rectangle = new Rectangle(rectangle1.X,y,rectangle1.Width, rectangle1.Height);
-                    yield return image1.Crop(rectangle).GetDifferences(image2Crop);
+                var image1Crop = image1.Crop(rectangle1);
+                for (int i = 0; i < 10; i++){
+                    for (int j = 0; j < 10; j++) {
+                        var y = rectangle2.Y - j;
+                        var x = rectangle2.X - i;
+                        var rectangle = new Rectangle(x, y, rectangle2.Width, rectangle2.Height);
+                        yield return image2.Crop(rectangle).GetDifferences(image1Crop);
+                    }                    
                 }
             }
             yield return image1.GetDifferences(image2);

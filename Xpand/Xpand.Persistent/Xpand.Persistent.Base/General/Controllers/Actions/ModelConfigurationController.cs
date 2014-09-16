@@ -27,19 +27,19 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
     public class ModelConfigurationController:ModifyModelActionControllerBase,IModelExtender{
         protected override void OnActivated(){
             base.OnActivated();
-            var choiceActionItem = ActionModifyModelControler.ModifyModelAction.Items.FindItemByID(ModifyModelActionChoiceItemsUpdater.ChangeViewModel);
+            var choiceActionItem = ActionModifyModelController.ModifyModelAction.Items.FindItemByID(ModifyModelActionChoiceItemsUpdater.ChangeViewModel);
             if (choiceActionItem != null){
                 choiceActionItem.Active.BeginUpdate();
                 choiceActionItem.Active["ModelNotConfigured"] = ((IModelViewConfigurationView)View.Model).ConfigurationView != null;
                 choiceActionItem.Active.EndUpdate();
             }
 
-            ActionModifyModelControler.ModifyModelAction.ItemsChanged+=ModifyModelActionOnItemsChanged;
+            ActionModifyModelController.ModifyModelAction.ItemsChanged+=ModifyModelActionOnItemsChanged;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            ActionModifyModelControler.ModifyModelAction.ItemsChanged -= ModifyModelActionOnItemsChanged;
+            ActionModifyModelController.ModifyModelAction.ItemsChanged -= ModifyModelActionOnItemsChanged;
         }
 
         private void ModifyModelActionOnItemsChanged(object sender, ItemsChangedEventArgs e){

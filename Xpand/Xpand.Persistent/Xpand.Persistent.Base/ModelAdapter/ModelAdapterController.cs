@@ -124,11 +124,13 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         private static IEnumerable<ITypeInfo> GetInstalledAdapters(IEnumerable<ITypeInfo> typeInfos, IModelApplication application){
             var modules = ((IModelSources)application).Modules;
-            var moduleAssemblies = modules.Select(@base => @base.GetType().Assembly);
-            var installedInfos = typeInfos.Where(info => moduleAssemblies.Contains(info.Type.Assembly));
-            var infos = typeInfos.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
+            var moduleBases = modules as ModuleBase[] ?? modules.ToArray();
+            var moduleAssemblies = moduleBases.Select(@base => @base.GetType().Assembly);
+            var enumerable = typeInfos as ITypeInfo[] ?? typeInfos.ToArray();
+            var installedInfos = enumerable.Where(info => moduleAssemblies.Contains(info.Type.Assembly));
+            var infos = enumerable.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
                 .Select(source => new{source, moduleUserAttribute = source.FindAttribute<ModuleUserAttribute>()})
-                .Where(@t => modules.Any(@base => t.moduleUserAttribute.ModuleType.IsInstanceOfType(@base)))
+                .Where(@t => moduleBases.Any(@base => t.moduleUserAttribute.ModuleType.IsInstanceOfType(@base)))
                 .Select(@t => @t.source);
             return installedInfos.Concat(infos);
         }

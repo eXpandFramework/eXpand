@@ -25,7 +25,6 @@ namespace MasterDetailTester.Win {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-            this.module3 = new MasterDetailTester.Module.MasterDetailTesterModule();
             this.module4 = new MasterDetailTester.Module.Win.MasterDetailTesterWindowsFormsModule();
 
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
@@ -42,7 +41,6 @@ namespace MasterDetailTester.Win {
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
             this.Modules.Add(this.module4);
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.MasterDetailTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.MasterDetailTesterWindowsFormsApplication_CustomizeLanguagesList);
@@ -55,7 +53,6 @@ namespace MasterDetailTester.Win {
 
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule module2;
-        private MasterDetailTester.Module.MasterDetailTesterModule module3;
         private MasterDetailTester.Module.Win.MasterDetailTesterWindowsFormsModule module4;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
     }

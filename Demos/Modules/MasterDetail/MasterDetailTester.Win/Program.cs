@@ -1,11 +1,8 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Security.Core;
 
 namespace MasterDetailTester.Win {
     static class Program {
@@ -21,16 +18,17 @@ namespace MasterDetailTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
-            MasterDetailTesterWindowsFormsApplication winApplication = new MasterDetailTesterWindowsFormsApplication();
+            var winApplication = new MasterDetailTesterWindowsFormsApplication();
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            }
             try {
+                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

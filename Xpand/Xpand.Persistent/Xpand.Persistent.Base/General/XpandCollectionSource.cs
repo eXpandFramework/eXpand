@@ -34,11 +34,11 @@ namespace Xpand.Persistent.Base.General{
         }
 
         protected override void ApplySorting(IList<SortProperty> sorting){
-            if (CanApplySorting(sorting))
+            if (ShouldApplySorting(sorting))
                 base.ApplySorting(sorting);
         }
 
-        private bool CanApplySorting(IList<SortProperty> sorting){
+        private bool ShouldApplySorting(IList<SortProperty> sorting){
             var xpServerCollectionSource = OriginalCollection as XPServerCollectionSource;
             return xpServerCollectionSource == null || xpServerCollectionSource.DefaultSorting != BaseObjectSpace.ConvertSortingToString(sorting);
         }

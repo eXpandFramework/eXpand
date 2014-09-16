@@ -18,8 +18,11 @@ using Xpand.Persistent.Base.ModelDifference;
 using ResourcesModelStore = DevExpress.ExpressApp.ResourcesModelStore;
 
 namespace Xpand.Persistent.Base.General {
-    public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator> {
+    public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
+        public static bool Disable;
         public override void UpdateNode(ModelNode node){
+            if (Disable)
+                return;
             var modulesDifferences = node.Application.GetModuleDifferences();
             var mergingEnabled = MergingEnabled(modulesDifferences);
             if (!mergingEnabled)

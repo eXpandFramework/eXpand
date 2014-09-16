@@ -1,7 +1,6 @@
 ﻿#DropDB ModelDifferenceTesterEasyTest
 #Application ModelDifferenceTester.Win
 #Application ModelDifferenceTester.Web
-*UseModel
 *Action Log On
 *ScreenCapture
 *Navigate Application Difference

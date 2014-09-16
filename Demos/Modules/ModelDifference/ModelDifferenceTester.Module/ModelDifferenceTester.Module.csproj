@@ -78,7 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\NewFolder1\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\DifferenceTesterObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -105,7 +105,7 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\NewFolder1\UserModel.ets" />
+    <None Include="FunctionalTests\UserModel.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -113,7 +113,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\NewFolder1\Config.xml" />
+    <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

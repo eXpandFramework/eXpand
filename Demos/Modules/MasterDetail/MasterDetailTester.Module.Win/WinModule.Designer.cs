@@ -26,10 +26,9 @@ namespace MasterDetailTester.Module.Win {
             // 
             // MasterDetailTesterWindowsFormsModule
             // 
-            this.RequiredModuleTypes.Add(typeof(MasterDetailTester.Module.MasterDetailTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule));
-
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
         }
 
         #endregion

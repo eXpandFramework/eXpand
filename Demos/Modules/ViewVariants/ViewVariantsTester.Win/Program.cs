@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 
 namespace ViewVariantsTester.Win{
     static class Program{
@@ -29,6 +30,7 @@ namespace ViewVariantsTester.Win{
             }
 #endif
             try{
+                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
                 winApplication.Setup();
                 winApplication.Start();
             }

@@ -27,5 +27,13 @@
 *Action Navigation(Default.Conditional Appearence Object)
 
 *XpandCompareScreenshot ListView.BoldFont.png
- WinMaskRectangle = 23x103;71x58
+ WinMaskRectangle = 26x108;75x8
+ WebMaskRectangle = 112x200;91x73
+ 
+*XpandCompareScreenshot ListView.BoldFont.png
+ WinMaskRectangle = 26x128;51x9
+ WebMaskRectangle = 112x200;91x73
+ 
+*XpandCompareScreenshot ListView.BoldFont.png
+ WinMaskRectangle = 26x149;57x9
  WebMaskRectangle = 112x200;91x73

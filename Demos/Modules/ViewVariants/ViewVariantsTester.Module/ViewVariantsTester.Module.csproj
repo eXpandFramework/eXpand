@@ -41,6 +41,7 @@
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -57,6 +58,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=14.1.6.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
     <Reference Include="Xpand.ExpressApp.ViewVariants">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
@@ -64,6 +66,10 @@
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Xpo, Version=14.1.6.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -107,8 +113,6 @@
     <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
@@ -119,7 +123,6 @@
     <Content Include="FunctionalTests\Actions\Config.xml" />
     <Content Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Variant Model.inc" />
-    <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
