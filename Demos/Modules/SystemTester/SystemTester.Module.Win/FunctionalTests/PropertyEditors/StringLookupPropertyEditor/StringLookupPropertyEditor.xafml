@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="SystemTester.Module.Win.FunctionalTests.PropertyEditors.StringLookupPropertyEditor.StringLookupObject">
+      <OwnMembers>
+        <Member Name="Phone" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" EditMask="(999) 000-0000" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+</Application>

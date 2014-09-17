@@ -5,9 +5,9 @@ using DevExpress.EasyTest.Framework.Commands;
 namespace Xpand.EasyTest.Commands{
     public class XpandFillFormCommand : Command{
         public const string Name = "XpandFillForm";
-        public const string SendKeysX = "SendKeysX";
+        public const string SendKeys = "SendKeys";
         protected override void InternalExecute(ICommandAdapter adapter){
-            var sendKeysParameter = Parameters[SendKeysX];
+            var sendKeysParameter = Parameters[SendKeys];
             if (sendKeysParameter != null && (adapter.IsWinAdapter())) {
                 var sendKeysCommand = new SendKeysCommand().SynchWith(this);
                 sendKeysCommand.Parameters.MainParameter = new MainParameter(Parameters.First().Value);

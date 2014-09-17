@@ -172,6 +172,13 @@ namespace Xpand.EasyTest.Commands {
                 hideCaretCommand.Execute(adapter);
             }
 
+            var sendKeys = this.ParameterValue<string>("SendKeys");
+            if (!string.IsNullOrEmpty(sendKeys)){
+                var sendKeysCommand = new SendKeysCommand();
+                sendKeysCommand.Parameters.MainParameter=new MainParameter(sendKeys);
+                sendKeysCommand.Execute(adapter);
+            }
+
             Wait(adapter, 1000);
         }
 

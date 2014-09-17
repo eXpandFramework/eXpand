@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
             RepositoryItemComboBox = ((RepositoryItemComboBox)item);
+            Init(RepositoryItemComboBox, Model.EditMask, Model.EditMaskType);
             RepositoryItemComboBox.Items.Clear();
             RepositoryItemComboBox.Items.AddRange(ComboBoxItems);
             base.SetupRepositoryItem(item);
@@ -42,6 +44,19 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             if (Helper == null)
                 Helper = new LookupEditorHelper(application, objectSpace, ObjectTypeInfo, Model);
             Helper.SetObjectSpace(objectSpace);
+        }
+
+        public void Init(RepositoryItemComboBox repositoryItemComboBox, string editMask, EditMaskType maskType) {
+            if (!string.IsNullOrEmpty(editMask)) {
+                repositoryItemComboBox.Mask.EditMask = editMask;
+                if (maskType == EditMaskType.RegEx) {
+                    repositoryItemComboBox.Mask.UseMaskAsDisplayFormat = false;
+                    repositoryItemComboBox.Mask.MaskType = MaskType.RegEx;
+                }
+                else {
+                    repositoryItemComboBox.Mask.MaskType = MaskType.Simple;
+                }
+            }
         }
     }
 }

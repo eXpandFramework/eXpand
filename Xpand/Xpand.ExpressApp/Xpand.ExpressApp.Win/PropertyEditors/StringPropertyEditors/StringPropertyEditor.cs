@@ -12,14 +12,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             : base(objectType, model) {
         }
 
-        protected override void ReadValueCore() {
-            base.ReadValueCore();
-        }
-
         protected override void SetupRepositoryItem(DevExpress.XtraEditors.Repository.RepositoryItem item) {
             base.SetupRepositoryItem(item);
-            if (item is RepositoryItemPredefinedValuesStringEdit)
-                ((RepositoryItemPredefinedValuesStringEdit)item).TextEditStyle = TextEditStyles.DisableTextEditor;
+            var itemPredefinedValuesStringEdit = item as RepositoryItemPredefinedValuesStringEdit;
+            if (itemPredefinedValuesStringEdit != null)
+                itemPredefinedValuesStringEdit.TextEditStyle = TextEditStyles.DisableTextEditor;
         }
     }
 }
