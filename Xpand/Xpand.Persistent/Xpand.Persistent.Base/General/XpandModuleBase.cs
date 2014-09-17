@@ -482,7 +482,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public Type LoadFromBaseImpl(string typeName){
-            return BaseImplAssembly != null ? BaseImplAssembly.GetType(typeName) : null;
+            return BaseImplAssembly != null ? LoadFromBaseImplCore(typeName) : null;
+        }
+
+        private Type LoadFromBaseImplCore(string typeName){
+            var type = BaseImplAssembly.GetType(typeName);
+            XafTypesInfo.Instance.RegisterEntity(type);
+            return type;
         }
 
         protected internal void AddToAdditionalExportedTypes(string[] types) {
@@ -559,8 +565,10 @@ namespace Xpand.Persistent.Base.General {
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
             var moduleUpdaters = base.GetModuleUpdaters(objectSpace, versionFromDB);
-            if (Executed<ISequenceGeneratorUser>("GetModuleUpdaters")) return moduleUpdaters;
-            moduleUpdaters = moduleUpdaters.Concat(new[]{new SequenceGeneratorUpdater(objectSpace, Version)});
+            if (Executed<ISequenceGeneratorUser>("GetModuleUpdaters")) 
+                return moduleUpdaters;
+            if (SequenceGenerator.UseGuidKey)
+                moduleUpdaters = moduleUpdaters.Concat(new[]{new SequenceGeneratorUpdater(objectSpace, Version)});
             return moduleUpdaters;
         }
 
@@ -669,6 +677,15 @@ namespace Xpand.Persistent.Base.General {
             attribute = type.FindAttribute<ModelReadOnlyAttribute>();
             if (attribute != null)
                 type.RemoveAttribute(attribute);
+
+            if (!SequenceGenerator.UseGuidKey) {
+                var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+                var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
+                memberInfo.RemoveAttribute(new KeyAttribute(false));
+                memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                memberInfo.AddAttribute(new KeyAttribute(false));
+            }
+
         }
 
         private static void CreateXpandDefaultProperty(ITypesInfo typesInfo){
@@ -685,18 +702,20 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
-            ITypeInfo typeInfo = typesInfo.FindTypeInfo(typeof (ISequenceObject));
-            IEnumerable<ITypeInfo> descendants = typeInfo.Implementors.Where(IsMySql);
-            foreach (ITypeInfo descendant in descendants) {
-                var memberInfo = (XafMemberInfo) descendant.KeyMember;
-                if (memberInfo != null) {
-                    memberInfo.RemoveAttributes<SizeAttribute>();
-                    memberInfo.AddAttribute(new SizeAttribute(255));
-                }
+            var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+            if (IsMySql(typeInfo)){
+                var memberInfo = (XafMemberInfo) typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                memberInfo.RemoveAttributes<SizeAttribute>();
+                memberInfo.AddAttribute(new SizeAttribute(255));
             }
+
+        }
+        public static bool IsMySql() {
+            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SequenceObjectType);
+            return IsMySql(typeInfo);
         }
 
-        bool IsMySql(ITypeInfo typeInfo) {
+        private static bool IsMySql(ITypeInfo typeInfo) {
             var sequenceObjectObjectSpaceProvider = GetSequenceObjectObjectSpaceProvider(typeInfo.Type);
             if (sequenceObjectObjectSpaceProvider != null) {
                 var helper = new ConnectionStringParser(sequenceObjectObjectSpaceProvider.ConnectionString);
@@ -706,8 +725,11 @@ namespace Xpand.Persistent.Base.General {
             return false;
         }
 
-        IObjectSpaceProvider GetSequenceObjectObjectSpaceProvider(Type type) {
-            return (from objectSpaceProvider in Application.ObjectSpaceProviders let originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type) where (originalObjectType != null) && objectSpaceProvider.EntityStore.RegisteredEntities.Contains(originalObjectType) select objectSpaceProvider).FirstOrDefault();
+        static IObjectSpaceProvider GetSequenceObjectObjectSpaceProvider(Type type) {
+            return (ApplicationHelper.Instance.Application.ObjectSpaceProviders.Select(objectSpaceProvider 
+                => new{objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type)})
+                .Where(@t =>(@t.originalObjectType != null) &&@t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
+                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
         }
 
         protected override void Dispose(bool disposing) {
@@ -746,6 +768,7 @@ namespace Xpand.Persistent.Base.General {
             if (CallMonitor != null)
                 CallMonitor.Remove(new KeyValuePair<string, ApplicationModulesManager>(name, applicationModulesManager));
         }
+
     }
 
     public class GeneratorUpdaterEventArgs : EventArgs {

@@ -1,20 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl {
-    public class SequenceObject : XpandCustomObject, ISequenceObject {
+    public class SequenceObject : XPBaseObject, ISequenceObject {
         private string _typeName;
         private long _nextSequence;
         public SequenceObject(Session session)
             : base(session) {
         }
 
+        private Guid _oid = Guid.Empty;
+        [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
+        public Guid Oid {
+            get { return _oid; }
+            set { _oid = value; }
+        }
+
+        protected override void OnSaving(){
+            base.OnSaving();
+            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && _oid == Guid.Empty) {
+                _oid = XpoDefault.NewGuid();
+            }
+        }
+
+        [Indexed(Unique = true)]
+        [Size(1024)]
         public string TypeName{
             get { return _typeName; }
             set { SetPropertyValue("TypeName", ref _typeName, value); }

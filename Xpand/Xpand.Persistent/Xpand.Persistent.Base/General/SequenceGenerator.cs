@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
@@ -12,6 +13,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
+using Xpand.Utils.Helpers;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
 using Fasterflect;
 
@@ -32,6 +34,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public class SequenceGenerator : IDisposable {
+        public static bool UseGuidKey = true;
         static Type _sequenceObjectType;
         static IDataLayer _defaultDataLayer;
         static SequenceGenerator _sequenceGenerator;
@@ -77,7 +80,7 @@ namespace Xpand.Persistent.Base.General {
         public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
-            var objectByKey = _sequenceGenerator._explicitUnitOfWork.GetObjectByKey(_sequenceObjectType, prefix + typeInfo.FullName, true);
+            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(typeInfo.FullName,prefix), true);
             _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
             _sequenceGenerator._sequence.NextSequence = nextId;
             _sequenceGenerator._explicitUnitOfWork.FlushChanges();
@@ -105,10 +108,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static ISequenceObject GetNowSequence(XPClassInfo classInfo, string preFix,UnitOfWork unitOfWork){
-            var objectByKey = unitOfWork.GetObjectByKey(_sequenceObjectType, preFix + classInfo.FullName, true);
-            return objectByKey != null
-                ? (ISequenceObject) objectByKey
-                : CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
+            var obj = unitOfWork.FindObject(_sequenceObjectType, GetCriteria(classInfo.FullName, preFix));
+            return obj != null? (ISequenceObject) obj: CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
+        }
+
+        private static CriteriaOperator GetCriteria(string typeFullName, string preFix){
+            return CriteriaOperator.Parse("TypeName=?", preFix + typeFullName);
         }
 
         public static long GetNowSequence(XPClassInfo classInfo, string prefix){
@@ -252,26 +257,44 @@ namespace Xpand.Persistent.Base.General {
     public interface ISequenceGeneratorUser {
     }
 
-    class SequenceGeneratorUpdater:ModuleUpdater{
+    public class SequenceGeneratorUpdater:ModuleUpdater{
         public SequenceGeneratorUpdater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion){
         }
 
         public override void UpdateDatabaseBeforeUpdateSchema(){
             base.UpdateDatabaseBeforeUpdateSchema();
-            var xpObjectSpace = ObjectSpace as XPObjectSpace;
-            if (xpObjectSpace != null){
-                var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
+            if (SequenceGenerator.UseGuidKey){
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
-                var storageTable = dataStoreSchemaExplorer.GetStorageTables(classInfo.TableName).First();
-                if (storageTable.PrimaryKey != null && storageTable.PrimaryKey.Columns.Contains("TypeName")) {
-                    var memberInfo = classInfo.Members.FirstOrDefault(info => info.IsCollection&&typeof(ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
-                    if (memberInfo != null) {
+                var dbTable = GetDbTable(classInfo.TableName);
+                if (dbTable!=null){
+                    if (XpandModuleBase.IsMySql())
+                        throw new NotImplementedException("Set SequenceGenerator.UseGuidKey=false or update the set Oid as key property manually");
+                    var memberInfo =classInfo.Members.FirstOrDefault(info =>info.IsCollection &&typeof (ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
+                    if (memberInfo != null){
                         var tableName = memberInfo.CollectionElementType.Table.Name;
-                        DropTable(tableName, false);
+                        if (GetDbTable(tableName)!=null)
+                            ExecuteNonQueryCommand("drop table " + tableName, false);
                     }
-                    ExecuteNonQueryCommand("alter table [" + classInfo.TableName + "] drop constraint PK_SequenceObject", false);
+                    ExecuteNonQueryCommand("alter table " + classInfo.TableName + " drop constraint PK_SequenceObject", false);
                 }
             }
+        }
+
+        private DBTable GetDbTable(string name){
+            var xpObjectSpace = ObjectSpace as XPObjectSpace;
+            var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
+            
+            var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
+            return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
+                var dbTable = new DBTable(s);
+                ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
+                return dbTable;
+            }).FirstOrDefault(table => table.PrimaryKey != null && table.PrimaryKey.Columns.Contains(typeNamePropertyName));
+        }
+
+
+        private ISequenceObject GetSequenceObject(){
+            return null;
         }
 
         private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace){
@@ -282,8 +305,8 @@ namespace Xpand.Persistent.Base.General {
             return connectionProvider as IDataStoreSchemaExplorer;
         }
     }
-    class SequenceGeneratorHelper {
 
+    class SequenceGeneratorHelper{
         private const string SequenceGeneratorHelperName = "SequenceGeneratorHelper";
         XpandModuleBase _xpandModuleBase;
 
