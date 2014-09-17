@@ -117,24 +117,24 @@
     </Reference>
     <Reference Include="Machine.Specifications, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Machine.Specifications.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Machine.Specifications.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.0.10531.7, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Moq.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Quartz, Version=2.0.0.6802, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Quartz.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="TypeMock, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\TypeMock.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\TypeMock.dll</HintPath>
     </Reference>
     <Reference Include="Typemock.ArrangeActAssert, Version=6.0.7.0, Culture=neutral, PublicKeyToken=3dae460033b8d8e2, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Typemock.ArrangeActAssert.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.EmailTemplateEngine">
       <SpecificVersion>False</SpecificVersion>
@@ -228,12 +228,12 @@
     </Reference>
     <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Gallio.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Gallio.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\MbUnit.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\MbUnit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />

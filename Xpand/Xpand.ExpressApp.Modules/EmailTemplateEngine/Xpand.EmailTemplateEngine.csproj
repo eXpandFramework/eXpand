@@ -71,12 +71,12 @@
   <ItemGroup>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Fasterflect.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\System.Web.Razor.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

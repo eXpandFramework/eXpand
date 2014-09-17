@@ -68,11 +68,12 @@
   <ItemGroup>
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Common.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Common.Logging.EntLib">
-      <HintPath>..\..\..\_third_party_assemblies\Common.Logging.EntLib.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Common.Logging.EntLib.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.v14.1">
       <SpecificVersion>False</SpecificVersion>
@@ -184,27 +185,28 @@
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.ObjectBuilder2, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\_third_party_assemblies\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Microsoft.Practices.ObjectBuilder2.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="Quartz">
-      <HintPath>..\..\..\_third_party_assemblies\Quartz.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Quartz.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.ServiceModel" />
@@ -261,6 +263,7 @@
     <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>

@@ -37,19 +37,19 @@
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_third_party_assemblies\AForge.dll</HintPath>
+      <HintPath>..\..\Support\_third_party_assemblies\AForge.dll</HintPath>
     </Reference>
     <Reference Include="AForge.Imaging, Version=2.2.5.0, Culture=neutral, PublicKeyToken=ba8ddea9676ca48b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_third_party_assemblies\AForge.Imaging.dll</HintPath>
+      <HintPath>..\..\Support\_third_party_assemblies\AForge.Imaging.dll</HintPath>
     </Reference>
     <Reference Include="AForge.Math, Version=2.2.5.0, Culture=neutral, PublicKeyToken=abba2e25397ee8c9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_third_party_assemblies\AForge.Math.dll</HintPath>
+      <HintPath>..\..\Support\_third_party_assemblies\AForge.Math.dll</HintPath>
     </Reference>
     <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\_third_party_assemblies\AForge.Video.dll</HintPath>
+      <HintPath>..\..\Support\_third_party_assemblies\AForge.Video.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
