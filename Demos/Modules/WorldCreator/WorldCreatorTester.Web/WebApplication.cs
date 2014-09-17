@@ -1,14 +1,16 @@
+#if !EASYTEST
 using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.ExpressApp.Xpo;
 using WorldCreatorTester.Module;
 using WorldCreatorTester.Module.Web;
+using Xpand.Persistent.Base.General;
 
 namespace WorldCreatorTester.Web {
     public class WorldCreatorTesterAspNetApplication : WebApplication {
@@ -27,7 +29,7 @@ namespace WorldCreatorTester.Web {
         }
 #endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            this.CreateCustomObjectSpaceprovider(args, null);
         }
 
         void WorldCreatorTesterAspNetApplication_DatabaseVersionMismatch(object sender,

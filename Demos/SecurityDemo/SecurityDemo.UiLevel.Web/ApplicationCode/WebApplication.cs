@@ -1,6 +1,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.Web;
+using Xpand.Persistent.Base.General;
 
 namespace SecurityDemo.UiLevel.Web.ApplicationCode {
     public partial class SecurityDemoAspNetApplication : XpandWebApplication {
@@ -18,6 +19,9 @@ namespace SecurityDemo.UiLevel.Web.ApplicationCode {
             InitializeComponent();
         }
 
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            this.CreateCustomObjectSpaceprovider(args, null);
+        }
 
         private void SecurityDemoAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
             try {

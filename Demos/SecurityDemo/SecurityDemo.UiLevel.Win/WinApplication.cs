@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
+using Xpand.Persistent.Base.General;
 
 namespace SecurityDemo.UiLevel.Win {
     public partial class SecurityDemoWindowsFormsApplication : XpandWinApplication {
@@ -11,7 +11,7 @@ namespace SecurityDemo.UiLevel.Win {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
+            this.CreateCustomObjectSpaceprovider(args, null);
         }
 
         private void SecurityDemoWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {

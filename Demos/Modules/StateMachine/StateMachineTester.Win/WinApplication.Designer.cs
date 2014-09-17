@@ -34,8 +34,6 @@ namespace StateMachineTester.Win {
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -54,13 +52,7 @@ namespace StateMachineTester.Win {
             // 
             // securityStrategyComplex1
             // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-            // 
-            // authenticationStandard1
-            // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            
             // 
             // StateMachineTesterWindowsFormsApplication
             // 
@@ -74,7 +66,6 @@ namespace StateMachineTester.Win {
             this.Modules.Add(this.validationModule1);
             this.Modules.Add(this.stateMachineModule1);
             this.Modules.Add(this.securityModule1);
-            this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.StateMachineTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.StateMachineTesterWindowsFormsApplication_CustomizeLanguagesList);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -92,7 +83,5 @@ namespace StateMachineTester.Win {
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
     }
 }

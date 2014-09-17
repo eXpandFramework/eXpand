@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StateMachineTester.Module", "StateMachineTester.Module\StateMachineTester.Module.csproj", "{918B81A0-4F42-46A4-A8FA-D042B76B5809}"
 EndProject
@@ -62,22 +62,18 @@ Global
 		{0FDD6C3E-EBAF-463C-B8E8-C8A01F43F6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{5F9E1E64-7384-475E-99A6-50407FAF329A}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9E1E64-7384-475E-99A6-50407FAF329A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

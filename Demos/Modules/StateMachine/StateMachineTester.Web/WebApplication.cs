@@ -1,6 +1,8 @@
+#if !EASYTEST
 using System;
-using System.Data.SqlClient;
 using System.Diagnostics;
+#endif
+using System.Data.SqlClient;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
@@ -20,8 +22,6 @@ namespace StateMachineTester.Web {
         private DevExpress.ExpressApp.Validation.ValidationModule _validationModule1;
         private DevExpress.ExpressApp.StateMachine.StateMachineModule _stateMachineModule1;
         private DevExpress.ExpressApp.Security.SecurityModule _securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex _securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard _authenticationStandard1;
         SqlConnection _sqlConnection1;
 
         public StateMachineTesterAspNetApplication() {
@@ -90,8 +90,7 @@ namespace StateMachineTester.Web {
             _validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             _stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
             _securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            _securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            _authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -110,13 +109,7 @@ namespace StateMachineTester.Web {
             // 
             // securityStrategyComplex1
             // 
-            _securityStrategyComplex1.Authentication = _authenticationStandard1;
-            _securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
-            _securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-            // 
-            // authenticationStandard1
-            // 
-            _authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            
             // 
             // StateMachineTesterAspNetApplication
             // 
@@ -130,7 +123,6 @@ namespace StateMachineTester.Web {
             Modules.Add(_validationModule1);
             Modules.Add(_stateMachineModule1);
             Modules.Add(_securityModule1);
-            Security = _securityStrategyComplex1;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
