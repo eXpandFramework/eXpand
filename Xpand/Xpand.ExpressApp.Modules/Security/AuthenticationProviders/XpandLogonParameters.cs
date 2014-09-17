@@ -24,6 +24,11 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         }
 
         [Browsable(false)]
+        public bool AutoAuthentication {
+            get { return ApplicationHelper.Instance.Application != null && ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication.AutoAthentication.Enabled; }
+        }
+
+        [Browsable(false)]
         public SettingsStorage Storage {
             get { return _storage; }
         }

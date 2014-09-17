@@ -1,18 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using WorkflowTester.Module;
+using WorkflowTester.Module.Web;
 
 namespace WorkflowTester.Web {
-    public partial class WorkflowTesterAspNetApplication : WebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private WorkflowTester.Module.WorkflowTesterModule module3;
-        private WorkflowTester.Module.Web.WorkflowTesterAspNetModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+    public class WorkflowTesterAspNetApplication : WebApplication {
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
+        private WorkflowTesterModule _module3;
+        private WorkflowTesterAspNetModule _module4;
+        private SqlConnection _sqlConnection1;
 
         public WorkflowTesterAspNetApplication() {
             InitializeComponent();
@@ -26,7 +30,7 @@ namespace WorkflowTester.Web {
             return "en-US";
         }
 #endif
-        private void WorkflowTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void WorkflowTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -56,29 +60,30 @@ namespace WorkflowTester.Web {
         }
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new WorkflowTester.Module.WorkflowTesterModule();
-            this.module4 = new WorkflowTester.Module.Web.WorkflowTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new WorkflowTesterModule();
+            _module4 = new WorkflowTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=WorkflowTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=WorkflowTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // WorkflowTesterAspNetApplication
             // 
-            this.ApplicationName = "WorkflowTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
+            ApplicationName = "WorkflowTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.WorkflowTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            DatabaseVersionMismatch += WorkflowTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
 
         }
     }

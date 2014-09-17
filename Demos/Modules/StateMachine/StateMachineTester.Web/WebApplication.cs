@@ -12,22 +12,30 @@ using StateMachineTester.Module.Web;
 
 namespace StateMachineTester.Web {
     public class StateMachineTesterAspNetApplication : WebApplication {
-        SystemModule module1;
-        SystemAspNetModule module2;
-        StateMachineTesterModule module3;
-        StateMachineTesterAspNetModule module4;
-        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
-        private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
-        private DevExpress.ExpressApp.StateMachine.StateMachineModule stateMachineModule1;
-        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
-        SqlConnection sqlConnection1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        StateMachineTesterModule _module3;
+        StateMachineTesterAspNetModule _module4;
+        private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule _conditionalAppearanceModule1;
+        private DevExpress.ExpressApp.Validation.ValidationModule _validationModule1;
+        private DevExpress.ExpressApp.StateMachine.StateMachineModule _stateMachineModule1;
+        private DevExpress.ExpressApp.Security.SecurityModule _securityModule1;
+        private DevExpress.ExpressApp.Security.SecurityStrategyComplex _securityStrategyComplex1;
+        private DevExpress.ExpressApp.Security.AuthenticationStandard _authenticationStandard1;
+        SqlConnection _sqlConnection1;
 
         public StateMachineTesterAspNetApplication() {
             InitializeComponent();
             DatabaseVersionMismatch+=StateMachineTesterAspNetApplication_DatabaseVersionMismatch;
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";
@@ -73,56 +81,56 @@ namespace StateMachineTester.Web {
         }
 
         void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new StateMachineTester.Module.StateMachineTesterModule();
-            this.module4 = new StateMachineTester.Module.Web.StateMachineTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
-            this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
-            this.stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new StateMachineTesterModule();
+            _module4 = new StateMachineTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            _conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
+            _validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
+            _stateMachineModule1 = new DevExpress.ExpressApp.StateMachine.StateMachineModule();
+            _securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            _securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            _authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=S" +
+            _sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=S" +
     "tateMachineTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // validationModule1
             // 
-            this.validationModule1.AllowValidationDetailsAccess = true;
+            _validationModule1.AllowValidationDetailsAccess = true;
             // 
             // stateMachineModule1
             // 
-            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            _stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
             // 
             // securityStrategyComplex1
             // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            _securityStrategyComplex1.Authentication = _authenticationStandard1;
+            _securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            _securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            _authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // StateMachineTesterAspNetApplication
             // 
-            this.ApplicationName = "StateMachineTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
-            this.Modules.Add(this.conditionalAppearanceModule1);
-            this.Modules.Add(this.validationModule1);
-            this.Modules.Add(this.stateMachineModule1);
-            this.Modules.Add(this.securityModule1);
-            this.Security = this.securityStrategyComplex1;
+            ApplicationName = "StateMachineTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
+            Modules.Add(_conditionalAppearanceModule1);
+            Modules.Add(_validationModule1);
+            Modules.Add(_stateMachineModule1);
+            Modules.Add(_securityModule1);
+            Security = _securityStrategyComplex1;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }

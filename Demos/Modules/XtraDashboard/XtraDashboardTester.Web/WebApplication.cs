@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
@@ -22,12 +23,19 @@ namespace XtraDashboardTester.Web{
         private SystemAspNetModule _module2;
 
         private XtraDashboardTesterAspNetModule _module4;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
+        private SecurityStrategyComplex _securityStrategyComplex1;
+        private AuthenticationStandard _authenticationStandard1;
         private SqlConnection _sqlConnection1;
 
         public XtraDashboardTesterAspNetApplication(){
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
 #if EASYTEST
@@ -86,8 +94,8 @@ namespace XtraDashboardTester.Web{
         private void InitializeComponent(){
             _module1 = new SystemModule();
             _module2 = new SystemAspNetModule();
-            securityStrategyComplex1 = new SecurityStrategyComplex();
-            authenticationStandard1 = new AuthenticationStandard();
+            _securityStrategyComplex1 = new SecurityStrategyComplex();
+            _authenticationStandard1 = new AuthenticationStandard();
 
             _module4 = new XtraDashboardTesterAspNetModule();
             _sqlConnection1 = new SqlConnection();
@@ -98,13 +106,13 @@ namespace XtraDashboardTester.Web{
             _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XtraDashboardTester";
             _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            _securityStrategyComplex1.Authentication = _authenticationStandard1;
+            _securityStrategyComplex1.RoleType = typeof (XpandRole);
+            _securityStrategyComplex1.UserType = typeof (SecuritySystemUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            _authenticationStandard1.LogonParametersType = typeof (AuthenticationStandardLogonParameters);
             // 
             // XtraDashboardTesterAspNetApplication
             // 
@@ -114,7 +122,7 @@ namespace XtraDashboardTester.Web{
             Modules.Add(_module2);
 
             Modules.Add(_module4);
-            this.Security = this.securityStrategyComplex1;
+            Security = _securityStrategyComplex1;
 
             DatabaseVersionMismatch += XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize) (this)).EndInit();

@@ -1,11 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
 
 namespace FilterDataStoreTester.Win {
     static class Program {
@@ -22,15 +18,15 @@ namespace FilterDataStoreTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
-            FilterDataStoreTesterWindowsFormsApplication winApplication = new FilterDataStoreTesterWindowsFormsApplication();
+            var winApplication = new FilterDataStoreTesterWindowsFormsApplication();
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null && string.IsNullOrEmpty(winApplication.ConnectionString)) {
+                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null && string.IsNullOrEmpty(winApplication.ConnectionString)) {
-                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            }
             try {
                 winApplication.Setup();
                 winApplication.Start();

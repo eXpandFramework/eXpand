@@ -13,14 +13,21 @@ using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
     public class IOTesterAspNetApplication : WebApplication, IConfirmationRequired {
-        SystemModule module1;
-        SystemAspNetModule module2;
-        IOTesterModule module3;
-        IOTesterAspNetModule module4;
-        SqlConnection sqlConnection1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        IOTesterModule _module3;
+        IOTesterAspNetModule _module4;
+        SqlConnection _sqlConnection1;
 
         public IOTesterAspNetApplication() {
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
 #if EASYTEST
@@ -77,27 +84,27 @@ namespace IOTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new IOTesterModule();
-            module4 = new IOTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new IOTesterModule();
+            _module4 = new IOTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
             ((ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=IOTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // IOTesterAspNetApplication
             // 
             ApplicationName = "IOTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
             DatabaseVersionMismatch += IOTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();

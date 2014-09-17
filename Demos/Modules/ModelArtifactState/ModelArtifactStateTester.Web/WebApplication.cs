@@ -1,22 +1,35 @@
+#if !EASYTEST
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
+#endif
+using System.ComponentModel;
+using System.Data.SqlClient;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using ModelArtifactStateTester.Module;
 
 namespace ModelArtifactStateTester.Web {
-    public partial class ModelArtifactStateTesterAspNetApplication : WebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private ModelArtifactStateTester.Module.ModelArtifactStateTesterModule module3;
+    public class ModelArtifactStateTesterAspNetApplication : WebApplication {
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
+        private ModelArtifactStateTesterModule _module3;
 
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+        private SqlConnection _sqlConnection1;
 
         public ModelArtifactStateTesterAspNetApplication() {
             InitializeComponent();
+            LastLogonParametersReading+=OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e){
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))){
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";
@@ -26,7 +39,7 @@ namespace ModelArtifactStateTester.Web {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
 
-        private void ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -56,29 +69,30 @@ namespace ModelArtifactStateTester.Web {
         }
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new ModelArtifactStateTester.Module.ModelArtifactStateTesterModule();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new ModelArtifactStateTesterModule();
 
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ModelArtifactStateTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ModelArtifactStateTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // ModelArtifactStateTesterAspNetApplication
             // 
-            this.ApplicationName = "ModelArtifactStateTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
+            ApplicationName = "ModelArtifactStateTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
 
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            DatabaseVersionMismatch += ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
 
         }
     }

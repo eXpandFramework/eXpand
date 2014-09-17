@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCarouselTester.Module", "NCarouselTester.Module\NCarouselTester.Module.csproj", "{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}"
 EndProject
@@ -46,15 +46,15 @@ Global
 		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.Build.0 = RecompiledDxSources|Any CPU
+		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.Build.0 = RecompiledDxSources|Any CPU
+		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.Release|Any CPU.ActiveCfg = Release|Any CPU

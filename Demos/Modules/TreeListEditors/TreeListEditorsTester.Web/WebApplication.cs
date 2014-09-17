@@ -1,18 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using TreeListEditorsTester.Module;
+using TreeListEditorsTester.Module.Web;
 
 namespace TreeListEditorsTester.Web {
-    public partial class TreeListEditorsTesterAspNetApplication : WebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private TreeListEditorsTester.Module.TreeListEditorsTesterModule module3;
-        private TreeListEditorsTester.Module.Web.TreeListEditorsTesterAspNetModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+    public class TreeListEditorsTesterAspNetApplication : WebApplication {
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
+        private TreeListEditorsTesterModule _module3;
+        private TreeListEditorsTesterAspNetModule _module4;
+        private SqlConnection _sqlConnection1;
 
         public TreeListEditorsTesterAspNetApplication() {
             InitializeComponent();
@@ -26,7 +30,7 @@ namespace TreeListEditorsTester.Web {
             return "en-US";
         }
 #endif
-        private void TreeListEditorsTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void TreeListEditorsTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -56,29 +60,30 @@ namespace TreeListEditorsTester.Web {
         }
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new TreeListEditorsTester.Module.TreeListEditorsTesterModule();
-            this.module4 = new TreeListEditorsTester.Module.Web.TreeListEditorsTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new TreeListEditorsTesterModule();
+            _module4 = new TreeListEditorsTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=TreeListEditorsTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=TreeListEditorsTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // TreeListEditorsTesterAspNetApplication
             // 
-            this.ApplicationName = "TreeListEditorsTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
+            ApplicationName = "TreeListEditorsTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.TreeListEditorsTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            DatabaseVersionMismatch += TreeListEditorsTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
 
         }
     }

@@ -1,11 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
 
 namespace ChartTester.Win {
     static class Program {
@@ -21,15 +17,16 @@ namespace ChartTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
-            ChartTesterWindowsFormsApplication winApplication = new ChartTesterWindowsFormsApplication();
+            var winApplication = new ChartTesterWindowsFormsApplication();
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            }
+            
             try {
                 winApplication.Setup();
                 winApplication.Start();

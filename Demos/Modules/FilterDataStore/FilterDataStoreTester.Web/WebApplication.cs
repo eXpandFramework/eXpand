@@ -1,7 +1,9 @@
+#if !EASYTEST
 using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
@@ -12,14 +14,21 @@ using FilterDataStoreTester.Module.Web;
 
 namespace FilterDataStoreTester.Web {
     public class FilterDataStoreTesterAspNetApplication : WebApplication {
-        SystemModule module1;
-        SystemAspNetModule module2;
-        FilterDataStoreTesterModule module3;
-        FilterDataStoreTesterAspNetModule module4;
-        SqlConnection sqlConnection1;
+        SystemModule _module1;
+        SystemAspNetModule _module2;
+        FilterDataStoreTesterModule _module3;
+        FilterDataStoreTesterAspNetModule _module4;
+        SqlConnection _sqlConnection1;
 
         public FilterDataStoreTesterAspNetApplication() {
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
 #if EASYTEST
@@ -64,27 +73,27 @@ namespace FilterDataStoreTester.Web {
         }
 
         void InitializeComponent() {
-            module1 = new SystemModule();
-            module2 = new SystemAspNetModule();
-            module3 = new FilterDataStoreTesterModule();
-            module4 = new FilterDataStoreTesterAspNetModule();
-            sqlConnection1 = new SqlConnection();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new FilterDataStoreTesterModule();
+            _module4 = new FilterDataStoreTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
             ((ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            sqlConnection1.ConnectionString =
+            _sqlConnection1.ConnectionString =
                 @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=FilterDataStoreTester";
-            sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // FilterDataStoreTesterAspNetApplication
             // 
             ApplicationName = "FilterDataStoreTester";
-            Connection = sqlConnection1;
-            Modules.Add(module1);
-            Modules.Add(module2);
-            Modules.Add(module3);
-            Modules.Add(module4);
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
             DatabaseVersionMismatch += FilterDataStoreTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();

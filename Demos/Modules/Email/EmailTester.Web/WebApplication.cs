@@ -1,7 +1,9 @@
+#if !EASYTEST
 using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
@@ -10,7 +12,6 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using EmailTester.Module;
-using EmailTester.Module.BusinessObjects;
 using EmailTester.Module.Web;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
@@ -36,7 +37,15 @@ namespace EmailTester.Web {
         public EmailTesterAspNetApplication() {
             InitializeComponent();
             DatabaseVersionMismatch += EmailTesterAspNetApplication_DatabaseVersionMismatch;
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";

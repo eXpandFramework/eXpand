@@ -73,7 +73,9 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Country.cs" />
     <Compile Include="BusinessObjects\Customer.cs" />
-    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,18 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using ValidationTester.Module;
+using ValidationTester.Module.Web;
 
 namespace ValidationTester.Web {
-    public partial class ValidationTesterAspNetApplication : WebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private ValidationTester.Module.ValidationTesterModule module3;
-        private ValidationTester.Module.Web.ValidationTesterAspNetModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+    public class ValidationTesterAspNetApplication : WebApplication {
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
+        private ValidationTesterModule _module3;
+        private ValidationTesterAspNetModule _module4;
+        private SqlConnection _sqlConnection1;
 
         public ValidationTesterAspNetApplication() {
             InitializeComponent();
@@ -26,7 +30,7 @@ namespace ValidationTester.Web {
             return "en-US";
         }
 #endif
-        private void ValidationTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void ValidationTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;
@@ -56,29 +60,30 @@ namespace ValidationTester.Web {
         }
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new ValidationTester.Module.ValidationTesterModule();
-            this.module4 = new ValidationTester.Module.Web.ValidationTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new ValidationTesterModule();
+            _module4 = new ValidationTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ValidationTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ValidationTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // ValidationTesterAspNetApplication
             // 
-            this.ApplicationName = "ValidationTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
+            ApplicationName = "ValidationTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ValidationTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+            DatabaseVersionMismatch += ValidationTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
 
         }
     }

@@ -10,6 +10,7 @@ namespace EmailTester.Web {
         public Global() {
             InitializeComponent();
         }
+
         protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += Application_Error;
 
@@ -18,16 +19,17 @@ namespace EmailTester.Web {
 #endif
 
         }
+
         protected void Session_Start(Object sender, EventArgs e) {
             WebApplication.SetInstance(Session, new EmailTesterAspNetApplication());
+            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
-                WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            }
             
             WebApplication.Instance.NewSecurityStrategyComplex();
 

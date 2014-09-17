@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartTester.Module.Win", "ChartTester.Module.Win\ChartTester.Module.Win.csproj", "{056364AF-2845-4E52-AA11-28B3D13C37A2}"
 EndProject
@@ -34,12 +34,10 @@ Global
 		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Release|Any CPU.Build.0 = Release|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{560F01E0-F5F8-4261-93A8-A00082204536}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
@@ -47,7 +45,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {1B5DD613-555A-4AEC-9114-923D7ABCF305}
 		{560F01E0-F5F8-4261-93A8-A00082204536} = {1B5DD613-555A-4AEC-9114-923D7ABCF305}
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {1B5DD613-555A-4AEC-9114-923D7ABCF305}
 	EndGlobalSection
 EndGlobal

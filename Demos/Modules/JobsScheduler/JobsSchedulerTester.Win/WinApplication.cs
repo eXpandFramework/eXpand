@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 
@@ -11,7 +8,15 @@ namespace JobsSchedulerTester.Win {
         public JobsSchedulerTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
+
 #if EASYTEST
         protected override string GetUserCultureName() {
             return "en-US";

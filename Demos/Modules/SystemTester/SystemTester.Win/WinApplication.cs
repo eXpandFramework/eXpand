@@ -28,6 +28,7 @@ namespace SystemTester.Win {
                 e.Languages.Add(userLanguageName);
             }
         }
+
         private void SystemTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
             e.Updater.Update();

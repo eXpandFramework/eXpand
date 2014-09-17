@@ -1,5 +1,7 @@
+#if !EASYTEST
 using System;
 using System.Diagnostics;
+#endif
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
@@ -11,8 +13,14 @@ namespace FilterDataStoreTester.Win {
         public FilterDataStoreTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersReading += OnLastLogonParametersReading;
         }
 
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
+        }
 
 #if EASYTEST
         protected override string GetUserCultureName() {

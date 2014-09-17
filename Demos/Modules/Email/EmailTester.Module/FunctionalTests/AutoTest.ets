@@ -3,9 +3,7 @@
 #Application EmailTester.Win
 #Application EmailTester.Web
 
-
-*FillForm
- User Name = Admin
+*ScreenCapture
 *Action Log On
 
 

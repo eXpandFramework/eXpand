@@ -165,7 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\Sample.ets" />
+    <None Include="FunctionalTests\AutoTest2.ets" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />

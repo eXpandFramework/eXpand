@@ -1,11 +1,7 @@
 #DropDB StateMachineTesterEasyTest
-
 #Application StateMachineTester.Win
 #Application StateMachineTester.Web
-
-
-*FillForm
- User Name = Admin
+*ScreenCapture
 *Action Log On
 
 *AutoTest

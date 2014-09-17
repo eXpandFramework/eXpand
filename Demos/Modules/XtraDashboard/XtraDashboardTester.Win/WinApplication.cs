@@ -1,19 +1,23 @@
+#if !EASYTEST
 using System;
 using System.Diagnostics;
+#endif
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
-
-//using DevExpress.ExpressApp.Security;
-
 namespace XtraDashboardTester.Win{
-    // You can override various virtual methods and handle corresponding events to manage various aspects of your XAF application UI and behavior.
     public partial class XtraDashboardTesterWindowsFormsApplication : WinApplication{
-        // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWinWinApplicationMembersTopicAll
         public XtraDashboardTesterWindowsFormsApplication(){
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
 #if EASYTEST

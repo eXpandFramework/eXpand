@@ -1,11 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
 
 namespace StateMachineTester.Win {
     static class Program {
@@ -21,7 +17,7 @@ namespace StateMachineTester.Win {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
-            StateMachineTesterWindowsFormsApplication winApplication = new StateMachineTesterWindowsFormsApplication();
+            var winApplication = new StateMachineTesterWindowsFormsApplication();
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
