@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.ExpressApp.ScriptRecorder.Win.v14.1.dll</HintPath>
     </Reference>

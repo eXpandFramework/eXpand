@@ -197,7 +197,7 @@
   </Target>
   <ItemGroup>
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
-    <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets" Exclude="@(AutoTests)"/>
+    <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterProjects)"/>
