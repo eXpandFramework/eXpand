@@ -12,12 +12,12 @@
 			Name="AuditTrailTester.Web"
 			Url="http://localhost:50131"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="AuditTrailTester.Web"
 			Url="http://localhost/AuditTrailTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="AuditTrailTesterEasyTest"/>

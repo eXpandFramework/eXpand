@@ -12,12 +12,12 @@
 			Name="ExceptionHandingTester.Web"
 			Url="http://localhost:5007"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="ExceptionHandingTester.Web"
 			Url="http://localhost/ExceptionHandingTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="ExceptionHandingTesterEasyTest" />

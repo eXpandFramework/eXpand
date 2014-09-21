@@ -25,8 +25,6 @@ namespace Xpand.ExpressApp.Scheduler.Reminders{
             var mappingCollection = appointmentStorage.CustomFieldMappings;
             mappingCollection.Add(new AppointmentCustomFieldMapping(BOType, BOType));
             mappingCollection.Add(new AppointmentCustomFieldMapping(BOKey, BOKey));
-//            storage.AppointmentChanging += SchedulerStorageAppointmentChanging;
-//            storage.ReminderAlert += ShowReminderAlerts;
             storage.EndInit();
             return storage;
         }

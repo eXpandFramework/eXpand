@@ -6,7 +6,9 @@
  Subject = MissedReminder
 *SaveAndClose
 *ReopenApplication
-*Navigate Default.Reminder Object
+*Action Log On
+*Navigate Default.Role
+*Sleep 5000
 *XpandHandleDialog
  Caption = 1 Reminder
  Respond = Dismiss

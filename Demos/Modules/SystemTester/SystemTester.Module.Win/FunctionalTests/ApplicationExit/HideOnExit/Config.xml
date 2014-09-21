@@ -10,9 +10,9 @@
     <!-- Web -->
     <Application
 			Name="SystemTester.Web"
-			Url="http://localhost:63074"
+			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" UseIISExpress="True"
+      AdapterFileName="[WebAdapterFileName]"
 />
     <!-- For IIS -->
     <!--Application

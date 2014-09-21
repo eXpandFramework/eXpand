@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Threading;
 using Xpand.Utils.Win32;
 
 namespace Xpand.Utils.Automation {
@@ -60,14 +62,32 @@ namespace Xpand.Utils.Automation {
             return childWindowFromPointEx;
         }
 
+        public static void AttachedThreadInputAction(Action action) {
+            var foreThread = Win32Declares.Process.GetWindowThreadProcessId(Win32Declares.WindowFocus.GetForegroundWindow(), IntPtr.Zero);
+            var appThread = Win32Declares.Thread.GetCurrentThreadId();
+            bool threadsAttached = false;
+
+            try {
+                threadsAttached =
+                    foreThread == appThread || Win32Declares.Thread.AttachThreadInput(foreThread, appThread, true);
+
+                if (threadsAttached) action();
+                else throw new ThreadStateException("AttachThreadInput failed." + Marshal.GetLastWin32Error());
+            }
+            finally {
+                if (threadsAttached)
+                    Win32Declares.Thread.AttachThreadInput(foreThread, appThread, false);
+            }
+        }
+
         public IntPtr GetFocusControlHandle() {
 #pragma warning disable 612,618
-            var thisThreadID = new IntPtr(AppDomain.GetCurrentThreadId());
+            var thisThreadID = (uint) AppDomain.GetCurrentThreadId();
 #pragma warning restore 612,618
             IntPtr activeHwnd = Win32Declares.WindowFocus.GetForegroundWindow();
             IntPtr focusedHwnd = IntPtr.Zero;
             if (activeHwnd != IntPtr.Zero) {
-                IntPtr activeThreadID = Win32Declares.Process.GetWindowThreadProcessId(activeHwnd, IntPtr.Zero);
+                uint activeThreadID = Win32Declares.Process.GetWindowThreadProcessId(activeHwnd, IntPtr.Zero);
                 if (Win32Declares.Thread.AttachThreadInput(activeThreadID, thisThreadID, true)) {
                     focusedHwnd = Win32Declares.WindowFocus.GetFocus();
                     Win32Declares.Thread.AttachThreadInput(activeThreadID, thisThreadID, false);

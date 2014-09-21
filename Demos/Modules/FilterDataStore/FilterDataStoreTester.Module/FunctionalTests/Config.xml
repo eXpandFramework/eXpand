@@ -12,12 +12,12 @@
 			Name="FilterDataStoreTester.Web"
 			Url="http://localhost:5009"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="FilterDataStoreTester.Web"
 			Url="http://localhost/FilterDataStoreTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="FilterDataStoreTesterEasyTest" />

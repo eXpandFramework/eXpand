@@ -34,16 +34,15 @@ namespace Xpand.EasyTest.Commands {
             var saveAndCloseCommand = new SaveAndCloseCommand();
             saveAndCloseCommand.Execute(adapter);
 
-            if (adapter.IsWinAdapter()){
-                saveAndCloseCommand = new SaveAndCloseCommand();
-                saveAndCloseCommand.Execute(adapter);
-            }
+            saveAndCloseCommand = new SaveAndCloseCommand();
+            saveAndCloseCommand.Execute(adapter);
         }
 
         private void ProccessUserRole(ICommandAdapter adapter){
-            var processRecordCommand = new DevExpress.EasyTest.Framework.Commands.ProcessRecordCommand();
+            var processRecordCommand = new XpandProcessRecordCommand();
             processRecordCommand.Parameters.MainParameter=new MainParameter("");
             processRecordCommand.Parameters.Add(new Parameter("Name", "User", true, StartPosition));
+            processRecordCommand.Parameters.Add(new Parameter("Action", "Edit", true, StartPosition));
             processRecordCommand.Execute(adapter);
         }
 

@@ -151,9 +151,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <None Include="FunctionalTests\ApplicationExit\HideOnExit\Init.inc" />
+    <Content Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Config.xml" />
+    <Content Include="FunctionalTests\ApplicationExit\PromptOnExit\Config.xml" />
+    <None Include="FunctionalTests\ApplicationExit\PromptOnExit\Init.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Config.xml" />
-    <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Images\lookup.win.png" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Init.inc" />
     <None Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
@@ -169,7 +172,7 @@
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\StringLookupObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditorObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -212,9 +215,9 @@
     <None Include="FunctionalTests\Actions\Actions.Win.ets" />
     <None Include="FunctionalTests\Actions\Actions.xafml" />
     <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml" />
-    <None Include="FunctionalTests\ApplicationExit\HideOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit.ets" />
-    <None Include="FunctionalTests\ApplicationExit\PromtOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\HideOnExit\HideOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit\MinimizeOnExit.ets" />
+    <None Include="FunctionalTests\ApplicationExit\PromptOnExit\PromptOnExit.ets" />
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.ets" />
     <None Include="FunctionalTests\DetailViewCaching\DetailViewCaching.xafml">
       <SubType>Designer</SubType>
@@ -258,8 +261,8 @@
     <None Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
-    <Content Include="FunctionalTests\ApplicationExit\Config.xml" />
-    <None Include="FunctionalTests\ApplicationExit\Init.inc" />
+    <Content Include="FunctionalTests\ApplicationExit\HideOnExit\Config.xml" />
+    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Init.inc" />
     <None Include="FunctionalTests\DetailViewCaching\Init.inc" />
     <Content Include="FunctionalTests\FilterEditor\Config.xml" />
     <Content Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
@@ -281,6 +284,7 @@
     <Content Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
     <Content Include="FunctionalTests\PreventDataLoading\Init.inc" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

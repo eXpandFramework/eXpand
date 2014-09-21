@@ -48,7 +48,7 @@
   </PropertyGroup>
   <Import Project="Support\Build\MSBuild.Community.Tasks.targets" />
   <Import Project="Support\Build\ExtensionPack\MSBuild.ExtensionPack.tasks" />
-  <Import Project="Xpand.projects" />
+  <Import Project="Support\Build\Xpand.projects" />
   <ItemGroup>
     <Tokens Include="SourcePackage">
       <ReplacementValue>$(ProjectName)-Source-$(Version).zip</ReplacementValue>
@@ -114,7 +114,7 @@
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*">
+    <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*;**/EasyTestUsers/**/*.*">
       <Output ItemName="_binaryFiles" TaskParameter="Include" />
     </CreateItem>
     <Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true" />
@@ -201,9 +201,9 @@
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterProjects)"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(_third_party_assemblies)\Fasterflect.dll;$(_third_party_assemblies)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(XpandDLLPath)\Fasterflect.dll;$(XpandDLLPath)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
-    <EasyTestReqs Include="$(_third_party_assemblies)\ProcessAsUser.exe;$(_third_party_assemblies)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\windowsinput.dll;$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
   </ItemGroup>
   <Target Name="PrintEasyTestLogs" >
     <ItemGroup>
@@ -246,28 +246,25 @@
   </Target>
   <Target Name="tmpStorage">
         <Message Text="%(EasyTestLogs.Identity)"></Message>
+		
   </Target>
-  <Target Name="RunEasyTests" >
-    <MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
+  <Target Name="RunEasyTests">
+	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
-    <Delete Files="@(EasyTestLogs)"/>
+    <Delete Files="@(EasyTestLogs)"/>	
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
-	<Exec ContinueOnError="true" 
-          WorkingDirectory="%(EasyTests.RelativeDir)"
-          Command='%(EasyTests.RelativeDir)\ProcessAsUser.exe $(TestExecutorName) %(EasyTests.Filename).ets'>
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
-    </Exec>
-    <Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
-    <Error Text="Login failed" Condition="'$(ErrorCode)' == '255'" />
+    <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(XpandDLLPath)\XpandTestExecutor.exe $(DXVersion);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
+	<Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
     <CallTarget Targets="CreateEasyTestVideos"></CallTarget>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="CreateEasyTestVideos">
     <ItemGroup>
-      <EasyTestVideoImages Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\ScreenCapture\*.png"/>
+      <EasyTestVideoImages Include="**/ScreenCapture/*.png"/>
       <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
       <EasyTestVideoFoldersList Include="@(EasyTestVideoFolders->'.%(Identity)')"></EasyTestVideoFoldersList>
     </ItemGroup>
@@ -275,7 +272,7 @@
 	  <EasyTestVideoFolders>@(EasyTestVideoFoldersList)</EasyTestVideoFolders>
     </PropertyGroup>
     <ItemGroup>
-      <VideoBuilderFiles Include="$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
+      <VideoBuilderFiles Include="$(XpandDLLPath)\Aforge*.dll;$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
     </ItemGroup>
     <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
@@ -310,8 +307,8 @@
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Xpand.nsi" />
-    <CreateItem Include="setup.exe">
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Support\Build\Xpand.nsi" />
+    <CreateItem Include="Support\Build\setup.exe">
       <Output ItemName="setupFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
@@ -347,7 +344,7 @@
   <Target Name="Distrib">
     <MakeDir Directories="$(PackageDirectory);" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />

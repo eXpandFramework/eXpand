@@ -13,3 +13,4 @@
  Subject = NewReminder
 *CheckFieldValues
  Has Reminder = False
+*Navigate Default.Reminder Object

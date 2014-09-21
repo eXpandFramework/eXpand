@@ -44,6 +44,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -73,6 +76,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
       <Private>False</Private>
@@ -169,7 +173,6 @@
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml" />
     <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
-    <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.xafml" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml" />
     <None Include="FunctionalTests\ReadMe.txt" />
@@ -182,6 +185,7 @@
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewEditMode.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode\ViewMode.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -193,13 +197,18 @@
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.win.png" />
     <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
-    <Content Include="FunctionalTests\ViewEditMode\DetailView\Config.xml">
+    <Content Include="FunctionalTests\ViewEditMode\DetailView\EditMode\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode.ets" />
+    <Content Include="FunctionalTests\ViewEditMode\DetailView\ViewMode\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode\Init.inc" />
+    <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode\EditMode.ets" />
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode.ets" />
-    <None Include="FunctionalTests\ViewEditMode\DetailView\Init.inc" />
+    <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode\Init.inc" />
     <None Include="FunctionalTests\RunTimeMembers\AssociatedCollection.inc" />
     <None Include="FunctionalTests\RunTimeMembers\OrphanedCollection.inc" />
     <None Include="FunctionalTests\RunTimeMembers\Persistent.inc" />
@@ -217,7 +226,9 @@
     <Content Include="FunctionalTests\ConditionalAppearence\Images\DetailView.DefaultFont.win.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\ListView.BoldFont.web.png" />
     <Content Include="FunctionalTests\ConditionalAppearence\Images\ListView.BoldFont.win.png" />
-    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\HideToolBar\Config.xml" />
     <Content Include="FunctionalTests\HideToolBar\Hide Toolbar from all Views.inc" />
     <Content Include="FunctionalTests\HideToolBar\Images\DetailView.web.png" />
@@ -240,7 +251,6 @@
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
-    <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.Win.png" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Save a valid url.inc" />
   </ItemGroup>

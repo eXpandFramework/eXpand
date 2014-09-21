@@ -26,32 +26,23 @@ namespace Xpand.Utils.Automation {
             Win32Declares.Message.SendMessage(windowHandle, EM_SETREADONLY, 1, 0);
         }
 
-        public static bool FocusWindow(IntPtr windowHandle) {
+
+        public static bool ForceWindowToForeground(IntPtr windowHandle){
             if (Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle)
                 return true;
-            bool ret;
-            IntPtr processId1 =
-                Win32Declares.Process.GetWindowThreadProcessId(Win32Declares.WindowFocus.GetForegroundWindow(),
-                                                               IntPtr.Zero);
-            IntPtr processId2 = Win32Declares.Process.GetWindowThreadProcessId(IntPtr.Zero, windowHandle);
-            if (processId1 != processId2) {
-                Win32Declares.Thread.AttachThreadInput(processId1, processId2, true);
-                ret = Win32Declares.WindowFocus.SetForegroundWindow(windowHandle);
-                Win32Declares.Thread.AttachThreadInput(processId1, processId2, true);
-            } else
-                ret = Win32Declares.WindowFocus.SetForegroundWindow(windowHandle);
-
-            Win32Declares.Window.ShowWindowEnum showWindowEnum = Win32Declares.Window.IsIconic(windowHandle)
-                                                                     ? Win32Declares.Window.ShowWindowEnum.
-                                                                           SW_RESTORE
-                                                                     : Win32Declares.Window.ShowWindowEnum.SW_SHOW;
-            Win32Declares.Window.ShowWindow(windowHandle, showWindowEnum);
-            return ret;
+            HelperAutomation.AttachedThreadInputAction(
+                () => {
+                    
+                    Win32Declares.WindowFocus.BringWindowToTop(windowHandle);
+                    var showWindowEnum = Win32Declares.Window.IsIconic(windowHandle)? Win32Declares.Window.ShowWindowEnum.SW_RESTORE: Win32Declares.Window.ShowWindowEnum.SW_SHOW;
+                    Win32Declares.Window.ShowWindow(windowHandle, showWindowEnum);
+                });
+            return Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle;
         }
 
-        public static bool FocusWindow(string caption) {
+        public static bool ForceWindowToForeground(string caption) {
             IntPtr findWindow = Win32Declares.WindowHandles.FindWindow(null, caption);
-            return FocusWindow(findWindow);
+            return ForceWindowToForeground(findWindow);
         }
         #endregion
         public static Point GetGetWindowPosition(string windowCaption) {

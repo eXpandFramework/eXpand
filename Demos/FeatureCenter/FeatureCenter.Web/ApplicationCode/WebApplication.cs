@@ -9,17 +9,17 @@ using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Web.ApplicationCode {
     public partial class FeatureCenterAspNetApplication : XpandWebApplication {
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
+        private DevExpress.ExpressApp.SystemModule.SystemModule _module1;
+        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule _module2;
 
-        private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
-        private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
-        private XpandAuthenticationStandard authenticationStandard1;
-        private Module.FeatureCenterModule featureCenterModule1;
-        private DevExpress.ExpressApp.CloneObject.CloneObjectModule cloneObjectModule1;
-        private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule viewVariantsModule1;
+        private SecurityModule _securityModule1;
+        private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule _module6;
+        private System.Data.SqlClient.SqlConnection _sqlConnection1;
+        private SecurityStrategyComplex _securityComplex1;
+        private XpandAuthenticationStandard _authenticationStandard1;
+        private Module.FeatureCenterModule _featureCenterModule1;
+        private DevExpress.ExpressApp.CloneObject.CloneObjectModule _cloneObjectModule1;
+        private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule _viewVariantsModule1;
         
         
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
@@ -83,17 +83,17 @@ namespace FeatureCenter.Web.ApplicationCode {
 
 
         private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this._module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this._module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module5 = new DevExpress.ExpressApp.Validation.ValidationModule();
-            this.module6 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
-            this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new Xpand.ExpressApp.Security.AuthenticationProviders.XpandAuthenticationStandard();
-            this.featureCenterModule1 = new FeatureCenter.Module.FeatureCenterModule();
-            this.cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
-            this.viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
+            this._module6 = new DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule();
+            this._securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
+            this._sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this._securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this._authenticationStandard1 = new Xpand.ExpressApp.Security.AuthenticationProviders.XpandAuthenticationStandard();
+            this._featureCenterModule1 = new FeatureCenter.Module.FeatureCenterModule();
+            this._cloneObjectModule1 = new DevExpress.ExpressApp.CloneObject.CloneObjectModule();
+            this._viewVariantsModule1 = new DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
             this.featureCenterAspNetModule1 = new FeatureCenter.Module.Web.FeatureCenterAspNetModule();
@@ -119,28 +119,28 @@ namespace FeatureCenter.Web.ApplicationCode {
             // 
             // securityModule1
             // 
-            this.securityModule1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            this._securityModule1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=XpandFeatureCenter;Integrated Security=SSPI;P" +
+            this._sqlConnection1.ConnectionString = "Data Source=(local);Initial Catalog=XpandFeatureCenter;Integrated Security=SSPI;P" +
     "ooling=false";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            this._sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // securityComplex1
             // 
-            this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(Xpand.ExpressApp.Security.Core.XpandRole);
-            this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            this._securityComplex1.Authentication = this._authenticationStandard1;
+            this._securityComplex1.RoleType = typeof(Xpand.ExpressApp.Security.Core.XpandRole);
+            this._securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
             // authenticationStandard1
             // 
-            this.authenticationStandard1.LogonParametersType = typeof(XpandLogonParameters);
+            this._authenticationStandard1.LogonParametersType = typeof(XpandLogonParameters);
             // 
             // viewVariantsModule1
             // 
-            this.viewVariantsModule1.FrameVariantsEngine = null;
-            this.viewVariantsModule1.VariantsProvider = null;
+            this._viewVariantsModule1.FrameVariantsEngine = null;
+            this._viewVariantsModule1.VariantsProvider = null;
             // 
             // pivotChartModuleBase1
             // 
@@ -168,21 +168,21 @@ namespace FeatureCenter.Web.ApplicationCode {
             // FeatureCenterAspNetApplication
             // 
             this.ApplicationName = "FeatureCenter";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
+            this.Connection = this._sqlConnection1;
+            this.Modules.Add(this._module1);
+            this.Modules.Add(this._module2);
             this.Modules.Add(this.module5);
-            this.Modules.Add(this.module6);
-            this.Modules.Add(this.securityModule1);
-            this.Modules.Add(this.cloneObjectModule1);
-            this.Modules.Add(this.viewVariantsModule1);
+            this.Modules.Add(this._module6);
+            this.Modules.Add(this._securityModule1);
+            this.Modules.Add(this._cloneObjectModule1);
+            this.Modules.Add(this._viewVariantsModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
             this.Modules.Add(this.pivotChartModuleBase1);
             this.Modules.Add(this.scriptRecorderModuleBase1);
             this.Modules.Add(this.kpiModule1);
             this.Modules.Add(this.workflowModule1);
             this.Modules.Add(this.stateMachineModule1);
-            this.Modules.Add(this.featureCenterModule1);
+            this.Modules.Add(this._featureCenterModule1);
             this.Modules.Add(this.pivotChartAspNetModule1);
             this.Modules.Add(this.fileAttachmentsAspNetModule1);
             this.Modules.Add(this.htmlPropertyEditorAspNetModule1);
@@ -193,7 +193,7 @@ namespace FeatureCenter.Web.ApplicationCode {
             this.Modules.Add(this.schedulerModuleBase1);
             this.Modules.Add(this.schedulerAspNetModule1);
             this.Modules.Add(this.featureCenterAspNetModule1);
-            this.Security = this.securityComplex1;
+            this.Security = this._securityComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.AspNetApplicationDatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

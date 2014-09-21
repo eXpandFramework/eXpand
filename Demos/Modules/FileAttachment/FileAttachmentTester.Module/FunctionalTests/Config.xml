@@ -12,12 +12,12 @@
 			Name="FileAttachmentTester.Web"
 			Url="http://localhost:5008"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="FileAttachmentTester.Web"
 			Url="http://localhost/FileAttachmentTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="FileAttachmentTesterEasyTest"/>

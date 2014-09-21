@@ -3,4 +3,4 @@
 *UseModel
 *Action Log On
 *ScreenCapture
-*Action Navigation(PropertyEditors.String Lookup Object)
+*Action Navigation(PropertyEditors.StringLookup.Default)

@@ -12,12 +12,12 @@
 			Name="HtmlPropertyEditorTester.Web"
 			Url="http://localhost:50010"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="HtmlPropertyEditorTester.Web"
 			Url="http://localhost/HtmlPropertyEditorTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="HtmlPropertyEditorTesterEasyTest"/>

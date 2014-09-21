@@ -21,6 +21,7 @@
 
 ;Check if removed
 *ReopenApplication
+*Action Log On
 *Navigate Default.Reminder Object
 !XpandHandleDialog
  Caption = 1 Reminder

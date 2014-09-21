@@ -29,7 +29,7 @@ namespace Xpand.Utils.Automation {
         /// </summary>
         /// <param name="mainWindowHandle">the widbow that contains the control in which the data is going to be pasted</param>
         public static void PasteFromClipBoard(IntPtr mainWindowHandle) {
-            WindowAutomation.FocusWindow(mainWindowHandle);
+            WindowAutomation.ForceWindowToForeground(mainWindowHandle);
             var helperAutomation = new HelperAutomation();
             IntPtr focusControlHandle = helperAutomation.GetFocusControlHandle();
             Win32Declares.Message.SendMessage(focusControlHandle, Win32Constants.Clipboard.WM_PASTE, IntPtr.Zero,

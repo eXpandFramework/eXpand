@@ -1,10 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <BOModel>
-    <Class Name="SystemTester.Module.Win.FunctionalTests.PropertyEditors.StringLookupPropertyEditor.StringLookupObject">
+    <Class Name="SystemTester.Module.Win.FunctionalTests.PropertyEditors.StringLookupPropertyEditor.StringLookupPropertyEditorObject">
       <OwnMembers>
-        <Member Name="Phone" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" EditMask="(999) 000-0000" />
+        <Member Name="Phone" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" />
       </OwnMembers>
     </Class>
   </BOModel>
+  <Views>
+    <DetailView Id="StringLookupPropertyEditorObject_Mask_DetailView">
+      <Items>
+        <PropertyEditor Id="Phone" EditMask="00000" />
+      </Items>
+    </DetailView>
+  </Views>
 </Application>

@@ -77,8 +77,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
-                WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
+//            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
+//                WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
             
         }
 

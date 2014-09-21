@@ -1,15 +1,22 @@
 ﻿#IncludeFile .\Init.inc
 
-*Action New(String Lookup Object)
+*Action New(String Lookup Property Editor Object)
 *FillForm
- Phone = (999) 000-000
-*Action Save and New
-*XpandCompareScreenshot lookup.png
- SendKeys = {F4}
- ValidDiffPercentage = 3
- MaskRectangle = 48x111;49x17
-
-*XpandFillForm
  Phone = text
- SendKeys = true
-!Action Save
+*Action Save and New
+*SendKeys t
+*Action Save
+*Action Navigation(PropertyEditors.StringLookup.Default)
+*CheckTable
+ Columns = Phone
+ Row[0] = text
+ Row[1] = text
+ 
+*Action Navigation(PropertyEditors.StringLookup.Mask)
+*XpandProcessRecord
+ Phone = text
+*CheckFieldValues
+ Phone = _____
+*XpandFillForm
+ Phone = 111
+*Action Save

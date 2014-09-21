@@ -21,7 +21,8 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
 
     public abstract class ReminderAlertController:WindowController,IModelExtender{
         private IObjectSpace _objectSpace;
-        
+        private bool _firstViewShown;
+
         protected ReminderAlertController(){
             TargetWindowType=WindowType.Main;
         }
@@ -34,18 +35,35 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             RestoreAppointments();
         }
 
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            Application.ViewShown+=ApplicationOnViewShown;
+        }
+
+        private void ApplicationOnViewShown(object sender, ViewShownEventArgs viewShownEventArgs){
+            _firstViewShown = true;
+            Application.ViewShown -= ApplicationOnViewShown;
+        }
+
         private void RestoreAppointments(){
-            var task = Task.Factory.StartNew(() => Thread.Sleep(5000));
+            var context = TaskScheduler.FromCurrentSynchronizationContext();
+            var task = Task.Factory.StartNew(() =>{
+                while (!_firstViewShown){
+                    Thread.Sleep(100);
+                }
+                Thread.Sleep(2000);
+            });
             task.ContinueWith(task1 =>{
                 var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);
                 var reminderController = Frame.GetController<ReminderController>();
-                foreach (var modelMemberReminderInfo in reminderInfos){
+                var objectSpace = Application.CreateObjectSpace();
+                foreach (var modelMemberReminderInfo in reminderInfos) {
                     var criteriaOperator = reminderController.GetCriteria(modelMemberReminderInfo);
-                    var reminderEvents =_objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
+                    var reminderEvents = objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
                     var appointments = reminderController.CreateAppoitments(reminderEvents);
                     reminderController.UpdateAppoitmentKey(appointments);
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }, context);
         }
 
         protected override void OnDeactivated(){

@@ -1,5 +1,5 @@
 ﻿;#IncludeFile .\Init.inc
-*Action Navigation(RuntimeMembers.Calculated)
+*Navigate Run Time Members Object
 *CheckTable
  Columns = Full Name
  Row[0] = Apostolis Bekiaris

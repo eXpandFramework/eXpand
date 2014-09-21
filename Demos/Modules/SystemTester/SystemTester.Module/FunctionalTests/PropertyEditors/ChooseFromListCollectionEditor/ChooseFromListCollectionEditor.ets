@@ -2,7 +2,7 @@
 
 *Action Navigation(PropertyEditors.Choose From List Collection Editor Object)
 *Action New(Choose From List Collection Editor Object)
-*FillForm
+*XpandFillForm
  Dates Excluded = 01/01
 *Action Save and Close
 *Action Navigation(PropertyEditors.Choose From List Collection Editor Object)

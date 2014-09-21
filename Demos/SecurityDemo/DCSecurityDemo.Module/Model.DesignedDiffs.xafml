@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="SecurityDemo" Logo="ExpressAppLogo" PreferredLanguage="(Default language)">
+<Application Title="DCSecurityDemo" Logo="ExpressAppLogo" PreferredLanguage="(Default language)">
 	<Views>
     <ListView Id="IObjectLevelSecurityObject_ListView" AllowEdit="True" />
     <DetailView Id="IMemberLevelSecurityObject_DetailView">

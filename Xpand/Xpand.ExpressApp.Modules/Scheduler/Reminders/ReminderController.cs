@@ -7,7 +7,6 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Xml;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders{
     public class ReminderController:ObjectViewController<ObjectView,IEvent>{
@@ -88,6 +87,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders{
                 SchedulerStorage.Instance.Appointments.Add(appointment);
             }
             SchedulerStorage.Instance.EnableReminders = true;
+            SchedulerStorage.Instance.TriggerAlerts();
             return appointments;
         }
     }

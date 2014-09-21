@@ -11,13 +11,13 @@
 *FillForm
  Name = Edit
 *CheckTable View Edit Mode Children
- Columns = View Edit Mode Object
+ Columns = Child Name
 *Navigate ViewEditMode.Edit
 
 *SelectRecords
  Columns = Name
- Row = View
+ Row = Edit
 *Action View Edit Mode
 *FillForm
- Name = View
+ Name = Edit
 

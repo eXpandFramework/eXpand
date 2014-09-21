@@ -17,7 +17,7 @@
     </Class>
   </BOModel>
   <Views>
-    <DetailView Id="RuntimeMembersCalculated_DetailView">
+    <DetailView Id="RunTimeMembersObject_DetailView">
       <Items>
         <PropertyEditor Id="Address" PropertyName="Address" IsNewNode="True" />
         <PropertyEditor Id="AllBekiaris" PropertyName="AllBekiaris" IsNewNode="True" />
@@ -45,7 +45,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="RuntimeMembersCalculated_ListView">
+    <ListView Id="RunTimeMembersObject_ListView">
       <Columns>
         <ColumnInfo Id="FullName" PropertyName="FullName" IsNewNode="True" />
       </Columns>

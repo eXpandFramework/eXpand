@@ -1,9 +1,9 @@
 ﻿#DropDB MasterDetailTesterEasyTest
 #Application MasterDetailTester.Win
-*UseModel CommonModel
+*UseModel ..\CommonModel
 *ScreenCapture
 *Action Log On
-#IncludeFile .\CreateMasterDetailObjects.inc 
+#IncludeFile ..\CreateMasterDetailObjects.inc 
 *CreatePermission Project;Contributor
 
 *Action Navigation(Default.Role)
@@ -27,5 +27,5 @@
 *Action Log On
 *Navigate Project
 
-#IncludeFile .\Checks.inc 
+#IncludeFile ..\Checks.inc 
 

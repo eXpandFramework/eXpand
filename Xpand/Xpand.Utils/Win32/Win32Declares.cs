@@ -577,6 +577,8 @@ namespace Xpand.Utils.Win32 {
             /// <returns>If the window was previously visible, the return value is nonzero. If the window was previously hidden, the return value is zero. </returns>
             [DllImport("user32.dll")]
             public static extern bool ShowWindow(IntPtr hWnd, ShowWindowEnum showWindowEnum);
+            [DllImport("user32.dll")]
+            public static extern bool ShowWindow(IntPtr hWnd, uint nCmdShow);
             #endregion
         }
 
@@ -617,7 +619,7 @@ namespace Xpand.Utils.Win32 {
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window to bring to the top of the Z order. </param>
             /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
-            [DllImport("user32.dll")]
+            [DllImport("user32.dll", SetLastError = true)]
             public static extern bool BringWindowToTop(IntPtr hWnd);
 
             /// <summary>
@@ -659,10 +661,10 @@ namespace Xpand.Utils.Win32 {
             /// The GetWindowThreadProcessId function retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window. 
             /// </summary>
             /// <param name="hWnd">[in] Handle to the window. </param>
-            /// <param name="lpdwProcessId">[out] Pointer to a variable that receives the process identifier. If this parameter is not NULL, GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not. </param>
+            /// <param name="processId">[out] Pointer to a variable that receives the process identifier. If this parameter is not NULL, GetWindowThreadProcessId copies the identifier of the process to the variable; otherwise, it does not. </param>
             /// <returns>The return value is the identifier of the thread that created the window. </returns>
-            [DllImport("user32.dll", SetLastError = true)]
-            public static extern IntPtr GetWindowThreadProcessId(IntPtr hWnd, IntPtr lpdwProcessId);
+            [DllImport("user32.dll",SetLastError = true)]
+            public static extern uint GetWindowThreadProcessId(IntPtr hWnd, IntPtr processId);
 
             /// <summary>
             /// This function terminates the specified process and all of its threads.
@@ -675,6 +677,8 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class Thread {
+            [DllImport("kernel32.dll")]
+            public static extern uint GetCurrentThreadId();
             /// <summary>
             /// This function returns a pseudohandle for the current thread. 
             /// </summary>
@@ -689,8 +693,9 @@ namespace Xpand.Utils.Win32 {
             /// <param name="idAttachTo">[in] Identifier of the thread to which idAttach will be attached. This thread cannot be a system thread. A thread cannot attach to itself. Therefore, idAttachTo cannot equal idAttach.</param>
             /// <param name="fAttach">[in] If this parameter is TRUE, the two threads are attached. If the parameter is FALSE, the threads are detached. </param>
             /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero</returns>
-            [DllImport("user32.dll")]
-            public static extern bool AttachThreadInput(IntPtr idAttach, IntPtr idAttachTo, bool fAttach);
+            [DllImport("user32.dll",SetLastError = true)]
+            public static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+
         }
 
         public class Rect {

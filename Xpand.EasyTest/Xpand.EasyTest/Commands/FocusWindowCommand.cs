@@ -7,7 +7,7 @@ namespace Xpand.EasyTest.Commands{
         protected override void InternalExecute(ICommandAdapter adapter){
             var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
             var activeWindowHandle = activeWindowControl.GetInterface<ITestWindow>().GetActiveWindowHandle();
-            WindowAutomation.FocusWindow(activeWindowHandle);
+            WindowAutomation.ForceWindowToForeground(activeWindowHandle);
         }
     }
 }

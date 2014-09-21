@@ -131,14 +131,14 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\MasterDetailRules.xafml">
+    <None Include="FunctionalTests\FromModel\MasterDetailRules.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\FromPermission.ets" />
+    <None Include="FunctionalTests\FromPermission\FromPermission.ets" />
     <None Include="FunctionalTests\CommonModel.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\FromModel.ets" />
+    <None Include="FunctionalTests\FromModel\FromModel.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -146,9 +146,10 @@
     <None Include="FunctionalTests\CreateMasterDetailObjects.inc" />
     <None Include="FunctionalTests\Checks.inc" />
     <None Include="FunctionalTests\ReadMe.txt" />
-    <None Include="FunctionalTests\Config.xml" />
+    <None Include="FunctionalTests\FromModel\Config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\FromPermission\Config.xml" />
     <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

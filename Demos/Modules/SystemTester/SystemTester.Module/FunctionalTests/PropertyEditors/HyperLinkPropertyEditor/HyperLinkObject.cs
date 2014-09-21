@@ -13,8 +13,5 @@ namespace SystemTester.Module.FunctionalTests.PropertyEditors.HyperLinkPropertyE
         }
         [EditorAlias(EditorAliases.HyperLinkPropertyEditor)]
         public string Url { get; set; }
-        
-
-        
     }
 }

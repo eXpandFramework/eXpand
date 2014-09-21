@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     }
 
     [PropertyEditor(typeof(String), EditorAliases.HyperLinkPropertyEditor, false)]
-    public class HyperLinkPropertyEditor : StringPropertyEditor {
+    public class HyperLinkPropertyEditor : StringPropertyEditor,IComplexViewItem {
         public const string UrlEmailMask =
             @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
 
@@ -91,11 +91,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             EditMaskType = EditMaskType.RegEx;
             hyperLinkProperties.Mask.MaskType = MaskType.RegEx;
             hyperLinkProperties.Mask.EditMask = UrlEmailMask;
-            hyperLinkProperties.Validating+=HyperLinkPropertiesOnValidating;
-        }
-
-        private void HyperLinkPropertiesOnValidating(object sender, CancelEventArgs cancelEventArgs){
-            
         }
 
         void hyperLinkProperties_OpenLink(object sender, OpenLinkEventArgs e) {
@@ -117,6 +112,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         static bool IsValidUrl(string url) {
             return Regex.IsMatch(url, UrlEmailMask);
+        }
+
+        public void Setup(IObjectSpace objectSpace, XafApplication application){
+            objectSpace.Committing+=ObjectSpaceOnCommitting;
+        }
+
+        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
+            cancelEventArgs.Cancel = !_hyperlinkEdit.MaskBox.IsMatch;
         }
     }
 }

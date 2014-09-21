@@ -1,48 +1,50 @@
+#if !EASYTEST
 using System;
 using System.Diagnostics;
-using DevExpress.ExpressApp;
+#endif
 using System.ComponentModel;
-using DevExpress.ExpressApp.Xpo;
+using System.Data.SqlClient;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
-using System.Collections.Generic;
-//using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
+using SchedulerTester.Module;
+using SchedulerTester.Module.Web;
 
-namespace SchedulerTester.Web {
-    // You can override various virtual methods and handle corresponding events to manage various aspects of your XAF application UI and behavior.
-    public partial class SchedulerTesterAspNetApplication : WebApplication { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppWebWebApplicationMembersTopicAll
-        private DevExpress.ExpressApp.SystemModule.SystemModule module1;
-        private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
-        private SchedulerTester.Module.SchedulerTesterModule module3;
-        private SchedulerTester.Module.Web.SchedulerTesterAspNetModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+namespace SchedulerTester.Web{
+    public class SchedulerTesterAspNetApplication : WebApplication{
+        private SystemModule _module1;
+        private SystemAspNetModule _module2;
+        private SchedulerTesterModule _module3;
+        private SchedulerTesterAspNetModule _module4;
+        private SqlConnection _sqlConnection1;
 
-        public SchedulerTesterAspNetApplication() {
+        public SchedulerTesterAspNetApplication(){
             InitializeComponent();
+            LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
+            if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
+                e.SettingsStorage.SaveOption("", "UserName", "Admin");
+            }
         }
 
 #if EASYTEST
-        protected override string GetUserCultureName() {
+        protected override string GetUserCultureName(){
             return "en-US";
         }
 #endif
-        // Override to execute custom code after a logon has been performed, the SecuritySystem object is initialized, logon parameters have been saved and user model differences are loaded.
-        protected override void OnLoggedOn(LogonEventArgs args) { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppXafApplication_LoggedOntopic
-            base.OnLoggedOn(args);
-        }
-
-        // Override to execute custom code after a user has logged off.
-        protected override void OnLoggedOff() { // http://documentation.devexpress.com/#Xaf/DevExpressExpressAppXafApplication_LoggedOfftopic
-            base.OnLoggedOff();
-        }
-
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
         }
 
-        private void SchedulerTesterAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void SchedulerTesterAspNetApplication_DatabaseVersionMismatch(object sender,
+            DatabaseVersionMismatchEventArgs e){
 #if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
+            e.Updater.Update();
+            e.Handled = true;
 #else
             e.Updater.Update();
             e.Handled = true;
@@ -68,31 +70,31 @@ namespace SchedulerTester.Web {
 #endif
         }
 
-        private void InitializeComponent() {
-            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
-            this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
-            this.module3 = new SchedulerTester.Module.SchedulerTesterModule();
-            this.module4 = new SchedulerTester.Module.Web.SchedulerTesterAspNetModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+        private void InitializeComponent(){
+            _module1 = new SystemModule();
+            _module2 = new SystemAspNetModule();
+            _module3 = new SchedulerTesterModule();
+            _module4 = new SchedulerTesterAspNetModule();
+            _sqlConnection1 = new SqlConnection();
+            ((ISupportInitialize) (this)).BeginInit();
             // 
             // sqlConnection1
             // 
-            this.sqlConnection1.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SchedulerTester";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            _sqlConnection1.ConnectionString =
+                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SchedulerTester";
+            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
             // SchedulerTesterAspNetApplication
             // 
-            this.ApplicationName = "SchedulerTester";
-            this.Connection = this.sqlConnection1;
-            this.Modules.Add(this.module1);
-            this.Modules.Add(this.module2);
-            this.Modules.Add(this.module3);
-            this.Modules.Add(this.module4);
+            ApplicationName = "SchedulerTester";
+            Connection = _sqlConnection1;
+            Modules.Add(_module1);
+            Modules.Add(_module2);
+            Modules.Add(_module3);
+            Modules.Add(_module4);
 
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.SchedulerTesterAspNetApplication_DatabaseVersionMismatch);
-            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
-
+            DatabaseVersionMismatch += SchedulerTesterAspNetApplication_DatabaseVersionMismatch;
+            ((ISupportInitialize) (this)).EndInit();
         }
     }
 }

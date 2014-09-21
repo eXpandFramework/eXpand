@@ -3,13 +3,13 @@
   <Applications>
     <!-- Win -->
     <Application
-			Name="MasterDetailTester.Win"
-			FileName="[WinAppBin]\MasterDetailTester.Win.exe"
+			Name="SystemTester.Win"
+			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
     <Application
-			Name="MasterDetailTester.Web"
+			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
       AdapterFileName="[WebAdapterFileName]"
@@ -21,12 +21,12 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="MasterDetailTesterEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SystemTesterEasyTest" />
   </TestDatabases>
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\MasterDetailTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\MasterDetailTester.Web" />
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Web" />
   </Aliases>
 </Options>

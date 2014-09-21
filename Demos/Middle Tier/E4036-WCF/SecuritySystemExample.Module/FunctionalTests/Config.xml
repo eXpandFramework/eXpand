@@ -12,12 +12,12 @@
 			Name="SecuritySystemExample.Web"
 			Url="http://localhost:5002"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" />
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="SecuritySystemExample.Web"
 			Url="http://localhost/SecuritySystemExample.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]" UseIISExpress="true" /-->
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
 		<Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SecuritySystemExampleEasyTest" />

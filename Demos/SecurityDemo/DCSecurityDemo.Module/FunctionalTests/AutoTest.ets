@@ -3,7 +3,7 @@
 ;#Application DCSecurityDemo.UiLevel.Web
 ;#Application DCSecurityDemo.UiLevel.Win
 #Application DCSecurityDemo.Win
-;#Application DCSecurityDemo.Web
+#Application DCSecurityDemo.Web
 
 
 *FillForm
