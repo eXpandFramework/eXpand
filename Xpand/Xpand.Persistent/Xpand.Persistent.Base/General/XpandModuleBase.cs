@@ -19,8 +19,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
-using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
@@ -701,37 +699,6 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
-            var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-            if (IsMySql(typeInfo)){
-                var memberInfo = (XafMemberInfo) typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                memberInfo.RemoveAttributes<SizeAttribute>();
-                memberInfo.AddAttribute(new SizeAttribute(255));
-            }
-
-        }
-        public static bool IsMySql() {
-            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SequenceObjectType);
-            return IsMySql(typeInfo);
-        }
-
-        private static bool IsMySql(ITypeInfo typeInfo) {
-            var sequenceObjectObjectSpaceProvider = GetSequenceObjectObjectSpaceProvider(typeInfo.Type);
-            if (sequenceObjectObjectSpaceProvider != null) {
-                var helper = new ConnectionStringParser(sequenceObjectObjectSpaceProvider.ConnectionString);
-                string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
-                return providerType == MySqlConnectionProvider.XpoProviderTypeString;
-            }
-            return false;
-        }
-
-        static IObjectSpaceProvider GetSequenceObjectObjectSpaceProvider(Type type) {
-            return (ApplicationHelper.Instance.Application.ObjectSpaceProviders.Select(objectSpaceProvider 
-                => new{objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type)})
-                .Where(@t =>(@t.originalObjectType != null) &&@t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
-                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
-        }
-
         protected override void Dispose(bool disposing) {
             if (!RuntimeMode) {
                 var keyValuePairs = CallMonitor.Keys.ToList();
@@ -755,7 +722,6 @@ namespace Xpand.Persistent.Base.General {
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             lock (_lockObject) {
                 RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
-                ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
             }
         }
 

@@ -5,12 +5,14 @@ using System.Linq;
 using System.Threading;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
+using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
@@ -267,7 +269,7 @@ namespace Xpand.Persistent.Base.General {
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
                 var dbTable = GetDbTable(classInfo.TableName);
                 if (dbTable!=null){
-                    if (XpandModuleBase.IsMySql())
+                    if (SequenceGeneratorHelper.IsMySql())
                         throw new NotImplementedException("Set SequenceGenerator.UseGuidKey=false or update the set Oid as key property manually");
                     var memberInfo =classInfo.Members.FirstOrDefault(info =>info.IsCollection &&typeof (ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
                     if (memberInfo != null){
@@ -342,10 +344,43 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
+        void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
+            var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+            if (IsMySql(typeInfo)) {
+                var memberInfo = (XafMemberInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                memberInfo.RemoveAttributes<SizeAttribute>();
+                memberInfo.AddAttribute(new SizeAttribute(255));
+            }
+        }
+
+        internal static bool IsMySql() {
+            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(SequenceObjectType);
+            return IsMySql(typeInfo);
+        }
+
+        private static bool IsMySql(ITypeInfo typeInfo) {
+            var sequenceObjectObjectSpaceProvider = GetSequenceObjectObjectSpaceProvider(typeInfo.Type);
+            if (sequenceObjectObjectSpaceProvider != null) {
+                var helper = new ConnectionStringParser(sequenceObjectObjectSpaceProvider.ConnectionString);
+                string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
+                return providerType == MySqlConnectionProvider.XpoProviderTypeString;
+            }
+            return false;
+        }
+
+        static IObjectSpaceProvider GetSequenceObjectObjectSpaceProvider(Type type) {
+            return (ApplicationHelper.Instance.Application.ObjectSpaceProviders.Select(objectSpaceProvider
+                => new { objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type) })
+                .Where(@t => (@t.originalObjectType != null) && @t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
+                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
+        }
+
         public void Attach(XpandModuleBase xpandModuleBase) {
             if (!xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
-                if (SequenceObjectType == null)
+                if (SequenceObjectType == null){
                     SequenceObjectType = xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
+                    ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
+                }
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;
