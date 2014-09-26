@@ -41,6 +41,12 @@
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -59,6 +65,10 @@
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.WorldCreator">
       <SpecificVersion>False</SpecificVersion>
@@ -83,8 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Customer.cs" />
-    <Compile Include="DatabaseUpdate\DynamicMergingUpdater.cs" />
+    <Compile Include="FunctionalTests\MergeWithExistingType\ExistingTypeToMergeWith.cs" />
     <Compile Include="ITestInterfaceInfo.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -112,7 +121,11 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.ets" />
+    <EmbeddedResource Include="FunctionalTests\OneToMany\EmptyModel.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="FunctionalTests\MergeWithExistingType\MergeWithExistingType.ets" />
+    <None Include="FunctionalTests\OneToMany\OneToMany.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +134,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\MergeWithExistingType\Config.xml" />
+    <None Include="FunctionalTests\OneToMany\Init.inc" />
+    <None Include="FunctionalTests\MergeWithExistingType\Init.inc" />
+    <None Include="FunctionalTests\MergeWithExistingType\CreateAssembly.inc" />
+    <None Include="FunctionalTests\MergeWithExistingType\TestAssembly.inc" />
+    <Content Include="FunctionalTests\OneToMany\Config.xml" />
+    <None Include="FunctionalTests\OneToMany\TestAssembly.inc" />
+    <None Include="FunctionalTests\OneToMany\CreateAssembly.inc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj">
+      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
+      <Name>Xpand.ExpressApp.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

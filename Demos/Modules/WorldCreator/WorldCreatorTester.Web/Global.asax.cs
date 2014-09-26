@@ -1,8 +1,10 @@
 using System;
 using System.Configuration;
 using System.Web;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxClasses;
+using Xpand.ExpressApp.Security.Core;
 
 namespace WorldCreatorTester.Web {
     public class Global : HttpApplication {
@@ -28,6 +30,7 @@ namespace WorldCreatorTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 #endif
+            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

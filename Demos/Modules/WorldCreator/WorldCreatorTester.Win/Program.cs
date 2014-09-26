@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 
 namespace WorldCreatorTester.Win {
     static class Program {
@@ -28,7 +29,7 @@ namespace WorldCreatorTester.Win {
             }
 #endif
             try {
-
+                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

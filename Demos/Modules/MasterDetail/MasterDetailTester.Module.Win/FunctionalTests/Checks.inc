@@ -4,7 +4,7 @@
 *ActionAvailable Delete
 
 *Action Master Detail
-*XpandCompareScreenshot ExpandMasterRow.png
+*XpandCompareScreenshot ..\..\Images\ExpandMasterRow.png
  MaskRectangle = 22x99;650x69
 
 

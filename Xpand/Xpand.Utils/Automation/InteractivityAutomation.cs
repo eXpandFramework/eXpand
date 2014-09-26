@@ -140,46 +140,51 @@ namespace Xpand.Utils.Automation {
         #region SendKeys
         public static void SendKeys(Keys keys) {
             var keyEventArgs = new KeyEventArgs(keys);
-            Enum.Parse(typeof(Win32Constants.VirtualKeys), keyEventArgs.KeyCode.ToString());
-            SendKeys(keyEventArgs.Control, keyEventArgs.Alt, keyEventArgs.Shift,
-                     (Win32Constants.VirtualKeys)keyEventArgs.KeyValue);
+            SendKeys(keyEventArgs.Control, keyEventArgs.Alt, keyEventArgs.Shift,(Win32Constants.VirtualKeys)keyEventArgs.KeyValue);
         }
 
         public static void SendKeys(string s) {
+            var regex = new Regex(@"\{(.*)\}",RegexOptions.IgnoreCase);
+            var match = regex.Match(s);
+            if (match.Success){
+                var virtualKeys = (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), match.Groups[1].Value);
+                SendKeys(false, false, false, virtualKeys);
+                return;
+            }
             s = s.ToUpper();
             for (int i = 0; i < s.Length; i++) {
-                var parse =
-                    (Win32Constants.VirtualKeys)Enum.Parse(typeof(Win32Constants.VirtualKeys), s.Substring(i, 1));
+                var substring = s.Substring(i, 1);
+                var parse =(Win32Constants.VirtualKeys)Enum.Parse(typeof(Win32Constants.VirtualKeys), substring);
                 SendKeys(false, false, false, parse);
             }
         }
 
         public static void SendKeys(bool control, bool alt, bool shift, Win32Constants.VirtualKeys keys) {
             if (control)
-                pressKey(Win32Constants.VirtualKeys.ControlLeft);
+                PressKey(Win32Constants.VirtualKeys.ControlLeft);
             if (alt)
-                pressKey(Win32Constants.VirtualKeys.Menu);
+                PressKey(Win32Constants.VirtualKeys.Menu);
             if (shift)
-                pressKey(Win32Constants.VirtualKeys.ShiftLeft);
+                PressKey(Win32Constants.VirtualKeys.ShiftLeft);
 
-            sendKey(keys);
+            SendKey(keys);
 
             if (control)
-                releaseKey(Win32Constants.VirtualKeys.ControlLeft);
+                ReleaseKey(Win32Constants.VirtualKeys.ControlLeft);
             if (alt)
-                releaseKey(Win32Constants.VirtualKeys.Menu);
+                ReleaseKey(Win32Constants.VirtualKeys.Menu);
             if (shift)
-                releaseKey(Win32Constants.VirtualKeys.ShiftLeft);
+                ReleaseKey(Win32Constants.VirtualKeys.ShiftLeft);
 
             Application.DoEvents();
         }
 
-        private static void sendKey(Win32Constants.VirtualKeys keys) {
-            pressKey(keys);
-            releaseKey(keys);
+        private static void SendKey(Win32Constants.VirtualKeys keys) {
+            PressKey(keys);
+            ReleaseKey(keys);
         }
 
-        private static void releaseKey(Win32Constants.VirtualKeys keys) {
+        private static void ReleaseKey(Win32Constants.VirtualKeys keys) {
             var input = new Win32Types.INPUT {
                 Type = Win32Types.INPUTTYPE.INPUT_KEYBOARD,
                 ki = {
@@ -190,7 +195,7 @@ namespace Xpand.Utils.Automation {
             Win32Declares.KeyBoard.SendInput(1, new[] { input }, Win32Types.KEYBDINPUT.cbSize);
         }
 
-        private static void pressKey(Win32Constants.VirtualKeys keys) {
+        private static void PressKey(Win32Constants.VirtualKeys keys) {
             var input = new Win32Types.INPUT {
                 Type = Win32Types.INPUTTYPE.INPUT_KEYBOARD,
                 ki = {
@@ -204,7 +209,7 @@ namespace Xpand.Utils.Automation {
         #region printer methods
         public static bool SetDefaultPrinter(string printerName) {
             if (Environment.OSVersion.Platform == PlatformID.Win32Windows) {
-                if (printerName.IndexOf(",") > -1)
+                if (printerName.IndexOf(",", StringComparison.Ordinal) > -1)
                     printerName = printerName.Split(',')[0];
                 var returnedString = new StringBuilder(1024);
                 Win32Declares.IniFiles.GetProfileString("PrinterPorts", printerName, "", returnedString, 1024);
