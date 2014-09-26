@@ -2,7 +2,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
     [XpandNavigationItem(Captions.ListViewCotrol + "Property Path Filters", "PPCustomer_ListView")]

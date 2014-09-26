@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {

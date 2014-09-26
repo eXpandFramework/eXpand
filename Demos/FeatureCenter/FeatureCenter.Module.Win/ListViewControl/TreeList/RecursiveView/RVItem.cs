@@ -2,7 +2,7 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderRecursiveView, "1=1", "1=1",

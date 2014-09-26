@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {

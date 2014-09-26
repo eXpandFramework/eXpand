@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
 

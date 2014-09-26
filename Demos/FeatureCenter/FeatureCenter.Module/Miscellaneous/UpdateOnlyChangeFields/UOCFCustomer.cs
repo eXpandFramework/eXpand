@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 
 using FeatureCenter.Base;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo;
 using Xpand.Xpo.Converters.ValueConverters;
 

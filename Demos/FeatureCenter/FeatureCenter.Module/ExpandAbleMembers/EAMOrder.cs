@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.ExpandAbleMembers {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderExpandAbleMembers, "1=1", "1=1", Captions.ViewMessageExpandAbleMembers, Position.Bottom, ViewType = ViewType.DetailView)]

@@ -1,12 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
-using System.Linq;
-using Xpand.ExpressApp.Attributes;
 
-namespace Xpand.ExpressApp.NodeUpdaters {
+namespace Xpand.Persistent.Base.General {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true)]
+    public class XpandNavigationItemAttribute : Attribute, ISupportViewId {
+        readonly int _index = -1;
+        readonly string _path;
+        readonly string _viewId;
+
+        public XpandNavigationItemAttribute(string path, string viewId, int index = -1) {
+            _path = path;
+            _viewId = viewId;
+            _index = index;
+        }
+
+        public XpandNavigationItemAttribute(string path, string viewId, string objectKey, int index = -1) {
+            _path = path;
+            _viewId = viewId;
+            _index = index;
+            ObjectKey = objectKey;
+        }
+
+        public int Index {
+            get { return _index; }
+        }
+
+        public string Path {
+            get { return _path; }
+        }
+
+        public string ObjectKey { get; set; }
+
+        public string ViewId {
+            get { return _viewId; }
+        }
+    }
+
     public class XpandNavigationItemNodeUpdater : ModelNodesGeneratorUpdater<NavigationItemNodeGenerator> {
         public override void UpdateNode(ModelNode node) {
             var modelClasses = node.Application.BOModel.Where(modelClass => modelClass.TypeInfo.FindAttribute<XpandNavigationItemAttribute>() != null);
@@ -28,8 +61,8 @@ namespace Xpand.ExpressApp.NodeUpdaters {
                 var modelView = navigationItems.Application.Views[viewIds[0]];
                 if (modelView == null) {
                     modelView = navigationItems.Application.Views[viewIds[1]];
-                    if (modelView==null)
-                        throw new NullReferenceException(string.Join("/",viewIds) + " not found in Application.Views");
+                    if (modelView == null)
+                        throw new NullReferenceException(string.Join("/", viewIds) + " not found in Application.Views");
                 }
                 ((IModelNavigationItem)navigationItems.Parent).View = modelView;
                 return;
@@ -53,6 +86,5 @@ namespace Xpand.ExpressApp.NodeUpdaters {
             }
             return navigationItem;
         }
-
     }
 }

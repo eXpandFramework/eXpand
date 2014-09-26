@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {

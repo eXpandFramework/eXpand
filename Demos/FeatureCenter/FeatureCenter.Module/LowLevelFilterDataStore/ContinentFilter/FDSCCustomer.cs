@@ -1,7 +1,7 @@
 ﻿using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.LowLevelFilterDataStore.ContinentFilter {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderFilterDataStoreContinentFilter, "1=1", "1=1", Captions.ViewMessageFilterDataStoreContinentFilter, Position.Bottom)]

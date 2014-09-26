@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.Navigation.LogOut {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderLogOut, "1=1", "1=1",

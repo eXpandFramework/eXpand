@@ -2,7 +2,7 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace SystemTester.Module.Win.FunctionalTests.FilterEditor{

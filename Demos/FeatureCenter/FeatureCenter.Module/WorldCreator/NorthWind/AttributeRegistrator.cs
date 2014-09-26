@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
-using Xpand.ExpressApp.Attributes;
 
 namespace FeatureCenter.Module.WorldCreator.NorthWind {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {

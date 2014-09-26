@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PivotChart.PivotedProperty;
 using FeatureCenter.Base;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Xpo.Collections;
 
 namespace FeatureCenter.Module.PivotChart.ConnectWithCustomer {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using FeatureCenter.Module.ExpandAbleMembers;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Web.MasterDetail.Web {

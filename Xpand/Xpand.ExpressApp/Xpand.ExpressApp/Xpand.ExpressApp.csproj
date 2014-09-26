@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\AllowEditAttribute.cs" />
-    <Compile Include="Attributes\XpandNavigationItemAttribute.cs" />
     <Compile Include="Attributes\NonIndexedAttribute.cs" />
     <Compile Include="Attributes\ProvidedAssociationAttribute.cs" />
     <Compile Include="Attributes\CustomQueryPropertyAttribute.cs" />
@@ -197,7 +196,6 @@
     <Compile Include="Enums\DetailViewType.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqColumnsNodesGeneratorUpdater.cs" />
     <Compile Include="NodeUpdaters\ModelListViewLinqNodesGeneratorUpdater.cs" />
-    <Compile Include="NodeUpdaters\XpandNavigationItemNodeUpdater.cs" />
     <Compile Include="Core\DetailViewExtensions.cs" />
     <Compile Include="Core\ILinqCollectionSource.cs" />
     <Compile Include="Core\LinqCollectionSourceHelper.cs" />

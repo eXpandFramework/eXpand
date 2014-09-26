@@ -314,6 +314,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
+            updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
         protected internal bool RuntimeMode {

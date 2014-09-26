@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.Win.Wizard {

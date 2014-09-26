@@ -2,7 +2,7 @@
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.ImportExport.UpdateMembers {
     [AdditionalViewControlsRule(Captions.ViewMessage + " " + Captions.HeaderUpdateMembers, "1=1", "1=1", Captions.ViewMessageUpdateMembers, Position.Bottom, ViewType = ViewType.ListView)]

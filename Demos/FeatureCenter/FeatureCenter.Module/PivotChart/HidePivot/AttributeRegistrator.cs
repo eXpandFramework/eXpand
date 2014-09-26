@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
-using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace FeatureCenter.Module.PivotChart.HidePivot {

@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.TreeListOptions {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderTreeListOptions, "1=1", "1=1",
