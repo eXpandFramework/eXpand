@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using Xpand.Persistent.Base.General.Model;
 
-namespace Xpand.ExpressApp.Web.SystemModule {
+namespace Xpand.Persistent.Base.General.Controllers {
     public interface IModelOptionsCollectionEditMode : IModelOptions {
         [Category(AttributeCategoryNameProvider.Xpand)]
         [DefaultValue(ViewEditMode.Edit)]

@@ -190,7 +190,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
                 declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseControllerWin), typeof (NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[]{typeof(InvalidEditorActionBaseWebController),typeof (NavigationContainerWebController)});
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController) });
 
             return declaredControllerTypes;
         }
