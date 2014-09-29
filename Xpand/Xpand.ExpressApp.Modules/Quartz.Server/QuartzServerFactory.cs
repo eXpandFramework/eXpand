@@ -7,7 +7,7 @@ namespace Xpand.Quartz.Server {
     /// Factory class to create Quartz server implementations from.
     /// </summary>
     public class QuartzServerFactory {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(QuartzServerFactory));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(QuartzServerFactory));
 
         /// <summary>
         /// Creates a new instance of an Quartz.NET server core.
@@ -18,9 +18,9 @@ namespace Xpand.Quartz.Server {
 
             Type t = Type.GetType(typeName, true);
 
-            logger.Debug("Creating new instance of server type '" + typeName + "'");
+            _logger.Debug("Creating new instance of server type '" + typeName + "'");
             var retValue = (IQuartzServer)t.CreateInstance();
-            logger.Debug("Instance successfully created");
+            _logger.Debug("Instance successfully created");
             return retValue;
         }
     }

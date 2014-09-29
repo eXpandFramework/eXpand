@@ -255,4 +255,5 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
 </Project>

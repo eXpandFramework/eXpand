@@ -80,8 +80,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.dll</HintPath>
+      <Private>True</Private>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
@@ -315,7 +315,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Images\XpandProgress.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -328,4 +330,5 @@
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

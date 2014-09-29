@@ -12,13 +12,19 @@
     <RootNamespace>Xpand.ExpressApp.JobScheduler</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.JobScheduler</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <SccProjectName></SccProjectName>
-    <SccLocalPath></SccLocalPath>
-    <SccAuxPath></SccAuxPath>
-    <SccProvider></SccProvider>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -69,6 +75,16 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Quartz.2.0.0\lib\net40\C5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -82,9 +98,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz, Version=1.0.3.3, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Quartz, Version=2.0.0.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Quartz.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Quartz.2.0.0\lib\net40\Quartz.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
@@ -187,6 +203,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -196,8 +215,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

@@ -10,11 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.MapView.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.MapView.Web</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <LibraryVersion>2.10.8.0</LibraryVersion>
@@ -147,4 +145,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

@@ -96,9 +96,9 @@
     <Reference Include="DevExpress.XtraWizard.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.0.3930.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\DocumentFormat.OpenXml.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -234,6 +234,10 @@
   <ItemGroup>
     <Content Include="Images\Import.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -248,4 +252,5 @@
       if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

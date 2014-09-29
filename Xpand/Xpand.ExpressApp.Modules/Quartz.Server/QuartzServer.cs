@@ -11,16 +11,16 @@ namespace Xpand.Quartz.Server {
     /// The main server logic.
     /// </summary>
     public class QuartzServer : IQuartzServer {
-        private readonly ILog logger;
-        private ISchedulerFactory schedulerFactory;
-        private IScheduler scheduler;
+        private readonly ILog _logger;
+        private ISchedulerFactory _schedulerFactory;
+        private IScheduler _scheduler;
 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QuartzServer"/> class.
         /// </summary>
         public QuartzServer() {
-            logger = LogManager.GetLogger(GetType());
+            _logger = LogManager.GetLogger(GetType());
         }
 
 
@@ -29,12 +29,12 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         public virtual void Initialize(XafApplication application) {
             try {
-                schedulerFactory = CreateSchedulerFactory(application);
-                scheduler = GetScheduler();
-                scheduler.ListenerManager.AddJobListener(new XpandJobListener(), EverythingMatcher<JobKey>.AllJobs());
-                scheduler.ListenerManager.AddTriggerListener(new XpandTriggerListener(), EverythingMatcher<JobKey>.AllTriggers());
+                _schedulerFactory = CreateSchedulerFactory(application);
+                _scheduler = GetScheduler();
+                _scheduler.ListenerManager.AddJobListener(new XpandJobListener(), EverythingMatcher<JobKey>.AllJobs());
+                _scheduler.ListenerManager.AddTriggerListener(new XpandTriggerListener(), EverythingMatcher<JobKey>.AllTriggers());
             } catch (Exception e) {
-                logger.Error("Server initialization failed:" + e.Message, e);
+                _logger.Error("Server initialization failed:" + e.Message, e);
                 throw;
             }
         }
@@ -44,7 +44,7 @@ namespace Xpand.Quartz.Server {
         /// </summary>
         /// <returns></returns>
         protected virtual IScheduler GetScheduler() {
-            return schedulerFactory.GetScheduler();
+            return _schedulerFactory.GetScheduler();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Xpand.Quartz.Server {
         /// using the <see cref="GetScheduler" /> method).
         /// </summary>
         protected virtual IScheduler Scheduler {
-            get { return scheduler; }
+            get { return _scheduler; }
         }
 
         /// <summary>
@@ -68,22 +68,22 @@ namespace Xpand.Quartz.Server {
         /// Starts this instance, delegates to scheduler.
         /// </summary>
         public virtual void Start() {
-            scheduler.Start();
+            _scheduler.Start();
 
             try {
                 Thread.Sleep(3000);
             } catch (ThreadInterruptedException) {
             }
 
-            logger.Info("Scheduler started successfully");
+            _logger.Info("Scheduler started successfully");
         }
 
         /// <summary>
         /// Stops this instance, delegates to scheduler.
         /// </summary>
         public virtual void Stop() {
-            scheduler.Shutdown(true);
-            logger.Info("Scheduler shutdown complete");
+            _scheduler.Shutdown(true);
+            _logger.Info("Scheduler shutdown complete");
         }
 
         /// <summary>
@@ -97,14 +97,14 @@ namespace Xpand.Quartz.Server {
         /// Pauses all activity in scheudler.
         /// </summary>
         public virtual void Pause() {
-            scheduler.PauseAll();
+            _scheduler.PauseAll();
         }
 
         /// <summary>
         /// Resumes all acitivity in server.
         /// </summary>
         public void Resume() {
-            scheduler.ResumeAll();
+            _scheduler.ResumeAll();
         }
     }
 }

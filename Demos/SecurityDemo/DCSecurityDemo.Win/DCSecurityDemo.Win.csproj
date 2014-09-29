@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -306,8 +305,7 @@
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>
@@ -330,4 +328,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

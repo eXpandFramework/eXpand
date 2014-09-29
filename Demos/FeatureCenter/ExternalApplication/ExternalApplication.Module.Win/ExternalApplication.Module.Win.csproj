@@ -11,8 +11,7 @@
     <RootNamespace>ExternalApplication.Module.Win</RootNamespace>
     <AssemblyName>ExternalApplication.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -188,4 +187,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
 </Project>

@@ -11,11 +11,9 @@
     <RootNamespace>DCSecurityDemo.UiLevel.Win</RootNamespace>
     <AssemblyName>DCSecurityDemo.UiLevel.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -291,8 +289,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\DemoApplicationVersionInfo.cs" />
-    <Compile Include="Program.cs">
-    </Compile>
+    <Compile Include="Program.cs"></Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -331,8 +328,7 @@
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>
@@ -355,4 +351,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

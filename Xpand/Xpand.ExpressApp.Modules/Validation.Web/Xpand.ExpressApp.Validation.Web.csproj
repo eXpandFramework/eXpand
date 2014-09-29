@@ -12,11 +12,9 @@
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Xpand.ExpressApp.Validation.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Validation.Web</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -161,4 +159,5 @@
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

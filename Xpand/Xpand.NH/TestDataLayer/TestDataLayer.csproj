@@ -30,193 +30,149 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Data.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DataAccess.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DataAccess.v14.1.UI">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Design.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Design.ModelEditor.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Design.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.DesignCore.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.Design.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Images.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Office.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Spreadsheet.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v14.1.UI">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v14.1.Extensions">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v14.1.UI">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v14.1.Wizard">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraGauges.v14.1.Core">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraGrid.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraLayout.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v14.1.Design">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v14.1.Extensions">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraRichEdit.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraRichEdit.v14.1.Extensions">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v14.1.Design">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraVerticalGrid.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraWizard.v14.1">
-      
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="FluentNHibernate">
-      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -236,9 +192,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TestEntities\TestEntities.csproj">
       <Project>{94593ff7-d191-40a4-93b7-4771ff397ec0}</Project>
       <Name>TestEntities</Name>
@@ -248,7 +201,9 @@
       <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -257,4 +212,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

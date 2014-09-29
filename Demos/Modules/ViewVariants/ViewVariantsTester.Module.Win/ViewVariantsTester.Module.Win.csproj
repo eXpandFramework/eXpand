@@ -43,7 +43,6 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v14.1">
       <SpecificVersion>False</SpecificVersion>
@@ -112,4 +111,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
 </Project>

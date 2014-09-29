@@ -437,4 +437,5 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

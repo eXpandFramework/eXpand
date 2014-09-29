@@ -13,11 +13,9 @@
     <RootNamespace>FeatureCenter.Web</RootNamespace>
     <AssemblyName>FeatureCenter.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
@@ -56,8 +54,15 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e" />
-    <Reference Include="DevExpress.Data.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Quartz.2.0.0\lib\net40\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.Data.v14.1.dll</HintPath>
     </Reference>
@@ -217,7 +222,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Support\_third_party_assemblies\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Quartz, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+    <Reference Include="Quartz, Version=2.0.0.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Quartz.2.0.0\lib\net40\Quartz.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -246,12 +253,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=14.1.6.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=14.1.6.10, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
@@ -357,6 +367,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
   <PropertyGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -374,16 +387,15 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>2073</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

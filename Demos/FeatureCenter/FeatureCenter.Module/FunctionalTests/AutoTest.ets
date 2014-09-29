@@ -3,7 +3,7 @@
 #DropDB XpandFeatureCenterExceptionHandling
 #DropDB XpandFeatureCenterMultipleDataStore
 #DropDB XpandFeatureCenterWorldCreator
-;#Application FeatureCenter.Win
+#Application FeatureCenter.Win
 #Application FeatureCenter.Web
 
 *FillForm

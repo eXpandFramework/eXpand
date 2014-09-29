@@ -10,11 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecurityDemo.Module.Web</RootNamespace>
     <AssemblyName>SecurityDemo.Module.Web</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <PublishUrl>http://localhost/AuthorizationDemo.Module.Web/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -175,8 +173,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ASPNETShowHintController.cs">
-    </Compile>
+    <Compile Include="ASPNETShowHintController.cs"></Compile>
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -194,8 +191,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
@@ -231,4 +227,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

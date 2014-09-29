@@ -66,4 +66,5 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\Support\Build\MSBuild.Community.Tasks.targets" />
+  <Import Project="..\..\Support\Build\Nuget.Targets" />
 </Project>
