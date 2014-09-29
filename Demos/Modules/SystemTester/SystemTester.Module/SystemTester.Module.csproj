@@ -227,7 +227,6 @@
     <Content Include="FunctionalTests\MergedDifferences\Config.xml" />
     <Content Include="FunctionalTests\MergedDifferences\Init.inc" />
     <Content Include="FunctionalTests\MergedDifferences\ListView Filters.inc" />
-    <Content Include="FunctionalTests\MergedDifferences\ListView Filters_XpandSystemTester.Web_View.html" />
     <Content Include="FunctionalTests\PreventDataLoading\Config.xml" />
     <Content Include="FunctionalTests\PreventDataLoading\Filter By Text.inc" />
     <Content Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />
