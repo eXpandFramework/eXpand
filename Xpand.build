@@ -233,10 +233,6 @@
   </Target>
   <Target Name="tmpStorage">
         <Message Text="%(EasyTestLogs.Identity)"></Message>
-		<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
-    <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
-	
-	<CallTarget Targets="CreateEasyTestVideos"></CallTarget>
   </Target>
   <PropertyGroup>
     <EasyTestFilter>Demos\</EasyTestFilter>
@@ -248,11 +244,12 @@
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(XpandDLLPath)\Fasterflect.dll;$(XpandDLLPath)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
     <EasyTestReqs Include="$(XpandDLLPath)\windowsinput.dll;$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
-    <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets" Exclude="$(MSBuildProjectDirectory)\$(EasyTestFilter)\Modules\**\AutoTest*.ets"/>
+    <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>
   <Target Name="RunEasyTests">
-	
+	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
+    <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
     <Delete Files="@(EasyTestLogs)"/>	
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
@@ -261,7 +258,7 @@
     <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
     <Exec Command="$(XpandDLLPath)\XpandTestExecutor.exe $(DXVersion)" WorkingDirectory="$(XpandDLLPath)" />
 	<Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
-    
+    <!--<CallTarget Targets="CreateEasyTestVideos"></CallTarget>-->
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="CreateEasyTestVideos">
