@@ -304,7 +304,6 @@ namespace Xpand.ExpressApp.NH
 
         public void SetDisplayableProperties(object collection, string displayableProperties)
         {
-            throw new NotImplementedException();
         }
 
         public void SetTopReturnedObjectsCount(object collection, int topReturnedObjects)
