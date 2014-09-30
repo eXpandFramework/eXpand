@@ -62,10 +62,6 @@
       <Private>True</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Data.v14.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.Data.v14.1.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

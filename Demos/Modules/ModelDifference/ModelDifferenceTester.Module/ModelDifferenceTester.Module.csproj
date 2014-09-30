@@ -40,7 +40,7 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.ExpressApp.ScriptRecorder.v14.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
