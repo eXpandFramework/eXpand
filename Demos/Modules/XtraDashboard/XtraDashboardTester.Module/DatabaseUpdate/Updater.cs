@@ -1,12 +1,13 @@
 using System;
-using System.Diagnostics;
-using System.IO;
+using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 using XtraDashboardTester.Module.BusinessObjects;
 
 namespace XtraDashboardTester.Module.DatabaseUpdate {
@@ -38,17 +39,20 @@ namespace XtraDashboardTester.Module.DatabaseUpdate {
                 customer.FirstName = "FilteredApostolis";
                 customer.LastName = "FilteredBekiaris";
                 customer.User = (SecuritySystemUser) adminUser;
-
-                using (var stream = GetType().Assembly.GetManifestResourceStream(GetType(), "FilterDashboard.xml")){
-                    var dashboardDefinition = ObjectSpace.CreateObject<DashboardDefinition>();
-                    dashboardDefinition.Name = "Filtered from model";
-                    Debug.Assert(stream != null, "stream != null");
-                    dashboardDefinition.Xml=new StreamReader(stream).ReadToEnd();
-                }
+                var dashboardDefinition = ObjectSpace.CreateObject<DashboardDefinition>();
+                dashboardDefinition.Name = "Filtered from model";
+                dashboardDefinition.Xml = GetXML();
             }
 
             ObjectSpace.CommitChanges();
         }
 
+        private string GetXML(){
+            var xml = GetType().Assembly.GetManifestResourceStream(GetType(), "FilterDashboard.xml").ReadToEndAsString();
+            var database = ObjectSpace.Session().Connection.Database;
+            xml = Regex.Replace(xml, "(.*<Parameter Name=\"database\" Value=\")([^\"]*)(.*)", "$1" + database + "$3",
+                RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            return xml;
+        }
     }
 }
