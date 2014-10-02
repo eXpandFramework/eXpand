@@ -78,7 +78,7 @@
   </UsingTask> 
   <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" />
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Support\FixReferences\bin\debug\FixReferences.exe" />
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Support\FixReferences\bin\$(Configuration)\FixReferences.exe" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
