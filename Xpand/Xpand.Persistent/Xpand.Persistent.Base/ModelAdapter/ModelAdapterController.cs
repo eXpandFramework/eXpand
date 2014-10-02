@@ -180,7 +180,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
             if (Directory.Exists(appSetting))
                 return appSetting;
-            if (Application!=null&&InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
+            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
                 var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
                 var xafApplication = ApplicationHelper.Instance.Application;
                 if (xafApplication != null) {
