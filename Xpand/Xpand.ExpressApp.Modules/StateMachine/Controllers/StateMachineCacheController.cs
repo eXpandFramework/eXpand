@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class StateMachineCacheController : DevExpress.ExpressApp.StateMachine.StateMachineCacheController {
-        Type stateMachineStorageType;
+        Type _stateMachineStorageType;
 #if DebugTest
 		internal StateMachineCacheController(Type stateMachineStorageType)
 			: base() {
@@ -19,36 +19,36 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 			}
 		}
 #endif
-        readonly List<IStateMachine> cache = new List<IStateMachine>();
-        internal bool isCompleteCache = false;
+        readonly List<IStateMachine> _cache = new List<IStateMachine>();
+        internal bool IsCompleteCache = false;
 
         public new ReadOnlyCollection<IStateMachine> CachedStateMachines {
-            get { return cache.AsReadOnly(); }
+            get { return _cache.AsReadOnly(); }
         }
 
         public new void ClearCache() {
-            cache.Clear();
-            isCompleteCache = false;
+            _cache.Clear();
+            IsCompleteCache = false;
         }
 
         void EnsureCache() {
-            if (!isCompleteCache) {
-                if (stateMachineStorageType == null) {
-                    stateMachineStorageType =
+            if (!IsCompleteCache) {
+                if (_stateMachineStorageType == null) {
+                    _stateMachineStorageType =
                         ((StateMachineModule) Application.Modules.FindModule(typeof (StateMachineModule)))
                             .StateMachineStorageType;
                 }
-                foreach (object stateMachineObject in GetObjectSpace(stateMachineStorageType).GetObjects(stateMachineStorageType, null)) {
+                foreach (object stateMachineObject in GetObjectSpace(_stateMachineStorageType).GetObjects(_stateMachineStorageType, null)) {
                     var stateMachine = (IStateMachine) stateMachineObject;
-                    cache.Add(stateMachine);
+                    _cache.Add(stateMachine);
                 }
-                isCompleteCache = true;
+                IsCompleteCache = true;
             }
         }
 
         public override IList<IStateMachine> GetStateMachinesByType(Type targetObjectType) {
             EnsureCache();
-            return cache.Where(stateMachine => stateMachine.Active && stateMachine.TargetObjectType.IsAssignableFrom(targetObjectType)).ToList();
+            return _cache.Where(stateMachine => stateMachine.Active && stateMachine.TargetObjectType.IsAssignableFrom(targetObjectType)).ToList();
         }
 
         protected override void OnActivated() {
@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         protected override void OnDeactivated() {
-            GetObjectSpace(stateMachineStorageType).Reloaded -= ObjectSpace_Reloaded;
+            GetObjectSpace(_stateMachineStorageType).Reloaded -= ObjectSpace_Reloaded;
             base.OnDeactivated();
             ClearCache();
         }

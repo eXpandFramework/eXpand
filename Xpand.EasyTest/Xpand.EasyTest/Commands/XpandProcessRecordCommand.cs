@@ -9,6 +9,10 @@ namespace Xpand.EasyTest.Commands{
         public const string Name = "XpandProcessRecord";
 
         protected override void InternalExecute(ICommandAdapter adapter){
+            if (!adapter.IsWinAdapter()){
+                var action = this.ParameterValue<string>("Action")??"Edit";
+                Parameters.Add(new Parameter("Action",action,true,StartPosition));
+            }
             base.InternalExecute(adapter);
             _adapter = adapter;
         }

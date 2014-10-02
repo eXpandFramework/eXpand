@@ -144,7 +144,7 @@
     <Compile Include="Controllers\StateMachineCacheController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\XpoStateMachineExtensions.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationRequest.cs" />
     <Compile Include="Security\IStateMachineTransitionPermission.cs" />

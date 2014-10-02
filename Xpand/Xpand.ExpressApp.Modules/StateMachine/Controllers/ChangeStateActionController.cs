@@ -7,10 +7,12 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Utils;
-using Fasterflect;
+using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
-    public class ChangeStateActionController:ViewController<ObjectView> {
+    public class ChangeStateActionController : ViewController<ObjectView> {
+        private StateMachineController _stateMachineController;
+        private StateMachineCacheController _stateMachineCacheController;
         public event EventHandler<ChoiceActionItemArgs> RequestActiveState;
 
         protected virtual void OnRequestActiveState(ChoiceActionItemArgs e) {
@@ -19,9 +21,9 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         bool IsActive(ChoiceActionItem choiceActionItem) {
-            var xpoStateMachine = (choiceActionItem.Data as XpoStateMachine);
+            var xpoStateMachine = (choiceActionItem.Data as IStateMachine);
             if (xpoStateMachine != null) {
-                var boolList = new BoolList();
+                var boolList = new BoolList(true, BoolListOperatorType.Or);
                 boolList.BeginUpdate();
                 foreach (var item in choiceActionItem.Items) {
                     var xpoTransition = ((XpoTransition)item.Data);
@@ -43,32 +45,46 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<StateMachineController>().ChangeStateAction.ItemsChanged += ChangeStateActionOnItemsChanged;
+            _stateMachineCacheController = Frame.GetController<StateMachineCacheController>();
+            _stateMachineController = Frame.GetController<StateMachineController>();
+            _stateMachineController.ChangeStateAction.ItemsChanged += ChangeStateActionOnItemsChanged;
+            ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<StateMachineController>().ChangeStateAction.ItemsChanged -= ChangeStateActionOnItemsChanged;
+            _stateMachineController.ChangeStateAction.ItemsChanged -= ChangeStateActionOnItemsChanged;
+            ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
+        }
+
+        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs){
+            if (_stateMachineCacheController.CachedStateMachines.Any()){
+                _stateMachineController.UpdateActionState();
+                foreach (var item in _stateMachineController.ChangeStateAction.Items.GetItems<ChoiceActionItem>(@base => @base.Items)){
+                    UpdatePanelActions(item.Id, item.Active[typeof(ChangeStateActionController).Name]);        
+                }
+            }
         }
 
         void ChangeStateActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
             foreach (ChoiceActionItem item in GetItems(itemsChangedEventArgs.ChangedItemsInfo)) {
                 var isActive = IsActive(item);
                 item.Active[typeof(ChangeStateActionController).Name] = isActive;
-                var stateMachineController = Frame.GetController<StateMachineController>();
-                var detailView = View as DetailView;
-                if (detailView != null) {
-                    var panelActions = (Dictionary<object, List<SimpleAction>>)stateMachineController.GetFieldValue("panelActions");
-                    foreach (string key in panelActions.Keys) {
-                        var actionContainer = detailView.FindItem(key) as ActionContainerViewItem;
-                        if (actionContainer!=null){
-                            var action = actionContainer.Actions.FirstOrDefault(@base => @base.Caption==item.Id);
-                            if (action != null) action.Active[typeof (ChangeStateActionController).Name] = isActive;
-                        }
+                UpdatePanelActions(item.Id, isActive);
+            }
+        }
+
+        private void UpdatePanelActions(string itemId, bool isActive){
+            var detailView = View as DetailView;
+            if (detailView != null){
+                foreach (string key in _stateMachineController.PanelActions().Keys){
+                    var actionContainer = detailView.FindItem(key) as ActionContainerViewItem;
+                    if (actionContainer != null){
+                        var action = actionContainer.Actions.FirstOrDefault(@base => @base.Caption == itemId);
+                        if (action != null) action.Active[typeof (ChangeStateActionController).Name] = isActive;
                     }
                 }
             }
-
         }
 
         IEnumerable<ChoiceActionItem> GetItems(Dictionary<object, ChoiceActionItemChangesType> changedItemsInfo) {
@@ -82,7 +98,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         public ChoiceActionItemArgs(XpoTransition transition, BoolList active) {
             _transition = transition;
-            Active=active;
+            Active = active;
         }
 
         public XpoTransition Transition {

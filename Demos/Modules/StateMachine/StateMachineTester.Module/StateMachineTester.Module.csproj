@@ -38,6 +38,10 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1, Version=14.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.ExpressApp.ScriptRecorder.v14.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -84,7 +88,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\PaymentTask.cs" />
     <Compile Include="BusinessObjects\TestTask.cs" />
+    <None Include="FunctionalTests\ChangeStateAction\ChangeStateAction.ets" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,7 +125,14 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ChangeStateAction\CheckChangeStateAction.inc" />
+    <Content Include="FunctionalTests\ChangeStateAction\Config.xml" />
+    <None Include="FunctionalTests\ChangeStateAction\Init.inc" />
+    <None Include="FunctionalTests\ChangeStateAction\ExpandActionsInDetailView.inc" />
+    <None Include="FunctionalTests\ChangeStateAction\ModifyTransitions.inc" />
     <Content Include="FunctionalTests\Config.xml" />
+    <None Include="FunctionalTests\ChangeStateAction\CreateStateMachine.inc" />
+    <Content Include="FunctionalTests\ChangeStateAction\CreateStatuses.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

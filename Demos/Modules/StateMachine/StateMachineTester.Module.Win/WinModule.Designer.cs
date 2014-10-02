@@ -28,6 +28,7 @@ namespace StateMachineTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(StateMachineTester.Module.StateMachineTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
 
         }
 

@@ -28,6 +28,7 @@ namespace StateMachineTester.Module.Web {
             // 
             this.RequiredModuleTypes.Add(typeof(StateMachineTester.Module.StateMachineTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
 
         }
 

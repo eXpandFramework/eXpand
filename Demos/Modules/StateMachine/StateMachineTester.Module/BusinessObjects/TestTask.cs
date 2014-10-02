@@ -8,4 +8,6 @@ namespace StateMachineTester.Module.BusinessObjects {
         public TestTask(Session session) : base(session) {
         }
     }
+
+    public enum BillStatus { Active, InDispute, Overdue }
 }

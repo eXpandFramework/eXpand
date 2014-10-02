@@ -37,7 +37,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Web", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.EasyTest", "..\..\..\..\DX Sources\2014.1\EasyTest\DevExpress.EasyTest\DevExpress.EasyTest.csproj", "{E785498D-A29E-416E-B7BC-C2B452A5AA5E}"
+EndProject
 Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccProjectUniqueName0 = ..\\..\\..\\..\\DX\u0020Sources\\2014.1\\EasyTest\\DevExpress.EasyTest\\DevExpress.EasyTest.csproj
+		SccProjectName0 = \u0022$/2014.1/EasyTest\u0022
+		SccLocalPath0 = ..\\..\\..\\..\\DX\u0020Sources\\2014.1\\EasyTest
+		SccProvider0 = MSSCCI:DXVCS
+		SccProjectFilePathRelativizedFromConnection0 = DevExpress.EasyTest\\
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		DebugGAC|Any CPU = DebugGAC|Any CPU
@@ -238,6 +248,20 @@ Global
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.Test|Any CPU.Build.0 = Release|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E785498D-A29E-416E-B7BC-C2B452A5AA5E}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

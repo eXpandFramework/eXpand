@@ -245,9 +245,18 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public bool Executed(string name,ModuleType moduleType){
-            return ModuleType != moduleType || ExecutedCore(name);
+            if (RuntimeMode){
+                var type = IsHosted ? ModuleType.Web : ModuleType.Win;
+                if (type == moduleType && ModuleType == ModuleType.Agnostic && !NonAgnosticExists(type))
+                    return ExecutedCore(name);
+            }
+            return (ModuleType != moduleType) || ExecutedCore(name);
         }
 
+        private bool NonAgnosticExists(ModuleType moduleType){
+            return Application.Modules.OfType<XpandModuleBase>().Where(@base => @base.ModuleType == moduleType).SelectMany(@base 
+                => @base.RequiredModuleTypes).Any(type => type == GetType()); 
+        }
 
         public ModuleType ModuleType{
             get{

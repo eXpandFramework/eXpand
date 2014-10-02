@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.Persistent.Base.General;
-using Fasterflect;
 using System.Linq;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
@@ -57,9 +56,9 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
             executeTransitionEventArgs.Cancel = !executeTransitionEventArgs.Transition.TargetState.StateMachine.CanExecuteTransition();
             if (executeTransitionEventArgs.Cancel)
-                new StateMachineLogic(ObjectSpace).CallMethod("ProcessTransition", View.CurrentObject,
+                new StateMachineLogic(ObjectSpace).ProcessTransition(View.CurrentObject,
                     executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
-                    executeTransitionEventArgs.Transition.TargetState);
+                    ObjectSpace.GetObject(executeTransitionEventArgs.Transition.TargetState));
             
         }
 

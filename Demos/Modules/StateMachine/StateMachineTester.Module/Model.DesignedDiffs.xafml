@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="StateMachineTester" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.Task">
+      <OwnMembers>
+        <Member Name="Status" ImmediatePostData="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Validation>
     <Rules>
       <RuleRequiredField Id="@412e0d76-5d05-4265-a6c0-b19fb380a0d3" TargetType="StateMachineTester.Module.BusinessObjects.TestTask" TargetPropertyName="Subject" TargetContextIDs="Save" IsNewNode="True" />
+      <RuleIsReferenced Id="StateIsReferencedXpo" Removed="True" />
     </Rules>
   </Validation>
 </Application>

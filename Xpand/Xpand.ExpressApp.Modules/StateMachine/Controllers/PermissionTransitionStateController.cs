@@ -11,12 +11,12 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         protected override void OnActivated() {
             base.OnActivated();
             _changeStateActionController = Frame.GetController<ChangeStateActionController>();
-            _changeStateActionController.RequestActiveState+=ChangeStateActionControllerOnRequestActiveStateAction;
+            _changeStateActionController.RequestActiveState+=RequestActiveState;
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _changeStateActionController.RequestActiveState-=ChangeStateActionControllerOnRequestActiveStateAction;
+            _changeStateActionController.RequestActiveState-=RequestActiveState;
         }
 
         bool IsActive(XpoTransition xpoTransition) {
@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             return SecuritySystem.IsGranted(new StateMachineTransitionOperationRequest(permission));
         }
 
-        void ChangeStateActionControllerOnRequestActiveStateAction(object sender, ChoiceActionItemArgs choiceActionItemArgs) {
+        void RequestActiveState(object sender, ChoiceActionItemArgs choiceActionItemArgs) {
             var key = typeof (PermissionTransitionStateController).Name;
             choiceActionItemArgs.Active[key] =IsActive(choiceActionItemArgs.Transition);
         }
