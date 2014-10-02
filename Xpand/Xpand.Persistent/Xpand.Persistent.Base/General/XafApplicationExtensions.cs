@@ -166,7 +166,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication,  string connectionString) {
-            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security);
+            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security,XpandModuleBase.IsHosted);
         }
 
         static string GetConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {
