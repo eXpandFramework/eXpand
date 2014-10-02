@@ -160,6 +160,7 @@ namespace Xpand.EasyTest {
                 {typeof (XpandDeleteFileCommand), XpandDeleteFileCommand.Name},
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
                 {typeof (XpandProcessRecordCommand), XpandProcessRecordCommand.Name},
+                {typeof (SqlCommand), SqlCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},

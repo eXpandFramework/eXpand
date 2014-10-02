@@ -7,6 +7,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
+using Fasterflect;
 
 namespace Xpand.Xpo.ConnectionProviders {
     public class MSSqlConnectionProvider : DevExpress.Xpo.DB.MSSqlConnectionProvider {
@@ -22,7 +23,13 @@ namespace Xpand.Xpo.ConnectionProviders {
             base.GetTableSchema(table, checkIndexes, checkForeignKeys);
             table.Columns.Clear();
             GetColumns(table);
+            this.CallMethod("GetPrimaryKey",table);
+            if (checkIndexes)
+                this.CallMethod("GetIndexes", table);
+            if (checkForeignKeys)
+                this.CallMethod("GetForeignKeys", table);
         }
+
         void GetColumns(DBTable table) {
             string schema = ComposeSafeSchemaName(table.Name);
             Query query = schema == string.Empty ? new Query("select COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = @p1",
@@ -120,7 +127,7 @@ namespace Xpand.Xpo.ConnectionProviders {
                     }
 
                     DBColumn dbColumn = column;
-                    var actualColumn = actualTable.Columns.Find(col => string.Compare(col.Name, ComposeSafeColumnName(dbColumn.Name), true) == 0);
+                    var actualColumn = actualTable.Columns.Find(col => String.Compare(col.Name, ComposeSafeColumnName(dbColumn.Name), StringComparison.OrdinalIgnoreCase) == 0);
                     if ((actualColumn != null) &&
                         (actualColumn.ColumnType == DBColumnType.String) &&
                         (actualColumn.Size != column.Size) &&

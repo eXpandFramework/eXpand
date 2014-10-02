@@ -124,6 +124,7 @@
     <EmbeddedResource Include="FunctionalTests\OneToMany\EmptyModel.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="FunctionalTests\DBMapper\MapDb.ets" />
     <None Include="FunctionalTests\MergeWithExistingType\MergeWithExistingType.ets" />
     <None Include="FunctionalTests\OneToMany\OneToMany.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
@@ -134,7 +135,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
-    <Content Include="FunctionalTests\MergeWithExistingType\Config.xml" />
+    <None Include="FunctionalTests\DBMapper\CheckMappedAssembly.inc" />
+    <Content Include="FunctionalTests\DBMapper\Config.xml" />
+    <None Include="FunctionalTests\DBMapper\Init.inc" />
+    <None Include="FunctionalTests\DBMapper\CreateMappedAssembly.inc" />
+    <Content Include="FunctionalTests\MergeWithExistingType\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="FunctionalTests\OneToMany\Init.inc" />
     <None Include="FunctionalTests\MergeWithExistingType\Init.inc" />
     <None Include="FunctionalTests\MergeWithExistingType\CreateAssembly.inc" />

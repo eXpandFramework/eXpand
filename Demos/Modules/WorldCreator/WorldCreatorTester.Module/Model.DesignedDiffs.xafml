@@ -3,4 +3,5 @@
   <InterfaceSources>
     <InterfaceSource AssemblyName="WorldCreatorTester.Module" IsNewNode="True" />
   </InterfaceSources>
+  <NavigationItems NavigationStyle="TreeList" />
 </Application>

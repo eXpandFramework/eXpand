@@ -108,13 +108,16 @@ namespace Xpand.Persistent.Base.General {
                 if (store != null) {
                     var dataStoreInfo = keyValuePair.Value;
                     var storeInfo = dataStoreInfo;
-                    List<DBTable> dbTables = storeInfo.DbTables;
+                    var dbTables = storeInfo.DbTables;
                     if (Connection == null)
                         throw new NullReferenceException();
                     if (!storeInfo.IsLegacy && !IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
-                    if (!(storeInfo.IsLegacy && dbTables.Count == 1 && dbTables[0].Name == typeof(XPObjectType).Name))
-                        store.UpdateSchema(false, dbTables.ToArray());
+                    if (storeInfo.IsLegacy){
+                        var dbTable = dbTables.FirstOrDefault(table => table.Name == typeof(XPObjectType).Name);
+                        dbTables.Remove(dbTable);
+                    }
+                    store.UpdateSchema(false, dbTables.ToArray());
                     RunExtraUpdaters(tables, store, dontCreateIfFirstTableNotExist);
                 }
             }
