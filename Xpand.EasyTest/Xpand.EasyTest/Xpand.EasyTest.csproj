@@ -79,6 +79,7 @@
     <Compile Include="Commands\CreatePermissionCommand.cs" />
     <Compile Include="Commands\FocusWindowCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\MouseCommand.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
     <Compile Include="Commands\ScreenCaptureCommand.cs" />

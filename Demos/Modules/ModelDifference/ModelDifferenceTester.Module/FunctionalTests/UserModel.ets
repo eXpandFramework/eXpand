@@ -16,3 +16,4 @@
 *Navigate Default.Difference Tester Object
 *CheckTable
  Columns = Name_Changed
+  

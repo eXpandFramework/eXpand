@@ -1,3 +1,4 @@
+#Timeout 160
 #DropDB XpandFeatureCenterEasyTest
 #DropDB NorthWind
 #DropDB XpandFeatureCenterExceptionHandling

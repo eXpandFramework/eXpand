@@ -2,12 +2,10 @@
 <Application Title="SystemTester" Logo="ExpressAppLogo">
   <ActionDesign>
     <ActionToContainerMapping>
-      <ActionContainer Id="Hidden">
-        <ActionLink ActionId="ToggleNavigation" Removed="True" />
-      </ActionContainer>
       <ActionContainer Id="View">
         <ActionLink ActionId="ToggleNavigation" IsNewNode="True" />
       </ActionContainer>
     </ActionToContainerMapping>
   </ActionDesign>
+  <NavigationItems NavigationStyle="TreeList" />
 </Application>

@@ -38,6 +38,9 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -48,6 +51,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v14.1">
@@ -74,6 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\Anonymous\AnonymousObject.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
@@ -103,8 +110,16 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FunctionalTests\Anonymous\AnonymousSettings.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="FunctionalTests\Anonymous\AnonymousAuthentication.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Anonymous\Config.xml" />
+    <None Include="FunctionalTests\Anonymous\Init.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

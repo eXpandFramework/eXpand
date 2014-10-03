@@ -549,14 +549,15 @@ namespace Xpand.Persistent.Base.General {
                     XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo));
             }
             base.Setup(application);
-            if (RuntimeMode)
-                ApplicationHelper.Instance.Initialize(application);
             CheckApplicationTypes();
-            var helper = new ConnectionStringHelper();
-            helper.Attach(this);
-            var generatorHelper = new SequenceGeneratorHelper();
-            generatorHelper.Attach(this);
-            helper.ConnectionStringUpdated += (sender, args) => generatorHelper.InitializeSequenceGenerator();
+            if (RuntimeMode){
+                ApplicationHelper.Instance.Initialize(application);
+                var helper = new ConnectionStringHelper();
+                helper.Attach(this);
+                var generatorHelper = new SequenceGeneratorHelper();
+                generatorHelper.Attach(this);
+                helper.ConnectionStringUpdated += (sender, args) => generatorHelper.InitializeSequenceGenerator();
+            }
                 
             if (Executed("Setup"))
                 return;
