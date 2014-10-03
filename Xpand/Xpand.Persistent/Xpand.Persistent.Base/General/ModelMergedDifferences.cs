@@ -49,8 +49,13 @@ namespace Xpand.Persistent.Base.General {
         IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var objectViews = modulesDifferences.Cast<IModelApplication>().SelectMany(application => 
                 application.Views.OfType<IModelObjectView>()).Where(view => view.IsNewNode());
-            foreach (IModelObjectView objectView in objectViews.Where(view => view.ModelClass!=null && modelViews[view.Id]==null)) {
-                ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
+            foreach (IModelObjectView objectView in objectViews.Where(view => modelViews[view.Id]==null)) {
+                try {
+                    ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
+                }
+                catch (Exception ex) {
+                    throw new Exception(string.Format("Exception while cloning objectView.Id={0}", objectView.Id), ex);
+                }
                 yield return modelViews[objectView.Id].AsObjectView;
             }
         }
