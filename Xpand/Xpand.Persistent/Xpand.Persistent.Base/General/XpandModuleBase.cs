@@ -852,7 +852,12 @@ namespace Xpand.Persistent.Base.General {
         bool Executed(string name) {
             return _xpandModuleBase.Executed(name);
         }
+    }
 
-
+    public class EasyTestModule:ModuleBase {
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            var declaredControllerTypes = base.GetDeclaredControllerTypes();
+            return declaredControllerTypes.Concat(new[]{typeof (EasyTestController)});
+        }
     }
 }

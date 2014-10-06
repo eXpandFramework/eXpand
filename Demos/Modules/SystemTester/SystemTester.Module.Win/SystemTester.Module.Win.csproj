@@ -159,6 +159,7 @@
     <Content Include="FunctionalTests\ApplicationExit\PromptOnExit\Config.xml" />
     <None Include="FunctionalTests\ApplicationExit\PromptOnExit\Init.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\Config.xml" />
+    <None Include="FunctionalTests\GridView\ImmediatePostData.inc" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Init.inc" />
     <None Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
@@ -232,6 +233,7 @@
     <None Include="FunctionalTests\FullTextContains\FullTextContains.ets" />
     <None Include="FunctionalTests\FullTextContains\FullTextContains.xafml" />
     <None Include="FunctionalTests\GridView\GridView.ets" />
+    <None Include="FunctionalTests\GridView\ImmediatePostData.xafml" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.Win.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml">
       <SubType>Designer</SubType>

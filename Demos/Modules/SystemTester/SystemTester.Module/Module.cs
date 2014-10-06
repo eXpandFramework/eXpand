@@ -3,9 +3,10 @@ using SystemTester.Module.FunctionalTests.RuntimeMembers;
 using DevExpress.ExpressApp;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Updating;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module {
-    public sealed partial class SystemTesterModule : ModuleBase {
+    public sealed partial class SystemTesterModule : EasyTestModule {
         public SystemTesterModule() {
             InitializeComponent();
         }

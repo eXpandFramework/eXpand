@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="ImmediateRefresh_ListView" AllowEdit="True" FreezeColumnIndices="True">
+      <Columns>
+        <ColumnInfo Id="Number" Index="0" ImmediatePostData="True" />
+        <ColumnInfo Id="NumberAlias" Index="1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

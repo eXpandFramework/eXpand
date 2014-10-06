@@ -162,6 +162,7 @@ namespace Xpand.EasyTest {
                 {typeof (XpandProcessRecordCommand), XpandProcessRecordCommand.Name},
                 {typeof (SqlCommand), SqlCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
+                {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},

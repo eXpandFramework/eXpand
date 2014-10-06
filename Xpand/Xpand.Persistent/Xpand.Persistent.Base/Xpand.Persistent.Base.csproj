@@ -147,6 +147,9 @@
     <Compile Include="General\Controllers\CollectionsEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\EasyTestController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs">
       <SubType>Component</SubType>

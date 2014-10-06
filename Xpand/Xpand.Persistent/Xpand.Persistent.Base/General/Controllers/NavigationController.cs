@@ -15,7 +15,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
         bool HideNavigationOnStartup { get; set; }
     }
 
-
     public class NavigationContainerController:ViewController,IModelExtender {
         private readonly SimpleAction _toggleNavigation;
 

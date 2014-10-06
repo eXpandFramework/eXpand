@@ -1,34 +1,30 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
-    public class ImmediateRefreshListViewController : ViewController<ListView> {
-        GridView _gridViewCore;
+    public class ImmediatePostDataController : ViewController<ListView> {
+        GridView _gridView;
 
         protected override void OnViewControlsCreated(){
-            base.OnViewControlsCreated();
+            base.OnViewControlsCreated();            
             var gridControl = View.Editor.Control as GridControl;
             if (gridControl != null){
-                _gridViewCore = gridControl.FocusedView as GridView;
-                if (_gridViewCore != null)
-                    foreach (GridColumn column in _gridViewCore.Columns) {
-                        var member = View.ObjectTypeInfo.FindMember(column.FieldName);
-                        if (member != null) {
-                            var attr = member.FindAttribute<ImmediatePostDataAttribute>();
-                            if (attr != null) {
-                                column.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
-                            }
-                        }
+                _gridView = gridControl.FocusedView as GridView;
+                if (_gridView != null){
+                    var modelColumns = View.Model.Columns.Where(column => column.ImmediatePostData);
+                    foreach (var modelColumn in modelColumns){
+                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.PropertyName);
+                        gridColumn.ColumnEdit.EditValueChanged+=ColumnEdit_EditValueChanged;
                     }
+                }
             }
         }
 
         void ColumnEdit_EditValueChanged(object sender, EventArgs e) {
-            _gridViewCore.PostEditor();
+            _gridView.PostEditor();
         }
     }
 }
