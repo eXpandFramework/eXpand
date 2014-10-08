@@ -76,9 +76,13 @@
           
         </Task> 
   </UsingTask> 
-  <Target Name="FixReferences" Condition="$(SkipFixReferences)!=true">
+  <Target Name="FixReferencesB4Build" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" />
 	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Support\FixReferences\bin\debug\FixReferences.exe" />
+  </Target>
+  <Target Name="FixReferencesAfterBuild" Condition="$(SkipFixReferences)!=true">
+    <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" />
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=.\Support\FixReferences\bin\debug\FixReferences.exe --afterbuild" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
@@ -89,7 +93,7 @@
     </CreateItem>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
   </Target>
-  <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferences">
+  <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferencesB4Build">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -103,6 +107,7 @@
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
     <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
+	<CallTarget Targets="FixReferencesAfterBuild"/>
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
