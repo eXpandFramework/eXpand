@@ -16,6 +16,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
     public class ViewEditModeController : WindowController, IModelExtender {
         private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Application.DetailViewCreating -= ApplicationOnDetailViewCreating;
             Frame.Disposing -= FrameOnDisposing;
             foreach (var action in Frame.Actions()) {
                 action.Executed -= ActionOnExecuted;
@@ -24,21 +25,30 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
+            Application.DetailViewCreating+=ApplicationOnDetailViewCreating;
             Frame.Disposing+=FrameOnDisposing;
             foreach (var action in Frame.Actions()){
                 action.Executed+=ActionOnExecuted;
             }
         }
 
+        private void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs e){
+            UpdateView(e.View);
+        }
+
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e){
             var detailView = e.ShowViewParameters.CreatedView as DetailView;
             if (detailView!=null){
-                var viewEditMode = ((IModelDetailViewViewEditMode) detailView.Model).ViewEditMode;
-                if (viewEditMode.HasValue){
-                    if (!detailView.ObjectSpace.IsNewObject(detailView.CurrentObject)) {
-                        UpdateViewEditModeState(detailView, viewEditMode.Value);
-                        UpdateViewAllowEditState(detailView);
-                    }
+                UpdateView(detailView);
+            }
+        }
+
+        private void UpdateView(DetailView detailView){
+            var viewEditMode = ((IModelDetailViewViewEditMode) detailView.Model).ViewEditMode;
+            if (viewEditMode.HasValue){
+                if (!detailView.ObjectSpace.IsNewObject(detailView.CurrentObject)){
+                    UpdateViewEditModeState(detailView, viewEditMode.Value);
+                    UpdateViewAllowEditState(detailView);
                 }
             }
         }

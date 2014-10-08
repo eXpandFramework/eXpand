@@ -207,7 +207,6 @@
     </Content>
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode\Init.inc" />
     <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode\EditMode.ets" />
-    <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode.ets" />
     <None Include="FunctionalTests\ViewEditMode\DetailView\EditMode\Init.inc" />
     <None Include="FunctionalTests\RunTimeMembers\AssociatedCollection.inc" />
     <None Include="FunctionalTests\RunTimeMembers\OrphanedCollection.inc" />
