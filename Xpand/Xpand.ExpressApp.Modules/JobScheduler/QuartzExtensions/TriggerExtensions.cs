@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Quartz;
 using Quartz.Impl.Triggers;
 using Quartz.Spi;
@@ -40,8 +39,6 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
                 trigger = new SimpleTriggerImpl(jobTrigger.Name, jobType.FullName);
             if (jobTrigger is IXpandCronTrigger)
                 trigger = new CronTriggerImpl(jobTrigger.Name, jobType.FullName);
-            if (jobTrigger is INthIncludedDayTrigger)
-                trigger = new NthIncludedDayTrigger(jobTrigger.Name, jobType.FullName);
 
             if (trigger != null) {
                 return trigger;
@@ -64,23 +61,7 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
                 var triggerImpl = jobTrigger as CronTriggerImpl;
                 if (triggerImpl != null)
                     triggerImpl.AssignQuartzTrigger((IXpandCronTrigger)trigger);
-                else {
-                    var dayTrigger = jobTrigger as NthIncludedDayTrigger;
-                    if (dayTrigger != null)
-                        dayTrigger.AssignQuartzTrigger((INthIncludedDayTrigger)trigger);
-                }
             }
-        }
-
-        public static void AssignQuartzTrigger(this NthIncludedDayTrigger nthIncludedDayTrigger, INthIncludedDayTrigger trigger) {
-            nthIncludedDayTrigger.MisfireInstruction = (int)trigger.MisfireInstruction;
-            nthIncludedDayTrigger.N = trigger.N;
-            nthIncludedDayTrigger.IntervalType = (int)trigger.IntervalType;
-            nthIncludedDayTrigger.FireAtTime = string.Format(CultureInfo.InvariantCulture, "{0:00}:{1:00}:{2:00}", trigger.FireAtTime.Hours, trigger.FireAtTime.Minutes, trigger.FireAtTime.Seconds);
-            nthIncludedDayTrigger.NextFireCutoffInterval = trigger.NextFireCutoffInterval;
-            nthIncludedDayTrigger.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(RegistryTimeZoneProvider.GetRegistryKeyNameByTimeZoneId(trigger.TimeZone));
-            nthIncludedDayTrigger.TriggerCalendarFirstDayOfWeek = trigger.TriggerCalendarFirstDayOfWeek;
-            nthIncludedDayTrigger.TriggerCalendarWeekRule = trigger.TriggerCalendarWeekRule;
         }
 
         public static void AssignQuartzTrigger(this CronTriggerImpl cronTrigger, IXpandCronTrigger trigger) {

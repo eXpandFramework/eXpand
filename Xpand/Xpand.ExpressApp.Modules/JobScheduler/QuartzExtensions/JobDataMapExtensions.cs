@@ -59,11 +59,11 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
             jobDataMap.Put(GetKey(property), val);
         }
 
-        public static E GetEnum<T, E>(this JobDataMap jobDataMap, object key) where T : IDataMap {
-            return (E)jobDataMap.Get<T>(key);
+        public static TE GetEnum<T, TE>(this JobDataMap jobDataMap, object key) where T : IDataMap {
+            return (TE)jobDataMap.Get<T>(key);
         }
-        public static E GetEnum<T, E>(this JobDataMap jobDataMap, Expression<Func<T, object>> property) where T : IDataMap {
-            return (E)jobDataMap.Get<T>(GetKey(property));
+        public static TE GetEnum<T, TE>(this JobDataMap jobDataMap, Expression<Func<T, object>> property) where T : IDataMap {
+            return (TE)jobDataMap.Get<T>(GetKey(property));
         }
 
         public static string GetString<T>(this JobDataMap jobDataMap, object key) where T : IDataMap {
@@ -146,12 +146,11 @@ namespace Xpand.ExpressApp.JobScheduler.QuartzExtensions {
         }
 
         public static bool GetBooleanFromString<T>(this JobDataMap jobDataMap, object key) where T : IDataMap {
-            return jobDataMap.GetBooleanFromString(GetKey<T>(key));
+            return jobDataMap.GetBooleanValueFromString(GetKey<T>(key));
             
         }
         public static bool GetBooleanFromString<T>(this JobDataMap jobDataMap, Expression<Func<T, object>> property) where T : IDataMap {
-            return jobDataMap.GetBooleanFromString(GetKey(property));
-            
+            return jobDataMap.GetBooleanValueFromString(GetKey(property));
         }
 
         static string GetKey<T>(object key) {
