@@ -119,7 +119,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            cancelEventArgs.Cancel = !_hyperlinkEdit.MaskBox.IsMatch;
+            if (_hyperlinkEdit != null)
+            {
+                cancelEventArgs.Cancel = !_hyperlinkEdit.MaskBox.IsMatch;
+            }
         }
     }
 }
