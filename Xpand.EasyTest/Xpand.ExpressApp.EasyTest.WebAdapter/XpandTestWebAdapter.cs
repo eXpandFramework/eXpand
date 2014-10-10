@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
+using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using Fasterflect;
@@ -21,30 +22,48 @@ using MethodInvoker = System.Windows.Forms.MethodInvoker;
 namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
         private Process _process;
-        private const string SingleWebDevParamName = "SingleWebDev";
-        private const string UrlParamName = "Url";
 
         public override void RunApplication(TestApplication testApplication){
-            var directoryName = testApplication.GetParamValue("PhysicalPath");
-            foreach (var model in Directory.GetFiles(directoryName, "Model.User*.xafml").ToArray()) {
+            var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
+            foreach (var model in Directory.GetFiles(physicalPath, "Model.User*.xafml").ToArray()) {
                 File.Delete(model);    
             }
-            
-            if (testApplication.FindParamValue("DefaultWindowSize") != null) {
-                WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
+            ConfigApplicationModel(testApplication, physicalPath);
+            RunApplicationCore(testApplication);
+        }
+
+        private static void ConfigApplicationModel(TestApplication testApplication, string physicalPath){
+            var useModel = testApplication.ParameterValue<bool>(ApplicationParams.UseModel);
+            if (useModel){
+                var logPath = Logger.Instance.GetLogger<FileLogger>().LogPath;
+                var model = Directory.GetFiles(logPath, "*.xafml").Single();
+                File.Copy(Path.Combine(physicalPath, "Model.xafml"), Path.Combine(physicalPath, "restore.xafml"), true);
+                File.Copy(model, Path.Combine(physicalPath, "Model.xafml"), true);
             }
-            if (!GetParamValue("UseIISExpress", false, testApplication)){
+            else{
+                if (File.Exists(Path.Combine(physicalPath, "restore.xafml"))){
+                    File.Copy(Path.Combine(physicalPath, "restore.xafml"), Path.Combine(physicalPath, "Model.xafml"), true);
+                    File.Delete(Path.Combine(physicalPath, "restore.xafml"));
+                }
+            }
+        }
+
+        private void RunApplicationCore(TestApplication testApplication){
+            var defaultWindowSize = testApplication.ParameterValue<string>(ApplicationParams.DefaultWindowSize);
+            if (defaultWindowSize != null){
+                WebBrowserCollection.DefaultFormSize = GetWindowSize(defaultWindowSize);
+            }
+            if (!testApplication.ParameterValue<bool>(ApplicationParams.UseIISExpress)){
                 RunApplicationBase(testApplication);
             }
             else{
-                string url = testApplication.GetParamValue(UrlParamName);
+                var url = testApplication.ParameterValue<string>(ApplicationParams.Url);
                 var uri = new Uri(url);
                 webBrowsers = CreateWebBrowsers(testApplication);
-                
                 if (!WebDevWebServerHelper.IsWebDevServerStarted(uri)){
-                    _process = IISExpressServerHelper.Run(testApplication,uri);
+                    _process = IISExpressServerHelper.Run(testApplication, uri);
                 }
-                this.CallMethod("CreateBrowser", url);
+                this.CreateBrowser(url);
             }
         }
 
@@ -57,18 +76,18 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         private void RunApplicationBase(TestApplication testApplication){
-            string url = testApplication.GetParamValue(UrlParamName);
+            var url = testApplication.ParameterValue<string>(ApplicationParams.Url);
             var uri = new Uri(url);
             
             webBrowsers=CreateWebBrowsers(testApplication);
-            string physicalPath = testApplication.FindParamValue("PhysicalPath");
-            if (string.IsNullOrEmpty(physicalPath) && !GetParamValue("DontRestartIIS", false, testApplication)) {
+            var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
+            if (string.IsNullOrEmpty(physicalPath) && !testApplication.ParameterValue<bool>(ApplicationParams.DontRestartIIS)) {
                 RestartIIS();
             }
             else {
-                if (!GetParamValue("DontRunWebDev", false, testApplication) && !string.IsNullOrEmpty(physicalPath)) {
+                if (!testApplication.ParameterValue<bool>(ApplicationParams.DontRunWebDev) && !string.IsNullOrEmpty(physicalPath)) {
                     typeof(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter).CallMethod("LoadFileInfo",Path.GetFullPath(physicalPath));
-                    if (testApplication.FindParamValue(SingleWebDevParamName) == null) {
+                    if (testApplication.ParameterValue<string>(ApplicationParams.SingleWebDev) == null) {
                         if (WebDevWebServerHelper.IsWebDevServerStarted(uri)) {
                             WebDevWebServerHelper.KillWebDevWebServer();
                         }
@@ -81,11 +100,12 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                     }
                 }
             }
-            if (testApplication.FindParamValue("DefaultWindowSize") != null) {
-                WebBrowserCollection.DefaultFormSize = GetWindowSize(testApplication.GetParamValue("DefaultWindowSize"));
+            var defaultWindowSize = testApplication.ParameterValue<string>(ApplicationParams.DefaultWindowSize);
+            if (defaultWindowSize != null) {
+                WebBrowserCollection.DefaultFormSize = GetWindowSize(defaultWindowSize);
             }
-            string waitDebuggerAttached = testApplication.FindParamValue("WaitDebuggerAttached");
-            if (!string.IsNullOrEmpty(waitDebuggerAttached)) {
+            var waitDebuggerAttached = testApplication.ParameterValue<bool>(ApplicationParams.WaitDebuggerAttached);
+            if (waitDebuggerAttached) {
                 Thread.Sleep(8000);
                 if (Debugger.IsAttached) {
                     MessageBox.Show("Start web application?", "Warning", MessageBoxButtons.OK);
@@ -95,11 +115,11 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             while (!WebDevWebServerHelper.IsWebDevServerStarted(uri) && DateTime.Now.Subtract(current).TotalSeconds < 60) {
                 Thread.Sleep(200);
             }
-            this.CallMethod("CreateBrowser",url);
+            this.CreateBrowser(url);
         }
 
         private IWebBrowserCollection CreateWebBrowsers(TestApplication testApplication){
-            string webBrowserType = testApplication.FindParamValue("WebBrowserType");
+            var webBrowserType = testApplication.ParameterValue<string>(ApplicationParams.WebBrowserType);
             if (string.IsNullOrEmpty(webBrowserType)) {
                 webBrowserType = "Default";
             }
@@ -111,8 +131,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
             ScreenCaptureCommand.Stop();
             webBrowsers.KillAllWebBrowsers();
-            bool isSingleWebDev = testApplication.FindParamValue(SingleWebDevParamName) != null;
-            if (testApplication.FindParamValue("DontKillWebDev") == null&&_process!=null) {
+            var isSingleWebDev = testApplication.ParameterValue<bool>(ApplicationParams.SingleWebDev);
+            if (!testApplication.ParameterValue<bool>(ApplicationParams.DontKillWebDev)&&_process!=null) {
                 if (isSingleWebDev) {
                     if (context != KillApplicationConext.TestNormalEnded) {
                         IISExpressServerHelper.Stop(_process);
@@ -122,15 +142,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                     IISExpressServerHelper.Stop(_process);
                 }
             }
-        }
-
-        private bool GetParamValue(string name, bool defaultValue, TestApplication testApplication){
-            string paramValue = testApplication.FindParamValue(name);
-            bool result;
-            if (string.IsNullOrEmpty(paramValue) || !bool.TryParse(paramValue, out result)){
-                result = defaultValue;
-            }
-            return result;
         }
 
         public override void RegisterCommands(IRegisterCommand registrator){
@@ -163,17 +174,15 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandWebCommandAdapter : WebCommandAdapter {
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
         }
-        
     }
 
     public class IISExpressServerHelper{
-
         public static void Stop(Process process) {
             process.Kill();
         }
 
         public static Process Run(TestApplication testApplication, Uri uri) {
-            string physicalPath = Path.GetFullPath(testApplication.FindParamValue("PhysicalPath"));
+            string physicalPath = Path.GetFullPath(testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath));
             string arguments = String.Format(@"/path:""{0}"" /port:{1}", physicalPath, uri.Port);
             EasyTestTracer.Tracer.InProcedure(String.Format("RunIISExpressServer({0})", arguments));
             try{

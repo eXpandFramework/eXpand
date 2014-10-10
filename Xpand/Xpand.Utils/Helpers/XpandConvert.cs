@@ -19,7 +19,7 @@ namespace Xpand.Utils.Helpers {
         private const string ImplicitOperatorMethodName = "op_Implicit";
         private const string ExplicitOperatorMethodName = "op_Explicit";
         private static readonly CultureInfo _defaultCultureInfo = CultureInfo.CurrentCulture;
-        private const Conversion DefaultConversion = Conversion.None;
+        private const Conversion DefaultConversion = Conversion.None|Conversion.TreatNullAsDefault|Conversion.TreatWhitespaceAsDefault;
 
         public static bool CanChange<T>(object value) {
             T result;            

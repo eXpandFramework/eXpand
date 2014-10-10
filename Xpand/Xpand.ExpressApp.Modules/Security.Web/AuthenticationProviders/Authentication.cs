@@ -45,13 +45,17 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
                 ((IWriteSecuredLogonParameters)webApplication).CustomWriteSecuredLogonParameters += OnCustomWriteSecuredLogonParameters;
             }
             if (_anonymousAuthentication.Enabled) {
-                var anomymousLogonParameters = webApplication.Security.LogonParameters as AnonymousLogonParameters;
-                if (anomymousLogonParameters == null) {
-                    throw new NotImplementedException(webApplication.Security+" LogonParameter is not of type " +typeof(AnonymousLogonParameters));
-                }
-                var anonymousAuthenticationStandard = ((SecurityStrategyBase) webApplication.Security).Authentication as AnonymousAuthenticationStandard;
+                var authentication = ((SecurityStrategyBase)webApplication.Security).Authentication;
+                var anonymousAuthenticationStandard = authentication as AnonymousAuthenticationStandard;
                 if (anonymousAuthenticationStandard == null) {
-                    throw new NotImplementedException("Seucirty authentication is not of type " + typeof(AnonymousAuthenticationStandard));
+                    authentication=new AnonymousAuthenticationStandard(authentication.UserType, typeof(AnonymousLogonParameters));
+                }
+                ((SecurityStrategyBase)webApplication.Security).Authentication = authentication;
+
+                var securityStrategyBase = (SecurityStrategyBase)webApplication.Security;
+                var anomymousLogonParameters = securityStrategyBase.LogonParameters as AnonymousLogonParameters;
+                if (anomymousLogonParameters == null) {
+                    securityStrategyBase.Authentication.SetLogonParameters(new AnonymousLogonParameters());
                 }
             }
         }

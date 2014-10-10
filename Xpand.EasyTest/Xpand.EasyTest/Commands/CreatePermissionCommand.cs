@@ -2,18 +2,18 @@
 using DevExpress.EasyTest.Framework.Commands;
 
 namespace Xpand.EasyTest.Commands {
-    public class CreatePermissionCommand:Command{
+    public class CreatePermissionCommand : Command {
         public const string Name = "CreatePermission";
-        protected override void InternalExecute(ICommandAdapter adapter){
+        protected override void InternalExecute(ICommandAdapter adapter) {
             NavigateToRole(adapter);
             foreach (var targetType in Parameters.MainParameter.Value.Split(';')) {
                 ProccessUserRole(adapter);
-                CreateNewTypePermission(adapter, targetType);    
+                CreateNewTypePermission(adapter, targetType);
             }
             NavigateToRole(adapter);
         }
 
-        private void CreateNewTypePermission(ICommandAdapter adapter, string targetType){
+        private void CreateNewTypePermission(ICommandAdapter adapter, string targetType) {
             var actionCommand = new ActionCommand();
             actionCommand.Parameters.MainParameter = new MainParameter("Type Permissions");
             actionCommand.Parameters.ExtraParameter = new MainParameter();
@@ -38,17 +38,17 @@ namespace Xpand.EasyTest.Commands {
             saveAndCloseCommand.Execute(adapter);
         }
 
-        private void ProccessUserRole(ICommandAdapter adapter){
+        private void ProccessUserRole(ICommandAdapter adapter) {
             var processRecordCommand = new XpandProcessRecordCommand();
-            processRecordCommand.Parameters.MainParameter=new MainParameter("");
-            processRecordCommand.Parameters.Add(new Parameter("Name", "User", true, StartPosition));
+            processRecordCommand.Parameters.MainParameter = new MainParameter("");
+            processRecordCommand.Parameters.Add(new Parameter("Name", this.ParameterValue("EditRole", "User"), true, StartPosition));
             processRecordCommand.Parameters.Add(new Parameter("Action", "Edit", true, StartPosition));
             processRecordCommand.Execute(adapter);
         }
 
-        private void NavigateToRole(ICommandAdapter adapter){
+        private void NavigateToRole(ICommandAdapter adapter) {
             var navigateCommand = new NavigateCommand();
-            navigateCommand.Parameters.MainParameter = new MainParameter(this.ParameterValue("Role", "Default.Role"));
+            navigateCommand.Parameters.MainParameter = new MainParameter(this.ParameterValue("RolePath", "Default.Role"));
             navigateCommand.Execute(adapter);
         }
     }
