@@ -98,7 +98,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void SaveOnExecuting(object sender, CancelEventArgs cancelEventArgs){
-            cancelEventArgs.Cancel = Cancel();
+            if (!cancelEventArgs.Cancel)
+                cancelEventArgs.Cancel = Cancel();
         }
 
         protected abstract bool Cancel();
