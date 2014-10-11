@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils.CodeGeneration;
-using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -73,38 +72,17 @@ namespace Xpand.Persistent.Base.ModelDifference {
 
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, XpandApplicationModulesManager applicationModulesManager) {
             XpandModuleBase.CallMonitor.Clear();
-
-            var keyValuePair = Patch();
-
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
             applicationModulesManager.TypesInfo.AssignAsInstance();
-            
-            var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo, applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
-                                                                                       applicationModulesManager.ControllersManager, application.ResourcesExportedToModel, GetAspects(configFileName), modelAssemblyFile, null);
+            var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo,
+            applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
+            applicationModulesManager.ControllersManager, application.ResourcesExportedToModel,
+            GetAspects(configFileName), modelAssemblyFile, null);
 
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
-
-            keyValuePair.Key[typeof(IModelRuleBase)] = keyValuePair.Value;
             return modelApplication;
-        }
-
-        private KeyValuePair<Dictionary<Type, Type[]>, Type[]> Patch() {
-            var dictionary = ((Dictionary<Type, Type[]>)((TypesInfo)XafTypesInfo.Instance).TypeHierarchyHelper.GetFieldValue("implementorsByInterface"));
-            var types = dictionary.ContainsKey(typeof(IModelRuleBase))?dictionary[typeof(IModelRuleBase)]:new Type[0];
-            var runtimeTypes = types.Where(type => type.GetType().Name == "RuntimeType").ToList();
-            var nonRuntimeTypes = types.Where(type => type.GetType().Name != "RuntimeType").ToList();
-            foreach (var runtimeType in runtimeTypes) {
-                var firstOrDefault = nonRuntimeTypes.FirstOrDefault(type => type.Name == runtimeType.Name);
-                if (firstOrDefault != null) {
-                    nonRuntimeTypes.Remove(firstOrDefault);
-                }
-            }
-
-            var array = runtimeTypes.Concat(nonRuntimeTypes).ToArray();
-            dictionary[typeof(IModelRuleBase)] = array;
-            return new KeyValuePair<Dictionary<Type, Type[]>, Type[]>(dictionary, types);
         }
 
         XpandApplicationModulesManager CreateModulesManager(XafApplication application, string configFileName, string assembliesPath, ITypesInfo typesInfo) {
@@ -192,14 +170,19 @@ namespace Xpand.Persistent.Base.ModelDifference {
         }
 
         public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo,Action<ITypesInfo> action=null) {
-            _typesInfo = TypesInfoBuilder.Create()
-                .FromModule(_moduleName)
-                .Build(tryToUseCurrentTypesInfo);
-            _xafApplication = ApplicationBuilder.Create().
-                UsingTypesInfo(s => _typesInfo).
-                FromModule(_moduleName).
-                Build();
-            return GetMasterModel(_xafApplication,action);
+            ModelApplicationBase masterModel=null;
+            Retry.Do(() =>{
+                _typesInfo = TypesInfoBuilder.Create()
+                    .FromModule(_moduleName)
+                    .Build(tryToUseCurrentTypesInfo);
+                _xafApplication = ApplicationBuilder.Create().
+                    UsingTypesInfo(s => _typesInfo).
+                    FromModule(_moduleName).
+                    Build();
+
+                masterModel = GetMasterModel(_xafApplication, action);
+            }, TimeSpan.FromTicks(1), 2);
+            return masterModel;
         }
 
         ModelApplicationBase GetMasterModelCore(bool rebuild) {
