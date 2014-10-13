@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         bool TabOverReadOnlyEditors { get; set; }
         [Category("eXpand")]
         [Description("Set LayoutControl AllowFocusReadonlyEditors property value")]
-        [DefaultValue(true)]
+        [DefaultValue(false)]
         bool AllowFocusReadonlyEditors { get; set; }
     }
     [ModelInterfaceImplementor(typeof(IModelClassTabStopForReadOnly), "ModelClass")]
