@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         ListView CreateListView(IModelListView childModelListView, IModelMember relationModelMember, XafApplication application) {
-            var propertyCollectionSource = application.CreatePropertyCollectionSource(_objectSpace, childModelListView.ModelClass.TypeInfo.Type, null, relationModelMember.MemberInfo, childModelListView.Id);
+            var propertyCollectionSource = application.CreatePropertyCollectionSource(_objectSpace, relationModelMember.ModelClass.TypeInfo.Type, null, relationModelMember.MemberInfo, childModelListView.Id);
             return application.CreateListView(childModelListView, propertyCollectionSource, false);
         }
 
