@@ -298,10 +298,10 @@
   </Target>
   <Target Name="Installer">
     <MakeDir Directories="$(InstallerFolder);" />
-    <CreateItem Include="$(XpandDLLPath)\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config;">
-      <Output ItemName="files" TaskParameter="Include" />
-    </CreateItem>
-    <Copy SourceFiles="@(files)" DestinationFolder="$(InstallerFolder)\Xpand.DLL" />
+    <ItemGroup>
+      <files Include="$(XpandDLLPath)\**\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config" Exclude="$(XpandDLLPath)\DatabaseUpdate\**\*.*;$(XpandDLLPath)\FFMPEG\**\*.*;$(XpandDLLPath)\ImportExport\**\*.*;$(XpandDLLPath)\Packages\**\*.*;$(XpandDLLPath)\XAFImageFormatter\**\*.*;$(XpandDLLPath)\**\DevExpress.*;$(XpandDLLPath)\**\System.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(files)" DestinationFiles="@(files->'$(InstallerFolder)\Xpand.DLL\%(RecursiveDir)%(Filename)%(Extension)')" />
     <CreateItem Include="$(XpandDesignExperiencePath)\**\*.*">
       <Output ItemName="XpandDesignExperienceFiles" TaskParameter="Include" />
     </CreateItem>
