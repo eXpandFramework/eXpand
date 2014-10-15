@@ -45,14 +45,25 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void LoadApplicationModels(bool loadResources, ModelApplicationBase model) {
-            var userDiffLayer = model.LastLayer;
-            ModelApplicationHelper.RemoveLayer(model);
+            var userDiffLayers = new List<ModelApplicationBase>();
+            while (model.LastLayer != null && model.LastLayer.Id != "After Setup")
+            {
+                userDiffLayers.Add(model.LastLayer);
+                ModelApplicationHelper.RemoveLayer(model);
+            }
+            if (model.LastLayer == null)
+                throw new ArgumentException("Model.LastLayer null");
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled)
+            {
                 new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
-            ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, userDiffLayer);
-
+            }
+            userDiffLayers.Reverse();
+            foreach (var layer in userDiffLayers)
+            {
+                ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, layer);
+            }
         }
 
         public abstract string GetPath();
