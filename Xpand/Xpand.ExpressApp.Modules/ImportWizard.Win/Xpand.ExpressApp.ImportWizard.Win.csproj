@@ -118,9 +118,7 @@
       <Name>System.XML</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="WindowsBase">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="WindowsBase" />
     <Reference Include="Xpand.ExpressApp.ImportWizard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>

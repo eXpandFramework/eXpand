@@ -4,7 +4,7 @@ echo Build Target
 
 echo Installing assemblies to GAC...
 xcopy ".\Support\_third_party_assemblies\GACInstaller.exe" ".\Xpand.DLL\*.*" /S /Y /H /I
-call ".\Xpand.DLL\GACInstaller.exe" 
+call ".\Xpand.DLL\GACInstaller.exe" Xpand 
 
 echo Installing Toolbox Items...
 call buildproject.cmd Xpand.ToolboxCreator ".\Support\ToolBoxCreator\Xpand.ToolboxCreator.csproj"
