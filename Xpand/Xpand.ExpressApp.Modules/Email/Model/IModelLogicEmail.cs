@@ -60,7 +60,14 @@ namespace Xpand.ExpressApp.Email.Model {
         }
     }
 
+    [ModelNodesGenerator(typeof(ModelEmailSmtpClientContextsNodesGenerator))]
     public interface IModelEmailSmtpClientContexts : IModelList<IModelSmtpClientContext>,  IModelNode {
+    }
+
+    public class ModelEmailSmtpClientContextsNodesGenerator:ModelNodesGeneratorBase{
+        protected override void GenerateNodesCore(ModelNode node){
+            
+        }
     }
 
     public interface IModelSmtpClientContext : IModelNode {
@@ -89,7 +96,14 @@ namespace Xpand.ExpressApp.Email.Model {
         }
     }
 
+    [ModelNodesGenerator(typeof(ModelEmailRecepientsNodesGenerator))]
     public interface IModelEmailReceipients : IModelList<IModelEmailReceipientGroup>, IModelNode {
+    }
+
+    public class ModelEmailRecepientsNodesGenerator:ModelNodesGeneratorBase{
+        protected override void GenerateNodesCore(ModelNode node){
+            
+        }
     }
 
     public interface IModelEmailReceipientGroup : IModelNode, IModelList<IModelEmailReceipient>{
