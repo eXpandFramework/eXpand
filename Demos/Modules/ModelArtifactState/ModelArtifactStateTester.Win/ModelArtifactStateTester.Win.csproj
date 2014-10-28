@@ -110,6 +110,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -154,6 +158,10 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelArtifactStateTester.Module.Win\ModelArtifactStateTester.Module.Win.csproj">
+      <Project>{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}</Project>
+      <Name>ModelArtifactStateTester.Module.Win</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelArtifactStateTester.Module\ModelArtifactStateTester.Module.csproj">
       <Project>{44B32AED-750C-4377-AD7E-82FDB7E537C1}</Project>
       <Name>ModelArtifactStateTester.Module</Name>

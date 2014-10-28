@@ -295,7 +295,6 @@
     <EmbeddedResource Include="Resources\Top Movie Rentals.repx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\LegacyVideoRent.zip" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Editors\ReadMe.txt" />

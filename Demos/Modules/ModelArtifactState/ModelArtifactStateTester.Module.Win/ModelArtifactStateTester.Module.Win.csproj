@@ -5,12 +5,31 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{44B32AED-750C-4377-AD7E-82FDB7E537C1}</ProjectGuid>
+    <ProjectGuid>{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ModelArtifactStateTester.Module</RootNamespace>
-    <AssemblyName>ModelArtifactStateTester.Module</AssemblyName>
+    <RootNamespace>ModelArtifactStateTester.Module.Win</RootNamespace>
+    <AssemblyName>ModelArtifactStateTester.Module.Win</AssemblyName>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,19 +48,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
     <OutputPath>bin\EasyTest\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
-    <DebugType>full</DebugType>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+    <Reference Include="DevExpress.Data.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v14.1">
@@ -60,33 +84,27 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Country.cs" />
-    <Compile Include="BusinessObjects\Customer.cs" />
-    <Compile Include="Controllers\TestController.cs">
+    <Compile Include="FunctionalTests\Actions.Win\Actions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FunctionalTests\Actions\Actions.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,39 +115,42 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Module.resx">
-      <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DatabaseUpdate\ReadMe.txt" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BusinessObjects\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FunctionalTests\Actions\Actions.ets" />
-    <None Include="FunctionalTests\Actions\Actions.xafml">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\ReadMe.txt" />
+    <None Include="DatabaseUpdate\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Actions\Config.xml" />
-    <None Include="FunctionalTests\Actions\Init.inc" />
-    <Content Include="FunctionalTests\Config.xml" />
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelArtifactStateTester.Module\ModelArtifactStateTester.Module.csproj">
+      <Project>{44b32aed-750c-4377-ad7e-82fdb7e537c1}</Project>
+      <Name>ModelArtifactStateTester.Module</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
