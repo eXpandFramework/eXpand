@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelArtifactStateTester.Module", "ModelArtifactStateTester.Module\ModelArtifactStateTester.Module.csproj", "{44B32AED-750C-4377-AD7E-82FDB7E537C1}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Xpo", "..\..\..\Xpand\Xpand.Xpo\Xpand.Xpo.csproj", "{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{A562BA9B-D171-4FC3-9EE6-756633B419F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelArtifactStateTester.Module.Win", "ModelArtifactStateTester.Module.Win\ModelArtifactStateTester.Module.Win.csproj", "{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelArtifactStateTester.Module.Web", "ModelArtifactStateTester.Module.Web\ModelArtifactStateTester.Module.Web.csproj", "{53644A86-65AF-4F54-80E5-3A19986F10C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,17 +82,29 @@ Global
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53644A86-65AF-4F54-80E5-3A19986F10C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{B964E541-EBA2-4971-B104-A99ABBD95D36} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{B2BC7237-E245-4619-A041-841CBB395E10} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
-		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B} = {A562BA9B-D171-4FC3-9EE6-756633B419F0}
 	EndGlobalSection
 EndGlobal

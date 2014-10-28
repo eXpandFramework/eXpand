@@ -7,7 +7,10 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
             : base(actionStateRule) {
             ActionId = actionStateRule.ActionId;
             ActionState = actionStateRule.ActionState;
+            ActionContext = actionStateRule.ActionContext;
         }
+
+        public string ActionContext { get; set; }
 
         [Category("Data")]
         public string ActionId { get; set; }

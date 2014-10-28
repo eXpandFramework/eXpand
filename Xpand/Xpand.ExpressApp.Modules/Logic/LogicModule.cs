@@ -11,6 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Logic.DomainLogic;
 using Xpand.ExpressApp.Logic.Security.Improved;
+using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
@@ -23,6 +24,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public LogicModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
+            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }

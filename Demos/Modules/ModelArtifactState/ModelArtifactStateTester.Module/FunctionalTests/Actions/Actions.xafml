@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ConditionalObjectViewDemo" Logo="ExpressAppLogo">
+  <ModelArtifactState>
+    <ConditionalActionState>
+      <ActionContexts>
+        <ActionContexts Id="Actions_To_Hide" IsNewNode="True">
+          <ActionLink ActionId="Delete" IsNewNode="True" />
+          <ActionLink ActionId="Refresh" IsNewNode="True" />
+        </ActionContexts>
+        <ActionContexts Id="Empty" IsNewNode="True" />
+      </ActionContexts>
+      <Rules>
+        <ActionStateRule Id="Hide_Actions" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionId="NextObject" ActionContext="Actions_To_Hide" ActionState="Hidden" IsNewNode="True" />
+        <ActionStateRule Id="Hide_From_Modules" ActionContext="Empty" Module=".*Tester.*" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionState="Hidden" IsNewNode="True" />
+        <ActionStateRule Id="Hide_With_Criteria" ActionId="PreviousObject" EmptyCriteria="CurrentUserName()='Admin'" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionState="Hidden" NormalCriteria="1=0" IsNewNode="True" />
+      </Rules>
+    </ConditionalActionState>
+  </ModelArtifactState>
+</Application>

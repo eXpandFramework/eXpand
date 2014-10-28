@@ -14,10 +14,17 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Model {
 
         [Browsable(false)]
         IEnumerable<string> Actions { get; }
+        
+        [Browsable(false)]
+        IEnumerable<string> ActionContexts { get; }
     
     }
     [DomainLogic(typeof(IModelActionStateRule))]
     public static class ActionStateRuleDomainLogic {
+        public static IEnumerable<string> Get_ActionContexts(IModelActionStateRule modelActionStateRule){
+            return ((IModelApplicationModelArtifactState) modelActionStateRule.Application).ModelArtifactState.ConditionalActionState.ActionContexts.Select(contexts => contexts.Id);
+        }
+
         public static IEnumerable<string> Get_Actions(IModelActionStateRule modelActionStateRule) {
             return modelActionStateRule.Application.ActionDesign.Actions.Select(action => action.Id);
         }

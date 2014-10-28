@@ -13,8 +13,8 @@ namespace Xpand.ExpressApp.Logic.NodeUpdaters {
         readonly List<ExecutionContext> _executionContexts;
         readonly Func<IModelApplication, IModelLogicExecutionContextWrapper> _modelLogic;
 
-        public LogicDefaultContextNodeUpdater(List<ExecutionContext> executionContexts, Func<IModelApplication, IModelLogicExecutionContextWrapper> modelLogic) {
-            _executionContexts = executionContexts;
+        public LogicDefaultContextNodeUpdater(IEnumerable<ExecutionContext> executionContexts, Func<IModelApplication, IModelLogicExecutionContextWrapper> modelLogic) {
+            _executionContexts = executionContexts.Concat(new[]{ExecutionContext.CurrentObjectChanged}).ToList();
             _modelLogic = modelLogic;
         }
 

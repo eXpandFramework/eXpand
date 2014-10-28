@@ -5,6 +5,8 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Logic;
+using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRuleController:ViewController {
@@ -24,16 +26,20 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         IEnumerable<ActionBase> GetActions(IActionStateRule rule) {
-            IEnumerable<ActionBase> actionBases = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions);
+            var actionBases = Frame.Actions();
             if (!string.IsNullOrEmpty(rule.Module))
                 return GetModuleActions(rule, actionBases);
+            var contextIds = GetActionContextIds(((ActionStateRule) rule).ActionContext);
+            var ids = new[]{rule.ActionId}.Concat(contextIds).ToArray();
+            return actionBases.Where(@base => ids.Contains(@base.Id));
+        }
 
-            var result = new List<ActionBase>();
-            ActionBase actionBase = actionBases.Where(@base => @base.Id == rule.ActionId).Select(@base => @base).SingleOrDefault();
-            if (actionBase != null)
-                result.Add(actionBase);
-
-            return result;
+        private IEnumerable<string> GetActionContextIds(string actionContext){
+            if (!string.IsNullOrEmpty(actionContext)){
+                var modelActionContexts = ((IModelApplicationModelArtifactState) Application.Model).ModelArtifactState.ConditionalActionState.ActionContexts.First(contexts => contexts.Id==actionContext);
+                return modelActionContexts.Select(link => link.ActionId);
+            }
+            return Enumerable.Empty<string>();
         }
 
         void ActivateDeActivateAction(LogicRuleInfo info, ActionBase actionBase) {
@@ -68,9 +74,8 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         IEnumerable<ActionBase> GetModuleActions(IActionStateRule rule, IEnumerable<ActionBase> actionBases) {
-            IEnumerable<string> assemblies =
-                Application.Modules.Where(@base => new Regex(rule.Module).IsMatch(@base.GetType().FullName + "")).Select(
-                    @base => @base.GetType().Assembly.FullName);
+            var assemblies =Application.Modules.Where(@base => new Regex(rule.Module).IsMatch(@base.GetType().FullName + "")).Select(
+                    @base => @base.GetType().Assembly.FullName).ToArray();
             return actionBases.Where(@base => assemblies.Contains(@base.Controller.GetType().Assembly.FullName));
         }
 

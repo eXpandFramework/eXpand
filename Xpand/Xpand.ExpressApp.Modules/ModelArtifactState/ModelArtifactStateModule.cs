@@ -22,8 +22,8 @@ namespace Xpand.ExpressApp.ModelArtifactState {
             RequiredModuleTypes.Add(typeof(Validation.XpandValidationModule));
             LogicInstallerManager.RegisterInstallers(new ILogicInstaller[]{
                 new ActionStateLogicInstaller(this),
-                new ControllerStateLogicInstaller(this),
-                new ObjectViewsLogicInstaller(this)
+//                new ControllerStateLogicInstaller(this),
+//                new ObjectViewsLogicInstaller(this)
             });
         }
 

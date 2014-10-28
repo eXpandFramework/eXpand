@@ -9,5 +9,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
 
         public string ActionId { get; set; }
         public ActionState ActionState { get; set; }
+
+        public string ActionContext { get; set; }
     }
 }

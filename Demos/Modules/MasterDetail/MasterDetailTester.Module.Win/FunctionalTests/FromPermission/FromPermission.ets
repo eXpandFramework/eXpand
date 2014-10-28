@@ -10,7 +10,7 @@
 *ProcessRecord 
  Name = User
 *Action Permissions
-*Action Permissions.New
+*Action Permissions.New(Logic.MasterDetail)
 *FillForm
  Object Type Data = Project
  ID = Project-Contributors

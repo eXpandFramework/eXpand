@@ -2,12 +2,10 @@
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
-using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews {
     public class ObjectViewsLogicInstaller : LogicInstaller<IObjectViewRule, IModelObjectViewRule> {

@@ -28,7 +28,6 @@ namespace ModelArtifactStateTester.Win {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-            this.module3 = new ModelArtifactStateTester.Module.ModelArtifactStateTesterModule();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
@@ -36,8 +35,9 @@ namespace ModelArtifactStateTester.Win {
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
-            this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
-            this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
+            this.module3 = new ModelArtifactStateTester.Module.ModelArtifactStateTesterModule();
+            this.winModule1 = new ModelArtifactStateTester.Module.Win.WinModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -49,20 +49,10 @@ namespace ModelArtifactStateTester.Win {
             // validationModule1
             // 
             this.validationModule1.AllowValidationDetailsAccess = true;
-            // 
-            // securityModule1
-            // 
-            this.securityModule1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            this.validationModule1.IgnoreWarningAndInformationRules = false;
             // 
             // securityStrategyComplex1
             // 
-            this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-            // 
-            // authenticationStandard1
-            // 
-            this.authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
             // 
             // ModelArtifactStateTesterWindowsFormsApplication
             // 
@@ -74,10 +64,11 @@ namespace ModelArtifactStateTester.Win {
             this.Modules.Add(this.xpandValidationModule1);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
+            this.Modules.Add(this.xpandSecurityModule1);
             this.Modules.Add(this.logicModule1);
             this.Modules.Add(this.modelArtifactStateModule1);
             this.Modules.Add(this.module3);
-            this.Security = this.securityStrategyComplex1;
+            this.Modules.Add(this.winModule1);
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.ModelArtifactStateTesterWindowsFormsApplication_DatabaseVersionMismatch);
             this.CustomizeLanguagesList += new System.EventHandler<DevExpress.ExpressApp.CustomizeLanguagesListEventArgs>(this.ModelArtifactStateTesterWindowsFormsApplication_CustomizeLanguagesList);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
@@ -96,7 +87,8 @@ namespace ModelArtifactStateTester.Win {
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule1;
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
-        private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
+        
+        private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
+        private Module.Win.WinModule winModule1;
     }
 }

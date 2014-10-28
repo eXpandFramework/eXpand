@@ -21,5 +21,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
         public override IList<IOperationPermission> GetPermissions() {
             return new IOperationPermission[] { new ActionStateRulePermission(this) };
         }
+
+        public string ActionContext { get; set; }
     }
 }

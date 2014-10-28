@@ -5,23 +5,36 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using ModelArtifactStateTester.Module;
+using Xpand.ExpressApp.Logic;
+using Xpand.ExpressApp.ModelArtifactState;
+using Xpand.ExpressApp.Validation;
 
 namespace ModelArtifactStateTester.Web {
     public class ModelArtifactStateTesterAspNetApplication : WebApplication {
         private SystemModule _module1;
         private SystemAspNetModule _module2;
         private ModelArtifactStateTesterModule _module3;
+        private ValidationModule _validationModule1;
+        private XpandValidationModule _xpandValidationModule1;
+        private SecurityModule _securityModule1;
+        private ConditionalAppearanceModule _conditionalAppearanceModule1;
+        private LogicModule _logicModule1;
+        private ModelArtifactStateModule _modelArtifactStateModule1;
 
         private SqlConnection _sqlConnection1;
 
         public ModelArtifactStateTesterAspNetApplication() {
             InitializeComponent();
             LastLogonParametersReading+=OnLastLogonParametersReading;
+            DatabaseVersionMismatch+=ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch;
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e){
@@ -72,15 +85,26 @@ namespace ModelArtifactStateTester.Web {
             _module1 = new SystemModule();
             _module2 = new SystemAspNetModule();
             _module3 = new ModelArtifactStateTesterModule();
-
             _sqlConnection1 = new SqlConnection();
+            _validationModule1 = new ValidationModule();
+            _xpandValidationModule1 = new XpandValidationModule();
+            _securityModule1 = new SecurityModule();
+            _conditionalAppearanceModule1 = new ConditionalAppearanceModule();
+            _logicModule1 = new LogicModule();
+            _modelArtifactStateModule1 = new ModelArtifactStateModule();
             ((ISupportInitialize) (this)).BeginInit();
             // 
-            // sqlConnection1
+            // _sqlConnection1
             // 
             _sqlConnection1.ConnectionString =
-                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=ModelArtifactStateTester";
+                "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=M" +
+                "odelArtifactStateTester";
             _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // validationModule1
+            // 
+            _validationModule1.AllowValidationDetailsAccess = true;
+            _validationModule1.IgnoreWarningAndInformationRules = false;
             // 
             // ModelArtifactStateTesterAspNetApplication
             // 
@@ -88,10 +112,13 @@ namespace ModelArtifactStateTester.Web {
             Connection = _sqlConnection1;
             Modules.Add(_module1);
             Modules.Add(_module2);
+            Modules.Add(_validationModule1);
+            Modules.Add(_xpandValidationModule1);
+            Modules.Add(_securityModule1);
+            Modules.Add(_conditionalAppearanceModule1);
+            Modules.Add(_logicModule1);
+            Modules.Add(_modelArtifactStateModule1);
             Modules.Add(_module3);
-
-
-            DatabaseVersionMismatch += ModelArtifactStateTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize) (this)).EndInit();
 
         }

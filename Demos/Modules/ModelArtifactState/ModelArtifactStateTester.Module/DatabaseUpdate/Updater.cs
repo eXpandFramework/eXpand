@@ -7,12 +7,11 @@ using ModelArtifactStateTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 
 namespace ModelArtifactStateTester.Module.DatabaseUpdate {
-    // Allows you to handle a database update when the application version changes (http://documentation.devexpress.com/#Xaf/clsDevExpressExpressAppUpdatingModuleUpdatertopic help article for more details).
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) :
             base(objectSpace, currentDBVersion) {
         }
-        // Override to specify the database update code which should be performed after the database schema is updated (http://documentation.devexpress.com/#Xaf/DevExpressExpressAppUpdatingModuleUpdater_UpdateDatabaseAfterUpdateSchematopic).
+        
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             if (ObjectSpace.FindObject<Country>(null) == null) {
@@ -35,20 +34,16 @@ namespace ModelArtifactStateTester.Module.DatabaseUpdate {
                 customer.Name = "Tolis";
                 customer.Country = country;
 
-                var xpandRole = ObjectSpace.CreateObject<XpandRole>();
-                xpandRole.Name = "Admin";
-                xpandRole.IsAdministrative = true;
-                var user = ObjectSpace.CreateObject<SecuritySystemUser>();
-                user.UserName = "Admin";
-                user.Roles.Add(xpandRole);
-                
-                xpandRole = ObjectSpace.CreateObject<XpandRole>();
-                xpandRole.Name = "User";
-                xpandRole.SetTypePermissions(typeof(Customer),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
-                xpandRole.SetTypePermissions(typeof(Country),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
+                var securitySystemRole = (SecuritySystemRole)ObjectSpace.GetRole("Admin");
+                securitySystemRole.IsAdministrative = true;
+                var user = (SecuritySystemUser)ObjectSpace.GetUser("Admin");
+                user.Roles.Add(securitySystemRole);
+
+                securitySystemRole = (SecuritySystemRole) ObjectSpace.GetRole("User");
+                securitySystemRole.SetTypePermissions(typeof(Customer),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
+                securitySystemRole.SetTypePermissions(typeof(Country),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
                 user = ObjectSpace.CreateObject<SecuritySystemUser>();
-                user.UserName = "User";
-                user.Roles.Add(xpandRole);
+                user.Roles.Add(securitySystemRole);
 
                 ObjectSpace.CommitChanges();
             }

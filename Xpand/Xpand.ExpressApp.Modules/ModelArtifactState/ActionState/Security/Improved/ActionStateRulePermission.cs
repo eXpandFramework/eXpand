@@ -9,6 +9,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
             : base(OperationName, logicRule) {
             ActionId = logicRule.ActionId;
             ActionState = logicRule.ActionState;
+            ActionContext = logicRule.ActionContext;
         }
 
         protected ActionStateRulePermission(string operation, ActionStateOperationPermissionData logicRule)
@@ -22,6 +23,9 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
         public string ActionId { get; set; }
 
         public Logic.ActionState ActionState { get; set; }
+
         #endregion
+
+        public string ActionContext { get; set; }
     }
 }
