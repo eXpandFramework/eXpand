@@ -3,36 +3,45 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.DashboardWin;
+using DevExpress.DashboardWin.Bars;
 using DevExpress.DashboardWin.Native;
 using DevExpress.ExpressApp;
 using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
 using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
 using Fasterflect;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
-    public partial class DashboardDesignerForm : RibbonForm, IXPObjectSpaceAwareControl {
+    public partial class DashboardDesignerForm : XtraForm, IXPObjectSpaceAwareControl {
         bool _saveDashboard;
         History _editHistory;
         IObjectSpace _objectSpace;
         IDashboardDefinition _template;
+        private DashboardDesigner _dashboardDesigner;
+        private BarButtonItem _barButtonItemSave;
+        private BarButtonItem _barButtonItemSaveAndClose;
 
-        public DevExpress.DashboardCommon.Dashboard Dashboard { get { return dashboardDesigner.Dashboard; } }
+        public DevExpress.DashboardCommon.Dashboard Dashboard { get { return _dashboardDesigner.Dashboard; } }
         public bool SaveDashboard { get { return _saveDashboard; } }
 
         public DashboardDesignerForm() {
             InitializeComponent();
-            dashboardDesigner.ActionOnClose = DashboardActionOnClose.Prompt;
-            _editHistory = (History) Designer.GetPropertyValue("History");
+            _dashboardDesigner = new DashboardDesigner();
+            Controls.Add(_dashboardDesigner);
+            _dashboardDesigner.Dock = DockStyle.Fill;
+            _dashboardDesigner.CreateRibbon();
+            _dashboardDesigner.ActionOnClose = DashboardActionOnClose.Discard;
+            _editHistory = (History)Designer.GetPropertyValue("History");
         }
 
         public DashboardDesigner Designer {
-            get { return dashboardDesigner; }
+            get { return _dashboardDesigner; }
         }
 
         public IDashboardDefinition Template {
@@ -56,8 +65,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             _editHistory = null;
             _template = null;
             _objectSpace = null;
-            dashboardDesigner.Dashboard.Dispose();
-            dashboardDesigner = null;
+            _dashboardDesigner.Dashboard.Dispose();
+            _dashboardDesigner = null;
             base.OnClosed(e);
         }
 
@@ -67,8 +76,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
         void UpdateTemplateXml() {
-            using (var ms = new MemoryStream()){
-                Designer.Dashboard.SaveDashboard( Template, ms);
+            using (var ms = new MemoryStream()) {
+                Designer.Dashboard.SaveToXml(ms);
                 ms.Position = 0;
                 using (var sr = new StreamReader(ms)) {
                     string xml = sr.ReadToEnd();
@@ -81,8 +90,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
         void UpdateActionState() {
-            barButtonItemSave.Enabled = _editHistory.IsModified;
-            barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
+            HideButtons();
+            _barButtonItemSave.Enabled = _editHistory.IsModified;
+            _barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
         }
 
         void SaveAndClose(object sender, ItemClickEventArgs e) {
@@ -92,35 +102,52 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard( FilterEnabled.DesignTime);
+            Designer.Dashboard = _template.CreateDashBoard(FilterEnabled.DesignTime);
             _editHistory.Changed += _EditHistory_Changed;
         }
 
         protected override void OnClosing(CancelEventArgs e) {
             base.OnClosing(e);
-            if(dashboardDesigner.IsDashboardModified) {
-                DialogResult result = XtraMessageBox.Show(LookAndFeel, this, "Do you want to save changes ?", "Dashboard Designer", 
+            if (_dashboardDesigner.IsDashboardModified) {
+                DialogResult result = XtraMessageBox.Show(LookAndFeel, this, "Do you want to save changes ?", "Dashboard Designer",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if(result == DialogResult.Cancel)
+                if (result == DialogResult.Cancel)
                     e.Cancel = true;
                 else
                     _saveDashboard = result == DialogResult.Yes;
             }
         }
 
-        void DashboardDesignerForm_Load(object sender, EventArgs e) {
-            fileNewBarItem1.Visibility =BarItemVisibility.Never;
-            fileOpenBarItem1.Visibility=BarItemVisibility.Never;
-            fileSaveBarItem1.Visibility=BarItemVisibility.Never;
-            fileSaveAsBarItem1.Visibility=BarItemVisibility.Never;
+        private TDashboardBarButtonItem GetBarItem<TDashboardBarButtonItem>() where TDashboardBarButtonItem : DashboardBarButtonItem {
+            return ((RibbonControl)_dashboardDesigner.MenuManager).Items.OfType<TDashboardBarButtonItem>().First();
+        }
 
-            ribbonControl1.Toolbar.ItemLinks.Remove(fileSaveBarItem1);
-            barButtonItemSave.Enabled = false;
-            barButtonItemSave.Glyph = GetImage("MenuBar_Save_32x32.png");
-            barButtonItemSave.ItemClick+=Save;
-            barButtonItemSaveAndClose.ItemClick+=SaveAndClose;
-            barButtonItemSaveAndClose.Enabled = false;
-            barButtonItemSave.Glyph = GetImage("MenuBar_SaveAndClose_32x32.png");
+        void DashboardDesignerForm_Load(object sender, EventArgs e) {
+            HideButtons();
+            _barButtonItemSave = AddButton("Save", "MenuBar_Save_32x32.png");
+            _barButtonItemSave.ItemClick += Save;
+            _barButtonItemSaveAndClose = AddButton("Save & Close", "MenuBar_SaveAndClose_32x32.png");
+            _barButtonItemSaveAndClose.ItemClick += SaveAndClose;
+        }
+
+        private void HideButtons() {
+            GetBarItem<FileNewBarItem>().Visibility = BarItemVisibility.Never;
+            var fileSaveBarItem = GetBarItem<FileSaveBarItem>();
+            fileSaveBarItem.Visibility = BarItemVisibility.Never;
+            ((RibbonControl)_dashboardDesigner.MenuManager).Toolbar.ItemLinks.Remove(fileSaveBarItem);
+            GetBarItem<FileSaveAsBarItem>().Visibility = BarItemVisibility.Never;
+            GetBarItem<FileOpenBarItem>().Visibility = BarItemVisibility.Never;
+        }
+
+        private BarButtonItem AddButton(string button, string glyph) {
+            var ribbonControl = ((RibbonControl)_dashboardDesigner.MenuManager);
+            var ribbonPage = ribbonControl.Pages.Cast<RibbonPage>().First();
+            var barButtonItem = new BarButtonItem(ribbonControl.Manager, button) {
+                Enabled = false,
+                Glyph = GetImage(glyph)
+            };
+            ribbonPage.Groups[0].ItemLinks.Add(barButtonItem);
+            return barButtonItem;
         }
 
         Image GetImage(string name) {
