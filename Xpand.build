@@ -91,7 +91,7 @@
     <CreateItem Include="$(_third_party_assemblies)\**\*.*">
       <Output TaskParameter="Include" ItemName="FilesToCopy"/>
     </CreateItem>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferencesB4Build">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -252,9 +252,12 @@
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>
-  <Target Name="RunEasyTests">
+  <Target Name="BuildEasyTest" Condition="'@(EasyTests->Count())'!='1'">
 	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
+  </Target>
+  <Target Name="RunEasyTests">
+	<CallTarget Targets='BuildEasyTest' ></CallTarget>
     <Delete Files="@(EasyTestLogs)"/>	
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
@@ -307,7 +310,7 @@
     </CreateItem>
     <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
@@ -348,10 +351,7 @@
   <Target Name="Distrib">
     <MakeDir Directories="$(PackageDirectory);" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="**\_Resharper*\**\*.*;Support\Tool\**\*.*;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
-      <Output ItemName="_SourceFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Zip Files="@(_SourceFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip" Flatten="false" />
+	  <Copy SourceFiles="$(InstallerFolder)\Source.zip" DestinationFiles="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip"/>
     <!-- Lib.zip -->
     <CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;$(TempPath)\EmailModule*">
       <Output ItemName="_libFiles" TaskParameter="Include" />
