@@ -35,11 +35,11 @@
   <ItemGroup>
     <Reference Include="DevExpress.EasyTest.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.EasyTest.v14.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v14.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DevExpress 14.1\Components\Bin\Framework\DevExpress.ExpressApp.EasyTest.WinAdapter.v14.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
