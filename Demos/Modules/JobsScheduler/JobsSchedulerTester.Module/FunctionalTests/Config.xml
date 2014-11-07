@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
-	<Applications>
-		<!-- Win -->
-		<Application
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+  <Applications>
+    <!-- Win -->
+    <Application
 			Name="JobsSchedulerTester.Win"
 			FileName="[WinAppBin]\JobsSchedulerTester.Win.exe"
-			AdapterAssemblyName="[WinAdapterAssemblyName]"
-			CommunicationPort="4100"/>
-		<!-- Web -->
-		<Application
+      AdapterFileName="[WinAdapterFileName]"
+			CommunicationPort="4100" AdditionalApplications="[ConfigPath]\..\..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\bin\EasyTest\Xpand.Quartz.Server.exe"/>
+    <!-- Web -->
+    <Application
 			Name="JobsSchedulerTester.Web"
-			Url="http://localhost:50013"
+			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
-		<!-- For IIS -->
-		<!--Application
-			Name="JobsSchedulerTester.Web"
-			Url="http://localhost/JobsSchedulerTester.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
-	</Applications>
-	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="JobsSchedulerTesterEasyTest" />
-	</TestDatabases>
-
-	<Aliases>
-		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.1.8.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.1.8.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\JobsSchedulerTester.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\JobsSchedulerTester.Web" />
-	</Aliases>
+      AdapterFileName="[WebAdapterFileName]"
+/>
+    <!-- For IIS -->
+    <!--Application
+			Name="[SolutionName]Web"
+			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
+			 AdapterFileName="[WebAdapterFileName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="JobsSchedulerTesterEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="Quartz" />
+  </TestDatabases>
+  <Aliases>
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\JobsSchedulerTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\JobsSchedulerTester.Web" />
+  </Aliases>
 </Options>

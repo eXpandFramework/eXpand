@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ using Xpand.ExpressApp.EasyTest.WinAdapter;
 namespace Xpand.ExpressApp.EasyTest.WinAdapter {
     public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter,IXpandTestWinAdapter {
         private WinEasyTestCommandAdapter _easyTestCommandAdapter;
+        private static List<Process> _additionalProcesses;
 
         public override void RegisterCommands(IRegisterCommand registrator) {
             base.RegisterCommands(registrator);
@@ -27,6 +29,9 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                 _easyTestCommandAdapter.Disconnect();
             }
             CloseApplication(mainProcess,true);
+            foreach (var additionalProcess in _additionalProcesses){
+                CloseApplication(additionalProcess, true);
+            }
         }
 
         void CloseApplication(Process process, bool force) {
@@ -84,15 +89,39 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             }
         }
 
-        protected override void InternalRun(string appName, string arguments){
+        public override void RunApplication(TestApplication testApplication){
+            string appName=testApplication.GetParamValue("FileName");
+            var directoryName = DeleteUserModel(appName);
+            DeleteLogonParametersFile(directoryName);
+            RunAdditionalApps(testApplication);
+            base.RunApplication(testApplication);
+        }
+
+        private static void RunAdditionalApps(TestApplication testApplication){
+            _additionalProcesses = new List<Process>();
+            var additionalApps = testApplication.ParameterValue<string>("AdditionalApplications");
+            if (!string.IsNullOrEmpty(additionalApps))
+                foreach (var app in additionalApps.Split(';')) {
+                    var fullPath = Path.GetFullPath(app);
+                    var process = new Process { StartInfo = new ProcessStartInfo(fullPath) };
+                    process.Start();
+                    _additionalProcesses.Add(process);
+                }
+
+        }
+
+        private string DeleteUserModel(string appName){
             var directoryName = Path.GetDirectoryName(appName) + "";
-            foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
+            foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()){
                 File.Delete(file);
             }
+            return directoryName;
+        }
+
+        private void DeleteLogonParametersFile(string directoryName){
             var logonparameters = Path.Combine(directoryName, "logonparameters");
             if (File.Exists(logonparameters))
                 File.Delete(logonparameters);
-            base.InternalRun(appName, arguments);
         }
 
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType){

@@ -11,6 +11,7 @@ using Quartz.Impl.Calendar;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.JobScheduler {
     public interface IModelOptionsJobScheduler:IModelOptions {
@@ -51,7 +52,9 @@ namespace Xpand.ExpressApp.JobScheduler {
                 return;
             var stdSchedulerFactory = new XpandSchedulerFactory(Application);
             stdSchedulerFactory.Initialize();
-            _scheduler = stdSchedulerFactory.GetScheduler();
+            Retry.Do(() => {
+                _scheduler = stdSchedulerFactory.GetScheduler();
+            }, TimeSpan.FromSeconds(10));
         }
 
         bool Enabled() {
@@ -59,13 +62,13 @@ namespace Xpand.ExpressApp.JobScheduler {
             return modelOptionsJobScheduler != null && modelOptionsJobScheduler.JobScheduler;
         }
 
-
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
             if (disposing && Scheduler is StdScheduler) {
                 Scheduler.Shutdown();
             }
         }
+
         IScheduler _scheduler;
         public IScheduler Scheduler {
             get { return _scheduler; }

@@ -225,7 +225,6 @@
   </Target>
   <Target Name="DBUpdate">
     <Copy SourceFiles="$(DBUpdaterPath)\$(DBUpdaterName)" DestinationFolder="$(DBUpdaterFolder)"/>
-    <MSBuild.ExtensionPack.Computer.EnvironmentVariable TaskAction="Set" Variable="XpandRootPath" Value="$(XpandDLLPath)"/>
     <Exec Command="$(DBUpdaterName) -silent $(DBUpdaterConfig) $(DBUpdaterDll) >$(OutputFile)" WorkingDirectory="$(DBUpdaterFolder)" ContinueOnError="true">
       <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
     </Exec>
@@ -253,6 +252,7 @@
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>
   <Target Name="BuildEasyTest" Condition="'@(EasyTests->Count())'!='1'">
+	<!---->
 	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
   </Target>

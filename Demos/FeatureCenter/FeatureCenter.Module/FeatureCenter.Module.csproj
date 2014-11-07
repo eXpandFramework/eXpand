@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -224,9 +225,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ImportExport\AnalysisObjects\AttributeRegistrator.cs" />
-    <Compile Include="JobScheduler\CreateEmailTemplateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DetailViewControl\ConditionalDetailViews\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\DetailView\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
@@ -241,7 +239,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs"></Compile>
+    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
+    </Compile>
     <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
     <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
       <SubType>Component</SubType>
@@ -327,7 +326,8 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
+    </Compile>
     <Compile Include="DisplayUpdateStatementController.cs">
       <SubType>Component</SubType>
     </Compile>

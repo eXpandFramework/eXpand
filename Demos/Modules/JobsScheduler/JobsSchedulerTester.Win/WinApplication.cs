@@ -1,7 +1,11 @@
+#if !EASYTEST
 using System;
+#endif
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Security.Core;
 
 namespace JobsSchedulerTester.Win {
     public partial class JobsSchedulerTesterWindowsFormsApplication : WinApplication {
@@ -9,6 +13,7 @@ namespace JobsSchedulerTester.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersReading += OnLastLogonParametersReading;
+            this.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -22,10 +27,11 @@ namespace JobsSchedulerTester.Win {
             return "en-US";
         }
 #endif
+
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }
-        private void JobsSchedulerTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
+        private void JobsSchedulerTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST
 			e.Updater.Update();
 			e.Handled = true;

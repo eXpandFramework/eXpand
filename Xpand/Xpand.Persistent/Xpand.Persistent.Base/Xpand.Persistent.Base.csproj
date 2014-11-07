@@ -356,7 +356,6 @@
     <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />
     <Compile Include="JobScheduler\Triggers\IJobSchedulerGroupTriggerLink.cs" />
     <Compile Include="JobScheduler\Triggers\IJobTriggerTriggerListenerTriggerLink.cs" />
-    <Compile Include="JobScheduler\Triggers\INthIncludedDayTrigger.cs" />
     <Compile Include="JobScheduler\ISupportSchedulerLink.cs" />
     <Compile Include="JobScheduler\IXpandJob.cs" />
     <Compile Include="JobScheduler\IXpandJobDetail.cs" />

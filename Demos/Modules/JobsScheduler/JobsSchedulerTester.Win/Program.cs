@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 
 namespace JobsSchedulerTester.Win {
     static class Program {

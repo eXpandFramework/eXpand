@@ -24,10 +24,8 @@ namespace Xpand.Persistent.Base.General {
                 .Build();
             xafApplication.ConnectionString = connectionString;
             xafApplication.Setup();
-            var objectSpaceProvider = ((IXpandObjectSpaceProvider)xafApplication.ObjectSpaceProvider);
-            if (objectSpaceProvider.WorkingDataLayer == null) {
-                using (objectSpaceProvider.CreateObjectSpace()) {
-                }
+            if (!string.IsNullOrEmpty(connectionString)) {
+                xafApplication.CheckCompatibility();
             }
             return xafApplication;
         }
