@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         bool _inGetFocusedObject;
 
         public SelectionType SelectionType {
-            get { return SelectionType.FocusedObject | SelectionType.MultipleSelection; }
+            get { return SelectionType.Full; }
         }
 
         public object GetFocusedObject(CollectionSourceBase collectionSource) {

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="Master_Details_ListView" AllowEdit="True" NewItemRowPosition="Top" AutoCommitWhenNested="True" />
+    <DetailView Id="Master_DetailView" ViewEditMode="Edit" />
+    <ListView Id="Master_ListView" AllowEdit="True" NewItemRowPosition="Top" MasterDetailMode="ListViewAndDetailView" ShowSelectionColumn="False" />
+  </Views>
+</Application>

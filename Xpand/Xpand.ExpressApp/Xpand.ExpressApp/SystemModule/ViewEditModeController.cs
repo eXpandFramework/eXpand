@@ -33,7 +33,13 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs e){
-            UpdateView(e.View);
+            e.View.ControlsCreated+=ViewOnControlsCreated;
+        }
+
+        private void ViewOnControlsCreated(object sender, EventArgs eventArgs){
+            var view = ((View) sender);
+            view.ControlsCreated-=ViewOnControlsCreated;
+            UpdateView((DetailView) view);
         }
 
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e){

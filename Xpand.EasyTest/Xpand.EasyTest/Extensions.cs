@@ -171,6 +171,7 @@ namespace Xpand.EasyTest {
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
+                {typeof (XpandSelectRecordsCommand), XpandSelectRecordsCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
             };

@@ -148,6 +148,9 @@
     <Compile Include="Model\QueryStringParameter.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
+    <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\MasterDetail\MasterDetailKeyFieldController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,9 +168,6 @@
     </Compile>
     <Compile Include="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Core\ListViewExtensions.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
     <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
@@ -310,6 +310,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

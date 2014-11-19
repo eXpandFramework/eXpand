@@ -9,7 +9,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.ExpressApp.Xpo;
 
 //using DevExpress.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
@@ -31,6 +30,10 @@ namespace SystemTester.Web{
             if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
                 e.SettingsStorage.SaveOption("", "UserName", "Admin");
             }
+        }
+
+        protected override bool SupportMasterDetailMode{
+            get { return true; }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){

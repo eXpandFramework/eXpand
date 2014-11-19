@@ -22,7 +22,6 @@
   </Applications>
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="JobsSchedulerTesterEasyTest" />
-    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="Quartz" />
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

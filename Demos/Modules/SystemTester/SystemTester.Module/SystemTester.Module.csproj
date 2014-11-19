@@ -47,6 +47,7 @@
     <Reference Include="CommandLine">
       <HintPath>..\..\..\..\Support\_third_party_assemblies\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v14.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

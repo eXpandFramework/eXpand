@@ -3,7 +3,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 
-namespace Xpand.ExpressApp.Win.Core {
+namespace Xpand.Persistent.Base.General {
     public static class ListViewExtensions {
         public static CriteriaOperator GetTotalCriteria(this ListView xpandListView) {
             xpandListView.SaveModel();
@@ -13,7 +13,8 @@ namespace Xpand.ExpressApp.Win.Core {
         }
 
         public static bool IsNested(this ListView xpandListView, Frame frame) {
-            return (frame.Template == null);
+            return frame is NestedFrame;
         }
+
     }
 }

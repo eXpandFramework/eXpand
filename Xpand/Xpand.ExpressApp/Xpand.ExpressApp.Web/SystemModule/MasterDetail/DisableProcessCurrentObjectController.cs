@@ -4,12 +4,12 @@ using Xpand.ExpressApp.Web.Layout;
 
 namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
     public class DisableProcessCurrentObjectController : ViewController<ListView> {
-        private const string STR_DisableProcessCurrentObjectController = "DisableProcessCurrentObjectController";
+        private const string StrDisableProcessCurrentObjectController = "DisableProcessCurrentObjectController";
         public DisableProcessCurrentObjectController() {
             TargetViewType = ViewType.ListView;
         }
         protected override void OnDeactivated() {
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = IsMasterDetail;
+            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = IsMasterDetail;
             base.OnDeactivated();
         }
 
@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[STR_DisableProcessCurrentObjectController] = !IsMasterDetail;
+            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = !IsMasterDetail;
         }
     }
 }

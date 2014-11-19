@@ -104,6 +104,7 @@
     <Compile Include="Commands\XpandFillFormCommand.cs" />
     <Compile Include="Commands\XpandHandleDialogCommand.cs" />
     <Compile Include="Commands\XpandProcessRecordCommand.cs" />
+    <Compile Include="Commands\XpandSelectRecordsCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />
@@ -119,7 +120,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild"></Target>
+  <Target Name="BeforeBuild">
+  </Target>
   <!--  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">-->
   <!--  </Import>-->
   <!--  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">-->

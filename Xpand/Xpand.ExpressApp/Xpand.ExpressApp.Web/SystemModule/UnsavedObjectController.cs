@@ -96,8 +96,8 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             return true;
         }
 
-        protected void AdjustUIForMode(ViewEditMode EditMode) {
-            if (EditMode == ViewEditMode.Edit) {
+        protected void AdjustUIForMode(ViewEditMode editMode) {
+            if (editMode == ViewEditMode.Edit) {
                 Frame.GetController<WebModificationsController>().CancelAction.Executing += HandleDetailActions;
                 Frame.GetController<WebModificationsController>().SaveAction.Executing += HandleDetailActions;
                 Frame.GetController<WebModificationsController>().SaveAndCloseAction.Executing += HandleDetailActions;
@@ -109,11 +109,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 Frame.GetController<WebModificationsController>().SaveAndNewAction.Executing -= HandleDetailActions;
             }
 
-            Frame.GetController<WebRecordsNavigationController>().Active[ActionActiveID] = EditMode == ViewEditMode.View;
-            Frame.GetController<RefreshController>().Active[ActionActiveID] = EditMode == ViewEditMode.View;
-            Frame.GetController<WebNewObjectViewController>().Active[ActionActiveID] = EditMode == ViewEditMode.View;
-            Frame.GetController<WebDeleteObjectsViewController>().Active[ActionActiveID] = EditMode == ViewEditMode.View;
-            Frame.GetController<CloneObjectViewController>().Active[ActionActiveID] = EditMode == ViewEditMode.View;
+            Frame.GetController<WebRecordsNavigationController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
+            Frame.GetController<RefreshController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
+            Frame.GetController<WebNewObjectViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
+            Frame.GetController<WebDeleteObjectsViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
+            Frame.GetController<CloneObjectViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

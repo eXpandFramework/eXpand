@@ -150,6 +150,7 @@
     <Compile Include="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\ListViewExtensions.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs">
       <SubType>Component</SubType>

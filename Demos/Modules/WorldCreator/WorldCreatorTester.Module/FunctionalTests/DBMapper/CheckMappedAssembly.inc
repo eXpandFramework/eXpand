@@ -1,11 +1,11 @@
 ﻿*ReopenApplication
 *Action Log On
-*Action Navigation(WCDBMapperTester.TestTable)
+*Action Navigation(WCDBMapper.TestTable)
 *Action New(Test Table)
 *FillForm
  Name = Tolis
 *Action Save and Close
-*Action Navigation(WCDBMapperTester.TestTable)
+*Action Navigation(WCDBMapper.TestTable)
 *CheckTable
  Columns = Name
  Row[0] = Tolis*
