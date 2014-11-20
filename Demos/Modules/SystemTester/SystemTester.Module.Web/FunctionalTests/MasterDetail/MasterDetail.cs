@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module.Web.FunctionalTests.MasterDetail {

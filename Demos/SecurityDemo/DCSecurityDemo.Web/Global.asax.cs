@@ -4,7 +4,7 @@ using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 
 namespace DCSecurityDemo.Web {
 	public class Global : HttpApplication {

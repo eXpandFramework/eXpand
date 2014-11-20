@@ -8,13 +8,11 @@ using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Layout;
-using DevExpress.Web.ASPxCallbackPanel;
-using DevExpress.Web.ASPxGridView;
-using DevExpress.Web.ASPxSplitter;
+using DevExpress.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using System.Collections.Generic;
-using DevExpress.Web.ASPxClasses.Internal;
+using DevExpress.Web.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.ListEditors;
@@ -179,7 +177,7 @@ namespace Xpand.ExpressApp.Web.Layout {
             return updatePanel;
         }
 
-        void updatePanel_CustomJSProperties(object sender, DevExpress.Web.ASPxClasses.CustomJSPropertiesEventArgs e) {
+        void updatePanel_CustomJSProperties(object sender, DevExpress.Web.CustomJSPropertiesEventArgs e) {
 
             Page page = WebWindow.CurrentRequestPage;
             var updatePanels = new List<XafUpdatePanel>();

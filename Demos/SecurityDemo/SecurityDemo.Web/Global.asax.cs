@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.TestScripts;
 using SecurityDemo.Module;
 using DevExpress.ExpressApp.Web.Demos;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;

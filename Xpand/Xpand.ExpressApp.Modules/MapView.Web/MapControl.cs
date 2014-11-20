@@ -5,8 +5,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Web.UI.HtmlControls;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxClasses.Internal;
+using DevExpress.Web;
+using DevExpress.Web.Internal;
 using Xpand.ExpressApp.Web.Layout;
 using System.Linq;
 

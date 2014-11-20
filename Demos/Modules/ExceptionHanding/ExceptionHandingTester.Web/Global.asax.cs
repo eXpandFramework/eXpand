@@ -7,7 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 
 namespace ExceptionHandingTester.Web {
     public class Global : System.Web.HttpApplication {

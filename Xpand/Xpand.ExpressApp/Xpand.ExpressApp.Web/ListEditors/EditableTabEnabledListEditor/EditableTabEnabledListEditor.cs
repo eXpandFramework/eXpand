@@ -13,9 +13,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxCallbackPanel;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{

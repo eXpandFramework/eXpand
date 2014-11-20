@@ -9,7 +9,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using System.Linq;
 using Fasterflect;
 

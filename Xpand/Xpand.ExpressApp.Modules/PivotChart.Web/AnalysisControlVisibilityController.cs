@@ -1,5 +1,5 @@
 using DevExpress.ExpressApp.PivotChart.Web;
-using DevExpress.Web.ASPxTabControl;
+using DevExpress.Web;
 using Xpand.ExpressApp.PivotChart.AnalysisControlVisibility;
 using AnalysisControlWeb = Xpand.ExpressApp.PivotChart.Web.Editors.AnalysisControlWeb;
 using AnalysisEditorWeb = Xpand.ExpressApp.PivotChart.Web.PropertyEditors.AnalysisEditorWeb;

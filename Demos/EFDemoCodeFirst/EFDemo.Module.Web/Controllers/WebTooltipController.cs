@@ -2,7 +2,7 @@ using System;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 
 namespace EFDemo.Module.Web.Controllers {
     public partial class WebTooltipController : ViewController {

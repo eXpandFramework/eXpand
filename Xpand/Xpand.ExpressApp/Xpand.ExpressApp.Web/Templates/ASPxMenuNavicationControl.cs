@@ -10,9 +10,9 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers;
-using DevExpress.Web.ASPxMenu;
-using MenuItem = DevExpress.Web.ASPxMenu.MenuItem;
-using MenuItemCollection = DevExpress.Web.ASPxMenu.MenuItemCollection;
+using DevExpress.Web;
+using MenuItem = DevExpress.Web.MenuItem;
+using MenuItemCollection = DevExpress.Web.MenuItemCollection;
 
 namespace Xpand.ExpressApp.Web.Templates{
     public class CreateCustomGroupControlEventArgs : EventArgs{

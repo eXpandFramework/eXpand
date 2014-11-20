@@ -11,7 +11,7 @@ using DevExpress.CodeParser.JavaScript;
 using DevExpress.CodeParser.VB;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors.Internal;
+using DevExpress.Web.Internal;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 

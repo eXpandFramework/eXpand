@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.ExpressApp.Core.DynamicModel;
 using Xpand.ExpressApp.SystemModule;
 

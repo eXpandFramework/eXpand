@@ -4,7 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.HtmlPropertyEditor.Web;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using DevExpress.Web.ASPxHtmlEditor;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             var interfaceBuilderData = new InterfaceBuilderData(typeof (ASPxHtmlEditor)){
                 Act = info => {
-                    if (new[] { typeof(DevExpress.Web.ASPxUploadControl.ValidationSettings), typeof(DevExpress.Web.ASPxUploadControl.ValidationSettings) }
+                    if (new[] { typeof(DevExpress.Web.UploadControlValidationSettings), typeof(DevExpress.Web.UploadControlValidationSettings) }
                             .Any(type => type.IsAssignableFrom(info.PropertyType))) {
                         return true;
                     }

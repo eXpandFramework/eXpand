@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class SerializedListBoxTemplate : ASPxListBox, ITemplate {

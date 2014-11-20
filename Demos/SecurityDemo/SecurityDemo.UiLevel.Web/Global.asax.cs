@@ -6,7 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Demos;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using SecurityDemo.Module;
 using SecurityDemo.UiLevel.Web.ApplicationCode;
 

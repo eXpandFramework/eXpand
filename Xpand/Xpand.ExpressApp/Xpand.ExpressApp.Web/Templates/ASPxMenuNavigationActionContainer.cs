@@ -10,8 +10,7 @@ using DevExpress.ExpressApp.Templates.ActionContainers;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 using DevExpress.ExpressApp.Web.TestScripts;
-using DevExpress.Web.ASPxMenu;
-using DevExpress.Web.ASPxPanel;
+using DevExpress.Web;
 
 namespace Xpand.ExpressApp.Web.Templates{
     [ToolboxItem(false)]

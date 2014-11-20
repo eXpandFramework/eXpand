@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 
 namespace DCSecurityDemo.UiLevel.Web {
 	public class Global : System.Web.HttpApplication {

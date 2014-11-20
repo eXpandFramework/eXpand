@@ -3,7 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Web;
 using DevExpress.ExpressApp.Web;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using FeatureCenter.Web.ApplicationCode;
 
 namespace FeatureCenter.Web{

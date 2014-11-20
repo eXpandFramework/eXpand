@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using DevExpress.XtraScheduler.Localization;
 using DevExpress.XtraScheduler.Native;
 using System;

@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxEditors.FilterControl;
+using DevExpress.Web.FilterControl;
 using DevExpress.XtraCharts.Native;
 using Xpand.ExpressApp.PivotChart.Web.Editors;
 

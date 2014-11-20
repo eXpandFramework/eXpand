@@ -2,10 +2,9 @@
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DevExpress.Web.ASPxClasses.Internal;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web.Internal;
+using DevExpress.Web;
 using DevExpress.Web.ASPxHtmlEditor;
-using DevExpress.Web.ASPxUploadControl;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {

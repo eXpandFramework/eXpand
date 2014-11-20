@@ -51,10 +51,10 @@
       <Private>True</Private>
       <HintPath>..\..\Support\_third_party_assemblies\Packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.Data.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.EasyTest.v14.1">
+    <Reference Include="DevExpress.EasyTest.v14.2">
       <SpecificVersion>False</SpecificVersion>
       
     </Reference>

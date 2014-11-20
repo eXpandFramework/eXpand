@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using Xpand.ExpressApp.Security.Core;
 
 namespace SystemTester.Web {

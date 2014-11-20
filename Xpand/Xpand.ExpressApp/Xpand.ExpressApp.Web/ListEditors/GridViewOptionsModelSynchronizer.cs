@@ -1,5 +1,5 @@
 ﻿using DevExpress.ExpressApp.Model;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.Web.ListEditors

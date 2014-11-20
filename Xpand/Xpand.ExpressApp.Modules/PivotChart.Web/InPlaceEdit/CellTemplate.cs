@@ -1,6 +1,6 @@
 ﻿using System.Web.UI;
 using System.Web.UI.WebControls;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using DevExpress.Web.ASPxPivotGrid;
 
 namespace Xpand.ExpressApp.PivotChart.Web.InPlaceEdit {

@@ -1,7 +1,5 @@
 using System;
-using DevExpress.Web.ASPxPanel;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using System.Collections.Generic;
 
 

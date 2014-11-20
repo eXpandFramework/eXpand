@@ -14,7 +14,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using Xpand.Xpo.Parser;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {

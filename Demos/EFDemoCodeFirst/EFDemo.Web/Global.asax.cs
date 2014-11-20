@@ -8,7 +8,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Persistent.AuditTrail;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using EFDemo.Module;
 using EFDemo.Module.Data;
 

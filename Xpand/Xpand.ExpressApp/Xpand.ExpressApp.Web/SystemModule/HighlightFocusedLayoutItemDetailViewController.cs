@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 using Xpand.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {

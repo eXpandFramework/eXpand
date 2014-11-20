@@ -5,7 +5,7 @@ namespace Xpand.ExpressApp.Web.Core
     {
         public DynamicDouplicateTypesMapper() {
             Add(typeof(DevExpress.Utils.DefaultBoolean),typeof(eXpandDefaultBoolean));
-            Add(typeof(DevExpress.Web.ASPxGridView.ColumnFilterMode), typeof(eXpandColumnFilterMode));
+            Add(typeof(DevExpress.Web.ColumnFilterMode), typeof(eXpandColumnFilterMode));
         }
     }
 

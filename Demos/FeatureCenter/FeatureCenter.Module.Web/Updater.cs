@@ -1,7 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
 namespace FeatureCenter.Module.Web {

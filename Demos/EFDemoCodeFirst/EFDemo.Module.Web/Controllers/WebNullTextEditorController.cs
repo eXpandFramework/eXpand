@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Editors;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using DevExpress.ExpressApp.Utils;
 
 namespace EFDemo.Module.Web.Controllers {

@@ -2,7 +2,7 @@ using System;
 using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
-using DevExpress.Web.ASPxClasses;
+using DevExpress.Web;
 
 namespace IOTester.Web {
     public class Global : HttpApplication {
