@@ -2,6 +2,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.XtraGrid.Columns;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
@@ -33,11 +34,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             extenders.Add<IModelColumn, IModelColumnOptionsGridView>();
 
             var builder = new InterfaceBuilder(extenders);
-            var assembly = BuildAssembly(builder, typeof(XafGridView), typeof(XafGridColumn));
+            var assembly = BuildAssembly(builder, typeof(XafGridView), typeof(GridColumn));
 
 
             builder.ExtendInteface<IModelOptionsGridView, XafGridView>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnGridView, XafGridColumn>(assembly);
+            builder.ExtendInteface<IModelOptionsColumnGridView, GridColumn>(assembly);
 
             ExtendWithFont(extenders, builder, assembly);
         }

@@ -1,20 +1,22 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
     public class WinToolTipsController : ToolTipsController {
         protected override void SetListViewToolTips() {
-            var editor = ((ListView)View).Editor as ColumnsListEditor;
+            var editor = ((ListView)View).Editor as WinColumnsListEditor;
             if (editor != null) {
-                foreach (ColumnWrapper columnWrapper in editor.Columns) {
-                    var column = columnWrapper.Column();
-                    if (column != null && TooltipCalculator.HasToolTip(column.Model()))
-                        column.ToolTip = TooltipCalculator.GetToolTip(column.Model());
-                }
+                if (editor.Columns != null)
+                    foreach (var columnWrapper in editor.Columns) {
+                        var column = columnWrapper.Column();
+                        if (column != null && TooltipCalculator.HasToolTip(column.Model()))
+                            column.ToolTip = TooltipCalculator.GetToolTip(column.Model());
+                    }
             }
         }
 

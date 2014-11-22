@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            var columnsListEditor = View.Editor as ColumnsListEditor;
+            var columnsListEditor = View.Editor as WinColumnsListEditor;
             if (columnsListEditor != null){
                 _gridView = columnsListEditor.GridView();
                 if (_gridView != null){

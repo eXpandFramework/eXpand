@@ -5,13 +5,12 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
@@ -60,10 +59,8 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         protected virtual DevExpress.XtraGrid.Views.Grid.GridView GridView {
             get {
                 if (View != null) {
-                    var gridListEditor = View.Editor as ColumnsListEditor;
+                    var gridListEditor = View.Editor as WinColumnsListEditor;
                     if (gridListEditor != null) return gridListEditor.GridView();
-                    var columnViewEditor = View.Editor as IColumnViewEditor;
-                    if (columnViewEditor != null) return columnViewEditor.ColumnView as DevExpress.XtraGrid.Views.Grid.GridView;
                 }
                 return null;
             }

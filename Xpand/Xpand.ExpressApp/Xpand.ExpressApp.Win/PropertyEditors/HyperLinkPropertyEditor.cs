@@ -20,7 +20,7 @@ using ListView = DevExpress.ExpressApp.ListView;
 namespace Xpand.ExpressApp.Win.PropertyEditors {
 
     public class HyperLinkGridListViewController : ViewController {
-        ColumnsListEditor _gridListEditor;
+        WinColumnsListEditor _gridListEditor;
 
         public HyperLinkGridListViewController() {
             TargetViewType = ViewType.ListView;
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            _gridListEditor = ((ListView)View).Editor as ColumnsListEditor;
+            _gridListEditor = ((ListView)View).Editor as WinColumnsListEditor;
             if (_gridListEditor != null) {
                 GridView gridView = _gridListEditor.GridView();
                 if (gridView != null) gridView.MouseDown += GridView_MouseDown;

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Web.UI;
 using DevExpress.ExpressApp;
@@ -95,9 +94,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 object obj = templateContainer.Grid.GetRow(templateContainer.VisibleIndex);
                 var detailView = _xafApplication.CreateDetailView(_objectSpace, _modelListViewPreviewRowDetailView.PreviewRowDetailView, false, obj);
                 if (_controllerTypes == null || _controllerTypes.Any()) {
-                    Collection<Controller> controllers=null;
+                    System.Collections.ObjectModel.Collection<Controller> controllers=null;
                     if (_controllerTypes!=null) {
-                        controllers = new Collection<Controller>(_controllerTypes.Select(type => type.CreateInstance()).Cast<Controller>().ToList());
+                        controllers = new System.Collections.ObjectModel.Collection<Controller>(_controllerTypes.Select(type => type.CreateInstance()).Cast<Controller>().ToList());
                     }
                     _window = _xafApplication.CreateWindow(TemplateContext.View, controllers, controllers==null, true);
                     _window.SetView(detailView);

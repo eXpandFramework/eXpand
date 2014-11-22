@@ -19,6 +19,7 @@ using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
@@ -177,7 +178,7 @@ namespace Xpand.ExpressApp.Web.Layout {
             return updatePanel;
         }
 
-        void updatePanel_CustomJSProperties(object sender, DevExpress.Web.CustomJSPropertiesEventArgs e) {
+        void updatePanel_CustomJSProperties(object sender, CustomJSPropertiesEventArgs e) {
 
             Page page = WebWindow.CurrentRequestPage;
             var updatePanels = new List<XafUpdatePanel>();

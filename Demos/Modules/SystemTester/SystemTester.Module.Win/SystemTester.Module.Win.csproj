@@ -294,7 +294,6 @@
     <Content Include="FunctionalTests\FullTextContains\ListEditors_FilterEditor_Appearence.inc" />
     <Content Include="FunctionalTests\FullTextContains\When ObjectSpace Query.inc" />
     <Content Include="FunctionalTests\GridView\Config.xml" />
-    <Content Include="FunctionalTests\GridView\Can create unbound column.inc" />
     <Content Include="FunctionalTests\GridView\Init.inc" />
     <Content Include="FunctionalTests\PreventDataLoading\Config.xml" />
     <Content Include="FunctionalTests\PreventDataLoading\Filter Not Empty.inc" />

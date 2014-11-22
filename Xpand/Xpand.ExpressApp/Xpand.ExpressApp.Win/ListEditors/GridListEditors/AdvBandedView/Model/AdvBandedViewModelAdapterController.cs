@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using System.Linq;
+using DevExpress.XtraGrid.Views.BandedGrid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -23,12 +24,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
             var builder = new InterfaceBuilder(extenders);
 
             var columnViewType = typeof(AdvBandedGridView);
-            var interfaceBuilderDatas = GetInterfaceBuilderData(columnViewType, typeof(AdvBandedGridColumn)).ToList();
+            var interfaceBuilderDatas = GetInterfaceBuilderData(columnViewType, typeof(BandedGridColumn)).ToList();
             interfaceBuilderDatas.Add(GetData(typeof(GridBand), typeof(DevExpress.XtraGrid.Views.BandedGrid.GridBand)));
             var assembly = builder.Build(interfaceBuilderDatas, GetPath(columnViewType.Name));
 
             builder.ExtendInteface<IModelOptionsAdvBandedView, AdvBandedGridView>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnAdvBandedView, AdvBandedGridColumn>(assembly);
+            builder.ExtendInteface<IModelOptionsColumnAdvBandedView, BandedGridColumn>(assembly);
             builder.ExtendInteface<IModelGridBand, GridBand>(assembly);
 
             ExtendWithFont(extenders, builder, assembly);

@@ -1,13 +1,13 @@
 using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
+using DevExpress.ExpressApp.Win.Editors;
 
 namespace Xpand.ExpressApp.Validation.Win.Controllers {
     public class CustomizeErrorMessageColumnController : DevExpress.ExpressApp.Validation.Win.CustomizeErrorMessageColumnController {
 
-        void SetupGridView(GridListEditorBase columnViewEditor) {
-            var gridView = columnViewEditor.GridView as XpandGridView;
+        void SetupGridView(WinColumnsListEditor columnViewEditor) {
+            var gridView = columnViewEditor.ColumnView as XafGridView;
             if ((gridView != null) && (columnViewEditor.DataSource != null)) {
                 gridView.OptionsView.ShowIndicator = false;
                 var errorMessages = new ErrorMessages();
@@ -19,16 +19,16 @@ namespace Xpand.ExpressApp.Validation.Win.Controllers {
         }
 
         void Editor_ControlsCreated(object sender, EventArgs e) {
-            SetupGridView((GridListEditorBase)sender);
+            SetupGridView((WinColumnsListEditor)sender);
         }
 
         void Editor_DataSourceChanged(object sender, EventArgs e) {
-            SetupGridView((GridListEditorBase)sender);
+            SetupGridView((WinColumnsListEditor)sender);
         }
 
         protected override void OnActivated() {
             var listEditor = ((ListView)View).Editor;
-            if (!(listEditor is GridListEditorBase)) {
+            if (!(listEditor is WinColumnsListEditor)) {
                 base.OnActivated();
                 return;
             }

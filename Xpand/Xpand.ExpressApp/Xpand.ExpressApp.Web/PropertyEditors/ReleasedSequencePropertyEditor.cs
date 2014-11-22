@@ -15,6 +15,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Web;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class ReleaseSequencePopupWindowHelper : ExpressApp.Editors.ReleaseSequencePopupWindowHelper {
@@ -31,10 +32,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
     [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), false)]
     public class ReleasedSequencePropertyEditor : ASPxObjectPropertyEditorBase, IRegisterClientScript, IReleasedSequencePropertyEditor {
 
-        private ObjectEditorHelper helper;
-        private PopupWindowShowAction objectWindowAction;
-        private ASPxButtonEdit control;
-        private bool buttonEditTextEnabled = true;
+        private ObjectEditorHelper _helper;
+        private PopupWindowShowAction _objectWindowAction;
+        private ASPxButtonEdit _control;
+        private bool _buttonEditTextEnabled = true;
         readonly ReleaseSequencePopupWindowHelper _popupWindowHelper = new ReleaseSequencePopupWindowHelper();
         private void DialogController_Cancelling(object sender, EventArgs e) {
             var controller = ((DialogController)sender);
@@ -57,12 +58,12 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             ((PopupWindow)args.PopupWindow).ClosureScript = "if(window.opener != null) window.opener.resultObject = '" + (displayValue != null ? displayValue.Replace("'", "\\'") : "") + "';";
         }
         private void SetButtonEditTextEnabled(bool value) {
-            if (buttonEditTextEnabled != value) {
-                buttonEditTextEnabled = value;
+            if (_buttonEditTextEnabled != value) {
+                _buttonEditTextEnabled = value;
                 if (value) {
-                    control.CssClass=control.CssClass.Replace(" dxDisabled", "");
+                    _control.CssClass=_control.CssClass.Replace(" dxDisabled", "");
                 } else {
-                    control.CssClass += " dxDisabled";
+                    _control.CssClass += " dxDisabled";
                 }
             }
         }
@@ -79,11 +80,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             string resultFunc = GetClientScript(editor);
             editor.Page.ClientScript.RegisterClientScriptBlock(GetType(), "ButtonEditScript" + editor.ClientID, resultFunc, true);
             string handler = string.Format("function Add_{0}_ButtonClickHandler(sender, e)", MemberInfo.Name.Replace(".", ""));
-            handler += "{" + application.PopupWindowManager.GenerateModalOpeningScript(editor, objectWindowAction, ASPxLookupPropertyEditor.WindowWidth, ASPxLookupPropertyEditor.WindowHeight, false, GetButtonEditProcessResultFunction()) + "; }";
+            handler += "{" + application.PopupWindowManager.GenerateModalOpeningScript(editor, _objectWindowAction, ASPxLookupPropertyEditor.WindowWidth, ASPxLookupPropertyEditor.WindowHeight, false, GetButtonEditProcessResultFunction()) + "; }";
             editor.ClientSideEvents.ButtonClick = handler;
         }
         private string GetButtonEditProcessResultFunction() {
-            return "ProcessObjectEditResult" + control.ClientID + "()";
+            return "ProcessObjectEditResult" + _control.ClientID + "()";
         }
         protected override object GetControlValueCore() {
             return MemberInfo.GetValue(CurrentObject);
@@ -92,37 +93,37 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return false;
         }
         protected override WebControl CreateEditModeControlCore() {
-            if (objectWindowAction == null) {
-                objectWindowAction = new PopupWindowShowAction(null, "ShowObjectDetailViewPopup", PredefinedCategory.Unspecified.ToString());
-                objectWindowAction.Execute += objectWindowAction_OnExecute;
-                objectWindowAction.CustomizePopupWindowParams += objectWindowAction_OnCustomizePopupWindowParams;
-                objectWindowAction.Application = application;
+            if (_objectWindowAction == null) {
+                _objectWindowAction = new PopupWindowShowAction(null, "ShowObjectDetailViewPopup", PredefinedCategory.Unspecified.ToString());
+                _objectWindowAction.Execute += objectWindowAction_OnExecute;
+                _objectWindowAction.CustomizePopupWindowParams += objectWindowAction_OnCustomizePopupWindowParams;
+                _objectWindowAction.Application = application;
             }
-            control = new ASPxButtonEdit { EnableClientSideAPI = true };
-            control.Load += buttonEdit_Load;
-            control.Buttons.Clear();
-            control.Buttons.Add("");
-            ASPxImageHelper.SetImageProperties(control.Buttons[0].Image, "Editor_Edit");
-            if (control.Buttons[0].Image.IsEmpty) {
-                control.Buttons[0].Text = "Edit";
+            _control = new ASPxButtonEdit { EnableClientSideAPI = true };
+            _control.Load += buttonEdit_Load;
+            _control.Buttons.Clear();
+            _control.Buttons.Add("");
+            ASPxImageHelper.SetImageProperties(_control.Buttons[0].Image, "Editor_Edit");
+            if (_control.Buttons[0].Image.IsEmpty) {
+                _control.Buttons[0].Text = "Edit";
             }
-            control.Enabled = true;
-            control.ReadOnly = true;
-            return control;
+            _control.Enabled = true;
+            _control.ReadOnly = true;
+            return _control;
         }
         protected override void Dispose(bool disposing) {
             try {
                 if (disposing) {
-                    if (objectWindowAction != null) {
-                        objectWindowAction.Execute -= objectWindowAction_OnExecute;
-                        objectWindowAction.CustomizePopupWindowParams -= objectWindowAction_OnCustomizePopupWindowParams;
-                        objectWindowAction.Dispose();
-                        objectWindowAction = null;
+                    if (_objectWindowAction != null) {
+                        _objectWindowAction.Execute -= objectWindowAction_OnExecute;
+                        _objectWindowAction.CustomizePopupWindowParams -= objectWindowAction_OnCustomizePopupWindowParams;
+                        _objectWindowAction.Dispose();
+                        _objectWindowAction = null;
                     }
-                    if (control != null) {
-                        control.Buttons.Clear();
-                        control.Dispose();
-                        control = null;
+                    if (_control != null) {
+                        _control.Buttons.Clear();
+                        _control.Dispose();
+                        _control = null;
                     }
                 }
             } finally {
@@ -135,14 +136,14 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         protected override void ApplyReadOnly() {
             if (Editor != null && Editor.Controls.Count > 0) {
                 SetButtonEditTextEnabled(AllowEdit);
-                control.Buttons[0].Enabled = PropertyValue != null || AllowEdit;
+                _control.Buttons[0].Enabled = PropertyValue != null || AllowEdit;
             }
         }
         protected override void ReadEditModeValueCore() {
-            control.Value = GetPropertyDisplayValue();
+            _control.Value = GetPropertyDisplayValue();
         }
         protected override string GetPropertyDisplayValue() {
-            return helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), EmptyValue, DisplayFormat);
+            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), EmptyValue, DisplayFormat);
         }
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -150,13 +151,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
         public override void Setup(IObjectSpace space, XafApplication app) {
             base.Setup(space, app);
-            if (helper == null) {
-                helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);
+            if (_helper == null) {
+                _helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);
             }
         }
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             if (!unwireEventsOnly) {
-                control = null;
+                _control = null;
             }
             base.BreakLinksToControl(unwireEventsOnly);
         }
@@ -164,8 +165,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         #region IRegisterClientScript Members
         public string GetClientScript() {
             string result = "";
-            if (control != null && ViewEditMode == ViewEditMode.Edit) {
-                result = GetClientScript(control);
+            if (_control != null && ViewEditMode == ViewEditMode.Edit) {
+                result = GetClientScript(_control);
             }
             return result;
         }

@@ -8,10 +8,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
     public class ModelDetailRelationCalculator {
         readonly IModelListView _modelListView;
-        readonly IMasterDetailColumnView _xafGridView;
+        readonly DevExpress.XtraGrid.Views.Grid.GridView _xafGridView;
         readonly List<MasterDetailRuleInfo> _masterDetailRules;
 
-        public ModelDetailRelationCalculator(IModelListView modelListView, IMasterDetailColumnView xafGridView, List<MasterDetailRuleInfo> masterDetailRules) {
+        public ModelDetailRelationCalculator(IModelListView modelListView, DevExpress.XtraGrid.Views.Grid.GridView xafGridView, List<MasterDetailRuleInfo> masterDetailRules) {
             _modelListView = modelListView;
             _xafGridView = xafGridView;
             _masterDetailRules = masterDetailRules;

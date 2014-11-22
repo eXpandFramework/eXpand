@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
@@ -99,7 +98,7 @@ Forms.DockStyle.None) {
                 Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
-            accept.Click += ((o, args) => ((ColumnsListEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
+            accept.Click += ((o, args) => ((WinColumnsListEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
             accept.Dock = Forms.DockStyle.Bottom;
             _filterControl.Controls.Add(accept);
 

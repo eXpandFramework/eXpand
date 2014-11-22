@@ -6,9 +6,9 @@ using DevExpress.Data;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraGrid;
@@ -16,7 +16,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Menu;
 using DevExpress.XtraGrid.Views.Grid;
 using Fasterflect;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -26,9 +26,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class GridListEditorEventController:ViewController<ListView>,IModelExtender{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            var columnsListEditor = View.Editor as ColumnsListEditor;
+            var columnsListEditor = View.Editor as WinColumnsListEditor;
             if (columnsListEditor != null){
-                var gridView = columnsListEditor.GridView();
+                var gridView = columnsListEditor.ColumnView as GridView;
                 if (gridView != null){
                     gridView.PopupMenuShowing+=GridViewOnPopupMenuShowing;
                     gridView.CustomSummaryCalculate+=GridViewOnCustomSummaryCalculate;

@@ -1,11 +1,8 @@
 ﻿using System.Linq;
-using DevExpress.Data.Summary;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraGrid.Columns;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 using GridViewModelSynchronizer = Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model.GridViewModelSynchronizer;
@@ -16,7 +13,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             : base(gridView, modelListView) {
             ModelSynchronizerList.Add(new GridViewViewOptionsSynchronizer(gridView, modelListView, overrideViewDesignMode));
             ModelSynchronizerList.Add(new GridViewColumnOptionsSynchroniser(gridView, modelListView));
-            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(gridView, modelListView));
             ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(gridView, modelListView));
         }
     }
@@ -53,31 +49,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             : base(columnViewEditor) {
         }
     }
-    public class XpandGridSummaryModelSynchronizer : GridSummaryModelSynchronizer {
-        public XpandGridSummaryModelSynchronizer(DevExpress.XtraGrid.Views.Grid.GridView gridView,IModelListView modelListView)
-            : base(gridView,modelListView ) {
-        }
-
-        protected override void RemoveGroupSummaryForProtectedColumns() {
-            for (int i = Control.GroupSummary.Count - 1; i >= 0; i--) {
-                ISummaryItem item = Control.GroupSummary[i];
-                foreach (GridColumn column in Control.Columns) {
-                    var xafGridColumn = column as XafGridColumn;
-                    if ((xafGridColumn != null) && xafGridColumn.FieldName == item.FieldName && !new XafGridColumnWrapper(xafGridColumn).AllowGroupingChange) {
-                        Control.GroupSummary.RemoveAt(i);
-                    }
-                }
-            }
-            var masterDetailXafGridView = Control as IColumnView;
-            if (masterDetailXafGridView != null) masterDetailXafGridView.CanFilterGroupSummaryColumns = true;
-        }
-    }
 
     #region XAF GridLstEditor stuff
     public class GridListEditorDynamicModelSynchronizer : ModelListSynchronizer {
         internal GridListEditorDynamicModelSynchronizer(GridListEditor columnViewEditor, IModelListView viewDesignMode,
                                                        bool overrideViewDesignMode)
-            : this(columnViewEditor.GridView, (IModelListViewOptionsGridView)viewDesignMode, overrideViewDesignMode) {
+            : this((XafGridView) columnViewEditor.GridView, (IModelListViewOptionsGridView)viewDesignMode, overrideViewDesignMode) {
             
         }
 
@@ -103,7 +80,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
     public class GridListEditorViewOptionsSynchronizer :
         ComponentSynchronizer<XafGridView, IModelOptionsGridView> {
         public GridListEditorViewOptionsSynchronizer(GridListEditor control, bool overrideViewDesignMode)
-            : base(control.GridView, ((IModelListViewOptionsGridView)control.Model).GridViewOptions, overrideViewDesignMode) {
+            : base((XafGridView) control.GridView, ((IModelListViewOptionsGridView)control.Model).GridViewOptions, overrideViewDesignMode) {
         }
 
         public GridListEditorViewOptionsSynchronizer(XafGridView control, IModelOptionsGridView modelNode, bool overrideViewDesignMode) : base(control, modelNode, overrideViewDesignMode) {

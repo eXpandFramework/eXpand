@@ -13,10 +13,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
             : base(columnViewEditor, columnViewEditor.Model) {
 
             ModelSynchronizerList.Add(new LayoutViewLayoutStoreSynchronizer(columnViewEditor));
-            ModelSynchronizerList.Add(new LayoutViewListEditorSynchronizer(columnViewEditor, columnViewEditor.Model));
+            ModelSynchronizerList.Add(new LayoutViewListEditorSynchronizer(columnViewEditor));
             ModelSynchronizerList.Add(new LayoutViewOptionsSynchronizer(columnViewEditor));
             ModelSynchronizerList.Add(new LayoutColumnOptionsSynchroniser(columnViewEditor));
-            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
+            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.ColumnView, columnViewEditor.Model));
 
         }
     }
@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
 
     public class LayoutViewOptionsSynchronizer : ComponentSynchronizer<XafLayoutView, IModelOptionsLayoutView> {
         public LayoutViewOptionsSynchronizer(LayoutViewListEditor layoutViewListEditor)
-            : base(layoutViewListEditor.GridView, layoutViewListEditor.Model.OptionsLayoutView, ((IColumnViewEditor)layoutViewListEditor).OverrideViewDesignMode) {
+            : base((XafLayoutView) layoutViewListEditor.ColumnView, layoutViewListEditor.Model.OptionsLayoutView, ((IColumnViewEditor)layoutViewListEditor).OverrideViewDesignMode) {
         }
         protected override object GetSynchronizeValuesNodeValue(ModelNode modelNode, ModelValueInfo valueInfo, PropertyDescriptor propertyDescriptor, bool isNullableType, object component) {
             var overrideViewDesignMode = OverrideViewDesignMode;
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
 
         protected override void ApplyModelCore() {
             base.ApplyModelCore();
-            foreach (GridColumn column in Control.GridView.Columns) {
+            foreach (GridColumn column in Control.ColumnView.Columns) {
                 column.OptionsColumn.AllowEdit = Control.Model.AllowEdit;
             }
         }
@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
         }
 
         protected override DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView() {
-            return Control.GridView;
+            return Control.ColumnView;
         }
 
         protected override IModelColumnViewColumnOptions GetColumnOptions(IModelColumnOptionsLayoutView modelColumnOptionsView) {

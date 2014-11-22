@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
@@ -19,9 +18,7 @@ using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.BandedGrid;
 using DevExpress.XtraGrid.Views.Base;
-using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 
@@ -35,37 +32,78 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
         public new IModelListViewOptionsAdvBandedView Model {
             get { return (IModelListViewOptionsAdvBandedView)base.Model; }
         }
+
         public new AdvBandedGridView GridView {
             get { return (AdvBandedGridView)base.GridView; }
         }
 
-        protected override IColumnView CreateGridViewCore() {
+        protected override DevExpress.XtraGrid.Views.Base.ColumnView CreateGridViewCore() {
             return new AdvBandedGridView(this);
-        }
-
-        protected override ColumnWrapper CreateGridColumnWrapper(IXafGridColumn xafGridColumn) {
-            return new AdvBandedGridColumnWrapper((AdvBandedGridColumn)xafGridColumn);
         }
 
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             return new AdvBandedViewLstEditorDynamicModelSynchronizer(this).ModelSynchronizerList;
         }
 
-        protected override IXafGridColumn CreateGridColumn() {
-            return new AdvBandedGridColumn(ObjectTypeInfo, this);
+        protected override void OnCreateCustomColumn(object sender, CreateCustomColumnEventArgs e) {
+            base.OnCreateCustomColumn(sender, e);
+            if (e.Column == null) {
+                e.Column = new BandedGridColumn();
+            }
         }
     }
-    public class AdvBandedGridView : DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView, IColumnView {
+    public class AdvBandedGridView : DevExpress.XtraGrid.Views.BandedGrid.AdvBandedGridView, IMasterDetailColumnView, IXafGridView, ISupportNewItemRow, IModelSynchronizersHolder {
+        public Dictionary<Component, IModelSynchronizer> ColumnsInfoCache = new Dictionary<Component, IModelSynchronizer>();
+        #region IModelSynchronizersHolder
+        IModelSynchronizer IModelSynchronizersHolder.GetSynchronizer(Component component) {
+            IModelSynchronizer result = null;
+            if (component != null) {
+                result = OnCustomModelSynchronizer(component);
+                if (result == null) {
+                    ColumnsInfoCache.TryGetValue(component, out result);
+                }
+            }
+            return result;
+        }
+        void IModelSynchronizersHolder.RegisterSynchronizer(Component component, IModelSynchronizer modelSynchronizer) {
+            ColumnsInfoCache.Add(component, modelSynchronizer);
+        }
+        void IModelSynchronizersHolder.RemoveSynchronizer(Component component) {
+            if (component != null && ColumnsInfoCache.ContainsKey(component)) {
+                ColumnsInfoCache.Remove(component);
+            }
+        }
+        void IModelSynchronizersHolder.AssignSynchronizers(DevExpress.XtraGrid.Views.Base.ColumnView sourceView) {
+            var current = (IModelSynchronizersHolder)this;
+            var sourceInfoProvider = (IModelSynchronizersHolder)sourceView;
+            for (int n = 0; n < sourceView.Columns.Count; n++) {
+                var info = sourceInfoProvider.GetSynchronizer(sourceView.Columns[n]) as IGridColumnModelSynchronizer;
+                if (info != null) {
+                    current.RegisterSynchronizer(Columns[n], info);
+                }
+            }
+        }
+        private event EventHandler<CustomModelSynchronizerEventArgs> CustomModelSynchronizer;
+        event EventHandler<CustomModelSynchronizerEventArgs> IModelSynchronizersHolder.CustomModelSynchronizer {
+            add { CustomModelSynchronizer += value; }
+            remove { CustomModelSynchronizer -= value; }
+        }
+        protected virtual IModelSynchronizer OnCustomModelSynchronizer(Component component) {
+            if (CustomModelSynchronizer != null) {
+                var args = new CustomModelSynchronizerEventArgs(component);
+                CustomModelSynchronizer(this, args);
+                return args.ModelSynchronizer;
+            }
+            return null;
+        }
+        #endregion
+        private ErrorMessages _errorMessages;
         readonly AdvBandedListEditor _gridListEditor;
         bool _isNewItemRowCancelling;
         object _newItemRowObject;
         BaseGridController _gridController;
 
         public AdvBandedGridView() {
-        }
-
-        protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn) {
-            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn,_gridListEditor.Model.GetFullTextMembers());
         }
 
         public override void CancelUpdateCurrentRow() {
@@ -81,12 +119,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
                         CancelNewRow(this, EventArgs.Empty);
                     }
                     XtraGridUtils.SelectRowByHandle(this, storedFocusedHandle);
-                } else {
+                }
+                else {
                     if (RestoreCurrentRow != null) {
                         RestoreCurrentRow(this, EventArgs.Empty);
                     }
                 }
-            } finally {
+            }
+            finally {
                 _newItemRowObject = null;
                 _isNewItemRowCancelling = false;
             }
@@ -134,23 +174,18 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             base.Assign(v, copyEvents);
         }
 
-        private ErrorMessage GetErrorMessage(int rowHandle, GridColumn column) {
-            object listItem = GetRow(rowHandle);
-            return column == null ? ErrorMessages.GetMessages(listItem) : ErrorMessages.GetMessage(column.FieldName, listItem);
-        }
         protected override string GetColumnError(int rowHandle, GridColumn column) {
             string result = null;
-            if (ErrorMessages != null) {
-                ErrorMessage errorMessage = GetErrorMessage(rowHandle, column);
-                if (errorMessage != null) {
-                    result = errorMessage.Message;
-                }
-            } else {
+            if (_errorMessages != null) {
+                object listItem = GetRow(rowHandle);
+                ErrorMessage message = column == null ? _errorMessages.GetMessages(listItem) : _errorMessages.GetMessage(column.FieldName, listItem);
+                if (message != null) result = message.Message;
+            }
+            else {
                 result = base.GetColumnError(rowHandle, column);
             }
             return result;
         }
-
         protected override ErrorType GetColumnErrorType(int rowHandle, GridColumn column) {
             return ErrorType.Critical;
         }
@@ -228,13 +263,16 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
         protected override BaseGridController CreateDataController() {
             if (requireDataControllerType == DataControllerType.AsyncServerMode) {
                 _gridController = new AsyncServerModeDataController();
-            } else {
+            }
+            else {
                 if (requireDataControllerType == DataControllerType.ServerMode) {
                     _gridController = new ServerModeDataController();
-                } else {
+                }
+                else {
                     if (DisableCurrencyManager) {
                         _gridController = new GridDataController();
-                    } else {
+                    }
+                    else {
                         _gridController = new XafCurrencyDataController();
                     }
                 }
@@ -249,8 +287,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             }
         }
 
-        public ErrorMessages ErrorMessages { get; set; }
-
+        public ErrorMessages ErrorMessages {
+            get { return _errorMessages; }
+            set { _errorMessages = value; }
+        }
         protected override void MakeRowVisibleCore(int rowHandle, bool invalidate) {
             if (!SkipMakeRowVisible) {
                 base.MakeRowVisibleCore(rowHandle, invalidate);
@@ -263,31 +303,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
             get { return _isNewItemRowCancelling; }
         }
         protected override void AssignColumns(DevExpress.XtraGrid.Views.Base.ColumnView cv, bool synchronize) {
-            if (_gridListEditor == null) {
-                base.AssignColumns(cv, synchronize);
-                return;
-            }
-            if (synchronize) {
-                base.AssignColumns(cv, true);
-            } else {
-                //                if (!((IColumnViewEditor)_gridListEditor).OverrideViewDesignMode) {
-                Columns.Clear();
-                ////var columnsListEditorModelSynchronizer = new ColumnsListEditorModelSynchronizer(_gridListEditor, _gridListEditor.Model);
-                ////columnsListEditorModelSynchronizer.ApplyModel();
-                var gridColumns = _gridListEditor.GridView.Columns.OfType<IXafGridColumn>();
-                foreach (var column in gridColumns) {
-
-                    var xpandXafGridColumn = column.CreateNew(column.TypeInfo, _gridListEditor);
-                    xpandXafGridColumn.ApplyModel(column.Model);
-                    Columns.Add((GridColumn)xpandXafGridColumn);
-                    xpandXafGridColumn.Assign((GridColumn)column);
-                }
-                //                } else {
-                //                    base.AssignColumns(cv, false);
-                //                }
+            base.AssignColumns(cv, synchronize);
+            if (!synchronize) {
+                ((IModelSynchronizersHolder)this).AssignSynchronizers(cv);
             }
         }
-
         public object NewItemRowObject {
             get { return null; }
         }
@@ -295,80 +315,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView {
         public event EventHandler RestoreCurrentRow;
         Window IMasterDetailColumnView.Window { get; set; }
         Frame IMasterDetailColumnView.MasterFrame { get; set; }
-
-        bool IColumnView.CanFilterGroupSummaryColumns { get { return false; } set { } }
-
     }
 
-    public class AdvBandedGridColumnWrapper : XpandGridColumnWrapper {
-        public AdvBandedGridColumnWrapper(AdvBandedGridColumn column)
-            : base(column) {
-        }
-    }
-    public class AdvBandedGridColumn : BandedGridColumn, IXafGridColumn {
-        readonly ITypeInfo _typeInfo;
-        readonly AdvBandedListEditor _bandedGridListEditor;
-        IModelColumnOptionsAdvBandedView _model;
-
-        public AdvBandedGridColumn(ITypeInfo typeInfo, AdvBandedListEditor bandedGridListEditor) {
-            _typeInfo = typeInfo;
-            _bandedGridListEditor = bandedGridListEditor;
-        }
-
-        public new void Assign(GridColumn gridColumn) {
-            base.Assign(gridColumn);
-        }
-
-        public bool AllowSummaryChange { get; set; }
-
-        public ColumnsListEditor Editor {
-            get { return _bandedGridListEditor; }
-        }
-
-        public ITypeInfo TypeInfo {
-            get { return _typeInfo; }
-        }
-
-        IModelColumn IXafGridColumn.Model {
-            get {
-                return _model;
-            }
-        }
-        public IModelColumnOptionsAdvBandedView Model {
-            get {
-                return _model;
-            }
-        }
-
-        public override Type ColumnType {
-            get {
-                if (string.IsNullOrEmpty(FieldName) || _typeInfo == null)
-                    return base.ColumnType;
-                IMemberInfo memberInfo = _typeInfo.FindMember(FieldName);
-                return memberInfo != null ? memberInfo.MemberType : base.ColumnType;
-            }
-        }
-        public string PropertyName {
-            get {
-                return _model != null ? _model.PropertyName : string.Empty;
-            }
-        }
-        private ModelSynchronizer CreateModelSynchronizer() {
-            return new ColumnWrapperModelSynchronizer(new AdvBandedGridColumnWrapper(this), _model, _bandedGridListEditor);
-        }
-
-        public IXafGridColumn CreateNew(ITypeInfo typeInfo, ColumnsListEditor editor) {
-            return new AdvBandedGridColumn(typeInfo, (AdvBandedListEditor)editor);
-        }
-
-        public void ApplyModel(IModelColumn columnInfo) {
-            _model = (IModelColumnOptionsAdvBandedView)columnInfo;
-            CreateModelSynchronizer().ApplyModel();
-        }
-        public void SynchronizeModel() {
-            CreateModelSynchronizer().SynchronizeModel();
-        }
-    }
 
     public class GridBand : DevExpress.XtraGrid.Views.BandedGrid.GridBand {
         readonly IModelGridBand _modelGridBand;

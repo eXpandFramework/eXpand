@@ -4,37 +4,34 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Win.SystemModule;
-using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
-    public abstract class ColumnViewEditorLayoutStoreSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<IColumnViewEditor, IModelLayoutDesignStore> {
-        protected ColumnViewEditorLayoutStoreSynchronizer(IColumnViewEditor control, IModelLayoutDesignStore modelNode)
+    public abstract class ColumnViewEditorLayoutStoreSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<WinColumnsListEditor, IModelLayoutDesignStore> {
+        protected ColumnViewEditorLayoutStoreSynchronizer(WinColumnsListEditor control, IModelLayoutDesignStore modelNode)
             : base(control, modelNode) {
         }
         protected override void ApplyModelCore() {
-            if (Model.NodeEnabled || Control.OverrideViewDesignMode)
+            if (Model.NodeEnabled || (Control is IColumnViewEditor && ((IColumnViewEditor)Control).OverrideViewDesignMode)) {
                 ApplyModelFromLayoutStore(Control.Grid.MainView);
+            }
         }
 
         public override void SynchronizeModel() {
-            if (Control.OverrideViewDesignMode||SynchronizeModelCore())
+            if (Control is IColumnViewEditor && ((IColumnViewEditor)Control).OverrideViewDesignMode)
                 SaveToLayoutStore(Control.Grid.MainView);
         }
 
@@ -118,57 +115,25 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 
 
     }
+
     public abstract class GridViewModelSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<DevExpress.XtraGrid.Views.Grid.GridView, IModelListView> {
         private readonly ColumnsListEditor _columnsListEditor;
-        readonly IColumnViewEditor _columnViewEditor;
 
-        protected GridViewModelSynchronizer(IColumnViewEditor columnViewEditor)
-            : base((DevExpress.XtraGrid.Views.Grid.GridView)columnViewEditor.ColumnView, columnViewEditor.Model) {
-            _columnsListEditor = (ColumnsListEditor)columnViewEditor;
+
+        protected GridViewModelSynchronizer(GridListEditor columnViewEditor)
+            : base(columnViewEditor.GridView, columnViewEditor.Model) {
+            _columnsListEditor = columnViewEditor;
             _columnsListEditor.ControlsCreated += ColumnsListEditorControlsCreated;
-            _columnViewEditor = columnViewEditor;
         }
-
-        private void SetupActiveFilterCriteriaToControl() {
-            IObjectSpace objectSpace = _columnViewEditor.CollectionSource.ObjectSpace;
-            ITypeInfo typeInfo = Model.ModelClass.TypeInfo;
-            using (objectSpace.CreateParseCriteriaScope()){
-                CriteriaOperator criteriaOperator = objectSpace.ParseCriteria(Model.Filter);
-                if (_columnViewEditor.IsAsyncServerMode()) {
-                    new AsyncServerModeCriteriaProccessor(typeInfo).Process(criteriaOperator);
-                }
-                var criteriaProcessor = new FilterWithObjectsProcessor(objectSpace, typeInfo, _columnViewEditor.IsAsyncServerMode());
-                criteriaProcessor.Process(criteriaOperator, FilterWithObjectsProcessorMode.StringToObject);
-                var enumParametersProcessor = new EnumPropertyValueCriteriaProcessor(_columnViewEditor.CollectionSource.ObjectTypeInfo);
-                enumParametersProcessor.Process(criteriaOperator);
-                Control.ActiveFilterCriteria = criteriaOperator;
-            }
-        }
-
         private void ColumnsListEditorControlsCreated(object sender, EventArgs e) {
             Control.OptionsView.ShowFooter = Model.IsFooterVisible;
             Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
             Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
-            var modelListViewWin = Model;
-            if (modelListViewWin != null) {
-                if (_columnViewEditor.CollectionSource != null) {
-                    SetupActiveFilterCriteriaToControl();
-                }
-                Control.ActiveFilterEnabled = (modelListViewWin).FilterEnabled;
-            }
         }
         protected override void ApplyModelCore() {
             Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
             Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
-            var modelListViewWin = Model;
-            if (modelListViewWin != null) {
-                Control.ActiveFilterEnabled = (modelListViewWin).FilterEnabled;
-                if (_columnViewEditor.CollectionSource != null) {
-                    SetupActiveFilterCriteriaToControl();
-                } else {
-                    Control.ActiveFilterString = (modelListViewWin).Filter;
-                }
-            }
+
             var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
             if (modelListViewShowAutoFilterRow != null) {
                 Control.OptionsView.ShowAutoFilterRow = (modelListViewShowAutoFilterRow).ShowAutoFilterRow;
@@ -177,7 +142,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             if (modelListViewShowFindPanel != null) {
                 if ((modelListViewShowFindPanel).ShowFindPanel) {
                     Control.ShowFindPanel();
-                } else {
+                }
+                else {
                     Control.HideFindPanel();
                 }
             }
@@ -185,15 +151,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         public override void SynchronizeModel() {
             Model.AutoExpandAllGroups = Control.OptionsBehavior.AutoExpandAllGroups;
             Model.IsGroupPanelVisible = Control.OptionsView.ShowGroupPanel;
-            var modelListViewWin = Model;
-            if (modelListViewWin != null) {
-                (modelListViewWin).FilterEnabled = Control.ActiveFilterEnabled;
-                if (!ReferenceEquals(Control.ActiveFilterCriteria, null) && _columnViewEditor.CollectionSource != null) {
-                    (modelListViewWin).Filter = CriteriaOperator.ToString(Control.ActiveFilterCriteria);
-                } else {
-                    (modelListViewWin).Filter = null;
-                }
-            }
             var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
             if (modelListViewShowAutoFilterRow != null) {
                 (modelListViewShowAutoFilterRow).ShowAutoFilterRow = Control.OptionsView.ShowAutoFilterRow;
@@ -210,18 +167,20 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             }
         }
     }
-    public abstract class ListEditorModelSynchronizer : ModelListSynchronizer {
-        protected ListEditorModelSynchronizer(IColumnViewEditor columnViewEditor)
-            : base(columnViewEditor, columnViewEditor.Model) {
-            var modelListView = (IModelListView)Model;
-            ModelSynchronizerList.Add(new FooterVisibleModelSynchronizer(columnViewEditor, modelListView));
-            ModelSynchronizerList.Add(new ColumnsListEditorModelSynchronizer((ColumnsListEditor)columnViewEditor, modelListView));
-            ((IColumnViewEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
+
+    public class ListEditorModelSynchronizer : ModelListSynchronizer {
+        public ListEditorModelSynchronizer(WinColumnsListEditor columnViewEditor, IEnumerable<IModelSynchronizable> modelSynchronizers)
+            : this(columnViewEditor) {
+            ModelSynchronizerList.AddRange(modelSynchronizers);
+        }
+
+        public ListEditorModelSynchronizer(WinColumnsListEditor columnViewEditor) : base(columnViewEditor, columnViewEditor.Model){
+            ((WinColumnsListEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
         }
 
         public override void Dispose() {
             base.Dispose();
-            var gridListEditor = Control as IColumnViewEditor;
+            var gridListEditor = Control as WinColumnsListEditor;
             if (gridListEditor != null && gridListEditor.ColumnView != null) {
                 gridListEditor.ColumnView.ColumnPositionChanged -= Control_Changed;
             }
@@ -229,21 +188,38 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
     }
 
     public static class ColumnViewExtennsions {
+        public static GridColumn Column(this ColumnWrapper columnWrapper) {
+            return columnWrapper.GetPropertyValue("Column") as GridColumn;
+        }
+
         public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IEnumerable<IModelMember> modelMembers){
             return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,modelMembers);
         }
 
-        public static string PropertyName(this GridColumn column){
-            var xafGridColumn = column as XafGridColumn;
-            if (xafGridColumn != null) 
-                return xafGridColumn.PropertyName;
-            var gridColumn = column as IXafGridColumn;
-            return gridColumn != null ? gridColumn.PropertyName : null;
+        public static string PropertyName(this GridColumn column) {
+            IGridColumnModelSynchronizer columnInfo = GetGridColumnInfo(column);
+            return columnInfo != null ? columnInfo.PropertyName : column.FieldName;
         }
 
-        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn){
-            return (IModelColumnOptionsColumnView) gridColumn.Model();
+        private static IGridColumnModelSynchronizer GetGridColumnInfo(GridColumn column) {
+            if (column != null && column.View is IModelSynchronizersHolder) {
+                return ((IModelSynchronizersHolder)column.View).GetSynchronizer(column) as IGridColumnModelSynchronizer;
+            }
+            return null;
         }
+
+        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn) {
+            IGridColumnModelSynchronizer columnInfo = GetGridColumnInfo(gridColumn);
+            if (columnInfo != null) {
+                return (IModelColumnOptionsColumnView)columnInfo.Model;
+            }
+            return null;
+        }
+
+        public static IModelColumnOptionsColumnView Model(this GridColumn gridColumn){
+            return gridColumn.GetModel();
+        }
+
     }
 
 }

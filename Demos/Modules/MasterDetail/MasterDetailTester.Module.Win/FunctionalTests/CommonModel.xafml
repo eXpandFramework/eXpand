@@ -7,7 +7,7 @@
     </ActionsExcludedFromSynchronization>
   </MasterDetail>
   <Views>
-    <ListView Id="Contributor_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" />
+    <ListView Id="Contributor_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor" AllowDelete="False" />
     <ListView Id="Project_ListView" EditorTypeName="Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.XpandGridListEditor">
       <GridViewOptions>
         <OptionsDetail ShowDetailTabs="False" EnableMasterViewMode="True" />

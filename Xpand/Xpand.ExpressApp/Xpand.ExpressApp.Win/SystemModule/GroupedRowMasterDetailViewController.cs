@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -67,7 +68,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         GridView GridView {
             get {
-                var columnsListEditor = View.Editor as ColumnsListEditor;
+                var columnsListEditor = View.Editor as WinColumnsListEditor;
                 return columnsListEditor != null ? columnsListEditor.GridView() : null;
             }
         }

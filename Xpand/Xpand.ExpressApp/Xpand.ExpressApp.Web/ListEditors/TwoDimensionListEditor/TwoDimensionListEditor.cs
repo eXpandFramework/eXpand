@@ -54,8 +54,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
 
         public List<IComparable> DefaultVerticalDimensions { get; set; }
 
-        public override bool IsServerModeSupported {
-            get { return false; }
+        public override bool SupportsDataAccessMode(CollectionSourceDataAccessMode dataAccessMode){
+            return false;
         }
 
         public bool ViewMode { get; set; }
@@ -891,9 +891,6 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
             _editor = editor;
         }
 
-
-        public event EventHandler<BoundItemCreatingEventArgs> BoundItemCreating;
-
         public void CreateActionItems(IFrameTemplate parent, ListView context,
             ICollection<IActionContainer> contextContainers) {
             foreach (WebContextMenuActionContainer container in _containers) {
@@ -912,6 +909,13 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
                 _containers.Add(container);
             }
             CreateControls();
+        }
+
+        public event EventHandler<BoundItemCreatingEventArgs> BoundItemCreating;
+
+        protected virtual void OnBoundItemCreating(BoundItemCreatingEventArgs e){
+            var handler = BoundItemCreating;
+            if (handler != null) handler(this, e);
         }
 
         public void Dispose() {

@@ -42,10 +42,5 @@ namespace EFDemo.Module.Data {
 			get { return (TitleOfCourtesy)TitleOfCourtesy_Int; }
 			set { TitleOfCourtesy_Int = (Int32)value; }
 		}
-		[NotMapped]
-		public Image Photo {
-			get { return GetPhoto(); }
-			set { SetPhoto(value); }
-		}
 	}
 }

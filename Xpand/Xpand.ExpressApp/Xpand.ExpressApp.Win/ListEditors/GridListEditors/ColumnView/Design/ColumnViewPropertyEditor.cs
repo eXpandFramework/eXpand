@@ -7,12 +7,13 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
-    public abstract class ColumnViewPropertyEditor<TColumnViewEditor> : UITypeEditor where TColumnViewEditor : IColumnViewEditor {
+    public abstract class ColumnViewPropertyEditor<TColumnViewEditor> : UITypeEditor where TColumnViewEditor : WinColumnsListEditor {
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value) {
             var modelListView = GetListView(context);
             if (modelListView != null)
@@ -53,7 +54,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
 
         public TColumnViewEditor CreateListEditor(IModelListView listView) {
             var gridListEditor = GetGridDesignerEditor(listView);
-            gridListEditor.OverrideViewDesignMode = true;
+            ((IColumnViewEditor) gridListEditor).OverrideViewDesignMode = true;
             var targetType = listView.ModelClass.TypeInfo.Type;
             Setup(targetType, gridListEditor);
             gridListEditor.Grid.CreateControl();
@@ -80,20 +81,20 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
             gridListEditor.CreateControls();
         }
         class MySite : ISite {
-            readonly IServiceProvider sp;
-            readonly GridColumn comp;
+            readonly IServiceProvider _sp;
+            readonly GridColumn _comp;
 
             public MySite(IServiceProvider sp, GridColumn comp) {
-                this.sp = sp;
-                this.comp = comp;
+                _sp = sp;
+                _comp = comp;
             }
 
             IComponent ISite.Component {
-                get { return comp; }
+                get { return _comp; }
             }
 
             IContainer ISite.Container {
-                get { return sp.GetService(typeof(IContainer)) as IContainer; }
+                get { return _sp.GetService(typeof(IContainer)) as IContainer; }
             }
 
             bool ISite.DesignMode {
@@ -101,12 +102,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
             }
 
             string ISite.Name {
-                get { return comp.Name; }
+                get { return _comp.Name; }
                 set { }
             }
 
             object IServiceProvider.GetService(Type t) {
-                return (sp != null) ? sp.GetService(t) : null;
+                return (_sp != null) ? _sp.GetService(t) : null;
             }
         }
 

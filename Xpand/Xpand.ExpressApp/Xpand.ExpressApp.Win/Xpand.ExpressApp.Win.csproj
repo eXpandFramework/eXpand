@@ -176,15 +176,6 @@
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorColumnChooserController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorPreviewRowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -194,12 +185,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\EditorExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\GridViewKeyboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Extensions.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -208,12 +194,6 @@
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\NewItemRowDataSourcePropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\OpenObjectController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\RememberGridSelectionController.cs">
       <SubType>Component</SubType>
@@ -276,7 +256,6 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\GridListEditorBase.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\MasterDetail\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -303,12 +282,6 @@
     </Compile>
     <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandXafGridColumn.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesigner.cs">
       <SubType>Code</SubType>

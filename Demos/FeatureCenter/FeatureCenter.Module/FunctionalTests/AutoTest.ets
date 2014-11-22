@@ -6,7 +6,7 @@
 #DropDB XpandFeatureCenterWorldCreator
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
-
+*ScreenCapture
 *FillForm
  User Name = Admin
  Password = Admin

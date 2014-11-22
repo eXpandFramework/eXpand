@@ -4,12 +4,13 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
+using DevExpress.XtraFilterEditor;
 using DevExpress.XtraGrid.Views.Base;
 using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
@@ -63,7 +64,7 @@ namespace SystemTester.Module.Win.FunctionalTests.FullTextContains {
                 }
                     break;
                 case ColumnFilterChanged:{
-                    var gridView = ((ColumnsListEditor) ((ListView) View).Editor).GridView();
+                    var gridView = ((WinColumnsListEditor) ((ListView) View).Editor).GridView();
                     gridView.ActiveFilterCriteria = CriteriaOperator.Parse("FullText = 'Apostolis Bekiaris'");
                     ParametrizedAction.Value = gridView.ActiveFilterCriteria;
                 }
@@ -152,7 +153,7 @@ namespace SystemTester.Module.Win.FunctionalTests.FullTextContains {
             }
             else if (e.SelectedChoiceActionItem.Id == FullTextContains.XpandGridListEditor){
                 var value = Application.MainWindow.GetController<FullTextContains>().ParametrizedAction.Value ?? "FullName";
-                var gridView = ((ColumnsListEditor) ((ListView) Frame.View).Editor).GridView();
+                var gridView = ((WinColumnsListEditor) ((ListView) Frame.View).Editor).GridView();
                 var defaultColumn = gridView.Columns[value.ToString()];
                 gridView.FilterEditorCreated += GridViewOnFilterEditorCreated;
                 gridView.ShowFilterEditor(defaultColumn);
@@ -161,9 +162,9 @@ namespace SystemTester.Module.Win.FunctionalTests.FullTextContains {
 
         private void GridViewOnFilterEditorCreated(object sender, FilterControlEventArgs e) {
             e.FilterBuilder.Shown += (o, args) => {
-                var filterControl = (FilterControl) e.FilterBuilder.FilterControl;
+                var filterControl = (FilterEditorControl) e.FilterBuilder.FilterControl;
                 if (filterControl != null){
-                    DisplayMenu(filterControl);
+                    DisplayMenu(filterControl.FilterControl);
                 }
             };
         }

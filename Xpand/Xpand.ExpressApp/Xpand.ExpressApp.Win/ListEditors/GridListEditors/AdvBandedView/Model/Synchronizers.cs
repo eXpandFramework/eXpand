@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.BandedGrid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
@@ -14,7 +16,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         public AdvBandedViewLstEditorDynamicModelSynchronizer(AdvBandedListEditor columnViewEditor)
             : base(columnViewEditor) {
             ModelSynchronizerList.Add(new XpandGridListEditorSynchronizer(columnViewEditor));
-            var modelOptionsAdvBandedViews = columnViewEditor.Model.AdvBandedViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters).Concat(new[]{columnViewEditor.Model.OptionsAdvBandedView});
+            var modelOptionsAdvBandedViews = columnViewEditor.Model.AdvBandedViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters).Concat(new[]{columnViewEditor.Model.OptionsAdvBandedView}).ToArray();
             foreach (var optionsAdvBandedView in modelOptionsAdvBandedViews){
                 ModelSynchronizerList.Add(new AdvBandedViewOptionsSynchronizer(columnViewEditor,optionsAdvBandedView));
             }
@@ -23,7 +25,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
                 ModelSynchronizerList.Add(new AdvBandedViewGridBandsSynchronizer(columnViewEditor, optionsAdvBandedView));
             }
             
-            ModelSynchronizerList.Add(new XpandGridSummaryModelSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));
             ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.GridView, columnViewEditor.Model));    
         }
     }
@@ -45,12 +46,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
 
         public override void SynchronizeModel() {
             if (Model.NodeEnabled) {
-
-                foreach (AdvBandedGridColumn column in Control.GridView.Columns.OfType<AdvBandedGridColumn>()) {
-                    if (column.OwnerBand == null && column.Model.GridBand != null)
-                        column.Model.GridBand = null;
-                    else if (column.OwnerBand != null && column.Model.GridBand != ((GridBand)column.OwnerBand).ModelGridBand) {
-                        column.Model.GridBand = ((GridBand)column.OwnerBand).ModelGridBand;
+                foreach (BandedGridColumn column in Control.GridView.Columns) {
+                    IGridColumnModelSynchronizer gridColumnInfo = GetColumnInfo(column, column.View);
+                    if (gridColumnInfo != null) {
+                        if (column.OwnerBand == null && ((IModelColumnOptionsAdvBandedView)gridColumnInfo.Model).GridBand != null)
+                            ((IModelColumnOptionsAdvBandedView)gridColumnInfo.Model).GridBand = null;
+                        else if (column.OwnerBand != null && ((IModelColumnOptionsAdvBandedView)gridColumnInfo.Model).GridBand != ((GridBand)column.OwnerBand).ModelGridBand) {
+                            ((IModelColumnOptionsAdvBandedView)gridColumnInfo.Model).GridBand = ((GridBand)column.OwnerBand).ModelGridBand;
+                        }
                     }
                 }
                 SynchronizeGridBands(Control.GridView.Bands);
@@ -105,9 +108,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
             }
         }
 
-        AdvBandedGridColumn FindBandedGridColumn(IModelColumnOptionsAdvBandedView modelColumn) {
-            var bandedGridColumns = Control.GridView.Columns.OfType<AdvBandedGridColumn>();
-            return bandedGridColumns.FirstOrDefault(column => column.PropertyName == modelColumn.PropertyName);
+        private IGridColumnModelSynchronizer GetColumnInfo(GridColumn column, DevExpress.XtraGrid.Views.Base.ColumnView columnView) {
+            IGridColumnModelSynchronizer result = null;
+            var modelSynchronizersHolder = columnView as IModelSynchronizersHolder;
+            if (modelSynchronizersHolder != null) {
+                result = modelSynchronizersHolder.GetSynchronizer(column) as IGridColumnModelSynchronizer;
+            }
+            return result;
+        }
+
+        BandedGridColumn FindBandedGridColumn(IModelColumnOptionsAdvBandedView modelColumn) {
+            foreach (BandedGridColumn column in Control.GridView.Columns) {
+                IGridColumnModelSynchronizer gridColumnInfo = GetColumnInfo(column, column.View);
+                if (gridColumnInfo != null && gridColumnInfo.PropertyName == modelColumn.PropertyName) {
+                    return column;
+                }
+            }
+            return null;
         }
     }
 

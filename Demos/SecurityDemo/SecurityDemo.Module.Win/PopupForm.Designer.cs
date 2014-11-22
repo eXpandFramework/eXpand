@@ -212,7 +212,7 @@ namespace FeatureCenter.Module.Win {
             this.buttonsContainer1.Orientation = DevExpress.ExpressApp.Model.ActionContainerOrientation.Horizontal;
             this.buttonsContainer1.PaintStyle = DevExpress.ExpressApp.Templates.ActionItemPaintStyle.CaptionAndImage;
             this.buttonsContainer1.Root = this.Root;
-            this.buttonsContainer1.SizeConstraints = ((DevExpress.ExpressApp.Win.Templates.ActionContainers.SizeConstraints)((DevExpress.ExpressApp.Win.Templates.ActionContainers.SizeConstraints.LockWidth | DevExpress.ExpressApp.Win.Templates.ActionContainers.SizeConstraints.LockHeight)));
+            
             // 
             // Root
             // 

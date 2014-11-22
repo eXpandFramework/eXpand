@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
             get { return _callbackPanel.ClientSideEvents.BeginCallback; }
             set{
                 _callbackPanel.ClientSideEvents.BeginCallback = value;
-                _callbackPanel.ShowLoadingPanel = string.IsNullOrEmpty(value);
+                _callbackPanel.SettingsLoadingPanel.Enabled = string.IsNullOrEmpty(value);
             }
         }
 
@@ -906,10 +906,9 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
         private const string AddButtonCaption = "New";
         private const string DeleteButtonCaption = "Delete";
 
-        public override bool IsServerModeSupported{
-            get { return false; }
+        public override bool SupportsDataAccessMode(CollectionSourceDataAccessMode dataAccessMode){
+            return false;
         }
-
 
         private int ColumnsPerRow{
             get { return ((IModelListViewEditableTabEnabledEditor)Model).EditableTabEnabledEditor.ColumnsPerRow; }

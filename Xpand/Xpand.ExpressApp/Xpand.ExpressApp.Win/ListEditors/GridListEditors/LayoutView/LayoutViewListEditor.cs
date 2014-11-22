@@ -1,44 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows.Forms;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.XtraEditors.Filtering;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
-using DevExpress.XtraGrid.Views.Grid;
-using Xpand.ExpressApp.SystemModule.Search;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     [ListEditor(typeof(object), false)]
-    public class LayoutViewListEditor : LayoutViewListEditorBase, IColumnViewEditor {
+    public class LayoutViewListEditor : LayoutViewListEditorBase, IColumnViewEditor, ISupportFilter {
         public LayoutViewListEditor(IModelListView model)
             : base(model) {
         }
         public new IModelListViewOptionsLayoutView Model {
             get { return (IModelListViewOptionsLayoutView)base.Model; }
-        }
-
-        DevExpress.XtraGrid.Views.Base.ColumnView IColumnViewEditor.ColumnView {
-            get { return GridView; }
-        }
-        public new XpandXafLayoutView GridView {
-            get { return Grid != null ? (XpandXafLayoutView)Grid.MainView : null; }
-        }
-
-        CollectionSourceBase IColumnViewEditor.CollectionSource {
-            get { return CollectionSource; }
         }
 
         protected virtual void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
@@ -47,24 +30,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
 
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
-
-        bool IColumnViewEditor.IsAsyncServerMode() {
-            var source = CollectionSource as CollectionSource;
-            return ((source != null) && source.IsServerMode && source.IsAsyncServerMode);
-        }
-
-        protected override XafLayoutViewColumn CreateColumn() {
-            return new XpandXafLayoutColumn(ObjectTypeInfo, this);
-        }
-
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
-            var modelSynchronizers = base.CreateModelSynchronizers();
-            var synchronizer = new LayoutViewLstEditorDynamicModelSynchronizer(this);
-            for (int index = 0; index < modelSynchronizers.Count; index++) {
-                var item = modelSynchronizers[index];
-                synchronizer.ModelSynchronizerList.Insert(index, item);
-            }
-            return synchronizer.ModelSynchronizerList;
+            List<IModelSynchronizable> result = base.CreateModelSynchronizers();
+            result.Add(new FilterModelSynchronizer(this, Model));
+            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
+            result.Add(new LayoutViewListEditorSynchronizer(this));
+            result.Add(new LayoutViewOptionsSynchronizer(this));
+            result.Add(new LayoutColumnOptionsSynchroniser(this));
+            result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
+            return result;
         }
 
         [Browsable(false)]
@@ -76,33 +50,60 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             if (column.ColumnEdit is RepositoryItemMemoExEdit)
                 column.ColumnEdit = new RepositoryItemMemoEdit { Name = columnInfo.PropertyName };
         }
-
-        protected override XafLayoutView CreateLayoutViewCore() {
+        protected override DevExpress.XtraGrid.Views.Base.ColumnView CreateGridViewCore() {
             var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs(Grid);
             OnCustomGridViewCreate(gridViewCreatingEventArgs);
-            return (XafLayoutView)(gridViewCreatingEventArgs.Handled
-                     ? gridViewCreatingEventArgs.GridView
-                     : new XpandXafLayoutView(this) { OverrideViewDesignMode = ((IColumnViewEditor)this).OverrideViewDesignMode });
+            return gridViewCreatingEventArgs.Handled
+                ? gridViewCreatingEventArgs.GridView
+                : new XpandXafLayoutView(this) { OverrideViewDesignMode = ((IColumnViewEditor)this).OverrideViewDesignMode };
         }
 
         bool ISupportFooter.IsFooterVisible {
             get { return false; }
             set { }
         }
+        bool ISupportFilter.FilterEnabled {
+            get {
+                return ColumnView.ActiveFilterEnabled;
+            }
+            set {
+                ColumnView.ActiveFilterEnabled = value;
+            }
+        }
+
+        string ISupportFilter.Filter {
+            get {
+                string result = string.Empty;
+                if (!ReferenceEquals(ColumnView.ActiveFilterCriteria, null) && CollectionSource != null) {
+                    result = CriteriaOperator.ToString(ColumnView.ActiveFilterCriteria);
+                }
+                return result;
+            }
+            set {
+                if (CollectionSource != null) {
+                    SetActiveFilterCriteria();
+                }
+                else {
+                    ColumnView.ActiveFilterString = value;
+                }
+            }
+        }
+        protected override void OnControlsCreated() {
+            base.OnControlsCreated();
+            if (CollectionSource != null) {
+                SetActiveFilterCriteria();
+            }
+            if (Model != null) {
+                ((ISupportFilter)this).FilterEnabled = Model.FilterEnabled;
+            }
+        }
     }
 
     public class XpandXafLayoutView : XafLayoutView, IMasterDetailColumnView {
-        readonly LayoutViewListEditor _gridListEditor;
 
         public XpandXafLayoutView(GridControl gridControl)
             : base(gridControl) {
         }
-
-        protected override Form CreateFilterBuilderDialog(FilterColumnCollection filterColumns,
-            FilterColumn defaultFilterColumn){
-            return this.CreateFilterBuilderDialogEx(filterColumns, defaultFilterColumn, _gridListEditor.Model.GetFullTextMembers());
-        }
-
         public override void Assign(BaseView v, bool copyEvents) {
             var xafGridView = (IMasterDetailColumnView)v;
             ((IMasterDetailColumnView)this).Window = xafGridView.Window;
@@ -112,58 +113,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         #region Implementation of IMasterDetailColumnView
         public Window Window { get; set; }
         public Frame MasterFrame { get; set; }
+
+        int IMasterDetailColumnView.GetRelationIndex(int sourceRowHandle, string levelName){
+            throw new NotImplementedException();
+        }
+
         public bool CanFilterGroupSummaryColumns { get; set; }
-
-        BaseView IMasterDetailColumnView.GetDetailView(int rowHandle, int relationIndex) {
-            throw new NotImplementedException();
-        }
-
-        event MasterRowCanExpandEventHandler IMasterDetailColumnView.MasterRowCollapsing {
-            add { throw new NotImplementedException(); }
-            remove {  }
-        }
-
-        string IMasterDetailColumnView.GetRelationName(int rowHandle, int relationIndex) {
-            throw new NotImplementedException();
-        }
-
-        event MasterRowGetRelationCountEventHandler IMasterDetailColumnView.MasterRowGetRelationCount {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        event MasterRowGetRelationNameEventHandler IMasterDetailColumnView.MasterRowGetRelationName {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        event MasterRowGetRelationNameEventHandler IMasterDetailColumnView.MasterRowGetRelationDisplayCaption {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        event MasterRowGetChildListEventHandler IMasterDetailColumnView.MasterRowGetChildList {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        event MasterRowEmptyEventHandler IMasterDetailColumnView.MasterRowEmpty {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        event MasterRowGetLevelDefaultViewEventHandler IMasterDetailColumnView.MasterRowGetLevelDefaultView {
-            add { throw new NotImplementedException(); }
-            remove { }
-        }
-
-        int IMasterDetailColumnView.GetRelationIndex(int sourceRowHandle, string levelName) {
-            throw new NotImplementedException();
-        }
         #endregion
         public XpandXafLayoutView(LayoutViewListEditor layoutViewListEditor)
             : base(layoutViewListEditor.Grid) {
-            _gridListEditor = layoutViewListEditor;
         }
 
         protected override bool IsDesignMode {
@@ -171,63 +129,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 return OverrideViewDesignMode || base.IsDesignMode;
             }
         }
-
-        protected override void AssignColumns(DevExpress.XtraGrid.Views.Base.ColumnView cv, bool synchronize) {
-            if (_gridListEditor == null) {
-                base.AssignColumns(cv, synchronize);
-                return;
-            }
-            if (synchronize) {
-                base.AssignColumns(cv, true);
-            } else {
-                Columns.Clear();
-                var gridColumns = _gridListEditor.GridView.Columns.OfType<IXafGridColumn>().ToList();
-                foreach (var column in gridColumns) {
-                    var xpandXafGridColumn = column.CreateNew(column.TypeInfo, _gridListEditor);
-                    xpandXafGridColumn.ApplyModel(column.Model);
-                    Columns.Add((GridColumn)xpandXafGridColumn);
-                    xpandXafGridColumn.Assign((GridColumn)column);
-                }
-            }
-        }
-
         protected override BaseView CreateInstance() {
             return new XpandXafLayoutView(GridControl);
         }
         public bool OverrideViewDesignMode { get; set; }
-    }
-    public class XpandXafLayoutColumn : XafLayoutViewColumn, IXafGridColumn {
-        public XpandXafLayoutColumn(ITypeInfo typeInfo, LayoutViewListEditorBase listEditor)
-            : base(typeInfo, listEditor) {
-        }
-
-        public override int VisibleIndex {
-            get {
-                var index = Model.Index;
-                return index.HasValue ? index.Value : 0;
-            }
-            set {
-                base.VisibleIndex = value;
-            }
-        }
-        #region Implementation of IXafGridColumn
-        public new void Assign(GridColumn gridColumn) {
-            base.Assign(gridColumn);
-        }
-
-        public bool AllowSummaryChange {
-            get { return false; }
-            set { throw new NotImplementedException(); }
-        }
-
-        public ColumnsListEditor Editor {
-            get { return ListEditor; }
-        }
-
-        public IXafGridColumn CreateNew(ITypeInfo typeInfo, ColumnsListEditor editor) {
-            return new XpandXafLayoutColumn(typeInfo, (LayoutViewListEditorBase)editor);
-        }
-        #endregion
     }
 
 }

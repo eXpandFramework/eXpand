@@ -1,6 +1,6 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace SystemTester.Module.Win.FunctionalTests.PreventDataLoading {
@@ -14,7 +14,7 @@ namespace SystemTester.Module.Win.FunctionalTests.PreventDataLoading {
         }
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
-            var gridView = ((ColumnsListEditor)View.Editor).GridView();
+            var gridView = ((WinColumnsListEditor)View.Editor).GridView();
             if (e.SelectedChoiceActionItem.Id == ActiveFilter){
                 gridView.ActiveFilterCriteria = CriteriaOperator.Parse("Contains([Name], 'eXpandFramework')");
             }
