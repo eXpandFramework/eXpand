@@ -3,17 +3,14 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
-using Xpand.ExpressApp.ExceptionHandling.Win;
 using Xpand.ExpressApp.FilterDataStore.Core;
 using Xpand.ExpressApp.FilterDataStore.Win.Providers;
 using Xpand.ExpressApp.Logic;
@@ -32,23 +29,12 @@ namespace FeatureCenter.Module.Win {
             var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.FirstOrDefault(mbase => mbase is ModelDifferenceBaseModule);
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
-            var exceptionHandlingWinModule =
-                (ExceptionHandlingWinModule)moduleManager.Modules.FindModule(typeof(ExceptionHandlingWinModule));
-            if (exceptionHandlingWinModule != null)
-                exceptionHandlingWinModule.CustomHandleException += ExceptionHandlingWinModuleOnCustomHandleException;
         }
 
-        void ExceptionHandlingWinModuleOnCustomHandleException(object sender, CustomHandleExceptionEventArgs customHandleExceptionEventArgs) {
-            customHandleExceptionEventArgs.Handled = IsExculded(customHandleExceptionEventArgs.Exception);
-        }
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new DisableFiltersNodeUpdater());
             
-        }
-
-        bool IsExculded(Exception exception) {
-            return (exception is ValidationException) ||( exception.InnerException is ValidationException);
         }
 
         protected override void AdditionalViewControlsModuleOnRulesCollected(object sender, EventArgs e) {

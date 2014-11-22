@@ -75,7 +75,6 @@ namespace FeatureCenter.Win {
             this.wizardUIWindowsFormsModule1 = new Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule();
             this.worldCreatorWinModule1 = new Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule();
             this.ioWinModule1 = new Xpand.ExpressApp.IO.Win.IOWinModule();
-            this.exceptionHandlingWinModule1 = new Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule();
 //            this.filterDataStoreWindowsFormsModule1 = new Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule();
             this.additionalViewControlsProviderWindowsFormsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule();
             this.xpandPivotChartWinModule1 = new Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule();
@@ -222,7 +221,6 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.wizardUIWindowsFormsModule1);
             this.Modules.Add(this.worldCreatorWinModule1);
             this.Modules.Add(this.ioWinModule1);
-            this.Modules.Add(this.exceptionHandlingWinModule1);
 //            this.Modules.Add(this.filterDataStoreWindowsFormsModule1);
             this.Modules.Add(this.additionalViewControlsProviderWindowsFormsModule1);
             this.Modules.Add(this.xpandPivotChartWinModule1);
@@ -305,7 +303,7 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule wizardUIWindowsFormsModule1;
         private Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule worldCreatorWinModule1;
         private Xpand.ExpressApp.IO.Win.IOWinModule ioWinModule1;
-        private Xpand.ExpressApp.ExceptionHandling.Win.ExceptionHandlingWinModule exceptionHandlingWinModule1;
+        
 //        private Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule filterDataStoreWindowsFormsModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule additionalViewControlsProviderWindowsFormsModule1;
         private Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule xpandPivotChartWinModule1;

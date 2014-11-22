@@ -239,15 +239,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MessageBox\ShowMessageBoxObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\AttributeRegistrator.cs">
-    </Compile>
-    <Compile Include="Miscellaneous\ExceptionHandling\ExceptionHandlingObject.cs" />
-    <Compile Include="Miscellaneous\ExceptionHandling\ShowELConfigurationToolController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Miscellaneous\ExceptionHandling\ThrowExceptionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Miscellaneous\ForeignKeyViolation\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\DetailView\AttributeRegistrator.cs" />
     <Compile Include="HideToolBar\ListView\AttributeRegistrator.cs" />
@@ -374,6 +365,9 @@
     <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="PivotChart\ControllingPivotGridSettings\MDO_ControllingPivotGridSettings.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WorldCreator\NorthWind\NorthWind.xml" />
     <EmbeddedResource Include="ImportExport\UpdateMembers\UpdateMembersGroup.xml" />
     <EmbeddedResource Include="ImportExport\AnalysisObjects\AnalysisObjectsConfiguration.xml" />
@@ -421,9 +415,6 @@
     <EmbeddedResource Include="WorldCreator\NorthWind\MDO_NorthWind.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Miscellaneous\ExceptionHandling\MDO_ExceptionHandling.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ViewVariants\MDO_ViewVariants.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -446,9 +437,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\MultipleDataStore\MDO_MultipleDataStore.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PivotChart\ControllingPivotGridSettings\MDO_ControllingPivotGridSettings.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\UpdateOnlyChangeFields\MDO_UpdateOnlyChangeFields.xafml">

@@ -22,7 +22,7 @@ namespace FeatureCenter.Web.ApplicationCode {
         private DevExpress.ExpressApp.ViewVariantsModule.ViewVariantsModule _viewVariantsModule1;
         
         
-        private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
+        
         
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
 

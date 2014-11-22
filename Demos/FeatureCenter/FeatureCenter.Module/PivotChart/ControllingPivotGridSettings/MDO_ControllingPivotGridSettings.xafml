@@ -19,6 +19,6 @@
     </ConditionalActionState>
   </ModelArtifactState>
   <Views>
-    <DetailView Id="ControllingPivotGridSettings_DetailView" ViewEditMode="Edit" />
+    <DetailView Id="ControllingPivotGridSettings_DetailView" />
   </Views>
 </Application>
