@@ -1,5 +1,4 @@
 #DropDB JobsSchedulerTesterEasyTest
-#DropDB Quartz
 #Application JobsSchedulerTester.Win
 ;#Application JobsSchedulerTester.Web
 *ScreenCapture
