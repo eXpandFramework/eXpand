@@ -129,14 +129,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>

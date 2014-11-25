@@ -83,7 +83,6 @@ namespace FeatureCenter.Win {
             this.scriptRecorderWindowsFormsModule1 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
             this.memberLevelSecurityModuleWin1 = new Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin();
             
-            this.jobSchedulerJobsModule1 = new Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule();
             this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
             this.kpiModule1 = new DevExpress.ExpressApp.Kpi.KpiModule();
@@ -195,7 +194,6 @@ namespace FeatureCenter.Win {
             
             this.Modules.Add(this.memberLevelSecurityModule1);
             
-            this.Modules.Add(this.jobSchedulerJobsModule1);
             this.Modules.Add(this.kpiModule1);
             this.Modules.Add(this.importWizardModule1);
             this.Modules.Add(this.conditionalAppearanceModule1);
@@ -311,7 +309,6 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule scriptRecorderWindowsFormsModule1;
         private Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin memberLevelSecurityModuleWin1;
-        private Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule jobSchedulerJobsModule1;
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private DevExpress.ExpressApp.Kpi.KpiModule kpiModule1;

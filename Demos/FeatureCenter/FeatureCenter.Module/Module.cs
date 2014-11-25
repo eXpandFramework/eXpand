@@ -8,8 +8,6 @@ using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.WorldCreator;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
-using Xpand.ExpressApp.Attributes;
-using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl;
@@ -44,7 +42,6 @@ namespace FeatureCenter.Module {
             base.Setup(moduleManager);
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Analysis)), IsExportedType));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(SequenceObject)), IsExportedType));
-            AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(ThresholdSeverity)), IsExportedType));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Customer)), IsExportedType));
 
             var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.SingleOrDefault(mbase => mbase is ModelDifferenceBaseModule);
