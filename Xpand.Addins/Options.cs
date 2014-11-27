@@ -155,10 +155,15 @@ namespace XpandAddIns {
         }
 
         void StoreProjectPaths(SourceCodeInfo sourceCodeInfo, int index) {
-            var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories).Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
-            IEnumerable<string> paths = projectPaths.Select(s1 => s1 + "|" + GetOutPutPath(s1));
-            var enumerable = paths as string[] ?? paths.ToArray();
-            sourceCodeInfo.Count = enumerable.Count();
+            var enumerable=new string[0];
+            if (Directory.Exists(sourceCodeInfo.RootPath)){
+                var projectPaths =
+                    Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories)
+                        .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
+                IEnumerable<string> paths = projectPaths.Select(s1 => s1 + "|" + GetOutPutPath(s1));
+                enumerable = paths as string[] ?? paths.ToArray();
+                sourceCodeInfo.Count = enumerable.Count();
+            }
             Storage.WriteStrings(ProjectPaths, index + "_" + sourceCodeInfo.ProjectRegex, enumerable.ToArray());
         }
 

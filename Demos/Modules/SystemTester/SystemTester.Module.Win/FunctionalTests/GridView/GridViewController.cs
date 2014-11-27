@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
 
 namespace SystemTester.Module.Win.FunctionalTests.GridView {

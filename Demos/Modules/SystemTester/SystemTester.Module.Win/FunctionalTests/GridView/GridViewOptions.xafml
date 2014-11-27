@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ModelAdapterContexts>
+    <ModelAdapters Id="GridViewOptions" IsNewNode="True">
+      <OptionsGridView Id="GridViewTest" IsNewNode="True">
+        <OptionsFind AllowFindPanel="True" AlwaysVisible="True" IsNewNode="True" />
+      </OptionsGridView>
+    </ModelAdapters>
+  </ModelAdapterContexts>
+  <Views>
+    <ListView Id="GridViewObjectOptions_ListView">
+      <GridViewModelAdapters>
+        <GridViewModelAdapter Id="Default" Removed="True" />
+        <GridViewModelAdapter Id="Test" ModelAdapter="GridViewTest" IsNewNode="True" />
+      </GridViewModelAdapters>
+    </ListView>
+  </Views>
+</Application>

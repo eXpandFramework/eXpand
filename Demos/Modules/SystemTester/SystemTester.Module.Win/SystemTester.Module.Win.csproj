@@ -154,8 +154,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Content Include="FunctionalTests\GridView\GridViewOptions.inc" />
+    <Content Include="FunctionalTests\GridView\Images\GridViewOptions.win.png" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Init.inc" />
+    <None Include="FunctionalTests\GridView\GridViewOptions.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ViewEditMode.Win\Startup TabbedMdi view.inc" />
     <None Include="FunctionalTests\ApplicationExit\HideOnExit\Init.inc" />
     <Content Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Config.xml" />
@@ -192,7 +197,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
