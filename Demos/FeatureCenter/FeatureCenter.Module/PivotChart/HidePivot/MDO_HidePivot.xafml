@@ -7,7 +7,7 @@
     </Rules>
   </AdditionalViewControls>
   <Views>
-    <DetailView Id="HidePivot_DetailView" ViewEditMode="Edit">
+    <DetailView Id="HidePivot_DetailView" >
       <Items>
         <PropertyEditor Id="Self" AnalysisControlVisibility="Chart" />
       </Items>

@@ -256,6 +256,9 @@
     <Compile Include="PivotChart\HideChart\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\HidePivot\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\InPlaceEdit\AttributeRegistrator.cs" />
+    <Compile Include="PivotChart\PivotChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PivotChart\PivotGroupInterval\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditor\CascadingEditors\AttributeRegistrator.cs" />
