@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.EasyTest.WinAdapter;
 using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls;
@@ -105,6 +106,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                     var fullPath = Path.GetFullPath(app);
                     var process = new Process { StartInfo = new ProcessStartInfo(fullPath) };
                     process.Start();
+                    Thread.Sleep(10000);
                     _additionalProcesses.Add(process);
                 }
 

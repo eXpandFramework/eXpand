@@ -7,12 +7,14 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.Persistent.Base.Xpo {
     public static class Extensions {
         public static void Register(this ICustomFunctionOperator customFunctionOperator) {
-            ICustomFunctionOperator registeredItem = CriteriaOperator.GetCustomFunction(customFunctionOperator.Name);
-            if (registeredItem != null && registeredItem != customFunctionOperator && !(XafTypesInfo.Instance is TypesInfoBuilder.TypesInfo) && InterfaceBuilder.RuntimeMode) {
-                throw new InvalidOperationException();
-            }
-            if (registeredItem == null) {
-                CriteriaOperator.RegisterCustomFunction(customFunctionOperator);
+            if (!(XafTypesInfo.Instance is TypesInfoBuilder.TypesInfo)) {
+                ICustomFunctionOperator registeredItem = CriteriaOperator.GetCustomFunction(customFunctionOperator.Name);
+                if (registeredItem != null && registeredItem != customFunctionOperator && InterfaceBuilder.RuntimeMode){
+                    throw new InvalidOperationException();
+                }
+                if (registeredItem == null){
+                    CriteriaOperator.RegisterCustomFunction(customFunctionOperator);
+                }
             }
         }
 

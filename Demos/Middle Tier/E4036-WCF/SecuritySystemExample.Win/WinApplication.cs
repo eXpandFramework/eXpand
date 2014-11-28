@@ -12,6 +12,10 @@ namespace SecuritySystemExample.Win {
             DelayedViewItemsInitialization = true;
         }
 
+        protected override string GetModelAssemblyFilePath(){
+            return null;
+        }
+
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new SecuredObjectSpaceProvider(
                 (SecurityStrategy) Security, args.ConnectionString, args.Connection);

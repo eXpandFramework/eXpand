@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
-	<Applications>
-		<!-- Win -->
-		<Application
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+  <Applications>
+    <!-- Win -->
+    <Application
 			Name="SecuritySystemExample.Win"
 			FileName="[WinAppBin]\SecuritySystemExample.Win.exe"
-			AdapterAssemblyName="[WinAdapterAssemblyName]"
-			CommunicationPort="4100"/>
-		<!-- Web -->
-		<Application
-			Name="SecuritySystemExample.Web"
-			Url="http://localhost:5001"
-			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
-		<!-- For IIS -->
-		<!--Application
-			Name="SecuritySystemExample.Web"
-			Url="http://localhost/SecuritySystemExample.Web/Default.aspx"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
-	</Applications>
-	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SecuritySystemExampleEasyTest" />
-	</TestDatabases>
-
-	<Aliases>
-		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
-		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.2.2.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.2.2.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SecuritySystemExample.Win\Bin\EasyTest" />
-		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\SecuritySystemExample.Web" />
-	</Aliases>
+      AdapterFileName="[WinAdapterFileName]"
+			CommunicationPort="4100" AdditionalApplications="[ConfigPath]\..\..\ConsoleApplicationServer\bin\EasyTest\ConsoleApplicationServer.exe" />
+    <!-- Web -->
+   
+    <!-- For IIS -->
+    <!--Application
+			Name="[SolutionName]Web"
+			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
+			 AdapterFileName="[WebAdapterFileName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="SecuritySystemExampleEasyTest2"/>
+  </TestDatabases>
+  <Aliases>
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\SecuritySystemExample.Win\Bin\EasyTest" />
+  </Aliases>
 </Options>
