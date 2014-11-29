@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         private ASPxDashboardViewer CreateDashboardViewer() {
-            var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, RegisterJQuery = true,Width = Unit.Percentage(100)};
+            var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, Width = Unit.Percentage(100)};
             control.DashboardLoading += DashboardLoading;
             control.DataLoading += DataLoading;
             return control;
@@ -67,9 +67,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
-            if (e.Data == null) {
-                var dsType = Definition.DashboardTypes.First(t => t.GetDefaultCaption() == e.DataSourceName).Type;
-                e.Data = Application.CreateDashboardDataSource(dsType);
+            if (e.Data == null){
+                var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption() == e.DataSourceName);
+                if (typeWrapper != null){
+                    var dsType = typeWrapper.Type;
+                    e.Data = Application.CreateDashboardDataSource(dsType);
+                }
             }
         }
 
