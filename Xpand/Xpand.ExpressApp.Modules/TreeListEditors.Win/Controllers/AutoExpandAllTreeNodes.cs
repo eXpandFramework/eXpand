@@ -13,16 +13,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
     public interface IModelListViewAutoExpandAllTreeNodes:IModelListView {
         [Category("eXpand.TreeList")]
         bool AutoExpandAllTreeNodes { get; set; }
-        [Browsable(false)]
-        new bool AutoExpandAllGroups { get; set; }
     }
-
-    public class AutoExpandAllTreeNodesVisibilityCalculator:IModelIsVisible{
-        public bool IsVisible(IModelNode node, string propertyName){
-            return typeof (TreeListEditor).IsAssignableFrom(((IModelListView) node).EditorType);
-        }
-    }
-
     public class AutoExpandAllTreeNodesController : ObjectViewController<ListView, ITreeNode>,IModelExtender{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
