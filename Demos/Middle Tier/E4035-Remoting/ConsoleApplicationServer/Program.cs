@@ -43,7 +43,7 @@ namespace ConsoleApplicationServer {
                 //"Authentication with the TCP Channel" at http://msdn.microsoft.com/en-us/library/59hafwyt(v=vs.80).aspx
 
                 IDictionary t = new Hashtable();
-                t.Add("port", 1425);
+                t.Add("port", 1426);
                 t.Add("secure", true);
                 t.Add("impersonate", true);
 

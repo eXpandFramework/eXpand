@@ -51,9 +51,9 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                         }
                     }
                 }
-                RefreshTypes(model.GetTypesInfo(), modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
+                RefreshTypes(XafTypesInfo.Instance, modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
                 CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
-                RefreshTypes(model.GetTypesInfo(), modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
+                RefreshTypes(XafTypesInfo.Instance, modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation finished");
         }
@@ -82,7 +82,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                     var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
                     if (customMemberInfo == null) {
                         customMemberInfo= CreateMemberInfo(modelMemberEx, xpClassInfo);
-                        ((IModelTypesInfoProvider) modelMemberEx.Application).TypesInfo.RefreshInfo(classType);
+                        XafTypesInfo.Instance.RefreshInfo(classType);
                         AddAttributes(modelMemberEx, customMemberInfo);
                     }
                     var xpandCustomMemberInfo = customMemberInfo as XpandCustomMemberInfo;

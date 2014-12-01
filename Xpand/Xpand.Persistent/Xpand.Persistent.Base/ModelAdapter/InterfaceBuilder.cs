@@ -679,19 +679,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         public static void CreateValueCalculator(this DynamicModelPropertyInfo info, string expressionPath = null) {
             info.AddAttribute(new BrowsableAttribute(false));
-//            return;
-//            CreateValueCalculatorCore(info);
-//            ModelValueCalculatorAttribute modelValueCalculatorAttribute;
-//            if (expressionPath != null) {
-//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(expressionPath);
-//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, null));
-//            } else {
-//                info.RemoveAttributes(typeof(ReadOnlyAttribute));
-//                var type = typeof(MapModelValueCalculator);
-//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(type);
-//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, type));
-//                info.AddAttribute(new ModelReadOnlyAttribute(typeof(MapModelReadOnlyCalculator)));
-//            }
         }
 
         static void CreateValueCalculatorCore(DynamicModelPropertyInfo info) {

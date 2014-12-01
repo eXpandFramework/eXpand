@@ -16,7 +16,7 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="SecuritySystemExampleEasyTest2"/>
+    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="E4035-Xpand"/>
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

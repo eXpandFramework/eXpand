@@ -243,10 +243,6 @@ namespace Xpand.Persistent.Base.General {
             RefreshLayers(application, @base => @base.Id == id ? null : @base);
         }
 
-        public static ITypesInfo GetTypesInfo(this IModelApplication application) {
-            return ((IModelTypesInfoProvider) application).TypesInfo;
-        }
-
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {
             RefreshLayers(application, @base => application.LastLayer.Id == layer.Id ? layer : @base);
         }

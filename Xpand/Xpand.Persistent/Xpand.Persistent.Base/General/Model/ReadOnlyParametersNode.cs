@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
-using Xpand.Persistent.Base.ModelDifference;
 using Fasterflect;
 using System.Linq;
 
@@ -25,7 +25,7 @@ namespace Xpand.Persistent.Base.General.Model {
 
     public class ModelReadOnlyParametersNodesGenerator : ModelNodesGeneratorBase {
         protected override void GenerateNodesCore(ModelNode node) {
-            var typesInfo = ((IModelTypesInfoProvider) node.Application).TypesInfo;
+            var typesInfo = XafTypesInfo.Instance;
             var typeInfo = typesInfo.FindTypeInfo<ReadOnlyParameter>();
             foreach (var descendant in typeInfo.Descendants.Where(info => !info.IsAbstract)) {
                 var readOnlyParameter = (ReadOnlyParameter) descendant.Type.CreateInstance();

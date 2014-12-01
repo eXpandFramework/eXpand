@@ -24,7 +24,7 @@ namespace SecuritySystemExample.Win {
             EditModelPermission.AlwaysGranted = Debugger.IsAttached;
             var winApplication =
                 new SecuritySystemExampleWindowsFormsApplication();
-            const string connectionString = "tcp://localhost:1425/DataServer";
+            const string connectionString = "tcp://localhost:1426/DataServer";
             winApplication.ConnectionString = connectionString;
             try {
                 var t = new Hashtable{{"secure", true}, {"tokenImpersonationLevel", "impersonation"}};
