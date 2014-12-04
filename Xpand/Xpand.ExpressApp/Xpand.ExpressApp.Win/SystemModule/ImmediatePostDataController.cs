@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
                 if (_gridView != null) {
                     var modelColumns = View.Model.Columns.Where(column => column.ImmediatePostData);
                     foreach (var modelColumn in modelColumns){
-                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.ModelMember.MemberInfo.BindingName);
+                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.PropertyName);
                         if (gridColumn.ColumnEdit != null)
                             gridColumn.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
                     }
