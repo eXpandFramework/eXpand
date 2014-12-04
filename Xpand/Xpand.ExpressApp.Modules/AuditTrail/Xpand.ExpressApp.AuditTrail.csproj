@@ -159,6 +159,7 @@
     <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="XpandAuditDataStore.cs" />
     <Compile Include="XpandAuditTrailModule.cs">
       <SubType>Component</SubType>
     </Compile>
