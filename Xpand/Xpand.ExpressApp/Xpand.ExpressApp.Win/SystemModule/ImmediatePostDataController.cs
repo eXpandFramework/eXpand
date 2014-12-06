@@ -2,7 +2,9 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public class ImmediatePostDataController : ViewController<ListView> {
@@ -14,11 +16,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             if (gridControl != null) {
                 _gridView = gridControl.FocusedView as GridView;
                 if (_gridView != null) {
-                    var modelColumns = View.Model.Columns.Where(column => column.ImmediatePostData);
-                    foreach (var modelColumn in modelColumns){
-                        var gridColumn = _gridView.Columns.ColumnByFieldName(modelColumn.PropertyName);
-                        if (gridColumn.ColumnEdit != null)
-                            gridColumn.ColumnEdit.EditValueChanged += ColumnEdit_EditValueChanged;
+                    foreach (GridColumn gridColumn in _gridView.Columns.Where(column => column.ColumnEdit!=null)){
+                        var modelColumn = gridColumn.Model();
+                        if (modelColumn.ImmediatePostData){
+                            gridColumn.ColumnEdit.EditValueChanged+=ColumnEdit_EditValueChanged;
+                        }
                     }
                 }
             }
