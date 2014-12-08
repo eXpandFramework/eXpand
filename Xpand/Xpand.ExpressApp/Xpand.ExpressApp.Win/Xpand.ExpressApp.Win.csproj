@@ -399,6 +399,9 @@
     <Compile Include="SystemModule\ImmediatePostDataController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\OpenWithController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\SelectedItemSumController.cs">
       <SubType>Component</SubType>
     </Compile>
