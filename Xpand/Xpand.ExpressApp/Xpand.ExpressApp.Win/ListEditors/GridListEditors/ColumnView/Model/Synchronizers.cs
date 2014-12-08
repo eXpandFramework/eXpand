@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
                 SaveToLayoutStore(Control.Grid.MainView);
         }
 
-        protected virtual bool SynchronizeModelCore(){
+        protected virtual bool SynchronizeModelCore() {
             return false;
         }
 
@@ -174,7 +174,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             ModelSynchronizerList.AddRange(modelSynchronizers);
         }
 
-        public ListEditorModelSynchronizer(WinColumnsListEditor columnViewEditor) : base(columnViewEditor, columnViewEditor.Model){
+        public ListEditorModelSynchronizer(WinColumnsListEditor columnViewEditor)
+            : base(columnViewEditor, columnViewEditor.Model) {
             ((WinColumnsListEditor)Control).ColumnView.ColumnPositionChanged += Control_Changed;
         }
 
@@ -192,8 +193,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             return columnWrapper.GetPropertyValue("Column") as GridColumn;
         }
 
-        public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IEnumerable<IModelMember> modelMembers){
-            return new XpandFilterBuilder(filterColumns,columnView.GridControl.MenuManager,columnView.GridControl.LookAndFeel,columnView, defaultFilterColumn,modelMembers);
+        public static Form CreateFilterBuilderDialogEx(this DevExpress.XtraGrid.Views.Base.ColumnView columnView, FilterColumnCollection filterColumns, FilterColumn defaultFilterColumn, IEnumerable<IModelMember> modelMembers) {
+            return new XpandFilterBuilder(filterColumns, columnView.GridControl.MenuManager, columnView.GridControl.LookAndFeel, columnView, defaultFilterColumn, modelMembers);
         }
 
         public static string PropertyName(this GridColumn column) {
@@ -202,21 +203,17 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         }
 
         private static IGridColumnModelSynchronizer GetGridColumnInfo(GridColumn column) {
-            if (column != null && column.View is IModelSynchronizersHolder) {
-                return ((IModelSynchronizersHolder)column.View).GetSynchronizer(column) as IGridColumnModelSynchronizer;
-            }
-            return null;
+            return column != null && column.View is IModelSynchronizersHolder
+                ? ((IModelSynchronizersHolder)column.View).GetSynchronizer(column) as IGridColumnModelSynchronizer
+                : null;
         }
 
-        public static IModelColumnOptionsColumnView GetModel(this GridColumn gridColumn) {
-            IGridColumnModelSynchronizer columnInfo = GetGridColumnInfo(gridColumn);
-            if (columnInfo != null) {
-                return (IModelColumnOptionsColumnView)columnInfo.Model;
-            }
-            return null;
+        public static IModelColumn GetModel(this GridColumn gridColumn) {
+            var columnInfo = GetGridColumnInfo(gridColumn);
+            return columnInfo != null ? columnInfo.Model : null;
         }
 
-        public static IModelColumnOptionsColumnView Model(this GridColumn gridColumn){
+        public static IModelColumn Model(this GridColumn gridColumn) {
             return gridColumn.GetModel();
         }
 

@@ -12,7 +12,6 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
 using ListView = DevExpress.ExpressApp.ListView;
 
@@ -88,7 +87,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             }
         }
 
-        bool TooltipEnabled(IModelColumnOptionsColumnView modelColumnOptionsColumnView) {
+        bool TooltipEnabled(IModelColumn modelColumnOptionsColumnView) {
             var columnTooltipData = (IModelColumnTooltipData)modelColumnOptionsColumnView;
             return columnTooltipData != null && (columnTooltipData.TooltipData.DataOnToolTip || !string.IsNullOrEmpty(columnTooltipData.TooltipData.ToolTipText) || columnTooltipData.TooltipData.ToolTipController != null);
         }
