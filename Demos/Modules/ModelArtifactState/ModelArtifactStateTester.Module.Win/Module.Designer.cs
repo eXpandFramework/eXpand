@@ -24,6 +24,7 @@ namespace ModelArtifactStateTester.Module.Win {
         /// </summary>
         private void InitializeComponent() {
             RequiredModuleTypes.Add(typeof(ModelArtifactStateTesterModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
         }
 
         #endregion

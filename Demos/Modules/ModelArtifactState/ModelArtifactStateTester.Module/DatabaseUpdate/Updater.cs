@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using ModelArtifactStateTester.Module.BusinessObjects;
+using ModelArtifactStateTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 
 namespace ModelArtifactStateTester.Module.DatabaseUpdate {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="ConditionalObjectViewDemo" Logo="ExpressAppLogo">
+<Application Title="ModelArtifactStateTester" Logo="ExpressAppLogo">
   <ConditionalObjectView>
     <Rules>
       <ObjectViewRule Id="Customer_DetailView_For_EUMembers" TypeInfo="ModelArtifactStateTester.Module.BusinessObjects.Customer" NormalCriteria="!Country.EUMember Or Country Is Null" View="" ObjectView="Customer_DetailView_NonEu" IsNewNode="True" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="ConditionalObjectViewDemo" Logo="ExpressAppLogo">
+<Application Title="ModelArtifactStateTester" Logo="ExpressAppLogo">
   <ModelArtifactState>
     <ConditionalActionState>
       <ActionContexts>

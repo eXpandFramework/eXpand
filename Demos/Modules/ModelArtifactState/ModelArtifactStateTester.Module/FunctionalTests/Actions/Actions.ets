@@ -16,3 +16,4 @@
 ;Hide_From_Modules rule
 !ActionVisible Test 1 Action
 !ActionVisible Test 2 Action
+

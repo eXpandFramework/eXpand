@@ -24,7 +24,7 @@
 	</TestDatabases>
 
 	<Aliases>
-		<Alias Name="DomainUserName" Value="%USERDOMAIN%\%USERNAME%" />
+		
 		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=14.2.3.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=14.2.3.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\AuditTrailTester.Win\Bin\EasyTest" />

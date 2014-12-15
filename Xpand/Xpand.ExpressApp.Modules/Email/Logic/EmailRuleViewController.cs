@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.Email.Logic {
             }
         }
 
-        EmailTemplateEngine.Email CreateEmail(LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail) {
+        protected virtual EmailTemplateEngine.Email CreateEmail(LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail) {
             var templateEngine = new EmailTemplateEngine.EmailTemplateEngine(emailTemplateObject);
             var email = templateEngine.Execute(logicRuleInfo.Object, emailRule.ID);
             if (emailRule.CurrentObjectEmailMember != null) {
@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.Email.Logic {
             return email.To.Count == 0 ? null : email;
         }
 
-        void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, EmailTemplateEngine.Email email, object o) {
+        protected virtual void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, EmailTemplateEngine.Email email, object o) {
             var emailReceipientGroup =modelApplicationEmail.Email.EmailReceipients.First(
                     @group => @group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
             foreach (var modelEmailReceipient in emailReceipientGroup) {
@@ -75,14 +75,14 @@ namespace Xpand.ExpressApp.Email.Logic {
             }
         }
 
-        CriteriaOperator GetCriteriaOperator(IModelEmailReceipient modelEmailReceipient, object o) {
+        protected virtual CriteriaOperator GetCriteriaOperator(IModelEmailReceipient modelEmailReceipient, object o) {
             var keyValue = ObjectSpace.GetKeyValue(o);
             modelEmailReceipient.Criteria = modelEmailReceipient.Criteria.Replace(RuleObjectKeyValue, keyValue.ToString());
             var criteriaOperator = CriteriaOperator.Parse(modelEmailReceipient.Criteria);
             return criteriaOperator;
         }
 
-        static ICollection<string> GetSendToCollection(EmailTemplateEngine.Email email, IModelEmailReceipient modelEmailReceipient) {
+        protected virtual ICollection<string> GetSendToCollection(EmailTemplateEngine.Email email, IModelEmailReceipient modelEmailReceipient) {
             var collection = email.To;
             if (modelEmailReceipient.EmailType != EmailType.Normal)
                 collection = modelEmailReceipient.EmailType == EmailType.BCC ? email.Bcc : email.CC;

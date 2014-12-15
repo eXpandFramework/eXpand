@@ -1,5 +1,5 @@
-using DevExpress.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 
 namespace ModelArtifactStateTester.Module.BusinessObjects {
     [DefaultClassOptions]

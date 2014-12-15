@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                 _easyTestCommandAdapter.Disconnect();
             }
             CloseApplication(mainProcess.ProcessName, true);
-            foreach (var additionalProcess in _additionalProcesses) {
+            CloseApplication(_additionalProcesses.Where(process => !process.HasExited).ToArray(), true);
                 CloseApplication(additionalProcess.ProcessName, true);
             }
         }
@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             base.RunApplication(testApplication);
         }
 
-        private static void RunAdditionalApps(TestApplication testApplication) {
+        private void RunAdditionalApps(TestApplication testApplication) {
             _additionalProcesses = new List<Process>();
             var additionalApps = testApplication.ParameterValue<string>("AdditionalApplications");
             if (!string.IsNullOrEmpty(additionalApps))

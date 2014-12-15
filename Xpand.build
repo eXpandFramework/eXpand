@@ -264,7 +264,7 @@
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
     <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
-    <Exec Command="$(XpandDLLPath)\XpandTestExecutor.exe $(DXVersion)" WorkingDirectory="$(XpandDLLPath)" />
+    <Exec Command="$(XpandDLLPath)\XpandTestExecutor.Win.exe easytests.txt" WorkingDirectory="$(XpandDLLPath)" />
 	<Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
     <!--<CallTarget Targets="CreateEasyTestVideos"></CallTarget>-->
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
