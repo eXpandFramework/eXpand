@@ -17,9 +17,14 @@ using Xpand.Xpo.DB;
 using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
-    public static class ObjectSpaceExtensions {        [DebuggerStepThrough]
+    public static class ObjectSpaceExtensions {        
+        [DebuggerStepThrough]
         public static void SetIsModified(this IObjectSpace objectSpace,bool isModified){
             objectSpace.CallMethod("SetIsModified", new[] { typeof(bool) }, isModified);
+        }
+
+        public static CriteriaOperator TransformExpression<T>(this IObjectSpace objectSpace,Expression<Func<T, bool>> expression){
+            return new XPQuery<T>(objectSpace.Session()).TransformExpression(expression);
         }
 
         public static void RollbackSilent(this IObjectSpace objectSpace){
