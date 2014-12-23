@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         SortingDirection SortingDirection { get; set; }
     }
 
-    public class StringLookupPropertyEditorVisibilityCalculator :EditorTypeVisibilityCalculator<IStringLookupPropertyEditor>{
+    public class StringLookupPropertyEditorVisibilityCalculator :EditorTypeVisibilityCalculator<IStringLookupPropertyEditor,IModelMemberViewItem>{
          
     }
 

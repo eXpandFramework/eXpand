@@ -38,10 +38,10 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     }
 
-    public abstract class GridListEditorVisibilityCalculatorHelper : EditorTypeVisibilityCalculator {
+    public abstract class GridListEditorVisibilityCalculatorHelper : EditorTypeVisibilityCalculator<IModelListView> {
 
     }
-    public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+    public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
             var typesInfo = XafTypesInfo.Instance;

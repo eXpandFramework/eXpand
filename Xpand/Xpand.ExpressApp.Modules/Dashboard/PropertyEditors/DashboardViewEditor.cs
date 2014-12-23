@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
         IModelDashboardViewEditor DashboardViewEditor { get; }
     }
 
-    public class DashboardViewerEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor> {
+    public class DashboardViewerEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor,IModelPropertyEditor> {
     }
 
     public interface IDashboardViewEditor : IModelPropertyEditorControlAdapter {

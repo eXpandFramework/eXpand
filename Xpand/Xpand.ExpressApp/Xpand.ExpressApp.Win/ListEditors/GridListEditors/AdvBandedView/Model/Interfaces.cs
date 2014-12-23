@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         IModelAdvBandedViewModelAdapters AdvBandedViewModelAdapters { get; }
     }
 
-    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor> {
+    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor, IModelListView> {
     }
 
     public interface IModelAdvBandedViewDesign : IModelLayoutDesignStore {
