@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
     public interface IModelOptionsTreeList : IModelOptionsColumnView {
 
     }
-    public class TreeListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+    public class TreeListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
             return EditorTypes().Any(type => type.IsAssignableFrom(EditorType(node)));

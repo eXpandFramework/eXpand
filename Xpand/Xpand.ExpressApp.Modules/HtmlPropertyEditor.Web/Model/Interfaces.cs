@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
         IModelHtmlEditorModelAdapters HtmlEditorModelAdapters { get; }
     }
 
-    public class HtmlEditorVisibilityCalculator : EditorTypeVisibilityCalculator<ASPxHtmlPropertyEditor> {
+    public class HtmlEditorVisibilityCalculator : EditorTypeVisibilityCalculator<ASPxHtmlPropertyEditor,IModelListView> {
          
     }
 
