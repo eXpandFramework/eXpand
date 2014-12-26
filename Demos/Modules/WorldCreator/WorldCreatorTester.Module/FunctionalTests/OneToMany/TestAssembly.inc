@@ -1,4 +1,6 @@
-﻿*Action Navigation(Default.Project)
+﻿*ReopenApplication
+*Action Log On
+*Action Navigation(Default.Project)
 *Action New(Project)
 *FillForm
  Name = eXpandFramework

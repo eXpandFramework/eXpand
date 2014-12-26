@@ -15,4 +15,6 @@
 *Navigate Master
 *XpandCompareScreenshot MasterDetail.png
  WebMaskRectangle = 601x316;138x13
- ValidDiffPercentage = 3
+ ValidDiffPercentage = 4
+
+ 

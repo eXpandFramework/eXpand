@@ -87,6 +87,10 @@
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xpand.Utils, Version=14.2.3.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
@@ -94,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionalTests\MergeWithExistingType\ExistingTypeToMergeWith.cs" />
+    <Compile Include="FunctionalTests\OneToMany\OneToManyUpdater.cs" />
     <Compile Include="ITestInterfaceInfo.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>

@@ -1,4 +1,4 @@
-﻿#IncludeFile .\Init.inc
+﻿;#IncludeFile .\Init.inc
 *Action New(Sequence Generator Object)
 *XpandFillForm
  Prefix = B
@@ -12,3 +12,4 @@
 *XpandProcessRecord
  Prefix = B
  Sequence = 1
+

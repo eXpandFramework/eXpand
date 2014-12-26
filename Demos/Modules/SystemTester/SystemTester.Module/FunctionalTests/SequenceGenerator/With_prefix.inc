@@ -3,13 +3,17 @@
 *XpandFillForm
  Prefix = A
 *SaveAndClose
-*CheckTable 
- Columns = Prefix,Sequence
- Row[0] = 'A',0
+*XpandProcessRecord
+ Prefix = A
+ Sequence = 0
+*Navigate Sequence Generator Object
+
 *Action New(Sequence Generator Object)
 *XpandFillForm
  Prefix = A
 *SaveAndClose
-*CheckTable 
- Columns = Prefix,Sequence
- Row[3] = 'A',1
+*XpandProcessRecord
+ Prefix = A
+ Sequence = 1
+*Navigate Sequence Generator Object
+

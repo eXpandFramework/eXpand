@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester" Logo="ExpressAppLogo">
+  <Views>
+    <ListView Id="SequenceGeneratorObject_ListView">
+      <Columns>
+        <ColumnInfo Id="Sequence" SortOrder="Ascending" SortIndex="0" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

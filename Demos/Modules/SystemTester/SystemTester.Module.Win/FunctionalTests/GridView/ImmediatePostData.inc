@@ -12,3 +12,6 @@
 *CheckTable
  Columns = Number Alias
  Row[0] = 2
+*Navigate GridView.ImmediateRefresh
+*HandleDialog
+ Respond = Yes

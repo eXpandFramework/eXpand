@@ -258,7 +258,7 @@
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
   </Target>
   <Target Name="RunEasyTests">
-	
+	<CallTarget Targets='BuildEasyTest' ></CallTarget>
     <Delete Files="@(EasyTestLogs)"/>	
     <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>

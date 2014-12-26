@@ -186,6 +186,9 @@
     <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\SequenceGenerator\SequenceGenerator.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\SequenceGenerator\SequenceGenerator.ets" />
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewEditMode.xafml">
       <SubType>Designer</SubType>
