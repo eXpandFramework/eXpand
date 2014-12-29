@@ -120,6 +120,10 @@
     <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
+    <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLocking.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLockingObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -174,6 +178,10 @@
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml" />
     <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
     <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml" />
+    <None Include="FunctionalTests\PessimisticLocking\PessimisticLocking.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\PessimisticLocking\PessimisticLocking.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml" />
     <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
@@ -205,6 +213,8 @@
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <Content Include="FunctionalTests\PessimisticLocking\Config.xml" />
+    <Content Include="FunctionalTests\PessimisticLocking\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.win.png" />
     <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
     <Content Include="FunctionalTests\SequenceGenerator\Config.xml" />
