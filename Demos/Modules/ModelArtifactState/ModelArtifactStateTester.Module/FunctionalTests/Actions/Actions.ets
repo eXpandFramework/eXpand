@@ -17,3 +17,7 @@
 !ActionVisible Test 1 Action
 !ActionVisible Test 2 Action
 
+;Hide New action in lookup
+*Action New
+*ExecuteEditorAction Acti Object
+!ActionVisible New
