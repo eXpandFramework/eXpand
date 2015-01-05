@@ -10,7 +10,8 @@ namespace Xpand.Quartz.Server {
     /// <summary>
     /// The main server logic.
     /// </summary>
-    public class QuartzServer : IQuartzServer {
+    public class QuartzServer {
+
         private readonly ILog _logger;
         private ISchedulerFactory _schedulerFactory;
         private IScheduler _scheduler;

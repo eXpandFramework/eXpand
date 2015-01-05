@@ -177,11 +177,9 @@
     <Compile Include="Configuration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IQuartzServer.cs" />
     <Compile Include="QuartzServer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="QuartzServerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
