@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
 using DevExpress.Persistent.Validation;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Validation.Controllers {
-    public class ActionExecuteValidationController : ObjectViewController {
+    public interface IModelValidationContextsActions{
+        [Category("eXpand")]
+        bool ActionContexts { get; set; }
+    }
+    public class ActionExecuteValidationController : ObjectViewController,IModelExtender {
         bool _otherValidationContextFailed;
+        private ActionBase[] _actionBases;
         public event EventHandler<CustomGetAggregatedObjectsToValidateEventArgs> CustomGetAggregatedObjectsToValidate;
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
         public event EventHandler<ContextValidatingEventArgs> ContextValidating;
@@ -26,21 +35,28 @@ namespace Xpand.ExpressApp.Validation.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
-            foreach (var controller in Frame.Controllers) {
-                foreach (var action in controller.Actions) {
-                    action.Executed -= ActionOnExecuted;
+            if (Enabled){
+                if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+                foreach (var actionBase in _actionBases){
+                    actionBase.Executed -= ActionOnExecuted;
                 }
             }
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            Validator.RuleSet.ValidationCompleted+=RuleSetOnValidationCompleted;
-            foreach (var controller in Frame.Controllers) {
-                foreach (var action in controller.Actions) {
-                    action.Executed += ActionOnExecuted;
+            if (Enabled){
+                Validator.RuleSet.ValidationCompleted+=RuleSetOnValidationCompleted;
+                _actionBases = Frame.Actions().Where(@base => !new[] { "Save", "Delete","Validate" }.Contains(@base.Id)).ToArray();
+                foreach (var actionBase in _actionBases){
+                    actionBase.Executed+=ActionOnExecuted;
                 }
+            }
+        }
+
+        private bool Enabled{
+            get{
+                return ((IModelValidationContextsActions) ((IModelApplicationValidation) Application.Model).Validation.Contexts).ActionContexts;
             }
         }
 
@@ -83,6 +99,9 @@ namespace Xpand.ExpressApp.Validation.Controllers {
             selector.CustomGetAggregatedObjectsToValidate += OnSelectorCustomGetAggregatedObjectsToValidate;
         }
 
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            extenders.Add<IModelValidationContexts,IModelValidationContextsActions>();
+        }
     }
     public class ActionExecuteContextTargetObjectSelector : ValidationTargetObjectSelector {
 

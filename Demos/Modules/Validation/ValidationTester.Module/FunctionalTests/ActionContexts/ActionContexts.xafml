@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ValidationTester" Logo="ExpressAppLogo">
+  <Validation>
+    <Contexts ActionContexts="True" />
+    <Rules>
+      <RuleStringComparison Id="Refresh rule" TargetType="ValidationTester.Module.FunctionalTests.ValidationObject" TargetPropertyName="Name" TargetContextIDs="Refresh" ResultType="Warning" CustomMessageTemplate="do not refresh test" IgnoreCase="True" InvertResult="True" IsNewNode="True" />
+    </Rules>
+  </Validation>
+</Application>

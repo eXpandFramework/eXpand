@@ -24,9 +24,9 @@
     <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="ValidationTesterEasyTest" />
   </TestDatabases>
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ValidationTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ValidationTester.Web" />
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\ValidationTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\ValidationTester.Web" />
   </Aliases>
 </Options>
