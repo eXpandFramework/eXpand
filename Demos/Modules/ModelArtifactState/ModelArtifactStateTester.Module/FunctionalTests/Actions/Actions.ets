@@ -18,6 +18,7 @@
 !ActionVisible Test 2 Action
 
 ;Hide New action in lookup
+#IfDef ModelArtifactStateTester.Win
 *Action New
-*ExecuteEditorAction Acti Object
-!ActionVisible New
+!ExecuteEditorAction Acti Object(New)
+#EndIf
