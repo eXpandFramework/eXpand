@@ -75,7 +75,6 @@
     <Reference Include="Xpand.Xpo, Version=14.2.3.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="FunctionalTests\ValidationObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
