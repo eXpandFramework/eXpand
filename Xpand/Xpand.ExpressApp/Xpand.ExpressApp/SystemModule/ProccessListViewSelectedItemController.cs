@@ -59,7 +59,8 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnDeactivated();
             Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
         }
-        void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
+        void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e){
+            if (e.Handled) return;
             var model = ((IModelListViewProcessSelectedItem)View.Model).ProccessListViewSelectItem;
             if (model.AllowAllControllers.HasValue)
                 e.InnerArgs.ShowViewParameters.CreateAllControllers = model.AllowAllControllers.Value;
