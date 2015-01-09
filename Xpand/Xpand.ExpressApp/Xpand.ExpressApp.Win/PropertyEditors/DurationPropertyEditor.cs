@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         protected override void ReadValueCore() {
-            Control.EditValue = DecodeTimeSpan((TimeSpan) PropertyValue);
+            Control.EditValue = DecodeTimeSpan((TimeSpan?) PropertyValue);
         }
 
         public static TimeSpan ParseTimeSpan(string s) {
@@ -146,19 +146,22 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             return ts;
         }
 
-        public object DecodeTimeSpan(TimeSpan timeSpan) {
+        public object DecodeTimeSpan(TimeSpan? value){
             if (!TotalsEnabled()){
                 string time = string.Empty;
-                if (timeSpan.Days > 0)
-                    time = timeSpan.Days + " Days";
-                if (timeSpan.Hours > 0)
-                    time += (time != string.Empty ? " " : "") + timeSpan.Hours + " Hours";
-                if (timeSpan.Minutes > 0)
-                    time += (time != string.Empty ? " " : "") + timeSpan.Minutes + " Minutes";
+                if (value.HasValue){
+                    TimeSpan timeSpan = value.Value;
+                    if (timeSpan.Days > 0)
+                        time = timeSpan.Days + " Days";
+                    if (timeSpan.Hours > 0)
+                        time += (time != string.Empty ? " " : "") + timeSpan.Hours + " Hours";
+                    if (timeSpan.Minutes > 0)
+                        time += (time != string.Empty ? " " : "") + timeSpan.Minutes + " Minutes";
+                }
                 return time;
             }
             return
-                timeSpan.GetPropertyValue(
+                value.GetPropertyValue(
                     ((IModelMemberViewItemDuration) Model).DurationSettings.DisplayTotal.ToString());
         }
 
