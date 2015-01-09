@@ -70,15 +70,17 @@ namespace Xpand.Persistent.Base.General.Controllers {
             ObjectSpace.ObjectChanged-=ObjectSpaceOnObjectChanged;
         }
 
-        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
+        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs){
             string propertyName = objectChangedEventArgs.PropertyName;
-            if (View != null && (!string.IsNullOrEmpty(propertyName) && objectChangedEventArgs.Object.GetType() == View.ObjectTypeInfo.Type)) {
-                foreach (var notifiedEnabledMember in IsNotifiedEnabled(propertyName)) {
-                    _onChangedmethodInfo(View.CurrentObject, notifiedEnabledMember.Name);
+            if (View != null &&
+                (!string.IsNullOrEmpty(propertyName) &&
+                 objectChangedEventArgs.Object.GetType() == View.ObjectTypeInfo.Type)){
+                foreach (IModelMember notifiedEnabledMember in IsNotifiedEnabled(propertyName)){
+                    _onChangedmethodInfo(objectChangedEventArgs.Object, notifiedEnabledMember.Name);
                 }
             }
         }
-
+    .
         private IEnumerable<IModelMember> IsNotifiedEnabled(string propertyName){
             var modelMembers = View.Model.ModelClass.AllMembers.Where(member => member.Name!=propertyName);
             if (_notifiedMembers == ModelClassMembersConverter.AllMembers) return modelMembers;
