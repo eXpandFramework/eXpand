@@ -141,6 +141,9 @@
     <Compile Include="Controllers\ChangeStateActionController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\StateMachineAdminRolesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\StateMachineCacheController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -150,9 +153,6 @@
     <Compile Include="Security\IStateMachineTransitionPermission.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationPermissionData.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionPermission.cs" />
-    <Compile Include="Controllers\StateMachineAdminRolesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Security\StateMachinePopulateController.cs">
       <SubType>Component</SubType>
     </Compile>

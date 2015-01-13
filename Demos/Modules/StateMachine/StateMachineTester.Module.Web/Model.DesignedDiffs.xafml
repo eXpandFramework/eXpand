@@ -1,2 +1,10 @@
-<?xml version="1.0"?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="XpoState_DetailView">
+      <Items>
+        <PropertyEditor Id="TargetObjectCriteria" PropertyEditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxStringPropertyEditor" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

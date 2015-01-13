@@ -80,7 +80,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
                 }
             }
         }
-    .
+    
         private IEnumerable<IModelMember> IsNotifiedEnabled(string propertyName){
             var modelMembers = View.Model.ModelClass.AllMembers.Where(member => member.Name!=propertyName);
             if (_notifiedMembers == ModelClassMembersConverter.AllMembers) return modelMembers;

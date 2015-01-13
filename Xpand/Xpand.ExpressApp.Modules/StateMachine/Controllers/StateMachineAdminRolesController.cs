@@ -10,23 +10,20 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         bool _changeStateActionOnItemsChanged;
         StateMachineController _stateMachineController;
 
-        protected override void OnActivated() {
-            base.OnActivated();
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
             if (Application.CanBuildSecurityObjects()) {
                 _stateMachineController = Frame.GetController<StateMachineController>();
-                _stateMachineController.TransitionExecuting+=StateMachineControllerOnTransitionExecuting;
-                if (_stateMachineController.ChangeStateAction.Active)
-                    _stateMachineController.ChangeStateAction.ItemsChanged+=ChangeStateActionOnItemsChanged;
+                _stateMachineController.TransitionExecuting += StateMachineControllerOnTransitionExecuting;
+                _stateMachineController.ChangeStateAction.ItemsChanged += ChangeStateActionOnItemsChanged;
+                Frame.Disposing += FrameOnDisposing;
             }
         }
 
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (_stateMachineController!=null) {
-                _stateMachineController.TransitionExecuting -= StateMachineControllerOnTransitionExecuting;
-                if (_stateMachineController.ChangeStateAction.Active)
-                    _stateMachineController.ChangeStateAction.ItemsChanged += ChangeStateActionOnItemsChanged;
-            }
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Frame.Disposing-=FrameOnDisposing;
+            _stateMachineController.TransitionExecuting -= StateMachineControllerOnTransitionExecuting;
+            _stateMachineController.ChangeStateAction.ItemsChanged -= ChangeStateActionOnItemsChanged;
         }
 
         void ChangeStateActionOnItemsChanged(object sender, ItemsChangedEventArgs itemsChangedEventArgs) {
@@ -42,9 +39,11 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
                         var stateMachines = GetStateMachines().Where(machine => machine.CanExecuteTransition());
                         foreach (var stateMachine in stateMachines) {
                             var item = stateMachineAction.Items.Find(stateMachine);
-                            item.Items.Clear();
-                            foreach (var transition in stateMachine.States.SelectMany(state => state.Transitions)) {
-                                item.Items.Add(new ChoiceActionItem(transition.Caption, transition));
+                            if (item != null){
+                                item.Items.Clear();
+                                foreach (var transition in stateMachine.States.SelectMany(state => state.Transitions)) {
+                                    item.Items.Add(new ChoiceActionItem(transition.Caption, transition));
+                                }
                             }
                         }
                     }
@@ -54,11 +53,12 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
-            executeTransitionEventArgs.Cancel = !executeTransitionEventArgs.Transition.TargetState.StateMachine.CanExecuteTransition();
-            if (executeTransitionEventArgs.Cancel)
+            if (executeTransitionEventArgs.Transition.TargetState.StateMachine.CanExecuteTransition()){
+                executeTransitionEventArgs.Cancel = true;
                 new StateMachineLogic(ObjectSpace).ProcessTransition(View.CurrentObject,
                     executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
                     ObjectSpace.GetObject(executeTransitionEventArgs.Transition.TargetState));
+            }
             
         }
 

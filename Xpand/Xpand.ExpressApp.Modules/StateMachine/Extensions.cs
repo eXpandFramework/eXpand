@@ -16,6 +16,8 @@ namespace Xpand.ExpressApp.StateMachine {
 
         public static bool CanExecuteTransition(this IStateMachine stateMachine) {
             var collection = (XPBaseCollection)((XpoStateMachine)stateMachine).GetMemberValue(XpandStateMachineModule.AdminRoles);
+            if (!collection.OfType<ISecurityRole>().Any())
+                return true;
             return collection.OfType<ISecurityRole>().Any(IsInRole);
         }
         static bool IsInRole(ISecurityRole securityRole) {

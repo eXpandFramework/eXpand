@@ -40,7 +40,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.2">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.2">
       <SpecificVersion>False</SpecificVersion>
@@ -90,6 +89,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\PaymentTask.cs" />
     <Compile Include="BusinessObjects\TestTask.cs" />
+    <None Include="FunctionalTests\AdminRoles\AdminRoles.ets" />
     <None Include="FunctionalTests\ChangeStateAction\ChangeStateAction.ets" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -106,6 +106,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DatabaseUpdate\ReadMe.txt" />
@@ -126,6 +127,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\ChangeStateAction\CheckChangeStateAction.inc" />
+    <Content Include="FunctionalTests\AdminRoles\AdminRole.inc" />
+    <Content Include="FunctionalTests\AdminRoles\Config.xml" />
+    <None Include="FunctionalTests\AdminRoles\Init.inc" />
+    <Content Include="FunctionalTests\AdminRoles\ExistingCriteriaWhenNoRoles.inc" />
     <Content Include="FunctionalTests\ChangeStateAction\Config.xml" />
     <None Include="FunctionalTests\ChangeStateAction\Init.inc" />
     <None Include="FunctionalTests\ChangeStateAction\ExpandActionsInDetailView.inc" />
@@ -134,6 +139,7 @@
     <None Include="FunctionalTests\ChangeStateAction\CreateStateMachine.inc" />
     <Content Include="FunctionalTests\ChangeStateAction\CreateStatuses.inc" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
