@@ -61,14 +61,27 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
                 if (frame != null ){
                     var listView = frame.View as ListView;
                     if (listView != null){
-                        DashboardViewItem result1 = viewItem;
-                        listView.SelectionChanged +=(sender, args) => OnSelectionChanged(new SelectionChangedArgs(listView, result1));
+                        listView.SelectionChanged -= ListViewSelectionChangedHandler;
+                        listView.SelectionChanged += ListViewSelectionChangedHandler;
                     }
                 }
             }
             ResetMasterDetailModes();
         }
 
+        private void ListViewSelectionChangedHandler(object sender, EventArgs e)
+        {
+            if (View != null)
+            {
+                var viewItem = View.Items
+                    .OfType<DashboardViewItem>()
+                    .FirstOrDefault(v => v.Frame != null && v.Frame.View == sender);
+
+                if (viewItem != null)
+                    OnSelectionChanged(new SelectionChangedArgs((ListView)sender, viewItem));
+            }
+
+        }
         void AssignMasterDetailModes(IModelDashboardViewItemEx modelDashboardViewItem) {
             if (modelDashboardViewItem.MasterDetailMode.HasValue) {
                 var modelListView = modelDashboardViewItem.View as IModelListView;
