@@ -17,5 +17,9 @@
 *Action Close
 *HandleDialog
  Respond = No
+*Action Detail View Caching(NewModalWindow)
+*Action Close
+*HandleDialog
+ Respond = No
 *CheckActionsHint
  Delete[0] = DetailViewCachingObject_DetailView Called 1

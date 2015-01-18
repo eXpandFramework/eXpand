@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             get { return _modelEditing; }
         }
 
-        public static bool CanCancel{
+        public static bool IsNotLoggingOffOrModelEditing{
             get { return !IsloggingOff&&!IsModelEditing; }
         }
 
@@ -106,7 +106,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void OnClosing(object sender, CancelEventArgs e){
-            if (CanCancel) {
+            if (IsNotLoggingOffOrModelEditing) {
                 OnCancel(e);
                 _cancel = e.Cancel;
             }

@@ -62,6 +62,7 @@
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v14.2, Version=14.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v14.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -170,7 +171,7 @@
     <None Include="FunctionalTests\GridView\ImmediatePostData.inc" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Init.inc" />
-    <None Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
+    <Content Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">

@@ -31,6 +31,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     public class DetailViewCachingController:ViewController<DetailView>, IModelExtender{
         private bool _isVisible;
+        private static bool _applicationWindowClosing;
 
         protected override void OnActivated(){
             base.OnActivated();
@@ -48,8 +49,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnFrameAssigned();
             var modelOptions = Application.Model.Options;
             _isVisible = new ModelOptionsDetailViewCachingVisibilityCalculator().IsVisible(modelOptions, null);
-            if (_isVisible) {
+            if (_isVisible && Frame.Context == TemplateContext.ApplicationWindow) {
                 Application.DetailViewCreated += ApplicationOnDetailViewCreated;
+                Frame.TemplateChanged += FrameOnTemplateChanged;
             }
             Frame.Disposing+=FrameOnDisposing;
         }
@@ -57,10 +59,19 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void FrameOnDisposing(object sender, EventArgs eventArgs){
             Frame.Disposing-=FrameOnDisposing;
             Application.DetailViewCreated-=ApplicationOnDetailViewCreated;
+            Frame.TemplateChanged-=FrameOnTemplateChanged;
+        }
+
+        private void FrameOnTemplateChanged(object sender, EventArgs eventArgs){
+            ((Form) Frame.Template).Closing+=OnClosing;
+        }
+
+        private void OnClosing(object sender, CancelEventArgs cancelEventArgs){
+            _applicationWindowClosing = !cancelEventArgs.Cancel;
         }
 
         private void ViewOnQueryCanClose(object sender, CancelEventArgs e){
-            if (CloseFormController.CanCancel) {
+            if (CloseFormController.IsNotLoggingOffOrModelEditing&&!_applicationWindowClosing) {
                 var cancelEventArgs = new CancelEventArgs(false);
                 Frame.GetController<WinModificationsController>().CallMethod("OnViewQueryCanClose", cancelEventArgs);
                 e.Cancel = true;
@@ -77,6 +88,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var winWindow = strategy.Windows.FirstOrDefault(window => window.View != null && window.View.Model == e.View.Model);
             if (winWindow != null) {
                 if (((IModelDetailViewCaching)e.View.Model).DetailViewCaching) {
+                    if (winWindow.View.ObjectSpace.IsNewObject(winWindow.View.CurrentObject))
+                        winWindow.View.ObjectSpace.RollbackSilent();
                     winWindow.View.CurrentObject=GetCurrentObject(e, winWindow);
                 }
             }
