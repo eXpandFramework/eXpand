@@ -18,6 +18,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
 using Fasterflect;
+using System.Globalization;
 
 namespace Xpand.Persistent.Base.General {
     public interface ISequenceObject {
@@ -278,7 +279,8 @@ namespace Xpand.Persistent.Base.General {
                         if (GetDbTable(tableName)!=null)
                             ExecuteNonQueryCommand("drop table " + tableName, false);
                     }
-                    ExecuteNonQueryCommand("alter table " + classInfo.TableName + " drop constraint PK_SequenceObject", false);
+                    ExecuteNonQueryCommand(String.Format(
+                        CultureInfo.InvariantCulture, "alter table {0} drop constraint PK_{0}", classInfo.TableName), false);
                 }
             }
         }
