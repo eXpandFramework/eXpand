@@ -1,6 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
+using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.General.CustomAttributes;
 
@@ -15,6 +16,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.DatePropertyEditor {
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
             var repositoryItemIntegerEdit = (RepositoryItemDateEdit)item;
+            repositoryItemIntegerEdit.Mask.MaskType = MaskType.DateTimeAdvancingCaret;
             HandleNullType(repositoryItemIntegerEdit);
             HandleFullDateTimeDisplay(repositoryItemIntegerEdit);
         }
