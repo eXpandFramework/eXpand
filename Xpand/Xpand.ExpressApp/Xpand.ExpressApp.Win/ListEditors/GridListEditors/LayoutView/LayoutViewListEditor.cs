@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -16,7 +15,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     [ListEditor(typeof(object), false)]
-    public class LayoutViewListEditor : LayoutViewListEditorBase, IColumnViewEditor, ISupportFilter {
+    public class LayoutViewListEditor : LayoutViewListEditorBase, IColumnViewEditor {
         public LayoutViewListEditor(IModelListView model)
             : base(model) {
         }
@@ -62,41 +61,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             get { return false; }
             set { }
         }
-        bool ISupportFilter.FilterEnabled {
-            get {
-                return ColumnView.ActiveFilterEnabled;
-            }
-            set {
-                ColumnView.ActiveFilterEnabled = value;
-            }
-        }
 
-        string ISupportFilter.Filter {
-            get {
-                string result = string.Empty;
-                if (!ReferenceEquals(ColumnView.ActiveFilterCriteria, null) && CollectionSource != null) {
-                    result = CriteriaOperator.ToString(ColumnView.ActiveFilterCriteria);
-                }
-                return result;
-            }
-            set {
-                if (CollectionSource != null) {
-                    SetActiveFilterCriteria();
-                }
-                else {
-                    ColumnView.ActiveFilterString = value;
-                }
-            }
-        }
-        protected override void OnControlsCreated() {
-            base.OnControlsCreated();
-            if (CollectionSource != null) {
-                SetActiveFilterCriteria();
-            }
-            if (Model != null) {
-                ((ISupportFilter)this).FilterEnabled = Model.FilterEnabled;
-            }
-        }
     }
 
     public class XpandXafLayoutView : XafLayoutView, IMasterDetailColumnView {
