@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XtraDashboardTester.Module</RootNamespace>
     <AssemblyName>XtraDashboardTester.Module</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -149,7 +151,8 @@
     <None Include="BusinessObjects\ReadMe.txt" />
     <None Include="Controllers\ReadMe.txt" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
-    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\ModelOptions.ets" />
+    <None Include="FunctionalTests\ModelOptions.xafml" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
+    <Content Include="FunctionalTests\Check Navigation.inc" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

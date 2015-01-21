@@ -1,8 +1,10 @@
 #DropDB XtraDashboardTesterEasyTest
 #Application XtraDashboardTester.Win
-#Application XtraDashboardTester.Web
+;#Application XtraDashboardTester.Web
+*UseModel
 *ScreenCapture
 *Action Log On
 
-*AutoTest
+#IncludeFile .\Check Navigation.inc
+
 

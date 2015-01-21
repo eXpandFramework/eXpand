@@ -29,6 +29,7 @@ namespace XtraDashboardTester.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(XtraDashboardTester.Module.ModuleModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
         }
 
         #endregion
