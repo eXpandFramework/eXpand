@@ -40,13 +40,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void PropertyEditorOnControlCreated(object sender, EventArgs eventArgs) {
             var editor = (PropertyEditor)sender;
             ((Control)editor.Control).KeyUp += (ender, args) => {
-                if (args.KeyCode == Keys.Enter) {
+                if (args.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(editor.PropertyValue+"")) {
                     var modelCommonMemberViewItemOpenWith = ((IModelCommonMemberViewItemOpenWith)editor.Model);
                     OpenWith(modelCommonMemberViewItemOpenWith, editor.PropertyValue.ToString());
                 }
             };
         }
-
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var listView = View as ListView;
@@ -74,11 +73,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
 
-        private void OpenWith(GridControl gridControl) {
+        private void OpenWith(GridControl gridControl){
             var focusedView = gridControl.FocusedView as ColumnView;
-            if (focusedView != null) {
+            if (focusedView != null && focusedView.FocusedColumn != null){
                 var path = focusedView.GetRowCellDisplayText(focusedView.FocusedRowHandle, focusedView.FocusedColumn);
-                var modelCommonMemberViewItemOpenWith = ((IModelCommonMemberViewItemOpenWith)focusedView.FocusedColumn.Model());
+                var modelCommonMemberViewItemOpenWith =
+                    ((IModelCommonMemberViewItemOpenWith) focusedView.FocusedColumn.Model());
                 OpenWith(modelCommonMemberViewItemOpenWith, path);
             }
         }
