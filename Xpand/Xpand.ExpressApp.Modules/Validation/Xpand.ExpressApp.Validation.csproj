@@ -97,6 +97,9 @@
     <Compile Include="Controllers\ActionExecuteValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ObjectSpaceObjectChangedValidationContextController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PasswordScoreController.cs">
       <SubType>Component</SubType>
     </Compile>
