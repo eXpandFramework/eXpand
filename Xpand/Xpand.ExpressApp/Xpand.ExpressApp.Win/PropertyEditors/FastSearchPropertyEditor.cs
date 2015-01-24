@@ -67,6 +67,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         LookupEditorHelper _helper;
         LookUpGridEditEx _lookup;
         View _lookupObjectView;
+        private const int ClearButtonIndex = 2;
+        private const int EditButtonIndex = 1;
 
         public FastSearchPropertyEditor(Type objectType, IModelMemberViewItem item)
             : base(objectType, item) {
@@ -104,10 +106,23 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             _lookup.EditValue = null;
         }
 
-        protected override object CreateControlCore() {
+        protected override object CreateControlCore(){
             _lookup = new LookUpGridEditEx();
             _lookup.QueryPopUp += Editor_QueryPopUp;
+            _lookup.Closed += (sender, args) => UpdateButtons();
+            _lookup.EditValueChanged += (sender, args) =>{
+                if (!_lookup.IsPopupOpen) {
+                    UpdateButtons();
+                }
+            };
             return _lookup;
+        }
+
+        private void UpdateButtons(){
+            var editButton = _lookup.Properties.Buttons[EditButtonIndex];
+            editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
+            EditorButton clearButton = _lookup.Properties.Buttons[ClearButtonIndex];
+            clearButton.Enabled = editButton.Enabled;
         }
 
         public new LookUpGridEditEx Control {
@@ -202,8 +217,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void properties_Enter(object sender, EventArgs e) {
             _lookup = (LookUpGridEditEx)sender;
-            var editButton = _lookup.Properties.Buttons[1];
-            UpdateButtonState(editButton, _lookup.Properties.Buttons[2]);
+            var editButton = _lookup.Properties.Buttons[EditButtonIndex];
+            editButton.Enabled = _lookup.EditValue != null;
             InitializeDataSource();
         }
 
@@ -274,17 +289,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 newButton.Visible = false;
             }
             properties.Buttons.Add(clearButton);
-            UpdateButtonState(editButton, clearButton);
-        }
-
-        private void UpdateButtonState(EditorButton editButton, EditorButton clearButton){
-            if (_lookup != null){
-                editButton.Enabled = _lookup.EditValue != null;
-                _lookup.EditValueChanged += (sender, args) =>{
-                    editButton.Enabled = _lookup.EditValue != null && AllowEdit.ResultValue;
-                    clearButton.Enabled = editButton.Enabled;
-                };
-            }
         }
 
         EditorButton CreateButton(string imageName, string tooltip, string tag) {
@@ -333,15 +337,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 }
             }
         }
-
-
-        internal virtual GridView fPropertiesView {
-            [DebuggerNonUserCode]
-            get { return _fPropertiesView; }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set { _fPropertiesView = value; }
-        }
-
 
         public new RepositoryItemGridLookUpEditEx Properties {
             get { return (RepositoryItemGridLookUpEditEx)base.Properties; }
