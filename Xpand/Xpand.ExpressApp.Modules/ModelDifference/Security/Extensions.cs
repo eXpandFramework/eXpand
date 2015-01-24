@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
@@ -17,23 +18,10 @@ namespace Xpand.ExpressApp.ModelDifference.Security {
         public static SecuritySystemRoleBase GetDefaultModelRole(this IObjectSpace objectSpace, string roleName) {
             var modelRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(modelRole)) {
-                modelRole.CreateTypePermission<PersistentApplication>(o => {
-                    o.AllowDelete = false;
-                    o.AllowNavigate = false;
-                });
-                modelRole.CreateTypePermission<ModelDifferenceObject>(o => {
-                    o.AllowCreate = false;
-                    o.AllowNavigate = false;
-                });
-                modelRole.CreateTypePermission<UserModelDifferenceObject>(o => {
-                    o.AllowDelete = false;
-                    o.AllowNavigate = false;
-                });
-                modelRole.CreateTypePermission<AspectObject>(o => {
-                    o.AllowDelete = false;
-                    o.AllowNavigate = false;
-                    o.AllowCreate = false;
-                });
+                modelRole.SetTypePermissions<PersistentApplication>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
+                modelRole.SetTypePermissions<ModelDifferenceObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
+                modelRole.SetTypePermissions<AspectObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
+                modelRole.SetTypePermissions<UserModelDifferenceObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
             }
             return modelRole;
         }

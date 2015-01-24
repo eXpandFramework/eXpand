@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using Xpand.ExpressApp.ModelDifference.Security;
 
 namespace SecurityDemo.Module
 {
@@ -15,8 +16,9 @@ namespace SecurityDemo.Module
 
             
             CreateSecurityDemoObjects();
+		    
+		    DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole defaultRole = CreateDefaultRole();
 
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole defaultRole = CreateDefaultRole();
             DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole administratorRole = CreateAdministratorRole();
 
             SecuritySystemUser userAdmin = ObjectSpace.FindObject<SecuritySystemUser>(new BinaryOperator("UserName", "Sam"));
@@ -37,6 +39,8 @@ namespace SecurityDemo.Module
                 userJohn.IsActive = true;
                 userJohn.Roles.Add(defaultRole);
                 userJohn.Roles.Add(securityDemoRole);
+                var modelRole = ObjectSpace.GetDefaultModelRole("ModelRole");
+                userJohn.Roles.Add((SecuritySystemRole) modelRole);
 				userJohn.Save();
 			}
 
