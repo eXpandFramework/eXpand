@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
@@ -13,6 +14,11 @@ using Xpand.Persistent.Base.General;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
+    public interface IModelOptionsUserModelDifferenceObjectSubjectTemplate{
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [DefaultValue("Autocreated at {0} For {1}")]
+        string UserModelDifferenceObjectSubjectTemplate { get; set; }
+    }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser{
@@ -20,6 +26,11 @@ namespace Xpand.ExpressApp.ModelDifference {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions, IModelOptionsUserModelDifferenceObjectSubjectTemplate>();
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

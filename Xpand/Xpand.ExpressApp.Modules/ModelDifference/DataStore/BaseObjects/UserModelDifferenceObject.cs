@@ -41,13 +41,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
             ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            if (SecuritySystem.CurrentUser != null)
-                modelDifferenceObject.Name = string.Format("AutoCreated for {0} {1}", ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName, DateTime.Now);
-            else{
-                modelDifferenceObject.Name = "AutoCreated at " + DateTime.Now;
-            }
+            modelDifferenceObject.Name = string.Format(((IModelOptionsUserModelDifferenceObjectSubjectTemplate) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName);
             return modelDifferenceObject;
-
         }
 
         public void AssignToCurrentUser() {
