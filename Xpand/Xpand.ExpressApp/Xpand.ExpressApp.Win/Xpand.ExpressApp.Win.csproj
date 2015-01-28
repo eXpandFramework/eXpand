@@ -381,6 +381,9 @@
     <Compile Include="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\LayoutControlGroupModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>

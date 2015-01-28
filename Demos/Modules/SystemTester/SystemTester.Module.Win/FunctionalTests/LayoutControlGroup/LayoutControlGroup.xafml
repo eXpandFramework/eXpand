@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ModelAdapterContexts>
+    <ModelAdapters Id="Default">
+      <LayoutControlGroup Id="LayoutControlGroup" ExpandButtonLocation="BeforeText" ExpandButtonVisible="True" Expanded="False" ExpandOnDoubleClick="True" />
+    </ModelAdapters>
+  </ModelAdapterContexts>
+  <Views>
+    <DetailView Id="LayoutControlGroupObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" ShowCaption="True" GroupExpanded="False" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -15,9 +15,19 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             : base(component, modelNode) {
         }
 
-
         protected override void ApplyModelCore() {
-            ApplyModel(Model, Control, ApplyValues);
+            var modelModelAdapter = Model as IModelModelAdapter;
+            if (modelModelAdapter != null){
+                foreach (var modelAdapter in modelModelAdapter.GetContextAdapters()){
+                    ApplyModel(modelAdapter,Control,ApplyValues);
+                }
+                ApplyModel(Model, Control, ApplyValues);
+            }
+            var modelAdapterLink = Model as IModelModelAdapterLink;
+            if (modelAdapterLink != null && modelAdapterLink.ModelAdapter != null)
+                ApplyModel(modelAdapterLink.ModelAdapter, Control, ApplyValues);
+            else
+                ApplyModel(Model, Control, ApplyValues);
         }
 
         public override void SynchronizeModel() {

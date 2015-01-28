@@ -91,7 +91,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
     }
     public class ModelAdapterContextsNodeGenerator:ModelNodesGeneratorBase{
-        public const string Default = "Default Context";
+        public const string Default = "Default";
         protected override void GenerateNodesCore(ModelNode node){
             node.AddNode<IModelModelAdapters>(Default);
         }
@@ -106,11 +106,28 @@ namespace Xpand.Persistent.Base.ModelAdapter {
          
     }
 
-
     [ModelAbstractClass]
     public interface IModelModelAdapter:IModelNodeEnabled{
     }
 
+    public static class ModelModelAdapterDomainLogic{
+        public static IEnumerable<IModelModelAdapter> GetContextAdapters(this IModelModelAdapter modelModelAdapter) {
+
+            var modelAdapters = modelModelAdapter.GetNode("ModelAdapters");
+            var adapters = new List<IModelModelAdapter>();
+            if (modelAdapters!=null){
+                for (int i = 0; i < modelAdapters.NodeCount; i++){
+                    var modelAdapter = modelAdapters.GetNode(i);
+                    var modelModelAdapters =
+                        ((IModelApplicationModelAdapterContexts) modelModelAdapter.Application).ModelAdapterContexts[
+                            modelAdapter.Id()];
+                    var id = ((ModelNode) modelAdapter.GetValue("ModelAdapter")).Id;
+                    adapters.Add(modelModelAdapters[id]);
+                }
+            }
+            return adapters;
+        } 
+    }
     public class ModelAdaptersNodeGenerator:ModelNodesGeneratorBase{
         protected override void GenerateNodesCore(ModelNode node){
             var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
@@ -236,6 +253,39 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelAdapterDomainLogicBase<T> where T : IModelModelAdapter{
         public static IModelList<T> GetModelAdapters(IModelApplication modelApplication) {
             return new CalculatedModelNodeList<T>(((IModelApplicationModelAdapterContexts)modelApplication).ModelAdapterContexts.GetAdapters<T>());
+        }
+    }
+
+    public interface IModelModelAdapterLink : IModelNode {
+        [DataSourceProperty("ModelAdapterContexts")]
+        [Category("eXpand.ModelAdapters")]
+        [RefreshProperties(RefreshProperties.All)]
+        [Required]
+        IModelModelAdapters ModelAdapterContext { get; set; }
+
+        [Browsable(false)]
+        IEnumerable<IModelModelAdapters> ModelAdapterContexts { get; }
+
+        [Category("eXpand.ModelAdapters")]
+        [DataSourceProperty("ModelAdapters")]
+        IModelModelAdapter ModelAdapter { get; set; }
+
+        [Browsable(false)]
+        IEnumerable<IModelModelAdapter> ModelAdapters { get; }
+    }
+
+    [DomainLogic(typeof(IModelModelAdapterLink))]
+    public class ModelModelAdapterLinkDomainLogic {
+        public static IEnumerable<IModelModelAdapters> Get_ModelAdapterContexts(IModelModelAdapterLink controlGroup) {
+            return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts;
+        }
+
+        public static IModelModelAdapters Get_ModelAdapterContext(IModelModelAdapterLink controlGroup) {
+            return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts[ModelAdapterContextsNodeGenerator.Default];
+        }
+
+        public static IEnumerable<IModelModelAdapter> Get_ModelAdapters(IModelModelAdapterLink controlGroup) {
+            return controlGroup.ModelAdapterContext ?? Enumerable.Empty<IModelModelAdapter>();
         }
     }
 }

@@ -7,22 +7,19 @@ using DevExpress.XtraLayout;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-    public class XafLayoutControlModelAdapterController:ModelAdapterController,IModelExtender {
-        public XafLayoutControlModelAdapterController(){
-            TargetViewType=ViewType.DetailView;
+    public class XafLayoutControlModelAdapterController : ModelAdapterController, IModelExtender {
+        public XafLayoutControlModelAdapterController() {
+            TargetViewType = ViewType.DetailView;
         }
 
-        protected override void OnViewControlsCreated(){
+        protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var layoutControl = ((WinLayoutManager)(((DetailView) View).LayoutManager)).Container;
-            var modelXafLayoutControl = ((IModelDetailViewXafLayoutControl) View.Model).XafLayoutControl;
-            foreach (var modelAdapter in modelXafLayoutControl.ModelAdapters){
-                new ObjectModelSynchronizer(layoutControl, modelAdapter.ModelAdapter).ApplyModel();
-            }
+            var layoutControl = ((WinLayoutManager)(((DetailView)View).LayoutManager)).Container;
+            var modelXafLayoutControl = ((IModelDetailViewXafLayoutControl)View.Model).XafLayoutControl;
             new ObjectModelSynchronizer(layoutControl, modelXafLayoutControl).ApplyModel();
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelDetailView, IModelDetailViewXafLayoutControl>();
             var builder = new InterfaceBuilder(extenders);
             var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(XafLayoutControl).Name));
@@ -39,7 +36,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     }
     [ModelAbstractClass]
-    public interface IModelDetailViewXafLayoutControl:IModelDetailView{
+    public interface IModelDetailViewXafLayoutControl : IModelDetailView {
         IModelXafLayoutControl XafLayoutControl { get; }
     }
 
