@@ -6,7 +6,7 @@
 *Navigate Application Difference
 
 *XpandProcessRecord
- Name = AutoCreated for Admin*
+ Name = *Admin*
  Action = Edit
 
 *Action Xml Content
