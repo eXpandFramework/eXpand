@@ -81,8 +81,8 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         }
         #endregion
     }
-    public class SchedulerPopupMenuModelSynchronizer : ModelSynchronizer<object, IModelSchedulerPopupMenu> {
-        public SchedulerPopupMenuModelSynchronizer(object component, IModelSchedulerPopupMenu modelNode)
+    public class SchedulerPopupMenuModelSynchronizer : ModelSynchronizer<object, IModelSchedulerPopupMenuItem> {
+        public SchedulerPopupMenuModelSynchronizer(object component, IModelSchedulerPopupMenuItem modelNode)
             : base(component, modelNode) {
         }
         #region Overrides of ModelSynchronizer

@@ -65,6 +65,9 @@
     <Reference Include="DevExpress.XtraEditors.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="InputManager">
+      <HintPath>..\..\..\..\..\OS\InputManager\InputManager.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -84,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\PopupMenu\PopupMenuObject.cs" />
     <Compile Include="FunctionalTests\Reminder\ReminderObject.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
@@ -113,21 +117,26 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\Reminder\Reminder.xafml">
+    <None Include="FunctionalTests\PopupMenu\PopupMenu.Win.ets" />
+    <None Include="FunctionalTests\PopupMenu\PopupMenu.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\Reminder\Reminder.ets" />
+    <None Include="FunctionalTests\Reminder\Reminder.xafml" />
     <None Include="Images\ReadMe.txt" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Reminder\Config.xml">
+    <Content Include="FunctionalTests\PopupMenu\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="FunctionalTests\Reminder\update reminder.inc" />
+    <Content Include="FunctionalTests\Reminder\Config.xml" />
+    <Content Include="FunctionalTests\Reminder\Init.inc" />
     <Content Include="FunctionalTests\Reminder\missed reminder.inc" />
     <Content Include="FunctionalTests\Reminder\new reminder.inc" />
-    <None Include="FunctionalTests\Reminder\Init.inc" />
+    <None Include="FunctionalTests\PopupMenu\Init.inc" />
+    <None Include="FunctionalTests\Reminder\update reminder.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

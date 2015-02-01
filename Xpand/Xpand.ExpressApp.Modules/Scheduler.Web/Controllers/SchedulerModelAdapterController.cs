@@ -1,17 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Scheduler.Web;
 using DevExpress.Utils.Menu;
 using DevExpress.Web.ASPxScheduler;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
 using Xpand.ExpressApp.Scheduler.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using PopupMenuShowingEventArgs = DevExpress.Web.ASPxScheduler.PopupMenuShowingEventArgs;
 using System.Linq;
 
 namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
+    public class SchedulerMenuItemAdapterController : ModelAdapterController, IModelExtender {
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            var interfaceBuilder = new InterfaceBuilder(extenders);
+            var builderData = new InterfaceBuilderData(typeof(DXMenuItem)) {
+                Act = info => {
+                    if (info.Name == "Id")
+                        return false;
+                    return info.DXFilter();
+                }
+            };
+            var assembly = interfaceBuilder.Build(new List<InterfaceBuilderData> { builderData });
+
+            interfaceBuilder.ExtendInteface<IModelSchedulerPopupMenuItem, DXMenuItem>(assembly);
+        }
+    }
+
     public class SchedulerModelAdapterController : SchedulerModelAdapterControllerBase {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -49,7 +68,6 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
             Assembly assembly = builder.Build(interfaceBuilderDatas, GetPath(extenderType.Name));
 
             builder.ExtendInteface(typeof (IModelOptionsSchedulerEx), extenderType, assembly);
-            builder.ExtendInteface<IModelSchedulerPopupMenu, ASPxSchedulerPopupMenu>(assembly);
             builder.ExtendInteface<IModelAppoitmentLabel, AppointmentLabel>(assembly);
             builder.ExtendInteface<ASPxAppointmentStorage, IAppoitmentStorageLabels>(assembly);
             builder.ExtendInteface<IModelAppoitmentStatus, AppointmentStatus>(assembly);
@@ -89,6 +107,10 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
 
         void SchedulerControlOnPopupMenuShowing(object sender, PopupMenuShowingEventArgs e) {
             SynchMenu(e.Menu);
+        }
+
+        protected override object GetMenu(object popupMenu, IModelSchedulerPopupMenuItem modelMenu){
+            return ((ASPxSchedulerPopupMenu) popupMenu).Items.FindByText(modelMenu.Id());
         }
 
         protected override void OnDeactivated() {

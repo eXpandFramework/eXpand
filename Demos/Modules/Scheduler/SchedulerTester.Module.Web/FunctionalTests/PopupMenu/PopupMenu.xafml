@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SchedulerTester" Logo="ExpressAppLogo">
+  <Views>
+    <ListView Id="PopupMenuObject_ListView">
+      <OptionsScheduler>
+        <PopupMenuItems>
+          <SchedulerPopupMenuItem Id="New" Visible="False" IsNewNode="True" />
+          <SchedulerPopupMenuItem Id="Go to Today" Visible="False" IsNewNode="True" />
+        </PopupMenuItems>
+      </OptionsScheduler>
+    </ListView>  
+  </Views>
+</Application>
