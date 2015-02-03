@@ -163,6 +163,9 @@
     <Content Include="FunctionalTests\LayoutControlGroup\Init.inc" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Init.inc" />
+    <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\GridView\GridViewOptions.xafml">
       <SubType>Designer</SubType>
     </None>
