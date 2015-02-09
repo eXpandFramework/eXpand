@@ -155,25 +155,10 @@
     <Compile Include="Editors\EnumEdit.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\AdvBandedListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesigner.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs">
@@ -314,6 +299,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModelEditorViewController.cs" />
+    <Compile Include="Model\NodeUpdaters\ModelOptionsAdvBandedViewUpdater.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

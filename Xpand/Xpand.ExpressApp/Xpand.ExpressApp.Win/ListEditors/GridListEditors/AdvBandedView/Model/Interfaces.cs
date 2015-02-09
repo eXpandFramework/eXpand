@@ -1,43 +1,38 @@
 ﻿using System.ComponentModel;
-using System.Drawing.Design;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
+    public interface IModelGridBand : IModelNode {
+        IModelGridBands GridBands { get; }
+    }
 
     public interface IModelGridBands : IModelNode, IModelList<IModelGridBand> {
     }
 
-    public interface IModelGridBand : IModelNode {
-        IModelGridBands GridBands { get; }
-    }
     [ModelDisplayName("AdvBandedViewOptions")]
     public interface IModelOptionsAdvBandedView : IModelOptionsColumnView {
+        [Browsable(false)]
         IModelGridBands GridBands { get; }
     }
 
     public interface IModelOptionsColumnAdvBandedView : IModelColumnViewColumnOptions {
     }
 
-    public interface IModelAdvBandedGridBandOptions : IModelNode {
-    }
-
-
     [ModelAbstractClass]
     public interface IModelColumnOptionsAdvBandedView : IModelColumnOptionsColumnView {
         [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
         IModelOptionsColumnAdvBandedView OptionsColumnAdvBandedView { get; }
         [DataSourceProperty("ListViewBands")]
-        [Category(AttributeCategoryNameProvider.Xpand)]
-        [ModelBrowsable(typeof(AdvBandedEditorVisibilityCalculator))]
+        [Category("eXpand")]
+        [Browsable(false)]
         IModelGridBand GridBand { get; set; }
 
         [Browsable(false)]
@@ -45,7 +40,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     }
 
     [DomainLogic(typeof(IModelColumnOptionsAdvBandedView))]
-    public class MasterDetailRuleDomainLogic {
+    public class ModelColumnOptionsAdvBandedViewDomainLogic {
         public static IModelList<IModelGridBand> Get_ListViewBands(IModelColumnOptionsAdvBandedView modelColumnOptionsAdvBandedView) {
             var viewBands = ((IModelListViewOptionsAdvBandedView)modelColumnOptionsAdvBandedView.ParentView).OptionsAdvBandedView.GridBands;
             return new CalculatedModelNodeList<IModelGridBand>(viewBands.GetItems<IModelGridBand>(band => band.GridBands));
@@ -60,13 +55,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
         IModelAdvBandedViewModelAdapters AdvBandedViewModelAdapters { get; }
     }
 
-    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<AdvBandedListEditor, IModelListView> {
-    }
-
-    public interface IModelAdvBandedViewDesign : IModelLayoutDesignStore {
-        [Editor(typeof(AdvBandedViewPropertyEditor), typeof(UITypeEditor))]
-        [DefaultValue("Use the property editor to invoke the designer")]
-        string Layout { get; set; }
+    public class AdvBandedEditorVisibilityCalculator : EditorTypeVisibilityCalculator<GridListEditor, IModelListView> {
+        public override bool IsVisible(IModelNode node, string propertyName){
+            return base.IsVisible(node, propertyName)&&node.GetParent<IModelListView>().BandsLayout.Enable;
+        }
     }
 
     [ModelNodesGenerator(typeof(ModelAdvBandedViewAdaptersNodeGenerator))]

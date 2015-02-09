@@ -25,13 +25,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
 
             var columnViewType = typeof(AdvBandedGridView);
             var interfaceBuilderDatas = GetInterfaceBuilderData(columnViewType, typeof(BandedGridColumn)).ToList();
-            interfaceBuilderDatas.Add(GetData(typeof(GridBand), typeof(DevExpress.XtraGrid.Views.BandedGrid.GridBand)));
+            interfaceBuilderDatas.Add(GetData(typeof(GridBand), typeof(GridBand)));
             var assembly = builder.Build(interfaceBuilderDatas, GetPath(columnViewType.Name));
 
             builder.ExtendInteface<IModelOptionsAdvBandedView, AdvBandedGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnAdvBandedView, BandedGridColumn>(assembly);
             builder.ExtendInteface<IModelGridBand, GridBand>(assembly);
-
             ExtendWithFont(extenders, builder, assembly);
         }
 

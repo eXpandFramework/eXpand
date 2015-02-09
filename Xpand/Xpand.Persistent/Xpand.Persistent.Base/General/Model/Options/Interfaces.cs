@@ -49,7 +49,17 @@ namespace Xpand.Persistent.Base.General.Model.Options {
             var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).SingleOrDefault();
             if (typeInfo != null) {
                 var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
-                return calculatorHelper.IsVisible(node, propertyName);
+                return IsVisibleCore(node, propertyName, calculatorHelper);
+            }
+            return false;
+        }
+
+        private static bool IsVisibleCore(IModelNode node, string propertyName, GridListEditorVisibilityCalculatorHelper calculatorHelper){
+            var isVisible = calculatorHelper.IsVisible(node, propertyName);
+            if (isVisible) {
+                var modelListView = node as IModelListView ?? node.GetParent<IModelListView>();
+                return !modelListView.BandsLayout.Enable;
+
             }
             return false;
         }
