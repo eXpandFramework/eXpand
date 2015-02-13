@@ -32,11 +32,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             List<IModelSynchronizable> result = base.CreateModelSynchronizers();
             result.Add(new FilterModelSynchronizer(this, Model));
-            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
             result.Add(new LayoutViewListEditorSynchronizer(this));
             result.Add(new LayoutViewOptionsSynchronizer(this));
             result.Add(new LayoutColumnOptionsSynchroniser(this));
             result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
+            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
             return result;
         }
 
