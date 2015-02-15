@@ -5,7 +5,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Utils;
 using Xpand.Utils.Linq;
 
@@ -21,20 +20,20 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         bool IsActive(ChoiceActionItem choiceActionItem) {
-            var xpoStateMachine = (choiceActionItem.Data as IStateMachine);
-            if (xpoStateMachine != null) {
+            var iStateMachine = (choiceActionItem.Data as IStateMachine);
+            if (iStateMachine != null) {
                 var boolList = new BoolList(true, BoolListOperatorType.Or);
                 boolList.BeginUpdate();
                 foreach (var item in choiceActionItem.Items) {
-                    var xpoTransition = ((XpoTransition)item.Data);
-                    var choiceActionItemArgs = new ChoiceActionItemArgs(xpoTransition, item.Active);
+                    var iTransition = ((ITransition)item.Data);
+                    var choiceActionItemArgs = new ChoiceActionItemArgs(iTransition, item.Active);
                     OnRequestActiveState(choiceActionItemArgs);
-                    boolList.SetItemValue(xpoTransition.Oid.ToString(), item.Active.ResultValue);
+                    boolList.SetItemValue(ObjectSpace.GetKeyValueAsString(iTransition), item.Active.ResultValue);
                 }
                 boolList.EndUpdate();
                 return boolList.ResultValue;
             }
-            var transition = choiceActionItem.Data as XpoTransition;
+            var transition = choiceActionItem.Data as ITransition;
             if (transition != null) {
                 var choiceActionItemArgs = new ChoiceActionItemArgs(transition, choiceActionItem.Active);
                 OnRequestActiveState(choiceActionItemArgs);
@@ -94,14 +93,14 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
     }
 
     public class ChoiceActionItemArgs : EventArgs {
-        readonly XpoTransition _transition;
+        readonly ITransition _transition;
 
-        public ChoiceActionItemArgs(XpoTransition transition, BoolList active) {
+        public ChoiceActionItemArgs(ITransition transition, BoolList active) {
             _transition = transition;
             Active = active;
         }
 
-        public XpoTransition Transition {
+        public ITransition Transition {
             get { return _transition; }
         }
 

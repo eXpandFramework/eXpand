@@ -4,7 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Xpo;
 using Fasterflect;
 
@@ -15,7 +14,7 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         public static bool CanExecuteTransition(this IStateMachine stateMachine) {
-            var collection = (XPBaseCollection)((XpoStateMachine)stateMachine).GetMemberValue(XpandStateMachineModule.AdminRoles);
+            var collection = (XPBaseCollection)((XPBaseObject)stateMachine).GetMemberValue(XpandStateMachineModule.AdminRoles);
             if (!collection.OfType<ISecurityRole>().Any())
                 return true;
             return collection.OfType<ISecurityRole>().Any(IsInRole);

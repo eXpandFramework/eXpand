@@ -10,6 +10,7 @@ using System.Linq;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using Xpand.Persistent.Base.General;
 using Fasterflect;
+using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class EnableStatePropertyController : DisableStatePropertyController {
@@ -45,10 +46,11 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         protected virtual void FilterEditor(PropertyEditor propertyEditor, IEnumerable<object> markers) {
+            var objects = markers as object[] ?? markers.ToArray();
             var comboBoxItemCollection = GetEditorItems(propertyEditor);
             for (int index = comboBoxItemCollection.Count - 1; index >= 0; index--) {
                 var item = comboBoxItemCollection[index];
-                var enumerable = markers as object[] ?? markers.ToArray();
+                var enumerable = markers as object[] ?? objects.ToArray();
                 if (!enumerable.Contains(item.GetPropertyValue("Value")))
                     comboBoxItemCollection.RemoveAt(index);
             }
@@ -75,8 +77,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         IEnumerable<IStateMachine> GetEnabledStateMachines() {
-            return GetStateMachines().OfType<XpoStateMachine>().Where(machine
-                => true.Equals(machine.GetMemberValue(XpandStateMachineModule.EnableFilteredPropety)));
+            return GetStateMachines().OfType<XPBaseObject>().Where(machine
+                => true.Equals(machine.GetMemberValue(XpandStateMachineModule.EnableFilteredPropety))).OfType<IStateMachine>();
         }
 
         protected override void OnDeactivated() {
