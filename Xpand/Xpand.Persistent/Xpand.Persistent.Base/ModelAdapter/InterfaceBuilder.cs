@@ -206,7 +206,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static string GetTempDirectory() {
-            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp", EnvironmentVariableTarget.Machine) + "",XpandAssemblyInfo.Version);
+            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp") + "",XpandAssemblyInfo.Version);
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
             return directory;
