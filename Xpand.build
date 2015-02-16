@@ -78,11 +78,11 @@
   </UsingTask> 
   <Target Name="FixReferencesB4Build" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(XpandDLLPath)\FixReferences.exe" />
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\FixReferences.exe&quot;" />
   </Target>
   <Target Name="FixReferencesAfterBuild" Condition="$(SkipFixReferences)!=true">
     <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(XpandDLLPath)\FixReferences.exe --afterbuild" />
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\FixReferences.exe&quot; --afterbuild" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
