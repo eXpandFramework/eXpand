@@ -198,7 +198,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string AssemblyFilePath() {
-            var path = Path.GetDirectoryName(GetType().Assembly.Location) + "";
+            var path = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "";
             if (!RuntimeMode) {
                 path=GetTempDirectory();
             }
