@@ -198,7 +198,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string AssemblyFilePath() {
-            var path = Path.GetDirectoryName(GetType().Assembly.Location) + "";
+            var path = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "";
             if (!RuntimeMode) {
                 path=GetTempDirectory();
             }
@@ -206,7 +206,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public static string GetTempDirectory() {
-            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp", EnvironmentVariableTarget.Machine) + "",XpandAssemblyInfo.Version);
+            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp") + "",XpandAssemblyInfo.Version);
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
             return directory;
