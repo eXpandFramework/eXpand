@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.AuditTrail.BusinessObjects;
 
 namespace Xpand.ExpressApp.AuditTrail{
-    public class XpandAuditDataStore : AuditDataStore<IAuditDataItemPersistent<XpandAuditedObjectWeakReference>, XpandAuditedObjectWeakReference>{
+    public class XpandAuditDataStore : AuditDataStore<XpandAuditDataItemPersistent, XpandAuditedObjectWeakReference> {
         protected override string GetDefaultStringRepresentation(object value){
             if (value == null) {
                 return NullValueString;
