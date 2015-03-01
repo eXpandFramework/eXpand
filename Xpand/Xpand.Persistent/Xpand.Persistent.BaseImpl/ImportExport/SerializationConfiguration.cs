@@ -10,7 +10,7 @@ using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [DefaultProperty("TypeToSerialize")]
-    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "TypeToSerialize,SerializationConfigurationGroup")]
+    [RuleCombinationOfPropertiesIsUnique(null, DefaultContexts.Save, "TypeNameToSerialize,SerializationConfigurationGroup")]
     public class SerializationConfiguration : XpandBaseCustomObject, ISerializationConfiguration {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
@@ -27,8 +27,13 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             get {
                 return _typeToSerialize;
             }
-            set { SetPropertyValue("TypeToSerialize", ref _typeToSerialize, value); }
+            set{
+                SetPropertyValue("TypeToSerialize", ref _typeToSerialize, value);
+                TypeNameToSerialize = value == null ? null : value.FullName;
+            }
         }
+        [Persistent]
+        [Size(SizeAttribute.Unlimited)] protected string TypeNameToSerialize;
         [Association]
         [Aggregated]
         public XPCollection<ClassInfoGraphNode> SerializationGraph {

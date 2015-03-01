@@ -20,8 +20,8 @@ namespace ConsoleApplicationServer {
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
 
                 Console.WriteLine("Starting...");
-                var securityStrategyComplex = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
-                var serverApplication = new ConsoleApplicationServerServerApplication(securityStrategyComplex) {
+
+                var serverApplication = new ConsoleApplicationServerServerApplication(new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard())) {
                     ConnectionString = connectionString
                 };
                 Console.WriteLine("Setup...");
@@ -32,7 +32,7 @@ namespace ConsoleApplicationServer {
                 serverApplication.Dispose();
 
                 Console.WriteLine("Starting server...");
-                QueryRequestSecurityStrategyHandler securityProviderHandler =() => securityStrategyComplex;
+                QueryRequestSecurityStrategyHandler securityProviderHandler =() =>   new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());;
 
                 var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
 
