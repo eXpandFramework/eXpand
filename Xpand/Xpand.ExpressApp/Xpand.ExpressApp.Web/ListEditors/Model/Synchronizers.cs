@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         protected override void ApplyModelCore() {
             var dataColumnWithInfos = Control.Columns.OfType<GridViewDataColumn>().ToList();
-            foreach (var viewDataColumnWithInfo in dataColumnWithInfos) {
+            foreach (var viewDataColumnWithInfo in dataColumnWithInfos.Where(column => column.FieldName != "ProtectedContentColumn ED6F4AF3-F04C-45EB-B8C1-6CEE05D395B2")) {
                 var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model(Model));
                 ApplyModel(modelColumnOptionsGridView.OptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
             }
