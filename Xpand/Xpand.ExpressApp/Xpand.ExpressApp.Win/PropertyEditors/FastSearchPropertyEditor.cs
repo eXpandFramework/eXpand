@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using DevExpress.Accessibility;
 using DevExpress.ExpressApp;
@@ -22,7 +21,6 @@ using DevExpress.XtraEditors.Registrator;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
 using DevExpress.XtraGrid.Columns;
-using DevExpress.XtraGrid.Views.Grid;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using View = DevExpress.ExpressApp.View;
 
@@ -243,6 +241,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             OnViewShowingNotification();
         }
 
+// ReSharper disable once InconsistentNaming
         private event EventHandler<EventArgs> viewShowingNotification;
         event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification {
             add { viewShowingNotification += value; }
@@ -309,8 +308,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     public class LookUpGridEditEx : GridLookUpEdit, IGridInplaceEdit {
         static readonly List<WeakReference> _encList = new List<WeakReference>();
 
-        [AccessedThroughProperty("fPropertiesView")]
-        GridView _fPropertiesView;
         object _gridEditingObject;
 
         static LookUpGridEditEx() {

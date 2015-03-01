@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 validationSettings.ValidateOnLeave = true;
                 validationSettings.CausesValidation = true;
                 validationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
-                textBox.TextChanged += ExtendedEditValueChangedHandler;
+                textBox.TextChanged += EditValueChangedHandler;
                 return textBox;
             }
             return CreateHyperLink();

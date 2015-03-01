@@ -150,7 +150,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         protected override WebControl CreateEditModeControlCore() {
             Control = new ASPxDropDownEdit();
-            Control.ValueChanged += ExtendedEditValueChangedHandler;
+            Control.ValueChanged += EditValueChangedHandler;
             Control.EnableClientSideAPI = true;
             Control.DropDownWindowTemplate = ListBoxTemplate;
             Control.ClientInstanceName = "ListPropertyEditor_" + PropertyName;
@@ -173,7 +173,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             if (Control != null) {
-                Control.ValueChanged -= ExtendedEditValueChangedHandler;
+                Control.ValueChanged -= EditValueChangedHandler;
             }
 
             if (_listBoxTemplate != null) {

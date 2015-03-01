@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             var editor = control as ASPxComboBox;
             if (editor != null) {
                 editor.ShowImageInEditBox = true;
-                editor.SelectedIndexChanged += ExtendedEditValueChangedHandler;
+                editor.SelectedIndexChanged += EditValueChangedHandler;
                 FillEditor(editor);
             }
         }

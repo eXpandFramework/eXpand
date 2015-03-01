@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateViewModeControlCore() {
-            _viewModeLabelControl = new Label { CssClass = ViewModeControlCssClass, ID = Guid.NewGuid().ToString() };
+            _viewModeLabelControl = new Label { ID = Guid.NewGuid().ToString() };
             return _viewModeLabelControl;
         }
         protected override WebControl CreateEditModeControlCore() {
