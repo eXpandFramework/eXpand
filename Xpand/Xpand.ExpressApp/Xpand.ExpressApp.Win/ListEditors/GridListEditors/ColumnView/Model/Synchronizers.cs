@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
         }
 
         public override void SynchronizeModel() {
-            if (Control is IColumnViewEditor && ((IColumnViewEditor)Control).OverrideViewDesignMode)
+            if (Control is IColumnViewEditor && (((IColumnViewEditor)Control).OverrideViewDesignMode||SynchronizeModelCore()))
                 SaveToLayoutStore(Control.Grid.MainView);
         }
 
