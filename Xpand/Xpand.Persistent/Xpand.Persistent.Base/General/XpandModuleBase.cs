@@ -550,11 +550,8 @@ namespace Xpand.Persistent.Base.General {
             CheckApplicationTypes();
             if (RuntimeMode){
                 ApplicationHelper.Instance.Initialize(application);
-                var helper = new ConnectionStringHelper();
-                helper.Attach(this);
                 var generatorHelper = new SequenceGeneratorHelper();
                 generatorHelper.Attach(this);
-                helper.ConnectionStringUpdated += (sender, args) => generatorHelper.InitializeSequenceGenerator();
             }
                 
             if (Executed("Setup"))

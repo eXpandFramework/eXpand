@@ -256,7 +256,8 @@ namespace Xpand.Persistent.Base.General {
             }
         }
     }
-    public interface ISequenceGeneratorUser {
+    public interface ISequenceGeneratorUser{
+        event CancelEventHandler InitSeqGenerator;
     }
 
     public class SequenceGeneratorUpdater:ModuleUpdater{
@@ -384,6 +385,9 @@ namespace Xpand.Persistent.Base.General {
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;
+                    var helper = new ConnectionStringHelper();
+                    helper.Attach(_xpandModuleBase);
+                    helper.ConnectionStringUpdated += (sender, args) => InitializeSequenceGenerator();
                 }
             }
         }
