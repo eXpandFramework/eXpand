@@ -20,11 +20,14 @@ namespace Xpand.ExpressApp.Win.Editors {
         public static void RaisePopupMenuShowingX(this IXpandFilterControl filterControl,PopupMenuShowingEventArgs e){
             if (e.MenuType == FilterControlMenuType.Clause && filterControl.ModelMembers != null){
                 var criteriaOperator = new XpandNodeToCriteriaProcessor().Process(e.CurrentNode);
-                var operandProperty = criteriaOperator.GetOperators().OfType<OperandProperty>().First();
-                var modelMember =filterControl.ModelMembers.Cast<IModelMemberFullTextContains>().FirstOrDefault(member => member.FullText && member.Name == operandProperty.PropertyName);
-                if (modelMember != null){
-                    var dxMenuItem = new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
-                    e.Menu.Items.Add(dxMenuItem);
+                var operandProperty = criteriaOperator.GetOperators().OfType<OperandProperty>().FirstOrDefault();
+                if (!ReferenceEquals(operandProperty,null)){
+                    var modelMember =filterControl.ModelMembers.Cast<IModelMemberFullTextContains>().FirstOrDefault(member 
+                        => member.FullText && member.Name == operandProperty.PropertyName);
+                    if (modelMember != null){
+                        var dxMenuItem =new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
+                        e.Menu.Items.Add(dxMenuItem);
+                    }
                 }
             }
         }
