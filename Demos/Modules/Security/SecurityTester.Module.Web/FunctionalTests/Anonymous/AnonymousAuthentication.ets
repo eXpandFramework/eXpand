@@ -2,9 +2,10 @@
 
 *Action Login
 *XpandFillForm
- User Name = Admin
+ User Name = User
 *Action OK
-*CreatePermission Anonymous Object
- EditRole = Anonymous
+*Action Edit
+*CheckFieldValues
+ User Name = user
 *Action Log Off
 *Navigate Anonymous Object

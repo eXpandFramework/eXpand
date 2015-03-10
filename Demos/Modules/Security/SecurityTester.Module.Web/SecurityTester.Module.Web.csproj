@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionalTests\Anonymous\AnonymousObject.cs" />
+    <Compile Include="FunctionalTests\Anonymous\AnonymousRoleUpdater.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>

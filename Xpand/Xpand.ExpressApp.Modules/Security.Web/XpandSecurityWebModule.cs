@@ -14,6 +14,8 @@ namespace Xpand.ExpressApp.Security.Web {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     public sealed class XpandSecurityWebModule : XpandSecurityModuleBase {
+        private Authentication _authentication;
+
         public XpandSecurityWebModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
@@ -30,8 +32,9 @@ namespace Xpand.ExpressApp.Security.Web {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            if (RuntimeMode) {
-                new Authentication().Attach(this);
+            if (RuntimeMode){
+                _authentication = new Authentication();
+                _authentication.Attach(this);
             }
         }
     }

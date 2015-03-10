@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using SecurityTester.Module.Web.FunctionalTests.Anonymous;
 
 namespace SecurityTester.Module.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]
@@ -12,7 +13,7 @@ namespace SecurityTester.Module.Web {
             InitializeComponent();
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            return new[]{new Updater(objectSpace, Version), };
+            return new ModuleUpdater[]{new Updater(objectSpace, Version), new AnonymousRoleUpdater(objectSpace, Version)};
         }
     }
 }

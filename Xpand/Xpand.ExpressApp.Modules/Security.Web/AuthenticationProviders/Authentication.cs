@@ -140,19 +140,6 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             var xafApplication = securityModule.Application;
             xafApplication.SetupComplete += ApplicationOnSetupComplete;
             xafApplication.LoggingOn += ApplicationOnLoggingOn;    
-            xafApplication.LastLogonParametersReading+=XafApplicationOnLastLogonParametersReading;
-            xafApplication.CreateCustomLogonParameterStore+=XafApplicationOnCreateCustomLogonParameterStore;
-        }
-
-        private void XafApplicationOnCreateCustomLogonParameterStore(object sender, CreateCustomLogonParameterStoreEventArgs e){
-            e.Handled = SecuritySystem.LogonParameters is XpandLogonParameters;
-            e.Storage=new SettingsStorageOnString();
-        }
-
-        void XafApplicationOnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs lastLogonParametersReadingEventArgs) {
-//            if (((WebApplication) sender).CanAutomaticallyLogonWithStoredLogonParameters &&_anonymousAuthentication.Enabled) {
-//                ((AnonymousLogonParameters)lastLogonParametersReadingEventArgs.LogonObject).WriteOption("AnonymousLogin", false.ToString());
-//            }
         }
 
         void ApplicationOnLastLogonParametersWriting(object sender, LastLogonParametersWritingEventArgs lastLogonParametersWritingEventArgs) {
