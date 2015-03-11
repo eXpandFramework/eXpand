@@ -36,9 +36,9 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
     public class ToggleToolboxUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
         public override void UpdateNode(ModelNode node){
-            var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId];
+            var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId] as IModelActionClientScript;
             if (modelAction != null) {
-                ((IModelActionClientScript)modelAction).ClientScript = "OnClick('LPcell','separatorImage',true);";
+                modelAction.ClientScript = "OnClick('LPcell','separatorImage',true);";
             }
         }
     }
