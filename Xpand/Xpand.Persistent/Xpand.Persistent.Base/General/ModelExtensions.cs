@@ -50,7 +50,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ActionBase ToAction(this IModelAction modelAction, Frame frame){
-            return frame.Actions().First(@base => @base.Model == modelAction);
+            return frame.Actions().First(@base => @base.Model.Id == modelAction.Id);
         }
 
         private static ExpressionEvaluator GetExpressionEvaluator(IModelNode dataSourceNode, CriteriaOperator criteriaOperator) {

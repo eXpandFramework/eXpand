@@ -190,7 +190,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
                 declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseControllerWin), typeof (NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController) });
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController), typeof(ActionsClientScriptController) });
 
             return declaredControllerTypes;
         }
@@ -319,6 +319,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (Executed("AddGeneratorUpdaters"))
                 return;
+            updaters.Add(new ToggleToolboxUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
@@ -742,6 +743,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
     }
+
 
     public class GeneratorUpdaterEventArgs : EventArgs {
         readonly ModelNodesGeneratorUpdaters _updaters;

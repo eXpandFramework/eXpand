@@ -4,9 +4,12 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraBars.Docking;
+using Xpand.Persistent.Base.General.Controllers.Actions;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
@@ -16,10 +19,11 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
     public class NavigationContainerController:ViewController,IModelExtender {
+        public const string ToggleNavigationId = "ToggleNavigation";
         private readonly SimpleAction _toggleNavigation;
 
         protected NavigationContainerController() {
-            _toggleNavigation = new SimpleAction(this, "ToggleNavigation", "Hidden");
+            _toggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
         }
 
         public SimpleAction ToggleNavigation{
@@ -28,6 +32,14 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelOptions,IModelOptionsNavigationContainer>();
+        }
+    }
+    public class ToggleToolboxUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+        public override void UpdateNode(ModelNode node){
+            var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId];
+            if (modelAction != null) {
+                ((IModelActionClientScript)modelAction).ClientScript = "OnClick('LPcell','separatorImage',true);";
+            }
         }
     }
 
@@ -63,22 +75,14 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
     }
 
-
     public class NavigationContainerWebController : NavigationContainerController {
         public NavigationContainerWebController(){
-            ToggleNavigation.Execute+=ToggleNavigationOnExecute;
-        }
-
-        private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
-            const string script = "OnClick('LPcell','separatorImage',true);";
-            WebWindow.CurrentRequestWindow.RegisterClientScript("separatorClick", script);
         }
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
                 WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
-            
         }
 
         private void CurrentRequestPageOnInit(object sender, EventArgs eventArgs){
