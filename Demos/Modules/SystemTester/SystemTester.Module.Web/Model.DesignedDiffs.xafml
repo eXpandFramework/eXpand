@@ -1,10 +1,3 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <Views>
-    <DetailView Id="LayoutStyleObject_DetailView">
-      <Layout>
-        <LayoutGroup Id="Main" BackColor="Black" />
-      </Layout>
-    </DetailView>
-  </Views>
 </Application>

@@ -1,8 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
-    <ListView Id="Master_Details_ListView" AllowEdit="True" NewItemRowPosition="Top" AutoCommitWhenNested="True" />
-    <DetailView Id="Master_DetailView" ViewEditMode="Edit" />
-    <ListView Id="Master_ListView" AllowEdit="True" NewItemRowPosition="Top" MasterDetailMode="ListViewAndDetailView" ShowSelectionColumn="False" />
+    <DetailView Id="LayoutStyleObject_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="LayoutStyleObject">
+              <LayoutItem Id="Name" ViewItem="Name">
+                <LayoutStyle>
+                  <ContainerCell Style="Visibility:Hidden" />
+                  <ContainerPanel BackColor="Black" />
+                  <Control Style="Display:None" />
+                </LayoutStyle>
+              </LayoutItem>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

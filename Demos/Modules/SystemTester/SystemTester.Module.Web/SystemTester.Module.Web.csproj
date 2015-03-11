@@ -190,6 +190,7 @@
   <ItemGroup>
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
     <None Include="FunctionalTests\LayoutStyle\Init.inc" />
+    <Content Include="FunctionalTests\LayoutStyle\Images\LayoutStyle.web.png" />
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />
     <None Include="FunctionalTests\MasterDetail\Init.inc" />
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.png" />
