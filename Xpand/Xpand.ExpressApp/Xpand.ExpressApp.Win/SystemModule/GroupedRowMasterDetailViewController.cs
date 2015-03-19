@@ -35,13 +35,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridViewOnFocusedRowChanged(object sender, FocusedRowChangedEventArgs focusedRowChangedEventArgs) {
-            if (GridView.DataController.IsUpdateLocked) {
+            var gridView = (GridView)sender;
+            if (gridView.DataController.IsUpdateLocked) {
                 return;
             }
             var focusedRowHandle = focusedRowChangedEventArgs.FocusedRowHandle;
             var masterDetailView = GetMasterDetailView(focusedRowHandle);
             if (masterDetailView != null) {
-                var groupRowValue = GridView.GetGroupRowValue(focusedRowHandle);
+                var groupRowValue = gridView.GetGroupRowValue(focusedRowHandle);
                 var detailView = CreateDetailView(groupRowValue, masterDetailView);
                 View.EditFrame.SetView(detailView, null);
                 if (View.IsControlCreated) {
