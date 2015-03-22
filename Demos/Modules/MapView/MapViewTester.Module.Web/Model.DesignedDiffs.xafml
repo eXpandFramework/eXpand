@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="MapViewModule" Version="13.1.8.7" IsNewNode="True" />
-    <SchemaModule Name="MapViewWebModule" Version="1.0.5061.35199" IsNewNode="True" />
-    <SchemaModule Name="SystemAspNetModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemAspNetModule" Version="13.1.8.7" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="13.1.8.7" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="14.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="MapViewModule" Version="14.2.4.5" IsNewNode="True" />
+    <SchemaModule Name="MapViewWebModule" Version="1.0.5510.33050" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="14.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="14.2.4.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="14.2.4.5" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="14.2.4.5" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <ListView Id="Customer_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" />
+    <ListView Id="CustomerGroup_Customers_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" />
+    <ListView Id="CustomerGroup_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
     <ListView Id="Waypoint_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" TopReturnedObjects="0" />
+    <ListView Id="WaypointGroup_WayPoints_ListView" EditorTypeName="Xpand.ExpressApp.MapView.Web.MapListEditor" />
   </Views>
 </Application>

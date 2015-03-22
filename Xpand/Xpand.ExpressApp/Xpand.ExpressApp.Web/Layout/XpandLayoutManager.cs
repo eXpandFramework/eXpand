@@ -31,6 +31,8 @@ namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
+
+        public const string IsMasterDetailSplitterPropertyName = "IsMasterDetailSplitter";
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
@@ -253,6 +255,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 ShowCollapseForwardButton = true
             };
 
+            splitter.CustomJSProperties += (s, e) => e.Properties[IsMasterDetailSplitterPropertyName] = true;
             splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
             return splitter;
         }

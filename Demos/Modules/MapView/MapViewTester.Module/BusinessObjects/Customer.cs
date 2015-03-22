@@ -17,6 +17,14 @@ namespace MapViewTester.Module.BusinessObjects {
         public string InfoWindowText {
             get { return FullName; }
         }
+
+        private CustomerGroup group;
+        [Association]
+        public CustomerGroup Group
+        {
+            get { return group; }
+            set { SetPropertyValue("Group", ref group, value); }
+        }
     }
 
     public class SalesVolume : BaseObject {

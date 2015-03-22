@@ -18,6 +18,13 @@ namespace MapViewTester.Module.BusinessObjects
         {
         }
 
+        private CustomerGroup group;
+        [Association]
+        public CustomerGroup Group
+        {
+            get { return group; }
+            set { SetPropertyValue("Group", ref group, value); }
+        }
         private string name;
         [Size(500)]
         public string Name

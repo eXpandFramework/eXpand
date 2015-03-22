@@ -39,14 +39,14 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine("var initMap = function() { ");
 
             sb.AppendFormat(@"{0}
+
                 var parentSplitter = XpandHelper.GetElementParentControl(div);
-                if (parentSplitter && !parentSplitter.xpandInitialized) {{
+                if (parentSplitter && parentSplitter.{1} && !parentSplitter.xpandInitialized) {{
                     window.setTimeout(initMap, 500);
                     return;
                 }}
-            
 
-            ", XpandLayoutManager.GetXpandHelperScript(), div.ClientID);
+            ", XpandLayoutManager.GetXpandHelperScript(), div.ClientID, XpandLayoutManager.IsMasterDetailSplitterPropertyName);
 
             sb.AppendLine("var mapOptions = {");
             sb.AppendLine("zoom: 4,");
@@ -102,7 +102,6 @@ namespace Xpand.ExpressApp.MapView.Web
                         var geoCodeQueue = new Array();
                         var createMarkersWithGeoCode = function() {
                                 if (geoCodeQueue.length == 0) {
-                                    console.log('resizing...');
                                     google.maps.event.trigger(map, 'resize');
                                     window.AdjustSize();
                                     map.fitBounds(bounds);
@@ -110,10 +109,8 @@ namespace Xpand.ExpressApp.MapView.Web
                                 }
 
                                 var info = geoCodeQueue.pop();
-                                console.log(info.address);
                                 geocoder.geocode( { 'address': info.address}, function(results, status) {
                                     if (status == google.maps.GeocoderStatus.OK) {
-                                        console.log('geocode: success');
                                         info.onSuccess(results);
                                     } 
                                     else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
