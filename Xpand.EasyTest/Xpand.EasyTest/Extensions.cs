@@ -169,6 +169,7 @@ namespace Xpand.EasyTest {
                 {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
+                {typeof (XpandCheckFieldValuesCommand), XpandCheckFieldValuesCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},

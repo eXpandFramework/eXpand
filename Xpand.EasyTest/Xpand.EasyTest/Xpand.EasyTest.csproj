@@ -56,7 +56,6 @@
     </Reference>
     <Reference Include="DevExpress.EasyTest.v14.2">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -86,6 +85,7 @@
     <Compile Include="Commands\FocusWindowCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
     <Compile Include="Commands\MouseCommand.cs" />
+    <Compile Include="Commands\MultiLineComparisionHelper.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
     <Compile Include="Commands\ScreenCaptureCommand.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="Commands\KillWindowCommand.cs" />
     <Compile Include="Commands\SendKeysCommand.cs" />
     <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
+    <Compile Include="Commands\XpandCheckFieldValuesCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
