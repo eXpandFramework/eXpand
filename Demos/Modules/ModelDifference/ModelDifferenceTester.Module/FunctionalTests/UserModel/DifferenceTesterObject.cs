@@ -2,7 +2,7 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace ModelDifferenceTester.Module.FunctionalTests {
+namespace ModelDifferenceTester.Module.FunctionalTests.UserModel {
     [DefaultClassOptions]
     public class DifferenceTesterObject:BaseObject {
         public DifferenceTesterObject(Session session) : base(session){

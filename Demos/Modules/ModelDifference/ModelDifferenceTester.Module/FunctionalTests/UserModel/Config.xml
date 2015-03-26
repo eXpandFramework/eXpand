@@ -24,9 +24,9 @@
     <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="ModelDifferenceTesterEasyTest" />
   </TestDatabases>
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\ModelDifferenceTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\ModelDifferenceTester.Web" />
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\ModelDifferenceTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\ModelDifferenceTester.Web" />
   </Aliases>
 </Options>
