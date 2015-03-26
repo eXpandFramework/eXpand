@@ -151,8 +151,8 @@
     <None Include="BusinessObjects\ReadMe.txt" />
     <None Include="Controllers\ReadMe.txt" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
-    <None Include="FunctionalTests\ModelOptions.ets" />
-    <None Include="FunctionalTests\ModelOptions.xafml" />
+    <None Include="FunctionalTests\ModelOptions\ModelOptions.ets" />
+    <None Include="FunctionalTests\ModelOptions\ModelOptions.xafml" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -174,8 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
-    <Content Include="FunctionalTests\Check Navigation.inc" />
-    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\ModelOptions\Check Navigation.inc" />
+    <Content Include="FunctionalTests\ModelOptions\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
