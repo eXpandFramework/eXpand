@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
 
-        public const string IsMasterDetailSplitterPropertyName = "IsMasterDetailSplitter";
+        public const string IsMasterDetailSplitterPropertyName = "cpIsMasterDetailSplitter";
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 

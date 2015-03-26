@@ -40,7 +40,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v14.2">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.2">
       <SpecificVersion>False</SpecificVersion>
@@ -64,6 +63,10 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="WorldCreatorTester.Module, Version=1.0.5560.27347, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\WorldCreatorTester.Module.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelDifference">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
@@ -72,13 +75,26 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator, Version=14.2.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base, Version=14.2.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl, Version=14.2.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\UserModel\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\WCModel\WCModelUpdater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -105,15 +121,18 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\UserModel.ets" />
-    <None Include="FunctionalTests\ReadMe.txt" />
+    <None Include="FunctionalTests\UserModel\UserModel.ets" />
+    <None Include="FunctionalTests\UserModel\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\WCModel\WCModel.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\UserModel\Config.xml" />
+    <Content Include="FunctionalTests\WCModel\Config.xml" />
+    <Content Include="FunctionalTests\WCModel\CreateWCAssembly.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

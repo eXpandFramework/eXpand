@@ -2,9 +2,10 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Win;
 
 namespace ModelDifferenceTester.Win {
-    public partial class ModelDifferenceTesterWindowsFormsApplication : WinApplication {
+    public partial class ModelDifferenceTesterWindowsFormsApplication : XpandWinApplication {
         public ModelDifferenceTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
@@ -22,9 +23,6 @@ namespace ModelDifferenceTester.Win {
             return "en-US";
         }
 #endif
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
-        }
 
         void ModelDifferenceTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                                   DatabaseVersionMismatchEventArgs e) {

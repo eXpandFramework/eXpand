@@ -16,9 +16,10 @@ using ModelDifferenceTester.Module.Web;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Web;
 using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.Web;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : WebApplication {
+    public class ModelDifferenceTesterAspNetApplication : XpandWebApplication {
         
         
         CloneObjectModule _cloneObjectModule1;
@@ -50,9 +51,6 @@ namespace ModelDifferenceTester.Web {
             return "en-US";
         }
 #endif
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection,true);
-        }
 
         void ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch(object sender,
                                                                             DatabaseVersionMismatchEventArgs e) {

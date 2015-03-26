@@ -161,6 +161,7 @@ namespace Xpand.EasyTest {
                 {typeof (KillWindowCommand), KillWindowCommand.Name},
                 {typeof (XpandProcessRecordCommand), XpandProcessRecordCommand.Name},
                 {typeof (SqlCommand), SqlCommand.Name},
+                {typeof (SqlDropDatabaseCommand), SqlDropDatabaseCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
                 {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},

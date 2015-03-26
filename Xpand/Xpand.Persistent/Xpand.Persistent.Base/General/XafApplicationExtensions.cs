@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static bool IsHosted(this XafApplication application) {
+            return application.Modules.Any(@base => {
+                var attribute = XafTypesInfo.Instance.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
+            });
         }
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
@@ -166,7 +174,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication,  string connectionString) {
-            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security,XpandModuleBase.IsHosted);
+            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security,xafApplication.IsHosted());
         }
 
         static string GetConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {

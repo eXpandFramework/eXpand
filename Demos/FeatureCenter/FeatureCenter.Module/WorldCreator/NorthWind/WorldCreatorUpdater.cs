@@ -17,9 +17,12 @@ namespace FeatureCenter.Module.WorldCreator.NorthWind {
 
             var manifestResourceStream = GetType().Assembly.GetManifestResourceStream(GetType(), NorthWind + ".xml");
             if (manifestResourceStream != null) {
-                string connectionString = ConfigurationManager.ConnectionStrings["NorthWind"].ConnectionString;
-                var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=(local);integrated security=SSPI;initial catalog=Northwind", connectionString);
-                new ImportEngine().ImportObjects(readToEnd, new UnitOfWork(Session.DataLayer));
+                var connectionStringSettings = ConfigurationManager.ConnectionStrings["NorthWind"];
+                if (connectionStringSettings != null){
+                    string connectionString = connectionStringSettings.ConnectionString;
+                    var readToEnd = new StreamReader(manifestResourceStream).ReadToEnd().Replace(@"XpoProvider=MSSqlServer;data source=(local);integrated security=SSPI;initial catalog=Northwind", connectionString);
+                    new ImportEngine().ImportObjects(readToEnd, new UnitOfWork(Session.DataLayer));
+                }
             }
 
         }

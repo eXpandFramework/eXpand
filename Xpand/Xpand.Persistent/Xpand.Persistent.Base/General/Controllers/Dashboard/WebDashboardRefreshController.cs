@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (XpandModuleBase.IsHosted) {
+            if (Application.IsHosted()) {
                 foreach (var result in View.Items.OfType<DashboardViewItem>()) {
                     result.ControlCreated += ResultOnControlCreated;
                 }

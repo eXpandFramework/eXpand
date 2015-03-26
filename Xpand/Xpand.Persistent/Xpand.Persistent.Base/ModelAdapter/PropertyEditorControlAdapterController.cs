@@ -38,7 +38,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         }
 
         protected virtual object GetPropertyEditorControl(PropertyEditor item){
-            return XpandModuleBase.IsHosted ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
+            return Application.IsHosted() ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
         }
 
         protected abstract TModelControl[] GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorFilterControl);

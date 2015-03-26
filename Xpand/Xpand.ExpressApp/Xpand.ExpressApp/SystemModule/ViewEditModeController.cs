@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         protected virtual void UpdateViewAllowEditState(DetailView view) {
-            if (!XpandModuleBase.IsHosted)
+            if (!ApplicationHelper.Instance.Application.IsHosted())
                 view.AllowEdit["ViewEditMode"] = view.ViewEditMode == ViewEditMode.Edit;
         }
 

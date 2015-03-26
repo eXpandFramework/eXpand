@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         IList GetEditorItems(PropertyEditor propertyEditor) {
-            if (!XpandModuleBase.IsHosted) {
+            if (!Application.IsHosted()) {
                 var value = EditorProperties(propertyEditor);
                 var type = Application.TypesInfo.FindTypeInfo("DevExpress.XtraEditors.Repository.RepositoryItemComboBox").Type;
                 return ((IList)type.GetProperty("Items").GetValue(value, null));
@@ -150,7 +150,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         protected virtual void Init(PropertyEditor propertyEditor) {
-            if (!XpandModuleBase.IsHosted) {
+            if (!Application.IsHosted()) {
                 var editorItems = GetEditorItems(propertyEditor);
                 editorItems.Clear();
                 var editorProperties = EditorProperties(propertyEditor);

@@ -26,9 +26,11 @@ namespace ModelDifferenceTester.Module.Web {
             // 
             // ModelDifferenceTesterAspNetModule
             // 
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceTester.Module.ModelDifferenceTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule));
 
         }
 

@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (session.DataLayer != null) MergeTypes(new UnitOfWork(session.DataLayer));
         }
 
-        void RunUpdaters(Session session) {
+        void RunUpdaters(Session session){
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
             }

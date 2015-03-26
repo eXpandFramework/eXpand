@@ -64,7 +64,6 @@ namespace Xpand.Persistent.Base.General {
         static string _connectionString;
         private static readonly object _syncRoot = new object();
         protected Type DefaultXafAppType = typeof (XafApplication);
-        static  bool? _isHosted;
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
         private static readonly HashSet<Type> _disabledControllerTypes = new HashSet<Type>();
@@ -119,31 +118,6 @@ namespace Xpand.Persistent.Base.General {
                 return new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
             }
         }
-
-        public static bool IsHosted {
-            get{
-                if (!_isHosted.HasValue) {
-                    _isHosted = GetIsHosted(CaptionHelper.ApplicationModel);
-                }
-                return _isHosted.Value;
-            }
-        }
-
-        public static bool GetIsHosted(IModelApplication application) {
-            var modelSources = application as IModelSources;
-            if (modelSources == null)
-                return Assembly.GetEntryAssembly() == null;
-            var moduleBases = modelSources.Modules;
-            return GetIsHosted(moduleBases);
-        }
-
-        private static bool GetIsHosted(IEnumerable<ModuleBase> moduleBases){
-            return moduleBases.Any(@base =>{
-                var attribute =XafTypesInfo.Instance.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
-            });
-        }
-
 
         public static void DisableControllers(params Type[] types){
             lock (_disabledControllerTypesLock){
@@ -245,7 +219,7 @@ namespace Xpand.Persistent.Base.General {
 
         public bool Executed(string name,ModuleType moduleType){
             if (RuntimeMode){
-                var type = IsHosted ? ModuleType.Web : ModuleType.Win;
+                var type = Application.IsHosted() ? ModuleType.Web : ModuleType.Win;
                 if (type == moduleType && ModuleType == ModuleType.Agnostic && !NonAgnosticExists(type))
                     return ExecutedCore(name);
             }
@@ -303,7 +277,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelApplication, IModelApplicationListViews>();
             extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
-            
+            extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();    
             
         }
         public static Type UserType { get; set; }
@@ -582,7 +556,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void OnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
-            if (IsHosted&&_customUserModelDifferenceStore)
+            if (Application.IsHosted()&&_customUserModelDifferenceStore)
                 return;
             _customUserModelDifferenceStore = true;
             var stringModelStores = ResourceModelCollector.GetEmbededModelStores();
@@ -591,7 +565,7 @@ namespace Xpand.Persistent.Base.General {
             }
             IEnumerable<string> models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly);
             models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly)).Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
-            if (IsHosted){
+            if (Application.IsHosted()) {
                 models=models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,"model.user*.xafml",SearchOption.TopDirectoryOnly));
             }
             foreach (var path in models){
@@ -603,7 +577,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static string BinDirectory{
-            get{return IsHosted ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;}
+            get{return ApplicationHelper.Instance.Application.IsHosted() ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;}
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }
@@ -799,8 +773,9 @@ namespace Xpand.Persistent.Base.General {
        
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
             XpandModuleBase.ObjectSpaceCreated = false;
-            ((XafApplication)sender).LoggedOff -= ApplicationOnLoggedOff;
-            if (!XpandModuleBase.IsHosted)
+            var xafApplication = ((XafApplication)sender);
+            xafApplication.LoggedOff -= ApplicationOnLoggedOff;
+            if (!xafApplication.IsHosted())
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
             else
                 XpandModuleBase.RemoveCall(ConnectionStringHelperName,_xpandModuleBase.ModuleManager);
