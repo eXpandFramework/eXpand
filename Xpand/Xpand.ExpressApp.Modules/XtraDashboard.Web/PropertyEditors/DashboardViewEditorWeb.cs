@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime);
+            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime,Application.CreateDashboardDataSource);
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
