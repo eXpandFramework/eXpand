@@ -1,10 +1,16 @@
 using System;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
     public partial class RefreshNavigationController : ViewController {
-        bool refreshdashboards;
+        bool _objectChanged;
+        private static readonly string _xmlPropertyName;
+
+        static RefreshNavigationController(){
+            _xmlPropertyName = ReflectionExtensions.GetPropertyName<IDashboardDefinition>(definition => definition.Xml);
+        }
 
         public RefreshNavigationController() {
             InitializeComponent();
@@ -25,13 +31,15 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e) {
-            if (e.NewValue != e.OldValue)
-                refreshdashboards = true;
+            if (e.NewValue != e.OldValue&&e.PropertyName==_xmlPropertyName)
+                _objectChanged = true;
         }
 
         void ObjectSpace_Committed(object sender, EventArgs e) {
-            if (refreshdashboards)
+            if (_objectChanged){
                 Frame.Application.MainWindow.GetController<DashboardNavigationController>().RecreateNavigationItems();
+                _objectChanged = false;
+            }
         }
     }
 }

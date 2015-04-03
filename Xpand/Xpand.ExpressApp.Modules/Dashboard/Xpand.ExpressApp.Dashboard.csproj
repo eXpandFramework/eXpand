@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.Dashboard</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Dashboard</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -124,8 +126,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\DashboardDefinition.cs" />
-    <Compile Include="BusinessObjects\TypeWrapper.cs" />
+    <Compile Include="BusinessObjects\DashboardDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BusinessObjects\TypeWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\DashboardNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -193,6 +199,7 @@
     <EmbeddedResource Include="Images\BO_DashboardDefinition_32x32.png" />
     <EmbeddedResource Include="Images\BO_DashboardDefinition.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

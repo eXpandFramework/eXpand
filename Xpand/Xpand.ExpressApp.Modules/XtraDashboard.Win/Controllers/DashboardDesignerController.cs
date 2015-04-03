@@ -5,8 +5,8 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.XtraDashboard.Win.Templates;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public partial class DashboardDesignerController : ViewController {
@@ -48,10 +48,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
         }
 
         void dashboardEdit_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            using (var form = new DashboardDesignerForm()) {
-                new XPObjectSpaceAwareControlInitializer(form, Application);
-                form.LoadTemplate(View.CurrentObject as IDashboardDefinition);
+            using (var form = new DashboardDesignerForm{ObjectSpace = ObjectSpace}) {
+                form.LoadTemplate(((IDashboardDefinition)View.CurrentObject), Application);
                 form.ShowDialog();
+                if (View is ListView)
+                    ObjectSpace.CommitChanges();
             }
         }
 
