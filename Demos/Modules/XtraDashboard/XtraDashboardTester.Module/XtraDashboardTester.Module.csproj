@@ -151,6 +151,8 @@
     <None Include="BusinessObjects\ReadMe.txt" />
     <None Include="Controllers\ReadMe.txt" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
+    <None Include="FunctionalTests\DesignerActions\DesignerActions.ets" />
+    <None Include="FunctionalTests\DesignerActions\DesignerActions.xafml" />
     <None Include="FunctionalTests\ModelOptions\ModelOptions.ets" />
     <None Include="FunctionalTests\ModelOptions\ModelOptions.xafml" />
     <None Include="ReadMe.txt" />
@@ -174,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
+    <Content Include="FunctionalTests\DesignerActions\Config.xml" />
     <Content Include="FunctionalTests\ModelOptions\Check Navigation.inc" />
     <Content Include="FunctionalTests\ModelOptions\Config.xml" />
   </ItemGroup>
