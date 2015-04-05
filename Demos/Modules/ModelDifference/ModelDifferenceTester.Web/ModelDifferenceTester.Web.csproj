@@ -12,11 +12,9 @@
     <RootNamespace>ModelDifferenceTester.Web</RootNamespace>
     <AssemblyName>ModelDifferenceTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -109,7 +107,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=14.2.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>
@@ -222,8 +220,7 @@
   -->
   <Target Name="AfterBuild">
     <ItemGroup>
-      <OutputFiles Include="$(OutputPath)\**\*.*">
-      </OutputFiles>
+      <OutputFiles Include="$(OutputPath)\**\*.*"></OutputFiles>
     </ItemGroup>
     <Copy SourceFiles="@(OutputFiles)" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\%(OutputFiles.RecursiveDir)" />
     <!--    <Copy SourceFiles="$(OutputPath)\*.*" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\"></Copy>-->
@@ -236,12 +233,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
