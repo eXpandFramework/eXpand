@@ -26,26 +26,27 @@ namespace Xpand.Utils.Threading{
             }
         }
 
-        public static Task TimeoutAfter(this Task task, int millisecondsTimeout){
+        public static Task TimeoutAfter(this Task task, int millisecondsTimeout,Action timeoutAction=null){
             if (task.IsCompleted || (millisecondsTimeout == -1)){
                 return task;
             }
-            var tcs = new TaskCompletionSource<VoidTypeStruct>();
+            var taskCompletionSource = new TaskCompletionSource<VoidTypeStruct>();
             if (millisecondsTimeout == 0){
-                tcs.SetException(new TimeoutException());
-                return tcs.Task;
+                taskCompletionSource.SetException(new TimeoutException());
+                return taskCompletionSource.Task;
             }
-            var timer =
-                new Timer(
-                    delegate(object state){
-                        ((TaskCompletionSource<VoidTypeStruct>) state).TrySetException(new TimeoutException());
-                    }, tcs,
-                    millisecondsTimeout, -1);
+            var timeout = false;
+            var timer =new Timer(state =>{
+                        ((TaskCompletionSource<VoidTypeStruct>)state).TrySetException(new TimeoutException());
+                timeout = true;
+            }, taskCompletionSource,(long) millisecondsTimeout, -1);
             task.ContinueWith(delegate(Task antecedent){
                 timer.Dispose();
-                MarshalTaskResults(antecedent, tcs);
+                MarshalTaskResults(antecedent, taskCompletionSource);
+                if (timeout && timeoutAction != null)
+                    timeoutAction();
             }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
-            return tcs.Task;
+            return taskCompletionSource.Task;
         }
 
         public static Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, int millisecondsTimeout){
@@ -59,9 +60,7 @@ namespace Xpand.Utils.Threading{
             }
             var timer =
                 new Timer(
-                    delegate(object state){
-                        ((TaskCompletionSource<TResult>) state).TrySetException(new TimeoutException());
-                    }, tcs,
+                    state => ((TaskCompletionSource<TResult>) state).TrySetException(new TimeoutException()), tcs,
                     millisecondsTimeout, -1);
             task.ContinueWith(delegate(Task<TResult> antecedent){
                 timer.Dispose();
