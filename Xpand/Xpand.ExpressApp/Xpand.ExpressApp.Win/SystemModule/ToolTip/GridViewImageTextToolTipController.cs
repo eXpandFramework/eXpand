@@ -103,13 +103,13 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (GridView != null) {
-                GridView.TopRowChanged += GridViewTopRowChanged;
-                GridView.ShownEditor += HideHint;
+                GridView.TopRowChanged -= GridViewTopRowChanged;
+                GridView.ShownEditor -= HideHint;
                 GridControl gridControl = GridView.GridControl;
                 if (gridControl != null) {
-                    gridControl.MouseMove += GridControl_MouseMove;
-                    gridControl.MouseDown += HideHint;
-                    gridControl.MouseLeave += HideHint;
+                    gridControl.MouseMove -= GridControl_MouseMove;
+                    gridControl.MouseDown -= HideHint;
+                    gridControl.MouseLeave -= HideHint;
                 }
             }
             if (_toolTipController != null)
