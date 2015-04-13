@@ -41,15 +41,16 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         }
         private void OwnerOnCreateCustomMenuActionItem(object sender, CreateCustomMenuActionItemEventArgs e){
             var modelAction = Application.Model.ActionDesign.Actions[e.Action.Id];
-            var clientScript = ((IModelActionClientScript)modelAction).ClientScript;
-            if (!string.IsNullOrEmpty(clientScript)){
-                var action = modelAction.ToAction(Frame);
-                var actionItem = new SimpleActionMenuActionItem((SimpleAction) action) {
-                    ClientClickScript = ((IModelActionClientScript) modelAction).ClientScript
-                };
-                e.ActionItem = actionItem;
+            if (modelAction != null){
+                var clientScript = ((IModelActionClientScript)modelAction).ClientScript;
+                if (!string.IsNullOrEmpty(clientScript)){
+                    var action = modelAction.ToAction(Frame);
+                    var actionItem = new SimpleActionMenuActionItem((SimpleAction) action) {
+                        ClientClickScript = ((IModelActionClientScript) modelAction).ClientScript
+                    };
+                    e.ActionItem = actionItem;
+                }
             }
-
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
