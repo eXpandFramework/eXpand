@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using SystemTester.Module;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
 
@@ -27,7 +28,7 @@ namespace SystemTester.Win {
             }
 #endif
             try {
-                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameters>();
                 winApplication.Setup();
                 winApplication.Start();
             }

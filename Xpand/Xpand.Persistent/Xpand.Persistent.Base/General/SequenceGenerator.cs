@@ -15,6 +15,7 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
 using Fasterflect;
@@ -46,7 +47,9 @@ namespace Xpand.Persistent.Base.General {
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
 
-
+        static SequenceGenerator(){
+            ThrowProviderSupportedException = true;
+        }
         public SequenceGenerator() {
             int count = MaxGenerationAttemptsCount;
             while (true) {
@@ -208,6 +211,11 @@ namespace Xpand.Persistent.Base.General {
             if (supportSequenceObject.Session is NestedUnitOfWork ||
                 !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
                 return;
+            if (!IsProviderSupported(supportSequenceObject)){
+                if (ThrowProviderSupportedException)
+                    throw new NotSupportedException("Current provider does not support isolated transactions");
+                return;
+            }
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
@@ -228,6 +236,12 @@ namespace Xpand.Persistent.Base.General {
                 session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
             supportSequenceObject.Sequence = nextSequence;
+        }
+
+        public static bool ThrowProviderSupportedException { get; set; }
+
+        private static bool IsProviderSupported(ISupportSequenceObject supportSequenceObject){
+            return !(supportSequenceObject.Session.DataLayer.ConnectionProvider(supportSequenceObject) is SQLiteConnectionProvider);
         }
 
         static bool IsNotNestedUnitOfWork(Session session) {

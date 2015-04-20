@@ -17,6 +17,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>0d93d223</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,10 +76,14 @@
     <Reference Include="DevExpress.Xpo.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
@@ -113,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomLogonParameters.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -133,6 +139,7 @@
     <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
     <Compile Include="FunctionalTests\SequenceGenerator\SequenceGeneratorObject.cs" />
+    <Compile Include="FunctionalTests\SqlLite\SqliteObject.cs" />
     <Compile Include="FunctionalTests\ViewEditMode\ViewEditMode.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -157,6 +164,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -198,11 +206,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\SequenceGenerator\SequenceGenerator.ets" />
+    <None Include="FunctionalTests\SqlLite\SqlLite.ets" />
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewEditMode.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewMode\ViewMode.ets" />
     <None Include="Images\ReadMe.txt" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +232,7 @@
     <Content Include="FunctionalTests\SequenceGenerator\Without_Prefix.inc" />
     <Content Include="FunctionalTests\SequenceGenerator\Update_Sequence.inc" />
     <Content Include="FunctionalTests\SequenceGenerator\With_prefix.inc" />
+    <Content Include="FunctionalTests\SqlLite\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode\DetailView\EditMode\Config.xml">
       <SubType>Designer</SubType>
     </Content>
