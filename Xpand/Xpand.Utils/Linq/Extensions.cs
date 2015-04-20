@@ -6,6 +6,11 @@ using System.Reflection;
 
 namespace Xpand.Utils.Linq{
     public static class Extensions{
+        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts) {
+            int i = 0;
+            return list.GroupBy(item => i++%parts).Select(part => part.AsEnumerable());
+        }
+
         public static IEnumerable<T> SkipLastN<T>(this IEnumerable<T> source, int n) {
             var it = source.GetEnumerator();
             bool hasRemainingItems;

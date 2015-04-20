@@ -1,8 +1,11 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
+using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -31,6 +34,15 @@ namespace Xpand.Persistent.Base.Xpo {
                     CriteriaOperator.RegisterCustomFunction(customFunctionOperator);
                 }
             }
+        }
+
+        public static void ValidateAndCommitChanges(this Session session) {
+            var unitOfWork = ((UnitOfWork)session);
+            var objectSpace = new XPObjectSpace(XafTypesInfo.Instance, XpoTypesInfoHelper.GetXpoTypeInfoSource(), () => unitOfWork);
+            var result = Validator.RuleSet.ValidateAllTargets(objectSpace, session.GetObjectsToSave(), ContextIdentifier.Save);
+            if (result.ValidationOutcome == ValidationOutcome.Error)
+                throw new Exception(result.GetFormattedErrorMessage());
+            unitOfWork.CommitChanges();
         }
 
         public static IObjectSpace XPObjectSpace(this object xpObject){

@@ -83,6 +83,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -101,6 +102,7 @@
     <Compile Include="Fastreflect\PropertyExtensions.cs" />
     <Compile Include="GeneralDataStructures\HashedArrayList.cs" />
     <Compile Include="GeneralDataStructures\MultiKeyDictionary.cs" />
+    <Compile Include="Helpers\EnviromentEx.cs" />
     <Compile Include="Helpers\Keys.cs" />
     <Compile Include="Helpers\LinqExpressionAccessors.cs" />
     <Compile Include="Helpers\DataSetExtensions.cs" />
