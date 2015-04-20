@@ -98,7 +98,7 @@ Forms.DockStyle.None) {
                 Text = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin,
                     "AcceptFilter")
             };
-            accept.Click += ((o, args) => ((WinColumnsListEditor) View.Editor).GridView().ActiveFilterCriteria=_filterControl.FilterCriteria);
+            accept.Click += ((o, args) => ((WinColumnsListEditor) View.Editor).ColumnView.ActiveFilterCriteria=_filterControl.FilterCriteria);
             accept.Dock = Forms.DockStyle.Bottom;
             _filterControl.Controls.Add(accept);
 
