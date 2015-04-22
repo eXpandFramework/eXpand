@@ -270,6 +270,10 @@
     <Reference Include="System.Xml.Linq">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.NH.BaseImpl">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.BaseImpl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -330,10 +334,6 @@
     <ProjectReference Include="..\NHibernateIntegration.Module\NHibernateIntegration.Module.csproj">
       <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
       <Name>NHibernateIntegration.Module</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj">
-      <Project>{1d957b2a-fe7a-4ba8-bdc2-3d8aa7770e18}</Project>
-      <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

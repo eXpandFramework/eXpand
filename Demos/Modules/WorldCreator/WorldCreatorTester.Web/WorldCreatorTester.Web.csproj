@@ -102,6 +102,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -172,10 +176,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj">
-      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
-      <Name>Xpand.ExpressApp.Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WorldCreatorTester.Module.Web\WorldCreatorTester.Module.Web.csproj">
       <Project>{970E214A-6380-48AF-87C7-26E0EAE954A2}</Project>
       <Name>WorldCreatorTester.Module.Web</Name>

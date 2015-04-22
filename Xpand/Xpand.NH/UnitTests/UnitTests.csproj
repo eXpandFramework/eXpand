@@ -170,6 +170,18 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="Xpand.ExpressApp.NH.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NH.DataLayer">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.DataLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NH">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -191,14 +203,6 @@
     <Compile Include="ObjectSpaceTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
-      <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
-      <Name>Xpand.ExpressApp.NH.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.DataLayer\Xpand.ExpressApp.NH.DataLayer.csproj">
-      <Project>{15f6477b-a7f3-43fb-b1b7-4c08c9c12e89}</Project>
-      <Name>Xpand.ExpressApp.NH.DataLayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NHibernateIntegration.Module\NHibernateIntegration.Module.csproj">
       <Project>{5f15837d-d1e5-44dc-92f0-4f2ebe9c3f8d}</Project>
       <Name>NHibernateIntegration.Module</Name>
@@ -210,10 +214,6 @@
     <ProjectReference Include="..\TestEntities\TestEntities.csproj">
       <Project>{94593ff7-d191-40a4-93b7-4771ff397ec0}</Project>
       <Name>TestEntities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH\Xpand.ExpressApp.NH.csproj">
-      <Project>{3eb209eb-c0a7-489f-9287-612ce5da911d}</Project>
-      <Name>Xpand.ExpressApp.NH</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

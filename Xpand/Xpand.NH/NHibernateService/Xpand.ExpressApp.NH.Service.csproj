@@ -56,6 +56,18 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Xpand.ExpressApp.NH.BaseImpl">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.BaseImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NH.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NH.DataLayer">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.DataLayer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPersistenceManagerService.cs" />
@@ -74,18 +86,6 @@
     <ProjectReference Include="..\TestDataLayer\TestDataLayer.csproj">
       <Project>{e0d3a6d9-5764-472e-b3b6-c2d71757e0d5}</Project>
       <Name>TestDataLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj">
-      <Project>{1d957b2a-fe7a-4ba8-bdc2-3d8aa7770e18}</Project>
-      <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.Core\Xpand.ExpressApp.NH.Core.csproj">
-      <Project>{e87b0afc-3b3e-4969-bbaf-afdda718bbc7}</Project>
-      <Name>Xpand.ExpressApp.NH.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.DataLayer\Xpand.ExpressApp.NH.DataLayer.csproj">
-      <Project>{15f6477b-a7f3-43fb-b1b7-4c08c9c12e89}</Project>
-      <Name>Xpand.ExpressApp.NH.DataLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -83,6 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -129,10 +133,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj">
-      <Project>{B964E541-EBA2-4971-B104-A99ABBD95D36}</Project>
-      <Name>Xpand.ExpressApp.Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WorldCreatorTester.Module.Win\WorldCreatorTester.Module.Win.csproj">
       <Project>{7B2E4E13-2F71-42F9-A88B-E93DAD6A9FCC}</Project>
       <Name>WorldCreatorTester.Module.Win</Name>

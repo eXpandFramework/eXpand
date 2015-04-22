@@ -226,6 +226,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Docs.Module">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Docs.Module.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WinModule.cs">
@@ -243,16 +251,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj">
-      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
-      <Name>Xpand.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.Docs.Module\Xpand.Docs.Module.csproj">
-      <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
-      <Name>Xpand.Docs.Module</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>

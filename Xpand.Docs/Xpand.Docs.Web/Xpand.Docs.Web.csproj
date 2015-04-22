@@ -177,6 +177,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Docs.Module.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Docs.Module.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Docs.Module">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Xpand.DLL\Xpand.Docs.Module.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -240,20 +252,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj">
-      <Project>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</Project>
-      <Name>Xpand.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.Docs.Module.Web\Xpand.Docs.Module.Web.csproj">
-      <Project>{0c729aad-7626-4668-a7f1-35f7d240489d}</Project>
-      <Name>Xpand.Docs.Module.Web</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xpand.Docs.Module\Xpand.Docs.Module.csproj">
-      <Project>{5f15837d-d1e5-44dc-92f0-4f2ebe9c3f8d}</Project>
-      <Name>Xpand.Docs.Module</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
