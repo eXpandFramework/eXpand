@@ -190,7 +190,10 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelApplicationBaseExtensions {
-        
+        public static bool IsHosted(this IModelApplication modelApplication){
+            return ((IModelSources) modelApplication).Modules.Any(@base => @base.IsHosted());
+        }
+
         static ModelApplicationBase _strategiesModel;
         public static ModelApplicationBase StrategiesModel(this IModelApplication application, IEnumerable<ModelApplicationBase> modelApplicationBases) {
             if (_strategiesModel == null) {

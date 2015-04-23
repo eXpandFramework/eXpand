@@ -744,6 +744,11 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModuleBaseExtensions {
+        public static bool IsHosted(this ModuleBase moduleBase){
+            var attribute = XafTypesInfo.Instance.FindTypeInfo(moduleBase.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
+            return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
+        }
+
         public static string GetConnectionString(this ModuleBase moduleBase) {
             if (moduleBase.Application.ObjectSpaceProviders.Count == 0) {
                 return moduleBase.Application.ConnectionString;

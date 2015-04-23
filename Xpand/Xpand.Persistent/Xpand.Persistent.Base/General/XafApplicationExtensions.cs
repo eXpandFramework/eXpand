@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -24,10 +23,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool IsHosted(this XafApplication application) {
-            return application.Modules.Any(@base => {
-                var attribute = XafTypesInfo.Instance.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
-            });
+            return application.Modules.Any(@base => @base.IsHosted());
         }
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
