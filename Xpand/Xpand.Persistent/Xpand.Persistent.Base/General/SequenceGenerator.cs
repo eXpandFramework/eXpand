@@ -284,7 +284,8 @@ namespace Xpand.Persistent.Base.General {
             if (SequenceGenerator.UseGuidKey){
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
                 var dbTable = GetDbTable(classInfo.TableName);
-                if (dbTable!=null){
+	            var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName); 
+		        if (dbTable!=null && dbTable.PrimaryKey.Columns.Contains(typeNamePropertyName)){ 
                     if (SequenceGeneratorHelper.IsMySql())
                         throw new NotImplementedException("Set SequenceGenerator.UseGuidKey=false or update the set Oid as key property manually");
                     var memberInfo =classInfo.Members.FirstOrDefault(info =>info.IsCollection &&typeof (ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
@@ -302,15 +303,12 @@ namespace Xpand.Persistent.Base.General {
         private DBTable GetDbTable(string name){
             var xpObjectSpace = ObjectSpace as XPObjectSpace;
             var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
-            
-            var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
             return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
                 var dbTable = new DBTable(s);
                 ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
                 return dbTable;
-            }).FirstOrDefault(table => table.PrimaryKey != null && table.PrimaryKey.Columns.Contains(typeNamePropertyName));
+			}).FirstOrDefault(table => table.PrimaryKey != null); 
         }
-
 
         private ISequenceObject GetSequenceObject(){
             return null;
