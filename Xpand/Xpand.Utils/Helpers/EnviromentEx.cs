@@ -195,7 +195,7 @@ namespace Xpand.Utils.Helpers {
         public static IEnumerable<Process> GetRunningProcess(this Process currentProcess) {
             var fileName = currentProcess.Modules[0].FileName;
             return Process.GetProcessesByName(currentProcess.ProcessName)
-                .Where(process => process != currentProcess && process.Modules[0].FileName == fileName);
+                .Where(process => process.Id != currentProcess.Id && process.Modules[0].FileName == fileName);
         }
 
     }

@@ -262,11 +262,13 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  
   -->
-  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\..\..\Support\build\System.Data.SQLite.Core.targets" />
+  <Target Name="AfterBuild" DependsOnTargets="CopySQLiteInteropFiles">
+    
+  </Target>
+  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>System.Data.SQLite.Core.target not found</ErrorText>

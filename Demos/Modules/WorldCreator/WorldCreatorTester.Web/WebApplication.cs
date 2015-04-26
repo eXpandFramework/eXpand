@@ -13,7 +13,7 @@ using WorldCreatorTester.Module.Web;
 using Xpand.Persistent.Base.General;
 
 namespace WorldCreatorTester.Web {
-    public class WorldCreatorTesterAspNetApplication : WebApplication {
+    public class WorldCreatorTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
         SystemModule _module1;
         SystemAspNetModule _module2;
         WorldCreatorTesterModule _module3;
@@ -96,6 +96,20 @@ namespace WorldCreatorTester.Web {
 
             DatabaseVersionMismatch += WorldCreatorTesterAspNetApplication_DatabaseVersionMismatch;
             ((ISupportInitialize)(this)).EndInit();
+        }
+
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
         }
     }
 }

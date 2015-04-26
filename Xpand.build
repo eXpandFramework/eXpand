@@ -242,13 +242,13 @@
   <PropertyGroup>
     <EasyTestFilter>Demos\</EasyTestFilter>
   </PropertyGroup>
-  <ItemGroup>
+    <ItemGroup>
     <EasyTestLogs Include="$(MSBuildProjectDirectory)\**\TestsLog.xml"/>
     <EasyProjects Include="@(DemoSolutions)"/>
     <EasyProjects Include="@(DemoTesterProjects)"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(XpandDLLPath)\Fasterflect.dll;$(XpandDLLPath)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(XpandDLLPath)\Fasterflect.dll;$(XpandDLLPath)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll;$(XpandDLLPath)\Common.Logging.dll;$(XpandDLLPath)\log4net.dll;$(XpandDLLPath)\Common.Logging.Log4Net*.dll;"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\windowsinput.dll;$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\windowsinput.dll;$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUser.exe.config;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>

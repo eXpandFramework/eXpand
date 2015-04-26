@@ -25,20 +25,18 @@ namespace SystemTester.Module {
         }
 
         private void ApplicationOnLoggingOn(object sender, LogonEventArgs logonEventArgs){
-
             var customLogonParameters = (logonEventArgs.LogonParameters as CustomLogonParameters);
             if (customLogonParameters != null){
                 var dbServerType = customLogonParameters.DbServerType;
-                Application.ConnectionString=ConfigurationManager.ConnectionStrings[dbServerType.ToString()].ConnectionString;
-                Application.SetFieldValue("objectSpaceProviders",new List<IObjectSpaceProvider>{new XPObjectSpaceProvider(Application.ConnectionString,null)});
-
-                if (!_isUsed&&dbServerType == DbServerType.SqlLite && File.Exists("SystemTesterEasyTest.db")){
-                    File.Delete("SystemTesterEasyTest.db");
-                    _isUsed = true;
+                if (dbServerType!=DbServerType.Default){
+                    Application.ConnectionString = ConfigurationManager.ConnectionStrings[dbServerType.ToString()].ConnectionString;
+                    Application.SetFieldValue("objectSpaceProviders",new List<IObjectSpaceProvider>{new XPObjectSpaceProvider(Application.ConnectionString,null)});
+                    if (dbServerType == DbServerType.SqlLite && !_isUsed && File.Exists("SystemTesterEasyTest.db")) {
+                        File.Delete("SystemTesterEasyTest.db");
+                        _isUsed = true;
+                    }
                 }
             }
-
-            
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
