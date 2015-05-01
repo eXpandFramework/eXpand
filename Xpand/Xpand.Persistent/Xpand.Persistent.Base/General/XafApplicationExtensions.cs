@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -20,6 +23,26 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static IEnumerable<Controller> CreateValidationControllers(this XafApplication app){
+            yield return app.CreateController<ActionValidationController>();
+            yield return app.CreateController<PersistenceValidationController>();
+            yield return app.CreateController<ResultsHighlightController>();
+            yield return app.CreateController<RuleSetInitializationController>();
+        }
+
+        public static IEnumerable<Controller> CreateAppearenceControllers(this XafApplication app){
+            yield return app.CreateController<ActionAppearanceController>();
+            yield return app.CreateController<AppearanceController>();
+            yield return app.CreateController<DetailViewItemAppearanceController>();
+            yield return app.CreateController<DetailViewLayoutItemAppearanceController>();
+            yield return app.CreateController<RefreshAppearanceController>();
+            yield return app.CreateController<AppearanceCustomizationListenerController>();
+        }
+
+        public static bool IsLoggedIn(this XafApplication application){
+            return SecuritySystem.CurrentUser != null;
         }
 
         public static bool IsHosted(this XafApplication application) {
