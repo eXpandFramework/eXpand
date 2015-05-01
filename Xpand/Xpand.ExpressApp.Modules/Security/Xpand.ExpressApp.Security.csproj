@@ -103,6 +103,7 @@
       <Private>True</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -142,6 +143,9 @@
     </Compile>
     <Compile Include="ClientServer\XpandSecuredDataServer.cs" />
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ChooseDatabaseAtLogonController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\ShowNavigationItemController.cs">

@@ -83,6 +83,7 @@
     <Compile Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogonObject.cs" />
     <Compile Include="FunctionalTests\RememberMe\RememberMeObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -112,10 +113,20 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogon.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogon.ets" />
+    <EmbeddedResource Include="FunctionalTests\RememberMe\RememberMe.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\RememberMe\RememberMe.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
@@ -123,6 +134,9 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\NavigationItemPermission\Config.xml" />
+    <Content Include="FunctionalTests\ChooseDatabaseAtLogon\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.web.png" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.win.png" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Config.xml" />

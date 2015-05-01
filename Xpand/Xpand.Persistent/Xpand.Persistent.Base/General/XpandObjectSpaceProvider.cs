@@ -31,6 +31,16 @@ namespace Xpand.Persistent.Base.General {
             get { return _dataLayer; }
         }
 
+
+        string IObjectSpaceProvider.ConnectionString{
+            get { return ConnectionString; }
+            set{
+                var multiDataStoreProvider = new MultiDataStoreProvider(value);
+                DataStoreProvider=multiDataStoreProvider;
+                SetDataStoreProvider(DataStoreProvider);
+            }
+        }
+        
         public bool AllowICommandChannelDoWithSecurityContext {
             get { return _allowICommandChannelDoWithSecurityContext; }
             set { _allowICommandChannelDoWithSecurityContext = value; }

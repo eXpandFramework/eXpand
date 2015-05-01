@@ -84,6 +84,7 @@
     <Compile Include="Commands\CreatePermissionCommand.cs" />
     <Compile Include="Commands\FocusWindowCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\LogonCommand.cs" />
     <Compile Include="Commands\MouseCommand.cs" />
     <Compile Include="Commands\MultiLineComparisionHelper.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Commands\SendKeysCommand.cs" />
     <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
     <Compile Include="Commands\XpandCheckFieldValuesCommand.cs" />
+    <Compile Include="Commands\XpandCheckFileExistsCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />

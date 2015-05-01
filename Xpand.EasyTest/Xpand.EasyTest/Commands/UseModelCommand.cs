@@ -17,14 +17,14 @@ namespace Xpand.EasyTest.Commands{
             var testAlias = _testParameters.GetAlias("WinAppBin", "WebAppBin");
             if (string.IsNullOrEmpty(Parameters.MainParameter.Value)){
                 var modelFile = Directory.GetFiles(_testParameters.ScriptsPath, "*.xafml", SearchOption.TopDirectoryOnly).Single();
-                CopyModel(adapter, testAlias, GetUserXafml(modelFile), modelFile);
+                CopyModel(adapter, testAlias.Value, GetUserXafml(modelFile), modelFile);
             }
             else{
                 var modelFiles = Parameters.MainParameter.Value.Split(';');
                 for (int i = 0; i < modelFiles.Length; i++){
                     var path = Path.Combine(_testParameters.ScriptsPath, modelFiles[i] + ".xafml");
                     var userXafml = GetUserXafml(path,i);
-                    CopyModel(adapter, testAlias, userXafml, path);
+                    CopyModel(adapter, testAlias.Value, userXafml, path);
                 }
             }
 
@@ -40,10 +40,9 @@ namespace Xpand.EasyTest.Commands{
             return userXafml;
         }
 
-        private void CopyModel(ICommandAdapter adapter, TestAlias testAlias, string model, string modelFile){
+        private void CopyModel(ICommandAdapter adapter, string binPath, string model, string modelFile){
             var copyFileCommand = new CopyFileCommand();
-            string path1 = testAlias.Value;
-            string destinationFile = Path.Combine(path1, model);
+            string destinationFile = Path.Combine(binPath, model);
             var deleteFileCommand = new DeleteFileCommand();
             deleteFileCommand.Parameters.MainParameter = new MainParameter(destinationFile);
             deleteFileCommand.Execute(adapter);

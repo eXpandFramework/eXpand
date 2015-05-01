@@ -78,6 +78,10 @@ namespace Xpand.EasyTest {
             return Adapter is IXpandTestWinAdapter;
         }
 
+        public static string GetBinPath(this TestParameters testParameters){
+            return testParameters.GetAlias("WinAppBin", "WebAppBin").Value;
+        }
+
         public static TestAlias GetAlias(this TestParameters testParameters,string name,string webName=null){
             string aliasName = IsWinAdapter(null) ? name : webName??name;
             var options = testParameters.LoadOptions();
@@ -170,6 +174,8 @@ namespace Xpand.EasyTest {
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
                 {typeof (XpandCheckFieldValuesCommand), XpandCheckFieldValuesCommand.Name},
+                {typeof (LogonCommand), LogonCommand.Name},
+                {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
@@ -20,10 +21,10 @@ namespace Xpand.ExpressApp.Security.Web {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
 
-        protected override void AddRegistrationControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
+        protected override void AddRegistrationControllers(XafApplication xafApplication, Dictionary<Type, Controller> controllers) {
             if (!((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled&&
                 ((IModelOptionsRegistration) Application.Model.Options).Registration.Enabled)
-                base.AddRegistrationControllers(sender, e);
+                base.AddRegistrationControllers(xafApplication, controllers);
         }
 
         protected override Type[] ApplicationTypes() {

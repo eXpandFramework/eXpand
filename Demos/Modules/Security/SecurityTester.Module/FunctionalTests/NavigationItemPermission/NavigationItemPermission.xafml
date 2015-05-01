@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SecurityTester" Logo="ExpressAppLogo">
+  <NavigationItems>
+    <Items>
+      <Item Id="NavigationItemPermission" IsNewNode="True" Removed="True">
+        <Items IsNewNode="True">
+          <Item Id="NavigationItemPermissionObject_ListView" ViewId="NavigationItemPermissionObject_ListView" ObjectKey="" IsNewNode="True" />
+          <Item Id="NavigationItemPermissionObject_ListView_Hidden" Caption="Hidden" ViewId="NavigationItemPermissionObject_LookupListView" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options>
+    <Athentication>
+      <AutoAthentication Enabled="True" />
+    </Athentication>
+  </Options>
+</Application>

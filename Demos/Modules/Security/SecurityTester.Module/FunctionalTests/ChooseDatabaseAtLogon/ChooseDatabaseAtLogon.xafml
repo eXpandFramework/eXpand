@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="SecurityTester" Logo="ExpressAppLogo">
   <Options ChooseDatabaseAtLogon="True">
-    <Athentication>
-      <AutoAthentication Enabled="True" />
-    </Athentication>
   </Options>
 </Application>

@@ -4,6 +4,7 @@
     <Class Name="Xpand.ExpressApp.Security.AuthenticationProviders.XpandLogonParameters">
       <AppearanceRules>
         <AppearanceRule Id="Show_RememberMe_When_AutoAthentication" Criteria="AutoAuthentication=false" Visibility="Hide" TargetItems="RememberMe" IsNewNode="True" />
+        <AppearanceRule Id="Show_DBServer_When_ChooseDatabaseAtLogon" TargetItems="DBServer" Visibility="Hide" Criteria="ChooseDatabaseAtLogon=false" IsNewNode="True" />
       </AppearanceRules>
     </Class>
   </BOModel>
@@ -64,25 +65,26 @@
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="RootGroup">
-            <LayoutGroup Id="ImageGroup" RelativeSize="15">
+            <LayoutGroup Id="ImageGroup" RelativeSize="15.096359743040685">
               <LayoutItem Id="LogonImage" SizeConstraintsType="Default" />
             </LayoutGroup>
-            <LayoutGroup Id="EditorsGroup" RelativeSize="84">
-              <LayoutGroup Id="Text" RelativeSize="4">
+            <LayoutGroup Id="EditorsGroup" RelativeSize="84.903640256959321">
+              <LayoutGroup Id="Text" RelativeSize="4.74898236092266">
                 <LayoutItem Id="LogonText" SizeConstraintsType="Default" />
               </LayoutGroup>
-              <LayoutGroup Id="Editors" RelativeSize="95">
+              <LayoutGroup Id="Editors" RelativeSize="95.251017639077347">
                 <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" RelativeSize="100">
                   <LayoutGroup Id="Item3">
-                    <LayoutGroup Id="Item2" RelativeSize="54">
-                      <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="4" />
-                      <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3" />
-                      <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="2" RelativeSize="3" IsNewNode="True" />
-                      <LayoutItem Id="Item5" SizeConstraintsType="Default" Index="3" RelativeSize="88" ViewItem="" />
+                    <LayoutGroup Id="Item2" RelativeSize="78.81462799495587">
+                      <LayoutItem Id="DBServer" ViewItem="DBServer" SizeConstraintsType="Default" Index="0" RelativeSize="4.2735042735042734" IsNewNode="True" />
+                      <LayoutItem Id="UserName" SizeConstraintsType="Default" RelativeSize="3.4188034188034186" Index="1" />
+                      <LayoutItem Id="Password" SizeConstraintsType="Default" RelativeSize="3.4188034188034186" Index="2" />
+                      <LayoutItem Id="RememberMe" ViewItem="RememberMe" SizeConstraintsType="Default" Index="3" RelativeSize="3.4188034188034186" IsNewNode="True" />
+                      <LayoutItem Id="Item5" SizeConstraintsType="Default" Index="4" RelativeSize="85.470085470085465" ViewItem="" />
                     </LayoutGroup>
-                    <LayoutGroup Id="Item1" RelativeSize="45">
-                      <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4" />
-                      <LayoutItem Id="RestorePasswordActionItem" SizeConstraintsType="Default" RelativeSize="95" />
+                    <LayoutGroup Id="Item1" RelativeSize="21.185372005044137">
+                      <LayoutItem Id="RegisterUserActionItem" SizeConstraintsType="Default" RelativeSize="4.5584045584045585" />
+                      <LayoutItem Id="RestorePasswordActionItem" SizeConstraintsType="Default" RelativeSize="95.441595441595439" />
                     </LayoutGroup>
                   </LayoutGroup>
                 </LayoutGroup>
