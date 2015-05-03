@@ -1,14 +1,10 @@
 ﻿using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.Security;
 
 namespace SystemTester.Module{
-    public enum DbServerType{
-        Default,
-        SqlLite,
-        MySql
-    }
     [NonPersistent]
-    public class CustomLogonParameters : AuthenticationStandardLogonParameters {
-        public DbServerType DbServerType { get; set; }
+    public class CustomLogonParameters : AuthenticationStandardLogonParameters,IDBServerParameter {
+        public string DBServer { get; set; }
     }
 }

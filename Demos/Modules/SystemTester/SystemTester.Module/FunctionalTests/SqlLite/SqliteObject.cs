@@ -5,10 +5,10 @@ using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module.FunctionalTests.SqlLite {
     [DefaultClassOptions]
-    public class SqliteObject : BaseObject, ISupportSequenceObject {
+    public class SQLiteObject : BaseObject, ISupportSequenceObject {
         private readonly string _prefix=null;
 
-        public SqliteObject(Session session) : base(session){
+        public SQLiteObject(Session session) : base(session){
         }
         protected override void OnSaving() {
             base.OnSaving();

@@ -265,9 +265,7 @@
   
   -->
   <Import Project="..\..\..\..\Support\build\System.Data.SQLite.Core.targets" />
-  <Target Name="AfterBuild" DependsOnTargets="CopySQLiteInteropFiles">
-    
-  </Target>
+  
   <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

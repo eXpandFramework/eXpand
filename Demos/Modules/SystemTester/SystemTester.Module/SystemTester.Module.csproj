@@ -118,6 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChooseDatabaseAtLogonController.cs" />
     <Compile Include="CustomLogonParameters.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
@@ -231,7 +232,9 @@
     <Content Include="FunctionalTests\SequenceGenerator\Without_Prefix.inc" />
     <Content Include="FunctionalTests\SequenceGenerator\Update_Sequence.inc" />
     <Content Include="FunctionalTests\SequenceGenerator\With_prefix.inc" />
-    <Content Include="FunctionalTests\SqlLite\Config.xml" />
+    <Content Include="FunctionalTests\SqlLite\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\ViewEditMode\DetailView\EditMode\Config.xml">
       <SubType>Designer</SubType>
     </Content>

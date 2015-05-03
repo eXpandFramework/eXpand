@@ -1,10 +1,17 @@
-﻿#Application SystemTester.Win
+﻿#DropDB SystemTesterEasyTest
+#Application SystemTester.Win
 ;#Application SystemTester.Web
 
+!XpandCheckFileExists SystemTesterEasyTest.db
+ CheckInBin = True
 *XpandFillForm
- Db Server Type = Sql lite
-*Action Log On
-*Navigate Sqlite Object
+ DBServer = SQLite
+*LogOn
+*XpandCheckFileExists SystemTesterEasyTest.db
+ CheckInBin = True
+*Navigate SQLite Object
 *Action New
-*Action Save
-*Navigate Sqlite Object
+*XpandFillForm
+ Sequence = 2
+*SaveAndClose
+*Navigate SQLite Object
