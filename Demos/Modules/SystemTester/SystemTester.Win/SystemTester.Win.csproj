@@ -264,13 +264,13 @@
   </Target>
   
   -->
-  <Import Project="..\..\..\..\Support\build\System.Data.SQLite.Core.targets" />
+  <Import Project="..\..\..\..\Support\build\SQLite.targets" />
   
   <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>System.Data.SQLite.Core.target not found</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\Support\build\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Support\build\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\Support\build\SQLite.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\Support\build\SQLite.targets'))" />
   </Target>
 </Project>
