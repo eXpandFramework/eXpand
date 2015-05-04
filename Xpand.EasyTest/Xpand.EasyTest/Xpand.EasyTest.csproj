@@ -114,6 +114,7 @@
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />
     <Compile Include="TestDataBase\Operations\LocalDBDatabaseOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDataBase\Operations\MySQLDatabaseOperation.cs" />
     <Compile Include="TestDataBase\Operations\SQLiteDatabaseOperation.cs" />
     <Compile Include="TestDataBase\TestDatabase.cs" />
   </ItemGroup>

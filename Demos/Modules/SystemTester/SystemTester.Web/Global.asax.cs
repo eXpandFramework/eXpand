@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Web;
+using SystemTester.Module;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
@@ -27,7 +28,7 @@ namespace SystemTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

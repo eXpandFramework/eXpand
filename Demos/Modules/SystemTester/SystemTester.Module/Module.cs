@@ -3,6 +3,7 @@ using SystemTester.Module.FunctionalTests.RuntimeMembers;
 using DevExpress.ExpressApp;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Updating;
+using Xpand.ExpressApp.Security.Controllers;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module {

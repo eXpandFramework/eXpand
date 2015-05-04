@@ -118,8 +118,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChooseDatabaseAtLogonController.cs" />
-    <Compile Include="CustomLogonParameters.cs" />
+    <Compile Include="CustomLogonParameter.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -127,6 +126,7 @@
     <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
+    <Compile Include="FunctionalTests\MySql\MySqlObject.cs" />
     <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLocking.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -186,6 +186,7 @@
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml" />
     <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
     <EmbeddedResource Include="FunctionalTests\MergedDifferences\MergedDifferences.xafml" />
+    <None Include="FunctionalTests\MySql\MySql.ets" />
     <None Include="FunctionalTests\PessimisticLocking\PessimisticLocking.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -223,6 +224,9 @@
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
+    <Content Include="FunctionalTests\MySql\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\PessimisticLocking\Config.xml" />
     <Content Include="FunctionalTests\PessimisticLocking\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.win.png" />

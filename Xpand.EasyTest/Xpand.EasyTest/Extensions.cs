@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
@@ -188,5 +190,8 @@ namespace Xpand.EasyTest {
             }
         }
 
+        public static IDbConnection DbConnection(this TestDatabase database, string connectionString, string assemblyName, string typeName){
+            return ReflectConnectionHelper.GetConnection(assemblyName,typeName,connectionString);
+        }
     }
 }

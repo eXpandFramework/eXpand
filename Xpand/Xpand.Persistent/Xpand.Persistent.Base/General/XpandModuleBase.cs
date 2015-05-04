@@ -631,6 +631,7 @@ namespace Xpand.Persistent.Base.General {
             base.CustomizeTypesInfo(typesInfo);
             if (Executed("CustomizeTypesInfo"))
                 return;
+            SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
             if (RuntimeMode) {
                 foreach (var persistentType in typesInfo.PersistentTypes) {
                     CreateAttributeRegistratorAttributes(persistentType);

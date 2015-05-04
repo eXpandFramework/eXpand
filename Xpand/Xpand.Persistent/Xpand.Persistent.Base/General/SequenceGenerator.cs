@@ -359,12 +359,14 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
-            var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-            if (IsMySql(typeInfo)) {
-                var memberInfo = (XafMemberInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                memberInfo.RemoveAttributes<SizeAttribute>();
-                memberInfo.AddAttribute(new SizeAttribute(255));
+        public static void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
+            if (SequenceObjectType != null){
+                var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+                if (IsMySql(typeInfo)) {
+                    var memberInfo = (XafMemberInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                    memberInfo.RemoveAttributes<SizeAttribute>();
+                    memberInfo.AddAttribute(new SizeAttribute(255));
+                }
             }
         }
 
@@ -394,7 +396,6 @@ namespace Xpand.Persistent.Base.General {
             if (!xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
                 if (SequenceObjectType == null){
                     SequenceObjectType = xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
-                    ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
                 }
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;

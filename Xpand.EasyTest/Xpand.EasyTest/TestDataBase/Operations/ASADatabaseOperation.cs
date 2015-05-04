@@ -6,8 +6,11 @@ using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.EasyTest.TestDataBase.Operations {
     public class ASADatabaseOperation : IEasyTestDatabaseOperation {
+        private const string AssemblyName = "iAnywhere.Data.SQLAnywhere";
+        private const string TypeName = "iAnywhere.Data.SQLAnywhere.SAConnection";
         public void Drop(TestDatabase database) {
-            using (var conn = DbConnection(database)) {
+            var connectionString = ParseConnectionString(database);
+            using (var conn = database.DbConnection(connectionString, AssemblyName, TypeName)) {
                 conn.Open();
                 try {
                     DropDB(conn, database);
@@ -18,7 +21,8 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
         }
 
         public void Restore(TestDatabase database) {
-            using (var conn = DbConnection(database)) {
+            var connectionString = ParseConnectionString(database);
+            using (var conn = database.DbConnection(connectionString, AssemblyName,TypeName)) {
                 conn.Open();
                 try {
                     DropDB(conn, database);
@@ -66,18 +70,13 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
             }
         }
 
-        IDbConnection DbConnection(TestDatabase database) {
-            var dbConnection = ReflectConnectionHelper.GetConnection("iAnywhere.Data.SQLAnywhere",
-                                                                     "iAnywhere.Data.SQLAnywhere.SAConnection",
-                                                                     UtilityConnString(database));
-            return dbConnection;
-        }
+        
 
         string GetExtension(string path) {
             return Path.GetExtension(path);
         }
 
-        string UtilityConnString(TestDatabase database) {
+        string ParseConnectionString(TestDatabase database) {
             string connString;
             if (!string.IsNullOrEmpty(database.ConnectionString)) {
                 var helper = new ConnectionStringParser(database.ConnectionString);

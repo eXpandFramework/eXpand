@@ -21,7 +21,9 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.SQLiteDatabaseOperations" DBName="SystemTesterEasyTest" DBSourceLocation="[WinAppBin]\SystemTesterEasyTest.db"/>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.MySQLDatabaseOperations" Server="localhost" DBName="SystemTesterEasyTest">
+      <Login UserID="easytest" Password=""/>
+    </Database>
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

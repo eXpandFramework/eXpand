@@ -20,9 +20,12 @@
 			AdapterAssemblyName="[WebAdapterAssemblyName]"/-->
 	</Applications>
 	<TestDatabases>
-    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.ASADatabaseOperations" Server="Zeit" DBName="ZeitTest" DBSourceLocation="C:\Temp\ZeitTest" Backupfilename="[ConfigPath]\XAFprojectTest.bak "/>
-    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.SQLiteDatabaseOperations" DBName="SchulungsTestEasyTest" DBSourceLocation="C:\Temp\Test.db" Backupfilename="[ConfigPath]\XAFProjectTest.db"/>
-		<Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.WinAdapter.LocalDBDatabaseOperations" Server="(LocalDB)\v11.0" DBName="SchulungEasyTest" Backupfilename="[ConfigPath]\XAFProjectTest.bak"/>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.ASADatabaseOperations" Server="Zeit" DBName="ZeitTest" DBSourceLocation="C:\Temp\ZeitTest" Backupfilename="[ConfigPath]\XAFprojectTest.bak "/>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.SQLiteDatabaseOperations" DBName="SchulungsTestEasyTest" DBSourceLocation="C:\Temp\Test.db" Backupfilename="[ConfigPath]\XAFProjectTest.db"/>
+		<Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.LocalDBDatabaseOperations" Server="(LocalDB)\v11.0" DBName="SchulungEasyTest" Backupfilename="[ConfigPath]\XAFProjectTest.bak"/>
+    <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.MySQLDatabaseOperations" Server="localhost" DBName="SystemTesterEasyTest">
+      <Login UserID="easytest" Password=""/>
+    </Database>
   </TestDatabases>
 
 	<Aliases>

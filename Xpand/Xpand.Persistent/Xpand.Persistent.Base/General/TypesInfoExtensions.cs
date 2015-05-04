@@ -17,6 +17,10 @@ using Xpand.Utils.Helpers;
 namespace Xpand.Persistent.Base.General {
 
     public static class TypesInfoExtensions {
+        public static void ModifySequenceObjectWhenMySqlDatalayer(this ITypesInfo typesInfo) {
+            SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
+        }
+
         private const string PersistentEntityStore = "persistentEntityStore";
 
         public static bool IsDomainComponent(this Type type){
@@ -60,7 +64,7 @@ namespace Xpand.Persistent.Base.General {
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
                 throw new ArgumentException(typeof(T).FullName + " should be an interface");
-            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors;
+            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.ToArray();
             var objectType = implementors.FirstOrDefault();
             if (objectType == null)
                 throw new ArgumentException("Add a business object that implements " +
