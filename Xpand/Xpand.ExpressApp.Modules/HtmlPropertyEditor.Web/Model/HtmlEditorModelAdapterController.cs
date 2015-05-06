@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             var interfaceBuilderData = new InterfaceBuilderData(typeof (ASPxHtmlEditor)){
                 Act = info => {
-                    if (new[] { typeof(DevExpress.Web.UploadControlValidationSettings), typeof(DevExpress.Web.UploadControlValidationSettings) }
+                    if (new[] { typeof(UploadControlValidationSettings), typeof(UploadControlValidationSettings) }
                             .Any(type => type.IsAssignableFrom(info.PropertyType))) {
                         return true;
                     }

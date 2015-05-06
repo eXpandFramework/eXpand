@@ -13,7 +13,6 @@ namespace SecurityTester.Win {
         static void Main() {
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
-            System.IO.File.Delete("Model.User.xafml");
 #endif
 
             Application.EnableVisualStyles();

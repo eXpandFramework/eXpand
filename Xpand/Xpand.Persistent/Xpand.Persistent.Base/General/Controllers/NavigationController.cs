@@ -22,7 +22,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         public const string ToggleNavigationId = "ToggleNavigation";
         private readonly SimpleAction _toggleNavigation;
 
-        protected NavigationContainerController() {
+        public NavigationContainerController() {
             _toggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
         }
 
@@ -34,7 +34,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
             extenders.Add<IModelOptions,IModelOptionsNavigationContainer>();
         }
     }
-    public class ToggleToolboxUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+
+    public class ToggleNavigationActionUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
         public override void UpdateNode(ModelNode node){
             var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId] as IModelActionClientScript;
             if (modelAction != null) {

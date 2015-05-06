@@ -1,4 +1,6 @@
-﻿*Action New(Actions Object)
+﻿;#IncludeFile .\Init.inc
+
+*Action New(Actions Object)
 *FillForm
  Property Name = visible
 *Action Save and Close

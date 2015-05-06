@@ -293,7 +293,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (Executed("AddGeneratorUpdaters"))
                 return;
-            updaters.Add(new ToggleToolboxUpdater());
+            updaters.Add(new ToggleNavigationActionUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());

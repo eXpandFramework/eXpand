@@ -2,8 +2,6 @@
 #Application SystemTester.Win
 ;#Application SystemTester.Web
 
-!XpandCheckFileExists SystemTesterEasyTest.db
- CheckInBin = True
 *XpandFillForm
  DBServer = SQLite
 *LogOn

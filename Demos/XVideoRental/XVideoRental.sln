@@ -66,7 +66,6 @@ Global
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Mixed Platforms.Build.0 = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|x86.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU

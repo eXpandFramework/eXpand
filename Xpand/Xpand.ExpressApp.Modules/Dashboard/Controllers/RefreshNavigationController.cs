@@ -4,7 +4,7 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
-    public partial class RefreshNavigationController : ViewController {
+    public class RefreshNavigationController : ViewController {
         bool _objectChanged;
         private static readonly string _xmlPropertyName;
 
@@ -13,8 +13,6 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         public RefreshNavigationController() {
-            InitializeComponent();
-            RegisterActions(components);
             TargetObjectType = typeof(IDashboardDefinition);
         }
 

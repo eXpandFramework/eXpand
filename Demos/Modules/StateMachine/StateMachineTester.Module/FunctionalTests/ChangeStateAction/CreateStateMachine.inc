@@ -31,7 +31,7 @@
 *Action Transitions.New
 *ExecuteEditorAction Target State
 
-*Action New
+*Action ObjectsCreation.New
 *XpandFillForm
  Marker = Pending
 *SaveAndClose

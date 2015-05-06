@@ -8,6 +8,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -45,8 +46,9 @@ namespace Xpand.Persistent.Base.General {
             return SecuritySystem.CurrentUser != null;
         }
 
-        public static bool IsHosted(this XafApplication application) {
-            return application.Modules.Any(@base => @base.IsHosted());
+        public static bool IsHosted(this XafApplication application){
+            var moduleList = application!=null?application.Modules: ((IModelSources) CaptionHelper.ApplicationModel).Modules;
+            return moduleList.Any(@base => @base.IsHosted());
         }
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){

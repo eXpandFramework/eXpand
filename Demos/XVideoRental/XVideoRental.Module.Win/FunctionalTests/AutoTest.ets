@@ -2,9 +2,7 @@
 
 #Application XVideoRental.Win
 *ScreenCapture
-*FillForm
- User Name = Admin
-*Action Log On
+*LogOn
 
 *AutoTest
 

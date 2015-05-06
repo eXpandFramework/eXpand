@@ -1,1 +1,3 @@
-﻿!ActionAvailable Hidden Action
+﻿;#IncludeFile .\Init.inc
+
+!ActionAvailable Hidden Action

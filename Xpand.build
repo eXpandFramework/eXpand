@@ -248,7 +248,7 @@
     <EasyProjects Include="@(DemoTesterProjects)"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$(XpandDLLPath)\Xpand.EasyTest.dll;$(XpandDLLPath)\Fasterflect.dll;$(XpandDLLPath)\Aforge*.dll;$(XpandDLLPath)\Xpand.utils.dll;$(XpandDLLPath)\Common.Logging.dll;$(XpandDLLPath)\log4net.dll;$(XpandDLLPath)\Common.Logging.Log4Net*.dll;"/>
     <EasyTestReqs Include="$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$(XpandDLLPath)\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$(XpandDLLPath)\Xpand.EasyTest.pdb;$(XpandDLLPath)\Xpand.utils.pdb"/>
-    <EasyTestReqs Include="$(XpandDLLPath)\windowsinput.dll;$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUser.exe.config;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
+    <EasyTestReqs Include="$(XpandDLLPath)\CommandLine.dll;$(XpandDLLPath)\ProcessAsUser.exe;$(XpandDLLPath)\ProcessAsUser.exe.config;$(XpandDLLPath)\ProcessAsUserWrapper.exe;$(TestExecutorPath);$(TestExecutorPath).config;$(_third_party_assemblies)\AxInterop.MSTSCLib.dll;$(_third_party_assemblies)\Interop.MSTSCLib.dll"/>
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>
@@ -257,13 +257,16 @@
 	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />
   </Target>
-  <Target Name="RunEasyTests">
-	<CallTarget Targets='BuildEasyTest' ></CallTarget>
-    <Delete Files="@(EasyTestLogs)"/>	
-    <CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
+  <Target Name="CopyEasyTestReqs">
+	<CreateItem Include="@(EasyTestReqs)" AdditionalMetadata="CopiedToDir=%(EasyTests.RelativeDir);" >
       <Output ItemName="EasyTestReqsToDelete" TaskParameter="Include"/>
     </CreateItem>
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
+  </Target>
+  <Target Name="RunEasyTests">
+	<CallTarget Targets='BuildEasyTest' ></CallTarget>
+    <Delete Files="@(EasyTestLogs)"/>	
+    <CallTarget Targets="CopyEasyTestReqs"/>
     <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
     <Exec Command="$(XpandDLLPath)\XpandTestExecutor.Win.exe easytests.txt" WorkingDirectory="$(XpandDLLPath)" />
 	<Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>

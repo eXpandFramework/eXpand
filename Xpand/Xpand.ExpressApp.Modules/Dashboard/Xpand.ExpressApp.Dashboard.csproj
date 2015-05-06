@@ -141,9 +141,6 @@
     <Compile Include="Controllers\RefreshNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\RefreshNavigationController.designer.cs">
-      <DependentUpon>RefreshNavigationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="DashboardModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -186,9 +183,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Controllers\DashboardNavigationController.resx">
       <DependentUpon>DashboardNavigationController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\RefreshNavigationController.resx">
-      <DependentUpon>RefreshNavigationController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>

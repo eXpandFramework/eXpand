@@ -1,10 +1,4 @@
-#DropDB SystemTesterEasyTest
-#Application SystemTester.Win
-#Application SystemTester.Web
-*UseModel
-*Action Log On
-*ScreenCapture
-*Action Navigation(Default.Actions Object)
+#IncludeFile .\Init.inc
 
 #IncludeFile .\Change Action item visibility from model.inc
 #IncludeFile .\Create action item from model.inc
