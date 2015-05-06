@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.XtraGrid;
-using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 using DevExpress.DXCore.PlugInCore;
 using EnvDTE;
 
@@ -50,10 +50,11 @@ namespace XpandAddIns.ModelEditor {
                 ((BindingList<ProjectWrapper>)_gridControl.DataSource).Add(projectWrapper);
             }
         }
-        private void SetGridDataSource() {
-            _gridControl.DataSource = new BindingList<ProjectWrapper>(ProjectWrapperBuilder.GetProjectWrappers().ToList());
-            var gridView = ((GridView)_gridControl.MainView);
-            gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
+        private void SetGridDataSource(){
+            List<ProjectWrapper> projectWrappers = null;
+            var context = TaskScheduler.FromCurrentSynchronizationContext();
+            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectWrappers().ToList())
+                .ContinueWith(task1 => { _gridControl.DataSource = new BindingList<ProjectWrapper>(projectWrappers); }, context);
         }
 
         public static void Init(GridControl gridControl, DXCoreEvents events) {
