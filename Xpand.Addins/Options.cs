@@ -15,6 +15,7 @@ namespace XpandAddIns {
     public partial class Options : OptionsPage {
         public const string ProjectPaths = "ProjectPaths";
         public const string FormatOnSave = "FormatOnSave";
+        public const string SpecificVersion = "SpecificVersion";
         public const string DebugME = "DebugME";
         public const string ModelEditorPath = "modelEditorPath";
         public const string ProjectConverterPath = "projectConverterPath";
@@ -40,6 +41,7 @@ namespace XpandAddIns {
             testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
             formatOnSaveCheckEdit.Checked = storage.ReadBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
+            specificVersionCheckEdit.Checked = storage.ReadBoolean(PageName, SpecificVersion, true);
             checkEditDebugME.Checked = storage.ReadBoolean(PageName, DebugME, checkEditDebugME.Checked);
 
             gridControl1.DataSource = GetConnectionStrings();
@@ -122,6 +124,7 @@ namespace XpandAddIns {
             decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
+            decoupledStorage.WriteBoolean(PageName, SpecificVersion, specificVersionCheckEdit.Checked);
             decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
             decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
             SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
@@ -208,5 +211,6 @@ namespace XpandAddIns {
         private void testExecutorButtonEdit_ButtonClick_1(object sender, ButtonPressedEventArgs e) {
             ShowDialog(TestExecutorPath);
         }
+
     }
 }

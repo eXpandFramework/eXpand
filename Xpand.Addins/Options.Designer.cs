@@ -56,6 +56,7 @@ namespace XpandAddIns
             this.testExecutorButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl6 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.specificVersionCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).BeginInit();
@@ -68,6 +69,7 @@ namespace XpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -244,7 +246,7 @@ namespace XpandAddIns
             this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(280, 80);
             this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
             this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
-            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(231, 19);
+            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(105, 19);
             this.formatOnSaveCheckEdit.TabIndex = 27;
             // 
             // testExecutorButtonEdit
@@ -273,13 +275,22 @@ namespace XpandAddIns
             this.checkEditDebugME.Size = new System.Drawing.Size(53, 19);
             this.checkEditDebugME.TabIndex = 30;
             // 
+            // specificVersionCheckEdit
+            // 
+            this.specificVersionCheckEdit.Location = new System.Drawing.Point(377, 80);
+            this.specificVersionCheckEdit.Name = "specificVersionCheckEdit";
+            this.specificVersionCheckEdit.Properties.Caption = "False Specific Versions";
+            this.specificVersionCheckEdit.Size = new System.Drawing.Size(138, 19);
+            this.specificVersionCheckEdit.TabIndex = 31;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Controls.Add(this.specificVersionCheckEdit);
+            this.Controls.Add(this.formatOnSaveCheckEdit);
             this.Controls.Add(this.checkEditDebugME);
             this.Controls.Add(this.testExecutorButtonEdit);
             this.Controls.Add(this.labelControl6);
-            this.Controls.Add(this.formatOnSaveCheckEdit);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.projectConverterPathButtonEdit);
@@ -304,6 +315,7 @@ namespace XpandAddIns
             ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -373,5 +385,6 @@ namespace XpandAddIns
         private ButtonEdit testExecutorButtonEdit;
         private LabelControl labelControl6;
         private CheckEdit checkEditDebugME;
+        private CheckEdit specificVersionCheckEdit;
     }
 }

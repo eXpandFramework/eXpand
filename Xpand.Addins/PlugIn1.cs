@@ -258,8 +258,26 @@ namespace XpandAddins {
                 dte.WriteToOutput(e.ToString());
             }
         }
+
+        private void events_SolutionOpened(){
+            if (Options.ReadBool(Options.SpecificVersion)){
+                var dte = CodeRush.ApplicationObject;
+                IEnumerable<IFullReference> fullReferences = null;
+                Task.Factory.StartNew(() => {
+                    fullReferences = GetReferences(dte);
+                }).ContinueWith(task =>{
+                    foreach (var fullReference in fullReferences) {
+                        fullReference.SpecificVersion = false;
+                    }
+                });
+            }
         }
 
+        private static IEnumerable<IFullReference> GetReferences(DTE dte){
+            return dte.Solution.Projects.OfType<Project>().SelectMany(project =>((VSLangProj.VSProject) project.Object).References.Cast<IFullReference>()).Where(reference =>
+                reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
+        }
+        
         private void DebugEasyTest_Execute(ExecuteEventArgs ea){
             Task.Factory.StartNew(() => RunTest(true));
         }
