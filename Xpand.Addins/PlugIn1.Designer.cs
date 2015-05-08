@@ -40,6 +40,7 @@ namespace XpandAddins {
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
             this._actionHint = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
             this.RunEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
+            this.DebugEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
@@ -49,6 +50,7 @@ namespace XpandAddins {
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._actionHint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -130,6 +132,17 @@ namespace XpandAddins {
             this.RunEasyTest.ToolbarItem.Caption = null;
             this.RunEasyTest.ToolbarItem.Image = null;
             this.RunEasyTest.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.RunEasyTest_Execute);
+            // 
+            // DebugEasyTest
+            // 
+            this.DebugEasyTest.ActionName = "DebugEasyTest";
+            this.DebugEasyTest.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.DebugEasyTest.Image = ((System.Drawing.Bitmap)(resources.GetObject("DebugEasyTest.Image")));
+            this.DebugEasyTest.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
+            this.DebugEasyTest.ToolbarItem.ButtonIsPressed = false;
+            this.DebugEasyTest.ToolbarItem.Caption = null;
+            this.DebugEasyTest.ToolbarItem.Image = null;
+            this.DebugEasyTest.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.DebugEasyTest_Execute);
             ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
@@ -139,6 +152,7 @@ namespace XpandAddins {
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._actionHint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
@@ -153,5 +167,6 @@ namespace XpandAddins {
         private DevExpress.CodeRush.Core.Action exploreXafErrors;
         private DevExpress.CodeRush.PlugInCore.ActionHint _actionHint;
         private DevExpress.CodeRush.Core.Action RunEasyTest;
+        private DevExpress.CodeRush.Core.Action DebugEasyTest;
     }
 }

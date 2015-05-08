@@ -215,10 +215,10 @@ namespace XpandAddins {
         }
         
         private void RunEasyTest_Execute(ExecuteEventArgs ea){
-            Task.Factory.StartNew(RunTest);
+            Task.Factory.StartNew(() => RunTest(false));
         }
 
-        private void RunTest(){
+        private void RunTest(bool debug){
             DTE dte = CodeRush.ApplicationObject;
             try {
                 var uniqueName = CodeRush.ApplicationObject.Solution.FindStartUpProject().UniqueName;
@@ -229,10 +229,13 @@ namespace XpandAddins {
                     var testLogPath = Path.Combine(Path.GetDirectoryName(activeFileName) + "", "Testslog.xml");
                     if (File.Exists(testLogPath))
                         File.Delete(testLogPath);
+                    string debugSwitch = null;
+                    if (debug)
+                        debugSwitch = " -d:";
                     var processStartInfo = new ProcessStartInfo(Options.ReadString(Options.TestExecutorPath)) {
-                        Arguments = string.Format(@"""{0}""", activeFileName),
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,CreateNoWindow = true
+                        Arguments = string.Format(@"""{0}""{1}", activeFileName,debugSwitch),
+                        UseShellExecute = debug,
+                        RedirectStandardOutput = !debug,CreateNoWindow = !debug
                     };
 
                     var process = Process.Start(processStartInfo);
@@ -254,6 +257,11 @@ namespace XpandAddins {
             catch (Exception e) {
                 dte.WriteToOutput(e.ToString());
             }
+        }
+        }
+
+        private void DebugEasyTest_Execute(ExecuteEventArgs ea){
+            Task.Factory.StartNew(() => RunTest(true));
         }
     }
 }

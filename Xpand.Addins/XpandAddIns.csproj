@@ -79,6 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\ConfigurationProperty.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="FormatOnSave\DocumentLanguages.cs" />
     <Compile Include="FormatOnSave\RunningDocumentTableConnectionPoint.cs" />
     <Compile Include="FormatOnSave\RunningDocumentTableEventProvider.cs" />
+    <Compile Include="IFullReference.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\METoolWindow.cs">
       <SubType>UserControl</SubType>
