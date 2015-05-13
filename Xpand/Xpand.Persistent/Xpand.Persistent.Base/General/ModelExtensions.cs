@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
@@ -47,6 +48,10 @@ namespace Xpand.Persistent.Base.General {
 
         public static IEnumerable<IModelChoiceActionItem> ActionChoiceItems(this IModelNode modelnode, Frame frame) {
             return modelnode.Application.ActionDesign.Actions.Where(action => action.ChoiceActionItems != null && action.ChoiceActionItems.Any()).SelectMany(action => action.ChoiceActionItems);
+        }
+
+        public static ActionBase ToAction(this IModelAction modelAction) {
+            return modelAction.GetValue<ActionBase>(ModelActionsNodesGenerator.ActionPropertyName);
         }
 
         public static ActionBase ToAction(this IModelAction modelAction, Frame frame){

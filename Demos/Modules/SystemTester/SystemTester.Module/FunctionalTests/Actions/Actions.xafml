@@ -15,6 +15,15 @@
           </ChoiceActionItem>
         </ChoiceActionItems>
       </Action>
+      <Action Id="DefaultValueParametrizedAction">
+        <DefaultValue Synchronize="True" DefaultValue="Value1" />
+      </Action>
+      <Action Id="DefaultValueSignleChoiceAction">
+        <DefaultValue DefaultIndex="1" Synchronize="True" />
+      </Action>
+      <Action Id="DefaultValueWindowControllerAction">
+        <DefaultValue DefaultValue="1" Synchronize="True" />
+      </Action>
       <Action Id="HiddenAction" ItemsFromModel="True">
         <ChoiceActionItems>
           <ChoiceActionItem Id="CodeItem" Active="False" />

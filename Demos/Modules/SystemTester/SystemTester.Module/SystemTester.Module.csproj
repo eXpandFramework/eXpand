@@ -223,6 +223,7 @@
     </Content>
     <Content Include="FunctionalTests\Actions\Configure View Model.inc" />
     <Content Include="FunctionalTests\Actions\Create action item from model.inc" />
+    <Content Include="FunctionalTests\Actions\DefaultValue.inc" />
     <Content Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\MySql\Config.xml">

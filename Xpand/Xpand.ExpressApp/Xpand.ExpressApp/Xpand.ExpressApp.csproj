@@ -128,7 +128,7 @@
     <Compile Include="PropertyEditors\ISerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditorBuilder.cs" />
-    <Compile Include="SystemModule\Actions\ActionDefaultValueController.cs">
+    <Compile Include="SystemModule\Actions\ActionDefaultValueViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\Actions\GlobalActionStateController.cs">

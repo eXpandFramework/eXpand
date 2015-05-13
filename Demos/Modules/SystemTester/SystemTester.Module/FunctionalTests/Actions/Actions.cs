@@ -3,6 +3,24 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 
 namespace SystemTester.Module.FunctionalTests.Actions {
+    public class ActionsHelper:WindowController{
+        private readonly ParametrizedAction _parametrizedAction;
+
+        public ActionsHelper(){
+            TargetWindowType=WindowType.Main;
+            _parametrizedAction = new ParametrizedAction(this, "DefaultValueWindowControllerAction", PredefinedCategory.Tools, typeof (int));
+            _parametrizedAction.Active[""] = false;
+        }
+
+        protected override void OnActivated(){
+            base.OnActivated();
+            Frame.ViewChanged += FrameOnViewChanged;
+        }
+
+        private void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs){
+            _parametrizedAction.Active[""] = Frame.View.ObjectTypeInfo.Type == typeof (ActionsObject);
+        }
+    }
     public class Actions:ObjectViewController<ObjectView,ActionsObject> {
         private const string ChangeColumnCaption = "ChangeColumnCaption";
         private const string RestoreColumnCaption = "RestoreColumnCaption";
@@ -18,6 +36,12 @@ namespace SystemTester.Module.FunctionalTests.Actions {
             ActionsAction.Items.Add(new ChoiceActionItem(RestoreColumnCaption, null));
             ActionsAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
             _actionsAction.Execute+=ActionsActionOnExecute;
+
+            new ParametrizedAction(this, "DefaultValueParametrizedAction", PredefinedCategory.View, typeof(string));
+            var singleChoiceAction = new SingleChoiceAction(this, "DefaultValueSignleChoiceAction", PredefinedCategory.View);
+            singleChoiceAction.Items.Add(new ChoiceActionItem("Value1", null));
+            singleChoiceAction.Items.Add(new ChoiceActionItem("Value2", null));
+
         }
 
         public SingleChoiceAction ActionsAction{
