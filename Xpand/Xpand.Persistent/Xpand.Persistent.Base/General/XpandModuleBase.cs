@@ -191,7 +191,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             customLogics.RegisterLogic(typeof(IModelClassEx), typeof(ModelClassExDomainLogic));
             customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
-            customLogics.RegisterLogic(typeof(IModelApplicationListViews), typeof(ModelApplicationListViewsDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelApplicationViews), typeof(ModelApplicationViewsDomainLogic));
         }
 
         public bool Executed<T>(string name){
@@ -274,7 +274,7 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
-            extenders.Add<IModelApplication, IModelApplicationListViews>();
+            extenders.Add<IModelApplication, IModelApplicationViews>();
             extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
             extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();    

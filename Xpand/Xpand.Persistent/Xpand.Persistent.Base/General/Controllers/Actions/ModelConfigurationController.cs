@@ -3,7 +3,6 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.DomainLogics;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -19,7 +18,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
     }
 
     public interface IModelViewConfigurationView{
-        [DataSourceProperty(ModelViewsDomainLogic.DataSourcePropertyPath)]
+        [DataSourceProperty(ModelApplicationViewsDomainLogic.DetailViews)]
         [Category(AttributeCategoryNameProvider.Xpand)]
         IModelDetailView ConfigurationView { get; set; }
     }
