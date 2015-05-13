@@ -84,6 +84,9 @@
     <Reference Include="DevExpress.Xpo.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -127,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
+    <Compile Include="FunctionalTests\DesignerActions\Designer.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -152,9 +158,11 @@
     <None Include="Controllers\ReadMe.txt" />
     <None Include="DatabaseUpdate\ReadMe.txt" />
     <None Include="FunctionalTests\DesignerActions\DesignerActions.ets" />
-    <None Include="FunctionalTests\DesignerActions\DesignerActions.xafml" />
     <None Include="FunctionalTests\ModelOptions\ModelOptions.ets" />
-    <None Include="FunctionalTests\ModelOptions\ModelOptions.xafml" />
+    <None Include="FunctionalTests\ModelOptions\ModelOptions.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +185,13 @@
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
     <Content Include="FunctionalTests\DesignerActions\Config.xml" />
+    <Content Include="FunctionalTests\DesignerActions\DesignDashboard.inc" />
+    <Content Include="FunctionalTests\DesignerActions\CreateNew.inc" />
+    <Content Include="FunctionalTests\DesignerActions\EditExisting.inc" />
+    <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.web.png" />
+    <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.win.png" />
+    <Content Include="FunctionalTests\DesignerActions\Init.inc" />
+    <EmbeddedResource Include="FunctionalTests\DesignerActions\NewDashboard.xml" />
     <Content Include="FunctionalTests\ModelOptions\Check Navigation.inc" />
     <Content Include="FunctionalTests\ModelOptions\Config.xml" />
   </ItemGroup>

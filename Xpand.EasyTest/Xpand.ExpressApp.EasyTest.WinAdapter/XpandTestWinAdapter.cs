@@ -142,9 +142,9 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
     }
 
     public class XpandCustomTestControlFactory : TestControlFactoryWin {
-        //        public XpandCustomTestControlFactory() {
-        //            RegisterInterface<MyCustomTestControl>();
-        //        }
+//                public XpandCustomTestControlFactory() {
+//                    RegisterInterface<MyCustomTestControl>();
+//                }
     }
 
 }

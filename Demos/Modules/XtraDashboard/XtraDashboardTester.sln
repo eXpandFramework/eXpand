@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraDashboardTester.Module.Web", "XtraDashboardTester.Module.Web\XtraDashboardTester.Module.Web.csproj", "{CA92AF75-2B4D-413F-90B2-79821F59576A}"
 EndProject
@@ -38,6 +38,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WinAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj", "{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WebAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj", "{38E16F8A-517C-4CA9-9775-56F598F25534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +157,19 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Test|Any CPU.Build.0 = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Test|Any CPU.Build.0 = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,5 +187,7 @@ Global
 		{EB1F4397-4FED-4C64-90FB-1A8CEE998437} = {017AEC1A-42B0-429B-91B7-5A4FEA560250}
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {EB1F4397-4FED-4C64-90FB-1A8CEE998437}
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD} = {EB1F4397-4FED-4C64-90FB-1A8CEE998437}
+		{38E16F8A-517C-4CA9-9775-56F598F25534} = {EB1F4397-4FED-4C64-90FB-1A8CEE998437}
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78} = {017AEC1A-42B0-429B-91B7-5A4FEA560250}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,12 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <ActionToContainerMapping>
+      <ActionContainer Id="View">
+        <ActionLink ActionId="ToggleNavigation" IsNewNode="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
+  </ActionDesign>
   <DashboardModule>
     <DataSources>
       <DashboardDataSourceFilter Id="Filter" DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />

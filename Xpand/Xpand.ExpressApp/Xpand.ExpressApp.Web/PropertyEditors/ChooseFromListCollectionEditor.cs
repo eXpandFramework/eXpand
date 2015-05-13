@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         protected override void WriteValueCore() {
             var controlValueCore = GetControlValueCore();
-            var strings = (controlValueCore + "").Split(ListBoxTemplate.SeparatorChar);
+            var strings = (controlValueCore + "").Split(ListBoxTemplate.SeparatorChar).Select(s => s.Trim());
             var typeWrappers = GetDataSource().ToList();
             ((IList)PropertyValue).Clear();
             foreach (var typeWrapper in typeWrappers.Where(wrapper => strings.Contains(wrapper.ToString()))) {
@@ -32,8 +32,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         protected override WebControl CreateEditModeControlCore() {
             var editModeControlCore = base.CreateEditModeControlCore();
             ListBoxTemplate.PostValue = false;
-            var values = ((IEnumerable<object>)PropertyValue).Select(wrapper => wrapper.ToString());
-            var value = string.Join(ListBoxTemplate.SeparatorChar.ToString(CultureInfo.InvariantCulture), values);
+            var values = ((IEnumerable<object>)PropertyValue).Select(wrapper => wrapper.ToString()).ToArray();
+            var value = string.Join(ListBoxTemplate.SeparatorChar+" ", values);
             ListBoxTemplate.SetValue(value);
             foreach (var value1 in values) {
                 ListBoxTemplate.Items.FindByText(value1).Selected = true;
@@ -46,6 +46,16 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (ASPxEditor != null) {
                 ASPxEditor.Value = Control.Value;
             }
+        }
+
+        void IPropertyEditor.SetValue(string value){
+            string controlValue = null;
+            foreach (var val in value.Split(';')){
+                var text = val.Trim();
+                ListBoxTemplate.Items.FindByText(text).Selected = true;
+                controlValue += text + ", ";
+            }
+            if (controlValue != null) Control.Value = controlValue.TrimEnd(", ".ToCharArray());
         }
 
         protected override string GetDisplayText(object item) {

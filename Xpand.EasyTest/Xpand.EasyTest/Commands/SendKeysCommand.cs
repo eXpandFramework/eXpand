@@ -1,8 +1,8 @@
 ﻿using System;
-using WindowsInput;
-using WindowsInput.Native;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.Utils.Automation.InputSimulator;
+using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest.Commands{
     public class SendKeysCommand : Command{
@@ -19,7 +19,7 @@ namespace Xpand.EasyTest.Commands{
             var keysParameter = Parameters["Keys"];
             if (keysParameter != null){
                 foreach (var key in keysParameter.Value.Split(';')){
-                    var keyCode = (VirtualKeyCode) Enum.Parse(typeof (VirtualKeyCode), key);
+                    var keyCode = (Win32Constants.VirtualKeys)Enum.Parse(typeof(Win32Constants.VirtualKeys), key);
                     simulator.Keyboard.KeyPress(keyCode);
                 }
             }

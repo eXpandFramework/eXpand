@@ -10,21 +10,10 @@
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardXMLEditor" />
       </Items>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
-      <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" IsNewNode="True">
-          <DashboardViewEditor IsNewNode="True">
-            <ModelAdapters IsNewNode="True">
-              <DashboardViewerModelAdapter Id="Default" ModelAdapter="DashboardViewer" IsNewNode="True" />
-            </ModelAdapters>
-          </DashboardViewEditor>
-        </PropertyEditor>
+    <DetailView Id="DashboardViewer_DetailView">
+      <Items>
+        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" />
       </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
     </DetailView>
   </Views>
 </Application>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="el-GR">
+  <Title Text="Dashboard" />
+  <DataSources>
+    <DataSource ComponentName="dataSource1" Name="Customer" />
+    <DataSource ComponentName="dataSource2" Name="Person" />
+  </DataSources>
+  <Items>
+    <Chart ComponentName="chartDashboardItem1" Name="Chart 1" DataSource="dataSource1">
+      <DataItems>
+        <Measure DataMember="DisplayName" SummaryType="Count" UniqueName="DataItem0" />
+      </DataItems>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple>
+              <Value UniqueName="DataItem0" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+    </Chart>
+  </Items>
+  <LayoutTree>
+    <LayoutGroup>
+      <LayoutItem DashboardItem="chartDashboardItem1" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>

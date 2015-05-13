@@ -99,6 +99,17 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
         #endregion
 
+        protected override object GetControlValueCore(){
+            return _comboControl.EditValue;
+        }
+
+        void IPropertyEditor.SetValue(string value){
+            foreach (var val in value.Split(Convert.ToChar(";"))){
+                _comboControl.Properties.Items.Cast<CheckedListBoxItem>().First(item => (string) item.Value == val).CheckState =
+                    CheckState.Checked;
+            }
+        }
+
         #region EditValue changed
         /// <summary>
         /// We've changed the checked value of an item

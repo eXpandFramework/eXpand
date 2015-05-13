@@ -20,6 +20,7 @@ using DevExpress.XtraRichEdit.Commands;
 using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 using Attribute = System.Attribute;
@@ -178,7 +179,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
     [PropertyEditor(typeof(string),EditorAliases.RichEditRftPropertyEditor, false)]
     [RichEditPropertyEditorAttribute("rtf",true,false,"RtfText")]
-    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem {
+    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem,IPropertyEditor {
 
         public RichEditWinPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -271,6 +272,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             if ((((IModelMemberViewItemRichEdit)Model).RichEdit.PrintXML && !string.IsNullOrEmpty((string)PropertyValue)))
                 PropertyValue = PropertyValue.ToString().XMLPrint();
         }
+
+        void IPropertyEditor.SetValue(string value){
+            Control.Text = value;
+        }
+
+//        protected override object GetControlValueCore(){
+//            return Control.Text;
+//        }
     }
 
     #region SyntaxHighlightService

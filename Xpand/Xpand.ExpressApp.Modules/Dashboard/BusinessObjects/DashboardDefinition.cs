@@ -10,6 +10,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo;
 
@@ -74,6 +75,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [Size(SizeAttribute.Unlimited)]
         [Delayed]
         [VisibleInDetailView(false)]
+        [EditorAlias(EditorAliases.DashboardXMLEditor)]
         public string Xml {
             get { return GetDelayedPropertyValue<String>("Xml"); }
             set { SetDelayedPropertyValue("Xml", value); }
