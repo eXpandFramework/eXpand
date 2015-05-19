@@ -262,9 +262,6 @@
     <Compile Include="SystemModule\DescribeRunTimeMembersController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ViewEditModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewShortCutProccesor.cs">
       <SubType>Component</SubType>

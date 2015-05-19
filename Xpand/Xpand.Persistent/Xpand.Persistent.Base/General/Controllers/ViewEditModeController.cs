@@ -4,10 +4,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
-namespace Xpand.ExpressApp.SystemModule {
+namespace Xpand.Persistent.Base.General.Controllers {
     public interface IModelDetailViewViewEditMode  {
         [Category(AttributeCategoryNameProvider.Xpand)]
         [Description("Control detail view default edit mode")]
@@ -16,7 +15,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
     public class ViewEditModeController : WindowController, IModelExtender {
         private void FrameOnDisposing(object sender, EventArgs eventArgs){
-            Application.DetailViewCreating -= ApplicationOnDetailViewCreating;
+            Application.DetailViewCreated -= ApplicationOnDetailViewCreated;
             Frame.Disposing -= FrameOnDisposing;
             foreach (var action in Frame.Actions()) {
                 action.Executed -= ActionOnExecuted;
@@ -25,14 +24,14 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            Application.DetailViewCreating+=ApplicationOnDetailViewCreating;
+            Application.DetailViewCreated+=ApplicationOnDetailViewCreated;
             Frame.Disposing+=FrameOnDisposing;
             foreach (var action in Frame.Actions()){
                 action.Executed+=ActionOnExecuted;
             }
         }
 
-        private void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs e){
+        private void ApplicationOnDetailViewCreated(object sender, DetailViewCreatedEventArgs e){
             e.View.ControlsCreated+=ViewOnControlsCreated;
         }
 

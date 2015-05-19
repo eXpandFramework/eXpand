@@ -154,6 +154,9 @@
     <Compile Include="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\ViewEditModeController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\ListViewExtensions.cs" />
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
