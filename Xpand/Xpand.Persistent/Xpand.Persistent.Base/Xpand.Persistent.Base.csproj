@@ -159,6 +159,8 @@
     </Compile>
     <Compile Include="General\ListViewExtensions.cs" />
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs">
       <SubType>Component</SubType>
