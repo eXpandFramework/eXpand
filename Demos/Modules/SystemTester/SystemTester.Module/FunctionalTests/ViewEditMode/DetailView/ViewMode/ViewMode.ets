@@ -10,7 +10,14 @@
 
 !FillForm
  Name = View
+!ActionVisible Save
+!ActionVisible SaveAndClose
+!ActionVisible Cancel
+!ActionVisible Refresh
 *Action Edit
+*ActionVisible Save
+*ActionVisible Cancel
+*ActionVisible Refresh
 *FillForm
  Name = View
 

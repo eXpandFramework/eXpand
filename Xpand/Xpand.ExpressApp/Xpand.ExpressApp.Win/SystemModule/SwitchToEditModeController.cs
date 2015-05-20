@@ -3,7 +3,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
