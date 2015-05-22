@@ -101,9 +101,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         public static bool SkipAssemblyCleanup { get; set; }
 
-        public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
-            if (string.IsNullOrEmpty(assemblyFilePath))
-                assemblyFilePath = AssemblyFilePath();
+        public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath) {
             var isAttached = Debugger.IsAttached;
 
             if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) && !VersionMatch(assemblyFilePath)) {
@@ -195,14 +193,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         string GetAssemblyVersionCode() {
             var assemblyVersion = ReflectionHelper.GetAssemblyVersion(GetType().Assembly);
             return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion, TypeToString(typeof(AssemblyVersionAttribute)));
-        }
-
-        string AssemblyFilePath() {
-            var path = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory) + "";
-            if (!RuntimeMode) {
-                path=GetTempDirectory();
-            }
-            return Path.Combine(path, GetType().Name + "_" + ".dll");
         }
 
         public static string GetTempDirectory() {

@@ -18,14 +18,11 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
     public class SchedulerMenuItemAdapterController : ModelAdapterController, IModelExtender {
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             var interfaceBuilder = new InterfaceBuilder(extenders);
-            var builderData = new InterfaceBuilderData(typeof(DXMenuItem)) {
-                Act = info => {
-                    if (info.Name == "Id")
-                        return false;
-                    return info.DXFilter();
-                }
+            var componentType = typeof(DXMenuItem);
+            var builderData = new InterfaceBuilderData(componentType) {
+                Act = info => info.Name != "Id" && info.DXFilter()
             };
-            var assembly = interfaceBuilder.Build(new List<InterfaceBuilderData> { builderData });
+            var assembly = interfaceBuilder.Build(new List<InterfaceBuilderData> { builderData },GetPath(componentType.Name));
 
             interfaceBuilder.ExtendInteface<IModelSchedulerPopupMenuItem, DXMenuItem>(assembly);
         }

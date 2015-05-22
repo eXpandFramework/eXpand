@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
                 return info.DXFilter();
             }
             };
-            var assembly = interfaceBuilder.Build(new List<InterfaceBuilderData>{builderData});
+            var assembly = interfaceBuilder.Build(new List<InterfaceBuilderData> { builderData }, GetPath(typeof(SchedulerMenuItem).Name));
 
             interfaceBuilder.ExtendInteface<IModelSchedulerPopupMenuItem,SchedulerMenuItem>(assembly);
         }
