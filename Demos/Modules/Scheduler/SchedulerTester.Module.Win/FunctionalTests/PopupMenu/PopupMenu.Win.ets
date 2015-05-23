@@ -4,7 +4,7 @@
 *Mouse RightButtonClick
  MoveMouseTo = 655x355
 *SendKeys 
- Keys = DOWN;RETURN
+ Keys = Down;Return
 *Sleep 2000
 *HandleDialog  
  Caption = Go To Date
