@@ -13,3 +13,4 @@
  Prefix = B
  Sequence = 1
 
+*SaveAndClose

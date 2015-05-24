@@ -206,10 +206,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null)
-                return;
-            if (supportSequenceObject.Session is NestedUnitOfWork ||
-                !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
+            if (_defaultDataLayer == null||!supportSequenceObject.Session.IsNewObject(supportSequenceObject))
                 return;
             if (!IsProviderSupported(supportSequenceObject)){
                 if (ThrowProviderSupportedException)
