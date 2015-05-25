@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -70,7 +71,6 @@ namespace Xpand.EasyTest.Commands {
             }
         }
 
-
         private bool IsValidPercentage(Image testImage, Rectangle maskRectangle, byte threshold, int validDiffPercentace, Image localImage) {
             var differences = localImage.Differences(testImage, maskRectangle, threshold);
             return IsValidPercentageCore(validDiffPercentace, differences);
@@ -87,11 +87,16 @@ namespace Xpand.EasyTest.Commands {
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Rectangle maskRectangle) {
             var differences = localImage.Differences(testImage, maskRectangle, threshold);
+            var mask = new Bitmap(testImage.Width, testImage.Height);
+            mask.CreateMask(maskRectangle);
+            mask.Save(Path.Combine(Path.GetDirectoryName(filename) + "",Path.GetFileNameWithoutExtension(filename)+".mask"),ImageFormat.Png);
             SaveImagesCore(differences, filename, testImage);
         }
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Bitmap maskImage) {
             var differences = localImage.Differences(testImage, maskImage, threshold);
+            var mask = new Bitmap(testImage.Width, testImage.Height);
+            mask.CreateMask();
             SaveImagesCore(differences, filename, testImage);
         }
 
