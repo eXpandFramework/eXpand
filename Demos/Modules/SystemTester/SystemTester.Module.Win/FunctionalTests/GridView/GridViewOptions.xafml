@@ -4,6 +4,7 @@
     <ModelAdapters Id="GridViewOptions" IsNewNode="True">
       <OptionsGridView Id="GridViewTest" IsNewNode="True">
         <OptionsFind AllowFindPanel="True" AlwaysVisible="True" IsNewNode="True" />
+        <OptionsSelection MultiSelectMode="CheckBoxRowSelect" IsNewNode="True" />
       </OptionsGridView>
     </ModelAdapters>
   </ModelAdapterContexts>

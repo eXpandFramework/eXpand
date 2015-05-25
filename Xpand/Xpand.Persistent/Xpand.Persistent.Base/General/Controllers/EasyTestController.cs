@@ -6,12 +6,18 @@ using DevExpress.Persistent.Base;
 namespace Xpand.Persistent.Base.General.Controllers{
     public class EasyTestController:WindowController{
         private readonly ParametrizedAction _parametrizedAction;
+        private readonly SingleChoiceAction _loadModelAction;
 
         public EasyTestController(){
             _parametrizedAction = new ParametrizedAction(this,"Parameter",PredefinedCategory.View, typeof(string));
-            var singleChoiceAction = new SingleChoiceAction(this,"Action",PredefinedCategory.View);
-            singleChoiceAction.Items.Add(new ChoiceActionItem("LoadModel", null));
-            singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
+            _loadModelAction = new SingleChoiceAction(this,"Action",PredefinedCategory.View);
+            _loadModelAction.Items.Add(new ChoiceActionItem("LoadModel", null));
+            _loadModelAction.ItemType=SingleChoiceActionItemType.ItemIsOperation;
+            _loadModelAction.Execute+=SingleChoiceActionOnExecute;
+        }
+
+        public SingleChoiceAction LoadModelAction{
+            get { return _loadModelAction; }
         }
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){

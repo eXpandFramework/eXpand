@@ -73,7 +73,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private bool SelectedItemSumEnabled(){
-            return _gridView.FocusedColumn != null && ((IModelColumnSelectedItemSum)_gridView.FocusedColumn.Model()).SelectedItemSum;
+            if (_gridView.FocusedColumn != null){
+                var modelColumnSelectedItemSum = (IModelColumnSelectedItemSum)_gridView.FocusedColumn.Model();
+                return modelColumnSelectedItemSum != null && modelColumnSelectedItemSum.SelectedItemSum;
+            }
+            return false;
         }
 
         private Type GetColumnType() {

@@ -84,12 +84,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void OpenWith(IModelCommonMemberViewItemOpenWith modelCommonMemberViewItemOpenWith, string path) {
-            if (modelCommonMemberViewItemOpenWith.OpenWithAssociatedProgram) {
-                Process.Start(path);
-            }
-            if (modelCommonMemberViewItemOpenWith.OpenPathWithExplorer) {
-                var directoryName = Path.GetDirectoryName(path) + "";
-                Process.Start(directoryName);
+            if (modelCommonMemberViewItemOpenWith!=null) {
+                if (modelCommonMemberViewItemOpenWith.OpenWithAssociatedProgram){
+                    Process.Start(path);
+                }
+                if (modelCommonMemberViewItemOpenWith.OpenPathWithExplorer){
+                    var directoryName = Path.GetDirectoryName(path) + "";
+                    Process.Start(directoryName);
+                }
             }
         }
 
