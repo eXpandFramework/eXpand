@@ -21,6 +21,8 @@ namespace Xpand.EmailTemplateEngine {
 
         IDictionary<string, string> Headers { get; }
 
+        IDictionary<string, byte[]> Attachments { get; }
+
         void SetModel(dynamic model);
 
         void Execute();

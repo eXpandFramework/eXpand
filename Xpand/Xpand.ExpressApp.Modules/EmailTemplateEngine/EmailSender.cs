@@ -3,6 +3,7 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.EmailTemplateEngine {
     using System;
+    using System.IO;
     using System.Net.Mail;
     using System.Net.Mime;
 
@@ -43,6 +44,7 @@ namespace Xpand.EmailTemplateEngine {
                 email.CC.Each(cc => message.CC.Add(cc));
                 email.Bcc.Each(bcc => message.Bcc.Add(bcc));
                 email.Headers.Each(pair => message.Headers[pair.Key] = pair.Value);
+                email.Attachments.Each(at => message.Attachments.Add(new Attachment(new MemoryStream(at.Value), at.Key)));
 
                 if (!string.IsNullOrEmpty(email.HtmlBody) && !string.IsNullOrEmpty(email.TextBody)) {
                     message.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(email.HtmlBody, new ContentType(ContentTypes.Html)));

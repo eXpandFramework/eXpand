@@ -14,7 +14,7 @@ namespace Xpand.EmailTemplateEngine {
             CC = new List<string>();
             Bcc = new List<string>();
             Headers = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-
+            Attachments = new Dictionary<string, byte[]>();
             _buffer = new StringBuilder();
         }
 
@@ -31,6 +31,8 @@ namespace Xpand.EmailTemplateEngine {
         public ICollection<string> Bcc { get; private set; }
 
         public IDictionary<string, string> Headers { get; private set; }
+
+        public IDictionary<string, byte[]> Attachments { get; private set; }
 
         public string Subject { get; set; }
 
