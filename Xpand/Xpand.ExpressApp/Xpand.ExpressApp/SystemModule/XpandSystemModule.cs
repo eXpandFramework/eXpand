@@ -111,7 +111,6 @@ namespace Xpand.ExpressApp.SystemModule {
             extenders.Add<IModelClass, IModelClassProccessViewShortcuts>();
             extenders.Add<IModelDetailView, IModelDetailViewProccessViewShortcuts>();
             extenders.Add<IModelOptions, IModelOptionsClientSideSecurity>();
-            extenders.Add<IModelStaticText, IModelStaticTextEx>();
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
