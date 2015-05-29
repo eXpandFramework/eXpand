@@ -183,6 +183,7 @@
     </None>
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Default.inc" />
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Mask.inc" />
+    <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\PredifineValue.inc" />
     <None Include="FunctionalTests\ViewEditMode.Win\Startup TabbedMdi view.inc" />
     <None Include="FunctionalTests\ApplicationExit\HideOnExit\Init.inc" />
     <Content Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Config.xml" />

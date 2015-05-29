@@ -11,6 +11,7 @@ using System.Linq;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
+
     [PropertyEditor(typeof(string), Persistent.Base.General.EditorAliases.StringLookupPropertyEditor, false)]
     public class StringLookupPropertyEditor : StringPropertyEditorBase, IStringLookupPropertyEditor {
         public event EventHandler<HandledEventArgs> ItemsCalculating;
@@ -54,6 +55,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             boxItems.Clear();
             boxItems.AddRange(enumerable1.Select(s => new ComboBoxItem(s)).ToList());
         }
+
         #region Implementation of IObjectSpaceHolder
         public IObjectSpace ObjectSpace {
             get { return Helper.ObjectSpace; }

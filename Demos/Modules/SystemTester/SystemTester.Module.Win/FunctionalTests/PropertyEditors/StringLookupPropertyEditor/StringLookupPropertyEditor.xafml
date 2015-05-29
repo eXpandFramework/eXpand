@@ -4,6 +4,7 @@
     <Class Name="SystemTester.Module.Win.FunctionalTests.PropertyEditors.StringLookupPropertyEditor.StringLookupPropertyEditorObject">
       <OwnMembers>
         <Member Name="Phone" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" />
+        <Member Name="PredifineValue" PredefinedValues="PredifineValue" />
       </OwnMembers>
     </Class>
   </BOModel>
@@ -13,5 +14,22 @@
         <PropertyEditor Id="Phone" EditMask="00000" />
       </Items>
     </DetailView>
+    <DetailView Id="StringLookupPropertyEditorObject_PredifenedValues_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="StringLookupPropertyEditorObject" Direction="Vertical" RelativeSize="100" Caption="Phone">
+              <LayoutItem Id="PredifineValue" ViewItem="PredifineValue" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
+              <LayoutItem Id="Phone" ViewItem="Phone" SizeConstraintsType="Default" Index="1" RelativeSize="50" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="StringLookupPropertyEditorObject_PredifenedValues_ListView">
+      <Columns>
+        <ColumnInfo Id="PredifineValue" Index="0" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>
