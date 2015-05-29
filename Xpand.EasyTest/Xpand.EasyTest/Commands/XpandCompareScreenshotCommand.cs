@@ -31,13 +31,11 @@ namespace Xpand.EasyTest.Commands {
             try {
                 if (File.Exists(filename)) {
                     CompareAndSave(filename, testImage, adapter);
-                }
-                else {
+                } else {
                     SaveActualImage(testImage, filename);
                     throw new CommandException(String.Format("'{0}' master copy was not found", filename), StartPosition);
                 }
-            }
-            finally {
+            } finally {
                 if (!windowHandleInfo.Value && this.ParameterValue("ToggleNavigation", true) && _additionalCommands) {
                     ToggleNavigation(adapter);
                 }
@@ -51,11 +49,13 @@ namespace Xpand.EasyTest.Commands {
             var validDiffPercentace = this.ParameterValue("ValidDiffPercentage", 10);
             if (!masks.Any()) {
                 var maskRectangle = GetMaskRectangle(adapter);
-                if (maskRectangle!=Rectangle.Empty){
-                    var isValidPercentage = IsValidPercentage(testImage, maskRectangle, threshold, validDiffPercentace,
-                        localImage);
+                if (maskRectangle != Rectangle.Empty) {
+                    var isValidPercentage = IsValidPercentage(testImage, maskRectangle, threshold, validDiffPercentace,localImage);
+                    CreateMask(filename, testImage, maskRectangle);
                     if (!isValidPercentage)
                         SaveImages(filename, testImage, threshold, localImage, maskRectangle);
+                } else {
+                    throw new NotImplementedException();
                 }
             }
             var height = this.ParameterValue("MaskHeight", 0);
@@ -69,6 +69,17 @@ namespace Xpand.EasyTest.Commands {
                 if (!isValidPercentage)
                     SaveImages(filename, testImage, threshold, localImage, maskImage);
             }
+        }
+
+        private void CreateMask(string filename, Image testImage, Rectangle maskRectangle) {
+            var mask = new Bitmap(testImage.Width, testImage.Height);
+            mask.CreateMask(maskRectangle);
+            using (var graphics = Graphics.FromImage(mask)) {
+                using (var crop = testImage.Crop(maskRectangle)) {
+                    graphics.DrawImage(crop, new Rectangle(0, 0, mask.Width, mask.Height), maskRectangle, GraphicsUnit.Pixel);
+                }
+            }
+            mask.Save(Path.Combine(Path.GetDirectoryName(filename) + "", Path.GetFileNameWithoutExtension(filename) + ".mask.png"), ImageFormat.Png);
         }
 
         private bool IsValidPercentage(Image testImage, Rectangle maskRectangle, byte threshold, int validDiffPercentace, Image localImage) {
@@ -87,16 +98,11 @@ namespace Xpand.EasyTest.Commands {
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Rectangle maskRectangle) {
             var differences = localImage.Differences(testImage, maskRectangle, threshold);
-            var mask = new Bitmap(testImage.Width, testImage.Height);
-            mask.CreateMask(maskRectangle);
-            mask.Save(Path.Combine(Path.GetDirectoryName(filename) + "",Path.GetFileNameWithoutExtension(filename)+".mask"),ImageFormat.Png);
             SaveImagesCore(differences, filename, testImage);
         }
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Bitmap maskImage) {
             var differences = localImage.Differences(testImage, maskImage, threshold);
-            var mask = new Bitmap(testImage.Width, testImage.Height);
-            mask.CreateMask();
             SaveImagesCore(differences, filename, testImage);
         }
 
@@ -120,8 +126,7 @@ namespace Xpand.EasyTest.Commands {
             try {
                 testImage = ImageHelper.GetImage(windowHandle);
                 EasyTestTracer.Tracer.LogText("Captured image for window with handle {0} and title {1}", windowHandle, windowHandle.WindowText());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 EasyTestTracer.Tracer.LogText("Exception:" + e.Message);
                 testImage = new Bitmap(100, 100);
             }
@@ -178,9 +183,9 @@ namespace Xpand.EasyTest.Commands {
             }
 
             var sendKeys = this.ParameterValue<string>("SendKeys");
-            if (!string.IsNullOrEmpty(sendKeys)){
+            if (!string.IsNullOrEmpty(sendKeys)) {
                 var sendKeysCommand = new SendKeysCommand();
-                sendKeysCommand.Parameters.MainParameter=new MainParameter(sendKeys);
+                sendKeysCommand.Parameters.MainParameter = new MainParameter(sendKeys);
                 sendKeysCommand.Execute(adapter);
             }
 
@@ -219,8 +224,7 @@ namespace Xpand.EasyTest.Commands {
                     string path = Extensions.GetXpandPath(ScriptsPath);
                     maskFileName = Path.Combine(path,
                         @"Xpand.EasyTest\Resources\Masks\" + maskPath.TrimStart("/regX/".ToCharArray()));
-                }
-                else
+                } else
                     maskFileName = ScriptsPath + "\\Images\\" + maskPath;
                 yield return adapter.GetPlatformSuffixedPath(maskFileName);
             }
