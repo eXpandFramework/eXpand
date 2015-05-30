@@ -1,14 +1,23 @@
 #DropDB SystemTesterEasyTest
 #Application SystemTester.Win
-#Application SystemTester.Web
+;#Application SystemTester.Web
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture
-*Action Navigation(Default.Hide Tool Bar Object)
+*Action Navigation(Default.Appearance Rule Object)
 
-#IncludeFile .\Hide Toolbar from all Views.inc
-
-
-
+*Action New(Appearance Rule Object)
+*XpandFillForm
+ Name = Hide name in detailview
+ Context = Detail view
+ Declaring Type = Appearance Rule Object
+ Target Items = Name
+ Enabled = False
+*SaveAndClose
+*Action Navigation(Default.Appearance Rule Object)
+*XpandProcessRecord 
+ Name = Hide name in detailview
+!XpandFillForm
+ Name = Change
 
  

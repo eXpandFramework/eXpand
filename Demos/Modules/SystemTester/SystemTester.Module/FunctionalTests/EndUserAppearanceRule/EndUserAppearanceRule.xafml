@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="SystemTester">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Appearance Rule Object" ViewId="AppearanceRuleObject_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Options EndUserCustomizeAppearanceRule="True" />
   <Views>
     <ListView Id="HideToolBarObject_Children_ListView" HideToolBar="True" />
     <DetailView Id="HideToolBarObject_DetailView" HideToolBar="True">

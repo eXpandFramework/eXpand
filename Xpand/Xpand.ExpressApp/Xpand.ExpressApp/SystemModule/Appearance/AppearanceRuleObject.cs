@@ -110,6 +110,12 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
             set { SetPropertyValue("FontStyle", ref _fontStyle, value); }
         }
 
+        protected override void OnChanged(string propertyName, object oldValue, object newValue){
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (propertyName=="DeclaringType")
+                OnItemsChanged();
+        }
+
         public int Priority{
             get { return _priority; }
             set { SetPropertyValue("Priority", ref _priority, value); }
@@ -133,9 +139,12 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
             return result;
         }
 
-        event EventHandler ICheckedListBoxItemsProvider.ItemsChanged{
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
+
+        public event EventHandler ItemsChanged;
+
+        private void OnItemsChanged(){
+            var handler1 = ItemsChanged;
+            if (handler1 != null) handler1(this, EventArgs.Empty);
         }
     }
 }

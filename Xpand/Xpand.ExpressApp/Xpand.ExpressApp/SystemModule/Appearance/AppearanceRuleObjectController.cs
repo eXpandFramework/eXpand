@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Appearance {
@@ -26,6 +29,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
         protected override void OnActivated() {
             base.OnActivated();
             if (Enabled()){
+                var session = ObjectSpace.Session().ConnectionString;
                 _formattingRules = ObjectSpace.GetObjects<AppearanceRuleObject>();
                 if (_formattingRules != null && _formattingRules.Count > 0 && AppearanceController != null) {
                     AppearanceController.AppearanceBeginUpdate();
