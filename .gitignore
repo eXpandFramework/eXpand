@@ -61,3 +61,4 @@ Model.User.xafml
 log.txt
 *.avi
 **/Images/ScreenCapture/*.*
+*.mask.png

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Web {
     public class Global : HttpApplication {
@@ -28,7 +29,12 @@ namespace SystemTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
+            if (WebApplication.Instance.GetEasyTestParameter("CustomLogonParameters"))
+                WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
+            else {
+                WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+            }
+
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

@@ -6,13 +6,13 @@
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100"/>
+			CommunicationPort="4100" Parameter="CustomLogonParameters"/>
     <!-- Web -->
     <Application
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]"
+      AdapterFileName="[WebAdapterFileName]" Parameter="CustomLogonParameters"
 />
     <!-- For IIS -->
     <!--Application

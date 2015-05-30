@@ -6,13 +6,13 @@
 			Name="SecurityTester.Win"
 			FileName="[WinAppBin]\SecurityTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100"/>
+			CommunicationPort="4100" Model="RememberMe"/>
     <!-- Web -->
     <Application
 			Name="SecurityTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]"
+      AdapterFileName="[WebAdapterFileName]" Model="RememberMe"
 />
     <!-- For IIS -->
     <!--Application

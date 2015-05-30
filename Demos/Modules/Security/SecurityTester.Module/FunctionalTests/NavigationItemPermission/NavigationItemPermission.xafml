@@ -10,9 +10,4 @@
       </Item>
     </Items>
   </NavigationItems>
-  <Options>
-    <Athentication>
-      <AutoAthentication Enabled="True" />
-    </Athentication>
-  </Options>
 </Application>

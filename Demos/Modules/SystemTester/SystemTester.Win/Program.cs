@@ -3,8 +3,8 @@ using System.Configuration;
 using System.Windows.Forms;
 using SystemTester.Module;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
     static class Program {
@@ -29,7 +29,11 @@ namespace SystemTester.Win {
             }
 #endif
             try {
-                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
+                if (winApplication.GetEasyTestParameter("CustomLogonParameters"))
+                    winApplication.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
+                else{
+                    winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+                }
                 winApplication.Setup();
                 winApplication.Start();
             }

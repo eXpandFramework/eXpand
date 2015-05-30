@@ -70,6 +70,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Web, Version=14.2.7.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -80,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\LayoutStyleController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\Anonymous\AnonymousObject.cs" />
     <Compile Include="FunctionalTests\Anonymous\AnonymousRoleUpdater.cs" />
     <Compile Include="Updater.cs" />
