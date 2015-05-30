@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -24,6 +25,11 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static bool GetEasyTestParameter(this XafApplication app,string parameter){
+            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+            return File.Exists(paramFile) && File.ReadAllLines(paramFile).Any(s => s == parameter);
         }
 
         public static IEnumerable<Controller> CreateValidationControllers(this XafApplication app){

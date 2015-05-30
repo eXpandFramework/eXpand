@@ -14,6 +14,12 @@ using Xpand.ExpressApp.EasyTest.WinAdapter;
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
 
 namespace Xpand.ExpressApp.EasyTest.WinAdapter {
+    public class ApplicationArguments : List<ApplicationArgument> {
+         
+    }
+    public class ApplicationArgument{
+        public string Name { get; set; }
+    }
     public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter, IXpandTestWinAdapter {
         private WinEasyTestCommandAdapter _easyTestCommandAdapter;
         private static List<Process> _additionalProcesses;
@@ -88,14 +94,17 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             if (_easyTestCommandAdapter != null) {
                 _easyTestCommandAdapter.Disconnect();
             }
+            testApplication.DeleteParametersFile();
+            testApplication.ClearModel();
             CloseApplication(new[]{mainProcess}, true);
             CloseApplication(_additionalProcesses.Where(process => !process.HasExited).ToArray(), true);
         }
 
         public override void RunApplication(TestApplication testApplication) {
-            string appName = testApplication.GetParamValue("FileName");
-            var directoryName = DeleteUserModel(appName);
-            DeleteLogonParametersFile(directoryName);
+            testApplication.DeleteUserModel();
+            testApplication.CreateParametersFile();
+            testApplication.CopyModel();
+            DeleteLogonParametersFile(testApplication);
             RunAdditionalApps(testApplication);
             base.RunApplication(testApplication);
         }
@@ -114,16 +123,9 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
         }
 
-        private string DeleteUserModel(string appName) {
-            var directoryName = Path.GetDirectoryName(appName) + "";
-            foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
-                File.Delete(file);
-            }
-            return directoryName;
-        }
-
-        private void DeleteLogonParametersFile(string directoryName) {
-            var logonparameters = Path.Combine(directoryName, "logonparameters");
+        private void DeleteLogonParametersFile(TestApplication testApplication) {
+            string fileName = testApplication.GetParamValue("FileName");
+            var logonparameters = Path.Combine(fileName, "logonparameters");
             if (File.Exists(logonparameters))
                 File.Delete(logonparameters);
         }

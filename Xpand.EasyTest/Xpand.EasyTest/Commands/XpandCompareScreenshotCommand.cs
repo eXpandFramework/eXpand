@@ -76,7 +76,7 @@ namespace Xpand.EasyTest.Commands {
             mask.CreateMask(maskRectangle);
             using (var graphics = Graphics.FromImage(mask)) {
                 using (var crop = testImage.Crop(maskRectangle)) {
-                    graphics.DrawImage(crop, new Rectangle(0, 0, mask.Width, mask.Height), maskRectangle, GraphicsUnit.Pixel);
+                    graphics.DrawImage(crop, maskRectangle, new Rectangle(0,0,crop.Width, crop.Height), GraphicsUnit.Pixel);
                 }
             }
             mask.Save(Path.Combine(Path.GetDirectoryName(filename) + "", Path.GetFileNameWithoutExtension(filename) + ".mask.png"), ImageFormat.Png);

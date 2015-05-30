@@ -6,12 +6,29 @@ using System.Linq;
 using System.Text;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest {
+    public enum ApplicationParams {
+        PhysicalPath,
+        UseIISExpress,
+        UseModel,
+        DefaultWindowSize,
+        Url,
+        DontRunWebDev,
+        SingleWebDev,
+        WaitDebuggerAttached,
+        DontKillWebDev,
+        DontRestartIIS,
+        WebBrowserType,
+        FileName,
+        Model
+    }
+
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
          
     }
@@ -110,6 +127,67 @@ namespace Xpand.EasyTest {
             instance.Parameters.MainParameter = command.Parameters.MainParameter;
             instance.Parameters.ExtraParameter = command.Parameters.ExtraParameter;
             return instance;
+        }
+
+        public static void DeleteUserModel(this TestApplication testApplication) {
+            var appPath = testApplication.ParameterValue<string>(ApplicationParams.FileName);
+            var directoryName = File.Exists(appPath) ? Path.GetDirectoryName(appPath) + "" : testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
+            foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
+                File.Delete(file);
+            }
+        }
+
+        public static T ParameterValue<T>(this TestApplication application, ApplicationParams applicationParams) {
+            return application.ParameterValue(applicationParams, default(T));
+        }
+
+        public static T ParameterValue<T>(this TestApplication application, ApplicationParams applicationParams, T defaultValue) {
+            var parameterValue = application.ParameterValue<T>(applicationParams.ToString());
+            return Equals(default(T), parameterValue) ? defaultValue : parameterValue;
+        }
+
+        public static void ClearModel(this TestApplication application){
+            var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
+            File.WriteAllText(Path.Combine(appPath,"Model.xafml"), @"<?xml version=""1.0"" ?><Application />");
+        }
+
+        public static void CopyModel(this TestApplication application){
+            application.ClearModel();
+            var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
+            var modelFileName = GetModelFileName(application);
+            var destFileName = Path.Combine(appPath, "Model.xafml");
+            if (File.Exists(modelFileName)){
+                File.Copy(modelFileName, destFileName, true);
+            }
+        }
+
+        private static string GetModelFileName(TestApplication application){
+            var model = application.ParameterValue<string>(ApplicationParams.Model);
+            var logPath = Logger.Instance.GetLogger<FileLogger>().LogPath;
+            return model!=null ? Path.Combine(logPath, model + ".xafml") : logPath;
+        }
+
+        public static void CreateParametersFile(this TestApplication application){
+            application.DeleteParametersFile();
+            var paramFile = application.GetParameterFile();
+            var paramValue = application.ParameterValue<string>("Parameter");
+            if (paramValue!=null){
+                using (var streamWriter = File.CreateText(paramFile)){
+                    streamWriter.WriteLine(paramValue);
+                }
+            }
+        }
+
+        public static void DeleteParametersFile(this TestApplication application){
+            var paramFile = application.GetParameterFile();
+            if (File.Exists(paramFile))
+                File.Delete(paramFile);
+        }
+
+        private static string GetParameterFile(this TestApplication application){
+            var path = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ??
+                       Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
+            return Path.Combine(path, "easytestparameters");
         }
 
         public static T ParameterValue<T>(this TestApplication application, string parameterName){

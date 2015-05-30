@@ -24,15 +24,15 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         private Process _process;
 
         public override void RunApplication(TestApplication testApplication){
-            var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
-            foreach (var model in Directory.GetFiles(physicalPath, "Model.User*.xafml").ToArray()) {
-                File.Delete(model);    
-            }
-            ConfigApplicationModel(testApplication, physicalPath);
+            testApplication.CreateParametersFile();
+            testApplication.DeleteUserModel();
+            testApplication.CopyModel();
+            ConfigApplicationModel(testApplication);
             RunApplicationCore(testApplication);
         }
 
-        private static void ConfigApplicationModel(TestApplication testApplication, string physicalPath){
+        private void ConfigApplicationModel(TestApplication testApplication){
+            var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
             var useModel = testApplication.ParameterValue<bool>(ApplicationParams.UseModel);
             if (useModel){
                 var logPath = Logger.Instance.GetLogger<FileLogger>().LogPath;
@@ -129,6 +129,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
+            testApplication.ClearModel();
+            testApplication.DeleteParametersFile();
             ScreenCaptureCommand.Stop();
             webBrowsers.KillAllWebBrowsers();
             var isSingleWebDev = testApplication.ParameterValue<bool>(ApplicationParams.SingleWebDev);
