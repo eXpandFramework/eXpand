@@ -50,13 +50,13 @@ namespace Xpand.EasyTest.Commands {
             if (!masks.Any()) {
                 var maskRectangle = GetMaskRectangle(adapter);
                 if (maskRectangle != Rectangle.Empty) {
-                    var isValidPercentage = IsValidPercentage(testImage, maskRectangle, threshold, validDiffPercentace,localImage);
-                    CreateMask(filename, testImage, maskRectangle);
-                    if (!isValidPercentage)
-                        SaveImages(filename, testImage, threshold, localImage, maskRectangle);
+                    CreateMask(filename, testImage, maskRectangle);                    
                 } else {
-                    throw new NotImplementedException();
+                    maskRectangle=new Rectangle(0,0,testImage.Width-1,testImage.Height-1);
                 }
+                var isValidPercentage = IsValidPercentage(testImage, maskRectangle, threshold, validDiffPercentace, localImage);
+                if (!isValidPercentage)
+                    SaveImages(filename, testImage, threshold, localImage, maskRectangle);
             }
             var height = this.ParameterValue("MaskHeight", 0);
             var width = this.ParameterValue("MaskWidth", 0);
