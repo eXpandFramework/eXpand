@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
@@ -19,12 +21,32 @@ using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static string GetStorageFolder(this XafApplication app,string folderName){
+            var fileLocation = GetFileLocation(FileLocation.ApplicationFolder,folderName);
+            switch (fileLocation){
+                case FileLocation.CurrentUserApplicationDataFolder:
+                    return System.Windows.Forms.Application.UserAppDataPath;
+                default:
+                    return PathHelper.GetApplicationFolder();
+            }            
+        }
+
+        static T GetFileLocation<T>(T defaultValue, string keyName) {
+            T result = defaultValue;
+            string value = ConfigurationManager.AppSettings[keyName];
+            if (!string.IsNullOrEmpty(value)) {
+                result = (T)Enum.Parse(typeof(T), value, true);
+            }
+            return result;
         }
 
         public static bool GetEasyTestParameter(this XafApplication app,string parameter){

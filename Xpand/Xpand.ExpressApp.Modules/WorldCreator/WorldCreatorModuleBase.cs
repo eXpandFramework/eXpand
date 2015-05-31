@@ -19,6 +19,7 @@ using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
+        public const string WCAssembliesPath = "WCAssembliesPath";
         List<Type> _dynamicModuleTypes = new List<Type>();
 
         public static event EventHandler<CollectTypesEventArgs> AddAdditionalReflectionDictionaryTypes;

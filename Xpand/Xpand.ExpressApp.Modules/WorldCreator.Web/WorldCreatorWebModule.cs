@@ -21,9 +21,8 @@ namespace Xpand.ExpressApp.WorldCreator.Web {
         }
 
         public override string GetPath() {
-            if (HttpContext.Current != null) {
-                HttpRequest request = HttpContext.Current.Request;
-                return request.MapPath(request.ApplicationPath);
+            if (HttpContext.Current != null){
+                return Application.GetStorageFolder(WCAssembliesPath);
             }
             if (Application.IsHosted()){
                 return Path.GetDirectoryName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase);

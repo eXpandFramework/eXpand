@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -179,39 +177,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public virtual string GetPath(string name) {
-            var modelAdaptorFolder = GetModelAdaptorFolder();
-            var path2 = "ModelAdaptor" + name + ".dll";
+            const string folderName = "ModelAdaptor";
+            var modelAdaptorFolder = Path.Combine(Application.GetStorageFolder(folderName),folderName);
+            var path2 = folderName + name + ".dll";
             return Path.Combine(modelAdaptorFolder + "", path2);
-        }
-
-        protected T GetFileLocation<T>(T defaultValue, string keyName) {
-            T result = defaultValue;
-            string value = ConfigurationManager.AppSettings[keyName];
-            if (!string.IsNullOrEmpty(value)) {
-                result = (T)Enum.Parse(typeof(T), value, true);
-            }
-            return result;
-        }
-
-        string GetModelAdaptorFolder() {
-            string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
-            if (Directory.Exists(appSetting))
-                return appSetting;
-            if (InterfaceBuilder.RuntimeMode&&!ApplicationHelper.Instance.Application.IsHosted()&&!Debugger.IsAttached&&appSetting!=null) {
-                var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
-                var xafApplication = ApplicationHelper.Instance.Application;
-                if (xafApplication != null) {
-                    var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var typeInfo = XafTypesInfo.Instance.FindTypeInfo("DevExpress.ExpressApp.Win.FileLocation");
-                    methodInfo = methodInfo.MakeGenericMethod(typeInfo.Type);
-                    var values = Enum.GetValues(typeInfo.Type);
-                    var value = values.GetValue(1);
-                    var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
-                    return (int) invoke != (int) value? userAppDataPath: PathHelper.GetApplicationFolder();
-                }
-            }
-            var folder = InterfaceBuilder.RuntimeMode? AppDomain.CurrentDomain.SetupInformation.ApplicationBase: InterfaceBuilder.GetTempDirectory();
-            return Path.Combine(folder, "ModelAdaptor");
         }
     }
 
