@@ -4,7 +4,8 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using ModelArtifactStateTester.Module.BusinessObjects;
-using ModelArtifactStateTester.Module.BusinessObjects;
+using ModelArtifactStateTester.Module.FunctionalTests.Actions;
+using ModelArtifactStateTester.Module.FunctionalTests.Controllers;
 using Xpand.ExpressApp.Security.Core;
 
 namespace ModelArtifactStateTester.Module.DatabaseUpdate {
@@ -41,9 +42,13 @@ namespace ModelArtifactStateTester.Module.DatabaseUpdate {
                 user.Roles.Add(securitySystemRole);
 
                 securitySystemRole = (SecuritySystemRole) ObjectSpace.GetRole("User");
-                securitySystemRole.SetTypePermissions(typeof(Customer),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
-                securitySystemRole.SetTypePermissions(typeof(Country),SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
+                var types = new[]{typeof (Customer), typeof (Country), typeof (ActionsObject), typeof (ControllersObject)};
+                foreach (var type in types){
+                    securitySystemRole.SetTypePermissions(type, SecurityOperations.FullAccess, SecuritySystemModifier.Allow);    
+                }                
                 user = ObjectSpace.CreateObject<SecuritySystemUser>();
+                user.Roles.Add(securitySystemRole);
+                user = (SecuritySystemUser) ObjectSpace.GetUser("User");
                 user.Roles.Add(securitySystemRole);
 
                 ObjectSpace.CommitChanges();

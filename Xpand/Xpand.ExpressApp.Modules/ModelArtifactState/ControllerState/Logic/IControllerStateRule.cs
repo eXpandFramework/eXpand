@@ -13,7 +13,7 @@ using Xpand.ExpressApp.ModelArtifactState.ControllerState.Model;
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
     public interface IControllerStateRule : IArtifactStateRule {
         [Category("Data")]
-        [Required]
+        [Required(typeof(ControllerStateRuleControllerTypeRequiredCalculator))]
         [DataSourceProperty("Controllers")]
         [TypeConverter(typeof(StringToTypeConverter))]
         Type ControllerType { get; set; }
@@ -22,6 +22,13 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
         [ModelPersistentName("State")]
         ControllerState ControllerState { get; set; }
     }
+
+    public class ControllerStateRuleControllerTypeRequiredCalculator:IModelIsRequired{
+        public bool IsRequired(IModelNode node, string propertyName){
+            return string.IsNullOrEmpty(((IControllerStateRule) node).Module);
+        }
+    }
+
     [DomainLogic(typeof(IControllerStateRule))]
     public static class ControllerStateRuleDomainLogic {
         public static List<Type> Get_Controllers(IModelControllerStateRule controllerStateRule) {

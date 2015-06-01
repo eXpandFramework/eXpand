@@ -17,7 +17,7 @@
       <Rules>
         <ActionStateRule Id="Hide_Actions" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionId="NextObject" ActionContext="Actions_To_Hide" ActionState="Hidden" IsNewNode="True" />
         <ActionStateRule Id="Hide_From_Modules" ActionContext="Empty" Module=".*Tester.*" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionState="Hidden" IsNewNode="True" />
-        <ActionStateRule Id="Hide_With_Criteria" ActionId="PreviousObject" EmptyCriteria="CurrentUserName()='Admin'" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionState="Hidden" NormalCriteria="1=0" IsNewNode="True" />
+        <ActionStateRule Id="Hide_With_Criteria" ActionId="PreviousObject" EmptyCriteria="CurrentUserName()='User'" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" ActionState="Hidden" NormalCriteria="1=0" IsNewNode="True" />
         <ActionStateRule Id="Lookup" ActionId="New" ActionContext="" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Actions.ActionsObject" FrameTemplateContextGroup="Lookup" ActionState="Hidden" IsNewNode="True" />
       </Rules>
     </ConditionalActionState>

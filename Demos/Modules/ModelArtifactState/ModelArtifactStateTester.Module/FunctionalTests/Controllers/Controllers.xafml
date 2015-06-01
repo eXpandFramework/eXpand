@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ModelArtifactStateTester" Logo="ExpressAppLogo">
+  <ModelArtifactState>
+    <ConditionalControllerState>
+      <FrameTemplateContextsGroup>
+        <FrameTemplateContexts Id="Lookup" IsNewNode="True">
+          <FrameTemplateContext Name="LookupControl" IsNewNode="True" />
+        </FrameTemplateContexts>
+      </FrameTemplateContextsGroup>
+      <Rules>
+        <ControllerStateRule Id="Disable_Controllers" ControllerType="DevExpress.ExpressApp.SystemModule.DeleteObjectsViewController" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Controllers.ControllersObject" State="Disabled" IsNewNode="True" />
+        <ControllerStateRule Id="Disable_From_Modules" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Controllers.ControllersObject" Module=".*Tester.*" ControllerType="" IsNewNode="True" />
+        <ControllerStateRule Id="Disable_With_Criteria" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Controllers.ControllersObject" ControllerType="DevExpress.ExpressApp.SystemModule.RecordsNavigationController" State="Disabled" EmptyCriteria="CurrentUserName()='User'" NormalCriteria="1=0" IsNewNode="True" />
+        <ControllerStateRule Id="Lookup" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Controllers.ControllersObject" ControllerType="DevExpress.ExpressApp.SystemModule.NewObjectViewController" FrameTemplateContextGroup="Lookup" IsNewNode="True" />
+      </Rules>
+    </ConditionalControllerState>
+  </ModelArtifactState>
+</Application>

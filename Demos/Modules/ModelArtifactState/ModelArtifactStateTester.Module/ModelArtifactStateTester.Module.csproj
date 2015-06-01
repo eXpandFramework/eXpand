@@ -87,6 +87,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\Controllers\ControllersObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -119,7 +120,20 @@
     <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\Actions\DisableActions_Rule.inc" />
+    <None Include="FunctionalTests\Actions\Disable_From_ModulesRule.inc" />
+    <None Include="FunctionalTests\Actions\Disable_in_lookup.inc" />
+    <None Include="FunctionalTests\Actions\Disable_With_Criteria_Rule.inc" />
     <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\Controllers\Controllers.ets" />
+    <None Include="FunctionalTests\Controllers\Controllers.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\Controllers\DisableController_Rule.inc" />
+    <None Include="FunctionalTests\Controllers\Disable_From_ModulesRule.inc" />
+    <None Include="FunctionalTests\Controllers\Disable_in_lookup.inc" />
+    <None Include="FunctionalTests\Controllers\Disable_With_Criteria_Rule.inc" />
+    <None Include="FunctionalTests\Controllers\Init.inc" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Controllers\Config.xml" />
     <None Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
