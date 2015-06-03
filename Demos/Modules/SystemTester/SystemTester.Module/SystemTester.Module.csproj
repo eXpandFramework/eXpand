@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\FilterableEnumPropertyEditor\FilterableEnumPropertyEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RunTimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
@@ -198,6 +199,7 @@
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.ets" />
     <None Include="FunctionalTests\PreventDataLoading\PreventDataLoading.xafml" />
     <None Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\FilterableEnumPropertyEditor\FilterableEnumPropertyEditor.ets" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.ets" />
     <None Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\HyperLinkPropertyEditor.xafml" />
     <None Include="FunctionalTests\ReadMe.txt" />
@@ -236,6 +238,7 @@
     </Content>
     <Content Include="FunctionalTests\PessimisticLocking\Config.xml" />
     <Content Include="FunctionalTests\PessimisticLocking\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\FilterableEnumPropertyEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.win.png" />
     <Content Include="FunctionalTests\RunTimeMembers\Config.xml" />
     <Content Include="FunctionalTests\SequenceGenerator\Config.xml" />

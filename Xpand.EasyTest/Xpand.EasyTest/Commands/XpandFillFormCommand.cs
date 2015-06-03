@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 
@@ -18,7 +19,15 @@ namespace Xpand.EasyTest.Commands{
                 processRecordCommand.SynchWith(this);
                 if (sendKeysParameter != null)
                     processRecordCommand.Parameters.Remove(sendKeysParameter);
-                processRecordCommand.Execute(adapter);
+                try{
+                    processRecordCommand.Execute(adapter);
+                }
+                catch (Exception){
+                    if (ExpectException)
+                        throw;
+                    if (this.ParameterValue("Throw", true))
+                        throw;
+                }
             }
         }
     }

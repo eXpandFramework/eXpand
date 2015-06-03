@@ -16,9 +16,10 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
 using DevExpress.Web;
 using Xpand.Xpo.Parser;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, false)]
+    [PropertyEditor(typeof(Enum), EditorAliases.FilterableEnumPropertyEditor, false)]
     public class WebFilterableEnumPropertyEditor : ASPxEnumPropertyEditor, IComplexViewItem {
         static PropertyDescriptorCollection _propertyDescriptorCollection;
         readonly PropertyInfo _dataSourceProperty;
@@ -55,7 +56,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        protected static PropertyDescriptorCollection PropertyDescriptorCollection {
+        protected PropertyDescriptorCollection PropertyDescriptorCollection {
             get {
                 return _propertyDescriptorCollection ??
                        (_propertyDescriptorCollection = TypeDescriptor.GetProperties(typeof(ListEditItem)));
