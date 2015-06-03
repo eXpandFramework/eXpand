@@ -4,10 +4,11 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
 using Xpand.Utils.Helpers;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
-    [PropertyEditor(typeof(bool?), true)]
-    [PropertyEditor(typeof(bool), true)]
+    [PropertyEditor(typeof(bool?),EditorAliases.NullAbleBooleanPropertyEditor, true)]
+    [PropertyEditor(typeof(bool), EditorAliases.NullAbleBooleanPropertyEditor, true)]
     public class XpandBooleanPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor {
         public XpandBooleanPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
