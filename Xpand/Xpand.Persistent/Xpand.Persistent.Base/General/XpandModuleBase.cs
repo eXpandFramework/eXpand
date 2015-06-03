@@ -9,6 +9,7 @@ using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -37,6 +38,7 @@ using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using Xpand.Xpo.MetaData;
+using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -629,45 +631,71 @@ namespace Xpand.Persistent.Base.General {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (Executed("CustomizeTypesInfo"))
-                return;
-            SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
-            if (RuntimeMode) {
-                foreach (var persistentType in typesInfo.PersistentTypes) {
-                    CreateAttributeRegistratorAttributes(persistentType);
+            if (!Executed("CustomizeTypesInfo")){
+                SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
+                if (RuntimeMode) {
+                    foreach (var persistentType in typesInfo.PersistentTypes) {
+                        CreateAttributeRegistratorAttributes(persistentType);
+                    }
+                }
+                CreateXpandDefaultProperty(typesInfo);
+                ModelValueOperator.Register();
+                ConvertInvisibleInAllViewsAttrbiute(typesInfo);
+
+                AssignSecurityEntities();
+                ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
+                var type = (BaseInfo)findTypeInfo.FindMember("Type");
+
+                var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
+                if (attribute != null)
+                    type.RemoveAttribute(attribute);
+
+                type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers));
+                attribute = type.FindAttribute<ModelReadOnlyAttribute>();
+                if (attribute != null)
+                    type.RemoveAttribute(attribute);
+
+                if (!SequenceGenerator.UseGuidKey) {
+                    var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+                    var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
+                    memberInfo.RemoveAttribute(new KeyAttribute(false));
+                    memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                    memberInfo.AddAttribute(new KeyAttribute(false));
                 }
             }
-            CreateXpandDefaultProperty(typesInfo);
-            ModelValueOperator.Register();
+            if ((!Executed("CustomizedTypesInfo", ModuleType.Win) && !this.IsHosted()))
+                EditorAliasForNullableEnums(typesInfo);
+            else if (!Executed("CustomizedTypesInfo",ModuleType.Web)&&this.IsHosted()){
+                EditorAliasForNullableEnums(typesInfo);
+            }
+        }
+
+        private void EditorAliasForNullableEnums(ITypesInfo typesInfo){
+            var typeInfos = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo<PropertyEditor>()).Where(info =>{
+                var editorAttribute = info.FindAttribute<PropertyEditorAttribute>();
+                return editorAttribute != null && editorAttribute.GetFieldValue("alias") != null;
+            }).ToArray();
+            var memberInfos = typesInfo.PersistentTypes.SelectMany(info => info.OwnMembers)
+                .Where(info => info.MemberType.IsNullableType() && info.MemberType.GetGenericArguments()[0].IsEnum &&
+                               info.FindAttribute<EditorAliasAttribute>() != null);
+            foreach (var memberInfo in memberInfos){
+                var editorAliasAttribute = memberInfo.FindAttribute<EditorAliasAttribute>();
+                var typeInfo = typeInfos.First(info =>{
+                    var propertyEditorAttribute = info.FindAttribute<PropertyEditorAttribute>();
+                    return (string) propertyEditorAttribute.GetFieldValue("alias") == editorAliasAttribute.Alias;
+                });
+                memberInfo.AddAttribute(new ModelDefaultAttribute("PropertyEditorType", typeInfo.Type.FullName));
+            }
+        }
+
+        private static void ConvertInvisibleInAllViewsAttrbiute(ITypesInfo typesInfo){
             foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(typeInfo =>
-                            typeInfo.OwnMembers.Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null))
-                        .ToList()){
+                typeInfo.OwnMembers.Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null))
+                .ToList()){
                 memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
             }
-
-            AssignSecurityEntities();
-            ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
-            var type = (BaseInfo) findTypeInfo.FindMember("Type");
-
-            var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
-            if (attribute != null)
-                type.RemoveAttribute(attribute);
-
-            type = (BaseInfo) typesInfo.FindTypeInfo(typeof (IModelBOModelClassMembers));
-            attribute = type.FindAttribute<ModelReadOnlyAttribute>();
-            if (attribute != null)
-                type.RemoveAttribute(attribute);
-
-            if (!SequenceGenerator.UseGuidKey) {
-                var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-                var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
-                memberInfo.RemoveAttribute(new KeyAttribute(false));
-                memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                memberInfo.AddAttribute(new KeyAttribute(false));
-            }
-
         }
 
         private static void CreateXpandDefaultProperty(ITypesInfo typesInfo){
@@ -748,8 +776,13 @@ namespace Xpand.Persistent.Base.General {
 
     public static class ModuleBaseExtensions {
         public static bool IsHosted(this ModuleBase moduleBase){
-            var attribute = XafTypesInfo.Instance.FindTypeInfo(moduleBase.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-            return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
+            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(moduleBase.GetType());
+            var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
+            if (!(attribute != null && attribute.FilterString == "Xaf.Platform.Web")){
+                var toolboxTabNameAttribute = typeInfo.FindAttribute<ToolboxTabNameAttribute>();
+                return toolboxTabNameAttribute != null && toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabAspNetModules;
+            }
+            return false;
         }
 
         public static string GetConnectionString(this ModuleBase moduleBase) {
