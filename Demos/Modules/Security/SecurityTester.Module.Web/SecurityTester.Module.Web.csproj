@@ -70,7 +70,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Web, Version=14.2.7.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
     </Reference>

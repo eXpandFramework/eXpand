@@ -88,7 +88,9 @@
     <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.2, Version=14.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v14.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v14.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
