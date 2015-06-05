@@ -13,8 +13,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,6 +94,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v15.1">
@@ -298,8 +300,7 @@
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SecurityDemo.Module.Win\SecurityDemo.Module.Win.csproj">
       <Project>{032F402B-CFDF-4CF1-9975-12355C8B7BAA}</Project>

@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     ApplyFocusedStyleCore(editor.DropDownEdit.DropDown);
 
                 if (editor.FindEdit != null)
-                    ApplyFocusedStyleCore(editor.FindEdit.TextBox);
+                    ApplyFocusedStyleCore(editor.FindEdit.Editor);
             }
             else {
                 var propertyEditor = element as WebPropertyEditor;

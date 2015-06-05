@@ -6,7 +6,7 @@
  Subject = MissedReminder
 *SaveAndClose
 *ReopenApplication
-*Action Log On
+*LogOn
 *Navigate Default.Role
 *Sleep 5000
 *XpandHandleDialog

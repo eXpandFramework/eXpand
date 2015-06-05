@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             AssemblyName assemblyName = new AssemblyName(parts[1]);
             return Type.GetType(parts[0] + ", " + assemblyName.Name);
         }
-        public IList<IOperationPermission> GetPermissions()
+        public IEnumerable<IOperationPermission> GetPermissions()
         {
             List<IOperationPermission> result = new List<IOperationPermission>();
             if (TargetType != null)
@@ -107,6 +107,10 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             }
             result.AddRange(ObjectPermissions.SelectMany(op => op.GetPermissions()));
             return result;
+        }
+
+        public IEnumerable<IOperationPermissionProvider> GetChildren(){
+            yield return null;
         }
 
         private List<ObjectPermission> objectPermissions;

@@ -6,7 +6,7 @@
 
 *Action Log Off
 !ActionAvailable Log Off
-*Action Log On
+*LogOn
 
 *Action Edit Model
 !ActionAvailable Edit Model

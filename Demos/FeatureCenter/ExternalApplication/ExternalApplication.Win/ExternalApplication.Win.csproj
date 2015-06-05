@@ -12,7 +12,8 @@
     <AssemblyName>ExternalApplication.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -107,6 +108,10 @@
     <Reference Include="Xpand.ExpressApp.ModelDifference.Win">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security, Version=15.1.3.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>

@@ -26,6 +26,7 @@ Global
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{FEB746AF-B0D4-4F3A-9C02-D18C57A3E84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +34,7 @@ Global
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{213A7AB4-86F1-4CE6-8B16-CBE2E5AE57AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,14 +49,12 @@ Global
 		{3672AD7C-9196-45E8-AD9B-91C46249A225}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E08F0BD5-77CA-4B3A-A035-211A2C5DF5CA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
-		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.EasyTest|Any CPU.Build.0 = Release|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{5F6908F4-2505-4C37-BD49-EC98A6CB103A}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -186,7 +186,7 @@
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
     <Content Include="FunctionalTests\DesignerActions\Config.xml" />
     <Content Include="FunctionalTests\DesignerActions\DesignDashboard.inc" />
-    <Content Include="FunctionalTests\DesignerActions\CreateNew.inc" />
+    <None Include="FunctionalTests\DesignerActions\CreateNew.inc" />
     <Content Include="FunctionalTests\DesignerActions\EditExisting.inc" />
     <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.web.png" />
     <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.win.png" />

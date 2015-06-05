@@ -2,7 +2,7 @@
 #Application SystemTester.Win
 #Application SystemTester.Web
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture
 *Action Navigation(Default.Hide Tool Bar Object)
 

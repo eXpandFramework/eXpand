@@ -148,14 +148,14 @@ namespace Xpand.EasyTest {
 
         public static void ClearModel(this TestApplication application){
             var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
-            File.WriteAllText(Path.Combine(appPath,"Model.xafml"), @"<?xml version=""1.0"" ?><Application />");
+            File.WriteAllText(Path.Combine(appPath+"","Model.xafml"), @"<?xml version=""1.0"" ?><Application />");
         }
 
         public static void CopyModel(this TestApplication application){
             application.ClearModel();
             var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
             var modelFileName = GetModelFileName(application);
-            var destFileName = Path.Combine(appPath, "Model.xafml");
+            var destFileName = Path.Combine(appPath+"", "Model.xafml");
             if (File.Exists(modelFileName)){
                 File.Copy(modelFileName, destFileName, true);
             }
@@ -187,7 +187,7 @@ namespace Xpand.EasyTest {
         private static string GetParameterFile(this TestApplication application){
             var path = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ??
                        Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
-            return Path.Combine(path, "easytestparameters");
+            return Path.Combine(path+"", "easytestparameters");
         }
 
         public static T ParameterValue<T>(this TestApplication application, string parameterName){
@@ -224,16 +224,11 @@ namespace Xpand.EasyTest {
             get { return _adapter; }
         }
 
-        public static string WindowText(this IntPtr intPtr) {
-            int length = Win32Declares.Window.GetWindowTextLength(intPtr);
-            var sb = new StringBuilder(length + 1);
-            Win32Declares.Window.GetWindowText(intPtr, sb, sb.Capacity);
-            return sb.ToString();
-        }
 
         public static void RegisterCommands(this IRegisterCommand registerCommand,IXpandTestAdapter applicationAdapter){
             _adapter = applicationAdapter;
             var dictionary = new Dictionary<Type, string>{
+                {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
                 {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},
@@ -260,7 +255,6 @@ namespace Xpand.EasyTest {
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
-                {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
                 {typeof (XpandSelectRecordsCommand), XpandSelectRecordsCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},

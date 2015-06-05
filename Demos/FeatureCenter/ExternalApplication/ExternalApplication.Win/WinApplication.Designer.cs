@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
+using Xpand.ExpressApp.Security.Core;
 
 namespace ExternalApplication.Win {
     partial class ExternalApplicationWindowsFormsApplication {
@@ -65,7 +66,7 @@ namespace ExternalApplication.Win {
             // securityComplex1
             // 
             this.securityComplex1.Authentication = this.authenticationStandard1;
-            this.securityComplex1.RoleType = typeof(SecuritySystemRole);
+            this.securityComplex1.RoleType = typeof(XpandRole);
             this.securityComplex1.UserType = typeof(SecuritySystemUser);
             // 
             // authenticationStandard1

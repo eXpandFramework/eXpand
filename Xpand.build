@@ -99,7 +99,7 @@
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <CallTarget Targets="BuildNH"/>
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -109,6 +109,9 @@
     </ItemGroup>
     <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
 	<CallTarget Targets="FixReferencesAfterBuild"/>
+  </Target>
+  <Target Name="BuildNH">
+	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />

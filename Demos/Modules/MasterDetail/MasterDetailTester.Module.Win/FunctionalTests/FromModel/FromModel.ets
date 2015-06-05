@@ -2,7 +2,7 @@
 #Application MasterDetailTester.Win
 *UseModel MasterDetailRules;..\CommonModel
 *ScreenCapture
-*Action Log On
+*LogOn
 
 #IncludeFile ..\CreateMasterDetailObjects.inc 
 

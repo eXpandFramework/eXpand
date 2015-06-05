@@ -3,9 +3,9 @@
 *Action Navigation(PropertyEditors.Choose From List Collection Editor Object)
 *Action New(Choose From List Collection Editor Object)
 *XpandFillForm
- Dates Excluded = 01/01
+ Dates Excluded = 01 01
 *Action Save and Close
 *Action Navigation(PropertyEditors.Choose From List Collection Editor Object)
 *CheckTable
  Columns = List View Dates
- Row[0] = 01/01
+ Row[0] = 01 01

@@ -1,5 +1,5 @@
 ﻿#DropDB SystemTesterEasyTest
 #Application SystemTester.Win
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture

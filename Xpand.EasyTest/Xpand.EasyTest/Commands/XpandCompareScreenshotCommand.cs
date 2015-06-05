@@ -15,16 +15,17 @@ using Image = System.Drawing.Image;
 namespace Xpand.EasyTest.Commands {
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
+        
         readonly Size _defaultWindowSize = new Size(1024, 768);
         private bool _additionalCommands;
 
-        protected override void InternalExecute(ICommandAdapter adapter) {
+        protected override void InternalExecute(ICommandAdapter adapter){
             EasyTestTracer.Tracer.LogText("MainParameter=" + Parameters.MainParameter.Value);
-            var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, null);
+            var activeWindowControl = adapter.CreateTestControl(TestControlType.Dialog, "");
             var windowHandleInfo = GetWindowHandle(activeWindowControl);
             if (!windowHandleInfo.Value)
                 ExecuteAdditionalCommands(adapter);
-
+            GetRootWindow(windowHandleInfo.Key,adapter);
             var testImage = GetTestImage(windowHandleInfo.Key);
             var filename = GetFilename(adapter);
 
@@ -49,9 +50,10 @@ namespace Xpand.EasyTest.Commands {
             var validDiffPercentace = this.ParameterValue("ValidDiffPercentage", 10);
             if (!masks.Any()) {
                 var maskRectangle = GetMaskRectangle(adapter);
-                if (maskRectangle != Rectangle.Empty) {
-                    CreateMask(filename, testImage, maskRectangle);                    
-                } else {
+                if (maskRectangle != Rectangle.Empty){
+                    SaveMask(filename, localImage, maskRectangle, ".mask");
+                }
+                else {
                     maskRectangle=new Rectangle(0,0,testImage.Width-1,testImage.Height-1);
                 }
                 var isValidPercentage = IsValidPercentage(testImage, maskRectangle, threshold, validDiffPercentace, localImage);
@@ -71,15 +73,23 @@ namespace Xpand.EasyTest.Commands {
             }
         }
 
-        private void CreateMask(string filename, Image testImage, Rectangle maskRectangle) {
-            var mask = new Bitmap(testImage.Width, testImage.Height);
-            mask.CreateMask(maskRectangle);
-            using (var graphics = Graphics.FromImage(mask)) {
-                using (var crop = testImage.Crop(maskRectangle)) {
-                    graphics.DrawImage(crop, maskRectangle, new Rectangle(0,0,crop.Width, crop.Height), GraphicsUnit.Pixel);
+        private void SaveMask(string filename, Image localImage, Rectangle maskRectangle, string maskNameSuffix){
+            using (var image = CreateMask(localImage, maskRectangle)){
+                var path = Path.Combine(Path.GetDirectoryName(filename) + "",
+                    Path.GetFileNameWithoutExtension(filename) +maskNameSuffix+ ".png");
+                image.Save(path, ImageFormat.Png);
+            }
+        }
+
+        protected  Image CreateMask(Image image, Rectangle maskRectangle){
+            var mask = AForge.Imaging.Image.Clone((Bitmap) image,PixelFormat.Format24bppRgb);
+            using (var graphics = Graphics.FromImage(mask)){
+                using (var crop = image.Crop(maskRectangle)){
+                    graphics.DrawImage(crop, maskRectangle, new Rectangle(0, 0, crop.Width, crop.Height), GraphicsUnit.Pixel);
+                    graphics.DrawRectangle(new Pen(new SolidBrush(Color.Red), 3), maskRectangle);
                 }
             }
-            mask.Save(Path.Combine(Path.GetDirectoryName(filename) + "", Path.GetFileNameWithoutExtension(filename) + ".mask.png"), ImageFormat.Png);
+            return mask;
         }
 
         private bool IsValidPercentage(Image testImage, Rectangle maskRectangle, byte threshold, int validDiffPercentace, Image localImage) {
@@ -98,19 +108,21 @@ namespace Xpand.EasyTest.Commands {
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Rectangle maskRectangle) {
             var differences = localImage.Differences(testImage, maskRectangle, threshold);
-            SaveImagesCore(differences, filename, testImage);
+            SaveImagesCore(differences, filename, testImage,maskRectangle);
         }
 
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Bitmap maskImage) {
             var differences = localImage.Differences(testImage, maskImage, threshold);
-            SaveImagesCore(differences, filename, testImage);
+            SaveImagesCore(differences, filename, testImage,Rectangle.Empty);
         }
 
-        private void SaveImagesCore(IEnumerable<KeyValuePair<byte[,], float>> differences, string filename, Image testImage) {
+        private void SaveImagesCore(IEnumerable<KeyValuePair<byte[,], float>> differences, string filename, Image testImage, Rectangle maskRectangle) {
             var valuePairs = differences.OrderBy(pair => pair.Value);
             var keyValuePair = valuePairs.First();
             var diffImage = keyValuePair.Key.DiffImage(true, true);
             SaveDiffImage(diffImage, filename);
+            if (maskRectangle!=Rectangle.Empty)
+                SaveMask(filename, testImage, maskRectangle, ".mask.Actual");
             SaveActualImage(testImage, filename);
             throw new CommandException(String.Format("A screenshot of the active window differs {1}% from the '{0}' master copy", filename, Math.Round(keyValuePair.Value)), StartPosition);
         }
@@ -124,7 +136,7 @@ namespace Xpand.EasyTest.Commands {
         private static Image GetTestImage(IntPtr windowHandle) {
             Image testImage;
             try {
-                testImage = ImageHelper.GetImage(windowHandle);
+                testImage = windowHandle.GetScreenshot();
                 EasyTestTracer.Tracer.LogText("Captured image for window with handle {0} and title {1}", windowHandle, windowHandle.WindowText());
             } catch (Exception e) {
                 EasyTestTracer.Tracer.LogText("Exception:" + e.Message);
@@ -142,7 +154,7 @@ namespace Xpand.EasyTest.Commands {
             var isCustom = false;
             var screenMainWindow = this.ParameterValue("ScreenMainWindow", false);
             IntPtr windowHandle = activeWindowControl.GetInterface<ITestWindow>().GetActiveWindowHandle();
-            if (screenMainWindow) {
+            if (screenMainWindow){
                 windowHandle = GetRootWindow(windowHandle.ToInt32());
             }
 
@@ -157,6 +169,10 @@ namespace Xpand.EasyTest.Commands {
             return new KeyValuePair<IntPtr, bool>(windowHandle, isCustom);
         }
 
+        protected virtual IntPtr GetRootWindow(IntPtr windowHandle, ICommandAdapter commandAdapter){
+            return GetRootWindow(windowHandle.ToInt32());
+        }
+
         private void ExecuteAdditionalCommands(ICommandAdapter adapter) {
             _additionalCommands = this.ParameterValue("AdditionalCommands", true);
             if (!_additionalCommands)
@@ -164,7 +180,7 @@ namespace Xpand.EasyTest.Commands {
             if (this.ParameterValue("ToggleNavigation", true)) {
                 ToggleNavigation(adapter);
             }
-
+            return;
             var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
             var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));

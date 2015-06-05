@@ -1,5 +1,5 @@
 ﻿*ReopenApplication
-*Action Log On
+*LogOn
 *Action Navigation(Default.Project)
 *Action New(Project)
 *FillForm

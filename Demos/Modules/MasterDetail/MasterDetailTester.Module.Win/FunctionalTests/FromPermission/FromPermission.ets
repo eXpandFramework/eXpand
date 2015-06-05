@@ -2,7 +2,7 @@
 #Application MasterDetailTester.Win
 *UseModel ..\CommonModel
 *ScreenCapture
-*Action Log On
+*LogOn
 #IncludeFile ..\CreateMasterDetailObjects.inc 
 *CreatePermission Project;Contributor
 
@@ -22,9 +22,7 @@
 *Action Save and Close
 
 *Action Log Off
-*FillForm
- User Name = User
-*Action Log On
+*LogOn User
 *Navigate Project
 
 #IncludeFile ..\Checks.inc 

@@ -7,7 +7,7 @@ using Xpand.Xpo.CustomFunctions;
 using Xpand.Xpo.Filtering;
 
 namespace Xpand.Persistent.Base.Xpo{
-    public class FullTextOperatorProcessor : IClientCriteriaVisitor, IQueryCriteriaVisitor {
+    public class FullTextOperatorProcessor : IClientCriteriaVisitor<CriteriaOperator>, IQueryCriteriaVisitor<CriteriaOperator> {
         readonly IEnumerable<XPMemberInfo> _memberInfos;
 
         public FullTextOperatorProcessor(IEnumerable<XPMemberInfo> memberInfos){
@@ -18,16 +18,16 @@ namespace Xpand.Persistent.Base.Xpo{
             return op.Accept(new FullTextOperatorProcessor(memberInfos)) ;
         }
 
-        public object Visit(BetweenOperator theOperator){
-            return IsFullIndexed(theOperator.TestExpression)
+        public CriteriaOperator Visit(BetweenOperator theOperator){
+            return (CriteriaOperator) (IsFullIndexed(theOperator.TestExpression)
                 ? (object) new FunctionOperator(FullTextContainsFunction.FunctionName, theOperator.GetOperators())
-                : theOperator;
+                : theOperator);
         }
 
-        object ICriteriaVisitor.Visit(BinaryOperator theOperator){
-            return IsFullIndexed(theOperator.LeftOperand)
+        CriteriaOperator ICriteriaVisitor<CriteriaOperator>.Visit(BinaryOperator theOperator){
+            return (CriteriaOperator) (IsFullIndexed(theOperator.LeftOperand)
                 ? (object) new FunctionOperator(FullTextContainsFunction.FunctionName, theOperator.GetOperators())
-                : theOperator;
+                : theOperator);
         }
 
         private bool IsFullIndexed(CriteriaOperator theOperator){
@@ -43,26 +43,26 @@ namespace Xpand.Persistent.Base.Xpo{
             return _memberInfos.Any(info => (info.MappingField != null && info.MappingField == name)||(info.MappingField==null&&info.Name==name));
         }
 
-        public object Visit(UnaryOperator theOperator){
+        public CriteriaOperator Visit(UnaryOperator theOperator){
             return theOperator;
         }
 
-        public object Visit(InOperator theOperator){
+        public CriteriaOperator Visit(InOperator theOperator){
             return theOperator;
         }
 
-        object ICriteriaVisitor.Visit(GroupOperator theOperator) {
-            var criteriaOperators = theOperator.Operands.Select(@operator => @operator.Accept(this)).Cast<CriteriaOperator>().ToList();
+        CriteriaOperator ICriteriaVisitor<CriteriaOperator>.Visit(GroupOperator theOperator) {
+            var criteriaOperators = theOperator.Operands.Select(@operator => @operator.Accept(this)).ToList();
             theOperator.Operands.Clear();
             theOperator.Operands.AddRange(criteriaOperators);
             return theOperator;
         }
 
-        public object Visit(OperandValue theOperand){
+        public CriteriaOperator Visit(OperandValue theOperand){
             return theOperand;
         }
 
-        object ICriteriaVisitor.Visit(FunctionOperator theOperator){
+        CriteriaOperator ICriteriaVisitor<CriteriaOperator>.Visit(FunctionOperator theOperator){
             if (theOperator.OperatorType != FunctionOperatorType.Custom){
                 if (IsFullIndexed(theOperator.Operands[0])){
                     theOperator.OperatorType = FunctionOperatorType.Custom;
@@ -72,23 +72,23 @@ namespace Xpand.Persistent.Base.Xpo{
             return theOperator;
         }
 
-        object IQueryCriteriaVisitor.Visit(QueryOperand theOperand){
+        CriteriaOperator IQueryCriteriaVisitor<CriteriaOperator>.Visit(QueryOperand theOperand){
             return theOperand;
         }
 
-        public object Visit(QuerySubQueryContainer theOperand){
+        public CriteriaOperator Visit(QuerySubQueryContainer theOperand){
             return theOperand;
         }
 
-        public object Visit(AggregateOperand theOperand){
+        public CriteriaOperator Visit(AggregateOperand theOperand){
             return theOperand;
         }
 
-        public object Visit(OperandProperty theOperand){
+        public CriteriaOperator Visit(OperandProperty theOperand){
             return theOperand;
         }
 
-        public object Visit(JoinOperand theOperand){
+        public CriteriaOperator Visit(JoinOperand theOperand){
             return theOperand;
         }
     }

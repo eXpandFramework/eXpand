@@ -1,6 +1,6 @@
 ﻿#DropDB SystemTesterEasyTest
 ;#Application SystemTester.Web
 #Application SystemTester.Win
-*Action Log On
+*LogOn
 *ScreenCapture
 *Action Navigation(PropertyEditors.Hyper Link Object)

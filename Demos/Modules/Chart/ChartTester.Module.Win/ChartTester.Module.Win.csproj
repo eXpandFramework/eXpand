@@ -82,7 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\Sample.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

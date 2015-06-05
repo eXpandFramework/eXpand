@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             var collection = Collection(userWithRoles);
             if (collection != null) {
                 Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
-                ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleType);
+                ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleType);
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
 
                 var roleAspectObjects = base.GetActiveModelDifferences(applicationName, name).ToList();

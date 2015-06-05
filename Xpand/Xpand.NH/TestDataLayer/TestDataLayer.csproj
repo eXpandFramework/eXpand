@@ -187,12 +187,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Maps\ObjectPermissionMap.cs" />
-    <Compile Include="Maps\PersonMap.cs" />
-    <Compile Include="Maps\PhoneNumberMap.cs" />
-    <Compile Include="Maps\RoleMap.cs" />
-    <Compile Include="Maps\TypePermissionMap.cs" />
-    <Compile Include="Maps\UserMap.cs" />
+    <Compile Include="Maps\UserMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +201,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

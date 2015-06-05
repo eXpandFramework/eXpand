@@ -11,8 +11,10 @@
     <RootNamespace>FileAttachmentTester.Module</RootNamespace>
     <AssemblyName>FileAttachmentTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -123,7 +125,6 @@
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\Sample.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

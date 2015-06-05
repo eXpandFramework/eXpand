@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Xpand.ExpressApp.NH.BaseImpl
 {
-    public class Role : ISecurityRole, IOperationPermissionsProvider
+    public class Role : ISecurityRole, IOperationPermissionProvider
     {
 
 
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.NH.BaseImpl
         [DataMember]
         public bool CanEditModel { get; set; }
 
-        public IList<IOperationPermission> GetPermissions()
+        public IEnumerable<IOperationPermission> GetPermissions()
         {
             List<IOperationPermission> result = new List<IOperationPermission>();
             if (IsAdministrative)
@@ -43,6 +43,10 @@ namespace Xpand.ExpressApp.NH.BaseImpl
             }
             result.AddRange(TypePermissions.SelectMany(tp => tp.GetPermissions()));
             return result;
+        }
+
+        public IEnumerable<IOperationPermissionProvider> GetChildren(){
+            yield return null;
         }
 
 

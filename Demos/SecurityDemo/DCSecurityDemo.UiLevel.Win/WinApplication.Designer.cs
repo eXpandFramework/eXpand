@@ -1,3 +1,5 @@
+using DevExpress.ExpressApp.Workflow.Xpo;
+
 namespace DCSecurityDemo.UiLevel.Win {
     partial class DCSecurityDemoWindowsFormsApplication {
         /// <summary> 
@@ -111,7 +113,7 @@ namespace DCSecurityDemo.UiLevel.Win {
             // 
             // workflowModule1
             // 
-            this.workflowModule1.RunningWorkflowInstanceInfoType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoRunningWorkflowInstanceInfo);
+            this.workflowModule1.RunningWorkflowInstanceInfoType = typeof(XpoRunningWorkflowInstanceInfo);
             this.workflowModule1.StartWorkflowRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoStartWorkflowRequest);
             this.workflowModule1.UserActivityVersionType = typeof(DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion);
             this.workflowModule1.WorkflowControlCommandRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowInstanceControlCommandRequest);

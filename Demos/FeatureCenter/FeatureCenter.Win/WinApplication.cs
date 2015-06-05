@@ -1,9 +1,12 @@
+#if !EASYTEST
 using System;
 using System.Diagnostics;
+using System.Windows.Forms;
+using Xpand.Persistent.Base.General;
+#endif
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Win;
-using Xpand.Persistent.Base.General;
-using Application = System.Windows.Forms.Application;
+
 
 namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {

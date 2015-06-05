@@ -1,4 +1,5 @@
 ﻿#IncludeFile .\Init.inc
+
 *Navigate Master
 *Action New(Master)
 *XpandFillForm
@@ -14,7 +15,7 @@
 *SaveAndClose
 *Navigate Master
 *XpandCompareScreenshot MasterDetail.png
- WebMaskRectangle = 601x316;138x13
- ValidDiffPercentage = 4
+ WebMaskRectangle = 562x335;184x11
+ ValidDiffPercentage = 7
 
  

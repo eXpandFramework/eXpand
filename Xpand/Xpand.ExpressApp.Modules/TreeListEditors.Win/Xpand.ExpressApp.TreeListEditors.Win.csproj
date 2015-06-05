@@ -163,8 +163,12 @@
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="Model\TreeListModelAdapterController.cs" />
-    <Compile Include="Model\TreeNavigationOptionsController.cs" />
+    <Compile Include="Model\TreeListModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\TreeNavigationOptionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

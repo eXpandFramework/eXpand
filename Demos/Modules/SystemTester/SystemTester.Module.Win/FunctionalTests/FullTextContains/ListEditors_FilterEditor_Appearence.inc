@@ -10,7 +10,7 @@
 
 *KillWindow Filter Editor
 *Action Log Off
-*Action Log On
+*LogOn
 *Action Navigation(Default.Full Text Contains Object)
 
 *Action Full Text Contains(AdvBandedListEditor)

@@ -5,7 +5,7 @@
  DBName = ModelDifferenceTesterEasyTest
 #EndIf
 
-*Action Log On
+*LogOn
 *ScreenCapture
 
 #IfDef ModelDifferenceTester.Web

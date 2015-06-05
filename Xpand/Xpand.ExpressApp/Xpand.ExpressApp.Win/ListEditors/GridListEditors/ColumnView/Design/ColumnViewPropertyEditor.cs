@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing.Design;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
@@ -68,7 +69,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
 
         void Setup(Type targetType, TColumnViewEditor gridListEditor) {
             XpoTypesInfoHelper.ForceInitialize();
-            var xpObjectSpace = new XPObjectSpace(XafTypesInfo.Instance, ((XpoTypeInfoSource)XafTypesInfo.PersistentEntityStore), () => null);
+            var xpObjectSpace = new XPObjectSpace(XafTypesInfo.Instance, ((XpoTypeInfoSource)
+                ((TypesInfo) XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource))), () => null);
             var collectionSource = new CollectionSource(xpObjectSpace, targetType);
             gridListEditor.Setup(collectionSource, new EditorsXafApplication());
             gridListEditor.ColumnCreated += (sender, args) => {

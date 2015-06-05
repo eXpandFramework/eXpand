@@ -12,8 +12,8 @@
 
 ;Add first property as chart argument
 *MouseDragDrop 
- Start = 104x267
- End = 263x244
+ Start = 76x330
+ End = 270x236
 *Sleep 1000
   
 ;SaveAndClose

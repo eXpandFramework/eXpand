@@ -1,6 +1,6 @@
 ﻿#DropDB SystemTesterEasyTest
 #Application SystemTester.Win
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture
 *Action Navigation(FilterEditor.Filter Editor Object)

@@ -2,4 +2,4 @@
 #Application SchedulerTester.Web
 *UseModel
 *ScreenCapture
-*Action Log On
+*LogOn

@@ -31,6 +31,8 @@ namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
+        public XpandLayoutManager(){
+        }
 
         public const string IsMasterDetailSplitterPropertyName = "cpIsMasterDetailSplitter";
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();

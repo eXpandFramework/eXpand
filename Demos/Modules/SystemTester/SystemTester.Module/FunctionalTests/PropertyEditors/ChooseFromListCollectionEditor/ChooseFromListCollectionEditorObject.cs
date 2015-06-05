@@ -14,7 +14,7 @@ namespace SystemTester.Module.FunctionalTests.PropertyEditors.ChooseFromListColl
     [DefaultClassOptions]
     [NavigationItem("PropertyEditors")]
     public class ChooseFromListCollectionEditorObject : BaseObject{
-        private const string DdMm = "dd/MM";
+        private const string DdMm = "dd MM";
 
         [Persistent("DatesExcluded")]
         [Size(SizeAttribute.Unlimited)]

@@ -2,6 +2,6 @@
 #Application SystemTester.Web
 #Application SystemTester.Win
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture
 *Action Navigation(Default.Merged Differences Object)

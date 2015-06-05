@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                         dsource.Data = objects;
                     }
                     else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption))) {
-                        dashboard.AddDataSource(typeWrapper.Caption, objects);
+                        dashboard.DataSources.Add(new DashboardObjectDataSource(typeWrapper.Caption,objects));
                     }
                 }
             }
@@ -135,7 +135,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             if (parameter.IsCustomFunction) {
                 if (dashboardParameter!=null) {
                     var criteriaOperator = CriteriaOperator.Parse("Field="+ parameter.ParameterValue);
-                    new CustomFunctionValueProcessor().Process(criteriaOperator);
+                    var customFunctionValueProcessor = new CustomFunctionValueProcessor();
+                    customFunctionValueProcessor.Process(criteriaOperator);
                     dashboardParameter.Value = ((OperandValue) ((BinaryOperator) criteriaOperator).RightOperand).Value;
                 }
             }
@@ -151,7 +152,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             string criteria = null;
             if (!string.IsNullOrEmpty(modelDataSource.Filter)) {
                 var criteriaOperator = CriteriaOperator.Parse(modelDataSource.Filter);
-                new CustomFunctionValueProcessor().Process(criteriaOperator);
+                var customFunctionValueProcessor = new CustomFunctionValueProcessor();
+                customFunctionValueProcessor.Process(criteriaOperator);
                 criteria = criteriaOperator.ToString();
                 if (!string.IsNullOrEmpty(filterString))
                     criteria = " and " + criteria;
@@ -161,16 +163,16 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
     }
 
     class DataSourceAdapter {
-        private readonly DataSource _dataSource;
+        private readonly IDashboardDataSource _dataSource;
 
         private readonly IModelDashboardDataSource _dashboardDataSource;
 
-        public DataSourceAdapter(DataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
+        public DataSourceAdapter(IDashboardDataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
             _dataSource = dataSource;
             _dashboardDataSource = dashboardDataSource;
         }
 
-        public DataSource DataSource {
+        public IDashboardDataSource DataSource {
             get { return _dataSource; }
         }
 

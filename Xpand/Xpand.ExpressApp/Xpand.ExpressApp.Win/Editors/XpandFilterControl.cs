@@ -230,16 +230,16 @@ namespace Xpand.ExpressApp.Win.Editors {
         public CriteriaToTreeProcessorBase(INodesFactory nodesFactory, IList<CriteriaOperator> skippedHolder) : base(nodesFactory, skippedHolder){
         }
     }
-    public class XpandCriteriaToTreeProcessor : CriteriaToTreeProcessorBase, IClientCriteriaVisitor {
+    public class XpandCriteriaToTreeProcessor : CriteriaToTreeProcessorBase, IClientCriteriaVisitor<INode> {
         public XpandCriteriaToTreeProcessor(INodesFactory nodesFactory, IList<CriteriaOperator> skippedHolder) : base(nodesFactory, skippedHolder){
         }
 
         public object ProcessX(CriteriaOperator criteriaOperator){
             return this.CallMethod("Process", new[]{typeof (CriteriaOperator)}, criteriaOperator);
         }
-        object ICriteriaVisitor.Visit(FunctionOperator theOperand){
+        INode ICriteriaVisitor<INode>.Visit(FunctionOperator theOperand){
             var skippedHolder = new List<CriteriaOperator>();
-            var visit = ((IClientCriteriaVisitor) new CriteriaToTreeProcessorBase(Factory, skippedHolder)).Visit(theOperand);
+            var visit = ((IClientCriteriaVisitor<INode>) new CriteriaToTreeProcessorBase(Factory, skippedHolder)).Visit(theOperand);
             if (skippedHolder.Contains(theOperand)&&theOperand.OperatorType==FunctionOperatorType.Custom){
                 skippedHolder.Remove(theOperand);
                 return Factory.Create((ClauseType) ClauseTypeEnumHelper.FullText, (OperandProperty) theOperand.Operands[1],new[]{theOperand.Operands[2]});

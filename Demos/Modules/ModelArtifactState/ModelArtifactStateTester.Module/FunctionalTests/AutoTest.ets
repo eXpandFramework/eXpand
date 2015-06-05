@@ -5,7 +5,7 @@
 #IfDef ModelArtifactStateTester.Win
 *FillForm
  User Name = Admin
-*Action Log On
+*LogOn
 #EndIf
 
 *AutoTest
