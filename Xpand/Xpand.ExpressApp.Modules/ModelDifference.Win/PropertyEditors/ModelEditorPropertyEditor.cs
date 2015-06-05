@@ -151,6 +151,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 _modelEditorViewController.Modifying -= Model_Modifying;
                 _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
                 _modelEditorViewController.SaveSettings();
+                _modelEditorViewController.SelectedNodes.Clear();
                 _modelEditorViewController = null;
             }
         }

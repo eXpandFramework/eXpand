@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\OpenWebModel\OpenWebModel.ets" />
+    <None Include="FunctionalTests\OpenWebModel\Web.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

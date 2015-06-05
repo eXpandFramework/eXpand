@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.NH
         public const Int32 UnableToOpenDatabaseErrorNumber = 4060;
 
         private readonly IPersistenceManager persistenceManager;
-        private readonly IEntityStore entityStore;
+        private readonly IEntityStore _entityStore;
         private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
         private readonly ISelectDataSecurity selectDataSecurity;
 
@@ -36,9 +36,9 @@ namespace Xpand.ExpressApp.NH
         {
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
             Guard.ArgumentNotNull(persistenceManager, "persistenceManager");
-            Guard.ArgumentNotNull(entityStore, "entityStore");
+            Guard.ArgumentNotNull(entityStore, "_entityStore");
             this.persistenceManager = persistenceManager;
-            this.entityStore = entityStore;
+            this._entityStore = entityStore;
             this.instances = instances;
             this.selectDataSecurity = selectDataSecurity;
         }
@@ -69,9 +69,9 @@ namespace Xpand.ExpressApp.NH
             return collection is NHCollection;
         }
 
-        public bool CanInstantiate(Type type)
+        public override bool CanInstantiate(Type type)
         {
-            return entityStore.RegisteredEntities.Contains(type);
+            return _entityStore.RegisteredEntities.Contains(type);
         }
 
         public bool Contains(object obj)
@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.NH
 
         public IObjectSpace CreateNestedObjectSpace()
         {
-            return new NHNestedObjectSpace(typesInfo, entityStore, persistenceManager, instances, this);
+            return new NHNestedObjectSpace(typesInfo, _entityStore, persistenceManager, instances, this);
         }
 
         public IDisposable CreateParseCriteriaScope()
@@ -302,7 +302,7 @@ namespace Xpand.ExpressApp.NH
             DoIfNHCollection(collection, nhc => nhc.Sorting = sorting);
         }
 
-        public void SetDisplayableProperties(object collection, string displayableProperties)
+        public override void SetDisplayableProperties(object collection, string displayableProperties)
         {
         }
 

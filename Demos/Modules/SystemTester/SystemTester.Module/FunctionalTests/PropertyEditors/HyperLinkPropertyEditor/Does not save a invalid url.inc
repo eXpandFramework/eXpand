@@ -5,7 +5,7 @@
 *XpandFillForm
  Url = aaaa
  SendKeys = True
-*Action Save and Close
+*SaveAndClose
 *XpandCompareScreenshot HyperLinkPropertyEditor.png
  MaskRectangle = 39x94;12x12
  ToggleNavigation = False

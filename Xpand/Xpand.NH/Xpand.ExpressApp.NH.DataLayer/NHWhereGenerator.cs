@@ -10,11 +10,11 @@ using System.Text;
 
 namespace Xpand.ExpressApp.NH.DataLayer
 {
-    class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor
+    class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor<string>
     {
         const string nullString = "null";
 
-        object ICriteriaVisitor.Visit(OperandValue theOperand)
+        string ICriteriaVisitor<string>.Visit(OperandValue theOperand)
         {
             object value = theOperand.Value;
             if (value == null)
@@ -93,13 +93,13 @@ namespace Xpand.ExpressApp.NH.DataLayer
                 toFix += ".0";
             return toFix;
         }
-        object ICriteriaVisitor.Visit(BinaryOperator theOperator)
+        string ICriteriaVisitor<string>.Visit(BinaryOperator theOperator)
         {
             string left = Process(theOperator.LeftOperand);
             string right = Process(theOperator.RightOperand);
             return MsSqlFormatterHelper.FormatBinary(theOperator.OperatorType, left, right);
         }
-        protected override object VisitInternal(FunctionOperator theOperator)
+        protected override string VisitInternal(FunctionOperator theOperator)
         {
             
             

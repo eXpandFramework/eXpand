@@ -33,15 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\EasyTest\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Workflow.v15.1">
       <SpecificVersion>False</SpecificVersion>
@@ -265,10 +256,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WorkflowDemo.Module\WorkflowDemo.Module.csproj">
-      <Project>{8c9511d1-d51d-4fe4-a12e-3d2b3dadc685}</Project>
-      <Name>WorkflowDemo.Module</Name>
+      <Project>{8C9511D1-D51D-4FE4-A12E-3D2B3DADC685}</Project>
+      <Name>WWFDemo.Module</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

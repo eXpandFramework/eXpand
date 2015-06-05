@@ -21,7 +21,8 @@ namespace Xpand.ExpressApp.Security {
         }
 
         private void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
-            var controllers=new Dictionary<Type,Controller>();
+            var controllers= e.Controllers.ToDictionary(controller => controller.GetType());
+            e.Controllers.Clear();
             if (((IModelOptionsRegistration) Application.Model.Options).Registration.Enabled)
                 AddRegistrationControllers((XafApplication)sender, controllers);
             var dbServerParameter = SecuritySystem.LogonParameters as IDBServerParameter;
@@ -35,9 +36,9 @@ namespace Xpand.ExpressApp.Security {
         }
 
         private void AddControllers(Dictionary<Type, Controller> controllers, IEnumerable<Controller> controllersToAdd){
-            foreach (var appearenceController in controllersToAdd) {
-                if (!controllers.ContainsKey(appearenceController.GetType())){
-                    controllers.Add(appearenceController.GetType(),appearenceController);
+            foreach (var controller in controllersToAdd) {
+                if (!controllers.ContainsKey(controller.GetType())){
+                    controllers.Add(controller.GetType(),controller);
                 }
             }
         }
@@ -46,9 +47,8 @@ namespace Xpand.ExpressApp.Security {
             var registrationControllers = CreateRegistrationControllers(application).ToArray();
             var appearenceControllers = application.CreateAppearenceControllers();
             var validationControllers = application.CreateValidationControllers();
-            foreach (var registrationController in registrationControllers.Concat(appearenceControllers).Concat(validationControllers)){
-                controllers.Add(registrationController.GetType(),registrationController);
-            }
+            var allControllers = registrationControllers.Concat(appearenceControllers).Concat(validationControllers);
+            AddControllers(controllers, allControllers);
         }
 
         public static IEnumerable<Controller> CreateRegistrationControllers(XafApplication app) {

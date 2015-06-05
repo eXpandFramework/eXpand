@@ -82,14 +82,9 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
         string LogonParametersAsString() {
             string logonParametersAsString = "";
             if (SecuritySystem.LogonParameters != null) {
-                var parameters = SecuritySystem.LogonParameters as ISupportStringSerialization;
-                if (parameters != null) {
-                    logonParametersAsString = parameters.GetValuesAsString();
-                } else {
-                    var storage = new SettingsStorageOnString();
-                    ObjectSerializer.WriteObjectPropertyValues(null, storage, SecuritySystem.LogonParameters);
-                    logonParametersAsString = storage.GetContentAsString();
-                }
+                var storage = new SettingsStorageOnString();
+                ObjectSerializer.WriteObjectPropertyValues(null, storage, SecuritySystem.LogonParameters);
+                logonParametersAsString = storage.GetContentAsString();
             }
             return logonParametersAsString;
         }

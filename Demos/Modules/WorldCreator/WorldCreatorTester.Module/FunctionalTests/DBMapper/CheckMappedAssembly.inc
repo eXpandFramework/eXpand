@@ -1,5 +1,5 @@
 ﻿*ReopenApplication
-*Action Log On
+*LogOn
 *Action Navigation(WCDBMapper.TestTable)
 *Action New(Test Table)
 *FillForm

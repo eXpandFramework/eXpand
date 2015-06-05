@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{90
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WinAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj", "{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreator.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\WorldCreator.Win\Xpand.ExpressApp.WorldCreator.Win.csproj", "{85D2C1FA-1478-454F-B703-5ACB4B420C28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj", "{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,20 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D2C1FA-1478-454F-B703-5ACB4B420C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -129,7 +147,6 @@ Global
 		{8D97AC44-202D-4659-8CB0-6D8DCC796156} = {919B3C45-7119-4307-81B0-3B245789129E}
 		{05E856F4-5329-4DB4-8C7E-8B63F24F6506} = {919B3C45-7119-4307-81B0-3B245789129E}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {919B3C45-7119-4307-81B0-3B245789129E}
-		{88207755-7F6B-4B53-9358-190364299985} = {919B3C45-7119-4307-81B0-3B245789129E}
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {90AEAF1A-44B4-4A42-B55B-FE02896FA290}
 		{38E16F8A-517C-4CA9-9775-56F598F25534} = {90AEAF1A-44B4-4A42-B55B-FE02896FA290}
 		{90AEAF1A-44B4-4A42-B55B-FE02896FA290} = {919B3C45-7119-4307-81B0-3B245789129E}

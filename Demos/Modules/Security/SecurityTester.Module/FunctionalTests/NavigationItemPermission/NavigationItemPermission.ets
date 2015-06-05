@@ -14,9 +14,8 @@
 *SaveAndClose
 
 *Action Log Off
-*FillForm
- User Name = User
-*Action Log On
+
+*LogOn User
 !Action Navigation(NavigationItemPermission.Hidden)
 *Action Navigation(NavigationItemPermission.Navigation Item Permission Object)
 

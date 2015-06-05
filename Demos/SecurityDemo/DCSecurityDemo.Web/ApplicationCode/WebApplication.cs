@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.Demos;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Workflow.Xpo;
 using Xpand.ExpressApp.Web;
 
 namespace DCSecurityDemo.Web {
@@ -154,7 +155,7 @@ namespace DCSecurityDemo.Web {
             // 
             // workflowModule1
             // 
-            this.workflowModule1.RunningWorkflowInstanceInfoType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoRunningWorkflowInstanceInfo);
+            this.workflowModule1.RunningWorkflowInstanceInfoType = typeof(XpoRunningWorkflowInstanceInfo);
             this.workflowModule1.StartWorkflowRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoStartWorkflowRequest);
             this.workflowModule1.UserActivityVersionType = typeof(DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion);
             this.workflowModule1.WorkflowControlCommandRequestType = typeof(DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowInstanceControlCommandRequest);

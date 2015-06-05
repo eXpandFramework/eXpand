@@ -2,7 +2,7 @@
 #Application StateMachineTester.Win
 #Application StateMachineTester.Web
 *ScreenCapture
-*Action Log On
+*LogOn
 
 *AutoTest
 

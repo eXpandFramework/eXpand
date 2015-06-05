@@ -3,7 +3,7 @@
 ;#Application ValidationTester.Web
 *ScreenCapture
 *UseModel
-*Action Log On
+*LogOn
 *Navigate Validation Object
 *Action New
 *XpandFillForm

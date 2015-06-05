@@ -421,7 +421,7 @@ namespace Xpand.Persistent.Base.General {
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
             var declaredExportedTypes = base.GetDeclaredExportedTypes();
             return !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration)})
+                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration),SequenceObjectType}).Where(type => type!=null)
                 : declaredExportedTypes;
         }
 
@@ -520,8 +520,10 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
-                if (RuntimeMode && XafTypesInfo.PersistentEntityStore == null)
-                    XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo));
+                if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null){
+                    XpoTypesInfoHelper.ForceInitialize();
+                    new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo).AssignAsPersistentEntityStore();
+                }
             }
             base.Setup(application);
             CheckApplicationTypes();
@@ -632,7 +634,7 @@ namespace Xpand.Persistent.Base.General {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!Executed("CustomizeTypesInfo")){
-                SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
+                typesInfo.ModifySequenceObjectWhenMySqlDatalayer();
                 if (RuntimeMode) {
                     foreach (var persistentType in typesInfo.PersistentTypes) {
                         CreateAttributeRegistratorAttributes(persistentType);
@@ -663,9 +665,9 @@ namespace Xpand.Persistent.Base.General {
                     memberInfo.AddAttribute(new KeyAttribute(false));
                 }
             }
-            if ((!Executed("CustomizedTypesInfo", ModuleType.Win) && !this.IsHosted()))
+            if ((!Executed("CustomizedTypesInfo", ModuleType.Win)))
                 EditorAliasForNullableEnums(typesInfo);
-            else if (!Executed("CustomizedTypesInfo",ModuleType.Web)&&this.IsHosted()){
+            else if (!Executed("CustomizedTypesInfo",ModuleType.Web)){
                 EditorAliasForNullableEnums(typesInfo);
             }
         }
@@ -775,16 +777,6 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModuleBaseExtensions {
-        public static bool IsHosted(this ModuleBase moduleBase){
-            var typeInfo = XafTypesInfo.Instance.FindTypeInfo(moduleBase.GetType());
-            var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
-            if (!(attribute != null && attribute.FilterString == "Xaf.Platform.Web")){
-                var toolboxTabNameAttribute = typeInfo.FindAttribute<ToolboxTabNameAttribute>();
-                return toolboxTabNameAttribute != null && toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabAspNetModules;
-            }
-            return false;
-        }
-
         public static string GetConnectionString(this ModuleBase moduleBase) {
             if (moduleBase.Application.ObjectSpaceProviders.Count == 0) {
                 return moduleBase.Application.ConnectionString;

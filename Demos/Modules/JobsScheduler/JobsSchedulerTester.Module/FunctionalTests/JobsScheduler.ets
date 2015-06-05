@@ -2,7 +2,7 @@
 #Application JobsSchedulerTester.Win
 ;#Application JobsSchedulerTester.Web
 *ScreenCapture
-*Action Log On
+*LogOn
 
 ;Create Job related objects
 *Action Navigation(JobScheduler.JobDetail)

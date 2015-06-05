@@ -69,9 +69,17 @@ namespace WorkflowDemo.Module {
             }
             ObjectSpace.CommitChanges();
 		}
+
         private const string CreateTaskForActiveIssueWorkflowXaml =
-            @"
-<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v14.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v14.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v14.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v14.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v14.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:s4=""clr-namespace:System;assembly=System.Drawing.Design"" xmlns:s5=""clr-namespace:System;assembly=System.Configuration.Install"" xmlns:s6=""clr-namespace:System;assembly=System.DirectoryServices.Protocols"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:wc=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+            @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" " + 
+    @" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:s4=""clr-namespace:System;assembly=System.Drawing.Design"" xmlns:s5=""clr-namespace:System;assembly=System.Configuration.Install"" xmlns:s6=""clr-namespace:System;assembly=System.DirectoryServices.Protocols"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:wc=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <x:Members>
     <x:Property Name=""targetObjectId"" Type=""InArgument(x:Object)"" />
   </x:Members>
@@ -103,8 +111,9 @@ namespace WorkflowDemo.Module {
     <Delay Duration=""00:00:01"" sap:VirtualizedContainerService.HintSize=""242,22"" />
   </dwa:ObjectSpaceTransactionScope>
 </Activity>";
+
         private const string CodeActivityCreateTaskForActiveIssueWorkflowXaml =
-        @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wm=""clr-namespace:WorkflowDemo.Module.Activities;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+            @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wm=""clr-namespace:WorkflowDemo.Module.Activities;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <x:Members>
     <x:Property Name=""targetObjectId"" Type=""InArgument(x:Object)"" />
   </x:Members>
@@ -123,8 +132,17 @@ namespace WorkflowDemo.Module {
     <WriteLine sap:VirtualizedContainerService.HintSize=""211,59"" Text=""[&quot;Write to track record: &quot; + createdTaskKey.ToString()]"" />
   </Sequence>
 </Activity>";
-		private const string StartWorkflowViaReceiveAndCustomContractXaml = 
-			@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""812,627"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v14.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v14.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v14.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v14.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v14.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+
+		private static string StartWorkflowViaReceiveAndCustomContractXaml = 
+@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""812,627"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" " +
+    @" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Core"" xmlns:s3=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <Sequence sap:VirtualizedContainerService.HintSize=""772,587"" mva:VisualBasic.Settings=""Assembly references and imported namespaces serialized as XML namespaces"">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments=""x:String, x:Object"">
@@ -186,10 +204,18 @@ namespace WorkflowDemo.Module {
       </PickBranch>
     </Pick>
   </Sequence>
-</Activity>
-";
+</Activity>";
+
 		private const string ReceiveCorrelationsXaml = 
-			@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""330,1198"" mva:VisualBasic.Settings=""Assembly references and imported namespaces for internal implementation"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v14.1"" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v14.1"" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v14.1"" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v14.1"" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v14.1"" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v14.1"" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mv=""clr-namespace:Microsoft.VisualBasic;assembly=System"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Xml"" xmlns:s3=""clr-namespace:System;assembly=System.Core"" xmlns:s4=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sad=""clr-namespace:System.Activities.Debugger;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=System"" xmlns:scg1=""clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"" xmlns:scg2=""clr-namespace:System.Collections.Generic;assembly=System.Core"" xmlns:scg3=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:sd=""clr-namespace:System.Data;assembly=System.Data"" xmlns:sl=""clr-namespace:System.Linq;assembly=System.Core"" xmlns:ssa=""clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities"" xmlns:ssx=""clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"" xmlns:st=""clr-namespace:System.Text;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
+			@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.xWF1"" sap:VirtualizedContainerService.HintSize=""330,1198"" mva:VisualBasic.Settings=""Assembly references and imported namespaces for internal implementation"" xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" " +
+    @" xmlns:dpb=""clr-namespace:DevExpress.Persistent.BaseImpl;assembly=DevExpress.Persistent.BaseImpl.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dx1=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" +
+    @" xmlns:dxh1=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v" + AssemblyInfo.VersionShort + @""" " +
+    @" xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v" + AssemblyInfo.VersionShort + @"""" + 
+    @" xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" xmlns:mv=""clr-namespace:Microsoft.VisualBasic;assembly=System"" xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"" xmlns:p=""http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"" xmlns:s=""clr-namespace:System;assembly=mscorlib"" xmlns:s1=""clr-namespace:System;assembly=System"" xmlns:s2=""clr-namespace:System;assembly=System.Xml"" xmlns:s3=""clr-namespace:System;assembly=System.Core"" xmlns:s4=""clr-namespace:System;assembly=System.ServiceModel"" xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities"" xmlns:sad=""clr-namespace:System.Activities.Debugger;assembly=System.Activities"" xmlns:sap=""http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"" xmlns:scg=""clr-namespace:System.Collections.Generic;assembly=System"" xmlns:scg1=""clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"" xmlns:scg2=""clr-namespace:System.Collections.Generic;assembly=System.Core"" xmlns:scg3=""clr-namespace:System.Collections.Generic;assembly=mscorlib"" xmlns:sd=""clr-namespace:System.Data;assembly=System.Data"" xmlns:sl=""clr-namespace:System.Linq;assembly=System.Core"" xmlns:ssa=""clr-namespace:System.ServiceModel.Activities;assembly=System.ServiceModel.Activities"" xmlns:ssx=""clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"" xmlns:st=""clr-namespace:System.Text;assembly=mscorlib"" xmlns:wmo=""clr-namespace:WorkflowDemo.Module.Objects;assembly=WorkflowDemo.Module"" xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
   <Sequence DisplayName=""Main"" sap:VirtualizedContainerService.HintSize=""290,1158"">
     <Sequence.Variables>
       <Variable x:TypeArguments=""p:CorrelationHandle"" Name=""clientIdHandle"" />
@@ -264,8 +290,7 @@ namespace WorkflowDemo.Module {
       </p:SendParametersContent>
     </p:SendReply>
   </Sequence>
-</Activity>
-";
+</Activity>";
 
 }
 

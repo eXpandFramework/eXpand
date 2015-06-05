@@ -610,7 +610,10 @@ namespace Xpand.Utils.Win32 {
             /// </summary>
             /// <returns>The return value is the handle of the desktop window.</returns>
             [DllImport("user32.dll")]
-            internal static extern IntPtr GetDesktopWindow();
+            public static extern IntPtr GetDesktopWindow();
+
+            [DllImport("user32.dll")]
+            public static extern IntPtr GetWindowDC(IntPtr hWnd);
         }
 
         public class WindowFocus {
@@ -774,7 +777,24 @@ namespace Xpand.Utils.Win32 {
 
         }
 
-        public class BitBlockTransfer {
+        public class GDI32 {
+            [DllImport("gdi32.dll", SetLastError = true)]
+            public static extern bool DeleteObject(IntPtr hObject);
+
+            [DllImport("user32.dll", SetLastError = true)]
+            public static extern IntPtr ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+            [DllImport("gdi32.dll", SetLastError = true)]
+            public static extern bool DeleteDC(IntPtr hDC);
+
+            [DllImport("gdi32.dll", SetLastError = true)]
+            public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
+
+            [DllImport("gdi32.dll", SetLastError = true)]
+            public static extern IntPtr CreateCompatibleBitmap(IntPtr hDC, int nWidth, int nHeight);
+
+            [DllImport("gdi32.dll")]
+            public static extern IntPtr CreateCompatibleDC(IntPtr hDC);
             /// <summary>
             /// The BitBlt function performs a bit-block transfer of the color data corresponding to a rectangle of pixels from the specified source device context into a destination device context. 
             /// </summary>

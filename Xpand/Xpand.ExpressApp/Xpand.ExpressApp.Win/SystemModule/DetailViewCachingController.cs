@@ -112,6 +112,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (winWindow != null) {
                     if (winWindow.View.ObjectSpace.IsNewObject(winWindow.View.CurrentObject))
                         winWindow.View.ObjectSpace.RollbackSilent();
+                    winWindow.View.SetPropertyValue("KeyMemberValue", null);
                     var currentObject = GetCurrentObject(e, winWindow);
                     winWindow.View.CurrentObject = currentObject;
                 }
@@ -155,10 +156,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void CustomizeViewShortcut(DetailViewCreatedEventArgs e, WinWindow winWindow, string temporaryObjectKey) {
             e.View.CustomizeViewShortcut += (o, args) => {
-                var shortcut = args.ViewShortcut;
-                if (shortcut.ContainsKey(ViewShortcut.IsNewObject)) {
-                    shortcut.Remove(ViewShortcut.IsNewObject);
-                }
+                ViewShortcut shortcut = args.ViewShortcut;
+                shortcut.Remove(ViewShortcut.IsNewObject);
             };
             winWindow.View.CustomizeViewShortcut += (o, args) => {
                 var shortcut = args.ViewShortcut;

@@ -5,10 +5,10 @@
 
 *ReopenApplication
 *UseModel TabbedMDI
-*Action Log On
+*LogOn
 *Navigate Default.Detail View Caching Object
 *XpandProcessRecord
  Year = 950
 
 *ReopenApplication
-*Action Log On
+*LogOn

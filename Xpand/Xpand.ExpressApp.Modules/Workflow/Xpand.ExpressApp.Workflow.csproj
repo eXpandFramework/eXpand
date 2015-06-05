@@ -82,6 +82,9 @@
     <Reference Include="DevExpress.ExpressApp.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Workflow.Activities.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

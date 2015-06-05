@@ -3,7 +3,7 @@
 #DropDB WCDBMapperTester
 #Application WorldCreatorTester.Win
 ;#Application WorldCreatorTester.Web
-*Action Log On
+*LogOn
 *ScreenCapture
 
 *Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS

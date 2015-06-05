@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {
         protected string SaveUploadFile() {
             string fileName = "";
             if (HasFile()) {
-                string uploadFolder = HtmlEditor.SettingsImageUpload.UploadImageFolder;
+                string uploadFolder = HtmlEditor.SettingsDialogs.InsertImageDialog.SettingsImageUpload.UploadFolder;
                 fileName = MapPath(uploadFolder) + _uploadControl.UploadedFiles[0].FileName;
                 try {
                     _uploadControl.UploadedFiles[0].SaveAs(fileName, false);

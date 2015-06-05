@@ -8,7 +8,7 @@
  Name = View
 *ReopenApplication
 *UseModel
-*Action Log On
+*LogOn
 
 ;checks
 *Navigate ViewEditMode.View

@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo;
 

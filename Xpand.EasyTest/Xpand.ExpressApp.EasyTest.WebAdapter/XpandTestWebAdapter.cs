@@ -150,6 +150,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
+//            registrator.RegisterCommand(XpandCompareScreenshotCommand.Name, typeof(Commands.XpandCompareScreenshotCommand));
         }
     }
 

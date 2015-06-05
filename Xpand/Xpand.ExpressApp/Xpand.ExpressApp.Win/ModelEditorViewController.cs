@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -19,8 +20,10 @@ namespace Xpand.ExpressApp.Win {
 
         }
 
+
         protected override void SubscribeEvents() {
             base.SubscribeEvents();
+            
             SaveAction.ExecuteCompleted += SaveActionOnExecuteCompleted;
         }
 
@@ -34,7 +37,11 @@ namespace Xpand.ExpressApp.Win {
         }
 
         protected override void UpdateActionState() {
-            base.UpdateActionState();
+            try{
+                base.UpdateActionState();
+            }
+            catch (NullReferenceException){
+            }
             if (CurrentModelNode != null) {
                 var modelRuntimeMember = CurrentModelNode.ModelNode as IModelMemberEx;
                 if (modelRuntimeMember != null) {

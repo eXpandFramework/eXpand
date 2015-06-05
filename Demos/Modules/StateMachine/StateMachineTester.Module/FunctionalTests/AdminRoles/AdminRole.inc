@@ -1,6 +1,5 @@
-﻿*XpandFillForm 
- User Name = User
-*Action Log On
+﻿
+*LogOn User
 
 *Action Navigation(Default.Test Task)
 *Action New(Test Task)

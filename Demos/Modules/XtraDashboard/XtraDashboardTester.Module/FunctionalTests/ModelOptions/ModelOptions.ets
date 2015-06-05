@@ -3,7 +3,7 @@
 ;#Application XtraDashboardTester.Web
 *UseModel
 *ScreenCapture
-*Action Log On
+*LogOn
 
 #IncludeFile .\Check Navigation.inc
 

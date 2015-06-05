@@ -195,8 +195,12 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelApplicationBaseExtensions {
-        public static bool IsHosted(this IModelApplication modelApplication){
-            return ((IModelSources) modelApplication).Modules.Any(@base => @base.IsHosted());
+        public static bool IsHosted(this IModelApplication application){
+            return ((IModelSources) application).Modules.AreHosted();
+        }
+
+        public static bool IsHosted(this ModelApplicationBase applicationBase){
+            return ((IModelApplication) applicationBase).IsHosted();
         }
 
         static ModelApplicationBase _strategiesModel;

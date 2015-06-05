@@ -2,5 +2,5 @@
 ;#Application SystemTester.Web
 #Application SystemTester.Win
 *UseModel
-*Action Log On
+*LogOn
 *ScreenCapture

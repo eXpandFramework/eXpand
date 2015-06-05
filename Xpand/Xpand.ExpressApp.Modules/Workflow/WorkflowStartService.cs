@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Workflow {
                     if (HostManager.Hosts.TryGetValue(workflow.GetUniqueId(), out host)) {
                         if (NeedToStartWorkflow(objectSpace, workflow)) {
                             Guid instanceHandle = host.StartWorkflow(new Dictionary<string, object>());
-                            GetService<IRunningWorkflowInstanceInfoService>().CreateRunningWorkflowInstanceInfo(workflow.Name, host.ActivityUnigueId, null, instanceHandle);
+                            GetService<IRunningWorkflowInstanceInfoService>().CreateRunningWorkflowInstanceInfo(workflow.Name, host.ActivityUniqueId, null, instanceHandle);
 
                             AfterWorkFlowStarted(objectSpace, workflow, instanceHandle);
                             objectSpace.CommitChanges();

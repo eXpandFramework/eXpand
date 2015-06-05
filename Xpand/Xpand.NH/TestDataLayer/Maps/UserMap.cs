@@ -1,8 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xpand.ExpressApp.NH.BaseImpl;
 
 namespace TestDataLayer.Maps

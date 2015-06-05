@@ -73,4 +73,4 @@
 *Action Save
 
 *ReopenApplication
-*Action Log On
+*LogOn

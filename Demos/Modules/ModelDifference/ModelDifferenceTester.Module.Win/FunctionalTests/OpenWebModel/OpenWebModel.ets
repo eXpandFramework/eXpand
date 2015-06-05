@@ -1,11 +1,8 @@
 ﻿#Application ModelDifferenceTester.Web
 #Application ModelDifferenceTester.Win
-#IfDef ModelDifferenceTester.Web
-*SqlDropDB 
- DBName = ModelDifferenceTesterEasyTest
-#EndIf
 
-*Action Log On
+#IncludeFile .\Web.inc
+*LogOn
 *ScreenCapture
 
 #IncludeFile .\Win.inc

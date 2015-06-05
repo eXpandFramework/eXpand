@@ -138,6 +138,7 @@
     <Compile Include="DB\DataStoreSelectDataEventArgs.cs" />
     <Compile Include="DB\DataStoreUpdateSchemaEventArgs.cs" />
     <Compile Include="DB\IDataStoreProxy.cs" />
+    <Compile Include="Filtering\XpandCriteriaOperatorBase.cs" />
     <Compile Include="IXPSimpleObjectExtensions.cs" />
     <Compile Include="MetaData\XpandCalcMemberInfo.cs" />
     <Compile Include="MetaData\XpandCodeMemberInfo.cs" />

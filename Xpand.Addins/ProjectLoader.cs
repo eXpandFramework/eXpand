@@ -48,7 +48,8 @@ namespace XpandAddIns {
         }
 
         public void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1,Action<string> notFound ) {
-            var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex));
+            string key = String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex);
+            var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, key);
             Log.Send("ProjectsCount:"+readStrings.Count());
             for (int i = 0; i < readStrings.Count(); i++) {
                 var strings = readStrings[i].Split('|');

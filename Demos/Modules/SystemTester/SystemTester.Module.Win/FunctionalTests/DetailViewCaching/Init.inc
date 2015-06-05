@@ -2,5 +2,5 @@
 #Application SystemTester.Win
 *UseModel DetailViewCaching
 *ScreenCapture
-*Action Log On
+*LogOn
 *Navigate Default.Detail View Caching Object

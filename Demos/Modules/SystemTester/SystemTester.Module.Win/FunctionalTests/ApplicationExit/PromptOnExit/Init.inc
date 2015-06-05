@@ -1,6 +1,6 @@
 ﻿#DropDB SystemTesterEasyTest
 #Application SystemTester.Win
 *UseModel ..\ApplicationExit
-*Action Log On
+*LogOn
 *ScreenCapture
 *Action Navigation(Default.Application Exit Object)

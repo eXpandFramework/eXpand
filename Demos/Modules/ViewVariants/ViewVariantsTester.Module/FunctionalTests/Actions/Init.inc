@@ -2,5 +2,5 @@
 #Application ViewVariantsTester.Win
 *UseModel
 *ScreenCapture
-*Action Log On
+*LogOn
 *Action Navigation(Default.Actions Object)

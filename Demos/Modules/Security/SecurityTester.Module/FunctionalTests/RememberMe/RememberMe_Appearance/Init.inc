@@ -7,7 +7,7 @@
  User Name = Admin
  Password = ''
  Remember Me = False
-*Action Log On
+*LogOn
 
 *ChangeUserPassword 1111
 
@@ -15,6 +15,6 @@
 *FillForm
  Password = 1111
  Remember Me = True
-*Action Log On
+*LogOn
 
 *ScreenCapture

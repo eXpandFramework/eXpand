@@ -4,7 +4,7 @@
 #Application EmailTester.Web
 
 *ScreenCapture
-*Action Log On
+*LogOn
 
 
 *AutoTest

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -28,6 +26,19 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+
+        public static bool IsHosted(this XafApplication application){
+            return application.Modules.AreHosted();
+        }
+
+        internal static bool AreHosted(this IEnumerable<ModuleBase> moduleBases) {
+            return moduleBases.Any(@base => {
+                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(@base.GetType());
+                var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
+                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
+            });
         }
 
         public static string GetStorageFolder(this XafApplication app,string folderName){
@@ -72,11 +83,6 @@ namespace Xpand.Persistent.Base.General {
 
         public static bool IsLoggedIn(this XafApplication application){
             return SecuritySystem.CurrentUser != null;
-        }
-
-        public static bool IsHosted(this XafApplication application){
-            var moduleList = application!=null?application.Modules: ((IModelSources) CaptionHelper.ApplicationModel).Modules;
-            return moduleList.Any(@base => @base.IsHosted());
         }
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
