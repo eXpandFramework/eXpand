@@ -60,58 +60,58 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.2">
+    <Reference Include="DevExpress.Utils.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.BonusSkins.v14.2">
+    <Reference Include="DevExpress.BonusSkins.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v14.2.Core">
+    <Reference Include="DevExpress.Printing.v15.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.2">
+    <Reference Include="DevExpress.Data.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.2">
+    <Reference Include="DevExpress.ExpressApp.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Images.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.2">
+    <Reference Include="DevExpress.Persistent.Base.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v14.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.2">
+    <Reference Include="DevExpress.Xpo.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v14.2">
+    <Reference Include="DevExpress.XtraPrinting.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v14.2">
+    <Reference Include="DevExpress.XtraGrid.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v14.2">
+    <Reference Include="DevExpress.XtraBars.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v14.2">
+    <Reference Include="DevExpress.XtraEditors.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v14.2">
+    <Reference Include="DevExpress.XtraLayout.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v14.2">
+    <Reference Include="DevExpress.XtraNavBar.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">

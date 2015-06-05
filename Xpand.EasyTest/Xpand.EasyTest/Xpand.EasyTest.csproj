@@ -51,10 +51,10 @@
       <Private>True</Private>
       <HintPath>..\..\Support\_third_party_assemblies\Packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.2">
+    <Reference Include="DevExpress.Data.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.EasyTest.v14.2">
+    <Reference Include="DevExpress.EasyTest.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">

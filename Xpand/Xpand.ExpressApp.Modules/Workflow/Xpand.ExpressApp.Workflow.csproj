@@ -64,28 +64,28 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Workflow.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.2">
+    <Reference Include="DevExpress.Data.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.2">
+    <Reference Include="DevExpress.ExpressApp.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v14.2">
+    <Reference Include="DevExpress.Workflow.Activities.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.2">
+    <Reference Include="DevExpress.Xpo.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Activities" />

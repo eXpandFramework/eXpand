@@ -33,11 +33,11 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v14.2">
+    <Reference Include="DevExpress.EasyTest.v15.1">
       <SpecificVersion>False</SpecificVersion>
       
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v14.2">
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v15.1">
       <SpecificVersion>False</SpecificVersion>
       
     </Reference>
