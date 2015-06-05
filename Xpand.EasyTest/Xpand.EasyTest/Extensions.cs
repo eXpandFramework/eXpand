@@ -132,10 +132,9 @@ namespace Xpand.EasyTest {
         public static void DeleteUserModel(this TestApplication testApplication) {
             var appPath = testApplication.ParameterValue<string>(ApplicationParams.FileName);
             var directoryName = File.Exists(appPath) ? Path.GetDirectoryName(appPath) + "" : testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
-            if (directoryName != null)
-                foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
-                    File.Delete(file);
-                }
+            foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
+                File.Delete(file);
+            }
         }
 
         public static T ParameterValue<T>(this TestApplication application, ApplicationParams applicationParams) {
@@ -149,9 +148,7 @@ namespace Xpand.EasyTest {
 
         public static void ClearModel(this TestApplication application){
             var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
-            var path = Path.Combine(appPath,"Model.xafml");
-            if (File.Exists(path))
-                File.WriteAllText(path, @"<?xml version=""1.0"" ?><Application />");
+            File.WriteAllText(Path.Combine(appPath,"Model.xafml"), @"<?xml version=""1.0"" ?><Application />");
         }
 
         public static void CopyModel(this TestApplication application){

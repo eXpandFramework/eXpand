@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
-  <Applications>
-    <!-- Win -->
-    <Application
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="30">
+	<Applications>
+		<!-- Win -->
+		<Application
 			Name="AuditTrailTester.Win"
 			FileName="[WinAppBin]\AuditTrailTester.Win.exe"
-      AdapterFileName="[WinAdapterFileName]"
+			AdapterAssemblyName="[WinAdapterAssemblyName]"
 			CommunicationPort="4100"/>
-    <!-- Web -->
-    <Application
+		<!-- Web -->
+		<Application
 			Name="AuditTrailTester.Web"
-			Url="http://localhost:4030"
+			Url="http://localhost:50131"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]"
-/>
-    <!-- For IIS -->
-    <!--Application
-			Name="[SolutionName]Web"
-			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
-			 AdapterFileName="[WebAdapterFileName]"/-->
-  </Applications>
-  <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="AuditTrailTesterEasyTest" />
-  </TestDatabases>
-  <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\AuditTrailTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\AuditTrailTester.Web" />
-  </Aliases>
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
+		<!-- For IIS -->
+		<!--Application
+			Name="AuditTrailTester.Web"
+			Url="http://localhost/AuditTrailTester.Web/Default.aspx"
+			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
+	</Applications>
+	<TestDatabases>
+		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="AuditTrailTesterEasyTest"/>
+	</TestDatabases>
+
+	<Aliases>
+		
+		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=15.1.7.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=15.1.7.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\AuditTrailTester.Win\Bin\EasyTest" />
+		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\AuditTrailTester.Web" />
+	</Aliases>
 </Options>

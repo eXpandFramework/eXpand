@@ -778,9 +778,11 @@ namespace Xpand.Persistent.Base.General {
         public static bool IsHosted(this ModuleBase moduleBase){
             var typeInfo = XafTypesInfo.Instance.FindTypeInfo(moduleBase.GetType());
             var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
-            if ((attribute != null) && attribute.FilterString == "Xaf.Platform.Web") return true;
-            var toolboxTabNameAttribute = typeInfo.FindAttribute<ToolboxTabNameAttribute>();
-            return toolboxTabNameAttribute != null && toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabAspNetModules;
+            if (!(attribute != null && attribute.FilterString == "Xaf.Platform.Web")){
+                var toolboxTabNameAttribute = typeInfo.FindAttribute<ToolboxTabNameAttribute>();
+                return toolboxTabNameAttribute != null && toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabAspNetModules;
+            }
+            return false;
         }
 
         public static string GetConnectionString(this ModuleBase moduleBase) {
