@@ -3,9 +3,7 @@
 #Application AuditTrailTester.Win
 #Application AuditTrailTester.Web
 
-*FillForm
- User Name = Admin
-*Action Log On
+*LogOn
 
 *AutoTest
 

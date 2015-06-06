@@ -43,13 +43,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
             }
         }
 
-/*
-        private void ApplicationOnDetailViewCreated(object sender, DetailViewCreatedEventArgs e) {
-            e.View.ControlsCreated += ViewOnControlsCreated;
-            e.View.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(e.View);
-        }
-*/
-
         private void ViewOnControlsCreated(object sender, EventArgs eventArgs) {
             var view = ((View)sender);
             view.ControlsCreated -= ViewOnControlsCreated;
