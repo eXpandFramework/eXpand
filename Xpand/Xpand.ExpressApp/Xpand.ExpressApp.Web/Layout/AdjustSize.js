@@ -92,8 +92,6 @@
 
         }
         
-        var dxo = aspxGetGlobalEvents();
-        dxo.EndCallback.AddHandler(window.AdjustSize);
         window.AdjustSizeOverriden = true;
         window.AdjustSizeCore();
     }
