@@ -3,6 +3,7 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+
 using Xpand.ExpressApp.Security.Core;
 
 namespace SecurityTester.Module.DatabaseUpdate {
@@ -18,7 +19,6 @@ namespace SecurityTester.Module.DatabaseUpdate {
             var userRole = ObjectSpace.GetRole("User");
             var user = (SecuritySystemUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
-            
 
         }
     }

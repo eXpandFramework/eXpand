@@ -84,6 +84,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogonObject.cs" />
+    <Compile Include="FunctionalTests\Registration\RegistrationObject.cs" />
     <Compile Include="FunctionalTests\RememberMe\RememberMeObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -127,6 +128,11 @@
     <EmbeddedResource Include="FunctionalTests\RememberMe\RememberMe.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="FunctionalTests\Registration\Registration.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="FunctionalTests\Registration\Init.inc" />
+    <None Include="FunctionalTests\Registration\Registration.ets" />
     <None Include="FunctionalTests\RememberMe\RememberMe.ets" />
     <EmbeddedResource Include="FunctionalTests\RememberMe\RememberMe_Appearance\RememberMe_Appearance.xafml">
       <SubType>Designer</SubType>
@@ -140,6 +146,7 @@
     <Content Include="FunctionalTests\ChooseDatabaseAtLogon\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\Registration\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.web.png" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.win.png" />
