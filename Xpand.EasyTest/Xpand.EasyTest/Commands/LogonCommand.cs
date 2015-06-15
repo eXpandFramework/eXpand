@@ -20,6 +20,10 @@ namespace Xpand.EasyTest.Commands{
             var fillFormCommand = new XpandFillFormCommand();
             var userName = GetUserName();
             fillFormCommand.Parameters.Add(new Parameter("User Name", userName, true, StartPosition));
+            var extraParameter = Parameters.ExtraParameter;
+            if (extraParameter.Value!=null) {
+                fillFormCommand.Parameters.Add(new Parameter("Password", extraParameter.Value, true, StartPosition));
+            }
             fillFormCommand.Execute(adapter);
         }
 

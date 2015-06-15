@@ -84,24 +84,68 @@ namespace Xpand.ExpressApp.Security.Registration {
             e.ShowViewParameters.CreatedView = detailView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
             e.ShowViewParameters.TargetWindow = TargetWindow.Current;
-            var dialogController = Frame.GetController<DialogController>();
+            var dialogController = Frame.GetController<LogonController>();
+
+            Frame.RegisterController(new ActionDataHolder(dialogController.AcceptAction.Caption, dialogController.AcceptAction.ToolTip));
+            dialogController.AcceptAction.Caption = e.Action.Caption;
+            dialogController.AcceptAction.ToolTip = e.Action.ToolTip;
             dialogController.AcceptAction.Executing+=AcceptActionOnExecuting;
-            dialogController.AcceptAction.Execute+=AcceptAction_Execute;
-            dialogController.CancelAction.Execute+=CancelAction_Execute;
+            dialogController.CancelAction.Executing+=CancelActionOnExecuting;
+            
+        }
+
+        class ActionDataHolder:Controller{
+            private readonly string _caption;
+            private readonly string _tooltip;
+
+            public ActionDataHolder(string caption, string tooltip){
+                _caption = caption;
+                _tooltip = tooltip;
+            }
+
+            public string Caption{
+                get { return _caption; }
+            }
+
+            public string Tooltip{
+                get { return _tooltip; }
+            }
+        }
+
+        private void CancelActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
+            CancelParameters(View.CurrentObject as ILogonParameters);
+            var actionBase = (ActionBase)sender;
+            var window = ((DialogController)actionBase.Controller).Window;
+            ShowCallerView(actionBase, window, cancelEventArgs);
         }
 
         void AcceptActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-            var view = ((DialogController) ((ActionBase) sender).Controller).Window.View;
-            var currentObject = view.CurrentObject;
-            Validator.RuleSet.Validate(view.ObjectSpace,currentObject,ContextIdentifier.Save);
+            var actionBase = (ActionBase) sender;
+            var window = ((DialogController) actionBase.Controller).Window;
+
+            var currentObject = window.View.CurrentObject;
+            Validator.RuleSet.Validate(window.View.ObjectSpace, currentObject, ContextIdentifier.Save);
+
+            AcceptParameters(View.CurrentObject as ILogonParameters);
+            ShowCallerView(actionBase,window,cancelEventArgs);
         }
-        
-        private void AcceptAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            AcceptParameters(e.CurrentObject as ILogonParameters);
-        }
-        
-        private void CancelAction_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            CancelParameters(e.CurrentObject as ILogonParameters);
+
+        private void ShowCallerView(ActionBase actionBase, Window window, CancelEventArgs cancelEventArgs){
+            var dialogController = window.GetController<DialogController>();
+            var actionDataHolder = window.GetController<ActionDataHolder>();
+            dialogController.AcceptAction.Caption = actionDataHolder.Caption;
+            dialogController.AcceptAction.ToolTip = actionDataHolder.Tooltip;
+            cancelEventArgs.Cancel = true;
+            actionBase.Executing -= AcceptActionOnExecuting;
+            Application.LogOff();
+//            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), SecuritySystem.LogonParameters);
+//            detailView.ViewEditMode=ViewEditMode.Edit;
+//            var showViewParameters = new ShowViewParameters{
+//                CreatedView = detailView,
+//                TargetWindow = TargetWindow.Current,
+//                Context = TemplateContext.PopupWindow
+//            };
+//            Application.ShowViewStrategy.ShowView(showViewParameters, new ShowViewSource(Frame, actionBase));
         }
 
         protected virtual void AcceptParameters(ILogonParameters parameters) {
@@ -110,10 +154,8 @@ namespace Xpand.ExpressApp.Security.Registration {
             if (!eventArgs.Handled){
                 parameters.Process(Application,ObjectSpace);
             }
-            OnCustomProccessedLogonParameter(eventArgs);
-            if (!eventArgs.Handled)
-                Application.LogOff();
         }
+
         protected virtual void CancelParameters(ILogonParameters parameters) {
             var parameterEventArgs = new ParameterEventArgs(parameters);
             OnCustomCancelLogonParameter(parameterEventArgs);
@@ -124,9 +166,11 @@ namespace Xpand.ExpressApp.Security.Registration {
         protected virtual bool GetLogonParametersActiveState() {
             return View != null && View.ObjectTypeInfo != null && View.ObjectTypeInfo.Implements<ILogonParameters>();
         }
+
         public SimpleAction RestorePasswordAction {
             get { return _restorePassword; }
         }
+
         public SimpleAction RegisterUserAction {
             get { return _registerUser; }
         }

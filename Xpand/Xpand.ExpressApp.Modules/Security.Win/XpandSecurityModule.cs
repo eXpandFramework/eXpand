@@ -43,16 +43,24 @@ namespace Xpand.ExpressApp.Security.Win {
         }
 
         private void ApplicationOnLastLogonParametersWriting(object sender, LastLogonParametersWritingEventArgs e){
-            var windowsCredentialStorage = e.SettingsStorage as EncryptedSettingsStorage;
-            if (windowsCredentialStorage != null){
-                ObjectSerializer.WriteObjectPropertyValues(e.DetailView, e.SettingsStorage, e.LogonObject);
-                var contents = windowsCredentialStorage.GetContent();
-                File.WriteAllBytes(Path.Combine(_logonParametersFilePath, LogonParametersFile), contents);
+            if (((IModelOptionsAuthentication)Application.Model.Options).Athentication.AutoAthentication.Enabled) {
+                var windowsCredentialStorage = e.SettingsStorage as EncryptedSettingsStorage;
+                if (windowsCredentialStorage != null){
+                    var path = Path.Combine(_logonParametersFilePath, LogonParametersFile);
+                    if (((XpandLogonParameters) e.LogonObject).RememberMe){
+                        ObjectSerializer.WriteObjectPropertyValues(e.DetailView, e.SettingsStorage, e.LogonObject);
+                        var contents = windowsCredentialStorage.GetContent();
+                        File.WriteAllBytes(path, contents);
+                    }
+                    else{
+                        File.Delete(path);
+                    }
+                }
             }
         }
 
         private void ApplicationOnCreateCustomLogonParameterStore(object sender, CreateCustomLogonParameterStoreEventArgs e){
-            if (SecuritySystem.LogonParameters is XpandLogonParameters){
+            if (SecuritySystem.LogonParameters is XpandLogonParameters&& ((IModelOptionsAuthentication) Application.Model.Options).Athentication.AutoAthentication.Enabled){
                 var encryptedSettingsStorage = new EncryptedSettingsStorage();
                 e.Storage = encryptedSettingsStorage;
                 _logonParametersFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), CaptionHelper.ApplicationModel.Title);
