@@ -258,9 +258,10 @@ namespace Xpand.Utils.Helpers{
             return filtersSequence.Apply((Bitmap)original);
         }
 
-        public static Image ToGrayScale(this Image original){
-            var filtersSequence = new FiltersSequence{Grayscale.CommonAlgorithms.BT709};
-            return filtersSequence.Apply((Bitmap) original);
+        public static Image ToGrayScale(this Image original,PixelFormat pixelFormat=PixelFormat.Indexed){
+            var filtersSequence = new FiltersSequence { Grayscale.CommonAlgorithms.BT709 };
+            var bitmap = filtersSequence.Apply((Bitmap)original);
+            return AForge.Imaging.Image.Clone(bitmap, pixelFormat);
         }
 
         public static Image Resize(this Image originalImage, int newWidth, int newHeight) {
