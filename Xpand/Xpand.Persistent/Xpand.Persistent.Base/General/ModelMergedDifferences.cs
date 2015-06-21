@@ -714,7 +714,7 @@ namespace Xpand.Persistent.Base.General {
 
     public class MergedDifferenceColumnVisibilityCalculator:IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return ((IModelMergedDifference) node).View as IModelListView!=null;
+            return ((IModelMergedDifference) node).View is IModelListView;
         }
     }
 
