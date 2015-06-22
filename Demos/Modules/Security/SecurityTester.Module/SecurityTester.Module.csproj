@@ -137,6 +137,7 @@
     <EmbeddedResource Include="FunctionalTests\RememberMe\RememberMe_Appearance\RememberMe_Appearance.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="FunctionalTests\RememberMe\RememberMeNotActive\RememberMeNotActive.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -147,10 +148,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="FunctionalTests\Registration\Config.xml" />
+    <Content Include="FunctionalTests\RememberMe\RememberMeNotActive\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.web.png" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Images\LogonParameters.win.png" />
-    <None Include="FunctionalTests\RememberMe\RememberMe_Appearance\Init.inc" />
+    <None Include="FunctionalTests\RememberMe\WhenRememberMeNotActive.inc" />
     <None Include="FunctionalTests\RememberMe\When logoff.inc" />
     <None Include="FunctionalTests\RememberMe\When startup.inc" />
     <None Include="FunctionalTests\RememberMe\RememberMe_Appearance\RememberMe_Appearance.ets" />
