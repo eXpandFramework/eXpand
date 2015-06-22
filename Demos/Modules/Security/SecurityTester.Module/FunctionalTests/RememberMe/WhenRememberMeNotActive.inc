@@ -3,4 +3,3 @@
 *CheckFieldValues
  Password = ''
  Remember Me = False
-
