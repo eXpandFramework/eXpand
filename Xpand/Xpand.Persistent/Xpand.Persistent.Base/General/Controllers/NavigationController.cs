@@ -62,7 +62,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
-            if ((Frame.Template == null || Frame.Template == e.Template) && e.Template is IDockManagerHolder) {
+            if (Frame != null && ((Frame.Template == null || Frame.Template == e.Template) && e.Template is IDockManagerHolder)) {
                 Application.CustomizeTemplate -= Application_CustomizeTemplate;
                 var dockManagerHolder = ((IDockManagerHolder)e.Template);
                 var dockPanel = GetNavigationPanel(dockManagerHolder);
