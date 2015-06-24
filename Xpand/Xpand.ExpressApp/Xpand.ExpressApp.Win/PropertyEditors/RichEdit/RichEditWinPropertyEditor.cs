@@ -47,12 +47,17 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             var detailView = View as DetailView;
             if (detailView != null)
                 foreach (var item in detailView.GetItems<RichEditWinPropertyEditor>()){
-                    var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
-                    foreach (var modelAdapter in richEdit.ModelAdapters){
-                        new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
-                    }
-                    new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
+                    item.ControlCreated+=ItemOnControlCreated;
                 }
+        }
+
+        private void ItemOnControlCreated(object sender, EventArgs eventArgs) {
+            var item = ((RichEditWinPropertyEditor) sender);
+            var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
+            foreach (var modelAdapter in richEdit.ModelAdapters) {
+                new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
+            }
+            new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
@@ -276,10 +281,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         void IPropertyEditor.SetValue(string value){
             Control.Text = value;
         }
-
-//        protected override object GetControlValueCore(){
-//            return Control.Text;
-//        }
     }
 
     #region SyntaxHighlightService
