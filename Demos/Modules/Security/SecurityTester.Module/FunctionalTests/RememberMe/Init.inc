@@ -1,8 +1,8 @@
 ﻿#DropDB SecurityTesterEasyTest
 #Application SecurityTester.Win
-#Application SecurityTester.Web
+;#Application SecurityTester.Web
 
-*LogOn
+*LogOn Admin ()
 
 *ChangeUserPassword 123
 

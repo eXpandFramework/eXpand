@@ -5,7 +5,7 @@
 *XpandFillForm
  DBServer = SQLite
 *LogOn
-*XpandCheckFileExists SystemTesterEasyTest.db
+*XpandCheckFileExists SystemTesterEasyTest
  CheckInBin = True
 *Navigate SQLite Object
 *Action New

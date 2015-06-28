@@ -13,9 +13,11 @@ namespace Xpand.EasyTest.Commands{
         }
 
         protected override void InternalExecute(ICommandAdapter adapter){
+            EasyTestTracer.Tracer.InProcedure("XpandCheckFileExistsCommand_InternalExecute");
             var binPath = _testParameters.GetBinPath();
             if (this.ParameterValue<bool>("CheckInBin")){
                 Parameters.MainParameter.Value = Path.Combine(binPath,Path.GetFileName(Parameters.MainParameter.Value) + "");
+                EasyTestTracer.Tracer.LogText("MainParameter",Parameters.MainParameter.Value);
             }
             if (!ExpectException)
                 base.InternalExecute(adapter);

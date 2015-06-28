@@ -137,15 +137,14 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.AcceptAction.ToolTip = actionDataHolder.Tooltip;
             cancelEventArgs.Cancel = true;
             actionBase.Executing -= AcceptActionOnExecuting;
-            Application.LogOff();
-//            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), SecuritySystem.LogonParameters);
-//            detailView.ViewEditMode=ViewEditMode.Edit;
-//            var showViewParameters = new ShowViewParameters{
-//                CreatedView = detailView,
-//                TargetWindow = TargetWindow.Current,
-//                Context = TemplateContext.PopupWindow
-//            };
-//            Application.ShowViewStrategy.ShowView(showViewParameters, new ShowViewSource(Frame, actionBase));
+            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), SecuritySystem.LogonParameters);
+            detailView.ViewEditMode=ViewEditMode.Edit;
+            var showViewParameters = new ShowViewParameters{
+                CreatedView = detailView,
+                TargetWindow = TargetWindow.Current,
+                Context = TemplateContext.PopupWindow
+            };
+            Application.ShowViewStrategy.ShowView(showViewParameters, new ShowViewSource(Frame, actionBase));
         }
 
         protected virtual void AcceptParameters(ILogonParameters parameters) {
