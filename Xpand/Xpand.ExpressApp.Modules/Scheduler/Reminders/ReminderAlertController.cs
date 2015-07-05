@@ -39,11 +39,17 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             Application.ViewShown+=ApplicationOnViewShown;
+            Frame.Disposing+=FrameOnDisposing;
+        }
+
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Frame.Disposing -= FrameOnDisposing;
+            Application.ViewShown -= ApplicationOnViewShown;
         }
 
         private void ApplicationOnViewShown(object sender, ViewShownEventArgs viewShownEventArgs){
             _firstViewShown = true;
-            Application.ViewShown -= ApplicationOnViewShown;
+            ((XafApplication) sender).ViewShown -= ApplicationOnViewShown;
         }
 
         private void RestoreAppointments(){
