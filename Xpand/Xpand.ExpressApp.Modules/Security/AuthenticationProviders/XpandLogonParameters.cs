@@ -67,8 +67,10 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
 
         protected void WritePropertyValuesCore(SettingsStorage storage) {
             storage.SaveOption("", "UserName", UserName);
-            storage.SaveOption("", "Password", Password);
-            storage.SaveOption("", "RememberMe", RememberMe.ToString());
+            if (storage is EncryptedSettingsStorage||CaptionHelper.ApplicationModel.IsHosted()){
+                storage.SaveOption("", "Password", Password);
+                storage.SaveOption("", "RememberMe", RememberMe.ToString());
+            }
         }
     }
 }
