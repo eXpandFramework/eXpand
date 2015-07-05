@@ -7,10 +7,16 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail {
     public static class MasterDetailColumnViewExtensions {
+        public static void AssignMasterDetail(this IMasterDetailColumnView columnView, IMasterDetailColumnView target) {
+            target.Window = columnView.Window;
+            target.MasterFrame = columnView.MasterFrame;
+        }
+
         public static bool IsDetailView(this IMasterDetailColumnView columnView, IColumnViewEditor editor) {
             return columnView != ((WinColumnsListEditor) editor).Grid.MainView;
         } 
     }
+
     public interface IMasterDetailColumnView {
         Window Window { get; set; }
         Frame MasterFrame { get; set; }

@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.LookAndFeel;
+using DevExpress.Utils;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
@@ -105,10 +106,21 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
             if (handler != null) handler(this, e);
         }
 
+
         protected override DevExpress.XtraGrid.Views.Base.ColumnView CreateGridViewCore() {
             var gridViewCreatingEventArgs = new CustomGridViewCreateEventArgs(Grid);
             OnCustomGridViewCreate(gridViewCreatingEventArgs);
-            return gridViewCreatingEventArgs.Handled ? gridViewCreatingEventArgs.GridView : new XpandXafGridView();
+            return gridViewCreatingEventArgs.Handled ? gridViewCreatingEventArgs.GridView : CreateXpandGridView();
+        }
+
+        private DevExpress.XtraGrid.Views.Grid.GridView CreateXpandGridView(){
+            if (CanShowBands){
+                var gridView = new XpandBandedGridView();
+                gridView.OptionsView.ColumnAutoWidth = true;
+                gridView.OptionsView.ColumnHeaderAutoHeight = DefaultBoolean.True;
+                return gridView;
+            }
+            return new XpandXafGridView();
         }
 
         public event EventHandler<CustomGetSelectedObjectsArgs> CustomGetSelectedObjects;
@@ -164,6 +176,21 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         }
     }
 
+    public class XpandBandedGridView:XafBandedGridView,IMasterDetailColumnView{
+        public Window Window { get; set; }
+
+        public Frame MasterFrame { get; set; }
+
+        public override void Assign(BaseView baseView, bool copyEvents) {
+            var xafGridView = ((IMasterDetailColumnView)baseView);
+            xafGridView.AssignMasterDetail(this);
+            base.Assign(baseView, copyEvents);
+        }
+
+        protected override XafBandedGridView CreateInstanceCore(){
+            return new XpandBandedGridView();
+        }
+    }
 
     public class XpandXafGridView : XafGridView, IMasterDetailColumnView {
         protected override XafGridView CreateInstanceCore() {
@@ -175,8 +202,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         public override void Assign(BaseView baseView, bool copyEvents) {
             var xafGridView = ((IMasterDetailColumnView)baseView);
-            ((IMasterDetailColumnView)this).Window = xafGridView.Window;
-            ((IMasterDetailColumnView)this).MasterFrame = xafGridView.MasterFrame;
+            xafGridView.AssignMasterDetail(this);
             base.Assign(baseView, copyEvents);
         }
         #endregion
