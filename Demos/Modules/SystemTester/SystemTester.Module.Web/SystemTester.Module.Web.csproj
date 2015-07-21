@@ -124,6 +124,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\MasterDetail\MasterDetailObjects.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditorObject.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -162,6 +163,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\MasterDetail\MasterDetail.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ViewEditMode.Web\ViewEditMode.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -194,6 +199,10 @@
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />
     <None Include="FunctionalTests\MasterDetail\Init.inc" />
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.png" />
+    <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Config.xml" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Init.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Lookup.Inc" />
+    <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Actions.inc" />
     <Content Include="FunctionalTests\ViewEditMode.Web\Config.xml" />
     <None Include="FunctionalTests\ViewEditMode.Web\Init.inc" />
   </ItemGroup>

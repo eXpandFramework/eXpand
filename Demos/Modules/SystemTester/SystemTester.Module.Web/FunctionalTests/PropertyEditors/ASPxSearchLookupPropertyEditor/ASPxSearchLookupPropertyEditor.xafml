@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="ASPxSearchLookupPropertyEditorObject_DetailView">
+      <Items>
+        <PropertyEditor Id="ASPxSearchLookupPropertyEditorLookup" PropertyEditorType="Xpand.ExpressApp.Web.PropertyEditors.ASPxSearchLookupPropertyEditor" />
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

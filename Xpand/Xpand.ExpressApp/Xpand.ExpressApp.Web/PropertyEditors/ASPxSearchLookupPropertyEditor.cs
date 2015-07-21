@@ -58,12 +58,12 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        public static int WindowWidth {
+        public int WindowWidth {
             get { return _windowWidth; }
             set { _windowWidth = value; }
         }
 
-        public static int WindowHeight {
+        public int WindowHeight {
             get { return _windowHeight; }
             set { _windowHeight = value; }
         }
@@ -97,8 +97,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         #endregion
         #region ISupportViewShowing Members
         event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification {
-            add { viewShowingNotification += value; }
-            remove { viewShowingNotification -= value; }
+            add { ViewShowingNotification += value; }
+            remove { ViewShowingNotification -= value; }
         }
         #endregion
         protected override void SetImmediatePostDataScript(string script) {
@@ -148,12 +148,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                     supportNewObjectCreating.NewActionCaption = _newObjectViewController.NewObjectAction.Caption;
                 }
                 UpdateDropDownLookupControlAddButton(supportNewObjectCreating);
-                if (_application != null) {
-                    supportNewObjectCreating.SetClientNewButtonScript(
-                        _application.PopupWindowManager.GenerateModalOpeningScript(editor, _newObjectWindowAction,
-                                                                                  WindowWidth, WindowHeight, false,
-                                                                                  supportNewObjectCreating.
-                                                                                      GetProcessNewObjFunction()));
+                if (_application != null){
+                    var script=application.PopupWindowManager.GetShowPopupWindowScript(_newObjectWindowAction,
+                        HttpUtility.JavaScriptStringEncode(supportNewObjectCreating.GetProcessNewObjFunction()), editor.ClientID, false,
+                        _newObjectWindowAction.IsSizeable);
+                    supportNewObjectCreating.SetClientNewButtonScript(script);
                 }
             }
         }
@@ -176,7 +175,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
             e.ShowDetailView = false;
-            // B196715
             if (e.ObjectSpace is INestedObjectSpace) {
                 e.ObjectSpace = _application.CreateObjectSpace();
             }
@@ -193,8 +191,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 throw new InvalidOperationException();
             }
             if (_newObjectViewController != null) {
-                //TODO MINAKOV rewrite
-                OnViewShowingNotification(); //CaptionHelper.GetLocalizedText("DialogButtons", "Add"));
+                OnViewShowingNotification(); 
                 _newObjectViewController.NewObjectAction.DoExecute(_newObjectViewController.NewObjectAction.Items[0]);
                 args.View = _application.CreateDetailView(_newObjectSpace, _newObject, _listView);
             }
@@ -225,8 +222,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         void OnViewShowingNotification() {
-            if (viewShowingNotification != null) {
-                viewShowingNotification(this, EventArgs.Empty);
+            if (ViewShowingNotification != null) {
+                ViewShowingNotification(this, EventArgs.Empty);
             }
         }
 
@@ -244,8 +241,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 _newObjectWindowAction.Application = _helper.Application;
             }
 
-            var panel = new Panel();
-            // Use Panel instead of ASPxPanel cause it doesn't affect editor ClientID            
+            var panel = new Panel();          
             _searchDropDownEdit = CreateSearchDropDownEditControl();
             panel.Controls.Add(_searchDropDownEdit);
             return panel;
@@ -395,7 +391,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _helper = new WebLookupEditorHelper(xafApplication, space, MemberInfo.MemberTypeInfo, Model);
         }
 
-        event EventHandler<EventArgs> viewShowingNotification;
+        public event EventHandler<EventArgs> ViewShowingNotification;
 
         internal string GetSearchActionName() {
             return Frame.GetController<FilterController>().FullTextFilterAction.Caption;
@@ -422,7 +418,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _dropDown.Width = Unit.Percentage(100);
             _dropDown.CssClass = "xafLookupEditor";
 
-            // the following properties would be nice to be read from the model
             _dropDown.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
             _dropDown.FilterMinLength = 3;
 
@@ -431,17 +426,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _dropDown.CallbackPageSize = 10;
             _dropDown.ItemRequestedByValue += dropDown_ItemRequestedByValue;
             _dropDown.ItemsRequestedByFilterCondition += dropDown_ItemsRequestedByFilterCondition;
-
+            if (Helper.DisplayMember==null)
+                throw new NullReferenceException("DisplayMember");
             _dropDown.TextField = Helper.DisplayMember.Name;
             _dropDown.ValueField = Helper.LookupObjectTypeInfo.KeyMember.Name;
             _dropDown.Columns.Add(Helper.LookupObjectTypeInfo.DefaultMember.BindingName);
-            /*if (Helper.LookupObjectTypeInfo.Type.FullName == "MainDemo.Module.BusinessObjects.Contact")
-            {
-                dropDown.Columns.Add("FullName", "FullName", 300);
-                dropDown.Columns.Add("SpouseName", "SpouseName", 300);
-                dropDown.TextFormatString = "{0} {1}";
-            }*/
-
             _newButton = _dropDown.Buttons.Add();
             _clearButton = _dropDown.Buttons.Add();
             ASPxImageHelper.SetImageProperties(_newButton.Image, "Action_New_12x12");
