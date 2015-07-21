@@ -8,8 +8,10 @@ namespace Xpand.EasyTest.Commands{
     public class SendKeysCommand : Command{
         public const string Name = "SendKeys";
         protected override void InternalExecute(ICommandAdapter adapter){
-            var focusWindowCommand=new FocusWindowCommand();
-            focusWindowCommand.Execute(adapter);
+            if (adapter.IsWinAdapter()){
+                var focusWindowCommand=new FocusWindowCommand();
+                focusWindowCommand.Execute(adapter);
+            }
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter = new MainParameter("300");
             sleepCommand.Execute(adapter);
@@ -23,6 +25,7 @@ namespace Xpand.EasyTest.Commands{
                     simulator.Keyboard.KeyPress(keyCode);
                 }
             }
+            
         }
     }
 }

@@ -93,6 +93,7 @@
     <Compile Include="Commands\SqlCommand.cs" />
     <Compile Include="Commands\SqlDropDatabaseCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
+    <Compile Include="Commands\ToggleNavigationCommand.cs" />
     <Compile Include="Commands\XpandAutoTestCommand.cs" />
     <Compile Include="Commands\UseModelCommand.cs" />
     <Compile Include="Commands\KillFocusCommand.cs" />

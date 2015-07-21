@@ -22,6 +22,7 @@ using MethodInvoker = System.Windows.Forms.MethodInvoker;
 namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
         private Process _process;
+        private XpandWebCommandAdapter _webCommandAdapter;
 
         public override void RunApplication(TestApplication testApplication){
             testApplication.CreateParametersFile();
@@ -69,10 +70,10 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         public override ICommandAdapter CreateCommandAdapter(){
             FileDownloadDialogHelper.SaveDialogOpened = false;
-            var webCommandAdapter = new XpandWebCommandAdapter(this);
-            webCommandAdapter.WaitForBrowserResponse(false);
+            _webCommandAdapter = new XpandWebCommandAdapter(this);
+            _webCommandAdapter.WaitForBrowserResponse(false);
             Win32Helper.MoveMousePointTo(new Point(0, 0));
-            return webCommandAdapter;
+            return _webCommandAdapter;
         }
 
         private void RunApplicationBase(TestApplication testApplication){
@@ -150,9 +151,9 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
-//            registrator.RegisterCommand(XpandCompareScreenshotCommand.Name, typeof(Commands.XpandCompareScreenshotCommand));
         }
     }
+
 
     public class StandaloneWebBrowserCollection : DevExpress.ExpressApp.EasyTest.WebAdapter.StandaloneWebBrowserCollection,IWebBrowserCollection {
         public const string EasyTestBrowser = "EasyTest Browser";

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
 using Xpand.Utils.Helpers;
-using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest {
     public enum ApplicationParams {
@@ -258,6 +256,7 @@ namespace Xpand.EasyTest {
                 {typeof (XpandSelectRecordsCommand), XpandSelectRecordsCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
+                {typeof (ToggleNavigationCommand), ToggleNavigationCommand.Name},
             };
             foreach (var keyValuePair in dictionary) {
                 registerCommand.RegisterCommand(keyValuePair.Value, keyValuePair.Key);

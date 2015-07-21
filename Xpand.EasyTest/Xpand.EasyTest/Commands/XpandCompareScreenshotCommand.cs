@@ -37,8 +37,9 @@ namespace Xpand.EasyTest.Commands {
                     throw new CommandException(String.Format("'{0}' master copy was not found", filename), StartPosition);
                 }
             } finally {
-                if (!windowHandleInfo.Value && this.ParameterValue("ToggleNavigation", true) && _additionalCommands) {
-                    ToggleNavigation(adapter);
+                if (!windowHandleInfo.Value && this.ParameterValue(ToggleNavigationCommand.Name, true) && _additionalCommands){
+                    var toggleNavigationCommand = new ToggleNavigationCommand();
+                    toggleNavigationCommand.Execute(adapter);
                 }
             }
         }
@@ -177,10 +178,10 @@ namespace Xpand.EasyTest.Commands {
             _additionalCommands = this.ParameterValue("AdditionalCommands", true);
             if (!_additionalCommands)
                 return;
-            if (this.ParameterValue("ToggleNavigation", true)) {
-                ToggleNavigation(adapter);
+            if (this.ParameterValue(ToggleNavigationCommand.Name, true)){
+                var toggleNavigationCommand = new ToggleNavigationCommand();
+                toggleNavigationCommand.Execute(adapter);
             }
-            return;
             var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
             var activeWindowSizeCommand = new ResizeWindowCommand();
             activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));
@@ -212,13 +213,6 @@ namespace Xpand.EasyTest.Commands {
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter = new MainParameter(interval.ToString(CultureInfo.InvariantCulture));
             sleepCommand.Execute(adapter);
-        }
-
-        private void ToggleNavigation(ICommandAdapter adapter) {
-            var actionCommand = new ActionCommand();
-            actionCommand.Parameters.MainParameter = new MainParameter("Toggle Navigation");
-            actionCommand.Parameters.ExtraParameter = new MainParameter();
-            actionCommand.Execute(adapter);
         }
 
         private IEnumerable<Bitmap> GetMasks(ICommandAdapter adapter) {

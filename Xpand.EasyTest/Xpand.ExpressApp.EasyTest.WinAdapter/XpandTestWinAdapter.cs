@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         public string Name { get; set; }
     }
     public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter, IXpandTestWinAdapter {
-        private WinEasyTestCommandAdapter _easyTestCommandAdapter;
+        private WinEasyTestCommandAdapter _winEasyTestCommandAdapter;
         private static List<Process> _additionalProcesses;
 
         public override void RegisterCommands(IRegisterCommand registrator) {
@@ -91,8 +91,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context) {
             ScreenCaptureCommand.Stop();
-            if (_easyTestCommandAdapter != null) {
-                _easyTestCommandAdapter.Disconnect();
+            if (_winEasyTestCommandAdapter != null) {
+                _winEasyTestCommandAdapter.Disconnect();
             }
             testApplication.DeleteParametersFile();
             testApplication.ClearModel();
@@ -131,8 +131,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         }
 
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType) {
-            _easyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
-            return _easyTestCommandAdapter;
+            _winEasyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
+            return _winEasyTestCommandAdapter;
         }
     }
 
