@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Utils;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
     public class ObjectModelSynchronizer : ModelSynchronizer<object, IModelNode> {

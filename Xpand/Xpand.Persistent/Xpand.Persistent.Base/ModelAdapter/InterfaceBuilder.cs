@@ -119,7 +119,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             TraceBuildReason(assemblyFilePath);
 
             _createdInterfaces = new Dictionary<Type, string>();
-            var source = string.Join(Environment.NewLine, new[] { GetAssemblyVersionCode(), GetCode(builderDatas) });
+            var source = string.Join(Environment.NewLine, GetAssemblyVersionCode(), GetCode(builderDatas));
             _usingTypes.Add(typeof(XafApplication));
             _referencesCollector.Add(_usingTypes);
             string[] references = _referencesCollector.References.ToArray();
@@ -164,7 +164,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
             CompilerParameters compilerParameters = GetCompilerParameters(references, isDebug, assemblyFile);
             CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
-            CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, new[] { source });
+            CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, source);
             if (compilerResults.Errors.Count > 0) {
                 RaiseCompilerException(source, compilerResults,assemblyFile);
             }
@@ -231,11 +231,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         string ClassDecleration(Type type, Type baseInterface, bool isAbstract, Type rootBaseInterface, string namePrefix) {
-            var classDecleration = string.Join(Environment.NewLine, new[]{
-                AttributeLocator(type), ModelAbstract(isAbstract),
-                ClassDeclarationCore(type, baseInterface, rootBaseInterface, namePrefix)
-            }
-                );
+            var classDecleration = string.Join(Environment.NewLine, AttributeLocator(type), ModelAbstract(isAbstract), ClassDeclarationCore(type, baseInterface, rootBaseInterface, namePrefix));
             return classDecleration;
         }
 
@@ -243,7 +239,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var classNameAttribute = new ClassNameAttribute(type.FullName);
             return string.Format(@"[{0}(""{1}"")]", TypeToString(classNameAttribute.GetType()), type.FullName);
         }
-        [AttributeUsage(AttributeTargets.Interface, AllowMultiple = false)]
+        [AttributeUsage(AttributeTargets.Interface)]
         public class ClassNameAttribute : Attribute {
             readonly string _typeName;
 
@@ -594,15 +590,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         public static bool IsValidEnum(this Type propertyType, object value) {
             return !propertyType.IsEnum || Enum.IsDefined(value.GetType(), value);
         }
-
-        public static bool IsNullableType(this Type theType) {
-            if (theType.IsGenericType) {
-                var genericTypeDefinition = theType.GetGenericTypeDefinition();
-                if (genericTypeDefinition != null) return (genericTypeDefinition == typeof(Nullable<>));
-            }
-            return false;
-        }
-
 
         public static bool IsStruct(this Type type) {
             if (type.IsNullableType())

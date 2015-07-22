@@ -15,6 +15,7 @@ using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Persistent.Base;
 using DevExpress.Web;
+using Xpand.Utils.Helpers;
 using Xpand.Xpo.Parser;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
@@ -32,8 +33,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         public WebFilterableEnumPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
             PropertyInfo propertyInfo = ObjectType.GetProperty(PropertyName);
-            if (propertyInfo != null) {
-                _propertyType = propertyInfo.PropertyType;
+            if (propertyInfo != null){
+                _propertyType =  propertyInfo.PropertyType;
                 foreach (object item in propertyInfo.GetCustomAttributes(false)) {
                     var propAttr = item as DataSourcePropertyAttribute;
                     if (propAttr != null && !string.IsNullOrEmpty(propAttr.DataSourceProperty)) {
@@ -42,9 +43,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                         _isNullCriteria = propAttr.DataSourcePropertyIsNullCriteria;
                         if (dataSourceProperty != null) {
                             if (typeof(IEnumerable).IsAssignableFrom(dataSourceProperty.PropertyType) &&
-                                dataSourceProperty.PropertyType.IsGenericType &&
-                                dataSourceProperty.PropertyType.GetGenericArguments()[0].IsAssignableFrom(
-                                    propertyInfo.PropertyType))
+                                dataSourceProperty.PropertyType.IsGenericType && IsAssignableFrom(dataSourceProperty, propertyInfo))
                                 _dataSourceProperty = dataSourceProperty;
                         }
                     }
@@ -54,6 +53,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                         _isNullCriteria = criteriaAttr.DataSourceCriteria;
                 }
             }
+        }
+
+        private bool IsAssignableFrom(PropertyInfo dataSourceProperty, PropertyInfo propertyInfo){
+            return dataSourceProperty.PropertyType.GetGenericArguments()[0].IsAssignableFrom(propertyInfo.PropertyType.IsNullableType()?propertyInfo.PropertyType.GetGenericArguments()[0]:propertyInfo.PropertyType);
         }
 
         protected PropertyDescriptorCollection PropertyDescriptorCollection {
@@ -100,13 +103,12 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         IEnumerable GetDataSource() {
-            IEnumerable dataSource = null;
+            List<object> dataSource = null;
             if (_dataSourceProperty != null) {
-                dataSource = _dataSourceProperty.GetValue(CurrentObject, null) as IEnumerable;
-                if (dataSource != null) {
-                    bool hasItems = (dataSource).GetEnumerator().MoveNext();
-                    if (!hasItems)
-                        dataSource = null;
+                if (_dataSourceProperty.GetValue(CurrentObject, null) is IEnumerable){
+                    var hasItems = ((IEnumerable) _dataSourceProperty.GetValue(CurrentObject, null)).GetEnumerator().MoveNext();
+                    if (hasItems)
+                        dataSource = ((IEnumerable)_dataSourceProperty.GetValue(CurrentObject, null)).Cast<object>().ToList();
                 }
             }
             if (dataSource == null) {
