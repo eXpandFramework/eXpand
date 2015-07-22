@@ -8,9 +8,11 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class CriteriaActionStateController : ViewController<ObjectView> {
         private const string HideIfCriteriaDoNotFit = "HideIfCriteriaDoNotFit";
         ChangeStateActionController _changeStateActionController;
+        private StateMachineLogic _stateMachineLogic;
 
         protected override void OnActivated() {
             base.OnActivated();
+            _stateMachineLogic = new StateMachineLogic(ObjectSpace);
             _changeStateActionController = Frame.GetController<ChangeStateActionController>();
             _changeStateActionController.RequestActiveState += ChangeStateActionControllerOnRequestActiveStateAction;
         }
@@ -41,15 +43,10 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             }
 
             if (hideIfCriteriaDoNotFit.HasValue && hideIfCriteriaDoNotFit.Value){
-                var stateMachineLogic = new StateMachineLogic(ObjectSpace);
-                RuleSetValidationResult ruleSetValidationResult = RuleSetValidationResult(iTransition, stateMachineLogic);
+                var ruleSetValidationResult = _stateMachineLogic.ValidateTransition(iTransition.TargetState, View.CurrentObject);
                 return ruleSetValidationResult.State != ValidationState.Invalid;
             }
             return true;
-        }
-
-        RuleSetValidationResult RuleSetValidationResult(ITransition iTransition, StateMachineLogic stateMachineLogic) {
-            return stateMachineLogic.ValidateTransition(iTransition.TargetState, View.CurrentObject);
         }
     }
 }

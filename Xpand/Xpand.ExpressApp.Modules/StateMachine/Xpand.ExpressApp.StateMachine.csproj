@@ -129,6 +129,9 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ChangeStateActionController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\CriteriaActionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -138,13 +141,10 @@
     <Compile Include="Controllers\PermissionTransitionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ChangeStateActionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controllers\StateMachineAdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\StateMachineCacheController.cs">
+    <Compile Include="Controllers\StatePermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Extensions.cs" />
@@ -157,9 +157,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Security\StateMachineTransitionPermission.cs" />
-    <Compile Include="Controllers\StatePermissionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="XpandStateMachineModule.cs">
       <SubType>Component</SubType>
     </Compile>

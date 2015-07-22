@@ -54,10 +54,10 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         void StateMachineControllerOnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs) {
             if (executeTransitionEventArgs.Transition.TargetState.StateMachine.CanExecuteTransition()){
-                executeTransitionEventArgs.Cancel = true;
-                new StateMachineLogic(ObjectSpace).ProcessTransition(View.CurrentObject,
-                    executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
-                    ObjectSpace.GetObject(executeTransitionEventArgs.Transition.TargetState));
+//                executeTransitionEventArgs.Cancel = true;
+//                new StateMachineLogic(ObjectSpace).ProcessTransition(View.CurrentObject,
+//                    executeTransitionEventArgs.Transition.TargetState.StateMachine.StatePropertyName,
+//                    ObjectSpace.GetObject(executeTransitionEventArgs.Transition.TargetState));
             }
             
         }
