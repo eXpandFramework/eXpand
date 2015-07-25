@@ -94,6 +94,7 @@
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferencesB4Build">
+    <MSBuild Projects="Support\VersionChanger\VersionChanger.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="True" />
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
