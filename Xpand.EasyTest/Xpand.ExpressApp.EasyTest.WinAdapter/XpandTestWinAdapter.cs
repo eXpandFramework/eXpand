@@ -7,9 +7,11 @@ using System.Threading;
 using DevExpress.EasyTest.Framework;
 using DevExpress.ExpressApp.EasyTest.WinAdapter;
 using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls;
+using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WinAdapter;
+using Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls;
 
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
 
@@ -144,9 +146,10 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
     }
 
     public class XpandCustomTestControlFactory : TestControlFactoryWin {
-//                public XpandCustomTestControlFactory() {
-//                    RegisterInterface<MyCustomTestControl>();
-//                }
+        public XpandCustomTestControlFactory(){
+            UnRegisterInterface<GridTestControl>();
+            RegisterInterface<XpandGridTestControl>();
+        }
     }
 
 }

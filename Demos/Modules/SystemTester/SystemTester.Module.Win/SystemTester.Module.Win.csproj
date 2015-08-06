@@ -62,6 +62,7 @@
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Validation.Win.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -169,6 +170,12 @@
     <Content Include="FunctionalTests\GridView\Images\GridViewOptions.win.png" />
     <Content Include="FunctionalTests\LayoutControlGroup\Config.xml" />
     <Content Include="FunctionalTests\LayoutControlGroup\Init.inc" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Config.xml" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Filter.inc" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Edit.inc" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Images\Layout.win.png" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Init.inc" />
+    <Content Include="FunctionalTests\LayoutViewListEditor\Layout.inc" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode.Win\Init.inc" />
     <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
@@ -179,6 +186,10 @@
     </None>
     <None Include="FunctionalTests\LayoutControlGroup\LayoutControlGroup.Win.ets" />
     <None Include="FunctionalTests\LayoutControlGroup\LayoutControlGroup.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditor.ets" />
+    <None Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditor.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Default.inc" />
@@ -205,6 +216,7 @@
     </Compile>
     <Compile Include="FunctionalTests\GridView\GridViewObject.cs" />
     <Compile Include="FunctionalTests\LayoutControlGroup\LayoutControlGroup.cs" />
+    <Compile Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditorObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
     </Compile>
