@@ -1,29 +1,28 @@
 ﻿﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Security.Permissions;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
-using DevExpress.ExpressApp.Security.Strategy.PermissionMatrix;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base.Security;
-using DevExpress.Xpo;
+﻿using System.Collections.Generic;
+﻿using System.Linq;
+﻿using System.Security;
+﻿using System.Security.Permissions;
+﻿using DevExpress.Data.Filtering;
+﻿using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp.DC;
+﻿using DevExpress.ExpressApp.Security;
+﻿using DevExpress.ExpressApp.Security.Strategy;
+﻿using DevExpress.ExpressApp.Xpo;
+﻿using DevExpress.Persistent.Base.Security;
+﻿using DevExpress.Xpo;
+﻿using Fasterflect;
 ﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
 ﻿using Xpand.ExpressApp.Security.Permissions;
 ﻿using Xpand.Persistent.Base.General;
 ﻿using Xpand.Utils.Helpers;
 ﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
-﻿using Fasterflect;
 
 namespace Xpand.ExpressApp.Security.Core {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class FullPermissionAttribute : Attribute {
     }
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class PermissionBehaviorAttribute : Attribute {
         readonly string _name;
 
@@ -268,7 +267,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static bool IsNewSecuritySystem(this IRoleTypeProvider security) {
-            return typeof(IPermissionMatrixTypePermissionsOwner).IsAssignableFrom(security.RoleType);
+            return security is SecurityStrategyComplex;
         }
 
         public static bool IsGranted(this IRole role, IPermission permission) {
