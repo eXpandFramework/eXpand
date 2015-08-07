@@ -107,6 +107,7 @@
     <Compile Include="ConnectionProviders\DBColumnTypeExtensions.cs" />
     <Compile Include="ConnectionProviders\MySqlConnectionProvider.cs" />
     <Compile Include="ConnectionProviders\OracleConnectionProvider.cs" />
+    <Compile Include="Converters\ValueConverters\TimeSpanValueToXmlConverter.cs" />
     <Compile Include="Converters\ValueConverters\ColorValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\NullValueConverter.cs" />
     <Compile Include="Converters\ValueConverters\SqlDateTimeOverFlowValueConverter.cs" />
