@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Updater = SecurityTester.Module.Win.FunctionalTests.OverallCustomizationAllowed.Updater;
 
 namespace SecurityTester.Module.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]
@@ -13,7 +12,7 @@ namespace SecurityTester.Module.Win {
             InitializeComponent();
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            return ModuleUpdater.EmptyModuleUpdaters;
+            return new[]{new Updater(objectSpace, versionFromDB) };
         }
     }
 }

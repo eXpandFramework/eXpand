@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+  <Applications>
+    <!-- Win -->
+    <Application
+			Name="SecurityTester.Win"
+			FileName="[WinAppBin]\SecurityTester.Win.exe"
+      AdapterFileName="[WinAdapterFileName]"
+			CommunicationPort="4100"/>
+    <!-- Web -->
+    <Application
+			Name="SecurityTester.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+      AdapterFileName="[WebAdapterFileName]" Model="AnonymousSettings"
+/>
+    <!-- For IIS -->
+    <!--Application
+			Name="[SolutionName]Web"
+			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
+			 AdapterFileName="[WebAdapterFileName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SecurityTesterEasyTest" />
+  </TestDatabases>
+  <Aliases>
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SecurityTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SecurityTester.Web" />
+    <Alias Name="EmptyAreaOfDetailView" Value="479x262" />
+    <Alias Name="FieldArea" Value="325x106" />
+  </Aliases>
+</Options>
