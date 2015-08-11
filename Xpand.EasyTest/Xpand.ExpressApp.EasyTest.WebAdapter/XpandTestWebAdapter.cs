@@ -16,6 +16,7 @@ using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
 using HideScrollBarCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.HideScrollBarCommand;
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
+using SetWebMaxWaitTimeOutCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.SetWebMaxWaitTimeOutCommand;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
 
@@ -151,6 +152,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
+            registrator.RegisterCommand(Xpand.EasyTest.Commands.SetWebMaxWaitTimeOutCommand.Name, typeof(SetWebMaxWaitTimeOutCommand));
         }
     }
 

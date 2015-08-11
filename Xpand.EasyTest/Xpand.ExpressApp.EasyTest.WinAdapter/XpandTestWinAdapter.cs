@@ -30,6 +30,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(HideScrollBarCommand.Name, typeof(Commands.HideScrollBarCommand));
+            registrator.RegisterCommand(SetWebMaxWaitTimeOutCommand.Name, typeof(Commands.SetWebMaxWaitTimeOutCommand));
         }
 
         void CloseApplication(IEnumerable<Process> appProcesses, bool force) {

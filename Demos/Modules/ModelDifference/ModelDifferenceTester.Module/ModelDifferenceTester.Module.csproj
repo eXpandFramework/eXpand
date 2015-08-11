@@ -94,7 +94,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\UserModel\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\RoleModel\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\UserModel\UserModelObject.cs" />
     <Compile Include="FunctionalTests\WCModel\WCModelUpdater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -123,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\UserModel\UserModel.ets" />
-    <None Include="FunctionalTests\UserModel\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\WCModel\WCModel.ets" />

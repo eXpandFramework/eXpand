@@ -11,7 +11,7 @@
 
 *Action Xml Content
 *FillForm
- Xml Content = <Application><Views><ListView Id="DifferenceTesterObject_ListView"><Columns><ColumnInfo Id="Name" Caption="Name_Changed" /></Columns></ListView></Views></Application>
+ Xml Content = <Application><Views><ListView Id="UserModelObject_ListView"><Columns><ColumnInfo Id="Name" Caption="Name_Changed" /></Columns></ListView></Views></Application>
 *SaveAndClose
 *Navigate Default.Difference Tester Object
 *CheckTable

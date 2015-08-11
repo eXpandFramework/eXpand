@@ -6,6 +6,9 @@
 #DropDB XpandFeatureCenterWorldCreator
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
+
+*SetWebMaxWaitTimeOut 50000
+ 
 *ScreenCapture
 *FillForm
  User Name = Admin

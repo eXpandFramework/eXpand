@@ -5,12 +5,12 @@
 *CheckTable
  RowCount != 0
 
-*XExecuteTableAction
+*ExecuteTableAction
  SetTableFilter = [User] = 'nonexistent'
 *CheckTable
  RowCount = 0
 
-*XExecuteTableAction
+*ExecuteTableAction
  SetTableFilter = User.UserName = 'user'
 *CheckTable
  RowCount = 1

@@ -90,6 +90,7 @@
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
     <Compile Include="Commands\ScreenCaptureCommand.cs" />
     <Compile Include="Commands\ResizeWindowCommand.cs" />
+    <Compile Include="Commands\SetWebMaxWaitTime.cs" />
     <Compile Include="Commands\SqlCommand.cs" />
     <Compile Include="Commands\SqlDropDatabaseCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
