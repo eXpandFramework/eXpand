@@ -484,7 +484,7 @@ namespace Xpand.Persistent.Base.General {
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
             if (RuntimeMode) {
-                var types =assembly.GetTypes().Where(type1 => String.Join("", new[]{type1.Namespace}).StartsWith(nameSpaceName));
+                var types =assembly.GetTypes().Where(type1 => String.Join("", type1.Namespace).StartsWith(nameSpaceName));
                 AdditionalExportedTypes.AddRange(types);
             }
         }
@@ -564,20 +564,32 @@ namespace Xpand.Persistent.Base.General {
             if (Application.IsHosted()&&_customUserModelDifferenceStore)
                 return;
             _customUserModelDifferenceStore = true;
+            var extraDiffStores = GetExtraDiffStores().ToList();
+            foreach (var extraDiffStore in extraDiffStores){
+                e.AddExtraDiffStore(extraDiffStore.Key,extraDiffStore.Value);
+            }
+            if (extraDiffStores.Any())
+                e.AddExtraDiffStore("After Setup",new ModelStoreBase.EmptyModelStore());
+        }
+
+        private IEnumerable<KeyValuePair<string,ModelDifferenceStore>> GetExtraDiffStores(){
             var stringModelStores = ResourceModelCollector.GetEmbededModelStores();
             foreach (var stringModelStore in stringModelStores){
-                e.AddExtraDiffStore(stringModelStore.Key, stringModelStore.Value);    
+                yield return new KeyValuePair<string, ModelDifferenceStore>(stringModelStore.Key,stringModelStore.Value);
             }
-            IEnumerable<string> models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly);
-            models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly)).Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
-            if (Application.IsHosted()) {
-                models=models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,"model.user*.xafml",SearchOption.TopDirectoryOnly));
+
+            IEnumerable<string> models = Directory.GetFiles(BinDirectory, "*.Xpand.xafml", SearchOption.TopDirectoryOnly);
+            models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly))
+                    .Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
+            if (Application.IsHosted()){
+                models =models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                        "model.user*.xafml", SearchOption.TopDirectoryOnly));
             }
             foreach (var path in models){
                 string fileNameTemplate = Path.GetFileNameWithoutExtension(path);
                 var storePath = Path.GetDirectoryName(path);
-                var fileModelStore = new FileModelStore(storePath,fileNameTemplate);
-                e.AddExtraDiffStore(fileNameTemplate,fileModelStore);
+                var fileModelStore = new FileModelStore(storePath, fileNameTemplate);
+                yield return new KeyValuePair<string, ModelDifferenceStore>(fileNameTemplate, fileModelStore);
             }
         }
 

@@ -94,7 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\RoleModel\DifferenceTesterObject.cs" />
+    <Compile Include="FunctionalTests\RoleModel\RoleModelObject.cs" />
     <Compile Include="FunctionalTests\UserModel\UserModelObject.cs" />
     <Compile Include="FunctionalTests\WCModel\WCModelUpdater.cs" />
     <Compile Include="Module.cs">
@@ -123,6 +123,8 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FunctionalTests\RoleModel\RoleModel.xafml" />
+    <None Include="FunctionalTests\RoleModel\RoleModel.ets" />
     <None Include="FunctionalTests\UserModel\UserModel.ets" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +133,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\RoleModel\Config.xml" />
     <Content Include="FunctionalTests\UserModel\Config.xml" />
     <Content Include="FunctionalTests\WCModel\Config.xml" />
     <Content Include="FunctionalTests\WCModel\CreateWCAssembly.inc" />
