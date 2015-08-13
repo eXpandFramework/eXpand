@@ -79,7 +79,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
         void dashboardEdit_Execute(object sender, SimpleActionExecuteEventArgs e) {
             using (var form = new DashboardDesignerForm { ObjectSpace = ObjectSpace }) {
                 form.LoadTemplate(((IDashboardDefinition)View.CurrentObject), Application);
-                DashboardDesignerOpening?.Invoke(this, new DashboardDesignerOpeningEventArgs(form.Designer));
+                var eventHandler = DashboardDesignerOpening;
+                if (eventHandler != null)
+                    eventHandler(this, new DashboardDesignerOpeningEventArgs(form.Designer));
                 form.ShowDialog();
                 if (View is ListView)
                     ObjectSpace.CommitChanges();

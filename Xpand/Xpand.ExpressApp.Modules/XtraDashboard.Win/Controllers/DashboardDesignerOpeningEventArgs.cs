@@ -13,6 +13,6 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers
             Designer = designer;
         }
 
-        public DashboardDesigner Designer { get; }
+        public DashboardDesigner Designer { get; private set; }
     }
 }
