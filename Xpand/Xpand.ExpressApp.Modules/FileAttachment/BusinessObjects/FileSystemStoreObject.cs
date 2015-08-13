@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
             if (!string.IsNullOrEmpty(RealFileName)) {
                 try {
                     using (Stream destination = File.OpenWrite(RealFileName)) {
-                        TempSourceStream.CopyStream(destination);
+                        TempSourceStream.CopyTo(destination);
                         Size = (int)destination.Length;
                     }
                 } catch (DirectoryNotFoundException exc) {
@@ -135,11 +135,11 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
                         System.Diagnostics.Process.Start(RealFileName);
                     else {
                         using (var fileStream = File.OpenRead(RealFileName)) {
-                            fileStream.CopyStream(destination);
+                            fileStream.CopyTo(destination);
                         }
                     }
                 } else if (TempSourceStream != null)
-                    _tempSourceStream.CopyStream(destination);
+                    _tempSourceStream.CopyTo(destination);
             } catch (DirectoryNotFoundException exc) {
                 throw new UserFriendlyException(exc);
             } catch (FileNotFoundException exc) {
