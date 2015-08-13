@@ -21,7 +21,6 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
     public class FileSystemStoreObject : XpandCustomObject, IFileData, IEmptyCheckable, IFileSystemObject {
         private Stream _tempSourceStream;
         private string _tempFileName = string.Empty;
-        private static readonly object _syncRoot = new object();
         private string _oldRealFileName;
         public FileSystemStoreObject(Session session) : base(session) { }
         public string RealFileName {
@@ -64,10 +63,7 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         protected override void OnSaving() {
             base.OnSaving();
             Guard.ArgumentNotNullOrEmpty(XpandFileAttachmentsModule.FileSystemStoreLocation, "FileSystemStoreLocation");
-            lock (_syncRoot) {
-                if (!Directory.Exists(XpandFileAttachmentsModule.FileSystemStoreLocation))
-                    Directory.CreateDirectory(XpandFileAttachmentsModule.FileSystemStoreLocation);
-            }
+            Directory.CreateDirectory(XpandFileAttachmentsModule.FileSystemStoreLocation);
             SaveFileToStore();
             RemoveOldFileFromStore();
         }
@@ -102,29 +98,37 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
             get { return GetPropertyValue<string>("FileName"); }
             set { SetPropertyValue("FileName", value); }
         }
-        [Browsable(false)]
-        public Stream TempSourceStream {
+        
+        private Stream TempSourceStream {
             get { return _tempSourceStream; }
             set {
                 _tempSourceStream = value;
-                if (_tempSourceStream is FileStream) {
-                    try {
+                if (_tempSourceStream == null) return;
+                try {
+                    if (_tempSourceStream is FileStream) {
                         _tempSourceStream = File.OpenRead(((FileStream)_tempSourceStream).Name);
-                    } catch (FileNotFoundException exc) {
-                        throw new UserFriendlyException(exc);
                     }
+                    else {
+                        // On web the stream is likely to be closed, so make a copy.
+                        _tempSourceStream = new FileStream(Path.GetTempFileName(), FileMode.Open, FileAccess.ReadWrite);
+                        value.CopyTo(_tempSourceStream);
+                        _tempSourceStream.Position = 0;
+                    }
+                }
+                catch (FileNotFoundException exc) {
+                    throw new UserFriendlyException(exc);
                 }
             }
         }
         
-        void IFileData.LoadFromStream(string fileName, Stream source) {
+        public void LoadFromStream(string fileName, Stream source) {
             FileName = fileName;
             TempSourceStream = source;
             if (string.IsNullOrEmpty(_tempFileName))
                 _tempFileName = RealFileName;
         }
         
-        void IFileData.SaveToStream(Stream destination) {
+        public void SaveToStream(Stream destination) {
             try {
                 if (!string.IsNullOrEmpty(RealFileName)) {
                     if (destination == null)
