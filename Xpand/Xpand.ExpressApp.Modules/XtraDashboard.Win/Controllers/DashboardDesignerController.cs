@@ -17,6 +17,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             TargetObjectType = typeof(IDashboardDefinition);
         }
 
+        public event EventHandler<DashboardDesignerOpeningEventArgs> DashboardDesignerOpening;
+
         public SimpleAction DashboardEdit {
             get { return _dashboardEdit; }
         }
@@ -77,6 +79,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
         void dashboardEdit_Execute(object sender, SimpleActionExecuteEventArgs e) {
             using (var form = new DashboardDesignerForm { ObjectSpace = ObjectSpace }) {
                 form.LoadTemplate(((IDashboardDefinition)View.CurrentObject), Application);
+                DashboardDesignerOpening?.Invoke(this, new DashboardDesignerOpeningEventArgs(form.Designer));
                 form.ShowDialog();
                 if (View is ListView)
                     ObjectSpace.CommitChanges();
