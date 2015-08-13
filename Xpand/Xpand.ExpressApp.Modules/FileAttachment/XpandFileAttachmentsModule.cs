@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
@@ -10,7 +12,6 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.FileAttachment.BusinessObjects;
 using Xpand.Persistent.Base.General;
-using System.Linq;
 using AggregatedAttribute = DevExpress.Xpo.AggregatedAttribute;
 
 namespace Xpand.ExpressApp.FileAttachment {
@@ -47,8 +48,7 @@ namespace Xpand.ExpressApp.FileAttachment {
             var modelOptionsFileSystemStoreLocation =((IModelOptionsFileSystemStoreLocation) CaptionHelper.ApplicationModel.Options);
             var appSetting = ConfigurationManager.AppSettings["FileSystemStoreLocation"];
             var path = appSetting ?? modelOptionsFileSystemStoreLocation.FileSystemStoreLocation;
-            return modelOptionsFileSystemStoreLocation.FileSystemStoreLocation.IndexOf(":", StringComparison.Ordinal)>-1? path
-                       : String.Format("{0}{1}", PathHelper.GetApplicationFolder(), path);
+            return Path.IsPathRooted(path) ? path : Path.Combine(PathHelper.GetApplicationFolder(), path);
         }
     }
 
