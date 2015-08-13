@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.FileAttachment.Web {
         protected override void OnActivated() {
             base.OnActivated();
             foreach (var fileDataPropertyEditor in View.GetItems<FileDataPropertyEditor>()) {
-                fileDataPropertyEditor.ControlCreated+=FileDataPropertyEditorOnControlCreated;
+                fileDataPropertyEditor.ControlCreated += FileDataPropertyEditorOnControlCreated;
             }
         }
 
@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.FileAttachment.Web {
                 OnUploadControlProviderCreated(new ASPxPropertyEditorUploadControlProviderArgs(controlProvider));
                 fileDataPropertyEditor.Editor.Load -= eventHandlers[0];
             };
-            if (fileDataPropertyEditor.Editor != null) fileDataPropertyEditor.Editor.Load+= eventHandlers[0];
+            if (fileDataPropertyEditor.Editor != null) fileDataPropertyEditor.Editor.Load += eventHandlers[0];
         }
 
     }
