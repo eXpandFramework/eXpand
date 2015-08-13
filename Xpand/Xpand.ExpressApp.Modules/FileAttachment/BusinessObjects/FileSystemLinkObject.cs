@@ -1,12 +1,12 @@
 ﻿using System;
-using System.IO;
-using DevExpress.Xpo;
-using DevExpress.ExpressApp;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 using Xpand.Xpo;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
     /// <summary>
@@ -35,10 +35,10 @@ namespace Xpand.ExpressApp.FileAttachment.BusinessObjects {
         void IFileData.SaveToStream(Stream destination) {
             try {
                 if (destination == null)
-                    System.Diagnostics.Process.Start(FullName);
+                    Process.Start(FullName);
                 else {
                     using (var fileStream = File.OpenRead(FullName)) {
-                        fileStream.CopyStream(destination);
+                        fileStream.CopyTo(destination);
                     }
                 }
             } catch (Exception exc) {
