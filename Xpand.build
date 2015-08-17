@@ -329,6 +329,7 @@
     <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
     <Delete Files="@(setupFiles)" />
     <CallTarget Targets="Distrib"></CallTarget>
+	<Exec Command="$(XpandDLLPath)\DistribNugetAssemblies.exe" WorkingDirectory="$(XpandDLLPath)"></Exec>
   </Target>
   <Target Name="DeployUpdate">
     <MakeDir Directories="$(DeploymentFolder);" />
