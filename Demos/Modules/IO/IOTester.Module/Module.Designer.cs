@@ -27,6 +27,7 @@ namespace IOTester.Module {
             // IOTesterModule
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
         }
 
         #endregion

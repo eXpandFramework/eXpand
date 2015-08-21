@@ -17,7 +17,7 @@
 *Action Roles
 *Action Roles.Link
 *ClearSelection
-*XpandSelectRecords 
+*SelectRecords 
  Columns = Name
  Row = User
 *Action OK
