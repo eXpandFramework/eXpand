@@ -30,7 +30,9 @@ namespace Xpand.EasyTest {
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
          
     }
+
     public interface IXpandTestAdapter {
+
     }
 
     public static class Extensions {
@@ -95,18 +97,13 @@ namespace Xpand.EasyTest {
             return Adapter is IXpandTestWinAdapter;
         }
 
-        public static string GetBinPath(this TestParameters testParameters){
-            return testParameters.GetAlias("WinAppBin", "WebAppBin").Value;
+        public static string GetBinPath(this Command command) {
+            return _application.ParameterValue<string>(ApplicationParams.PhysicalPath) ??
+                   Path.GetDirectoryName(_application.ParameterValue<string>(ApplicationParams.FileName));
         }
 
-        public static TestAlias GetAlias(this TestParameters testParameters,string name,string webName=null){
-            string aliasName = IsWinAdapter(null) ? name : webName??name;
-            var options = testParameters.LoadOptions();
-            return options.Aliases.Cast<TestAlias>().First(@alias => alias.Name == aliasName);
-        }
-
-        public static Options LoadOptions(this TestParameters testParameters) {
-            var configPath = Path.Combine(testParameters.ScriptsPath, "config.xml");
+        public static Options LoadOptions(string scriptsPath) {
+            var configPath = Path.Combine(scriptsPath, "config.xml");
             var optionsStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
             return Options.LoadOptions(optionsStream, null, null, Path.GetDirectoryName(configPath));
         }
@@ -169,7 +166,7 @@ namespace Xpand.EasyTest {
             application.DeleteParametersFile();
             var paramFile = application.GetParameterFile();
             var paramValue = application.ParameterValue<string>("Parameter");
-            if (paramValue!=null){
+            if (paramValue != null){
                 using (var streamWriter = File.CreateText(paramFile)){
                     streamWriter.WriteLine(paramValue);
                 }
@@ -217,13 +214,17 @@ namespace Xpand.EasyTest {
         }
         
         private static IXpandTestAdapter _adapter;
+        private static TestApplication _application;
 
         public static IXpandTestAdapter Adapter {
             get { return _adapter; }
         }
 
+        public static void Assign(this TestApplication application) {
+            _application=application;    
+        }
 
-        public static void RegisterCommands(this IRegisterCommand registerCommand,IXpandTestAdapter applicationAdapter){
+        public static void RegisterCommands(this IRegisterCommand registerCommand, IXpandTestAdapter applicationAdapter){
             _adapter = applicationAdapter;
             var dictionary = new Dictionary<Type, string>{
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
@@ -246,6 +247,9 @@ namespace Xpand.EasyTest {
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
+                {typeof (XpandFillRecordCommand), XpandFillRecordCommand.Name},
+                {typeof (SaveFileDialogCommand), SaveFileDialogCommand.Name},
+                {typeof (OpenFileDialogCommand), OpenFileDialogCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
                 {typeof (XpandCheckFieldValuesCommand), XpandCheckFieldValuesCommand.Name},
                 {typeof (LogonCommand), LogonCommand.Name},
@@ -253,7 +257,6 @@ namespace Xpand.EasyTest {
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (FocusWindowCommand), FocusWindowCommand.Name},
-                {typeof (XpandSelectRecordsCommand), XpandSelectRecordsCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
                 {typeof (ToggleNavigationCommand), ToggleNavigationCommand.Name},

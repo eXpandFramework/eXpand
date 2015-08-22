@@ -36,16 +36,17 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         IEnumerable<IClassInfoGraphNode> CreateGraph(IObjectSpace objectSpace, ITypeInfo typeToSerialize) {
-            IEnumerable<IMemberInfo> memberInfos = GetMemberInfos(typeToSerialize);
-            var classInfoGraphNodes = CreateGraphCore(memberInfos, objectSpace).ToList();
+            var memberInfos = GetMemberInfos(typeToSerialize);
+            var classInfoGraphNodes = CreateGraphCore(memberInfos, objectSpace).ToArray();
             ResetDefaultKeyWhenMultiple(classInfoGraphNodes);
             return classInfoGraphNodes;
         }
 
         void ResetDefaultKeyWhenMultiple(IEnumerable<IClassInfoGraphNode> classInfoGraphNodes) {
-            var nonDefaultKey = classInfoGraphNodes.Skip(1).FirstOrDefault(node => node.Key);
+            var infoGraphNodes = classInfoGraphNodes as IClassInfoGraphNode[] ?? classInfoGraphNodes.ToArray();
+            var nonDefaultKey = infoGraphNodes.Skip(1).FirstOrDefault(node => node.Key);
             if (nonDefaultKey != null) {
-                classInfoGraphNodes.First(graphNode => graphNode.Key).Key = false;
+                infoGraphNodes.First(graphNode => graphNode.Key).Key = false;
             }
         }
 

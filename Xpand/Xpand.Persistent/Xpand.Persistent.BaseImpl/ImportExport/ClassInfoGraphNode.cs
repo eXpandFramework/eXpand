@@ -11,15 +11,14 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
-    [ModelDefault("DefaultListViewMasterDetailMode", "ListViewAndDetailView")]
     [ControllerStateRule("ClassInfoGraphNode+NewObjectViewController", typeof(NewObjectViewController), "1=1", "1=1", ControllerState.Disabled)]
     [ControllerStateRule("ClassInfoGraphNode+DeleteObjectsViewController", typeof(DeleteObjectsViewController), "1=1", "1=1", ControllerState.Disabled)]
     [DefaultProperty("Name")]
     public class ClassInfoGraphNode : XpandBaseCustomObject, IClassInfoGraphNode {
 
-        private string name;
-        private SerializationConfiguration serializationConfiguration;
-        private SerializationStrategy serializationStrategy;
+        private string _name;
+        private SerializationConfiguration _serializationConfiguration;
+        private SerializationStrategy _serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
 
         [Appearance("RuleObjectCanNotBeKey", AppearanceItemType.ViewItem, null, Enabled = false, TargetItems = "Key")]
@@ -37,14 +36,14 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         [VisibleInDetailView(false)]
         [ModelDefault("AllowEdit", "false")]
         public string Name {
-            get { return name; }
-            set { SetPropertyValue("Name", ref name, value); }
+            get { return _name; }
+            set { SetPropertyValue("Name", ref _name, value); }
         }
 
         [Association]
         public SerializationConfiguration SerializationConfiguration {
-            get { return serializationConfiguration; }
-            set { SetPropertyValue("SerializationConfiguration", ref serializationConfiguration, value); }
+            get { return _serializationConfiguration; }
+            set { SetPropertyValue("SerializationConfiguration", ref _serializationConfiguration, value); }
         }
 
         ISerializationConfiguration IClassInfoGraphNode.SerializationConfiguration {
@@ -53,8 +52,8 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         }
         [VisibleInListView(false)]
         public SerializationStrategy SerializationStrategy {
-            get { return serializationStrategy; }
-            set { SetPropertyValue("SerializationStrategy", ref serializationStrategy, value); }
+            get { return _serializationStrategy; }
+            set { SetPropertyValue("SerializationStrategy", ref _serializationStrategy, value); }
         }
 
         private bool _key;

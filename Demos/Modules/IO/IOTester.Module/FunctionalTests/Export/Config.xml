@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
+  <Applications>
+    <!-- Win -->
+    <Application
+			Name="IOTester.Win"
+			FileName="[WinAppBin]\IOTester.Win.exe"
+      AdapterFileName="[WinAdapterFileName]"
+			CommunicationPort="4100"/>
+    <!-- Web -->
+    <Application
+			Name="IOTester.Web"
+			Url="http://localhost:4030"
+			PhysicalPath="[WebAppBin]"
+      AdapterFileName="[WebAdapterFileName]"
+/>
+    <!-- For IIS -->
+    <!--Application
+			Name="[SolutionName]Web"
+			Url="http://localhost/AdditionalCommands.Web/Default.aspx"
+			 AdapterFileName="[WebAdapterFileName]"/-->
+  </Applications>
+  <TestDatabases>
+    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="IOTesterEasyTest" />
+  </TestDatabases>
+  <Aliases>
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\IOTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\IOTester.Web" />
+  </Aliases>
+</Options>

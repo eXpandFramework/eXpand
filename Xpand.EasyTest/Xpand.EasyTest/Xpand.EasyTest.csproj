@@ -87,7 +87,9 @@
     <Compile Include="Commands\MouseDragDropCommand.cs" />
     <Compile Include="Commands\MultiLineComparisionHelper.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
+    <Compile Include="Commands\OpenFileDialogCommand.cs" />
     <Compile Include="Commands\SaveAndCloseCommand.cs" />
+    <Compile Include="Commands\SaveFileDialogCommand.cs" />
     <Compile Include="Commands\ScreenCaptureCommand.cs" />
     <Compile Include="Commands\ResizeWindowCommand.cs" />
     <Compile Include="Commands\SetWebMaxWaitTime.cs" />
@@ -107,9 +109,9 @@
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
+    <Compile Include="Commands\XpandFillRecordCommand.cs" />
     <Compile Include="Commands\XpandHandleDialogCommand.cs" />
     <Compile Include="Commands\XpandProcessRecordCommand.cs" />
-    <Compile Include="Commands\XpandSelectRecordsCommand.cs" />
     <Compile Include="TestDataBase\Operations\ASADatabaseOperation.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Commands\FillDateTimeValueCommand .cs" />

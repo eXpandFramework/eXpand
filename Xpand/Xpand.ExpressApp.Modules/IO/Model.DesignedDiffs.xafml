@@ -1,2 +1,21 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="SerializationConfiguration_SerializationGraph_ListView" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="SerializationStrategy" Index="1" />
+        <ColumnInfo Id="Key" Index="2" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="Link" IsNewNode="True" />
+        <ActionLink ActionId="Unlink" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="SerializationConfigurationGroup_SerializationConfigurations_ListView">
+      <HiddenActions>
+        <ActionLink ActionId="Link" IsNewNode="True" />
+        <ActionLink ActionId="Unlink" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+  </Views>
+</Application>

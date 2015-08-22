@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,7 +16,6 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         private Type _typeToSerialize;
         public SerializationConfiguration(Session session) : base(session) { }
         private SerializationConfigurationGroup _serializationConfigurationGroup;
-
 
         [Index(0)]
         [Size(SizeAttribute.Unlimited)]
@@ -35,12 +35,12 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         [Persistent]
         [Size(SizeAttribute.Unlimited)] protected string TypeNameToSerialize;
         [Association]
-        [Aggregated]
         public XPCollection<ClassInfoGraphNode> SerializationGraph {
             get { return GetCollection<ClassInfoGraphNode>("SerializationGraph"); }
         }
         [RuleRequiredField]
         [Association("SerializationConfigurationGroup-SerializationConfigurations")]
+        [VisibleInDetailView(false)]
         public SerializationConfigurationGroup SerializationConfigurationGroup {
             get { return _serializationConfigurationGroup; }
             set { SetPropertyValue("SerializationConfigurationGroup", ref _serializationConfigurationGroup, value); }

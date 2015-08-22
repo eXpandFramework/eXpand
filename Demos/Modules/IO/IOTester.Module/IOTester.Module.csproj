@@ -44,6 +44,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
@@ -57,6 +58,7 @@
     <Reference Include="Xpand.Xpo, Version=15.1.5.4, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\Export\ExportObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -84,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\ReadMe.txt" />
+    <None Include="FunctionalTests\Export\Export.ets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
@@ -92,6 +94,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\Export\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\Export\ConfigSerializationWeb.inc" />
+    <Content Include="FunctionalTests\Export\ConfigSerializationWin.inc" />
+    <Content Include="FunctionalTests\Export\export.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

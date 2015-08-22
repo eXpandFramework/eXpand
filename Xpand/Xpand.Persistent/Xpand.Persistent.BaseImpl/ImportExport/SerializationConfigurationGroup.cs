@@ -17,7 +17,7 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             : base(session) {
         }
 
-        [RuleUniqueValue(null, DefaultContexts.Save)]
+        [RuleUniqueValue(DefaultContexts.Save)]
         [RuleRequiredField]
         public string Name {
             get { return _name; }
@@ -25,9 +25,8 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         }
 
         [Association("SerializationConfigurationGroup-SerializationConfigurations")]
-        [Aggregated]
         public XPCollection<SerializationConfiguration> SerializationConfigurations {
-            get { return GetCollection<SerializationConfiguration>("SerializationConfigurations"); }
+            get{ return GetCollection<SerializationConfiguration>("SerializationConfigurations");}
         }
 
         IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations {

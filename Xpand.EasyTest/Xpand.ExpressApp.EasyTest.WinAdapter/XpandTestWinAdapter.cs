@@ -104,6 +104,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         }
 
         public override void RunApplication(TestApplication testApplication) {
+            testApplication.Assign();
             testApplication.DeleteUserModel();
             testApplication.CreateParametersFile();
             testApplication.CopyModel();
@@ -133,6 +134,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                 File.Delete(logonparameters);
         }
 
+
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType) {
             _winEasyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
             return _winEasyTestCommandAdapter;
@@ -144,6 +146,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             TestControlFactoryWin.SetInstance(new XpandCustomTestControlFactory());
         }
 
+        public IApplicationAdapter Adapter { get; internal set; }
     }
 
     public class XpandCustomTestControlFactory : TestControlFactoryWin {

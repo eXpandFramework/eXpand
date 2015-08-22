@@ -14,17 +14,17 @@ namespace Xpand.EasyTest.Commands{
         protected override void InternalExecute(ICommandAdapter adapter){
             EasyTestTracer.Tracer.InProcedure(GetType().Name + ".Execute");
             EasyTestTracer.Tracer.LogText(Environment.NewLine + Text);
-            var testAlias = _testParameters.GetAlias("WinAppBin", "WebAppBin");
+            var binPath = this.GetBinPath();
             if (string.IsNullOrEmpty(Parameters.MainParameter.Value)){
                 var modelFile = Directory.GetFiles(_testParameters.ScriptsPath, "*.xafml", SearchOption.TopDirectoryOnly).Single();
-                CopyModel(adapter, testAlias.Value, GetUserXafml(modelFile), modelFile);
+                CopyModel(adapter, binPath, GetUserXafml(modelFile), modelFile);
             }
             else{
                 var modelFiles = Parameters.MainParameter.Value.Split(';');
                 for (int i = 0; i < modelFiles.Length; i++){
                     var path = Path.Combine(_testParameters.ScriptsPath, modelFiles[i] + ".xafml");
                     var userXafml = GetUserXafml(path,i);
-                    CopyModel(adapter, testAlias.Value, userXafml, path);
+                    CopyModel(adapter, binPath, userXafml, path);
                 }
             }
 

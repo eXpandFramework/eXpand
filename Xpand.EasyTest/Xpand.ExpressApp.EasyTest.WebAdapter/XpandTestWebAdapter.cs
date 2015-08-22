@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         private XpandWebCommandAdapter _webCommandAdapter;
 
         public override void RunApplication(TestApplication testApplication){
+            testApplication.Assign();
             testApplication.CreateParametersFile();
             testApplication.DeleteUserModel();
             testApplication.CopyModel();
@@ -154,6 +155,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
             registrator.RegisterCommand(Xpand.EasyTest.Commands.SetWebMaxWaitTimeOutCommand.Name, typeof(SetWebMaxWaitTimeOutCommand));
         }
+
     }
 
 
@@ -177,10 +179,19 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
     }
 
-    public class XpandWebCommandAdapter : WebCommandAdapter {
+    public class XpandWebCommandAdapter : WebCommandAdapter{
+        private readonly IApplicationAdapter _adapter;
+
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
+            _adapter = adapter;
         }
+
+        public IApplicationAdapter Adapter {
+            get { return _adapter; }
+        }
+        
     }
+
 
     public class IISExpressServerHelper{
         public static void Stop(Process process) {
