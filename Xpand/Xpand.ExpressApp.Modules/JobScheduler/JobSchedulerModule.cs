@@ -39,11 +39,8 @@ namespace Xpand.ExpressApp.JobScheduler {
             if (Application == null)
                 return;
 
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.JobScheduler");
-                Application.SetupComplete +=ApplicationOnSetupComplete;
-            }
-
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.JobScheduler");
+            Application.SetupComplete +=ApplicationOnSetupComplete;
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

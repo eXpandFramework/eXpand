@@ -476,17 +476,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected internal void AddToAdditionalExportedTypes(string[] types) {
-            if (RuntimeMode) {
-                var collection = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
-                AdditionalExportedTypes.AddRange(collection);
-            }
+            var collection = BaseImplAssembly.GetTypes().Where(type1 => types.Contains(type1.FullName));
+            AdditionalExportedTypes.AddRange(collection);
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
-            if (RuntimeMode) {
-                var types =assembly.GetTypes().Where(type1 => String.Join("", type1.Namespace).StartsWith(nameSpaceName));
-                AdditionalExportedTypes.AddRange(types);
-            }
+            var types =assembly.GetTypes().Where(type1 => String.Join("", type1.Namespace).StartsWith(nameSpaceName));
+            AdditionalExportedTypes.AddRange(types);
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName) {

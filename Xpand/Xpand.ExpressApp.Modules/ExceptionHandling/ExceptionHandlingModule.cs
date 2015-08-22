@@ -16,8 +16,7 @@ namespace Xpand.ExpressApp.ExceptionHandling {
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode)
-                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ExceptionHandling");
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ExceptionHandling");
             application.CreateCustomObjectSpaceProvider += ApplicationOnCreateCustomObjectSpaceProvider;
         }
 

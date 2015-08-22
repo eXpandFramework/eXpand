@@ -41,9 +41,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
         public override void Setup(XafApplication application) {
             base.Setup(application);
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
-            }
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {

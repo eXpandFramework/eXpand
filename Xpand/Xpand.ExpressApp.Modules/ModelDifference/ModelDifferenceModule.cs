@@ -48,9 +48,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
             }
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
-            }
+            AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
         }
 
         void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {

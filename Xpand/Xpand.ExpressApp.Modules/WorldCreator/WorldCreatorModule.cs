@@ -21,12 +21,14 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (_existentTypesMemberCreator == null && RuntimeMode&&(!string.IsNullOrEmpty(ConnectionString)||Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
+            if (_existentTypesMemberCreator == null && (!string.IsNullOrEmpty(ConnectionString)||Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
                 AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
-                WCTypesInfo.Instance.Register(GetAdditionalClasses(ModuleManager));
-                _existentTypesMemberCreator = new ExistentTypesMemberCreator();
-                var session = Application.FindModule<WorldCreatorModuleBase>().GetUnitOfWork();
-                _existentTypesMemberCreator.CreateMembers(session,typesInfo);
+                if (RuntimeMode) {
+                    WCTypesInfo.Instance.Register(GetAdditionalClasses(ModuleManager));
+                    _existentTypesMemberCreator = new ExistentTypesMemberCreator();
+                    var session = Application.FindModule<WorldCreatorModuleBase>().GetUnitOfWork();
+                    _existentTypesMemberCreator.CreateMembers(session, typesInfo);
+                }
             }
         }
     }

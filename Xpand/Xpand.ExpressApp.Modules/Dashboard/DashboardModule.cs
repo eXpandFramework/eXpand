@@ -43,9 +43,7 @@ namespace Xpand.ExpressApp.Dashboard {
                 application.SettingUp += ApplicationOnSetupComplete;
                 application.CreateCustomObjectSpaceProvider+=ApplicationOnCreateCustomObjectSpaceProvider;
             }
-            if (RuntimeMode) {
-                AddToAdditionalExportedTypes(typeof(DashboardDefinition).Namespace, GetType().Assembly);
-            }
+            AddToAdditionalExportedTypes(typeof(DashboardDefinition).Namespace, GetType().Assembly);
         }
 
         private void ApplicationOnCreateCustomObjectSpaceProvider(object sender, CreateCustomObjectSpaceProviderEventArgs createCustomObjectSpaceProviderEventArgs) {
