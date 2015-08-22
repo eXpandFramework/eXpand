@@ -231,7 +231,7 @@ namespace XpandAddins {
                         File.Delete(testLogPath);
                     string debugSwitch = null;
                     if (debug)
-                        debugSwitch = " -d:";
+                        debugSwitch = " -d:" + CodeRush.Caret.Line;
                     var processStartInfo = new ProcessStartInfo(Options.ReadString(Options.TestExecutorPath)) {
                         Arguments = string.Format(@"""{0}""{1}", activeFileName,debugSwitch),
                         UseShellExecute = debug,
