@@ -50,6 +50,12 @@
     <Reference Include="DevExpress.ExpressApp.Web.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v15.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v15.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Web.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

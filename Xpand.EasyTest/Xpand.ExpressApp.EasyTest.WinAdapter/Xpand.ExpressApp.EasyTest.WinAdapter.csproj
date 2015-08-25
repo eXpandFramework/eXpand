@@ -48,6 +48,9 @@
     <Reference Include="DevExpress.XtraEditors.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
