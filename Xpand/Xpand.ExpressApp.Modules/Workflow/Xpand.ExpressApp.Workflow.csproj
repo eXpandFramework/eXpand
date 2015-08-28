@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Workflow</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Workflow</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -93,6 +95,7 @@
     </Reference>
     <Reference Include="System.Activities" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="Xpand.Persistent.Base">
@@ -132,6 +135,7 @@
     </Compile>
     <Compile Include="ObjectChangedWorkflows\StartWorkflowOnObjectChangeService.cs" />
     <Compile Include="ScheduledWorkflows\ScheduledWorkflowLaunchSchedule.cs" />
+    <Compile Include="WorkflowServerStarter.cs" />
     <Compile Include="WorkflowStartService.cs" />
     <Compile Include="ObjectChangedWorkflows\ObjectChangedStartWorkflowService.cs" />
     <Compile Include="XpandWorkflowApplication.cs">

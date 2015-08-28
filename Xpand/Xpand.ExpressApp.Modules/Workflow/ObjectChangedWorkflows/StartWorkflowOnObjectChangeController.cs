@@ -26,7 +26,9 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         void InvokeOnClient(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey) {
             Activity activity = ActivityXamlServices.Load(new StringReader(objectChangedWorkflow.Xaml));
             var dictionary = ObjectChangedStartWorkflowService.Dictionary(targetObjectKey, objectChangedEventArgs.PropertyName, objectChangedEventArgs.OldValue);
-            WorkflowInvoker.Invoke(activity, dictionary);
+            WorkflowInvoker invoker = new WorkflowInvoker(activity);
+            invoker.Extensions.Add(Application.ObjectSpaceProvider);
+            invoker.Invoke(dictionary);
         }
 
         protected override void OnActivated() {

@@ -41,8 +41,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
             ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            modelDifferenceObject.Name = string.Format(((IModelOptionsUserModelDifferenceObjectSubjectTemplate) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName);
+            modelDifferenceObject.Name = string.Format(((IModelOptionsUserModelDifferenceObjectSubjectTemplate) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, GetUserName());
             return modelDifferenceObject;
+        }
+
+        private static string GetUserName(){
+            return SecuritySystem.UserType!=null ? ((IAuthenticationStandardUser)SecuritySystem.CurrentUser).UserName : null;
         }
 
         public void AssignToCurrentUser() {

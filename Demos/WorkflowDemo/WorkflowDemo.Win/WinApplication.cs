@@ -2,10 +2,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Win;
 
 namespace WorkflowDemo.Win
 {
-    public partial class WorkflowDemoWindowsFormsApplication : WinApplication
+    public partial class WorkflowDemoWindowsFormsApplication : XpandWinApplication
     {
 		public WorkflowDemoWindowsFormsApplication()
         {

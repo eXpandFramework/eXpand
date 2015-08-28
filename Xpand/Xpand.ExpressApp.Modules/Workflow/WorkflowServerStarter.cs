@@ -1,18 +1,117 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System;
+using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Layout;
+using DevExpress.ExpressApp.Workflow;
+using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
-using DevExpress.ExpressApp.Workflow.Xpo;
+using DevExpress.ExpressApp.Workflow.Versioning;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Data.Filtering;
-using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
-using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
-namespace Xpand.ExpressApp.Workflow {
+namespace Xpand.ExpressApp.Workflow{
+    public  abstract class WorkflowServerStarter : MarshalByRefObject {
+        private class ServerApplication : XafApplication {
+            protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+                args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            }
+            protected override LayoutManager CreateLayoutManagerCore(bool simple) {
+                throw new NotImplementedException();
+            }
+            public void Logon() {
+                base.Logon(null);
+            }
+        }
+        private static WorkflowServerStarter _starter;
+        private WorkflowServer _server;
+        private AppDomain _domain;
+        void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e) {
+            if (OnCustomHandleException != null) {
+                OnCustomHandleException(null, e);
+            }
+        }
+        private void Start_<TWorkflowDefinition, TUserActivityVersion,TModulesProvider>(string connectionString, string applicationName, string url)
+            where TWorkflowDefinition : IWorkflowDefinitionSettings
+            where TUserActivityVersion : IUserActivityVersionBase where TModulesProvider:ModuleBase{
+            ServerApplication serverApplication = new ServerApplication{ApplicationName = applicationName};
+            serverApplication.Modules.Add(Activator.CreateInstance<TModulesProvider>());
+            
+            serverApplication.ConnectionString = connectionString;
+            serverApplication.Setup();
+            serverApplication.Logon();
 
+            var objectSpaceProvider = serverApplication.ObjectSpaceProvider;
+            _server = new WorkflowServer(url, objectSpaceProvider, objectSpaceProvider){
+                WorkflowDefinitionProvider =
+                    new WorkflowVersionedDefinitionProvider<TWorkflowDefinition, TUserActivityVersion>(
+                        objectSpaceProvider, null),
+                StartWorkflowListenerService ={DelayPeriod = TimeSpan.FromSeconds(5)},
+                StartWorkflowByRequestService ={DelayPeriod = TimeSpan.FromSeconds(5)},
+                RefreshWorkflowDefinitionsService ={DelayPeriod = TimeSpan.FromSeconds(600)}
+            };
+            _server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
+                // NOTE: Uncomment this section to use alternative workflow configuration.
+                //
+                // SqlWorkflowInstanceStoreBehavior
+                //
+                //e.WorkflowInstanceStoreBehavior = null;
+                //System.ServiceModel.Activities.Description.SqlWorkflowInstanceStoreBehavior sqlWorkflowInstanceStoreBehavior = new System.ServiceModel.Activities.Description.SqlWorkflowInstanceStoreBehavior("Integrated Security=SSPI;Pooling=false;Data Source=(local);Initial Catalog=WorkflowsStore");
+                //sqlWorkflowInstanceStoreBehavior.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
+                //e.Host.Description.Behaviors.Add(sqlWorkflowInstanceStoreBehavior);
+                //e.WorkflowIdleBehavior.TimeToPersist = TimeSpan.FromSeconds(1);
+                //e.WorkflowIdleBehavior.TimeToPersist = TimeSpan.FromSeconds(10);
+                //e.WorkflowIdleBehavior.TimeToUnload = TimeSpan.FromSeconds(10);
+                e.WorkflowInstanceStoreBehavior.WorkflowInstanceStore.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
+            };
 
+            _server.CustomHandleException += delegate(object sender, CustomHandleServiceExceptionEventArgs e) {
+                Tracing.Tracer.LogError(e.Exception);
+                if (OnCustomHandleException_ != null) {
+                    OnCustomHandleException_(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
+                }
+                e.Handled = true;
+            };
+            _server.Start();
+        }
+        private void Stop_() {
+            _server.Stop();
+        }
+        public void Start<TWorkflowDefinition, TUserActivityVersion, TModuleProvider>(string connectionString, string applicationName,  string url)
+            where TWorkflowDefinition : IWorkflowDefinitionSettings
+            where TUserActivityVersion : IUserActivityVersionBase 
+            where TModuleProvider:ModuleBase{
+            try {
+                _domain = AppDomain.CreateDomain("ServerDomain");
+                _starter = (WorkflowServerStarter)_domain.CreateInstanceAndUnwrap(
+                    Assembly.GetEntryAssembly().FullName, GetType().FullName);
+                _starter.OnCustomHandleException_ += starter_OnCustomHandleException_;
+                _starter.Start_<TWorkflowDefinition,TUserActivityVersion,TModuleProvider>(connectionString, applicationName,url);
+            }
+            catch (Exception e) {
+                Tracing.Tracer.LogError(e);
+                if (OnCustomHandleException != null) {
+                    OnCustomHandleException(null, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Message));
+                }
+            }
+        }
+        public void Stop() {
+            if (_starter != null) {
+                _starter.Stop_();
+            }
+            if (_domain != null) {
+                AppDomain.Unload(_domain);
+            }
+        }
+        public event EventHandler<ExceptionEventArgs> OnCustomHandleException_;
+        public event EventHandler<ExceptionEventArgs> OnCustomHandleException;
+
+        public void Start<TWorkflowDefinition, TUserActivityVersion, TModuleProvider>(XafApplication application, string url = "http://localhost:46232")
+            where TWorkflowDefinition : IWorkflowDefinitionSettings
+            where TUserActivityVersion : IUserActivityVersionBase 
+            where  TModuleProvider:ModuleBase{
+                Start<TWorkflowDefinition, TUserActivityVersion,TModuleProvider>(application.ConnectionString, application.ApplicationName, url);
+        }
+    }
     [Serializable]
     public class ExceptionEventArgs : EventArgs {
         public ExceptionEventArgs(string message) {
@@ -21,77 +120,4 @@ namespace Xpand.ExpressApp.Workflow {
         public string Message { get; private set; }
     }
 
-    public class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XafApplication {
-            protected override DevExpress.ExpressApp.Layout.LayoutManager CreateLayoutManagerCore(bool simple) {
-                throw new NotImplementedException();
-            }
-            public void Logon() {
-                base.Logon(null);
-            }
-        }
-        private static WorkflowServerStarter starter;
-        private WorkflowServer server;
-        private AppDomain domain;
-        public void Start(string connectionString, string applicationName) {
-            try {
-                domain = AppDomain.CreateDomain("ServerDomain");
-                starter = (WorkflowServerStarter)domain.CreateInstanceAndUnwrap(
-                    System.Reflection.Assembly.GetEntryAssembly().FullName, typeof(WorkflowServerStarter).FullName + "");
-                starter.Start_(connectionString, applicationName);
-                starter.OnCustomHandleException_ += starter_OnCustomHandleException_;
-            } catch (Exception e) {
-                Tracing.Tracer.LogError(e);
-                if (OnCustomHandleException != null) {
-                    OnCustomHandleException(null, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Message));
-                }
-            }
-        }
-
-        void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e) {
-            if (OnCustomHandleException != null) {
-                OnCustomHandleException(null, e);
-            }
-        }
-        public void Stop() {
-            if (domain != null) {
-                AppDomain.Unload(domain);
-            }
-        }
-        private void Start_(string connectionString, string applicationName) {
-            var serverApplication = new ServerApplication();
-            //            moduleBases.Each(@base => serverApplication.Modules.Add(@base));
-            serverApplication.ApplicationName = applicationName;
-            serverApplication.ConnectionString = connectionString;
-            Type securityType = typeof(SecurityComplex).MakeGenericType(new[] { SecuritySystem.UserType, ((ISecurityComplex)SecuritySystem.Instance).RoleType });
-            serverApplication.Security = (ISecurity)Activator.CreateInstance(securityType, new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
-            //            serverApplication.Security = new SecurityComplex<User, Role>(
-            //                new WorkflowServerAuthentication(new BinaryOperator("UserName", "WorkflowService")));
-            serverApplication.Setup();
-            serverApplication.Logon();
-
-            IObjectSpaceProvider objectSpaceProvider = serverApplication.ObjectSpaceProvider;
-
-            server = new XpandWorkflowServer(ConfigurationManager.AppSettings["WorkflowServerUrl"], objectSpaceProvider, objectSpaceProvider);
-            server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
-                e.WorkflowInstanceStoreBehavior.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
-            };
-            //            server.WorkflowDefinitionProvider = new WorkflowVersionedDefinitionProvider<XpoWorkflowDefinition, XpoUserActivityVersion>(objectSpaceProvider, null);
-            server.WorkflowDefinitionProvider = new XpandWorkflowDefinitionProvider(typeof(XpoWorkflowDefinition), new List<Type> { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow) });
-            server.StartWorkflowListenerService.DelayPeriod = TimeSpan.FromSeconds(5);
-            server.StartWorkflowByRequestService.RequestsDetectionPeriod = TimeSpan.FromSeconds(5);
-            server.RefreshWorkflowDefinitionsService.DelayPeriod = TimeSpan.FromSeconds(30);
-
-            server.Start();
-            server.CustomHandleException += delegate(object sender, DevExpress.ExpressApp.Workflow.ServiceModel.CustomHandleServiceExceptionEventArgs e) {
-                Tracing.Tracer.LogError(e.Exception);
-                if (OnCustomHandleException_ != null) {
-                    OnCustomHandleException_(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
-                }
-                e.Handled = true;
-            };
-        }
-        public event EventHandler<ExceptionEventArgs> OnCustomHandleException_;
-        public event EventHandler<ExceptionEventArgs> OnCustomHandleException;
-    }
 }
