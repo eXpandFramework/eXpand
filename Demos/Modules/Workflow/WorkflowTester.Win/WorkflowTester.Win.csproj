@@ -81,6 +81,10 @@
       <Name>System.Windows.Forms</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow, Version=15.1.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -125,10 +129,6 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\Workflow\Xpand.ExpressApp.Workflow.csproj">
-      <Project>{DA7200E2-BE28-4B34-99F2-FF9490A720DC}</Project>
-      <Name>Xpand.ExpressApp.Workflow</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WorkflowTester.Module.Win\WorkflowTester.Module.Win.csproj">
       <Project>{346E9BB4-D720-4BAA-9629-730FFED0C6D2}</Project>
       <Name>WorkflowTester.Module.Win</Name>
