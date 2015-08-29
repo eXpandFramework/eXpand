@@ -78,6 +78,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.MasterDetail">
       <SpecificVersion>False</SpecificVersion>
@@ -134,6 +135,10 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\MasterDetailLayoutView\MasterDetailLayoutView.ets" />
+    <None Include="FunctionalTests\MasterDetailLayoutView\MasterDetailLayoutView.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\FromModel\MasterDetailRules.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -152,7 +157,9 @@
     <None Include="FunctionalTests\FromModel\Config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\Images\MasterDetailLayoutView.win.png" />
     <None Include="FunctionalTests\FromPermission\Config.xml" />
+    <None Include="FunctionalTests\MasterDetailLayoutView\Config.xml" />
     <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

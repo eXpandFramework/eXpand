@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 IModelListView childModelListView = modelDetailRelationCalculator.GetChildModelListView(rowHandle, relationIndex);
                 Window window = _xafApplication.CreateWindow(TemplateContext.View, null, true, false);
                 ListView listView = GetListView(modelDetailRelationCalculator, rowHandle, relationIndex, childModelListView);
-                var detailXafGridView = (DevExpress.XtraGrid.Views.Grid.GridView)masterGridView.GetDetailView(rowHandle, relationIndex);
+                var detailXafGridView = (DevExpress.XtraGrid.Views.Base.ColumnView)masterGridView.GetDetailView(rowHandle, relationIndex);
                 ((IColumnViewEditor)listView.Editor).CustomGridViewCreate +=
                     (o, eventArgs) => {
                         ((WinColumnsListEditor)o).DataSource = detailXafGridView.DataSource;

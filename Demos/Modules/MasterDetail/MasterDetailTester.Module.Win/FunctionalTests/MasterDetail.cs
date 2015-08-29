@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
@@ -36,7 +36,7 @@ namespace MasterDetailTester.Module.Win.FunctionalTests {
         }
 
         private void GridViewOnMasterRowExpanded(object sender, CustomMasterRowEventArgs e){
-            var detailView = (GridView) ((GridView) sender).GetDetailView(e.RowHandle, e.RelationIndex);
+            var detailView = (ColumnView)((GridView)sender).GetDetailView(e.RowHandle, e.RelationIndex);
             detailView.GridControl.FocusedView = detailView;
             detailView.FocusedRowHandle = 0;
         }
