@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XVideoRental.Module.Win", "XVideoRental.Module.Win\XVideoRental.Module.Win.csproj", "{3EF22D83-3110-4AB6-99FD-1346A5784800}"
 EndProject
@@ -62,14 +62,12 @@ Global
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Release|x86.Build.0 = Release|x86
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|x86.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

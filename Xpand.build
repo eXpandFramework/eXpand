@@ -13,6 +13,7 @@
     <ToolsPath>$(MSBuildProjectDirectory)\Support\Tool</ToolsPath>
     <NuGetTool>$(ToolsPath)\NuGet.exe</NuGetTool>
     <_third_party_assemblies>$(MSBuildProjectDirectory)\Support\_third_party_assemblies</_third_party_assemblies>
+	<DefineConstants Condition=" '$(DefineConstants)'==''" >DEBUG;TRACE</DefineConstants>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
 	  <BatchCall>false</BatchCall>
     <ExecCommand></ExecCommand>
@@ -95,16 +96,16 @@
   </Target>
   <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferencesB4Build">
     <MSBuild Projects="Support\VersionChanger\VersionChanger.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="True" />
-    <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
-    <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath)" />
     <CallTarget Targets="BuildNH"/>
-    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" Condition="$(RecompiledDXSources) == $(Configuration)" />
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
-    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
@@ -112,7 +113,7 @@
 	<CallTarget Targets="FixReferencesAfterBuild"/>
   </Target>
   <Target Name="BuildNH">
-	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
   </Target>
   <Target Name="Clean">
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -165,7 +166,7 @@
   </Target>
   <Target Name="UpdateXpandDocsSiteFiles">
     <Exec Command='$(ProjectConverterName) /sc "$(XpandDocsSitePath)"' WorkingDirectory="$(ProjectConverterPath)"></Exec>
-    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);DefineConstants=$(DefineConstants)" />
+    <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration)" />
     <CallTarget Targets="KillXpandDocsSite" />
     <ItemGroup>
       <PackagedFiles Include="$(XpandDocsPath)\Xpand.Docs.Web\**\*.*;"
