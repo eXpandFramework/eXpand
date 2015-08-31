@@ -159,6 +159,9 @@
     <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\PositionInListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
       <SubType>Component</SubType>
     </Compile>

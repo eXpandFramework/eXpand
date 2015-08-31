@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
     <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
+    <Compile Include="FunctionalTests\PositionInListView\PositionInListViewObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\MySql\MySqlObject.cs" />
@@ -187,6 +188,10 @@
     </None>
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.ets" />
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.xafml" />
+    <None Include="FunctionalTests\PositionInListView\PositionInListView.ets" />
+    <None Include="FunctionalTests\PositionInListView\PositionInListView.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\HideToolBar\HideToolBar.ets" />
     <None Include="FunctionalTests\HideToolBar\HideToolBar.xafml" />
     <None Include="FunctionalTests\MergedDifferences\MergedDifferences.ets" />
@@ -233,6 +238,7 @@
     <Content Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\EndUserAppearanceRule\Config.xml" />
+    <Content Include="FunctionalTests\PositionInListView\Config.xml" />
     <Content Include="FunctionalTests\MySql\Config.xml">
       <SubType>Designer</SubType>
     </Content>
