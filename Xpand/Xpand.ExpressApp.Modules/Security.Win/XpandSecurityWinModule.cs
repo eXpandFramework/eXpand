@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -81,7 +82,7 @@ namespace Xpand.ExpressApp.Security.Win {
             }
         }
 
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             var type = Application == null ? typeof(XpandRole) : RoleType;
             var typeInfo = typesInfo.FindTypeInfo(type);

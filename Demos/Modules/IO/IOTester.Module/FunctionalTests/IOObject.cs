@@ -2,13 +2,13 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
-namespace IOTester.Module.FunctionalTests.Export{
+namespace IOTester.Module.FunctionalTests{
     [DefaultClassOptions]
-    public class ExportObject : BaseObject{
+    public class IOObject : BaseObject{
         private string _doNotSerialize;
         private string _key;
 
-        public ExportObject(Session session) : base(session){
+        public IOObject(Session session) : base(session){
         }
 
         public string Key{
