@@ -37,6 +37,7 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.MetaData;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
@@ -467,6 +468,16 @@ namespace Xpand.Persistent.Base.General {
 
         public Type LoadFromBaseImpl(string typeName){
             return BaseImplAssembly != null ? LoadFromBaseImplCore(typeName) : null;
+        }
+
+        public override bool IsExportedType(Type type) {
+            var isExportedType = base.IsExportedType(type);
+            if (isExportedType) {
+                var boTypes = new[] { typeof(ISecurityUser), typeof(ISecurityRole), typeof(ISecurityRelated) };
+                if (boTypes.Any(type1 => type1.IsAssignableFrom(type)))
+                    return SecuritySystem.Instance != null && SecuritySystem.Instance.UserType != null;
+            }
+            return isExportedType;
         }
 
         private Type LoadFromBaseImplCore(string typeName){
