@@ -422,9 +422,12 @@ namespace Xpand.Persistent.Base.General {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
             var declaredExportedTypes = base.GetDeclaredExportedTypes();
-            return !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration),SequenceObjectType}).Where(type => type!=null)
+            declaredExportedTypes=!Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
+                ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType }).Where(type => type != null)
                 : declaredExportedTypes;
+            if (Application.Security == null||Application.Security.UserType==null)
+                return declaredExportedTypes.Where(type => !typeof (ISecurityRelated).IsAssignableFrom(type));
+            return declaredExportedTypes;
         }
 
         void AssignSecurityEntities() {
@@ -468,16 +471,6 @@ namespace Xpand.Persistent.Base.General {
 
         public Type LoadFromBaseImpl(string typeName){
             return BaseImplAssembly != null ? LoadFromBaseImplCore(typeName) : null;
-        }
-
-        public override bool IsExportedType(Type type) {
-            var isExportedType = base.IsExportedType(type);
-            if (isExportedType) {
-                var boTypes = new[] { typeof(ISecurityUser), typeof(ISecurityRole), typeof(ISecurityRelated) };
-                if (boTypes.Any(type1 => type1.IsAssignableFrom(type)))
-                    return SecuritySystem.Instance != null && SecuritySystem.Instance.UserType != null;
-            }
-            return isExportedType;
         }
 
         private Type LoadFromBaseImplCore(string typeName){
@@ -624,8 +617,24 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void ApplicationOnSettingUp(object sender, SetupEventArgs setupEventArgs) {
+
+//        public override bool IsExportedType(Type type) {
+//            var isExportedType = base.IsExportedType(type);
+//            if (isExportedType) {
+//                var boTypes = new[] { typeof(ISecurityUser), typeof(ISecurityRole), typeof(ISecurityRelated) };
+//                if (boTypes.Any(type1 => type1.IsAssignableFrom(type)))
+//                    return SecuritySystem.Instance != null && SecuritySystem.Instance.UserType != null;
+//            }
+//            return isExportedType;
+//        }
+
+        void ApplicationOnSettingUp(object sender, SetupEventArgs e) {
             AssignSecurityEntities();
+//            var domainComponents = new List<Type>(e.SetupParameters.DomainComponents);
+//            var types = Application.TypesInfo.FindTypeInfo(typeof(ISecurityRelated)).Implementors.Where(info => info.IsPersistent).Select(info => info.Type).ToArray();
+//            if (Application.Security==null||Application.Security.UserType==null)
+//                domainComponents.RemoveAll(type => types.Contains(type));
+//            e.SetupParameters.DomainComponents=domainComponents;
         }
 
         protected virtual Type[] ApplicationTypes() {
