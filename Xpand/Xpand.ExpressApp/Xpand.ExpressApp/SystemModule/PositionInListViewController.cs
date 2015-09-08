@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         public static IEnumerable<IModelColumn> Get_SortableColumns(IModelListViewPositionColumn column) {
-            var modelColumns = column.Columns.Where(modelColumn => modelColumn.ModelMember.MemberInfo.MemberType == typeof(int));
+            var modelColumns = column.Columns.Where(modelColumn => modelColumn.ModelMember != null && modelColumn.ModelMember.MemberInfo.MemberType == typeof(int));
             return new CalculatedModelNodeList<IModelColumn>(modelColumns);
         }
     }
