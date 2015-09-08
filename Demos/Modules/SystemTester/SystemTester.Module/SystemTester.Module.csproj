@@ -48,6 +48,7 @@
     <Reference Include="CommandLine">
       <HintPath>..\..\..\..\Support\_third_party_assemblies\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
