@@ -1,4 +1,6 @@
 ﻿;#IncludeFile .\Init.inc
+*Navigate SequenceGenerator.Sequence Generator Object
+
 *Action New(Sequence Generator Object)
 *SaveAndClose
 *CheckTable 
@@ -9,4 +11,4 @@
 *XpandProcessRecord
  Prefix = ''
  Sequence = 1
-*Navigate Sequence Generator Object
+*Navigate SequenceGenerator.Sequence Generator Object

@@ -5,4 +5,7 @@
 
 #IncludeFile .\Nested_sequence.inc
 
+#IncludeFile .\DomainComponent.inc
+
+
 

@@ -27,7 +27,7 @@ namespace Xpand.Persistent.Base.General {
         IList<ISequenceReleasedObject> SequenceReleasedObjects { get; }
     }
 
-    public interface ISupportSequenceObject : IXPClassInfoProvider, ISessionProvider {
+    public interface ISupportSequenceObject  {
         long Sequence { get; set; }
         string Prefix { get; }
     }
@@ -210,7 +210,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null || !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
+            if (_defaultDataLayer == null || !((XPBaseObject) supportSequenceObject).Session.IsNewObject(supportSequenceObject))
                 return;
             if (!IsProviderSupported(supportSequenceObject)) {
                 if (ThrowProviderSupportedException)
@@ -220,7 +220,8 @@ namespace Xpand.Persistent.Base.General {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
-            Session session = supportSequenceObject.Session;
+            Session session = ((XPBaseObject
+                )supportSequenceObject).Session;
             if (IsNotNestedUnitOfWork(session)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
@@ -242,15 +243,19 @@ namespace Xpand.Persistent.Base.General {
         public static bool ThrowProviderSupportedException { get; set; }
 
         private static bool IsProviderSupported(ISupportSequenceObject supportSequenceObject) {
-            return !(supportSequenceObject.Session.DataLayer.ConnectionProvider(supportSequenceObject) is SQLiteConnectionProvider);
+            return !(((XPBaseObject)supportSequenceObject).Session.DataLayer.ConnectionProvider(supportSequenceObject) is SQLiteConnectionProvider);
         }
 
         static bool IsNotNestedUnitOfWork(Session session) {
             return !(session is NestedUnitOfWork);
         }
 
-        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject) {
-            GenerateSequence(supportSequenceObject, XafTypesInfo.Instance.FindTypeInfo(supportSequenceObject.ClassInfo.FullName));
+        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject){
+            var info = XafTypesInfo.Instance.FindTypeInfo(supportSequenceObject.GetType());
+            var typeInfo = info.IsInterface
+                ? XafTypesInfo.Instance.FindTypeInfo(XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(info.Type))
+                : XafTypesInfo.Instance.FindTypeInfo(((XPBaseObject) supportSequenceObject).ClassInfo.FullName);
+            GenerateSequence(supportSequenceObject, typeInfo);
         }
 
         public static void Initialize(IDataLayer dataLayer, Type sequenceObjectType) {
@@ -270,7 +275,8 @@ namespace Xpand.Persistent.Base.General {
             if (_defaultDataLayer == null)
                 return;
             var objectSpace = (XPObjectSpace)XPObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
-            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName) as ISequenceObject;
+            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix +
+                                                                                 ((XPBaseObject)supportSequenceObject).ClassInfo.FullName) as ISequenceObject;
             if (sequenceObject != null) {
                 var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleasedObject>();
                 objectFromInterface.Sequence = supportSequenceObject.Sequence;
