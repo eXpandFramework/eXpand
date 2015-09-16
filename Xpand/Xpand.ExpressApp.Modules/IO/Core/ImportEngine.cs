@@ -79,12 +79,15 @@ namespace Xpand.ExpressApp.IO.Core {
 
         }
 
-        XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
-            XPBaseObject xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
+        XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria, bool isRefElement = false) {
+            XPBaseObject xpBaseObject;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
-                importedObjecs.Add(keyValuePair, null);
-                ImportProperties(unitOfWork, xpBaseObject, element);
+                importedObjecs.Add(keyValuePair, xpBaseObject);
+                xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
+                ImportProperties(unitOfWork, xpBaseObject, !isRefElement ? element : element.FindObjectFromRefenceElement());
+            } else {
+                xpBaseObject = importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
             }
             return xpBaseObject;
         }
@@ -115,15 +118,16 @@ namespace Xpand.ExpressApp.IO.Core {
             foreach (XElement objectElement in objectElements) {
                 ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
                 if (memberTypeInfo != null) {
-                    var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants("Key"));
+                    if (objectElement.Elements().Count() == 0)
+                        continue;
+                    var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Elements());
                     XPBaseObject xpBaseObject = null;
                     XElement element1 = objectElement;
                     if (objectElement.GetAttributeValue("strategy") ==
-                        SerializationStrategy.SerializeAsObject.ToString()) {
-                        var findObjectFromRefenceElement = objectElement.FindObjectFromRefenceElement();
-                        HandleErrorComplex(objectElement, typeInfo, () => {
-                            if (findObjectFromRefenceElement != null)
-                                xpBaseObject = CreateObject(findObjectFromRefenceElement, unitOfWork, memberTypeInfo, refObjectKeyCriteria);
+                       SerializationStrategy.SerializeAsObject.ToString()) {
+                        HandleErrorComplex(objectElement, typeInfo, () =>
+                        {
+                            xpBaseObject = CreateObject(objectElement, unitOfWork, memberTypeInfo, refObjectKeyCriteria, true);
                             instance.Invoke(xpBaseObject, element1);
                         });
 
@@ -163,7 +167,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         IEnumerable<XElement> GetObjectRefElements(XElement element, NodeType nodeType) {
             return element.Properties(nodeType).SelectMany(
-                element1 => element1.Descendants("SerializedObjectRef"));
+                element1 => element1.Elements("SerializedObjectRef"));
         }
 
         void ImportSimpleProperties(XElement element, XPBaseObject xpBaseObject) {
@@ -210,24 +214,31 @@ namespace Xpand.ExpressApp.IO.Core {
 
         XPBaseObject GetObject(ITypeInfo typeInfo, CriteriaOperator criteriaOperator) {
             if (!ReferenceEquals(criteriaOperator, null)) {
-                var xpBaseObject = _unitOfWork.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, _unitOfWork.GetClassInfo(typeInfo.Type),
-                                                         criteriaOperator, true) as XPBaseObject ??
-                                   _unitOfWork.FindObject(_unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
+                var xpBaseObject = _unitOfWork.FindObject(_unitOfWork.GetClassInfo(typeInfo.Type), criteriaOperator, true) as XPBaseObject;
 
                 return xpBaseObject ?? (XPBaseObject)ReflectionHelper.CreateObject(typeInfo.Type,_unitOfWork);
             }
             return null;
         }
-
-        CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements) {
-            string criteria = "";
-            var parameters = new List<object>();
+        
+        CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements, string prefix = "") {
+            CriteriaOperator op = CriteriaOperator.Parse(""); 
             foreach (var xElement in xElements) {
-                var name = xElement.GetAttributeValue("name");
-                parameters.Add(XpandReflectionHelper.ChangeType(xElement.Value, typeInfo.FindMember(name).MemberType));
-                criteria += name + "=? AND ";
+                var propertyName = xElement.GetAttributeValue("name");
+                var iMemberInfo = typeInfo.FindMember(propertyName);
+
+                if (iMemberInfo != null) {
+                    var memberType = iMemberInfo.MemberTypeInfo;
+
+                    if (typeof(XPBaseObject).IsAssignableFrom(memberType.Type))
+                        op &= GetObjectKeyCriteria(memberType, xElement.Elements().First().Elements(), prefix + propertyName + ".");
+                    else
+                        op &= CriteriaOperator.Parse(prefix + propertyName + "=?", XpandReflectionHelper.ChangeType(GetValue(iMemberInfo.MemberType, xElement), memberType.Type));
+                }
+                else
+                    HandleError(xElement, FailReason.PropertyNotFound);
             }
-            return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()), parameters.ToArray());
+            return op;
         }
 
         public void ImportObjects(UnitOfWork unitOfWork, string fileName) {
