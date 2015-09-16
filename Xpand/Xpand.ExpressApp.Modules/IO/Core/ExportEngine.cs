@@ -130,9 +130,15 @@ namespace Xpand.ExpressApp.IO.Core {
         void CreateRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject,
                                   XElement serializedObjectRefElement) {
             foreach (var infoGraphNode in serializedClassInfoGraphNodes.Where(node => node.Key)) {
+                var value = theObject.GetMemberValue(infoGraphNode.Name);
                 var serializedObjectRefKeyElement = new XElement("Key");
                 serializedObjectRefKeyElement.Add(new XAttribute("name", infoGraphNode.Name));
-                serializedObjectRefKeyElement.Value = theObject.GetMemberValue(infoGraphNode.Name).ToString();
+                
+                if (value is XPBaseObject)
+                    CreateRefElelement(infoGraphNode, value.GetType().Name, root, ((XPBaseObject)value), serializedObjectRefKeyElement);
+                else
+                    SetMemberValue(theObject, infoGraphNode, serializedObjectRefKeyElement);
+
                 serializedObjectRefElement.Add(serializedObjectRefKeyElement);
             }
         }

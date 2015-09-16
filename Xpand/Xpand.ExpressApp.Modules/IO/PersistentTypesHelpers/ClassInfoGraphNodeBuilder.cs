@@ -38,19 +38,9 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         IEnumerable<IClassInfoGraphNode> CreateGraph(IObjectSpace objectSpace, ITypeInfo typeToSerialize) {
             var memberInfos = GetMemberInfos(typeToSerialize);
             var classInfoGraphNodes = CreateGraphCore(memberInfos, objectSpace).ToArray();
-            ResetDefaultKeyWhenMultiple(classInfoGraphNodes);
             return classInfoGraphNodes;
         }
-
-        void ResetDefaultKeyWhenMultiple(IEnumerable<IClassInfoGraphNode> classInfoGraphNodes) {
-            var infoGraphNodes = classInfoGraphNodes as IClassInfoGraphNode[] ?? classInfoGraphNodes.ToArray();
-            var nonDefaultKey = infoGraphNodes.Skip(1).FirstOrDefault(node => node.Key);
-            if (nonDefaultKey != null) {
-                infoGraphNodes.First(graphNode => graphNode.Key).Key = false;
-            }
-        }
-
-
+        
         IEnumerable<IClassInfoGraphNode> CreateGraphCore(IEnumerable<IMemberInfo> memberInfos, IObjectSpace objectSpace) {
             return memberInfos.Select(memberInfo => (!memberInfo.MemberTypeInfo.IsPersistent && !memberInfo.IsList) || memberInfo.MemberType == typeof(byte[])
                                                                                     ? CreateSimpleNode(memberInfo, objectSpace)
@@ -65,7 +55,8 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
             NodeType nodeType = memberInfo.MemberTypeInfo.IsPersistent ? NodeType.Object : NodeType.Collection;
             IClassInfoGraphNode classInfoGraphNode = CreateClassInfoGraphNode(objectSpace, memberInfo, nodeType);
             classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, SerializationStrategy.SerializeAsObject);
-            Generate(objectSpace, ReflectionHelper.GetType(classInfoGraphNode.TypeName));
+            if (classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
+                Generate(objectSpace, ReflectionHelper.GetType(classInfoGraphNode.TypeName));
             return classInfoGraphNode;
 
         }
@@ -98,7 +89,8 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
             classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, classInfoGraphNode.SerializationStrategy);
             classInfoGraphNode.TypeName = GetSerializedType(memberInfo).Name;
             classInfoGraphNode.NodeType = nodeType;
-            classInfoGraphNode.Key = IsKey(memberInfo);
+            if (classInfoGraphNode.SerializationStrategy != SerializationStrategy.DoNotSerialize)
+                classInfoGraphNode.Key = IsKey(memberInfo);
             return classInfoGraphNode;
         }
 

@@ -82,20 +82,16 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public static XElement FindObjectFromRefenceElement(this XElement xElement) {
             var typeValue = xElement.GetAttributeValue("type");
-            var infos = xElement.Descendants("Key").Select(
+            var infos = xElement.Elements("Key").Select(
                 element1 => new { Element = element1, Name = element1.GetAttributeValue("name"), element1.Value });
-            if (xElement.Document != null && xElement.Document.Root != null)
-            {
-                var @select =
-                    xElement.Document.Root.SerializedObjects().Where(
-                        element => element.GetAttributeValue("type") == typeValue).Descendants("Property").Where(
-                        xElement1 => xElement1.GetAttributeValue("isKey") == "true").
-                        Select(element1 =>
-                        new { Element = element1.Parent, Name = element1.GetAttributeValue("name"), element1.Value });
+            if (xElement.Document != null && xElement.Document.Root != null && infos.Count() > 0) {
                 return
-                    @select.Where(
-                        arg => infos.Where(arg1 => arg.Name == arg1.Name && arg.Value == arg1.Value).Count() > 0).
-                        Select(arg2 => arg2.Element).FirstOrDefault();
+                    xElement.Document.Root.SerializedObjects().Where(
+                        element => element.GetAttributeValue("type") == typeValue).FirstOrDefault(
+                        element => !element.Elements("Property").Where(
+                        xElement1 => xElement1.GetAttributeValue("isKey") == "true").Any(xElement2 =>
+                        xElement2.Value != infos.FirstOrDefault(a => a.Name == xElement2.GetAttributeValue("name")).Value
+                        ));
             }
             return null;
 
