@@ -85,10 +85,13 @@ namespace Xpand.ExpressApp.IO.Core {
             if (!importedObjecs.ContainsKey(keyValuePair)) {
                 importedObjecs.Add(keyValuePair, xpBaseObject);
                 xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
-                ImportProperties(unitOfWork, xpBaseObject, !isRefElement ? element : element.FindObjectFromRefenceElement());
             } else {
                 xpBaseObject = importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
             }
+
+            if (!isRefElement)
+                ImportProperties(unitOfWork, xpBaseObject, element);
+
             return xpBaseObject;
         }
 
