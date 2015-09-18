@@ -153,35 +153,46 @@ namespace Xpand.ExpressApp.Security.Core {
             return securityDemoRole;
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase systemRole, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true) {
-            var targetType = typeof(TObject);
-            var permission = systemRole.CreateTypePermission<TObject>();
-            permission.TargetType = targetType;
-            permission.AllowDelete = defaultAllowValues;
-            permission.AllowNavigate = defaultAllowValues;
-            permission.AllowRead = defaultAllowValues;
-            permission.AllowWrite = defaultAllowValues;
-            permission.AllowCreate = defaultAllowValues;
-            action.Invoke(permission);
-            return permission;
+        [Obsolete("Use AddNewTypePermission<TObject>() instead (does same thing, only renamed)")]
+        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase role, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true) {
+            return AddNewTypePermission<TObject>(role, action, defaultAllowValues);
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase systemRole) {
-            return CreateTypePermission(systemRole, typeof(TObject));
+        [Obsolete("Use AddNewTypePermission<TObject>() instead (does same thing, only renamed)")]
+        public static SecuritySystemTypePermissionObject CreateTypePermission<TObject>(this SecuritySystemRoleBase role){
+            return AddNewTypePermission(role, typeof(TObject));
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase systemRole, Type targetType) {
-            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
+        [Obsolete("Use AddNewTypePermission() instead (does same thing, only renamed)")]
+        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase role, Type targetType){
+            return AddNewTypePermission(role, targetType);
+        }
+
+        [Obsolete("Use AddNewTypePermission() instead (does same thing, only renamed)")]
+        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase systemRole, Type targetType, Action<SecuritySystemTypePermissionObject> action,
+                                                                                             bool defaultAllowValues = true){
+            return AddNewTypePermission(systemRole, targetType, action, defaultAllowValues);
+        }
+
+        public static SecuritySystemTypePermissionObject AddNewTypePermission<TObject>(this SecuritySystemRoleBase role, Action<SecuritySystemTypePermissionObject> action, bool defaultAllowValues = true){
+            return AddNewTypePermission(role, typeof(TObject), action, defaultAllowValues);
+        }
+
+        public static SecuritySystemTypePermissionObject AddNewTypePermission<TObject>(this SecuritySystemRoleBase role){
+            return AddNewTypePermission(role, typeof(TObject));
+        }
+
+        public static SecuritySystemTypePermissionObject AddNewTypePermission(this SecuritySystemRoleBase role, Type targetType){
+            var objectSpace = XPObjectSpace.FindObjectSpaceByObject(role);
             var permissionObject = objectSpace.CreateObject<SecuritySystemTypePermissionObject>();
             permissionObject.TargetType = targetType;
-            systemRole.TypePermissions.Add(permissionObject);
+            role.TypePermissions.Add(permissionObject);
             return permissionObject;
         }
 
-        public static SecuritySystemTypePermissionObject CreateTypePermission(this SecuritySystemRoleBase systemRole, Type targetType, Action<SecuritySystemTypePermissionObject> action,
+        public static SecuritySystemTypePermissionObject AddNewTypePermission(this SecuritySystemRoleBase role, Type targetType, Action<SecuritySystemTypePermissionObject> action,
                                                                                                      bool defaultAllowValues = true) {
-            var permission = systemRole.CreateTypePermission(targetType);
-            permission.TargetType = targetType;
+            var permission = AddNewTypePermission(role, targetType);
             permission.AllowDelete = defaultAllowValues;
             permission.AllowNavigate = defaultAllowValues;
             permission.AllowRead = defaultAllowValues;
@@ -191,7 +202,13 @@ namespace Xpand.ExpressApp.Security.Core {
             return permission;
         }
 
+        [Obsolete("Use AddNewMemberPermission() instead (does same thing, only renamed)")]
         public static SecuritySystemMemberPermissionsObject CreateMemberPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemMemberPermissionsObject> action, bool defaultAllowValues = true) {
+            return AddNewMemberPermission(securitySystemTypePermissionObject, action, defaultAllowValues);
+        }
+
+        public static SecuritySystemMemberPermissionsObject AddNewMemberPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemMemberPermissionsObject> action, bool defaultAllowValues = true)
+        {
             IObjectSpace objectSpace = XPObjectSpace.FindObjectSpaceByObject(securitySystemTypePermissionObject);
             var permission = objectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
             permission.AllowRead = defaultAllowValues;
@@ -203,11 +220,21 @@ namespace Xpand.ExpressApp.Security.Core {
             return permission;
         }
 
+        [Obsolete("Use AddNewObjectPermission() instead (does same thing, only renamed)")]
         public static SecuritySystemObjectPermissionsObject CreateObjectPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, bool defaultAllowValues = true) {
-            return CreateObjectPermission(securitySystemTypePermissionObject, null, defaultAllowValues);
+            return AddNewObjectPermission(securitySystemTypePermissionObject, defaultAllowValues);   
         }
 
+        public static SecuritySystemObjectPermissionsObject AddNewObjectPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, bool defaultAllowValues = true) {
+            return AddNewObjectPermission(securitySystemTypePermissionObject, null, defaultAllowValues);
+        }
+
+        [Obsolete("Use AddNewObjectPermission() instead (does same thing, only renamed)")]
         public static SecuritySystemObjectPermissionsObject CreateObjectPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemObjectPermissionsObject> action, bool defaultAllowValues = true) {
+            return AddNewObjectPermission(securitySystemTypePermissionObject, action, defaultAllowValues);
+        }
+
+        public static SecuritySystemObjectPermissionsObject AddNewObjectPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemObjectPermissionsObject> action, bool defaultAllowValues = true) {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(securitySystemTypePermissionObject);
             var permission = objectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
             permission.AllowDelete = defaultAllowValues;
@@ -233,12 +260,18 @@ namespace Xpand.ExpressApp.Security.Core {
             }
         }
 
+        [Obsolete("Use AddNewFullPermissionAttributes() instead (does same thing, only renamed)")]
         public static void CreateFullPermissionAttributes(this SecuritySystemRoleBase systemRole, Action<SecuritySystemTypePermissionObject> action = null, bool defaultAllowValues = true) {
+            AddNewFullPermissionAttributes(systemRole, action, defaultAllowValues);
+        }
+
+        public static void AddNewFullPermissionAttributes(this SecuritySystemRoleBase systemRole, Action<SecuritySystemTypePermissionObject> action = null, bool defaultAllowValues = true) {
             var persistentTypes = XafTypesInfo.Instance.PersistentTypes.Where(info => info.FindAttribute<FullPermissionAttribute>() != null);
             foreach (var typeInfo in persistentTypes) {
-                systemRole.CreateTypePermission(typeInfo.Type, action, defaultAllowValues);
+                systemRole.AddNewTypePermission(typeInfo.Type, action, defaultAllowValues);
             }
         }
+
         public static bool IsGranted(IPermission permission, bool isGrantedForNonExistent) {
             var securityComplex = (SecuritySystem.Instance as SecurityBase);
             if (securityComplex != null) {
