@@ -107,8 +107,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             if (ObjectSpace.Session.InTransaction)
                 ObjectSpace.Session.RollbackTransaction();
 
-            if (ExcelDocument != null)
-                ExcelDocument.Close();
+            CloseExcelDocumentNoThrow();
         }
 
         #endregion
@@ -385,7 +384,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                     ImportMapDescriptionEdit.Text = (new FileInfo(edit.Text)).Name;
                 }
                 catch {
-                    if (ExcelDocument != null) ExcelDocument.Close();
+                    CloseExcelDocumentNoThrow();
                     throw;
                 }
 
@@ -677,6 +676,17 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                         collectionSource.Add(newObject);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Make a best-effort at closing - it'll throw if it's already been disposed, no need to cause a scene.
+        /// </summary>
+        private void CloseExcelDocumentNoThrow(){
+            if (ExcelDocument != null){
+                try { ExcelDocument.Close(); }
+                catch { }
+                ExcelDocument = null;
             }
         }
 

@@ -165,15 +165,24 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         /// <param name="test">Dummy parameter</param>
         /// <returns></returns>
         public static IEnumerable<DocumentFormat.OpenXml.Spreadsheet.Sheet> Sheets(this SpreadsheetDocument spreadsheet, object test) {
-            return spreadsheet.WorkbookPart.Workbook.Elements().First(p => p.LocalName == @"sheets")
-                .Elements().Where(e => e.LocalName == @"sheet")
-                .Select(s => (DocumentFormat.OpenXml.Spreadsheet.Sheet)s);
+            var firstSheet = spreadsheet.WorkbookPart.Workbook.Elements().FirstOrDefault(p => p.LocalName == @"sheets");
+            if (firstSheet != null) {
+                return firstSheet.Elements().Where(e => e.LocalName == @"sheet")
+                    .Select(s => (DocumentFormat.OpenXml.Spreadsheet.Sheet)s);
+            }
+
+            return Enumerable.Empty<DocumentFormat.OpenXml.Spreadsheet.Sheet>();
         }
 
         public static IEnumerable<DocumentFormat.OpenXml.Spreadsheet.Row> Rows(this WorksheetPart worksheet) {
-            return worksheet.RootElement.Elements().First(p => p.LocalName == @"sheetData")
-                .Elements().Where(e => e.LocalName == @"row")
-                .Select(t => (DocumentFormat.OpenXml.Spreadsheet.Row)t);
+
+            var firstSheetData = worksheet.RootElement.Elements().FirstOrDefault(p => p.LocalName == @"sheetData");
+            if (firstSheetData != null) {
+                return firstSheetData.Elements().Where(e => e.LocalName == @"row")
+                    .Select(t => (DocumentFormat.OpenXml.Spreadsheet.Row)t);
+            }
+
+            return Enumerable.Empty<DocumentFormat.OpenXml.Spreadsheet.Row>();
         }
 
         public static WorksheetPart WorkSheet(this SpreadsheetDocument spreadsheet, DocumentFormat.OpenXml.Spreadsheet.Sheet oXmlSheet) {
