@@ -74,21 +74,35 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             var windowsIdentity = WindowsIdentity.GetCurrent();
             if (windowsIdentity != null) {
                 string userName = windowsIdentity.Name;
-                var user = (IAuthenticationActiveDirectoryUser)objectSpace.FindObject(UserType, new BinaryOperator("UserName", userName));
+                object user = objectSpace.FindObject(UserType, new BinaryOperator("UserName", userName));
                 if (user == null) {
                     if (_createUserAutomatically) {
-                        var args = new CustomCreateUserEventArgs(objectSpace, userName);
-                        if (!args.Handled) {
-                            user = (IAuthenticationActiveDirectoryUser)objectSpace.CreateObject(UserType);
-                            user.UserName = userName;
-                            if (Security != null) {
-                                //Security.InitializeNewUser(objectSpace, user);
-                                Security.CallMethod("InitializeNewUser", new object[]{objectSpace, user});
-                            }
+                        CustomCreateUserEventArgs args = new CustomCreateUserEventArgs(objectSpace, userName);
+                        if (CustomCreateUser != null)  {
+                            CustomCreateUser(this, args);
+                            user = (IAuthenticationActiveDirectoryUser)args.User;
                         }
+                        if (!args.Handled) {
+                            user = objectSpace.CreateObject(UserType);
+                            ((IAuthenticationActiveDirectoryUser)user).UserName = userName;
+                            if (Security != null)
+                            {
+                                //Security.InitializeNewUser(objectSpace, user);
+
+                                // Make this a best-effort attempt to call InitializeNewUser - the ICanInitializeNewUser
+                                // interface isn't accessable so we can't check if UserType actually implements it.
+                                try { Security.CallMethod("InitializeNewUser", new object[] { objectSpace, user }); }
+                                catch { }
+                            }
+
+                        }
+                        bool strictSecurityStrategyBehavior = SecurityModule.StrictSecurityStrategyBehavior;
+                        SecurityModule.StrictSecurityStrategyBehavior = false;
                         objectSpace.CommitChanges();
+                        SecurityModule.StrictSecurityStrategyBehavior = strictSecurityStrategyBehavior;
                     }
                 }
+
                 if (user == null) {
                     throw new AuthenticationException(userName);
                 }
@@ -170,5 +184,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             get { return _createUserAutomatically; }
             set { _createUserAutomatically = value; }
         }
+
+        public event EventHandler<CustomCreateUserEventArgs> CustomCreateUser;
     }
 }
