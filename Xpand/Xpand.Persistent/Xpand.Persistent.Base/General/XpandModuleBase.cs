@@ -425,7 +425,7 @@ namespace Xpand.Persistent.Base.General {
             declaredExportedTypes=!Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
                 ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType }).Where(type => type != null)
                 : declaredExportedTypes;
-            if (Application.Security == null||Application.Security.UserType==null)
+            if (Application != null && (Application.Security == null||Application.Security.UserType==null))
                 return declaredExportedTypes.Where(type => !typeof (ISecurityRelated).IsAssignableFrom(type));
             return declaredExportedTypes;
         }
