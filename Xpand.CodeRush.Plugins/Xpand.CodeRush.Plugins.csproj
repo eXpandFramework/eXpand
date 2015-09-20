@@ -32,26 +32,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v15.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.Data.v6.3, Version=15.1.6.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Controls.Data.v6.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.XtraEditors.v6.3, Version=15.1.6.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Controls.XtraEditors.v6.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.XtraGrid.v6.3, Version=15.1.6.0, Culture=neutral, PublicKeyToken=35c9f04b7764aa3d, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.DXCore.Controls.XtraGrid.v6.3">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Printing.v15.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v15.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -67,27 +67,35 @@
     <Reference Include="EnvDTE80" />
     <Reference Include="DevExpress.CodeRush.Common">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.Core">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.PlugInCore">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.Extensions">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.StructuralParser">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DXCore.Parser">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.CodeRush.VSCore">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
       <Private>false</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -149,7 +157,6 @@
     <EmbeddedResource Include="PlugIn.resx">
       <DependentUpon>PlugIn.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -160,4 +167,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\Support\Build\Nuget.Targets" />
 </Project>
