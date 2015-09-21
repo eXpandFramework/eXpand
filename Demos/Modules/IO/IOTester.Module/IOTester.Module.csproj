@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\ExportAggregatedObject.cs" />
     <Compile Include="FunctionalTests\IOObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -104,6 +105,9 @@
     <None Include="FunctionalTests\IO.ets" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Init.inc" />
+    <None Include="FunctionalTests\ExportObjectWithChildren.inc" />
+    <None Include="FunctionalTests\SimpleIO.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -111,6 +115,7 @@
     <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\export.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

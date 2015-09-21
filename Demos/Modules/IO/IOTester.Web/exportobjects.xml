@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<SerializedObjects>
-  <SerializedObject type="IOObject">
-    <Property type="simple" name="Key" isKey="true"><![CDATA[Key]]></Property>
-    <Property type="simple" name="GCRecord" isKey="false"></Property>
-  </SerializedObject>
-</SerializedObjects>

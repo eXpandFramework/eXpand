@@ -24,7 +24,7 @@ using Fasterflect;
 namespace Xpand.ExpressApp.IO.Core {
 
     public class ImportEngine {
-        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
+        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> _importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         UnitOfWork _unitOfWork;
         readonly ErrorHandling _errorHandling;
 
@@ -82,11 +82,11 @@ namespace Xpand.ExpressApp.IO.Core {
         XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria, bool isRefElement = false) {
             XPBaseObject xpBaseObject;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
-            if (!importedObjecs.ContainsKey(keyValuePair)) {
-                importedObjecs.Add(keyValuePair, xpBaseObject);
+            if (!_importedObjecs.ContainsKey(keyValuePair)) {
                 xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
+                _importedObjecs.Add(keyValuePair, xpBaseObject);
             } else {
-                xpBaseObject = importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
+                xpBaseObject = _importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
             }
 
             if (!isRefElement)
@@ -121,20 +121,20 @@ namespace Xpand.ExpressApp.IO.Core {
             foreach (XElement objectElement in objectElements) {
                 ITypeInfo memberTypeInfo = GetTypeInfo(objectElement);
                 if (memberTypeInfo != null) {
-                    if (objectElement.Elements().Count() == 0)
+                    if (!objectElement.Elements().Any())
                         continue;
                     var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Elements());
-                    XPBaseObject xpBaseObject = null;
+                    XPBaseObject xpBaseObject;
                     XElement element1 = objectElement;
                     if (objectElement.GetAttributeValue("strategy") ==
-                       SerializationStrategy.SerializeAsObject.ToString()) {
-                        HandleErrorComplex(objectElement, typeInfo, () =>
-                        {
-                            xpBaseObject = CreateObject(objectElement, unitOfWork, memberTypeInfo, refObjectKeyCriteria, true);
+                       SerializationStrategy.SerializeAsObject.ToString()){
+                        var objectElement1 = objectElement;
+                        HandleErrorComplex(objectElement, typeInfo, () =>{
+                            xpBaseObject = CreateObject(objectElement1, unitOfWork, memberTypeInfo, refObjectKeyCriteria, true);
                             instance.Invoke(xpBaseObject, element1);
                         });
-
-                    } else {
+                    }
+                    else {
                         HandleErrorComplex(objectElement, typeInfo, () => {
                             xpBaseObject = GetObject(memberTypeInfo, refObjectKeyCriteria);
                             instance.Invoke(xpBaseObject, element1);
@@ -158,7 +158,7 @@ namespace Xpand.ExpressApp.IO.Core {
             }
             if (_errorHandling == ErrorHandling.CreateErrorObjects) {
                 var errorInfoObject =
-                    (IIOError)XafTypesInfo.Instance.FindBussinessObjectType<IIOError>().CreateInstance(new object[] { _unitOfWork });
+                    (IIOError)XafTypesInfo.Instance.FindBussinessObjectType<IIOError>().CreateInstance(_unitOfWork);
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;

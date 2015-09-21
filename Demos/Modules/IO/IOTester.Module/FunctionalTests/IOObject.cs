@@ -1,9 +1,12 @@
-﻿using DevExpress.Persistent.Base;
+﻿using System.ComponentModel;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
+using IOTester.Module.FunctionalTests.Export;
 
 namespace IOTester.Module.FunctionalTests{
     [DefaultClassOptions]
+    [DefaultProperty("Key")]
     public class IOObject : BaseObject{
         private string _doNotSerialize;
         private string _key;
@@ -19,6 +22,12 @@ namespace IOTester.Module.FunctionalTests{
         public string DoNotSerialize{
             get { return _doNotSerialize; }
             set { SetPropertyValue("DoNotSerialize", ref _doNotSerialize, value); }
+        }
+
+        [Association]
+        [Aggregated]
+        public XPCollection<ExportAggregatedObject> AggregatedObjects{
+            get { return GetCollection<ExportAggregatedObject>("AggregatedObjects"); }
         }
     }
 }
