@@ -21,10 +21,11 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         private SerializationStrategy _serializationStrategy;
         public ClassInfoGraphNode(Session session) : base(session) { }
 
-        [Appearance("RuleObjectCanNotBeKey", AppearanceItemType.ViewItem, null, Enabled = false, TargetItems = "Key")]
-        public bool RuleObjectCanNotBeKey() {
-            return XafTypesInfo.Instance.PersistentTypes.Any(info => info.Name == TypeName);
-        }
+        //[Appearance("RuleObjectCanNotBeKey", AppearanceItemType.ViewItem, null, Enabled = false, TargetItems = "Key")]
+        //public bool RuleObjectCanNotBeKey()
+        //{
+        //    return XafTypesInfo.Instance.PersistentTypes.Any(info => info.Name == TypeName);
+        //}
 
         private NodeType _nodeType;
         [VisibleInListView(false)]

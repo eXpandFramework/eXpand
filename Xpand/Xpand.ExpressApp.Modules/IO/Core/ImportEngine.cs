@@ -83,8 +83,8 @@ namespace Xpand.ExpressApp.IO.Core {
             XPBaseObject xpBaseObject;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
             if (!importedObjecs.ContainsKey(keyValuePair)) {
-                importedObjecs.Add(keyValuePair, xpBaseObject);
                 xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
+                importedObjecs.Add(keyValuePair, xpBaseObject);
             } else {
                 xpBaseObject = importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
             }

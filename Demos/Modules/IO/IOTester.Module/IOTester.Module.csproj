@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\Export\ExportAggregatedObject.cs" />
     <Compile Include="FunctionalTests\Export\ExportObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -105,6 +106,9 @@
     <None Include="FunctionalTests\Export\Export.ets" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Export\Init.inc" />
+    <None Include="FunctionalTests\Export\ExportObjectWithChildren.inc" />
+    <None Include="FunctionalTests\Export\SimpleExport.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
