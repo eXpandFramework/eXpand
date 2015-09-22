@@ -88,13 +88,25 @@
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
+	<PropertyGroup>
+	<CodeRushAssembliesFolders>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\wumlezvq.agg\Controls\*.dll;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\wumlezvq.agg\Install\*.dll</CodeRushAssembliesFolders>
+	</PropertyGroup>
+	<ItemGroup>
+		<CodeRushAssemblies Include="$(CodeRushAssembliesFolders);$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRControls)\*.dll;$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRCore)\*.dll"></CodeRushAssemblies>
+		
+	</ItemGroup>
+	
+  <Target Name="CopyCodeRushAssemblies">
+	<Copy SourceFiles="@(CodeRushAssemblies)" DestinationFolder="$(XpandDLLPath)"  />
+  </Target>
   <Target Name="Copy3rdPartyAssemblies">
     <CreateItem Include="$(_third_party_assemblies)\**\*.*">
       <Output TaskParameter="Include" ItemName="FilesToCopy"/>
     </CreateItem>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
-  <Target Name="Build" DependsOnTargets="Copy3rdPartyAssemblies;FixReferencesB4Build">
+  
+  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;FixReferencesB4Build">
     <MSBuild Projects="Support\VersionChanger\VersionChanger.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="True" />
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
@@ -119,7 +131,7 @@
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <MSBuild Projects="$(VSAddons)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="$(VSAddons)" Targets="Clean" Properties="Configuration=$(Configuration)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(ModuleProjects)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="@(NHProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
