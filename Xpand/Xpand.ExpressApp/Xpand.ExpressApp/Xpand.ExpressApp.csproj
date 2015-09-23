@@ -119,7 +119,9 @@
     <Compile Include="ListEditors\IXpandListEditor.cs" />
     <Compile Include="Core\BaseDomainLogic.cs" />
     <Compile Include="Model\ListView.cs" />
-    <Compile Include="Model\UnboundColumn.cs" />
+    <Compile Include="Model\UnboundColumn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
@@ -161,13 +163,21 @@
     <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\PositionInListViewController.cs" />
-    <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs" />
+    <Compile Include="SystemModule\PositionInListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ReloadObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\Search\DetailViewFullTextSearchController.cs" />
-    <Compile Include="SystemModule\Search\FullTextContainsController.cs" />
+    <Compile Include="SystemModule\Search\DetailViewFullTextSearchController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\Search\FullTextContainsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -180,7 +190,9 @@
     <Compile Include="SystemModule\AssignMasterDetailToNestedViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ToolTipsController.cs" />
+    <Compile Include="SystemModule\ToolTipsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TranslatorProviders\GoogleTranslatorProvider.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
@@ -214,14 +226,18 @@
     <Compile Include="SystemModule\PreventDataLoadingController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FKViolationViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewControllerBase.cs" />
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewControllerBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -237,8 +253,12 @@
     <Compile Include="SystemModule\Search\SearchFromListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\Search\SearchFromViewController.cs" />
-    <Compile Include="SystemModule\TrackNewObjectSavedController.cs" />
+    <Compile Include="SystemModule\Search\SearchFromViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\TrackNewObjectSavedController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\XpandSystemModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -250,7 +270,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ViewFactory.cs" />
-    <Compile Include="ViewShortCutProccesor.cs" />
+    <Compile Include="ViewShortCutProccesor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XpandDetailView.cs" />
     <Compile Include="XpandListView.cs" />
   </ItemGroup>

@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="SystemTester" Logo="ExpressAppLogo">
-  <Options UIType="TabbedMDI" />
-  <Views>
-    <DetailView Id="ViewEditModeView_DetailView" ViewEditMode="View" />
-  </Views>
-</Application>

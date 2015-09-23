@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Win</RootNamespace>
     <AssemblyName>SystemTester.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -176,8 +178,9 @@
     <Content Include="FunctionalTests\LayoutViewListEditor\Images\Layout.win.png" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Init.inc" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Layout.inc" />
-    <Content Include="FunctionalTests\ViewEditMode.Win\Config.xml" />
-    <Content Include="FunctionalTests\ViewEditMode.Win\Init.inc" />
+    <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -195,7 +198,6 @@
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Default.inc" />
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Mask.inc" />
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\PredifineValue.inc" />
-    <None Include="FunctionalTests\ViewEditMode.Win\Startup TabbedMdi view.inc" />
     <None Include="FunctionalTests\ApplicationExit\HideOnExit\Init.inc" />
     <Content Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Config.xml" />
     <Content Include="FunctionalTests\ApplicationExit\PromptOnExit\Config.xml" />
@@ -282,10 +284,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditor.ets" />
-    <None Include="FunctionalTests\ViewEditMode.Win\ViewEditMode.Win.ets" />
-    <None Include="FunctionalTests\ViewEditMode.Win\ViewEditMode.xafml">
+    <None Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\ViewMode.Win.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\ViewMode.ets" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

@@ -1,31 +1,8 @@
-﻿#IncludeFile .\Init.inc
-*Navigate ViewEditMode.View
-*Action New(View Edit Mode Object)
-*FillForm
- Name = View
-*SaveAndClose
-*Navigate ViewEditMode.View
-*ProcessRecord
- Name = View
+﻿#DropDB SystemTesterEasyTest
+#Application SystemTester.Web
+*UseModel ..\ViewEditMode
+*LogOn
+*ScreenCapture
 
-!FillForm
- Name = View
-!ActionVisible Save
-!ActionVisible SaveAndClose
-!ActionVisible Cancel
-!ActionVisible Refresh
-*Action Edit
-*ActionVisible Save
-*ActionVisible Cancel
-*ActionVisible Refresh
-*FillForm
- Name = View
+#IncludeFile .\ViewMode.inc
 
-*Navigate ViewEditMode.View
-
-*SelectRecords
- Columns = Name
- Row = View
-*Action View Edit Mode
-!FillForm
- Name = View
