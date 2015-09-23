@@ -6,10 +6,11 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.Security;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Security.Permissions {
-    public interface IOperationPermissionProvider {
+    public interface IOperationPermissionProvider:ISecurityRelated {
         IList<IOperationPermission> GetPermissions();
     }
     [ImageName("BO_Security_Permission_Type")]

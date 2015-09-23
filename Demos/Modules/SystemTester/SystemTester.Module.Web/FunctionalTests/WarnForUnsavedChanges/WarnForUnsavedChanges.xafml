@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="SystemTester.Module.Web.FunctionalTests.WarnForUnsavedChanges.WarnForUnsavedChangesObject" IsCloneable="True" />
+  </BOModel>
+</Application>

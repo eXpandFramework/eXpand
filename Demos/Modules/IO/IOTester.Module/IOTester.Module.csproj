@@ -74,8 +74,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\Export\ExportAggregatedObject.cs" />
-    <Compile Include="FunctionalTests\Export\ExportObject.cs" />
+    <Compile Include="FunctionalTests\IOAggregatedObject.cs" />
+    <Compile Include="FunctionalTests\IOObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -102,8 +102,7 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\Export\Export.ets" />
+    <None Include="FunctionalTests\IO.ets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\Export\Init.inc" />
@@ -113,13 +112,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml" />
-    <Content Include="FunctionalTests\Export\Config.xml">
+    <Content Include="FunctionalTests\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="FunctionalTests\Export\ConfigSerializationWeb.inc" />
-    <Content Include="FunctionalTests\Export\ConfigSerializationWin.inc" />
-    <Content Include="FunctionalTests\Export\export.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

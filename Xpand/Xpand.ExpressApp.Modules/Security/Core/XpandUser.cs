@@ -4,10 +4,11 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Core{
     [System.ComponentModel.DisplayName("User")]
-    public class XpandUser : SecuritySystemUser {
+    public class XpandUser : SecuritySystemUser,ISecurityRelated {
         public XpandUser(Session session)
             : base(session) {
         }

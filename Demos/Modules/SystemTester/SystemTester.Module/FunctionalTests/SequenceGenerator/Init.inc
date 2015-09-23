@@ -4,4 +4,3 @@
 *UseModel
 *LogOn
 *ScreenCapture
-*Navigate Sequence Generator Object

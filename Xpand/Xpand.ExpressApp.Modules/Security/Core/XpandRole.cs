@@ -9,13 +9,14 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Security.Permissions;
 using System.Linq;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Core {
 
     [ImageName("BO_Role"), System.ComponentModel.DisplayName("Role")]
     [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance("HideHiddenNavigationItemsForAdministrators", AppearanceItemType = "LayoutItem", TargetItems = "HiddenNavigationItems", Visibility = ViewItemVisibility.Hide, Criteria = "IsAdministrative")]
-    public class XpandRole : SecuritySystemRole {
+    public class XpandRole : SecuritySystemRole,ISecurityRelated {
         public XpandRole(Session session)
             : base(session) {
         }
