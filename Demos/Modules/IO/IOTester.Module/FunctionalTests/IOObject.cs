@@ -24,11 +24,11 @@ namespace IOTester.Module.FunctionalTests{
 
         [Association]
         [DevExpress.Xpo.Aggregated]
-        public XPCollection<ExportAggregatedObject> AggregatedObjects
+        public XPCollection<IOAggregatedObject> AggregatedObjects
         {
             get
             {
-                return GetCollection<ExportAggregatedObject>("AggregatedObjects");
+                return GetCollection<IOAggregatedObject>("AggregatedObjects");
             }
         }
 

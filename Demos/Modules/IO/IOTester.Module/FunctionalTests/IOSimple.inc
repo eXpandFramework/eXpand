@@ -1,10 +1,11 @@
 ﻿
-*Action New(Export Object)
+*Navigate IOObject
+*Action New(IOObject)
 *XpandFillForm
  Do Not Serialize = No-Serialize
  Key = Key
 *SaveAndClose
-*Navigate Export Object
+*Navigate IOObject
 *SelectRecords
  Columns = Do Not Serialize
  Row = No-Serialize
@@ -12,10 +13,10 @@
 ;-------------------------EXPORT---------------------------------------------------
 *Action IO(Export)
 *XpandFillForm
- Name = Export Object Serialization Configuration
+ Name = IOObject Serialization Configuration
 *Action Serialization Configurations.New
 *XpandFillForm
- Type To Serialize = Export Object
+ Type To Serialize = IOObject
 *OptionalAction Generate Graph
 *XpandFillRecord Serialization Graph
  Columns = Serialization Strategy
@@ -35,12 +36,18 @@
 *SaveAndClose
 *Action OK
 
+*Sleep 1000
 *SaveFileDialog exportobjects.xml
 *Sleep 1000
+*OptionalAction Cancel
 
 ;-----------------IMPORT------------------------------------------------
-*Navigate Export Object
+*Navigate IOObject
+*SelectRecords
+ Columns = Key
+ Row = Key
 *Action Delete
+*Sleep 1000
 *HandleDialog
  Respond = Yes
 *Action IO(Import)
@@ -66,4 +73,3 @@
 *XpandProcessRecord
  Do Not Serialize = ''
  Key = Key
-*SaveAndClose
