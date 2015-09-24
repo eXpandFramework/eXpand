@@ -1,4 +1,6 @@
 ﻿;#IncludeFile .\Init.inc
+*Navigate SequenceGenerator.Sequence Generator Object
+
 *Action New(Sequence Generator Object)
 *XpandFillForm
  Prefix = B

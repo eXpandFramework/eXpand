@@ -1,11 +1,30 @@
 ﻿using System;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
-    [DefaultClassOptions]
+    [DomainComponent]
+    [NavigationItem("SequenceGenerator")]
+    public interface ISequenceGeneratorObject:ISupportSequenceObject {
+        new long Sequence { get; set; }     
+    }
+
+    [DomainLogic(typeof(ISequenceGeneratorObject))]
+    public class SequenceGeneratorObjectLogic {
+        public static string Get_Prefix(ISequenceGeneratorObject sequenceGeneratorObject) {
+            return null;
+        }
+
+        public static void OnSaving(ISequenceGeneratorObject sequenceGeneratorObject, IObjectSpace objectSpace) {
+            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(sequenceGeneratorObject);
+        }
+    }
+
+    [NavigationItem("SequenceGenerator")]
     public class SequenceGeneratorObject : BaseObject, ISupportSequenceObject{
         private string _prefix;
         private long _sequence;
@@ -18,7 +37,6 @@ namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
             set { SetPropertyValue("Sequence", ref _sequence, value); }
         }
 
-
         public string Prefix{
             get { return _prefix; }
             set { SetPropertyValue("Prefix", ref _prefix, value); }
@@ -29,7 +47,7 @@ namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
             Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(this);
         }
 
-        [Association("SequenceGeneratorObject-SequenceGeneratorNestedObjects"), Aggregated]
+        [Association("SequenceGeneratorObject-SequenceGeneratorNestedObjects"), DevExpress.Xpo.Aggregated]
         public XPCollection<SequenceGeneratorNestedObject> SequenceGeneratorNestedObjects{
             get { return GetCollection<SequenceGeneratorNestedObject>("SequenceGeneratorNestedObjects"); }
         }

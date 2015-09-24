@@ -2,11 +2,10 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -28,40 +27,44 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         private Boolean _canExitEditMode;
         private Boolean _cancelActionTriggered;
         private Boolean _exitEditModeByCancel;
-        private Boolean _isObjectSpaceModified;
         private Boolean _isWarningShown;
-        const String ActionActiveID = "ActionActiveReason";
+        private bool _isObjectSpaceModified;
 
         protected override void OnActivated() {
             base.OnActivated();
             if (((IModelDetailViewWarnForUnsavedChanges) View.Model).WarnForUnsavedChanges) {
+                View.ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
                 _canExitEditMode = false;
                 _cancelActionTriggered = false;
-                _isObjectSpaceModified = false;
                 _exitEditModeByCancel = false;
                 _isWarningShown = false;
+                _isObjectSpaceModified = false;
 
                 AdjustUIForMode(View.ViewEditMode);
 
                 View.ViewEditModeChanged += View_ViewEditModeChanged;
                 View.QueryCanClose += View_QueryCanClose;
-                View.ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+                View.ObjectSpace.Refreshing+=ObjectSpaceOnRefreshing;
             }
         }
 
         protected override void OnDeactivated() {
             if (((IModelDetailViewWarnForUnsavedChanges)View.Model).WarnForUnsavedChanges) {
-                View.ObjectSpace.ObjectChanged -= ObjectSpace_ObjectChanged;
                 View.QueryCanClose -= View_QueryCanClose;
                 View.ViewEditModeChanged -= View_ViewEditModeChanged;
-
+                View.ObjectSpace.Refreshing-=ObjectSpaceOnRefreshing;
+                View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 AdjustUIForMode(ViewEditMode.View);
             }
             base.OnDeactivated();
         }
 
-        void ObjectSpace_ObjectChanged(object sender, ObjectChangedEventArgs e) {
+        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
             if (!_isObjectSpaceModified) _isObjectSpaceModified = e.OldValue != e.NewValue;
+        }
+
+        private void ObjectSpaceOnRefreshing(object sender, CancelEventArgs cancelEventArgs){
+            cancelEventArgs.Cancel = !IsExitEditModeAllowed();
         }
 
         void View_ViewEditModeChanged(object sender, EventArgs e) {
@@ -72,9 +75,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             e.Cancel = !IsExitEditModeAllowed();
         }
 
-        void HandleDetailActions(object sender, CancelEventArgs e) {
+        void HandleWebModificationActions(object sender, CancelEventArgs e) {
             var anAction = ((ActionBase)sender);
-            if (anAction.Id == "Cancel") {
+            if (anAction.Id == Frame.GetController<WebModificationsController>().CancelAction.Id) {
                 _cancelActionTriggered = !_cancelActionTriggered;
                 _canExitEditMode = !_cancelActionTriggered;
                 _exitEditModeByCancel = true;
@@ -89,31 +92,35 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected Boolean IsExitEditModeAllowed() {
             if ((View.ViewEditMode == ViewEditMode.Edit) && !_canExitEditMode && _isObjectSpaceModified && !(_isWarningShown && _exitEditModeByCancel)) {
                 var unsavedObjectWarning = CaptionHelper.GetLocalizedText(XpandSystemAspNetModule.XpandWeb, _exitEditModeByCancel ? "CancelAgain" : "UnSavedChanges");
-                DevExpress.ExpressApp.Web.ErrorHandling.Instance.SetPageError(new UserFriendlyException(unsavedObjectWarning));
+                ErrorHandling.Instance.SetPageError(new UserFriendlyException(unsavedObjectWarning));
                 _isWarningShown = true;
                 return false;
             }
             return true;
         }
 
-        protected void AdjustUIForMode(ViewEditMode editMode) {
+        protected void AdjustUIForMode(ViewEditMode editMode){
+            var webRecordsNavigationController = Frame.GetController<WebRecordsNavigationController>();
+            var webModificationsController = Frame.GetController<WebModificationsController>();
             if (editMode == ViewEditMode.Edit) {
-                Frame.GetController<WebModificationsController>().CancelAction.Executing += HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAction.Executing += HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAndCloseAction.Executing += HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAndNewAction.Executing += HandleDetailActions;
+                webModificationsController.CancelAction.Executing += HandleWebModificationActions;
+                webModificationsController.SaveAction.Executing += HandleWebModificationActions;
+                webModificationsController.SaveAndCloseAction.Executing += HandleWebModificationActions;
+                webModificationsController.SaveAndNewAction.Executing += HandleWebModificationActions;
+                webRecordsNavigationController.PreviousObjectAction.Executing+=HandleAllOtherActions;
+                webRecordsNavigationController.NextObjectAction.Executing+=HandleAllOtherActions;
             } else {
-                Frame.GetController<WebModificationsController>().CancelAction.Executing -= HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAction.Executing -= HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAndCloseAction.Executing -= HandleDetailActions;
-                Frame.GetController<WebModificationsController>().SaveAndNewAction.Executing -= HandleDetailActions;
+                webModificationsController.CancelAction.Executing -= HandleWebModificationActions;
+                webModificationsController.SaveAction.Executing -= HandleWebModificationActions;
+                webModificationsController.SaveAndCloseAction.Executing -= HandleWebModificationActions;
+                webModificationsController.SaveAndNewAction.Executing -= HandleWebModificationActions;
+                webRecordsNavigationController.PreviousObjectAction.Executing -= HandleAllOtherActions;
+                webRecordsNavigationController.NextObjectAction.Executing -= HandleAllOtherActions;
             }
+        }
 
-            Frame.GetController<WebRecordsNavigationController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
-            Frame.GetController<RefreshController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
-            Frame.GetController<WebNewObjectViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
-            Frame.GetController<WebDeleteObjectsViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
-            Frame.GetController<CloneObjectViewController>().Active[ActionActiveID] = editMode == ViewEditMode.View;
+        private void HandleAllOtherActions(object sender, CancelEventArgs e){
+            e.Cancel = !IsExitEditModeAllowed();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

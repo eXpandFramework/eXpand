@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Editors {
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.Editors {
     public abstract class ReleaseSequencePopupWindowHelper {
         XafApplication _application;
         XPObjectSpace _objectSpace;
-        readonly PopupWindowShowAction showObjectAction = new PopupWindowShowAction(null, "ShowReleasedSequences", "");
+        readonly PopupWindowShowAction _showObjectAction = new PopupWindowShowAction(null, "ShowReleasedSequences", "");
         private ListView _listView;
         object _sequenceReleasedObjectKey;
         ISupportSequenceObject _supportSequenceObject;
@@ -36,7 +37,7 @@ namespace Xpand.ExpressApp.Editors {
         }
 
         public PopupWindowShowAction ShowObjectAction {
-            get { return showObjectAction; }
+            get { return _showObjectAction; }
         }
         private void DialogController_Cancelling(object sender, EventArgs e) {
             var controller = ((DialogController)sender);
@@ -55,7 +56,7 @@ namespace Xpand.ExpressApp.Editors {
             var nestedObjectSpace = (XPNestedObjectSpace)objectSpace.CreateNestedObjectSpace();
             var objectType = XafTypesInfo.Instance.FindBussinessObjectType<ISequenceReleasedObject>();
             var collectionSource = application.CreateCollectionSource(nestedObjectSpace, objectType, application.FindListViewId(objectType));
-            collectionSource.Criteria["ShowReleasedSequences"] = CriteriaOperator.Parse("TypeName=?", supportSequenceObject.Prefix + supportSequenceObject.ClassInfo.FullName);
+            collectionSource.Criteria["ShowReleasedSequences"] = CriteriaOperator.Parse("TypeName=?", supportSequenceObject.Prefix +((XPBaseObject)supportSequenceObject).ClassInfo.FullName);
             return application.CreateListView(nestedObjectSpace, objectType, true);
         }
 
@@ -77,13 +78,13 @@ namespace Xpand.ExpressApp.Editors {
         public void ShowObject() {
             OnViewShowing(EventArgs.Empty);
             try {
-                showObjectAction.Application = _application;
-                showObjectAction.IsModal = true;
-                showObjectAction.CustomizePopupWindowParams += showObjectAction_CustomizePopupWindowParams;
-                showObjectAction.Execute += ShowObjectActionOnExecute;
+                _showObjectAction.Application = _application;
+                _showObjectAction.IsModal = true;
+                _showObjectAction.CustomizePopupWindowParams += showObjectAction_CustomizePopupWindowParams;
+                _showObjectAction.Execute += ShowObjectActionOnExecute;
                 ShowObjectCore();
             } finally {
-                showObjectAction.Dispose();
+                _showObjectAction.Dispose();
             }
         }
 

@@ -72,9 +72,12 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         public virtual void Export(object selectedObject) {
-            var exportEngine = new ExportEngine();
-            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
-            Save(document);
+            if (selectedObject != null)
+            {
+                var exportEngine = new ExportEngine();
+                var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
+                Save(document);
+            }
         }
 
         protected abstract void Save(XDocument document);

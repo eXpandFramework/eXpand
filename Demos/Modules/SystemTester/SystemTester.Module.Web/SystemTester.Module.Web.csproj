@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="FunctionalTests\MasterDetail\MasterDetailObjects.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditorObject.cs" />
+    <Compile Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChangesObject.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -171,6 +172,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\ViewEditMode.Web\CollectionEditMode.ets" />
+    <None Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChanges.ets" />
+    <None Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChanges.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -194,6 +199,8 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
+    <Content Include="FunctionalTests\WarnForUnsavedChanges\Config.xml" />
+    <None Include="FunctionalTests\WarnForUnsavedChanges\Init.inc" />
     <None Include="FunctionalTests\LayoutStyle\Init.inc" />
     <Content Include="FunctionalTests\LayoutStyle\Images\LayoutStyle.web.png" />
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />

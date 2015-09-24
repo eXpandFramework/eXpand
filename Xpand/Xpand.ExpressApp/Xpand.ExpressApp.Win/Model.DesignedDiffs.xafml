@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="SwitchToEditMode" Active="False" />
+    </Actions>
+  </ActionDesign>
   <Localization>
     <LocalizationGroup Name="Xpand.Win" IsNewNode="True">
       <LocalizationItem Name="AcceptFilter" Value="Accept Filter" IsNewNode="True" />
