@@ -89,11 +89,10 @@
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
 	<PropertyGroup>
-	<CodeRushAssembliesFolders>C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\wumlezvq.agg\Controls\*.dll;C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\wumlezvq.agg\Install\*.dll</CodeRushAssembliesFolders>
+	<CodeRushAssembliesFolders></CodeRushAssembliesFolders>
 	</PropertyGroup>
 	<ItemGroup>
-		<CodeRushAssemblies Include="$(CodeRushAssembliesFolders);$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRControls)\*.dll;$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRCore)\*.dll"></CodeRushAssemblies>
-		
+		<CodeRushAssemblies Include="$(CodeRushAssembliesFolders);$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRControls)\*.dll;$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRCore)\*.dll"></CodeRushAssemblies>		
 	</ItemGroup>
 	
   <Target Name="CopyCodeRushAssemblies">
