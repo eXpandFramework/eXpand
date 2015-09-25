@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\IOAggregatedObject.cs" />
     <Compile Include="FunctionalTests\IOObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -104,6 +105,9 @@
     <None Include="FunctionalTests\IO.ets" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\Init.inc" />
+    <None Include="FunctionalTests\IOWithAggregated.inc" />
+    <None Include="FunctionalTests\IOSimple.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>

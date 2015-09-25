@@ -121,18 +121,24 @@ namespace Xpand.ExpressApp.IO.Core {
             if (theObject != null) {
                 IEnumerable<IClassInfoGraphNode> classInfoGraphNodes =
                     _serializeClassInfoGraphNodesCalculator.GetSerializedClassInfoGraphNodes(theObject, typeName);
-                CreateRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement);
+                CreateRefKeyElements(classInfoGraphNodes, theObject, serializedObjectRefElement, root);
                 if (classInfoGraphNode.SerializationStrategy == SerializationStrategy.SerializeAsObject)
                     ExportCore(theObject, classInfoGraphNodes, root);
             }
         }
 
         void CreateRefKeyElements(IEnumerable<IClassInfoGraphNode> serializedClassInfoGraphNodes, XPBaseObject theObject,
-                                  XElement serializedObjectRefElement) {
+                                  XElement serializedObjectRefElement, XElement root) {
             foreach (var infoGraphNode in serializedClassInfoGraphNodes.Where(node => node.Key)) {
+                var value = theObject.GetMemberValue(infoGraphNode.Name);
                 var serializedObjectRefKeyElement = new XElement("Key");
                 serializedObjectRefKeyElement.Add(new XAttribute("name", infoGraphNode.Name));
-                serializedObjectRefKeyElement.Value = theObject.GetMemberValue(infoGraphNode.Name).ToString();
+                
+                if (value is XPBaseObject)
+                    CreateRefElelement(infoGraphNode, value.GetType().Name, root, ((XPBaseObject)value), serializedObjectRefKeyElement);
+                else
+                    SetMemberValue(theObject, infoGraphNode, serializedObjectRefKeyElement);
+
                 serializedObjectRefElement.Add(serializedObjectRefKeyElement);
             }
         }

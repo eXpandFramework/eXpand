@@ -4,6 +4,7 @@ using DevExpress.Xpo;
 
 namespace IOTester.Module.FunctionalTests{
     [DefaultClassOptions]
+    [System.ComponentModel.DefaultProperty("Key")]
     public class IOObject : BaseObject{
         private string _doNotSerialize;
         private string _key;
@@ -20,5 +21,16 @@ namespace IOTester.Module.FunctionalTests{
             get { return _doNotSerialize; }
             set { SetPropertyValue("DoNotSerialize", ref _doNotSerialize, value); }
         }
+
+        [Association]
+        [DevExpress.Xpo.Aggregated]
+        public XPCollection<IOAggregatedObject> AggregatedObjects
+        {
+            get
+            {
+                return GetCollection<IOAggregatedObject>("AggregatedObjects");
+            }
+        }
+
     }
 }
