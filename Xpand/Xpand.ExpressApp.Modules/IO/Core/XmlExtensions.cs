@@ -79,22 +79,6 @@ namespace Xpand.ExpressApp.IO.Core {
         {
             return element.SerializedObjects().Where(xElement => xElement.GetAttributeValue("type") == typeName);
         }
-
-        public static XElement FindObjectFromRefenceElement(this XElement xElement) {
-            var typeValue = xElement.GetAttributeValue("type");
-            var infos = xElement.Elements("Key").Select(
-                element1 => new { Element = element1, Name = element1.GetAttributeValue("name"), element1.Value });
-            if (xElement.Document != null && xElement.Document.Root != null && infos.Count() > 0) {
-                return
-                    xElement.Document.Root.SerializedObjects().Where(
-                        element => element.GetAttributeValue("type") == typeValue).FirstOrDefault(
-                        element => !element.Elements("Property").Where(
-                        xElement1 => xElement1.GetAttributeValue("isKey") == "true").Any(xElement2 =>
-                        xElement2.Value != infos.FirstOrDefault(a => a.Name == xElement2.GetAttributeValue("name")).Value
-                        ));
-            }
-            return null;
-
-        }
+        
     }
 }

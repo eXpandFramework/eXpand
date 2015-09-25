@@ -24,7 +24,7 @@ using Fasterflect;
 namespace Xpand.ExpressApp.IO.Core {
 
     public class ImportEngine {
-        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
+        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> inTransactionObjects = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         UnitOfWork _unitOfWork;
         readonly ErrorHandling _errorHandling;
 
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.IO.Core {
                             var keys = GetKeys(element);
                             CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys);
                             if (!ReferenceEquals(objectKeyCriteria, null)) {
-                                CreateObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
+                                ProcessObject(element, nestedUnitOfWork, typeInfo, objectKeyCriteria);
                                 nestedUnitOfWork.CommitChanges();
                             }
                         }
@@ -79,18 +79,23 @@ namespace Xpand.ExpressApp.IO.Core {
 
         }
 
-        XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria, bool isRefElement = false) {
+        XPBaseObject ProcessObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
+            XPBaseObject xpBaseObject = ProcessObjectReference(typeInfo, objectKeyCriteria);
+            
+            ImportProperties(unitOfWork, xpBaseObject, element);
+
+            return xpBaseObject;
+        }
+
+        XPBaseObject ProcessObjectReference(ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
             XPBaseObject xpBaseObject;
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
-            if (!importedObjecs.ContainsKey(keyValuePair)) {
+            if (!inTransactionObjects.ContainsKey(keyValuePair)) {
                 xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
-                importedObjecs.Add(keyValuePair, xpBaseObject);
+                inTransactionObjects.Add(keyValuePair, xpBaseObject);
             } else {
-                xpBaseObject = importedObjecs.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
+                xpBaseObject = inTransactionObjects.FirstOrDefault(a => a.Key.Equals(keyValuePair)).Value as XPBaseObject;
             }
-
-            if (!isRefElement)
-                ImportProperties(unitOfWork, xpBaseObject, element);
 
             return xpBaseObject;
         }
@@ -130,7 +135,7 @@ namespace Xpand.ExpressApp.IO.Core {
                        SerializationStrategy.SerializeAsObject.ToString()) {
                         HandleErrorComplex(objectElement, typeInfo, () =>
                         {
-                            xpBaseObject = CreateObject(objectElement, unitOfWork, memberTypeInfo, refObjectKeyCriteria, true);
+                            xpBaseObject = ProcessObjectReference(memberTypeInfo, refObjectKeyCriteria);
                             instance.Invoke(xpBaseObject, element1);
                         });
 
