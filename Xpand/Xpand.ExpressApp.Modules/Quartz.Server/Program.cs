@@ -1,5 +1,4 @@
 ﻿using System.Configuration;
-using System.IO;
 using Topshelf;
 using Xpand.Persistent.Base.General;
 
@@ -9,7 +8,7 @@ namespace Xpand.Quartz.Server {
     /// </summary>
     public static class Program {
         /// <summary>
-        /// Entry point.  Initializes and runs the service using Topshelf <see cref="topshelf-project.com" />
+        /// Entry point.  Initializes and runs the service using Topshelf <see cref="http://topshelf-project.com" />
         /// </summary>
         /// <remarks>
         /// <para>

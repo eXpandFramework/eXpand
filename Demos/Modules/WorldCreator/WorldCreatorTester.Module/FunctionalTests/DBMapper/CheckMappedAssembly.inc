@@ -10,6 +10,6 @@
  Columns = Name
  Row[0] = Tolis*
 
-*Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS
+*Sql Integrated Security=SSPI;Data Source=(localdb)\MSSQLLocalDB
  ScalarCommand = SELECT Count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'TestTable'
  Result = 0

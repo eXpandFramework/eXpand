@@ -21,12 +21,13 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server="(local)" DBName="SystemTesterEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="SystemTesterEasyTest" />
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Web" />
+    <Alias Name="SQLConnection" Value="Integrated Security=SSPI;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SystemTesterEasyTest" />
   </Aliases>
 </Options>

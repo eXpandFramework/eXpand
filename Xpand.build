@@ -236,8 +236,8 @@
     <ItemGroup>
       <DbToDrop Include="Northwind;XpandFeatureCenterWeb;XpandFeatureCenterEasyTest;XpandFeatureCenterExceptionHandling;XpandFeatureCenterMultipleDataStore;XpandFeatureCenterWorldCreator;XpandFeatureCenter"></DbToDrop>
     </ItemGroup>
-    <Exec Command='sqlcmd -E -S . -Q "ALTER DATABASE %(DbToDrop.Identity) SET SINGLE_USER WITH ROLLBACK IMMEDIATE"' ContinueOnError="false"/>
-    <Exec Command='sqlcmd -E -S . -Q "DROP DATABASE %(DbToDrop.Identity)"' ContinueOnError="false"/>
+    <Exec Command='sqlcmd -E -S "(localdb)\mssqllocaldb" -Q "ALTER DATABASE %(DbToDrop.Identity) SET SINGLE_USER WITH ROLLBACK IMMEDIATE"' ContinueOnError="false"/>
+    <Exec Command='sqlcmd -E -S "(localdb)\mssqllocaldb" -Q "DROP DATABASE %(DbToDrop.Identity)"' ContinueOnError="false"/>
     <CallTarget Targets="ConfigFCWebDbUpdater;DBUpdate"></CallTarget>
   </Target>
   <Target Name="DBUpdate">

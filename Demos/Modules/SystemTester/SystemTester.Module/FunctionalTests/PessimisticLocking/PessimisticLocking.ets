@@ -1,4 +1,10 @@
-﻿#IncludeFile .\Init.inc
+﻿#DropDB SystemTesterEasyTest
+;#Application SystemTester.Web
+#Application SystemTester.Win
+*UseModel
+*LogOn
+*ScreenCapture
+
 
 *Navigate Pessimistic Locking Object
 *Action New(Pessimistic Locking Object)
@@ -7,7 +13,7 @@
 *XpandFillForm 
  Name = Tolis
 *SaveAndClose
-*Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS;Initial Catalog=SystemTesterEasyTest
+*Sql Alias:SQLConnection
  ScalarCommand = SELECT Count(*) FROM PessimisticLockingObject where ((LockedUser IS NULL))
  Result = 1
 
@@ -15,11 +21,11 @@
  Name = Tolis
 *XpandFillForm
  Name = Tolis Bekiaris
-*Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS;Initial Catalog=SystemTesterEasyTest
+*Sql Alias:SQLConnection
  ScalarCommand = SELECT Count(*) FROM PessimisticLockingObject where (NOT (LockedUser IS NULL))
  Result = 1
 *SaveAndClose
-*Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS;Initial Catalog=SystemTesterEasyTest
+*Sql Alias:SQLConnection
  ScalarCommand = SELECT Count(*) FROM PessimisticLockingObject where ((LockedUser IS NULL))
  Result = 1
 
@@ -32,6 +38,6 @@
 !XpandFillForm
  Name = ''
 *Action UnLock
-*Sql Integrated Security=SSPI;Data Source=.\SQLEXPRESS;Initial Catalog=SystemTesterEasyTest
+*Sql Alias:SQLConnection
  ScalarCommand = SELECT Count(*) FROM PessimisticLockingObject where (NOT (LockedUser IS NULL))
  Result = 0

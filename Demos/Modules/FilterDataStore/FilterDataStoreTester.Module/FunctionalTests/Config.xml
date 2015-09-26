@@ -20,7 +20,7 @@
 			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
 	</Applications>
 	<TestDatabases>
-		<Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="FilterDataStoreTesterEasyTest" />
+		<Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="FilterDataStoreTesterEasyTest" />
 	</TestDatabases>
 
 	<Aliases>

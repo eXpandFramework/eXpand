@@ -102,6 +102,11 @@ namespace Xpand.EasyTest {
                    Path.GetDirectoryName(_application.ParameterValue<string>(ApplicationParams.FileName));
         }
 
+        public static TestAlias GetAlias(string scriptsPath, string name) {
+            var options = LoadOptions(scriptsPath);
+            return options.Aliases.Cast<TestAlias>().First(@alias => alias.Name == name);
+        }
+
         public static Options LoadOptions(string scriptsPath) {
             var configPath = Path.Combine(scriptsPath, "config.xml");
             var optionsStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);

@@ -40,7 +40,7 @@
  Name = Test3
 
 ;-----Check Delete Action ------------
-*Action Deleteswit
+*Action Delete
 *HandleDialog 
  Respond = OK
 *CheckValidationResult

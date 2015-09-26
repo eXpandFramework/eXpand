@@ -1,6 +1,6 @@
 #DropDB XtraDashboardTesterEasyTest
 #Application XtraDashboardTester.Win
-;#Application XtraDashboardTester.Web
+#Application XtraDashboardTester.Web
 *UseModel
 *ScreenCapture
 *LogOn

@@ -30,7 +30,7 @@
 			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandSecurityDemoEasyTest"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandSecurityDemoEasyTest"/>
   </TestDatabases>
 
   <Aliases>

@@ -21,11 +21,11 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterEasyTest"/>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="NorthWind"/>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterExceptionHandling"/>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterMultipleDataStore"/>
-    <Database xsi:type="TestMSSQLDatabase" Server=".\SQLEXPRESS" DBName="XpandFeatureCenterWorldCreator"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterEasyTest"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="NorthWind"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterExceptionHandling"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterMultipleDataStore"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreator"/>
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

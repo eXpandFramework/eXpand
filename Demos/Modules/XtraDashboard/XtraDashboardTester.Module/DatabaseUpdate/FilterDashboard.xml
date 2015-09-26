@@ -2,9 +2,9 @@
 <Dashboard CurrencyCulture="el-GR">
   <Title Text="Dashboard" />
   <DataConnections>
-    <DataConnection Name=".\SqlExpress_XtraDashboardTesterConnection" ProviderKey="MSSqlServer">
+    <DataConnection Name=".\LocalDB_XtraDashboardTesterConnection" ProviderKey="MSSqlServer">
       <Parameters>
-        <Parameter Name="server" Value=".\SqlExpress" />
+        <Parameter Name="server" Value="(localdb)\MSSQLLocalDB" />
         <Parameter Name="database" Value="XtraDashboardTester" />
         <Parameter Name="useIntegratedSecurity" Value="True" />
         <Parameter Name="read only" Value="1" />
@@ -14,7 +14,7 @@
   </DataConnections>
   <DataSources>
     <DataSource ComponentName="dataSource1" Name="FilteredDataSource">
-      <DataProvider DataConnection=".\SqlExpress_XtraDashboardTesterConnection" SupportSql="true">
+      <DataProvider DataConnection=".\LocalDB_XtraDashboardTesterConnection" SupportSql="true">
         <Selection>
           <Table Name="Customer" />
           <Table Name="Person">
