@@ -22,7 +22,7 @@
   </Applications>
   <TestDatabases>
     <Database xsi:type="TestDatabase" Type="Xpand.ExpressApp.EasyTest.MySQLDatabaseOperations" Server="localhost" DBName="SystemTesterEasyTest">
-      <Login UserID="easytest" Password=""/>
+      <Login UserID="anonymous" Password=""/>
     </Database>
   </TestDatabases>
   <Aliases>

@@ -11,9 +11,14 @@ namespace Xpand.EasyTest.TestDataBase.Operations{
 
         protected virtual string GetConnectionString(TestDatabase database) {
             if ((database.Login != null) && !string.IsNullOrEmpty(database.Login.UserID)) {
-                return string.Format("Server={0};Uid={1};password={2}",database.Server,database.Login.UserID,database.Login.Password );
+                return string.Format("Server={0};Uid={1};password={2}",database.Server,database.Login.UserID,GetPassword(database) );
             }
             return string.Format("Server={0};IntegratedSecurity=yes;Uid=auth_windows",database.Server );
+        }
+
+        private static string GetPassword(TestDatabase database){
+            var password = database.Login.Password;
+            return password == "[env]" ? Environment.GetEnvironmentVariable("MySqlEasyTestUserPass", EnvironmentVariableTarget.Machine) : password;
         }
 
         public void Drop(TestDatabase database){
