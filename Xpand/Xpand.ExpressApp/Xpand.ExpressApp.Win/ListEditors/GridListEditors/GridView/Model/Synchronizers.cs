@@ -104,6 +104,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             _gridView= gridView;
         }
 
+        protected override void ApplyModelCore(){
+            base.ApplyModelCore();
+        }
+
         protected override DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView() {
             return _gridView ?? Control.GridView;
         }
