@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
@@ -19,6 +18,7 @@ using DevExpress.Xpo.DB;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
+using Xpand.CodeRush.Plugins.ModelEditor;
 using XpandPlugins;
 using Configuration = System.Configuration.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
@@ -31,6 +31,16 @@ using VSProject = VSLangProj.VSProject;
 namespace Xpand.CodeRush.Plugins {
     public partial class PlugIn : StandardPlugIn {
         private bool _lastBuildSucceeded;
+        readonly EasyTest _easyTest=new EasyTest();
+        public PlugIn(){
+            InitializeComponent();
+        }
+
+        public override void InitializePlugIn(){
+            base.InitializePlugIn();
+            _easyTest.CreateButtons();
+            _easyTest.QueryLastBuildStatus += (sender, args) => args.Successed = _lastBuildSucceeded;
+        }
 
         private void convertProject_Execute(ExecuteEventArgs ea) {
             string path = Options.ReadString(Options.ProjectConverterPath);
@@ -43,7 +53,6 @@ namespace Xpand.CodeRush.Plugins {
                 _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
                 var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
-
             }
         }
 
@@ -217,48 +226,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void RunEasyTest_Execute(ExecuteEventArgs ea) {
-            Task.Factory.StartNew(() => RunTest(false));
-        }
-
-        private void RunTest(bool debug) {
-            DTE dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
-            try {
-                var uniqueName = DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.FindStartUpProject().UniqueName;
-                dte.WriteToOutput("Building EasyTest/Debug Configuration");
-                DevExpress.CodeRush.Core.CodeRush.Solution.Active.SolutionBuild.BuildProject("EasyTest", uniqueName, true);
-                if (_lastBuildSucceeded) {
-                    var activeFileName = DevExpress.CodeRush.Core.CodeRush.Documents.ActiveFileName;
-                    var testLogPath = Path.Combine(Path.GetDirectoryName(activeFileName) + "", "Testslog.xml");
-                    if (File.Exists(testLogPath))
-                        File.Delete(testLogPath);
-                    string debugSwitch = null;
-                    if (debug)
-                        debugSwitch = " -d:" + DevExpress.CodeRush.Core.CodeRush.Caret.Line;
-                    var processStartInfo = new ProcessStartInfo(Options.ReadString(Options.TestExecutorPath)) {
-                        Arguments = string.Format(@"""{0}""{1}", activeFileName, debugSwitch),
-                        UseShellExecute = debug,
-                        RedirectStandardOutput = !debug, CreateNoWindow = !debug
-                    };
-
-                    var process = Process.Start(processStartInfo);
-                    Debug.Assert(process != null, "process != null");
-                    process.WaitForExit();
-                    var document = XDocument.Load(File.OpenRead(testLogPath));
-                    var errorElement = document.Descendants().FirstOrDefault(element => element.Name.LocalName == "Error");
-                    if (errorElement != null) {
-                        var messageElement = errorElement.Descendants("Message").First();
-                        dte.WriteToOutput(messageElement.Value);
-                    }
-                    else
-                        dte.WriteToOutput("EasyTest Passed!");
-                }
-                else {
-                    dte.WriteToOutput("EasyTest build failed");
-                }
-            }
-            catch (Exception e) {
-                dte.WriteToOutput(e.ToString());
-            }
+            _easyTest.RunTest(false);
         }
 
         private void events_SolutionOpened() {
@@ -281,7 +249,12 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void DebugEasyTest_Execute(ExecuteEventArgs ea) {
-            Task.Factory.StartNew(() => RunTest(true));
+            _easyTest.RunTest(true);
+        }
+
+        private void PlugIn_DocumentActivated(DocumentEventArgs ea) {
+            var validExtensions = new[] { ".ets", ".inc" };
+            _easyTest.ChangeButtonsEnableState(validExtensions.Contains(Path.GetExtension(ea.Document.FullName)));
         }
     }
 }

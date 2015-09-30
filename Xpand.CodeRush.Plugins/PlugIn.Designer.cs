@@ -14,12 +14,6 @@ namespace Xpand.CodeRush.Plugins {
         private DevExpress.CodeRush.Core.Action RunEasyTest;
         private DevExpress.CodeRush.Core.Action DebugEasyTest;
 
-        public PlugIn() {
-            /// <summary>
-            /// Required for Windows.Forms Class Composition Designer support
-            /// </summary>
-            InitializeComponent();
-        }
 
         /// <summary>
         /// Clean up any resources being used.
@@ -141,10 +135,18 @@ namespace Xpand.CodeRush.Plugins {
             // 
             this.DebugEasyTest.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.DebugEasyTest.ImageBackColor = System.Drawing.Color.Empty;
+            this.DebugEasyTest.RegisterInVS = true;
             this.DebugEasyTest.ToolbarItem.ButtonIsPressed = false;
             this.DebugEasyTest.ToolbarItem.Enabled = true;
             this.DebugEasyTest.ToolbarItem.Image = null;
+            this.DebugEasyTest.ToolbarItem.Index = 0;
+            this.DebugEasyTest.ToolbarItem.PlaceIntoToolbar = true;
+            this.DebugEasyTest.ToolbarItem.ToolbarName = "Xpand";
             this.DebugEasyTest.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.DebugEasyTest_Execute);
+            // 
+            // PlugIn
+            // 
+            this.DocumentActivated += new DevExpress.CodeRush.Core.DocumentEventHandler(this.PlugIn_DocumentActivated);
             ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();

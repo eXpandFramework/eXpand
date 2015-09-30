@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
-using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
 
@@ -12,8 +12,13 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             ClearOutputWindow();
             if (_outputWindowPane == null || string.IsNullOrEmpty(text))
                 return;
-            //_DxCoreTestPane.Activate();
+            ActivatePane();
             _outputWindowPane.OutputString(text);
+        }
+
+        private static void ActivatePane(){
+            DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Windows.Item(Constants.vsWindowKindOutput).Activate();
+            _outputWindowPane.Activate();
         }
 
         static void ClearOutputWindow() {
@@ -25,7 +30,7 @@ namespace Xpand.CodeRush.Plugins.Extensions {
 
         static void InitializeVsPaneIfNeeded() {
             if (_outputWindowPane != null){
-                _outputWindowPane.Activate();
+                ActivatePane();
                 return;
             }
             var wnd = DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Windows.Item(Constants.vsWindowKindOutput);
@@ -45,7 +50,7 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             var assemblyReferences = projectElement.AssemblyReferences.OfType<AssemblyReference>();
             DTE dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
             var items = ((UIHierarchy)dte.Windows.Item(constants).Object).SelectedItems;
-            var selectedItems = ((System.Collections.IEnumerable)items).OfType<UIHierarchyItem>().Select(item => item.Name);
+            var selectedItems = ((IEnumerable)items).OfType<UIHierarchyItem>().Select(item => item.Name);
             assemblyReferences = assemblyReferences.Where(reference => selectedItems.Contains(reference.Name));
             return assemblyReferences;
         }

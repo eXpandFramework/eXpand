@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\DxCore\PlugIns</OutputPath>
+    <OutputPath>..\..\Dropbox\Apps\Configs\DxCore\PlugIns\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -103,6 +103,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EasyTest.cs" />
     <Compile Include="Enums\ConfigurationProperty.cs" />
     <Compile Include="Enums\ProjectItemProperty.cs" />
     <Compile Include="Enums\ProjectProperty.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="ModelEditor\ProjectWrapper.cs" />
     <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
-    <Compile Include="ProjectLoader.cs" />
+    <Compile Include="ModelEditor\ProjectLoader.cs" />
     <Compile Include="ReverseLineReader.cs" />
     <Compile Include="Extensions\SolutionExtension.cs" />
     <Compile Include="Options.cs">
