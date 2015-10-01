@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Dropbox\Apps\Configs\DxCore\PlugIns\</OutputPath>
+    <OutputPath>..\Xpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -169,4 +169,8 @@
   </Target>
   -->
   <Import Project="..\Support\Build\Nuget.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(OutDir)$(TargetName).dll" "C:\dropbox\Apps\Configs\DxCore\PlugIns\$(TargetName).dll"
+copy /Y "$(OutDir)$(TargetName).pdb" "C:\dropbox\Apps\Configs\DxCore\PlugIns\$(TargetName).pdb"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
