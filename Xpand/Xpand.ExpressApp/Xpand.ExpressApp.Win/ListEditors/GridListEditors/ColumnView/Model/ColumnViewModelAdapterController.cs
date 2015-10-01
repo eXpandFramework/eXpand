@@ -26,7 +26,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             "Visible",
             "DisplayFormat",
             "FieldName",
-            "PropertyName"
+            "ColVIndex",
+            "RowIndex"
         };
 
         protected static readonly Dictionary<string, string> ColumnMappings = new Dictionary<string, string>();

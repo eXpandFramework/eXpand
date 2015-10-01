@@ -11,10 +11,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
     public class AdvBandedViewModelAdapterController : GridViewModelAdapterControllerBase {
         public AdvBandedViewModelAdapterController() {
             DefaultValues.Add("AutoFillDown", true);
-            DefaultValues.Add("ColVIndex", 0);
-            DefaultValues.Add("RowIndex", 0);
-            NonNullableObjects.Add("RowIndex");
-            NonNullableObjects.Add("ColVIndex");
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {
