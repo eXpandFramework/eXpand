@@ -321,7 +321,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static string ConnectionString {
             get {
-                if (_connectionString != null) return _connectionString;
+                if (_connectionString != null||!InterfaceBuilder.RuntimeMode) return _connectionString;
                 throw new NullReferenceException("ConnectionString");
             }
             internal set { _connectionString = value; }
