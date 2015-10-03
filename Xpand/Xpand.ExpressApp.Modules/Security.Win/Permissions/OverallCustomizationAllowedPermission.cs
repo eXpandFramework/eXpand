@@ -4,7 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.SystemModule;
-using Xpand.ExpressApp.Security.Core;
+using DevExpress.Xpo.Helpers;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Win.Permissions {
@@ -13,8 +13,8 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
             get { return "OverallCustomizationAllowed"; }
         }
         #region Implementation of IPermissionInfo
-        public IEnumerable<IOperationPermission> GetPermissions(XpandRole xpandRole) {
-            return true.Equals(xpandRole.GetMemberValue("ModifyLayout"))
+        public IEnumerable<IOperationPermission> GetPermissions(ISecurityRole securityRole) {
+            return true.Equals(((IXPClassInfoProvider) securityRole).ClassInfo.GetMember("ModifyLayout").GetValue(securityRole))
                        ? new[] { new OverallCustomizationAllowedPermission() }
                        : Enumerable.Empty<IOperationPermission>();
         }

@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
 
 namespace Xpand.ExpressApp.Security.Permissions {
     public interface IPermissionInfo {
-        IEnumerable<IOperationPermission> GetPermissions(XpandRole xpandRole);
+        IEnumerable<IOperationPermission> GetPermissions(ISecurityRole securityRole);
     }
 
 

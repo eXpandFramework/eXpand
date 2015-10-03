@@ -61,16 +61,13 @@ namespace Xpand.ExpressApp.Security.Permissions {
 
         #endregion
         private XpandRole _role;
+
         [VisibleInListView(false)]
         [VisibleInDetailView(false)]
         [Association("XpandRole-XpandPermissionDatas")]
-        public XpandRole Role {
-            get {
-                return _role;
-            }
-            set {
-                SetPropertyValue("Role", ref _role, value);
-            }
+        public XpandRole Role{
+            get { return _role; }
+            set { SetPropertyValue("Role", ref _role, value); }
         }
     }
 }
