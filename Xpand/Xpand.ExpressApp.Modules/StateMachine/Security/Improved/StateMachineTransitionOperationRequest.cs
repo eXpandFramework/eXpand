@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
@@ -10,6 +9,7 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
             Modifier = permission.Modifier;
             StateCaption = permission.StateCaption;
             StateMachineName = permission.StateMachineName;
+            Hide = permission.Hide;
         }
 
         public StateMachineTransitionModifier Modifier { get; set; }
@@ -19,9 +19,6 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
             return "StateMachineTransitionOperationRequest";
         }
 
-        void IStateMachineTransitionPermission.SyncStateCaptions(IList<string> stateCaptions, string machineName) {
-
-        }
         public bool Hide { get; set; }
     }
 }

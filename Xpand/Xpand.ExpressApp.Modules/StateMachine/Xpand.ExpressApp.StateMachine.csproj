@@ -144,15 +144,15 @@
     <Compile Include="Controllers\StateMachineAdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\StatePermissionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationRequest.cs" />
     <Compile Include="Security\IStateMachineTransitionPermission.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationPermissionData.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionPermission.cs" />
+    <Compile Include="Security\StateCaptionPopulateController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\StateMachinePopulateController.cs">
       <SubType>Component</SubType>
     </Compile>

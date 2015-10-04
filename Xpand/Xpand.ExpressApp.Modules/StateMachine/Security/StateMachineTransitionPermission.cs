@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
-using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.StateMachine.Security {
     public enum StateMachineTransitionModifier {
@@ -24,13 +21,12 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         public override IPermission Copy() {
-            return new StateMachineTransitionPermission(Modifier, StateCaption, StateMachineName);
+            return new StateMachineTransitionPermission(StateCaption, StateMachineName){Modifier = Modifier};
         }
 
         public StateMachineTransitionPermission() {
         }
-        public StateMachineTransitionPermission(StateMachineTransitionModifier modifier, string stateCaption, string stateMachineName) {
-            Modifier = modifier;
+        public StateMachineTransitionPermission(string stateCaption, string stateMachineName) {
             StateCaption = stateCaption;
             StateMachineName = stateMachineName;
         }
@@ -58,8 +54,6 @@ namespace Xpand.ExpressApp.StateMachine.Security {
 
         string _stateCaption;
 
-        [PropertyEditor(typeof(IStringLookupPropertyEditor))]
-        [DataSourceProperty("StateCaptions")]
         public string StateCaption {
             get { return _stateCaption; }
             set {
@@ -68,13 +62,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             }
         }
 
-        IList<string> _stateCaptions = new List<string>();
-        [Browsable(false)]
-        public IList<string> StateCaptions { get { return _stateCaptions; } }
 
-        public void SyncStateCaptions(IList<string> stateCaptions, string machineName) {
-            _stateCaptions = stateCaptions;
-        }
         bool IStateMachineTransitionPermission.Hide { get; set; }
     }
 }

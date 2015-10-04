@@ -23,9 +23,5 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
         public StateMachineTransitionModifier Modifier { get; set; }
         public string StateMachineName { get; set; }
         public string StateCaption { get; set; }
-
-        void IStateMachineTransitionPermission.SyncStateCaptions(IList<string> stateCaptions, string machineName) {
-            
-        }
     }
 }

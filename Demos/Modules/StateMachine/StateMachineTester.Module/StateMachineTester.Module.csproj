@@ -90,7 +90,10 @@
     <Compile Include="BusinessObjects\PaymentTask.cs" />
     <Compile Include="BusinessObjects\TestTask.cs" />
     <None Include="FunctionalTests\AdminRoles\AdminRoles.ets" />
+    <None Include="FunctionalTests\TransitionPermission\TransitionPermission.ets" />
     <None Include="FunctionalTests\HideIfCriteriaDoNotFit\HideIfCriteriaDoNotFit.ets" />
+    <Content Include="FunctionalTests\TransitionPermission\Config.xml" />
+    <None Include="FunctionalTests\TransitionPermission\Init.inc" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
