@@ -1,4 +1,7 @@
-﻿*Action Navigation(State Machine.State Machine)
+﻿#IncludeFile .\Init.inc
+
+;---------------------Set HideIfCriteriaDoNotFit to all transitions
+*Action Navigation(State Machine.State Machine)
 *XpandProcessRecord 
  Name = Payment
 *Action States
@@ -24,12 +27,27 @@
  Hide If Criteria Do Not Fit = True
 *SaveAndClose
 
-*XpandProcessRecord States
- Caption = Returned
-*XpandFillForm
- Target Object Criteria = [Status] = ##Enum#DevExpress.Persistent.Base.General.TaskStatus,InProgress#
- Hide If Criteria Do Not Fit = True
 *SaveAndClose
 
-*SaveAndClose
+;--------------------CheckChangeStateAction----------------------------------------------
+*Action Navigation(Default.Payment Task)
+*Action New(Payment Task)
+
+!ActionAvailable Change State(Payment)
+
+*XpandFillForm
+ Status = In progress
+*ActionAvailable Change State(Payment.Canceled)
+*ActionAvailable Change State(Payment.Pending)
+!ActionAvailable Change State(Payment.Paid)
+
+*XpandFillForm
+ Status = Completed
+!ActionAvailable Change State(Payment.Canceled)
+!ActionAvailable Change State(Payment.Pending)
+*ActionAvailable Change State(Payment.Paid)
+
+
+
+
 

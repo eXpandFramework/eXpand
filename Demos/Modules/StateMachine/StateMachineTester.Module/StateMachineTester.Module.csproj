@@ -90,7 +90,7 @@
     <Compile Include="BusinessObjects\PaymentTask.cs" />
     <Compile Include="BusinessObjects\TestTask.cs" />
     <None Include="FunctionalTests\AdminRoles\AdminRoles.ets" />
-    <None Include="FunctionalTests\ChangeStateAction\ChangeStateAction.ets" />
+    <None Include="FunctionalTests\HideIfCriteriaDoNotFit\HideIfCriteriaDoNotFit.ets" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -125,18 +125,13 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\ChangeStateAction\CheckChangeStateAction.inc" />
     <Content Include="FunctionalTests\AdminRoles\AdminRole.inc" />
     <Content Include="FunctionalTests\AdminRoles\Config.xml" />
     <None Include="FunctionalTests\AdminRoles\Init.inc" />
     <Content Include="FunctionalTests\AdminRoles\ExistingCriteriaWhenNoRoles.inc" />
-    <Content Include="FunctionalTests\ChangeStateAction\Config.xml" />
-    <None Include="FunctionalTests\ChangeStateAction\Init.inc" />
-    <None Include="FunctionalTests\ChangeStateAction\ExpandActionsInDetailView.inc" />
-    <None Include="FunctionalTests\ChangeStateAction\ModifyTransitions.inc" />
+    <Content Include="FunctionalTests\HideIfCriteriaDoNotFit\Config.xml" />
+    <None Include="FunctionalTests\HideIfCriteriaDoNotFit\Init.inc" />
     <Content Include="FunctionalTests\Config.xml" />
-    <None Include="FunctionalTests\ChangeStateAction\CreateStateMachine.inc" />
-    <Content Include="FunctionalTests\ChangeStateAction\CreateStatuses.inc" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
