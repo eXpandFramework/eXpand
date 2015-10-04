@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (winWindow != null) {
                     if (winWindow.View.ObjectSpace.IsNewObject(winWindow.View.CurrentObject))
                         winWindow.View.ObjectSpace.RollbackSilent();
-                    winWindow.View.SetPropertyValue("KeyMemberValue", null);
+                    winWindow.View.SetPropertyValue("KeyMemberValueForPendingLoading", null);
                     var currentObject = GetCurrentObject(e, winWindow);
                     winWindow.View.CurrentObject = currentObject;
                 }
