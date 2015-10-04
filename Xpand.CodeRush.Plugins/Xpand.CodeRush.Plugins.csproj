@@ -165,12 +165,18 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  
   -->
+  <PropertyGroup>
+    <DXCorePluginsFolder>$(Registry:HKEY_CURRENT_USER\Software\Developer Express\CodeRush For VS@UserStorageFolder)\Plugins</DXCorePluginsFolder>
+  </PropertyGroup>
+  <Target Name="AfterBuild">
+    <Message Text="$(OutputPath)$(AssemblyName).dll"></Message>
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb" DestinationFolder="$(DXCorePluginsFolder)"  ContinueOnError="true"></Copy>
+  </Target>
   <Import Project="..\Support\Build\Nuget.Targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(OutDir)$(TargetName).dll" "C:\dropbox\Apps\Configs\DxCore\PlugIns\$(TargetName).dll"
-copy /Y "$(OutDir)$(TargetName).pdb" "C:\dropbox\Apps\Configs\DxCore\PlugIns\$(TargetName).pdb"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
