@@ -1,7 +1,7 @@
 ﻿#IncludeFile .\Init.inc
+#IncludeFile .\EnumPropertyEditor.inc
+#IncludeFile .\LookupPropertyEditor.inc
 
-#IncludeFile .\ExistingCriteriaWhenNoRoles.inc
-#IncludeFile .\AdminRole.inc
 
 
 

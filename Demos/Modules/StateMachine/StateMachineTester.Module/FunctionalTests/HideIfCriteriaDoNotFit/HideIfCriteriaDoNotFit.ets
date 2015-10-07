@@ -1,4 +1,8 @@
-﻿#IncludeFile .\Init.inc
+﻿#DropDB StateMachineTesterEasyTest
+#Application StateMachineTester.Win
+;#Application StateMachineTester.Web
+*ScreenCapture
+*LogOn
 
 ;---------------------Set HideIfCriteriaDoNotFit to all transitions
 *Action Navigation(State Machine.State Machine)

@@ -88,10 +88,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\PaymentTask.cs" />
-    <Compile Include="BusinessObjects\TestTask.cs" />
     <None Include="FunctionalTests\AdminRoles\AdminRoles.ets" />
+    <None Include="FunctionalTests\EnableFilteredProperty\EnableFilteredProperty.ets" />
     <None Include="FunctionalTests\TransitionPermission\TransitionPermission.ets" />
     <None Include="FunctionalTests\HideIfCriteriaDoNotFit\HideIfCriteriaDoNotFit.ets" />
+    <Content Include="FunctionalTests\AdminRoles\EnumPropertyEditor.inc" />
+    <Content Include="FunctionalTests\AdminRoles\LookupPropertyEditor.inc" />
+    <Content Include="FunctionalTests\EnableFilteredProperty\Config.xml" />
+    <Content Include="FunctionalTests\EnableFilteredProperty\EnumPropertyEditor.inc" />
+    <Content Include="FunctionalTests\EnableFilteredProperty\LookupPropertyEditor.inc" />
+    <Content Include="FunctionalTests\EnableFilteredProperty\Init.inc" />
     <Content Include="FunctionalTests\TransitionPermission\Config.xml" />
     <None Include="FunctionalTests\TransitionPermission\Init.inc" />
     <Compile Include="Module.cs">
@@ -104,7 +110,9 @@
     <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Module.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
@@ -128,12 +136,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\AdminRoles\AdminRole.inc" />
     <Content Include="FunctionalTests\AdminRoles\Config.xml" />
     <None Include="FunctionalTests\AdminRoles\Init.inc" />
-    <Content Include="FunctionalTests\AdminRoles\ExistingCriteriaWhenNoRoles.inc" />
     <Content Include="FunctionalTests\HideIfCriteriaDoNotFit\Config.xml" />
-    <None Include="FunctionalTests\HideIfCriteriaDoNotFit\Init.inc" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <ItemGroup />
