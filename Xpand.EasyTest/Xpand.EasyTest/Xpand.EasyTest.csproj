@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Commands\ChangeUserPasswordCommand.cs" />
     <Compile Include="Commands\CreatePermissionCommand.cs" />
+    <Compile Include="Commands\FocusControlCommand.cs" />
     <Compile Include="Commands\FocusWindowCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
     <Compile Include="Commands\LogOffCommand.cs" />

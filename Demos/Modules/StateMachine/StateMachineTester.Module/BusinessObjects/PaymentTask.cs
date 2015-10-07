@@ -5,6 +5,7 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace StateMachineTester.Module.BusinessObjects{
+    public enum BillStatus { Active, InDispute, Overdue }
     [DefaultClassOptions]
     [ImageName("BO_Invoice")]
     public class PaymentTask : Task {

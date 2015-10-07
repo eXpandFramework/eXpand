@@ -9,15 +9,9 @@ using Fasterflect;
 
 namespace Xpand.ExpressApp.StateMachine {
     public static class Extensions {
-        public static void ProcessTransition(this StateMachineLogic stateMachineLogic, object targetObject, string statePropertyName, IState targetState) {
-            stateMachineLogic.CallMethod("ProcessTransition", targetObject, statePropertyName, targetState);
-        }
-
-        public static bool CanExecuteTransition(this IStateMachine stateMachine) {
+        public static bool CanExecuteAllTransitions(this IStateMachine stateMachine) {
             var collection = (XPBaseCollection)((XPBaseObject)stateMachine).GetMemberValue(XpandStateMachineModule.AdminRoles);
-            if (!collection.OfType<ISecurityRole>().Any())
-                return true;
-            return collection.OfType<ISecurityRole>().Any(IsInRole);
+            return collection.OfType<ISecurityRole>().Any() && collection.OfType<ISecurityRole>().Any(IsInRole);
         }
         static bool IsInRole(ISecurityRole securityRole) {
             return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.Select(role => role.Name).Contains(securityRole.Name);

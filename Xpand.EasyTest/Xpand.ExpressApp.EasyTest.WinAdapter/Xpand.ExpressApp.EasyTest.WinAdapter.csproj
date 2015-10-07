@@ -42,6 +42,8 @@
     <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.v15.1, Version=15.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Win.v15.1, Version=15.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -84,7 +86,8 @@
     <Compile Include="Commands\HideScrollbarCommand.cs" />
     <Compile Include="Commands\SetWebMaxWaitTimeOutCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestControls\DevExpressControls\XpandGridTestControl.cs" />
+    <Compile Include="TestControls\DevExpressControls\LookupObjectListViewEditControl.cs" />
+    <Compile Include="TestControls\DevExpressControls\GridTestControl.cs" />
     <Compile Include="TestDataBase.cs" />
     <Compile Include="XpandTestWinAdapter.cs" />
   </ItemGroup>

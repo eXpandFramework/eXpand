@@ -64,6 +64,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
     <OutputPath>bin\RecompiledDxSources\</OutputPath>
@@ -129,21 +130,22 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminRolesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\ChangeStateActionController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CriteriaActionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\EnableStatePropertyController.cs">
+    <Compile Include="Controllers\StatePropertyController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\PermissionTransitionStateController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\StateMachineAdminRolesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\StateMachineAdminRolesController.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionRequestProcessor.cs" />
     <Compile Include="Security\Improved\StateMachineTransitionOperationRequest.cs" />

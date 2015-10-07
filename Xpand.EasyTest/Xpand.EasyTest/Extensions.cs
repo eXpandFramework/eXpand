@@ -252,6 +252,7 @@ namespace Xpand.EasyTest {
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
                 {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
+                {typeof (FocusControlCommand), FocusControlCommand.Name},
                 {typeof (XpandFillRecordCommand), XpandFillRecordCommand.Name},
                 {typeof (SaveFileDialogCommand), SaveFileDialogCommand.Name},
                 {typeof (OpenFileDialogCommand), OpenFileDialogCommand.Name},

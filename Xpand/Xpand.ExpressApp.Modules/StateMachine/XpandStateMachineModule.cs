@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.StateMachine {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandStateMachineModule : XpandModuleBase {
         public const string AdminRoles = "AdminRoles";
-        public const string EnableFilteredPropety = "EnableFilteredPropety";
+        public const string EnableFilteredProperty = "EnableFilteredProperty";
         public XpandStateMachineModule() {
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(StateMachineModule));
@@ -44,8 +44,8 @@ namespace Xpand.ExpressApp.StateMachine {
             base.CustomizeTypesInfo(typesInfo);
 	        var stateMachineType = StateMachineType;
             var typeInfo = typesInfo.FindTypeInfo(stateMachineType);
-            if (typeInfo.FindMember(EnableFilteredPropety) == null) {
-                typeInfo.CreateMember(EnableFilteredPropety, typeof(bool));
+            if (typeInfo.FindMember(EnableFilteredProperty) == null) {
+                typeInfo.CreateMember(EnableFilteredProperty, typeof(bool));
             }
 
             if (!RuntimeMode) {

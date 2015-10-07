@@ -10,9 +10,9 @@ using DevExpress.XtraGrid.Views.Layout;
 using Fasterflect;
 
 namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
-    public class XpandGridTestControl : GridTestControl, IGridControlAct, IGridDoubleClick, IGridBase,
+    public class GridTestControl : DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls.GridTestControl, IGridControlAct, IGridDoubleClick, IGridBase,
         IGridRowsSelection, IGridCellControlCreation{
-        public XpandGridTestControl(GridControl control) : base(control){
+        public GridTestControl(GridControl control) : base(control){
         }
 
         int IGridBase.GetRowCount(){
