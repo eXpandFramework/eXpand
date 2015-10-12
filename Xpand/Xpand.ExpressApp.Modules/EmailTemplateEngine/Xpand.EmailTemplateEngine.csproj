@@ -75,8 +75,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\System.Web.Razor.dll</HintPath>
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
