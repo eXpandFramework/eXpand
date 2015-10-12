@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using DevExpress.CodeRush.Menus;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Extensions;
-using XpandPlugins;
 using Process = System.Diagnostics.Process;
 
 namespace Xpand.CodeRush.Plugins{

@@ -19,7 +19,6 @@ using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
 using Xpand.CodeRush.Plugins.ModelEditor;
-using XpandPlugins;
 using Configuration = System.Configuration.Configuration;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 using ConfigurationProperty = Xpand.CodeRush.Plugins.Enums.ConfigurationProperty;
@@ -255,6 +254,23 @@ namespace Xpand.CodeRush.Plugins {
         private void PlugIn_DocumentActivated(DocumentEventArgs ea) {
             var validExtensions = new[] { ".ets", ".inc" };
             _easyTest.ChangeButtonsEnableState(validExtensions.Contains(Path.GetExtension(ea.Document.FullName)));
+        }
+
+        private void events_ProjectBuildBegin(string project, string projectConfiguration, string platform, string solutionConfiguration){
+            if (Options.ReadBool(Options.KillModelEditor)) {
+                var processes =Process.GetProcesses().Where(process => process.ProcessName.StartsWith("Xpand.ExpressApp.ModelEditor")).ToArray();
+                if (processes.Any()){
+                    var dialogResult =MessageBox.Show(
+                            "The build will probably fail because " + processes.Count() +
+                            " ModelEditor instance/s is locking the assemblies. Do you want to kill all ModelEditor instances?",
+                            "ModelEditor is running", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes){
+                        foreach (var process in processes){
+                            process.Kill();
+                        }
+                    }
+                }
+            }
         }
     }
 }

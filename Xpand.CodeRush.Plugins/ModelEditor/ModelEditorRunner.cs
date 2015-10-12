@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Windows.Forms;
-using XpandPlugins;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ModelEditorRunner {

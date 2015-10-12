@@ -6,7 +6,6 @@ using DevExpress.CodeRush.Diagnostics.General;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Extensions;
-using XpandPlugins;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ProjectLoader {

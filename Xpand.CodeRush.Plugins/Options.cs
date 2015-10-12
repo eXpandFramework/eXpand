@@ -10,13 +10,14 @@ using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Controls.XtraEditors.Controls;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 
-namespace XpandPlugins {
+namespace Xpand.CodeRush.Plugins {
     [UserLevel(UserLevel.NewUser)]
     public partial class Options : OptionsPage {
         public const string ProjectPaths = "ProjectPaths";
         public const string FormatOnSave = "FormatOnSave";
         public const string SpecificVersion = "SpecificVersion";
         public const string DebugME = "DebugME";
+        public const string KillModelEditor = "KillModelEditor";
         public const string ModelEditorPath = "modelEditorPath";
         public const string ProjectConverterPath = "projectConverterPath";
         public const string TestExecutorPath = "testExecutorPath";
@@ -44,6 +45,7 @@ namespace XpandPlugins {
             formatOnSaveCheckEdit.Checked = storage.ReadBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
             specificVersionCheckEdit.Checked = storage.ReadBoolean(PageName, SpecificVersion, true);
             checkEditDebugME.Checked = storage.ReadBoolean(PageName, DebugME, checkEditDebugME.Checked);
+            checkEditKillModelEditor.Checked = storage.ReadBoolean(PageName, KillModelEditor, true);
 
             gridControl1.DataSource = GetConnectionStrings();
             gridControl2.DataSource = GetSourceCodeInfos();
@@ -127,6 +129,7 @@ namespace XpandPlugins {
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
             decoupledStorage.WriteBoolean(PageName, SpecificVersion, specificVersionCheckEdit.Checked);
             decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
+            decoupledStorage.WriteBoolean(PageName, KillModelEditor, checkEditKillModelEditor.Checked);
             decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
             SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
             SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", decoupledStorage, (BindingList<SourceCodeInfo>)gridControl2.DataSource);

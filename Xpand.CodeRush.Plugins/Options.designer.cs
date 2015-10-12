@@ -2,7 +2,7 @@ using System.ComponentModel;
 using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Controls.XtraEditors;
 
-namespace XpandPlugins
+namespace Xpand.CodeRush.Plugins
 {
     partial class Options {
         /// <summary>
@@ -37,50 +37,59 @@ namespace XpandPlugins
         private void InitializeComponent() {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.General = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.specificVersionCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.formatOnSaveCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.labelControl13 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.labelControl14 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.EasyTests = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelControl6 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.testExecutorButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
+            this.labelControl10 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.ProjectConverter = new System.Windows.Forms.TabPage();
-            this.publicTokenTextEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
-            this.labelControl2 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.labelControl3 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.publicTokenTextEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.projectConverterPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
+            this.labelControl2 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.labelControl9 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.DropDatabase = new System.Windows.Forms.TabPage();
             this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
             this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.labelControl8 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.labelControl7 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.LoadProject = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.gridControl2 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
-            this.repositoryItemCheckEdit1 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumnDirectory = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.gridColumnPrefix = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.gridColumn1 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
-            this.button1 = new System.Windows.Forms.Button();
+            this.repositoryItemCheckEdit1 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.labelControl5 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.labelControl4 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.testExecutorButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
-            this.labelControl6 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.specificVersionCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
-            this.formatOnSaveCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.ModelEditor = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkEditKillModelEditor = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.labelControl12 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.modelEditorPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
-            this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl4 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl5 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl7 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl8 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelControl9 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl10 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl11 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl12 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.labelControl13 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl14 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             this.General.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).BeginInit();
             this.EasyTests.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
             this.ProjectConverter.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).BeginInit();
             this.DropDatabase.SuspendLayout();
@@ -91,16 +100,11 @@ namespace XpandPlugins
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).BeginInit();
             this.ModelEditor.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditKillModelEditor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,6 +123,66 @@ namespace XpandPlugins
             this.General.Text = "General";
             this.General.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Controls.Add(this.specificVersionCheckEdit, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.formatOnSaveCheckEdit, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.labelControl13, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.labelControl14, 0, 3);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(522, 462);
+            this.tableLayoutPanel4.TabIndex = 34;
+            // 
+            // specificVersionCheckEdit
+            // 
+            this.specificVersionCheckEdit.AutoSizeInLayoutControl = true;
+            this.specificVersionCheckEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.specificVersionCheckEdit.Location = new System.Drawing.Point(3, 3);
+            this.specificVersionCheckEdit.Name = "specificVersionCheckEdit";
+            this.specificVersionCheckEdit.Properties.Caption = "When a new assembly is referenced use False Specific Version";
+            this.specificVersionCheckEdit.Size = new System.Drawing.Size(516, 19);
+            this.specificVersionCheckEdit.TabIndex = 33;
+            // 
+            // formatOnSaveCheckEdit
+            // 
+            this.formatOnSaveCheckEdit.AutoSizeInLayoutControl = true;
+            this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(3, 33);
+            this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
+            this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
+            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(105, 19);
+            this.formatOnSaveCheckEdit.TabIndex = 32;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.AllowHtmlString = true;
+            this.labelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelControl13.Location = new System.Drawing.Point(3, 63);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(365, 13);
+            this.labelControl13.TabIndex = 34;
+            this.labelControl13.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b>";
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.AllowHtmlString = true;
+            this.labelControl14.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelControl14.Location = new System.Drawing.Point(3, 93);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(516, 26);
+            this.labelControl14.TabIndex = 35;
+            this.labelControl14.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b> to li" +
+    "nk the XAF log with R# explore stack trace feature";
+            // 
             // EasyTests
             // 
             this.EasyTests.Controls.Add(this.tableLayoutPanel2);
@@ -129,6 +193,54 @@ namespace XpandPlugins
             this.EasyTests.TabIndex = 3;
             this.EasyTests.Text = "EasyTests";
             this.EasyTests.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.15709F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.84291F));
+            this.tableLayoutPanel2.Controls.Add(this.labelControl6, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.testExecutorButtonEdit, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 36);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(522, 100);
+            this.tableLayoutPanel2.TabIndex = 33;
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Location = new System.Drawing.Point(3, 3);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(71, 13);
+            this.labelControl6.TabIndex = 30;
+            this.labelControl6.Text = "TestExecutor :";
+            // 
+            // testExecutorButtonEdit
+            // 
+            this.testExecutorButtonEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.testExecutorButtonEdit.Location = new System.Drawing.Point(103, 3);
+            this.testExecutorButtonEdit.Name = "testExecutorButtonEdit";
+            this.testExecutorButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
+            this.testExecutorButtonEdit.Size = new System.Drawing.Size(416, 20);
+            this.testExecutorButtonEdit.TabIndex = 31;
+            this.testExecutorButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.testExecutorButtonEdit_ButtonClick_1);
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.AllowHtmlString = true;
+            this.labelControl10.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl10.Location = new System.Drawing.Point(0, 0);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.labelControl10.Size = new System.Drawing.Size(522, 36);
+            this.labelControl10.TabIndex = 32;
+            this.labelControl10.Text = "You can assign a keyboard shortcut to the <b>RunEasyTest, DebugEasyTest</b> comma" +
+    "nds and configure the path of the standalone TestExecutor";
             // 
             // ProjectConverter
             // 
@@ -141,21 +253,23 @@ namespace XpandPlugins
             this.ProjectConverter.Text = "Project Converter";
             this.ProjectConverter.UseVisualStyleBackColor = true;
             // 
-            // publicTokenTextEdit
+            // tableLayoutPanel1
             // 
-            this.publicTokenTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publicTokenTextEdit.Location = new System.Drawing.Point(120, 32);
-            this.publicTokenTextEdit.Name = "publicTokenTextEdit";
-            this.publicTokenTextEdit.Size = new System.Drawing.Size(399, 20);
-            this.publicTokenTextEdit.TabIndex = 8;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Location = new System.Drawing.Point(3, 32);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(56, 13);
-            this.labelControl2.TabIndex = 9;
-            this.labelControl2.Text = "PublicToken";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.41379F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.5862F));
+            this.tableLayoutPanel1.Controls.Add(this.labelControl3, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.publicTokenTextEdit, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.projectConverterPathButtonEdit, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.labelControl2, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 36);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(522, 59);
+            this.tableLayoutPanel1.TabIndex = 12;
             // 
             // labelControl3
             // 
@@ -164,6 +278,14 @@ namespace XpandPlugins
             this.labelControl3.Size = new System.Drawing.Size(112, 13);
             this.labelControl3.TabIndex = 10;
             this.labelControl3.Text = "ProjectConverter path:";
+            // 
+            // publicTokenTextEdit
+            // 
+            this.publicTokenTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publicTokenTextEdit.Location = new System.Drawing.Point(120, 32);
+            this.publicTokenTextEdit.Name = "publicTokenTextEdit";
+            this.publicTokenTextEdit.Size = new System.Drawing.Size(399, 20);
+            this.publicTokenTextEdit.TabIndex = 8;
             // 
             // projectConverterPathButtonEdit
             // 
@@ -174,6 +296,28 @@ namespace XpandPlugins
             new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
             this.projectConverterPathButtonEdit.Size = new System.Drawing.Size(399, 20);
             this.projectConverterPathButtonEdit.TabIndex = 11;
+            this.projectConverterPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.projectConverterPathButtonEdit_ButtonClick);
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(3, 32);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(56, 13);
+            this.labelControl2.TabIndex = 9;
+            this.labelControl2.Text = "PublicToken";
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.AllowHtmlString = true;
+            this.labelControl9.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl9.Location = new System.Drawing.Point(0, 0);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.labelControl9.Size = new System.Drawing.Size(522, 36);
+            this.labelControl9.TabIndex = 22;
+            this.labelControl9.Text = "You can assign a keyboard shortcut to the <b>ProjectConverter</b> command and pro" +
+    "vide values to configure how the projectconverter will be executed. ";
             // 
             // DropDatabase
             // 
@@ -226,6 +370,30 @@ namespace XpandPlugins
             this.gridColumnName.Visible = true;
             this.gridColumnName.VisibleIndex = 0;
             // 
+            // labelControl8
+            // 
+            this.labelControl8.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl8.Location = new System.Drawing.Point(3, 16);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 5);
+            this.labelControl8.Size = new System.Drawing.Size(516, 41);
+            this.labelControl8.TabIndex = 22;
+            this.labelControl8.Text = "Below you can configure which databases will be droped by adding the connectionst" +
+    "ring names as defined in your configuration files (e.g. EasyTestConnectionString" +
+    ")";
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.AllowHtmlString = true;
+            this.labelControl7.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl7.Location = new System.Drawing.Point(3, 3);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(516, 13);
+            this.labelControl7.TabIndex = 21;
+            this.labelControl7.Text = "Available command: <b>Dropdatabase</b>";
+            // 
             // LoadProject
             // 
             this.LoadProject.Controls.Add(this.button1);
@@ -239,6 +407,17 @@ namespace XpandPlugins
             this.LoadProject.TabIndex = 0;
             this.LoadProject.Text = "Add referenced Projects ";
             this.LoadProject.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.Location = new System.Drawing.Point(3, 436);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(516, 23);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Search Selected";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // gridControl2
             // 
@@ -273,11 +452,6 @@ namespace XpandPlugins
             this.gridView2.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
             this.gridView2.OptionsView.ShowGroupPanel = false;
             // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            // 
             // gridColumnDirectory
             // 
             this.gridColumnDirectory.Caption = "Root Directory";
@@ -306,15 +480,34 @@ namespace XpandPlugins
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 2;
             // 
-            // button1
+            // repositoryItemCheckEdit1
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.Location = new System.Drawing.Point(3, 436);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(516, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Search Selected";
-            this.button1.UseVisualStyleBackColor = true;
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl5.Location = new System.Drawing.Point(3, 29);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
+            this.labelControl5.Size = new System.Drawing.Size(516, 36);
+            this.labelControl5.TabIndex = 21;
+            this.labelControl5.Text = "Below you can configure the location and the regex that will be used to indetify " +
+    " projects. For example for Xpand projects you can use Xpand.*";
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.AllowHtmlString = true;
+            this.labelControl4.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl4.Location = new System.Drawing.Point(3, 3);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(516, 26);
+            this.labelControl4.TabIndex = 20;
+            this.labelControl4.Text = "You can assign a keyboard shortcut to the <b>loadProjectFromReferenceItem</b> com" +
+    "mand or use the context memu of the referenced to project assemblies ";
             // 
             // tabControl1
             // 
@@ -331,43 +524,6 @@ namespace XpandPlugins
             this.tabControl1.Size = new System.Drawing.Size(530, 488);
             this.tabControl1.TabIndex = 32;
             // 
-            // testExecutorButtonEdit
-            // 
-            this.testExecutorButtonEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.testExecutorButtonEdit.Location = new System.Drawing.Point(102, 3);
-            this.testExecutorButtonEdit.Name = "testExecutorButtonEdit";
-            this.testExecutorButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.testExecutorButtonEdit.Size = new System.Drawing.Size(417, 20);
-            this.testExecutorButtonEdit.TabIndex = 31;
-            // 
-            // labelControl6
-            // 
-            this.labelControl6.Location = new System.Drawing.Point(3, 3);
-            this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(71, 13);
-            this.labelControl6.TabIndex = 30;
-            this.labelControl6.Text = "TestExecutor :";
-            // 
-            // specificVersionCheckEdit
-            // 
-            this.specificVersionCheckEdit.AutoSizeInLayoutControl = true;
-            this.specificVersionCheckEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.specificVersionCheckEdit.Location = new System.Drawing.Point(3, 3);
-            this.specificVersionCheckEdit.Name = "specificVersionCheckEdit";
-            this.specificVersionCheckEdit.Properties.Caption = "When a new assembly is referenced use False Specific Version";
-            this.specificVersionCheckEdit.Size = new System.Drawing.Size(516, 19);
-            this.specificVersionCheckEdit.TabIndex = 33;
-            // 
-            // formatOnSaveCheckEdit
-            // 
-            this.formatOnSaveCheckEdit.AutoSizeInLayoutControl = true;
-            this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(3, 33);
-            this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
-            this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
-            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(105, 19);
-            this.formatOnSaveCheckEdit.TabIndex = 32;
-            // 
             // ModelEditor
             // 
             this.ModelEditor.Controls.Add(this.tableLayoutPanel3);
@@ -378,6 +534,55 @@ namespace XpandPlugins
             this.ModelEditor.TabIndex = 5;
             this.ModelEditor.Text = "Model Editor";
             this.ModelEditor.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.37165F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.62835F));
+            this.tableLayoutPanel3.Controls.Add(this.checkEditKillModelEditor, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.labelControl12, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.labelControl1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.checkEditDebugME, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.modelEditorPathButtonEdit, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.labelControl15, 1, 2);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 36);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(522, 88);
+            this.tableLayoutPanel3.TabIndex = 34;
+            // 
+            // checkEditKillModelEditor
+            // 
+            this.checkEditKillModelEditor.Location = new System.Drawing.Point(3, 57);
+            this.checkEditKillModelEditor.Name = "checkEditKillModelEditor";
+            this.checkEditKillModelEditor.Properties.Caption = "Kill b4 build";
+            this.checkEditKillModelEditor.Size = new System.Drawing.Size(88, 19);
+            this.checkEditKillModelEditor.TabIndex = 37;
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.AllowHtmlString = true;
+            this.labelControl12.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl12.Location = new System.Drawing.Point(125, 30);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.labelControl12.Size = new System.Drawing.Size(394, 23);
+            this.labelControl12.TabIndex = 36;
+            this.labelControl12.Text = "Set to true so you can attach to the process when debugging is needed";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(3, 3);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(88, 13);
+            this.labelControl1.TabIndex = 31;
+            this.labelControl1.Text = "Model editor path:";
             // 
             // checkEditDebugME
             // 
@@ -390,146 +595,23 @@ namespace XpandPlugins
             // modelEditorPathButtonEdit
             // 
             this.modelEditorPathButtonEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelEditorPathButtonEdit.Location = new System.Drawing.Point(124, 3);
+            this.modelEditorPathButtonEdit.Location = new System.Drawing.Point(125, 3);
             this.modelEditorPathButtonEdit.Name = "modelEditorPathButtonEdit";
             this.modelEditorPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
             new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.modelEditorPathButtonEdit.Size = new System.Drawing.Size(395, 20);
+            this.modelEditorPathButtonEdit.Size = new System.Drawing.Size(394, 20);
             this.modelEditorPathButtonEdit.TabIndex = 32;
+            this.modelEditorPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.modelEditorPathButtonEdit_ButtonClick);
             // 
-            // labelControl1
+            // labelControl15
             // 
-            this.labelControl1.Location = new System.Drawing.Point(3, 3);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(88, 13);
-            this.labelControl1.TabIndex = 31;
-            this.labelControl1.Text = "Model editor path:";
-            // 
-            // labelControl4
-            // 
-            this.labelControl4.AllowHtmlString = true;
-            this.labelControl4.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl4.Location = new System.Drawing.Point(3, 3);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(516, 26);
-            this.labelControl4.TabIndex = 20;
-            this.labelControl4.Text = "You can assign a keyboard shortcut to the <b>loadProjectFromReferenceItem</b> com" +
-    "mand or use the context memu of the referenced to project assemblies ";
-            // 
-            // labelControl5
-            // 
-            this.labelControl5.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl5.Location = new System.Drawing.Point(3, 29);
-            this.labelControl5.Name = "labelControl5";
-            this.labelControl5.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.labelControl5.Size = new System.Drawing.Size(516, 36);
-            this.labelControl5.TabIndex = 21;
-            this.labelControl5.Text = "Below you can configure the location and the regex that will be used to indetify " +
-    " projects. For example for Xpand projects you can use Xpand.*";
-            // 
-            // labelControl7
-            // 
-            this.labelControl7.AllowHtmlString = true;
-            this.labelControl7.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl7.Location = new System.Drawing.Point(3, 3);
-            this.labelControl7.Name = "labelControl7";
-            this.labelControl7.Size = new System.Drawing.Size(516, 13);
-            this.labelControl7.TabIndex = 21;
-            this.labelControl7.Text = "Available command: <b>Dropdatabase</b>";
-            // 
-            // labelControl8
-            // 
-            this.labelControl8.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl8.Location = new System.Drawing.Point(3, 16);
-            this.labelControl8.Name = "labelControl8";
-            this.labelControl8.Padding = new System.Windows.Forms.Padding(0, 10, 0, 5);
-            this.labelControl8.Size = new System.Drawing.Size(516, 41);
-            this.labelControl8.TabIndex = 22;
-            this.labelControl8.Text = "Below you can configure which databases will be droped by adding the connectionst" +
-    "ring names as defined in your configuration files (e.g. EasyTestConnectionString" +
-    ")";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.41379F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.5862F));
-            this.tableLayoutPanel1.Controls.Add(this.labelControl3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.publicTokenTextEdit, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.projectConverterPathButtonEdit, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.labelControl2, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 36);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(522, 59);
-            this.tableLayoutPanel1.TabIndex = 12;
-            // 
-            // labelControl9
-            // 
-            this.labelControl9.AllowHtmlString = true;
-            this.labelControl9.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl9.Location = new System.Drawing.Point(0, 0);
-            this.labelControl9.Name = "labelControl9";
-            this.labelControl9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.labelControl9.Size = new System.Drawing.Size(522, 36);
-            this.labelControl9.TabIndex = 22;
-            this.labelControl9.Text = "You can assign a keyboard shortcut to the <b>ProjectConverter</b> command and pro" +
-    "vide values to configure how the projectconverter will be executed. ";
-            // 
-            // labelControl10
-            // 
-            this.labelControl10.AllowHtmlString = true;
-            this.labelControl10.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl10.Location = new System.Drawing.Point(0, 0);
-            this.labelControl10.Name = "labelControl10";
-            this.labelControl10.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.labelControl10.Size = new System.Drawing.Size(522, 36);
-            this.labelControl10.TabIndex = 32;
-            this.labelControl10.Text = "You can assign a keyboard shortcut to the <b>RunEasyTest, DebugEasyTest</b> comma" +
-    "nds and configure the path of the standalone TestExecutor";
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.15709F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.84291F));
-            this.tableLayoutPanel2.Controls.Add(this.labelControl6, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.testExecutorButtonEdit, 1, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 36);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(522, 100);
-            this.tableLayoutPanel2.TabIndex = 33;
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.37165F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.62835F));
-            this.tableLayoutPanel3.Controls.Add(this.labelControl12, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.labelControl1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.checkEditDebugME, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.modelEditorPathButtonEdit, 1, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 36);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(522, 55);
-            this.tableLayoutPanel3.TabIndex = 34;
+            this.labelControl15.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl15.Location = new System.Drawing.Point(125, 57);
+            this.labelControl15.Name = "labelControl15";
+            this.labelControl15.Size = new System.Drawing.Size(394, 26);
+            this.labelControl15.TabIndex = 38;
+            this.labelControl15.Text = "Before project build if ModelEditor instances are found there will be a prompt to" +
+    " kill them to unloack all related assemblie ";
             // 
             // labelControl11
             // 
@@ -545,59 +627,6 @@ namespace XpandPlugins
     "the Models ToolWindow. You may need to manually open it in the first time from t" +
     "he CodeRush/Tools/Windows menu";
             // 
-            // labelControl12
-            // 
-            this.labelControl12.AllowHtmlString = true;
-            this.labelControl12.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl12.Location = new System.Drawing.Point(124, 30);
-            this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
-            this.labelControl12.Size = new System.Drawing.Size(395, 23);
-            this.labelControl12.TabIndex = 36;
-            this.labelControl12.Text = "Set to true so you can attach to the process when debugging is needed";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.ColumnCount = 1;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Controls.Add(this.specificVersionCheckEdit, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.formatOnSaveCheckEdit, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.labelControl13, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.labelControl14, 0, 3);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 4;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(522, 462);
-            this.tableLayoutPanel4.TabIndex = 34;
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.AllowHtmlString = true;
-            this.labelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl13.Location = new System.Drawing.Point(3, 63);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(365, 13);
-            this.labelControl13.TabIndex = 34;
-            this.labelControl13.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b>";
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.AllowHtmlString = true;
-            this.labelControl14.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl14.Location = new System.Drawing.Point(3, 93);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(516, 26);
-            this.labelControl14.TabIndex = 35;
-            this.labelControl14.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b> to li" +
-    "nk the XAF log with R# explore stack trace feature";
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,9 +634,19 @@ namespace XpandPlugins
             this.Name = "Options";
             this.Size = new System.Drawing.Size(530, 488);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             this.General.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).EndInit();
             this.EasyTests.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).EndInit();
             this.ProjectConverter.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).EndInit();
             this.DropDatabase.ResumeLayout(false);
@@ -618,20 +657,12 @@ namespace XpandPlugins
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).EndInit();
             this.ModelEditor.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditKillModelEditor.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -644,7 +675,7 @@ namespace XpandPlugins
         ///
         public static DecoupledStorage Storage {
             get {
-                return CodeRush.Options.GetStorage(GetCategory(), GetPageName());
+                return DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(GetCategory(), GetPageName());
             }
         }
         ///
@@ -676,7 +707,7 @@ namespace XpandPlugins
         /// Displays the DXCore options dialog and selects this page.
         ///
         public new static void Show() {
-            CodeRush.Command.Execute("Options", FullPath);
+            DevExpress.CodeRush.Core.CodeRush.Command.Execute("Options", FullPath);
         }
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TabPage General;
@@ -721,5 +752,7 @@ namespace XpandPlugins
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private LabelControl labelControl13;
         private LabelControl labelControl14;
+        private CheckEdit checkEditKillModelEditor;
+        private DevExpress.XtraEditors.LabelControl labelControl15;
     }
 }

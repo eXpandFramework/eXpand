@@ -82,6 +82,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // events
             // 
+            this.events.ProjectBuildBegin += new DevExpress.CodeRush.Core.BuildProjectBeginHandler(this.events_ProjectBuildBegin);
             this.events.ProjectBuildDone += new DevExpress.CodeRush.Core.BuildProjectDoneHandler(this.events_ProjectBuildDone);
             this.events.SolutionOpened += new DevExpress.CodeRush.Core.DefaultHandler(this.events_SolutionOpened);
             // 
