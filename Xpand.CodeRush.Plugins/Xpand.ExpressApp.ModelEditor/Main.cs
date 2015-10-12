@@ -1,3 +1,4 @@
+
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -47,7 +48,9 @@ namespace Xpand.ExpressApp.ModelEditor {
                 CheckAssemblyFile(pathInfo);
                 var modelControllerBuilder = new ModelControllerBuilder();
                 var settingsStorageOnRegistry = new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor");
-                _modelEditorForm = new ModelEditorForm(modelControllerBuilder.GetController(pathInfo), settingsStorageOnRegistry);
+                var modelEditorViewController = modelControllerBuilder.GetController(pathInfo);
+                Tracing.Tracer.LogText("modelEditorViewController");
+                _modelEditorForm = new ModelEditorForm(modelEditorViewController, settingsStorageOnRegistry);
                 _modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)_modelEditorForm).ModelEditorSaveSettings();
                 _modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
 

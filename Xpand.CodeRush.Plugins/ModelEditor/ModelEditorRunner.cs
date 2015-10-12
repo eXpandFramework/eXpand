@@ -32,8 +32,12 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             
                 var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
                 KillProcess(destFileName);
-                if (path!=destFileName)
+                if (path!=destFileName){
                     File.Copy(path, destFileName,true);
+                    var configPath = Path.Combine(Path.GetDirectoryName(path)+"",Path.GetFileName(path)+".config");
+                    if (File.Exists(configPath))
+                        File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
+                }
                 string debugMe = Options.ReadBool(Options.DebugME)?"d":null;
                 string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
                 if (File.Exists(destFileName))

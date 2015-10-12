@@ -18,6 +18,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             var storePath = Path.GetDirectoryName(pathInfo.LocalPath);
             var fileModelStore = new FileModelStore(storePath, Path.GetFileNameWithoutExtension(pathInfo.LocalPath));
             var applicationModulesManager = GetApplicationModulesManager(pathInfo);
+            Tracing.Tracer.LogText("applicationModulesManager");
             var modelApplication = GetModelApplication(applicationModulesManager, pathInfo, fileModelStore);
             return GetController(fileModelStore, modelApplication);
         }
@@ -28,6 +29,7 @@ namespace Xpand.ExpressApp.ModelEditor {
         ModelApplicationBase GetModelApplication(ApplicationModulesManager applicationModulesManager, PathInfo pathInfo, FileModelStore fileModelStore) {
             var modelApplication = ModelApplicationHelper.CreateModel(XafTypesInfo.Instance, applicationModulesManager.DomainComponents, applicationModulesManager.Modules, applicationModulesManager.ControllersManager, Type.EmptyTypes, fileModelStore.GetAspects(), null, null);
             AddLayers(modelApplication, applicationModulesManager, pathInfo);
+            Tracing.Tracer.LogText("AddLayers");
             ModelApplicationBase lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
             fileModelStore.Load(lastLayer);
             ModelApplicationHelper.AddLayer(modelApplication, lastLayer);
@@ -47,13 +49,13 @@ namespace Xpand.ExpressApp.ModelEditor {
 
         void AddLayers(ModelApplicationBase modelApplication, ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
             var resourceModelCollector = new ResourceModelCollector();
-            var dictionary = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null);
-            AddLayersCore(dictionary.Where(pair => !PredicateLastLayer(pair, pathInfo)), modelApplication);
+            var resourceInfos = resourceModelCollector.Collect(applicationModulesManager.Modules.Select(@base => @base.GetType().Assembly), null).Where(pair => !MatchLastLayer(pair, pathInfo));
+            AddLayersCore(resourceInfos, modelApplication);
             ModelApplicationBase lastLayer = modelApplication.CreatorInstance.CreateModelApplication();
             ModelApplicationHelper.AddLayer(modelApplication, lastLayer);
         }
 
-        bool PredicateLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
+        bool MatchLastLayer(KeyValuePair<string, ResourceInfo> pair, PathInfo pathInfo) {
             var name = pair.Key.EndsWith(ModelStoreBase.ModelDiffDefaultName) ? ModelStoreBase.ModelDiffDefaultName : pair.Key.Substring(pair.Key.LastIndexOf(".", StringComparison.Ordinal) + 1);
             bool nameMatch = (name.EndsWith(Path.GetFileNameWithoutExtension(pathInfo.LocalPath) + ""));
             bool assemblyMatch = Path.GetFileNameWithoutExtension(pathInfo.AssemblyPath) == pair.Value.AssemblyName;
