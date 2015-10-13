@@ -191,9 +191,6 @@
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\InvalidEditorAction.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="General\Controllers\ModelViewSavingController.cs">
       <SubType>Component</SubType>
     </Compile>

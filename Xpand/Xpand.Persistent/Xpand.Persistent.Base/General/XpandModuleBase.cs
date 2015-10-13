@@ -166,9 +166,9 @@ namespace Xpand.Persistent.Base.General {
                 });
             }
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseControllerWin), typeof (NavigationContainerWinController) });
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof (NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController), typeof(ActionsClientScriptController) });
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWebController), typeof(CollectionsEditModeController), typeof(ActionsClientScriptController) });
 
             return declaredControllerTypes;
         }
@@ -268,8 +268,6 @@ namespace Xpand.Persistent.Base.General {
                 return;
 
             extenders.Add<IModelNode, IModelNodePath>();
-            extenders.Add<IModelClass, IModelClassInvalidEditorAction>();
-            extenders.Add<IModelDetailView, IModelDetailViewInvalidEditorAction>();
             extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
             extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
             extenders.Add<IModelClass, IModelClassEx>();
