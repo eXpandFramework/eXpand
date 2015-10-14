@@ -105,9 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Permissions\OverallCustomizationAllowedPermission.cs" />
-    <Compile Include="XpandSecurityWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="XpandSecurityWinModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
