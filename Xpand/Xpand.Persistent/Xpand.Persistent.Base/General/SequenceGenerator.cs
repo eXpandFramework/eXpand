@@ -13,12 +13,12 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
-using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
+using Xpand.Xpo.ConnectionProviders;
 
 namespace Xpand.Persistent.Base.General {
     public interface ISequenceObject {
@@ -375,7 +375,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
+        internal static void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
             if (SequenceObjectType != null) {
                 var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
                 if (IsMySql(typeInfo)) {
@@ -391,21 +391,9 @@ namespace Xpand.Persistent.Base.General {
             return IsMySql(typeInfo);
         }
 
-        private static bool IsMySql(ITypeInfo typeInfo) {
-            var sequenceObjectObjectSpaceProvider = GetSequenceObjectObjectSpaceProvider(typeInfo.Type);
-            if (sequenceObjectObjectSpaceProvider != null) {
-                var helper = new ConnectionStringParser(sequenceObjectObjectSpaceProvider.ConnectionString);
-                string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
-                return providerType == MySqlConnectionProvider.XpoProviderTypeString;
-            }
-            return false;
-        }
-
-        static IObjectSpaceProvider GetSequenceObjectObjectSpaceProvider(Type type) {
-            return (ApplicationHelper.Instance.Application.ObjectSpaceProviders.Select(objectSpaceProvider
-                => new { objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type) })
-                .Where(@t => (@t.originalObjectType != null) && @t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
-                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
+        private static bool IsMySql(ITypeInfo typeInfo){
+            var objectSpaceProvider = ApplicationHelper.Instance.Application.ObjectSpaceProviders.FindProvider(typeInfo.Type);
+            return objectSpaceProvider != null && objectSpaceProvider.GetProviderType() == ConnectionProviderType.MySQL;
         }
 
         public void Attach(XpandModuleBase xpandModuleBase) {

@@ -5,11 +5,14 @@ using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Utils;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 using Xpand.Persistent.Base.General;
+using Xpand.Xpo.ConnectionProviders;
 
 namespace Xpand.ExpressApp.Workflow {
     [ToolboxItem(true)]
@@ -29,5 +32,15 @@ namespace Xpand.ExpressApp.Workflow {
             return declaredExportedTypes;
         }
 
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo){
+            base.CustomizeTypesInfo(typesInfo);
+            var typeInfo = typesInfo.FindTypeInfo<ObjectChangedWorkflow>();
+            if (Application != null && Application.ObjectSpaceProviders.FindProvider(typeInfo.Type).GetProviderType() ==
+                ConnectionProviderType.Oracle){
+                var memberInfo = (XafMemberInfo)typeInfo.FindMember<ObjectChangedWorkflow>(o => o.TargetObjectType);
+                memberInfo.RemoveAttributes<SizeAttribute>();
+                memberInfo.AddAttribute(new SizeAttribute(255));
+            }
+        }
     }
 }

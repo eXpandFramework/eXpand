@@ -10,14 +10,40 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
 using Xpand.Xpo.DB;
 using Fasterflect;
+using Xpand.Xpo.ConnectionProviders;
+using MSSqlConnectionProvider = DevExpress.Xpo.DB.MSSqlConnectionProvider;
+using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
+using OracleConnectionProvider = DevExpress.Xpo.DB.OracleConnectionProvider;
 
 namespace Xpand.Persistent.Base.General {
-    public static class ObjectSpaceExtensions {        
+
+    public static class ObjectSpaceExtensions {
+        public static ConnectionProviderType GetProviderType(this IObjectSpaceProvider provider) {
+            var helper = new ConnectionStringParser(provider.ConnectionString);
+            string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
+            if (providerType == MySqlConnectionProvider.XpoProviderTypeString)
+                return ConnectionProviderType.MySQL;
+            if (providerType == MSSqlConnectionProvider.XpoProviderTypeString)
+                return ConnectionProviderType.MSSQL;
+            if (providerType == OracleConnectionProvider.XpoProviderTypeString)
+                return ConnectionProviderType.Oracle;
+            return ConnectionProviderType.Unknown;
+        }
+
+        public static IObjectSpaceProvider FindProvider(this IList<IObjectSpaceProvider> providers,Type type){
+            return (providers.Select(objectSpaceProvider
+                => new { objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type) })
+                .Where(@t => (@t.originalObjectType != null) && @t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
+                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
+        }
+
+
         [DebuggerStepThrough]
         public static void SetIsModified(this IObjectSpace objectSpace,bool isModified){
             objectSpace.CallMethod("SetIsModified", new[] { typeof(bool) }, isModified);
