@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Xpand.Utils.Threading{
             }
         }
 
-        public static CancellationTokenSource Execute(this int timeout, Action afterTimeout) {
+        public static CancellationTokenSource Execute(this int timeout) {
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
             bool started = false;
@@ -37,7 +38,7 @@ namespace Xpand.Utils.Threading{
                     Thread.Sleep(200);
                 }
                 cancellationToken.ThrowIfCancellationRequested();
-            }, cancellationToken).TimeoutAfter(timeout, afterTimeout);
+            }, cancellationToken).TimeoutAfter(timeout);
 
             while (!started) {
                 Thread.Sleep(100);
@@ -45,7 +46,19 @@ namespace Xpand.Utils.Threading{
             return cancellationTokenSource;
         }
 
-        public static Task TimeoutAfter(this Task task, int millisecondsTimeout,Action timeoutAction=null){
+        public static bool WaitToCompleteOrTimeOut(this Task task){
+            try{
+                Task.WaitAll(task);
+                return true;
+            }
+            catch (AggregateException e){
+                if (!e.InnerExceptions.All(exception => exception is TimeoutException))
+                    throw;
+                return false;
+            }
+        }
+
+        public static Task TimeoutAfter(this Task task, int millisecondsTimeout){
             if (task.IsCompleted || (millisecondsTimeout == -1)){
                 return task;
             }
@@ -54,16 +67,12 @@ namespace Xpand.Utils.Threading{
                 taskCompletionSource.SetException(new TimeoutException());
                 return taskCompletionSource.Task;
             }
-            var timeout = false;
             var timer =new Timer(state =>{
-                        ((TaskCompletionSource<VoidTypeStruct>)state).TrySetException(new TimeoutException());
-                timeout = true;
+                ((TaskCompletionSource<VoidTypeStruct>)state).TrySetException(new TimeoutException());
             }, taskCompletionSource,(long) millisecondsTimeout, -1);
             task.ContinueWith(delegate(Task antecedent){
                 timer.Dispose();
                 MarshalTaskResults(antecedent, taskCompletionSource);
-                if (timeout && timeoutAction != null)
-                    timeoutAction();
             }, CancellationToken.None, TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
             return taskCompletionSource.Task;
         }
