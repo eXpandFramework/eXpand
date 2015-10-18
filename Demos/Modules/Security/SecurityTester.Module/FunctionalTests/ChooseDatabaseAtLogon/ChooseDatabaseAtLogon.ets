@@ -3,8 +3,10 @@
 #Application SecurityTester.Win
 #Application SecurityTester.Web
 
-*UseModel
-*XpandFillForm 
+!XpandFillForm 
+ DBServer = NonExistentServer
+
+*XpandFillForm
  DBServer = DB1
 *LogOn
 *Navigate Choose Database At Logon Object

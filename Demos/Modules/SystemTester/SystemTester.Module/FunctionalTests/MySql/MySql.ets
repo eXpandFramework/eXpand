@@ -2,8 +2,6 @@
 #Application SystemTester.Win
 ;#Application SystemTester.Web
 
-*XpandFillForm
- DBServer = MySQL
 *LogOn
 *Navigate My SQLObject
 *Action New

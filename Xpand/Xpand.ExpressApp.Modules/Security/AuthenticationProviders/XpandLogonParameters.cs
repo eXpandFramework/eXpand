@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -17,8 +19,31 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         SettingsStorage _storage;
         private bool _rememberMe;
 
+        [ValueConverter(typeof(StringObjectToStringConverter))]
+        [DataSourceProperty("DBServers")]
+        public StringObject DBServer {
+            get{
+                return !string.IsNullOrEmpty(((IDBServerParameter) this).DBServer)
+                    ? new StringObject(((IDBServerParameter) this).DBServer)
+                    : null;
+            }
+            set{
+                var dbServer = value!=null?value.Name:null;
+                ((IDBServerParameter)this).DBServer = dbServer;
+            }
+        }
+
+        [Browsable(false)]
+        public IList<StringObject> DBServers {
+            get{
+                return ChooseDatabaseAtLogonController.GetConnectionStringSettings()
+                    .Select(ChooseDatabaseAtLogonController.GetDbServerName).Select(s => new StringObject(s)).ToList();
+            }
+        }
+
         [RuleRequiredField]
-        public string DBServer {
+        [EditorAlias("DBServerPropertyEditor")]
+        string IDBServerParameter.DBServer {
             get { return _dbServer; }
             set {
                 _dbServer = value;
@@ -73,4 +98,5 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             }
         }
     }
+
 }

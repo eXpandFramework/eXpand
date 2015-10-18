@@ -103,7 +103,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security">
+    <Reference Include="Xpand.ExpressApp.Security, Version=15.1.7.3, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
@@ -121,7 +121,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomLogonParameter.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
     </Compile>

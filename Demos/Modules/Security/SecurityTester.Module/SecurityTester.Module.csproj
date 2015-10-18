@@ -114,9 +114,9 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogon.xafml">
+    <None Include="FunctionalTests\ChooseDatabaseAtLogon\ChooseDatabaseAtLogon.xafml">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </None>
     <EmbeddedResource Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,10 +1,10 @@
 using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.Windows.Forms;
 using SystemTester.Module;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.Base.General;
+using DevExpress.ExpressApp.Win.EasyTest;
 
 namespace SystemTester.Win {
     static class Program {
@@ -14,11 +14,11 @@ namespace SystemTester.Win {
         [STAThread]
         static void Main() {
 #if EASYTEST
-            DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
+            EasyTestRemotingRegistration.Register();
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            EditModelPermission.AlwaysGranted = Debugger.IsAttached;
             var winApplication = new SystemTesterWindowsFormsApplication();
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
@@ -28,12 +28,8 @@ namespace SystemTester.Win {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            try {
-                if (winApplication.GetEasyTestParameter("CustomLogonParameters"))
-                    winApplication.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
-                else{
-                    winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
-                }
+            try{
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             }

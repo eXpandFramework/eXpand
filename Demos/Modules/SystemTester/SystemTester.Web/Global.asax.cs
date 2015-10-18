@@ -1,12 +1,11 @@
 using System;
 using System.Configuration;
+using System.IO;
 using System.Web;
 using SystemTester.Module;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Web;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Web {
     public class Global : HttpApplication {
@@ -16,7 +15,7 @@ namespace SystemTester.Web {
         protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += Application_Error;
 #if EASYTEST
-            DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
+            TestScriptsManager.EasyTestEnabled = true;
 #endif
         }
         protected void Session_Start(Object sender, EventArgs e) {
@@ -29,18 +28,14 @@ namespace SystemTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
             }
 #endif
-            if (WebApplication.Instance.GetEasyTestParameter("CustomLogonParameters"))
-                WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, CustomLogonParameter>();
-            else {
-                WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
-            }
+            WebApplication.Instance.ProjectSetup();
 
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }
         protected void Application_BeginRequest(Object sender, EventArgs e) {
             string filePath = HttpContext.Current.Request.PhysicalPath;
-            if (!string.IsNullOrEmpty(filePath) && (filePath.IndexOf("Images", StringComparison.Ordinal) >= 0) && !System.IO.File.Exists(filePath)) {
+            if (!string.IsNullOrEmpty(filePath) && (filePath.IndexOf("Images", StringComparison.Ordinal) >= 0) && !File.Exists(filePath)) {
                 HttpContext.Current.Response.End();
             }
         }

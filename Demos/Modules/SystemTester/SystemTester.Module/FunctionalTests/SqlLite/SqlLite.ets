@@ -2,10 +2,10 @@
 #Application SystemTester.Win
 ;#Application SystemTester.Web
 
-*XpandFillForm
- DBServer = SQLite
+*XpandDeleteFile SystemTesterEasyTest.db
+ InBin = True
 *LogOn
-*XpandCheckFileExists SystemTesterEasyTest
+*XpandCheckFileExists SystemTesterEasyTest.db
  CheckInBin = True
 *Navigate SQLite Object
 *Action New
