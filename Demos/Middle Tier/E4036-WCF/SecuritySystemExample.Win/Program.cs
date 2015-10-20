@@ -40,6 +40,7 @@ namespace SecuritySystemExample.Win {
                         e.ObjectSpaceProvider =new DataServerObjectSpaceProvider(clientDataServer, securityClient);
                     };
 
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
                 clientDataServer.Close();

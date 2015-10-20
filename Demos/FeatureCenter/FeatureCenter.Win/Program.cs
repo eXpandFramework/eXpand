@@ -45,6 +45,7 @@ namespace FeatureCenter.Win {
                 //                    }
                 //                };
 
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {
                     if (cmdargs.Length > 0)

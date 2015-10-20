@@ -39,6 +39,7 @@ namespace EFDemo.Win {
                 }
             }
             try {
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
             }

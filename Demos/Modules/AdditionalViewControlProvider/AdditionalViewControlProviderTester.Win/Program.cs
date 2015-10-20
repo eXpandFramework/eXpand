@@ -33,6 +33,7 @@ namespace AdditionalViewControlProviderTester.Win {
             }
 #endif
             try {
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

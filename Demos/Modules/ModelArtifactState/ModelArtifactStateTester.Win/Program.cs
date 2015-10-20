@@ -30,6 +30,7 @@ namespace ModelArtifactStateTester.Win {
 #endif
             try {
                 winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

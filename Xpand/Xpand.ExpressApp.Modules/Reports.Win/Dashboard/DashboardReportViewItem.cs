@@ -4,10 +4,13 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Reports;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
+using DevExpress.ExpressApp.Win.Templates.Ribbon;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
@@ -57,16 +60,27 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
         void OnControlParentChanged(object sender, EventArgs e) {
             var control = (Control)sender;
             control.ParentChanged -= OnControlParentChanged;
-            var form = (XtraFormTemplateBase)control.FindForm();
-            if (form == null)
+            var form = control.FindForm() as XtraForm;
+            if (form == null){
                 control.Parent.ParentChanged += OnControlParentChanged;
-            else form.RibbonTransformer.Transformed += OnTransformed;
+            }
+            else{
+                if (((WinApplication)_application).UseOldTemplates){
+                    ((XtraFormTemplateBase) form).RibbonTransformer.Transformed += (o, args) =>{
+                        var ribbon = ((ClassicToRibbonTransformer) o).Ribbon;
+                        InitializePrintController(ribbon);
+                    };
+                }
+                else{
+                    InitializePrintController(((DetailRibbonFormV2)form).Ribbon);
+                }
+            }
         }
 
-        void OnTransformed(object sender, EventArgs e) {
-            RibbonControl ribbon = ((ClassicToRibbonTransformer)sender).Ribbon;
+        private void InitializePrintController(RibbonControl ribbon) {
             new PrintRibbonController { PrintControl = _printControl }.Initialize(ribbon, ribbon.StatusBar);
         }
+
         #region Implementation of IComplexPropertyEditor
         void IComplexViewItem.Setup(IObjectSpace objectSpace, XafApplication application) {
             _application = application;

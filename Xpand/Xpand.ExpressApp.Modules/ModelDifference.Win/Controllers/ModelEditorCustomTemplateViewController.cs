@@ -1,7 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
+using DevExpress.XtraBars.Ribbon;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.Templates;
 
@@ -29,13 +32,20 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         void CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
             var xafApplication = (XafApplication)sender;
             xafApplication.CreateCustomTemplate -= CreateCustomTemplate;
-            var template = new ModelEditorDetailViewForm {Application = () => Application};
-            var supportClassicToRibbonTransform = template as ISupportClassicToRibbonTransform;
-            if (xafApplication.Model != null && xafApplication.Model.Options is IModelOptionsWin) {
-                supportClassicToRibbonTransform.FormStyle = ((IModelOptionsWin)xafApplication.Model.Options).FormStyle;
-            }
-
+            var template = GetModelEditorDetailViewForm(xafApplication);
             e.Template = template;
+        }
+
+        private static IFrameTemplate GetModelEditorDetailViewForm(XafApplication xafApplication){
+            if (((WinApplication)xafApplication).UseOldTemplates || ((IModelOptionsWin)xafApplication.Model.Options).FormStyle != RibbonFormStyle.Ribbon) {
+                var template = new ModelEditorDetailViewForm();
+                var supportClassicToRibbonTransform = (ISupportClassicToRibbonTransform)template;
+                if (xafApplication.Model != null && xafApplication.Model.Options is IModelOptionsWin) {
+                    supportClassicToRibbonTransform.FormStyle = ((IModelOptionsWin)xafApplication.Model.Options).FormStyle;
+                }
+                return template;
+            }
+            return new ModelEditorDetailRibbonFormV2();
         }
     }
 }

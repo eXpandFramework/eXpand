@@ -3,14 +3,13 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Win.SystemModule;
 
 namespace SystemTester.Module.Win.FunctionalTests.ApplicationExit {
     public class ApplicationExit:ObjectViewController<ObjectView,ApplicationExitObject> {
         private readonly SingleChoiceAction _singleChoiceAction;
-        private MainForm _mainForm;
+        private Form _mainForm;
 
         public ApplicationExit() {
             _singleChoiceAction = new SingleChoiceAction(this,GetType().Name,PredefinedCategory.ObjectsCreation){
@@ -33,8 +32,7 @@ namespace SystemTester.Module.Win.FunctionalTests.ApplicationExit {
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs eventArgs){
-            if (Frame.Template is MainForm)
-                _mainForm = Frame.Template as MainForm;
+            _mainForm = Frame.Template as Form;
         }
 
         private void SingleChoiceActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Xpo;
@@ -63,14 +64,15 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
                         changeViewModel);
                     showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                     var dialogController = new DialogController();
-                    var viewToConfigure = View;
+                    var callingFrame = Frame;
                     dialogController.Accepting += (o, args) =>{
-                        var modelMemberInfoController =
-                            dialogController.Frame.GetController<XpandModelMemberInfoController>();
-                        modelMemberInfoController.SynchronizeModel(viewToConfigure.Model,
-                            dialogController.Frame.View.CurrentObject);
+                        var modelMemberInfoController =dialogController.Frame.GetController<XpandModelMemberInfoController>();
+                        var currentObject = dialogController.Frame.View.CurrentObject;
+                        modelMemberInfoController.SynchronizeModel(callingFrame.View.Model,currentObject);
                     };
-                    dialogController.Disposed += (o, args) => viewToConfigure.SetModel(viewToConfigure.Model);
+                    dialogController.Disposed += (o, args) => {
+                        callingFrame.SetView(Application.CreateView(callingFrame.View.Model));
+                    };
                     showViewParameters.Controllers.Add(dialogController);
                 }
             }

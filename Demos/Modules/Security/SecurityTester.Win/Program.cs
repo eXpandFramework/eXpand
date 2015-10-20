@@ -29,6 +29,7 @@ namespace SecurityTester.Win {
 #endif
             try {
                 winApplication.NewSecurityStrategyComplex();
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

@@ -30,6 +30,7 @@ namespace SystemTester.Win {
 #endif
             try{
                 winApplication.ProjectSetup();
+                winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();
             }

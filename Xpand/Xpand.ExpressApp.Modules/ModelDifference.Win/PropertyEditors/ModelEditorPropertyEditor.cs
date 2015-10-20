@@ -150,7 +150,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
                 _modelEditorViewController.CurrentAspectChanged -= ModelEditorViewControllerOnCurrentAspectChanged;
                 _modelEditorViewController.Modifying -= Model_Modifying;
                 _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
-                _modelEditorViewController.SaveSettings();
+                if (_modelEditorViewController.ModelEditorControl!=null)
+                    _modelEditorViewController.SaveSettings();
                 _modelEditorViewController.SelectedNodes.Clear();
                 _modelEditorViewController = null;
             }
@@ -208,8 +209,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             DisposeController();
 
             _modelEditorViewController = new ExpressApp.Win.ModelEditorViewController((IModelApplication)_masterModel, null);
-            _modelEditorViewController.SetControl(Control);
-            _modelEditorViewController.LoadSettings();
+            if (Control!=null){
+                _modelEditorViewController.SetControl(Control);
+                _modelEditorViewController.LoadSettings();
+            }
 
             if (aspect != CaptionHelper.DefaultLanguage)
                 _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
