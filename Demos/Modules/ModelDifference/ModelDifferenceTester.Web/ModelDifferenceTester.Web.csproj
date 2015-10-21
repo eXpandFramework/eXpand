@@ -12,9 +12,11 @@
     <RootNamespace>ModelDifferenceTester.Web</RootNamespace>
     <AssemblyName>ModelDifferenceTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -33,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -217,7 +219,8 @@
   -->
   <Target Name="AfterBuild">
     <ItemGroup>
-      <OutputFiles Include="$(OutputPath)\**\*.*"></OutputFiles>
+      <OutputFiles Include="$(OutputPath)\**\*.*">
+      </OutputFiles>
     </ItemGroup>
     <Copy SourceFiles="@(OutputFiles)" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\%(OutputFiles.RecursiveDir)" />
     <!--    <Copy SourceFiles="$(OutputPath)\*.*" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\"></Copy>-->
@@ -230,10 +233,12 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl></IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

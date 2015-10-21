@@ -6,13 +6,13 @@
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Parameter="MySql"/>
+			CommunicationPort="4100" Parameter="MySQL"/>
     <!-- Web -->
     <Application
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Parameter="MySql"
+      AdapterFileName="[WebAdapterFileName]" Parameter="MySQL"
 />
     <!-- For IIS -->
     <!--Application

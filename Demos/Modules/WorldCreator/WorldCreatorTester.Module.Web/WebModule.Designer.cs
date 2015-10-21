@@ -29,6 +29,7 @@ namespace WorldCreatorTester.Module.Web {
             this.RequiredModuleTypes.Add(typeof(WorldCreatorTester.Module.WorldCreatorTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
 
         }
 

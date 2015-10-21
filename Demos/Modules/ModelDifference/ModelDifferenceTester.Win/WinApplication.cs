@@ -1,7 +1,5 @@
 using System.Threading;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 
 namespace ModelDifferenceTester.Win {
