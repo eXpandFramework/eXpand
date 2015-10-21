@@ -108,8 +108,11 @@ namespace Xpand.ExpressApp.IO.Core {
                                     NodeType.Object);
             ImportComplexProperties(element, unitOfWork,
                                     (baseObject, element1) =>
-                                    ((IList)xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"))).Add(
-                                        baseObject), NodeType.Collection);
+                                    {
+                                        IList collection = (IList)xpBaseObject.GetMemberValue(element1.Parent.GetAttributeValue("name"));
+                                        if (collection != null && !collection.IsFixedSize)
+                                            collection.Add(baseObject);
+                                    }, NodeType.Collection);
         }
 
         private void HandleErrorComplex(XElement objectElement, ITypeInfo typeInfo, Action action) {
