@@ -233,6 +233,7 @@ namespace Xpand.EasyTest {
             _adapter = applicationAdapter;
             var dictionary = new Dictionary<Type, string>{
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
+                {typeof (XpandCompareFilesCommand), XpandCompareFilesCommand.Name},
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
                 {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},

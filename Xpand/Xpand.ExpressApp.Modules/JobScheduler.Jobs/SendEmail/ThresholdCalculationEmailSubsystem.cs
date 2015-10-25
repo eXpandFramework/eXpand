@@ -1,46 +1,45 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using DevExpress.ExpressApp.Utils;
 using Quartz;
-using Xpand.EmailTemplateEngine;
+using RazorEngine.Configuration;
+using RazorEngine.Templating;
 using Xpand.ExpressApp.JobScheduler.Jobs.ThresholdCalculation;
-using Xpand.Utils.Helpers;
 using Xpand.ExpressApp.JobScheduler.QuartzExtensions;
-using System.Linq;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
     public class ThresholdCalculationEmailSubsystem {
         readonly string _name;
         readonly JobDataMap _jobDataMap;
+        private static readonly IRazorEngineService _razorEngineService;
 
+        static ThresholdCalculationEmailSubsystem(){
+            var configuration = new TemplateServiceConfiguration {
+                Debug = Debugger.IsAttached,
+                DisableTempFileLocking = !Debugger.IsAttached
+            };
+            _razorEngineService = RazorEngineService.Create(configuration);
+        }
         public ThresholdCalculationEmailSubsystem(JobDataMap jobDataMap)
-            : this(GetEmailTemplateEngine(jobDataMap), GetEmailSender(), jobDataMap.GetString<SendEmailJobDataMap>(dataMap => dataMap.Name)) {
+            : this( GetEmailSender(), jobDataMap.GetString<SendEmailJobDataMap>(dataMap => dataMap.Name)) {
             _jobDataMap = jobDataMap;
         }
 
-        static EmailSender GetEmailSender() {
-            return new EmailSender {CreateClientFactory = () => new SmtpClientWrapper(CreateSmtpClient())};
+        static SmtpClient GetEmailSender() {
+            return CreateSmtpClient();
         }
 
-        static EmailTemplateEngine.EmailTemplateEngine GetEmailTemplateEngine(JobDataMap jobDataMap){
-            var bodyTemplate = jobDataMap.GetString<SendEmailJobDataMap>(map => map.EmailTemplate);
-            var subjectTemplate = jobDataMap.GetString<SendEmailJobDataMap>(emailJobDataMap => emailJobDataMap.SubjectTemplate);
-            return new EmailTemplateEngine.EmailTemplateEngine(subjectTemplate,bodyTemplate);
-        }
-
-        ThresholdCalculationEmailSubsystem(IEmailTemplateEngine templateEngine, IEmailSender sender, string name) {
+        ThresholdCalculationEmailSubsystem(SmtpClient sender, string name) {
             _name = name;
-            TemplateEngine = templateEngine;
             Sender = sender;
         }
 
-        protected IEmailTemplateEngine TemplateEngine { get; private set; }
-
-        protected IEmailSender Sender { get; private set; }
-
-
+        protected SmtpClient Sender { get; private set; }
 
         public virtual void SendThresholdCalculationMail(string subjectTemplate, string criteria, int count, Type type, ThresholdSeverity severity, string to) {
             var model = new {
@@ -49,12 +48,15 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs.SendEmail {
                                 DataType = CaptionHelper.GetClassCaption(type.FullName),
                                 Severity = severity
                             };
-            Email mail = TemplateEngine.Execute(_name, model);
+            MailMessage mail=new MailMessage();
             to.Split(';').Each(s => mail.To.Add(s));
-            mail.From = ConfigurationManager.AppSettings["ThresholdEmailJobFrom"];
+            var emailTemplate = _jobDataMap.GetString<SendEmailJobDataMap>(map => map.EmailTemplate);
+            mail.Body = _razorEngineService.RunCompile(emailTemplate, Guid.NewGuid().ToString(), null, model);
+            mail.From = new MailAddress(ConfigurationManager.AppSettings["ThresholdEmailJobFrom"]);
             mail.Subject = subjectTemplate;
             Sender.Send(mail);
         }
+
         private static SmtpClient CreateSmtpClient() {
             var smtpClient = new SmtpClient {
                 DeliveryMethod = SmtpDeliveryMethod.Network,

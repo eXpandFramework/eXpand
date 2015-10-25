@@ -41,6 +41,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.CloneObject.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

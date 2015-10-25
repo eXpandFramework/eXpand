@@ -109,7 +109,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual bool IsValidRule(ILogicRuleObject rule, View view, EventArgs eventArgs, ExecutionContext executionContext) {
-            var viewEditMode = view is DetailView ? ((DetailView)view).ViewEditMode : (ViewEditMode?)null;
+            var detailView = view as DetailView;
+            var viewEditMode = detailView != null ? detailView.ViewEditMode : (ViewEditMode?)null;
             return view != null && IsValidRule(rule, new ViewInfo(view.Id, view is DetailView, view.IsRoot, view.ObjectTypeInfo, viewEditMode),eventArgs,executionContext);
         }
 

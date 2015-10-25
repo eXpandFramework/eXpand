@@ -11,13 +11,10 @@ using ChooseDatabaseAtLogonController = Xpand.ExpressApp.Security.Controllers.Ch
 
 namespace Xpand.ExpressApp.Security {
     public abstract class XpandSecurityModuleBase:XpandModuleBase {
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            application.SetupComplete+=ApplicationOnSetupComplete;
-        }
-
-        void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            ((XafApplication) sender).CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
+        public override void Setup(ApplicationModulesManager moduleManager){
+            base.Setup(moduleManager);
+            if (Application != null)
+                Application.CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
         }
 
         private void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {

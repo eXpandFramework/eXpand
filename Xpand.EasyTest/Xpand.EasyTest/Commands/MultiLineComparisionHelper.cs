@@ -6,9 +6,7 @@ namespace Xpand.EasyTest.Commands{
     public class MultiLineComparisionHelper{
         public static string[] GetLines(string actualValue){
             actualValue = actualValue.Replace("\r\n", "\n");
-            return actualValue.Split(new[]{
-                '\n'
-            });
+            return actualValue.Split('\n');
         }
 
         public string Compare(string commandName, Parameter param, string actualValue, string valueCaption){

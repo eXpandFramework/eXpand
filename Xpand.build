@@ -375,7 +375,7 @@
     <!-- Source.zip -->
 	  <Copy SourceFiles="$(InstallerFolder)\Source.zip" DestinationFiles="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip"/>
     <!-- Lib.zip -->
-    <CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;$(TempPath)\EmailModule*">
+    <CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;">
       <Output ItemName="_libFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />

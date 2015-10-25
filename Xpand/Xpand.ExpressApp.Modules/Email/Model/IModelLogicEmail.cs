@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
+using System.Net.Mail;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -15,6 +16,8 @@ using Xpand.Persistent.Base.Logic.NodeGenerators;
 
 namespace Xpand.ExpressApp.Email.Model {
     public interface IModelLogicEmail : IModelLogicContexts{
+        [DefaultValue(true)]
+        bool CreateControllersOnLogon { get; set; }
         IModelEmailReceipients EmailReceipients { get; }
         IModelEmailTemplateContexts EmailTemplateContexts { get; }
         IModelEmailLogicRules Rules { get; }
@@ -71,28 +74,47 @@ namespace Xpand.ExpressApp.Email.Model {
     }
 
     public interface IModelSmtpClientContext : IModelNode {
-        [Category("SmtpClient")]
+        [Category("SmtpClient"), ModelBrowsable(typeof(ModelSmtpClientDeliveryMethodVisibilityCalculator))]
         bool EnableSsl { get; set; }
-        [Required, Category("SmtpClient")]
+        [Required(typeof(ModelSmtpClientDeliveryMethodRequiredCalculator)), Category("SmtpClient"),ModelBrowsable(typeof(ModelSmtpClientDeliveryMethodVisibilityCalculator))]
         string Host { get; set; }
-        [Required, Category("Credentials"), ModelBrowsable(typeof(ModelSmtpClientContextVisibilityCalculator))]
+        [Required(typeof(ModelSmtpClientDeliveryMethodRequiredCalculator)), Category("Credentials"), ModelBrowsable(typeof(ModelSmtpClientUseDefaultCredentialsVisibilityCalculator))]
         string Password { get; set; }
-        [DefaultValue(0x19), Category("SmtpClient")]
+
+        [DefaultValue(25), Category("SmtpClient"),
+         ModelBrowsable(typeof(ModelSmtpClientDeliveryMethodVisibilityCalculator))]
         int Port { get; set; }
         [RuleRegularExpression(null, DefaultContexts.Save, @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"), Required]
         string SenderEmail { get; set; }
         [RuleRegularExpression(null, DefaultContexts.Save, @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$"), Required]
         [ModelValueCalculator("SenderEmail")]
         string ReplyToEmails { get; set; }
-        [Category("Credentials")]
+        [Category("Credentials"), ModelBrowsable(typeof(ModelSmtpClientDeliveryMethodVisibilityCalculator)), DefaultValue(true), RefreshProperties(RefreshProperties.All)]
         bool UseDefaultCredentials { get; set; }
-        [Category("Credentials"), ModelBrowsable(typeof(ModelSmtpClientContextVisibilityCalculator)), Required]
+        [Category("Credentials"), ModelBrowsable(typeof(ModelSmtpClientUseDefaultCredentialsVisibilityCalculator)), Required(typeof(ModelSmtpClientDeliveryMethodRequiredCalculator))]
         string UserName { get; set; }
+        [Category("SmtpClient"),RefreshProperties(RefreshProperties.All)]
+        SmtpDeliveryMethod DeliveryMethod { get; set; }
+        [Category("SmtpClient")]
+        string PickupDirectoryLocation { get; set; }
     }
 
-    public class ModelSmtpClientContextVisibilityCalculator : IModelIsVisible {
+    public class ModelSmtpClientDeliveryMethodRequiredCalculator:IModelIsRequired{
+        public bool IsRequired(IModelNode node, string propertyName){
+            return new ModelSmtpClientDeliveryMethodVisibilityCalculator().IsVisible(node, propertyName);
+        }
+    }
+
+    public class ModelSmtpClientDeliveryMethodVisibilityCalculator:IModelIsVisible{
+        public bool IsVisible(IModelNode node, string propertyName){
+            return ((IModelSmtpClientContext) node).DeliveryMethod == SmtpDeliveryMethod.Network;
+        }
+    }
+
+    public class ModelSmtpClientUseDefaultCredentialsVisibilityCalculator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName) {
-            return !((IModelSmtpClientContext)node).UseDefaultCredentials;
+            return !((IModelSmtpClientContext) node).UseDefaultCredentials &&
+                   new ModelSmtpClientDeliveryMethodVisibilityCalculator().IsVisible(node, propertyName);
         }
     }
 

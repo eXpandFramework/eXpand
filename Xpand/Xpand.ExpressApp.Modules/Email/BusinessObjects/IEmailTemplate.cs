@@ -1,7 +1,8 @@
-﻿using Xpand.EmailTemplateEngine;
-
+﻿
 namespace Xpand.ExpressApp.Email.BusinessObjects {
-    public interface IEmailTemplate:IEmail {
+    public interface IEmailTemplate {
         string Name { get; set; }
+        string Subject { get; set; }
+        string Body { get; }
     }
 }
