@@ -84,6 +84,10 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\Project.cs" />
+    <Compile Include="FunctionalTests\EmailObjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\EmailObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,17 +116,42 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.ets" />
-    <None Include="FunctionalTests\ReadMe.txt" />
+    <EmbeddedResource Include="FunctionalTests\CommonSmtpClient.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FunctionalTests\CommonReceipient.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="FunctionalTests\ObjectChanged\ObjectChanged.ets" />
+    <None Include="FunctionalTests\ObjectChanged\ObjectChanged.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\Registration\Registration.ets" />
+    <None Include="FunctionalTests\Registration\Registration.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\ObjectCreation\NewObject.ets" />
+    <None Include="FunctionalTests\ObjectCreation\NewObject.xafml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml">
+    <Content Include="FunctionalTests\ObjectChanged\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\ObjectChanged\Init.inc" />
+    <Content Include="FunctionalTests\Registration\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\Registration\Init.inc" />
+    <Content Include="FunctionalTests\ObjectCreation\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="FunctionalTests\ObjectCreation\Init.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

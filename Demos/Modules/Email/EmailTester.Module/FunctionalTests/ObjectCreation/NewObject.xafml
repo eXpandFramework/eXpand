@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="EmailTester" Logo="ExpressAppLogo">
+  <Email>
+    <EmailReceipients>
+      <EmailReceipientGroup Id="Send to project members" IsNewNode="True">
+        <EmailReceipient Id="All project Members" Criteria="[Project.Oid] = 'RuleObjectKeyValue'" EmailReceipient="EmailTester.Module.BusinessObjects.Member" EmailMember="Email" IsNewNode="True" />
+      </EmailReceipientGroup>
+    </EmailReceipients>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="New Cuctomer" Criteria="[Name] = 'New Customer'" IsNewNode="True" />
+      <EmailTemplate Id="Project created" Criteria="[Name] = 'Project created'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="New Customer created" TemplateContext="New Cuctomer" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to Admins" IsNew="True" TypeInfo="EmailTester.Module.BusinessObjects.Customer" View="Customer_DetailView" IsNewNode="True" />
+      <EmailRule Id="Project created" TypeInfo="EmailTester.Module.BusinessObjects.Project" TemplateContext="Project created" SmtpClientContext="GlobalSmtpClientContext" EmailReceipientsContext="Send to project members" IsNew="True" IsNewNode="True" />
+    </Rules>
+  </Email>
+</Application>

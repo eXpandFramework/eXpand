@@ -41,6 +41,9 @@
     <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

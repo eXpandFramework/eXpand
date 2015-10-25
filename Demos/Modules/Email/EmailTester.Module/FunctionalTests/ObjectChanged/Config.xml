@@ -24,9 +24,9 @@
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="EmailTesterEasyTest" />
   </TestDatabases>
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\EmailTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\EmailTester.Web" />
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\EmailTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\EmailTester.Web" />
   </Aliases>
 </Options>

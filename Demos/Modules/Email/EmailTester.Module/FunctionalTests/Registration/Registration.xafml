@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="EmailTester" Logo="ExpressAppLogo">
+  <Email>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
+      <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
+      <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" IsNewNode="True" />
+    </Rules>
+    <SmtpClientContexts>
+      <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation=".\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
+    </SmtpClientContexts>
+  </Email>
+  <Options>
+    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" UserModelClass="Xpand.ExpressApp.Security.Core.XpandUser" />
+  </Options>
+</Application>

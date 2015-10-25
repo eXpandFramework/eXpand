@@ -33,7 +33,7 @@ namespace EmailTester.Module.DatabaseUpdate {
             }
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             var adminUser = (XpandUser) adminRole.GetUser("Admin");
-            adminUser.Email = "apostolis.bekiaris@gmail.com";
+            adminUser.Email = "admin@mail.com";
 
             var userRole = ObjectSpace.GetRole("User");
             var user = (SecuritySystemUser)userRole.GetUser("user");

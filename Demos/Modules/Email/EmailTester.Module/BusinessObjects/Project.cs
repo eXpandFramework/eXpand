@@ -5,7 +5,6 @@ using DevExpress.Xpo;
 namespace EmailTester.Module.BusinessObjects {
     [DefaultClassOptions]
     public class Project : BaseObject {
-        // Fields...
         string _name;
 
         public Project(Session session) : base(session) {
@@ -23,7 +22,6 @@ namespace EmailTester.Module.BusinessObjects {
     }
 
     public class Member : BaseObject {
-        // Fields...
         string _email;
         Project _project;
 

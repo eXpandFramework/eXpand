@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="EmailTester" Logo="ExpressAppLogo">
+  <Email>
+    <ExecutionContextsGroup>
+      <ExecutionContexts Id="ObjectSpaceObjectChanged" IsNewNode="True">
+        <ExecutionContext Name="ObjectSpaceObjectChanged" IsNewNode="True" />
+      </ExecutionContexts>
+    </ExecutionContextsGroup>
+    <ObjectChangedExecutionContextGroup>
+      <ObjectChangedExecutionContexts Id="Task monitor" IsNewNode="True">
+        <ObjectChangedExecutionContext Id="properies" PropertyNames="Status" IsNewNode="True" />
+      </ObjectChangedExecutionContexts>
+    </ObjectChangedExecutionContextGroup>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="TaskStatusChanged" Criteria="[Name] = 'TaskStatusChanged'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="Task state changed" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="TaskStatusChanged" TypeInfo="EmailTester.Module.BusinessObjects.EmailTask" EmailReceipientsContext="Send to Admins" ObjectChangedExecutionContextGroup="Task monitor" ExecutionContextGroup="ObjectSpaceObjectChanged" IsNewNode="True" />
+    </Rules>
+  </Email>
+</Application>
