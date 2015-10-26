@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.Security.Core {
 
         private string _hiddenNavigationItems;
 
+        [Size(SizeAttribute.Unlimited)]
         public string HiddenNavigationItems {
             get { return _hiddenNavigationItems; }
             set { SetPropertyValue("HiddenNavigationItems", ref _hiddenNavigationItems, value); }
