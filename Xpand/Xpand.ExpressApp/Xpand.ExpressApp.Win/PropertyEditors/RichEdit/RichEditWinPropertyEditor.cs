@@ -21,6 +21,7 @@ using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 using Attribute = System.Attribute;
@@ -61,6 +62,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
             var builder = new InterfaceBuilder(extenders);
             var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(RichEditControl).Name));
             builder.ExtendInteface<IModelRichEditControl, RichEditControl>(assembly);
@@ -84,6 +86,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         IModelRichEdit RichEdit { get; }
     }
 
+    [ModuleUser(typeof(IRichEditUser))]
     public interface IModelRichEdit : IModelModelAdapter {
         [DefaultValue("rtf")]
         string HighLightExtension { get; set; }
@@ -94,6 +97,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         [DefaultValue("Text")]
         string ControlBindingProperty { get; set; }
         IModelRichEditModelAdapters ModelAdapters { get; }
+    }
+
+    public interface IRichEditUser{
     }
 
     [ModelNodesGenerator(typeof(ModelRichEditAdaptersNodeGenerator))]
@@ -144,7 +150,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
     }
 
-    [AttributeUsage(AttributeTargets.Class,AllowMultiple=false,Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class,Inherited = false)]
     public sealed class RichEditPropertyEditorAttribute:Attribute{
         private readonly string _highLightExtension;
         private readonly string _controlBindingProperty;

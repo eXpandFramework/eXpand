@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Fasterflect;
 using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Fasterflect;
-using DevExpress.ExpressApp.SystemModule;
-
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
@@ -38,10 +39,6 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public List<Type> DynamicModuleTypes {
             get { return _dynamicModuleTypes; }
-        }
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -136,6 +133,11 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
             return info => !info.DoNotCompile && moduleManager.Modules.FirstOrDefault(@base => @base.Name == "Dynamic" + info.Name + "Module") == null;
+        }
+
+        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){
+            base.RegisterEditorDescriptors(editorDescriptors);
+            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
         }
 
         public abstract string GetPath();

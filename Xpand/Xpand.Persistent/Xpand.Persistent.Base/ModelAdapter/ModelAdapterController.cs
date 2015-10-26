@@ -131,23 +131,21 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
                 => info.FindAttribute<ModelAbstractClassAttribute>(false) == null&&info.IsInterface );
             
-            var installedInfos = GetInstalledAdapters(modelAdapterTypeInfos, node.Application);
+            var installedInfos = GetInstalledAdapters(modelAdapterTypeInfos.ToArray(), node.Application);
             foreach (var typeInfo in installedInfos) {
                 node.AddNode(GetName(typeInfo), typeInfo.Type);
             }
         }
 
-        private static IEnumerable<ITypeInfo> GetInstalledAdapters(IEnumerable<ITypeInfo> typeInfos, IModelApplication application){
-            var modules = ((IModelSources)application).Modules;
-            var moduleBases = modules as ModuleBase[] ?? modules.ToArray();
-            var moduleAssemblies = moduleBases.Select(@base => @base.GetType().Assembly);
-            var enumerable = typeInfos as ITypeInfo[] ?? typeInfos.ToArray();
-            var installedInfos = enumerable.Where(info => moduleAssemblies.Contains(info.Type.Assembly));
-            var infos = enumerable.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
+        private static IEnumerable<ITypeInfo> GetInstalledAdapters(ITypeInfo[] typeInfos, IModelApplication application){
+            var modules = ((IModelSources)application).Modules.ToArray();
+            var moduleAssemblies = modules.Select(@base => @base.GetType().Assembly);
+            var installedInfos = typeInfos.Where(info => moduleAssemblies.Contains(info.Type.Assembly));
+            var infos = typeInfos.Where(info => info.FindAttribute<ModuleUserAttribute>() != null)
                 .Select(source => new{source, moduleUserAttribute = source.FindAttribute<ModuleUserAttribute>()})
-                .Where(@t => moduleBases.Any(@base => t.moduleUserAttribute.ModuleType.IsInstanceOfType(@base)))
+                .Where(@t => modules.Any(@base => t.moduleUserAttribute.ModuleType.IsInstanceOfType(@base)))
                 .Select(@t => @t.source);
-            return installedInfos.Concat(infos);
+            return installedInfos.Concat(infos).Distinct();
         }
 
         private static string GetName(ITypeInfo typeInfo){

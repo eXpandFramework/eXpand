@@ -157,7 +157,6 @@
     <None Include="FunctionalTests\MergeWithExistingType\TestAssembly.inc" />
     <Content Include="FunctionalTests\OneToMany\Config.xml" />
     <None Include="FunctionalTests\OneToMany\TestAssembly.inc" />
-    <None Include="FunctionalTests\OneToMany\CreateAssembly.inc" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -213,21 +213,21 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
         }
     }
     public class TokenCategoryClassProvider {
-        readonly string className;
-        readonly Dictionary<TokenLanguage, string> languagesClassNames = new Dictionary<TokenLanguage, string>();
+        readonly string _className;
+        readonly Dictionary<TokenLanguage, string> _languagesClassNames = new Dictionary<TokenLanguage, string>();
 
         public TokenCategoryClassProvider(string className)
             : this(className, null) {
         }
         public TokenCategoryClassProvider(string className, params KeyValuePair<TokenLanguage, string>[] languagesClassNames) {
-            this.className = className;
+            _className = className;
             if (languagesClassNames != null) {
                 foreach (KeyValuePair<TokenLanguage, string> languageClassName in languagesClassNames)
-                    this.languagesClassNames[languageClassName.Key] = languageClassName.Value;
+                    _languagesClassNames[languageClassName.Key] = languageClassName.Value;
             }
         }
         public string GetClassName(TokenLanguage language) {
-            return languagesClassNames.ContainsKey(language) ? languagesClassNames[language] : className;
+            return _languagesClassNames.ContainsKey(language) ? _languagesClassNames[language] : _className;
         }
     }
 

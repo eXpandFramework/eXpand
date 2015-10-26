@@ -1,4 +1,7 @@
 using System.ComponentModel;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
@@ -16,10 +19,15 @@ namespace Xpand.ExpressApp.WorldCreator {
         public WorldCreatorModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
-            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 
-        public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
+        public override void Setup(ApplicationModulesManager moduleManager){
+            base.Setup(moduleManager);
+            AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
+        }
+
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             AddToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.PersistentMetaData");
             WCTypesInfo.Instance.Register(GetAdditionalClasses(ModuleManager));
