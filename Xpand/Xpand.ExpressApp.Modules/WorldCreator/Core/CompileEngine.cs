@@ -208,7 +208,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                     var fileInfo = new FileInfo(fileName);
                     fileInfo.CopyTo(fileName + XpandExtension);
                     Assembly assembly = Assembly.LoadFile(fileName + XpandExtension);
-                    Type single = assembly.GetTypes().Single(type => typeof(XpandModuleBase).IsAssignableFrom(type));
+                    Type single = assembly.GetTypes().First(type => typeof(XpandModuleBase).IsAssignableFrom(type));
                     definedModules.Add(single);
                 }
             }

@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security.ClientServer;
+using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;

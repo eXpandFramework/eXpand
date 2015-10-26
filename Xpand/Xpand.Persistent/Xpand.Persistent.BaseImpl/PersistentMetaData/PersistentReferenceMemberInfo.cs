@@ -13,6 +13,7 @@ using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IPersistentReferenceMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "ReferenceType,ReferenceClassInfo")]
+    [System.ComponentModel.DisplayName("Reference")]
     public class PersistentReferenceMemberInfo : PersistentMemberInfo, IPersistentReferenceMemberInfo {
         bool _autoGenerateOtherPartMember;
         PersistentClassInfo _referenceClassInfo;

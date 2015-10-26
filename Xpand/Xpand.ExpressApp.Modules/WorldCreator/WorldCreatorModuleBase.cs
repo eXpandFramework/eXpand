@@ -123,10 +123,8 @@ namespace Xpand.ExpressApp.WorldCreator {
             List<IPersistentAssemblyInfo> persistentAssemblyInfos =
                 new XPCollection(unitOfWork, assemblyInfoType).OfType<IPersistentAssemblyInfo>().Where(IsValidAssemblyInfo(moduleManager)).ToList();
             _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
-            foreach (var definedModule in _dynamicModuleTypes) {
-                moduleManager.AddModule(definedModule);
-                var module = moduleManager.Modules.FindModule(definedModule);
-                moduleManager.ControllersManager.RegisterControllerTypes(module.GetControllerTypes().ToArray());
+            foreach (var moduleType in _dynamicModuleTypes) {
+                moduleManager.AddModule(Application, (ModuleBase)moduleType.CreateInstance());
             }
             unitOfWork.CommitChanges();
         }

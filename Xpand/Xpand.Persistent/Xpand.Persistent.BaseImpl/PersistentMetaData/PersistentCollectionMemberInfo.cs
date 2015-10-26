@@ -13,6 +13,7 @@ using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IPersistentCollectionMemberInfo))]
     [RuleRequiredForAtLeast1Property(null, DefaultContexts.Save, "CollectionType,CollectionClassInfo")]
+    [System.ComponentModel.DisplayName("Collection")]
     public class PersistentCollectionMemberInfo : PersistentMemberInfo, IPersistentCollectionMemberInfo {
         PersistentClassInfo _collectionClassInfo;
         Type _collectionType;

@@ -1,2 +1,217 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <BOModel>
+    <Class Name="Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo">
+      <AppearanceRules>
+        <AppearanceRule Id="Hide Compile Errors" TargetItems="CompileErrors" Context="DetailView" Criteria="IsNullOrEmpty([CompileErrors])" Visibility="Hide" IsNewNode="True" />
+        <AppearanceRule Id="ListView with compile Errors" TargetItems="*" Context="ListView" Criteria="Not IsNullOrEmpty([CompileErrors]) And [DoNotCompile] &lt;&gt; True" FontColor="Red" IsNewNode="True" />
+        <AppearanceRule Id="ListView without compile errors" FontColor="Green" Context="ListView" TargetItems="*" Criteria="IsNullOrEmpty([CompileErrors]) And [DoNotCompile] &lt;&gt; True" IsNewNode="True" />
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <Views>
+    <DetailView Id="PersistentAssemblyInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <TabbedGroup Id="Item1" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="PersistentAssemblyInfo" ShowCaption="True" Caption="Persistent Assembly Info" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
+                <LayoutGroup Id="PersistentAssemblyInfo_col1" ShowCaption="False" Index="0" RelativeSize="49.380362249761674" IsNewNode="True">
+                  <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                  <LayoutItem Id="CompileOrder" ViewItem="CompileOrder" Index="1" RelativeSize="3.483309143686502" IsNewNode="True" />
+                  <LayoutItem Id="CodeDomProvider" ViewItem="CodeDomProvider" Index="2" RelativeSize="3.483309143686502" IsNewNode="True" />
+                  <LayoutItem Id="StrongKeyFile" ViewItem="StrongKeyFile" Index="3" RelativeSize="88.388969521045" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutGroup Id="PersistentAssemblyInfo_col2" ShowCaption="False" Index="1" RelativeSize="50.619637750238326" IsNewNode="True">
+                  <LayoutItem Id="DoNotCompile" ViewItem="DoNotCompile" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                  <LayoutItem Id="IsLegacy" ViewItem="IsLegacy" Index="1" RelativeSize="3.483309143686502" IsNewNode="True" />
+                  <LayoutItem Id="ValidateModelOnCompile" ViewItem="ValidateModelOnCompile" Index="2" RelativeSize="91.8722786647315" IsNewNode="True" />
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" Caption="Persistent Class Infos" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="PersistentClassInfos" ShowCaption="False" ViewItem="PersistentClassInfos" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" Caption="Attributes" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="Attributes" ShowCaption="False" ViewItem="Attributes" Index="0" RelativeSize="100" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="3" Caption="Generated Code" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="4" Caption="Compile Errors" RelativeSize="100" IsNewNode="True">
+                <LayoutItem Id="CompileErrors" ViewItem="CompileErrors" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+              </LayoutGroup>
+            </TabbedGroup>
+            <LayoutGroup Id="PersistentAssemblyInfo" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="78.561736770692" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="CompileErrors" ViewItem="CompileErrors" Removed="True" />
+            <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="74.084124830393492" Removed="True">
+            <LayoutGroup Id="Attributes" RelativeSize="100" Direction="Horizontal">
+              <LayoutItem Id="Attributes" ViewItem="Attributes" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="PersistentClassInfos" RelativeSize="100" Direction="Horizontal" Caption="Persistent Class Infos">
+              <LayoutItem Id="PersistentClassInfos" ViewItem="PersistentClassInfos" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PersistentClassInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="100" Index="0">
+            <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" Caption="General" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.5584045584045585" IsNewNode="True" />
+              <LayoutGroup Id="ClassInfoGroup" ShowCaption="False" Caption="ClassInfoGroup" Direction="Horizontal" Index="1" RelativeSize="4.700854700854701" IsNewNode="True">
+                <LayoutItem Id="BaseClassInfo" ViewItem="BaseClassInfo" Index="0" RelativeSize="48.618784530386741" IsNewNode="True" />
+                <LayoutItem Id="MergedClassInfo" ViewItem="MergedClassInfo" Index="1" RelativeSize="51.381215469613259" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="TypesGroup" ShowCaption="False" Caption="TypesGroup" Direction="Horizontal" Index="2" RelativeSize="90.740740740740748" IsNewNode="True">
+                <LayoutItem Id="BaseType" ViewItem="BaseType" Index="0" RelativeSize="48.618784530386741" IsNewNode="True" />
+                <LayoutItem Id="MergedObjectType" ViewItem="MergedObjectType" Index="1" RelativeSize="51.381215469613259" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="OwnMembers" RelativeSize="100" Index="1">
+              <LayoutItem Id="OwnMembers" RelativeSize="100" ViewItem="OwnMembers" />
+            </LayoutGroup>
+            <LayoutGroup Id="Interfaces" RelativeSize="100" Index="2">
+              <LayoutItem Id="Interfaces" RelativeSize="100" ViewItem="Interfaces" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" RelativeSize="100" Index="3">
+              <LayoutItem Id="TypeAttributes" RelativeSize="100" ViewItem="TypeAttributes" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" RelativeSize="100" Index="4">
+              <LayoutItem Id="TemplateInfos" RelativeSize="100" ViewItem="TemplateInfos" />
+            </LayoutGroup>
+            <LayoutGroup Id="Code" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="5" Caption="Code" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" ViewItem="CodeTemplateInfo.CodeTemplate" Index="0" RelativeSize="4.5584045584045585" IsNewNode="True" />
+              <LayoutGroup Id="Group" ShowCaption="False" Caption="Auto25508f84-5d2a-4a6b-a310-2e90bef59dc4(22)" Direction="Horizontal" Index="1" RelativeSize="95.441595441595439" IsNewNode="True">
+                <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="50" CaptionLocation="Top" IsNewNode="True" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Index="1" RelativeSize="50" CaptionLocation="Top" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="77.204884667571235" Direction="Horizontal" Removed="True">
+            <LayoutGroup Id="PersistentClassInfo" Removed="True" />
+            <LayoutGroup Id="PersistentTemplatedTypeInfo" Removed="True" />
+            <LayoutGroup Id="PersistentTypeInfo" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="72.04884667571234" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Removed="True" />
+            <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PersistentCollectionMemberInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General" Direction="Horizontal">
+              <LayoutGroup Id="Auto415ce04e-80e5-4aac-82f9-e294c82be6ff" ShowCaption="False" Caption="" Index="0" RelativeSize="49.952061361457332" IsNewNode="True">
+                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                <LayoutItem Id="CollectionType" ViewItem="CollectionType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Autob564ca11-e35c-4e9d-883c-9729c2318df9" ShowCaption="False" Caption="" Index="1" RelativeSize="50.047938638542668" IsNewNode="True">
+                <LayoutItem Id="RelationType" ViewItem="RelationType" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                <LayoutItem Id="CollectionClassInfo" ViewItem="CollectionClassInfo" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Name" ViewItem="Name" Index="1" RelativeSize="25.023969319271334" Removed="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Code">
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Layout of PersistentMemberInfo_DetailView" Strategy="OnlyLayout" View="PersistentMemberInfo_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+    <DetailView Id="PersistentCoreTypeMemberInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General">
+              <LayoutItem Id="DataType" ViewItem="DataType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Code">
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Layout of PersistentMemberInfo_DetailView" Strategy="OnlyLayout" View="PersistentMemberInfo_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+    <DetailView Id="PersistentMemberInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <TabbedGroup Id="Tabs" RelativeSize="100" Index="0">
+            <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" Caption="General" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" RelativeSize="100" Index="1">
+              <LayoutItem Id="TypeAttributes" RelativeSize="100" ViewItem="TypeAttributes" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" RelativeSize="100" Index="2">
+              <LayoutItem Id="TemplateInfos" RelativeSize="100" ViewItem="TemplateInfos" />
+            </LayoutGroup>
+            <LayoutGroup Id="Code" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="Code" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" ViewItem="CodeTemplateInfo.CodeTemplate" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="95.355587808418" IsNewNode="True">
+                <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="49.952061361457332" IsNewNode="True" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Index="1" RelativeSize="50.047938638542668" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="85.8887381275441" Direction="Horizontal" Removed="True">
+            <LayoutGroup Id="PersistentTemplatedTypeInfo" Removed="True" />
+            <LayoutGroup Id="PersistentTypeInfo" Removed="True" />
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="79.918588873812752" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Removed="True" />
+            <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PersistentReferenceMemberInfo_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General" Direction="Horizontal">
+              <LayoutGroup Id="Autob96980f9-4950-4457-8d55-d822facccec3" ShowCaption="False" Caption="" Index="0" RelativeSize="45.349952061361456" IsNewNode="True">
+                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                <LayoutItem Id="ReferenceType" ViewItem="ReferenceType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="Name" Index="0" RelativeSize="45.349952061361456" ViewItem="Name" Removed="True" />
+              <LayoutGroup Id="Auto85d48ab0-f352-4291-b013-0c0362c918c4" ShowCaption="False" Caption="" Index="1" RelativeSize="54.650047938638544" IsNewNode="True">
+                <LayoutItem Id="AutoGenerateOtherPartMember" ViewItem="AutoGenerateOtherPartMember" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+                <LayoutItem Id="ReferenceClassInfo" ViewItem="ReferenceClassInfo" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Code">
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+      <MergedDifferences>
+        <MergedDifference Id="Layout of PersistentMemberInfo_DetailView" Strategy="OnlyLayout" View="PersistentMemberInfo_DetailView" IsNewNode="True" />
+      </MergedDifferences>
+    </DetailView>
+  </Views>
+</Application>

@@ -7,7 +7,7 @@
 *FillForm
  Name = TestClass
 *Action Own Members
-*Action Own Members.New(Persistent Core Type Member Info)
+*Action Own Members.New(Core)
 *FillForm
  Data Type = String
  Name = TestProperty
