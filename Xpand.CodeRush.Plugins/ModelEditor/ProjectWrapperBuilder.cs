@@ -21,7 +21,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 OutPutFileName = item1.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
                 FullPath = item1.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
                 UniqueName = item1.ContainingProject.UniqueName,
-                LocalPath = item1.FindProperty(ProjectItemProperty.LocalPath).Value.ToString()
+                LocalPath = (item1.FindProperty(ProjectItemProperty.LocalPath) ?? item1.FindProperty(ProjectItemProperty.FullPath)).Value.ToString()
             };
         }
 
@@ -43,7 +43,8 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 string name = projectItem.Name;
                 if (name.EndsWith(".xafml") &&  !name.Contains("Localization") && name.IndexOf(" ", StringComparison.Ordinal) == -1)
                     list.Add(ProjectWrapperSelector(projectItem));
-                GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
+                if (projectItem.ProjectItems != null)
+                    GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }
         }
 
