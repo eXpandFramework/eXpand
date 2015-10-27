@@ -235,6 +235,7 @@ namespace Xpand.EasyTest {
                 {typeof (XpandCompareScreenshotCommand), XpandCompareScreenshotCommand.Name},
                 {typeof (XpandCompareFilesCommand), XpandCompareFilesCommand.Name},
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
+                {typeof (FieldIsVisibleCommand), FieldIsVisibleCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
                 {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},
                 {typeof (NavigateCommand), NavigateCommand.Name},
