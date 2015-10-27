@@ -1,4 +1,5 @@
-﻿;---------------- IOObjectS WITH CHILD OBJECTS -----------------
+﻿;#IncludeFile .\Init.inc 
+;---------------- IOObjectS WITH CHILD OBJECTS -----------------
 
 ;--Set object as key on serialization configuration
 *Action Navigation(ImportExport.Serialization Configuration Group)

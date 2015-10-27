@@ -20,9 +20,8 @@ namespace Xpand.ExpressApp.IO.Core {
         ISerializationConfiguration GetConfiguration(Session session, Type type) {
             var serializationConfigurationType = TypesInfo.Instance.SerializationConfigurationType;
             ISerializationConfiguration configuration;
-
-            var findObject = _serializationConfigurationGroup.Configurations.FirstOrDefault(a => a.TypeToSerialize == type);
-
+            var findObject = session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, serializationConfigurationType,
+                                                SerializationConfigurationQuery.GetCriteria(type, _serializationConfigurationGroup));
             if (findObject != null)
                 configuration = (ISerializationConfiguration)findObject;
             else {

@@ -2,7 +2,6 @@
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using IOTester.Module.FunctionalTests.Export;
 
 namespace IOTester.Module.FunctionalTests{
     [DefaultClassOptions]
