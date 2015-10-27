@@ -21,7 +21,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 OutPutFileName = item1.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
                 FullPath = item1.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
                 UniqueName = item1.ContainingProject.UniqueName,
-                LocalPath = item1.FindProperty(ProjectItemProperty.LocalPath).Value.ToString()
+                LocalPath = (item1.FindProperty(ProjectItemProperty.LocalPath) ?? item1.FindProperty(ProjectItemProperty.FullPath)).Value.ToString()
             };
         }
 
