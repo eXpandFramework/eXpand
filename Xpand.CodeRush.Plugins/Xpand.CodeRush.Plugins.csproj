@@ -121,7 +121,7 @@
     <Compile Include="Enums\SolutionProperty.cs" />
     <Compile Include="Extensions\AttributeElementExtensions.cs" />
     <Compile Include="Extensions\CodeElementExtensions.cs" />
-    <Compile Include="Extensions\ConfiguartionExtensions.cs" />
+    <Compile Include="Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
     <Compile Include="Extensions\ElementExtensions.cs" />
     <Compile Include="Extensions\IFullReference.cs" />
