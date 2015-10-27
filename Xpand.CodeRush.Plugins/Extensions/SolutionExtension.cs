@@ -17,7 +17,8 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             return DevExpress.CodeRush.Core.CodeRush.Solution.FindEnvDTEProject(single.Name);
         }
         public static Property GetProperty(this Solution solution, SolutionProperty solutionProperty) {
-            return solution.Properties.Cast<Property>().Single(property => property.Name == solutionProperty.ToString());
+            string solutionPropertyStr = solutionProperty.ToString();
+            return solution.Properties.Cast<Property>().Single(property => property.Name == solutionPropertyStr);
         }
         public static void CollapseAllFolders(this Solution solution) {
             var dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;

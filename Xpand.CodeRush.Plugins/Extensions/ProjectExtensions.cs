@@ -20,7 +20,8 @@ namespace Xpand.CodeRush.Plugins.Extensions {
         }
 
         public static Property FindProperty(this Project project, ProjectProperty projectProperty) {
-            return project.Properties.Cast<Property>().Single(property => property.Name == projectProperty.ToString());
+            string projectPropertyStr = projectProperty.ToString();
+            return project.Properties.Cast<Property>().Single(property => property.Name == projectPropertyStr);
         }
 
     }
