@@ -243,7 +243,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private static IEnumerable<IFullReference> GetReferences(DTE dte) {
-            return dte.Solution.Projects.OfType<Project>().SelectMany(project => ((VSProject)project.Object).References.Cast<IFullReference>()).Where(reference =>
+            return dte.Solution.Projects.OfType<Project>().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
                 reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
         }
 
