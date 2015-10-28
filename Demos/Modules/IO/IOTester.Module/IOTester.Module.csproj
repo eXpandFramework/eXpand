@@ -47,6 +47,9 @@
     <Reference Include="DevExpress.ExpressApp.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Persistent.Base.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -60,13 +63,28 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="Xpand.ExpressApp.IO">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
@@ -76,6 +94,7 @@
   <ItemGroup>
     <Compile Include="FunctionalTests\ExportAggregatedObject.cs" />
     <Compile Include="FunctionalTests\IOObject.cs" />
+    <Compile Include="FunctionalTests\NorthWind\WorldCreatorUpdater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -84,6 +103,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="XafApplicationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
@@ -107,6 +127,7 @@
   <ItemGroup>
     <None Include="FunctionalTests\Init.inc" />
     <None Include="FunctionalTests\ExportObjectWithChildren.inc" />
+    <None Include="FunctionalTests\NorthWind\NorthWind.ets" />
     <None Include="FunctionalTests\SimpleIO.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
@@ -116,6 +137,11 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="FunctionalTests\export.inc" />
+    <Content Include="FunctionalTests\NorthWind\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\NorthWind\Init.inc" />
+    <EmbeddedResource Include="FunctionalTests\NorthWind\NorthWind.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

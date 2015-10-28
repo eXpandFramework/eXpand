@@ -1,18 +1,20 @@
+#if !EASYTEST
 using System;
+using System.Diagnostics;
+#endif
 using System.ComponentModel;
 using System.Data.SqlClient;
-using System.Diagnostics;
+
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.ExpressApp.Xpo;
 using IOTester.Module;
 using IOTester.Module.Web;
 using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
-    public class IOTesterAspNetApplication : WebApplication, IConfirmationRequired {
+    public class IOTesterAspNetApplication : WebApplication, IConfirmationRequired,IWriteSecuredLogonParameters {
         SystemModule _module1;
         SystemAspNetModule _module2;
         IOTesterModule _module3;
@@ -22,6 +24,20 @@ namespace IOTester.Web {
         public IOTesterAspNetApplication() {
             InitializeComponent();
             LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            if (handler != null) handler(this, e);
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -50,7 +66,7 @@ namespace IOTester.Web {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            args.ObjectSpaceProvider = this.GetObjectSpaceProvider(args.ConnectionString);
         }
 
         void IOTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {

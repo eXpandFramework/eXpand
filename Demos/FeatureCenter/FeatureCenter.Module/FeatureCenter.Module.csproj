@@ -355,6 +355,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="FunctionalTests\ReadMe.txt" />
+    <Content Include="FunctionalTests\WorldCreator\Config.xml" />
     <Content Include="ImportExport\UpdateMembers\UpdateMembers.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -484,6 +485,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\WorldCreator\WorldCreator.ets" />
     <None Include="ModelArtifact\ConditionalForeignKeyKViolation\MDO_ConditionalForeignKeyViolation.xafml">
       <SubType>Designer</SubType>
     </None>
