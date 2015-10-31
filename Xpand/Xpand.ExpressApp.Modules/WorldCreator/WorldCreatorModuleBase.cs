@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             WCTypesInfo.Instance.Register(GetAdditionalClasses(moduleManager));
-            if (Application == null || GetPath() == null || !RuntimeMode)
+            if (Application == null || GetPath() == null || (!RuntimeMode && string.IsNullOrEmpty(ConnectionString)))
                 return;
             CheckObjectSpaceType();
             if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {

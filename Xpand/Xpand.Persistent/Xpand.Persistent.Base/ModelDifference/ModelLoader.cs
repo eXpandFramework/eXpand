@@ -13,6 +13,7 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.Persistent.Base.ModelDifference {
     internal class ModelBuilder {
@@ -112,7 +113,10 @@ namespace Xpand.Persistent.Base.ModelDifference {
                 synchronizeTypesInfo = XafTypesInfo.Instance;
                 typesInfo.AssignAsInstance();
                 applicationModulesManager.TypesInfo = typesInfo;
+                var runtimeMode = InterfaceBuilder.RuntimeMode;
+                InterfaceBuilder.RuntimeMode = false;
                 applicationModulesManager.Load(typesInfo, loadTypesInfo);
+                InterfaceBuilder.RuntimeMode = runtimeMode;
                 return applicationModulesManager;
             } finally {
                 synchronizeTypesInfo.AssignAsInstance();

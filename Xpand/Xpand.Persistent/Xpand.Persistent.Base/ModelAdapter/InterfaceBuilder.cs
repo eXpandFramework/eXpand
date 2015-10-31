@@ -84,6 +84,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 }
                 return _runtimeMode.Value;
             }
+            set { _runtimeMode = value; }
         }
 
         public ModelInterfaceExtenders Extenders{
