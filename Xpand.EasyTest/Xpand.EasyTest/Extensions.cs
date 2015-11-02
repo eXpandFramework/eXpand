@@ -238,6 +238,7 @@ namespace Xpand.EasyTest {
                 {typeof (FieldIsVisibleCommand), FieldIsVisibleCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
                 {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},
+                {typeof (XpandExecuteEditorAction), XpandExecuteEditorAction.Name},
                 {typeof (NavigateCommand), NavigateCommand.Name},
                 {typeof (SaveAndCloseCommand), SaveAndCloseCommand.Name},
                 {typeof (HideCursorCommand), HideCursorCommand.Name},

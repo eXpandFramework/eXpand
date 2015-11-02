@@ -28,6 +28,7 @@ namespace ImportWizardTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(ImportWizardTester.Module.ImportWizardTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule));
 
         }

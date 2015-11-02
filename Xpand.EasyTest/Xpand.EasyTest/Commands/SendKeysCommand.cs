@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Automation.InputSimulator;
@@ -27,6 +28,7 @@ namespace Xpand.EasyTest.Commands{
                 foreach (var key in keysParameter.Value.Split(';')){
                     var keyCode = GetVirtualKey(key);
                     simulator.Keyboard.KeyPress(keyCode);
+                    Thread.Sleep(300);
                 }
             }
             

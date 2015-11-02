@@ -24,8 +24,8 @@ namespace ImportWizardTester.Module.BusinessObjects{
         }
     }
 
-//    [DefaultProperty("Gender")]
-//    [DefaultClassOptions]
+    [DefaultProperty("Gender")]
+    [DefaultClassOptions]
     public class GenderObject : BaseObject{
         private string _gender;
 
@@ -35,7 +35,7 @@ namespace ImportWizardTester.Module.BusinessObjects{
         // Fields...
 
 
-        public string Gender {
+        public string Gender{
             get { return _gender; }
             set { SetPropertyValue("Gender", ref _gender, value); }
         }

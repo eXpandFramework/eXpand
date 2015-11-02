@@ -111,6 +111,7 @@
     <Compile Include="Commands\XpandCompareFilesCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />
+    <Compile Include="Commands\XpandExecuteEditorAction.cs" />
     <Compile Include="Commands\XpandFillFormCommand.cs" />
     <Compile Include="Commands\XpandFillRecordCommand.cs" />
     <Compile Include="Commands\XpandHandleDialogCommand.cs" />
