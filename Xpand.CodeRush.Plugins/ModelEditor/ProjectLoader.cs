@@ -5,7 +5,6 @@ using System.Linq;
 using DevExpress.CodeRush.Diagnostics.General;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
-using Xpand.CodeRush.Plugins.Extensions;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ProjectLoader {
@@ -34,46 +33,53 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             return solutionContext;    
         }
 
-
-        public void Load(IList<AssemblyReference> assemblyReferences,Action<string> notFound ) {
+        public bool Load(IList<AssemblyReference> assemblyReferences ) {
             Log.Send("References Count:"+assemblyReferences.Count());
             var sourceCodeInfos = Options.GetSourceCodeInfos();
+            bool[] failLoads=new bool[sourceCodeInfos.Count];
             for (int i = 0; i < sourceCodeInfos.Count; i++) {
                 Log.Send("SourceCodeInfo:"+sourceCodeInfos[i]);
-                LoadProject(sourceCodeInfos[i], assemblyReferences,i,notFound);
+                failLoads[i]=LoadProject(sourceCodeInfos[i], assemblyReferences, i);
             }
-            DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.CollapseAllFolders();
+            return failLoads.Any(b => !b);
         }
 
-        public void LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1,Action<string> notFound ) {
+        public bool LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1){
+            var assemblyReference = GetAssemblyReference(sourceCodeInfo, assemblyReferences, i1);
+            if (assemblyReference.Key!=null) {
+                if (!IsProjectLoaded(assemblyReference.Value)) {
+                    try{
+                        DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(assemblyReference.Value);
+                        GetSolutionContext(assemblyReference.Value, context => {
+                            context.ShouldBuild = false;
+                        });
+                    }
+                    catch (Exception e){
+                        Log.SendException(e);
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private KeyValuePair<AssemblyReference,string> GetAssemblyReference(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1){
             string key = String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex);
             var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, key);
-            Log.Send("ProjectsCount:"+readStrings.Count());
+            Log.Send("ProjectsCount:" + readStrings.Count());
             for (int i = 0; i < readStrings.Count(); i++) {
                 var strings = readStrings[i].Split('|');
                 var assemblyPath = strings[1].ToLower();
-                var assemblyReference = GetAssemblyReference(assemblyReferences, assemblyPath);
+                var assemblyReference = GetAssemblyReferenceCore(assemblyReferences, assemblyPath);
                 if (assemblyReference != null) {
                     Log.Send("Path found");
-                    if (!IsProjectLoaded(strings[0])) {
-                        try {
-                            DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(strings[0]);
-                            GetSolutionContext(strings[0], context => {
-                                context.ShouldBuild = false;
-                            });
-                        }
-                        catch (Exception e) {
-                            Log.SendException(e);
-                        }
-                    }
-                }
-                else {
-                    notFound.Invoke(assemblyPath);
+                    return new KeyValuePair<AssemblyReference, string>(assemblyReference, strings[0]);
                 }
             }
+            return new KeyValuePair<AssemblyReference, string>();
         }
 
-        AssemblyReference GetAssemblyReference(IEnumerable<AssemblyReference> assemblyReferences, string assemblyPath) {
+        AssemblyReference GetAssemblyReferenceCore(IEnumerable<AssemblyReference> assemblyReferences, string assemblyPath) {
             return assemblyReferences.FirstOrDefault(reference => {
                 var b = reference.FilePath.ToLower() == assemblyPath;
                 if (!b) {

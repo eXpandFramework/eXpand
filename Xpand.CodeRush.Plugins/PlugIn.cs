@@ -25,6 +25,7 @@ using ConfigurationProperty = Xpand.CodeRush.Plugins.Enums.ConfigurationProperty
 using Process = System.Diagnostics.Process;
 using Project = EnvDTE.Project;
 using Property = EnvDTE.Property;
+using Reference = VSLangProj.Reference;
 using VSProject = VSLangProj.VSProject;
 
 namespace Xpand.CodeRush.Plugins {
@@ -183,41 +184,23 @@ namespace Xpand.CodeRush.Plugins {
             var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
             if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;
-            var uiHierarchyItem = uihSolutionExplorer.UIHierarchyItems.Item(1);
 
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
-            Project dteProject = FindProject(uiHierarchyItem);
+            var hierarchyItem = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems)[0];
+            Project dteProject = ((Reference) hierarchyItem.Object).ContainingProject;
             ProjectElement activeProject = DevExpress.CodeRush.Core.CodeRush.Language.LoadProject(dteProject);
             if (activeProject != null) {
                 var projectLoader = new ProjectLoader();
                 var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants).ToList();
-                projectLoader.Load(selectedAssemblyReferences.ToList(), NotifyOnNotFound);
+                if (projectLoader.Load(selectedAssemblyReferences)){
+                    DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.CollapseAllFolders();
+                }
             }
             else {
                 throw new NotImplementedException();
             }
-        }
-
-        void NotifyOnNotFound(string s) {
-            _actionHint.Text = "Assembly not found " + s;
-            Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-            _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
-        }
-
-        Project FindProject(UIHierarchyItem uiHierarchyItem, Project project = null) {
-            var proj = project;
-            foreach (UIHierarchyItem hierarchyItem in uiHierarchyItem.UIHierarchyItems) {
-                var findProject = proj ?? hierarchyItem.Object as Project;
-                if (hierarchyItem.UIHierarchyItems.Count > 0) {
-                    if (hierarchyItem.UIHierarchyItems.Expanded && FindProject(hierarchyItem, findProject) != null)
-                        return findProject;
-                }
-                else if (hierarchyItem.IsSelected)
-                    return findProject;
-            }
-            throw new NotImplementedException();
         }
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
